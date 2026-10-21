@@ -329,6 +329,24 @@ describe('Rule DSL v1 structural and domain validation', () => {
     expect(diagnosticCodes(() => compileCardRuleDefinition(wrongTriggerObject))).toContain('unresolved-binding')
   })
 
+  test('generated programs may read grant.source while printed triggers may not', () => {
+    const fightGrant = chooseCards({
+      chooser: ref('controller'),
+      bindChoice: 'granter',
+      filter: objects({ among: ref('grant.source') }),
+      min: 0,
+      max: 1,
+    })
+    const generated = {
+      ...whenever(self.attacks, { instructions: [fightGrant] }),
+      generated: true as const,
+    }
+    expect(compileCardRuleDefinition(card([generated])).definition.abilities[0]).toMatchObject({ generated: true })
+
+    const printed = whenever(self.attacks, { instructions: [fightGrant] })
+    expect(diagnosticCodes(() => compileCardRuleDefinition(card([printed])))).toContain('unresolved-binding')
+  })
+
   test('rejects nonboolean modifyStats.set on a revisioned definition', () => {
     const valid = card([staticAbility(modifyStats({
       targets: objects({ zone: 'battlefield', type: 'Creature' }),

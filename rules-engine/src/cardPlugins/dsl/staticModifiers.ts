@@ -88,6 +88,66 @@ const syncKeywordAbility = (
   stampEffect(source, keywordGrant(keyword), duration)
 }
 
+const printedGrantStamp = (
+  object: GameObject,
+  sourceId: string,
+  abilityIndex: number,
+  effectIndex: number,
+) => (object.canonicalGrantedAbilities ?? []).find(grant =>
+  grant.sourceId === sourceId
+  && grant.printedStatic?.abilityIndex === abilityIndex
+  && grant.printedStatic?.effectIndex === effectIndex)
+
+const removePrintedGrantStamp = (
+  object: GameObject,
+  sourceId: string,
+  abilityIndex: number,
+  effectIndex: number,
+) => {
+  const remaining = (object.canonicalGrantedAbilities ?? []).filter(grant =>
+    !(grant.sourceId === sourceId
+      && grant.printedStatic?.abilityIndex === abilityIndex
+      && grant.printedStatic?.effectIndex === effectIndex))
+  if (remaining.length > 0) object.canonicalGrantedAbilities = remaining
+  else delete object.canonicalGrantedAbilities
+}
+
+const syncGrantAbility = (
+  draft: Draft,
+  source: GameObject,
+  abilityIndex: number,
+  effectIndex: number,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantAbility' }>,
+) => {
+  const context = {
+    state: draft,
+    controller: source.controller,
+    source: captureObject(source),
+  }
+  const targetIds = new Set(
+    evaluateObjectSelector(effect.targets, context)
+      .filter(object => object.zone === 'battlefield')
+      .map(object => object.id),
+  )
+  for (const object of Object.values(draft.objects)) {
+    const existing = printedGrantStamp(object, source.id, abilityIndex, effectIndex)
+    if (!targetIds.has(object.id)) {
+      if (existing) removePrintedGrantStamp(object, source.id, abilityIndex, effectIndex)
+      continue
+    }
+    if (existing) continue
+    object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
+      ability: structuredClone(effect.ability),
+      sourceId: source.id,
+      sourceIncarnation: source.incarnation,
+      definitionRevision: source.ruleDefinition?.definitionRevision ?? 'unknown',
+      duration: { kind: 'whileSourceOnBattlefield' },
+      createdTurn: draft.turn,
+      printedStatic: { abilityIndex, effectIndex },
+    }]
+  }
+}
+
 const syncModifyStats = (
   draft: Draft,
   source: GameObject,
@@ -201,6 +261,9 @@ const syncSource = (draft: Draft, source: GameObject) => {
     if (effect.kind === 'modifyStats') {
       syncModifyStats(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
+    if (effect.kind === 'grantAbility') {
+      syncGrantAbility(draft, source, abilityIndex, effectIndex, effect)
+    }
   }
 
   if (nextModifiers.length > 0) source.printedStaticModifiers = nextModifiers
@@ -284,15 +347,19 @@ const modifiersOutOfSync = (state: GameState) => {
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
       }
-      if (entry.effect.kind === 'modifyStats') {
+      if (entry.effect.kind === 'modifyStats' || entry.effect.kind === 'grantAbility') {
         const runtime = { state, controller: source.controller, source: captureObject(source) }
         const targets = evaluateObjectSelector(entry.effect.targets, runtime)
           .filter((object) => object.zone === 'battlefield')
         for (const target of targets) {
-          if (!existingPrintedStamp(target, source.id, entry.abilityIndex, entry.effectIndex)) return true
+          if (entry.effect.kind === 'modifyStats'
+            ? !existingPrintedStamp(target, source.id, entry.abilityIndex, entry.effectIndex)
+            : !printedGrantStamp(target, source.id, entry.abilityIndex, entry.effectIndex)) return true
         }
         for (const object of Object.values(state.objects)) {
-          const stale = existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex)
+          const stale = entry.effect.kind === 'modifyStats'
+            ? existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex)
+            : printedGrantStamp(object, source.id, entry.abilityIndex, entry.effectIndex)
           if (stale && !targets.some((target) => target.id === object.id)) return true
         }
       }

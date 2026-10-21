@@ -182,12 +182,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "2cd7054b6ebe636812a2acfda3cebdec587f4bd31b7cc9b3b7e2338a2edc6300",
-    "card": "Apex Altisaur"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "6093c87471af82b76446e5e8d69f63d93471b248ba33dad09e702bea6b322950",
     "card": "Cavern of Souls"
   },
@@ -250,12 +244,6 @@
     "code": "legacy-card-registration",
     "digest": "9e6373824b6f34a6d07e997517a399d54d33d084942892e872cc1d38f15fc2da",
     "card": "Illusion of Choice"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "caf64c2c78e201d4e21f3436f98e1ff1a20f18c89f11c898fe2d89370c306a86",
-    "card": "Kogla, the Titan Ape"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -376,12 +364,6 @@
     "code": "legacy-card-registration",
     "digest": "11accfd2b7ea70a793390f45f1ebdb6353ffe075dc3f48a7539e3fa4bae09b64",
     "card": "Soul of Eternity"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "d74dabaa3ced749dff09e79a0d1eab3f7f8fb61537fbb81c74e1dbb70594ab1f",
-    "card": "Souls of the Faultless"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -650,12 +632,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "3a5c3657025df0553e62fd41e2856d63db8138aff6fd32f7432400888a24f67e",
-    "card": "Blitzball"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "ab5fd1c106f1d72d0cbf263f55f3678dadb782775569c50f4171f91759e1b6c6",
     "card": "Perch Protection"
   },
@@ -878,12 +854,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "cfb6246577b612d0c63a64bc1c1e127ef8f7b1c80b508c078f51f61ef579b6ae",
-    "card": "Breena, the Demagogue"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "6fd35ae9088180717ddd74fe9884077122caecbd188b22423316d92c0b9986c5",
     "card": "Kuroki, Thief of Talents"
   },
@@ -952,12 +922,6 @@
     "code": "legacy-card-registration",
     "digest": "6148a4a1bad884031a60c34789eb5c7d32c05a89ae3451d08182327e7b17b693",
     "card": "It That Betrays"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "373cb8e790a218cc57f8e7bf83b2d456a3d0c87b743c0dfeea15937ce79c4d8a",
-    "card": "Grothama, All-Devouring"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

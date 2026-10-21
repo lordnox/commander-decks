@@ -111,6 +111,7 @@ const contextFor = (
   ...((execution?.occurrence ?? item?.execution?.occurrence) ? { occurrence: execution?.occurrence ?? item?.execution?.occurrence } : {}),
   ...((execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence) ? { capturedOccurrence: execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence } : {}),
   ...((execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings) ? { capturedOccurrenceBindings: execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings } : {}),
+  ...((execution?.grantSource ?? item?.execution?.grantSource) ? { grantSource: execution?.grantSource ?? item?.execution?.grantSource } : {}),
   variables: item?.x !== undefined
     ? { X: item.x }
     : x !== undefined

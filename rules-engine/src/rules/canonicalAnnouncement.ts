@@ -127,6 +127,7 @@ const announcementContext = (draft: Draft, announcement: Pick<CanonicalAnnouncem
       }
     : {}),
   ...(announcement.execution.scopeId ? { scopeId: announcement.execution.scopeId } : {}),
+  ...(announcement.execution.grantSource ? { grantSource: announcement.execution.grantSource } : {}),
 })
 
 export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement): boolean => {

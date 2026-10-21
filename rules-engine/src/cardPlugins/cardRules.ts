@@ -48,7 +48,6 @@ import {
   ifGiftPromised,
   grantProtectionFromEverything,
   lifeTotalCannotChange,
-  opponentDealtCombatDamageByLegendaryThisTurn,
   phaseOutControlled,
   exileOpponentGraveyard,
   extraEnters,
@@ -69,7 +68,6 @@ import {
   linkedExileUntilLeaves,
   legendRuleOff,
   loseAbilitiesBecome,
-  loseLife,
   kicker,
   multikicker,
   putChargeCountersFromTimesKicked,
@@ -144,7 +142,6 @@ import {
   eachPlayerSacrifice,
   exchangeControlUntilEot,
   exchangeLifeWithOpponent,
-  fightUpToOne,
   addUntilCleanupRule,
   ifGiftNotPromised,
   ward,
@@ -177,7 +174,6 @@ import {
   destroyAll,
   playerAuraDeal,
   targetingRequirement,
-  addPlusCountersToControlled,
   opponentMayDrawThenStealCast,
   flashback,
   grantRetrace,
@@ -215,10 +211,6 @@ import {
   shuffleIntoLibraryInstead,
   opponentsCantBlock,
   opponentsCantCast,
-  grantCreatureTrigger,
-  mayFightGrantSource,
-  leaves,
-  eachPlayerDrawDamageDealtToSource,
   entersTargeting,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
@@ -330,7 +322,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
     enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
-  'Apex Altisaur': [enters(fightUpToOne())],
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
@@ -384,25 +375,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Blanket of Night': [staticGrant('swampOverlay')],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
-  Blitzball: [
-    ability(
-      { id: 'blitzball.goal' },
-      {
-        tap: true,
-        sacrifice: 'self',
-        if: opponentDealtCombatDamageByLegendaryThisTurn(),
-      },
-      draw(2),
-    ),
-  ],
-  'Breena, the Demagogue': [
-    triggerOn('playerAttacks', {
-      do: [
-        { kind: 'draw', count: 1, who: 'triggeringPlayer' },
-        addPlusCountersToControlled(2),
-      ],
-    }),
-  ],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
@@ -596,10 +568,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { controlled: true, optional: true },
     )),
   ],
-  'Grothama, All-Devouring': [
-    grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
-    leaves(eachPlayerDrawDamageDealtToSource()),
-  ],
   'Hagra Mauling // Hagra Broodpit': [
     entersTapped(),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
@@ -720,7 +688,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [gainControlPermanent(true)],
     },
   )],
-  'Kogla, the Titan Ape': [enters(fightUpToOne())],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
   ],
@@ -1044,14 +1011,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Soul of Eternity': [
     ptEqualsLife({ who: 'controller' }),
     encore('{7}{W}{W}'),
-  ],
-  'Souls of the Faultless': [
-    triggerOn('dealtCombatDamage', {
-      do: [
-        gainLife('triggerAmount'),
-        loseLife('triggerAmount', 'triggeringPlayer'),
-      ],
-    }),
   ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
   'Split Decision': [

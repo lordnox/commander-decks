@@ -44,6 +44,7 @@ import silverbackElder from './silverback-elder'
 import animistsAwakening from './animists-awakening'
 import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
+import apexAltisaur from './apex-altisaur'
 import archaeomancersMap from './archaeomancers-map'
 import archdruidsCharm from './archdruids-charm'
 import arborElf from './arbor-elf'
@@ -57,7 +58,9 @@ import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
 import blackSunsTwilight from './black-suns-twilight'
 import blightedWoodland from './blighted-woodland'
+import blitzball from './blitzball'
 import blossomingTortoise from './blossoming-tortoise'
+import breenaTheDemagogue from './breena-the-demagogue'
 import bloodCelebrant from './blood-celebrant'
 import boggartBog from './boggart-bog'
 import boggartTrawler from './boggart-trawler'
@@ -135,6 +138,7 @@ import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
 import godlessShrine from './godless-shrine'
 import golgariRotFarm from './golgari-rot-farm'
+import grothamaAllDevouring from './grothama-all-devouring'
 import growthSpiral from './growth-spiral'
 import guardianOfGhirapur from './guardian-of-ghirapur'
 import hallowedFountain from './hallowed-fountain'
@@ -154,6 +158,7 @@ import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
 import kodamasReach from './kodamas-reach'
+import koglaTheTitanApe from './kogla-the-titan-ape'
 import ladyEvangela from './lady-evangela'
 import lightningBolt from './lightning-bolt'
 import lilianasCaress from './lilianas-caress'
@@ -217,6 +222,7 @@ import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
 import sokratesAthenianTeacher from './sokrates-athenian-teacher'
 import soporificSprings from './soporific-springs'
+import soulsOfTheFaultless from './souls-of-the-faultless'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import stifle from './stifle'
@@ -308,6 +314,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Alchemist's Refuge": alchemistsRefuge,
   "Amulet of Vigor": amuletOfVigor,
   "Anguished Unmaking": anguishedUnmaking,
+  "Apex Altisaur": apexAltisaur,
   "Archaeomancer's Map": archaeomancersMap,
   "Archdruid's Charm": archdruidsCharm,
   "Arbor Elf": arborElf,
@@ -322,6 +329,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
   "Black Sun's Twilight": blackSunsTwilight,
+  "Blitzball": blitzball,
   "Blighted Woodland": blightedWoodland,
   "Blossoming Tortoise": blossomingTortoise,
   "Blood Celebrant": bloodCelebrant,
@@ -331,6 +339,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
   "Boseiju, Who Endures": boseijuWhoEndures,
+  "Breena, the Demagogue": breenaTheDemagogue,
   "Braids, Conjurer Adept": braidsConjurerAdept,
   "Breeding Pool": breedingPool,
   "Bridgeworks Battle": bridgeworksBattle,
@@ -407,6 +416,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Glorious Anthem": gloriousAnthem,
   "Godless Shrine": godlessShrine,
   "Golgari Rot Farm": golgariRotFarm,
+  "Grothama, All-Devouring": grothamaAllDevouring,
   "Growth Spiral": growthSpiral,
   "Guardian of Ghirapur": guardianOfGhirapur,
   "Hallowed Fountain": hallowedFountain,
@@ -427,6 +437,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
   "Kodama's Reach": kodamasReach,
+  "Kogla, the Titan Ape": koglaTheTitanApe,
   "Lady Evangela": ladyEvangela,
   "Lightning Bolt": lightningBolt,
   "Liliana's Caress": lilianasCaress,
@@ -494,6 +505,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sky Diamond": skyDiamond,
   "Sokrates, Athenian Teacher": sokratesAthenianTeacher,
   "Soporific Springs": soporificSprings,
+  "Souls of the Faultless": soulsOfTheFaultless,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Stifle": stifle,

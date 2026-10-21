@@ -42,6 +42,7 @@ import type {
 } from '../schema/v1'
 import { AMOUNT_COMPARE_OPERATORS, LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
 import { lifeLostThisTurn as recordedLifeLostThisTurn } from '../../../plugins/life'
+import { legendaryCombatDamageFrom } from '../../../plugins/combatLegendaryDamage'
 import type { DistributionAllocation } from './modes'
 import { evaluateAmount, evaluateStatDelta } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
@@ -61,6 +62,7 @@ export type RuntimeBindings = {
   scopeId?: string
   capturedOccurrence?: OccurrenceSnapshot
   capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
+  grantSource?: { objectId: string; incarnation: number }
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
@@ -144,6 +146,12 @@ const playerContextReference = (
       }
       return [captured.controller]
     }
+    case 'triggering.defender': {
+      if (!context.occurrence?.defender) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [context.occurrence.defender]
+    }
     default: throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
   }
 }
@@ -205,6 +213,18 @@ export const evaluateObjectReference = (
     if (reference.name === 'source') {
       const current = currentSource(context)
       return current ? [current] : information === 'currentOrLastKnown' ? [context.source.snapshot] : []
+    }
+    if (reference.name === 'grant.source') {
+      const item = context.stackItemId
+        ? context.state.stack.find(candidate => candidate.id === context.stackItemId)
+        : undefined
+      const sourceId = context.grantSource?.objectId
+        ?? (typeof item?.payload?.sourceId === 'string' ? item.payload.sourceId : undefined)
+      const incarnation = context.grantSource?.incarnation
+        ?? (typeof item?.payload?.sourceIncarnation === 'number' ? item.payload.sourceIncarnation : undefined)
+      const object = sourceId ? context.state.objects[sourceId] : undefined
+      if (object && (incarnation === undefined || object.incarnation === incarnation)) return [object]
+      return []
     }
     const captured = capturedOccurrenceObject(reference, context)
     if (captured) return [captured]
@@ -517,6 +537,7 @@ export const amountEvaluationContext = (
   characteristic: (reference, characteristic, information, fallback) =>
     oneReferenceValue(reference, context, characteristic, information, fallback),
   lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),
+  damageDealtThisTurn: (to, by) => damageDealtThisTurnAmong(to, by, context),
 } satisfies AmountEvaluationContext)
 
 const lifeLostThisTurnAmong = (
@@ -531,6 +552,23 @@ const lifeLostThisTurnAmong = (
   if (amounts.length === 0) return 0
   if (combine === LIFE_LOST_COMBINE.greatest) return Math.max(0, ...amounts)
   return amounts.reduce((sum, value) => sum + value, 0)
+}
+
+const damageDealtThisTurnAmong = (
+  to: ObjectReference,
+  by: PlayerRecipient | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  const recipients = evaluateObjectReference(to, context, 'currentOrLastKnown')
+  if (recipients.length !== 1) return 0
+  const ledger = recipients[0]?.damageDealtBy ?? {}
+  if (!by) {
+    return Object.values(ledger).reduce((sum, value) => sum + value, 0)
+  }
+  const seats = by.kind === 'players'
+    ? evaluatePlayerSelector(by, context, true)
+    : evaluatePlayerReference(by, context)
+  return seats.reduce((sum, seat) => sum + (ledger[seat] ?? 0), 0)
 }
 
 export const evaluateRuntimeAmount = (
@@ -548,7 +586,8 @@ export const evaluateCondition = (
   context: RuleDslRuntimeContext,
 ): boolean => {
   switch (condition.kind) {
-    case 'somePlayerHasMore': {
+    case 'somePlayerHasMore':
+    case 'somePlayerHasLess': {
       const reference = evaluatePlayerReference(condition.than, context)
       if (reference.length !== 1) throw new RuleDslEvaluationError('player comparison requires exactly one reference player')
       const metric = (player: PlayerId) => {
@@ -560,7 +599,20 @@ export const evaluateCondition = (
         }
       }
       const baseline = metric(reference[0]!)
-      return evaluatePlayerSelector(condition.players, context).some(player => metric(player) > baseline)
+      const compare = condition.kind === 'somePlayerHasMore'
+        ? (value: number) => value > baseline
+        : (value: number) => value < baseline
+      return evaluatePlayerSelector(condition.players, context).some(player => compare(metric(player)))
+    }
+
+    case 'combatDamageThisTurn': {
+      return context.state.playerOrder.some(seat => {
+        if (!matchesPlayer(seat, condition.recipient, context)) return false
+        const from = legendaryCombatDamageFrom(context.state.players[seat] ?? { data: {} })
+        return condition.legendary === true
+          ? Object.keys(from).length > 0
+          : Object.keys(from).length > 0
+      })
     }
 
     case 'resultIsTrue': {

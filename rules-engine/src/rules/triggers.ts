@@ -48,7 +48,7 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { objectMatchesSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
@@ -133,6 +133,7 @@ const capturedOccurrence = (
   triggeringObjectId?: string,
   triggeringPlayer?: PlayerId,
   amount?: number,
+  defender?: PlayerId,
 ): OccurrenceSnapshot => {
   const objectId = triggeringObjectId ?? eventObjectId(event)
   const before = objectId ? state.objects[objectId] : undefined
@@ -149,6 +150,7 @@ const capturedOccurrence = (
     kind: 'event',
     eventType: event.type === 'custom' ? event.name : event.type,
     ...(triggeringPlayer ? { player: triggeringPlayer } : {}),
+    ...(defender ? { defender } : {}),
     ...(amount !== undefined ? { amount } : {}),
     ...(before || after
       ? {
@@ -302,6 +304,12 @@ const canonicalPatternMatches = (
       occurrence,
     }).includes(player)
   }
+  if (pattern.kind === 'dealtDamage') {
+    return matchesDealtDamage(state, source, pattern, occurrence, event)
+  }
+  if (pattern.kind === 'playerAttacks') {
+    return matchesPlayerAttacks(state, source, pattern, occurrence, event)
+  }
   switch (pattern.kind) {
     case 'attacks':
       if (event.type !== 'declareAttackers' || !occurrence.object?.after) return false
@@ -396,6 +404,10 @@ const generatedPatternMatches = (
     case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
     case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
     case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
+    case 'dealtDamage':
+      return matchesDealtDamage(state, source, pattern, occurrence, event, execution)
+    case 'playerAttacks':
+      return matchesPlayerAttacks(state, source, pattern, occurrence, event, execution)
     case 'attacks': {
       const object = occurrence.object?.after
       return event.type === 'declareAttackers' && Boolean(object
@@ -458,13 +470,133 @@ const generatedPatternMatches = (
   }
 }
 
+const occurrenceContext = (
+  state: GameState,
+  source: GameObject,
+  occurrence: OccurrenceSnapshot,
+  execution?: StackExecutionContext,
+): RuleDslRuntimeContext => ({
+  state,
+  controller: source.controller,
+  source: captureObject(source),
+  occurrence,
+  ...(execution?.choices ? { choices: execution.choices } : {}),
+  ...(execution?.results ? { results: execution.results } : {}),
+  ...(execution?.variables ? { variables: execution.variables } : {}),
+})
+
+const matchesPlayerRecipient = (
+  player: PlayerId | undefined,
+  recipient: PlayerReference | PlayerSelector | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  if (!recipient) return true
+  if (!player) return false
+  return recipient.kind === 'players'
+    ? evaluatePlayerSelector(recipient, context).includes(player)
+    : evaluatePlayerReference(recipient, context).includes(player)
+}
+
+const matchesDealtDamage = (
+  state: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'dealtDamage' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  execution?: StackExecutionContext,
+) => {
+  if (event.type !== 'dealDamage' || (occurrence.amount ?? 0) <= 0) return false
+  if (pattern.filter.combat === true && event.combat !== true) return false
+  if (pattern.filter.combat === false && event.combat === true) return false
+  const recipient = occurrence.object?.after ?? occurrence.object?.before
+  if (pattern.filter.recipient) {
+    if (!recipient) return false
+    if (!canonicalFilterMatch(state, source, recipient, pattern.filter.recipient, occurrence, execution)) return false
+  }
+  if (pattern.filter.source) {
+    const damageSource = occurrence.source?.snapshot
+    if (!damageSource) return false
+    if (!canonicalFilterMatch(state, source, damageSource, pattern.filter.source, occurrence, execution)) return false
+  }
+  return true
+}
+
+const matchesPlayerAttacks = (
+  state: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'playerAttacks' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  execution?: StackExecutionContext,
+) => {
+  if (event.type !== 'declareAttackers' || !occurrence.player || !occurrence.defender) return false
+  const context = occurrenceContext(state, source, occurrence, execution)
+  return matchesPlayerRecipient(occurrence.player, pattern.filter.attacker, context)
+    && matchesPlayerRecipient(occurrence.defender, pattern.filter.defender, context)
+}
+
+type OccurrenceSpec = {
+  objectId?: string
+  player?: PlayerId
+  defender?: PlayerId
+  amount?: number
+}
+
 // A declaration contains simultaneous occurrences, one for each attacker (CR 508.3a).
-const occurrenceObjectIdsForPattern = (pattern: { kind: string }, event: GameEvent, state: GameState) => {
-  if (pattern.kind === 'becomesTapped' && event.type === 'declareAttackers') return event.attackers.map(attacker => attacker.objectId)
-  if (pattern.kind === 'attacks') return event.type === 'declareAttackers'
-    ? event.attackers.map(attacker => attacker.objectId)
-    : []
-  return [eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined]
+const occurrenceSpecsForPattern = (
+  pattern: { kind: string },
+  event: GameEvent,
+  state: GameState,
+  draft: Draft,
+): OccurrenceSpec[] => {
+  switch (pattern.kind) {
+    case 'attacks':
+      return event.type === 'declareAttackers'
+        ? event.attackers.map(attacker => ({
+            objectId: attacker.objectId,
+            player: event.seat,
+            defender: defendingPlayer(state, attacker.defender),
+          }))
+        : []
+    case 'becomesTapped':
+      if (event.type === 'declareAttackers') {
+        return event.attackers.map(attacker => ({
+          objectId: attacker.objectId,
+          player: event.seat,
+        }))
+      }
+      return [{
+        objectId: eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined,
+        player: occurrencePlayerForEvent(event, draft),
+      }]
+    case 'playerAttacks': {
+      if (event.type !== 'declareAttackers') return []
+      const seen = new Set<string>()
+      const specs: OccurrenceSpec[] = []
+      for (const attacker of event.attackers) {
+        const defender = defendingPlayer(state, attacker.defender)
+        if (!defender || seen.has(defender)) continue
+        seen.add(defender)
+        specs.push({ player: event.seat, defender })
+      }
+      return specs
+    }
+    case 'dealtDamage': {
+      if (event.type !== 'dealDamage' || event.amount <= 0) return []
+      const damageSource = state.objects[event.sourceId] ?? draft.objects[event.sourceId]
+      return [{
+        objectId: event.target.kind === 'object' ? event.target.objectId : undefined,
+        player: damageSource?.controller,
+        amount: event.amount,
+      }]
+    }
+    default:
+      return [{
+        objectId: eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined,
+        player: occurrencePlayerForEvent(event, draft),
+        amount: event.type === 'gainLife' || event.type === 'dealDamage' ? event.amount : undefined,
+      }]
+  }
 }
 
 const canonicalGrantedTriggersForOccurrence = (
@@ -488,14 +620,15 @@ const canonicalGrantedTriggersForOccurrence = (
   const sources = [...sourcesById.values()]
   for (const source of sources) {
     source.canonicalGrantedAbilities?.forEach((grant, grantIndex) => {
-      occurrenceObjectIdsForPattern(grant.ability.on, event, state).forEach(occurrenceObjectId => {
+      occurrenceSpecsForPattern(grant.ability.on, event, state, draft).forEach(spec => {
         const occurrence = capturedOccurrence(
           state,
           draft,
           event,
-          occurrenceObjectId,
-          occurrencePlayerForEvent(event, draft),
-          event.type === 'gainLife' ? event.amount : undefined,
+          spec.objectId,
+          spec.player,
+          spec.amount,
+          spec.defender,
         )
         if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
         matches.push({
@@ -507,6 +640,7 @@ const canonicalGrantedTriggersForOccurrence = (
           },
           execution: {
             ...triggerExecution(source, occurrence, draft),
+            grantSource: { objectId: grant.sourceId, incarnation: grant.sourceIncarnation },
             ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
             ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
             ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
@@ -518,7 +652,7 @@ const canonicalGrantedTriggersForOccurrence = (
             ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
           },
           triggeringPlayer: occurrence.player ?? source.controller,
-          triggeringObjectId: occurrenceObjectId,
+          triggeringObjectId: spec.objectId,
           triggerAmount: occurrence.amount,
           payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
         })
@@ -555,14 +689,15 @@ const canonicalTriggersForOccurrence = (
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
-      occurrenceObjectIdsForPattern(candidate.on, event, state).forEach(occurrenceObjectId => {
+      occurrenceSpecsForPattern(candidate.on, event, state, draft).forEach(spec => {
         const occurrence = capturedOccurrence(
           state,
           draft,
           event,
-          occurrenceObjectId,
-          occurrencePlayerForEvent(event, draft),
-          event.type === 'gainLife' ? event.amount : undefined,
+          spec.objectId,
+          spec.player,
+          spec.amount,
+          spec.defender,
         )
         const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
         if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
@@ -572,7 +707,7 @@ const canonicalTriggersForOccurrence = (
           source: captureObject(source),
           occurrence,
         }
-        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${occurrenceObjectId ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
+        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${spec.objectId ?? ''}:${occurrence.player ?? ''}:${occurrence.defender ?? ''}:${occurrence.amount ?? ''}`
         if (seen.has(occurrenceKey)) return
         seen.add(occurrenceKey)
         const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
@@ -598,7 +733,7 @@ const canonicalTriggersForOccurrence = (
           execution: triggerExecution(source, occurrence, draft),
           triggerEffectKey: frequencyKey,
           triggeringPlayer: occurrence.player ?? source.controller,
-          triggeringObjectId: occurrenceObjectId,
+          triggeringObjectId: spec.objectId,
           triggerAmount: occurrence.amount,
           triggeredByAbility: false,
         }
@@ -1081,6 +1216,7 @@ const collectCasts = (
 const eventObjectId = (event: GameEvent) => {
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
   if (event.type === 'custom' && event.name === MANA_ABILITY_RESOLVED && typeof event.payload?.sourceId === 'string') return event.payload.sourceId
+  if (event.type === 'dealDamage' && event.target.kind === 'object') return event.target.objectId
   if (event.type === 'custom' && typeof event.payload?.objectId === 'string') return event.payload.objectId
   return undefined
 }

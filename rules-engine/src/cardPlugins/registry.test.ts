@@ -141,10 +141,7 @@ describe('card plugin registry', () => {
       pluginIds: ['extraUntap'],
       handlerIds: [],
     })
-    expect(cardPluginEntry('Souls of the Faultless')).toMatchObject({
-      pluginIds: [],
-      handlerIds: [],
-    })
+    expect(cardPluginEntry('Souls of the Faultless')).toBeUndefined()
   })
 
   test('the Lady Evangela mana and extort cards stay registered', () => {
@@ -275,7 +272,7 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])
     expect(cardPluginEntry('Sire of Seven Deaths')?.handlerIds).toEqual(['ward'])
-    expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
+    expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
   })
 
   test('the Lady Evangela copy-politics group stays registered', () => {
@@ -523,18 +520,8 @@ describe('card plugin registry', () => {
   })
 
   test('Grothama registers an attack grant and a leaves-draw trigger', () => {
-    expect(effectsFor('Grothama, All-Devouring')).toEqual([
-      {
-        op: 'static',
-        grantCreatureTrigger: {
-          to: { controller: 'any', other: true },
-          on: 'attacks',
-          do: [{ kind: 'mayFightGrantSource' }],
-        },
-      },
-      { op: 'trigger', on: 'leaves', do: [{ kind: 'eachPlayerDrawDamageDealtToSource' }] },
-    ])
-    expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
+    expect(effectsFor('Grothama, All-Devouring')).toEqual([])
+    expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
   })
 
   test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {
@@ -760,7 +747,7 @@ describe('card plugin registry', () => {
       'Helping Hand': 'kernel-only',
       "Collector's Vault": 'registered',
       'Daily Bugle Newspaper': 'registered',
-      Blitzball: 'registered',
+      Blitzball: 'kernel-only',
       Belonging: 'registered',
       'Beza, the Bounding Spring': 'registered',
       'Perch Protection': 'registered',

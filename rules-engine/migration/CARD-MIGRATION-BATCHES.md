@@ -138,7 +138,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="11-activation"></a>**11-activation — Activation predicates** | Available | Not-your-turn, graveyard threshold, land-count, and other non-sorcery activation conditions via `when` on activated abilities. Cephalid Coliseum, Ghost Town, Mirror Universe, and Temple of the False God have migrated. | — | `Blitzball` |
+| <a id="11-activation"></a>**11-activation — Activation predicates** | Available | Not-your-turn, graveyard threshold, land-count, and other non-sorcery activation conditions via `when` on activated abilities. Cephalid Coliseum, Ghost Town, Mirror Universe, Temple of the False God, and Blitzball have migrated. | — | None remaining |
 | <a id="11-casting"></a>**11-casting — Casting timing restrictions** | Available | Restrict a spell to a particular player/step with `when` on the spell ability; distinguish this from a triggered ability. Necrologia has migrated. | — | None remaining |
 | <a id="11-flash"></a>**11-flash — Player casting-timing permissions** | Available | Grant as-though-flash permissions to a player until the stated duration ends. Alchemist's Refuge has migrated. | — | None remaining |
 | <a id="11-reduction"></a>**11-reduction — Dynamic activation-cost reductions** | Available | Per-legendary Amount reductions and continuous reductions for activated abilities of filtered objects. Blossoming Tortoise, Boseiju, Who Endures, and Otawara, Soaring City have migrated. | — | None remaining |
@@ -175,7 +175,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Thunderfoot Baloth`; `Will of the Sultai` |
-| <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. | — | `Breena, the Demagogue` |
+| <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. `somePlayerHasLess` is the inverse. Beza and Breena have migrated. | — | None remaining |
 | <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
 | <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
@@ -370,9 +370,9 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="34-damage"></a>**34-damage — Damage/enrage occurrences** | Open | Damage-recipient/source/amount bindings, combat filters, and repeatable enrage programs. | — | `Apex Altisaur`; `Blitzball`; `Grothama, All-Devouring`; `Rankle, Master of Pranks`; `Souls of the Faultless` |
-| <a id="34-defender"></a>**34-defender — Defending-player bindings** | Open | Capture attacking/defending player in combat triggers and use it in filters/choices. | — | `Belonging`; `Breena, the Demagogue`; `It That Betrays`; `Kogla, the Titan Ape`; `Soul of Eternity`; `Souls of the Faultless`; `Tenuous Truce` |
-| <a id="34-history"></a>**34-history — Source-attributed damage history** | Open | Track damage by particular objects/controllers through the relevant source's lifetime. | [34-damage](#34-damage) | `Blitzball`; `Grothama, All-Devouring` |
+| <a id="34-damage"></a>**34-damage — Damage/enrage occurrences** | Available | `dealtDamage` occurrences bind recipient, source, amount, and optional combat. Apex Altisaur and Souls of the Faultless have migrated. | — | `Rankle, Master of Pranks` |
+| <a id="34-defender"></a>**34-defender — Defending-player bindings** | Available | Attack occurrences capture `triggering.defender`; `playerAttacks` fires once per defending player. Breena, Kogla, and Souls of the Faultless have migrated. | — | `Belonging`; `It That Betrays`; `Soul of Eternity`; `Tenuous Truce` |
+| <a id="34-history"></a>**34-history — Source-attributed damage history** | Available | `damageDealtThisTurn` reads the object ledger; `combatDamageThisTurn` reads legendary combat-to-player history. Blitzball and Grothama have migrated. | [34-damage](#34-damage) | None remaining |
 
 ### 35. Event history and grouped occurrences
 

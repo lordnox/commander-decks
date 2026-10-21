@@ -1011,6 +1011,77 @@ test('Thorn Mammoth fights up to one uncontrolled creature for every controlled 
   })
 })
 
+test.each([
+  'Apex Altisaur',
+  'Blitzball',
+  'Breena, the Demagogue',
+  'Grothama, All-Devouring',
+  'Kogla, the Titan Ape',
+  'Souls of the Faultless',
+] as const)('catalog %s composes canonical combat-damage programs without legacy effects', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
+})
+
+test('Apex Altisaur fights on entry and whenever it is dealt damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Apex Altisaur')!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(['triggered', 'triggered'])
+  expect(abilities[0]).toMatchObject({ on: { kind: 'enters' }, instructions: [{ kind: 'fight' }] })
+  expect(abilities[1]).toMatchObject({ on: { kind: 'dealtDamage' }, instructions: [{ kind: 'fight' }] })
+})
+
+test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Souls of the Faultless')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'keyword', keyword: 'defender' })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'dealtDamage', filter: { combat: true } },
+    instructions: [{ kind: 'gainLife' }, { kind: 'loseLife' }],
+  })
+})
+
+test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Blitzball')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'tapSource' }] })
+  expect(abilities[1]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'combatDamageThisTurn', legendary: true },
+    instructions: [{ kind: 'draw', count: { kind: 'constant', value: 2 } }],
+  })
+})
+
+test('Breena rewards attacks on a richer opponent', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Breena, the Demagogue')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'keyword', keyword: 'flying' })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'playerAttacks' },
+    interveningIf: { kind: 'somePlayerHasLess', metric: 'life' },
+    instructions: [{ kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'putCounters' }],
+  })
+})
+
+test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Kogla, the Titan Ape')!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(['triggered', 'triggered', 'activated'])
+  expect(abilities[0]).toMatchObject({ on: { kind: 'enters' }, instructions: [{ kind: 'fight' }] })
+  expect(abilities[1]).toMatchObject({ on: { kind: 'attacks' }, instructions: [{ kind: 'destroy' }] })
+  expect(abilities[2]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'move' }, { kind: 'createEffect' }] })
+})
+
+test('Grothama grants an optional fight and pays out source-attributed damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Grothama, All-Devouring')!.definition.abilities
+  expect(abilities[0]).toMatchObject({
+    kind: 'static',
+    effects: [{ kind: 'grantAbility', ability: { on: { kind: 'attacks' } } }],
+  })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'leaves' },
+    instructions: [{ kind: 'forEachPlayer' }],
+  })
+})
+
 
 test.each([
   ['Awaken the Woods', ['createToken']], ['Hatred', ['createEffect']], ['Toxic Deluge', ['createEffect']],

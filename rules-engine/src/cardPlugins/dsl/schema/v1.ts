@@ -46,9 +46,11 @@ export type ContextBinding =
   | 'controller'
   | 'event.player'
   | 'triggering.player'
+  | 'triggering.defender'
   | 'triggering.object.before'
   | 'triggering.object.after'
   | 'triggering.object.controller'
+  | 'grant.source'
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export type InstructionResult = boolean | number | string
@@ -148,6 +150,7 @@ export type Amount =
       fallback?: number
     }
   | { kind: 'lifeLostThisTurn'; of: PlayerRecipient; combine?: LifeLostCombine }
+  | { kind: 'damageDealtThisTurn'; to: ObjectReference; by?: PlayerRecipient }
 
 export type AmountInput = number | Amount
 
@@ -176,6 +179,21 @@ export type OccurrencePattern =
   | { kind: 'cast'; filter: ObjectOccurrenceFilter }
   | { kind: 'becomesTapped' | 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | { kind: 'attacks'; filter: ObjectOccurrenceFilter }
+  | {
+      kind: 'dealtDamage'
+      filter: {
+        recipient?: ObjectOccurrenceFilter
+        source?: ObjectOccurrenceFilter
+        combat?: boolean
+      }
+    }
+  | {
+      kind: 'playerAttacks'
+      filter: {
+        attacker?: PlayerReference | PlayerSelector
+        defender?: PlayerReference | PlayerSelector
+      }
+    }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
@@ -309,6 +327,12 @@ export type PlayerComparisonMetric = typeof PLAYER_COMPARISON_METRICS[number]
 
 export type Condition =
   | { kind: 'somePlayerHasMore'; players: PlayerSelector; than: PlayerReference; metric: PlayerComparisonMetric }
+  | { kind: 'somePlayerHasLess'; players: PlayerSelector; than: PlayerReference; metric: PlayerComparisonMetric }
+  | {
+      kind: 'combatDamageThisTurn'
+      recipient: PlayerMatch
+      legendary?: true
+    }
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: AmountCompareOperator; right: Amount }
   | { kind: 'choiceIs'; binding: string; option: string }
@@ -612,6 +636,7 @@ export type ContinuousEffectDefinition =
       /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
       set?: true
     }
+  | { kind: 'grantAbility'; targets: ObjectSelector; ability: GeneratedAbility }
   | { kind: 'reduceActivationCost'; targets: ObjectSelector; generic: Amount }
   | ReplacementEffectDefinition
   | PreventionEffectDefinition
@@ -758,4 +783,5 @@ export type AmountEvaluationContext = {
     fallback?: number,
   ) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
+  damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number
 }

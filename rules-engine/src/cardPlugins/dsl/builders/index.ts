@@ -457,6 +457,10 @@ export const modifyStats = (
   input: Omit<Extract<ContinuousEffectDefinition, { kind: 'modifyStats' }>, 'kind'>,
 ): ContinuousEffectDefinition => immutableData({ kind: 'modifyStats', ...input })
 
+export const grantAbilityTo = (
+  input: Omit<Extract<ContinuousEffectDefinition, { kind: 'grantAbility' }>, 'kind'>,
+): ContinuousEffectDefinition => immutableData({ kind: 'grantAbility', ...input })
+
 export const decisions = (input: DecisionsInput = {}): DecisionsSpec => immutableData({
   targets: input.targets ?? [],
   ...(input.constraints ? { constraints: input.constraints } : {}),
@@ -571,6 +575,14 @@ export const cardRuleDefinition = (
 
 export const attacks = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'attacks', filter: input.filter })
+
+export const dealtDamage = (
+  filter: Extract<OccurrencePattern, { kind: 'dealtDamage' }>['filter'] = {},
+): OccurrencePattern => immutableData({ kind: 'dealtDamage', filter })
+
+export const playerAttacks = (
+  filter: Extract<OccurrencePattern, { kind: 'playerAttacks' }>['filter'] = {},
+): OccurrencePattern => immutableData({ kind: 'playerAttacks', filter })
 
 export const stepBegins = (input: Omit<Extract<OccurrencePattern, { kind: 'stepBegins' }>, 'kind'>) =>
   immutableData({ kind: 'stepBegins' as const, ...input })
@@ -1039,6 +1051,13 @@ export const forEachPlayer = (input: Omit<Extract<Instruction, { kind: 'forEachP
 
 export const countDistinctNames = (of: ObjectSelector) => immutableData({ kind: 'countDistinctNames' as const, of })
 export const somePlayerHasMore = (input: Omit<Extract<Condition, { kind: 'somePlayerHasMore' }>, 'kind'>) => immutableData({ kind: 'somePlayerHasMore' as const, ...input })
+export const somePlayerHasLess = (input: Omit<Extract<Condition, { kind: 'somePlayerHasLess' }>, 'kind'>) => immutableData({ kind: 'somePlayerHasLess' as const, ...input })
+export const combatDamageThisTurn = (
+  input: Omit<Extract<Condition, { kind: 'combatDamageThisTurn' }>, 'kind'>,
+) => immutableData({ kind: 'combatDamageThisTurn' as const, ...input })
+export const damageDealtThisTurn = (
+  input: Omit<Extract<Amount, { kind: 'damageDealtThisTurn' }>, 'kind'>,
+) => immutableData({ kind: 'damageDealtThisTurn' as const, ...input })
 
 export const addManaFrom = (input: { of: ObjectSelector; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })
 

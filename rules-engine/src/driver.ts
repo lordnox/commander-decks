@@ -404,6 +404,7 @@ const runtimeContext = (
     : {}),
   ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
   ...(item.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: item.execution.capturedOccurrenceBindings } : {}),
+  ...(item.execution?.grantSource ? { grantSource: item.execution.grantSource } : {}),
   targets: (() => {
     const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
       .filter((binding) => binding.scopeId === scopeId)

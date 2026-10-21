@@ -80,6 +80,10 @@ export const evaluateAmount = (
       if (!context.lifeLostThisTurn) throw new RuleDslEvaluationError('lifeLostThisTurn is not available in this execution context')
       return runtimeAmount(context.lifeLostThisTurn(expression.of, expression.combine), 'life lost this turn')
     }
+    case 'damageDealtThisTurn': {
+      if (!context.damageDealtThisTurn) throw new RuleDslEvaluationError('damageDealtThisTurn is not available in this execution context')
+      return runtimeAmount(context.damageDealtThisTurn(expression.to, expression.by), 'damage dealt this turn')
+    }
   }
 }
 

@@ -395,6 +395,12 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'damageDealtThisTurn': {
+        exactKeys(node, path, ['kind', 'to', 'by'], ['kind', 'to'])
+        validateReference(node.to, childPath(path, 'to'), env, ['object'])
+        if (node.by !== undefined) validateRecipient(node.by, childPath(path, 'by'), env, ['player'])
+        return
+      }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported amount kind: ${String(node.kind)}`)
     }
   }
@@ -448,10 +454,19 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!node) return
     switch (node.kind) {
       case 'somePlayerHasMore':
+      case 'somePlayerHasLess':
         exactKeys(node, path, ['kind', 'players', 'than', 'metric'], ['kind', 'players', 'than', 'metric'])
         if (validateSelector(node.players, childPath(path, 'players'), env) !== 'player') issue(childPath(path, 'players'), 'domain', 'comparison requires a player selector')
         validateReference(node.than, childPath(path, 'than'), env, ['player'])
         enumeration(node.metric, childPath(path, 'metric'), new Set(PLAYER_COMPARISON_METRICS), 'player comparison metric')
+        return
+
+      case 'combatDamageThisTurn':
+        exactKeys(node, path, ['kind', 'recipient', 'legendary'], ['kind', 'recipient'])
+        validatePlayerMatch(node.recipient, childPath(path, 'recipient'), env)
+        if (node.legendary !== undefined && node.legendary !== true) {
+          issue(childPath(path, 'legendary'), 'type', 'legendary must be true when present')
+        }
         return
 
       case 'resultIsTrue':
@@ -1002,6 +1017,7 @@ export const validateDefinitionV1 = (root: unknown): {
                 if (ability.kind !== 'triggered') issue(childPath(childPath(childPath(path, 'effect'), 'ability'), 'kind'), 'unsupported-kind', 'generated abilities must be triggered')
                 else {
                   const occurrenceEnv = validateOccurrence(ability.on, childPath(childPath(childPath(path, 'effect'), 'ability'), 'on'), cloneEnv(env))
+                  occurrenceEnv.context = new Map([...occurrenceEnv.context, ['grant.source', 'object']])
                   const decisionsResult = ability.decisions === undefined
                     ? { env: occurrenceEnv }
                     : validateDecisions(ability.decisions, childPath(childPath(childPath(path, 'effect'), 'ability'), 'decisions'), occurrenceEnv, true)
@@ -1282,9 +1298,33 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'attacks':
       case 'cast':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
-        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.object.controller', 'player'], ['triggering.player', 'player']])
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.object.controller', 'player'], ['triggering.player', 'player'], ...(node.kind === 'attacks' ? [['triggering.defender', 'player'] as const] : [])])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
+      case 'dealtDamage': {
+        env.eventAmount = true
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
+        const filter = object(node.filter, childPath(path, 'filter'))
+        if (filter) {
+          exactKeys(filter, childPath(path, 'filter'), ['recipient', 'source', 'combat'])
+          if (filter.recipient !== undefined) validateObjectOccurrenceFilter(filter.recipient, childPath(childPath(path, 'filter'), 'recipient'), env)
+          if (filter.source !== undefined) validateObjectOccurrenceFilter(filter.source, childPath(childPath(path, 'filter'), 'source'), env)
+          if (filter.combat !== undefined && typeof filter.combat !== 'boolean') {
+            issue(childPath(childPath(path, 'filter'), 'combat'), 'type', 'expected a boolean')
+          }
+        }
+        return env
+      }
+      case 'playerAttacks': {
+        env.context = new Map([...env.context, ['triggering.player', 'player'], ['triggering.defender', 'player']])
+        const filter = object(node.filter, childPath(path, 'filter'))
+        if (filter) {
+          exactKeys(filter, childPath(path, 'filter'), ['attacker', 'defender'])
+          if (filter.attacker !== undefined) validateRecipient(filter.attacker, childPath(childPath(path, 'filter'), 'attacker'), env, ['player'])
+          if (filter.defender !== undefined) validateRecipient(filter.defender, childPath(childPath(path, 'filter'), 'defender'), env, ['player'])
+        }
+        return env
+      }
       case 'enters':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object']])
@@ -1547,6 +1587,9 @@ export const validateDefinitionV1 = (root: unknown): {
         array(ability.activeIn, childPath(path, 'activeIn'), { nonempty: true }).forEach((zone, index) =>
           enumeration(zone, childPath(childPath(path, 'activeIn'), index), ZONES, 'zone'))
         const occurrenceBase = baseEnvironment()
+        if (ability.generated === true) {
+          occurrenceBase.context = new Map([...occurrenceBase.context, ['grant.source', 'object']])
+        }
         if (ability.capturedBindings !== undefined) {
           const captured = object(ability.capturedBindings, childPath(path, 'capturedBindings'))
           if (captured) {
@@ -1644,6 +1687,29 @@ export const validateDefinitionV1 = (root: unknown): {
               validateStatDelta(node.toughness, childPath(effectPath, 'toughness'), baseEnvironment())
               if (node.set !== undefined && typeof node.set !== 'boolean') {
                 issue(childPath(effectPath, 'set'), 'type', 'expected a boolean')
+              }
+              return
+            }
+            case 'grantAbility': {
+              exactKeys(node, effectPath, ['kind', 'targets', 'ability'], ['kind', 'targets', 'ability'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'grantAbility targets require an object selector')
+              }
+              const ability = object(node.ability, childPath(effectPath, 'ability'))
+              if (ability) {
+                exactKeys(ability, childPath(effectPath, 'ability'), ['kind', 'on', 'decisions', 'instructions'], ['kind', 'on', 'instructions'])
+                if (ability.kind !== 'triggered') {
+                  issue(childPath(childPath(effectPath, 'ability'), 'kind'), 'unsupported-kind', 'generated abilities must be triggered')
+                } else {
+                  const grantEnv = cloneEnv(baseEnvironment())
+                  grantEnv.context = new Map([...grantEnv.context, ['grant.source', 'object']])
+                  const occurrenceEnv = validateOccurrence(ability.on, childPath(childPath(effectPath, 'ability'), 'on'), grantEnv)
+                  occurrenceEnv.context = new Map([...occurrenceEnv.context, ['grant.source', 'object']])
+                  const decisionsResult = ability.decisions === undefined
+                    ? { env: occurrenceEnv }
+                    : validateDecisions(ability.decisions, childPath(childPath(effectPath, 'ability'), 'decisions'), occurrenceEnv, true)
+                  validateInstructionList(ability.instructions, childPath(childPath(effectPath, 'ability'), 'instructions'), decisionsResult.env)
+                }
               }
               return
             }

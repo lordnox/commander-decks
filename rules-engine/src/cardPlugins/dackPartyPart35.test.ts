@@ -164,7 +164,7 @@ describe('Dack Party pass-35 cardRules', () => {
     expect(legalActsFor(server.state, 'p1').some((action) =>
       action.kind === 'activateAbility'
       && action.objectId === ballId
-      && action.abilityId === 'blitzball.goal')).toBe(false)
+      && action.abilityId === '$.abilities[1]')).toBe(false)
 
     const ready = structuredClone(server.state)
     ready.step = 'precombatMain'
@@ -177,7 +177,7 @@ describe('Dack Party pass-35 cardRules', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: ballId,
-      abilityId: 'blitzball.goal',
+      abilityId: '$.abilities[1]',
     }))
     expect(afterActivate.stack).toHaveLength(1)
     const resolved = resolveStack(server.rules, afterActivate)

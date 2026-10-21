@@ -380,6 +380,7 @@ export type GameObject = {
     untilStepTurn?: number
     untilStepNotBeforeTurn?: number
     untilStepActive?: PlayerId
+    printedStatic?: { abilityIndex: number; effectIndex: number }
   }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
@@ -481,6 +482,7 @@ export type OccurrenceSnapshot = {
   kind: 'event'
   eventType: string
   player?: PlayerId
+  defender?: PlayerId
   amount?: number
   object?: {
     before?: ObjectSnapshot
@@ -510,6 +512,8 @@ export type StackExecutionContext = {
   capturedChoiceAliases?: Record<string, string>
   /** Generated-program aliases for parent lexical result bindings. */
   capturedResultAliases?: Record<string, string>
+  /** Granter identity for a stamped canonical grant (`grant.source`). */
+  grantSource?: { objectId: string; incarnation: number }
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */

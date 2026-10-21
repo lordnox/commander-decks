@@ -20,6 +20,8 @@ export const generatedAbilitySnapshot = (
     case 'becomesTapped':
     case 'tappedForMana':
     case 'attacks':
+    case 'dealtDamage':
+    case 'playerAttacks':
     case 'stepBegins':
     case 'playLand':
     case 'discard':
@@ -80,7 +82,9 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
     case 'becomesTapped':
     case 'tappedForMana':
     case 'attacks':
+    case 'dealtDamage':
     case 'cast': return ['player', 'object.after']
+    case 'playerAttacks': return ['player']
     case 'stepBegins':
     case 'playLand':
     case 'discard': return ['player']

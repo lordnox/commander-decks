@@ -415,9 +415,8 @@ describe('Lady Evangela remaining coverage', () => {
       attackers: [{ objectId: attacker, defender: 'p3' }],
     }))
     state = passToEmpty(server.rules, state)
-    expect(state.zoneOrder.p2.hand.length + (state.stack.length > 0 ? 0 : 0)).toBeGreaterThanOrEqual(0)
     const choice = pendingSelectionFor(state, 'p1')
-    expect(choice?.plusCounters).toBe(2)
+    expect(choice).toMatchObject({ kind: 'choose', seat: 'p1' })
     const bear = named(state, 'Small Bear').id
     state = ok(server.rules(state, {
       type: 'selectCards',
@@ -425,8 +424,10 @@ describe('Lady Evangela remaining coverage', () => {
       kind: 'choose',
       count: 1,
       objectIds: [bear],
+      ...(choice?.id ? { selectionId: choice.id } : {}),
     }))
     expect(state.objects[bear].counters['+1/+1']).toBe(2)
+    expect(state.zoneOrder.p2.hand).toHaveLength(1)
   })
 
   test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {
