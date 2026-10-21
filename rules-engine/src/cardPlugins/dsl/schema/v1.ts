@@ -41,7 +41,7 @@ export type ContextBinding =
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export type InstructionResult = boolean | number | string
 
-export type ResultField = 'player' | 'amount' | 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created'
+export type ResultField = 'player' | 'amount' | 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created' | 'copied'
 
 export type ContextReference = { kind: 'contextRef'; name: ContextBinding }
 export type TargetReference = { kind: 'targetRef'; clauseIndex: number }
@@ -302,6 +302,8 @@ export type Instruction =
   /** Evaluate an amount now, preserving it for later instructions and continuations. */
   | { kind: 'capturePlayer'; player: PlayerReference; bindResult: string }
   | { kind: 'captureAmount'; amount: Amount; bindResult: string }
+  /** Persist copiable characteristics before the source leaves its current zone. */
+  | { kind: 'captureCopy'; targets: ObjectRecipient; bindResult: string }
   /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
@@ -323,7 +325,7 @@ export type Instruction =
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
   | { kind: 'shuffle'; targets: PlayerRecipient }
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */
-  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string }
+  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string }
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
@@ -341,8 +343,8 @@ export type Instruction =
   | { kind: 'proliferate'; targets: PlayerRecipient }
   /** Create the evaluated number of token objects under each resolved player recipient. */
   | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
-  /** Copy each resolved object, optionally choosing a controller for the copy. */
-  | { kind: 'copy'; targets: ObjectRecipient; controller?: PlayerRecipient; bindResult?: string }
+  /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
+  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; bindResult?: string }
   /** Copy a spell already on the stack; this creates a copy without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Put the evaluated number of the named counter on each resolved object recipient. */
@@ -418,6 +420,8 @@ export type Instruction =
     }
   /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }
+  /** Run nested instructions once per resolved object, exposing that object's controller as event.player. */
+  | { kind: 'forEach'; of: ObjectRecipient; instructions: readonly Instruction[] }
   /** Let the chooser select one available option; continue without an option when none is available. */
   | {
       kind: 'chooseInstructions'

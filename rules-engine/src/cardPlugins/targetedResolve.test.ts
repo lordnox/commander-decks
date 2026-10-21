@@ -841,7 +841,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
     type: 'selectCards',
     seat: 'p1',
     kind: 'choose',
-    count: 3,
+    count: pendingSelectionFor(state, 'p1')!.count,
     objectIds: ids,
   })
 
@@ -976,9 +976,9 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const { server, start } = terastodonGame({ p2: [artifact('Enemy Rock')] })
       const opened = enter(server, start, 'Terastodon')
       const declined = ok(server.rules(opened, pick(opened, [])))
-      expect(declined.stack).toEqual([])
-      expect(named(declined, 'Enemy Rock').zone).toBe('battlefield')
-      expect(elephants(declined, 'p2')).toHaveLength(0)
+      const done = declined.stack.length > 0 ? resolveStack(server.rules, declined) : declined
+      expect(named(done, 'Enemy Rock').zone).toBe('battlefield')
+      expect(elephants(done, 'p2')).toHaveLength(0)
     })
 
     test('duplicate-named targets are separate permanents: each controller gets one Elephant per permanent', () => {
@@ -1027,7 +1027,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const opened = enter(server, start, 'Terastodon')
       const done = resolveStack(
         server.rules,
-        ok(server.rules(opened, choose(opened, ['Rock A', 'Rock B', 'Rock C'], 3))),
+        ok(server.rules(opened, pick(opened, ['Rock A', 'Rock B', 'Rock C'].map(name => named(opened, name).id)))),
       )
       expect(elephants(done, 'p1')).toHaveLength(3)
     })
@@ -1039,7 +1039,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const prepared = structuredClone(start)
       named(prepared, 'Stolen Rock').owner = 'p3'
       const opened = enter(server, prepared, 'Terastodon')
-      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Stolen Rock'], 3))))
+      const done = resolveStack(server.rules, ok(server.rules(opened, pick(opened, [named(opened, 'Stolen Rock').id]))))
       expect(named(done, 'Stolen Rock').zone).toBe('graveyard')
       expect(elephants(done, 'p2')).toHaveLength(1)
       expect(elephants(done, 'p3')).toHaveLength(0)
@@ -1048,7 +1048,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
     test('a token destroyed this way still gives its controller an Elephant', () => {
       const { server, start } = terastodonGame({ p2: [artifact('Treasure Token', { token: true })] })
       const opened = enter(server, start, 'Terastodon')
-      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Treasure Token'], 3))))
+      const done = resolveStack(server.rules, ok(server.rules(opened, pick(opened, [named(opened, 'Treasure Token').id]))))
       expect(elephants(done, 'p2')).toHaveLength(1)
     })
 
@@ -1063,7 +1063,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const opened = enter(server, start, 'Terastodon')
       const done = resolveStack(
         server.rules,
-        ok(server.rules(opened, choose(opened, ['Plain Rock', 'Hardened Rock', 'Commander Relic'], 3))),
+        ok(server.rules(opened, pick(opened, ['Plain Rock', 'Hardened Rock', 'Commander Relic'].map(name => named(opened, name).id)))),
       )
       expect(named(done, 'Plain Rock').zone).toBe('graveyard')
       expect(named(done, 'Hardened Rock').zone).toBe('battlefield')

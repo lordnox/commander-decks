@@ -198,7 +198,6 @@ import {
   createHeroWithLandCounters,
   searchTargetControllerForBasicLandType,
   removeTarget,
-  copyTargetForEachOtherPlayer,
   exileVoteWinners,
   vote,
   ifVoteLeads,
@@ -263,9 +262,7 @@ import {
   mayFightGrantSource,
   leaves,
   eachPlayerDrawDamageDealtToSource,
-  entersTargetingUpTo,
   entersTargeting,
-  destroyThenTokenForController,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
   permanentEnters,
@@ -830,13 +827,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'select',
       { players: 'opponent' },
       opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
-    ),
-  ],
-  'Fractured Identity': [
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', nonland: true },
-      copyTargetForEachOtherPlayer(),
     ),
   ],
   'Getaway Glamer': [
@@ -1426,7 +1416,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     )),
   ],
-  'Settle the Wreckage': [handler('combatPreventionCards')],
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
@@ -1567,20 +1556,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Tenuous Truce': [playerAuraDeal()],
-  Terastodon: [
-    entersTargetingUpTo(
-      3,
-      { zone: 'battlefield', permanent: true, noncreature: true },
-      destroyThenTokenForController({
-        name: 'Elephant',
-        types: ['Creature'],
-        subtypes: ['Elephant'],
-        colors: ['G'],
-        power: 3,
-        toughness: 3,
-      }),
-    ),
-  ],
   'Test of Endurance': [
     yourUpkeepIf(controllerLife(50), winGame()),
   ],

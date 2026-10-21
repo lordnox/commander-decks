@@ -4,11 +4,12 @@ import { prepareResolutionStep, startCanonicalResolution } from '../../driver'
 import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState, Plugin } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { characteristic, createDefinitionSnapshot, gainLife, self, whenever, card, choice, compileCardRuleDefinition, loseLife, move, objects, players, putCounters, ref, select, spell, target } from './v1'
+import { characteristic, createDefinitionSnapshot, gainLife, self, whenever, card, choice, compileCardRuleDefinition, loseLife, move, objects, players, putCounters, ref, resultAmount, searchLibrary, select, spell, target } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const names = (state: GameState, zone: 'battlefield' | 'graveyard') =>
@@ -314,4 +315,69 @@ test('a captured entry move cannot affect a replacement incarnation after restor
   state = ok(server.rules(state, { type: 'counterStackItem', stackId: state.stack.find(item => item.id !== oldTrigger)!.id }))
   state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
   expect(state.objects[id].zone).toBe('battlefield')
+})
+
+test('move bindResult counts actual exile after commander replacement', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },
+      instructions: [
+        move({
+          targets: objects({ zone: 'battlefield', type: 'Creature', attacking: true, controller: target(0) }),
+          to: 'exile',
+          bindResult: 'exiled',
+        }),
+        searchLibrary({
+          bindChoice: 'basics',
+          chooser: target(0),
+          filter: objects({ zone: 'library', owner: target(0), type: 'Land', supertypes: ['Basic'] }),
+          min: 0,
+          max: resultAmount('exiled'),
+          to: 'battlefield',
+          tapped: true,
+        }),
+      ],
+    })] },
+    battlefield: {
+      p2: [
+        cardTemplate('Attacker One', { types: ['Creature'], power: 2, toughness: 2 }),
+        cardTemplate('Attacker Two', { types: ['Creature'], power: 2, toughness: 2, tags: ['commander'] }),
+      ],
+    },
+    libraries: {
+      p2: [
+        cardTemplate('Plains', { types: ['Land'], supertypes: ['Basic'], subtypes: ['Plains'] }),
+        cardTemplate('Island', { types: ['Land'], supertypes: ['Basic'], subtypes: ['Island'] }),
+        cardTemplate('Guildgate', { types: ['Land'] }),
+      ],
+    },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  for (const attacker of ready.zoneOrder.p2.battlefield) {
+    ready.objects[attacker].attacking = { kind: 'player', player: 'p1' }
+  }
+  const resolved = resolveStack(server.rules, ok(server.rules(ready, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(ready, 'Instruction fixture').id,
+    targets: [{ kind: 'player', player: 'p2' }],
+  })))
+  expect(named(resolved, 'Attacker One').zone).toBe('exile')
+  expect(named(resolved, 'Attacker Two').zone).toBe('command')
+  const selection = pendingSelectionFor(resolved, 'p2')!
+  expect(selection.candidates).toHaveLength(2)
+  expect(selection.count).toBe(1)
+  expect(selection.min).toBe(0)
+  const restored = restoreJournal(createJournal(resolved), server.rules).current()
+  const chosen = named(restored, 'Plains').id
+  const found = ok(server.rules(restored, {
+    type: 'selectCards',
+    seat: 'p2',
+    kind: 'choose',
+    count: selection.count,
+    objectIds: [chosen],
+  }))
+  expect(found.objects[chosen]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(found, 'Island').zone).toBe('library')
 })

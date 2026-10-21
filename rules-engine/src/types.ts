@@ -551,6 +551,8 @@ export type ProgramScopeFrame = {
   scopeId?: string
   instructions: readonly Instruction[]
   cursor: number
+  /** Overlay for nested iteration, such as forEach over destroyed permanents. */
+  occurrence?: OccurrenceSnapshot
 }
 
 /** Authoritative, private state for the one resolution currently in progress. */
@@ -585,7 +587,12 @@ export type CanonicalResolutionFrame = {
     stackId?: string
     value?: boolean | number
     eventType?: GameEvent['type']
+    destination?: ZoneId
   }
+  /** Copiable characteristics captured before a source left its zone. */
+  capturedCopies?: Record<string, NonNullable<Extract<GameEvent, { type: 'copyPermanent' }>['token']>>
+  /** Last-known objects aligned with a bound choice, including tokens that later ceased. */
+  choiceSnapshots?: Record<string, ObjectSnapshot[]>
   outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
@@ -596,6 +603,11 @@ export type CanonicalResolutionFrame = {
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   /** New identities to bind after the current move instruction commits. */
   pendingMovedChoice?: { binding: string; objects: ObjectIdentity[] }
+  /** Last-known objects to bind after destroy events commit and tokens cease. */
+  pendingDestroyedChoice?: {
+    binding: string
+    entries: Array<{ objectId: string; incarnation: number; snapshot: ObjectSnapshot }>
+  }
   /** Cards expected in exile after the first half of an immediate blink. */
   pendingBlink?: Array<{ ref: ObjectIdentity; controller: PlayerId; tapped?: boolean }>
   pendingProliferate?: { objectIds: string[]; binding?: string }
@@ -1066,12 +1078,6 @@ export type GameEvent =
         effects?: GameObject['effects']
         dsl?: true
       }
-    }
-  | {
-      type: 'searchBasicsForExiledAttackers'
-      seat: PlayerId
-      sourceId: string
-      objectIds: string[]
     }
   | {
       type: 'move'

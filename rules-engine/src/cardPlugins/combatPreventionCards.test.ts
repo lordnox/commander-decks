@@ -350,9 +350,12 @@ describe('Lady Evangela advanced combat prevention cards', () => {
     const acts = legalActsFor(state, 'p1')
     const settle = acts.filter((action) =>
       action.kind === 'castSpell' && action.name === 'Settle the Wreckage')
-    expect(settle).toHaveLength(4)
-    expect(settle.every((action) =>
-      action.kind === 'castSpell' && Boolean(action.targetPlayerId))).toBe(true)
+    expect(settle).toHaveLength(1)
+    const settleAct = settle[0]
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0]).toMatchObject({
+      kind: 'player', min: 1, max: 1,
+    })
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0].targets).toHaveLength(4)
     const energy = acts.find((action) =>
       action.kind === 'castSpell' && action.name === 'Energy Arc')
     expect(energy?.kind === 'castSpell' && energy.targetGroups?.[0].max).toBe(1)

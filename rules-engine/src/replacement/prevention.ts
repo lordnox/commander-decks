@@ -513,7 +513,7 @@ export const eventsFromPreventionAdditional = (
   }
   const walk = (nodes: readonly Instruction[]) => {
     for (const instruction of nodes) {
-      if (instruction.kind === 'sequence') {
+      if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
         walk(instruction.instructions)
         continue
       }

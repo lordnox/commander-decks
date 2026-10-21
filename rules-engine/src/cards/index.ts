@@ -81,6 +81,7 @@ import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
 import flickerwisp from './flickerwisp'
 import foil from './foil'
+import fracturedIdentity from './fractured-identity'
 import franticSearch from './frantic-search'
 import geierReachSanitarium from './geier-reach-sanitarium'
 import ghostlyFlicker from './ghostly-flicker'
@@ -150,6 +151,7 @@ import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
 import secludedSteppe from './secluded-steppe'
 import seleniaDarkAngel from './selenia-dark-angel'
+import settleTheWreckage from './settle-the-wreckage'
 import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
@@ -167,6 +169,7 @@ import summerBloom from './summer-bloom'
 import sunkenHollow from './sunken-hollow'
 import tamiyosSafekeeping from './tamiyos-safekeeping'
 import templeOfDeceit from './temple-of-deceit'
+import terastodon from './terastodon'
 import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
 import thawingGlaciers from './thawing-glaciers'
@@ -281,6 +284,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Flicker of Fate": flickerOfFate,
   "Flickerwisp": flickerwisp,
   "Foil": foil,
+  "Fractured Identity": fracturedIdentity,
   "Frantic Search": franticSearch,
   "Geier Reach Sanitarium": geierReachSanitarium,
   "Ghostly Flicker": ghostlyFlicker,
@@ -353,6 +357,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sakura-Tribe Scout": sakuraTribeScout,
   "Secluded Steppe": secludedSteppe,
   "Selenia, Dark Angel": seleniaDarkAngel,
+  "Settle the Wreckage": settleTheWreckage,
   "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
   "Simic Growth Chamber": simicGrowthChamber,
@@ -370,6 +375,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sunken Hollow": sunkenHollow,
   "Tamiyo's Safekeeping": tamiyosSafekeeping,
   "Temple of Deceit": templeOfDeceit,
+  "Terastodon": terastodon,
   "Terramorphic Expanse": terramorphicExpanse,
   "Thalia's Lancers": thaliasLancers,
   "Thawing Glaciers": thawingGlaciers,
