@@ -461,6 +461,26 @@ export const validateDefinitionV1 = (root: unknown): {
           issue(childPath(path, 'option'), 'binding-name', 'choiceIs requires a nonempty option id')
         }
         return
+      case 'activePlayer':
+        exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
+        validateReference(node.of, childPath(path, 'of'), env, ['player'])
+        return
+      case 'currentStep': {
+        exactKeys(node, path, ['kind', 'step'], ['kind', 'step'])
+        const steps = Array.isArray(node.step) ? node.step : [node.step]
+        if (steps.length === 0) {
+          issue(childPath(path, 'step'), 'domain', 'currentStep requires at least one step')
+          return
+        }
+        steps.forEach((step, index) =>
+          enumeration(
+            step,
+            Array.isArray(node.step) ? childPath(childPath(path, 'step'), index) : childPath(path, 'step'),
+            new Set(STEP_IDS),
+            'step',
+          ))
+        return
+      }
       case 'all':
       case 'any':
         exactKeys(node, path, ['kind', 'conditions'], ['kind', 'conditions'])
@@ -729,6 +749,21 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
+      case 'grantFlash': {
+        exactKeys(node, path, ['kind', 'targets', 'duration'], ['kind', 'targets', 'duration'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        const duration = object(node.duration, childPath(path, 'duration'))
+        if (duration) {
+          exactKeys(duration, childPath(path, 'duration'), ['kind', 'step', 'active', 'count'], ['kind'])
+          enumeration(duration.kind, childPath(childPath(path, 'duration'), 'kind'), new Set(['untilCleanup', 'permanent', 'untilStep', 'forTurns', 'whileSourceOnBattlefield']), 'effect duration')
+          if (duration.kind === 'untilStep') {
+            if (typeof duration.step !== 'string' || duration.step.length === 0) issue(childPath(childPath(path, 'duration'), 'step'), 'type', 'untilStep requires a step name')
+            if (duration.active !== undefined) validateReference(duration.active, childPath(childPath(path, 'duration'), 'active'), env, ['player'])
+          }
+          if (duration.kind === 'forTurns') validateAmount(duration.count, childPath(childPath(path, 'duration'), 'count'), env)
+        }
+        return
+      }
       case 'linkExile':
         exactKeys(node, path, ['kind', 'targets', 'untilSourceLeaves', 'returnTo'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
@@ -1441,7 +1476,7 @@ export const validateDefinitionV1 = (root: unknown): {
     const ability = object(value, path)
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
-    const commonProgramKeys = ['kind', 'decisions', 'costs', 'optionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
+    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'optionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
     const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment) => {
       if (node.optionalCosts !== undefined) array(node.optionalCosts, childPath(nodePath, 'optionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.optionalCosts[${index}]`, env))
       if (node.alternativeCosts !== undefined) array(node.alternativeCosts, childPath(nodePath, 'alternativeCosts')).forEach((alternative, alternativeIndex) =>
@@ -1452,13 +1487,16 @@ export const validateDefinitionV1 = (root: unknown): {
       })
       if (node.costReductions !== undefined) array(node.costReductions, childPath(nodePath, 'costReductions')).forEach((reduction, index) => {
         const entry = object(reduction, `${nodePath}.costReductions[${index}]`)
-        if (entry) exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason'], ['generic'])
+        if (!entry) return
+        exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason'], ['generic'])
+        validateAmount(entry.generic, `${nodePath}.costReductions[${index}].generic`, env)
       })
     }
     switch (ability.kind) {
       case 'spell': {
         exactKeys(ability, path, commonProgramKeys, ['kind', 'decisions', 'costs'])
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
+        if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
         validateCostPlan(ability, path, costEnv)
@@ -1472,6 +1510,7 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(ability.timing, childPath(path, 'timing'), new Set(['anyTime', 'sorcery']), 'activation timing')
         if (ability.cycling !== undefined && ability.cycling !== true) issue(childPath(path, 'cycling'), 'constant', 'cycling must be true when present')
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
+        if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
         validateCostPlan(ability, path, costEnv)
@@ -1578,6 +1617,14 @@ export const validateDefinitionV1 = (root: unknown): {
               if (node.set !== undefined && typeof node.set !== 'boolean') {
                 issue(childPath(effectPath, 'set'), 'type', 'expected a boolean')
               }
+              return
+            }
+            case 'reduceActivationCost': {
+              exactKeys(node, effectPath, ['kind', 'targets', 'generic'], ['kind', 'targets', 'generic'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'reduceActivationCost targets require an object selector')
+              }
+              validateAmount(node.generic, childPath(effectPath, 'generic'), baseEnvironment())
               return
             }
             case 'replacement': {

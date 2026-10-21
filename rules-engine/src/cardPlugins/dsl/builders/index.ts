@@ -16,6 +16,7 @@ import type {
   ContextBinding,
   ContextReference,
   Cost,
+  CostReduction,
   DecisionsInput,
   DecisionsSpec,
   DelayedPattern,
@@ -78,6 +79,7 @@ import {
 } from '../schema/v1'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
+import type { StepId } from '../../../types'
 
 export const amount = (value: number): Amount => immutableData({ kind: 'constant', value })
 
@@ -280,6 +282,12 @@ export const anyCondition = (...conditions: readonly Condition[]): Condition =>
 export const notCondition = (condition: Condition): Condition =>
   immutableData({ kind: 'not', condition })
 
+export const activePlayer = (of: PlayerReference): Condition =>
+  immutableData({ kind: 'activePlayer', of })
+
+export const currentStep = (step: StepId | readonly StepId[]): Condition =>
+  immutableData({ kind: 'currentStep', step })
+
 export const prohibitActivation = (
   filter: Extract<ContinuousEffectDefinition, { kind: 'prohibitActivation' }>['filter'],
 ): ContinuousEffectDefinition => immutableData({ kind: 'prohibitActivation', filter })
@@ -289,6 +297,18 @@ export const noMaximumHandSize = (): ContinuousEffectDefinition =>
 
 export const extraLandPlays = (count: number): ContinuousEffectDefinition =>
   immutableData({ kind: 'extraLandPlays', count })
+
+export const reduceActivationCost = (input: {
+  targets: ObjectSelector
+  generic: AmountInput
+}): ContinuousEffectDefinition => immutableData({
+  kind: 'reduceActivationCost',
+  targets: input.targets,
+  generic: toAmount(input.generic),
+})
+
+export const costReduction = (generic: AmountInput, reason?: string): CostReduction =>
+  immutableData({ generic: toAmount(generic), ...(reason ? { reason } : {}) })
 
 export const replacement = (
   event: Extract<ContinuousEffectDefinition, { kind: 'replacement' }>['event'],
@@ -451,23 +471,31 @@ const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram =>
   })
 }
 
+type CostReductionInput = { generic: AmountInput; reason?: string }
+
 type CostFieldsInput = Partial<Pick<
   SpellAbilityDefinition,
-  'costs' | 'optionalCosts' | 'alternativeCosts' | 'costIncreases' | 'costReductions'
->>
+  'costs' | 'optionalCosts' | 'alternativeCosts' | 'costIncreases'
+>> & {
+  costReductions?: readonly CostReductionInput[]
+}
 
 const normalizeCostFields = (input: CostFieldsInput) => ({
   costs: input.costs ?? [],
   ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
   ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
   ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
-  ...(input.costReductions ? { costReductions: input.costReductions } : {}),
+  ...(input.costReductions ? {
+    costReductions: input.costReductions.map((reduction) => costReduction(reduction.generic, reduction.reason)),
+  } : {}),
 })
 
 export const spell = (input: {
   decisions?: DecisionsInput
+  when?: Condition
 } & CostFieldsInput & ResolutionProgramInput) => immutableData({
   kind: 'spell' as const,
+  ...(input.when ? { when: input.when } : {}),
   decisions: decisions(input.decisions),
   ...normalizeCostFields(input),
   ...normalizeProgram(input),
@@ -478,10 +506,12 @@ export const activated = (input: {
   timing?: ActivatedAbilityDefinition['timing']
   decisions?: DecisionsInput
   cycling?: true
+  when?: Condition
 } & CostFieldsInput & ResolutionProgramInput) => immutableData({
   kind: 'activated' as const,
   availableFrom: input.availableFrom ?? ['battlefield'],
   timing: input.timing ?? 'anyTime',
+  ...(input.when ? { when: input.when } : {}),
   decisions: decisions(input.decisions),
   ...(input.cycling ? { cycling: true as const } : {}),
   ...normalizeCostFields(input),
@@ -614,6 +644,9 @@ export const grantLandPlays = (input: { count: AmountInput; targets: PlayerRecip
 
 export const grantNoMaximumHandSize = (input: { targets: PlayerRecipient }) =>
   immutableData({ kind: 'grantNoMaximumHandSize' as const, targets: input.targets })
+
+export const grantFlash = (input: { targets: PlayerRecipient; duration: EffectDuration }) =>
+  immutableData({ kind: 'grantFlash' as const, targets: input.targets, duration: input.duration })
 
 export const linkExile = (input: {
   targets: ObjectRecipient

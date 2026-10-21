@@ -136,6 +136,7 @@ const preflightInstructions = (
       case 'draw':
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
+      case 'grantFlash':
       case 'addManaFrom':
       case 'linkExile':
       case 'returnLinkedExile':
@@ -684,6 +685,16 @@ const actionEvents = (
     }
     case 'grantNoMaximumHandSize': {
       return recipients(instruction.targets, context).map((seat) => ({ type: 'grantNoMaximumHandSize' as const, seat }))
+    }
+    case 'grantFlash': {
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'addRule' as const,
+        pluginId: 'flashGrant',
+        params: {
+          ...(instruction.duration.kind === 'untilCleanup' ? { untilCleanup: true } : { duration: structuredClone(instruction.duration) }),
+          controller: seat,
+        },
+      }))
     }
     case 'linkExile': {
       const sourceId = frame.source.ref.objectId

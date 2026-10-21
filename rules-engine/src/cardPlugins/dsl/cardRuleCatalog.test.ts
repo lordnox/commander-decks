@@ -1570,6 +1570,58 @@ test('the two upkeep reveal cards share a public reveal, captured mana value, ha
   }])
 })
 
+test('catalog timing and activation-cost cards compose canonical when, flash, and reductions', () => {
+  expect(effectsFor("Alchemist's Refuge")).toEqual([])
+  expect(effectsFor('Blossoming Tortoise')).toEqual([])
+  expect(effectsFor('Boseiju, Who Endures')).toEqual([])
+  expect(effectsFor('Cephalid Coliseum')).toEqual([])
+  expect(effectsFor('Ghost Town')).toEqual([])
+  expect(effectsFor('Mirror Universe')).toEqual([])
+  expect(effectsFor('Necrologia')).toEqual([])
+  expect(effectsFor('Otawara, Soaring City')).toEqual([])
+  expect(effectsFor('Temple of the False God')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Ghost Town')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'not', condition: { kind: 'activePlayer' } },
+    instructions: [{ kind: 'move', to: 'hand' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Temple of the False God')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'compareAmount', operator: 'gte' },
+    instructions: [{ kind: 'addMana' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Mirror Universe')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'all' },
+    instructions: [{ kind: 'exchangeLife' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Necrologia')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    when: { kind: 'all' },
+    instructions: [{ kind: 'draw' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor("Alchemist's Refuge")!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    instructions: [{ kind: 'grantFlash' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Otawara, Soaring City')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    availableFrom: ['hand'],
+    costReductions: [{ generic: { kind: 'count' } }],
+    instructions: [{ kind: 'move', to: 'hand' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Boseiju, Who Endures')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    availableFrom: ['hand'],
+    costReductions: [{ generic: { kind: 'count' } }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Blossoming Tortoise')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' } },
+    { kind: 'triggered', on: { kind: 'attacks' } },
+    { kind: 'static', effects: [{ kind: 'reduceActivationCost' }, { kind: 'modifyStats' }] },
+  ])
+})
+
 test('catalog life-history and win cards compose canonical instructions', () => {
   expect(effectsFor('Children of Korlis')).toEqual([])
   expect(effectsFor('Tainted Sigil')).toEqual([])

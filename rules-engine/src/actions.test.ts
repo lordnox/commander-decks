@@ -56,7 +56,7 @@ describe('available actions', () => {
     const state = newGame(commanderRules, {
       battlefield: {
         p1: [
-          { ...forest(), name: 'Ghost Town' },
+          cardTemplate('Ghost Town'),
           { ...forest(), name: 'Misty Rainforest', supertypes: [] },
         ],
       },
@@ -69,7 +69,7 @@ describe('available actions', () => {
       expect.objectContaining({
         kind: 'activateAbility',
         name: 'Ghost Town',
-        abilityId: 'selfBounceLand.ghostTown',
+        abilityId: '$.abilities[1]',
       }),
       expect.objectContaining({
         kind: 'activateAbility',

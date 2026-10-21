@@ -223,10 +223,7 @@ describe('simple card effects', () => {
   })
 
   test('Temple of the False God produces mana only with five lands', () => {
-    const temple = cardTemplate('Temple of the False God', {
-      types: ['Land'],
-      tapProduces: { C: 2 },
-    })
+    const temple = cardTemplate('Temple of the False God')
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [temple, land('One'), land('Two'), land('Three')] } },

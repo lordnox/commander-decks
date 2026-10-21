@@ -73,7 +73,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. | — | `Boseiju, Who Endures`; `Finale of Devastation` |
+| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. Boseiju, Who Endures has migrated. | — | `Finale of Devastation` |
 
 ### 03. Cycling
 
@@ -97,13 +97,13 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. | — | `Crypt Ghast`; `Mirror Universe`; `Mister Negative`; `Necrologia`; `Repay in Kind` |
+| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. Mirror Universe and Necrologia have migrated. | — | `Crypt Ghast`; `Mister Negative`; `Repay in Kind` |
 
 ### 07. Action outcomes, captured players, and copy snapshots
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Belonging`; `Boseiju, Who Endures`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
 | <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Open | Capture resulting identities of the cards milled this way for later optional recovery; retain replacement and zone-change behavior instead of substituting an unrelated inspect/move program. | [07](#07) | `Ripples of Undeath`; `Six` |
 
 ### 08. Top-library inspection and selection
@@ -135,10 +135,10 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="11-activation"></a>**11-activation — Activation predicates** | Open | Not-your-turn, graveyard threshold, land-count, and other non-sorcery activation conditions. | — | `Blitzball`; `Cephalid Coliseum`; `Ghost Town`; `Mirror Universe`; `Temple of the False God` |
-| <a id="11-casting"></a>**11-casting — Casting timing restrictions** | Open | Restrict a spell to a particular player/step; distinguish this from a triggered ability. | — | `Necrologia` |
-| <a id="11-flash"></a>**11-flash — Player casting-timing permissions** | Open | Grant as-though-flash permissions to a player until the stated duration ends. | — | `Alchemist's Refuge` |
-| <a id="11-reduction"></a>**11-reduction — Dynamic activation-cost reductions** | Open | Per-legendary reductions and continuous reductions for activated abilities of filtered objects. | — | `Blossoming Tortoise`; `Boseiju, Who Endures`; `Otawara, Soaring City` |
+| <a id="11-activation"></a>**11-activation — Activation predicates** | Available | Not-your-turn, graveyard threshold, land-count, and other non-sorcery activation conditions via `when` on activated abilities. Cephalid Coliseum, Ghost Town, Mirror Universe, and Temple of the False God have migrated. | — | `Blitzball` |
+| <a id="11-casting"></a>**11-casting — Casting timing restrictions** | Available | Restrict a spell to a particular player/step with `when` on the spell ability; distinguish this from a triggered ability. Necrologia has migrated. | — | None remaining |
+| <a id="11-flash"></a>**11-flash — Player casting-timing permissions** | Available | Grant as-though-flash permissions to a player until the stated duration ends. Alchemist's Refuge has migrated. | — | None remaining |
+| <a id="11-reduction"></a>**11-reduction — Dynamic activation-cost reductions** | Available | Per-legendary Amount reductions and continuous reductions for activated abilities of filtered objects. Blossoming Tortoise, Boseiju, Who Endures, and Otawara, Soaring City have migrated. | — | None remaining |
 
 ### 12. Dredge
 
@@ -207,7 +207,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Available | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. | [06](#06) | `Mirror Universe`; `Mister Negative`; `Repay in Kind` |
+| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Available | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. Mirror Universe has migrated. | [06](#06) | `Mister Negative`; `Repay in Kind` |
 | <a id="19-history"></a>**19-history — Life-loss history** | Available | Query life lost this turn by one player or all players; preserve actual rather than attempted losses. Children of Korlis, Tainted Sigil, and Sygg have migrated. | — | None remaining |
 | <a id="19-win"></a>**19-win — Win-game instruction** | Available | Apply a canonical win instruction through game-result restrictions. Test of Endurance has migrated. | — | None remaining |
 

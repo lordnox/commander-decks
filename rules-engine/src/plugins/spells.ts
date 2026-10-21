@@ -45,7 +45,7 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import { activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/dsl/manaPrograms'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
@@ -156,7 +156,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     const paymentAbility = index === undefined ? undefined : paymentCompiled.definition.abilities[Number(index)]
     if (!paymentAbility || paymentAbility.kind !== 'activated') return { ok: false as const, error: 'planned payment ability does not exist' }
     const permissionError = activationPermission({
-      state, sourceId: paymentSource.id, payer: event.seat, action: 'manaPlanning', availableFrom: paymentAbility.availableFrom,
+      state, sourceId: paymentSource.id, payer: event.seat, action: 'manaPlanning', ...activatedPermissionFields(paymentAbility),
     })
     if (permissionError) return { ok: false as const, error: permissionError }
     const classification = canonicalManaClassification(paymentAbility)
@@ -610,6 +610,10 @@ export const spells: Plugin = {
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
         const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
+          if (ability.kind === 'spell') {
+            const whenError = spellCastPermission(state, spell, ability, event.seat)
+            if (whenError) return whenError
+          }
           let modal: ReturnType<typeof modalInputs>
           try {
             modal = ability.kind === 'spell'

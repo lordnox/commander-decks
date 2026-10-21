@@ -19,7 +19,6 @@ import {
   bestow,
   blink,
   blockTax,
-  bounceSelf,
   branch,
   casts,
   cleave,
@@ -35,13 +34,11 @@ import {
   createTreasures,
   crew,
   devour,
-  discardCards,
   discardHandsThenDrawGreatest,
   dredge,
   doublePlusCounters,
   dealDamageToChosenTarget,
   draw,
-  drawX,
   drawGreatestPower,
   drawHandDifference,
   encore,
@@ -84,7 +81,6 @@ import {
   lookTopPick,
   lookTopPutLand,
   lockOrUnlockDoor,
-  manaIf,
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
@@ -116,7 +112,6 @@ import {
   putHandCardOnLibraryBottom,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
-  returnChosenLandFromGraveyard,
   returnCreatureManaValueX,
   returnTargetFromGraveyard,
   returnLinkedExile,
@@ -162,7 +157,6 @@ import {
   yourUpkeepTarget,
   type CardEffect,
   type CardInstruction,
-  payLifeX,
   playExiledWithLife,
   setAllLifeToLowest,
   yourEndTargetingOpponent,
@@ -171,7 +165,6 @@ import {
   restrictedCreatureMana,
   restrictedLegendaryMana,
   createHeroWithLandCounters,
-  searchTargetControllerForBasicLandType,
   removeTarget,
   exileVoteWinners,
   vote,
@@ -209,7 +202,6 @@ import {
   repeatIf,
   ifYouDoExileFromGraveyard,
   ptEqualsCount,
-  reduceActivationCost,
   staticBoardPump,
   optionalTargetOnResolve,
   upToTargetsOnResolve,
@@ -308,13 +300,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     linkedExileUntilLeaves(),
     enters(linkExile({ type: 'Creature', controller: 'opponent' })),
     typecycleHand('plainscycling.alabasterHostIntercessor', '{2}', 'Plains'),
-  ],
-  'Alchemist\'s Refuge': [
-    activate({
-      id: 'alchemistsRefuge.flash',
-      costs: { mana: '{G}{U}', tap: true },
-      do: [addUntilCleanupRule('flashGrant')],
-    }),
   ],
   'All-Fates Stalker': [
     ...warp('{1}{W}'),
@@ -424,33 +409,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       draw(2),
     ),
   ],
-  'Blossoming Tortoise': [
-    enters(selfMill(3), returnChosenLandFromGraveyard()),
-    attacks(selfMill(3), returnChosenLandFromGraveyard()),
-    reduceActivationCost(1),
-    staticBoardPump(1, 1, ['Land']),
-  ],
-  'Boseiju, Who Endures': [
-    activate({
-      id: 'channel.boseiju',
-      zone: 'hand',
-      costs: {
-        mana: '{1}{G}',
-        discard: 'self',
-        reducePerLegendaryCreature: 1,
-      },
-      targets: {
-        zone: 'battlefield',
-        types: ['Artifact', 'Enchantment', 'Land'],
-        controller: 'opponent',
-        nonbasic: true,
-      },
-      do: [
-        removeTarget('destroy'),
-        searchTargetControllerForBasicLandType(),
-      ],
-    }),
-  ],
   'Breena, the Demagogue': [
     triggerOn('playerAttacks', {
       do: [
@@ -463,21 +421,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
-  ],
-  'Cephalid Coliseum': [
-    activate({
-      id: 'pain.cephalid',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [{ kind: 'addMana', mana: { U: 1 } }, { kind: 'dealDamageToSelf', amount: 1 }],
-    }),
-    activate({
-      id: 'threshold.cephalid',
-      costs: { mana: '{U}', tap: true, sacrifice: 'self' },
-      if: graveyardCards(7),
-      targets: { filter: { players: 'any' } },
-      do: [draw(3, 'target'), discardCards(3, 'target')],
-    }),
   ],
   'City of Brass': [
     triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
@@ -671,14 +614,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ),
     ]),
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
-  ],
-  'Ghost Town': [
-    activate({
-      id: 'selfBounceLand.ghostTown',
-      costs: {},
-      if: { kind: 'notActivePlayer' },
-      do: [bounceSelf()],
-    }),
   ],
   'Glorious Protector': [
     handler('linkedExile'),
@@ -887,13 +822,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters({ filter: { controller: 'you', token: true }, createdOnly: true }, opponentsLoseLife(1)),
     permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
   ],
-  'Mirror Universe': [
-    ability({
-      id: 'mirrorUniverse.exchange',
-      targets: 'opponent',
-      if: { kind: 'controllerUpkeep' },
-    }, { tap: true, sacrifice: 'self' }, exchangeLifeWithOpponent()),
-  ],
   Mirrorweave: [
     targetOnResolve(
       'select',
@@ -942,7 +870,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyAllCreaturesUntilEot(),
     ),
   ],
-  Necrologia: [payLifeX({ timing: 'yourEndStep' }), onResolve(drawX())],
   'Nezahal, Primal Tide': [
     uncounterable(),
     staticGrant('noMaxHand'),
@@ -968,22 +895,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'nivMizzetGhostCounsel.drain',
       costs: { tap: true },
       do: [opponentsLoseLife(1), gainLife(1)],
-    }),
-  ],
-  'Otawara, Soaring City': [
-    activate({
-      id: 'channel.otawara',
-      zone: 'hand',
-      costs: {
-        mana: '{3}{U}',
-        discard: 'self',
-        reducePerLegendaryCreature: 1,
-      },
-      targets: {
-        zone: 'battlefield',
-        types: ['Artifact', 'Creature', 'Enchantment', 'Planeswalker'],
-      },
-      do: [removeTarget('bounce')],
     }),
   ],
   'Palace Jailer': [
@@ -1250,7 +1161,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(-7), teferiSunsetEmblem()),
     handler('teferiSunset'),
   ],
-  'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Tenuous Truce': [playerAuraDeal()],
   'Thespian\'s Stage': [
     ability(

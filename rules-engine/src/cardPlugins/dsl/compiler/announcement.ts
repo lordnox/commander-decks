@@ -2,11 +2,11 @@ import { expandVariableMana, variableManaColor } from '../variableMana'
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
-import type { ActivatedAbilityDefinition, Amount, Cost, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
-import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
+import type { ActivatedAbilityDefinition, Amount, Condition, Cost, CostReduction, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
+import type { CanonicalTargetBinding, GameObject, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
-import { activationRestrictionMessage } from '../staticModifierCore'
-import { amountEvaluationContext, evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
+import { activationRestrictionMessage, activePrintedStaticModifiers } from '../staticModifierCore'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
 import type { RuleDslRuntimeContext } from './runtime'
 import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
@@ -547,7 +547,7 @@ export const beginSpellAnnouncement = (
       optional: ability.optionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: ability.costReductions,
+      reductions: planReductions(state, source.id, payer, ability, x),
     },
     excludeSourceFromCosts: true,
     payment,
@@ -582,7 +582,7 @@ export const beginActivatedAnnouncement = (
       optional: ability.optionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: ability.costReductions,
+      reductions: planReductions(state, source.id, payer, ability, x),
     },
     excludeSourceFromCosts: true,
     payment,
@@ -628,12 +628,75 @@ export const prepareAction = (
 })
 
 export type ActivationPermissionInput = {
-  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players'>
+  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players' | 'zoneOrder'>
   sourceId: string
   payer: PlayerId
   action: 'activate' | 'tapForMana' | 'nestedPayment' | 'manaPlanning'
   sorcerySpeed?: boolean
   availableFrom?: readonly GameState['objects'][string]['zone'][]
+  when?: Condition
+}
+
+export const activatedPermissionFields = (ability: ActivatedAbilityDefinition) => ({
+  sorcerySpeed: ability.timing === 'sorcery',
+  availableFrom: ability.availableFrom,
+  ...(ability.when ? { when: ability.when } : {}),
+})
+
+const announcementContext = (
+  state: GameState,
+  sourceId: string,
+  payer: PlayerId,
+  x?: number,
+): RuleDslRuntimeContext | undefined => {
+  const source = state.objects[sourceId]
+  if (!source) return
+  return {
+    state,
+    controller: payer,
+    source: captureObject(source),
+    ...(x === undefined ? {} : { variables: { X: x } }),
+  }
+}
+
+const evaluatedReductions = (
+  reductions: readonly CostReduction[] | undefined,
+  context: RuleDslRuntimeContext,
+): ManaCostReduction[] =>
+  (reductions ?? []).map((reduction) => ({
+    generic: evaluateRuntimeAmount(reduction.generic, context),
+    ...(reduction.reason ? { reason: reduction.reason } : {}),
+  }))
+
+export const printedActivationCostReductions = (
+  state: GameState,
+  source: GameObject,
+): ManaCostReduction[] => {
+  const reductions: ManaCostReduction[] = []
+  for (const watcher of Object.values(state.objects)) {
+    for (const entry of activePrintedStaticModifiers(state, watcher)) {
+      if (!('effect' in entry) || entry.effect.kind !== 'reduceActivationCost') continue
+      const runtime = { state, controller: watcher.controller, source: captureObject(watcher) }
+      if (!evaluateObjectSelector(entry.effect.targets, runtime).some((object) => object.id === source.id)) continue
+      reductions.push({ generic: evaluateRuntimeAmount(entry.effect.generic, runtime) })
+    }
+  }
+  return reductions
+}
+
+const planReductions = (
+  state: GameState,
+  sourceId: string,
+  payer: PlayerId,
+  ability: SpellAbilityDefinition | ActivatedAbilityDefinition,
+  x?: number,
+): ManaCostReduction[] => {
+  const context = announcementContext(state, sourceId, payer, x)
+  if (!context) return []
+  const printed = evaluatedReductions(ability.costReductions, context)
+  if (ability.kind !== 'activated') return printed
+  const source = state.objects[sourceId]
+  return source ? [...printed, ...printedActivationCostReductions(state, source)] : printed
 }
 
 /** Shared gate used before ordinary, mana, nested-payment, and planning activations. */
@@ -656,5 +719,34 @@ export const activationPermission = (input: ActivationPermissionInput): string |
     || !['precombatMain', 'postcombatMain'].includes(input.state.step)
     || input.state.stack.length > 0
   )) return `${source.name} can be activated only as a sorcery`
+  if (input.when) {
+    try {
+      if (!evaluateCondition(input.when, {
+        state: input.state as GameState,
+        controller: input.payer,
+        source: captureObject(source),
+      })) return `${source.name} cannot be activated now`
+    } catch {
+      return `${source.name} cannot be activated now`
+    }
+  }
   return undefined
+}
+
+export const spellCastPermission = (
+  state: GameState,
+  source: GameObject,
+  ability: SpellAbilityDefinition,
+  seat: PlayerId,
+): string | undefined => {
+  if (!ability.when) return
+  try {
+    if (!evaluateCondition(ability.when, {
+      state,
+      controller: seat,
+      source: captureObject(source),
+    })) return `${source.name} cannot be cast now`
+  } catch {
+    return `${source.name} cannot be cast now`
+  }
 }

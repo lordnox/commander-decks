@@ -248,15 +248,20 @@ export const tapForManaError = (
   const requiresTap = manaRequiresTap(object)
   if (requiresTap && object.tapped) return `${object.name} is already tapped`
   if (!poolForChoice(object, mana, state)) {
-    if (mana && MANA_IDS.includes(mana)) {
-      return `${object.name} cannot produce ${mana}`
+    const canonical = canonicalManaAbilityForTap(object, mana)
+    const printedAdd = canonical?.ability.instructions?.some((instruction) =>
+      instruction.kind === 'addMana' && (mana === undefined || instruction.amount[mana] !== undefined))
+    if (!printedAdd) {
+      if (mana && MANA_IDS.includes(mana)) {
+        return `${object.name} cannot produce ${mana}`
+      }
+      if (/commander's color identity/i.test(object.oracleText)) {
+        return `${object.name} needs a mana color in your commander's identity`
+      }
+      return /one mana of any color/i.test(object.oracleText)
+        ? `${object.name} needs a mana color`
+        : `${object.name} has no mana ability`
     }
-    if (/commander's color identity/i.test(object.oracleText)) {
-      return `${object.name} needs a mana color in your commander's identity`
-    }
-    return /one mana of any color/i.test(object.oracleText)
-      ? `${object.name} needs a mana color`
-      : `${object.name} has no mana ability`
   }
   if (
     requiresTap

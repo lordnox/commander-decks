@@ -30,7 +30,7 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
-import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost } from './cardPlugins/dsl/compiler'
+import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
 import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
@@ -434,8 +434,7 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
       sourceId: object.id,
       payer: seat,
       action: 'tapForMana',
-      sorcerySpeed: canonical.ability.timing === 'sorcery',
-      availableFrom: canonical.ability.availableFrom,
+      ...activatedPermissionFields(canonical.ability),
     }) === undefined
   })()
   && !object.phasedOut
@@ -640,6 +639,12 @@ const canCastAtTiming = (
     !withoutPayingMana
     && endStepOnly
     && (state.active !== seat || state.step !== 'end')
+  ) return false
+  const spellAbility = canonicalSpellProgram(object)
+  if (
+    !withoutPayingMana
+    && spellAbility
+    && spellCastPermission(state, object, spellAbility, seat)
   ) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (enchantTargets(state, spell)?.length === 0) return false
@@ -1257,7 +1262,7 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
   return definition.abilities.flatMap((ability, index) => {
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
-      sorcerySpeed: ability.timing === 'sorcery', availableFrom: ability.availableFrom })) return []
+      ...activatedPermissionFields(ability) })) return []
     if (ability.instructions.some(fogsAllCombatThisTurn) && !combatDamageIsThreatened(state)) return []
     const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
     const costChoices = canonicalCostPreviewChoices(costEntries)

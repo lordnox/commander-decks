@@ -1,6 +1,6 @@
 import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
 import type { Cost } from './schema/v1'
-import { activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
+import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
 import { canonicalManaAbilityForTap } from './manaPrograms'
 import { evaluateObjectReference, evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
@@ -84,8 +84,7 @@ export const eligibleResolutionManaAbilities = (
       sourceId: object.id,
       payer,
       action: 'nestedPayment',
-      sorcerySpeed: ability.timing === 'sorcery',
-      availableFrom: ability.availableFrom,
+      ...activatedPermissionFields(ability),
     })
     if (error) return []
     const announcement = beginActivatedAnnouncement(state, object, payer, ability, [], undefined, undefined, { targetClauses: [] })

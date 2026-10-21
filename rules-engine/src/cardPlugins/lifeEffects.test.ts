@@ -194,14 +194,14 @@ describe('Lady Evangela life-total and X cards', () => {
     const mirror = ready.zoneOrder.p1.battlefield[0]
     const action = legalActsFor(ready, 'p1').find((candidate) =>
       candidate.kind === 'activateAbility'
-      && candidate.abilityId === 'mirrorUniverse.exchange')
+      && candidate.abilityId === '$.abilities[0]')
     expect(action).toMatchObject({
       kind: 'activateAbility',
-      targetGroups: [{ label: 'Opponent', kind: 'player' }],
+      targetGroups: [{ kind: 'player', targets: [{ objectId: 'p2' }, { objectId: 'p3' }, { objectId: 'p4' }] }],
     })
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'mirrorUniverse.exchange',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: mirror,
       targets: [{ kind: 'player', player: 'p2' }],

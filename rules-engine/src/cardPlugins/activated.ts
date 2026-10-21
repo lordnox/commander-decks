@@ -16,7 +16,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -82,8 +82,6 @@ const activatedTargetFilter = (
 }
 
 export const MILLIKIN_MANA = 'selfMill.millikin'
-export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
-export const OBORO_RETURN = 'selfBounceLand.oboro'
 export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
 
 export const activated: Plugin = {
@@ -99,8 +97,7 @@ export const activated: Plugin = {
           sourceId: source.id,
           payer: event.seat,
           action: 'tapForMana',
-          sorcerySpeed: canonicalMana.ability.timing === 'sorcery',
-          availableFrom: canonicalMana.ability.availableFrom,
+          ...activatedPermissionFields(canonicalMana.ability),
         })
         if (permissionError) return permissionError
         return
@@ -155,8 +152,7 @@ export const activated: Plugin = {
           sourceId: source.id,
           payer: event.seat,
           action: event.manaAbility ? 'nestedPayment' : 'activate',
-          sorcerySpeed: activatedCanonical.timing === 'sorcery',
-          availableFrom: activatedCanonical.availableFrom,
+          ...activatedPermissionFields(activatedCanonical),
         })
         if (permissionError) return permissionError
         const canonicalTargetErrorMessage = canonicalTargetError(

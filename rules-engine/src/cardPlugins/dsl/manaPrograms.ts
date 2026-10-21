@@ -56,8 +56,25 @@ export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) =>
   const entry = compiled.definition.abilities
     .map((ability, index) => ({ ability, index }))
     .find((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
-      entry.ability.kind === 'activated' && canonicalManaClassification(entry.ability).isManaAbility)
-  if (!entry || !entry.ability.modes) return entry && { ...entry, modeIndices: undefined }
+      entry.ability.kind === 'activated'
+      && entry.ability.costs.every((cost) => cost.kind === 'tapSource' || cost.kind === 'life')
+      && canonicalManaClassification(entry.ability).isManaAbility)
+  if (!entry) return undefined
+  if (!entry.ability.modes) {
+    const instructions = entry.ability.instructions ?? []
+    const producesRequested = instructions.some((instruction) => {
+      switch (instruction.kind) {
+        case 'addMana':
+          return mana === undefined || instruction.amount[mana] !== undefined
+        case 'addManaFrom':
+          return true
+        default:
+          return false
+      }
+    })
+    if (!producesRequested) return undefined
+    return { ...entry, modeIndices: undefined }
+  }
   const defaultColors = Object.keys(source.tapProduces ?? {}) as ManaId[]
   const chosenMana = mana ?? (defaultColors.length === 1 ? defaultColors[0] : undefined)
   if (chosenMana === undefined) return { ...entry, modeIndices: undefined }

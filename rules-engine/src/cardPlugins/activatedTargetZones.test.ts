@@ -7,6 +7,7 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import { effectsFor, handlerIdsForNames } from './cardRules'
+import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 
 /**
  * Activated abilities with a filtered target re-check it on resolution (CR 608.2b), so the filter
@@ -17,9 +18,6 @@ import { effectsFor, handlerIdsForNames } from './cardRules'
 const KNOWN = [
   'Voyager Staff',
   'Endless Sands',
-  'Otawara, Soaring City',
-  'Boseiju, Who Endures',
-  'Cephalid Coliseum',
 ]
 
 const plugins = async (): Promise<Plugin[]> =>
@@ -73,23 +71,32 @@ const advanceToEndStep = (server: ReturnType<typeof createServerGame>, state: Ga
   return current
 }
 
-const everyFilteredTargetNamesItsZone = ['Endless Sands', 'Otawara, Soaring City', 'Boseiju, Who Endures']
-
 describe('filtered activated-ability targets name the zone they must be in', () => {
   test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {
-    for (const name of everyFilteredTargetNamesItsZone) {
-      const targeted = effectsFor(name).filter((effect) =>
-        effect.op === 'activate' && effect.targets && typeof effect.targets !== 'string')
-      expect(targeted.length).toBeGreaterThan(0)
-      for (const effect of targeted) {
-        if (effect.op !== 'activate' || !effect.targets || typeof effect.targets === 'string') continue
-        const filter = 'filter' in effect.targets ? effect.targets.filter : effect.targets
-        expect({ name, zone: filter.zone }).toEqual({ name, zone: 'battlefield' })
+    const targeted = effectsFor('Endless Sands').filter((effect) =>
+      effect.op === 'activate' && effect.targets && typeof effect.targets !== 'string')
+    expect(targeted.length).toBeGreaterThan(0)
+    for (const effect of targeted) {
+      if (effect.op !== 'activate' || !effect.targets || typeof effect.targets === 'string') continue
+      const filter = 'filter' in effect.targets ? effect.targets.filter : effect.targets
+      expect({ name: 'Endless Sands', zone: filter.zone }).toEqual({ name: 'Endless Sands', zone: 'battlefield' })
+    }
+    for (const name of ['Otawara, Soaring City', 'Boseiju, Who Endures']) {
+      const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities.filter((ability) =>
+        ability.kind === 'activated' && ability.decisions.targets.length > 0)
+      expect(abilities.length).toBeGreaterThan(0)
+      for (const ability of abilities) {
+        if (ability.kind !== 'activated') continue
+        for (const clause of ability.decisions.targets) {
+          expect(clause.filter.kind).toBe('objects')
+          if (clause.filter.kind === 'objects') {
+            expect({ name, zone: clause.filter.filter.zone }).toEqual({ name, zone: 'battlefield' })
+          }
+        }
       }
     }
-    // Cephalid Coliseum targets a player, which has no zone.
-    const [, threshold] = effectsFor('Cephalid Coliseum')
-    expect(threshold).toMatchObject({ targets: { filter: { players: 'any' } } })
+    const threshold = cardRuleDefinitionSnapshotFor('Cephalid Coliseum')!.definition.abilities[1]
+    expect(threshold).toMatchObject({ decisions: { targets: [{ filter: { kind: 'players' } }] } })
   })
 })
 
@@ -193,7 +200,7 @@ describe('Otawara, Soaring City', () => {
 
   test('a target that left the battlefield in response is not returned to hand', async () => {
     const { server, state } = await setup()
-    const stacked = ok(server.rules(state, activate(state, 'channel.otawara', 'Otawara, Soaring City', 'Foe Bear')))
+    const stacked = ok(server.rules(state, activate(state, '$.abilities[1]', 'Otawara, Soaring City', 'Foe Bear')))
     const resolved = resolveStack(server.rules, moveAway(server, stacked, 'Foe Bear', 'graveyard'))
     expect(named(resolved, 'Foe Bear').zone).toBe('graveyard')
     expect(named(resolved, 'Otawara, Soaring City').zone).toBe('graveyard')
@@ -213,7 +220,7 @@ describe('Boseiju, Who Endures', () => {
 
   test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {
     const { server, state } = await setup()
-    const stacked = ok(server.rules(state, activate(state, 'channel.boseiju', 'Boseiju, Who Endures', 'Utility Land')))
+    const stacked = ok(server.rules(state, activate(state, '$.abilities[1]', 'Boseiju, Who Endures', 'Utility Land')))
     const resolved = resolveStack(server.rules, moveAway(server, stacked, 'Utility Land', 'exile'))
     expect(named(resolved, 'Utility Land').zone).toBe('exile')
     expect(pendingSelectionFor(resolved, 'p2')).toBeUndefined()
@@ -226,7 +233,7 @@ describe('Boseiju, Who Endures', () => {
     const target = named(state, 'Utility Land')
     target.owner = 'p1'
     target.controller = 'p2'
-    const stacked = ok(server.rules(state, activate(state, 'channel.boseiju', 'Boseiju, Who Endures', target.name)))
+    const stacked = ok(server.rules(state, activate(state, '$.abilities[1]', 'Boseiju, Who Endures', target.name)))
     const resolved = resolveStack(server.rules, stacked)
     expect(pendingSelectionFor(resolved, 'p2')).toBeDefined()
     expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()

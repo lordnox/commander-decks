@@ -242,7 +242,7 @@ export type Cost =
   | { kind: 'delve' }
 
 export type CostIncrease = { amount: ManaCost; reason?: string }
-export type CostReduction = { generic: number; reason?: string }
+export type CostReduction = { generic: Amount; reason?: string }
 
 /** A duration is data, so a temporary effect survives persistence/resume. */
 export type EffectDuration =
@@ -298,6 +298,8 @@ export type Condition =
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
   | { kind: 'choiceIs'; binding: string; option: string }
+  | { kind: 'activePlayer'; of: PlayerReference }
+  | { kind: 'currentStep'; step: StepId | readonly StepId[] }
   | { kind: 'all'; conditions: readonly Condition[] }
   | { kind: 'any'; conditions: readonly Condition[] }
   | { kind: 'not'; condition: Condition }
@@ -363,6 +365,8 @@ export type Instruction =
   | { kind: 'grantLandPlays'; count: Amount; targets: PlayerRecipient }
   /** Grant unlimited hand size for the rest of the game independently of the resolving source. */
   | { kind: 'grantNoMaximumHandSize'; targets: PlayerRecipient }
+  /** Grant as-though-flash to each resolved player until the duration ends. */
+  | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
@@ -589,6 +593,7 @@ export type ContinuousEffectDefinition =
       /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
       set?: true
     }
+  | { kind: 'reduceActivationCost'; targets: ObjectSelector; generic: Amount }
   | ReplacementEffectDefinition
   | PreventionEffectDefinition
 
@@ -600,6 +605,8 @@ export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 
 export type SpellAbilityDefinition = {
   kind: 'spell'
+  /** Cast restriction evaluated at announcement; not a triggered ability. */
+  when?: Condition
   decisions: DecisionsSpec
   costs: readonly Cost[]
   optionalCosts?: readonly Cost[]
@@ -612,6 +619,8 @@ export type ActivatedAbilityDefinition = {
   kind: 'activated'
   availableFrom: readonly Zone[]
   timing: ActivationTiming
+  /** Activation restriction evaluated at permission time; not an intervening-if. */
+  when?: Condition
   /** CR 702.89 — emit a `cycle` event after this hand activation fully resolves. */
   cycling?: true
   decisions: DecisionsSpec

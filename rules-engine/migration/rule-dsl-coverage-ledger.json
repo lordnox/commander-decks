@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 169,
+    "cardRegistrations": 160,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 84,
     "directMutationSites": 578,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 44,
+    "instructionUnobservedGaps": 47,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 142,
-    "candidateOnlyCardRows": 164
+    "candidateOnlyInstructionRows": 139,
+    "candidateOnlyCardRows": 155
   },
   "cardEffects": [
     {
@@ -41,19 +41,14 @@
       "mechanic": "activated ability",
       "currentRegistrations": [
         "Alabaster Host Intercessor:effects[2]",
-        "Alchemist's Refuge:effects[0]",
         "Angel of Sanctions:effects[2]",
         "Belonging:effects[2]",
         "Blitzball:effects[0]",
-        "Boseiju, Who Endures:effects[0]",
-        "Cephalid Coliseum:effects[0]",
-        "Cephalid Coliseum:effects[1]",
         "Endless Sands:effects[1]",
         "Endless Sands:effects[2]",
         "Firdoch Core:effects[1]",
         "Firdoch Core:effects[2]",
         "Flooded Grove:effects[0]",
-        "Ghost Town:effects[0]",
         "Hall of Storm Giants:effects[1]",
         "Hedge Shredder:effects[2]",
         "Jace, Multiverse Architect:effects[1]",
@@ -63,11 +58,9 @@
         "Marina Vendrell:effects[1]",
         "Maskwood Nexus:effects[1]",
         "Millikin:effects[0]",
-        "Mirror Universe:effects[0]",
         "Nezahal, Primal Tide:effects[4]",
         "Nirkana Revenant:effects[1]",
         "Niv-Mizzet, Ghost Counsel:effects[1]",
-        "Otawara, Soaring City:effects[0]",
         "Soul of Eternity:effects[1]",
         "Teferi, Who Slows the Sunset:effects[0]",
         "Teferi, Who Slows the Sunset:effects[1]",
@@ -81,16 +74,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 120,
+        "matches": 101,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2573 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
-          "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {"
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -170,7 +163,6 @@
         "Everflowing Chalice:effects[0]",
         "Finale of Devastation:effects[0]",
         "Getaway Glamer:effects[0]",
-        "Necrologia:effects[0]",
         "Parting Gust:effects[0]",
         "Perch Protection:effects[0]",
         "Pile On:effects[0]",
@@ -180,7 +172,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 30,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1352 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1429 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
@@ -307,9 +299,9 @@
           "live-runner/src/kernelHost.test.ts:2573 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:2979 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "live-runner/src/kernelHost.test.ts:3426 — test('publishes the persisted typed payment and applies the selected mana', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {"
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {"
         ]
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
@@ -321,17 +313,11 @@
     {
       "variant": "mana",
       "mechanic": "mana condition",
-      "currentRegistrations": [
-        "Temple of the False God:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:194 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:319 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/simpleEffects.test.ts:226 — test('Temple of the False God produces mana only with five lands', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed mana ability/cost condition",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -339,7 +325,7 @@
       "dependencyParts": [
         "07"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "manaCapability",
@@ -583,8 +569,6 @@
         "Bishop of Binding:effects[2]",
         "Blanket of Night:effects[0]",
         "Blightsteel Colossus:effects[0]",
-        "Blossoming Tortoise:effects[2]",
-        "Blossoming Tortoise:effects[3]",
         "Concordant Crossroads:effects[0]",
         "Courser of Kruphix:effects[0]",
         "Courser of Kruphix:effects[1]",
@@ -737,8 +721,6 @@
         "Belonging:effects[0]",
         "Bishop of Binding:effects[3]",
         "Bishop of Binding:effects[4]",
-        "Blossoming Tortoise:effects[0]",
-        "Blossoming Tortoise:effects[1]",
         "Breena, the Demagogue:effects[0]",
         "Bubbling Muck:effects[0]",
         "Cavern of Souls:effects[0]",
@@ -787,7 +769,6 @@
         "Mossborn Hydra:effects[0]",
         "Mulldrifter:effects[1]",
         "Mulldrifter:effects[2]",
-        "Necrologia:effects[1]",
         "Nezahal, Primal Tide:effects[3]",
         "Niv-Mizzet, Ghost Counsel:effects[0]",
         "Palace Jailer:effects[0]",
@@ -831,7 +812,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 270,
+        "matches": 269,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -888,21 +869,20 @@
       "variant": "addMana",
       "mechanic": "cost or announcement action",
       "currentRegistrations": [
-        "Cephalid Coliseum:effects[0].do[0]",
         "Millikin:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 43,
+        "matches": 42,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:19",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:29",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:38",
-          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:22"
+          "rules-engine/src/cardPlugins/dsl/activationCostReduction.test.ts:119 — test('a tap mana ability also receives the continuous land discount', () => {",
+          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:22",
+          "rules-engine/src/cardPlugins/dsl/activationWhen.test.ts:76 — test('a land-count mana ability needs five controlled lands', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1102,23 +1082,16 @@
       "variant": "addUntilCleanupRule",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Alchemist's Refuge:effects[0].do[0]",
         "Bubbling Muck:effects[0].do[0]",
         "Rain of Filth:effects[0].do[0]",
         "Summon: Leviathan:effects[0].chapters[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
           "rules-engine/src/cardPlugins/registry.test.ts:394 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:454 — test('Círdan part-B mana cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:248 — test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:132 — test('the grant ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:14",
-          "rules-engine/src/plugins/flashGrant.test.ts:193 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:208 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {"
+          "rules-engine/src/cardPlugins/sinFall.test.ts:248 — test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1373,17 +1346,11 @@
     {
       "variant": "bounceSelf",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Ghost Town:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:124 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1392,7 +1359,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -1741,7 +1708,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:254 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:245 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1950,17 +1917,14 @@
       "variant": "dealDamageToSelf",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Cephalid Coliseum:effects[0].do[1]",
         "City of Brass:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:62 — test('City of Brass damages you when it becomes tapped for mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:344 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:373 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:572 — test('requires an available route to pay its activation cost', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:604 — test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {",
@@ -2132,16 +2096,12 @@
       "variant": "discardCards",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Awaken the Honored Dead:effects[0].chapters[2].do[0]",
-        "Cephalid Coliseum:effects[1].do[1]"
+        "Awaken the Honored Dead:effects[0].chapters[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -2166,7 +2126,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/actions.test.ts:300 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/cardPlugins/simpleEffects.test.ts:266 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
+          "rules-engine/src/cardPlugins/simpleEffects.test.ts:263 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2213,7 +2173,6 @@
       "currentRegistrations": [
         "Blitzball:effects[0].do[0]",
         "Breena, the Demagogue:effects[0].do[0]",
-        "Cephalid Coliseum:effects[1].do[0]",
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
         "Coercive Portal:effects[0].do[0].outcome[0].whenFalse[0]",
         "Erestor of the Council:effects[0].do[2]",
@@ -2230,7 +2189,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 105,
+        "matches": 103,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2238,8 +2197,8 @@
           "live-runner/src/kernelHost.test.ts:503 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:780 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:828 — test('the spell cannot be countered', async () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2345,16 +2304,11 @@
     {
       "variant": "drawX",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Necrologia:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:375 — test('Necrologia is end-step-only, pays chosen life, and draws X', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:420 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2362,7 +2316,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2604,17 +2558,15 @@
       "variant": "exchangeLifeWithOpponent",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Mirror Universe:effects[0].do[0]",
         "Mister Negative:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 3,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2099 — test('typed life-exchange player choices round-trip through the live host', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:188 — test('Mirror Universe enumerates opponents and exchanges during its controller upkeep', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:218 — test('Mister Negative uses typed optional player selection and draws life lost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:418 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3329,11 +3281,11 @@
       "candidateEvidence": {
         "matches": 35,
         "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1009 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1045 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1055 — test('a second imprint after re-entering counts only the new exiled creature', async () => {"
@@ -4091,8 +4043,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1027 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1118 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1292 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1622 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1637 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1674 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1689 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:577 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:95 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {"
@@ -4632,22 +4584,17 @@
       "variant": "removeTarget",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Boseiju, Who Endures:effects[0].do[0]",
-        "Jace, Multiverse Architect:effects[2].do[0]",
-        "Otawara, Soaring City:effects[0].do[0]"
+        "Jace, Multiverse Architect:effects[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 5,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:184 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:216 — test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:229 — test('a destroyed borrowed permanent makes its controller search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76"
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:13",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:361 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -4689,13 +4636,11 @@
       "variant": "returnChosenLandFromGraveyard",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Blossoming Tortoise:effects[0].do[1]",
-        "Blossoming Tortoise:effects[1].do[1]",
         "Sail into the West:effects[0].do[0].outcome[0].whenTrue[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:140",
           "rules-engine/src/cardPlugins/councilCards.test.ts:158",
@@ -4756,11 +4701,11 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:188 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:906 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
@@ -5163,22 +5108,11 @@
     {
       "variant": "searchTargetControllerForBasicLandType",
       "mechanic": "resolution choice",
-      "currentRegistrations": [
-        "Boseiju, Who Endures:effects[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
-        "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:203 — test('a target that left the battlefield in response is not returned to hand', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:216 — test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:229 — test('a destroyed borrowed permanent makes its controller search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:121 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:118 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
-          "rules-engine/src/replay.test.ts:142 — test('imports printed supertypes and keeps a double-faced card front face', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -5187,7 +5121,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -5221,8 +5155,6 @@
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
         "Awaken the Honored Dead:effects[0].chapters[1].do[0]",
-        "Blossoming Tortoise:effects[0].do[0]",
-        "Blossoming Tortoise:effects[1].do[0]",
         "Icetill Explorer:effects[2].do[0]",
         "Incarnation Technique:effects[0].do[0]",
         "Lumra, Bellow of the Woods:effects[1].do[0]",
@@ -5560,7 +5492,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1601 — test('catalog life-history and win cards compose canonical instructions', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1653 — test('catalog life-history and win cards compose canonical instructions', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -5613,44 +5545,6 @@
         "cycling",
         "librarySearch",
         "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Alchemist's Refuge",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Alchemist's Refuge"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
-          "rules-engine/src/cardPlugins/registry.test.ts:454 — test('Círdan part-B mana cards stay registered', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:132 — test('the grant ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:14",
-          "rules-engine/src/plugins/flashGrant.test.ts:193 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:208 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:232 — test('it needs both colors, an untapped Refuge, and its controller', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addUntilCleanupRule]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addUntilCleanupRule"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -6228,86 +6122,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Blossoming Tortoise",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Blossoming Tortoise"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:75 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [returnChosenLandFromGraveyard, selfMill]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "returnChosenLandFromGraveyard",
-        "selfMill"
-      ],
-      "pluginIds": [
-        "staticBoardPump"
-      ],
-      "handlerIds": [
-        "choiceEffects",
-        "staticBoardPump"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Boseiju, Who Endures",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Boseiju, Who Endures"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 8,
-        "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:203 — test('a target that left the battlefield in response is not returned to hand', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:216 — test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:229 — test('a destroyed borrowed permanent makes its controller search', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:121 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:118 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
-          "rules-engine/src/replay.test.ts:142 — test('imports printed supertypes and keeps a double-faced card front face', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [removeTarget, searchTargetControllerForBasicLandType]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "removeTarget",
-        "searchTargetControllerForBasicLandType"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Breena, the Demagogue",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6409,46 +6223,6 @@
       "handlerIds": [
         "choiceEffects",
         "creatureTypeChoice"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Cephalid Coliseum",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Cephalid Coliseum"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:82 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addMana, dealDamageToSelf, discardCards, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addMana",
-        "dealDamageToSelf",
-        "discardCards",
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -7144,11 +6918,11 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:188 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:688 — test(\"Endless Sands and Thespian's Stage list their handlers\", () => {"
@@ -7650,41 +7424,6 @@
         "castCosts",
         "spreeCast",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Ghost Town",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Ghost Town"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:124 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [bounceSelf]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "bounceSelf"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -8799,40 +8538,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Mirror Universe",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mirror Universe"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:188 — test('Mirror Universe enumerates opponents and exchanges during its controller upkeep', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [exchangeLifeWithOpponent]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "exchangeLifeWithOpponent"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mirrorweave",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9091,43 +8796,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Necrologia",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Necrologia"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:375 — test('Necrologia is end-step-only, pays chosen life, and draws X', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:420 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [drawX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "drawX"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Nezahal, Primal Tide",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9254,45 +8922,6 @@
       "handlerIds": [
         "activated",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Otawara, Soaring City",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Otawara, Soaring City"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:184 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:131 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:119 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [removeTarget]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "removeTarget"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -10814,38 +10443,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Temple of the False God",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Temple of the False God"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:194 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:319 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/simpleEffects.test.ts:226 — test('Temple of the False God produces mana only with five lands', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [mana] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "mana"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Tenuous Truce",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -11523,7 +11120,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/actions.test.ts:300 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/cardPlugins/simpleEffects.test.ts:266 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
+          "rules-engine/src/cardPlugins/simpleEffects.test.ts:263 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [discardHandsThenDrawGreatest]",
@@ -11693,7 +11290,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:254 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:245 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, replacement, trigger] and instructions [createHeroWithLandCounters]",
@@ -11984,16 +11581,12 @@
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [
         "Alabaster Host Intercessor",
-        "Alchemist's Refuge",
         "Angel of Sanctions",
         "Belonging",
         "Blitzball",
-        "Boseiju, Who Endures",
-        "Cephalid Coliseum",
         "Endless Sands",
         "Firdoch Core",
         "Flooded Grove",
-        "Ghost Town",
         "Hall of Storm Giants",
         "Hedge Shredder",
         "Kederekt Leviathan",
@@ -12001,29 +11594,26 @@
         "Marina Vendrell",
         "Maskwood Nexus",
         "Millikin",
-        "Mirror Universe",
         "Nezahal, Primal Tide",
         "Nirkana Revenant",
         "Niv-Mizzet, Ghost Counsel",
-        "Otawara, Soaring City",
         "Soul of Eternity",
-        "Temple of the False God",
         "Thespian's Stage",
         "Yurlok of Scorch Thrash",
         "Zimone and Dina"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 143,
+        "matches": 130,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
-          "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
-          "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {"
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:161 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:312 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:340 — test('entering returns every other nonland permanent to its owner', async () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -12057,7 +11647,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:269 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:268 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -12275,7 +11865,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 187,
+        "matches": 188,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -12436,8 +12026,9 @@
         "rules-engine/src/plugins/flashGrant.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 7,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/grantFlash.test.ts:32 — test('a resolving grant lets the recipient cast a creature as though it had flash', () => {",
           "rules-engine/src/plugins/flashGrant.test.ts:120 — test('the grant ends at cleanup', () => {",
           "rules-engine/src/plugins/flashGrant.test.ts:196 — test('its free tap adds {C} and grants nothing', () => {",
           "rules-engine/src/plugins/flashGrant.test.ts:210 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
@@ -12614,7 +12205,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:256 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1244 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1679 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1731 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:597 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:51 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
@@ -13098,23 +12689,22 @@
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [
         "Archetype of Endurance",
-        "Blossoming Tortoise",
         "Thunderfoot Baloth"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/staticBoardPump.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 20,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:263 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:541 — test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:570 — test('Thunderfoot Baloth registers two commander-conditioned layer effects', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:75 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:120 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:139 — test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:148 — test('with your commander out it is 7/7 and your other creatures get +2/+2 and trample', () => {",
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:164 — test('another player commander does not count, and losing the commander removes everything', () => {"
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:164 — test('another player commander does not count, and losing the commander removes everything', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -13875,7 +13465,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1259",
+        "rules-engine/src/cardPlugins/cardRules.ts:1169",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -13933,9 +13523,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1320",
-        "rules-engine/src/actions.ts:1485",
-        "rules-engine/src/actions.ts:849",
+        "rules-engine/src/actions.ts:1325",
+        "rules-engine/src/actions.ts:1490",
+        "rules-engine/src/actions.ts:854",
         "rules-engine/src/cardPlugins/effectRuntime.ts:210",
         "rules-engine/src/cardPlugins/effectRuntime.ts:341",
         "rules-engine/src/cardPlugins/effectRuntime.ts:345",
@@ -14006,7 +13596,7 @@
           "live-runner/src/kernelHost.test.ts:3252 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1212 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1469 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:247 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {"
         ]
       },
@@ -14023,8 +13613,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:231",
-        "rules-engine/src/cardPlugins/cardRules.ts:692",
+        "rules-engine/src/cardPlugins/cardRules.ts:223",
+        "rules-engine/src/cardPlugins/cardRules.ts:627",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -14120,10 +13710,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1187
+          1191
         ],
         "samples": [
-          "1187: if (object.name === 'Timetwister') {"
+          "1191: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -14152,12 +13742,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1735,
-          2621
+          1740,
+          2626
         ],
         "samples": [
-          "1735: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2621: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1740: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2626: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -15102,15 +14692,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          309,
-          690,
-          1701,
-          1730
+          310,
+          701,
+          1712,
+          1741
         ],
         "samples": [
-          "309: const liveSource = draft.object(source.ref.objectId)",
-          "690: const source = draft.object(sourceId)",
-          "1701: const object = draft.object(item.objectId)"
+          "310: const liveSource = draft.object(source.ref.objectId)",
+          "701: const source = draft.object(sourceId)",
+          "1712: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -15231,16 +14821,16 @@
       {
         "path": "rules-engine/src/plugins/mana.ts",
         "lines": [
-          279,
-          285,
-          304,
-          311,
-          319
+          284,
+          290,
+          309,
+          316,
+          324
         ],
         "samples": [
-          "279: const object = draft.object(event.objectId)",
-          "285: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
-          "304: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
+          "284: const object = draft.object(event.objectId)",
+          "290: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
+          "309: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -15388,32 +14978,32 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          890,
-          896,
-          973,
-          993,
-          995,
-          998,
-          1008,
-          1011,
-          1026,
-          1027,
-          1032,
-          1033,
-          1132,
-          1142,
-          1163,
-          1178,
-          1194,
-          1196,
-          1202,
-          1214,
-          1235
+          894,
+          900,
+          977,
+          997,
+          999,
+          1002,
+          1012,
+          1015,
+          1030,
+          1031,
+          1036,
+          1037,
+          1136,
+          1146,
+          1167,
+          1182,
+          1198,
+          1200,
+          1206,
+          1218,
+          1239
         ],
         "samples": [
-          "890: const moved = draft.object(event.objectId)",
-          "896: const object = draft.object(event.objectId)",
-          "973: .map((objectId) => draft.object(objectId))"
+          "894: const moved = draft.object(event.objectId)",
+          "900: const object = draft.object(event.objectId)",
+          "977: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16478,16 +16068,16 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          326,
-          329,
-          342,
-          509,
-          541
+          322,
+          325,
+          338,
+          505,
+          537
         ],
         "samples": [
-          "326: const source = draft.object(event.objectId)",
-          "329: draft.enqueue({",
-          "342: const source = draft.object(event.objectId)"
+          "322: const source = draft.object(event.objectId)",
+          "325: draft.enqueue({",
+          "338: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

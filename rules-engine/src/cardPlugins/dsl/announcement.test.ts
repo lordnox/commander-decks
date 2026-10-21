@@ -174,7 +174,7 @@ describe('announcement transactions', () => {
       kind: 'spell',
       costs: [manaCost('{2}')],
       costIncreases: [{ amount: '{1}' }],
-      costReductions: [{ generic: 1 }],
+      costReductions: [{ generic: { kind: 'constant', value: 1 } }],
       decisions: { targets: [] },
       instructions: [],
     }])))

@@ -134,7 +134,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const basic = named(state, 'Basic Forest')
     expect(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.boseiju',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: boseiju.id,
       targets: [{ kind: 'object', objectId: basic.id }],
@@ -143,7 +143,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const utility = named(state, 'Utility Land')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.boseiju',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: boseiju.id,
       targets: [{ kind: 'object', objectId: utility.id }],
@@ -152,11 +152,10 @@ describe('Sin-fall lands and alternate casting', () => {
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[utility.id].zone).toBe('graveyard')
     const search = pendingSelectionFor(state, 'p2')!
-    expect(search).toMatchObject({ min: 0, after: ['shuffleLibrary'] })
+    const found = named(state, 'Found Island')
+    expect(search).toMatchObject({ kind: 'choose', min: 0, viewLibrary: true, candidates: [found.id] })
     expect(server.project(state, 'p1').players.p2.data['kernel.pendingSelection'])
       .toBeUndefined()
-    const found = named(state, 'Found Island')
-    expect(search.candidates).toEqual([found.id])
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p2',
@@ -170,7 +169,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const creature = named(state, 'Bounce Me')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.otawara',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: otawara.id,
       targets: [{ kind: 'object', objectId: creature.id }],

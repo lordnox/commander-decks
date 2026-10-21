@@ -550,6 +550,15 @@ export const evaluateCondition = (
       }
     }
     case 'choiceIs': return context.optionChoices?.[condition.binding] === condition.option
+    case 'activePlayer': {
+      const seats = evaluatePlayerReference(condition.of, context)
+      if (seats.length !== 1) throw new RuleDslEvaluationError('activePlayer requires exactly one player')
+      return context.state.active === seats[0]
+    }
+    case 'currentStep': {
+      const steps = Array.isArray(condition.step) ? condition.step : [condition.step]
+      return steps.includes(context.state.step)
+    }
     case 'all': return condition.conditions.every((part) => evaluateCondition(part, context))
     case 'any': return condition.conditions.some((part) => evaluateCondition(part, context))
     case 'not': return !evaluateCondition(condition.condition, context)
