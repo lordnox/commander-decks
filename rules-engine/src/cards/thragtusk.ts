@@ -1,6 +1,6 @@
 import type { CatalogEntry } from './types'
 import { snapshotFor } from './snapshot'
-import { createToken, gainLife, ref, self, whenever } from '../cardPlugins/dsl/v1'
+import { createToken, gainLife, ref, self, token, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Creature'],
@@ -15,14 +15,7 @@ export default {
       instructions: [createToken({
         count: 1,
         targets: ref('controller'),
-        token: {
-          name: 'Beast',
-          types: ['Creature'],
-          subtypes: ['Beast'],
-          colors: ['G'],
-          power: 3,
-          toughness: 3,
-        },
+        token: token('Beast-3-3-G'),
       })],
     }),
   ]),
