@@ -196,44 +196,27 @@ describe('Dig Through Time', () => {
     const looking = passUntilResolved(kernel)
     const selection = pendingSelectionFor(looking, 'p1')!
     expect(names(looking, selection.candidates)).toEqual(TOP)
-    expect(selection).toMatchObject({ kind: 'scry', count: 7, handQuota: 2 })
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1',
-      kind: 'look-top',
-      cards: TOP,
-      destinations: ['bottom', 'hand'],
-      requirements: { hand: { min: 2, max: 2 } },
+    expect(selection).toMatchObject({ kind: 'choose', count: 2 })
+    const pick = (ids: string[]) => ({
+      type: 'selectCards' as const,
+      seat: 'p1' as const,
+      selectionId: selection.id,
+      kind: 'choose' as const,
+      count: selection.count,
+      objectIds: ids,
     })
-
-    const restartedKernel = handleFor(server.rules, state, kernel.journal)
-    expect(restartedKernel.history.current()).toEqual(kernel.history.current())
-    const restarted = playLobby()
-    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
-    expect(restarted.topdeck?.cards).toEqual(TOP)
-
-    const answer = (hand: string[]) => ({
-      type: 'topdeck' as const,
-      choices: TOP.toReversed().map((card) => ({
-        card,
-        slot: TOP.indexOf(card),
-        destination: (hand.includes(card) ? 'hand' : 'bottom') as 'hand' | 'bottom',
-      })),
-    })
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1']))).toThrow()
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1', 'Top 2', 'Top 3'])))
-      .toThrow()
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
-    // Another seat cannot answer for the chooser.
-    expect(applyKernelChoice(restartedKernel, restarted, 'p2', answer(['Top 3', 'Top 6']))).toBe(false)
-
-    expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 3', 'Top 6']))).toBe(true)
-    const done = restartedKernel.history.current()
+    const restored = JSON.parse(JSON.stringify(looking))
+    expect(server.rules(looking, pick([selection.candidates[0]!])).ok).toBe(false)
+    expect(server.rules(looking, pick(selection.candidates.slice(0, 3))).ok).toBe(false)
+    expect(server.rules(looking, { ...pick([selection.candidates[2]!, selection.candidates[5]!]), seat: 'p2' }).ok)
+      .toBe(false)
+    const done = ok(server.rules(restored, pick([selection.candidates[2]!, selection.candidates[5]!])))
+    expect(ok(server.rules(JSON.parse(JSON.stringify(looking)), pick([selection.candidates[2]!, selection.candidates[5]!]))))
+      .toEqual(done)
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
     expect(names(done, done.zoneOrder.p1.hand).toSorted()).toEqual(['Top 3', 'Top 6'])
-    // The rest go to the bottom in the order the human assigned them (7 to 1).
     expect(names(done, done.zoneOrder.p1.library)).toEqual([
-      'Rest A', 'Rest B', 'Top 7', 'Top 5', 'Top 4', 'Top 2', 'Top 1',
+      'Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7',
     ])
     expect(named(done, 'Dig Through Time').zone).toBe('graveyard')
     expect(done.stack).toHaveLength(0)

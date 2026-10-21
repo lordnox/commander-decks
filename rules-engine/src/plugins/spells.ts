@@ -471,6 +471,7 @@ export const hasConvoke = (object: GameObject) =>
 
 export const hasDelve = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.delve)
+  || compiledCanonicalHasCost(object, 'delve')
 
 const installGrantedRules = (draft: Draft, object: GameObject) => {
   for (const pluginId of object.grantedRules) {
@@ -576,6 +577,8 @@ export const spells: Plugin = {
           for (let i = 0; i < count; i += 1) costs.push({ type: 'draw', seat: event.seat, count: 1 })
           break
         }
+        case 'delve':
+          break
       }
     }
     return costs.length > 0
@@ -674,7 +677,7 @@ export const spells: Plugin = {
                 selectedOptional: event.selectedOptionalCosts,
                 selectedAlternative: event.selectedAlternativeCost,
                 phyrexianLife: event.phyrexianLife,
-                deferPayment: Boolean(event.manaActivations),
+                deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0,
                 targetClauses,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
@@ -926,7 +929,7 @@ export const spells: Plugin = {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
-            deferPayment: Boolean(event.manaActivations),
+            deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0,
             targetClauses,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,

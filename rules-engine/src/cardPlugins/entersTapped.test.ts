@@ -12,7 +12,7 @@ import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import {pendingOptionSelection} from '../rules/selectOptions'
-import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
+import {pendingDialogFor} from '../pendingDialog'
 import {DECLINE_LIFE_OPTION, PAY_LIFE_OPTION} from './dsl/v1'
 
 const land = (name: string, subtypes: string[] = []) =>
@@ -164,18 +164,17 @@ describe('entersTapped', () => {
   })
 
   test.each([
-    'Bridgeworks Battle // Tanglespan Bridgeworks',
-    'Fell the Profane // Fell Mire',
+    'Tanglespan Bridgeworks',
+    'Fell Mire',
+    'Boggart Bog',
   ])('%s asks for the three life its Oracle text prints, not two', (name) => {
     const server = game([land(name)])
     const objectId = server.state.zoneOrder.p1.hand[0]
     const next = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
-    const [dialog] = next.players.p1.data['kernel.pendingDialog'] as Array<{
-      count: number
-      prompt: string
-    }>
-    expect(dialog.count).toBe(3)
-    expect(dialog.prompt).toContain('pay 3 life')
+    const pending = pendingOptionSelection(next, 'p1')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+    expect(pending.options[0]?.label).toContain('3 life')
   })
 
   test('Morphic Pool checks for two opponents', () => {
@@ -384,10 +383,16 @@ describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts',
       const server = kambalGame('Boggart Trawler // Boggart Bog')
       const id = server.state.zoneOrder.p1.hand[0]
       let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
-      const dialog = pendingDialogFor(state, 'p1')!
-      expect(dialog.count).toBe(3)
+      const pending = pendingOptionSelection(state, 'p1')!
+      expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
       expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
-      state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted } }))
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: accepted ? PAY_LIFE_OPTION : DECLINE_LIFE_OPTION,
+      }))
       expect(state.players.p1.life).toBe(40 - (accepted ? 3 : 0))
       expect(state.objects[id].tapped).toBe(!accepted)
     })
@@ -397,7 +402,13 @@ describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts',
       server.state.players.p1.life = 2
       const id = server.state.zoneOrder.p1.hand[0]
       let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
-      state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: true } }))
+      const pending = pendingOptionSelection(state, 'p1')!
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: PAY_LIFE_OPTION,
+      }))
       expect(state.players.p1.life).toBe(2)
       expect(state.objects[id].tapped).toBe(true)
     })

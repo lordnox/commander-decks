@@ -26,7 +26,7 @@ import {
   SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
-import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
+import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
@@ -2035,31 +2035,16 @@ describe('kernel host journal', () => {
   })
 
   test('Homer target choices survive in kernel state and mill the selected players', () => {
-    const homerCard = {
-      ...forest(),
-      name: HOMER_NAME,
-      types: ['Creature'],
-      subtypes: ['Crab', 'Druid'],
-      supertypes: ['Legendary'],
-      power: 0,
-      toughness: 9,
-      tapProduces: undefined,
-    }
-    const crab = {
-      ...forest(),
-      name: 'Crab',
-      types: ['Creature'],
-      subtypes: ['Crab'],
-      supertypes: [],
-      power: 1,
-      toughness: 1,
-      tapProduces: undefined,
-    }
     const server = createServerGame(
       commanderRules,
       {
         hands: { p1: [forest()] },
-        battlefield: { p1: [homerCard, crab] },
+        battlefield: {
+          p1: [
+            cardTemplate(HOMER_NAME),
+            cardTemplate('Crab', { types: ['Creature'], subtypes: ['Crab'], power: 1, toughness: 1 }),
+          ],
+        },
         libraries: {
           p1: Array.from({ length: 6 }, forest),
           p2: Array.from({ length: 6 }, forest),
@@ -2067,7 +2052,7 @@ describe('kernel host journal', () => {
           p4: Array.from({ length: 6 }, forest),
         },
       },
-      { random: () => 0.5, cardPlugins: [homer] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2091,6 +2076,12 @@ describe('kernel host journal', () => {
         { card: 'p4', destination: 'target' },
       ],
     }))).toBe(true)
+    for (let guard = 0; guard < 12; guard += 1) {
+      const current = kernel.history.current()
+      if (current.stack.length === 0 || !current.priority) break
+      const passed = kernel.dispatch({ type: 'passPriority', seat: current.priority })
+      if (!passed.ok) throw new Error(passed.error)
+    }
 
     const state = kernel.history.current()
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)

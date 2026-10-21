@@ -17,6 +17,7 @@ import {
   chooseModes,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  delve,
   discard,
   draw,
   draws,
@@ -433,6 +434,7 @@ describe('Rule DSL v1 structural and domain validation', () => {
       instructions: [],
     })])
     expect(() => compileCardRuleDefinition(phyrexianMana)).not.toThrow()
+    expect(() => compileCardRuleDefinition(card([spell({ costs: [delve()], instructions: [] })]))).not.toThrow()
 
     const hybridMana = card([spell({
       costs: [{ kind: 'mana', amount: '{W/U}' }],

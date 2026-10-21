@@ -50,7 +50,7 @@ describe('card plugin registry', () => {
 
   test('the Homer commander is registered', () => {
     expect(missingCardPlugins(['Deathsprout', 'Homer, the Hermit', 'Keep Safe'])).toEqual([])
-    expect(cardPluginEntry('Homer, the Hermit')?.handlerIds).toEqual(['homer'])
+    expect(cardPluginEntry('Homer, the Hermit')).toBeUndefined()
   })
 
   test('the Homer dumpster cards this pass covers stay registered', () => {
@@ -644,7 +644,8 @@ describe('card plugin registry', () => {
   })
 
   test('Círdan misc cards keep their handler composition', () => {
-    expect(handlerIdsForNames(['Dig Through Time']).toSorted()).toEqual(['castCosts', 'onResolve'])
+    expect(handlerIdsForNames(['Dig Through Time'])).toEqual([])
+    expect(cardPluginEntry('Dig Through Time')).toBeUndefined()
     expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
     expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted())
       .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])

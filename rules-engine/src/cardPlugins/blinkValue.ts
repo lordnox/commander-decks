@@ -1,5 +1,4 @@
 import { openCardSelection } from '../rules/selectCards'
-import { openPlayerSelection } from '../rules/selectPlayers'
 import type { GameObject, PlayerId, Plugin, StackItem } from '../types'
 import { targetObject } from '../objectIdentity'
 
@@ -95,34 +94,6 @@ const blinkNow = (
   }
 }
 
-const openQuezaTarget = (
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-  queza: GameObject,
-) => {
-  const candidates = draft.playerOrder.filter(
-    (seat) => seat !== queza.controller && !draft.players[seat].lost,
-  )
-  if (candidates.length === 0) return
-  openPlayerSelection(draft, {
-    seat: queza.controller,
-    candidates,
-    min: 1,
-    max: 1,
-    sourceId: queza.id,
-    source: queza.name,
-    prompt: 'Choose target opponent for Queza.',
-    action: {
-      kind: 'putTriggeredAbility',
-      abilityId: 'queza.drain',
-      triggeringPlayer: queza.controller,
-      instructions: [
-        { kind: 'gainLife', count: 1 },
-        { kind: 'loseLifeTargetPlayer', amount: 1 },
-      ],
-    },
-  })
-}
-
 const trackLotho = (
   draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
   seat: PlayerId,
@@ -195,12 +166,6 @@ export const blinkValue: Plugin = {
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'castSpell') trackLotho(draft, event.seat)
-    if (event.type === 'draw') {
-      for (const queza of draft.zoneOf('battlefield', event.seat)
-        .filter((object) => object.name === 'Queza, Augur of Agonies')) {
-        openQuezaTarget(draft, queza)
-      }
-    }
     if (event.type === 'resolveTop') {
       const item = state.stack[0]
       if (!item) return

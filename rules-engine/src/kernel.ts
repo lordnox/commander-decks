@@ -96,6 +96,7 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
         break
       }
       case 'mana':
+      case 'delve':
         break
     }
   }
