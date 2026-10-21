@@ -580,3 +580,34 @@ test.each(['spell', 'activated'] as const)('%s rejects malformed mode selections
     expect(rejected.state.stack).toEqual([])
   }
 })
+
+test.each([0, 1, 2])('cast-triggered modes preserve targeting and bounded inspection scopes (mode=%s)', mode => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Silverback Elder')], p2: [cardTemplate('Artifact fixture', { types: ['Artifact'] })] },
+    hands: { p1: [cardTemplate('Creature spell', { types: ['Creature'], manaCost: '{0}', power: 2, toughness: 2 })] },
+    libraries: { p1: [cardTemplate('Land fixture', { types: ['Land'] }), ...Array.from({ length: 5 }, (_, i) => cardTemplate(`Remainder ${i}`, { types: ['Instant'] }))] },
+  }, { random: () => 0 })
+  const original = server.state.zoneOrder.p1.library
+  let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }))
+  const choice = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: `mode:${mode}` }))
+  if (mode === 0) {
+    const targetSelection = pendingSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: targetSelection.id, kind: 'choose', count: targetSelection.count, objectIds: [server.state.zoneOrder.p2.battlefield[0]!] }))
+  }
+  expect(state.stack[0]!.kind).toBe('ability')
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  if (mode === 1) {
+    const landSelection = pendingSelectionFor(state, 'p1')!
+    expect(landSelection.candidates).toEqual([original[0]!])
+    expect(landSelection.visibleCards).toEqual(original.slice(0, 5))
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: landSelection.id, kind: 'choose', count: landSelection.count, objectIds: [original[0]!] }))
+    expect(state.objects[original[0]!]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(state.zoneOrder.p1.library[0]).toBe(original[5]!)
+    expect(new Set(state.zoneOrder.p1.library.slice(1))).toEqual(new Set(original.slice(1, 5)))
+  }
+  expect(state.objects[server.state.zoneOrder.p2.battlefield[0]!].zone).toBe(mode === 0 ? 'graveyard' : 'battlefield')
+  expect(state.players.p1.life).toBe(mode === 2 ? 44 : 40)
+  expect(state.resolution).toBeUndefined()
+})

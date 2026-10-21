@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 220,
+    "cardRegistrations": 215,
     "cardEffects": 21,
-    "cardInstructions": 190,
-    "instructionHandlersDiscovered": 190,
+    "cardInstructions": 189,
+    "instructionHandlersDiscovered": 189,
     "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 35,
     "customEventDispatchSites": 83,
-    "directMutationSites": 583,
-    "instructionRegistrationOnlyGaps": 1,
+    "directMutationSites": 579,
+    "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 31,
-    "cardRegistrationOnlyGaps": 9,
+    "cardRegistrationOnlyGaps": 7,
     "candidateOnlyInstructionRows": 156,
-    "candidateOnlyCardRows": 211
+    "candidateOnlyCardRows": 208
   },
   "cardEffects": [
     {
@@ -172,7 +172,6 @@
       "variant": "castCost",
       "mechanic": "casting cost modifier",
       "currentRegistrations": [
-        "Animist's Awakening:effects[0]",
         "Black Sun's Twilight:effects[0]",
         "Dig Through Time:effects[0]",
         "Drag to the Roots:effects[0]",
@@ -780,7 +779,6 @@
         "Alabaster Host Intercessor:effects[1]",
         "All-Fates Stalker:effects[4]",
         "Angel of Sanctions:effects[3]",
-        "Animist's Awakening:effects[1]",
         "Apex Altisaur:effects[0]",
         "Archaeomancer's Map:effects[1]",
         "Banisher Priest:effects[2]",
@@ -837,7 +835,6 @@
         "Kuroki, Thief of Talents:effects[0]",
         "Lumbering Battlement:effects[4]",
         "Lumra, Bellow of the Woods:effects[1]",
-        "Malevolent Rumble:effects[0]",
         "Marina Vendrell:effects[0]",
         "Masked Vandal:effects[1]",
         "Mirkwood Bats:effects[0]",
@@ -858,7 +855,6 @@
         "Perch Protection:effects[1]",
         "Phyrexian Ingester:effects[1]",
         "Pitiless Carnage:effects[0]",
-        "Planar Genesis:effects[0]",
         "Portal to Phyrexia:effects[0]",
         "Portal to Phyrexia:effects[1]",
         "Rain of Filth:effects[0]",
@@ -873,12 +869,10 @@
         "Sail into the West:effects[0]",
         "Sakashima of a Thousand Faces:effects[1]",
         "Sandstone Oracle:effects[0]",
-        "Satyr Wayfinder:effects[0]",
         "Scute Swarm:effects[0]",
         "Sea Gate Restoration // Sea Gate, Reborn:effects[1]",
         "Selvala's Stampede:effects[0]",
         "Show and Tell:effects[0]",
-        "Silverback Elder:effects[0]",
         "Sin, Spira's Punishment:effects[0]",
         "Sin, Spira's Punishment:effects[1]",
         "Singularity Rupture:effects[0]",
@@ -907,7 +901,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 362,
+        "matches": 356,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -971,7 +965,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 35,
+        "matches": 36,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1858,7 +1852,6 @@
         "Crawling Sensation:effects[1].do[0]",
         "Field of the Dead:effects[1].do[0].whenTrue[0]",
         "Kiora Bests the Sea God:effects[0].chapters[0].do[0]",
-        "Malevolent Rumble:effects[0].do[1]",
         "Maskwood Nexus:effects[1].do[0]",
         "Mole Man, Moloid Master:effects[1].do[0]",
         "Perch Protection:effects[1].do[0]",
@@ -1866,7 +1859,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 35,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:471 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:552 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
@@ -2161,12 +2154,11 @@
       "currentRegistrations": [
         "Archdruid's Charm:effects[0].modes[2].do[0]",
         "Awaken the Honored Dead:effects[0].chapters[0].do[0]",
-        "Silverback Elder:effects[0].modal.modes[0].do[0]",
         "Woodfall Primus:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 24,
+        "matches": 23,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:50",
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:59",
@@ -3116,7 +3108,6 @@
         "Cling to Dust:effects[1].do[0].whenTrue[0]",
         "Courser of Kruphix:effects[3].do[0]",
         "Niv-Mizzet, Ghost Counsel:effects[1].do[1]",
-        "Silverback Elder:effects[0].modal.modes[2].do[0]",
         "Souls of the Faultless:effects[0].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[0]",
         "Wedding Ring:effects[2].do[0]",
@@ -3127,7 +3118,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 110,
+        "matches": 109,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1453 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:3392 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -3581,16 +3572,13 @@
       "variant": "lookTopPutLand",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Famished Worldsire:effects[2].do[0].then[0]",
-        "Planar Genesis:effects[0].do[0]",
-        "Silverback Elder:effects[0].modal.modes[1].do[0]"
+        "Famished Worldsire:effects[2].do[0].then[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:176 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:236 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:592 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
           "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
@@ -5195,22 +5183,14 @@
       "variant": "revealPick",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Malevolent Rumble:effects[0].do[0]",
-        "Satyr Wayfinder:effects[0].do[0]",
         "Six:effects[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 2,
         "samples": [
-          "live-runner/src/kernelView.test.ts:109 — test('names a planeswalker combat defender while using its controller blockers', () => {",
-          "live-runner/src/kernelView.test.ts:24",
-          "live-runner/src/kernelView.test.ts:67 — test('a declared attack reaches the combat panel and the card face', () => {",
-          "live-runner/src/kernelView.test.ts:93 — test('declared blocks replace the possible blockers', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:120 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {",
-          "rules-engine/src/cardPlugins/selfSacrificeMana.test.ts:254 — test('Malevolent Rumble creates a functional Eldrazi Spawn', () => {",
-          "site/src/CombatOverlay.test.tsx:84 — test('calls out damage aimed at the viewer', () => {"
+          "rules-engine/src/cardPlugins/selfMill.test.ts:120 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -5221,27 +5201,6 @@
         "05"
       ],
       "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "revealTopLandsTapped",
-      "mechanic": "resolution choice",
-      "currentRegistrations": [
-        "Animist's Awakening:effects[1].do[0]"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed choice instruction and continuation",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03",
-        "05"
-      ],
-      "status": "registration-only",
       "handlerDiscovered": true
     },
     {
@@ -6080,40 +6039,6 @@
         "activated",
         "choiceEffects",
         "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Animist's Awakening",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Animist's Awakening"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [revealTopLandsTapped]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "revealTopLandsTapped"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "onResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -9789,42 +9714,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Malevolent Rumble",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Malevolent Rumble"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/selfSacrificeMana.test.ts:254 — test('Malevolent Rumble creates a functional Eldrazi Spawn', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [createToken, revealPick]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "createToken",
-        "revealPick"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mana Drain",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10987,38 +10876,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Planar Genesis",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Planar Genesis"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [lookTopPutLand]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "lookTopPutLand"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Portal to Phyrexia",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -11737,46 +11594,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Satyr Wayfinder",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Satyr Wayfinder"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 9,
-        "samples": [
-          "live-runner/src/kernelView.test.ts:109 — test('names a planeswalker combat defender while using its controller blockers', () => {",
-          "live-runner/src/kernelView.test.ts:24",
-          "live-runner/src/kernelView.test.ts:67 — test('a declared attack reaches the combat panel and the card face', () => {",
-          "live-runner/src/kernelView.test.ts:93 — test('declared blocks replace the possible blockers', () => {",
-          "site/src/CombatOverlay.test.tsx:84 — test('calls out damage aimed at the viewer', () => {",
-          "site/src/CombatOverlay.test.tsx:98 — test('shows who blocked and who got through', () => {",
-          "site/src/liveCompact.test.ts:241 — test('attack and block labels survive the wire', () => {",
-          "site/src/liveCompact.test.ts:261 — test('summoning sickness survives the wire', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [revealPick]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "revealPick"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Scapeshift",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -12001,42 +11818,6 @@
         "choiceEffects",
         "dumpFromHand",
         "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Silverback Elder",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Silverback Elder"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:236 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyTargetPermanent, gainLife, lookTopPutLand]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "destroyTargetPermanent",
-        "gainLife",
-        "lookTopPutLand"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castTriggers",
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -14028,7 +13809,6 @@
       "revealDrawLoseLife",
       "revealMatchingToHand",
       "revealPick",
-      "revealTopLandsTapped",
       "revealUntil",
       "revealUntilBasicLand",
       "sacrificeControlled",
@@ -14097,7 +13877,6 @@
         "Horizon of Progress",
         "Kederekt Leviathan",
         "Lair of the Hydra",
-        "Malevolent Rumble",
         "Marina Vendrell",
         "Maskwood Nexus",
         "Millikin",
@@ -14713,16 +14492,16 @@
         "rules-engine/src/plugins/lands.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 14,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:369 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1180 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:614 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:40 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:283 — test('pumps a stack target using linked exile power', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:101 — test('ETB branch skips draw when land counts are tied', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:49 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:79 — test('ETB branch draws when an opponent controls more lands', () => {"
+          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:49 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15055,7 +14834,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 224,
+        "matches": 227,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2239 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -15983,9 +15762,9 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1627",
+        "rules-engine/src/cardPlugins/cardRules.ts:1591",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:500",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
         "rules-engine/src/cardPlugins/effectRuntime.ts:518",
@@ -16121,16 +15900,16 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:264",
-        "rules-engine/src/cardPlugins/cardRules.ts:889",
+        "rules-engine/src/cardPlugins/cardRules.ts:262",
+        "rules-engine/src/cardPlugins/cardRules.ts:876",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
         "rules-engine/src/cardPlugins/continuousEffects.ts:562",
         "rules-engine/src/cardPlugins/continuousEffects.ts:618",
         "rules-engine/src/cardPlugins/continuousEffects.ts:65",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:677",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:861",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:676",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:860",
         "rules-engine/src/cardPlugins/effectRuntime.ts:104",
         "rules-engine/src/cardPlugins/effectRuntime.ts:157",
         "rules-engine/src/cardPlugins/effectRuntime.ts:436",
@@ -16638,12 +16417,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          712,
-          731
+          714,
+          733
         ],
         "samples": [
-          "712: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "731: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "714: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "733: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -17206,14 +16985,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          286,
-          1418,
-          1447
+          291,
+          1447,
+          1476
         ],
         "samples": [
-          "286: const liveSource = draft.object(source.ref.objectId)",
-          "1418: const object = draft.object(item.objectId)",
-          "1447: const object = draft.object(completedItem.objectId)"
+          "291: const liveSource = draft.object(source.ref.objectId)",
+          "1447: const object = draft.object(item.objectId)",
+          "1476: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17838,44 +17617,44 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          375,
-          809,
-          836,
-          845,
-          863,
-          882,
-          923,
-          933,
-          942,
-          955,
+          377,
+          811,
+          838,
+          847,
+          865,
+          884,
+          925,
+          935,
+          944,
           957,
-          969,
-          980,
-          984,
-          989,
-          992,
-          1001,
-          1007,
-          1019,
-          1023,
-          1036,
-          1043,
-          1058,
-          1128,
-          1195,
-          1198,
-          1218,
-          1222,
-          1231,
-          1237,
-          1245,
+          959,
+          971,
+          982,
+          986,
+          991,
+          994,
+          1003,
+          1009,
+          1021,
+          1025,
+          1038,
+          1045,
+          1060,
+          1130,
+          1197,
+          1200,
+          1220,
+          1224,
+          1233,
+          1239,
           1247,
-          1252
+          1249,
+          1254
         ],
         "samples": [
-          "375: draft.enqueue({",
-          "809: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "836: const object = objectId ? draft.object(objectId) : undefined"
+          "377: draft.enqueue({",
+          "811: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "838: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19354,11 +19133,7 @@
           920,
           939,
           957,
-          969,
-          974,
-          975,
-          978,
-          989
+          968
         ],
         "samples": [
           "31: draft.enqueue({ type: 'move', objectId, to: 'exile' })",

@@ -88,6 +88,8 @@ export type PendingCardSelection = {
   min?: number
   /** Object ids the chooser may pick from; host must not infer these from hidden zones. */
   candidates: string[]
+  /** Additional server-authorized context to show without making it selectable. */
+  visibleCards?: string[]
   sourceId?: string
   source?: string
   prompt?: string
@@ -210,7 +212,7 @@ export const visibleLibrarySelectionIds = (
   const ids = new Set<string>()
   if (!viewer) return ids
   for (const selection of pendingSelectionsFor(state, viewer)) {
-    for (const objectId of selection.candidates) {
+    for (const objectId of [...selection.candidates, ...(selection.visibleCards ?? [])]) {
       const object = state.objects[objectId]
       if (object?.zone !== 'library') continue
       if (

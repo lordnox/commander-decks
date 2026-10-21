@@ -958,27 +958,6 @@ const bounceAll: InstructionHandler<'bounceAll'> = (ctx, instruction) => {
   }
 }
 
-const revealTopLandsTapped: InstructionHandler<'revealTopLandsTapped'> = (
-  { draft, source, item },
-) => {
-  const count = Math.max(0, item?.x ?? 0)
-  const top = draft.zoneOrder[source.controller].library.slice(0, count)
-  const lands: string[] = []
-  const rest: string[] = []
-  for (const objectId of top) {
-    const object = draft.object(objectId)
-    if (object?.types.includes('Land')) lands.push(objectId)
-    else rest.push(objectId)
-  }
-  for (const objectId of lands) {
-    draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
-    draft.enqueue({ type: 'tap', objectId })
-  }
-  for (const objectId of rest) {
-    draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
-  }
-}
-
 const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> = (
   { draft, source, item },
   instruction,
@@ -1055,6 +1034,5 @@ export const zoneHandlers = {
   destroyAll,
   millHalfTargetPlayers,
   bounceAll,
-  revealTopLandsTapped,
   returnCreatureManaValueX,
 } satisfies Partial<InstructionHandlers>

@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after group 05 (Batwing Brume, Comeuppance, Energy Arc, Inkshield, Sokrates, Athenian Teacher), groups 01 and 06, and the first four registrations in group 07. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after group 05 (Batwing Brume, Comeuppance, Energy Arc, Inkshield, Sokrates, Athenian Teacher), groups 01 and 06, the first four registrations in group 07, and the first five registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**220 legacy registration keys, assigned exactly once to 38 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 220 is not a distinct-card count.
+**215 legacy registration keys, assigned exactly once to 38 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 215 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -43,6 +43,12 @@ Canonical support now includes numeric multiplication/minimum, actual life-loss 
 
 Canonical controller/owner references and persisted player-result captures survive target zone changes, generated callbacks, and JSON restore. Counter follow-ups remain unconditional when a counter is suppressed. Swords/Condemn capture the target's controller and nonnegative power/toughness at resolution; Condemn uses an explicit bottom-of-owner's-library move. Mechanic tests cover different controllers/owners, token disappearance, signed stats, delayed captures, and prevention filters. The Swords migration corrects the legacy caster-life-gain defect (#442) and replaces its incorrect assertion with mechanic coverage. Two obsolete legacy stat-to-life executors were removed. Three cards remain in group 07 below.
 
+## Group 08 — completed first slice
+
+`Animist's Awakening`; `Malevolent Rumble`; `Planar Genesis`; `Satyr Wayfinder`; `Silverback Elder` (**5 registrations**).
+
+Canonical `inspectTop` binds a bounded segment without exposing deeper cards. Typed choices can display inspected context separately from eligible candidates; subset movement and seeded random bottom ordering preserve untouched library cards. Token definitions may author isolated canonical ability programs, used by the sacrifice-for-colorless Eldrazi Spawn. Animist's Awakening uses current graveyard spell counts and moved identities for spell mastery; Silverback Elder retains all three cast-triggered modes. Mechanic suites cover short/empty libraries, optional and mandatory choices, nonmatching/deeper rejection, chooser projection/privacy, random ordering, restore, modal scopes, and functional token mana. The now-unused legacy `revealTopLandsTapped` operation was removed. Four cards remain in group 08 below.
+
 ## Complete primary assignment
 
 Each numbered group below owns its listed registration keys. Cross-references in the notes do not add to its count.
@@ -57,15 +63,15 @@ Priority **A** · effort **L** · **3 registrations**
 
 **Required support / secondary gates:** Fractured Identity needs a captured copiable snapshot and per-player copy iteration; Settle the Wreckage needs per-player iteration plus actual exile counts for basic searches; Terastodon needs per-target destruction outcome attribution for its controller's token follow-up.
 
-### 08. Top-of-library selection
+### 08. Top-of-library selection — remaining slice
 
-Priority **A** · effort **L** · **9 registrations**
+Priority **A** · effort **L** · **4 registrations**
 
-**Registrations:** `Animist's Awakening`; `Dack Fayden, Helping Hand`; `Dig Through Time`; `Famished Worldsire`; `Hostile Negotiations`; `Malevolent Rumble`; `Planar Genesis`; `Satyr Wayfinder`; `Silverback Elder`.
+**Registrations:** `Dack Fayden, Helping Hand`; `Dig Through Time`; `Famished Worldsire`; `Hostile Negotiations`.
 
-**Shared work:** Look/reveal a bounded top segment, select cards, move the remainder to a specified destination.
+**Shared work:** Bounded inspection/reveal, identity-bound subsets, private picker context, and random bottom movement now exist. Animist's Awakening, Malevolent Rumble, Planar Genesis, Satyr Wayfinder, and Silverback Elder have migrated.
 
-**Required support / secondary gates:** Reusable scoped looked-at/revealed sets, subset choices and remainder ordering/randomization. Satyr Wayfinder/Malevolent Rumble are a close sub-batch; Planar Genesis/Silverback Elder share tapped-land selection. Other gates: delve, devour, face-down piles, spell mastery.
+**Required support / secondary gates:** Dack Fayden needs its complete loyalty program; Dig Through Time needs delve; Famished Worldsire needs land devour/ward plus its dynamic-power look; Hostile Negotiations needs face-down piles and opponent choices. Their other top-library instructions can reuse the new primitives.
 
 ### 09. Any-number sacrifice results
 
