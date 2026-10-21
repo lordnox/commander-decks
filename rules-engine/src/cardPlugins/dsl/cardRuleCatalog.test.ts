@@ -41,6 +41,8 @@ test.each([
   ['Comeuppance', ['createEffect', 'createEffect']],
   ['Energy Arc', ['untap', 'createEffect', 'createEffect']],
   ['Inkshield', ['createEffect']],
+  ['Sea Gate Restoration', ['draw', 'grantNoMaximumHandSize']],
+  ['Sink into Stupor', ['move']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -56,6 +58,10 @@ test.each([
   ['Absorb', 'stackItems', { kind: 'spell' }],
   ['Dismember', 'objects', { zone: 'battlefield', type: 'Creature' }],
   ['Anguished Unmaking', 'objects', { zone: 'battlefield', not: { type: 'Land' } }],
+  ['Sink into Stupor', 'objects', {
+    controller: 'opponent',
+    any: [{ zone: 'stack' }, { zone: 'battlefield', not: { type: 'Land' } }],
+  }],
 ] as const)('catalog %s declares its target selector', (name, kind, filter) => {
   const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
   expect(ability).toMatchObject({ decisions: { targets: [{
@@ -1359,6 +1365,8 @@ test.each([
   ['Boggart Trawler', ['triggered']],
   ['Bridgeworks Battle', ['spell']],
   ['Fell the Profane', ['spell']],
+  ['Sea Gate Restoration', ['spell']],
+  ['Sink into Stupor', ['spell']],
   ['Homer, the Hermit', ['triggered']],
   ['Queza, Augur of Agonies', ['triggered']],
   ['Scute Swarm', ['triggered']],
@@ -1372,6 +1380,8 @@ test.each([
   ['Boggart Trawler // Boggart Bog', 'Boggart Trawler', 'Boggart Bog'],
   ['Bridgeworks Battle // Tanglespan Bridgeworks', 'Bridgeworks Battle', 'Tanglespan Bridgeworks'],
   ['Fell the Profane // Fell Mire', 'Fell the Profane', 'Fell Mire'],
+  ['Sea Gate Restoration // Sea Gate, Reborn', 'Sea Gate Restoration', 'Sea Gate, Reborn'],
+  ['Sink into Stupor // Soporific Springs', 'Sink into Stupor', 'Soporific Springs'],
 ])('pay-life modal catalog %s pins independent front and land programs', (combined, front, back) => {
   expect(effectsFor(combined)).toEqual([])
   const entry = cardTemplateDefaultsFor(combined)!
@@ -1384,6 +1394,16 @@ test.each([
     ] }] },
     { kind: 'activated', costs: [{ kind: 'tapSource' }] },
   ])
+})
+
+test('Sea Gate Restoration draws hand size plus one then grants unlimited hand size', () => {
+  expect(cardRuleDefinitionSnapshotFor('Sea Gate Restoration')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'draw', count: { kind: 'add', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'hand', controller: 'you' } } }, right: { kind: 'constant', value: 1 } } },
+      { kind: 'grantNoMaximumHandSize', targets: { kind: 'contextRef', name: 'controller' } },
+    ],
+  })
 })
 
 test('Dig Through Time delves then inspects seven for two', () => {
