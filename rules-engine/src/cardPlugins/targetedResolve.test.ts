@@ -576,61 +576,7 @@ describe('relocated from homerPass2.test.ts → targetedResolve.test.ts', () => 
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
-
   const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
-
-  test('Victimize sacrifices then returns both targeted creatures tapped', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [
-              cardTemplate('Victimize', { types: ['Sorcery'], manaCost: '{2}{B}' }),
-              creature('Returned Bear'),
-              creature('Returned Elk'),
-            ],
-          },
-          battlefield: { p1: [creature('Fodder Goat')] },
-        },
-        { random: () => 0.5, cardPlugins: plugins },
-      )
-      let ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
-      ready = ok(server.rules(ready, {
-        type: 'move',
-        objectId: named(ready, 'Returned Bear').id,
-        to: 'graveyard',
-      }))
-      ready = ok(server.rules(ready, {
-        type: 'move',
-        objectId: named(ready, 'Returned Elk').id,
-        to: 'graveyard',
-      }))
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: named(ready, 'Victimize').id,
-        targets: [
-          { kind: 'object', objectId: named(ready, 'Returned Bear').id },
-          { kind: 'object', objectId: named(ready, 'Returned Elk').id },
-        ],
-      }))
-      const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-      const selection = pendingSelectionFor(choosing, 'p1')!
-      const sacrificed = ok(server.rules(choosing, {
-        type: 'selectCards',
-        seat: 'p1',
-        kind: 'sacrifice',
-        count: 1,
-        objectIds: [named(choosing, 'Fodder Goat').id],
-      }))
-      expect(named(sacrificed, 'Fodder Goat').zone).toBe('graveyard')
-      expect(named(sacrificed, 'Returned Bear')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(named(sacrificed, 'Returned Elk')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(selection.kind).toBe('sacrifice')
-    })
 
   test("Black Sun's Twilight casts with zero creature targets", () => {
       const server = createServerGame(

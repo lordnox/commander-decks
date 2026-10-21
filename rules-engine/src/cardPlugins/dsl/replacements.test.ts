@@ -277,3 +277,17 @@ describe('replacements', () => {
     expect(finished.eventProcessing).toBeUndefined()
   })
 })
+
+test('deferred replacement choices for the same player reopen after the first answer', () => {
+  const server = createServerGame(commanderRules, { players: 2, libraries: { p1: [cardTemplate('First'), cardTemplate('Second')] } }, { random: () => 0, cardPlugins: [millTop, preventDraw] })
+  let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+  state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+  expect(state.deferredEventProcessing).toHaveLength(1)
+  for (let i = 0; i < 2; i++) {
+    const choice = pendingOptionSelection(state, 'p1')!
+    expect(choice).toBeDefined()
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options.find(option => option.label === 'test.millTop')!.id }))
+  }
+  expect(state.eventProcessing).toBeUndefined()
+  expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+})

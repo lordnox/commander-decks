@@ -328,7 +328,7 @@ export type Instruction =
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string }
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
-  | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
+  | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string; bindCount?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; position?: 'top' | 'bottom'; order?: 'random'; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
   /** Inspect and order the top cards of each selected player's library. */

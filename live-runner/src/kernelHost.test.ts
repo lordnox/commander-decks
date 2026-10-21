@@ -23,7 +23,6 @@ import {
 } from '../../rules-engine/src/index'
 import {
   librarySearch,
-  pendingSearch,
   SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
@@ -2207,15 +2206,15 @@ describe('kernel host journal', () => {
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
-      kind: 'sacrifice-lands',
+      kind: 'choose',
       cards: ['First Forest', 'Second Forest'],
-      destinations: ['battlefield', 'sacrifice'],
+      destinations: ['target', 'skip'],
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'First Forest', destination: 'sacrifice' },
-        { card: 'Second Forest', destination: 'battlefield' },
+        { card: 'First Forest', destination: 'target' },
+        { card: 'Second Forest', destination: 'skip' },
       ],
     }))).toBe(true)
 
@@ -2224,8 +2223,8 @@ describe('kernel host journal', () => {
       (object) => object.name === 'First Forest',
     )!
     expect(state.objects[sacrificed.id].zone).toBe('graveyard')
-    expect(pendingSearch(state, 'p1')).toMatchObject({ source: 'Scapeshift', max: 1 })
-    expect(lobby.topdeck).toMatchObject({ kind: 'search', cards: ['Library Forest'] })
+    expect(waitingSelectCards(state, 'p1')?.selection).toMatchObject({ count: 1, min: 0 })
+    expect(lobby.topdeck).toMatchObject({ kind: 'choose', cards: ['Library Forest'] })
   })
 
   test('a search reads the whole library, not only the cards it may take', () => {

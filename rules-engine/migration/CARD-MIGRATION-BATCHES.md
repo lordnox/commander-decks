@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 at `dbad61af`; continues #394 and #383. **211 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. No card or engine behavior changes in this strategy update.
+Snapshot: PR #432 after the 09-count migration; continues #394 and #383. **208 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**167 mechanic entries:** 8 available, 1 awaiting correctness follow-up, and 158 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**167 mechanic entries:** 9 available, 1 awaiting correctness follow-up, and 157 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -25,13 +25,14 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
 
-Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 211 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 208 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
 
 ## What changed from the card batches
 
 The historical family numbers 01–44 remain stable for earlier discussions. Suffixes identify independent mechanic work inside a family. A numbered family is a navigation heading, not a requirement to finish all of its rows together. New cross-family dependencies are explicit. The old unique card-to-batch ownership rule is retired. The **Former batch** column in the card list is historical provenance only.
 
 - **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time now depends on **25-delve**; Famished Worldsire on **09-devour** and **21-ward**; Hostile Negotiations on **39-hidden** (which depends on ordinary piles/player choice). All three retain 08 as an available prerequisite in the card list.
+- **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot; 09-devour still needs its entry-replacement/counter support. Deferred choices for the same player now reopen correctly (#444).
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
 - **44 is retired as an implementation group:** its three cards now reference the actual mechanics—demonstrate, timing/hand casting, or counterability.
@@ -44,7 +45,6 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
 | [25-delve](#25-delve) | Dig Through Time | 08 is already available. |
-| [09-count](#09-count) | Reprocess; Scapeshift; Victimize | Pitiless Carnage still needs plot; devour remains a separate entry replacement. |
 | [13-step](#13-step) | Dark Confidant; Dark Tutelage; Braids, Conjurer Adept; Arcane Denial; Mana Drain | Ripples also needs mill-result identities; other upkeep cards need win-game or cumulative upkeep. |
 | [10-colors](#10-colors) | Exotic Orchard; Fellwar Stone; Reflecting Pool; Horizon of Progress | Full ability review remains required; include colorless only where Oracle permits it. |
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
@@ -64,7 +64,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. | — | `Archaeomancer's Map`; `Archdruid's Charm`; `Boseiju, Who Endures`; `Finale of Devastation`; `Scapeshift` |
+| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. | — | `Archaeomancer's Map`; `Archdruid's Charm`; `Boseiju, Who Endures`; `Finale of Devastation` |
 
 ### 03. Cycling
 
@@ -94,7 +94,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Arcane Denial`; `Archaeomancer's Map`; `Belonging`; `Boggart Trawler // Boggart Bog`; `Boseiju, Who Endures`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Desertion`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Irenicus's Vile Duplication`; `Mana Drain`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Scute Swarm`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Talon Gates of Madara`; `Thespian's Stage`; `Vanish into Memory`; `Victimize` |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Arcane Denial`; `Archaeomancer's Map`; `Belonging`; `Boggart Trawler // Boggart Bog`; `Boseiju, Who Endures`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Desertion`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Irenicus's Vile Duplication`; `Mana Drain`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Scute Swarm`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Talon Gates of Madara`; `Thespian's Stage`; `Vanish into Memory` |
 | <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Open | Capture resulting identities of the cards milled this way for later optional recovery; retain replacement and zone-change behavior instead of substituting an unrelated inspect/move program. | [07](#07) | `Ripples of Undeath`; `Six` |
 
 ### 08. Top-library inspection and selection
@@ -107,7 +107,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="09-count"></a>**09-count — Actual sacrifice counts** | Open | Choose any number; bind the number actually sacrificed after replacement; use it for draw/search or success branches. | — | `Famished Worldsire`; `It That Betrays`; `Pitiless Carnage`; `Reprocess`; `Scapeshift`; `Victimize` |
+| <a id="09-count"></a>**09-count — Actual sacrifice counts** | Available | Typed optional choices, numeric `bindCount`, and independent boolean success bindings; count only selected object identities, survive replacement choices/restore, and ignore unrelated sacrifices. Reprocess, Scapeshift, and Victimize have migrated. | — | `Famished Worldsire`; `It That Betrays`; `Pitiless Carnage` |
 | <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Open | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. | [09-count](#09-count), [17-counters](#17-counters) | `Famished Worldsire` |
 
 ### 10. Mana production

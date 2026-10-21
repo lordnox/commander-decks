@@ -237,7 +237,6 @@ import {
   ptEqualsCount,
   reduceActivationCost,
   staticBoardPump,
-  targetsOnResolve,
   optionalTargetOnResolve,
   upToTargetsOnResolve,
   addChosenColorMana,
@@ -1327,9 +1326,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Repay in Kind': [onResolve(setAllLifeToLowest())],
-  Reprocess: [
-    onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
-  ],
   'Return of the Wildspeaker': [modalChooseOne(
     {
       id: 'draw',
@@ -1371,17 +1367,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(copyControlledCreature({ keepName: true })),
   ],
   'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
-  Scapeshift: [
-    searchSpell({
-      prompt: 'Search your library for that many land cards. They enter tapped.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 99,
-      sacrificeOnResolve: 'any',
-    }),
-  ],
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
   ],
@@ -1605,13 +1590,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Vanish into Memory': [handler('blinkValue')],
   'Vantress Visions': [
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
-  ],
-  'Victimize': [
-    targetsOnResolve(
-      'reanimate',
-      { zone: 'graveyard', type: 'Creature', controller: 'you' },
-      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
-    ),
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Void Winnower': [

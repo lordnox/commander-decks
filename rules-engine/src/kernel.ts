@@ -1232,6 +1232,7 @@ const recordPendingInstructionResult = (
     draft.resolution.results = {
       ...draft.resolution.results,
       [pending.binding]: result,
+      ...(pending.booleanBinding ? { [pending.booleanBinding]: typeof result === 'number' && result > 0 } : {}),
     }
     delete draft.resolution.pendingResult
   }
@@ -1307,7 +1308,7 @@ const driveResolution = (
         }
         if ((committed.resolution.pendingEvents?.length ?? 0) > 0) {
           committed.resolution.phase = 'committing'
-        } else if (hasOpenChoice(committed)) {
+        } else if (hasOpenChoice(committed) || committed.eventProcessing) {
           committed.resolution.phase = 'waiting'
         } else if ((committed.resolution.afterChoiceEvents?.length ?? 0) > 0) {
           committed.resolution.pendingEvents = committed.resolution.afterChoiceEvents ?? []
@@ -1437,7 +1438,7 @@ const resumeCanonicalResolution = (
   if (draft.resolution?.kind === 'canonicalSpell') {
     draft.resolution.phase = (draft.resolution.pendingEvents?.length ?? 0) > 0
         ? 'committing'
-        : hasOpenChoice(draft)
+        : hasOpenChoice(draft) || draft.eventProcessing
           ? 'waiting'
           : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
             ? 'committing'
@@ -1573,7 +1574,7 @@ const resumeLegacyResolution = (
   if (draft.resolution?.kind === 'legacy') {
     draft.resolution.phase = draft.resolution.pendingEvents.length > 0
         ? 'committing'
-        : hasOpenChoice(draft)
+        : hasOpenChoice(draft) || draft.eventProcessing
           ? 'waiting'
           : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
             ? 'committing'
