@@ -1921,3 +1921,14 @@ test('Thunderfoot Baloth keeps printed trample and commander-conditioned team gr
   if (abilities[1].kind !== 'static') throw new Error('expected static ability')
   expect(abilities[1].effects[1]).toMatchObject({ when: abilities[1].effects[0].kind === 'modifyStats' ? abilities[1].effects[0].when : undefined })
 })
+
+
+test('Archetype of Endurance grants controlled creatures hexproof and prohibits it on opponents creatures', () => {
+  expect(cardTemplateDefaultsFor('Archetype of Endurance')).toMatchObject({ types: ['Enchantment', 'Creature'], subtypes: ['Boar'], manaCost: '{6}{G}{G}', manaValue: 8 })
+  expect(cardRuleDefinitionSnapshotFor('Archetype of Endurance')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [
+      { kind: 'grantKeyword', keyword: KEYWORDS.hexproof, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature' } } },
+      { kind: 'suppressKeyword', keyword: KEYWORDS.hexproof, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'opponent', type: 'Creature' } } },
+    ] },
+  ])
+})

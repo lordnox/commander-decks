@@ -1,3 +1,4 @@
+import archetypeOfEndurance from './archetype-of-endurance'
 import thunderfootBaloth from './thunderfoot-baloth'
 import profaneCommand from './profane-command'
 import yurlokOfScorchThrash from './yurlok-of-scorch-thrash'
@@ -274,6 +275,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Archetype of Endurance': archetypeOfEndurance,
   'Thunderfoot Baloth': thunderfootBaloth,
   'Profane Command': profaneCommand,
   "Yurlok of Scorch Thrash": yurlokOfScorchThrash,

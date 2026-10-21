@@ -201,7 +201,7 @@ const syncModifyStats = (
 const modifierTargets = (
   state: GameState,
   source: GameObject,
-  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'modifyStats' }>,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' | 'modifyStats' }>,
 ) => {
   const context = { state, controller: source.controller, source: captureObject(source) }
   if (effect.when && !evaluateCondition(effect.when, context)) return []
@@ -213,7 +213,7 @@ const syncKeywordModifier = (
   source: GameObject,
   abilityIndex: number,
   effectIndex: number,
-  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' }>,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' }>,
   timestamp: number,
 ) => {
   const targetIds = new Set(modifierTargets(draft, source, effect).map(object => object.id))
@@ -225,7 +225,10 @@ const syncKeywordModifier = (
       continue
     }
     if (existing) continue
-    stampEffect(object, keywordGrant(effect.keyword), duration)
+    const modifier: ReversibleEffect = effect.kind === 'grantKeyword'
+      ? keywordGrant(effect.keyword)
+      : { kind: 'staticKeywords', grant: [], suppress: [effect.keyword] }
+    stampEffect(object, modifier, duration)
   }
 }
 
@@ -291,7 +294,7 @@ const syncSource = (draft: Draft, source: GameObject) => {
     if (effect.kind === 'modifyStats') {
       syncModifyStats(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
-    if (effect.kind === 'grantKeyword') {
+    if (effect.kind === 'grantKeyword' || effect.kind === 'suppressKeyword') {
       syncKeywordModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
     if (effect.kind === 'grantAbility') {
@@ -380,7 +383,7 @@ const modifiersOutOfSync = (state: GameState) => {
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
       }
-      if (entry.effect.kind === 'grantKeyword') {
+      if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword') {
         const targetIds = new Set(modifierTargets(state, source, entry.effect).map(object => object.id))
         for (const object of Object.values(state.objects)) {
           if (targetIds.has(object.id) !== Boolean(existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex))) return true

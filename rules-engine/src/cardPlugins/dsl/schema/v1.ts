@@ -639,6 +639,8 @@ export type ContinuousEffectDefinition =
       set?: true
     }
   | { kind: 'grantKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
+  /** Remove the keyword and prohibit gaining it while this modifier applies (CR 113.11). */
+  | { kind: 'suppressKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
   | { kind: 'grantAbility'; targets: ObjectSelector; ability: GeneratedAbility }
   | { kind: 'reduceActivationCost'; targets: ObjectSelector; generic: Amount }
   | ReplacementEffectDefinition

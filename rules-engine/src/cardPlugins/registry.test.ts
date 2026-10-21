@@ -524,35 +524,6 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
   })
 
-  test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {
-    expect(effectsFor('Archetype of Endurance')).toEqual([
-      {
-        op: 'static',
-        pluginId: 'staticBoardPump',
-        staticBoardPump: {
-          power: 0,
-          toughness: 0,
-          requireTypes: ['Creature'],
-          grantKeywords: ['hexproof'],
-        },
-      },
-      {
-        op: 'static',
-        pluginId: 'staticBoardPump',
-        staticBoardPump: {
-          power: 0,
-          toughness: 0,
-          requireTypes: ['Creature'],
-          controller: 'opponent',
-          suppressKeywords: ['hexproof'],
-        },
-      },
-    ])
-    expect(cardPluginEntry('Archetype of Endurance')).toMatchObject({
-      pluginIds: ['staticBoardPump', 'staticBoardPump'],
-    })
-  })
-
   test('Woodfall Primus registers persist and a mandatory noncreature destroy', () => {
     expect(effectsFor('Woodfall Primus')).toEqual([
       {

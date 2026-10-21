@@ -191,7 +191,6 @@ import {
   repeatIf,
   ifYouDoExileFromGraveyard,
   ptEqualsCount,
-  staticBoardPump,
   upToTargetsOnResolve,
   addChosenColorMana,
   destroyTargetPermanent,
@@ -322,13 +321,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
-  ],
-  'Archetype of Endurance': [
-    staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
-    staticBoardPump(0, 0, ['Creature'], {
-      controller: 'opponent',
-      suppressKeywords: ['hexproof'],
-    }),
   ],
   'Awaken the Honored Dead': [
     sagaChapters(

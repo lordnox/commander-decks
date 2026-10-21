@@ -1678,7 +1678,8 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               return
             }
-            case 'grantKeyword': {
+            case 'grantKeyword':
+            case 'suppressKeyword': {
               exactKeys(node, effectPath, ['kind', 'targets', 'keyword', 'when'], ['kind', 'targets', 'keyword'])
               if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
                 issue(childPath(effectPath, 'targets'), 'domain', 'keyword modifiers require an object selector')

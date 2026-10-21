@@ -872,12 +872,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "2cafcbe12b02c3c64c387efe111ea3c09d5d7b9cca0ac0fca6dd9d470a099ad1",
-    "card": "Archetype of Endurance"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "42b8c5a7acba94794e729b8f93a5d5ba4db57ba1da184553fd7f8d8d9e87ea1c",
     "card": "Blightsteel Colossus"
   },

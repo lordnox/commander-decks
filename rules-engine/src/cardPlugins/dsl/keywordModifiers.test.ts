@@ -4,9 +4,10 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { hasKeyword } from '../../keywords'
 import { captureObject } from '../../objectIdentity'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
+import { instructionSpell } from './instructionTestSupport'
 import { CONTROL_EVENT } from './controlConstants'
-import { amount, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, grantKeyword, KEYWORDS, modifyStats, objects, players, ref, staticAbility } from './v1'
+import { amount, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, createEffect, grantKeywordEffect, grantKeyword, KEYWORDS, keyword, modifyStats, objects, players, ref, staticAbility, suppressKeyword, untilCleanup } from './v1'
 
 const definition = (conditional = false) => {
   const when = conditional ? compareAmount(count(objects({ among: ref('source'), tapped: false })), 'eq', 1) : undefined
@@ -70,10 +71,96 @@ test('keyword grants follow the source controller and phase with their source', 
 })
 
 test('keyword modifier validation rejects unsupported keywords and player recipients', () => {
-  for (const effect of [
-    { kind: 'grantKeyword', targets: objects({ zone: 'battlefield' }), keyword: 'unknown' },
-    { kind: 'grantKeyword', targets: players(), keyword: KEYWORDS.haste },
-  ]) {
-    expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{ kind: 'static', activeIn: ['battlefield'], effects: [effect] }] })).toThrow()
+  for (const kind of ['grantKeyword', 'suppressKeyword']) {
+    for (const effect of [
+      { kind, targets: objects({ zone: 'battlefield' }), keyword: 'unknown' },
+      { kind, targets: players(), keyword: KEYWORDS.haste },
+    ]) {
+      expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{ kind: 'static', activeIn: ['battlefield'], effects: [effect] }] })).toThrow()
+    }
   }
+})
+
+const suppression = (conditional = false) => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(suppressKeyword({
+    targets: objects({ zone: 'battlefield', controller: 'opponent', type: 'Creature' }),
+    keyword: KEYWORDS.hexproof,
+    ...(conditional ? { when: compareAmount(count(objects({ among: ref('source'), tapped: false })), 'eq', 1) } : {}),
+  })),
+])))
+
+const hexproofGrant = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(grantKeyword({ targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }), keyword: KEYWORDS.hexproof })),
+])))
+const printedHexproof = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.hexproof])))
+
+test.each([[false], [true]] as const)('cannot-gain suppression overrides printed, static, and temporary grants regardless of source order (%s)', suppressionFirst => {
+  const suppressor = cardTemplate('Suppressor', { types: ['Artifact'], ruleDefinition: suppression() })
+  const grantor = cardTemplate('Grantor', { types: ['Artifact'], ruleDefinition: hexproofGrant })
+  const sourceOrder = suppressionFirst ? { p1: [suppressor], p2: [grantor] } : { p2: [grantor], p1: [suppressor] }
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      ...sourceOrder,
+      p2: [...sourceOrder.p2, cardTemplate('Printed recipient', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: printedHexproof }), cardTemplate('Granted recipient', { types: ['Creature'], power: 2, toughness: 2 }), cardTemplate('Unaffected relic', { types: ['Artifact'], ruleDefinition: printedHexproof })],
+    },
+    hands: { p1: [instructionSpell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield', type: 'Creature' }), effect: grantKeywordEffect(KEYWORDS.hexproof), duration: untilCleanup() })] })] },
+  }, { random: () => 0 })
+  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof, state)
+  expect(has(server.state, 'Printed recipient')).toBe(false)
+  expect(has(server.state, 'Granted recipient')).toBe(false)
+  expect(has(server.state, 'Unaffected relic')).toBe(true)
+  const granted = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(has(granted, 'Granted recipient')).toBe(false)
+  const withoutGrantor = ok(server.rules(granted, { type: 'move', objectId: named(granted, 'Grantor').id, to: 'graveyard' }))
+  const restored = ok(server.rules(structuredClone(withoutGrantor), { type: 'move', objectId: named(withoutGrantor, 'Suppressor').id, to: 'graveyard' }))
+  expect(has(restored, 'Printed recipient')).toBe(true)
+  expect(has(restored, 'Granted recipient')).toBe(true)
+  const cleanup = ok(server.rules({ ...restored, step: 'end', priority: null }, { type: 'advanceStep' }))
+  expect(has(cleanup, 'Printed recipient')).toBe(true)
+  expect(has(cleanup, 'Granted recipient')).toBe(false)
+})
+
+test('conditional suppression follows source control, phasing, and state changes', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('Suppressor', { types: ['Artifact'], ruleDefinition: suppression(true) }), cardTemplate('Ally', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: printedHexproof })],
+      p2: [cardTemplate('Opponent', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: printedHexproof })],
+    },
+  }, { random: () => 0 })
+  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof, state)
+  const source = named(server.state, 'Suppressor')
+  expect(has(server.state, 'Ally')).toBe(true)
+  expect(has(server.state, 'Opponent')).toBe(false)
+  const tapped = ok(server.rules(server.state, { type: 'tap', objectId: source.id }))
+  expect(has(tapped, 'Opponent')).toBe(true)
+  const untapped = ok(server.rules(tapped, { type: 'untap', objectId: source.id }))
+  expect(has(untapped, 'Opponent')).toBe(false)
+  const changed = ok(server.rules(untapped, { type: CONTROL_EVENT.change, objectRef: captureObject(source).ref, controller: 'p2' }))
+  expect(has(changed, 'Ally')).toBe(false)
+  expect(has(changed, 'Opponent')).toBe(true)
+  const phased = ok(server.rules(changed, { type: 'phaseOut', objectId: source.id }))
+  expect(has(phased, 'Ally')).toBe(true)
+  const returned = ok(server.rules(phased, { type: 'phaseIn', objectId: source.id }))
+  expect(has(returned, 'Ally')).toBe(false)
+})
+
+test('opposing grant-and-suppression sources each prevent the other side from having the keyword', () => {
+  const both = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    staticAbility(
+      grantKeyword({ targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }), keyword: KEYWORDS.hexproof }),
+      suppressKeyword({ targets: objects({ zone: 'battlefield', controller: 'opponent', type: 'Creature' }), keyword: KEYWORDS.hexproof }),
+    ),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('First source', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: both })],
+      p2: [cardTemplate('Second source', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: both })],
+    },
+  }, { random: () => 0 })
+  for (const object of Object.values(server.state.objects)) expect(hasKeyword(object, KEYWORDS.hexproof, server.state)).toBe(false)
+  const removed = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Second source').id, to: 'graveyard' }))
+  expect(hasKeyword(named(removed, 'First source'), KEYWORDS.hexproof, removed)).toBe(true)
 })
