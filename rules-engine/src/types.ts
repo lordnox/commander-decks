@@ -30,20 +30,12 @@ export type ZoneId = (typeof ZONE_IDS)[number]
  * Empty-stack priority passes enqueue `advanceStep`; combat steps are skipped
  * unless attackers are declared.
  */
-export type StepId =
-  | 'untap'
-  | 'upkeep'
-  | 'draw'
-  | 'precombatMain'
-  | 'beginCombat'
-  | 'declareAttackers'
-  | 'declareBlockers'
-  | 'firstStrikeDamage'
-  | 'combatDamage'
-  | 'endCombat'
-  | 'postcombatMain'
-  | 'end'
-  | 'cleanup'
+export const STEP_IDS = [
+  'untap', 'upkeep', 'draw', 'precombatMain', 'beginCombat', 'declareAttackers',
+  'declareBlockers', 'firstStrikeDamage', 'combatDamage', 'endCombat',
+  'postcombatMain', 'end', 'cleanup',
+] as const
+export type StepId = typeof STEP_IDS[number]
 
 /** WUBRG plus colorless `{C}`. Generic `{N}` is paid from leftover pool, not stored as `C`. */
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'

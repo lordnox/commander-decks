@@ -1,3 +1,6 @@
+import braidsConjurerAdept from './braids-conjurer-adept'
+import darkConfidant from './dark-confidant'
+import darkTutelage from './dark-tutelage'
 import reprocess from './reprocess'
 import scapeshift from './scapeshift'
 import victimize from './victimize'
@@ -255,6 +258,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Boggart Trawler // Boggart Bog": boggartTrawler,
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
+  "Braids, Conjurer Adept": braidsConjurerAdept,
   "Breeding Pool": breedingPool,
   "Bridgeworks Battle": bridgeworksBattle,
   "Bridgeworks Battle // Tanglespan Bridgeworks": bridgeworksBattle,
@@ -277,6 +281,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cryptic Command": crypticCommand,
   "Cultivate": cultivate,
   "Daily Bugle Newspaper": dailyBugleNewspaper,
+  "Dark Confidant": darkConfidant,
+  "Dark Tutelage": darkTutelage,
   "Darkness": darkness,
   "Debt to the Deathless": debtToTheDeathless,
   "Drain Life": drainLife,

@@ -1452,3 +1452,29 @@ test('Talon Gates phases out up to one creature, makes mana, and can enter from 
     { kind: 'activated', availableFrom: ['hand'], costs: [{ kind: 'mana', amount: '{4}' }], instructions: [{ kind: 'move', to: 'battlefield' }] },
   ])
 })
+
+test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {
+  const confidant = cardRuleDefinitionSnapshotFor('Dark Confidant')!
+  expect(cardRuleDefinitionSnapshotFor('Dark Tutelage')!.definition.abilities).toEqual(confidant.definition.abilities)
+  expect(confidant.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'contextRef', name: 'controller' } },
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 1 }, visibility: 'public' },
+      { kind: 'if', then: [
+        { kind: 'captureAmount', amount: { kind: 'characteristic', characteristic: 'manaValue' } },
+        { kind: 'move', to: 'hand' },
+        { kind: 'loseLife', amount: { kind: 'resultRef', binding: 'manaValue' } },
+      ] },
+    ],
+  }])
+})
+
+test('Braids offers an eligible hand permanent to the active upkeep player', () => {
+  expect(cardRuleDefinitionSnapshotFor('Braids, Conjurer Adept')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' },
+    instructions: [
+      { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'triggering.player' }, filter: { filter: { zone: 'hand', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } }, min: { value: 0 }, max: { value: 1 } },
+      { kind: 'move', to: 'battlefield', controller: { kind: 'contextRef', name: 'triggering.player' } },
+    ],
+  }])
+})

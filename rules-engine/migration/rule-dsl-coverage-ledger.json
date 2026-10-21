@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 197,
+    "cardRegistrations": 194,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -27,13 +27,13 @@
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 31,
-    "customEventDispatchSites": 83,
+    "customEventDispatchSites": 84,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 38,
+    "instructionUnobservedGaps": 39,
     "cardRegistrationOnlyGaps": 6,
-    "candidateOnlyInstructionRows": 148,
-    "candidateOnlyCardRows": 191
+    "candidateOnlyInstructionRows": 147,
+    "candidateOnlyCardRows": 188
   },
   "cardEffects": [
     {
@@ -336,7 +336,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:193 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:194 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:316 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:226 — test('Temple of the False God produces mana only with five lands', () => {"
         ]
@@ -362,7 +362,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:170 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:171 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela mana and extort cards stay registered', () => {"
         ]
       },
@@ -480,7 +480,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:208 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:209 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:35 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:578 — test('chapter III may discard then return a graveyard creature or land', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:646 — test('a summoning-sick source cannot tap, and a tapped one cannot tap again', () => {"
@@ -771,7 +771,6 @@
         "Bishop of Binding:effects[4]",
         "Blossoming Tortoise:effects[0]",
         "Blossoming Tortoise:effects[1]",
-        "Braids, Conjurer Adept:effects[0]",
         "Breena, the Demagogue:effects[0]",
         "Bubbling Muck:effects[0]",
         "Cavern of Souls:effects[0]",
@@ -785,8 +784,6 @@
         "Crawling Sensation:effects[0]",
         "Crawling Sensation:effects[1]",
         "Curious Colossus:effects[0]",
-        "Dark Confidant:effects[0]",
-        "Dark Tutelage:effects[0]",
         "Erestor of the Council:effects[0]",
         "Eureka:effects[0]",
         "Everflowing Chalice:effects[1]",
@@ -877,7 +874,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 304,
+        "matches": 303,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -911,9 +908,9 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:149 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:85 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
         ]
@@ -1004,7 +1001,7 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:236 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:237 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
         ]
@@ -1193,9 +1190,9 @@
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:323 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:132 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:133 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:85 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {"
@@ -1432,7 +1429,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:123 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:124 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
         ]
       },
@@ -1484,7 +1481,7 @@
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:208 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:209 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:672 — test('Homer remaining cards keep their resolve composition', () => {"
         ]
       },
@@ -1791,7 +1788,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:253 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:254 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
@@ -2017,10 +2014,10 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:62 — test('City of Brass damages you when it becomes tapped for mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:118 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:372 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:561 — test('requires an available route to pay its activation cost', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:593 — test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:373 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:572 — test('requires an available route to pay its activation cost', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:604 — test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:370 — test('the Lady Evangela remaining group stays registered', () => {"
         ]
       },
@@ -2201,7 +2198,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:118 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -2403,11 +2400,11 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:253 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:457 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:951 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
           "rules-engine/src/cardPlugins/seaGate.test.ts:51 — test('instructions are clone-safe', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:89 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
+          "rules-engine/src/plugins/doubleFaced.test.ts:96 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3274,7 +3271,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 29,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
@@ -3573,7 +3570,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 33,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
@@ -3581,8 +3578,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1112 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1184 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1208 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:178 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:880 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1466 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:178 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3904,7 +3901,7 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1215 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:253 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:457 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:951 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
           "rules-engine/src/cardPlugins/seaGate.test.ts:52 — test('instructions are clone-safe', () => {"
@@ -4480,7 +4477,6 @@
       "variant": "putFromHand",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Braids, Conjurer Adept:effects[0].do[0]",
         "Eureka:effects[0].do[0]",
         "Hypergenesis:effects[0].do[0]",
         "Show and Tell:effects[0].do[0]"
@@ -4539,7 +4535,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:186 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:187 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:78 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:128 — test('Zimone and Dina sacrifice another creature as the activation cost', () => {",
           "rules-engine/src/cardPlugins/triggerFrequency.test.ts:217 — test('Zimone and Dina drain on the second draw', () => {"
@@ -4669,7 +4665,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:87 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:137 — test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:108 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:109 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -5028,17 +5024,11 @@
     {
       "variant": "revealDrawLoseLife",
       "mechanic": "resolution choice",
-      "currentRegistrations": [
-        "Dark Confidant:effects[0].do[0]",
-        "Dark Tutelage:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:579 — test('Dark Confidant reveals, draws, and loses life on your upkeep', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:392 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -5047,7 +5037,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -5310,7 +5300,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:216 — test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:229 — test('a destroyed borrowed permanent makes its controller search', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:120 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:121 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:118 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
           "rules-engine/src/replay.test.ts:142 — test('imports printed supertypes and keeps a double-faced card front face', () => {"
         ]
@@ -6233,7 +6223,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:146 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:147 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:141 — test('Lady Evangela damage and mana cards only register card-specific rules', () => {",
           "rules-engine/src/plugins/extraUntap.test.ts:38 — test('an extra untap spends a stun counter instead of untapping', () => {",
           "rules-engine/src/plugins/extraUntap.test.ts:8 — test(\"Bender's Waterskin uses generic mana and extra-untap rules\", () => {"
@@ -6527,7 +6517,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:216 — test('a target that left the battlefield in response is not destroyed again and its controller does not search', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:229 — test('a destroyed borrowed permanent makes its controller search', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:120 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:121 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:118 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
           "rules-engine/src/replay.test.ts:142 — test('imports printed supertypes and keeps a double-faced card front face', () => {"
         ]
@@ -6550,40 +6540,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Braids, Conjurer Adept",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Braids, Conjurer Adept"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:218 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [putFromHand]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "putFromHand"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "dumpFromHand"
       ],
       "embeddedRulePaths": []
     },
@@ -6665,7 +6621,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:208 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:209 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:35 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {"
         ]
       },
@@ -6704,7 +6660,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:118 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:119 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:83 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -6809,10 +6765,10 @@
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:62 — test('City of Brass damages you when it becomes tapped for mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:343 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:372 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:561 — test('requires an available route to pay its activation cost', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:593 — test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:344 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:373 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:572 — test('requires an available route to pay its activation cost', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:604 — test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:370 — test('the Lady Evangela remaining group stays registered', () => {"
         ]
       },
@@ -7107,7 +7063,7 @@
         "matches": 4,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3426 — test('publishes the persisted typed payment and applies the selected mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:713 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:724 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:391 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
@@ -7216,7 +7172,7 @@
           "rules-engine/src/cardPlugins/dredge.test.ts:126 — test('projects graveyard options only to the drawing seat', () => {",
           "rules-engine/src/cardPlugins/dredge.test.ts:87 — test('offers every eligible dredger for at most one replacement', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:121 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [dredge, replacement] and instructions []",
@@ -7237,69 +7193,6 @@
         "dredge",
         "entersTapped"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Dark Confidant",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dark Confidant"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:579 — test('Dark Confidant reveals, draws, and loses life on your upkeep', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:392 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [revealDrawLoseLife]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "revealDrawLoseLife"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Dark Tutelage",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dark Tutelage"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:393 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [revealDrawLoseLife]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "revealDrawLoseLife"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -7386,7 +7279,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:220 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:221 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:578 — test('chapter III may discard then return a graveyard creature or land', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:646 — test('a summoning-sick source cannot tap, and a tapped one cannot tap again', () => {"
         ]
@@ -7767,7 +7660,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:170 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:171 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela mana and extort cards stay registered', () => {"
         ]
       },
@@ -7875,7 +7768,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:175 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:176 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [manaCapability] and instructions []",
@@ -7905,7 +7798,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/landfall.test.ts:170 — test('Field of the Dead counts itself and needs seven differently named lands', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:185 — test('duplicate land names do not reach Field of the Dead\\'s threshold', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:123 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:29 — test('a forest table does not load the whole handler catalog', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:36 — test('the Sin Fall cards this pass covers stay registered', () => {"
         ]
@@ -8023,9 +7916,9 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:149 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:85 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
         ]
@@ -8068,7 +7961,7 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:236 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:237 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
         ]
@@ -8210,7 +8103,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:123 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:124 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
         ]
       },
@@ -8358,7 +8251,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:248 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions []",
@@ -8392,7 +8285,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:132 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:133 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {"
         ]
       },
@@ -8471,7 +8364,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:186 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:187 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, manaCapability] and instructions [draw, putLandFromHand]",
@@ -9063,7 +8956,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:323 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:133 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/untilEot.test.ts:420 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
         ]
       },
@@ -9715,7 +9608,7 @@
           "live-runner/src/kernelHost.test.ts:2374 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:666 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:48 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:126 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:127 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:314 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -9751,7 +9644,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:87 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:137 — test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:108 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:109 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, trigger] and instructions [putTargetOnLibraryTop]",
@@ -9990,7 +9883,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:130 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:131 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:119 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {"
         ]
       },
@@ -10214,7 +10107,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:852 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:203 — test('Phial doubles draws from an empty hand and life gains at five or less', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:147 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:258 — test('the action runner emits a no-target fixed loyalty activation', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:306 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:339 — test('+1 rejects two targets competing for the same type slot', () => {",
@@ -10340,7 +10233,7 @@
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:275 — test('pumps a stack target using linked exile power', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:304 — test('tracks exactly which graveyard cards it exiled and produces their colors', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:354 — test('adopts cards a game imported from a replay already has in exile', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:199 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:200 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler, replacement] and instructions []",
@@ -10662,7 +10555,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:180 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:181 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela mana and extort cards stay registered', () => {"
         ]
       },
@@ -11060,10 +10953,10 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:253 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:457 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:951 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:89 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {",
+          "rules-engine/src/plugins/doubleFaced.test.ts:96 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {",
           "rules-engine/src/plugins/landFace.test.ts:81 — test('a face that is not a land is rejected, and a plain land offers no face choice', () => {"
         ]
       },
@@ -11248,7 +11141,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:250 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions []",
@@ -11866,7 +11759,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:193 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:194 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:316 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:226 — test('Temple of the False God produces mana only with five lands', () => {"
         ]
@@ -12118,8 +12011,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:683 — test('Urborg lets a Forest tap for {B}', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:736 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:694 — test('Urborg lets a Forest tap for {B}', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:747 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:425 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
@@ -12454,7 +12347,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, search] and instructions []",
@@ -12808,7 +12701,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:253 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:254 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
@@ -13282,7 +13175,7 @@
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:363 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:364 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {"
@@ -13395,7 +13288,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 177,
+        "matches": 179,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -13516,7 +13409,7 @@
         "matches": 4,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3426 — test('publishes the persisted typed payment and applies the selected mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:713 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:724 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:391 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
@@ -13915,7 +13808,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:852 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:203 — test('Phial doubles draws from an empty hand and life gains at five or less', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:147 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:258 — test('the action runner emits a no-target fixed loyalty activation', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:306 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:339 — test('+1 rejects two targets competing for the same type slot', () => {",
@@ -14072,7 +13965,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 230,
+        "matches": 231,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -14114,7 +14007,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 58,
+        "matches": 60,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3412 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:793 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -14254,8 +14147,8 @@
         "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:123 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:683 — test('Urborg lets a Forest tap for {B}', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:736 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:694 — test('Urborg lets a Forest tap for {B}', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:747 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:385 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
@@ -14632,8 +14525,8 @@
         "matches": 3,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3299 — test('publishes and applies the defeated Siege casting choice', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:166 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:89 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
+          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:167 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
+          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:90 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -14998,7 +14891,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1443",
+        "rules-engine/src/cardPlugins/cardRules.ts:1439",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -15023,7 +14916,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1273"
+        "rules-engine/src/types.ts:1265"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -15107,10 +15000,10 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1146",
-        "rules-engine/src/types.ts:330",
-        "rules-engine/src/types.ts:332",
-        "rules-engine/src/types.ts:336"
+        "rules-engine/src/rules/triggers.ts:1168",
+        "rules-engine/src/types.ts:322",
+        "rules-engine/src/types.ts:324",
+        "rules-engine/src/types.ts:328"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -15142,8 +15035,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:251",
-        "rules-engine/src/cardPlugins/cardRules.ts:780",
+        "rules-engine/src/cardPlugins/cardRules.ts:250",
+        "rules-engine/src/cardPlugins/cardRules.ts:776",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -15186,11 +15079,11 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
-        "rules-engine/src/types.ts:157",
-        "rules-engine/src/types.ts:293",
-        "rules-engine/src/types.ts:354",
-        "rules-engine/src/types.ts:81",
-        "rules-engine/src/types.ts:98"
+        "rules-engine/src/types.ts:149",
+        "rules-engine/src/types.ts:285",
+        "rules-engine/src/types.ts:346",
+        "rules-engine/src/types.ts:73",
+        "rules-engine/src/types.ts:90"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -15288,10 +15181,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          203
+          204
         ],
         "samples": [
-          "203: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "204: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -15441,12 +15334,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          301,
-          368
+          303,
+          370
         ],
         "samples": [
-          "301: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "368: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "303: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "370: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -15584,10 +15477,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          173
+          160
         ],
         "samples": [
-          "173: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "160: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -15671,22 +15564,23 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          67,
-          127,
-          145,
-          264,
-          265,
-          395,
-          755,
-          872,
-          1029,
-          1064,
-          1065
+          68,
+          128,
+          146,
+          221,
+          285,
+          286,
+          417,
+          777,
+          894,
+          1051,
+          1086,
+          1087
         ],
         "samples": [
-          "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
-          "127: eventType: event.type === 'custom' ? event.name : event.type,",
-          "145: : event.type === 'custom' && event.name === 'advanceStep'"
+          "68: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
+          "128: eventType: event.type === 'custom' ? event.name : event.type,",
+          "146: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -16676,12 +16570,12 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          99,
-          110
+          86,
+          97
         ],
         "samples": [
-          "99: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
-          "110: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
+          "86: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
+          "97: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17057,24 +16951,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          525,
-          610,
-          705,
-          739,
-          818,
-          883,
-          896,
-          936,
-          1017,
-          1087,
-          1144,
-          1311,
-          1422
+          547,
+          632,
+          727,
+          761,
+          840,
+          905,
+          918,
+          958,
+          1039,
+          1109,
+          1166,
+          1333,
+          1444
         ],
         "samples": [
-          "525: const frequencySource = draft.object(source.id) ?? source",
-          "610: const live = draft.object(source.id)",
-          "705: const land = draft.object(objectId)"
+          "547: const frequencySource = draft.object(source.id) ?? source",
+          "632: const live = draft.object(source.id)",
+          "727: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

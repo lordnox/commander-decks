@@ -6,7 +6,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
-import { ok, resolveStack } from '../testHelpers'
+import { ok } from '../testHelpers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
@@ -564,38 +564,4 @@ describe('combat damage life swap', () => {
     }))
     expect(dealt.stack).toHaveLength(0)
   })
-})
-
-describe('relocated from ladyEvangela.test.ts → lifeEffects.test.ts', () => {
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-
-  test('Dark Confidant reveals, draws, and loses life on your upkeep', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: {
-            p1: [cardTemplate('Dark Confidant', { types: ['Creature'] })],
-          },
-          libraries: {
-            p1: [cardTemplate('Ancestral Recall', {
-              types: ['Instant'],
-              manaCost: '{U}',
-              manaValue: 1,
-            })],
-          },
-        },
-        { random: () => 0.5 },
-      )
-      let state = server.state
-      state.step = 'untap'
-      state.active = 'p1'
-      state = ok(server.rules(state, { type: 'advanceStep' }))
-      expect(state.step).toBe('upkeep')
-      state = resolveStack(server.rules, state)
-      expect(named(state, 'Ancestral Recall').zone).toBe('hand')
-      expect(state.players.p1.life).toBe(39)
-    })
-
 })

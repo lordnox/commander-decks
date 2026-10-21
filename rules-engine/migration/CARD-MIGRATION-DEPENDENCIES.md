@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 09-count, 25-delve, and the remaining composition candidates. **197 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 13-step native triggers. **194 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **197 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **1 composition candidate**; **193 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -15,7 +15,7 @@ Current readiness: **0 composition candidates**; **197 blocked or awaiting sourc
 | `Ancient Greenwarden` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
 | `Angel of Sanctions` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-embalm](CARD-MIGRATION-BATCHES.md#25-embalm) | Blocked by mechanics | — |
 | `Apex Altisaur` | 34 | [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Blocked by mechanics | — |
-| `Arcane Denial` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Next-turn upkeep scheduling; countered-spell controller may draw up to two. |
+| `Arcane Denial` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07](CARD-MIGRATION-BATCHES.md#07) | Review & compose | Next-turn upkeep scheduling; countered-spell controller may draw up to two. |
 | `Archangel of Tithes` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
 | `Archetype of Endurance` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [21-suppress](CARD-MIGRATION-BATCHES.md#21-suppress) | Blocked by mechanics | — |
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
@@ -31,7 +31,6 @@ Current readiness: **0 composition candidates**; **197 blocked or awaiting sourc
 | `Blitzball` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation), [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Blocked by mechanics | Activation condition uses legendary-creature combat damage to an opponent this turn. |
 | `Blossoming Tortoise` | 14 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction) | Blocked by mechanics | Static filtered stat modification already exists; retain both entry and attack triggers. |
 | `Boseiju, Who Endures` | 11 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction), [02](CARD-MIGRATION-BATCHES.md#02), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Hand discard activation, nonbasic filter, per-legendary reduction, and target-controller optional search. |
-| `Braids, Conjurer Adept` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step) | Blocked by mechanics | Only the active player makes an optional hand placement on their upkeep; existing chooseCards/move compose this. No multi-player placement loop is required. |
 | `Breena, the Demagogue` | 34 | [34-defender](CARD-MIGRATION-BATCHES.md#34-defender), [15-compare](CARD-MIGRATION-BATCHES.md#15-compare) | Blocked by mechanics | — |
 | `Bubbling Muck` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus) | Blocked by mechanics | — |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
@@ -50,8 +49,6 @@ Current readiness: **0 composition candidates**; **197 blocked or awaiting sourc
 | `Curious Colossus` | 22 | [22-ability-loss](CARD-MIGRATION-BATCHES.md#22-ability-loss) | Blocked by mechanics | Preserve all three layers: ability loss, Coward addition, and base 1/1. |
 | `Círdan the Shipwright` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret) | Blocked by mechanics | Retain both entry and attack triggers. |
 | `Dakmor Salvage` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | — |
-| `Dark Confidant` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [08](CARD-MIGRATION-BATCHES.md#08), [06](CARD-MIGRATION-BATCHES.md#06) | Blocked by mechanics | — |
-| `Dark Tutelage` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [08](CARD-MIGRATION-BATCHES.md#08), [06](CARD-MIGRATION-BATCHES.md#06) | Blocked by mechanics | — |
 | `Darksteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle) | Blocked by mechanics | — |
 | `Decisive Denial` | 20 | [20-payment](CARD-MIGRATION-BATCHES.md#20-payment) | Blocked by mechanics | — |
 | `Delighted Halfling` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana) | Blocked by mechanics | — |
@@ -105,7 +102,7 @@ Current readiness: **0 composition candidates**; **197 blocked or awaiting sourc
 | `Lotho, Corrupt Shirriff` | 35 | [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal) | Blocked by mechanics | — |
 | `Lumbering Battlement` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Include linked-card count in continuous stat modification. |
 | `Lumra, Bellow of the Woods` | 22 | [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach/vigilance, land-count CDA, and mill/return lands. |
-| `Mana Drain` | 20 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Capture target mana value and schedule the next-main mana; counter follow-up is not conditional on counter success. |
+| `Mana Drain` | 20 | [13-delayed-main](CARD-MIGRATION-BATCHES.md#13-delayed-main), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Capture target mana value and schedule the next-main mana; counter follow-up is not conditional on counter success. |
 | `Marina Vendrell` | 43 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [08](CARD-MIGRATION-BATCHES.md#08) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include reveal-seven enchantments and door activation. |
 | `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | — |
 | `Maskwood Nexus` | 22 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |

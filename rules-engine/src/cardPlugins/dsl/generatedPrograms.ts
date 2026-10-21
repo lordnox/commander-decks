@@ -18,6 +18,7 @@ export const generatedAbilitySnapshot = (
   let on: TriggeredAbilityDefinition['on']
   switch (ability.on.kind) {
     case 'attacks':
+    case 'stepBegins':
     case 'playLand':
     case 'discard':
     case 'cycle':
@@ -76,6 +77,7 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
   switch (pattern.kind) {
     case 'attacks':
     case 'cast': return ['player', 'object.after']
+    case 'stepBegins':
     case 'playLand':
     case 'discard': return ['player']
     case 'cycle': return ['player', 'object.after']

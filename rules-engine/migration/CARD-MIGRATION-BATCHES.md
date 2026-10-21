@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after 09-count, 25-delve, and the remaining composition candidates; continues #394 and #383. **197 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, and Victimize, are now canonical.
+Snapshot: PR #432 after 13-step native triggers; continues #394 and #383. **194 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, and Braids, are now canonical.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**167 mechanic entries:** 11 available, 1 awaiting correctness follow-up, and 155 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 11 available, 1 awaiting correctness follow-up, and 156 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -33,6 +33,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 - **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire still needs **09-devour** and **21-ward**; Hostile Negotiations still needs **39-hidden**.
 - **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot; 09-devour still needs its entry-replacement/counter support. Deferred choices for the same player now reopen correctly (#444).
+- **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, and Braids have migrated. Next-main scheduling remains a separate open contract.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -45,12 +46,12 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [13-step](#13-step) | Dark Confidant; Dark Tutelage; Braids, Conjurer Adept; Arcane Denial; Mana Drain | Ripples also needs mill-result identities; other upkeep cards need win-game or cumulative upkeep. |
+| [13-delayed-main](#13-delayed-main) | Mana Drain | Capture its target mana value; mana is independent of counter success. |
 | [10-colors](#10-colors) | Exotic Orchard; Fellwar Stone; Reflecting Pool; Horizon of Progress | Full ability review remains required; include colorless only where Oracle permits it. |
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
-**No remaining composition candidates** with a fully available mechanic set. Next work is an open mechanic such as [13-step](#13-step).
+**1 composition candidate:** `Arcane Denial`, subject to full-card review of its next-upkeep callbacks and optional draws. Native step triggers are available; Mana Drain still needs next-main scheduling.
 
 ## Mechanic groups
 
@@ -88,7 +89,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. | — | `Crypt Ghast`; `Dark Confidant`; `Dark Tutelage`; `Mirror Universe`; `Mister Negative`; `Necrologia`; `Repay in Kind` |
+| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. | — | `Crypt Ghast`; `Mirror Universe`; `Mister Negative`; `Necrologia`; `Repay in Kind` |
 
 ### 07. Action outcomes, captured players, and copy snapshots
 
@@ -101,7 +102,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Dark Confidant`; `Dark Tutelage`; `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Marina Vendrell`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Marina Vendrell`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
 
 ### 09. Sacrifice outcomes and entry sacrifice
 
@@ -141,7 +142,8 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Open | Upkeep/end-step/first-main occurrences, active-player filters, and intervening conditions; distinguish delayed from printed triggers. | — | `All-Fates Stalker`; `Arcane Denial`; `Awaken the Honored Dead`; `Belonging`; `Braids, Conjurer Adept`; `Coercive Portal`; `Crawling Sensation`; `Dark Confidant`; `Dark Tutelage`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Mana Drain`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, and Braids have migrated; delayed next-main scheduling is separate. | — | `All-Fates Stalker`; `Arcane Denial`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Mana Drain`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
+| <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Open | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | `Mana Drain` |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
 
@@ -264,7 +266,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="25-alternative"></a>**25-alternative — Conditional alternative life payment** | Open | Conditionally replace a mana cost with life; keep life payment distinct from damage. | — | `Snuff Out` |
 | <a id="25-cleave"></a>**25-cleave — Cleave** | Open | Alternate cost changes the spell's restrictions/target program. | [20-origin](#20-origin) | `Wash Away` |
 | <a id="25-convoke"></a>**25-convoke — Convoke** | Open | Creature tapping as mana contribution, preserving color and summoning-sickness rules. | — | `Pile On` |
-| <a id="25-delve"></a>**25-delve — Delve** | Available | Exile chosen graveyard cards during payment to cover generic mana only; preserve colored requirements, reductions, and restore. | — | — |
+| <a id="25-delve"></a>**25-delve — Delve** | Available | Exile chosen graveyard cards during payment to cover generic mana only; preserve colored requirements, reductions, and restore. | — | None remaining |
 | <a id="25-embalm"></a>**25-embalm — Embalm** | Open | Graveyard exile cost and modified white Zombie token copy with no mana cost. | [28-modifiers](#28-modifiers) | `Angel of Sanctions` |
 | <a id="25-escape"></a>**25-escape — Escape** | Open | Graveyard casting with mana plus exile-other-cards costs. | [26-graveyard-spells](#26-graveyard-spells) | `Cling to Dust` |
 | <a id="25-evidence"></a>**25-evidence — Collect evidence** | Open | Select graveyard cards whose total mana value meets the cost; retain paid status. | — | `Analyze the Pollen` |
