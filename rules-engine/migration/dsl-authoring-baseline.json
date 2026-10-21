@@ -90,7 +90,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"4e84547502d8e49cd505d581d629126338bdf36f097151dbc73f805047b328d8","card":"Ugin, the Spirit Dragon"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ed0ec117ca3f6e81cae607539b4e762fddbe5fda8501a6109228215a34a8e8c8","card":"Windfall"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e7b05a9dc60a67c7565d59cf9392680819493e07a4f1d8e32c3a21231ff3cdeb","card":"Ancient Greenwarden"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"f424a99e20201e6a47ca658abb864c71b130ed444299f3d0657722ffa11ca3bf","card":"Arcane Denial"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"c7087a2cb16b788be215617ddef20e9bc97d2961a1b15df18c6a5728a2f47c27","card":"Awaken the Honored Dead"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"8dbf830a6d2eb9f799b474f1134db65479ef7d5d7cf550346381ef6f993c0d39","card":"Black Sun's Twilight"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"8ace567a535911dc03379dfbb30069f20c035c063ff7123c4ad79caaddc112ef","card":"Blossoming Tortoise"},

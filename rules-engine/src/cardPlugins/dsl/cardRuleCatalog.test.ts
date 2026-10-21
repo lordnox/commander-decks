@@ -1478,3 +1478,23 @@ test('Braids offers an eligible hand permanent to the active upkeep player', () 
     ],
   }])
 })
+
+test('Arcane Denial captures the spell controller and creates two non-targeting next-turn upkeep abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Arcane Denial')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] },
+    instructions: [
+      { kind: 'capturePlayer', bindResult: 'spellController' },
+      { kind: 'counter' },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'upkeep' }, notThisTurn: true, inheritTargets: false, instructions: [
+        { kind: 'chooseInstructions', chooser: { kind: 'resultRef', binding: 'spellController', field: 'player' }, options: [
+          { instructions: [] },
+          { instructions: [{ kind: 'draw', count: { value: 1 } }] },
+          { instructions: [{ kind: 'draw', count: { value: 2 } }] },
+        ] },
+      ] },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'upkeep' }, notThisTurn: true, inheritTargets: false, instructions: [
+        { kind: 'draw', targets: { kind: 'contextRef', name: 'controller' }, count: { value: 1 } },
+      ] },
+    ],
+  }])
+})

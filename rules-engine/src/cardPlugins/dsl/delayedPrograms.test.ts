@@ -316,3 +316,32 @@ test('a delayed callback retains captured player results after the referenced pe
   expect(state.players.p2.life).toBe(43)
   expect(state.players.p1.life).toBe(40)
 })
+
+test.each([false, true])('delayed callbacks can exclude the current turn without changing ordinary next-occurrence timing (%s)', notThisTurn => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [createDelayed({
+      condition: stepDelayed({ step: 'upkeep' }), ...(notThisTurn ? { notThisTurn: true } : {}),
+      instructions: [gainLife({ targets: ref('controller'), amount: 3 })],
+    })] })] },
+  }, { random: () => 0 })
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! })))
+  state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'untap' }, { type: 'advanceStep' }))
+  expect(state.stack).toHaveLength(notThisTurn ? 0 : 1)
+  state = resolveStack(server.rules, state)
+  expect(state.players.p1.life).toBe(notThisTurn ? 40 : 43)
+  state = ok(server.rules({ ...state, step: 'cleanup' }, { type: 'advanceStep' }))
+  state = ok(server.rules(state, { type: 'advanceStep' }))
+  expect(state.active).toBe('p2')
+  expect(state.stack).toHaveLength(notThisTurn ? 1 : 0)
+  state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(state.players.p1.life).toBe(43)
+  expect(state.delayedTriggers).toHaveLength(0)
+})
+
+test('delayed current-turn exclusion rejects values other than the explicit true marker', () => {
+  expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{
+    kind: 'spell', costs: [], decisions: { targets: [] },
+    instructions: [{ kind: 'createDelayed', notThisTurn: false, condition: stepDelayed({ step: 'upkeep' }), instructions: [] }],
+  }] })).toThrow('notThisTurn')
+})

@@ -910,7 +910,8 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'createDelayed': {
-        exactKeys(node, path, ['kind', 'condition', 'instructions', 'inheritTargets'], ['kind', 'condition', 'instructions'])
+        if (node.notThisTurn !== undefined && node.notThisTurn !== true) issue(childPath(path, 'notThisTurn'), 'type', 'notThisTurn must be true')
+        exactKeys(node, path, ['kind', 'condition', 'instructions', 'inheritTargets', 'notThisTurn'], ['kind', 'condition', 'instructions'])
         if (node.inheritTargets !== undefined && typeof node.inheritTargets !== 'boolean') issue(childPath(path, 'inheritTargets'), 'type', 'expected a boolean')
         const condition = object(node.condition, childPath(path, 'condition'))
         if (condition) {

@@ -4,6 +4,7 @@ import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
 import type { GameEvent, GameState } from '../../types'
@@ -363,4 +364,51 @@ test.each([false, true])('counter follow-up retains controller even if the spell
   expect(bird).toMatchObject({ controller: 'p2', types: ['Creature'], subtypes: ['Bird'], colors: ['U'], power: 2, toughness: 2 })
   expect(hasKeyword(bird, 'flying')).toBe(true)
   expect(state.objects[ready.zoneOrder.p2.hand[0]!].zone).toBe(uncounterable ? 'stack' : 'graveyard')
+})
+
+test.each([
+  { draws: 0, uncounterable: false },
+  { draws: 1, uncounterable: false },
+  { draws: 2, uncounterable: false },
+  { draws: 2, uncounterable: true },
+])('counter follow-ups independently draw at the next turn upkeep for captured players (%j)', ({ draws, uncounterable }) => {
+  const server = createServerGame(commanderRules, {
+    players: 3, first: 'p2',
+    hands: {
+      p1: [cardTemplate('Arcane Denial', { manaCost: '{0}' })],
+      p2: [cardTemplate('Target spell fixture', { types: ['Instant'], manaCost: '{0}' })],
+    },
+    libraries: {
+      p1: [cardTemplate('First draw'), cardTemplate('Second draw')],
+      p2: [cardTemplate('Opponent first'), cardTemplate('Opponent second'), cardTemplate('Opponent third')],
+    },
+  }, { random: () => 0, ...(uncounterable ? { cardPlugins: [{ id: 'test.uncounterable', replace: ({ event }: { event: GameEvent }) => event.type === 'counterStackItem' ? null : undefined }] } : {}) })
+  const source = server.state.zoneOrder.p1.hand[0]!
+  const targetSpell = server.state.zoneOrder.p2.hand[0]!
+  let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p2', objectId: targetSpell }))
+  state = ok(server.rules({ ...state, priority: 'p1' }, { type: 'castSpell', seat: 'p1', objectId: source, targets: [{ kind: 'stackItem', stackId: state.stack[0]!.id }] }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  expect(state.objects[targetSpell]?.zone).toBe(uncounterable ? 'stack' : 'graveyard')
+  expect(state.delayedTriggers).toHaveLength(2)
+  expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  expect(state.zoneOrder.p2.hand).toHaveLength(0)
+  if (state.stack.length) state = ok(server.rules(state, { type: 'resolveTop' }))
+  state = ok(server.rules(state, { type: 'move', objectId: source, to: 'exile' }))
+  state = ok(server.rules({ ...state, step: 'cleanup' }, { type: 'advanceStep' }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'advanceStep' }))
+  expect(state.active).toBe('p3')
+  const order = pendingSelectionFor(state, 'p1')
+  if (order?.triggerOrder) state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates }))
+  expect(state.stack).toHaveLength(2)
+  while (state.stack.length) {
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const pick = pendingOptionSelection(state, 'p2')
+    if (pick) {
+      const option = pick.options.find(option => option.label === `Draw ${draws} cards`)!
+      state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p2', selectionId: pick.id, optionId: option.id }))
+    }
+  }
+  expect(state.zoneOrder.p1.hand).toHaveLength(1)
+  expect(state.zoneOrder.p2.hand).toHaveLength(draws)
+  expect(state.delayedTriggers).toHaveLength(0)
 })

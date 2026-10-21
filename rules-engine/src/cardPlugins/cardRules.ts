@@ -45,7 +45,6 @@ import {
   dealDamageToChosenTarget,
   draw,
   drawX,
-  drawAtNextUpkeep,
   drawGreatestPower,
   drawHandDifference,
   encore,
@@ -390,9 +389,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
   'Apex Altisaur': [enters(fightUpToOne())],
-  'Arcane Denial': [
-    targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
-  ],
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),

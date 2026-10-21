@@ -942,6 +942,8 @@ export type DelayedTrigger = {
     inheritedTargets?: boolean
   }
   condition: DelayedTriggerCondition
+  /** Earliest player-turn in which this delayed ability can trigger. */
+  notBeforeTurn?: number
   instructions: CardInstruction[]
   timestamp: number
   recurring?: boolean

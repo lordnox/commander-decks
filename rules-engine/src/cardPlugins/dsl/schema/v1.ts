@@ -378,6 +378,8 @@ export type Instruction =
   /** Register instructions to run later when the delayed condition occurs. */
   | {
       kind: 'createDelayed'
+      /** Ignore matching occurrences until the current turn has ended. */
+      notThisTurn?: true
       /** Omit the parent's target clauses for a non-targeting delayed program. Defaults to true. */
       inheritTargets?: boolean
       condition: DelayedPattern
