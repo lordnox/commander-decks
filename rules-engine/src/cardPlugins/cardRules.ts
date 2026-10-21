@@ -144,7 +144,6 @@ import {
   tapAll,
   triggerOn,
   tapUnlessPayLife,
-  tapUnlessRevealSubtype,
   typecycleHand,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
@@ -502,7 +501,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       gainLifeLostThisTurn(),
     ),
   ],
-  'Choked Estuary': [tapUnlessRevealSubtype('Island', 'Swamp')],
   'City of Brass': [
     triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
   ],

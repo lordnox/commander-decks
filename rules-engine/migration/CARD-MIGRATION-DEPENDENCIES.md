@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 15. **184 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 17. **182 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **184 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **182 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -34,7 +34,6 @@ Current readiness: **0 composition candidates**; **184 blocked or awaiting sourc
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cephalid Coliseum` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Blocked by mechanics | Retain mana-ability damage plus threshold draw/discard activation. |
 | `Children of Korlis` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Blocked by mechanics | — |
-| `Choked Estuary` | 17 | [17-reveal](CARD-MIGRATION-BATCHES.md#17-reveal) | Blocked by mechanics | — |
 | `City of Brass` | 10 | [10-tapped](CARD-MIGRATION-BATCHES.md#10-tapped) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
@@ -110,7 +109,6 @@ Current readiness: **0 composition candidates**; **184 blocked or awaiting sourc
 | `Mossborn Hydra` | 22 | [17-counters](CARD-MIGRATION-BATCHES.md#17-counters), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters) | Blocked by mechanics | Enter with one +1/+1 counter; landfall adds the current counter count again. This is counter doubling, not a CDA. |
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
-| `Mystic Sanctuary` | 17 | [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Other-Island count and the actual untapped entry determine its graveyard-return trigger. |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Necrologia` | 11 | [11-casting](CARD-MIGRATION-BATCHES.md#11-casting), [06](CARD-MIGRATION-BATCHES.md#06) | Blocked by mechanics | — |
 | `Nezahal, Primal Tide` | 44 | [20-counterability](CARD-MIGRATION-BATCHES.md#20-counterability) | Blocked by mechanics | Other effects are composition candidates: cast trigger, unlimited hand size, discard-three, captured exile and delayed tapped owner return. |

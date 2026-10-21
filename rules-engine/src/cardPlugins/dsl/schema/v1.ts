@@ -526,6 +526,8 @@ export type AmountFieldChange =
   | { kind: 'add'; delta: Amount }
 
 export type EventFieldChanges = {
+  /** Additional counters placed before the permanent is considered to have entered. */
+  enterCounters?: Readonly<Record<string, Amount>>
   to?: Zone
   tapped?: boolean
   amount?: AmountFieldChange
@@ -538,6 +540,7 @@ export type ReplacementTransform =
   | { kind: 'suppress' }
 
 export type ReplacementProgramInstruction =
+  | Extract<Instruction, { kind: 'chooseCards' | 'reveal' | 'captureAmount' }>
   | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[]; prompt?: string }
   | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
   | { kind: 'modifyEvent'; changes: EventFieldChanges }

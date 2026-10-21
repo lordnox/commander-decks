@@ -4,7 +4,7 @@ import { freezeDraft, makeDraft } from '../draft'
 import { startCanonicalResolution } from '../driver'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { captureObject } from '../objectIdentity'
-import { PENDING_SELECTION } from '../rules/selectCards'
+import { pendingSelectionFor, PENDING_SELECTION } from '../rules/selectCards'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
 import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
@@ -80,10 +80,16 @@ const processingStore = (frames: readonly EventProcessingFrame[]) => ({
 const applyProcessingStore = (draft: Draft, source: GameState) => {
   const active = source.eventProcessing
   const choice = active?.chooser ? pendingOptionSelection(source, active.chooser) : undefined
-  if (active?.chooser && choice?.action.kind === 'replacementModifier' && choice.action.frameId === active.id) {
-    draft.players[active.chooser]!.data[PENDING_OPTION_SELECTION] = structuredClone(choice)
-    draft.nextId = Math.max(draft.nextId, source.nextId)
-    draft.priority = active.chooser
+  const cards = active?.chooser ? pendingSelectionFor(source, active.chooser) : undefined
+  if (active?.chooser) {
+    const ownOption = choice && 'frameId' in choice.action && choice.action.frameId === active.id
+    const ownCards = cards?.canonicalChoice?.replacementFrameId === active.id
+    if (ownOption) draft.players[active.chooser]!.data[PENDING_OPTION_SELECTION] = structuredClone(choice)
+    if (ownCards) draft.players[active.chooser]!.data[PENDING_SELECTION] = structuredClone(cards)
+    if (ownOption || ownCards) {
+      draft.nextId = Math.max(draft.nextId, source.nextId)
+      draft.priority = active.chooser
+    }
   }
   if (source.eventProcessing) draft.eventProcessing = source.eventProcessing
   else delete draft.eventProcessing
@@ -99,20 +105,19 @@ const deferWaiting = (current: GameState, incoming: GameState) => {
   if (!incomingFrame) return incoming
   const chooser = incomingFrame.chooser
   const existingChoice = chooser ? pendingOptionSelection(current, chooser) : undefined
-  const keepExistingChoice = existingChoice?.action.kind === 'replacementModifier'
-    && existingChoice.action.frameId !== incomingFrame.id
-  const players = keepExistingChoice && chooser
-    ? {
-        ...incoming.players,
-        [chooser]: {
-          ...incoming.players[chooser]!,
-          data: {
-            ...incoming.players[chooser]!.data,
-            [PENDING_OPTION_SELECTION]: structuredClone(current.players[chooser]!.data[PENDING_OPTION_SELECTION]),
-          },
-        },
-      }
-    : incoming.players
+  const existingCards = chooser ? pendingSelectionFor(current, chooser) : undefined
+  const keepExistingChoice = (existingChoice && 'frameId' in existingChoice.action && existingChoice.action.frameId !== incomingFrame.id)
+    || (existingCards?.canonicalChoice?.replacementFrameId && existingCards.canonicalChoice.replacementFrameId !== incomingFrame.id)
+  const players = { ...incoming.players }
+  if (keepExistingChoice && chooser) {
+    const data = { ...incoming.players[chooser]!.data }
+    for (const key of [PENDING_OPTION_SELECTION, PENDING_SELECTION]) {
+      const value = current.players[chooser]!.data[key]
+      if (value !== undefined) data[key] = structuredClone(value)
+      else delete data[key]
+    }
+    players[chooser] = { ...incoming.players[chooser]!, data }
+  }
   return {
     ...incoming,
     players,
@@ -139,6 +144,14 @@ const reattachProcessing = (
   const base = settlement.state ?? fallback
   const next = makeDraft({ ...base, ...processingStore(remaining) })
   const active = next.eventProcessing
+  if (active?.applicationProgram && active.chooser && !pendingOptionSelection(next, active.chooser) && !pendingSelectionFor(next, active.chooser)) {
+    const instruction = active.applicationProgram.instructions[active.applicationProgram.index]
+    if (instruction?.kind === 'chooseCards' || instruction?.kind === 'choose') {
+      // Reopen even an empty card choice: its answer settles this deferred frame.
+      const reopened = advanceApplicationProgram(freezeDraft(next), active, true)
+      if (reopened.kind === 'waiting') return { ...settlement, state: reopened.state }
+    }
+  }
   if (active?.chooser && active.awaitingCandidateIds.length > 0 && !pendingOptionSelection(next, active.chooser)) {
     const candidates = discoverReplacementCandidates(
       freezeDraft(next), active.pendingEvent, catalog,
@@ -358,7 +371,7 @@ const applyCandidate = (
       state,
     }
   }
-  const transformed = applyCanonicalTransform(proposal, candidate, lineage)
+  const transformed = applyCanonicalTransform(proposal, candidate, lineage, state)
   if (transformed.kind === 'prevented') return { result: { kind: 'prevented' }, state }
   if (transformed.kind === 'program') {
     const source = state.objects[candidate.sourceId]
@@ -847,7 +860,7 @@ export const resumeReplacementProgramChoice = (
   state: GameState,
   frameId: string,
   bindChoice: string,
-  optionId: string,
+  optionId: string | readonly string[],
   catalog: PluginCatalog,
 ): ReplacementSettlement | { kind: 'invalid'; error: string } => {
   const frame = processingFrames(state).find((entry) => entry.id === frameId)

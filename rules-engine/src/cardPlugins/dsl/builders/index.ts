@@ -786,7 +786,7 @@ export const chooseCards = (input: {
   min?: AmountInput
   max?: AmountInput
   whenInsufficient?: 'chooseAvailable'
-}): Instruction => {
+}) => {
   if (input.count !== undefined && (input.min !== undefined || input.max !== undefined)) {
     throw new TypeError('chooseCards accepts either count or min/max, never both')
   }
@@ -795,7 +795,7 @@ export const chooseCards = (input: {
     ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
   } as TargetClauseInput)
   return immutableData({
-    kind: 'chooseCards',
+    kind: 'chooseCards' as const,
     bindChoice: input.bindChoice,
     chooser: input.chooser,
     filter: input.filter,
@@ -803,9 +803,9 @@ export const chooseCards = (input: {
     ...(input.viewCards ? { viewCards: input.viewCards } : {}),
     min: clause.min,
     max: clause.max,
-    distinct: true,
+    distinct: true as const,
     whenInsufficient: input.whenInsufficient ?? 'chooseAvailable',
-  })
+  }) satisfies Extract<Instruction, { kind: 'chooseCards' }>
 }
 
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>

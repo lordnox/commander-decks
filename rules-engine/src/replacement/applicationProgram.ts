@@ -1,15 +1,12 @@
+import { REPLACEMENT_APPLICATION_CARD_CHOICE } from './constants'
+import { openCardSelection } from '../rules/selectCards'
 import { freezeDraft, makeDraft } from '../draft'
-import { captureObject } from '../objectIdentity'
+import { objectIdentity, captureObject } from '../objectIdentity'
+import { CHOSEN_COLOR_BINDING } from '../cardPlugins/dsl/schema/v1'
 import {
-  CHOSEN_COLOR_BINDING,
-  type Instruction,
-  type ReplacementProgramInstruction,
-  type ReplacementTransform,
-} from '../cardPlugins/dsl/schema/v1'
-import {
+  evaluateObjectReference, evaluateObjectSelector, evaluatePlayerReference,
   evaluateCondition,
   evaluateRuntimeAmount,
-  type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
 import { PENDING_OPTION_SELECTION, openOptionSelection } from '../rules/selectOptions'
 import type {
@@ -19,6 +16,8 @@ import type {
   ManaId,
 } from '../types'
 import { applyReplacementTransform } from './program'
+
+import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
 
 const COLORS = new Set<ManaId>(['W', 'U', 'B', 'R', 'G'])
 
@@ -87,6 +86,7 @@ const persistFollowUp = (
 export const advanceApplicationProgram = (
   state: GameState,
   frame: EventProcessingFrame,
+  reopenChoice = false,
 ) => {
   const draft = makeDraft(state)
   const working = draft.eventProcessing ?? structuredClone(frame)
@@ -94,7 +94,7 @@ export const advanceApplicationProgram = (
   const program = working.applicationProgram
   if (!program) return { kind: 'complete' as const, event: working.pendingEvent, state, followUp: [] as GameEvent[] }
   const followUp: GameEvent[] = []
-  const runtime = (): RuleDslRuntimeContext | undefined => {
+  const runtime = () => {
     const source = draft.objects[program.sourceId]
     if (!source) return
     return {
@@ -102,11 +102,51 @@ export const advanceApplicationProgram = (
       controller: program.controller,
       source: captureObject(source),
       optionChoices: program.bindings,
+      choices: program.choices, results: program.results,
     }
   }
   while (program.index < program.instructions.length) {
     const instruction = program.instructions[program.index]!
     switch (instruction.kind) {
+      case 'chooseCards': {
+        const context = runtime()
+        const chooser = context ? evaluatePlayerReference(instruction.chooser, context)[0] : undefined
+        const candidates = context ? evaluateObjectSelector(instruction.filter, context) : []
+        const visibleCards = context && instruction.viewCards ? evaluateObjectReference(instruction.viewCards, context).map(object => object.id) : undefined
+        const min = Math.min(context ? evaluateRuntimeAmount(instruction.min, context) : 0, candidates.length)
+        const max = Math.min(context ? evaluateRuntimeAmount(instruction.max, context) : 0, candidates.length)
+        program.choices = { ...program.choices, [instruction.bindChoice]: [] }
+        if (chooser && (reopenChoice || (candidates.length > 0 && max > 0) || (visibleCards?.length ?? 0) > 0)) {
+          openCardSelection(draft, {
+            seat: chooser, sourceId: program.sourceId, source: draft.objects[program.sourceId]?.name ?? 'Replacement',
+            kind: 'choose', min, count: max, candidates: candidates.map(object => object.id),
+            prompt: 'Choose cards for the entry replacement.', destinations: ['target', 'skip'],
+            targetIdentities: Object.fromEntries(candidates.map(object => [object.id, objectIdentity(object)])),
+            canonicalChoice: { stackId: '', binding: instruction.bindChoice, action: REPLACEMENT_APPLICATION_CARD_CHOICE, replacementFrameId: frame.id },
+            ...(visibleCards ? { visibleCards } : {}),
+            ...(instruction.viewLibrary ? { viewLibrary: true as const } : {}),
+            ...(instruction.filter.filter.zone ? { fromZone: instruction.filter.filter.zone, fromSeat: chooser } : {}),
+          })
+          persistFollowUp(working, followUp)
+          return { kind: 'waiting' as const, state: freezeDraft(draft) }
+        }
+        program.index += 1
+        continue
+      }
+      case 'captureAmount': {
+        const context = runtime()
+        if (context) program.results = { ...program.results, [instruction.bindResult]: evaluateRuntimeAmount(instruction.amount, context) }
+        program.index += 1
+        continue
+      }
+      case 'reveal': {
+        const context = runtime()
+        const targets = context ? instruction.targets.kind === 'objects' ? evaluateObjectSelector(instruction.targets, context) : evaluateObjectReference(instruction.targets, context) : []
+        const owners = new Set(targets.map(object => object.owner))
+        for (const seat of owners) followUp.push({ type: 'reveal', seat, objectIds: targets.filter(object => object.owner === seat).map(object => object.id) })
+        program.index += 1
+        continue
+      }
       case 'choose': {
         openChoice(draft, working, instruction)
         persistFollowUp(working, followUp)
@@ -127,7 +167,17 @@ export const advanceApplicationProgram = (
         if (program.transform.kind === 'modifyEvent') {
           program.transform = {
             kind: 'modifyEvent',
-            changes: { ...program.transform.changes, ...instruction.changes },
+            changes: {
+              ...program.transform.changes, ...instruction.changes,
+              ...(instruction.changes.enterCounters ? { enterCounters: {
+                ...program.transform.changes.enterCounters,
+                ...Object.fromEntries(Object.entries(instruction.changes.enterCounters).map(([name, amount]) => [name,
+                  program.transform.kind === 'modifyEvent' && program.transform.changes.enterCounters?.[name]
+                    ? { kind: 'add' as const, left: program.transform.changes.enterCounters[name], right: amount }
+                    : amount,
+                ])),
+              } } : {}),
+            },
           }
         }
         program.index += 1
@@ -152,7 +202,7 @@ export const advanceApplicationProgram = (
       }
     }
   }
-  const transformed = applyReplacementTransform(working.pendingEvent, program.transform, working.lineage)
+  const transformed = applyReplacementTransform(working.pendingEvent, program.transform, working.lineage, runtime())
   delete draft.eventProcessing
   const frozen = freezeDraft(draft)
   switch (transformed.kind) {
@@ -177,7 +227,7 @@ export const rememberApplicationChoice = (
   state: GameState,
   frameId: string,
   bindChoice: string,
-  optionId: string,
+  optionId: string | readonly string[],
 ) => {
   const draft = makeDraft(state)
   const frame = draft.eventProcessing
@@ -186,7 +236,12 @@ export const rememberApplicationChoice = (
     return { kind: 'invalid' as const, error: 'replacement program choice is not active' }
   }
   const instruction = program.instructions[program.index]
-  if (!instruction || instruction.kind !== 'choose' || instruction.bindChoice !== bindChoice) {
+  if (instruction?.kind === 'chooseCards' && typeof optionId !== 'string' && instruction.bindChoice === bindChoice) {
+    program.choices = { ...program.choices, [bindChoice]: optionId.map(id => ({ kind: 'object' as const, ...objectIdentity(draft.objects[id]!) })) }
+    program.index += 1
+    return advanceApplicationProgram(freezeDraft(draft), frame)
+  }
+  if (!instruction || instruction.kind !== 'choose' || instruction.bindChoice !== bindChoice || typeof optionId !== 'string') {
     return { kind: 'invalid' as const, error: 'replacement program choice is not authorized' }
   }
   const chooser = frame.chooser
