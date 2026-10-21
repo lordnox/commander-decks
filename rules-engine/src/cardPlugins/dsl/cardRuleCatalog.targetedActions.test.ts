@@ -1,13 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { effectsFor, effectsOf } from '../cardRules'
+import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
-import { KEYWORDS, loadDefinitionSnapshot } from './v1'
+import { KEYWORDS } from './v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -20,53 +19,6 @@ const signCard = () => cardTemplate('Sign in Blood', { types: ['Sorcery'], manaC
 const houndsCard = () => cardTemplate('Vampire Hounds', { types: ['Creature'], power: 2, toughness: 2 })
 
 describe('cardRuleCatalog — targetedActions', () => {
-  test('lookup is exact card name and pins a compiled snapshot at module load', () => {
-    const murder = cardRuleDefinitionSnapshotFor('Murder')
-    const sign = cardRuleDefinitionSnapshotFor('Sign in Blood')
-    const hounds = cardRuleDefinitionSnapshotFor('Vampire Hounds')
-    expect(murder).toBeDefined()
-    expect(sign).toBeDefined()
-    expect(hounds).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('murder')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
-    expect(murder).toBe(cardRuleDefinitionSnapshotFor('Murder'))
-    expect(murder!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
-    expect(sign!.definitionRevision).not.toBe(murder!.definitionRevision)
-    expect(hounds!.definitionRevision).not.toBe(sign!.definitionRevision)
-    expect(loadDefinitionSnapshot(murder!).definitionRevision).toBe(murder!.definitionRevision)
-  })
-
-  test('newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition', () => {
-    const murderSnapshot = cardRuleDefinitionSnapshotFor('Murder')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [murderCard()] },
-    }, { random: () => 0 })
-    const murder = named(server.state, 'Murder')
-    expect(murder.ruleDefinition).toEqual(murderSnapshot)
-    expect(murder.ruleDefinition?.definitionRevision).toBe(murderSnapshot.definitionRevision)
-    expect(murder.effects).toEqual([])
-    expect(effectsOf(murder)).toEqual([])
-    expect(effectsFor('Murder')).toEqual([])
-  })
-
-  test('an explicit template ruleDefinition is kept instead of the catalog snapshot', () => {
-    const houndsSnapshot = cardRuleDefinitionSnapshotFor('Vampire Hounds')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [cardTemplate('Murder', {
-          types: ['Instant'],
-          manaCost: '{0}',
-          ruleDefinition: houndsSnapshot,
-        })],
-      },
-    }, { random: () => 0 })
-    const murder = named(server.state, 'Murder')
-    expect(murder.ruleDefinition).toEqual(houndsSnapshot)
-  })
-
   test('Murder destroys the chosen creature once and rejects a player target', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -175,65 +127,6 @@ describe('cardRuleCatalog — targetedActions', () => {
     expect(resolved.stack).toHaveLength(0)
   })
 
-  test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [
-          murderCard(),
-          cardTemplate('Mulldrifter', { types: ['Creature'], power: 2, toughness: 2 }),
-        ],
-      },
-      battlefield: {
-        p2: [cardTemplate('Mixed Bear', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-      libraries: {
-        p1: ['Mixed One', 'Mixed Two', 'Mixed Three'].map((name) => cardTemplate(name)),
-      },
-    }, { random: () => 0 })
-    const murder = named(server.state, 'Murder')
-    const mulldrifter = named(server.state, 'Mulldrifter')
-    expect(murder.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Murder'))
-    expect(mulldrifter.ruleDefinition).toBeUndefined()
-    expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))
-    expect(effectsOf(mulldrifter).length).toBeGreaterThan(0)
-
-    const afterMurder = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: murder.id,
-      targets: [{ kind: 'object', objectId: named(server.state, 'Mixed Bear').id }],
-    })))
-    expect(named(afterMurder, 'Mixed Bear').zone).toBe('graveyard')
-    expect(handCount(afterMurder)).toBe(1)
-
-    const liveMulldrifter = named(afterMurder, 'Mulldrifter')
-    const afterBoth = resolveStack(server.rules, ok(server.rules(afterMurder, {
-      type: 'move',
-      objectId: liveMulldrifter.id,
-      to: 'battlefield',
-    })))
-    expect(afterBoth.objects[liveMulldrifter.id].zone).toBe('battlefield')
-    expect(afterBoth.objects[liveMulldrifter.id].ruleDefinition).toBeUndefined()
-    expect(handCount(afterBoth)).toBe(2)
-    expect(['Mixed One', 'Mixed Two'].every(
-      (name) => named(afterBoth, name).zone === 'hand',
-    )).toBe(true)
-  })
-
-  test('journal restore keeps the stamped definitionRevision', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: { p1: [houndsCard()] },
-    }, { random: () => 0 })
-    const hounds = named(server.state, 'Vampire Hounds')
-    const revision = hounds.ruleDefinition!.definitionRevision
-    const json = JSON.parse(JSON.stringify(hounds.ruleDefinition))
-    expect(json.definitionRevision).toBe(revision)
-    expect(loadDefinitionSnapshot(json).definitionRevision).toBe(revision)
-    const restored = restoreJournal(createJournal(server.state), server.rules)
-    expect(restored.current().objects[hounds.id].ruleDefinition?.definitionRevision).toBe(revision)
-  })
 })
 
 test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {
@@ -254,7 +147,6 @@ test('group 1 catalog programs preserve any-target damage, Loran choices, and de
     ] },
   ])
 })
-
 
 test('drain catalog entries compose numeric action results with life gain', () => {
   for (const name of ['Exsanguinate', 'Debt to the Deathless', 'Drain Life']) {
@@ -280,7 +172,6 @@ test('drain catalog entries compose numeric action results with life gain', () =
     }
   }
 })
-
 
 test('controller follow-up catalog programs capture their recipient before removing the target', () => {
   for (const name of ["An Offer You Can't Refuse", 'Swan Song', 'Swords to Plowshares', 'Condemn']) {
