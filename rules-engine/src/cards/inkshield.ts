@@ -8,6 +8,7 @@ import {
   preventionCreatedEffect,
   ref,
   spell,
+  token,
   unlimitedPrevention,
   untilCleanup,
 } from '../cardPlugins/dsl/v1'
@@ -29,15 +30,7 @@ export default {
             [createToken({
               count: eventAmount(),
               targets: ref('controller'),
-              token: {
-                name: 'Inkling',
-                types: ['Creature'],
-                subtypes: ['Inkling'],
-                colors: ['W', 'B'],
-                power: 2,
-                toughness: 1,
-                oracleText: 'Flying',
-              },
+              token: token('Inkling-2-1-WB-flying'),
             })],
           ),
         }),
