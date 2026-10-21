@@ -1,7 +1,7 @@
 import { REPLACEMENT_APPLICATION_CARD_CHOICE } from './constants'
 import { openCardSelection } from '../rules/selectCards'
 import { freezeDraft, makeDraft } from '../draft'
-import { objectIdentity, captureObject } from '../objectIdentity'
+import { objectIdentity, captureObject, isSameObject } from '../objectIdentity'
 import { CHOSEN_COLOR_BINDING } from '../cardPlugins/dsl/schema/v1'
 import {
   evaluateObjectReference, evaluateObjectSelector, evaluatePlayerReference,
@@ -9,15 +9,27 @@ import {
   evaluateRuntimeAmount,
 } from '../cardPlugins/dsl/compiler/runtime'
 import { PENDING_OPTION_SELECTION, openOptionSelection } from '../rules/selectOptions'
+import type PluginCatalog from '../catalog'
 import type {
   EventProcessingFrame,
   GameEvent,
   GameState,
   ManaId,
+  ObjectIdentity,
+  ReduceResult,
+  ReplacementProgramCursor,
 } from '../types'
 import { applyReplacementTransform } from './program'
 
 import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
+
+type NestedApply = (state: GameState, event: GameEvent, catalog: PluginCatalog) => ReduceResult
+
+let nestedApply: NestedApply | undefined
+
+export const registerNestedApply = (apply: NestedApply) => {
+  nestedApply = apply
+}
 
 const COLORS = new Set<ManaId>(['W', 'U', 'B', 'R', 'G'])
 
@@ -83,10 +95,114 @@ const persistFollowUp = (
   frame.followUp = [...(frame.followUp ?? []), ...followUp]
 }
 
+const sacrificeEventsFor = (
+  instruction: Extract<Instruction, { kind: 'sacrifice' }>,
+  context: {
+    state: GameState
+    controller: string
+    source: ReturnType<typeof captureObject>
+    optionChoices: ReplacementProgramCursor['bindings']
+    choices: ReplacementProgramCursor['choices']
+    results: ReplacementProgramCursor['results']
+  },
+  sourceId: string,
+) => {
+  const targets = instruction.targets.kind === 'objects'
+    ? evaluateObjectSelector(instruction.targets, context)
+    : evaluateObjectReference(instruction.targets, context)
+  return targets
+    .filter(object => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+    .map(object => ({ type: 'sacrifice' as const, objectId: object.id, sourceId }))
+}
+
+const bindEmitResults = (
+  program: ReplacementProgramCursor,
+  counted: number,
+  bindCount?: string,
+  bindResult?: string,
+) => {
+  const results = { ...program.results }
+  if (bindCount) results[bindCount] = counted
+  if (bindResult) results[bindResult] = counted > 0
+  program.results = results
+  delete program.pendingEmit
+}
+
+const sacrificedAfter = (identity: ObjectIdentity | undefined, applied: GameState) =>
+  Boolean(identity && !isSameObject(applied.objects[identity.objectId], identity))
+
+const applyEmitEvents = (
+  state: GameState,
+  working: EventProcessingFrame,
+  program: ReplacementProgramCursor,
+  events: GameEvent[],
+  counted: number,
+  catalog: PluginCatalog | undefined,
+  bindCount?: string,
+  bindResult?: string,
+  pendingIdentity?: ObjectIdentity,
+): { kind: 'waiting'; state: GameState } | { kind: 'done'; state: GameState } => {
+  if (!nestedApply || !catalog) {
+    working.followUp = [...(working.followUp ?? []), ...events]
+    bindEmitResults(program, counted + events.length, bindCount, bindResult)
+    return { kind: 'done', state }
+  }
+  let current = state
+  let remaining = events
+  let currentCount = pendingIdentity && sacrificedAfter(pendingIdentity, current)
+    ? counted + 1
+    : counted
+  while (remaining.length > 0) {
+    const event = remaining[0]!
+    const rest = remaining.slice(1)
+    const object = event.type === 'sacrifice' ? current.objects[event.objectId] : undefined
+    const identity = object ? objectIdentity(object) : undefined
+    const isolated = {
+      ...current,
+      eventProcessing: undefined,
+      deferredEventProcessing: undefined,
+    }
+    const applied = nestedApply(isolated, event, catalog)
+    if (!applied.ok) {
+      remaining = rest
+      continue
+    }
+    if (applied.state.eventProcessing) {
+      program.pendingEmit = {
+        remaining: rest,
+        counted: currentCount,
+        ...(identity ? { pendingIdentity: identity } : {}),
+        ...(bindCount ? { bindCount } : {}),
+        ...(bindResult ? { bindResult } : {}),
+      }
+      const frames = [
+        applied.state.eventProcessing,
+        ...(applied.state.deferredEventProcessing ?? []),
+        working,
+        ...(state.deferredEventProcessing ?? []),
+      ].filter((entry): entry is EventProcessingFrame => Boolean(entry))
+      return {
+        kind: 'waiting',
+        state: {
+          ...applied.state,
+          eventProcessing: frames[0],
+          deferredEventProcessing: frames.length > 1 ? frames.slice(1) : undefined,
+        },
+      }
+    }
+    if (sacrificedAfter(identity, applied.state)) currentCount += 1
+    remaining = rest
+    current = { ...applied.state, eventProcessing: working }
+  }
+  bindEmitResults(program, currentCount, bindCount, bindResult)
+  return { kind: 'done', state: current }
+}
+
 export const advanceApplicationProgram = (
   state: GameState,
   frame: EventProcessingFrame,
   reopenChoice = false,
+  catalog?: PluginCatalog,
 ) => {
   const draft = makeDraft(state)
   const working = draft.eventProcessing ?? structuredClone(frame)
@@ -104,6 +220,33 @@ export const advanceApplicationProgram = (
       optionChoices: program.bindings,
       choices: program.choices, results: program.results,
     }
+  }
+  const adopt = (next: GameState) => {
+    const {
+      enqueue, allocId, allocTs, note, object, move, zoneOf, addToStack, addTriggeredAbility,
+    } = draft
+    Object.assign(draft, structuredClone(next))
+    draft.enqueue = enqueue
+    draft.allocId = allocId
+    draft.allocTs = allocTs
+    draft.note = note
+    draft.object = object
+    draft.move = move
+    draft.zoneOf = zoneOf
+    draft.addToStack = addToStack
+    draft.addTriggeredAbility = addTriggeredAbility
+    draft.eventProcessing = working
+    draft.pending = []
+  }
+  if (program.pendingEmit) {
+    const pending = program.pendingEmit
+    const stepped = applyEmitEvents(
+      freezeDraft(draft), working, program, pending.remaining, pending.counted, catalog,
+      pending.bindCount, pending.bindResult, pending.pendingIdentity,
+    )
+    if (stepped.kind === 'waiting') return stepped
+    adopt(stepped.state)
+    program.index += 1
   }
   while (program.index < program.instructions.length) {
     const instruction = program.instructions[program.index]!
@@ -197,6 +340,24 @@ export const advanceApplicationProgram = (
         continue
       }
       case 'emit': {
+        const context = runtime()
+        const events: GameEvent[] = []
+        let bindCount: string | undefined
+        let bindResult: string | undefined
+        for (const inner of instruction.instructions) {
+          if (inner.kind !== 'sacrifice') continue
+          if (context) events.push(...sacrificeEventsFor(inner, context, program.sourceId))
+          bindCount = inner.bindCount ?? bindCount
+          bindResult = inner.bindResult ?? bindResult
+        }
+        const stepped = applyEmitEvents(
+          freezeDraft(draft), working, program, events, 0, catalog, bindCount, bindResult,
+        )
+        if (stepped.kind === 'waiting') {
+          persistFollowUp(working, followUp)
+          return stepped
+        }
+        adopt(stepped.state)
         program.index += 1
         continue
       }
@@ -228,6 +389,7 @@ export const rememberApplicationChoice = (
   frameId: string,
   bindChoice: string,
   optionId: string | readonly string[],
+  catalog?: PluginCatalog,
 ) => {
   const draft = makeDraft(state)
   const frame = draft.eventProcessing
@@ -239,7 +401,7 @@ export const rememberApplicationChoice = (
   if (instruction?.kind === 'chooseCards' && typeof optionId !== 'string' && instruction.bindChoice === bindChoice) {
     program.choices = { ...program.choices, [bindChoice]: optionId.map(id => ({ kind: 'object' as const, ...objectIdentity(draft.objects[id]!) })) }
     program.index += 1
-    return advanceApplicationProgram(freezeDraft(draft), frame)
+    return advanceApplicationProgram(freezeDraft(draft), frame, false, catalog)
   }
   if (!instruction || instruction.kind !== 'choose' || instruction.bindChoice !== bindChoice || typeof optionId !== 'string') {
     return { kind: 'invalid' as const, error: 'replacement program choice is not authorized' }
@@ -257,5 +419,5 @@ export const rememberApplicationChoice = (
   }
   program.index += 1
   draft.eventProcessing = frame
-  return advanceApplicationProgram(freezeDraft(draft), frame)
+  return advanceApplicationProgram(freezeDraft(draft), frame, false, catalog)
 }

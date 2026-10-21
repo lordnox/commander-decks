@@ -50,7 +50,7 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Everflowing Chalice` | 10 | [25-multikicker](CARD-MIGRATION-BATCHES.md#25-multikicker), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters), [17-counters](CARD-MIGRATION-BATCHES.md#17-counters) | Blocked by mechanics | Multikicker count determines entry counters and mana production. |
 | `Everybody Lives!` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player) | Blocked by mechanics | Creature hexproof/indestructible and player hexproof plus life/game-result restrictions. |
 | `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
-| `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection already exists; land devour and ward remain. Verify every printed clause before authoring. |
+| `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection and land devour are available; ward remains. Verify every printed clause before authoring. |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Forgotten Cellar` | 26 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [26-graveyard-spells](CARD-MIGRATION-BATCHES.md#26-graveyard-spells), [26-graveyard-replacement](CARD-MIGRATION-BATCHES.md#26-graveyard-replacement) | Blocked by mechanics | Same physical Room as Walk-In Closet: implement both doors and graveyard-exile replacement. |
@@ -163,7 +163,7 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 
 | Card | Available support | Remaining mechanics |
 | --- | --- | --- |
-| Famished Worldsire | 08: dynamic-power inspection and tapped land movement | 09-devour (including 09-count and 17-counters), 21-ward (including resolution payment) |
+| Famished Worldsire | 08: dynamic-power inspection and tapped land movement; 09-devour: land devour as an entry replacement | 21-ward (including resolution payment) |
 | Hostile Negotiations | 08: library inspection and visibility primitives | 39-hidden, built on 39-piles and 15-player |
 
 These cards no longer keep mechanic 08 open. Their rows above remain blocked until the listed missing mechanics and their prerequisites are available.

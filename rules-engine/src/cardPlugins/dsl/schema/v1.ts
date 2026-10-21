@@ -611,6 +611,7 @@ export type ReplacementProgramInstruction =
   | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
   | { kind: 'modifyEvent'; changes: EventFieldChanges }
   | { kind: 'payLife'; amount: Amount }
+  /** Run inner instructions as the replacement applies; sacrifice results bind before later program steps. */
   | { kind: 'emit'; instructions: readonly Instruction[] }
 
 export type ReplacementEffectDefinition = {

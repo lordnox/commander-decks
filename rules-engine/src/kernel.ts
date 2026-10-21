@@ -64,7 +64,7 @@ import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
-import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms } from './replacement'
+import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
 const CHECKPOINT_CAP = 32
 
@@ -910,11 +910,7 @@ export const reduceOnce = (
     : {})
   const mergePreventionState = (base: GameState) => (
     replacement.state
-      ? {
-          ...base,
-          preventionInstances: replacement.state.preventionInstances,
-          nextId: replacement.state.nextId,
-        }
+      ? { ...replacement.state, prevented: base.prevented }
       : base
   )
   const applyFollowUp = (base: GameState) => {
@@ -1805,3 +1801,5 @@ export const rules = (
 }
 
 export const isBattlefield = (zone: ZoneId) => zone === 'battlefield'
+
+registerNestedApply(applyEventTree)

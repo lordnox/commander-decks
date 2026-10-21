@@ -749,6 +749,14 @@ export type ReplacementProgramCursor = {
   transform: ReplacementTransform
   sourceId: string
   controller: PlayerId
+  /** In-flight emit sacrifices waiting on nested replacements. */
+  pendingEmit?: {
+    remaining: GameEvent[]
+    counted: number
+    pendingIdentity?: ObjectIdentity
+    bindCount?: string
+    bindResult?: string
+  }
 }
 
 export type ReplacementInstructionProgramState = {

@@ -4,7 +4,7 @@ Snapshot: PR #432 after group 10 plus concurrent 11/14 work; continues #394 and 
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**169 mechanic entries:** 43 available, 1 awaiting correctness follow-up, and 125 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**169 mechanic entries:** 44 available, 1 awaiting correctness follow-up, and 124 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -31,8 +31,9 @@ Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), bu
 
 The historical family numbers 01–44 remain stable for earlier discussions. Suffixes identify independent mechanic work inside a family. A numbered family is a navigation heading, not a requirement to finish all of its rows together. New cross-family dependencies are explicit. The old unique card-to-batch ownership rule is retired. The **Former batch** column in the card list is historical provenance only.
 
-- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire still needs **09-devour** and **21-ward**; Hostile Negotiations still needs **39-hidden**.
-- **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot; 09-devour still needs its entry-replacement/counter support. Deferred choices for the same player now reopen correctly (#444).
+- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire still needs **21-ward**; Hostile Negotiations still needs **39-hidden**.
+- **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot. Deferred choices for the same player now reopen correctly (#444).
+- **09-devour is available:** entry-replacement devour chooses eligible permanents, sacrifices as the creature enters, and stamps +1/+1 counters from the actual count before ETB observers and SBAs. Land devour is included. Famished Worldsire still needs **21-ward**.
 - **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
@@ -47,7 +48,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **15 is available:** player choice/iteration, commander status, quantified player comparisons, mana-ability filters, and name queries are canonical. Beza, Guardian Project, Field of the Dead, Moonsilver Key, and Singularity Rupture have migrated. Other consumers retain their independent prerequisites.
 - **16-hand-limit and 16-stack-object are available:** Sea Gate Restoration // Sea Gate, Reborn and Sink into Stupor // Soporific Springs have migrated with pay-life MDFC composition.
 
-- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/devour/counter-mutation/copy-entry gates.
+- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/ward/counter-mutation/copy-entry gates.
 
 - **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices are now also available.
 
@@ -120,7 +121,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="09-count"></a>**09-count — Actual sacrifice counts** | Available | Typed optional choices, numeric `bindCount`, and independent boolean success bindings; count only selected object identities, survive replacement choices/restore, and ignore unrelated sacrifices. Reprocess, Scapeshift, and Victimize have migrated. | — | `Famished Worldsire`; `It That Betrays`; `Pitiless Carnage` |
-| <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Open | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. | [09-count](#09-count), [17-counters](#17-counters) | `Famished Worldsire` |
+| <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Available | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. Famished Worldsire still needs ward. | [09-count](#09-count), [17-counters](#17-counters) | `Famished Worldsire` |
 
 ### 10. Mana production
 

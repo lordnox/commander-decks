@@ -430,6 +430,29 @@ export const programBranch = (
 export const payLife = (value: AmountInput) =>
   immutableData({ kind: 'payLife' as const, amount: toAmount(value) })
 
+export const emit = (...instructions: Instruction[]) =>
+  immutableData({ kind: 'emit' as const, instructions })
+
+/** CR 702.83: as this creature enters, you may sacrifice any number of the given permanents. */
+export const devour = (
+  countersPer: AmountInput = 1,
+  types: readonly string[] = ['Creature'],
+) => {
+  const eligible = objects({
+    zone: 'battlefield',
+    controller: 'you',
+    other: true,
+    ...(types.length === 1 ? { type: types[0] } : { any: types.map(type => ({ type })) }),
+  })
+  return replacement(wouldEnter(), modifyEvent({}), {
+    program: [
+      chooseCards({ chooser: ref('controller'), filter: eligible, bindChoice: 'devoured', min: 0, max: count(eligible) }),
+      emit(sacrifice({ targets: choice('devoured'), bindCount: 'devouredCount' })),
+      modifyEvent({ enterCounters: { '+1/+1': multiply(resultAmount('devouredCount'), countersPer) } }),
+    ],
+  })
+}
+
 /** "As this enters, choose a color." Self-entry replacement; the object still enters. */
 export const asThisEntersChooseColor = () =>
   replacement(wouldEnter(), modifyEvent({}), { program: [chooseColor()] })
