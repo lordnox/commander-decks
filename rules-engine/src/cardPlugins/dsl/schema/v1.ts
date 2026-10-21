@@ -107,10 +107,16 @@ export type Amount =
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
-  | { kind: 'multiply' | 'minimum'; left: Amount; right: Amount }
+  | { kind: 'multiply' | 'minimum' | 'add'; left: Amount; right: Amount }
   | { kind: 'manaSpent'; color: CardColor }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
+  | {
+      kind: 'greatest'
+      of: ObjectSelector
+      characteristic: NumericCharacteristic
+      information: 'current' | 'currentOrLastKnown'
+    }
   | {
       kind: 'characteristic'
       of: Reference
@@ -679,6 +685,11 @@ export type AmountEvaluationContext = {
   eventAmount?: number
   manaSpent?: (color: CardColor) => number
   count: (selector: Selector) => number
+  greatest: (
+    selector: ObjectSelector,
+    characteristic: NumericCharacteristic,
+    information: 'current' | 'currentOrLastKnown',
+  ) => number
   characteristic: (
     reference: Reference,
     characteristic: NumericCharacteristic,

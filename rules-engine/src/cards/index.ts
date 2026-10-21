@@ -152,6 +152,8 @@ import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
 import otherworldlyJourney from './otherworldly-journey'
 import overgrownTomb from './overgrown-tomb'
+import overwhelmingStampede from './overwhelming-stampede'
+import pathbreakerIbex from './pathbreaker-ibex'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
 import quezaAugurOfAgonies from './queza-augur-of-agonies'
@@ -162,6 +164,7 @@ import reliquaryTower from './reliquary-tower'
 import restInPeace from './rest-in-peace'
 import restorationAngel from './restoration-angel'
 import retreatToHagra from './retreat-to-hagra'
+import returnOfTheWildspeaker from './return-of-the-wildspeaker'
 import reverberate from './reverberate'
 import revitalizingRepast from './revitalizing-repast'
 import riveteersOverlook from './riveteers-overlook'
@@ -381,6 +384,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Orzhov Signet": orzhovSignet,
   "Otherworldly Journey": otherworldlyJourney,
   "Overgrown Tomb": overgrownTomb,
+  "Overwhelming Stampede": overwhelmingStampede,
+  "Pathbreaker Ibex": pathbreakerIbex,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
   "Queza, Augur of Agonies": quezaAugurOfAgonies,
@@ -391,6 +396,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rest in Peace": restInPeace,
   "Restoration Angel": restorationAngel,
   "Retreat to Hagra": retreatToHagra,
+  "Return of the Wildspeaker": returnOfTheWildspeaker,
   "Reverberate": reverberate,
   "Revitalizing Repast": revitalizingRepast,
   "Revitalizing Repast // Old-Growth Grove": revitalizingRepast,

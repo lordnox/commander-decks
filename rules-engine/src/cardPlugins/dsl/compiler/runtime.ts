@@ -451,6 +451,17 @@ export const amountEvaluationContext = (
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
+  greatest: (selector, characteristic, _information) => {
+    const values = evaluateObjectSelector(selector, context).map(object => {
+      if (characteristic === 'life') return 0
+      if (characteristic === 'loyalty') {
+        return object.types.includes('Planeswalker') ? object.counters.loyalty ?? 0 : 0
+      }
+      const value = object[characteristic]
+      return typeof value === 'number' ? value : 0
+    })
+    return values.length === 0 ? 0 : Math.max(0, ...values)
+  },
   characteristic: (reference, characteristic, information, fallback) =>
     oneReferenceValue(reference, context, characteristic, information, fallback),
 } satisfies AmountEvaluationContext)

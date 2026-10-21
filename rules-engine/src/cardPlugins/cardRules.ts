@@ -109,7 +109,6 @@ import {
   pumpTargetX,
   pumpSelf,
   pumpControlled,
-  pumpControlledNonHuman,
   pumpFromLinkedExilePower,
   pumpPerLinkedExile,
   putFromHand,
@@ -1104,9 +1103,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [removeTarget('bounce')],
     }),
   ],
-  'Overwhelming Stampede': [
-    onResolve(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
-  ],
   'Palace Jailer': [
     enters(
       becomeMonarch(),
@@ -1135,9 +1131,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         targetIndex: 0,
       })),
     ),
-  ],
-  'Pathbreaker Ibex': [
-    attacks(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
   ],
   'Perch Protection': [
     gift({ label: 'Gift an extra turn', extraTurn: true }),
@@ -1237,18 +1230,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Repay in Kind': [onResolve(setAllLifeToLowest())],
-  'Return of the Wildspeaker': [modalChooseOne(
-    {
-      id: 'draw',
-      label: 'Draw cards equal to the greatest power among non-Human creatures you control.',
-      do: [drawGreatestPower({ nonHuman: true })],
-    },
-    {
-      id: 'pump',
-      label: 'Non-Human creatures you control get +3/+3 until end of turn.',
-      do: [pumpControlledNonHuman(3, 3)],
-    },
-  )],
   'Rings of Brighthearth': [handler('stackCopy')],
   'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
   "Rishkar's Expertise": [

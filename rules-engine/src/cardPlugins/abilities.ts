@@ -1,7 +1,7 @@
 import type { ZoneId } from '../types'
 import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, ModalMode, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
-import { draw, pumpControlled, putPermanentFromGraveyard } from './instructions'
+import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
 
 export const unearth = (manaCost: string): CardEffect =>
@@ -364,9 +364,6 @@ export const optionalBasicLandEnters = (): SearchSpec => ({
   sacrificeSource: false,
   optionalEnter: true,
 })
-
-export const pumpControlledNonHuman = (power: number, toughness: number) =>
-  pumpControlled(power, toughness, { nonHuman: true })
 
 export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
   op: 'modal',
