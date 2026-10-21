@@ -3455,15 +3455,14 @@ describe('extort live choice', () => {
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'extort-payment',
-      cards: ['Decline', 'Pay {W}'],
+      cards: ['Pay', 'Decline'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Decline', destination: 'skip' },
-        { card: 'Pay {W}', destination: 'target' },
+        { card: 'Pay', destination: 'target' },
       ],
     }))).toBe(true)
     expect(kernel.history.current().players.p1).toMatchObject({

@@ -221,10 +221,11 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
     for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
+    if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
     if (node.sameNameAs !== undefined) validateReference(node.sameNameAs, childPath(path, 'sameNameAs'), env, ['object'])
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
@@ -652,7 +653,7 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         if (typeof node.amount !== 'string' || node.amount.length === 0 || node.amount.length > 128
           || !/^(?:\{(?:[0-9]+|[WUBRGCX]|[WUBRGC]\/P|[WUBRG]\/[WUBRG])\})+$/.test(node.amount)) {
-          issue(childPath(path, 'amount'), 'mana-cost', 'mana cost must contain only braced generic, W, U, B, R, G, C, X, or Phyrexian {W/P}{U/P}{B/P}{R/P}{G/P}{C/P} symbols')
+          issue(childPath(path, 'amount'), 'mana-cost', 'mana cost must contain only braced generic, W, U, B, R, G, C, X, hybrid color pairs, or Phyrexian {W/P}{U/P}{B/P}{R/P}{G/P}{C/P} symbols')
         } else if (node.amount.includes('{X}') && !env.variables.has('X')) {
           issue(childPath(path, 'amount'), 'unresolved-binding', 'mana cost uses X but X is not declared in this program scope')
         }
@@ -705,6 +706,12 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets', 'bindResult'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['copied']) }, childPath(path, 'bindResult'))
+        return
+      case 'addManaChosenColor':
+        exactKeys(node, path, ['kind', 'of', 'amount', 'targets'], ['kind', 'of', 'amount', 'targets'])
+        validateReference(node.of, childPath(path, 'of'), env, ['object'])
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'addManaFrom':
         exactKeys(node, path, ['kind', 'of', 'colorsOnly', 'amount', 'targets'], ['kind', 'of', 'colorsOnly', 'amount', 'targets'])
@@ -1035,14 +1042,17 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'createDelayed': {
+        if (node.repeatUntilCleanup !== undefined && node.repeatUntilCleanup !== true) issue(childPath(path, 'repeatUntilCleanup'), 'type', 'repeatUntilCleanup must be true')
         if (node.notThisTurn !== undefined && node.notThisTurn !== true) issue(childPath(path, 'notThisTurn'), 'type', 'notThisTurn must be true')
-        exactKeys(node, path, ['kind', 'condition', 'instructions', 'inheritTargets', 'notThisTurn'], ['kind', 'condition', 'instructions'])
+        exactKeys(node, path, ['kind', 'condition', 'instructions', 'inheritTargets', 'notThisTurn', 'repeatUntilCleanup'], ['kind', 'condition', 'instructions'])
         if (node.inheritTargets !== undefined && typeof node.inheritTargets !== 'boolean') issue(childPath(path, 'inheritTargets'), 'type', 'expected a boolean')
         const condition = object(node.condition, childPath(path, 'condition'))
         if (condition) {
-          exactKeys(condition, childPath(path, 'condition'), ['kind', 'type', 'objectId', 'from', 'to', 'step', 'active'], ['kind'])
-          enumeration(condition.kind, childPath(childPath(path, 'condition'), 'kind'), new Set(['event', 'step']), 'delayed pattern')
-          if (condition.kind === 'event') {
+          exactKeys(condition, childPath(path, 'condition'), ['kind', 'type', 'objectId', 'from', 'to', 'step', 'active', 'filter'], ['kind'])
+          enumeration(condition.kind, childPath(childPath(path, 'condition'), 'kind'), new Set(['event', 'step', 'tappedForMana']), 'delayed pattern')
+          if (condition.kind === 'tappedForMana') {
+            validateOccurrence(condition, childPath(path, 'condition'), env)
+          } else if (condition.kind === 'event') {
             if (typeof condition.type !== 'string' || condition.type.length === 0) issue(childPath(childPath(path, 'condition'), 'type'), 'type', 'delayed event requires an event type')
             if (condition.objectId !== undefined) validateReference(condition.objectId, childPath(childPath(path, 'condition'), 'objectId'), env, ['object'])
             if (condition.from !== undefined) enumeration(condition.from, childPath(childPath(path, 'condition'), 'from'), ZONES, 'source zone')
@@ -1053,7 +1063,7 @@ export const validateDefinitionV1 = (root: unknown): {
           }
         }
         const callbackEnv = node.inheritTargets === false ? { ...cloneEnv(env), targets: [], targetSingleton: [] } : env
-        validateInstructionList(node.instructions, childPath(path, 'instructions'), callbackEnv, depth + 1)
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), condition?.kind === 'tappedForMana' ? validateOccurrence(condition, childPath(path, 'condition'), callbackEnv) : callbackEnv, depth + 1)
         return
       }
       case 'discard': {
@@ -1267,10 +1277,12 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     declarations.push({ path, kind: `occurrence:${String(node.kind)}` })
     switch (node.kind) {
+      case 'becomesTapped':
+      case 'tappedForMana':
       case 'attacks':
       case 'cast':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
-        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.object.controller', 'player'], ['triggering.player', 'player']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'enters':
@@ -1606,6 +1618,11 @@ export const validateDefinitionV1 = (root: unknown): {
               if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'), baseEnvironment())
               return
             }
+            case 'enchant':
+              exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
+              if (validateSelector(node.filter, childPath(effectPath, 'filter'), baseEnvironment()) !== 'object') issue(effectPath, 'type', 'enchant requires an object selector')
+              return
+            case 'loseLifeOnManaLoss':
             case 'noMaximumHandSize': {
               exactKeys(node, effectPath, ['kind'], ['kind'])
               return

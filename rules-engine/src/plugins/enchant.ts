@@ -1,3 +1,5 @@
+import { captureObject } from '../objectIdentity'
+import { evaluateObjectSelector } from '../cardPlugins/dsl/compiler/runtime'
 import type { GameObject, GameState, TargetRef } from '../types'
 import { isForest } from './forestOverlay'
 import { isSwamp } from './swampOverlay'
@@ -28,6 +30,8 @@ const matchesEnchant = (state: GameState, target: GameObject, restriction: strin
 
 /** Battlefield objects an Aura spell may be cast on; undefined when its Enchant line is not checked. */
 export const enchantTargets = (state: GameState, aura: GameObject) => {
+  const canonical = aura.ruleDefinition?.definition.abilities.flatMap(ability => ability.kind === 'static' ? ability.effects : []).find(effect => effect.kind === 'enchant')
+  if (canonical?.kind === 'enchant') return evaluateObjectSelector(canonical.filter, { state, source: captureObject(aura), controller: aura.controller })
   const restriction = enchantRestriction(aura)
   return restriction
     ? Object.values(state.objects).filter((target) => matchesEnchant(state, target, restriction))
@@ -40,6 +44,13 @@ export const enchantTargetError = (
   aura: GameObject,
   targets: TargetRef[] | undefined,
 ) => {
+  const canonical = aura.ruleDefinition?.definition.abilities.some(ability => ability.kind === 'static' && ability.effects.some(effect => effect.kind === 'enchant'))
+  if (canonical) {
+    const offered = enchantTargets(state, aura) ?? []
+    const target = targets?.[0]
+    const object = target?.kind === 'object' ? targetObject(state, target) : undefined
+    return targets?.length === 1 && object && offered.some(candidate => candidate.id === object.id) ? undefined : `${aura.name} has no legal enchant target`
+  }
   const restriction = enchantRestriction(aura)
   if (!restriction) return
   const [target] = targets ?? []

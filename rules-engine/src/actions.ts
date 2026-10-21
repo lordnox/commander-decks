@@ -516,6 +516,7 @@ const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
  */
 const tapTriggersOnStack = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'trigger' && effect.on === 'tapped')
+  || object.ruleDefinition?.definition.abilities.some(ability => ability.kind === 'triggered' && ability.on.kind === 'becomesTapped') === true
 
 /**
  * Sources that can add mana, ordered so a costed ability sees the mana the

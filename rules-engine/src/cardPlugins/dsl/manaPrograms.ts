@@ -27,6 +27,7 @@ export const instructionMovesLibrary = (instructions: readonly Instruction[]): b
 export const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
   switch (instruction.kind) {
     case 'addMana':
+    case 'addManaChosenColor':
     case 'addManaFrom': return true
     case 'sequence':
     case 'forEachPlayer':
@@ -99,7 +100,7 @@ export const hasManaAbility = (source: GameObject) => {
         abilityKind: 'triggered',
         addsMana: instructionAddsMana(ability.instructions ?? ability.modes?.flatMap(mode => mode.instructions) ?? []),
         hasTargets: ability.decisions.targets.length > 0 || (ability.modes?.some(mode => mode.decisions.targets.length > 0) ?? false),
-        triggeredManaEligible: ['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind),
+        triggeredManaEligible: ['tappedForMana', 'manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind),
       }).isManaAbility
       default: return false
     }

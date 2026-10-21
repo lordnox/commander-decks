@@ -4,7 +4,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { InstructionResult, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
+import type { InstructionResult, ObjectOccurrenceFilter, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -336,6 +336,7 @@ export type GameObject = {
   protector?: PlayerId
   loyaltyActivatedTurn: number | null
   oracleText: string
+  attachedToRef?: ObjectIdentity
   attachedTo: string | null
   /** Phased-out permanents are treated as though they do not exist (CR 702.26). */
   phasedOut?: boolean
@@ -926,6 +927,7 @@ export type TriggerBinding = {
  * `recurring` represents an explicit "for the rest of the game" duration.
  */
 export type DelayedTriggerCondition =
+  | { kind: 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | {
       kind: 'event'
       type: GameEvent['type']
@@ -1111,6 +1113,7 @@ export type GameEvent =
       replacementLineage?: ReplacementLineage
       tapped?: boolean
       /** Counters supplied by the effect putting this permanent onto the battlefield. */
+      attachTo?: ObjectIdentity
       enterCounters?: Readonly<Record<string, number>>
       /** Color chosen as this object enters (CR 614.12). */
       chosenColor?: ManaId

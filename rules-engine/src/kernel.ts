@@ -1,3 +1,4 @@
+import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
 import { changeControllerPermanent } from './cardPlugins/continuousEffects'
@@ -699,6 +700,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       }
       if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
+        if (event.attachTo && isSameObject(draft.objects[event.attachTo.objectId], event.attachTo)) { object.attachedTo = event.attachTo.objectId; object.attachedToRef = { ...event.attachTo } }
         if (event.enterCounters) {
           const before = counterPtBonus(object)
           for (const [counter, count] of Object.entries(event.enterCounters)) {
@@ -1418,7 +1420,7 @@ const driveResolution = (
       if (completedInlineItem?.execution?.abilityIndex !== undefined) {
         const completion = applyEventTree(completedState, {
           type: 'custom',
-          name: 'cardPlugins.manaAbilityResolved',
+          name: MANA_ABILITY_RESOLVED,
           seat: completedInlineItem.controller,
           payload: {
             sourceId: completedInlineItem.objectId,

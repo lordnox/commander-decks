@@ -194,7 +194,7 @@ export const activated: Plugin = {
             }
           }
           const programChoice = activatedCanonical.instructions?.length === 1 ? activatedCanonical.instructions[0] : undefined
-        if (canonicalManaClassification(activatedCanonical).isManaAbility && programChoice?.kind === 'chooseInstructions' && event.choices?.[0]
+        if (canonicalManaClassification(activatedCanonical).isManaAbility && programChoice?.kind === 'chooseInstructions' && activatedCanonical.costs.every(cost => cost.kind !== 'discard' && cost.kind !== 'sacrifice') && event.choices?.[0]
           && !programChoice.options.some(option => option.label === event.choices![0])) return `${source.name} cannot add ${event.choices[0]}`
         const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
             selectedOptional: event.selectedOptionalCosts,
@@ -331,7 +331,7 @@ export const activated: Plugin = {
           objectId: source.id,
           abilityId: `$.abilities[${canonicalMana.index}]`,
           ...(canonicalMana.modeIndices ? { modeIndices: canonicalMana.modeIndices } : {}),
-          ...(event.mana && canonicalMana.ability.instructions?.some(instruction => instruction.kind === 'addManaFrom') ? { choices: [event.mana] } : {}),
+          ...(event.mana && canonicalMana.ability.instructions?.some(instruction => instruction.kind === 'addManaFrom' || (instruction.kind === 'chooseInstructions' && instruction.options.some(option => option.label === event.mana))) ? { choices: [event.mana] } : {}),
           manaAbility: true,
         })
       }

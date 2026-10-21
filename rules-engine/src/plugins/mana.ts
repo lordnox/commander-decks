@@ -1,3 +1,4 @@
+import { manaLossConsequences } from '../cardPlugins/dsl/manaLoss'
 import { manaFromPools } from '../cardPlugins/dsl/manaTypes'
 import { canonicalManaAbilityForTap } from '../cardPlugins/dsl/manaPrograms'
 import { addPools, emptyMana } from '../draft'
@@ -344,7 +345,8 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
     return
   }
   if (event.type === 'emptyManaPools') {
-    for (const player of Object.values(draft.players)) player.mana = emptyMana()
+    for (const consequence of manaLossConsequences(state)) draft.enqueue(consequence)
+    for (const player of Object.values(draft.players)) { player.mana = emptyMana(); player.restrictedMana = [] }
     draft.note('mana pools empty')
   }
 }

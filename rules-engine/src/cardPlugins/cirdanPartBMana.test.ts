@@ -89,20 +89,8 @@ const castActs = (state: GameState, name: string) =>
   legalActsFor(state, 'p1').filter((act) =>
     act.kind === 'castSpell' && act.name === name)
 
-/** Cast `name` through the action layer, enchanting `targetId`, and resolve it. */
-const castAura = (server: Server, state: GameState, name: string, targetId: string) => {
-  const act = castActs(state, name).find((candidate) =>
-    candidate.kind === 'castSpell' && candidate.targetObjectId === targetId)
-  if (!act) throw new Error(`no cast of ${name} onto ${targetId}`)
-  return resolveStack(server.rules, run(server, state, eventsForAvailableAction(state, 'p1', act)!))
-}
-
 const forest = () => deckCardTemplate('Forest')
 const island = () => deckCardTemplate('Island')
-
-const sprawl = () => deckCardTemplate('Utopia Sprawl')
-
-const floodedGrove = () => deckCardTemplate('Flooded Grove')
 
 const held = (count: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`Held ${index}`))
@@ -177,92 +165,6 @@ describe('Arbor Elf', () => {
     tapped.objects[one(tapped, 'Arbor Elf').id].tapped = true
     expect(server.rules(tapped, untap(tapped, 'Forest')).ok).toBe(false)
   })
-})
-
-describe('Flooded Grove', () => {
-  const filter = (state: GameState, choices?: string[]): GameEvent => ({
-    type: 'activateAbility',
-    seat: 'p1',
-    objectId: one(state, 'Flooded Grove').id,
-    abilityId: 'floodedGrove.filter',
-    manaAbility: true,
-    ...(choices ? { choices } : {}),
-  })
-
-  test('without a named pool the controller chooses privately, and the choice survives a restart', () => {
-    const server = game({ battlefield: [floodedGrove()] })
-    const state = withPool(server.state, { U: 1 })
-    const opened = ok(server.rules(state, filter(state)))
-    const pending = pendingOptionSelection(opened, 'p1')!
-    expect(pending.options.map(({ id }) => id)).toEqual(['GG', 'UG', 'UU'])
-    expect(server.project(opened, 'p1').players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
-    expect(server.project(opened, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
-
-    // Host restart: the open choice lives in the state, so a fresh copy still answers it.
-    const restarted = structuredClone(opened)
-    expect(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p2',
-      selectionId: pending.id,
-      optionId: 'UU',
-    }).ok).toBe(false)
-    expect(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pending.id,
-      optionId: 'RR',
-    }).ok).toBe(false)
-    const resolved = ok(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pending.id,
-      optionId: 'UG',
-    }))
-    expect(resolved.players.p1.mana).toEqual({ ...emptyMana(), G: 1, U: 1 })
-  })
-
-})
-
-
-describe('Utopia Sprawl', () => {
-  const enter = () => {
-    const server = game({ hand: [sprawl()], battlefield: [forest(), island()] })
-    const prepared = withPool(server.state, { G: 1 })
-    const entered = castAura(server, prepared, 'Utopia Sprawl', one(prepared, 'Forest').id)
-    return { server, entered }
-  }
-
-  test('entering opens a private color choice that survives a restart and stores the pick', () => {
-    const { server, entered } = enter()
-    const pending = pendingOptionSelection(entered, 'p1')!
-    expect(pending.options.map(({ id }) => id)).toEqual(['W', 'U', 'B', 'R', 'G'])
-    expect(server.project(entered, 'p1').players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
-    expect(server.project(entered, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
-    expect(server.rules(entered, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
-
-    const restarted = structuredClone(entered)
-    expect(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pending.id,
-      optionId: 'C',
-    }).ok).toBe(false)
-    expect(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p2',
-      selectionId: pending.id,
-      optionId: 'U',
-    }).ok).toBe(false)
-    const chosen = ok(server.rules(restarted, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pending.id,
-      optionId: 'U',
-    }))
-    expect(one(chosen, 'Utopia Sprawl').chosenColor).toBe('U')
-    expect(pendingOptionSelection(chosen)).toBeUndefined()
-  })
-
 })
 
 describe('Sea Gate Restoration // Sea Gate, Reborn', () => {

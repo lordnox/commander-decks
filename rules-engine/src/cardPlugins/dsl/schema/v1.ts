@@ -71,6 +71,7 @@ export type ObjectFilter = {
   other?: boolean
   commander?: boolean
   manaAbility?: boolean
+  enchantedBy?: ObjectReference
   sameNameAs?: ObjectReference
   /** Restrict matches to the current identities of a bound object reference. */
   among?: ObjectReference
@@ -173,6 +174,7 @@ export type OccurrencePattern =
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cast'; filter: ObjectOccurrenceFilter }
+  | { kind: 'becomesTapped' | 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | { kind: 'attacks'; filter: ObjectOccurrenceFilter }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
@@ -349,6 +351,7 @@ export type Instruction =
   /** Persist copiable characteristics before the source leaves its current zone. */
   | { kind: 'captureCopy'; targets: ObjectRecipient; bindResult: string }
   /** Add the specified mana to each resolved player recipient's pool. */
+  | { kind: 'addManaChosenColor'; of: ObjectReference; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addManaFrom'; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
@@ -432,6 +435,7 @@ export type Instruction =
   | {
       kind: 'createDelayed'
       /** Ignore matching occurrences until the current turn has ended. */
+      repeatUntilCleanup?: true
       notThisTurn?: true
       /** Omit the parent's target clauses for a non-targeting delayed program. Defaults to true. */
       inheritTargets?: boolean
@@ -505,6 +509,7 @@ export type Instruction =
     }
 
 export type DelayedPattern =
+  | { kind: 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | { kind: 'event'; type: string; objectId?: ObjectReference; from?: Zone; to?: Zone }
   | { kind: 'step'; step: StepId | readonly StepId[]; active?: PlayerReference }
 
@@ -597,6 +602,8 @@ export type ContinuousEffectDefinition =
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'noMaximumHandSize' }
+  | { kind: 'loseLifeOnManaLoss' }
+  | { kind: 'enchant'; filter: ObjectSelector }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector

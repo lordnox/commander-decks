@@ -1,15 +1,14 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 14-filter. **159 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 10 plus concurrent 11/14 work. **150 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **159 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **150 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
 | `Alabaster Host Intercessor` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [03](CARD-MIGRATION-BATCHES.md#03) | Blocked by mechanics | Plainscycling also depends on the cycling correctness follow-up. |
-| `Alchemist's Refuge` | 11 | [11-flash](CARD-MIGRATION-BATCHES.md#11-flash) | Migrated | Tap for {C}; {G}{U}, tap grants as-though-flash until cleanup. |
 | `All-Fates Stalker` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-warp](CARD-MIGRATION-BATCHES.md#25-warp) | Blocked by mechanics | — |
 | `Analyze the Pollen` | 25 | [25-evidence](CARD-MIGRATION-BATCHES.md#25-evidence) | Blocked by mechanics | — |
 | `Ancient Greenwarden` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
@@ -19,22 +18,14 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Archetype of Endurance` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [21-suppress](CARD-MIGRATION-BATCHES.md#21-suppress) | Blocked by mechanics | — |
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
 | `Baird, Steward of Argive` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
-| `Banisher Priest` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Migrated | Canonical until-leaves exile. |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Bender's Waterskin` | 10 | [13-untap](CARD-MIGRATION-BATCHES.md#13-untap) | Blocked by mechanics | Other-player untap-step rule, not a bonus-mana mechanic. |
 | `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
-| `Black Sun's Twilight` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Migrated | Optional -X/-X target; at X ≥ 5 return a graveyard creature with mana value ≤ X tapped. |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |
 | `Blitzball` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation), [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Blocked by mechanics | Activation condition uses legendary-creature combat damage to an opponent this turn. |
-| `Blossoming Tortoise` | 14 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction) | Migrated | Entry and attack mill three then return a land; lands get +1/+1 and {1} less to activate. |
-| `Boseiju, Who Endures` | 11 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction), [02](CARD-MIGRATION-BATCHES.md#02), [07](CARD-MIGRATION-BATCHES.md#07) | Migrated | Channel from hand with per-legendary generic reduction, destroy nonbasic, optional basic-land-type search. |
 | `Breena, the Demagogue` | 34 | [34-defender](CARD-MIGRATION-BATCHES.md#34-defender), [15-compare](CARD-MIGRATION-BATCHES.md#15-compare) | Blocked by mechanics | — |
-| `Bubbling Muck` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus) | Blocked by mechanics | — |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
-| `Cephalid Coliseum` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Migrated | Pain mana plus threshold draw-three/discard-three. |
-| `Children of Korlis` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | Recover controller life lost this turn. |
-| `City of Brass` | 10 | [10-tapped](CARD-MIGRATION-BATCHES.md#10-tapped) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Colossification` | 22 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment) | Blocked by mechanics | Retain the entry tap trigger and attached +20/+20 effect. |
@@ -42,7 +33,6 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Council's Judgment` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Courser of Kruphix` | 26 | [26-library-lands](CARD-MIGRATION-BATCHES.md#26-library-lands) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; retain landfall life gain. |
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
-| `Crypt Ghast` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus), [10-filter](CARD-MIGRATION-BATCHES.md#10-filter), [06](CARD-MIGRATION-BATCHES.md#06) | Blocked by mechanics | Include extort, hybrid payment, actual aggregate life loss, and the Swamp bonus. |
 | `Curious Colossus` | 22 | [22-ability-loss](CARD-MIGRATION-BATCHES.md#22-ability-loss) | Blocked by mechanics | Preserve all three layers: ability loss, Coward addition, and base 1/1. |
 | `Círdan the Shipwright` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret) | Blocked by mechanics | Retain both entry and attack triggers. |
 | `Dakmor Salvage` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | — |
@@ -61,14 +51,11 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Everybody Lives!` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player) | Blocked by mechanics | Creature hexproof/indestructible and player hexproof plus life/game-result restrictions. |
 | `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
 | `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection already exists; land devour and ward remain. Verify every printed clause before authoring. |
-| `Fiend Hunter` | 18 | [18-triggers](CARD-MIGRATION-BATCHES.md#18-triggers) | Migrated | Separate ETB exile and LTB return. |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
-| `Flooded Grove` | 10 | [10-filter](CARD-MIGRATION-BATCHES.md#10-filter) | Blocked by mechanics | — |
 | `Forgotten Cellar` | 26 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [26-graveyard-spells](CARD-MIGRATION-BATCHES.md#26-graveyard-spells), [26-graveyard-replacement](CARD-MIGRATION-BATCHES.md#26-graveyard-replacement) | Blocked by mechanics | Same physical Room as Walk-In Closet: implement both doors and graveyard-exile replacement. |
 | `Fortune's Favor` | 39 | [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | — |
 | `Getaway Glamer` | 25 | [25-spree](CARD-MIGRATION-BATCHES.md#25-spree), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | — |
-| `Ghost Town` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Migrated | Colorless mana plus not-your-turn self-bounce. |
 | `Glorious Protector` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-foretell](CARD-MIGRATION-BATCHES.md#25-foretell) | Blocked by mechanics | — |
 | `Grothama, All-Devouring` | 34 | [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Blocked by mechanics | Existing generated triggered-ability grants can supply the attack/fight ability. Add source-attributed damage history and full leave-trigger behavior. |
 | `Hagra Mauling // Hagra Broodpit` | 17 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | Complete both faces; land always enters tapped, while the spell reduction checks opponent basic lands. |
@@ -97,9 +84,7 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Marina Vendrell` | 43 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [08](CARD-MIGRATION-BATCHES.md#08) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include reveal-seven enchantments and door activation. |
 | `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | — |
 | `Maskwood Nexus` | 22 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
-| `Millikin` | 10 | [10-mill](CARD-MIGRATION-BATCHES.md#10-mill) | Blocked by mechanics | Honor its printed activation timing as well as the mill cost. |
 | `Mirkwood Bats` | 19 | [35-token](CARD-MIGRATION-BATCHES.md#35-token) | Blocked by mechanics | — |
-| `Mirror Universe` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Migrated | Your-upkeep sacrifice exchange with target opponent. |
 | `Mirrorweave` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Mister Negative` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | Vigilance/lifelink and draw equal to actual exchanged-life loss. |
 | `Mole Man, Moloid Master` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands) | Blocked by mechanics | Retain landfall and the Moloid token's canonical attack-triggered optional mill. |
@@ -107,11 +92,8 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
-| `Necrologia` | 11 | [11-casting](CARD-MIGRATION-BATCHES.md#11-casting), [06](CARD-MIGRATION-BATCHES.md#06) | Migrated | Cast only during your end step; pay X life, draw X. |
 | `Nezahal, Primal Tide` | 44 | [20-counterability](CARD-MIGRATION-BATCHES.md#20-counterability) | Blocked by mechanics | Other effects are composition candidates: cast trigger, unlimited hand size, discard-three, captured exile and delayed tapped owner return. |
-| `Nirkana Revenant` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus) | Blocked by mechanics | — |
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |
-| `Otawara, Soaring City` | 11 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction) | Migrated | Channel bounce with per-legendary generic reduction. |
 | `Palace Jailer` | 18 | [18-monarch](CARD-MIGRATION-BATCHES.md#18-monarch) | Blocked by mechanics | — |
 | `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |
 | `Perch Protection` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player), [42-turn](CARD-MIGRATION-BATCHES.md#42-turn) | Blocked by mechanics | Full gift, four Birds, phase-out, protection duration, and resolving exile. |
@@ -151,19 +133,14 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Starfield of Nyx` | 26 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include upkeep return and enchantment animation. |
 | `Summon: Leviathan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Subtype exclusions and generated temporary attack/draw triggers can reuse existing primitives. |
 | `Summon: Titan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
-| `Sygg, River Cutthroat` | 19 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | End-step intervening if an opponent lost 3+ this turn, then optional draw. |
-| `Tainted Sigil` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | Recover the sum of all players' life lost this turn. |
 | `Tear Asunder` | 25 | [25-kicker](CARD-MIGRATION-BATCHES.md#25-kicker) | Blocked by mechanics | — |
 | `Teferi, Who Slows the Sunset` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [32-emblems](CARD-MIGRATION-BATCHES.md#32-emblems), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | All loyalty abilities, source-independent emblem, and complete untap targeting. |
-| `Temple of the False God` | 10 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Migrated | Tap for {C}{C} only with five or more lands. |
 | `Tenuous Truce` | 42 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Blocked by mechanics | Enchant opponent; own and enchanted player draw; attack relationship ends the Aura. |
-| `Test of Endurance` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-win](CARD-MIGRATION-BATCHES.md#19-win) | Migrated | Your-upkeep intervening if at 50+ life, then win the game. |
 | `Thespian's Stage` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | Permanent-duration copy with its own copy ability retained, not a token. |
 | `Thunderfoot Baloth` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [15-commander](CARD-MIGRATION-BATCHES.md#15-commander) | Blocked by mechanics | — |
 | `Trap the Trespassers` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret), [39-object](CARD-MIGRATION-BATCHES.md#39-object) | Blocked by mechanics | Secret votes name creatures; put vote-count stun counters and tap. Existing stun-counter untap semantics are reusable; no skip-next-untap mechanic is required. |
 | `Ugin, the Spirit Dragon` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | All loyalty abilities, X/color filters, and up-to-seven own-hand permanents; do not require multi-player hand placement. |
 | `Urborg, Tomb of Yawgmoth` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
-| `Utopia Sprawl` | 10 | [10-attached](CARD-MIGRATION-BATCHES.md#10-attached) | Blocked by mechanics | Include enchant Forest and the as-entry color choice. |
 | `Valgavoth, Terror Eater` | 26 | [26-exile](CARD-MIGRATION-BATCHES.md#26-exile), [21-ward-sacrifice](CARD-MIGRATION-BATCHES.md#21-ward-sacrifice), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Vanish into Memory` | 30 | [30-return-result](CARD-MIGRATION-BATCHES.md#30-return-result) | Blocked by mechanics | — |
 | `Vantress Visions` | 29 | [29-copy](CARD-MIGRATION-BATCHES.md#29-copy), [43-adventure](CARD-MIGRATION-BATCHES.md#43-adventure), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply) | Blocked by mechanics | Alias/Adventure face of Virtue of Knowledge; require complete shared physical-card behavior. |
@@ -174,14 +151,11 @@ Current readiness: **0 composition candidates**; **159 blocked or awaiting sourc
 | `Wash Away` | 20 | [25-cleave](CARD-MIGRATION-BATCHES.md#25-cleave) | Blocked by mechanics | — |
 | `Waterlogged Teachings // Inundated Archive` | 31 | [31-flash](CARD-MIGRATION-BATCHES.md#31-flash), [01](CARD-MIGRATION-BATCHES.md#01) | Blocked by mechanics | Both faces; reuse modal handoff with ordinary tapped entry. No pay-life mechanic is required. |
 | `Wedding Ring` | 35 | [35-provenance](CARD-MIGRATION-BATCHES.md#35-provenance), [35-life](CARD-MIGRATION-BATCHES.md#35-life), [15-names](CARD-MIGRATION-BATCHES.md#15-names) | Blocked by mechanics | Retain the token copy's full triggered program and opponent/turn relationships. |
-| `Werefox Bodyguard` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Migrated | Until-leaves exile plus `{1}{W}` sacrifice-for-life. |
-| `Wild Growth` | 10 | [10-attached](CARD-MIGRATION-BATCHES.md#10-attached) | Blocked by mechanics | — |
 | `Will of the Sultai` | 14 | [25-modal](CARD-MIGRATION-BATCHES.md#25-modal) | Blocked by mechanics | Count lands and retain the commander-dependent announcement choice. |
 | `Windfall` | 33 | [33-discard](CARD-MIGRATION-BATCHES.md#33-discard) | Blocked by mechanics | — |
 | `Woodfall Primus` | 30 | [30-persist](CARD-MIGRATION-BATCHES.md#30-persist) | Blocked by mechanics | — |
 | `Yarok, the Desecrated` | 29 | [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Yavimaya, Cradle of Growth` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
-| `Yurlok of Scorch Thrash` | 10 | [10-loss](CARD-MIGRATION-BATCHES.md#10-loss) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; retain its mana ability and all printed keywords. |
 | `Zanarkand, Ancient Metropolis // Lasting Fayth` | 43 | [43-adventure](CARD-MIGRATION-BATCHES.md#43-adventure), [38-token-refs](CARD-MIGRATION-BATCHES.md#38-token-refs) | Blocked by mechanics | Create the Hero, then put counters on that new token equal to your land count; retain the tapped land face and Adventure permission. |
 | `Zimone and Dina` | 35 | [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-repeat](CARD-MIGRATION-BATCHES.md#35-repeat) | Blocked by mechanics | — |
 

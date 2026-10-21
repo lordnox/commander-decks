@@ -154,8 +154,8 @@ describe('card plugin registry', () => {
       'Nirkana Revenant',
       'Reflecting Pool',
     ])).toEqual([])
-    expect(cardPluginEntry('Crypt Ghast')?.handlerIds).toContain('extort')
-    expect(cardPluginEntry('Nirkana Revenant')?.handlerIds).toContain('activated')
+    expect(effectsFor('Crypt Ghast')).toEqual([])
+    expect(effectsFor('Nirkana Revenant')).toEqual([])
   })
 
   test('the Lady Evangela alternate and replacement cards stay registered', () => {
@@ -484,8 +484,8 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Marina Vendrell')?.handlerIds).toEqual(['activated'])
   })
 
-  test('Yurlok grants the manaBurn overlay rule', () => {
-    expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual(['manaBurn'])
+  test('Yurlok uses a canonical static consequence', () => {
+    expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual([])
     expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])
   })
 

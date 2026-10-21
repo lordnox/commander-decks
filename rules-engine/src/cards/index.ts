@@ -1,3 +1,10 @@
+import yurlokOfScorchThrash from './yurlok-of-scorch-thrash'
+import wildGrowth from './wild-growth'
+import utopiaSprawl from './utopia-sprawl'
+import cryptGhast from './crypt-ghast'
+import bubblingMuck from './bubbling-muck'
+import nirkanaRevenant from './nirkana-revenant'
+import cityOfBrass from './city-of-brass'
 import millikin from './millikin'
 import floodedGrove from './flooded-grove'
 import horizonOfProgress from './horizon-of-progress'
@@ -259,6 +266,13 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Yurlok of Scorch Thrash": yurlokOfScorchThrash,
+  "Wild Growth": wildGrowth,
+  "Utopia Sprawl": utopiaSprawl,
+  "Crypt Ghast": cryptGhast,
+  "Bubbling Muck": bubblingMuck,
+  "Nirkana Revenant": nirkanaRevenant,
+  "City of Brass": cityOfBrass,
   "Millikin": millikin,
   "Flooded Grove": floodedGrove,
   "Horizon of Progress": horizonOfProgress,

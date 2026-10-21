@@ -638,12 +638,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "f74f19ee26670d92120c5292e73f6794611d6e4cd3e9ab9c203eac81b495309a",
-    "card": "Yurlok of Scorch Thrash"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "b220e66cbe967247ce0c97531a8a2eb2d224f1425897e4afd620daa9cb8e7c39",
     "card": "Archangel of Tithes"
   },
@@ -686,32 +680,8 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "32aaeff089495b9e930ee1713b2da982463ff099baa62e3a2e85a9ae27f0a8ca",
-    "card": "Bubbling Muck"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "cf4a2793c01fae753bc778f21ffcbee325bef055acb24fd06a68f8ae45b63cb9",
-    "card": "Crypt Ghast"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4970f77ee20938dc1c20d44ce0f5212f039804ea91dde80c60670504843fd65d",
     "card": "Ephemerate"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "68108b4ed3d0a706740239782e417ab280d08a322fee3fa9c751fede03c91dc8",
-    "card": "Utopia Sprawl"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "5a10ca318d7b40e273d023b130c35a40d551fc583649d5b0db22bd1d196bcf26",
-    "card": "Wild Growth"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -812,12 +782,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "56fea88884662571c00efed4c4e7b4faa7c249afad413f1ba534fdf30c24e300",
-    "card": "Nirkana Revenant"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "62a7fbcdcea3039b61f04cf935c4ea9b16abd1d165b88bb6634d7b6f1adea1d4",
     "card": "Niv-Mizzet, Ghost Counsel"
   },
@@ -904,12 +868,6 @@
     "code": "legacy-card-registration",
     "digest": "9e58503a3ba5755f2e8bed3bab2c29b5c494027d072e808f48da8a46718b2769",
     "card": "Desertion"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "be3389ab76c2bcc9512c19f7d0fe93e003d23ff2a7fb5048652a41c503dd631c",
-    "card": "City of Brass"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

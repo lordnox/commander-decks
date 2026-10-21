@@ -149,6 +149,7 @@ export const makeDraft = (state: GameState): Draft => {
       delete object.staticRulesTimestamp
     }
     if (from === 'battlefield' && to !== 'battlefield') {
+      delete object.attachedToRef
       // CR 400.7: the object that arrives is new, so counters do not follow it.
       // Their contribution to P/T is stored eagerly and must come back out.
       const bonus = counterPtBonus(object)

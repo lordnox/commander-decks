@@ -6,8 +6,6 @@ import {
   becomeCopyOfTarget,
   allCreatureTypes,
   animateUntilEot,
-  chooseColorOnEnter,
-  enchantedManaBoost,
   attachedCopyOrToken,
   attackTax,
   attacks,
@@ -95,7 +93,6 @@ import {
   pluginIdsFromEffects,
   ptEqualsLife,
   pumpTargetX,
-  pumpSelf,
   pumpControlled,
   pumpFromLinkedExilePower,
   pumpPerLinkedExile,
@@ -406,13 +403,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
-  ],
-  'City of Brass': [
-    triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
   ],
   'Cling to Dust': [
     escape('{3}{B}', 5),
@@ -459,7 +452,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeep(optionalMill(2)),
     landToGraveyardOnce(insect),
   ],
-  'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Dakmor Salvage': [dredge(2), entersTapped()],
@@ -854,14 +846,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       blinkSelf({ when: 'nextEndStep', tapped: true }),
     ),
   ],
-  'Nirkana Revenant': [
-    staticGrant('extraSwampMana'),
-    activate({
-      id: 'nirkanaRevenant.pump',
-      costs: { mana: '{B}' },
-      do: [pumpSelf(1, 1)],
-    }),
-  ],
   'Niv-Mizzet, Ghost Counsel': [
     triggerOn('gainLife', { if: { seat: 'controller' }, do: [mayPayLifeDraw()] }),
     activate({
@@ -1183,7 +1167,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
   ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
-  'Utopia Sprawl': [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
   'Valgavoth, Terror Eater': [
     ward({ sacrifice: { count: 3, nonland: true } }),
     staticGrant('exiledWith'),
@@ -1237,7 +1220,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [gainLife('triggerAmount')],
     }),
   ],
-  'Wild Growth': [enchantedManaBoost({ mana: 'G' })],
   'Will of the Sultai': [modalCommanderChooseBoth(
     {
       id: 'lands',
@@ -1260,15 +1242,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
   'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
-  'Yurlok of Scorch Thrash': [
-    staticGrant('manaBurn'),
-    activate({
-      id: 'yurlok.mana-rain',
-      manaAbility: true,
-      costs: { tap: true, mana: '{1}' },
-      do: [{ kind: 'addManaToEachPlayer', mana: { B: 1, R: 1, G: 1 } }],
-    }),
-  ],
   'Zanarkand, Ancient Metropolis // Lasting Fayth': [
     entersTapped(),
     alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {

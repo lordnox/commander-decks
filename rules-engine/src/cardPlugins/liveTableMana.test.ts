@@ -280,7 +280,7 @@ const EVERY_COLOR: ActCase['adds'] = (['W', 'U', 'B', 'R', 'G'] as const)
 
 const ACT_CASES: Record<string, ActCase> = {
   Millikin: {
-    abilityId: 'selfMill.millikin',
+    abilityId: '$.abilities[0]',
     adds: [{ pool: { C: 1 } }],
     milled: 1,
     taps: true,

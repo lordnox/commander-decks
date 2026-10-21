@@ -839,6 +839,7 @@ export const payOptional = (input: {
 })
 
 export const createDelayed = (input: {
+  repeatUntilCleanup?: true
   notThisTurn?: true
   inheritTargets?: boolean
   condition: DelayedPattern
@@ -1040,3 +1041,6 @@ export const countDistinctNames = (of: ObjectSelector) => immutableData({ kind: 
 export const somePlayerHasMore = (input: Omit<Extract<Condition, { kind: 'somePlayerHasMore' }>, 'kind'>) => immutableData({ kind: 'somePlayerHasMore' as const, ...input })
 
 export const addManaFrom = (input: { of: ObjectSelector; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })
+
+export const becomesTapped = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'becomesTapped' as const, filter })
+export const tappedForMana = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'tappedForMana' as const, filter })

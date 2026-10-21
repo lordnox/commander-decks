@@ -137,6 +137,7 @@ const preflightInstructions = (
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
       case 'grantFlash':
+      case 'addManaChosenColor':
       case 'addManaFrom':
       case 'linkExile':
       case 'returnLinkedExile':
@@ -550,8 +551,9 @@ const registerCanonicalDelayed = (
   context: RuleDslRuntimeContext,
   inheritTargets = true,
   notThisTurn = false,
+  repeatUntilCleanup = false,
 ) => {
-  const eventCondition = condition.kind === 'event'
+  const eventCondition = condition.kind === 'tappedForMana' ? structuredClone(condition) : condition.kind === 'event'
     ? (() => {
         const referenced = condition.objectId
           ? evaluateObjectReference(condition.objectId, context, 'currentOrLastKnown')[0]
@@ -591,7 +593,7 @@ const registerCanonicalDelayed = (
     generated.instructions,
     frame.choices,
     frame.results,
-    [eventCondition], [], frame.playerChoiceBindings,
+    [eventCondition], condition.kind === 'tappedForMana' ? ['player', 'object.after'] : [], frame.playerChoiceBindings,
   )
   const loweredDecisions = inheritTargets ? inheritedDecisions : {
     targets: [],
@@ -608,6 +610,7 @@ const registerCanonicalDelayed = (
     sourceDefinitionRevision: frame.definitionSnapshot.definitionRevision,
     condition: eventCondition,
     ...(notThisTurn ? { notBeforeTurn: draft.turn + 1 } : {}),
+    ...(repeatUntilCleanup ? { recurring: true, untilCleanup: true } : {}),
     instructions: [],
     timestamp: draft.allocTs(),
     objectRef: eventCondition.kind === 'event' ? eventCondition.objectRef : undefined,
@@ -670,6 +673,12 @@ const actionEvents = (
   path: string,
 ) => {
   switch (instruction.kind) {
+    case 'addManaChosenColor': {
+      const source = evaluateObjectReference(instruction.of, context, 'currentOrLastKnown')[0]
+      const color = source?.chosenColor
+      const amount = availableAmount(instruction.amount, context) ?? 0
+      return color && color !== 'C' && amount > 0 ? recipients(instruction.targets, context).map(seat => ({ type: 'addMana' as const, seat, mana: { [color]: amount }, sourceId: frame.source.ref.objectId })) : []
+    }
     case 'addMana': {
       const targets = recipients(instruction.targets, context)
       const mana = Object.fromEntries(Object.entries(instruction.amount).flatMap(([symbol, amount]) => {
@@ -1260,7 +1269,7 @@ const actionEvents = (
       }))
     }
     case 'createDelayed': {
-      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets, instruction.notThisTurn)
+      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets, instruction.notThisTurn, instruction.repeatUntilCleanup)
       return []
     }
     default:
@@ -1726,6 +1735,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         type: 'move' as const,
         objectId: object.id,
         to: destination,
+        ...(object.subtypes.includes('Aura') && item.targets[0]?.kind === 'object' ? { attachTo: { objectId: item.targets[0].objectId, incarnation: item.targets[0].incarnation ?? draft.objects[item.targets[0].objectId]?.incarnation, zone: 'battlefield' as const } } : {}),
       }
     : undefined
   return { kind: 'complete', event }

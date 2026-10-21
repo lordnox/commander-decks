@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after 14-filter; continues #394 and #383. **159 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after group 10 plus concurrent 11/14 work; continues #394 and #383. **150 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 36 available, 1 awaiting correctness follow-up, and 131 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**169 mechanic entries:** 43 available, 1 awaiting correctness follow-up, and 125 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -49,7 +49,9 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 - **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/devour/counter-mutation/copy-entry gates.
 
-- **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices stay open.
+- **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices are now also available.
+
+- **10 is complete:** all seven mana-production contracts are available. The remaining nine consumers have migrated, preserving hybrid filters, strict mill costs/instant-only timing, actual tap transitions, immediate bonuses, recurring cleanup-scoped callbacks, extort from actual loss, Aura chosen colors/host controllers, and static mana-loss consequences. Typed Aura spell entry is tracked separately as **22-aura**; broader attachment mechanics remain open.
 
 ## Suggested next work
 
@@ -98,7 +100,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. Mirror Universe and Necrologia have migrated. | — | `Crypt Ghast`; `Mister Negative`; `Repay in Kind` |
+| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. Mirror Universe and Necrologia have migrated. | — | `Mister Negative`; `Repay in Kind` |
 
 ### 07. Action outcomes, captured players, and copy snapshots
 
@@ -124,13 +126,13 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="10-attached"></a>**10-attached — Attached-land bonus mana** | Open | Mana triggers referring to the enchanted land and its controller; retain chosen-color bindings. | [22-attachment](#22-attachment), [10-bonus](#10-bonus) | `Utopia Sprawl`; `Wild Growth` |
-| <a id="10-bonus"></a>**10-bonus — Tapped-for-mana triggers** | Open | Bonus mana keyed to land characteristics, controller, and the mana event; preserve mana-trigger timing. | — | `Bubbling Muck`; `Crypt Ghast`; `Nirkana Revenant`; `Utopia Sprawl`; `Wild Growth` |
+| <a id="10-attached"></a>**10-attached — Attached-land bonus mana** | Available | Mana triggers referring to the enchanted land and its controller; retain chosen-color bindings. | [22-aura](#22-aura), [10-bonus](#10-bonus) | None remaining |
+| <a id="10-bonus"></a>**10-bonus — Tapped-for-mana triggers** | Available | Bonus mana keyed to land characteristics, controller, and the mana event; preserve mana-trigger timing. | — | None remaining |
 | <a id="10-colors"></a>**10-colors — Available mana types** | Available | Query what own/opponent lands could produce, including colorless where applicable; avoid recursive Reflecting Pool loops. | — | None remaining |
-| <a id="10-filter"></a>**10-filter — Hybrid/filter mana payments** | Open | Hybrid activation costs, mixed-color production choices, and planner support. | — | `Crypt Ghast`; `Flooded Grove` |
-| <a id="10-loss"></a>**10-loss — Mana-loss consequences** | Open | Observe unspent mana being lost and apply the corresponding life loss. | — | `Yurlok of Scorch Thrash` |
-| <a id="10-mill"></a>**10-mill — Mill as a cost** | Open | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | `Dakmor Salvage`; `Life from the Loam`; `Millikin` |
-| <a id="10-tapped"></a>**10-tapped — Becomes-tapped occurrence** | Open | Trigger on becoming tapped, including tapping for something other than mana. | — | `City of Brass` |
+| <a id="10-filter"></a>**10-filter — Hybrid/filter mana payments** | Available | Hybrid activation costs, mixed-color production choices, and planner support. | — | None remaining |
+| <a id="10-loss"></a>**10-loss — Mana-loss consequences** | Available | Observe unspent mana being lost and apply the corresponding life loss. | — | None remaining |
+| <a id="10-mill"></a>**10-mill — Mill as a cost** | Available | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | `Dakmor Salvage`; `Life from the Loam` |
+| <a id="10-tapped"></a>**10-tapped — Becomes-tapped occurrence** | Available | Trigger on becoming tapped, including tapping for something other than mana. | — | None remaining |
 
 ### 11. Timing, conditions, and activation costs
 
@@ -247,7 +249,8 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="22-ability-loss"></a>**22-ability-loss — Ability loss and type/base-stat changes** | Open | Layer-correct ability removal, subtype additions, and base P/T setting without deleting unrelated characteristics. | — | `Curious Colossus` |
-| <a id="22-attachment"></a>**22-attachment — Attachment references and Aura rules** | Open | Enchant restrictions, attached object/player references, and attachment-dependent continuous effects. | — | `Colossification`; `Springheart Nantuko`; `Tenuous Truce`; `Utopia Sprawl`; `Wild Growth` |
+| <a id="22-aura"></a>**22-aura — Typed Aura spell attachment** | Available | Typed enchant selectors, targeted Aura spell entry with attachment identity, legality checks, host references, and chosen-color entry composition. Broader noncast entry/equipment/attachment continuous effects remain in 22-attachment. | — | None remaining |
+| <a id="22-attachment"></a>**22-attachment — Attachment references and Aura rules** | Open | Enchant restrictions, attached object/player references, and attachment-dependent continuous effects. | — | `Colossification`; `Springheart Nantuko`; `Tenuous Truce` |
 | <a id="22-changeling"></a>**22-changeling — All creature types** | Open | Changeling and all-creature-types effects in every applicable zone; preserve type unions and exclusions. | — | `Belonging`; `Firdoch Core`; `Masked Vandal`; `Maskwood Nexus` |
 | <a id="22-characteristics"></a>**22-characteristics — Continuous characteristic definitions** | Open | CDA power/toughness from a live amount, conditional animation/base stats, and continuous type/stat updates. | — | `Lumra, Bellow of the Woods`; `Soul of Eternity`; `Starfield of Nyx` |
 | <a id="22-choose-type"></a>**22-choose-type — Choose a creature type** | Open | Persist a non-target creature-type choice and use it in subsequent filters and continuous effects. | — | `Cavern of Souls`; `Kindred Dominance`; `Raise the Palisade`; `Roaming Throne` |

@@ -440,7 +440,7 @@ describe('Rule DSL v1 structural and domain validation', () => {
       costs: [{ kind: 'mana', amount: '{W/U}' }],
       instructions: [],
     })])
-    expect(diagnosticCodes(() => compileCardRuleDefinition(hybridMana))).toContain('mana-cost')
+    expect(() => compileCardRuleDefinition(hybridMana)).not.toThrow()
 
     const unresolvedManaX = card([spell({
       costs: [{ kind: 'mana', amount: '{X}{U}' }],

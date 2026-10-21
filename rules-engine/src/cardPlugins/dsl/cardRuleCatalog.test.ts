@@ -1783,3 +1783,37 @@ test('available-mana lands and artifacts use canonical production queries with t
     ])
   }
 })
+
+test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {
+  for (const name of ['Flooded Grove', 'Millikin', 'City of Brass', 'Bubbling Muck', 'Crypt Ghast', 'Nirkana Revenant', 'Wild Growth', 'Utopia Sprawl', 'Yurlok of Scorch Thrash']) {
+    const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+    switch (name) {
+      case 'Flooded Grove':
+        expect(abilities).toMatchObject([{ kind: 'activated' }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{G/U}' }, { kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: [{ label: 'GG' }, { label: 'UG' }, { label: 'UU' }] }] }])
+        break
+      case 'Millikin':
+        expect(abilities).toMatchObject([{ kind: 'activated', timing: 'instant', costs: [{ kind: 'tapSource' }, { kind: 'mill', count: { kind: 'constant', value: 1 } }] }])
+        break
+      case 'City of Brass':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'becomesTapped' }, instructions: [{ kind: 'damage', amount: { kind: 'constant', value: 1 } }] }, { kind: 'activated' }])
+        break
+      case 'Bubbling Muck':
+        expect(abilities).toMatchObject([{ kind: 'spell', instructions: [{ kind: 'createDelayed', repeatUntilCleanup: true, condition: { kind: 'tappedForMana', filter: { subtypes: ['Swamp'] } } }] }])
+        break
+      case 'Crypt Ghast':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'tappedForMana', filter: { controller: 'you' } } }, { kind: 'triggered', on: { kind: 'cast', filter: { controller: 'you' } }, instructions: [{ kind: 'payOptional', cost: { kind: 'mana', amount: '{W/B}' }, ifPaid: [{ kind: 'loseLife', bindResult: 'drained' }, { kind: 'gainLife', amount: { kind: 'resultRef', binding: 'drained' } }] }] }])
+        break
+      case 'Nirkana Revenant':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'tappedForMana' } }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{B}' }], instructions: [{ kind: 'createEffect', duration: { kind: 'untilCleanup' } }] }])
+        break
+      case 'Wild Growth':
+      case 'Utopia Sprawl':
+        expect(abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'enchant', filter: { filter: { zone: 'battlefield', type: 'Land', ...(name === 'Utopia Sprawl' ? { subtypes: ['Forest'] } : {}) } } }] })
+        expect(abilities.at(-1)).toMatchObject({ kind: 'triggered', manaAbility: true, on: { kind: 'tappedForMana', filter: { enchantedBy: { kind: 'contextRef', name: 'source' } } } })
+        break
+      case 'Yurlok of Scorch Thrash':
+        expect(abilities).toMatchObject([{ kind: 'keyword', keyword: 'vigilance' }, { kind: 'static', effects: [{ kind: 'loseLifeOnManaLoss' }] }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'players', filter: { relation: 'any' } } }] }])
+        break
+    }
+  }
+})

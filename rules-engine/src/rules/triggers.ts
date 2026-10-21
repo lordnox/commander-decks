@@ -1,3 +1,4 @@
+import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 /**
  * CR 603.1 — a matching actual occurrence creates a pending ability instance;
  * placement waits for the next explicit priority checkpoint.
@@ -65,7 +66,7 @@ const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
 }
 
 const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
-  if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false
+  if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false
   const sourceId = event.payload?.sourceId
   const definitionSnapshot = event.payload?.definitionSnapshot
   const abilityIndex = event.payload?.abilityIndex
@@ -73,6 +74,27 @@ const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
   const definition = loadDefinitionSnapshot(definitionSnapshot).definition
   const ability = definition.abilities[abilityIndex]
   return ability?.kind === 'activated' && canonicalManaClassification(ability).isManaAbility
+}
+
+const tappedManaSource = (before: GameState, after: GameState, event: GameEvent) => {
+  if (event.type !== 'tap' && event.type !== 'tapForMana') return undefined
+  if (before.objects[event.objectId]?.tapped || !after.objects[event.objectId]?.tapped) return undefined
+  if (event.type === 'tapForMana') return event.objectId
+  const payment = before.provisionalAnnouncement
+  const activation = payment?.nestedManaPayment?.pendingActivation ?? (payment?.inlineManaAbility ? payment.pendingActivation : undefined)
+  if (activation?.objectId === event.objectId) return event.objectId
+  const resolution = before.resolution
+  if (resolution?.kind !== 'canonicalSpell' || resolution.inlineItem?.objectId !== event.objectId) return undefined
+  const ability = resolution.definitionSnapshot.definition.abilities[resolution.inlineItem.execution?.abilityIndex ?? -1]
+  return ability?.kind === 'activated' && ability.costs.some(cost => cost.kind === 'tapSource') ? event.objectId : undefined
+}
+
+const matchesTapOccurrence = (before: GameState, after: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'becomesTapped' | 'tappedForMana' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  const object = occurrence.object?.after
+  if (!object || object.zone !== 'battlefield') return false
+  const matches = pattern.kind === 'tappedForMana' ? tappedManaSource(before, after, event) === object.id
+    : occurrence.object?.before?.zone === 'battlefield' && !occurrence.object.before.tapped && object.tapped
+  return Boolean(matches && canonicalFilterMatch(after, source, object, pattern.filter, occurrence, execution))
 }
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
@@ -198,12 +220,13 @@ const canonicalFilterMatch = (
   if (!objectMatchesSelector(object, { kind: 'objects', filter: {
     ...(plain.commander !== undefined ? { commander: plain.commander } : {}),
     ...(plain.manaAbility !== undefined ? { manaAbility: plain.manaAbility } : {}),
+    ...(plain.enchantedBy ? { enchantedBy: plain.enchantedBy } : {}),
+    ...(plain.subtypes ? { subtypes: plain.subtypes } : {}),
     ...(plain.sameNameAs ? { sameNameAs: plain.sameNameAs } : {}),
   } }, context)) return false
   if (plain.other && isSameObject(object, context.source.ref)) return false
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false
-  if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (plain.tapped !== undefined && object.tapped !== plain.tapped) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
@@ -241,6 +264,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'becomesTapped' || pattern.kind === 'tappedForMana') return matchesTapOccurrence(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'stepBegins') return matchesBeginningStep(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'manaAdded') {
     return event.type === 'addMana' && event.sourceId !== source.id
@@ -334,6 +358,8 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'becomesTapped':
+    case 'tappedForMana': return matchesTapOccurrence(beforeState, afterState, source, pattern, occurrence, event, execution)
     case 'stepBegins': return matchesBeginningStep(beforeState, afterState, source, pattern, occurrence, event, lexicalContext)
     case 'playLand':
     case 'discard':
@@ -434,6 +460,7 @@ const generatedPatternMatches = (
 
 // A declaration contains simultaneous occurrences, one for each attacker (CR 508.3a).
 const occurrenceObjectIdsForPattern = (pattern: { kind: string }, event: GameEvent, state: GameState) => {
+  if (pattern.kind === 'becomesTapped' && event.type === 'declareAttackers') return event.attackers.map(attacker => attacker.objectId)
   if (pattern.kind === 'attacks') return event.type === 'declareAttackers'
     ? event.attackers.map(attacker => attacker.objectId)
     : []
@@ -1053,6 +1080,7 @@ const collectCasts = (
 
 const eventObjectId = (event: GameEvent) => {
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
+  if (event.type === 'custom' && event.name === MANA_ABILITY_RESOLVED && typeof event.payload?.sourceId === 'string') return event.payload.sourceId
   if (event.type === 'custom' && typeof event.payload?.objectId === 'string') return event.payload.objectId
   return undefined
 }
@@ -1064,6 +1092,10 @@ const delayedTriggerMatches = (
   event: GameEvent,
 ) => {
   if (trigger.notBeforeTurn !== undefined && draft.turn < trigger.notBeforeTurn) return false
+  if (trigger.condition.kind === 'tappedForMana') {
+    const source = trigger.execution?.source.snapshot
+    return Boolean(source && matchesTapOccurrence(state, draft, source, trigger.condition, capturedOccurrence(state, draft, event, eventObjectId(event)), event, trigger.execution))
+  }
   if (trigger.condition.kind === 'event') {
     if (event.type !== trigger.condition.type) return false
     if (
@@ -1295,7 +1327,7 @@ const canonicalManaTrigger = (trigger: CapturedPendingTrigger) => {
   const definition = loadDefinitionSnapshot(trigger.canonical.definitionSnapshot).definition
   const ability = definition.abilities[trigger.canonical.abilityIndex]
   if (!ability || ability.kind !== 'triggered'
-    || !['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)) return false
+    || !['tappedForMana', 'manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)) return false
   const instructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
@@ -1346,7 +1378,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
   const manaInstructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
-  const isMana = ['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)
+  const isMana = ['tappedForMana', 'manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)
     && classifyManaAbility({
     addsMana: instructionAddsMana(manaInstructions),
     abilityKind: 'triggered',
