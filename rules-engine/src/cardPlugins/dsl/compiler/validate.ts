@@ -995,6 +995,17 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'instructions'], ['kind', 'instructions'])
         validateInstructionList(node.instructions, childPath(path, 'instructions'), env, depth + 1)
         return
+      case 'choosePlayer':
+        exactKeys(node, path, ['kind', 'chooser', 'filter', 'bindChoice'], ['kind', 'chooser', 'filter', 'bindChoice'])
+        validateRecipient(node.chooser, childPath(path, 'chooser'), env, ['player'])
+        if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'player') issue(childPath(path, 'filter'), 'domain', 'choosePlayer requires a player selector')
+        declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'player' }, childPath(path, 'bindChoice'))
+        return
+      case 'forEachPlayer':
+        exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
+        if (validateSelector(node.of, childPath(path, 'of'), env) !== 'player') issue(childPath(path, 'of'), 'domain', 'forEachPlayer requires a player selector')
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), withEventPlayer(env), depth + 1)
+        return
       case 'forEach':
         exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['object'])

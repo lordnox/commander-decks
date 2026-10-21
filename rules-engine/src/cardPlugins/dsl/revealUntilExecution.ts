@@ -132,7 +132,7 @@ export const runRevealUntil = (
   return { complete: true, events: returnedEvents, bindings }
 }
 
-export const storeRevealUntilBindings = <T extends Record<string, readonly { kind: 'object'; objectId: string }[]>>(
+export const storeRevealUntilBindings = <T extends Record<string, readonly ({ kind: 'object'; objectId: string } | { kind: 'player'; playerId: string })[]>>(
   choices: T | undefined,
   bindings: RevealUntilBindings,
   instruction: RevealUntilInstruction,

@@ -55,6 +55,8 @@ import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'choosePlayer',
+  'forEachPlayer',
   'inspectTop',
   'distributeControl',
   'captureAmount',
@@ -124,7 +126,7 @@ const preflightInstructions = (
 ) => {
   instructions.forEach((instruction, index) => {
     const instructionPath = `${path}[${index}]`
-    if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
+    if (instruction.kind === 'sequence' || instruction.kind === 'forEach' || instruction.kind === 'forEachPlayer') {
       preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
       return
     }
@@ -133,6 +135,7 @@ const preflightInstructions = (
       case 'grantLandPlays':
       case 'addMana':
       case 'inspectTop':
+      case 'choosePlayer':
       case 'capturePlayer':
       case 'captureAmount':
       case 'captureCopy':
@@ -384,8 +387,8 @@ const runtimeContext = (
   controller: frame.controller,
   source: frame.source,
   stackItemId: item.id,
-  ...((frame.scopes.at(-1)?.occurrence ?? item.execution?.occurrence)
-    ? { occurrence: frame.scopes.at(-1)?.occurrence ?? item.execution?.occurrence }
+  ...((frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence)
+    ? { occurrence: frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence }
     : {}),
   ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
   ...(item.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: item.execution.capturedOccurrenceBindings } : {}),
@@ -1235,8 +1238,14 @@ export const prepareResolutionStep = (draft: Draft) => {
   }
   while (frame.scopes.length > 0) {
     const scope = frame.scopes.at(-1)!
-    if (scope.cursor >= scope.instructions.length) {
+    if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
+      if (scope.restoreBindings) {
+        for (const key of ['choices', 'results', 'choiceSnapshots', 'capturedCopies'] as const) {
+          delete frame[key]
+        }
+        Object.assign(frame, structuredClone(scope.restoreBindings))
+      }
       continue
     }
     const index = scope.cursor
@@ -1251,6 +1260,37 @@ export const prepareResolutionStep = (draft: Draft) => {
         cursor: 0,
       })
       continue
+    }
+    if (instruction.kind === 'forEachPlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const players = evaluatePlayerSelector(instruction.of, context)
+      const restoreBindings = {
+        ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
+        ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+        ...(frame.choiceSnapshots ? { choiceSnapshots: structuredClone(frame.choiceSnapshots) } : {}),
+        ...(frame.capturedCopies ? { capturedCopies: structuredClone(frame.capturedCopies) } : {}),
+      }
+      for (const player of players.toReversed()) frame.scopes.push({
+        path: `${path}.instructions`, scopeId: scope.scopeId,
+        instructions: structuredClone(instruction.instructions), cursor: 0,
+        occurrence: { kind: 'event', eventType: 'forEachPlayer', player }, iterationPlayer: player,
+        restoreBindings: structuredClone(restoreBindings),
+      })
+      continue
+    }
+    if (instruction.kind === 'choosePlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const candidates = evaluatePlayerSelector(instruction.filter, context)
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      if (chooser && candidates.length > 0) openPlayerSelection(draft, {
+        seat: chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: 'Choose a player.', min: 1, max: 1, candidates,
+        action: { kind: 'canonicalChoosePlayer', stackId: frame.stackId, binding: instruction.bindChoice },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'forEach') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)

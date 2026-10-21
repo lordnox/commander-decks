@@ -929,3 +929,6 @@ export const revealUntil = (input: {
 })
 
 export type { ModeInput }
+
+export const choosePlayer = (input: Omit<Extract<Instruction, { kind: 'choosePlayer' }>, 'kind'>) => immutableData({ kind: 'choosePlayer' as const, ...input })
+export const forEachPlayer = (input: Omit<Extract<Instruction, { kind: 'forEachPlayer' }>, 'kind'>) => immutableData({ kind: 'forEachPlayer' as const, ...input })
