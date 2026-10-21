@@ -1060,17 +1060,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Thunderfoot Baloth': [
-    staticBoardPump(2, 2, ['Creature'], {
-      if: { kind: 'controlsCommander' },
-      affects: 'self',
-    }),
-    staticBoardPump(2, 2, ['Creature'], {
-      if: { kind: 'controlsCommander' },
-      affects: 'others',
-      grantKeywords: ['trample'],
-    }),
-  ],
   'Trap the Trespassers': [
     onResolve(vote(
       'Secretly vote for a creature the caster does not control.',

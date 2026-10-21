@@ -8,7 +8,7 @@ import {
   setStats,
 } from '../continuousEffects'
 import { evaluateStatDelta } from './compiler/evaluate'
-import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runtime'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector } from './compiler/runtime'
 import { syncStaticPreventionInstances } from '../../replacement/prevention'
 import {
   activePrintedStaticModifiers,
@@ -165,8 +165,7 @@ const syncModifyStats = (
   const power = evaluateStatDelta(effect.power, amountContext)
   const toughness = evaluateStatDelta(effect.toughness, amountContext)
   const targetIds = new Set(
-    evaluateObjectSelector(effect.targets, context)
-      .filter((object) => object.zone === 'battlefield')
+    modifierTargets(draft, source, effect)
       .map((object) => object.id),
   )
   const duration = printedStaticDuration(source, abilityIndex, effectIndex, timestamp)
@@ -196,6 +195,37 @@ const syncModifyStats = (
     ) continue
     if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
     stampEffect(object, changeStats(object, power, toughness), duration)
+  }
+}
+
+const modifierTargets = (
+  state: GameState,
+  source: GameObject,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'modifyStats' }>,
+) => {
+  const context = { state, controller: source.controller, source: captureObject(source) }
+  if (effect.when && !evaluateCondition(effect.when, context)) return []
+  return evaluateObjectSelector(effect.targets, context).filter(object => object.zone === 'battlefield')
+}
+
+const syncKeywordModifier = (
+  draft: Draft,
+  source: GameObject,
+  abilityIndex: number,
+  effectIndex: number,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' }>,
+  timestamp: number,
+) => {
+  const targetIds = new Set(modifierTargets(draft, source, effect).map(object => object.id))
+  const duration = printedStaticDuration(source, abilityIndex, effectIndex, timestamp)
+  for (const object of Object.values(draft.objects)) {
+    const existing = existingPrintedStamp(object, source.id, abilityIndex, effectIndex)
+    if (!targetIds.has(object.id)) {
+      if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
+      continue
+    }
+    if (existing) continue
+    stampEffect(object, keywordGrant(effect.keyword), duration)
   }
 }
 
@@ -260,6 +290,9 @@ const syncSource = (draft: Draft, source: GameObject) => {
     const { effect } = entry
     if (effect.kind === 'modifyStats') {
       syncModifyStats(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
+    }
+    if (effect.kind === 'grantKeyword') {
+      syncKeywordModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
     if (effect.kind === 'grantAbility') {
       syncGrantAbility(draft, source, abilityIndex, effectIndex, effect)
@@ -347,10 +380,17 @@ const modifiersOutOfSync = (state: GameState) => {
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
       }
+      if (entry.effect.kind === 'grantKeyword') {
+        const targetIds = new Set(modifierTargets(state, source, entry.effect).map(object => object.id))
+        for (const object of Object.values(state.objects)) {
+          if (targetIds.has(object.id) !== Boolean(existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex))) return true
+        }
+      }
       if (entry.effect.kind === 'modifyStats' || entry.effect.kind === 'grantAbility') {
         const runtime = { state, controller: source.controller, source: captureObject(source) }
-        const targets = evaluateObjectSelector(entry.effect.targets, runtime)
-          .filter((object) => object.zone === 'battlefield')
+        const targets = entry.effect.kind === 'modifyStats'
+          ? modifierTargets(state, source, entry.effect)
+          : evaluateObjectSelector(entry.effect.targets, runtime).filter(object => object.zone === 'battlefield')
         for (const target of targets) {
           if (entry.effect.kind === 'modifyStats'
             ? !existingPrintedStamp(target, source.id, entry.abilityIndex, entry.effectIndex)

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 34, reach, and fear; continues #394 and #383. **143 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 34, reach, and fear; continues #394 and #383. **142 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**169 mechanic entries:** 49 available, 1 awaiting correctness follow-up, and 119 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 50 available, 1 awaiting correctness follow-up, and 119 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -62,7 +62,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
+| [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance needs suppression; Concordant Crossroads also needs the world rule. Thunderfoot Baloth has migrated. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
 **No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
@@ -177,7 +177,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Thunderfoot Baloth`; `Will of the Sultai` |
+| <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Will of the Sultai` |
 | <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. `somePlayerHasLess` is the inverse. Beza and Breena have migrated. | — | None remaining |
 | <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
@@ -239,7 +239,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Open | Canonical keyword authoring and actual-damage life gain. | — | `Mister Negative`; `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
 | <a id="21-menace"></a>**21-menace — Menace** | Open | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
 | <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
-| <a id="21-static"></a>**21-static — Continuous keyword grants** | Open | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Archetype of Endurance`; `Concordant Crossroads`; `Thunderfoot Baloth` |
+| <a id="21-static"></a>**21-static — Continuous keyword grants** | Available | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Archetype of Endurance`; `Concordant Crossroads` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Open | Layer-aware removal and cannot-have-or-gain precedence for a keyword. | [21-static](#21-static) | `Archetype of Endurance` |
 | <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
 | <a id="21-tax"></a>**21-tax — Attack/block taxes** | Open | Announcement and payment of attack/block taxes, including untapped/attacking source conditions. | — | `Archangel of Tithes`; `Baird, Steward of Argive` |
@@ -445,6 +445,8 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="42-regeneration"></a>**42-regeneration — Cannot-regenerate destruction** | Open | Express and enforce a no-regeneration destruction constraint; check the engine's regeneration support before migration. | — | `Snuff Out` |
 | <a id="42-shuffle"></a>**42-shuffle — Reveal-and-shuffle graveyard replacement** | Open | Replace a graveyard move with reveal and shuffle of the specific card, including from nonbattlefield zones. | — | `Blightsteel Colossus`; `Darksteel Colossus` |
 | <a id="42-turn"></a>**42-turn — Extra turns** | Open | Schedule the gift recipient's extra turn in the correct order. | [25-gift](#25-gift) | `Perch Protection` |
+
+| <a id="42-world"></a>**42-world — World rule** | Open | State-based world-supertype uniqueness, preserving how long each permanent has had the supertype and handling ties. | — | `Concordant Crossroads` |
 
 ### 43. Rooms and Adventures
 

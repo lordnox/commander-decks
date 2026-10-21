@@ -902,12 +902,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "cce3202c7da3004c5f395f6595de0b3d5cebe9d27c31ef2399b3b98010721b42",
-    "card": "Thunderfoot Baloth"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "300d3ba23198c0d6dc43886f3d97d32c78ad86506fc96c08759743c2eaeb1edf",
     "card": "Woodfall Primus"
   },

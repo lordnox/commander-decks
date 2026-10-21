@@ -302,6 +302,9 @@ export const prohibitActivation = (
   filter: Extract<ContinuousEffectDefinition, { kind: 'prohibitActivation' }>['filter'],
 ): ContinuousEffectDefinition => immutableData({ kind: 'prohibitActivation', filter })
 
+export const grantKeyword = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' }>, 'kind'>) =>
+  immutableData({ kind: 'grantKeyword' as const, ...input })
+
 export const noMaximumHandSize = (): ContinuousEffectDefinition =>
   immutableData({ kind: 'noMaximumHandSize' })
 

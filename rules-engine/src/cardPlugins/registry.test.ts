@@ -553,24 +553,6 @@ describe('card plugin registry', () => {
     })
   })
 
-  test('Thunderfoot Baloth registers two commander-conditioned layer effects', () => {
-    expect(cardPluginEntry('Thunderfoot Baloth')).toMatchObject({
-      pluginIds: ['staticBoardPump', 'staticBoardPump'],
-    })
-    expect(effectsFor('Thunderfoot Baloth').map((effect) =>
-      effect.op === 'static' ? effect.staticBoardPump : undefined)).toEqual([
-      { power: 2, toughness: 2, requireTypes: ['Creature'], if: { kind: 'controlsCommander' }, affects: 'self' },
-      {
-        power: 2,
-        toughness: 2,
-        requireTypes: ['Creature'],
-        if: { kind: 'controlsCommander' },
-        affects: 'others',
-        grantKeywords: ['trample'],
-      },
-    ])
-  })
-
   test('Woodfall Primus registers persist and a mandatory noncreature destroy', () => {
     expect(effectsFor('Woodfall Primus')).toEqual([
       {

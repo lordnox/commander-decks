@@ -1907,3 +1907,17 @@ test('Profane Command composes exactly two X modes with targeted return, shrink,
     ],
   })
 })
+
+
+test('Thunderfoot Baloth keeps printed trample and commander-conditioned team grants', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Thunderfoot Baloth')!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'static', effects: [
+      { kind: 'modifyStats', targets: { filter: { controller: 'you', type: 'Creature' } }, power: { kind: 'constant', value: 2 }, toughness: { kind: 'constant', value: 2 }, when: { kind: 'compareAmount', left: { kind: 'count', of: { filter: { controller: 'you', commander: true } } }, operator: 'gte', right: { kind: 'constant', value: 1 } } },
+      { kind: 'grantKeyword', targets: { filter: { controller: 'you', other: true } }, keyword: KEYWORDS.trample },
+    ] },
+  ])
+  if (abilities[1].kind !== 'static') throw new Error('expected static ability')
+  expect(abilities[1].effects[1]).toMatchObject({ when: abilities[1].effects[0].kind === 'modifyStats' ? abilities[1].effects[0].when : undefined })
+})

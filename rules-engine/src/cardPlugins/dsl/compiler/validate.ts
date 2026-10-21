@@ -1678,11 +1678,21 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               return
             }
+            case 'grantKeyword': {
+              exactKeys(node, effectPath, ['kind', 'targets', 'keyword', 'when'], ['kind', 'targets', 'keyword'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'keyword modifiers require an object selector')
+              }
+              enumeration(node.keyword, childPath(effectPath, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
+              if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+              return
+            }
             case 'modifyStats': {
-              exactKeys(node, effectPath, ['kind', 'targets', 'power', 'toughness', 'set'], ['kind', 'targets', 'power', 'toughness'])
+              exactKeys(node, effectPath, ['kind', 'targets', 'power', 'toughness', 'set', 'when'], ['kind', 'targets', 'power', 'toughness'])
               if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
                 issue(childPath(effectPath, 'targets'), 'domain', 'modifyStats targets require an object selector')
               }
+              if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
               validateStatDelta(node.power, childPath(effectPath, 'power'), baseEnvironment())
               validateStatDelta(node.toughness, childPath(effectPath, 'toughness'), baseEnvironment())
               if (node.set !== undefined && typeof node.set !== 'boolean') {

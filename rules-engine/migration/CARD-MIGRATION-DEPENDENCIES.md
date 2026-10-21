@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 34, reach, and fear. **143 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 34, reach, and fear. **142 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **143 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **142 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -26,7 +26,7 @@ Current readiness: **0 composition candidates**; **143 blocked or awaiting sourc
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Colossification` | 22 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment) | Blocked by mechanics | Retain the entry tap trigger and attached +20/+20 effect. |
-| `Concordant Crossroads` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static) | Blocked by mechanics | — |
+| `Concordant Crossroads` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [42-world](CARD-MIGRATION-BATCHES.md#42-world) | Blocked by mechanics | — |
 | `Council's Judgment` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Courser of Kruphix` | 26 | [26-library-lands](CARD-MIGRATION-BATCHES.md#26-library-lands) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; retain landfall life gain. |
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
@@ -130,7 +130,6 @@ Current readiness: **0 composition candidates**; **143 blocked or awaiting sourc
 | `Teferi, Who Slows the Sunset` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [32-emblems](CARD-MIGRATION-BATCHES.md#32-emblems), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | All loyalty abilities, source-independent emblem, and complete untap targeting. |
 | `Tenuous Truce` | 42 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Blocked by mechanics | Enchant opponent; own and enchanted player draw; attack relationship ends the Aura. |
 | `Thespian's Stage` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | Permanent-duration copy with its own copy ability retained, not a token. |
-| `Thunderfoot Baloth` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [15-commander](CARD-MIGRATION-BATCHES.md#15-commander) | Blocked by mechanics | — |
 | `Trap the Trespassers` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret), [39-object](CARD-MIGRATION-BATCHES.md#39-object) | Blocked by mechanics | Secret votes name creatures; put vote-count stun counters and tap. Existing stun-counter untap semantics are reusable; no skip-next-untap mechanic is required. |
 | `Ugin, the Spirit Dragon` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | All loyalty abilities, X/color filters, and up-to-seven own-hand permanents; do not require multi-player hand placement. |
 | `Urborg, Tomb of Yawgmoth` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |

@@ -632,11 +632,13 @@ export type ContinuousEffectDefinition =
   | {
       kind: 'modifyStats'
       targets: ObjectSelector
+      when?: Condition
       power: StatDelta
       toughness: StatDelta
       /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
       set?: true
     }
+  | { kind: 'grantKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
   | { kind: 'grantAbility'; targets: ObjectSelector; ability: GeneratedAbility }
   | { kind: 'reduceActivationCost'; targets: ObjectSelector; generic: Amount }
   | ReplacementEffectDefinition
