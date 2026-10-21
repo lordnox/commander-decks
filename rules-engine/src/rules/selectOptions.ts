@@ -281,6 +281,7 @@ export const queuePaidReflexive = (
     parentFrame?.choices,
     parentFrame?.results,
     action.whenPaidDecisions ? [action.whenPaidDecisions] : [],
+    [], parentFrame?.playerChoiceBindings,
   )
   const whenPaidDecisions = action.whenPaidDecisions
     ? captured.rewrittenAdditionalValues[0] as typeof action.whenPaidDecisions

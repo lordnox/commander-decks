@@ -1,3 +1,5 @@
+import { fish11U } from './fish'
+import { zombie22B } from './zombie'
 import type { TokenDefinition } from '../cardPlugins/dsl/schema/v1'
 import { beast33G } from './beast'
 import { bird22UFlying } from './bird'
@@ -9,6 +11,8 @@ import { insect11G } from './insect'
 import { treasure } from './treasure'
 
 const catalog = {
+  'Fish-1-1-U': fish11U,
+  'Zombie-2-2-B': zombie22B,
   'Beast-3-3-G': beast33G,
   'Bird-2-2-U-flying': bird22UFlying,
   'Eldrazi-Spawn-0-1': eldraziSpawn01,

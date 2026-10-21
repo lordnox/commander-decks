@@ -26,7 +26,7 @@ describe('card plugin registry', () => {
 
   test('a forest table does not load the whole handler catalog', () => {
     expect(handlerIdsForNames(['Forest'])).toEqual([])
-    expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped'])
+    expect(handlerIdsForNames(['Field of the Dead'])).toEqual([])
     expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)
   })
   test('the Sin Fall cards this pass covers stay registered', () => {
@@ -42,8 +42,7 @@ describe('card plugin registry', () => {
       'Zagoth Triome',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Field of the Dead')?.handlerIds)
-      .toEqual(['entersTapped'])
+    expect(cardRuleDefinitionSnapshotFor('Field of the Dead')).toBeDefined()
     expect(cardPluginEntry("Sin, Spira's Punishment")?.handlerIds)
       .toEqual(['randomExileCopy'])
   })
@@ -534,17 +533,6 @@ describe('card plugin registry', () => {
       { op: 'trigger', on: 'leaves', do: [{ kind: 'eachPlayerDrawDamageDealtToSource' }] },
     ])
     expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
-  })
-
-  test('Guardian Project registers a unique-name enter watcher', () => {
-    expect(effectsFor('Guardian Project')).toEqual([{
-      op: 'trigger',
-      on: 'permanentEnters',
-      watch: { type: 'Creature', controller: 'you', nontoken: true },
-      do: [{ kind: 'draw', count: 1 }],
-      if: { kind: 'triggeringCreatureNameUnique' },
-    }])
-    expect(cardPluginEntry('Guardian Project')).toMatchObject({ pluginIds: [], handlerIds: [] })
   })
 
   test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {

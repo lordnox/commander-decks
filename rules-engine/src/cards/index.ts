@@ -1,3 +1,8 @@
+import singularityRupture from './singularity-rupture'
+import moonsilverKey from './moonsilver-key'
+import guardianProject from './guardian-project'
+import fieldOfTheDead from './field-of-the-dead'
+import bezaTheBoundingSpring from './beza-the-bounding-spring'
 import arcaneDenial from './arcane-denial'
 import braidsConjurerAdept from './braids-conjurer-adept'
 import darkConfidant from './dark-confidant'
@@ -225,6 +230,12 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Singularity Rupture": singularityRupture,
+  "Beza, the Bounding Spring": bezaTheBoundingSpring,
+  "Field of the Dead": fieldOfTheDead,
+  "Guardian Project": guardianProject,
+  "Moonsilver Key": moonsilverKey,
+
   'Reprocess': reprocess,
   'Scapeshift': scapeshift,
   'Victimize': victimize,

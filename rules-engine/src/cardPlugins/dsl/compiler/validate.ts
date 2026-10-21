@@ -1026,7 +1026,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'forEachPlayer':
         exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
-        if (validateSelector(node.of, childPath(path, 'of'), env) !== 'player') issue(childPath(path, 'of'), 'domain', 'forEachPlayer requires a player selector')
+        validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
         validateInstructionList(node.instructions, childPath(path, 'instructions'), withEventPlayer(env), depth + 1)
         return
       case 'forEach':
@@ -1421,10 +1421,14 @@ export const validateDefinitionV1 = (root: unknown): {
         if (ability.capturedBindings !== undefined) {
           const captured = object(ability.capturedBindings, childPath(path, 'capturedBindings'))
           if (captured) {
-            exactKeys(captured, childPath(path, 'capturedBindings'), ['choices', 'results', 'occurrence'])
+            exactKeys(captured, childPath(path, 'capturedBindings'), ['choices', 'playerChoices', 'results', 'occurrence'])
+            const playerChoices = captured.playerChoices === undefined ? [] : array(captured.playerChoices, `${path}.capturedBindings.playerChoices`)
+            for (const entry of playerChoices) {
+              if (!Array.isArray(captured.choices) || !captured.choices.includes(entry)) issue(`${path}.capturedBindings.playerChoices`, 'unresolved-binding', 'player choices must be declared captured choices')
+            }
             if (captured.choices !== undefined) array(captured.choices, childPath(childPath(path, 'capturedBindings'), 'choices')).forEach((entry, index) => {
               const name = bindingName(entry, `${path}.capturedBindings.choices[${index}]`)
-              if (name) declareBinding(occurrenceBase, name, { kind: 'choice', domain: 'object' }, `${path}.capturedBindings.choices[${index}]`)
+              if (name) declareBinding(occurrenceBase, name, { kind: 'choice', domain: playerChoices.includes(name) ? 'player' : 'object' }, `${path}.capturedBindings.choices[${index}]`)
             })
             const capturedResults = captured.results === undefined
               ? undefined

@@ -71,6 +71,7 @@ export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) =>
 
 /** Classify printed/intrinsic abilities; mana in reminder text is not an ability. */
 export const hasManaAbility = (source: GameObject) => {
+  if (source.types.includes('Land') && source.subtypes.some(subtype => ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'].includes(subtype))) return true
   if (Object.values(source.tapProduces ?? {}).some(value => typeof value === 'number' && value > 0)) return true
   if (!source.ruleDefinition) return false
   return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities.some(ability => {

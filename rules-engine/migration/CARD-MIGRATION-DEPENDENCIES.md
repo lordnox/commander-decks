@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 14-add and 14-greatest. **189 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 15. **184 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **189 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **184 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -22,7 +22,6 @@ Current readiness: **0 composition candidates**; **189 blocked or awaiting sourc
 | `Banisher Priest` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Blocked by mechanics | — |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Bender's Waterskin` | 10 | [13-untap](CARD-MIGRATION-BATCHES.md#13-untap) | Blocked by mechanics | Other-player untap-step rule, not a bonus-mana mechanic. |
-| `Beza, the Bounding Spring` | 15 | [15-compare](CARD-MIGRATION-BATCHES.md#15-compare) | Blocked by mechanics | — |
 | `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
 | `Black Sun's Twilight` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | Preserve optional first target and the X-at-least-five graveyard return. |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
@@ -65,7 +64,6 @@ Current readiness: **0 composition candidates**; **189 blocked or awaiting sourc
 | `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
 | `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection already exists; land devour and ward remain. Verify every printed clause before authoring. |
 | `Fellwar Stone` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
-| `Field of the Dead` | 14 | [15-names](CARD-MIGRATION-BATCHES.md#15-names) | Blocked by mechanics | — |
 | `Fiend Hunter` | 18 | [18-triggers](CARD-MIGRATION-BATCHES.md#18-triggers) | Blocked by mechanics | — |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
@@ -76,7 +74,6 @@ Current readiness: **0 composition candidates**; **189 blocked or awaiting sourc
 | `Ghost Town` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Blocked by mechanics | — |
 | `Glorious Protector` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-foretell](CARD-MIGRATION-BATCHES.md#25-foretell) | Blocked by mechanics | — |
 | `Grothama, All-Devouring` | 34 | [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Blocked by mechanics | Existing generated triggered-ability grants can supply the attack/fight ability. Add source-attributed damage history and full leave-trigger behavior. |
-| `Guardian Project` | 15 | [15-names](CARD-MIGRATION-BATCHES.md#15-names) | Blocked by mechanics | — |
 | `Hagra Mauling // Hagra Broodpit` | 17 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | Complete both faces; land always enters tapped, while the spell reduction checks opponent basic lands. |
 | `Hall of Storm Giants` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
 | `Hedge Shredder` | 24 | [24-crew](CARD-MIGRATION-BATCHES.md#24-crew), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
@@ -110,7 +107,6 @@ Current readiness: **0 composition candidates**; **189 blocked or awaiting sourc
 | `Mirrorweave` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Mister Negative` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | Vigilance/lifelink and draw equal to actual exchanged-life loss. |
 | `Mole Man, Moloid Master` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands) | Blocked by mechanics | Retain landfall and the Moloid token's canonical attack-triggered optional mill. |
-| `Moonsilver Key` | 15 | [15-mana](CARD-MIGRATION-BATCHES.md#15-mana) | Blocked by mechanics | — |
 | `Mossborn Hydra` | 22 | [17-counters](CARD-MIGRATION-BATCHES.md#17-counters), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters) | Blocked by mechanics | Enter with one +1/+1 counter; landfall adds the current counter count again. This is counter doubling, not a CDA. |
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
@@ -150,7 +146,6 @@ Current readiness: **0 composition candidates**; **189 blocked or awaiting sourc
 | `Selvala's Stampede` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | Votes determine the creature-reveal count and own-hand placement count; this is not multi-player hand placement. |
 | `Show and Tell` | 27 | [27-place](CARD-MIGRATION-BATCHES.md#27-place) | Blocked by mechanics | — |
 | `Sin, Spira's Punishment` | 38 | [38-random](CARD-MIGRATION-BATCHES.md#38-random), [38-tapped](CARD-MIGRATION-BATCHES.md#38-tapped), [38-repeat](CARD-MIGRATION-BATCHES.md#38-repeat) | Blocked by mechanics | Entry or attack: repeat for as long as each randomly exiled card is a land. This is not a repeat-once or defending-player program. |
-| `Singularity Rupture` | 14 | [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Each chosen player mills half of their own current library, rounded down. |
 | `Sink into Stupor // Soporific Springs` | 16 | [16-faces](CARD-MIGRATION-BATCHES.md#16-faces), [16-stack-object](CARD-MIGRATION-BATCHES.md#16-stack-object) | Blocked by mechanics | — |
 | `Sire of Seven Deaths` | 21 | [21-ward-life](CARD-MIGRATION-BATCHES.md#21-ward-life), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach), [21-first-strike](CARD-MIGRATION-BATCHES.md#21-first-strike), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Six` | 26 | [26-retrace](CARD-MIGRATION-BATCHES.md#26-retrace), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach; attack mill and optional land recovery only from the milled set. |
