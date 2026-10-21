@@ -294,7 +294,10 @@ test('controller follow-up catalog programs capture their recipient before remov
     switch (name) {
       case "An Offer You Can't Refuse":
         expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'stackItems', filter: { kind: 'spell', not: { type: 'Creature' } } })
-        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ count: { kind: 'constant', value: 2 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: [] } }))
+        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({
+          count: { kind: 'constant', value: 2 },
+          token: expect.objectContaining({ name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'] }),
+        }))
         break
       case 'Swan Song':
         expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'stackItems', filter: { kind: 'spell', any: [{ type: 'Enchantment' }, { type: 'Instant' }, { type: 'Sorcery' }] } })

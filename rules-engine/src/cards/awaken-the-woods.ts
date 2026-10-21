@@ -1,6 +1,6 @@
 import type { CatalogEntry } from './types'
 import { snapshotFor } from './snapshot'
-import { chooseX, createToken, ref, spell, variable } from '../cardPlugins/dsl/v1'
+import { chooseX, createToken, ref, spell, token, variable } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Sorcery"],
@@ -10,9 +10,7 @@ export default {
   ruleDefinition: snapshotFor([
     spell({
       decisions: { variables: [chooseX()] },
-      instructions: [createToken({ count: variable('X'), targets: ref('controller'), token: {
-        name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: ['G'], power: 1, toughness: 1,
-      } })],
+      instructions: [createToken({ count: variable('X'), targets: ref('controller'), token: token('Forest-Dryad-1-1-G') })],
     }),
   ]),
 } satisfies CatalogEntry
