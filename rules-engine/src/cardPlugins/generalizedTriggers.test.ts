@@ -2,9 +2,10 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { bolt, cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
+import { DIALOG_CHOSEN } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import { choiceEffects } from './choiceEffects'
@@ -269,7 +270,7 @@ const endStepDrawGame = () => createServerGame(
     battlefield: { p3: [endStepDraw()] },
     libraries: { p3: [cardTemplate('Island', { types: ['Land'] }), cardTemplate('Swamp', { types: ['Land'] })] },
   },
-  { random: () => 0.5, cardPlugins: [choiceEffects] },
+  { random: () => 0.5 },
 )
 
 describe('end-step opponent life-loss draw', () => {
@@ -281,41 +282,38 @@ describe('end-step opponent life-loss draw', () => {
       amount: 3,
     }))
     const ending = toEndStep(server, bled)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
     expect(ending.stack[0]).toMatchObject({
       kind: 'ability',
       name: 'Sygg, River Cutthroat',
       controller: 'p3',
     })
     const offered = resolveStack(server.rules, ending)
-    expect(pendingDialog(offered)).toMatchObject({
-      kind: 'may-draw',
-      seat: 'p3',
-      source: 'Sygg, River Cutthroat',
-    })
+    expect(pendingOptionSelection(offered, 'p3')?.optionalAction).toBeDefined()
   })
 
   test('accepting the trigger draws a card and declining does not', () => {
     const server = endStepDrawGame()
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 5 }))
     const ending = resolveStack(server.rules, toEndStep(server, bled))
+    const pending = pendingOptionSelection(ending, 'p3')!
     const before = ending.zoneCounts.p3.hand
     const drawn = ok(server.rules(ending, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: true },
+      selectionId: pending.id,
+      optionId: pending.options[0].id,
     }))
     const declined = ok(server.rules(ending, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: false },
+      selectionId: pending.id,
+      optionId: pending.options[1].id,
     }))
     expect(drawn.zoneCounts.p3.hand).toBe(before + 1)
-    expect(pendingDialog(drawn)).toBeUndefined()
+    expect(pendingOptionSelection(drawn)).toBeUndefined()
     expect(declined.zoneCounts.p3.hand).toBe(before)
-    expect(pendingDialog(declined)).toBeUndefined()
+    expect(pendingOptionSelection(declined)).toBeUndefined()
   })
 
   test('an opponent who died to that life loss still counts', () => {
@@ -329,10 +327,7 @@ describe('end-step opponent life-loss draw', () => {
     const ending = toEndStep(server, current)
     expect(ending.players.p1.lost).toBe(true)
     expect(ending.stack[0]).toMatchObject({ kind: 'ability', name: 'Sygg, River Cutthroat' })
-    expect(pendingDialog(resolveStack(server.rules, ending))).toMatchObject({
-      kind: 'may-draw',
-      seat: 'p3',
-    })
+    expect(pendingOptionSelection(resolveStack(server.rules, ending), 'p3')?.optionalAction).toBeDefined()
   })
 
   test('two life lost by an opponent is not enough', () => {
@@ -340,7 +335,7 @@ describe('end-step opponent life-loss draw', () => {
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 2 }))
     const ending = toEndStep(server, bled)
     expect(ending.stack).toHaveLength(0)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
   })
 
   test("the watcher's own life loss does not trigger it", () => {
@@ -348,25 +343,26 @@ describe('end-step opponent life-loss draw', () => {
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p3', amount: 9 }))
     const ending = toEndStep(server, bled)
     expect(ending.stack).toHaveLength(0)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
   })
 
   test('life lost on an earlier turn does not carry over', () => {
     const server = endStepDrawGame()
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 6 }))
     let current = resolveStack(server.rules, toEndStep(server, bled))
+    const pending = pendingOptionSelection(current, 'p3')!
     current = ok(server.rules(current, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: false },
+      selectionId: pending.id,
+      optionId: pending.options[1].id,
     }))
     while (current.step !== 'end' || current.turn === bled.turn) {
       current = ok(server.rules(current, { type: 'advanceStep' }))
     }
     expect(current.turn).toBeGreaterThan(bled.turn)
     expect(current.stack).toHaveLength(0)
-    expect(pendingDialog(current)).toBeUndefined()
+    expect(pendingOptionSelection(current)).toBeUndefined()
   })
 })
 

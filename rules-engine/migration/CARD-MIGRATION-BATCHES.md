@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after 10-colors and family 18 duration/triggers; continues #394 and #383. **173 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Banisher Priest, Werefox Bodyguard, Fiend Hunter, Exotic Orchard, Fellwar Stone, Reflecting Pool, and Horizon of Progress are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 19 life totals; continues #394 and #383. **169 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Children of Korlis, Tainted Sigil, Sygg, River Cutthroat, and Test of Endurance are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 28 available, 1 awaiting correctness follow-up, and 139 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 31 available, 1 awaiting correctness follow-up, and 136 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -150,7 +150,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, and Braids have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Tenuous Truce`; `Wall of Shards` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
@@ -207,9 +207,9 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Open | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. | [06](#06) | `Mirror Universe`; `Mister Negative`; `Repay in Kind` |
-| <a id="19-history"></a>**19-history — Life-loss history** | Open | Query life lost this turn by one player or all players; preserve actual rather than attempted losses. | — | `Children of Korlis`; `Sygg, River Cutthroat`; `Tainted Sigil` |
-| <a id="19-win"></a>**19-win — Win-game instruction** | Open | Apply a canonical win instruction through game-result restrictions. | — | `Test of Endurance` |
+| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Available | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. | [06](#06) | `Mirror Universe`; `Mister Negative`; `Repay in Kind` |
+| <a id="19-history"></a>**19-history — Life-loss history** | Available | Query life lost this turn by one player or all players; preserve actual rather than attempted losses. Children of Korlis, Tainted Sigil, and Sygg have migrated. | — | None remaining |
+| <a id="19-win"></a>**19-win — Win-game instruction** | Available | Apply a canonical win instruction through game-result restrictions. Test of Endurance has migrated. | — | None remaining |
 
 ### 20. Countering and spell eligibility
 

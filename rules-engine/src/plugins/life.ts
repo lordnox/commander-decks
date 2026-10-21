@@ -50,7 +50,7 @@ export const life: Plugin = {
     if (event.type === 'loseLife') {
       const player = draft.players[event.seat]
       if (!player || player.lost || event.amount === 0) return
-      recordInstructionAmount(draft, 'loseLife', event.amount)
+      recordInstructionAmount(draft, 'loseLife', event.amount, undefined, event.seat)
       player.life -= event.amount
       player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
       draft.note(

@@ -147,6 +147,9 @@ const preflightInstructions = (
       case 'captureCopy':
       case 'gainLife':
       case 'loseLife':
+      case 'setLife':
+      case 'exchangeLife':
+      case 'winGame':
       case 'blink':
       case 'fight':
       case 'damage':
@@ -766,6 +769,62 @@ const actionEvents = (
       }
       return events
     }
+    case 'setLife': {
+      const targets = recipients(instruction.targets, context)
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      const events = targets.flatMap((seat) => {
+        const amount = availableAmount(instruction.amount, withOccurrencePlayer(context, seat))
+        if (amount === undefined) return []
+        return [{
+          type: 'setLifeTotal' as const,
+          seat,
+          total: amount,
+          source: frame.source.ref.objectId,
+        }]
+      })
+      if (instruction.bindResult && events.length > 0) {
+        frame.pendingResult = {
+          binding: instruction.bindResult,
+          kind: 'amount',
+          eventType: 'loseLife',
+          value: 0,
+          expectedSeats: [...targets],
+        }
+      }
+      return events
+    }
+    case 'exchangeLife': {
+      const first = recipients(instruction.first, context)
+      const second = recipients(instruction.second, context)
+      if (first.length !== 1 || second.length !== 1) {
+        throw new RuleDslEvaluationError('exchangeLife requires exactly one player on each side')
+      }
+      const left = first[0]!
+      const right = second[0]!
+      if (left === right) return []
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      if (instruction.bindResult) {
+        frame.pendingResult = {
+          binding: instruction.bindResult,
+          kind: 'amount',
+          eventType: 'loseLife',
+          value: 0,
+          expectedSeats: [left],
+        }
+      }
+      return [{
+        type: 'exchangeLifeTotals' as const,
+        first: left,
+        second: right,
+        source: frame.source.ref.objectId,
+      }]
+    }
+    case 'winGame':
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'winGame' as const,
+        seat,
+        source: frame.source.ref.objectId,
+      }))
     case 'blink': {
       const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')
       const controllers = instruction.returnController && instruction.returnController !== 'owner'

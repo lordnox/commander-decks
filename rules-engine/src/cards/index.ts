@@ -62,6 +62,7 @@ import cabalCoffers from './cabal-coffers'
 import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
+import childrenOfKorlis from './children-of-korlis'
 import cloudshift from './cloudshift'
 import collectorsVault from './collectors-vault'
 import comeuppance from './comeuppance'
@@ -206,12 +207,15 @@ import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import summerBloom from './summer-bloom'
 import sunkenHollow from './sunken-hollow'
+import syggRiverCutthroat from './sygg-river-cutthroat'
+import taintedSigil from './tainted-sigil'
 import tamiyosSafekeeping from './tamiyos-safekeeping'
 import talonGatesOfMadara from './talon-gates-of-madara'
 import tanglespanBridgeworks from './tanglespan-bridgeworks'
 import templeOfDeceit from './temple-of-deceit'
 import terastodon from './terastodon'
 import terramorphicExpanse from './terramorphic-expanse'
+import testOfEndurance from './test-of-endurance'
 import thaliasLancers from './thalias-lancers'
 import thawingGlaciers from './thawing-glaciers'
 import thornMammoth from './thorn-mammoth'
@@ -308,6 +312,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cabal Stronghold": cabalStronghold,
   "Castle Garenbrig": castleGarenbrig,
   "Charcoal Diamond": charcoalDiamond,
+  "Children of Korlis": childrenOfKorlis,
   "Cloudshift": cloudshift,
   "Collector's Vault": collectorsVault,
   "Comeuppance": comeuppance,
@@ -460,12 +465,15 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Subjugator Angel": subjugatorAngel,
   "Summer Bloom": summerBloom,
   "Sunken Hollow": sunkenHollow,
+  "Sygg, River Cutthroat": syggRiverCutthroat,
+  "Tainted Sigil": taintedSigil,
   "Tamiyo's Safekeeping": tamiyosSafekeeping,
   "Talon Gates of Madara": talonGatesOfMadara,
   "Tanglespan Bridgeworks": tanglespanBridgeworks,
   "Temple of Deceit": templeOfDeceit,
   "Terastodon": terastodon,
   "Terramorphic Expanse": terramorphicExpanse,
+  "Test of Endurance": testOfEndurance,
   "Thalia's Lancers": thaliasLancers,
   "Thawing Glaciers": thawingGlaciers,
   "Thorn Mammoth": thornMammoth,

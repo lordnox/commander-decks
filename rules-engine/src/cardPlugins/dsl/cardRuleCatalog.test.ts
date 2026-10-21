@@ -1570,6 +1570,38 @@ test('the two upkeep reveal cards share a public reveal, captured mana value, ha
   }])
 })
 
+test('catalog life-history and win cards compose canonical instructions', () => {
+  expect(effectsFor('Children of Korlis')).toEqual([])
+  expect(effectsFor('Tainted Sigil')).toEqual([])
+  expect(effectsFor('Sygg, River Cutthroat')).toEqual([])
+  expect(effectsFor('Test of Endurance')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Children of Korlis')!.definition.abilities).toMatchObject([{
+    kind: 'activated',
+    costs: [{ kind: 'sacrifice' }],
+    instructions: [{ kind: 'gainLife', amount: { kind: 'lifeLostThisTurn', of: { kind: 'contextRef', name: 'controller' } } }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Tainted Sigil')!.definition.abilities).toMatchObject([{
+    kind: 'activated',
+    costs: [{ kind: 'tapSource' }, { kind: 'sacrifice' }],
+    instructions: [{
+      kind: 'gainLife',
+      amount: { kind: 'lifeLostThisTurn', of: { kind: 'players', filter: { relation: 'any' } }, combine: 'sum' },
+    }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Sygg, River Cutthroat')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'end' },
+    interveningIf: { kind: 'compareAmount', operator: 'gte', left: { kind: 'lifeLostThisTurn', combine: 'greatest' } },
+    instructions: [{ kind: 'chooseInstructions', optional: true }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Test of Endurance')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'contextRef', name: 'controller' } },
+    interveningIf: { kind: 'compareAmount', operator: 'gte', left: { kind: 'characteristic', characteristic: 'life' } },
+    instructions: [{ kind: 'winGame', targets: { kind: 'contextRef', name: 'controller' } }],
+  }])
+})
+
 test('Braids offers an eligible hand permanent to the active upkeep player', () => {
   expect(cardRuleDefinitionSnapshotFor('Braids, Conjurer Adept')!.definition.abilities).toMatchObject([{
     kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' },

@@ -1,5 +1,5 @@
 import { isSameObject } from '../../objectIdentity'
-import type { GameObject } from '../../types'
+import type { GameObject, PlayerId } from '../../types'
 import type { Draft } from '../../draft'
 
 /** Record the amount actually performed, after replacement and target checks. */
@@ -8,6 +8,7 @@ export const recordInstructionAmount = (
   eventType: 'loseLife' | 'dealDamage' | 'move' | 'sacrifice',
   amount: number,
   object?: GameObject,
+  seat?: PlayerId,
 ) => {
   const frame = draft.resolution
   if (frame?.kind !== 'canonicalSpell' || frame.pendingResult?.kind !== 'amount'
@@ -18,5 +19,6 @@ export const recordInstructionAmount = (
     if (index < 0) return
     pending.expectedObjects.splice(index, 1)
   }
+  if (pending.expectedSeats && (seat === undefined || !pending.expectedSeats.includes(seat))) return
   pending.value = (typeof pending.value === 'number' ? pending.value : 0) + amount
 }

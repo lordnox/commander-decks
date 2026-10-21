@@ -109,6 +109,9 @@ export type NumericCharacteristic = 'power' | 'toughness' | 'manaValue' | 'life'
 export const ROUNDING_MODES = { up: 'up', down: 'down' } as const
 export type RoundingMode = typeof ROUNDING_MODES[keyof typeof ROUNDING_MODES]
 
+export const LIFE_LOST_COMBINE = { sum: 'sum', greatest: 'greatest' } as const
+export type LifeLostCombine = typeof LIFE_LOST_COMBINE[keyof typeof LIFE_LOST_COMBINE]
+
 export type Amount =
   | { kind: 'resultRef'; binding: string; field: 'amount' | 'discardedCount' | 'created' }
   | { kind: 'constant'; value: number }
@@ -132,6 +135,7 @@ export type Amount =
       information: 'current' | 'currentOrLastKnown'
       fallback?: number
     }
+  | { kind: 'lifeLostThisTurn'; of: PlayerRecipient; combine?: LifeLostCombine }
 
 export type AmountInput = number | Amount
 
@@ -337,6 +341,12 @@ export type Instruction =
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
   /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
+  /** Set each recipient's life total; actual loss still flows through loseLife. */
+  | { kind: 'setLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
+  /** Exchange two players' life totals as one action and optionally bind the first player's actual loss. */
+  | { kind: 'exchangeLife'; first: PlayerRecipient; second: PlayerRecipient; bindResult?: string }
+  /** Apply a win through the game-result event pipeline. */
+  | { kind: 'winGame'; targets: PlayerRecipient }
   /** Deal damage from the referenced source, allowing the normal damage pipeline to apply. */
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference; bindResult?: string }
   /** Have two current battlefield creatures deal simultaneous noncombat damage. */
@@ -719,4 +729,5 @@ export type AmountEvaluationContext = {
     information: 'current' | 'currentOrLastKnown',
     fallback?: number,
   ) => number
+  lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
 }

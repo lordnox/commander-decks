@@ -21,12 +21,14 @@ import type {
   ChoiceReference,
   Condition,
   ContextReference,
+  LifeLostCombine,
   NumericCharacteristic,
   ObjectFilter,
   ObjectReference,
   ObjectSelector,
   PlayerFilter,
   PlayerMatch,
+  PlayerRecipient,
   PlayerReference,
   PlayerSelector,
   Reference,
@@ -36,7 +38,8 @@ import type {
   StackItemSelector,
   TargetReference,
 } from '../schema/v1'
-import { PLAYER_RELATIONS } from '../schema/v1'
+import { LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
+import { lifeLostThisTurn as recordedLifeLostThisTurn } from '../../../plugins/life'
 import type { DistributionAllocation } from './modes'
 import { evaluateAmount, evaluateStatDelta } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
@@ -245,9 +248,15 @@ const characteristicObjects = (
   return evaluateObjectReference(reference, context, information)
 }
 
-export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) => {
+export const matchesPlayer = (
+  player: PlayerId,
+  match: PlayerMatch | undefined,
+  context: RuleDslRuntimeContext,
+  includeLost?: true,
+) => {
   if (match === undefined) return false
-  if (!context.state.players[player] || context.state.players[player].lost) return false
+  const seat = context.state.players[player]
+  if (!seat || (!includeLost && seat.lost)) return false
   switch (match) {
     case PLAYER_RELATIONS.you: return player === context.controller
     case PLAYER_RELATIONS.opponent: return context.state.opponents[context.controller].includes(player)
@@ -263,8 +272,12 @@ export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, 
 }
 
 /** Absence is neither a match nor a mismatch; these helpers are not complements. */
-export const mismatchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) =>
-  match !== undefined && !matchesPlayer(player, match, context)
+export const mismatchesPlayer = (
+  player: PlayerId,
+  match: PlayerMatch | undefined,
+  context: RuleDslRuntimeContext,
+  includeLost?: true,
+) => match !== undefined && !matchesPlayer(player, match, context, includeLost)
 
 export const matchesController = (object: { controller: PlayerId }, filter: Pick<ObjectFilter, 'controller'>, context: RuleDslRuntimeContext) =>
   matchesPlayer(object.controller, filter.controller, context)
@@ -283,19 +296,22 @@ const matchesPlayerFilter = (
   player: PlayerId,
   filter: PlayerFilter,
   context: RuleDslRuntimeContext,
+  includeLost?: true,
 ): boolean => {
-  if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context))) return false
-  if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context))) return false
-  if (filter.not && matchesPlayerFilter(player, filter.not, context)) return false
-  if (mismatchesPlayer(player, filter.relation, context)) return false
+  if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
+  if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
+  if (filter.not && matchesPlayerFilter(player, filter.not, context, includeLost)) return false
+  if (mismatchesPlayer(player, filter.relation, context, includeLost)) return false
   return true
 }
 
 export const evaluatePlayerSelector = (
   selector: PlayerSelector,
   context: RuleDslRuntimeContext,
+  includeLost?: true,
 ) => context.state.playerOrder.filter((player) =>
-  !context.state.players[player].lost && matchesPlayerFilter(player, selector.filter, context))
+  (includeLost || !context.state.players[player].lost)
+  && matchesPlayerFilter(player, selector.filter, context, includeLost))
 
 // Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
@@ -471,7 +487,22 @@ export const amountEvaluationContext = (
   },
   characteristic: (reference, characteristic, information, fallback) =>
     oneReferenceValue(reference, context, characteristic, information, fallback),
+  lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),
 } satisfies AmountEvaluationContext)
+
+const lifeLostThisTurnAmong = (
+  of: PlayerRecipient,
+  combine: LifeLostCombine | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  const seats = of.kind === 'players'
+    ? evaluatePlayerSelector(of, context, true)
+    : evaluatePlayerReference(of, context)
+  const amounts = seats.map((seat) => recordedLifeLostThisTurn(context.state.players[seat] ?? { data: {} }))
+  if (amounts.length === 0) return 0
+  if (combine === LIFE_LOST_COMBINE.greatest) return Math.max(0, ...amounts)
+  return amounts.reduce((sum, value) => sum + value, 0)
+}
 
 export const evaluateRuntimeAmount = (
   expression: Amount,

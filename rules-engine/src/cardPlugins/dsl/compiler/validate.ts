@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -369,6 +369,21 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'lifeLostThisTurn': {
+        exactKeys(node, path, ['kind', 'of', 'combine'], ['kind', 'of'])
+        const ofNode = object(node.of, childPath(path, 'of'))
+        validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
+        if (ofNode?.kind === 'players') {
+          if (node.combine === undefined) {
+            issue(childPath(path, 'combine'), 'constant', 'lifeLostThisTurn over a player selector requires combine')
+          } else {
+            enumeration(node.combine, childPath(path, 'combine'), new Set(Object.values(LIFE_LOST_COMBINE)), 'life-lost combine')
+          }
+        } else if (node.combine !== undefined) {
+          issue(childPath(path, 'combine'), 'constant', 'lifeLostThisTurn combine is only valid with a player selector')
+        }
+        return
+      }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported amount kind: ${String(node.kind)}`)
     }
   }
@@ -686,6 +701,22 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'gainLife':
         exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
         validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'setLife':
+        exactKeys(node, path, ['kind', 'amount', 'targets', 'bindResult'], ['kind', 'amount', 'targets'])
+        validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
+        return
+      case 'exchangeLife':
+        exactKeys(node, path, ['kind', 'first', 'second', 'bindResult'], ['kind', 'first', 'second'])
+        validateRecipient(node.first, childPath(path, 'first'), env, ['player'])
+        validateRecipient(node.second, childPath(path, 'second'), env, ['player'])
+        if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
+        return
+      case 'winGame':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'draw':

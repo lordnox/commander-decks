@@ -349,7 +349,7 @@ describe('Lady Evangela life-total and X cards', () => {
     const children = state.zoneOrder.p1.battlefield[0]
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'childrenOfKorlis.recover',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: children,
     }))
@@ -359,7 +359,7 @@ describe('Lady Evangela life-total and X cards', () => {
     const sigil = state.zoneOrder.p1.battlefield[0]
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'taintedSigil.recover',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: sigil,
     }))

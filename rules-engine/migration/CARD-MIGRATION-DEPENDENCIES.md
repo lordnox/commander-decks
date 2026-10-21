@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 10-colors. **176 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 19. **169 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **176 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **169 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ Current readiness: **0 composition candidates**; **176 blocked or awaiting sourc
 | `Bubbling Muck` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus) | Blocked by mechanics | — |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cephalid Coliseum` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Blocked by mechanics | Retain mana-ability damage plus threshold draw/discard activation. |
-| `Children of Korlis` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Blocked by mechanics | — |
+| `Children of Korlis` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | Recover controller life lost this turn. |
 | `City of Brass` | 10 | [10-tapped](CARD-MIGRATION-BATCHES.md#10-tapped) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
@@ -151,13 +151,13 @@ Current readiness: **0 composition candidates**; **176 blocked or awaiting sourc
 | `Starfield of Nyx` | 26 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include upkeep return and enchantment animation. |
 | `Summon: Leviathan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Subtype exclusions and generated temporary attack/draw triggers can reuse existing primitives. |
 | `Summon: Titan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
-| `Sygg, River Cutthroat` | 19 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Blocked by mechanics | — |
-| `Tainted Sigil` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Blocked by mechanics | — |
+| `Sygg, River Cutthroat` | 19 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | End-step intervening if an opponent lost 3+ this turn, then optional draw. |
+| `Tainted Sigil` | 19 | [19-history](CARD-MIGRATION-BATCHES.md#19-history) | Migrated | Recover the sum of all players' life lost this turn. |
 | `Tear Asunder` | 25 | [25-kicker](CARD-MIGRATION-BATCHES.md#25-kicker) | Blocked by mechanics | — |
 | `Teferi, Who Slows the Sunset` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [32-emblems](CARD-MIGRATION-BATCHES.md#32-emblems), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | All loyalty abilities, source-independent emblem, and complete untap targeting. |
 | `Temple of the False God` | 10 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation) | Blocked by mechanics | — |
 | `Tenuous Truce` | 42 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Blocked by mechanics | Enchant opponent; own and enchanted player draw; attack relationship ends the Aura. |
-| `Test of Endurance` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-win](CARD-MIGRATION-BATCHES.md#19-win) | Blocked by mechanics | — |
+| `Test of Endurance` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [19-win](CARD-MIGRATION-BATCHES.md#19-win) | Migrated | Your-upkeep intervening if at 50+ life, then win the game. |
 | `Thespian's Stage` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | Permanent-duration copy with its own copy ability retained, not a token. |
 | `Thunderfoot Baloth` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [15-commander](CARD-MIGRATION-BATCHES.md#15-commander) | Blocked by mechanics | — |
 | `Trap the Trespassers` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret), [39-object](CARD-MIGRATION-BATCHES.md#39-object) | Blocked by mechanics | Secret votes name creatures; put vote-count stun counters and tap. Existing stun-counter untap semantics are reusable; no skip-next-untap mechanic is required. |

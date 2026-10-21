@@ -25,6 +25,7 @@ import type {
   LibraryVisibility,
   Keyword,
   KeywordAbilityDefinition,
+  LifeLostCombine,
   LinkedExileReturn,
   ModeDefinition,
   ModeInput,
@@ -153,6 +154,13 @@ export const characteristic = (
   information: options.information,
   ...(options.fallback !== undefined ? { fallback: options.fallback } : {}),
 })
+
+export const lifeLostThisTurn = (input: { of: PlayerRecipient; combine?: LifeLostCombine }): Amount =>
+  immutableData({
+    kind: 'lifeLostThisTurn' as const,
+    of: input.of,
+    ...(input.combine !== undefined ? { combine: input.combine } : {}),
+  })
 
 export const ref = (name: ContextBinding | 'self'): ContextReference => immutableData({
   kind: 'contextRef',
@@ -565,6 +573,28 @@ export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient;
 
 export const gainLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'gainLife', amount: toAmount(input.amount), targets: input.targets })
+
+export const setLife = (input: { amount: AmountInput; targets: PlayerRecipient; bindResult?: string }): Instruction =>
+  immutableData({
+    kind: 'setLife',
+    amount: toAmount(input.amount),
+    targets: input.targets,
+    ...(input.bindResult ? { bindResult: input.bindResult } : {}),
+  })
+
+export const exchangeLife = (input: {
+  first: PlayerRecipient
+  second: PlayerRecipient
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'exchangeLife',
+  first: input.first,
+  second: input.second,
+  ...(input.bindResult ? { bindResult: input.bindResult } : {}),
+})
+
+export const winGame = (input: { targets: PlayerRecipient }): Instruction =>
+  immutableData({ kind: 'winGame', targets: input.targets })
 
 export const damage = (input: {
   amount: AmountInput

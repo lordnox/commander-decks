@@ -76,6 +76,10 @@ export const evaluateAmount = (
       context.characteristic(expression.of, expression.characteristic, expression.information, expression.fallback),
       `characteristic ${expression.characteristic}`,
     )
+    case 'lifeLostThisTurn': {
+      if (!context.lifeLostThisTurn) throw new RuleDslEvaluationError('lifeLostThisTurn is not available in this execution context')
+      return runtimeAmount(context.lifeLostThisTurn(expression.of, expression.combine), 'life lost this turn')
+    }
   }
 }
 

@@ -591,6 +591,7 @@ export type CanonicalResolutionFrame = {
     /** Sacrifice outcomes retain both the numeric total and optional success result. */
     booleanBinding?: string
     expectedObjects?: ObjectIdentity[]
+    expectedSeats?: PlayerId[]
   }
   /** Copiable characteristics captured before a source left its zone. */
   capturedCopies?: Record<string, NonNullable<Extract<GameEvent, { type: 'copyPermanent' }>['token']>>

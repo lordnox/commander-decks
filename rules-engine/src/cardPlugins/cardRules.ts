@@ -24,7 +24,6 @@ import {
   casts,
   cleave,
   controlledLands,
-  controllerLife,
   convoke,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
@@ -87,7 +86,6 @@ import {
   lockOrUnlockDoor,
   manaIf,
   mayCastFromHandWithoutPayingMana,
-  mayDraw,
   mayPayLifeDraw,
   millTarget,
   modalChooseOne,
@@ -98,7 +96,6 @@ import {
   optionalMill,
   otherLands,
   opponentsSacrifice,
-  opponentLostLifeThisTurn,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
@@ -158,7 +155,6 @@ import {
   exchangeLifeWithOpponent,
   fightUpToOne,
   addUntilCleanupRule,
-  gainLifeLostThisTurn,
   ifGiftNotPromised,
   ward,
   xMana,
@@ -169,8 +165,6 @@ import {
   payLifeX,
   playExiledWithLife,
   setAllLifeToLowest,
-  winGame,
-  yourUpkeepIf,
   yourEndTargetingOpponent,
   cumulativeUpkeepOpponentLife,
   uncounterable,
@@ -484,13 +478,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       targets: { filter: { players: 'any' } },
       do: [draw(3, 'target'), discardCards(3, 'target')],
     }),
-  ],
-  'Children of Korlis': [
-    ability(
-      { id: 'childrenOfKorlis.recover' },
-      { sacrifice: 'self' },
-      gainLifeLostThisTurn(),
-    ),
   ],
   'City of Brass': [
     triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
@@ -1242,19 +1229,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     { numbers: [2], do: [returnOwnedGraveyardLands()] },
     { numbers: [3], do: [pumpTargetEqualToLands(true)] },
   )],
-  'Sygg, River Cutthroat': [
-    triggerOn('end', {
-      if: opponentLostLifeThisTurn(3),
-      do: [mayDraw(1)],
-    }),
-  ],
-  'Tainted Sigil': [
-    ability(
-      { id: 'taintedSigil.recover' },
-      { tap: true, sacrifice: 'self' },
-      gainLifeLostThisTurn('all'),
-    ),
-  ],
   'Tear Asunder': [
     kicker('{1}{B}'),
     targetOnResolveKicked(
@@ -1278,9 +1252,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Tenuous Truce': [playerAuraDeal()],
-  'Test of Endurance': [
-    yourUpkeepIf(controllerLife(50), winGame()),
-  ],
   'Thespian\'s Stage': [
     ability(
       { id: 'thespiansStage.copy', sorcery: true },
