@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
@@ -15,7 +14,6 @@ import {
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   damage,
-  loadDefinitionSnapshot,
   players,
   ref,
   select,
@@ -41,54 +39,6 @@ const copyableBolt = () => createDefinitionSnapshot(compileCardRuleDefinition(ca
 ])))
 
 describe('cardRuleCatalog — modesCopiesAndSearch', () => {
-  test('lookup is exact card name and pins a compiled snapshot at module load', () => {
-    const charm = cardRuleDefinitionSnapshotFor('Esper Charm')
-    const reverberate = cardRuleDefinitionSnapshotFor('Reverberate')
-    const tutor = cardRuleDefinitionSnapshotFor('Diabolic Tutor')
-    expect(charm).toBeDefined()
-    expect(reverberate).toBeDefined()
-    expect(tutor).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('esper charm')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('Cryptic Command')).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
-    expect(charm).toBe(cardRuleDefinitionSnapshotFor('Esper Charm'))
-    expect(charm!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
-    expect(reverberate!.definitionRevision).not.toBe(charm!.definitionRevision)
-    expect(tutor!.definitionRevision).not.toBe(reverberate!.definitionRevision)
-    expect(loadDefinitionSnapshot(charm!).definitionRevision).toBe(charm!.definitionRevision)
-  })
-
-  test('newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition', () => {
-    const charmSnapshot = cardRuleDefinitionSnapshotFor('Esper Charm')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [charmCard()] },
-    }, { random: () => 0 })
-    const charm = named(server.state, 'Esper Charm')
-    expect(charm.ruleDefinition).toEqual(charmSnapshot)
-    expect(charm.ruleDefinition?.definitionRevision).toBe(charmSnapshot.definitionRevision)
-    expect(charm.effects).toEqual([])
-    expect(effectsOf(charm)).toEqual([])
-    expect(effectsFor('Esper Charm')).toEqual([])
-  })
-
-  test('an explicit template ruleDefinition is kept instead of the catalog snapshot', () => {
-    const tutorSnapshot = cardRuleDefinitionSnapshotFor('Diabolic Tutor')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [cardTemplate('Esper Charm', {
-          types: ['Instant'],
-          manaCost: '{0}',
-          ruleDefinition: tutorSnapshot,
-        })],
-      },
-    }, { random: () => 0 })
-    const charm = named(server.state, 'Esper Charm')
-    expect(charm.ruleDefinition).toEqual(tutorSnapshot)
-  })
-
   test('Esper Charm chooses one mode: destroy, draw two, or targeted discard', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -276,70 +226,7 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     expect(found.resolution).toBeUndefined()
   })
 
-  test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [
-          tutorCard(),
-          cardTemplate('Mulldrifter', { types: ['Creature'], power: 2, toughness: 2 }),
-        ],
-      },
-      libraries: {
-        p1: ['Mixed Prize', 'Mixed One', 'Mixed Two', 'Mixed Three'].map((name) => cardTemplate(name)),
-      },
-    }, { random: () => 0 })
-    const tutor = named(server.state, 'Diabolic Tutor')
-    const mulldrifter = named(server.state, 'Mulldrifter')
-    expect(tutor.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Diabolic Tutor'))
-    expect(mulldrifter.ruleDefinition).toBeUndefined()
-    expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))
-    expect(effectsOf(mulldrifter).length).toBeGreaterThan(0)
-
-    const searching = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: tutor.id,
-    })))
-    const pick = pendingSelectionFor(searching, 'p1')!
-    const afterTutor = ok(server.rules(searching, {
-      type: 'selectCards',
-      seat: 'p1',
-      selectionId: pick.id,
-      kind: 'choose',
-      count: 1,
-      objectIds: [named(searching, 'Mixed Prize').id],
-    }))
-    expect(named(afterTutor, 'Mixed Prize').zone).toBe('hand')
-    expect(handCount(afterTutor)).toBe(2)
-
-    const liveMulldrifter = named(afterTutor, 'Mulldrifter')
-    const afterBoth = resolveStack(server.rules, ok(server.rules(afterTutor, {
-      type: 'move',
-      objectId: liveMulldrifter.id,
-      to: 'battlefield',
-    })))
-    expect(afterBoth.objects[liveMulldrifter.id].zone).toBe('battlefield')
-    expect(afterBoth.objects[liveMulldrifter.id].ruleDefinition).toBeUndefined()
-    expect(handCount(afterBoth)).toBe(3)
-    expect(named(afterBoth, 'Mixed Prize').zone).toBe('hand')
-  })
-
-  test('journal restore keeps the stamped definitionRevision', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [reverberateCard()] },
-    }, { random: () => 0 })
-    const reverberate = named(server.state, 'Reverberate')
-    const revision = reverberate.ruleDefinition!.definitionRevision
-    const json = JSON.parse(JSON.stringify(reverberate.ruleDefinition))
-    expect(json.definitionRevision).toBe(revision)
-    expect(loadDefinitionSnapshot(json).definitionRevision).toBe(revision)
-    const restored = restoreJournal(createJournal(server.state), server.rules)
-    expect(restored.current().objects[reverberate.id].ruleDefinition?.definitionRevision).toBe(revision)
-  })
 })
-
 
 test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {
   for (const name of ["Animist's Awakening", 'Malevolent Rumble', 'Planar Genesis', 'Satyr Wayfinder', 'Silverback Elder']) {
