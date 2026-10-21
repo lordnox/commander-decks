@@ -123,6 +123,7 @@ describe('entryReplacement — integration', () => {
       const entered = chooseEntryColor(server, paused)
       expect(entered.objects[creature.id].zone).toBe('battlefield')
       expect(entered.objects[creature.id].chosenColor).toBe('U')
+      expect(entered.stack.some((item) => item.objectId === creature.id)).toBe(true)
       expect(triggerCount(entered)).toBe(1)
       const finished = resolveStack(server.rules, entered)
       expect(Object.values(finished.objects).some((object) => object.name === 'Drawn card' && object.zone === 'hand')).toBe(true)

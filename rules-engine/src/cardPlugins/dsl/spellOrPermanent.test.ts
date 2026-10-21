@@ -86,10 +86,12 @@ test('mixed object targeting returns an opponent spell to hand and removes it fr
     type: 'castSpell', seat: 'p1', objectId: named(responding, 'Instruction fixture').id,
     targets: [{ kind: 'object', objectId: named(responding, 'Threat').id }],
   }).ok).toBe(true)
-  const resolved = resolveStack(server.rules, ok(server.rules(responding, {
+  const bounced = ok(server.rules(responding, {
     type: 'castSpell', seat: 'p1', objectId: named(responding, 'Instruction fixture').id,
     targets: [{ kind: 'object', objectId: named(responding, 'Threat').id }],
-  })))
+  }))
+  expect(bounced.stack).toHaveLength(2)
+  const resolved = ok(server.rules(bounced, { type: 'resolveTop' }))
   expect(named(resolved, 'Threat').zone).toBe('hand')
   expect(named(resolved, 'Instruction fixture').zone).toBe('graveyard')
   expect(resolved.stack).toHaveLength(0)
