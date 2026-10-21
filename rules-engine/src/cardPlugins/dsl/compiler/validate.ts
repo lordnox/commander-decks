@@ -7,7 +7,8 @@ import type {
 } from '../schema/v1'
 import { LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
-import { RuleDslValidationError, type RuleDslDiagnostic } from './errors'
+import type { RuleDslDiagnostic } from './errors'
+import { RuleDslValidationError } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 
 type Data = Record<string, unknown>
