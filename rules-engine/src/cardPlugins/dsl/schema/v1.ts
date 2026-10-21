@@ -303,6 +303,8 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
+  | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
+  | { kind: 'forEachPlayer'; of: PlayerSelector; instructions: readonly Instruction[] }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
   /** Evaluate an amount now, preserving it for later instructions and continuations. */

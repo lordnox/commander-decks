@@ -502,7 +502,7 @@ export type StackExecutionContext = {
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
-  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  choices?: Record<string, CanonicalChoiceRecipient[]>
   /** Generated-program aliases for parent lexical choice bindings. */
   capturedChoiceAliases?: Record<string, string>
   /** Generated-program aliases for parent lexical result bindings. */
@@ -538,7 +538,11 @@ export type StackExecutionContext = {
  * scope 0; sequence instructions push a child scope instead of recursing on the
  * JavaScript stack, so a saved game can resume at the exact instruction.
  */
+export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | { kind: 'player'; playerId: PlayerId }
+
 export type ProgramScopeFrame = {
+  iterationPlayer?: PlayerId
+  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'choiceSnapshots' | 'capturedCopies'>
   path: string
   /** Target binding scope used by instructions in this frame. */
   scopeId?: string
@@ -572,7 +576,7 @@ export type CanonicalResolutionFrame = {
   targetLegalityByScope?: Record<string, Record<number, boolean[]>>
   /** Validated announcement-time allocations retained across resolution suspension. */
   distributionBindings?: DistributionAllocation[]
-  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  choices?: Record<string, CanonicalChoiceRecipient[]>
   results?: Record<string, InstructionResult>
   pendingResult?: {
     binding: string

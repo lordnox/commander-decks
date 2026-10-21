@@ -12,7 +12,8 @@ export const instructionMovesLibrary = (instructions: readonly Instruction[]): b
       return instruction.to === 'library'
         || (instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library')
     case 'sequence':
-    case 'forEach':
+    case 'forEachPlayer':
+      case 'forEach':
       return instructionMovesLibrary(instruction.instructions)
     case 'if':
       return instructionMovesLibrary(instruction.then) || instructionMovesLibrary(instruction.otherwise)
@@ -27,7 +28,8 @@ export const instructionAddsMana = (instructions: readonly Instruction[]): boole
   switch (instruction.kind) {
     case 'addMana': return true
     case 'sequence':
-    case 'forEach':
+    case 'forEachPlayer':
+      case 'forEach':
       return instructionAddsMana(instruction.instructions)
     case 'if': return instructionAddsMana(instruction.then) || instructionAddsMana(instruction.otherwise)
     case 'chooseInstructions': return instruction.options.some((option) => instructionAddsMana(option.instructions))

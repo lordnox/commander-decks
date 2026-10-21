@@ -64,7 +64,7 @@ export const generatedAbilitySnapshot = (
   }
 }
 
-type CapturedChoice = readonly ({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: ZoneId })[]
+type CapturedChoice = readonly (({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: ZoneId }) | { kind: 'player'; playerId: string })[]
 
 type RewrittenInstructions = {
   instructions: Instruction[]
@@ -162,6 +162,10 @@ const rewriteInstructions = (
         const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
         nested.shadowed.forEach((name) => shadowed.add(name))
         return { ...instruction, instructions: nested.instructions }
+      }
+      case 'forEachPlayer': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        return { ...instruction, of: rewriteValue(instruction.of) as typeof instruction.of, instructions: nested.instructions }
       }
       case 'forEach': {
         const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)

@@ -23,6 +23,7 @@ export type PendingPlayerSelection = {
   max: number
   candidates: PlayerId[]
   action:
+    | { kind: 'canonicalChoosePlayer'; stackId: string; binding: string }
     | ControlAssignment
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
     | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; slotIndex?: number }
@@ -151,6 +152,13 @@ export const selectPlayers: Plugin = {
     if (!selection || selection.id !== event.selectionId) return
     clearSelection(draft, event.seat)
     const target = event.players[0]
+    if (selection.action.kind === 'canonicalChoosePlayer') {
+      const frame = draft.resolution
+      if (frame?.kind === 'canonicalSpell' && frame.stackId === selection.action.stackId) {
+        frame.choices = { ...frame.choices, [selection.action.binding]: event.players.map(playerId => ({ kind: 'player' as const, playerId })) }
+      }
+      return
+    }
     if (selection.action.kind === CONTROL_CHOICE_ACTION.assign && target) {
       continueControlAssignment(draft, selection.action, target)
       return
