@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 212,
+    "cardRegistrations": 211,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -28,12 +28,12 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 32,
     "customEventDispatchSites": 83,
-    "directMutationSites": 574,
+    "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 33,
+    "instructionUnobservedGaps": 34,
     "cardRegistrationOnlyGaps": 7,
-    "candidateOnlyInstructionRows": 154,
-    "candidateOnlyCardRows": 205
+    "candidateOnlyInstructionRows": 153,
+    "candidateOnlyCardRows": 204
   },
   "cardEffects": [
     {
@@ -801,7 +801,6 @@
         "Crawling Sensation:effects[0]",
         "Crawling Sensation:effects[1]",
         "Curious Colossus:effects[0]",
-        "Dack Fayden, Helping Hand:effects[0]",
         "Dark Confidant:effects[0]",
         "Dark Tutelage:effects[0]",
         "Dig Through Time:effects[1]",
@@ -898,7 +897,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 345,
+        "matches": 338,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -3168,22 +3167,11 @@
     {
       "variant": "goadObjectIds",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Dack Fayden, Helping Hand:effects[0].do[0].then[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:128",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:133 — test('four-player pod reveals three creatures, goads them, and donates one each', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:172 — test('two-player pod reveals one creature and donates to the sole opponent', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:190 — test('fewer creatures in library than opponents still shuffles and skips donation when none enter', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:207 — test('donation choice survives a host restart during Dack resolution', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:78",
-          "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden, Helping Hand is registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:756 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3191,7 +3179,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4137,21 +4125,12 @@
     {
       "variant": "pairDonateToOpponents",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Dack Fayden, Helping Hand:effects[0].do[0].then[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:128",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:133 — test('four-player pod reveals three creatures, goads them, and donates one each', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:172 — test('two-player pod reveals one creature and donates to the sole opponent', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:190 — test('fewer creatures in library than opponents still shuffles and skips donation when none enter', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:207 — test('donation choice survives a host restart during Dack resolution', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:78",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:385 — test('stamped effects stay clone-safe', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden, Helping Hand is registered', () => {"
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:385 — test('stamped effects stay clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -5188,22 +5167,21 @@
       "variant": "revealUntil",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Dack Fayden, Helping Hand:effects[0].do[0]",
         "Jace, Multiverse Architect:effects[2].do[1]",
         "Selvala's Stampede:effects[0].do[0].outcome[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 20,
+        "matches": 13,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:100",
           "rules-engine/src/cardPlugins/councilCards.test.ts:294 — test('an open vote survives a host restart and still resolves', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:380 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:128",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:133 — test('four-player pod reveals three creatures, goads them, and donates one each', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:172 — test('two-player pod reveals one creature and donates to the sole opponent', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:190 — test('fewer creatures in library than opponents still shuffles and skips donation when none enter', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:207 — test('donation choice survives a host restart during Dack resolution', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:383 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1042 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:13",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -7437,48 +7415,6 @@
       "handlerIds": [
         "choiceEffects",
         "secretCouncil"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Dack Fayden, Helping Hand",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dack Fayden, Helping Hand"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 8,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:128",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:133 — test('four-player pod reveals three creatures, goads them, and donates one each', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:172 — test('two-player pod reveals one creature and donates to the sole opponent', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:190 — test('fewer creatures in library than opponents still shuffles and skips donation when none enter', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:207 — test('donation choice survives a host restart during Dack resolution', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:78",
-          "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden, Helping Hand is registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:756 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [goadObjectIds, pairDonateToOpponents, revealUntil]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "goadObjectIds",
-        "pairDonateToOpponents",
-        "revealUntil"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "permanentControl"
       ],
       "embeddedRulePaths": []
     },
@@ -14754,16 +14690,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 59,
+        "matches": 58,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3422 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:794 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:170 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:751 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:112",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:251 — test('donation choice survives a host restart during Dack resolution', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:93",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {"
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:273 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
+          "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15640,7 +15576,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1566",
+        "rules-engine/src/cardPlugins/cardRules.ts:1552",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -15665,7 +15601,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1266"
+        "rules-engine/src/types.ts:1270"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -15744,9 +15680,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1146",
-        "rules-engine/src/types.ts:329",
-        "rules-engine/src/types.ts:331",
-        "rules-engine/src/types.ts:335"
+        "rules-engine/src/types.ts:330",
+        "rules-engine/src/types.ts:332",
+        "rules-engine/src/types.ts:336"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -15778,8 +15714,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:261",
-        "rules-engine/src/cardPlugins/cardRules.ts:866",
+        "rules-engine/src/cardPlugins/cardRules.ts:259",
+        "rules-engine/src/cardPlugins/cardRules.ts:852",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -15804,7 +15740,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:669",
+        "rules-engine/src/kernel.ts:683",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -15822,11 +15758,11 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
-        "rules-engine/src/types.ts:156",
-        "rules-engine/src/types.ts:292",
-        "rules-engine/src/types.ts:353",
-        "rules-engine/src/types.ts:80",
-        "rules-engine/src/types.ts:97"
+        "rules-engine/src/types.ts:157",
+        "rules-engine/src/types.ts:293",
+        "rules-engine/src/types.ts:354",
+        "rules-engine/src/types.ts:81",
+        "rules-engine/src/types.ts:98"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -16819,10 +16755,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1479
+          1493
         ],
         "samples": [
-          "1479: event.name === SEARCH_CHOSEN"
+          "1493: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -16857,14 +16793,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          293,
-          1517,
-          1546
+          297,
+          1536,
+          1565
         ],
         "samples": [
-          "293: const liveSource = draft.object(source.ref.objectId)",
-          "1517: const object = draft.object(item.objectId)",
-          "1546: const object = draft.object(completedItem.objectId)"
+          "297: const liveSource = draft.object(source.ref.objectId)",
+          "1536: const object = draft.object(item.objectId)",
+          "1565: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17540,17 +17476,17 @@
       {
         "path": "rules-engine/src/rules/selectPlayers.ts",
         "lines": [
-          154,
-          186,
-          193,
+          162,
+          194,
           201,
-          205,
-          245
+          209,
+          213,
+          253
         ],
         "samples": [
-          "154: const object = draft.object(objectId)",
-          "186: draft.enqueue({",
-          "193: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
+          "162: const object = draft.object(objectId)",
+          "194: draft.enqueue({",
+          "201: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19156,12 +19092,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          116,
-          117
+          126,
+          127
         ],
         "samples": [
-          "116: if (event.type === 'move') draft.move(event.objectId, event.to)",
-          "117: else draft.enqueue(event)"
+          "126: if (event.type === 'move') draft.move(event.objectId, event.to)",
+          "127: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19255,27 +19191,28 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          483,
-          538,
-          540,
-          544,
-          547,
-          557,
-          584,
-          587,
-          596,
-          630,
-          642,
-          684,
-          686,
-          692,
-          709,
-          714
+          485,
+          492,
+          552,
+          554,
+          558,
+          561,
+          571,
+          598,
+          601,
+          610,
+          644,
+          656,
+          698,
+          700,
+          706,
+          723,
+          728
         ],
         "samples": [
-          "483: const object = draft.object(event.objectId)",
-          "538: const object = draft.object(event.objectId)",
-          "540: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "485: const object = draft.object(event.objectRef.objectId)",
+          "492: const object = draft.object(event.objectId)",
+          "552: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

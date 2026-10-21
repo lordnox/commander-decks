@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after groups 01–07, and the first five registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after groups 01–07, and the first six registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**212 legacy registration keys, assigned exactly once to 37 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 212 is not a distinct-card count.
+**211 legacy registration keys, assigned exactly once to 37 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 211 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -51,9 +51,9 @@ Canonical copy can persist a copiable snapshot before the source leaves, then it
 
 ## Group 08 — completed first slice
 
-`Animist's Awakening`; `Malevolent Rumble`; `Planar Genesis`; `Satyr Wayfinder`; `Silverback Elder` (**5 registrations**).
+`Animist's Awakening`; `Dack Fayden, Helping Hand`; `Malevolent Rumble`; `Planar Genesis`; `Satyr Wayfinder`; `Silverback Elder` (**6 registrations**).
 
-Canonical `inspectTop` binds a bounded segment without exposing deeper cards. Typed choices can display inspected context separately from eligible candidates; subset movement and seeded random bottom ordering preserve untouched library cards. Token definitions may author isolated canonical ability programs, used by the sacrifice-for-colorless Eldrazi Spawn. Animist's Awakening uses current graveyard spell counts and moved identities for spell mastery; Silverback Elder retains all three cast-triggered modes. Mechanic suites cover short/empty libraries, optional and mandatory choices, nonmatching/deeper rejection, chooser projection/privacy, random ordering, restore, modal scopes, and functional token mana. The now-unused legacy `revealTopLandsTapped` operation was removed. Four cards remain in group 08 below.
+Canonical `inspectTop` binds a bounded segment without exposing deeper cards. Typed choices can display inspected context separately from eligible candidates; subset movement and seeded random bottom ordering preserve untouched library cards. Token definitions may author isolated canonical ability programs, used by the sacrifice-for-colorless Eldrazi Spawn. Animist's Awakening uses current graveyard spell counts and moved identities for spell mastery; Silverback Elder retains all three cast-triggered modes. Mechanic suites cover short/empty libraries, optional and mandatory choices, nonmatching/deeper rejection, chooser projection/privacy, random ordering, restore, modal scopes, and functional token mana. The now-unused legacy `revealTopLandsTapped` operation was removed. Dack Fayden, Helping Hand is a creature, not a loyalty program: its full entry trigger now composes variable-count reveal, battlefield identity capture, shuffle, permanent goad, and simultaneous control changes after distinct recipient assignments. Typed player choices preserve unfinished assignments across JSON and live-host restore. Three cards remain in group 08 below.
 
 ## Complete primary assignment
 
@@ -61,13 +61,13 @@ Each numbered group below owns its listed registration keys. Cross-references in
 
 ### 08. Top-of-library selection — remaining slice
 
-Priority **A** · effort **L** · **4 registrations**
+Priority **A** · effort **L** · **3 registrations**
 
-**Registrations:** `Dack Fayden, Helping Hand`; `Dig Through Time`; `Famished Worldsire`; `Hostile Negotiations`.
+**Registrations:** `Dig Through Time`; `Famished Worldsire`; `Hostile Negotiations`.
 
 **Shared work:** Bounded inspection/reveal, identity-bound subsets, private picker context, and random bottom movement now exist. Animist's Awakening, Malevolent Rumble, Planar Genesis, Satyr Wayfinder, and Silverback Elder have migrated.
 
-**Required support / secondary gates:** Dack Fayden needs its complete loyalty program; Dig Through Time needs delve; Famished Worldsire needs land devour/ward plus its dynamic-power look; Hostile Negotiations needs face-down piles and opponent choices. Their other top-library instructions can reuse the new primitives.
+**Required support / secondary gates:** Dig Through Time needs delve; Famished Worldsire needs land devour/ward plus its dynamic-power look; Hostile Negotiations needs face-down piles and opponent choices. Their other top-library instructions can reuse the new primitives.
 
 ### 09. Any-number sacrifice results
 

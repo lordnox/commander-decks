@@ -4394,3 +4394,30 @@ test.each([true, false])('bounded library choices show context privately with se
     expect(restarted.topdeck?.count).toBe(1)
   }
 })
+
+test('canonical control assignments rebuild after a host restart and exclude assigned recipients', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Dack Fayden, Helping Hand')] },
+    libraries: { p1: ['Alpha', 'Beta'].map(name => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 })), p2: [forest()], p3: [forest()], p4: [forest()] },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  expect(kernel.dispatch({ type: 'move', objectId: server.state.zoneOrder.p1.hand[0], to: 'battlefield' }).ok).toBe(true)
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  lobby.human = 'p1'
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck?.cards).toEqual(['p2', 'p3', 'p4'])
+  expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, { type: 'topdeck', choices: lobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p3' ? 'target' : 'skip' })) }))).toBe(true)
+  const restartedKernel = handleFor(server.rules, JSON.parse(JSON.stringify(kernel.history.current())))
+  const restartedLobby = createLobby()
+  restartedLobby.phase = 'play'
+  restartedLobby.human = 'p1'
+  expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
+  expect(restartedLobby.topdeck?.cards).toEqual(['p2', 'p4'])
+  expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', slotted(restartedLobby, { type: 'topdeck', choices: restartedLobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p2' ? 'target' : 'skip' })) }))).toBe(true)
+  const finished = restartedKernel.history.current()
+  expect(Object.values(finished.objects).find(object => object.name === 'Alpha')?.controller).toBe('p3')
+  expect(Object.values(finished.objects).find(object => object.name === 'Beta')?.controller).toBe('p2')
+})

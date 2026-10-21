@@ -1,3 +1,6 @@
+import { CONTROL_CHOICE_ACTION } from '../cardPlugins/dsl/controlConstants'
+import { continueControlAssignment } from '../cardPlugins/dsl/controlAssignment'
+import type { ControlAssignment } from '../cardPlugins/dsl/controlAssignment'
 import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
@@ -20,6 +23,7 @@ export type PendingPlayerSelection = {
   max: number
   candidates: PlayerId[]
   action:
+    | ControlAssignment
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
     | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; slotIndex?: number }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
@@ -147,6 +151,10 @@ export const selectPlayers: Plugin = {
     if (!selection || selection.id !== event.selectionId) return
     clearSelection(draft, event.seat)
     const target = event.players[0]
+    if (selection.action.kind === CONTROL_CHOICE_ACTION.assign && target) {
+      continueControlAssignment(draft, selection.action, target)
+      return
+    }
     if (selection.action.kind === 'canonicalProliferatePlayers') {
       const events: GameEvent[] = []
       const pending = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution.pendingProliferate : undefined
