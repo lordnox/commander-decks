@@ -26,7 +26,6 @@ import {
   copySelf,
   copyTargetCreature,
   counterTargetSpell,
-  counterUnlessPay,
   createTokenInstruction,
   createTreasures,
   crew,
@@ -51,7 +50,6 @@ import {
   extraEnters,
   extraLandfall,
   exileColoredPermanentsAtMostX,
-  fightOwnedVsOpponent,
   gainControlPermanent,
   gainLife,
   grantControlledUntilEot,
@@ -77,7 +75,6 @@ import {
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
-  modalChooseOne,
   modalCommanderChooseBoth,
   onResolve,
   onResolveIfCastOption,
@@ -415,18 +412,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Dakmor Salvage': [dredge(2), entersTapped()],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  'Decisive Denial': [modalChooseOne(
-    {
-      id: 'fight',
-      label: 'Target creature you control fights target creature you don\'t control.',
-      do: [fightOwnedVsOpponent()],
-    },
-    {
-      id: 'counter',
-      label: 'Counter target noncreature spell unless its controller pays {3}.',
-      do: [counterUnlessPay(3)],
-    },
-  )],
   'Delighted Halfling': [restrictedLegendaryMana()],
   Desertion: [
     targetOnResolve(

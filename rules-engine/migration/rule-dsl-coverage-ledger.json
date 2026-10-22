@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 139,
+    "cardRegistrations": 138,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 85,
     "directMutationSites": 578,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 58,
+    "instructionUnobservedGaps": 60,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 128,
-    "candidateOnlyCardRows": 134
+    "candidateOnlyInstructionRows": 126,
+    "candidateOnlyCardRows": 133
   },
   "cardEffects": [
     {
@@ -339,17 +339,14 @@
       "variant": "modal",
       "mechanic": "modal spell program",
       "currentRegistrations": [
-        "Decisive Denial:effects[0]",
         "Will of the Sultai:effects[0]"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:72 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:133 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
         ]
       },
@@ -1368,8 +1365,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
           "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
@@ -1619,16 +1616,11 @@
     {
       "variant": "counterUnlessPay",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Decisive Denial:effects[0].modes[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:72 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1636,7 +1628,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2248,8 +2240,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
           "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
@@ -2275,8 +2267,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
           "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
@@ -2367,8 +2359,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
           "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
@@ -2652,16 +2644,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 9,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1010 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1029 — test('Apex Altisaur fights on entry and whenever it is dealt damage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1067 — test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1261 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1306 — test('green modal spell fronts compose their fight and protection instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1961 — test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:763 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:775 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
-          "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:775 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2677,16 +2669,11 @@
     {
       "variant": "fightOwnedVsOpponent",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Decisive Denial:effects[0].modes[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:72 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2695,7 +2682,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -6278,43 +6265,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Decisive Denial",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Decisive Denial"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:72 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [modal] and instructions [counterUnlessPay, fightOwnedVsOpponent]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "09"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "modal"
-      ],
-      "instructionVariants": [
-        "counterUnlessPay",
-        "fightOwnedVsOpponent"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "fight",
-        "modalSpell"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Delighted Halfling",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8762,8 +8712,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
           "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
@@ -11327,7 +11277,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 69,
+        "matches": 70,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:292 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -11932,13 +11882,12 @@
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2939 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "live-runner/src/kernelHost.test.ts:452 — test('publishes the server option bounds and actual source label', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:178 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:87 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
+          "rules-engine/src/cardPlugins/modalSpell.test.ts:158 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/spreeCast.test.ts:85 — test('opens Spree mode choice before paying mana, then casts with selected modes', () => {"
         ]
       },
@@ -12505,7 +12454,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1045",
+        "rules-engine/src/cardPlugins/cardRules.ts:1031",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",

@@ -206,12 +206,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "0e597ad6ce52f878e72a8b08ad2b8fd2215a948cf662eedbf7a23b059c9bf19b",
-    "card": "Decisive Denial"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "f548e840fb6b757cb105754d407e7448ac8c72bca8e9b1efc78a3d122ca91194",
     "card": "Eureka"
   },

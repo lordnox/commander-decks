@@ -67,27 +67,7 @@ describe('modalSpell', () => {
     expect(pendingSelectionFor(opened, 'p1')?.candidates).toHaveLength(2)
   })
 
-  test('Decisive Denial opens the same modal flow as other choose-one spells', () => {
-    const server = game({
-      hand: [card('Decisive Denial', ['Instant'], { manaCost: '{G}{U}' })],
-    })
-    const spell = server.state.zoneOrder.p1.hand[0]
-    const funded = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: { ...server.state.players.p1, mana: { W: 0, U: 1, B: 0, R: 0, G: 1, C: 0 } },
-      },
-    }
-    const opened = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell },
-      { type: 'resolveTop' },
-    ])
-    expect(pendingDialog(opened)).toMatchObject({
-      kind: 'choose-modes',
-      source: 'Decisive Denial',
-    })
-  })
+
 })
 
 describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {

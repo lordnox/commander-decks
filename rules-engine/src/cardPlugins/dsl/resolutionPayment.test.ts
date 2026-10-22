@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  counterUnlessPay,
+  stackItems,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   gainLife,
@@ -15,6 +17,8 @@ import {
   target,
   players,
 } from './v1'
+import { instructionSpell } from './instructionTestSupport'
+import { ok } from '../../testHelpers'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
@@ -497,3 +501,41 @@ describe('resolutionPayment', () => {
     expect(completed.state.resolution).toBeUndefined()
   })
 })
+
+for (const scenario of [
+  { mana: 3, answer: 'pay', countered: false, uncounterable: false },
+  { mana: 3, answer: 'decline', countered: true, uncounterable: false },
+  { mana: 0, answer: 'decline', countered: true, uncounterable: false },
+  { mana: 0, answer: 'decline', countered: false, uncounterable: true },
+]) {
+  test(`counter-unless-payment uses the target controller and continues after ${JSON.stringify(scenario)}`, () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [instructionSpell({
+          decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] },
+          instructions: [counterUnlessPay({ targets: target(0), cost: '{3}', bindResult: 'paid' }), gainLife({ targets: ref('controller'), amount: 1 })],
+        })],
+        p2: [cardTemplate('Target fixture', { types: ['Instant'], manaCost: '{0}' })],
+      },
+    }, { random: () => 0 })
+    const ready = structuredClone(server.state)
+    ready.players.p2.mana.C = scenario.mana
+    ready.active = 'p2'
+    ready.priority = 'p2'
+    const targetId = ready.zoneOrder.p2.hand[0]!
+    const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: targetId }))
+    stacked.stack[0].uncounterable = scenario.uncounterable
+    const cast = ok(server.rules({ ...stacked, priority: 'p1' }, { type: 'castSpell', seat: 'p1', objectId: stacked.zoneOrder.p1.hand[0]!, targets: [{ kind: 'stackItem', stackId: stacked.stack[0].id }] }))
+    const waiting = ok(server.rules(cast, { type: 'resolveTop' }))
+    const offer = pendingOptionSelection(waiting, 'p2')!
+    expect(offer).toBeDefined()
+    expect(pendingOptionSelection(waiting, 'p1')).toBeUndefined()
+    expect(waiting.priority).toBeNull()
+    if (scenario.mana === 0) expect(server.rules(waiting, { type: 'selectOption', seat: 'p2', selectionId: offer.id, optionId: 'pay' }).ok).toBe(false)
+    const resolved = ok(server.rules(structuredClone(waiting), { type: 'selectOption', seat: 'p2', selectionId: offer.id, optionId: scenario.answer }))
+    expect(resolved.objects[targetId].zone).toBe(scenario.countered ? 'graveyard' : 'stack')
+    expect(resolved.players.p2.mana.C).toBe(scenario.answer === 'pay' ? 0 : scenario.mana)
+    expect(resolved.players.p1.life).toBe(41)
+  })
+}

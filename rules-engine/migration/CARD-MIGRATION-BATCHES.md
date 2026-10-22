@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after nonnegative differences and counter-count amounts; continues #394 and #383. **139 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after nonnegative differences and counter-count amounts; continues #394 and #383. **138 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 53 available, 1 awaiting correctness follow-up, and 116 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 54 available, 1 awaiting correctness follow-up, and 115 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -227,7 +227,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="20-counterability"></a>**20-counterability — Uncounterable spells** | Open | Persist and enforce spell counterability, including qualified mana provenance from 23. | — | `Cavern of Souls`; `Delighted Halfling`; `Dovin's Veto`; `Nezahal, Primal Tide` |
 | <a id="20-destination"></a>**20-destination — Conditional counter destination** | Open | On successful counter, move the original artifact/creature card to the battlefield instead of the graveyard. | [07](#07) | `Desertion` |
 | <a id="20-origin"></a>**20-origin — Cast-origin predicates** | Open | Filter by the zone/owner from which a spell was cast; also used by rebound and other provenance-dependent rules. | — | `All-Fates Stalker`; `Ephemerate`; `Incarnation Technique`; `Pitiless Carnage`; `Quantum Misalignment`; `Vantress Visions`; `Virtue of Knowledge`; `Wash Away`; `Wedding Ring`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
-| <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Open | Resolution-time mana payment by the spell controller, with typed choices and mana opportunities. | — | `Decisive Denial`; `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
+| <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Available | Resolution-time mana payment by the spell controller, with typed choices and mana opportunities. | — | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
 | <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Open | Filter spells by the permanents/players they target, and retain target object identities. | — | `Keep Safe` |
 
 ### 21. Combat and keywords

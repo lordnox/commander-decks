@@ -1954,3 +1954,12 @@ test('Mossborn Hydra composes trample, entry counters, and resolution-time landf
     { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'putCounters', targets: { kind: 'contextRef', name: 'source' }, counter: '+1/+1', count: { kind: 'counterCount', of: { kind: 'contextRef', name: 'source' }, counter: '+1/+1' } }] },
   ])
 })
+
+test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Decisive Denial')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: [
+      { decisions: { targets: [{ filter: { filter: { controller: 'you', type: 'Creature' } } }, { filter: { filter: { not: { controller: 'you' }, type: 'Creature' } } }] }, instructions: [{ kind: 'fight' }] },
+      { decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', not: { type: 'Creature' } } } }] }, instructions: [{ kind: 'payOptional', payer: { kind: 'relatedPlayer', relation: 'controller', of: { kind: 'targetRef', clauseIndex: 0 } }, cost: { kind: 'mana', amount: '{3}' }, ifDeclined: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }] }] },
+    ],
+  })
+})

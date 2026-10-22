@@ -885,6 +885,15 @@ export const payOptional = (input: {
   ...(input.whenPaid ? { whenPaid: input.whenPaid } : {}),
 })
 
+/** Counter a single stack item unless its current controller pays during resolution. */
+export const counterUnlessPay = (input: { targets: StackItemReference; cost: string; bindResult: string }) =>
+  payOptional({
+    payer: controllerOf(input.targets),
+    cost: manaCost(input.cost),
+    bindResult: input.bindResult,
+    ifDeclined: [counter({ targets: input.targets })],
+  })
+
 export const createDelayed = (input: {
   repeatUntilCleanup?: true
   notThisTurn?: true

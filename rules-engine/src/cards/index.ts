@@ -1,3 +1,4 @@
+import decisiveDenial from './decisive-denial'
 import mossbornHydra from './mossborn-hydra'
 import sandstoneOracle from './sandstone-oracle'
 import archetypeOfEndurance from './archetype-of-endurance'
@@ -277,6 +278,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Decisive Denial': decisiveDenial,
   'Mossborn Hydra': mossbornHydra,
   'Sandstone Oracle': sandstoneOracle,
   'Archetype of Endurance': archetypeOfEndurance,
