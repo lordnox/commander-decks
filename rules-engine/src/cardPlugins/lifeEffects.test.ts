@@ -5,7 +5,6 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
-import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok } from '../testHelpers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
@@ -209,44 +208,6 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(activatedState.objects[mirror].zone).toBe('graveyard')
     const resolved = ok(server.rules(activatedState, { type: 'resolveTop' }))
     expect([resolved.players.p1.life, resolved.players.p2.life]).toEqual([40, 3])
-  })
-
-  test('Mister Negative uses typed optional player selection and draws life lost', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [card('Mister Negative', ['Creature'], '{5}{W}{B}')] },
-        libraries: {
-          p1: Array.from({ length: 30 }, (_, index) =>
-            card(`Card ${index + 1}`, ['Instant'])),
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const mister = server.state.zoneOrder.p1.hand[0]
-    let state = structuredClone(server.state)
-    state.players.p2.life = 10
-    state = ok(server.rules(state, { type: 'move', objectId: mister, to: 'battlefield' }))
-    const targetChoice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(targetChoice).toMatchObject({ min: 1, max: 1, candidates: ['p2', 'p3', 'p4'] })
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: targetChoice.id,
-      players: ['p2'],
-    }))
-    expect(state.stack[0]?.targets).toEqual([{ kind: 'player', player: 'p2' }])
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const exchangeChoice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(exchangeChoice).toMatchObject({ min: 0, max: 1, candidates: ['p2'] })
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: exchangeChoice.id,
-      players: ['p2'],
-    }))
-    expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
-    expect(state.zoneOrder.p1.hand).toHaveLength(30)
   })
 
   test('Test of Endurance checks its intervening if again on resolution', () => {

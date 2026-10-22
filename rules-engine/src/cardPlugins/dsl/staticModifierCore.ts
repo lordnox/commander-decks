@@ -54,9 +54,9 @@ const abilityDefinition = (source: GameObject, abilityIndex: number): AbilityDef
   return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities[abilityIndex]
 }
 
-// CR 702.8a: flash functions in any zone from which the card may be played.
+// CR 702.8a / 702.15d: flash and lifelink function outside the battlefield.
 const abilityActiveIn = (ability: AbilityDefinition): readonly Zone[] => {
-  if (ability.kind === 'keyword') return ability.keyword === KEYWORDS.flash ? ZONE_IDS : ['battlefield']
+  if (ability.kind === 'keyword') return (ability.keyword === KEYWORDS.flash || ability.keyword === KEYWORDS.lifelink) ? ZONE_IDS : ['battlefield']
   if (ability.kind === 'static') return ability.activeIn
   return []
 }

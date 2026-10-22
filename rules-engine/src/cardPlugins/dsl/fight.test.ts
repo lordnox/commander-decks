@@ -47,7 +47,7 @@ test('fight captures both creatures as damage sources and deals noncombat damage
 })
 
 test('fight reads resolution-time power including counters and preserves source lifelink', () => {
-  const server = setup({ power: 2, toughness: 10, oracleText: 'Lifelink' }, { power: 1, toughness: 10 })
+  const server = setup({ power: 2, toughness: 10, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.lifelink]))) }, { power: 1, toughness: 10 })
   const cast = announce(server)
   const strengthened = ok(server.rules(cast, { type: 'putCounters', objectId: named(cast, 'First').id, counter: '+1/+1', count: 2 }))
   const resolved = resolveStack(server.rules, strengthened)

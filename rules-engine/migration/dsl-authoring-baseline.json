@@ -80,12 +80,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "392b492bae8e7671bc3df1f2eed54c8a4f7b95360c7ad864c1d0e9f4d0a8af58",
-    "card": "Mister Negative"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "e9ee92c77e7b6f8a6debb4aa9ea8f8a5942be2a1b17124b36570651c6bd7a3b3",
     "card": "Hagra Mauling // Hagra Broodpit"
   },

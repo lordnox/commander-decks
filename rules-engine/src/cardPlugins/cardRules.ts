@@ -37,7 +37,6 @@ import {
   encore,
   enters,
   entersIfCastOption,
-  entersTargetingOpponent,
   entersTarget,
   entersTapped,
   gift,
@@ -132,7 +131,6 @@ import {
   eachPlayerLoseLife,
   eachPlayerSacrifice,
   exchangeControlUntilEot,
-  exchangeLifeWithOpponent,
   addUntilCleanupRule,
   ifGiftNotPromised,
   ward,
@@ -711,9 +709,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'battlefield', type: 'Creature', nonlegendary: true },
       copyAllCreaturesUntilEot(false),
     ),
-  ],
-  'Mister Negative': [
-    entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
   ],
   'Mole Man, Moloid Master': [
     playLandsFromGraveyard(),

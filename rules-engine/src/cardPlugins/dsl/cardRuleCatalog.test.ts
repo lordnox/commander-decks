@@ -2018,3 +2018,16 @@ test('Benders Waterskin participates in other-player untaps and offers five one-
   if (instruction?.kind !== 'chooseInstructions') throw new Error('expected mana choices')
   expect(instruction.options.map(option => option.label)).toEqual([...CARD_COLORS])
 })
+
+
+test('Mister Negative preserves both keywords and an optional targeted exchange drawing actual life lost', () => {
+  expect(cardTemplateDefaultsFor('Mister Negative')).toMatchObject({ types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Human', 'Villain'] })
+  expect(cardRuleDefinitionSnapshotFor('Mister Negative')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.vigilance },
+    { kind: 'keyword', keyword: KEYWORDS.lifelink },
+    { kind: 'triggered', decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'sequence', instructions: [{ kind: 'exchangeLife', bindResult: 'lifeLost' }, { kind: 'draw', count: { kind: 'resultRef', binding: 'lifeLost', field: 'amount' } }] }] },
+      { instructions: [] },
+    ] }] },
+  ])
+})

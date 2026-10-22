@@ -1,4 +1,6 @@
 import { describe, expect, test } from 'bun:test'
+import { cardTemplate } from '../../newGame'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { stampUntilControllerNextTurn } from '../../plugins/untilNextTurn'
 import { createServerGame } from '../../runtime'
@@ -6,6 +8,9 @@ import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
 import {
   card,
+  draw,
+  may,
+  sequence,
   compileCardRuleDefinition,
   exchangeLife,
   gainLife,
@@ -157,3 +162,29 @@ describe('exchangeLife and setLife', () => {
     })]))).toThrow()
   })
 })
+
+
+for (const scenario of [
+  { accept: true, otherLife: 10, drawn: 30 },
+  { accept: false, otherLife: 10, drawn: 0 },
+  { accept: true, otherLife: 50, drawn: 0 },
+]) {
+  test(`optional exchange draws only actual loss: ${JSON.stringify(scenario)}`, () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [instructionSpell({ instructions: [may(sequence(
+        exchangeLife({ first: ref('controller'), second: players({ relation: 'opponent' }), bindResult: 'lost' }),
+        draw({ targets: ref('controller'), count: resultAmount('lost') }),
+      ))] })] },
+      libraries: { p1: Array.from({ length: 30 }, (_, index) => cardTemplate(`Draw fixture ${index}`)) },
+    }, { random: () => 0 })
+    const ready = structuredClone(server.state)
+    ready.players.p2.life = scenario.otherLife
+    const waiting = resolveStack(server.rules, ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0] })))
+    const offer = pendingOptionSelection(waiting, 'p1')!
+    const resolved = ok(server.rules(structuredClone(waiting), { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: scenario.accept ? 'instruction:0' : 'instruction:1' }))
+    expect(resolved.zoneOrder.p1.hand).toHaveLength(scenario.drawn)
+    expect(resolved.players.p1.life).toBe(scenario.accept ? scenario.otherLife : 40)
+    expect(resolved.players.p2.life).toBe(scenario.accept ? 40 : scenario.otherLife)
+  })
+}

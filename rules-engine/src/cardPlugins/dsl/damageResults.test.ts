@@ -5,7 +5,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { instructionSpell } from './instructionTestSupport'
-import { anyTarget, card, compileCardRuleDefinition, createDefinitionSnapshot, damage, gainLife, players, prevention, preventDamage, ref, resultAmount, select, staticAbility, target } from './v1'
+import { anyTarget, card, compileCardRuleDefinition, createDefinitionSnapshot, damage, gainLife, keyword, spell, players, prevention, preventDamage, ref, resultAmount, select, staticAbility, target } from './v1'
 
 const shield = (capacity: number) => cardTemplate('Prevention fixture', {
   types: ['Enchantment'],
@@ -77,4 +77,22 @@ test.each(['player', 'creature'] as const)('infect damage results use actual dam
   expect(state.players.p1.life).toBe(kind === 'player' ? 43 : 42)
   expect(state.players.p2.life).toBe(40)
   expect(state.players.p2.poison).toBe(kind === 'player' ? 3 : 0)
+})
+
+
+test.each([0, 2, 8])('canonical lifelink applies from the stack to actual damage through a %s-point shield', capacity => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Lifelink spell fixture', {
+      types: ['Instant'], manaCost: '{0}',
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        keyword.lifelink,
+        spell({ instructions: [damage({ source: ref('source'), targets: players({ relation: 'opponent' }), amount: 5 })] }),
+      ]))),
+    })] },
+    battlefield: { p2: capacity ? [shield(capacity)] : [] },
+  }, { random: () => 0 })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(resolved.players.p1.life).toBe(40 + Math.max(0, 5 - capacity))
+  expect(resolved.players.p2.life).toBe(40 - Math.max(0, 5 - capacity))
 })

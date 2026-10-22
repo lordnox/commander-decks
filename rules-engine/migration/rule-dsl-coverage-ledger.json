@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 133,
+    "cardRegistrations": 132,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 84,
     "directMutationSites": 577,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 60,
+    "instructionUnobservedGaps": 61,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 126,
-    "candidateOnlyCardRows": 128
+    "candidateOnlyInstructionRows": 125,
+    "candidateOnlyCardRows": 127
   },
   "cardEffects": [
     {
@@ -714,7 +714,6 @@
         "Masked Vandal:effects[1]",
         "Mirkwood Bats:effects[0]",
         "Mirkwood Bats:effects[1]",
-        "Mister Negative:effects[0]",
         "Mole Man, Moloid Master:effects[1]",
         "Mole Man, Moloid Master:effects[1].do[0].token.effects[0]",
         "Mulldrifter:effects[1]",
@@ -759,16 +758,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 227,
+        "matches": 225,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:1236 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
           "live-runner/src/kernelHost.test.ts:1904 — test('Joint Exploration put-land dispatches a kernel move', () => {",
-          "live-runner/src/kernelHost.test.ts:2099 — test('typed life-exchange player choices round-trip through the live host', () => {",
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "live-runner/src/kernelHost.test.ts:2979 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3071 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {"
+          "live-runner/src/kernelHost.test.ts:3071 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
+          "live-runner/src/kernelHost.test.ts:760 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -2081,7 +2080,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 97,
+        "matches": 98,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2435,17 +2434,11 @@
     {
       "variant": "exchangeLifeWithOpponent",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Mister Negative:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:2099 — test('typed life-exchange player choices round-trip through the live host', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:218 — test('Mister Negative uses typed optional player selection and draws life lost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:411 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2453,7 +2446,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -5020,7 +5013,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:169 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
+          "rules-engine/src/cardPlugins/lifeEffects.test.ts:168 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
@@ -7790,39 +7783,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Mister Negative",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mister Negative"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:2099 — test('typed life-exchange player choices round-trip through the live host', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:218 — test('Mister Negative uses typed optional player selection and draws life lost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:411 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [exchangeLifeWithOpponent]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "exchangeLifeWithOpponent"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mole Man, Moloid Master",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8588,7 +8548,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:169 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
+          "rules-engine/src/cardPlugins/lifeEffects.test.ts:168 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
@@ -10689,7 +10649,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 193,
+        "matches": 194,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -11031,7 +10991,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:111 — test('a life-total lock replaces the whole exchange', () => {",
+          "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:116 — test('a life-total lock replaces the whole exchange', () => {",
           "rules-engine/src/plugins/phasingProtection.test.ts:153 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
         ]
       },
@@ -11361,7 +11321,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 61,
+        "matches": 60,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3415 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:793 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -12229,7 +12189,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:998",
+        "rules-engine/src/cardPlugins/cardRules.ts:993",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
