@@ -110,18 +110,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "dba1052af40c7db60e2bec8506ea62307e7a84cf9c5337718da52c1d0a9267e3",
-    "card": "Summon: Titan"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4d23cb04438defae485089ed3743fb44440b424ec59c0fd7f3185ececb33461b",
-    "card": "Kiora Bests the Sea God"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "c9d593c6b0c70c6d7a14256a4c3eeb125ccab6e42b5f4ee9eafac89e3fa3c3a9",
     "card": "Rishkar's Expertise"
   },
@@ -302,12 +290,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "d15043bdf240603f0fda180cabc55b2092d6afeefe623fe65516321d7830eca9",
-    "card": "Sin, Spira's Punishment"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "11accfd2b7ea70a793390f45f1ebdb6353ffe075dc3f48a7539e3fa4bae09b64",
     "card": "Soul of Eternity"
   },
@@ -334,12 +316,6 @@
     "code": "legacy-card-registration",
     "digest": "e7b05a9dc60a67c7565d59cf9392680819493e07a4f1d8e32c3a21231ff3cdeb",
     "card": "Ancient Greenwarden"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "c7087a2cb16b788be215617ddef20e9bc97d2961a1b15df18c6a5728a2f47c27",
-    "card": "Awaken the Honored Dead"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

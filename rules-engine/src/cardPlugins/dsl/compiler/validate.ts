@@ -28,6 +28,7 @@ type Environment = {
   declared: Set<string>
   eventAmount: boolean
   replacementEmission?: true
+  rebindLocals?: true
 }
 
 const MAX_TREE_DEPTH = 32
@@ -103,6 +104,11 @@ export const validateDefinitionV1 = (root: unknown): {
   const declareBinding = (env: Environment, name: string | undefined, binding: Binding, path: string): void => {
     if (!name) return
     if (env.declared.has(name)) {
+      const existing = env.locals.get(name)
+      if (env.rebindLocals && existing && existing.kind === binding.kind && existing.domain === binding.domain) {
+        env.locals.set(name, binding)
+        return
+      }
       issue(path, 'duplicate-binding', `binding ${name} is already declared in this program scope`)
       return
     }
@@ -759,6 +765,13 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(node.visibility, childPath(path, 'visibility'), new Set(Object.values(LIBRARY_VISIBILITY)), 'library visibility')
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         return
+      case 'chooseRandom':
+        exactKeys(node, path, ['kind', 'filter', 'bindChoice'], ['kind', 'filter', 'bindChoice'])
+        if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'object') {
+          issue(childPath(path, 'filter'), 'domain', 'chooseRandom requires an object selector')
+        }
+        declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
+        return
       case 'partitionPiles':
         exactKeys(node, path, ['kind', 'cards', 'partitioner', 'chooser', 'bindChosen', 'bindOther'], ['kind', 'cards', 'partitioner', 'chooser', 'bindChosen', 'bindOther'])
         validateRecipient(node.cards, childPath(path, 'cards'), env, ['object'])
@@ -962,10 +975,16 @@ export const validateDefinitionV1 = (root: unknown): {
         validateReference(node.right, childPath(path, 'right'), env, ['object'])
         return
       case 'reveal':
-      case 'tap':
       case 'untap':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        return
+      case 'tap':
+        exactKeys(node, path, ['kind', 'targets', 'skipNextUntap'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.skipNextUntap !== undefined && node.skipNextUntap !== true) {
+          issue(childPath(path, 'skipNextUntap'), 'constant', 'skipNextUntap must be true when present')
+        }
         return
       case 'destroy':
         exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice'], ['kind', 'targets'])
@@ -1036,7 +1055,7 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'createToken': {
-        exactKeys(node, path, ['kind', 'count', 'targets', 'token', 'bindResult'], ['kind', 'count', 'targets', 'token'])
+        exactKeys(node, path, ['kind', 'count', 'targets', 'token', 'bindResult', 'bindChoice'], ['kind', 'count', 'targets', 'token'])
         validateAmount(node.count, childPath(path, 'count'), env)
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         const token = object(node.token, childPath(path, 'token'))
@@ -1049,13 +1068,16 @@ export const validateDefinitionV1 = (root: unknown): {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
         }
+        if (node.bindChoice !== undefined) {
+          declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
+        }
         return
       }
       case 'copy': {
         const hasTargets = node.targets !== undefined
         const hasSnapshot = node.snapshot !== undefined
         if (hasTargets === hasSnapshot) issue(path, 'instruction-shape', 'copy requires exactly one of targets or snapshot')
-        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'bindResult'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
+        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'tapped', 'bindResult', 'bindChoice'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
         if (hasTargets) validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (hasSnapshot) {
           const name = bindingName(node.snapshot, childPath(path, 'snapshot'))
@@ -1064,9 +1086,13 @@ export const validateDefinitionV1 = (root: unknown): {
           }
         }
         if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
+        if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
+        }
+        if (node.bindChoice !== undefined) {
+          declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         }
         return
       }
@@ -1274,6 +1300,11 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.recipients, childPath(path, 'recipients'), env, ['player'])
         if (typeof node.distinct !== 'boolean') issue(childPath(path, 'distinct'), 'type', 'expected a boolean')
         return
+      case 'changeControl':
+        exactKeys(node, path, ['kind', 'targets', 'controller'], ['kind', 'targets', 'controller'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        validateReference(node.controller, childPath(path, 'controller'), env, ['player'])
+        return
       case 'revealUntil': {
         exactKeys(node, path, ['kind', 'targets', 'match', 'count', 'bindFound', 'bindRest', 'foundTo', 'rest'], ['kind', 'targets', 'match', 'foundTo', 'rest'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
@@ -1380,6 +1411,14 @@ export const validateDefinitionV1 = (root: unknown): {
         validateInstructionList(node.then, childPath(path, 'then'), whenTrue, depth + 1)
         validateInstructionList(node.otherwise, childPath(path, 'otherwise'), otherwise, depth + 1)
         intersectBranches(env, [whenTrue, otherwise])
+        return
+      }
+      case 'repeatWhile': {
+        exactKeys(node, path, ['kind', 'condition', 'instructions'], ['kind', 'condition', 'instructions'])
+        validateCondition(node.condition, childPath(path, 'condition'), env)
+        const body = cloneEnv(env)
+        body.rebindLocals = true
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), body, depth + 1)
         return
       }
       case 'lockOrUnlockDoor':
@@ -1977,6 +2016,30 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(ability.keyword, childPath(path, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), baseEnvironment())
         return
+      case 'saga': {
+        exactKeys(ability, path, ['kind', 'readAhead', 'chapters'], ['kind', 'chapters'])
+        if (ability.readAhead !== undefined && ability.readAhead !== true) {
+          issue(childPath(path, 'readAhead'), 'constant', 'readAhead must be true when present')
+        }
+        const chapters = array(ability.chapters, childPath(path, 'chapters'), { nonempty: true })
+        const seen = new Set<number>()
+        chapters.forEach((chapter, index) => {
+          const chapterPath = childPath(childPath(path, 'chapters'), index)
+          const node = object(chapter, chapterPath)
+          if (!node) return
+          exactKeys(node, chapterPath, ['numbers', 'decisions', 'instructions'], ['numbers', 'instructions'])
+          const numbers = array(node.numbers, childPath(chapterPath, 'numbers'), { nonempty: true })
+          numbers.forEach((value, numberIndex) => {
+            const parsed = integer(value, childPath(childPath(chapterPath, 'numbers'), numberIndex), { min: 1 })
+            if (parsed === undefined) return
+            if (seen.has(parsed)) issue(childPath(childPath(chapterPath, 'numbers'), numberIndex), 'duplicate-index', `chapter ${parsed} is already declared`)
+            seen.add(parsed)
+          })
+          const result = validateDecisions(node.decisions ?? { targets: [] }, childPath(chapterPath, 'decisions'), baseEnvironment(), true)
+          validateInstructionList(node.instructions, childPath(chapterPath, 'instructions'), result.env)
+        })
+        return
+      }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported ability kind: ${String(ability.kind)}`)
     }
   }

@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after conditional draw/life replacements and Phial of Galadriel, including family 39 public piles, public votes, and persistent linked-card sets. **116 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus Phial of Galadriel. **112 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **116 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **112 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -14,7 +14,6 @@ Current readiness: **0 composition candidates**; **116 blocked or awaiting sourc
 | `Ancient Greenwarden` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
 | `Angel of Sanctions` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-embalm](CARD-MIGRATION-BATCHES.md#25-embalm) | Blocked by mechanics | — |
 | `Archangel of Tithes` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
-| `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
 | `Baird, Steward of Argive` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
@@ -58,7 +57,6 @@ Current readiness: **0 composition candidates**; **116 blocked or awaiting sourc
 | `Joint Exploration` | 25 | [25-kicker](CARD-MIGRATION-BATCHES.md#25-kicker) | Blocked by mechanics | Retain scry 2 before draw, then optional land placement if kicked. |
 | `Kederekt Leviathan` | 30 | [30-unearth](CARD-MIGRATION-BATCHES.md#30-unearth) | Blocked by mechanics | — |
 | `Kindred Dominance` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
-| `Kiora Bests the Sea God` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [40-skip](CARD-MIGRATION-BATCHES.md#40-skip) | Blocked by mechanics | Permanent control gain is available from Dack; its chosen target must still use canonical targeting. |
 | `Kuroki, Thief of Talents` | 44 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace) | Blocked by mechanics | Opponent chooses whether to draw; cast from that opponent's private hand or put counters on Kuroki. |
 | `Lair of the Hydra` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Retain the nonzero-X bound on its animation activation. |
 | `Life from the Loam` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | Retain up-to-three graveyard land targets. |
@@ -90,7 +88,6 @@ Current readiness: **0 composition candidates**; **116 blocked or awaiting sourc
 | `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public voting is available. Still needs a resolving `exileThisSpell` branch after the return outcome; do not migrate until that instruction exists. |
 | `Sakashima of a Thousand Faces` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [28-legend](CARD-MIGRATION-BATCHES.md#28-legend) | Blocked by mechanics | — |
 | `Show and Tell` | 27 | [27-place](CARD-MIGRATION-BATCHES.md#27-place) | Blocked by mechanics | — |
-| `Sin, Spira's Punishment` | 38 | [38-random](CARD-MIGRATION-BATCHES.md#38-random), [38-tapped](CARD-MIGRATION-BATCHES.md#38-tapped), [38-repeat](CARD-MIGRATION-BATCHES.md#38-repeat) | Blocked by mechanics | Entry or attack: repeat for as long as each randomly exiled card is a land. This is not a repeat-once or defending-player program. |
 | `Sire of Seven Deaths` | 21 | [21-ward-life](CARD-MIGRATION-BATCHES.md#21-ward-life), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach), [21-first-strike](CARD-MIGRATION-BATCHES.md#21-first-strike), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Six` | 26 | [26-retrace](CARD-MIGRATION-BATCHES.md#26-retrace), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach; attack mill and optional land recovery only from the milled set. |
 | `Snuff Out` | 25 | [25-alternative](CARD-MIGRATION-BATCHES.md#25-alternative), [42-regeneration](CARD-MIGRATION-BATCHES.md#42-regeneration) | Blocked by mechanics | — |
@@ -100,7 +97,6 @@ Current readiness: **0 composition candidates**; **116 blocked or awaiting sourc
 | `Standard Bearer` | 21 | [21-targets](CARD-MIGRATION-BATCHES.md#21-targets) | Blocked by mechanics | — |
 | `Starfield of Nyx` | 26 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include upkeep return and enchantment animation. |
 | `Summon: Leviathan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Subtype exclusions and generated temporary attack/draw triggers can reuse existing primitives. |
-| `Summon: Titan` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
 | `Tear Asunder` | 25 | [25-kicker](CARD-MIGRATION-BATCHES.md#25-kicker) | Blocked by mechanics | — |
 | `Teferi, Who Slows the Sunset` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [32-emblems](CARD-MIGRATION-BATCHES.md#32-emblems), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | All loyalty abilities, source-independent emblem, and complete untap targeting. |
 | `Tenuous Truce` | 42 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Blocked by mechanics | Enchant opponent; own and enchanted player draw; attack relationship ends the Aura. |

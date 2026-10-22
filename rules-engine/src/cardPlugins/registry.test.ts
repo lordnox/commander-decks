@@ -43,8 +43,8 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Field of the Dead')).toBeDefined()
-    expect(cardPluginEntry("Sin, Spira's Punishment")?.handlerIds)
-      .toEqual(['randomExileCopy'])
+    expect(cardPluginEntry("Sin, Spira's Punishment")).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor("Sin, Spira's Punishment")).toBeDefined()
   })
 
   test('the Homer commander is registered', () => {
@@ -592,10 +592,8 @@ describe('card plugin registry', () => {
     expect(handlerIdsForNames(['Nezahal, Primal Tide'])).toEqual([])
     expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')).toBeDefined()
-    const [saga] = effectsFor('Kiora Bests the Sea God')
-    expect(saga).toMatchObject({ op: 'saga' })
-    expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers))
-      .toEqual([[1], [2], [3]])
+    expect(effectsFor('Kiora Bests the Sea God')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Kiora Bests the Sea God')).toBeDefined()
     expect(effectsFor("Rishkar's Expertise")).toEqual([
       onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
     ])

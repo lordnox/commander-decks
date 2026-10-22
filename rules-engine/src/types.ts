@@ -521,6 +521,8 @@ export type StackExecutionContext = {
   capturedResultAliases?: Record<string, string>
   /** Granter identity for a stamped canonical grant (`grant.source`). */
   grantSource?: { objectId: string; incarnation: number }
+  /** Chapter number for a Saga ability waiting on the stack or a targeting choice. */
+  sagaChapter?: number
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
@@ -565,6 +567,8 @@ export type ProgramScopeFrame = {
   cursor: number
   /** Overlay for nested iteration, such as forEach over destroyed permanents. */
   occurrence?: OccurrenceSnapshot
+  /** Trailing repeatWhile re-entry checks the condition before running the body again. */
+  continueWhile?: true
 }
 
 /** Authoritative, private state for the one resolution currently in progress. */
@@ -627,6 +631,8 @@ export type CanonicalResolutionFrame = {
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   /** New identities to bind after the current move instruction commits. */
   pendingMovedChoice?: { binding: string; objects: ObjectIdentity[] }
+  /** Token identities created by the current createToken or copy instruction. */
+  pendingCreatedChoice?: { binding: string; beforeIds: string[] }
   /** Library identities whose first public destinations belong to this mill action (CR 701.17c). */
   pendingMilledChoice?: { binding: string; objects: ObjectIdentity[] }
   /** Last-known objects to bind after destroy events commit and tokens cease. */
@@ -1150,6 +1156,7 @@ export type GameEvent =
         ruleDefinition?: GameObject['ruleDefinition']
         effects?: GameObject['effects']
         dsl?: true
+        tapped?: boolean
       }
     }
   | {
@@ -1176,7 +1183,7 @@ export type GameEvent =
       /** Take a non-resolving spell off the stack when this card leaves it (bounce, not counter). */
       dropStackItem?: boolean
     }
-  | { type: 'tap'; objectId: string }
+  | { type: 'tap'; objectId: string; skipNextUntap?: true }
   | { type: 'untap'; objectId: string }
   | { type: 'phaseOut'; objectId: string }
   | { type: 'phaseIn'; objectId: string }

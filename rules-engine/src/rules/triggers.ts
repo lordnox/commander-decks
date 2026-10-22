@@ -1655,7 +1655,10 @@ export const placePendingTriggers = (draft: Draft) => {
     ...(remaining.length > 0 ? { orderIds: remaining } : {}),
   }
   removePendingTrigger(draft, trigger.id)
-  if (trigger.canonical) return !placeCanonicalTrigger(draft, trigger)
+  if (trigger.canonical) {
+    placeCanonicalTrigger(draft, trigger)
+    return false
+  }
   // Legacy triggers retain their existing target semantics, but a missing
   // mandatory candidate removes the trigger instead of lowering its minimum.
   const liveSource = draft.object(trigger.execution.source.ref.objectId)

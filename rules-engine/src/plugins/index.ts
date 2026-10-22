@@ -48,6 +48,7 @@ import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, instructionResume, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
 import { vote } from '../cardPlugins/vote'
+import { canonicalRandom } from '../cardPlugins/dsl/canonicalRandom'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
 import { activated as canonicalActivated } from '../cardPlugins/activated'
@@ -92,6 +93,7 @@ export const builtInPlugins = [
   triggers,
   instructionResume,
   vote,
+  canonicalRandom,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

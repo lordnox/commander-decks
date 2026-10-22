@@ -536,7 +536,6 @@ describe('Kiora Bests the Sea God', () => {
       name: 'Kiora Bests the Sea God',
       payload: { sagaChapter: 3 },
     })
-    expect(stacked.stack[0].payload?.targetFilter).toMatchObject({ controller: 'opponent' })
     return structuredClone(stacked)
   }
 

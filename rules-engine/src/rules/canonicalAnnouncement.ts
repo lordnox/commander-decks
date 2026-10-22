@@ -273,6 +273,9 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
     controller: announcement.execution.controller,
     name: source.name,
     targets: announcement.targets,
+    ...(typeof announcement.execution.sagaChapter === 'number'
+      ? { payload: { sagaChapter: announcement.execution.sagaChapter } }
+      : {}),
     execution: {
       ...announcement.execution,
       definitionSnapshot: announcement.definitionSnapshot,

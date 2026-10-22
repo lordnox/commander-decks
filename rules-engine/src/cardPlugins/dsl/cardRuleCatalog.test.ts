@@ -2201,12 +2201,51 @@ test('Ripples of Undeath binds its first-main mill and pays mana plus life befor
   ])
 })
 
-
 test('Phial of Galadriel composes both conditional replacements and five-color tap mana', () => {
   const abilities = cardRuleDefinitionSnapshotFor('Phial of Galadriel')!.definition.abilities
   expect(abilities).toMatchObject([
     { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'draw' }, when: { kind: 'compareAmount', operator: 'eq', right: { value: 0 } } }] },
     { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'gainLife' }, when: { kind: 'compareAmount', operator: 'lte', right: { value: 5 } }, transform: { kind: 'modifyEvent', changes: { amount: { kind: 'multiply', factor: { value: 2 } } } } }] },
     { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: ['W', 'U', 'B', 'R', 'G'].map(label => ({ label, instructions: [{ kind: 'addMana', amount: { [label]: { value: 1 } } }] })) }] },
+  ])
+})
+
+test("Sin, Spira's Punishment repeats a random tapped copy while the exiled card is a land", () => {
+  expect(cardRuleDefinitionSnapshotFor("Sin, Spira's Punishment")!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.flying },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'chooseRandom' }, { kind: 'copy', tapped: true }, { kind: 'captureAmount' }, { kind: 'move' }, { kind: 'repeatWhile' }] },
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseRandom' }, { kind: 'copy', tapped: true }, { kind: 'captureAmount' }, { kind: 'move' }, { kind: 'repeatWhile' }] },
+  ])
+})
+
+test('Awaken the Honored Dead is a three-chapter saga with a reflexive discard return', () => {
+  expect(cardRuleDefinitionSnapshotFor('Awaken the Honored Dead')!.definition.abilities).toMatchObject([
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'destroy' }] },
+      { numbers: [2], instructions: [{ kind: 'mill' }] },
+      { numbers: [3], instructions: [{ kind: 'payOptional', whenPaid: [{ kind: 'move' }] }] },
+    ] },
+  ])
+})
+
+test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {
+  expect(cardRuleDefinitionSnapshotFor('Kiora Bests the Sea God')!.definition.abilities).toMatchObject([
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'createToken' }] },
+      { numbers: [2], instructions: [{ kind: 'tap', skipNextUntap: true }] },
+      { numbers: [3], instructions: [{ kind: 'changeControl' }, { kind: 'untap' }] },
+    ] },
+  ])
+})
+
+test('Summon: Titan mills, returns lands, then pumps another creature', () => {
+  expect(cardRuleDefinitionSnapshotFor('Summon: Titan')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.reach },
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'mill' }] },
+      { numbers: [2], instructions: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+      { numbers: [3], instructions: [{ kind: 'createEffect' }, { kind: 'createEffect' }] },
+    ] },
   ])
 })

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after conditional draw/life replacements and Phial of Galadriel, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **116 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus the prior Phial of Galadriel conditional replacements; continues #394 and #383. **112 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**171 mechanic entries:** 74 available, 1 awaiting correctness follow-up, and 96 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**171 mechanic entries:** 80 available, 1 awaiting correctness follow-up, and 90 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -77,6 +77,10 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **Group 18 is complete:** all four linked-exile contracts are Available. Palace Jailer uses canonical source-less monarch triggers and incarnation-pinned, source-independent exile duration. Cards still listed under former batch 18 retain external gates such as cycling, warp, embalm, and foretell; completing linked exile does not implement those mechanics.
 
+**38-random, 38-tapped, 38-repeat, and 38-token-refs are available:** authoritative `chooseRandom` persists through the journal, tapped copies exist before ETB observers, `repeatWhile` rebinds the latest qualifying result, and `createToken`/`copy` can bind the new identities. Sin, Spira's Punishment has migrated. Zanarkand still needs **43-adventure**.
+
+**40-saga and 40-skip are available:** canonical saga abilities feed kernel lore, chapter triggers, and CR 714.4 sacrifice; `tap` can skip the controller's next untap. Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan have migrated. Summon: Leviathan still needs **21-ward**.
+
 ## Suggested next work
 
 First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
@@ -129,7 +133,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Sakashima of a Thousand Faces`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
 | <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Available | `mill({ bindChoice })` binds first public destination identities, including additional replacement mills, excludes prevented/hidden destinations, and never follows later incarnations. Mechanic tests cover filtered recovery and restore. Ripples of Undeath has migrated with 20-combined-payment; Six still needs 26-retrace. | [07](#07) | `Six` |
 
 ### 08. Top-library inspection and selection
@@ -176,7 +180,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Tenuous Truce`; `Wall of Shards` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Tenuous Truce`; `Wall of Shards` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Available | Untap qualifying permanents during other players' turn-based untap action, once per permanent with stun and phasing semantics. Bender's Waterskin has migrated. | — | None remaining |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
@@ -259,7 +263,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative has migrated. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
 | <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
-| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
+| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six` |
 | <a id="21-static"></a>**21-static — Continuous keyword grants** | Available | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Concordant Crossroads` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Available | Layer-aware removal and cannot-have-or-gain precedence for a keyword. Archetype of Endurance has migrated. | [21-static](#21-static) | None remaining |
 | <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
@@ -426,10 +430,10 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="38-random"></a>**38-random — Random identity-bound object selection** | Open | Persist authoritative randomness and bind the chosen graveyard identity for copying/conditional repetition. | [07](#07) | `Sin, Spira's Punishment` |
-| <a id="38-tapped"></a>**38-tapped — Tapped copy tokens** | Open | Create a copiable token snapshot already tapped, before entry triggers observe it. | [07](#07) | `Sin, Spira's Punishment` |
-| <a id="38-repeat"></a>**38-repeat — Repeat while the result qualifies** | Open | Repeat a program while its latest result satisfies a predicate; handle an exhausted input set and persist each random result. This differs from Zimone's repeat-once rule. | — | `Sin, Spira's Punishment` |
-| <a id="38-token-refs"></a>**38-token-refs — Created-token identity bindings** | Open | Bind newly created token identities for subsequent instructions, including counters placed after creation; do not pick all similar tokens by name. | — | `Zanarkand, Ancient Metropolis // Lasting Fayth` |
+| <a id="38-random"></a>**38-random — Random identity-bound object selection** | Available | Persist authoritative randomness and bind the chosen graveyard identity for copying/conditional repetition. | [07](#07) | None remaining |
+| <a id="38-tapped"></a>**38-tapped — Tapped copy tokens** | Available | Create a copiable token snapshot already tapped, before entry triggers observe it. | [07](#07) | None remaining |
+| <a id="38-repeat"></a>**38-repeat — Repeat while the result qualifies** | Available | Repeat a program while its latest result satisfies a predicate; handle an exhausted input set and persist each random result. This differs from Zimone's repeat-once rule. | — | None remaining |
+| <a id="38-token-refs"></a>**38-token-refs — Created-token identity bindings** | Available | Bind newly created token identities for subsequent instructions, including counters placed after creation; do not pick all similar tokens by name. | — | `Zanarkand, Ancient Metropolis // Lasting Fayth` |
 
 ### 39. Piles and voting
 
@@ -447,8 +451,8 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="40-saga"></a>**40-saga — Lore and chapter scheduling** | Open | Entry/precombat-main lore counters, chapter triggers, and sacrifice after the final chapter. | [13-step](#13-step) | `Awaken the Honored Dead`; `Kiora Bests the Sea God`; `Summon: Leviathan`; `Summon: Titan` |
-| <a id="40-skip"></a>**40-skip — Skip the next untap** | Open | Duration-bound restrictions that consume the correct next untap event. | — | `Kiora Bests the Sea God` |
+| <a id="40-saga"></a>**40-saga — Lore and chapter scheduling** | Available | Entry/precombat-main lore counters, chapter triggers, and sacrifice after the final chapter. | [13-step](#13-step) | `Summon: Leviathan` |
+| <a id="40-skip"></a>**40-skip — Skip the next untap** | Available | Duration-bound restrictions that consume the correct next untap event. | — | None remaining |
 
 ### 41. Encore and bestow
 

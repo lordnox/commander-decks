@@ -61,6 +61,7 @@ import type {
   StackItemFilter,
   StackItemReference,
   StackItemSelector,
+  SagaAbilityDefinition,
   StaticAbilityDefinition,
   TargetClause,
   TargetClauseInput,
@@ -135,6 +136,15 @@ export const resultAmount = (binding: string, field: Extract<Amount, { kind: 're
 
 export const inspectTop = (input: { player: PlayerReference; count: AmountInput; bindChoice: string; visibility?: LibraryVisibility }) =>
   immutableData({ kind: 'inspectTop' as const, ...input, count: toAmount(input.count), visibility: input.visibility ?? LIBRARY_VISIBILITY.private })
+
+export const chooseRandom = (input: { filter: ObjectSelector; bindChoice: string }) =>
+  immutableData({ kind: 'chooseRandom' as const, filter: input.filter, bindChoice: input.bindChoice })
+
+export const repeatWhile = (input: { condition: Condition; instructions: readonly Instruction[] }) =>
+  immutableData({ kind: 'repeatWhile' as const, condition: input.condition, instructions: input.instructions })
+
+export const changeControl = (input: { targets: ObjectRecipient; controller: PlayerReference }) =>
+  immutableData({ kind: 'changeControl' as const, targets: input.targets, controller: input.controller })
 
 export const partitionPiles = (input: {
   cards: ObjectRecipient
@@ -640,6 +650,23 @@ export const staticAbility = (
 export const keywordAbility = (keyword: Keyword, options: { when?: Condition } = {}): KeywordAbilityDefinition =>
   immutableData({ kind: 'keyword', keyword, ...(options.when ? { when: options.when } : {}) })
 
+export const saga = (input: {
+  readAhead?: true
+  chapters: readonly {
+    numbers: readonly number[]
+    decisions?: DecisionsInput
+    instructions: readonly Instruction[]
+  }[]
+}): SagaAbilityDefinition => immutableData({
+  kind: 'saga',
+  ...(input.readAhead ? { readAhead: true as const } : {}),
+  chapters: input.chapters.map((chapter) => immutableData({
+    numbers: [...chapter.numbers],
+    ...(chapter.decisions ? { decisions: decisions(chapter.decisions) } : {}),
+    instructions: chapter.instructions,
+  })),
+})
+
 export const cardRuleDefinition = (
   schemaVersion: 1,
   definition: CardRuleDefinitionInputV1,
@@ -825,7 +852,12 @@ export const fight = (input: { left: ObjectReference; right: ObjectReference }) 
 
 export const reveal = (targets: ObjectRecipient) => immutableData({ kind: 'reveal' as const, targets }) satisfies Instruction
 
-export const tap = (targets: ObjectRecipient) => immutableData({ kind: 'tap' as const, targets }) satisfies Instruction
+export const tap = (targets: ObjectRecipient, extra: { skipNextUntap?: true } = {}) =>
+  immutableData({
+    kind: 'tap' as const,
+    targets,
+    ...(extra.skipNextUntap ? { skipNextUntap: true as const } : {}),
+  }) satisfies Instruction
 export const untap = (targets: ObjectRecipient) => immutableData({ kind: 'untap' as const, targets }) satisfies Instruction
 
 export const move = (input: {
@@ -865,25 +897,31 @@ export const createToken = (input: {
   targets: Extract<Instruction, { kind: 'createToken' }>['targets']
   token: TokenDefinition
   bindResult?: string
+  bindChoice?: string
 }): Instruction => immutableData({
   kind: 'createToken',
   count: toAmount(input.count),
   targets: input.targets,
   token: input.token,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+  ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
 })
 
 export const copy = (input: {
   targets?: ObjectRecipient
   snapshot?: string
   controller?: Extract<Instruction, { kind: 'copy' }>['controller']
+  tapped?: boolean
   bindResult?: string
+  bindChoice?: string
 }): Instruction => immutableData({
   kind: 'copy',
   ...(input.targets !== undefined ? { targets: input.targets } : {}),
   ...(input.snapshot !== undefined ? { snapshot: input.snapshot } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
+  ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+  ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
 })
 
 export const copySpell = (input: {

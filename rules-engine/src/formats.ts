@@ -49,6 +49,7 @@ import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
 import { vote } from './cardPlugins/vote'
+import { canonicalRandom } from './cardPlugins/dsl/canonicalRandom'
 import type { PlayerId, Plugin, ZoneId } from './types'
 
 export type GameFormat = {
@@ -109,6 +110,7 @@ export const corePlugins = [
   doubleFaced,
   ...gameRules,
   vote,
+  canonicalRandom,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

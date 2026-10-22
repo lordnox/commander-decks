@@ -416,6 +416,12 @@ export type Instruction =
   | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
+  /** Persist an authoritative random pick from a current object set. */
+  | { kind: 'chooseRandom'; filter: ObjectSelector; bindChoice: string }
+  /** Run the body once, then again while the latest bound result still qualifies. */
+  | { kind: 'repeatWhile'; condition: Condition; instructions: readonly Instruction[] }
+  /** Give control of resolved permanents to one player without a further assignment. */
+  | { kind: 'changeControl'; targets: ObjectRecipient; controller: PlayerReference }
   /** Public sequential votes; bind the result and continue after every ballot is in. */
   | {
       kind: 'vote'
@@ -489,16 +495,16 @@ export type Instruction =
   /** Reveal each resolved object to every player through the ordinary visibility event. */
   | { kind: 'reveal'; targets: ObjectRecipient }
   /** Tap or untap each resolved object through the ordinary event pipeline. */
-  | { kind: 'tap'; targets: ObjectRecipient }
+  | { kind: 'tap'; targets: ObjectRecipient; skipNextUntap?: true }
   | { kind: 'untap'; targets: ObjectRecipient }
   /** Phase each resolved object out or in according to `out` during this resolution. */
   | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
   /** Have each resolved player recipient choose permanents and players with counters to proliferate. */
   | { kind: 'proliferate'; targets: PlayerRecipient }
   /** Create the evaluated number of token objects under each resolved player recipient. */
-  | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
+  | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string; bindChoice?: string }
   /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
-  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; bindResult?: string }
+  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; bindResult?: string; bindChoice?: string }
   /** Copy a spell already on the stack; this creates a copy without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Put the evaluated number of the named counter on each resolved object recipient. */
@@ -798,12 +804,25 @@ export type KeywordAbilityDefinition = {
   when?: Condition
 }
 
+export type SagaChapterDefinition = {
+  numbers: readonly number[]
+  decisions?: DecisionsSpec
+  instructions: readonly Instruction[]
+}
+
+export type SagaAbilityDefinition = {
+  kind: 'saga'
+  readAhead?: true
+  chapters: readonly SagaChapterDefinition[]
+}
+
 export type AbilityDefinition =
   | SpellAbilityDefinition
   | ActivatedAbilityDefinition
   | TriggeredAbilityDefinition
   | StaticAbilityDefinition
   | KeywordAbilityDefinition
+  | SagaAbilityDefinition
 
 export type CardRuleDefinitionV1 = {
   schemaVersion: RuleDslSchemaVersion

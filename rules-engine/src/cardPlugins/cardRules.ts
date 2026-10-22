@@ -44,7 +44,6 @@ import {
   extraEnters,
   extraLandfall,
   exileColoredPermanentsAtMostX,
-  gainControlPermanent,
   gainLife,
   grantControlledUntilEot,
   graveyardCards,
@@ -106,7 +105,6 @@ import {
   staticRevealLibraryTop,
   scry,
   surveil,
-  tapAll,
   triggerOn,
   typecycleHand,
   teferiSunsetEmblem,
@@ -170,7 +168,6 @@ import {
   upToTargetsOnResolve,
   addChosenColorMana,
   destroyTargetPermanent,
-  mayDiscard,
   secondCardDrawn,
   loseLifeTargetPlayer,
   onUnlock,
@@ -241,16 +238,6 @@ const changelingShapeshifter = () => createTokenInstruction({
 
 const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 
-/**
- * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
- * copy it tapped, repeating while the exiled card is a land.
- */
-const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
-  kind: 'randomExileCopyWhile',
-  repeatWhileType: 'Land',
-  tapped: true,
-})
-
 // Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Alabaster Host Intercessor': [
@@ -295,23 +282,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
-  ],
-  'Awaken the Honored Dead': [
-    sagaChapters(
-      {
-        numbers: [1],
-        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
-        do: [destroyTargetPermanent()],
-      },
-      { numbers: [2], do: [selfMill(3)] },
-      {
-        numbers: [3],
-        do: [mayDiscard(1, {
-          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
-          do: [returnTargetFromGraveyard('hand')],
-        })],
-      },
-    ),
   ],
   'Baird, Steward of Argive': [attackTax(1)],
   Belonging: [
@@ -543,33 +513,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     unearth('{6}{U}'),
   ],
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
-  'Kiora Bests the Sea God': [sagaChapters(
-    {
-      numbers: [1],
-      do: [createTokenInstruction({
-        name: 'Kraken',
-        types: ['Creature'],
-        subtypes: ['Kraken'],
-        colors: ['U'],
-        power: 8,
-        toughness: 8,
-        oracleText: 'Hexproof',
-      })],
-    },
-    {
-      numbers: [2],
-      targets: { filter: { players: 'opponent' } },
-      do: [tapAll(
-        { zone: 'battlefield', nonland: true },
-        { ofTargetPlayer: true, skipNextUntap: true },
-      )],
-    },
-    {
-      numbers: [3],
-      targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
-      do: [gainControlPermanent(true)],
-    },
-  )],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
   ],
@@ -781,10 +724,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
-  "Sin, Spira's Punishment": [
-    enters(specificSinSpiraPunishmentTriggeredAbility()),
-    attacks(specificSinSpiraPunishmentTriggeredAbility()),
-  ],
   'Sire of Seven Deaths': [ward({ life: 7 })],
   Six: [
     attacks(selfMill(3), revealPick(3, { type: 'Land' })),
@@ -825,11 +764,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         subtypes: ['Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent'],
       })],
     },
-  )],
-  'Summon: Titan': [sagaChapters(
-    { numbers: [1], do: [selfMill(5)] },
-    { numbers: [2], do: [returnOwnedGraveyardLands()] },
-    { numbers: [3], do: [pumpTargetEqualToLands(true)] },
   )],
   'Tear Asunder': [
     kicker('{1}{B}'),

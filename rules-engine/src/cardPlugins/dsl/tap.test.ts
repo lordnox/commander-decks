@@ -67,6 +67,23 @@ test.each([
   expect(tappedLater.stack).toHaveLength(0)
 })
 
+test('tap skipNextUntap leaves the permanent tapped through its controller next untap', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [tap(objects({ zone: 'battlefield', type: 'Creature' }), { skipNextUntap: true })] })] },
+    battlefield: { p2: [cardTemplate('Foe', { types: ['Creature'] })] },
+  }, { random: () => 0 })
+  let state = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
+  })))
+  expect(named(state, 'Foe')).toMatchObject({ tapped: true, skipNextUntap: true })
+  state = ok(server.rules({ ...state, step: 'cleanup', active: state.active, priority: null }, { type: 'advanceStep' }))
+  expect(state.active).toBe('p2')
+  expect(state.step).toBe('untap')
+  expect(named(state, 'Foe')).toMatchObject({ tapped: true })
+  expect(named(state, 'Foe').skipNextUntap).toBeUndefined()
+})
+
 test('an untap instruction cannot affect an entering permanent that left and returned before its trigger resolves', () => {
   const server = createServerGame(commanderRules, {
     players: 2,

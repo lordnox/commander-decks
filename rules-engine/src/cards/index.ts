@@ -1,6 +1,10 @@
 import phialOfGaladriel from './phial-of-galadriel'
 import ripplesOfUndeath from './ripples-of-undeath'
 import palaceJailer from './palace-jailer'
+import awakenTheHonoredDead from './awaken-the-honored-dead'
+import kioraBestsTheSeaGod from './kiora-bests-the-sea-god'
+import sinSpirasPunishment from './sin-spiras-punishment'
+import summonTitan from './summon-titan'
 import pitOfOfferings from './pit-of-offerings'
 import endlessSands from './endless-sands'
 import lumberingBattlement from './lumbering-battlement'
@@ -359,6 +363,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Arcane Denial": arcaneDenial,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
   "Astral Drift": astralDrift,
+  "Awaken the Honored Dead": awakenTheHonoredDead,
   "Awaken the Woods": awakenTheWoods,
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
@@ -480,6 +485,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
   "Kodama's Reach": kodamasReach,
+  "Kiora Bests the Sea God": kioraBestsTheSeaGod,
   "Kogla, the Titan Ape": koglaTheTitanApe,
   "Lady Evangela": ladyEvangela,
   "Lightning Bolt": lightningBolt,
@@ -551,6 +557,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Settle the Wreckage": settleTheWreckage,
   "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
+  "Sin, Spira's Punishment": sinSpirasPunishment,
   "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
   "Sink into Stupor": sinkIntoStupor,
@@ -568,6 +575,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Summer Bloom": summerBloom,
+  "Summon: Titan": summonTitan,
   "Sunken Hollow": sunkenHollow,
   "Sygg, River Cutthroat": syggRiverCutthroat,
   "Tainted Sigil": taintedSigil,

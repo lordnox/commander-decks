@@ -787,7 +787,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'tap': {
       const object = draft.object(event.objectId)
-      if (object) object.tapped = true
+      if (object) {
+        object.tapped = true
+        if (event.skipNextUntap) object.skipNextUntap = true
+      }
       return
     }
     case 'untap': {

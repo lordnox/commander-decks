@@ -207,6 +207,15 @@ const rewriteInstructions = (
           then: rewriteInstructions(instruction.then, choiceAliases, resultAliases, new Set(shadowed)).instructions,
           otherwise: rewriteInstructions(instruction.otherwise, choiceAliases, resultAliases, new Set(shadowed)).instructions,
         }
+      case 'repeatWhile': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        nested.shadowed.forEach((name) => shadowed.add(name))
+        return {
+          ...instruction,
+          condition: rewriteValue(instruction.condition) as typeof instruction.condition,
+          instructions: nested.instructions,
+        }
+      }
       case 'chooseInstructions':
         return {
           ...instruction,
