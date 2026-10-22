@@ -917,8 +917,8 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
           }
           draft.resolution.pendingResult = {
             binding: pendingDiscard.binding ?? canonicalChoice.binding,
-            kind: 'action',
-            value: pendingDiscard.selected.length > 0,
+            kind: 'amount',
+            value: 0,
             eventType: 'discard',
           }
           delete draft.resolution.pendingDiscard
@@ -926,8 +926,8 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       } else {
         draft.resolution.pendingResult = {
           binding: canonicalChoice.binding,
-          kind: 'action',
-          value: discarded.length > 0,
+          kind: 'amount',
+          value: 0,
           eventType: 'discard',
         }
         for (const objectId of discarded) draft.enqueue({ type: 'discard', seat: event.seat, objectId })

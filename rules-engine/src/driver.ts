@@ -33,6 +33,7 @@ import type {
   ObjectRecipient,
   PlayerRecipient,
 } from './cardPlugins/dsl/schema/v1'
+import { numericInstructionResult } from './cardPlugins/dsl/instructionResults'
 import type Draft from './draft'
 import type {
   GameEvent,
@@ -1111,9 +1112,10 @@ const actionEvents = (
         const targets = instruction.targets.kind === 'objects'
           ? evaluateObjectSelector(instruction.targets, context)
           : evaluateObjectReference(instruction.targets, context)
-        if (instruction.bindResult && targets.length === 1) {
-          frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'discard' }
+        if (instruction.bindResult) {
+          frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'discard', value: 0 }
         }
+        if (!by) return []
         return targets.map((object) => ({ type: 'discard' as const, seat: by, objectId: object.id }))
       }
       const targets = recipients(instruction.targets, context)
@@ -1368,7 +1370,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       }
       pending.index += 1
     }
-    if (pending.binding) frame.results = { ...frame.results, [pending.binding]: pending.selected.length > 0 }
+    if (pending.binding) frame.results = { ...frame.results, [pending.binding]: pending.selected.length }
     delete frame.pendingDiscard
   }
   while (frame.scopes.length > 0) {
@@ -1376,10 +1378,22 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
       if (scope.restoreBindings) {
+        const collected = scope.collectMax
+          ? Math.max(
+            frame.resultMaxima?.[scope.collectMax.as] ?? 0,
+            numericInstructionResult(frame.results?.[scope.collectMax.from]),
+          )
+          : undefined
+        if (scope.collectMax && collected !== undefined) {
+          frame.resultMaxima = { ...frame.resultMaxima, [scope.collectMax.as]: collected }
+        }
         for (const key of ['choices', 'results', 'choiceSnapshots', 'capturedCopies', 'playerChoiceBindings'] as const) {
           delete frame[key]
         }
         Object.assign(frame, structuredClone(scope.restoreBindings))
+        if (scope.collectMax && collected !== undefined) {
+          frame.results = { ...frame.results, [scope.collectMax.as]: collected }
+        }
       }
       continue
     }
@@ -1400,6 +1414,10 @@ export const prepareResolutionStep = (draft: Draft) => {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const selected = new Set(recipients(instruction.of, context))
       const players = apnapSeats(draft).filter(player => selected.has(player))
+      if (instruction.bindMax) {
+        frame.resultMaxima = { ...frame.resultMaxima, [instruction.bindMax.as]: 0 }
+        frame.results = { ...frame.results, [instruction.bindMax.as]: 0 }
+      }
       const restoreBindings = {
         ...(frame.playerChoiceBindings ? { playerChoiceBindings: [...frame.playerChoiceBindings] } : {}),
         ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
@@ -1412,6 +1430,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         instructions: structuredClone(instruction.instructions), cursor: 0,
         occurrence: { kind: 'event', eventType: 'forEachPlayer', player }, iterationPlayer: player,
         restoreBindings: structuredClone(restoreBindings),
+        ...(instruction.bindMax ? { collectMax: instruction.bindMax } : {}),
       })
       continue
     }

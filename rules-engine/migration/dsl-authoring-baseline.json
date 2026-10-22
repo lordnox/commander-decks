@@ -350,12 +350,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "ed0ec117ca3f6e81cae607539b4e762fddbe5fda8501a6109228215a34a8e8c8",
-    "card": "Windfall"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "e7b05a9dc60a67c7565d59cf9392680819493e07a4f1d8e32c3a21231ff3cdeb",
     "card": "Ancient Greenwarden"
   },

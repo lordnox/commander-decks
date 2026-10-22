@@ -216,7 +216,6 @@ export type CardInstruction =
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
-  | { kind: 'discardHandsThenDrawGreatest' }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'returnSelfAsEnchantment' }

@@ -29,7 +29,6 @@ import {
   createTreasures,
   crew,
   devour,
-  discardHandsThenDrawGreatest,
   dredge,
   dealDamageToChosenTarget,
   draw,
@@ -1088,7 +1087,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [addPlusCountersEqualToLands(), pumpTargetEqualToLands(true)],
     },
   )],
-  Windfall: [onResolve(discardHandsThenDrawGreatest())],
   'Woodfall Primus': [
     entersTargeting(
       { zone: 'battlefield', permanent: true, noncreature: true },

@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -196,7 +196,7 @@ export const validateDefinitionV1 = (root: unknown): {
           const binding = env.locals.get(name)
           if (binding && binding.kind !== 'result') issue(childPath(path, 'binding'), 'binding-kind', `${name} is a choice binding, not a result binding`)
           else if (!binding?.fields?.has(field)) issue(childPath(path, 'field'), 'unresolved-binding', `result ${name}.${field} is not produced on every control-flow path`)
-          else domain = field === 'player' ? 'player' : ['amount', 'discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
+          else domain = field === 'player' ? 'player' : (NUMERIC_RESULT_FIELDS as readonly string[]).includes(field) ? 'number' : 'boolean'
         }
         break
       }
@@ -1182,11 +1182,29 @@ export const validateDefinitionV1 = (root: unknown): {
         if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'player') issue(childPath(path, 'filter'), 'domain', 'choosePlayer requires a player selector')
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'player' }, childPath(path, 'bindChoice'))
         return
-      case 'forEachPlayer':
-        exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
+      case 'forEachPlayer': {
+        exactKeys(node, path, ['kind', 'of', 'instructions', 'bindMax'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
-        validateInstructionList(node.instructions, childPath(path, 'instructions'), withEventPlayer(env), depth + 1)
+        const bodyEnv = withEventPlayer(env)
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), bodyEnv, depth + 1)
+        if (node.bindMax !== undefined) {
+          const bindMax = object(node.bindMax, childPath(path, 'bindMax'))
+          if (bindMax) {
+            exactKeys(bindMax, childPath(path, 'bindMax'), ['from', 'field', 'as'], ['from', 'field', 'as'])
+            const from = bindingName(bindMax.from, childPath(childPath(path, 'bindMax'), 'from'))
+            const field = enumeration(bindMax.field, childPath(childPath(path, 'bindMax'), 'field'), new Set(NUMERIC_RESULT_FIELDS), 'result-max field')
+            const as = bindingName(bindMax.as, childPath(childPath(path, 'bindMax'), 'as'))
+            if (from && field) {
+              const source = bodyEnv.locals.get(from)
+              if (!source || source.kind !== 'result' || !source.fields?.has(field as ResultField)) {
+                issue(childPath(childPath(path, 'bindMax'), 'from'), 'unresolved-binding', `result ${from}.${field} is not produced on every control-flow path`)
+              }
+            }
+            declareBinding(env, as, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(childPath(path, 'bindMax'), 'as'))
+          }
+        }
         return
+      }
       case 'forEach':
         exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['object'])

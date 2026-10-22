@@ -647,7 +647,8 @@ export const evaluateCondition = (
       if (condition.value.kind !== 'resultRef') {
         throw new RuleDslEvaluationError('resultIsTrue requires a result reference')
       }
-      return context.results?.[condition.value.binding] === true
+      const value = context.results?.[condition.value.binding]
+      return value === true || (typeof value === 'number' && value > 0)
     }
     case 'compareAmount':
       return compareAmounts(

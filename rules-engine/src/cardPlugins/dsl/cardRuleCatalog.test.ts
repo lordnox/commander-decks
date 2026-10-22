@@ -45,6 +45,7 @@ test.each([
   ['Inkshield', ['createEffect']],
   ['Sea Gate Restoration', ['draw', 'grantNoMaximumHandSize']],
   ['Sink into Stupor', ['move']],
+  ['Windfall', ['forEachPlayer', 'draw']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -2030,4 +2031,16 @@ test('Mister Negative preserves both keywords and an optional targeted exchange 
       { instructions: [] },
     ] }] },
   ])
+})
+
+
+test('Windfall discards each hand then draws the greatest actual discarded count', () => {
+  expect(cardTemplateDefaultsFor('Windfall')).toMatchObject({ types: ['Sorcery'], manaCost: '{2}{U}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor('Windfall')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'forEachPlayer', bindMax: { from: 'discarded', field: 'discardedCount', as: 'greatest' }, instructions: [{ kind: 'discard' }] },
+      { kind: 'draw', count: { kind: 'resultRef', binding: 'greatest', field: 'amount' } },
+    ],
+  })
 })

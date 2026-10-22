@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after untap participation, lifelink, and menace plus concurrent family 20 work; continues #394 and #383. **132 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal, Primal Tide are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work; continues #394 and #383. **131 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 61 available, 1 awaiting correctness follow-up, and 108 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 63 available, 1 awaiting correctness follow-up, and 106 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -63,6 +63,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **20 is available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, provenance, or **21-ward**.
 
 **13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin and Mister Negative have migrated. Kuroki and Sire of Seven Deaths retain their other gates.
+
+**14-result-max and 33-discard are available:** per-player programs can keep a surviving maximum of actual action results such as discarded counts; whole-hand discards bind those counts after replacement. Windfall has migrated.
 
 ## Suggested next work
 
@@ -178,7 +180,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
 | <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Open | Compute the lowest actual life total across players, including negative totals. | — | `Repay in Kind` |
-| <a id="14-result-max"></a>**14-result-max — Maximum action result** | Open | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. | — | `Windfall` |
+| <a id="14-result-max"></a>**14-result-max — Maximum action result** | Available | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. Windfall has migrated. | — | None remaining |
 
 ### 15. Predicates and player iteration
 
@@ -186,7 +188,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Will of the Sultai` |
 | <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. `somePlayerHasLess` is the inverse. Beza and Breena have migrated. | — | None remaining |
-| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
+| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers` |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
 | <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
 | <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Wall of Shards` |
@@ -374,7 +376,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="33-discard"></a>**33-discard — Actual per-player discard totals** | Open | Discard hands with correct shared checkpoints; retain each player's actual count and compute their maximum. | [15-each](#15-each), [14-result-max](#14-result-max) | `Windfall` |
+| <a id="33-discard"></a>**33-discard — Actual per-player discard totals** | Available | Discard hands with correct shared checkpoints; retain each player's actual count and compute their maximum. Windfall has migrated. | [15-each](#15-each), [14-result-max](#14-result-max) | None remaining |
 
 ### 34. Damage and combat occurrences
 

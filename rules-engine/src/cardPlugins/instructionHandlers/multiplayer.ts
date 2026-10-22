@@ -28,19 +28,6 @@ const chooseVotesThisTurn: InstructionHandler<'chooseVotesThisTurn'> = ({ draft,
   draft.players[source.controller].data['secretCouncil.chooseVotes'] = true
 }
 
-const discardHandsThenDrawGreatest: InstructionHandler<'discardHandsThenDrawGreatest'> = (
-  { draft },
-) => {
-  const seats = apnapSeats(draft)
-  const count = Math.max(0, ...seats.map((seat) => draft.zoneOrder[seat].hand.length))
-  for (const seat of seats) {
-    for (const objectId of draft.zoneOrder[seat].hand) {
-      draft.enqueue({ type: 'discard', seat, objectId })
-    }
-    draft.enqueue({ type: 'draw', seat, count })
-  }
-}
-
 const extraLandPlays: InstructionHandler<'extraLandPlays'> = (
   { draft, source },
   instruction,
@@ -156,7 +143,6 @@ export const multiplayerHandlers = {
   addManaToEachPlayer,
   secretCouncil,
   chooseVotesThisTurn,
-  discardHandsThenDrawGreatest,
   extraLandPlays,
   eachPlayerDiscard,
   eachPlayerSacrifice,

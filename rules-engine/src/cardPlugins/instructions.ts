@@ -462,10 +462,6 @@ export const mayDiscard = (
   ...(then ? { then } : {}),
 })
 
-export const discardHandsThenDrawGreatest = (): CardInstruction => ({
-  kind: 'discardHandsThenDrawGreatest',
-})
-
 export const returnOwnedGraveyardLands = (tapped = true): CardInstruction => ({
   kind: 'returnOwnedGraveyardLands',
   tapped,

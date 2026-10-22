@@ -55,6 +55,16 @@ export type ContextBinding =
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export type InstructionResult = boolean | number | string
 
+export const NUMERIC_RESULT_FIELDS = ['amount', 'discardedCount', 'created'] as const
+export type NumericResultField = typeof NUMERIC_RESULT_FIELDS[number]
+
+/** Collect a surviving maximum from each forEachPlayer iteration's numeric result. */
+export type ResultMaxBinding = {
+  from: string
+  field: NumericResultField
+  as: string
+}
+
 export type ResultField = 'player' | 'amount' | 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created' | 'copied'
 
 export type ContextReference = { kind: 'contextRef'; name: ContextBinding }
@@ -374,7 +384,7 @@ export type TokenDefinition = {
 
 export type Instruction =
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
-  | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[] }
+  | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
   /** Evaluate an amount now, preserving it for later instructions and continuations. */

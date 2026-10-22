@@ -937,6 +937,14 @@ export const discard = (input:
       ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
     })
 
+/** Discard each card currently in the named player's hand without a choice. */
+export const discardHand = (input: { by: PlayerReference; bindResult?: string }) =>
+  discard({
+    targets: objects({ zone: 'hand', owner: input.by }),
+    by: input.by,
+    ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+  })
+
 export const chooseCards = (input: {
   bindChoice: string
   chooser: Extract<Instruction, { kind: 'chooseCards' }>['chooser']

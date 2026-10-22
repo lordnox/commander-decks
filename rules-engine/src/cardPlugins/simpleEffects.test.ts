@@ -6,7 +6,6 @@ import { resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
 import { activated } from './activated'
 import { activate } from './effects'
-import { onResolve } from './onResolve'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -260,7 +259,7 @@ describe('simple card effects', () => {
   })
 
   test('Windfall discards every hand and draws the greatest discarded count', () => {
-    const windfall = cardTemplate('Windfall', { types: ['Sorcery'], manaCost: '{2}{U}' })
+    const windfall = cardTemplate('Windfall')
     const server = createServerGame(
       commanderRules,
       {
@@ -273,7 +272,7 @@ describe('simple card effects', () => {
           p2: [creature('P2 draw 1'), creature('P2 draw 2'), creature('P2 draw 3')],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }

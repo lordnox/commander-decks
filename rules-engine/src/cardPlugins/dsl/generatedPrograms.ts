@@ -173,7 +173,18 @@ const rewriteInstructions = (
       }
       case 'forEachPlayer': {
         const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
-        return { ...instruction, of: rewriteValue(instruction.of) as typeof instruction.of, instructions: nested.instructions }
+        const bindMax = instruction.bindMax
+          ? {
+              ...instruction.bindMax,
+              as: resultAliases[instruction.bindMax.as] ?? instruction.bindMax.as,
+            }
+          : undefined
+        return {
+          ...instruction,
+          of: rewriteValue(instruction.of) as typeof instruction.of,
+          instructions: nested.instructions,
+          ...(bindMax ? { bindMax } : {}),
+        }
       }
       case 'forEach': {
         const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)

@@ -277,6 +277,7 @@ import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
 import wateryGrave from './watery-grave'
 import werefoxBodyguard from './werefox-bodyguard'
+import windfall from './windfall'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
@@ -572,6 +573,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Waterlogged Grove": waterloggedGrove,
   "Watery Grave": wateryGrave,
   "Werefox Bodyguard": werefoxBodyguard,
+  "Windfall": windfall,
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,

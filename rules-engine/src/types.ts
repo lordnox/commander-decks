@@ -4,7 +4,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { InstructionResult, ObjectOccurrenceFilter, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
+import type { InstructionResult, ObjectOccurrenceFilter, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -550,6 +550,7 @@ export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | {
 export type ProgramScopeFrame = {
   iterationPlayer?: PlayerId
   restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
+  collectMax?: ResultMaxBinding
   path: string
   /** Target binding scope used by instructions in this frame. */
   scopeId?: string
@@ -586,6 +587,8 @@ export type CanonicalResolutionFrame = {
   playerChoiceBindings?: string[]
   choices?: Record<string, CanonicalChoiceRecipient[]>
   results?: Record<string, InstructionResult>
+  /** Maxima collected across forEachPlayer iterations; restore does not rewind them. */
+  resultMaxima?: Record<string, number>
   pendingResult?: {
     binding: string
     kind: 'counter' | 'action' | 'amount'
