@@ -608,12 +608,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "5886d94dc91eca6e7da217085ab21cb60abb40a194e16377573d01b327623311",
-    "card": "Bender's Waterskin"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "b39fec1f917bdf09ac7cc75adcb2e7c29472ba4d1c26960a6f8ec9fd39c322be",
     "card": "Baird, Steward of Argive"
   },

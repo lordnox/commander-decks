@@ -137,10 +137,6 @@ describe('card plugin registry', () => {
       expect(cardPluginEntry(generic)).toBeUndefined()
     }
 
-    expect(cardPluginEntry("Bender's Waterskin")).toMatchObject({
-      pluginIds: ['extraUntap'],
-      handlerIds: [],
-    })
     expect(cardPluginEntry('Souls of the Faultless')).toBeUndefined()
   })
 

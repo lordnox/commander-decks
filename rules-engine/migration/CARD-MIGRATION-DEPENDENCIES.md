@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 20 countering and spell-eligibility slices. **134 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 20 countering and spell-eligibility slices. **133 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **134 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **133 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -17,7 +17,6 @@ Current readiness: **0 composition candidates**; **134 blocked or awaiting sourc
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
 | `Baird, Steward of Argive` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
-| `Bender's Waterskin` | 10 | [13-untap](CARD-MIGRATION-BATCHES.md#13-untap) | Blocked by mechanics | Other-player untap-step rule, not a bonus-mana mechanic. |
 | `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |

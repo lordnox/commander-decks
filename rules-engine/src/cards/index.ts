@@ -1,3 +1,4 @@
+import bendersWaterskin from './benders-waterskin'
 import keepSafe from './keep-safe'
 import decisiveDenial from './decisive-denial'
 import mossbornHydra from './mossborn-hydra'
@@ -282,6 +283,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Bender's Waterskin": bendersWaterskin,
   'Keep Safe': keepSafe,
   'Decisive Denial': decisiveDenial,
   'Mossborn Hydra': mossbornHydra,

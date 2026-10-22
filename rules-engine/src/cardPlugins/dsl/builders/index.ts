@@ -314,6 +314,9 @@ export const grantKeyword = (input: Omit<Extract<ContinuousEffectDefinition, { k
 export const suppressKeyword = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'suppressKeyword' }>, 'kind'>) =>
   immutableData({ kind: 'suppressKeyword' as const, ...input })
 
+export const untapDuringOtherPlayersSteps = (targets: ObjectSelector) =>
+  immutableData({ kind: 'untapDuringOthers' as const, targets })
+
 export const noMaximumHandSize = (): ContinuousEffectDefinition =>
   immutableData({ kind: 'noMaximumHandSize' })
 

@@ -2005,3 +2005,16 @@ test('Keep Safe counters a spell targeting a controlled permanent then draws onc
     instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }, { kind: 'draw', count: { kind: 'constant', value: 1 } }],
   })
 })
+
+
+test('Benders Waterskin participates in other-player untaps and offers five one-mana choices', () => {
+  const abilities = cardRuleDefinitionSnapshotFor("Bender's Waterskin")!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'untapDuringOthers', targets: { kind: 'objects', filter: { among: { kind: 'contextRef', name: 'source' } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+  if (abilities[1].kind !== 'activated') throw new Error('expected activated ability')
+  const instruction = abilities[1].instructions?.[0]
+  if (instruction?.kind !== 'chooseInstructions') throw new Error('expected mana choices')
+  expect(instruction.options.map(option => option.label)).toEqual([...CARD_COLORS])
+})

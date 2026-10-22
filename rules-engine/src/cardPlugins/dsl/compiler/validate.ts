@@ -1706,6 +1706,13 @@ export const validateDefinitionV1 = (root: unknown): {
               exactKeys(node, effectPath, ['kind'], ['kind'])
               return
             }
+            case 'untapDuringOthers': {
+              exactKeys(node, effectPath, ['kind', 'targets'], ['kind', 'targets'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'untap participation requires an object selector')
+              }
+              return
+            }
             case 'extraLandPlays': {
               exactKeys(node, effectPath, ['kind', 'count'], ['kind', 'count'])
               const count = node.count

@@ -341,7 +341,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     allCreatureTypes(),
     encore('{6}{W}{W}'),
   ],
-  'Bender\'s Waterskin': [staticGrant('extraUntap')],
   'Bishop of Binding': [
     handler('linkedExile'),
     handler('exilePayoffs'),

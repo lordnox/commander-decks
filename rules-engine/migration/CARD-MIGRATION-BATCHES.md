@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 20 countering and spell-eligibility slices; continues #394 and #383. **134 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal, Primal Tide are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 20 countering and spell-eligibility slices; continues #394 and #383. **133 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal, Primal Tide are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 58 available, 1 awaiting correctness follow-up, and 111 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 59 available, 1 awaiting correctness follow-up, and 110 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -163,7 +163,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Tenuous Truce`; `Wall of Shards` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
-| <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
+| <a id="13-untap"></a>**13-untap — Other-player untap participation** | Available | Untap qualifying permanents during other players' turn-based untap action, once per permanent with stun and phasing semantics. Bender's Waterskin has migrated. | — | None remaining |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
 
 ### 14. Amounts and characteristic queries

@@ -643,6 +643,7 @@ export type ContinuousEffectDefinition =
   | { kind: 'noMaximumHandSize' }
   /** Marker for “this spell can’t be countered”; inspected at cast, not as a layer. */
   | { kind: 'cannotBeCountered' }
+  | { kind: 'untapDuringOthers'; targets: ObjectSelector }
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector }
   | {

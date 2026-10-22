@@ -11,7 +11,6 @@ import { doubleFaced } from './plugins/doubleFaced'
 import { enchantedManaBoost } from './plugins/enchantedManaBoost'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { attackSubtypeDraw } from './plugins/attackSubtypeDraw'
-import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
 import { forestOverlay } from './plugins/forestOverlay'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
@@ -124,7 +123,6 @@ export const optionalPlugins = [
   grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
-  extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

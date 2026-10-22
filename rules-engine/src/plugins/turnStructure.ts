@@ -11,7 +11,8 @@ import { phaseInControlledBeforeUntap } from './phasing'
 import { clearAttackBans } from '../cardPlugins/attackBan'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
 import { beginDrawStepInstance } from '../rules/drawStepHistory'
-import { untapStepUntaps } from '../rules/untap'
+import { otherPlayerUntapParticipants } from '../cardPlugins/dsl/untapParticipation'
+import { untapPermanent, untapStepUntaps } from '../rules/untap'
 
 export const STEPS: StepId[] = [...STEP_IDS]
 
@@ -63,11 +64,13 @@ const cleanupHandSizeError = (state: GameState) => {
 
 const onUntap = (draft: Draft) => {
   phaseInControlledBeforeUntap(draft, draft.active)
+  const otherUntaps = otherPlayerUntapParticipants(draft)
   for (const object of draft.zoneOf('battlefield', draft.active)) {
     untapStepUntaps(draft, object)
     object.summoningSickness = false
     object.loyaltyActivatedTurn = null
   }
+  for (const object of otherUntaps) untapPermanent(draft, object)
   draft.players[draft.active].landsPlayed = 0
   // "this turn" counters start over for everyone, not just the active seat.
   for (const player of draft.playerOrder) {
