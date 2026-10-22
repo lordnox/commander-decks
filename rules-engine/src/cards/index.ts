@@ -1,3 +1,4 @@
+import sailIntoTheWest from './sail-into-the-west'
 import mirkwoodBats from './mirkwood-bats'
 import phialOfGaladriel from './phial-of-galadriel'
 import ripplesOfUndeath from './ripples-of-undeath'
@@ -504,6 +505,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   'Bishop of Binding': bishopOfBinding,
   'Phyrexian Ingester': phyrexianIngester,
   "Palace Jailer": palaceJailer,
+  "Sail into the West": sailIntoTheWest,
   "Mirkwood Bats": mirkwoodBats,
   "Phial of Galadriel": phialOfGaladriel,
   "Ripples of Undeath": ripplesOfUndeath,

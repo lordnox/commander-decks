@@ -549,7 +549,7 @@ describe('card plugin registry', () => {
 
   test('council cards register the vote engine handlers they need', () => {
     expect(handlerIdsForNames(['Sail into the West']).toSorted())
-      .toEqual(['choiceEffects', 'eachPlayerWheel', 'onResolve', 'vote'])
+      .toEqual([])
     expect(handlerIdsForNames(["Selvala's Stampede"])).toEqual([])
     expect(cardPluginEntry("Selvala's Stampede")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Selvala's Stampede")).toBeDefined()

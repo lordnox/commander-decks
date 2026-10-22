@@ -413,6 +413,9 @@ export type VoteSpec =
   | { kind: 'players'; filter?: PlayerFilter }
 
 export type Instruction =
+  | { kind: 'discardHands'; targets: PlayerRecipient }
+  | { kind: 'chooseParticipants'; of: PlayerRecipient; bindChoice: string; prompt?: string }
+  | { kind: 'chooseCardsForEachPlayer'; of: PlayerRecipient; filter: ObjectSelector; min: Amount; max: Amount; bindChoice: string }
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
   | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */

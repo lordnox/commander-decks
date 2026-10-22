@@ -927,6 +927,10 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'discardHands':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'exileThisSpell':
         exactKeys(node, path, ['kind'], ['kind'])
         return
@@ -1328,6 +1332,20 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'instructions'], ['kind', 'instructions'])
         validateInstructionList(node.instructions, childPath(path, 'instructions'), env, depth + 1)
         return
+      case 'chooseParticipants':
+      case 'chooseCardsForEachPlayer': {
+        exactKeys(node, path, node.kind === 'chooseParticipants' ? ['kind', 'of', 'bindChoice', 'prompt'] : ['kind', 'of', 'bindChoice', 'filter', 'min', 'max'], ['kind', 'of', 'bindChoice', ...(node.kind === 'chooseCardsForEachPlayer' ? ['filter', 'min', 'max'] : [])])
+        validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
+        if (node.kind === 'chooseCardsForEachPlayer') {
+          const playerEnv = withEventPlayer(env)
+          if (validateSelector(node.filter, childPath(path, 'filter'), playerEnv) !== 'object') issue(path, 'domain', 'collected card choices require objects')
+          validateAmount(node.min, childPath(path, 'min'), playerEnv)
+          validateAmount(node.max, childPath(path, 'max'), playerEnv)
+          if (isData(node.min) && isData(node.max) && node.min.kind === 'constant' && node.max.kind === 'constant' && Number(node.min.value) > Number(node.max.value)) issue(path, 'bounds', 'choice minimum exceeds maximum')
+        } else if (node.prompt !== undefined && (typeof node.prompt !== 'string' || node.prompt.length === 0)) issue(childPath(path, 'prompt'), 'type', 'expected a nonempty prompt')
+        declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: node.kind === 'chooseParticipants' ? 'player' : 'object' }, childPath(path, 'bindChoice'))
+        return
+      }
       case 'choosePlayer':
         exactKeys(node, path, ['kind', 'chooser', 'filter', 'bindChoice'], ['kind', 'chooser', 'filter', 'bindChoice'])
         validateRecipient(node.chooser, childPath(path, 'chooser'), env, ['player'])

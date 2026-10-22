@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 111,
+    "cardRegistrations": 110,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 85,
     "directMutationSites": 576,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 72,
+    "instructionUnobservedGaps": 75,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 113,
-    "candidateOnlyCardRows": 106
+    "candidateOnlyInstructionRows": 110,
+    "candidateOnlyCardRows": 105
   },
   "cardEffects": [
     {
@@ -694,7 +694,6 @@
         "Reins of Power:effects[0]",
         "Rishkar's Expertise:effects[0]",
         "Roaming Throne:effects[2]",
-        "Sail into the West:effects[0]",
         "Sakashima of a Thousand Faces:effects[1]",
         "Show and Tell:effects[0]",
         "Six:effects[0]",
@@ -715,7 +714,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 185,
+        "matches": 177,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -1615,10 +1614,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:101",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:343 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:363 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:414 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
@@ -1976,7 +1975,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 97,
+        "matches": 98,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -1984,8 +1983,8 @@
           "live-runner/src/kernelHost.test.ts:503 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:101",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:343 — test('an open vote survives a host restart and a tie still draws', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2198,28 +2197,17 @@
     {
       "variant": "eachPlayerMayWheel",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Sail into the West:effects[0].do[0].outcome[0].whenFalse[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2412,21 +2400,12 @@
     {
       "variant": "exileThisSpell",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Sail into the West:effects[0].do[0].outcome[0].whenTrue[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2268 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2615,10 +2594,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:101",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:343 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:363 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:414 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
@@ -2864,7 +2843,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 28,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -2914,22 +2893,11 @@
     {
       "variant": "ifVoteLeads",
       "mechanic": "structured control flow",
-      "currentRegistrations": [
-        "Sail into the West:effects[0].do[0].outcome[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2938,7 +2906,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4302,22 +4270,11 @@
     {
       "variant": "returnChosenLandFromGraveyard",
       "mechanic": "resolution choice",
-      "currentRegistrations": [
-        "Sail into the West:effects[0].do[0].outcome[0].whenTrue[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4326,7 +4283,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4696,11 +4653,11 @@
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1056 — test('a restored private choice survives a host restart', async () => {",
           "live-runner/src/kernelHost.test.ts:3961 — test('a top-of-library choice preserves its revealed order', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:649 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:101",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:343 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:363 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:414 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:483 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4768,7 +4725,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:559 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:393 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:206 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:13",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:146 — test('a host restart still sees the open secret vote', () => {",
@@ -5071,21 +5028,20 @@
       "variant": "vote",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Sail into the West:effects[0].do[0]",
         "Trap the Trespassers:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 24,
+        "matches": 15,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1311 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:69 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2097 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2110 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2122 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2134 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2265 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/vote.test.ts:87 — test('voters answer in APNAP order from the controller and each ballot is validated', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -5741,7 +5697,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:559 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:393 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:206 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:13",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:146 — test('a host restart still sees the open secret vote', () => {",
@@ -5983,10 +5939,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:101",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:343 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:363 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:414 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
@@ -7897,53 +7853,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Sail into the West",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Sail into the West"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 10,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [eachPlayerMayWheel, exileThisSpell, ifVoteLeads, returnChosenLandFromGraveyard, vote]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "eachPlayerMayWheel",
-        "exileThisSpell",
-        "ifVoteLeads",
-        "returnChosenLandFromGraveyard",
-        "vote"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "eachPlayerWheel",
-        "onResolve",
-        "vote"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Sakashima of a Thousand Faces",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9655,7 +9564,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 202,
+        "matches": 203,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -10268,7 +10177,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 251,
+        "matches": 253,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -10512,23 +10421,22 @@
       "variant": "vote",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [
-        "Sail into the West",
         "Trap the Trespassers"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/vote.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 30,
+        "matches": 21,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1311 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:69 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2097 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2110 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2122 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2134 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2265 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/vote.test.ts:118 — test('the leading option continues the then branch and a tie takes otherwise', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10992,7 +10900,7 @@
         "matches": 7,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1969 — test('a generic pending dialog can put several permanent cards from hand', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:586 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:420 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/dumpFromHand.test.ts:50 — test('Show and Tell asks each player to put a permanent', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:160 — test('−10 gains and draws seven, then puts only the chosen permanents onto the battlefield', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:127 — test('finishing the council is heard like any other vote', () => {",
@@ -11096,7 +11004,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:573 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:407 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:156 — test('a host restart still sees the open secret vote', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:49 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {"
         ]
@@ -11206,7 +11114,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:790",
+        "rules-engine/src/cardPlugins/cardRules.ts:772",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:165",
         "rules-engine/src/cardPlugins/effectRuntime.ts:404",
@@ -11230,7 +11138,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1354"
+        "rules-engine/src/types.ts:1356"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -11293,7 +11201,7 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
-        "rules-engine/src/driver.ts:1369",
+        "rules-engine/src/driver.ts:1378",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -11323,9 +11231,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1396",
-        "rules-engine/src/types.ts:322",
-        "rules-engine/src/types.ts:324",
-        "rules-engine/src/types.ts:328"
+        "rules-engine/src/types.ts:323",
+        "rules-engine/src/types.ts:325",
+        "rules-engine/src/types.ts:329"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -11399,11 +11307,11 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:10",
-        "rules-engine/src/types.ts:149",
-        "rules-engine/src/types.ts:285",
-        "rules-engine/src/types.ts:347",
-        "rules-engine/src/types.ts:73",
-        "rules-engine/src/types.ts:90"
+        "rules-engine/src/types.ts:150",
+        "rules-engine/src/types.ts:286",
+        "rules-engine/src/types.ts:348",
+        "rules-engine/src/types.ts:74",
+        "rules-engine/src/types.ts:91"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -11833,12 +11741,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          717,
-          736
+          718,
+          737
         ],
         "samples": [
-          "717: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "736: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "718: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "737: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12420,15 +12328,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          327,
-          744,
-          1980,
-          2010
+          334,
+          751,
+          2010,
+          2040
         ],
         "samples": [
-          "327: const liveSource = draft.object(source.ref.objectId)",
-          "744: const source = draft.object(sourceId)",
-          "1980: const object = draft.object(item.objectId)"
+          "334: const liveSource = draft.object(source.ref.objectId)",
+          "751: const source = draft.object(sourceId)",
+          "2010: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13033,44 +12941,44 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          380,
-          878,
-          905,
-          914,
-          932,
-          951,
-          992,
+          381,
+          888,
+          915,
+          924,
+          942,
+          961,
           1002,
-          1011,
-          1024,
-          1026,
-          1038,
-          1049,
-          1053,
-          1058,
-          1061,
-          1070,
-          1076,
-          1088,
-          1092,
-          1105,
-          1112,
-          1127,
-          1197,
-          1264,
-          1267,
-          1287,
-          1291,
-          1300,
-          1306,
-          1314,
+          1012,
+          1021,
+          1034,
+          1036,
+          1048,
+          1059,
+          1063,
+          1068,
+          1071,
+          1080,
+          1086,
+          1098,
+          1102,
+          1115,
+          1122,
+          1137,
+          1207,
+          1274,
+          1277,
+          1297,
+          1301,
+          1310,
           1316,
-          1321
+          1324,
+          1326,
+          1331
         ],
         "samples": [
-          "380: draft.enqueue({",
-          "878: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "905: const object = objectId ? draft.object(objectId) : undefined"
+          "381: draft.enqueue({",
+          "888: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "915: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13249,22 +13157,22 @@
       {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
-          355,
-          529,
-          626,
-          635,
-          716,
-          733,
-          763,
-          785,
-          844,
-          959,
-          986
+          359,
+          533,
+          630,
+          639,
+          720,
+          737,
+          779,
+          801,
+          860,
+          975,
+          1002
         ],
         "samples": [
-          "355: const object = draft.object(identity.objectId)",
-          "529: const object = draft.object(recipient.objectId)",
-          "626: const source = draft.object(original.objectId)"
+          "359: const object = draft.object(identity.objectId)",
+          "533: const object = draft.object(recipient.objectId)",
+          "630: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

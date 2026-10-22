@@ -1,3 +1,5 @@
+import { PARTICIPATION_OPTION } from './collectedChoices'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
@@ -199,4 +201,41 @@ test('vote programs reject unknown option ids at compile time', () => {
     }),
     ifThen(voteLeads('missing', 'a'), { then: [draw(1)] }),
   ] })]))).toThrow()
+})
+
+test.each([
+  ['return', 'return', true],
+  ['return', 'embark', false],
+  ['embark', 'embark', false],
+] as const)('voted recovery/exile and optional discard/draw compose from the catalog (%s/%s)', (first, second, returning) => {
+  const game = createServerGame(commanderRules, { players: 2,
+    hands: {
+      p1: [cardTemplate('Sail into the West', { manaCost: '{0}' }), cardTemplate('One hand'), cardTemplate('One recovery', { zone: 'graveyard' })],
+      p2: [cardTemplate('Two hand'), cardTemplate('Two recovery', { zone: 'graveyard' })],
+    },
+    libraries: { p1: Array.from({ length: 8 }, (_, i) => cardTemplate(`One library ${i}`)), p2: Array.from({ length: 8 }, (_, i) => cardTemplate(`Two library ${i}`)) },
+  }, { random: () => 0 })
+  const spellId = named(game.state, 'Sail into the West').id
+  let state = resolveStack(game.rules, ok(game.rules(game.state, { type: 'castSpell', seat: 'p1', objectId: spellId })))
+  state = ok(answer(game, state, 'p1', first))
+  state = ok(answer(game, state, 'p2', second))
+  if (returning) {
+    for (const seat of ['p1', 'p2']) {
+      const pending = pendingSelectionFor(state, seat)!
+      state = ok(game.rules(state, { type: 'selectCards', seat, selectionId: pending.id, kind: 'choose', count: pending.count, objectIds: seat === 'p1' ? pending.candidates : [] }))
+    }
+    expect(state.objects[spellId]!.zone).toBe('exile')
+    expect(named(state, 'One recovery').zone).toBe('hand')
+    expect(named(state, 'Two recovery').zone).toBe('graveyard')
+  } else {
+    state = ok(answer(game, state, 'p1', PARTICIPATION_OPTION.accept))
+    expect(named(state, 'One hand').zone).toBe('hand')
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    state = ok(answer(game, state, 'p2', PARTICIPATION_OPTION.decline))
+    expect(state.zoneOrder.p1.hand).toHaveLength(7)
+    expect(state.zoneOrder.p2.hand).toHaveLength(1)
+    expect(named(state, 'One hand').zone).toBe('graveyard')
+    expect(state.objects[spellId]!.zone).toBe('graveyard')
+  }
+  expect(state.resolution).toBeUndefined()
 })

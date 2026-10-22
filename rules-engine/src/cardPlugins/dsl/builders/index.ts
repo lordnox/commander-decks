@@ -1227,3 +1227,9 @@ export const becomesTapped = (filter: ObjectOccurrenceFilter) => immutableData({
 export const tappedForMana = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'tappedForMana' as const, filter })
 
 export const exileThisSpell = () => immutableData({ kind: 'exileThisSpell' as const })
+
+export const chooseParticipants = (input: Omit<Extract<Instruction, { kind: 'chooseParticipants' }>, 'kind'>) => immutableData({ kind: 'chooseParticipants' as const, ...input })
+
+export const chooseCardsForEachPlayer = (input: Omit<Extract<Instruction, { kind: 'chooseCardsForEachPlayer' }>, 'kind' | 'min' | 'max'> & { min: AmountInput; max: AmountInput }) => immutableData({ kind: 'chooseCardsForEachPlayer' as const, ...input, min: toAmount(input.min), max: toAmount(input.max) })
+
+export const discardHands = (input: { targets: PlayerRecipient }) => immutableData({ kind: 'discardHands' as const, ...input })

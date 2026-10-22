@@ -1,3 +1,4 @@
+import { COLLECTED_CHOICE_ACTION, PARTICIPATION_OPTION } from '../cardPlugins/dsl/collectedChoices'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
@@ -160,6 +161,9 @@ export type PendingOptionSelection = {
     paymentAmount: number
     bindings?: ResolutionPaymentBindings
     manaActivations?: readonly ResolutionManaActivation[]
+  } | {
+    kind: typeof COLLECTED_CHOICE_ACTION.participants
+    stackId: string
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
@@ -744,6 +748,18 @@ export const selectOptions: Plugin = {
         }
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      return
+    }
+    if (selection.action.kind === COLLECTED_CHOICE_ACTION.participants) {
+      const frame = draft.resolution
+      const pending = frame?.kind === 'canonicalSpell' && frame.stackId === selection.action.stackId ? frame.collectedPlayerChoices : undefined
+      if (!frame || frame.kind !== 'canonicalSpell' || !pending || pending.awaiting !== event.seat) return
+      if (event.optionId !== PARTICIPATION_OPTION.accept && event.optionId !== PARTICIPATION_OPTION.decline) return
+      if (event.optionId === PARTICIPATION_OPTION.accept) pending.participants.push(event.seat)
+      delete pending.awaiting
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      frame.phase = 'running'
+      draft.priority = null
       return
     }
     if (selection.action.kind === 'canonicalResolutionPayment') {

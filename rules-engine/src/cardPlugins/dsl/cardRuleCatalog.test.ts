@@ -2257,3 +2257,16 @@ test('Mirkwood Bats retains flying and one untargeted opponent drain per created
     { kind: 'triggered', on: { kind: 'sacrificed', filter: { controller: 'you', token: true } }, decisions: { targets: [] }, instructions: [{ kind: 'loseLife', amount: { value: 1 }, targets: { kind: 'players', filter: { relation: 'opponent' } } }] },
   ])
 })
+
+
+test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {
+  expect(cardRuleDefinitionSnapshotFor('Sail into the West')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'vote', options: { kind: 'named', options: [{ id: 'return' }, { id: 'embark' }] } },
+      { kind: 'if', condition: { kind: 'voteLeads', binding: 'vote', option: 'return' }, then: [
+        { kind: 'chooseCardsForEachPlayer', min: { value: 0 }, max: { value: 2 }, filter: { filter: { zone: 'graveyard', owner: { name: 'event.player' } } } },
+        { kind: 'move', to: 'hand' }, { kind: 'exileThisSpell' },
+      ], otherwise: [{ kind: 'chooseParticipants' }, { kind: 'discardHands' }, { kind: 'draw', count: { value: 7 } }] },
+    ] },
+  ])
+})

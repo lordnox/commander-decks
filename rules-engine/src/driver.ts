@@ -1,3 +1,4 @@
+import { advanceCollectedChoices } from './cardPlugins/dsl/collectedChoices'
 import { evaluateLifeTotalAmount } from './cardPlugins/dsl/compiler/evaluate'
 import { availableManaTypes } from './cardPlugins/dsl/manaTypes'
 import { PLAYER_PROGRAM_CHOICE_ACTION } from './cardPlugins/dsl/playerProgramConstants'
@@ -61,6 +62,9 @@ import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLa
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'discardHands',
+  'chooseParticipants',
+  'chooseCardsForEachPlayer',
   'exileThisSpell',
   'becomeMonarch',
   'choosePlayer',
@@ -154,6 +158,8 @@ const preflightInstructions = (
       case 'vote':
       case 'chooseRandom':
       case 'changeControl':
+      case 'chooseParticipants':
+      case 'chooseCardsForEachPlayer':
       case 'choosePlayer':
       case 'capturePlayer':
       case 'captureAmount':
@@ -184,6 +190,7 @@ const preflightInstructions = (
       case 'payOptional':
       case 'createDelayed':
       case 'mill':
+      case 'discardHands':
       case 'discard':
       case 'shuffle':
       case 'lockOrUnlockDoor':
@@ -1180,6 +1187,8 @@ const actionEvents = (
         seat,
       }))
     }
+    case 'discardHands':
+      return recipients(instruction.targets, context).flatMap(seat => (context.state.zoneOrder[seat].hand ?? []).map(objectId => ({ type: 'discard' as const, seat, objectId })))
     case 'discard': {
       if (instruction.by !== undefined) {
         const by = evaluatePlayerReference(instruction.by, context)[0]
@@ -1398,6 +1407,7 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (advanceCollectedChoices(draft)) return { kind: 'events' as const, events: [] }
   if (frame.pendingMilledChoice) {
     const pending = frame.pendingMilledChoice
     frame.choices = { ...frame.choices, [pending.binding]: pending.objects.flatMap(ref => {
@@ -1522,6 +1532,26 @@ export const prepareResolutionStep = (draft: Draft) => {
         instructions: structuredClone(instruction.instructions),
         cursor: 0,
       })
+      continue
+    }
+    if (instruction.kind === 'chooseParticipants' || instruction.kind === 'chooseCardsForEachPlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const selected = new Set(recipients(instruction.of, context))
+      const seats = apnapSeats(draft).filter(seat => selected.has(seat))
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      if (instruction.kind === 'chooseParticipants') frame.playerChoiceBindings = [...(frame.playerChoiceBindings ?? []), instruction.bindChoice]
+      frame.collectedPlayerChoices = {
+        kind: instruction.kind === 'chooseParticipants' ? 'participants' : 'cards', binding: instruction.bindChoice,
+        ...(instruction.kind === 'chooseParticipants' && instruction.prompt ? { prompt: instruction.prompt } : {}),
+        participants: [], cards: [], requests: seats.map(seat => {
+          const runtime = withOccurrencePlayer(context, seat)
+          const min = instruction.kind === 'chooseCardsForEachPlayer' ? evaluateRuntimeAmount(instruction.min, runtime) : 0
+          const max = instruction.kind === 'chooseCardsForEachPlayer' ? evaluateRuntimeAmount(instruction.max, runtime) : 0
+          if (min > max) throw pathError(frame, path, 'choice minimum exceeds maximum')
+          return { seat, candidates: instruction.kind === 'chooseCardsForEachPlayer' ? evaluateObjectSelector(instruction.filter, runtime).map(objectIdentity) : [], min, max }
+        }),
+      }
+      if (advanceCollectedChoices(draft)) return { kind: 'events', events: [] }
       continue
     }
     if (instruction.kind === 'forEachPlayer') {

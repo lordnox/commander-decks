@@ -1,3 +1,4 @@
+import type { CollectedPlayerChoices } from './cardPlugins/dsl/collectedChoices'
 import type { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import type PluginCatalog from './catalog'
 import type Draft from './draft'
@@ -630,6 +631,7 @@ export type CanonicalResolutionFrame = {
   /** Simultaneous top-library choices wait for every player before moving cards. */
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   /** New identities to bind after the current move instruction commits. */
+  collectedPlayerChoices?: CollectedPlayerChoices
   pendingMovedChoice?: { binding: string; objects: ObjectIdentity[] }
   /** Token identities created by the current createToken or copy instruction. */
   pendingCreatedChoice?: { binding: string; beforeIds: string[] }

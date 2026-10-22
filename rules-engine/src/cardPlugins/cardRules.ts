@@ -136,15 +136,11 @@ import {
   createHeroWithLandCounters,
   removeTarget,
   vote,
-  ifVoteLeads,
   forEachVoter,
   forEachVotedOption,
   putCountersOnTriggeringObject,
   tapTriggeringObject,
   onVotesFinished,
-  eachPlayerReturn,
-  eachPlayerMayWheel,
-  exileThisSpell,
   playerAuraDeal,
   targetingRequirement,
   opponentMayDrawThenStealCast,
@@ -698,20 +694,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ward({ mana: 2 }),
     handler('ward'),
     enters(chooseCreatureType('addToSource')),
-  ],
-  'Sail into the West': [
-    onResolve(vote(
-      'Vote for return or embark.',
-      {
-        kind: 'named',
-        options: [{ id: 'return', label: 'Return' }, { id: 'embark', label: 'Embark' }],
-      },
-      [ifVoteLeads(
-        'return',
-        [eachPlayerReturn(2), exileThisSpell()],
-        [eachPlayerMayWheel(7)],
-      )],
-    )),
   ],
   'Sakashima of a Thousand Faces': [
     legendRuleOff(),

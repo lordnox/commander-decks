@@ -578,12 +578,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "6a6d9e0f780b0aa4d22cb87b1c7f4f1748d1dc5af037e62f77fc310e56737733",
-    "card": "Sail into the West"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "d717d8e21ef5a93ba226322dc0e6ebff02e0d122ee9ba1b9c8750ffecd83406a",
     "card": "Trap the Trespassers"
   },

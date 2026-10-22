@@ -1,3 +1,4 @@
+import { COLLECTED_CHOICE_ACTION } from '../cardPlugins/dsl/collectedChoices'
 import { REPLACEMENT_APPLICATION_CARD_CHOICE } from '../replacement/constants'
 import type Draft from '../draft'
 import { freezeDraft } from '../draft'
@@ -150,7 +151,7 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'partitionPiles' | 'choosePile'
+    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'partitionPiles' | 'choosePile' | typeof COLLECTED_CHOICE_ACTION.cards
     bindOther?: string
     replacementFrameId?: string
     payment?: {
@@ -797,6 +798,15 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
 
   if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
     && draft.resolution.stackId === canonicalChoice.stackId) {
+    if (canonicalChoice.action === COLLECTED_CHOICE_ACTION.cards) {
+      const pending = draft.resolution.collectedPlayerChoices
+      if (!pending || pending.awaiting !== event.seat) return
+      pending.cards.push(...(event.objectIds ?? []).flatMap(id => draft.objects[id] ? [objectIdentity(draft.objects[id]!)] : []))
+      delete pending.awaiting
+      draft.resolution.phase = 'running'
+      draft.priority = null
+      return
+    }
     if (canonicalChoice.action === 'partitionPiles' && selection.kind === 'partition') {
       const choices = parseChoices(event)
       if (!choices || !selection.pileController) return
