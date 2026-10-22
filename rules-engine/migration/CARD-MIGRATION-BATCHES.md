@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after continuous keyword grants and suppression; continues #394 and #383. **140 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after nonnegative differences and counter-count amounts; continues #394 and #383. **139 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 52 available, 1 awaiting correctness follow-up, and 117 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 53 available, 1 awaiting correctness follow-up, and 116 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -48,7 +48,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **15 is available:** player choice/iteration, commander status, quantified player comparisons, mana-ability filters, and name queries are canonical. Beza, Guardian Project, Field of the Dead, Moonsilver Key, and Singularity Rupture have migrated. Other consumers retain their independent prerequisites.
 - **16-hand-limit and 16-stack-object are available:** Sea Gate Restoration // Sea Gate, Reborn and Sink into Stupor // Soporific Springs have migrated with pay-life MDFC composition.
 
-- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/ward/counter-mutation/copy-entry gates.
+- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Mossborn Hydra has migrated with counter-count amounts; Everflowing Chalice, Famished Worldsire, and Spark Double retain their multikicker/ward/copy-entry gates.
 
 - **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices are now also available.
 
@@ -57,6 +57,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **21-reach and 21-fear are available:** canonical printed and temporary keywords use the shared blocking checks. Fear admits artifact or black creatures and preserves other restrictions. Profane Command has migrated with all four modes; reach consumers retain their other gates.
 
 **21-static and 21-suppress are available:** filtered and conditional keyword grants, conditional stat modifiers, and cannot-have-or-gain suppression use canonical printed-static lifetimes. Thunderfoot Baloth and Archetype of Endurance have migrated. Concordant Crossroads retains its newly identified **42-world** gate.
+
+**14-difference and 14-counters are available:** nonnegative subtraction composes with current counts; named counter amounts preserve captured object identity and read the current count at each instruction. Sandstone Oracle and Mossborn Hydra have migrated, including the former’s non-target opponent choice and the latter’s entry replacement.
 
 ## Suggested next work
 
@@ -167,7 +169,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
-| <a id="14-counters"></a>**14-counters — Counter-count amounts** | Open | Read named counter counts for production, doubling, or other numeric effects. | — | `Everflowing Chalice`; `Mossborn Hydra` |
+| <a id="14-counters"></a>**14-counters — Counter-count amounts** | Available | Read named current counter counts for production, doubling, or other numeric effects. Mossborn Hydra has migrated. | — | `Everflowing Chalice` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Available | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. Sandstone Oracle has migrated. | — | None remaining |
 | <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
@@ -183,7 +185,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
 | <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
-| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Sandstone Oracle`; `Wall of Shards` |
+| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Wall of Shards` |
 
 ### 16. Modal faces
 
@@ -199,7 +201,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="17-entry"></a>**17-entry — Conditional tapped entry** | Available | Count other lands/land types as entry is determined; preserve actual untapped-entry conditions for triggers. | — | `Hall of Storm Giants`; `Lair of the Hydra` |
 | <a id="17-reveal"></a>**17-reveal — Reveal-from-hand entry choice** | Available | Optional hand reveal as an entry replacement, with private choice and public reveal semantics. | — | None remaining |
-| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Famished Worldsire`; `Mossborn Hydra`; `Spark Double` |
+| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Famished Worldsire`; `Spark Double` |
 
 ### 18. Linked exile
 

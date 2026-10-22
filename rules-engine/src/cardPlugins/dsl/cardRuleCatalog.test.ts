@@ -1944,3 +1944,13 @@ test('Sandstone Oracle chooses rather than targets an opponent and draws the non
     ] },
   ])
 })
+
+
+test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {
+  expect(cardTemplateDefaultsFor('Mossborn Hydra')).toMatchObject({ types: ['Creature'], subtypes: ['Elemental', 'Hydra'], manaCost: '{2}{G}' })
+  expect(cardRuleDefinitionSnapshotFor('Mossborn Hydra')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } } } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'putCounters', targets: { kind: 'contextRef', name: 'source' }, counter: '+1/+1', count: { kind: 'counterCount', of: { kind: 'contextRef', name: 'source' }, counter: '+1/+1' } }] },
+  ])
+})

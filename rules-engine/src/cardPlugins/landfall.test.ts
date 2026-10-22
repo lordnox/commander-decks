@@ -113,47 +113,6 @@ describe('landfall', () => {
     expect(battlefieldNames(next)).not.toContain('Insect')
   })
 
-  test('Mossborn Hydra doubles its counters on each land', () => {
-    const server = game({
-      hand: [forest('First'), forest('Second')],
-      battlefield: [
-        card('Mossborn Hydra', ['Creature'], {
-          power: 1,
-          toughness: 1,
-          counters: { '+1/+1': 1 },
-        }),
-      ],
-    })
-    const first = playTopLand(server)
-    const hydra = Object.values(first.objects).find((object) => object.name === 'Mossborn Hydra')!
-    expect(hydra.counters['+1/+1']).toBe(2)
-    expect([hydra.power, hydra.toughness]).toEqual([2, 2])
-
-    const second = resolveStack(server.rules, ok(server.rules(
-      { ...first, players: { ...first.players, p1: { ...first.players.p1, landPlaysAllowed: 2 } } },
-      { type: 'playLand', seat: 'p1', objectId: first.zoneOrder.p1.hand[0] },
-    )))
-    const doubled = Object.values(second.objects).find((object) => object.name === 'Mossborn Hydra')!
-    expect(doubled.counters['+1/+1']).toBe(4)
-    expect([doubled.power, doubled.toughness]).toEqual([4, 4])
-  })
-
-  test('a 0/0 hydra survives its counters because printed values move with them', () => {
-    const server = game({
-      hand: [forest()],
-      battlefield: [
-        card('Mossborn Hydra', ['Creature'], {
-          power: 1,
-          toughness: 1,
-          counters: { '+1/+1': 1 },
-        }),
-      ],
-    })
-    const next = playTopLand(server)
-    expect(battlefieldNames(next)).toContain('Mossborn Hydra')
-    expect(next.zoneOrder.p1.graveyard).toHaveLength(0)
-  })
-
   test('Icetill Explorer mills the top card of its controller\'s library', () => {
     const server = game({
       hand: [forest()],

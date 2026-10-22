@@ -71,6 +71,10 @@ export const evaluateAmount = (
       if (!context.manaSpent) throw new RuleDslEvaluationError('manaSpent is not available in this execution context')
       return runtimeAmount(context.manaSpent(expression.color), 'manaSpent')
     }
+    case 'counterCount': {
+      if (!context.counterCount) throw new RuleDslEvaluationError('counterCount is not available in this execution context')
+      return runtimeAmount(context.counterCount(expression.of, expression.counter), 'counter count')
+    }
     case 'countDistinctNames': return runtimeAmount(context.count(expression.of, true), 'distinct name count')
     case 'count': return runtimeAmount(context.count(expression.of), 'selector count')
     case 'characteristic': return runtimeAmount(

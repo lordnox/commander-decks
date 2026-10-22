@@ -33,7 +33,6 @@ import {
   devour,
   discardHandsThenDrawGreatest,
   dredge,
-  doublePlusCounters,
   dealDamageToChosenTarget,
   draw,
   drawGreatestPower,
@@ -764,7 +763,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       effects: [attacks(optionalMill(1))],
     })),
   ],
-  'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
   Mulldrifter: [
     alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
     entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),

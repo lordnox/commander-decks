@@ -349,6 +349,11 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'color'], ['kind', 'color'])
         enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
         return
+      case 'counterCount':
+        exactKeys(node, path, ['kind', 'of', 'counter'], ['kind', 'of', 'counter'])
+        validateReference(node.of, childPath(path, 'of'), env, ['object'])
+        if (typeof node.counter !== 'string' || node.counter.trim().length === 0) issue(childPath(path, 'counter'), 'type', 'expected a nonempty counter name')
+        return
       case 'countDistinctNames':
         exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
         if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'domain', 'countDistinctNames requires an object selector')

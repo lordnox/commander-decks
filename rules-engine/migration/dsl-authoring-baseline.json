@@ -326,12 +326,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "910840bbb2562067d3916f7190ed26df60210681a372ae2740bb697010d2f93d",
-    "card": "Mossborn Hydra"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "34d8ed05e9e85c9d11c122bbf56334f9ef433fafcaf2927716d1f7363ace8d97",
     "card": "Myriad Landscape"
   },
@@ -924,16 +918,6 @@
     "path": "rules-engine/src/cardPlugins/modalSpell.ts",
     "code": "custom-picker-event",
     "digest": "760fb01a65dc31db7471afb298b4d35dde7d3ff69a3ecaec9e897a7c6f4689c9"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/mossborn-hydra.ts",
-    "code": "literal-name-dispatch",
-    "digest": "08b6ad1527d815a1320383b225f9134150a454a1cb8c2f052d67a52b401715a8"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/mossborn-hydra.ts",
-    "code": "literal-name-dispatch",
-    "digest": "f258e957e81d7ea9ed9ca9f8a493bc09bdd1d9f87db0194779b45baa527e3d60"
   },
   {
     "path": "rules-engine/src/cardPlugins/pit-of-offerings.ts",

@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 140,
+    "cardRegistrations": 139,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
     "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 31,
+    "cardNameDispatchSites": 30,
     "customEventDispatchSites": 85,
-    "directMutationSites": 579,
+    "directMutationSites": 578,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 57,
+    "instructionUnobservedGaps": 58,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 129,
-    "candidateOnlyCardRows": 135
+    "candidateOnlyInstructionRows": 128,
+    "candidateOnlyCardRows": 134
   },
   "cardEffects": [
     {
@@ -271,7 +271,6 @@
         "Lotho, Corrupt Shirriff:effects[0]",
         "Lumbering Battlement:effects[0]",
         "Lumbering Battlement:effects[1]",
-        "Mossborn Hydra:effects[1]",
         "Nezahal, Primal Tide:effects[2]",
         "Pit of Offerings:effects[1]",
         "Reins of Power:effects[1]",
@@ -284,7 +283,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 85,
+        "matches": 73,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1904 — test('Joint Exploration put-land dispatches a kernel move', () => {",
@@ -737,7 +736,6 @@
         "Mister Negative:effects[0]",
         "Mole Man, Moloid Master:effects[1]",
         "Mole Man, Moloid Master:effects[1].do[0].token.effects[0]",
-        "Mossborn Hydra:effects[0]",
         "Mulldrifter:effects[1]",
         "Mulldrifter:effects[2]",
         "Nezahal, Primal Tide:effects[3]",
@@ -781,7 +779,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 246,
+        "matches": 231,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -2076,22 +2074,11 @@
     {
       "variant": "doublePlusCounters",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Mossborn Hydra:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:252 — test('enters with a +1/+1 counter when its spell resolves', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:120 — test('Mossborn Hydra doubles its counters on each land', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:145 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:262 — test('the action runner emits a no-target fixed loyalty activation', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:307 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
-          "rules-engine/src/plugins/combat.test.ts:161 — test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {",
-          "site/src/TableBoard.test.tsx:104 — test('a summoning-sick card shows a status icon', () => {",
-          "site/src/TableBoard.test.tsx:136 — test('an eligible attacker is highlighted and exposes its selection state', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2099,7 +2086,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4168,16 +4155,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 13,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1060 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1310 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1594 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1954 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:160 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:82 — test('a delayed program retains a parent card choice after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
-          "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:213 — test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:567 — test('Split Decision and Trap the Trespassers register vote handlers', () => {"
+          "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:213 — test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -5041,7 +5028,7 @@
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:133 — test('Icetill Explorer can play a land from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:119 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
@@ -7205,7 +7192,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:133 — test('Icetill Explorer can play a land from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:119 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {"
         ]
       },
@@ -8079,47 +8066,6 @@
         "effects[1].do[0].token.effects[0]",
         "effects[1].do[0].token.effects[0].do[0]"
       ]
-    },
-    {
-      "card": "Mossborn Hydra",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mossborn Hydra"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 15,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:252 — test('enters with a +1/+1 counter when its spell resolves', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:120 — test('Mossborn Hydra doubles its counters on each land', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:145 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:262 — test('the action runner emits a no-target fixed loyalty activation', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:307 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
-          "rules-engine/src/plugins/combat.test.ts:161 — test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {",
-          "site/src/TableBoard.test.tsx:104 — test('a summoning-sick card shows a status icon', () => {",
-          "site/src/TableBoard.test.tsx:136 — test('an eligible attacker is highlighted and exposes its selection state', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler, trigger] and instructions [doublePlusCounters]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "doublePlusCounters"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "mossborn-hydra"
-      ],
-      "embeddedRulePaths": []
     },
     {
       "card": "Mulldrifter",
@@ -10368,7 +10314,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:246 — test('Yarok makes landfall happen an extra time for Aesi', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:205 — test('Yarok makes landfall happen an extra time for Aesi', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:62 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -12559,7 +12505,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1047",
+        "rules-engine/src/cardPlugins/cardRules.ts:1045",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -12924,21 +12870,6 @@
         ],
         "samples": [
           "29: if (source.name === 'Everybody Lives!') {"
-        ],
-        "mechanic": "card-name execution dispatch",
-        "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
-        "compatibilityRoute": "Retain this explicit legacy handler until its registrations have canonical conformance tests; do not copy the name check into the DSL driver.",
-        "ownerPart": "16",
-        "dependencyParts": [],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/mossborn-hydra.ts",
-        "lines": [
-          11
-        ],
-        "samples": [
-          "11: if (object?.name !== 'Mossborn Hydra' || object.zone !== 'battlefield') return"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -15132,23 +15063,6 @@
         ],
         "samples": [
           "27: draft.enqueue({ type: 'draw', seat: player.id as PlayerId, count })"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/mossborn-hydra.ts",
-        "lines": [
-          10
-        ],
-        "samples": [
-          "10: const object = draft.object(enteredId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

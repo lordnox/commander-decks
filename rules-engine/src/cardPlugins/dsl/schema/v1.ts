@@ -135,6 +135,7 @@ export type Amount =
   | { kind: 'manaSpent'; color: CardColor }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
+  | { kind: 'counterCount'; of: ObjectReference; counter: string }
   | { kind: 'countDistinctNames'; of: ObjectSelector }
   | {
       kind: 'greatest'
@@ -787,6 +788,7 @@ export type AmountEvaluationContext = {
     information: 'current' | 'currentOrLastKnown',
     fallback?: number,
   ) => number
+  counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
   damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number
 }

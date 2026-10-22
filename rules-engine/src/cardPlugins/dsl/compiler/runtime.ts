@@ -523,6 +523,11 @@ export const amountEvaluationContext = (
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
+  counterCount: (reference, counter) => {
+    const objects = evaluateObjectReference(reference, context)
+    if (objects.length > 1) throw new RuleDslEvaluationError('counterCount requires at most one current object')
+    return objects[0]?.counters[counter] ?? 0
+  },
   greatest: (selector, characteristic, _information) => {
     const values = evaluateObjectSelector(selector, context).map(object => {
       if (characteristic === 'life') return 0

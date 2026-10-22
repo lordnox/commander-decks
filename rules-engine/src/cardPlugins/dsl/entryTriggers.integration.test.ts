@@ -22,7 +22,6 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import type { GameState } from '../../types'
 import { hasKeyword } from '../../keywords'
-import { mossbornHydra } from '../mossborn-hydra'
 
 
 
@@ -235,46 +234,6 @@ describe('entryTriggers — integration', () => {
       expect(state.pendingTriggers ?? []).toHaveLength(0)
       expect(state.stack.some((item) => item.kind === 'ability')).toBe(false)
     })
-  })
-})
-
-describe('legacy enters-with-counter plugin', () => {
-  test('enters with a +1/+1 counter when its spell resolves', () => {
-    const forest = () => cardTemplate('Forest', {
-      types: ['Land'],
-      subtypes: ['Forest'],
-      tapProduces: { G: 1 },
-    })
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Mossborn Hydra', {
-            types: ['Creature'],
-            subtypes: ['Elemental', 'Hydra'],
-            power: 0,
-            toughness: 0,
-            manaCost: '{2}{G}',
-          })],
-        },
-        battlefield: { p1: [forest(), forest(), forest()] },
-      },
-      { random: () => 0.5, cardPlugins: [mossbornHydra] },
-    )
-    const [forestA, forestB, forestC] = server.state.zoneOrder.p1.battlefield
-    const hydraId = server.state.zoneOrder.p1.hand[0]
-    let state = server.state
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestA }))
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestB }))
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestC }))
-    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: hydraId }))
-    state = ok(server.rules(state, { type: 'passPriority', seat: 'p1' }))
-    state = ok(server.rules(state, { type: 'passPriority', seat: 'p2' }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const resolved = state.objects[hydraId]
-    expect(resolved.zone).toBe('battlefield')
-    expect(resolved.counters['+1/+1']).toBe(1)
-    expect([resolved.power, resolved.toughness]).toEqual([1, 1])
   })
 })
 
