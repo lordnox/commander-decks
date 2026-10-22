@@ -1,10 +1,12 @@
+import { captureObject } from '../../objectIdentity'
+import { CONTROL_EVENT } from './controlConstants'
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
-import { capturePlayer, card, compileCardRuleDefinition, controllerOf, damage, gainLife, move, objects, ownerOf, ref, resultPlayer, select, spell, stackItems, target } from './v1'
+import { createDefinitionSnapshot, whenever, capturePlayer, card, compileCardRuleDefinition, controllerOf, damage, gainLife, move, objects, ownerOf, ref, resultPlayer, select, spell, stackItems, target } from './v1'
 
 test('controller and owner are captured separately before a stolen permanent changes zones', () => {
   const server = createServerGame(commanderRules, {
@@ -46,4 +48,28 @@ test('player result bindings reject unbound, cross-domain and incorrectly owned 
     { decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] }, instructions: [capturePlayer({ player: ownerOf(target(0)), bindResult: 'player' })] },
     { instructions: [capturePlayer({ player: controllerOf(ref('controller')), bindResult: 'player' })] },
   ]) expect(() => compileCardRuleDefinition(card([spell(program)]))).toThrow()
+})
+
+
+test.each(['hand', 'returned', 'owner leaves'] as const)('current-or-LKI controller reads the actual damage source without following a new incarnation (%s)', mode => {
+  const watcher = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever({ kind: 'dealtDamage', filter: { combat: true } }, { instructions: [gainLife({ targets: controllerOf(ref('triggering.source'), { information: 'currentOrLastKnown' }), amount: 3 })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: {
+      p1: [cardTemplate('Watcher fixture', { types: ['Artifact'], ruleDefinition: watcher })],
+      p2: [cardTemplate('Damage fixture', { types: ['Creature'], power: 2, toughness: 2 })],
+    },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p2.battlefield[0]
+  let state = ok(server.rules(server.state, { type: 'dealDamage', sourceId: id, target: { kind: 'player', player: 'p1' }, amount: 1, combat: true }))
+  state = ok(server.rules(state, { type: CONTROL_EVENT.change, objectRef: captureObject(state.objects[id]).ref, controller: 'p3' }))
+  state = mode === 'owner leaves'
+    ? ok(server.rules(state, { type: 'concede', seat: 'p2' }))
+    : ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' }))
+  if (mode === 'returned') state = ok(server.rules(state, { type: 'move', objectId: id, to: 'battlefield' }))
+  state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(state.players.p3.life).toBe(43)
+  expect(state.players.p2.life).toBe(40)
 })

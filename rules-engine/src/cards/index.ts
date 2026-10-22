@@ -1,3 +1,4 @@
+import palaceJailer from './palace-jailer'
 import pitOfOfferings from './pit-of-offerings'
 import endlessSands from './endless-sands'
 import lumberingBattlement from './lumbering-battlement'
@@ -493,6 +494,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   'Lumbering Battlement': lumberingBattlement,
   'Bishop of Binding': bishopOfBinding,
   'Phyrexian Ingester': phyrexianIngester,
+  "Palace Jailer": palaceJailer,
   "Marina Vendrell": marinaVendrell,
   "Pit of Offerings": pitOfOfferings,
   "Marsh Flats": marshFlats,

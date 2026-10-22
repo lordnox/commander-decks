@@ -60,6 +60,7 @@ import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlu
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'becomeMonarch',
   'choosePlayer',
   'forEachPlayer',
   'inspectTop',
@@ -142,6 +143,7 @@ const preflightInstructions = (
       case 'grantFlash':
       case 'addManaChosenColor':
       case 'addManaFrom':
+      case 'becomeMonarch':
       case 'linkExile':
       case 'returnLinkedExile':
       case 'addMana':
@@ -252,7 +254,7 @@ export const startCanonicalResolution = (
   }
   const capturedOccurrence = item.execution?.capturedOccurrence
   for (const binding of capturedBindings?.occurrence ?? []) {
-    const available = binding === 'player'
+    const available = binding === 'source' ? capturedOccurrence?.source !== undefined : binding === 'player'
       ? capturedOccurrence?.player !== undefined
       : binding === 'object.before'
         ? capturedOccurrence?.object?.before !== undefined
@@ -351,6 +353,8 @@ export const startCanonicalResolution = (
     definitionSnapshot: structuredClone(definitionSnapshot),
     declarationPath,
     source: structuredClone(source),
+    ...(item.execution?.referencedObjects ? { referencedObjects: structuredClone(item.execution.referencedObjects) } : {}),    ...(item.execution?.sourceLess ? { sourceLess: true as const } : {}),
+    monarchRevision: item.execution?.monarchRevision ?? 0,
     scopeId: item.execution?.scopeId ?? resolutionDeclarationPath(abilityIndex),
     targetBindings: structuredClone(targetBindings),
     ...(item.x !== undefined || item.execution?.variables
@@ -395,6 +399,12 @@ export const startCanonicalResolution = (
   return frame
 }
 
+const capturedExecutionSource = (frame: CanonicalResolutionFrame) => ({
+  source: structuredClone(frame.source),
+  ...(frame.referencedObjects ? { referencedObjects: structuredClone(frame.referencedObjects) } : {}),  ...(frame.sourceLess ? { sourceLess: true as const } : {}),
+  ...(frame.monarchRevision !== undefined ? { monarchRevision: frame.monarchRevision } : {}),
+})
+
 const runtimeContext = (
   state: GameState,
   frame: CanonicalResolutionFrame,
@@ -404,6 +414,7 @@ const runtimeContext = (
   state,
   controller: frame.controller,
   source: frame.source,
+  ...(frame.referencedObjects ? { referencedObjects: frame.referencedObjects } : {}),  ...(item.execution?.sourceLess ? { sourceLess: true as const } : {}),
   stackItemId: item.id,
   ...((frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence)
     ? { occurrence: frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence }
@@ -624,7 +635,7 @@ const registerCanonicalDelayed = (
     objectRef: eventCondition.kind === 'event' ? eventCondition.objectRef : undefined,
     execution: {
       controller: frame.controller,
-      source: structuredClone(frame.source),
+      ...capturedExecutionSource(frame),
       ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
       ...(captured.capturedBindings.occurrence ? { capturedOccurrenceBindings: captured.capturedBindings.occurrence } : {}),
       ...(inheritTargets && frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
@@ -713,11 +724,11 @@ const actionEvents = (
         },
       }))
     }
+    case 'becomeMonarch': return recipients(instruction.targets, context).map(seat => ({ type: 'becomeMonarch' as const, seat }))
     case 'linkExile': {
       const sourceId = frame.source.ref.objectId
       const source = draft.object(sourceId)
-      if (!source) return []
-      if (instruction.untilSourceLeaves && (source.zone !== 'battlefield' || !isSameObject(source, frame.source.ref))) return []
+      if (instruction.untilSourceLeaves && (!source || source.zone !== 'battlefield' || !isSameObject(source, frame.source.ref))) return []
       const objectIds = objectActions(instruction.targets, context)
         .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
         .map(object => object.id)
@@ -726,6 +737,7 @@ const actionEvents = (
         type: 'linkExile' as const,
         sourceId,
         sourceRef: { ...frame.source.ref },
+        ...(instruction.untilOpponentMonarch ? { untilOpponentMonarch: { player: frame.controller, since: frame.monarchRevision ?? draft.monarchRevision ?? 0 } } : {}),
         targetRefs: objectIds.map(id => objectIdentity(context.state.objects[id])),
         objectIds,
         ...(instruction.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
@@ -1269,7 +1281,7 @@ const actionEvents = (
       )
         ? {
             controller: frame.controller,
-            source: structuredClone(frame.source),
+            ...capturedExecutionSource(frame),
             ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
             ...(grantChoices.capturedBindings.occurrence ? { capturedOccurrenceBindings: grantChoices.capturedBindings.occurrence } : {}),
             ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
@@ -1780,7 +1792,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           stackId: frame.stackId,
           scopeId: scope.scopeId,
           cost: instruction.cost,
-          source: structuredClone(frame.source),
+          ...capturedExecutionSource(frame),
           controller: frame.controller,
           bindResult: instruction.bindResult,
           ...(instruction.whenPaidDecisions ? { whenPaidDecisions: structuredClone(instruction.whenPaidDecisions) } : {}),

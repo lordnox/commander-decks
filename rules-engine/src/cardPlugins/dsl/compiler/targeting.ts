@@ -107,7 +107,8 @@ const contextFor = (
   state,
   controller,
   source: captureObject(source),
-  ...(item ? { stackItemId: item.id } : {}),
+  ...((execution?.sourceLess ?? item?.execution?.sourceLess) ? { sourceLess: true as const } : {}),
+  ...((execution?.referencedObjects ?? item?.execution?.referencedObjects) ? { referencedObjects: execution?.referencedObjects ?? item?.execution?.referencedObjects } : {}),  ...(item ? { stackItemId: item.id } : {}),
   ...((execution?.occurrence ?? item?.execution?.occurrence) ? { occurrence: execution?.occurrence ?? item?.execution?.occurrence } : {}),
   ...((execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence) ? { capturedOccurrence: execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence } : {}),
   ...((execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings) ? { capturedOccurrenceBindings: execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings } : {}),
@@ -333,7 +334,7 @@ export const canonicalTargetCandidates = (
   clausesOverride?: readonly TargetClause[],
   x?: number,
   capturedOccurrence?: OccurrenceSnapshot,
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[],
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[],
 ) => {
   const context = {
     ...contextFor(state, controller, source, undefined, x),

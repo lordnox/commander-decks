@@ -63,11 +63,13 @@ export type RuntimeBindings = {
   distributions?: readonly DistributionAllocation[]
   scopeId?: string
   capturedOccurrence?: OccurrenceSnapshot
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[]
   grantSource?: { objectId: string; incarnation: number }
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
+  sourceLess?: true
+  referencedObjects?: readonly CapturedObject[]
   state: GameState
   controller: PlayerId
   source: CapturedObject
@@ -178,7 +180,7 @@ export const evaluatePlayerReference = (
           return unique(evaluateStackItemReference(referenced, context).map(item => item.controller))
         }
       }
-      return unique(evaluateObjectReference(referenced, context).map(object => object[reference.relation]))
+      return unique(evaluateObjectReference(referenced, context, reference.information ?? 'current').map(object => object[reference.relation]))
     }
     case 'contextRef': return playerContextReference(reference, context)
     case 'targetRef':
@@ -191,13 +193,14 @@ const capturedOccurrenceObject = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
-  const binding = reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
+  const binding = reference.name === 'triggering.source' ? 'source' : reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
   const occurrence = context.capturedOccurrenceBindings?.includes(binding)
     ? context.capturedOccurrence
     : context.occurrence
   switch (reference.name) {
     case 'triggering.object.before': return occurrence?.object?.before
     case 'triggering.object.after': return occurrence?.object?.after
+    case 'triggering.source': return occurrence?.source?.snapshot
     default: return undefined
   }
 }
@@ -214,6 +217,7 @@ export const evaluateObjectReference = (
 ) => {
   if (reference.kind === 'contextRef') {
     if (reference.name === 'source') {
+      if (context.sourceLess) return []
       const current = currentSource(context)
       return current ? [current] : information === 'currentOrLastKnown' ? [context.source.snapshot] : []
     }
@@ -230,15 +234,25 @@ export const evaluateObjectReference = (
       return []
     }
     const captured = capturedOccurrenceObject(reference, context)
-    if (captured) return [captured]
-    if (reference.name === 'triggering.object.before' || reference.name === 'triggering.object.after') {
+    if (captured) {
+      if (information === 'currentOrLastKnown') {
+        const current = context.state.objects[captured.id]
+        if (isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })) return [current]
+        const watched = context.referencedObjects?.find(entry => isSameObject(captured, entry.ref))
+        return [watched?.snapshot ?? captured]
+      }
+      return [captured]
+    }
+    if (reference.name === 'triggering.object.before' || reference.name === 'triggering.object.after' || reference.name === 'triggering.source') {
       throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
     }
     throw new RuleDslEvaluationError(`${reference.name} is not an object reference`)
   }
   return recipientsInDomain(reference, context, 'object', (recipient) => recipient.kind === 'object').flatMap((recipient) => {
     const object = context.state.objects[recipient.objectId]
-    return isSameObject(object, recipient) ? [object] : []
+    if (isSameObject(object, recipient)) return [object]
+    const watched = information === 'currentOrLastKnown' ? context.referencedObjects?.find(entry => entry.ref.objectId === recipient.objectId && entry.ref.incarnation === recipient.incarnation && entry.ref.zone === recipient.zone) : undefined
+    return watched ? [watched.snapshot] : []
   })
 }
 

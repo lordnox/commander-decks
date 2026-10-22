@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 39 public piles and public votes, including persistent linked-card sets; continues #394 and #383. **113 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after monarch and Palace Jailer, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **118 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 70 available, 1 awaiting correctness follow-up, and 99 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 71 available, 1 awaiting correctness follow-up, and 98 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -71,9 +71,11 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **36-exile is available:** `exileForEffect` composes a typed optional one-card choice, exile, and conditional continuation from canonical instructions. Its payment condition follows CR 118.12, including modified destinations; mechanic tests cover decline, no eligible cards, countering, illegal targets, and journal restore. Masked Vandal remains unmigrated because **22-changeling** is Open; do not omit its all-creature-types ability.
 
-**18-links is available:** identity-pinned sets now compose Bishop of Binding, Endless Sands, Lumbering Battlement, Phyrexian Ingester, and Pit of Offerings. Embedded cached Scryfall data preserves Vampire-only attack targets, nontoken optional exile, both land mana modes, independent signed power/toughness bonuses, and owner-controlled returns. Monarch duration remains the separate **18-monarch** contract.
+**18-links is available:** identity-pinned sets now compose Bishop of Binding, Endless Sands, Lumbering Battlement, Phyrexian Ingester, and Pit of Offerings. Embedded cached Scryfall data preserves Vampire-only attack targets, nontoken optional exile, both land mana modes, independent signed power/toughness bonuses, and owner-controlled returns. The separate **18-monarch** contract is now also Available; Palace Jailer has migrated with both independent ETB abilities.
 
 **39-piles and 39-vote are available:** public opponent partitions bind chosen and remainder piles without auto-moving; sequential public votes, including object ballots and tallies/leads, continue canonical programs. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede have migrated. Fortune's Favor and Hostile Negotiations still need **39-hidden**. Illusion of Choice still needs **39-control**; Erestor still needs **39-finished**; Círdan still needs **39-secret**; Trap still needs **39-secret** and **39-object**. Sail into the West still needs a resolving exile-this-spell branch.
+
+**Group 18 is complete:** all four linked-exile contracts are Available. Palace Jailer uses canonical source-less monarch triggers and incarnation-pinned, source-independent exile duration. Cards still listed under former batch 18 retain external gates such as cycling, warp, embalm, and foretell; completing linked exile does not implement those mechanics.
 
 ## Suggested next work
 
@@ -224,7 +226,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Glorious Protector` |
 | <a id="18-links"></a>**18-links — Persistent linked-card sets** | Available | Persist source-incarnation and actual exiled-card identities; query current linked sets for later activations, signed power/toughness sums, counts, and current colors. Redirected/prevented exile creates no link; departing/reentered cards or fresh source incarnations do not inherit links. Return owner-controlled cards after source sacrifice; color-derived mana participates in planning. | — | `Valgavoth, Terror Eater` |
-| <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Open | Become monarch; correctly queue source-less inherent draw/crown-transfer triggers (CR 725.2–725.4; baseline defect #448); capture the relevant player for source-independent exile until an opponent becomes monarch. Preserve controller, priority, elimination, and restore semantics. | — | `Palace Jailer` |
+| <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Available | Become monarch; queue source-less inherent draw/crown-transfer abilities at priority checkpoints, retaining the original trigger controller. Read the damage creature’s current/last-known controller on resolution. Transfer on elimination and end source-independent exile on a captured player’s opponent acquiring the crown, including pre-resolution history. Restore and team relations are preserved; fixes #448. | — | None remaining |
 | <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Available | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | None remaining |
 
 ### 19. Life totals and game outcomes

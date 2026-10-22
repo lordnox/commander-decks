@@ -51,6 +51,7 @@ export type ContextBinding =
   | 'triggering.defender'
   | 'triggering.object.before'
   | 'triggering.object.after'
+  | 'triggering.source'
   | 'triggering.object.controller'
   | 'grant.source'
 
@@ -76,7 +77,7 @@ export type ContextReference = { kind: 'contextRef'; name: ContextBinding }
 export type TargetReference = { kind: 'targetRef'; clauseIndex: number }
 export type ChoiceReference = { kind: 'choiceRef'; binding: string }
 export type ResultReference = { kind: 'resultRef'; binding: string; field: ResultField }
-export type RelatedPlayerReference = { kind: 'relatedPlayer'; relation: 'controller' | 'owner'; of: ObjectReference | StackItemReference }
+export type RelatedPlayerReference = { kind: 'relatedPlayer'; relation: 'controller' | 'owner'; information?: 'currentOrLastKnown'; of: ObjectReference | StackItemReference }
 export type Reference = ContextReference | TargetReference | ChoiceReference | ResultReference | RelatedPlayerReference
 
 export type PlayerReference = ContextReference | TargetReference | ChoiceReference | RelatedPlayerReference | (ResultReference & { field: 'player' })
@@ -458,7 +459,7 @@ export type Instruction =
   /** Exile permanents, then return the resulting cards as new objects (CR 400.7j). */
   | { kind: 'blink'; targets: ObjectRecipient; returnController?: 'owner' | PlayerReference; tapped?: boolean }
   /** Exile chosen permanents linked to the source; until-leaves stamps an immediate return. */
-  | { kind: 'linkExile'; targets: ObjectRecipient; untilSourceLeaves?: true; returnTo?: LinkedExileReturn }
+  | { kind: 'linkExile'; targets: ObjectRecipient; untilOpponentMonarch?: true; untilSourceLeaves?: true; returnTo?: LinkedExileReturn }
   /** Return cards currently linked to the executing source, typically from a separate leave trigger. */
   | { kind: 'returnLinkedExile'; returnTo?: LinkedExileReturn }
   /** Have each resolved player recipient draw the evaluated number of cards. */
@@ -467,6 +468,7 @@ export type Instruction =
   | { kind: 'grantLandPlays'; count: Amount; targets: PlayerRecipient }
   /** Grant unlimited hand size for the rest of the game independently of the resolving source. */
   | { kind: 'grantNoMaximumHandSize'; targets: PlayerRecipient }
+  | { kind: 'becomeMonarch'; targets: PlayerRecipient }
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
@@ -769,7 +771,7 @@ export type TriggeredAbilityDefinition = {
     choices?: readonly string[]
     playerChoices?: readonly string[]
     results?: Readonly<Record<string, readonly ResultField[]>>
-    occurrence?: readonly ('player' | 'object.before' | 'object.after')[]
+    occurrence?: readonly ('player' | 'object.before' | 'object.after' | 'source')[]
   }
   activeIn: readonly Zone[]
   on: OccurrencePattern

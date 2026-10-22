@@ -1,6 +1,6 @@
 import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
-import { commitExileLink, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
+import { commitExileLink, opponentBecameMonarchSince, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
 import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
 import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
@@ -53,7 +53,7 @@ import {
   searchingSeat,
 } from './cardPlugins/librarySearch'
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
-import { isSameObject } from './objectIdentity'
+import { isSameObject, refreshExecutionReferences } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
 import { hasKeyword } from './keywords'
 import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
@@ -382,6 +382,7 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
   }
   for (const object of Object.values(draft.objects)) {
     if (object.owner === seat) {
+      refreshExecutionReferences(draft, object)
       delete draft.objects[object.id]
       continue
     }
@@ -567,33 +568,34 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'linkExile': {
       const source = draft.object(event.sourceId)
-      if (!source) return
-      if (event.untilSourceLeaves && source.zone !== 'battlefield') return
+      if (event.untilSourceLeaves && source?.zone !== 'battlefield') return
       if (event.sourceRef) {
+        if (event.untilOpponentMonarch && opponentBecameMonarchSince(draft, event.untilOpponentMonarch)) return
         if (event.untilSourceLeaves && !isSameObject(source, event.sourceRef)) return
         for (const ref of event.targetRefs ?? []) {
           const target = draft.objects[ref.objectId]
           if (!isSameObject(target, ref)) continue
           draft.enqueue({ type: 'move', objectId: target.id, to: 'exile', exileLink: {
             source: { ...event.sourceRef },
+            ...(event.untilOpponentMonarch ? { untilOpponentMonarch: { ...event.untilOpponentMonarch } } : {}),
             ...(event.untilSourceLeaves ? { untilSourceLeaves: true } : {}),
             ...(event.returnTo ? { returnTo: event.returnTo } : {}),
           } })
         }
         return
       }
+      if (!source) return
       linkExileSelected(draft, source, event.objectIds)
       if (event.untilSourceLeaves) source.returnLinkedExile = event.returnTo ?? 'battlefield'
       return
     }
     case 'returnLinkedExile': {
       const source = draft.object(event.sourceId)
-      if (!source) return
       if (event.sourceRef) {
         releaseCanonicalLinkedExile(draft, event.sourceRef, event.returnTo ?? 'battlefield')
         return
       }
-      releaseLinkedExile(draft, source, event.returnTo ?? 'battlefield')
+      if (source) releaseLinkedExile(draft, source, event.returnTo ?? 'battlefield')
       return
     }
     case 'copyPermanent': {
@@ -686,6 +688,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'move': {
       const object = draft.object(event.objectId)
       if (!object) return
+      if (event.exileLink?.untilOpponentMonarch && opponentBecameMonarchSince(draft, event.exileLink.untilOpponentMonarch)) return
       if (event.exileLink?.untilSourceLeaves && !isSameObject(draft.objects[event.exileLink.source.objectId], event.exileLink.source)) return
       const frame = draft.resolution
       if (frame?.kind === 'canonicalSpell'

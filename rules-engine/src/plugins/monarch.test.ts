@@ -60,6 +60,10 @@ describe('monarch', () => {
     state.objects[attackerId].attacking = 'p2'
     state.step = 'combatDamage'
     state = ok(rules(state, { type: 'assignCombatDamage' }, catalog))
+    expect(state.monarch).toBe('p2')
+    expect(state.stack).toHaveLength(1)
+    expect(state.stack[0]).toMatchObject({ controller: 'p2', sourceLess: true })
+    state = ok(rules(state, { type: 'resolveTop' }, catalog))
     expect(state.monarch).toBe('p1')
   })
 
@@ -76,6 +80,9 @@ describe('monarch', () => {
     const beforeHand = state.zoneCounts.p1.hand
     state = ok(rules(state, { type: 'advanceStep' }, catalog))
     expect(state.step).toBe('end')
+    expect(state.zoneCounts.p1.hand).toBe(beforeHand)
+    expect(state.stack).toHaveLength(1)
+    state = ok(rules(state, { type: 'resolveTop' }, catalog))
     expect(state.zoneCounts.p1.hand).toBe(beforeHand + 1)
   })
 

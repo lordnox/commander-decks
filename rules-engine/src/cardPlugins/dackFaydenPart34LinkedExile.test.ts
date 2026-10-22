@@ -231,32 +231,6 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     expect(state.objects[allyId].zone).toBe('battlefield')
   })
 
-  test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {
-    const jailer = fromPool('Palace Jailer')
-    const hostage = cardTemplate('Jail Hostage', { types: ['Creature'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 3, hands: { p1: [jailer] }, battlefield: { p2: [hostage] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const jailerId = named(server.state, 'Palace Jailer').id
-    const hostageId = named(server.state, 'Jail Hostage').id
-
-    let state = enterAndLinkExile(server, jailerId, 'p1', [hostageId])
-    expect(state.monarch).toBe('p1')
-    expect(state.objects[hostageId]).toMatchObject({
-      zone: 'exile',
-      exiledUntilOpponentMonarch: true,
-    })
-
-    state = ok(server.rules(state, { type: 'becomeMonarch', seat: 'p2' }))
-    expect(state.objects[hostageId].zone).toBe('battlefield')
-  })
-
-
-
-
-
   test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {
     const fox = fromPool('Werefox Bodyguard', { subtypes: ['Fox', 'Elf', 'Knight'] })
     const mark = cardTemplate('Werefox Mark', { types: ['Creature'] })

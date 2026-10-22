@@ -2179,3 +2179,11 @@ test('Pit of Offerings retains tapped entry, three graveyard targets, and both m
     { kind: 'activated', instructions: [{ kind: 'addManaFrom', basis: 'colors', of: { filter: { zone: 'exile', exiledWith: { kind: 'contextRef', name: 'source' } } } }] },
   ])
 })
+
+
+test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {
+  expect(cardRuleDefinitionSnapshotFor('Palace Jailer')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [] }, instructions: [{ kind: 'becomeMonarch', targets: { kind: 'contextRef', name: 'controller' } }] },
+    { kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] }, instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilOpponentMonarch: true }] },
+  ])
+})

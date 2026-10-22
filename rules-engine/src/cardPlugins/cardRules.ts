@@ -9,10 +9,8 @@ import {
   attachedCopyOrToken,
   attackTax,
   attacks,
-  becomeMonarch,
   basicLand,
   embalm,
-  exileUntilOpponentBecomesMonarch,
   bestow,
   blink,
   blockTax,
@@ -671,12 +669,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { tap: true },
       do: [opponentsLoseLife(1), gainLife(1)],
     }),
-  ],
-  'Palace Jailer': [
-    enters(
-      becomeMonarch(),
-      exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' }),
-    ),
   ],
   'Parting Gust': [
     gift({

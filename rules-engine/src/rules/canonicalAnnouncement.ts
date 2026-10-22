@@ -100,6 +100,7 @@ const announcementContext = (draft: Draft, announcement: Pick<CanonicalAnnouncem
   state: draft,
   controller: announcement.execution.controller,
   source: announcement.execution.source,
+  ...(announcement.execution.referencedObjects ? { referencedObjects: announcement.execution.referencedObjects } : {}),  ...(announcement.execution.sourceLess ? { sourceLess: true as const } : {}),
   ...(announcement.execution.occurrence ? { occurrence: announcement.execution.occurrence } : {}),
   ...(announcement.execution.capturedOccurrence ? { capturedOccurrence: announcement.execution.capturedOccurrence } : {}),
   ...(announcement.execution.capturedOccurrenceBindings ? { capturedOccurrenceBindings: announcement.execution.capturedOccurrenceBindings } : {}),
@@ -267,6 +268,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
   }
   draft.addToStack({
     kind: 'ability',
+    ...(announcement.execution.sourceLess ? { sourceLess: true as const } : {}),
     objectId: source.id,
     controller: announcement.execution.controller,
     name: source.name,

@@ -1,7 +1,8 @@
+import { withReferencedObjects } from './rules/canonicalReferences'
 import { STUN_COUNTER } from './rules/untap'
 import type { CardInstruction } from './cardPlugins/effects'
 import { counterPtBonus } from './definitions'
-import { captureObject, pinTarget, refreshLastKnownSource, snapshotObject } from './objectIdentity'
+import { captureObject, pinTarget, refreshExecutionReferences, snapshotObject } from './objectIdentity'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
@@ -116,9 +117,7 @@ export const makeDraft = (state: GameState): Draft => {
     const becomesNewObject = from !== to || sameZoneCreatesObject
     const before = becomesNewObject ? snapshotObject(object) : undefined
     if (before) {
-      refreshLastKnownSource(draft.stack, before)
-      refreshLastKnownSource(draft.resolution, before)
-      for (const player of draft.playerOrder) refreshLastKnownSource(draft.players[player].data, before)
+      refreshExecutionReferences(draft, before)
     }
     const zones = draft.zoneOrder[object.owner]
     zones[from] = zones[from].filter((objectId) => objectId !== id)
@@ -180,6 +179,7 @@ export const makeDraft = (state: GameState): Draft => {
     const id = cloned.id ?? draft.allocId('stack')
     const source = draft.object(cloned.objectId)
     const existingExecution = cloned.execution
+    const monarchRevision = existingExecution?.monarchRevision ?? (existingExecution?.occurrence ? 0 : draft.monarchRevision)
     const capturedSource = existingExecution?.source.ref.objectId === item.objectId
       ? existingExecution.source
       : source
@@ -189,11 +189,13 @@ export const makeDraft = (state: GameState): Draft => {
       ...cloned,
       id,
       targets: cloned.targets.map((target) => pinTarget(draft, target)),
+      ...(existingExecution?.sourceLess ? { sourceLess: true as const } : {}),
       ...(capturedSource
         ? {
             execution: {
               ...existingExecution,
               controller: cloned.controller,
+              ...(monarchRevision !== undefined && monarchRevision !== 0 ? { monarchRevision } : {}),
               source: capturedSource,
               ...(cloned.kind === 'spell' && source?.ruleDefinition
                 ? { definitionSnapshot: source.ruleDefinition }
@@ -202,6 +204,7 @@ export const makeDraft = (state: GameState): Draft => {
           }
         : {}),
     }
+    if (stackItem.execution) stackItem.execution = withReferencedObjects(draft, stackItem.execution)
     draft.stack.unshift(stackItem)
     return stackItem
   }

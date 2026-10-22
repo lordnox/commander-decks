@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 119,
+    "cardRegistrations": 118,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -28,12 +28,12 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 30,
     "customEventDispatchSites": 84,
-    "directMutationSites": 577,
+    "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 68,
+    "instructionUnobservedGaps": 69,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 117,
-    "candidateOnlyCardRows": 114
+    "candidateOnlyInstructionRows": 116,
+    "candidateOnlyCardRows": 113
   },
   "cardEffects": [
     {
@@ -697,7 +697,6 @@
         "Mulldrifter:effects[1]",
         "Mulldrifter:effects[2]",
         "Niv-Mizzet, Ghost Counsel:effects[0]",
-        "Palace Jailer:effects[0]",
         "Perch Protection:effects[1]",
         "Pitiless Carnage:effects[0]",
         "Portal to Phyrexia:effects[0]",
@@ -732,7 +731,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 193,
+        "matches": 192,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -1109,15 +1108,13 @@
     {
       "variant": "becomeMonarch",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Palace Jailer:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2186 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
+          "rules-engine/src/cardPlugins/dsl/monarch.test.ts:143 — test('monarch instructions reject object recipients and conflicting exile durations', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2466,16 +2463,11 @@
     {
       "variant": "exileUntilOpponentBecomesMonarch",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Palace Jailer:effects[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2483,7 +2475,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3042,7 +3034,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 17,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
@@ -3050,8 +3042,8 @@
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2154 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2177 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:869 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:892 — test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2187 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:869 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -7552,41 +7544,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Palace Jailer",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Palace Jailer"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [becomeMonarch, exileUntilOpponentBecomesMonarch]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "becomeMonarch",
-        "exileUntilOpponentBecomesMonarch"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "monarchExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Parting Gust",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10402,7 +10359,7 @@
           "rules-engine/src/plugins/monarch.test.ts:41",
           "rules-engine/src/plugins/monarch.test.ts:44 — test('becomeMonarch designates at most one monarch', () => {",
           "rules-engine/src/plugins/monarch.test.ts:56 — test('combat damage to the monarch passes the crown to the attacking player', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:71 — test('the monarch draws at the beginning of their end step', () => {"
+          "rules-engine/src/plugins/monarch.test.ts:75 — test('the monarch draws at the beginning of their end step', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10612,7 +10569,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 242,
+        "matches": 245,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -11550,7 +11507,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:872",
+        "rules-engine/src/cardPlugins/cardRules.ts:864",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -11574,7 +11531,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1325"
+        "rules-engine/src/types.ts:1339"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -11637,7 +11594,7 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
-        "rules-engine/src/driver.ts:1308",
+        "rules-engine/src/driver.ts:1320",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -11666,7 +11623,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1382",
+        "rules-engine/src/rules/triggers.ts:1384",
         "rules-engine/src/types.ts:322",
         "rules-engine/src/types.ts:324",
         "rules-engine/src/types.ts:328"
@@ -11725,7 +11682,7 @@
         "rules-engine/src/formats.ts:125",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:741",
+        "rules-engine/src/kernel.ts:744",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -11742,7 +11699,7 @@
         "rules-engine/src/plugins/spells.ts:484",
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
-        "rules-engine/src/rules/triggers.ts:9",
+        "rules-engine/src/rules/triggers.ts:10",
         "rules-engine/src/types.ts:149",
         "rules-engine/src/types.ts:285",
         "rules-engine/src/types.ts:347",
@@ -11845,10 +11802,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          234
+          236
         ],
         "samples": [
-          "234: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "236: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11983,12 +11940,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          392,
-          489
+          406,
+          503
         ],
         "samples": [
-          "392: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "489: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "406: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "503: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -12051,10 +12008,10 @@
       {
         "path": "rules-engine/src/plugins/monarch.ts",
         "lines": [
-          43
+          45
         ],
         "samples": [
-          "43: if (event.type === 'custom' && event.name === 'advanceStep' && draft.step === 'end') {"
+          "45: if (event.name !== 'advanceStep' || state.step === 'end' || draft.step !== 'end'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12196,24 +12153,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          69,
-          151,
-          170,
-          251,
-          357,
-          358,
-          495,
-          984,
-          1101,
-          1258,
+          70,
+          152,
+          171,
+          253,
+          359,
+          360,
+          497,
+          986,
+          1103,
           1260,
-          1300,
-          1301
+          1262,
+          1302,
+          1303
         ],
         "samples": [
-          "69: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "151: eventType: event.type === 'custom' ? event.name : event.type,",
-          "170: : event.type === 'custom' && event.name === 'advanceStep'"
+          "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
+          "152: eventType: event.type === 'custom' ? event.name : event.type,",
+          "171: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12709,10 +12666,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1548
+          1551
         ],
         "samples": [
-          "1548: event.name === SEARCH_CHOSEN"
+          "1551: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12728,12 +12685,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          181,
-          210
+          180,
+          213
         ],
         "samples": [
-          "181: const source = draft.object(cloned.objectId)",
-          "210: return draft.addToStack({"
+          "180: const source = draft.object(cloned.objectId)",
+          "213: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -12747,15 +12704,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          317,
-          718,
-          1861,
-          1891
+          319,
+          730,
+          1873,
+          1903
         ],
         "samples": [
-          "317: const liveSource = draft.object(source.ref.objectId)",
-          "718: const source = draft.object(sourceId)",
-          "1861: const object = draft.object(item.objectId)"
+          "319: const liveSource = draft.object(source.ref.objectId)",
+          "730: const source = draft.object(sourceId)",
+          "1873: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -12930,14 +12887,10 @@
       {
         "path": "rules-engine/src/plugins/monarch.ts",
         "lines": [
-          37,
-          39,
-          46
+          60
         ],
         "samples": [
-          "37: const attacker = draft.object(event.sourceId)",
-          "39: draft.enqueue({ type: 'becomeMonarch', seat: attacker.controller })",
-          "46: draft.enqueue({ type: 'draw', seat: monarchSeat, count: 1 })"
+          "60: if (successor) draft.enqueue({ type: 'becomeMonarch', seat: successor })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13485,11 +13438,11 @@
         "path": "rules-engine/src/rules/canonicalAnnouncement.ts",
         "lines": [
           93,
-          268
+          269
         ],
         "samples": [
           "93: const live = draft.object(announcement.execution.source.ref.objectId)",
-          "268: draft.addToStack({"
+          "269: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13546,10 +13499,10 @@
       {
         "path": "rules-engine/src/rules/canonicalLinkedExile.ts",
         "lines": [
-          61
+          56
         ],
         "samples": [
-          "61: draft.enqueue({ type: 'move', objectId: card.id, to, ...(to === 'battlefield' ? { controller: card.owner } : {}) })"
+          "56: draft.enqueue({ type: 'move', objectId: card.id, to, ...(to === 'battlefield' ? { controller: card.owner } : {}) })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13609,24 +13562,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          754,
-          839,
-          934,
-          968,
-          1047,
-          1112,
-          1125,
-          1165,
-          1246,
-          1323,
-          1380,
-          1547,
-          1658
+          756,
+          841,
+          936,
+          970,
+          1049,
+          1114,
+          1127,
+          1167,
+          1248,
+          1325,
+          1382,
+          1550,
+          1661
         ],
         "samples": [
-          "754: const frequencySource = draft.object(source.id) ?? source",
-          "839: const live = draft.object(source.id)",
-          "934: const land = draft.object(objectId)"
+          "756: const frequencySource = draft.object(source.id) ?? source",
+          "841: const live = draft.object(source.id)",
+          "936: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13640,10 +13593,10 @@
       {
         "path": "rules-engine/src/rules/spellCopies.ts",
         "lines": [
-          69
+          71
         ],
         "samples": [
-          "69: return draft.addToStack({"
+          "71: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -15145,31 +15098,31 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          496,
-          503,
-          563,
-          565,
-          569,
-          577,
-          590,
-          600,
-          603,
-          613,
-          640,
-          643,
-          652,
-          687,
-          701,
-          756,
-          758,
-          764,
-          781,
-          786
+          497,
+          504,
+          564,
+          566,
+          570,
+          578,
+          593,
+          602,
+          605,
+          615,
+          642,
+          645,
+          654,
+          689,
+          704,
+          759,
+          761,
+          767,
+          784,
+          789
         ],
         "samples": [
-          "496: const object = draft.object(event.objectRef.objectId)",
-          "503: const object = draft.object(event.objectId)",
-          "563: const object = draft.object(event.objectId)"
+          "497: const object = draft.object(event.objectRef.objectId)",
+          "504: const object = draft.object(event.objectId)",
+          "564: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

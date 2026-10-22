@@ -704,12 +704,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "8454935d8496541a9c3ba6d78c9e14deec8f18f43d63e7aa42e95f1e8a68cca9",
-    "card": "Palace Jailer"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "229fd09490e030a549b6980be240984c79d7bcd59abd4083982ef16437af9c26",
     "card": "Alabaster Host Intercessor"
   },

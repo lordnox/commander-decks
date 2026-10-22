@@ -77,15 +77,15 @@ type RewrittenInstructions = {
   shadowed: Set<string>
 }
 
-type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after'
+type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after' | 'source'
 
 export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: unknown }): CapturedOccurrenceBinding[] => {
   switch (pattern.kind) {
     case 'becomesTapped':
     case 'tappedForMana':
     case 'attacks':
-    case 'dealtDamage':
     case 'cast': return ['player', 'object.after']
+    case 'dealtDamage': return ['player', 'object.after', 'source']
     case 'playerAttacks': return ['player']
     case 'stepBegins':
     case 'playLand':
@@ -139,6 +139,7 @@ const inspectBindings = (
       if (node.name === 'triggering.player') occurrences.add('player')
       if (node.name === 'triggering.object.before') occurrences.add('object.before')
       if (node.name === 'triggering.object.after') occurrences.add('object.after')
+      if (node.name === 'triggering.source') occurrences.add('source')
       break
   }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)

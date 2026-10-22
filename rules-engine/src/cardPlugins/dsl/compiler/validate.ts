@@ -183,9 +183,10 @@ export const validateDefinitionV1 = (root: unknown): {
         break
       }
       case 'relatedPlayer':
-        exactKeys(node, path, ['kind', 'relation', 'of'], ['kind', 'relation', 'of'])
+        exactKeys(node, path, ['kind', 'relation', 'of', 'information'], ['kind', 'relation', 'of'])
+        if (node.information !== undefined) enumeration(node.information, childPath(path, 'information'), new Set(['currentOrLastKnown']), 'information policy')
         enumeration(node.relation, childPath(path, 'relation'), new Set(['controller', 'owner']), 'player role')
-        validateReference(node.of, childPath(path, 'of'), env, node.relation === 'owner' ? ['object'] : ['object', 'stack'])
+        validateReference(node.of, childPath(path, 'of'), env, node.relation === 'owner' || node.information !== undefined ? ['object'] : ['object', 'stack'])
         domain = 'player'
         break
       case 'resultRef': {
@@ -912,8 +913,14 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'becomeMonarch':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'linkExile':
-        exactKeys(node, path, ['kind', 'targets', 'untilSourceLeaves', 'returnTo'], ['kind', 'targets'])
+        if (node.untilOpponentMonarch !== undefined && node.untilOpponentMonarch !== true) issue(childPath(path, 'untilOpponentMonarch'), 'constant', 'untilOpponentMonarch must be true when present')
+        if (node.untilOpponentMonarch && node.untilSourceLeaves) issue(path, 'instruction-shape', 'linked exile accepts only one duration')
+        exactKeys(node, path, ['kind', 'targets', 'untilOpponentMonarch', 'untilSourceLeaves', 'returnTo'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.untilSourceLeaves !== undefined && node.untilSourceLeaves !== true) {
           issue(childPath(path, 'untilSourceLeaves'), 'constant', 'untilSourceLeaves must be true when present')
@@ -1466,7 +1473,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return env
       case 'dealtDamage': {
         env.eventAmount = true
-        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player'], ['triggering.source', 'object']])
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
           exactKeys(filter, childPath(path, 'filter'), ['recipient', 'source', 'combat'])
@@ -1792,10 +1799,11 @@ export const validateDefinitionV1 = (root: unknown): {
               }, `${path}.capturedBindings.results.${name}`)
             }
             if (captured.occurrence !== undefined) array(captured.occurrence, `${path}.capturedBindings.occurrence`).forEach((entry, index) => {
-              enumeration(entry, `${path}.capturedBindings.occurrence[${index}]`, new Set(['player', 'object.before', 'object.after']), 'captured occurrence binding')
+              enumeration(entry, `${path}.capturedBindings.occurrence[${index}]`, new Set(['player', 'object.before', 'object.after', 'source']), 'captured occurrence binding')
               switch (entry) {
                 case 'player': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.player', 'player']]); break
                 case 'object.before': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.before', 'object']]); break
+                case 'source': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.source', 'object']]); break
                 case 'object.after': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.after', 'object']]); break
               }
             })

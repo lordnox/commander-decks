@@ -1,3 +1,4 @@
+import { withReferencedObjects } from './canonicalReferences'
 import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 /**
  * CR 603.1 — a matching actual occurrence creates a pending ability instance;
@@ -143,9 +144,9 @@ const capturedOccurrence = (
     : 'source' in event && typeof event.source === 'string'
       ? event.source
       : undefined
-  const eventSource = sourceId
-    ? state.objects[sourceId] ?? draft.objects[sourceId]
-    : undefined
+  const eventSource = (event.type === 'dealDamage' || event.type === 'combatDamage') && event.sourceSnapshot && event.sourceSnapshot.ref.objectId === sourceId
+    ? event.sourceSnapshot.snapshot
+    : sourceId ? state.objects[sourceId] ?? draft.objects[sourceId] : undefined
   return {
     kind: 'event',
     eventType: event.type === 'custom' ? event.name : event.type,
@@ -177,6 +178,7 @@ const triggerExecution = (
   state: GameState,
 ): StackExecutionContext => ({
   controller: source.controller,
+  ...(state.monarchRevision !== undefined ? { monarchRevision: state.monarchRevision } : {}),
   source: captureObject(
     source,
     isSameObject(state.objects[source.id], objectIdentity(source)) ? 'current' : 'lastKnown',
@@ -1466,7 +1468,8 @@ export const captureEventTriggers = (
         matchedPlayer ?? triggeringPlayer ?? occurrencePlayerForEvent(event, draft),
         triggerAmount,
       )
-      const execution = matchedExecution ?? triggerExecution(source, occurrence, draft)
+      const baseExecution = matchedExecution ?? triggerExecution(source, occurrence, draft)
+      const execution = canonical ? withReferencedObjects(draft, { ...baseExecution, ...(draft.monarchRevision !== undefined ? { monarchRevision: draft.monarchRevision } : {}) }, canonical.definitionSnapshot) : baseExecution
       noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
       return {
         id: pendingId ?? draft.allocId('trigger'),

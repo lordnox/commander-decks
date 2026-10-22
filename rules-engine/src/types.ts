@@ -429,6 +429,8 @@ export type StackItem = {
   id: string
   kind: 'spell' | 'ability' | 'action'
   objectId: string
+  /** An inherent game ability has no card/permanent source. */
+  sourceLess?: true
   controller: PlayerId
   name: string
   targets: TargetRef[]
@@ -492,13 +494,18 @@ export type OccurrenceSnapshot = {
 }
 
 export type StackExecutionContext = {
+  /** Internal execution anchor is never a game object or legal source reference. */
+  sourceLess?: true
+  monarchRevision?: number
+  /** Independent LKI watches for referenced objects, never the source of this ability. */
+  referencedObjects?: CapturedObject[]
   controller: PlayerId
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
   /** Parent occurrence context captured by a generated callback. */
   capturedOccurrence?: OccurrenceSnapshot
   /** Which occurrence fields belong to the captured parent lexical scope. */
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[]
   /** Captured bindings inherited by a delayed/reflexive program. */
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Record<string, InstructionResult>
@@ -564,6 +571,9 @@ export type ProgramScopeFrame = {
 export type CanonicalResolutionFrame = {
   version: 1
   kind: 'canonicalSpell'
+  sourceLess?: true
+  referencedObjects?: CapturedObject[]
+  monarchRevision?: number
   stackId: string
   /** A canonical ability resolving inline (for example a mana ability) has no public stack item. */
   inlineItem?: StackItem
@@ -824,6 +834,7 @@ export type PlayerState = {
  * `rules` is the active plugin list. `log` is a human-readable apply trace.
  */
 export type LinkedExileSet = {
+  untilOpponentMonarch?: { player: PlayerId; since: number }
   source: ObjectIdentity
   cards: ObjectIdentity[]
   untilSourceLeaves?: true
@@ -884,6 +895,9 @@ export type GameState = {
   monarch: PlayerId | null
   /** Canonical exiled-card identities, keyed by the original source incarnation. */
   linkedExileSets?: LinkedExileSet[]
+  monarchRevision?: number
+  /** Latest actual crown acquisition for each seat; retained through elimination. */
+  monarchAcquiredAt?: Record<PlayerId, number>
   log: string[]
 }
 
@@ -1006,7 +1020,7 @@ export type GameEvent =
   /** Internal canonical player grant; lasts for the rest of the game. */
   | { type: 'grantNoMaximumHandSize'; seat: PlayerId }
   /** Exile chosen permanents and stamp them as linked to the source. */
-  | { type: 'linkExile'; sourceId: string; objectIds: string[]; sourceRef?: ObjectIdentity; targetRefs?: ObjectIdentity[]; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
+  | { type: 'linkExile'; sourceId: string; objectIds: string[]; sourceRef?: ObjectIdentity; targetRefs?: ObjectIdentity[]; untilOpponentMonarch?: { player: PlayerId; since: number }; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
   /** Return cards currently linked to the named source. */
   | { type: 'returnLinkedExile'; sourceId: string; sourceRef?: ObjectIdentity; returnTo?: 'battlefield' | 'hand' }
   // — Priority / structure —

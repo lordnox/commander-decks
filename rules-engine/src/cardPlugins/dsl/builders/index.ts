@@ -169,8 +169,8 @@ export const capturePlayer = (input: { player: PlayerReference; bindResult: stri
 export const captureCopy = (input: { targets: ObjectRecipient; bindResult: string }) =>
   immutableData({ kind: 'captureCopy' as const, ...input })
 
-export const controllerOf = (of: ObjectReference | StackItemReference) =>
-  immutableData({ kind: 'relatedPlayer' as const, relation: 'controller' as const, of })
+export const controllerOf = (of: ObjectReference | StackItemReference, options: { information?: 'currentOrLastKnown' } = {}) =>
+  immutableData({ kind: 'relatedPlayer' as const, relation: 'controller' as const, of, ...(options.information ? { information: options.information } : {}) })
 
 export const ownerOf = (of: ObjectReference) =>
   immutableData({ kind: 'relatedPlayer' as const, relation: 'owner' as const, of })
@@ -760,13 +760,18 @@ export const grantNoMaximumHandSize = (input: { targets: PlayerRecipient }) =>
 export const grantFlash = (input: { targets: PlayerRecipient; duration: EffectDuration }) =>
   immutableData({ kind: 'grantFlash' as const, targets: input.targets, duration: input.duration })
 
+export const becomeMonarch = (targets: PlayerRecipient = ref('controller')) =>
+  immutableData({ kind: 'becomeMonarch' as const, targets })
+
 export const linkExile = (input: {
   targets: ObjectRecipient
+  untilOpponentMonarch?: true
   untilSourceLeaves?: true
   returnTo?: LinkedExileReturn
 }) => immutableData({
   kind: 'linkExile' as const,
   targets: input.targets,
+  ...(input.untilOpponentMonarch ? { untilOpponentMonarch: true as const } : {}),
   ...(input.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
   ...(input.returnTo ? { returnTo: input.returnTo } : {}),
 })
