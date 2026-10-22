@@ -172,6 +172,9 @@ export type Amount =
 
 export type AmountInput = number | Amount
 
+/** Signed expressions are limited to consumers that set life totals. */
+export type LifeTotalAmount = Amount | { kind: 'lowestLife'; of: PlayerSelector }
+
 /** Sentinel for “prevent all” rather than a numeric shield. */
 export const UNLIMITED_PREVENTION = { kind: 'unlimited' } as const
 export type UnlimitedPreventionCapacity = typeof UNLIMITED_PREVENTION
@@ -401,7 +404,7 @@ export type Instruction =
   /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
   /** Set each recipient's life total; actual loss still flows through loseLife. */
-  | { kind: 'setLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
+  | { kind: 'setLife'; amount: LifeTotalAmount; targets: PlayerRecipient; bindResult?: string }
   /** Exchange two players' life totals as one action and optionally bind the first player's actual loss. */
   | { kind: 'exchangeLife'; first: PlayerRecipient; second: PlayerRecipient; bindResult?: string }
   /** Apply a win through the game-result event pipeline. */
@@ -822,6 +825,7 @@ export type AmountEvaluationContext = {
     information: 'current' | 'currentOrLastKnown',
     fallback?: number,
   ) => number
+  lowestLife?: (of: PlayerSelector) => number
   counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
   damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number

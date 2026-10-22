@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 131,
+    "cardRegistrations": 130,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 84,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 61,
+    "instructionUnobservedGaps": 62,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 124,
-    "candidateOnlyCardRows": 126
+    "candidateOnlyInstructionRows": 123,
+    "candidateOnlyCardRows": 125
   },
   "cardEffects": [
     {
@@ -729,7 +729,6 @@
         "Raise the Palisade:effects[0]",
         "Rankle, Master of Pranks:effects[0]",
         "Reins of Power:effects[0]",
-        "Repay in Kind:effects[0]",
         "Ripples of Undeath:effects[0]",
         "Rishkar's Expertise:effects[0]",
         "Roaming Throne:effects[2]",
@@ -757,7 +756,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 223,
+        "matches": 222,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -2056,7 +2055,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 99,
+        "matches": 100,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -4982,16 +4981,11 @@
     {
       "variant": "setAllLifeToLowest",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Repay in Kind:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:168 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4999,7 +4993,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -8515,40 +8509,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Repay in Kind",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Repay in Kind"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:168 — test('Repay in Kind sets every player to the lowest life and records losses', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:417 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [setAllLifeToLowest]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "setAllLifeToLowest"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Rings of Brighthearth",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10590,7 +10550,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 196,
+        "matches": 197,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -10930,9 +10890,10 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:116 — test('a life-total lock replaces the whole exchange', () => {",
+          "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:119 — test('a life-total lock replaces the whole exchange', () => {",
+          "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:218 — test('lowest-life selection excludes eliminated players and leaves locked totals unchanged', () => {",
           "rules-engine/src/plugins/phasingProtection.test.ts:153 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
         ]
       },
@@ -12130,7 +12091,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:992",
+        "rules-engine/src/cardPlugins/cardRules.ts:990",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -13323,15 +13284,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          312,
-          712,
-          1757,
-          1787
+          313,
+          713,
+          1762,
+          1792
         ],
         "samples": [
-          "312: const liveSource = draft.object(source.ref.objectId)",
-          "712: const source = draft.object(sourceId)",
-          "1757: const object = draft.object(item.objectId)"
+          "313: const liveSource = draft.object(source.ref.objectId)",
+          "713: const source = draft.object(sourceId)",
+          "1762: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

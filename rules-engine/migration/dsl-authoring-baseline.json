@@ -68,12 +68,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "f00a09bd8235af42e02e598a4c7a8bee52a669a532f96682633c690d249812b0",
-    "card": "Repay in Kind"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "25cc988318f587f044837c51d4a9ac14dbfa59ac9517685ab18fcafb41116587",
     "card": "Starfield of Nyx"
   },

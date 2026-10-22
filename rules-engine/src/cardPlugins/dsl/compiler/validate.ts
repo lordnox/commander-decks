@@ -773,7 +773,12 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'setLife':
         exactKeys(node, path, ['kind', 'amount', 'targets', 'bindResult'], ['kind', 'amount', 'targets'])
-        validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
+        if (isData(node.amount) && node.amount.kind === 'lowestLife') {
+          exactKeys(node.amount, childPath(path, 'amount'), ['kind', 'of'], ['kind', 'of'])
+          if (validateSelector(node.amount.of, childPath(childPath(path, 'amount'), 'of'), env) !== 'player') {
+            issue(childPath(childPath(path, 'amount'), 'of'), 'domain', 'lowestLife requires a player selector')
+          }
+        } else validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
         return

@@ -1,3 +1,4 @@
+import { evaluateLifeTotalAmount } from './cardPlugins/dsl/compiler/evaluate'
 import { availableManaTypes } from './cardPlugins/dsl/manaTypes'
 import { PLAYER_PROGRAM_CHOICE_ACTION } from './cardPlugins/dsl/playerProgramConstants'
 import { CONTROL_CHOICE_ACTION } from './cardPlugins/dsl/controlConstants'
@@ -794,8 +795,12 @@ const actionEvents = (
     case 'setLife': {
       const targets = recipients(instruction.targets, context)
       if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      const expression = instruction.amount
+      const lowest = expression.kind === 'lowestLife'
+        ? evaluateLifeTotalAmount(expression, amountEvaluationContext(context))
+        : undefined
       const events = targets.flatMap((seat) => {
-        const amount = availableAmount(instruction.amount, withOccurrencePlayer(context, seat))
+        const amount = expression.kind === 'lowestLife' ? lowest : availableAmount(expression, withOccurrencePlayer(context, seat))
         if (amount === undefined) return []
         return [{
           type: 'setLifeTotal' as const,

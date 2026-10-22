@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work. **131 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work. **130 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **131 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **130 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -95,7 +95,6 @@ Current readiness: **0 composition candidates**; **131 blocked or awaiting sourc
 | `Raise the Palisade` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Rankle, Master of Pranks` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [37-modes](CARD-MIGRATION-BATCHES.md#37-modes), [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Blocked by mechanics | Combat-damage-to-player occurrence; retain all printed keywords and every mode. |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |
-| `Repay in Kind` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [14-signed-minimum](CARD-MIGRATION-BATCHES.md#14-signed-minimum) | Blocked by mechanics | — |
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |
 | `Ripples of Undeath` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill) | Blocked by mechanics | Paid recovery must choose from the cards actually milled by this trigger. |
 | `Rishkar's Expertise` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand) | Blocked by mechanics | — |

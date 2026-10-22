@@ -162,25 +162,6 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(creatureResolved.objects[target].zone).toBe('graveyard')
   })
 
-  test('Repay in Kind sets every player to the lowest life and records losses', () => {
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [card('Repay in Kind', ['Sorcery'], '{5}{B}{B}')] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const ready = withMana(structuredClone(server.state), 'p1', { B: 2, C: 5 })
-    ready.players.p2.life = 7
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: ready.zoneOrder.p1.hand[0],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.playerOrder.map((seat) => resolved.players[seat].life))
-      .toEqual([7, 7, 7, 7])
-    expect(lifeLostThisTurn(resolved.players.p1)).toBe(33)
-  })
-
   test('Mirror Universe enumerates opponents and exchanges during its controller upkeep', () => {
     const server = createServerGame(
       commanderRules,

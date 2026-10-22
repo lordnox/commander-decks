@@ -139,7 +139,6 @@ import {
   type CardEffect,
   type CardInstruction,
   playExiledWithLife,
-  setAllLifeToLowest,
   yourEndTargetingOpponent,
   cumulativeUpkeepOpponentLife,
   restrictedCreatureMana,
@@ -854,7 +853,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
-  'Repay in Kind': [onResolve(setAllLifeToLowest())],
   'Rings of Brighthearth': [handler('stackCopy')],
   'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
   "Rishkar's Expertise": [

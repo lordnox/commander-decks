@@ -1,4 +1,4 @@
-import type { Amount, AmountEvaluationContext, StatDelta, TargetClause } from '../schema/v1'
+import type { Amount, AmountEvaluationContext, LifeTotalAmount, StatDelta, TargetClause } from '../schema/v1'
 import { ROUNDING_MODES } from '../schema/v1'
 import { RuleDslEvaluationError } from './errors'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
@@ -14,9 +14,9 @@ const runtimeAmount = (value: number, source: string): number => {
   return value
 }
 
-const runtimeStatDelta = (value: number, source: string): number => {
+const runtimeSignedAmount = (value: number, source: string) => {
   if (!Number.isSafeInteger(value) || value < -MAX_RUNTIME_AMOUNT || value > MAX_RUNTIME_AMOUNT) {
-    throw new RuleDslEvaluationError(`${source} produced ${String(value)}; stat deltas must be safe integers from -${MAX_RUNTIME_AMOUNT} to ${MAX_RUNTIME_AMOUNT}`)
+    throw new RuleDslEvaluationError(`${source} produced ${String(value)}; signed values must be safe integers from -${MAX_RUNTIME_AMOUNT} to ${MAX_RUNTIME_AMOUNT}`)
   }
   return value
 }
@@ -54,7 +54,7 @@ export const evaluateAmount = (
       }
       // A characteristic can be negative; CR 107.1b treats a negative calculated amount as zero.
       const value = expression.value.kind === 'characteristic'
-        ? runtimeStatDelta(context.characteristic(expression.value.of, expression.value.characteristic, expression.value.information, expression.value.fallback), 'division characteristic')
+        ? runtimeSignedAmount(context.characteristic(expression.value.of, expression.value.characteristic, expression.value.information, expression.value.fallback), 'division characteristic')
         : evaluateAmount(expression.value, context, depth + 1)
       const quotient = value / expression.by
       switch (expression.rounding) {
@@ -92,15 +92,21 @@ export const evaluateAmount = (
   }
 }
 
+export const evaluateLifeTotalAmount = (expression: LifeTotalAmount, context: AmountEvaluationContext) => {
+  if (expression.kind !== 'lowestLife') return evaluateAmount(expression, context)
+  if (!context.lowestLife) throw new RuleDslEvaluationError('lowestLife is not available in this execution context')
+  return runtimeSignedAmount(context.lowestLife(expression.of), 'lowest player life total')
+}
+
 export const evaluateStatDelta = (
   expression: StatDelta,
   context: AmountEvaluationContext,
 ) => {
   switch (expression.kind) {
-    case 'constant': return runtimeStatDelta(expression.value, 'stat delta')
+    case 'constant': return runtimeSignedAmount(expression.value, 'stat delta')
     case 'negate': {
       const value = evaluateAmount(expression.value, context, 1)
-      return runtimeStatDelta(value === 0 ? 0 : -value, 'negated stat delta')
+      return runtimeSignedAmount(value === 0 ? 0 : -value, 'negated stat delta')
     }
     default: return evaluateAmount(expression, context)
   }

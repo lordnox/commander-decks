@@ -1,4 +1,6 @@
 import { describe, expect, test } from 'bun:test'
+import { lifeLostThisTurn } from '../../plugins/life'
+import { evaluateLifeTotalAmount } from './compiler/evaluate'
 import { cardTemplate } from '../../newGame'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
@@ -18,6 +20,7 @@ import {
   ref,
   resultAmount,
   setLife,
+  lowestLife,
   spell,
 } from './v1'
 
@@ -188,3 +191,42 @@ for (const scenario of [
     expect(resolved.players.p2.life).toBe(scenario.accept ? 40 : scenario.otherLife)
   })
 }
+
+for (const minimum of [7, 0, -5]) {
+  test(`setLife uses the signed lowest current player total (${minimum})`, () => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [instructionSpell({ instructions: [setLife({ targets: players(), amount: lowestLife() })] })] },
+    }, { random: () => 0 })
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+    cast.players.p2.life = minimum
+    const resolved = resolveStack(server.rules, structuredClone(cast))
+    expect(resolved.playerOrder.map(seat => resolved.players[seat].life)).toEqual([minimum, minimum, minimum])
+    expect(lifeLostThisTurn(resolved.players.p1)).toBe(40 - minimum)
+  })
+}
+
+test('lowest-life selection excludes eliminated players and leaves locked totals unchanged', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [instructionSpell({ instructions: [setLife({ targets: players(), amount: lowestLife() })] })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  cast.players.p2.life = 7
+  cast.players.p4.life = -100
+  cast.players.p4.lost = true
+  cast.rules = [...cast.rules, { instanceId: 'locked-fixture', pluginId: 'lifeTotalLock', sourceId: null, timestamp: 0, params: stampUntilControllerNextTurn('p3', cast.turn) }]
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.playerOrder.map(seat => resolved.players[seat].life)).toEqual([7, 7, 40, -100])
+})
+
+test('signed lowest-life expressions are confined to life-total consumers and validate player selectors', () => {
+  const program = (instruction: unknown) => ({ ...card([]), abilities: [{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [instruction] }] })
+  expect(() => compileCardRuleDefinition(program({ kind: 'draw', targets: ref('controller'), count: lowestLife() }))).toThrow()
+  expect(() => compileCardRuleDefinition(program({ kind: 'setLife', targets: players(), amount: { kind: 'lowestLife', of: { kind: 'objects', filter: {} } } }))).toThrow()
+  const context = { count: () => 0, greatest: () => 0, characteristic: () => 0 }
+  expect(() => evaluateLifeTotalAmount(lowestLife(), context)).toThrow('not available')
+  for (const invalid of [Number.NaN, 1.5, Number.MAX_SAFE_INTEGER]) {
+    expect(() => evaluateLifeTotalAmount(lowestLife(), { ...context, lowestLife: () => invalid })).toThrow()
+  }
+})

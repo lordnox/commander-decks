@@ -1,6 +1,6 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work; continues #394 and #383. **131 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
@@ -112,7 +112,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. Mirror Universe and Necrologia have migrated. | — | `Repay in Kind` |
+| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. Mirror Universe and Necrologia have migrated. | — | None remaining |
 
 ### 07. Action outcomes, captured players, and copy snapshots
 
@@ -222,7 +222,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Available | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. Mirror Universe has migrated. | [06](#06) | `Repay in Kind` |
+| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Available | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. Mirror Universe has migrated. | [06](#06) | None remaining |
 | <a id="19-history"></a>**19-history — Life-loss history** | Available | Query life lost this turn by one player or all players; preserve actual rather than attempted losses. Children of Korlis, Tainted Sigil, and Sygg have migrated. | — | None remaining |
 | <a id="19-win"></a>**19-win — Win-game instruction** | Available | Apply a canonical win instruction through game-result restrictions. Test of Endurance has migrated. | — | None remaining |
 

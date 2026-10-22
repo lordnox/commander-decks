@@ -1,3 +1,4 @@
+import repayInKind from './repay-in-kind'
 import misterNegative from './mister-negative'
 import bendersWaterskin from './benders-waterskin'
 import keepSafe from './keep-safe'
@@ -285,6 +286,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Repay in Kind': repayInKind,
   'Mister Negative': misterNegative,
   "Bender's Waterskin": bendersWaterskin,
   'Keep Safe': keepSafe,

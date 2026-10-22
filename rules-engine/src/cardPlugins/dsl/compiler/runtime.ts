@@ -546,6 +546,10 @@ export const amountEvaluationContext = (
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
+  lowestLife: selector => {
+    const totals = evaluatePlayerSelector(selector, context).map(seat => context.state.players[seat].life)
+    return totals.length === 0 ? 0 : Math.min(...totals)
+  },
   counterCount: (reference, counter) => {
     const objects = evaluateObjectReference(reference, context)
     if (objects.length > 1) throw new RuleDslEvaluationError('counterCount requires at most one current object')

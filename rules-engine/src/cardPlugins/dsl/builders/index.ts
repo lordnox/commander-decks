@@ -28,6 +28,7 @@ import type {
   Keyword,
   KeywordAbilityDefinition,
   LifeLostCombine,
+  LifeTotalAmount,
   LinkedExileReturn,
   ModeDefinition,
   ModeInput,
@@ -669,10 +670,13 @@ export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient;
 export const gainLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'gainLife', amount: toAmount(input.amount), targets: input.targets })
 
-export const setLife = (input: { amount: AmountInput; targets: PlayerRecipient; bindResult?: string }): Instruction =>
+export const lowestLife = (of: PlayerSelector = players()) =>
+  immutableData({ kind: 'lowestLife' as const, of })
+
+export const setLife = (input: { amount: number | LifeTotalAmount; targets: PlayerRecipient; bindResult?: string }): Instruction =>
   immutableData({
     kind: 'setLife',
-    amount: toAmount(input.amount),
+    amount: typeof input.amount === 'number' ? amount(input.amount) : immutableData(input.amount),
     targets: input.targets,
     ...(input.bindResult ? { bindResult: input.bindResult } : {}),
   })
