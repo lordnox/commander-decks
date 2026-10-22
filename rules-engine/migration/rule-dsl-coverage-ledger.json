@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 118,
+    "cardRegistrations": 117,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 84,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 69,
+    "instructionUnobservedGaps": 70,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 116,
-    "candidateOnlyCardRows": 113
+    "candidateOnlyInstructionRows": 115,
+    "candidateOnlyCardRows": 112
   },
   "cardEffects": [
     {
@@ -705,7 +705,6 @@
         "Raise the Palisade:effects[0]",
         "Rankle, Master of Pranks:effects[0]",
         "Reins of Power:effects[0]",
-        "Ripples of Undeath:effects[0]",
         "Rishkar's Expertise:effects[0]",
         "Roaming Throne:effects[2]",
         "Sail into the West:effects[0]",
@@ -731,7 +730,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 192,
+        "matches": 191,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -790,7 +789,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 47,
+        "matches": 48,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -3431,16 +3430,11 @@
     {
       "variant": "millThenRecover",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Ripples of Undeath:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/millThenRecover.test.ts:177 — test('Ripples of Undeath mills on first main then offers recover', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:71 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3448,7 +3442,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4275,7 +4269,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3071 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
-          "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
+          "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:147 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:181 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
@@ -4850,7 +4844,7 @@
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:133 — test('Icetill Explorer can play a land from the graveyard', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:119 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
-          "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
+          "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {"
@@ -6737,7 +6731,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
+          "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {"
         ]
       },
@@ -8017,40 +8011,6 @@
       "pluginIds": [],
       "handlerIds": [
         "stackCopy"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Ripples of Undeath",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Ripples of Undeath"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/millThenRecover.test.ts:177 — test('Ripples of Undeath mills on first main then offers recover', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:71 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [millThenRecover]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "millThenRecover"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -10569,7 +10529,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 246,
+        "matches": 247,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -11507,7 +11467,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:864",
+        "rules-engine/src/cardPlugins/cardRules.ts:861",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -11531,7 +11491,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1341"
+        "rules-engine/src/types.ts:1344"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -12706,13 +12666,13 @@
         "lines": [
           319,
           730,
-          1887,
-          1917
+          1889,
+          1919
         ],
         "samples": [
           "319: const liveSource = draft.object(source.ref.objectId)",
           "730: const source = draft.object(sourceId)",
-          "1887: const object = draft.object(item.objectId)"
+          "1889: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13534,21 +13494,21 @@
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
           355,
-          521,
-          618,
-          627,
-          708,
-          725,
-          755,
-          777,
-          829,
-          944,
-          971
+          529,
+          626,
+          635,
+          716,
+          733,
+          763,
+          785,
+          844,
+          959,
+          986
         ],
         "samples": [
           "355: const object = draft.object(identity.objectId)",
-          "521: const object = draft.object(recipient.objectId)",
-          "618: const source = draft.object(original.objectId)"
+          "529: const object = draft.object(recipient.objectId)",
+          "626: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -1192,7 +1192,11 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'payOptional': {
         exactKeys(node, path, ['kind', 'payer', 'cost', 'bindResult', 'whenPaidDecisions', 'ifPaid', 'ifDeclined', 'whenPaid'], ['kind', 'payer', 'cost', 'bindResult'])
         validateReference(node.payer, childPath(path, 'payer'), env, ['player'])
-        validateCost(node.cost, childPath(path, 'cost'), env)
+        if (isData(node.cost) && node.cost.kind === 'manaAndLife') {
+          exactKeys(node.cost, childPath(path, 'cost'), ['kind', 'mana', 'life'], ['kind', 'mana', 'life'])
+          validateCost({ kind: 'mana', amount: node.cost.mana }, childPath(path, 'cost'), env)
+          validateAmount(node.cost.life, `${path}.cost.life`, env)
+        } else validateCost(node.cost, childPath(path, 'cost'), env)
         const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
         declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['paid']) }, childPath(path, 'bindResult'))
         const whenPaidEnv = node.whenPaidDecisions === undefined

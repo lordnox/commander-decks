@@ -11,10 +11,10 @@ import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, EventTrace, GameEvent, GameState, ManaPool, ObjectIdentity, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
-import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, ResolutionCost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
 import { captureLexicalBindings, generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
-import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates, resolutionManaCost } from '../cardPlugins/dsl/resolutionPayment'
 import type { ResolutionManaActivation, ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
@@ -149,7 +149,7 @@ export type PendingOptionSelection = {
     kind: 'canonicalResolutionPayment'
     stackId: string
     scopeId?: string
-    cost: Cost
+    cost: ResolutionCost
     source: CapturedObject
     controller: PlayerId
     bindResult: string
@@ -359,16 +359,19 @@ export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace
   const cardsHaveOutcome = pending.paymentEvents.every((event, index) =>
     eventWasApplied(event)
     || (eventWasReplaced(event) && pending.selected?.[index] !== undefined && objectSettled(pending.selected[index]!)))
-  const lifeEvent = pending.cost.kind === 'life' ? pending.paymentEvents[0] : undefined
-  const lifeSettled = lifeEvent
-    ? eventWasApplied(lifeEvent)
-      && trace.some((entry) => entry.event.type === 'loseLife'
-        && entry.event.seat === pending.payer
-        && entry.event.amount === pending.amount
-        && entry.event.source === pending.source.ref.objectId
-        && entry.outcome === 'applied')
-    : false
-  const paid = pending.cost.kind === 'life'
+  const hasLifeCost = pending.cost.kind === 'life' || pending.cost.kind === 'manaAndLife'
+  const lifeEvent = hasLifeCost ? pending.paymentEvents[0] : undefined
+  if (lifeEvent && eventWasApplied(lifeEvent)) pending.lifePaymentApplied = true
+  if (hasLifeCost && trace.some((entry) => entry.event.type === 'loseLife'
+    && entry.event.seat === pending.payer
+    && entry.event.amount === pending.amount
+    && entry.event.source === pending.source.ref.objectId
+    && entry.outcome === 'applied')) pending.lifeLossApplied = true
+  // Replacement choices can suspend the payment after payLife commits but
+  // before its loseLife continuation. Keep both outcomes across that boundary.
+  if (draft.eventProcessing) return
+  const lifeSettled = pending.lifePaymentApplied && pending.lifeLossApplied
+  const paid = hasLifeCost
     ? lifeSettled
     : cardsSettled && cardsHaveOutcome
   delete frame.pendingResolutionPayment
@@ -378,6 +381,10 @@ export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace
     frame.phase = 'running'
     draft.note('resolution payment did not settle; reopening the payment choice')
     return
+  }
+  if (pending.manaSpent) {
+    const pool = draft.players[pending.payer].mana
+    for (const color of Object.keys(pending.manaSpent) as (keyof ManaPool)[]) pool[color] -= pending.manaSpent[color]
   }
   frame.results = { ...frame.results, [pending.resultBinding]: true }
   if (pending.ifPaid.length > 0) {
@@ -412,6 +419,7 @@ const resolutionPaymentPayable = (
   action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
 ) => {
   switch (action.cost.kind) {
+    case 'manaAndLife': return state.players[seat].life >= action.paymentAmount && canPayResolutionMana(state, seat, { kind: 'mana', amount: action.cost.mana }, action.source, action.bindings)
     case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source, action.bindings)
     case 'life': return state.players[seat].life >= action.paymentAmount
     case 'discard':
@@ -804,7 +812,13 @@ export const selectOptions: Plugin = {
             draft.players[event.seat].restrictedMana = nextMana.restrictedMana
             break
           }
+          case 'manaAndLife':
           case 'life': {
+            const manaCost = resolutionManaCost(cost)
+            const nextMana = manaCost ? payResolutionMana(draft, event.seat, manaCost, selection.action.source, selection.action.bindings) : undefined
+            if (cost.kind === 'manaAndLife' && !nextMana) return
+            const manaSpent = nextMana ? Object.fromEntries(Object.entries(draft.players[event.seat].mana)
+              .map(([color, value]) => [color, value - nextMana.pool[color as keyof ManaPool]])) as ManaPool : undefined
             const paymentEvent: GameEvent = {
               type: 'payLife',
               seat: event.seat,
@@ -823,6 +837,7 @@ export const selectOptions: Plugin = {
               ifDeclined: structuredClone(selection.action.ifDeclined),
               whenPaid: structuredClone(selection.action.whenPaid),
               paymentEvents: [paymentEvent],
+              ...(manaSpent ? { manaSpent } : {}),
               ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
               ...(selection.action.bindings ? { bindings: structuredClone(selection.action.bindings) } : {}),
             }

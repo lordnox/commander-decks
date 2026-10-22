@@ -1,3 +1,4 @@
+import type { Plugin } from '../../types'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -8,6 +9,7 @@ import {
   gainLife,
   activated,
   manaCost,
+  manaAndLifeCost,
   objects,
   payOptional,
   ref,
@@ -539,3 +541,116 @@ for (const scenario of [
     expect(resolved.players.p1.life).toBe(41)
   })
 }
+
+// Combined costs use the same optional-payment cursor as single costs.
+test.each([
+  { life: 4, mana: 1, pay: true, legal: true },
+  { life: 3, mana: 1, pay: true, legal: true },
+  { life: 2, mana: 1, pay: true, legal: false },
+  { life: 4, mana: 0, pay: true, legal: false },
+  { life: 4, mana: 1, pay: false, legal: true },
+])('combined payment checks the entire cost before spending (%j)', ({ life, mana, pay, legal }) => {
+  const server = createServerGame(commanderRules, { players: 2, hands: { p1: [instructionSpell({ instructions: [
+    payOptional({ payer: ref('controller'), cost: manaAndLifeCost('{1}', 3), bindResult: 'paid', ifPaid: [gainLife({ targets: ref('controller'), amount: 5 })] }),
+  ] })] } }, { random: () => 0 })
+  const initial = structuredClone(server.state)
+  initial.players.p1.life = life
+  initial.players.p1.mana.C = mana
+  const cast = ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: initial.zoneOrder.p1.hand[0]! }))
+  const offered = ok(server.rules(cast, { type: 'resolveTop' }))
+  const pending = pendingOptionSelection(offered, 'p1')!
+  const event = { type: 'selectOption' as const, seat: 'p1', selectionId: pending.id, optionId: pay ? 'pay' : 'decline' }
+  const direct = server.rules(offered, event)
+  expect(direct.ok).toBe(legal)
+  expect(server.rules(JSON.parse(JSON.stringify(offered)), event)).toEqual(direct)
+  expect(direct.state.players.p1.mana.C).toBe(legal && pay ? 0 : mana)
+  expect(direct.state.players.p1.life).toBe(legal && pay ? life - 3 + 5 : life)
+})
+
+test('combined payment can activate mana abilities, then decline without paying life or spending that mana', () => {
+  const producer = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: { kind: 'constant', value: 1 } } }] })])))
+  const server = createServerGame(commanderRules, { players: 2,
+    battlefield: { p1: [cardTemplate('Producer fixture', { types: ['Artifact'], ruleDefinition: producer })] },
+    hands: { p1: [instructionSpell({ instructions: [payOptional({ payer: ref('controller'), cost: manaAndLifeCost('{1}', 3), bindResult: 'paid' })] })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }))
+  let state = ok(server.rules(cast, { type: 'resolveTop' }))
+  const offer = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: offer.options.find(option => option.id.startsWith('activate:'))!.id }))
+  expect(state.players.p1.mana.C).toBe(1)
+  expect(state.priority).toBeNull()
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: pendingOptionSelection(state, 'p1')!.id, optionId: 'decline' }))
+  expect(state.players.p1.life).toBe(server.state.players.p1.life)
+  expect(state.players.p1.mana.C).toBe(1)
+  expect(state.resolution).toBeUndefined()
+})
+
+
+test('combined payment retains its mana when life payment cannot settle', () => {
+  const prevent: Plugin = { id: 'test.preventLifeCost', replace: ({ event }) => event.type === 'loseLife' ? null : undefined }
+  const server = createServerGame(commanderRules, { players: 2, hands: { p1: [instructionSpell({ instructions: [
+    payOptional({ payer: ref('controller'), cost: manaAndLifeCost('{1}', 3), bindResult: 'paid', ifPaid: [gainLife({ targets: ref('controller'), amount: 5 })] }),
+  ] })] } }, { random: () => 0, cardPlugins: [prevent] })
+  const initial = structuredClone(server.state)
+  initial.players.p1.mana.C = 1
+  const cast = ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: initial.zoneOrder.p1.hand[0]! }))
+  const offered = ok(server.rules(cast, { type: 'resolveTop' }))
+  const state = ok(server.rules(offered, { type: 'selectOption', seat: 'p1', selectionId: pendingOptionSelection(offered, 'p1')!.id, optionId: 'pay' }))
+  expect(state.players.p1.life).toBe(initial.players.p1.life)
+  expect(state.players.p1.mana.C).toBe(1)
+  expect(pendingOptionSelection(state, 'p1')).toBeDefined()
+})
+
+test('a payment following mill preserves the bound recovery set across both choices', () => {
+  const server = createServerGame(commanderRules, { players: 2,
+    battlefield: { p1: [cardTemplate('Ripples of Undeath')] },
+    libraries: { p1: [cardTemplate('Recovery land', { types: ['Land'] }), cardTemplate('Recovery creature'), cardTemplate('Recovery spell'), cardTemplate('Deeper card')] },
+  }, { random: () => 0 })
+  const initial = structuredClone(server.state)
+  initial.step = 'draw'
+  initial.players.p1.mana.C = 1
+  const triggered = structuredClone(ok(server.rules(initial, { type: 'advanceStep' })))
+  triggered.players.p1.mana.C = 1
+  const offered = ok(server.rules(triggered, { type: 'resolveTop' }))
+  expect(offered.zoneOrder.p1.graveyard).toEqual(initial.zoneOrder.p1.library.slice(0, 3))
+  const pay = { type: 'selectOption' as const, seat: 'p1', selectionId: pendingOptionSelection(offered, 'p1')!.id, optionId: 'pay' }
+  const paid = ok(server.rules(offered, pay))
+  expect(ok(server.rules(JSON.parse(JSON.stringify(offered)), pay))).toEqual(paid)
+  const selection = pendingSelectionFor(paid, 'p1')!
+  expect(selection.candidates).toEqual(initial.zoneOrder.p1.library.slice(0, 3))
+  expect(paid.players.p1.life).toBe(initial.players.p1.life - 3)
+  expect(paid.players.p1.mana.C).toBe(0)
+  const pick = { type: 'selectCards' as const, seat: 'p1', selectionId: selection.id, kind: 'choose' as const, count: 1, objectIds: [selection.candidates[0]!] }
+  const completed = ok(server.rules(paid, pick))
+  expect(ok(server.rules(JSON.parse(JSON.stringify(paid)), pick))).toEqual(completed)
+  expect(completed.zoneOrder.p1.hand).toEqual(pick.objectIds)
+  expect(completed.players.p1.life).toBe(paid.players.p1.life)
+})
+
+test('combined payment validates its mana and life fields', () => {
+  for (const cost of [manaAndLifeCost('invalid', 3), manaAndLifeCost('{1}', -1)]) {
+    expect(() => compileCardRuleDefinition(card([spell({ instructions: [payOptional({ payer: ref('controller'), cost, bindResult: 'paid' })] })]))).toThrow()
+  }
+})
+
+test('combined payment survives restore while a life-loss replacement choice is pending', () => {
+  const plugins: Plugin[] = ['test.firstLifeReplacement', 'test.secondLifeReplacement'].map(id => ({
+    id, replace: ({ event }) => event.type === 'loseLife' ? { ...event } : undefined,
+  }))
+  const server = createServerGame(commanderRules, { players: 2, hands: { p1: [instructionSpell({ instructions: [
+    payOptional({ payer: ref('controller'), cost: manaAndLifeCost('{1}', 3), bindResult: 'paid' }),
+  ] })] } }, { random: () => 0, cardPlugins: plugins })
+  const initial = structuredClone(server.state)
+  initial.players.p1.mana.C = 1
+  const cast = ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: initial.zoneOrder.p1.hand[0]! }))
+  const offered = ok(server.rules(cast, { type: 'resolveTop' }))
+  const waiting = ok(server.rules(offered, { type: 'selectOption', seat: 'p1', selectionId: pendingOptionSelection(offered, 'p1')!.id, optionId: 'pay' }))
+  const replacement = pendingOptionSelection(waiting, 'p1')!
+  expect(waiting.eventProcessing).toBeDefined()
+  const event = { type: 'selectOption' as const, seat: 'p1', selectionId: replacement.id, optionId: replacement.options[0]!.id }
+  const completed = ok(server.rules(waiting, event))
+  expect(ok(server.rules(JSON.parse(JSON.stringify(waiting)), event))).toEqual(completed)
+  expect(completed.players.p1.life).toBe(initial.players.p1.life - 3)
+  expect(completed.players.p1.mana.C).toBe(0)
+  expect(completed.resolution).toBeUndefined()
+})

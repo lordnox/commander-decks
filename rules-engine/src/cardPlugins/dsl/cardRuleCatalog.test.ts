@@ -2187,3 +2187,16 @@ test('Palace Jailer has two independent entry abilities with opponent-monarch ex
     { kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] }, instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilOpponentMonarch: true }] },
   ])
 })
+
+
+test('Ripples of Undeath binds its first-main mill and pays mana plus life before recovering from that set', () => {
+  expect(cardRuleDefinitionSnapshotFor('Ripples of Undeath')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'precombatMain', player: { name: 'controller' } }, instructions: [
+      { kind: 'mill', count: { value: 3 }, bindChoice: 'milled' },
+      { kind: 'payOptional', cost: { kind: 'manaAndLife', mana: '{1}', life: { value: 3 } }, ifPaid: [
+        { kind: 'chooseCards', filter: { filter: { among: { kind: 'choiceRef', binding: 'milled' } } }, min: { value: 1 }, max: { value: 1 } },
+        { kind: 'move', to: 'hand' },
+      ] },
+    ] },
+  ])
+})

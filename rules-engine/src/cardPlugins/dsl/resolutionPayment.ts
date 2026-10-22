@@ -1,10 +1,26 @@
 import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
-import type { Cost } from './schema/v1'
+import type { Cost, ResolutionCost } from './schema/v1'
 import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
 import { canonicalManaAbilityForTap } from './manaPrograms'
 import { evaluateObjectReference, evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
 import { payCost } from '../../plugins/spells'
+
+export const resolutionManaCost = (cost: ResolutionCost) => {
+  switch (cost.kind) {
+    case 'mana': return cost
+    case 'manaAndLife': return { kind: 'mana' as const, amount: cost.mana }
+    default: return undefined
+  }
+}
+
+export const resolutionCostLabel = (cost: ResolutionCost, amount: number) => {
+  switch (cost.kind) {
+    case 'mana': return cost.amount
+    case 'manaAndLife': return `${cost.mana} and ${amount} life`
+    default: return cost.kind
+  }
+}
 
 export type ResolutionPaymentBindings = Pick<RuleDslRuntimeContext, 'targets' | 'targetLegality' | 'choices' | 'results' | 'variables' | 'scopeId' | 'occurrence' | 'capturedOccurrence' | 'capturedOccurrenceBindings'>
 

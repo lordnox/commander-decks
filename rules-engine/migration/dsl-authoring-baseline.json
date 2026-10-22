@@ -452,12 +452,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "045deb2e469efeaf4cfd452b823362b26d51d9a24ca4bd9d21a5d493f0d6f2de",
-    "card": "Ripples of Undeath"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "bc698c6cd062801474c994585aba1deba97c577c744bb31289b430a3598b1feb",
     "card": "Roaming Throne"
   },

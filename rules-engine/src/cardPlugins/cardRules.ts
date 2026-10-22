@@ -164,8 +164,6 @@ import {
   escape,
   hiddenPileNegotiation,
   opponentPiles,
-  millThenRecover,
-  yourFirstMain,
   repeatIf,
   ifYouDoExileFromGraveyard,
   ptEqualsCount,
@@ -755,7 +753,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Rings of Brighthearth': [handler('stackCopy')],
-  'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
   "Rishkar's Expertise": [
     onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
   ],

@@ -307,6 +307,9 @@ export type Cost =
   /** Exile chosen graveyard cards while paying to cover generic mana only. */
   | { kind: 'delve' }
 
+/** A resolution payment may combine mana and life into one optional decision. */
+export type ResolutionCost = Cost | { kind: 'manaAndLife'; mana: ManaCost; life: Amount }
+
 export type CostIncrease = { amount: ManaCost; reason?: string }
 export type CostReduction = { generic: Amount; reason?: string }
 
@@ -519,7 +522,7 @@ export type Instruction =
   | {
       kind: 'payOptional'
       payer: PlayerReference
-      cost: Cost
+      cost: ResolutionCost
       bindResult: string
       whenPaidDecisions?: DecisionsInput
       ifPaid?: readonly Instruction[]

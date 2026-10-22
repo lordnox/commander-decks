@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after mill-result identity binding, monarch and Palace Jailer, including family 39 public piles, public votes, and persistent linked-card sets. **118 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after combined optional mana/life payment and Ripples of Undeath, including family 39 public piles, public votes, and persistent linked-card sets. **117 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **118 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **117 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -86,7 +86,6 @@ Current readiness: **0 composition candidates**; **118 blocked or awaiting sourc
 | `Rankle, Master of Pranks` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [37-modes](CARD-MIGRATION-BATCHES.md#37-modes), [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Blocked by mechanics | Combat-damage-to-player occurrence; retain all printed keywords and every mode. |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |
-| `Ripples of Undeath` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill), [20-combined-payment](CARD-MIGRATION-BATCHES.md#20-combined-payment) | Blocked by mechanics | Mill identity binding is Available; optional {1} plus 3 life requires one combined payment, not two independently offered costs. |
 | `Rishkar's Expertise` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand) | Blocked by mechanics | — |
 | `Roaming Throne` | 29 | [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
 | `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public voting is available. Still needs a resolving `exileThisSpell` branch after the return outcome; do not migrate until that instruction exists. |

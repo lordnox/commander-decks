@@ -276,6 +276,9 @@ export const discardCost = (filter: ObjectRecipient, count: AmountInput): Cost =
 export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost =>
   immutableData({ kind: 'sacrifice', filter, count: toAmount(count) })
 
+export const manaAndLifeCost = (mana: string, life: AmountInput) =>
+  immutableData({ kind: 'manaAndLife' as const, mana, life: toAmount(life) })
+
 export const millCost = (count: AmountInput): Cost => immutableData({ kind: 'mill', count: toAmount(count) })
 
 export const drawCost = (count: AmountInput): Cost =>
@@ -933,7 +936,7 @@ export const preventAllCombatDamageThisTurn = (filter: Omit<PreventionFilter, 'c
 
 export const payOptional = (input: {
   payer: Extract<Instruction, { kind: 'payOptional' }>['payer']
-  cost: Cost
+  cost: Extract<Instruction, { kind: 'payOptional' }>['cost']
   bindResult: string
   whenPaidDecisions?: DecisionsInput
   ifPaid?: readonly Instruction[]

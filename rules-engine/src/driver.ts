@@ -56,7 +56,7 @@ import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
 import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/revealUntilExecution'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
-import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLabel, resolutionManaCost } from './cardPlugins/dsl/resolutionPayment'
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
@@ -1766,6 +1766,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       let paymentAmount: number | undefined
       switch (instruction.cost.kind) {
         case 'mana': paymentAmount = 0; break
+        case 'manaAndLife': paymentAmount = availableAmount(instruction.cost.life, context); break
         case 'life': paymentAmount = availableAmount(instruction.cost.amount, context); break
         case 'discard':
         case 'sacrifice': paymentAmount = availableAmount(instruction.cost.count, context); break
@@ -1782,7 +1783,8 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(context.capturedOccurrenceBindings ? { capturedOccurrenceBindings: [...context.capturedOccurrenceBindings] } : {}),
         ...(scope.scopeId ? { scopeId: scope.scopeId } : {}),
       }
-      const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source, bindings)
+      const manaPayment = resolutionManaCost(instruction.cost)
+      const manaActivations = manaPayment && !canPayResolutionMana(draft, payer, manaPayment, frame.source, bindings)
         ? eligibleResolutionManaAbilities(draft, payer)
         : []
       const options = [
@@ -1799,7 +1801,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         seat: payer,
         sourceId: frame.source.ref.objectId,
         source: frame.source.snapshot.name,
-        prompt: `Pay ${instruction.cost.kind === 'mana' ? instruction.cost.amount : instruction.cost.kind}.`,
+        prompt: `Pay ${resolutionCostLabel(instruction.cost, paymentAmount)}.`,
         options,
         action: {
           kind: 'canonicalResolutionPayment',
