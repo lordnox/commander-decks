@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after signed life minimums and first strike plus concurrent family 33 work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after optional resolution exile costs plus signed life minimums, first strike, and concurrent family 33 work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 65 available, 1 awaiting correctness follow-up, and 104 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 66 available, 1 awaiting correctness follow-up, and 103 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -67,6 +67,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **14-result-max and 33-discard are available:** per-player programs can keep a surviving maximum of actual action results such as discarded counts; whole-hand discards bind those counts after replacement. Windfall has migrated.
 
 **14-signed-minimum and 21-first-strike are available:** signed lowest-life queries are restricted to life-total consumers; Repay in Kind has migrated. First-strike eligibility is captured by object identity for both damage steps, surviving restore and keyword changes. Sire of Seven Deaths still needs ward support.
+
+**36-exile is available:** `exileForEffect` composes a typed optional one-card choice, exile, and conditional continuation from canonical instructions. Its payment condition follows CR 118.12, including modified destinations; mechanic tests cover decline, no eligible cards, countering, illegal targets, and journal restore. Masked Vandal remains unmigrated because **22-changeling** is Open; do not omit its all-creature-types ability.
 
 ## Suggested next work
 
@@ -403,7 +405,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="36-exile"></a>**36-exile — Optional resolution exile with success binding** | Open | Choose a graveyard card after target announcement, exile it on resolution, and condition the effect on actual success. | — | `Masked Vandal` |
+| <a id="36-exile"></a>**36-exile — Optional resolution exile cost** | Available | Choose zero or one eligible graveyard card after target announcement with typed selectCards; perform exile and continue only when the optional cost is paid. CR 118.11–118.12 preserves payment through replacement effects, rather than requiring the card to reach exile. Preserve decline, empty candidate sets, target revalidation, and restored choices. | — | `Masked Vandal` |
 
 ### 37. Player sacrifice and modal triggers
 

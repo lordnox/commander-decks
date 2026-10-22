@@ -1,6 +1,6 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after signed life minimums and first strike plus concurrent family 33 work. **130 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after optional resolution exile costs plus signed life minimums, first strike, and concurrent family 33 work. **130 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
@@ -71,7 +71,7 @@ Current readiness: **0 composition candidates**; **130 blocked or awaiting sourc
 | `Lumbering Battlement` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Include linked-card count in continuous stat modification. |
 | `Lumra, Bellow of the Woods` | 22 | [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach/vigilance, land-count CDA, and mill/return lands. |
 | `Marina Vendrell` | 43 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [08](CARD-MIGRATION-BATCHES.md#08) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include reveal-seven enchantments and door activation. |
-| `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | — |
+| `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | Optional exile cost is Available; complete migration still requires changeling in every applicable zone. |
 | `Maskwood Nexus` | 22 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Mirkwood Bats` | 19 | [35-token](CARD-MIGRATION-BATCHES.md#35-token) | Blocked by mechanics | — |
 | `Mirrorweave` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
