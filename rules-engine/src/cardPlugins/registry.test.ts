@@ -283,7 +283,8 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')
-    expect(cardPluginEntry("Council's Judgment")?.handlerIds).toContain('vote')
+    expect(cardPluginEntry("Council's Judgment")).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor("Council's Judgment")).toBeDefined()
     expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')
     expect(cardPluginEntry('Sokrates, Athenian Teacher')).toBeUndefined()
     expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
@@ -549,16 +550,20 @@ describe('card plugin registry', () => {
   test('council cards register the vote engine handlers they need', () => {
     expect(handlerIdsForNames(['Sail into the West']).toSorted())
       .toEqual(['choiceEffects', 'eachPlayerWheel', 'onResolve', 'vote'])
-    expect(handlerIdsForNames(["Selvala's Stampede"]).toSorted()).toEqual(['onResolve', 'vote'])
-    expect(handlerIdsForNames(['Coercive Portal'])).toEqual(['vote'])
+    expect(handlerIdsForNames(["Selvala's Stampede"])).toEqual([])
+    expect(cardPluginEntry("Selvala's Stampede")).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor("Selvala's Stampede")).toBeDefined()
+    expect(handlerIdsForNames(['Coercive Portal'])).toEqual([])
+    expect(cardPluginEntry('Coercive Portal')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Coercive Portal')).toBeDefined()
     expect(cardDefinition('Erestor of the Council')?.effects)
       .toMatchObject([{ op: 'trigger', on: 'votesFinished' }])
   })
 
   test('Split Decision and Trap the Trespassers register vote handlers', () => {
-    expect(handlerIdsForNames(['Split Decision'])).toEqual(
-      expect.arrayContaining(['stackCopy', 'targetedResolve', 'vote']),
-    )
+    expect(handlerIdsForNames(['Split Decision'])).toEqual([])
+    expect(cardPluginEntry('Split Decision')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Split Decision')).toBeDefined()
     expect(handlerIdsForNames(['Trap the Trespassers'])).toEqual(
       expect.arrayContaining(['onResolve', 'vote']),
     )
@@ -598,9 +603,8 @@ describe('card plugin registry', () => {
   })
 
   test('Homer remaining cards keep their resolve composition', () => {
-    expect(cardDefinition('Fact or Fiction')?.effects).toMatchObject([
-      { op: 'trigger', do: [{ kind: 'opponentPiles', count: 5, reveal: 'public' }] },
-    ])
+    expect(effectsFor('Fact or Fiction')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')).toBeDefined()
     expect(cardDefinition("Fortune's Favor")?.effects).toMatchObject([
       { op: 'targetedResolve', filter: { players: 'opponent' } },
     ])

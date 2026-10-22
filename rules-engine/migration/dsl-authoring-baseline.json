@@ -362,12 +362,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "18222a97c44be882a12d54c076c32a2baf53771d6218f71dc44092366e1fd885",
-    "card": "Fact or Fiction"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "27e9f4d067378277615f95be5cdca9df86a7756ec73b8d50f4ac2d5171b49480",
     "card": "Firdoch Core"
   },
@@ -622,30 +616,6 @@
     "code": "legacy-card-registration",
     "digest": "6a6d9e0f780b0aa4d22cb87b1c7f4f1748d1dc5af037e62f77fc310e56737733",
     "card": "Sail into the West"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "8102ca71e0c59208ae36aba9e8db3950e1b56edc5500c17cebb35c7ae7902174",
-    "card": "Selvala's Stampede"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "39489393da02176eaa18b74093423aab00fce83c29c1ce2b771f5517bcaed6ae",
-    "card": "Coercive Portal"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "492e591cc1d727766f3a6b025fba25cb87ae3b736b94bd0868b6afb0b90f849a",
-    "card": "Council's Judgment"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "1fa3486a30ffff0cc216971ec403e6a0a172cc90e27f814860b5444138e0605c",
-    "card": "Split Decision"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

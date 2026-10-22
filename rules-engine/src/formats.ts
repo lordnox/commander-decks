@@ -48,6 +48,7 @@ import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
+import { vote } from './cardPlugins/vote'
 import type { PlayerId, Plugin, ZoneId } from './types'
 
 export type GameFormat = {
@@ -107,6 +108,7 @@ export const corePlugins = [
   battle,
   doubleFaced,
   ...gameRules,
+  vote,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

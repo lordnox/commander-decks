@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after persistent linked-card sets and five consumers, including family 43 Room doors plus Marina Vendrell; continues #394 and #383. **124 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Marina Vendrell, Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 39 public piles and public votes, including persistent linked-card sets; continues #394 and #383. **113 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 68 available, 1 awaiting correctness follow-up, and 101 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 70 available, 1 awaiting correctness follow-up, and 99 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -72,6 +72,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **36-exile is available:** `exileForEffect` composes a typed optional one-card choice, exile, and conditional continuation from canonical instructions. Its payment condition follows CR 118.12, including modified destinations; mechanic tests cover decline, no eligible cards, countering, illegal targets, and journal restore. Masked Vandal remains unmigrated because **22-changeling** is Open; do not omit its all-creature-types ability.
 
 **18-links is available:** identity-pinned sets now compose Bishop of Binding, Endless Sands, Lumbering Battlement, Phyrexian Ingester, and Pit of Offerings. Embedded cached Scryfall data preserves Vampire-only attack targets, nontoken optional exile, both land mana modes, independent signed power/toughness bonuses, and owner-controlled returns. Monarch duration remains the separate **18-monarch** contract.
+
+**39-piles and 39-vote are available:** public opponent partitions bind chosen and remainder piles without auto-moving; sequential public votes, including object ballots and tallies/leads, continue canonical programs. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede have migrated. Fortune's Favor and Hostile Negotiations still need **39-hidden**. Illusion of Choice still needs **39-control**; Erestor still needs **39-finished**; Círdan still needs **39-secret**; Trap still needs **39-secret** and **39-object**. Sail into the West still needs a resolving exile-this-spell branch.
 
 ## Suggested next work
 
@@ -434,9 +436,9 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="39-finished"></a>**39-finished — Finished-voting occurrence** | Open | Expose recorded per-player ballots when a vote finishes so triggered programs can compare choices and count opponents. | [39-vote](#39-vote) | `Erestor of the Council` |
 | <a id="39-hidden"></a>**39-hidden — Face-down pile visibility** | Open | Per-seat knowledge of face-up/face-down piles through choices and restore; do not leak concealed identities. | [39-piles](#39-piles) | `Fortune's Favor`; `Hostile Negotiations` |
 | <a id="39-object"></a>**39-object — Object ballots** | Open | Vote for eligible object identities, then aggregate votes per object; combine with secret visibility when printed. | [39-vote](#39-vote) | `Trap the Trespassers` |
-| <a id="39-piles"></a>**39-piles — Pile division and opponent choices** | Open | Typed pile partition, opponent selection, choosing a pile, and identity-bound result routing. | [08](#08), [15-player](#15-player) | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations` |
+| <a id="39-piles"></a>**39-piles — Pile division and opponent choices** | Available | Typed pile partition, opponent selection, choosing a pile, and identity-bound result routing. | [08](#08), [15-player](#15-player) | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations` |
 | <a id="39-secret"></a>**39-secret — Secret council** | Open | Private votes until reveal, per-player results, ties, and restore. | [39-vote](#39-vote) | `Círdan the Shipwright`; `Trap the Trespassers` |
-| <a id="39-vote"></a>**39-vote — Public voting** | Open | Typed sequential public votes, player choices, recorded ballots, totals/ties, and result-dependent continuation. | [15-each](#15-each) | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Illusion of Choice`; `Sail into the West`; `Selvala's Stampede`; `Split Decision`; `Trap the Trespassers` |
+| <a id="39-vote"></a>**39-vote — Public voting** | Available | Typed sequential public votes, player choices, recorded ballots, totals/ties, and result-dependent continuation. | [15-each](#15-each) | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Illusion of Choice`; `Sail into the West`; `Selvala's Stampede`; `Split Decision`; `Trap the Trespassers` |
 
 ### 40. Sagas
 

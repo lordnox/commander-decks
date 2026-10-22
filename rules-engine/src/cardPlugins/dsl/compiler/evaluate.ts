@@ -89,6 +89,10 @@ export const evaluateAmount = (
       if (!context.damageDealtThisTurn) throw new RuleDslEvaluationError('damageDealtThisTurn is not available in this execution context')
       return runtimeAmount(context.damageDealtThisTurn(expression.to, expression.by), 'damage dealt this turn')
     }
+    case 'voteTally': {
+      if (!context.voteTally) throw new RuleDslEvaluationError('voteTally is not available in this execution context')
+      return runtimeAmount(context.voteTally(expression.binding, expression.option), 'vote tally')
+    }
   }
 }
 

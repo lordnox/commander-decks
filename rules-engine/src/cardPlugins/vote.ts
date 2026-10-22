@@ -5,6 +5,7 @@ import {
   PENDING_OPTION_SELECTION,
   pendingOptionSelection,
 } from '../rules/selectOptions'
+import { objectIdentity } from '../objectIdentity'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
 import type { CardInstruction, VoteOptions } from './effectDefinitions'
 import type { InstructionHandler } from './instructionHandlers/types'
@@ -17,7 +18,7 @@ export const PENDING_VOTE = 'kernel.pendingVote'
 /** Stands in for another seat's vote while a secret vote is still open. */
 const HIDDEN_VOTE = '*'
 
-type VoteOption = { id: string; label: string }
+export type VoteOption = { id: string; label: string }
 
 type PendingVote = {
   id: string
@@ -35,6 +36,11 @@ type PendingVote = {
   chooser?: PlayerId
   outcome: CardInstruction[]
   item?: StackItem
+  canonical?: {
+    stackId: string
+    bindResult: string
+    bindWinners?: string
+  }
 }
 
 const isPendingVote = (value: unknown): value is PendingVote =>
@@ -91,24 +97,41 @@ const finishVote = (draft: Draft, pending: PendingVote) => {
       .map(([seat, id]) => `${seat} for ${label(id)}`)
       .join(', ') || 'none'
   }`)
-  if (pending.outcome.length > 0) {
-    const item: StackItem = pending.item ?? {
-      id: pending.id,
-      kind: 'ability',
-      objectId: pending.sourceId,
-      controller: pending.owner,
-      name: pending.source,
-      targets: [],
+  if (pending.canonical && draft.resolution?.kind === 'canonicalSpell'
+    && draft.resolution.stackId === pending.canonical.stackId) {
+    const frame = draft.resolution
+    frame.voteResults = { ...frame.voteResults, [pending.canonical.bindResult]: result }
+    if (pending.canonical.bindWinners) {
+      frame.choices = {
+        ...frame.choices,
+        [pending.canonical.bindWinners]: result.winners.flatMap((objectId) => {
+          const object = draft.objects[objectId]
+          return object ? [{ kind: 'object' as const, ...objectIdentity(object) }] : []
+        }),
+      }
     }
-    draft.enqueue({
-      type: 'custom',
-      name: INSTRUCTIONS_RESUME,
-      payload: {
-        sourceId: pending.sourceId,
-        remaining: pending.outcome,
-        item: { ...item, payload: { ...item.payload, vote: result } },
-      },
-    })
+    draft.priority = null
+  } else {
+    if (pending.outcome.length > 0) {
+      const item: StackItem = pending.item ?? {
+        id: pending.id,
+        kind: 'ability',
+        objectId: pending.sourceId,
+        controller: pending.owner,
+        name: pending.source,
+        targets: [],
+      }
+      draft.enqueue({
+        type: 'custom',
+        name: INSTRUCTIONS_RESUME,
+        payload: {
+          sourceId: pending.sourceId,
+          remaining: pending.outcome,
+          item: { ...item, payload: { ...item.payload, vote: result } },
+        },
+      })
+    }
+    draft.priority = draft.active
   }
   draft.enqueue({
     type: 'votesFinished',
@@ -116,7 +139,6 @@ const finishVote = (draft: Draft, pending: PendingVote) => {
     owner: pending.owner,
     result,
   })
-  draft.priority = draft.active
 }
 
 /** Ask whoever decides the next vote, or reveal the result once all are in. */
@@ -137,29 +159,58 @@ const askNextVoter = (draft: Draft, pending: PendingVote) => {
   })
 }
 
-export const voteInstruction: InstructionHandler<'vote'> = (
-  { draft, source, item },
-  instruction,
+export const disambiguateVoteOptions = (options: VoteOption[]): VoteOption[] =>
+  options.map((option) =>
+    options.filter(({ label }) => label === option.label).length > 1
+      ? { ...option, label: `${option.label} [${option.id}]` }
+      : option)
+
+export const beginVote = (
+  draft: Draft,
+  args: {
+    source: { id: string; name: string; controller: PlayerId }
+    item?: StackItem
+    prompt: string
+    options: VoteOption[]
+    secret?: boolean
+    outcome?: CardInstruction[]
+    canonical?: PendingVote['canonical']
+  },
 ) => {
-  const owner = source.controller
+  const owner = args.source.controller
   const pending: PendingVote = {
     id: draft.allocId('vote'),
-    sourceId: source.id,
-    source: source.name,
+    sourceId: args.source.id,
+    source: args.source.name,
     owner,
-    prompt: instruction.prompt,
-    secret: instruction.secret === true,
-    options: voteOptions(draft, source, instruction.options),
+    prompt: args.prompt,
+    secret: args.secret === true,
+    options: args.options,
     voters: orderedFrom(draft, owner),
     votes: {},
-    outcome: instruction.outcome,
-    ...(item ? { item } : {}),
+    outcome: args.outcome ?? [],
+    ...(args.item ? { item: args.item } : {}),
+    ...(args.canonical ? { canonical: args.canonical } : {}),
   }
   const chooser = draft.playerOrder.find((seat) =>
     !draft.players[seat].lost && draft.players[seat].data[CHOOSE_VOTES] === true)
   if (chooser) pending.chooser = chooser
   draft.players[owner].data[PENDING_VOTE] = pending
   askNextVoter(draft, pending)
+}
+
+export const voteInstruction: InstructionHandler<'vote'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  beginVote(draft, {
+    source,
+    ...(item ? { item } : {}),
+    prompt: instruction.prompt,
+    options: voteOptions(draft, source, instruction.options),
+    secret: instruction.secret,
+    outcome: instruction.outcome,
+  })
 }
 
 /** Drop the open vote question so the next voter can be asked afresh. */

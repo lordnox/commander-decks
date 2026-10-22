@@ -57,6 +57,7 @@ import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsFor
 import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/revealUntilExecution'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
+import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'choosePlayer',
@@ -145,6 +146,8 @@ const preflightInstructions = (
       case 'returnLinkedExile':
       case 'addMana':
       case 'inspectTop':
+      case 'partitionPiles':
+      case 'vote':
       case 'choosePlayer':
       case 'capturePlayer':
       case 'captureAmount':
@@ -433,6 +436,7 @@ const runtimeContext = (
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
+  ...(frame.voteResults ? { voteResults: frame.voteResults } : {}),
   variables: item.x === undefined ? frame.variables : { ...frame.variables, X: item.x },
 })
 
@@ -1451,6 +1455,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(frame.playerChoiceBindings ? { playerChoiceBindings: [...frame.playerChoiceBindings] } : {}),
         ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
         ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+        ...(frame.voteResults ? { voteResults: structuredClone(frame.voteResults) } : {}),
         ...(frame.choiceSnapshots ? { choiceSnapshots: structuredClone(frame.choiceSnapshots) } : {}),
         ...(frame.capturedCopies ? { capturedCopies: structuredClone(frame.capturedCopies) } : {}),
       }
@@ -1462,6 +1467,76 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(instruction.bindMax ? { collectMax: instruction.bindMax } : {}),
       })
       continue
+    }
+    if (instruction.kind === 'vote') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const options = instruction.options.kind === 'named'
+        ? [...instruction.options.options]
+        : instruction.options.kind === 'players'
+          ? evaluatePlayerSelector(
+            { kind: 'players', filter: instruction.options.filter ?? {} },
+            context,
+          ).map((seat) => ({ id: seat, label: seat }))
+          : disambiguateVoteOptions(evaluateObjectSelector(instruction.options.filter, context).map((object) => ({
+            id: object.id,
+            label: object.name,
+          })))
+      beginVote(draft, {
+        source: {
+          id: frame.source.ref.objectId,
+          name: frame.source.snapshot.name,
+          controller: frame.controller,
+        },
+        item,
+        prompt: instruction.prompt,
+        options,
+        canonical: {
+          stackId: frame.stackId,
+          bindResult: instruction.bindResult,
+          ...(instruction.bindWinners ? { bindWinners: instruction.bindWinners } : {}),
+        },
+      })
+      if (pendingVote(draft)) {
+        frame.phase = 'committing'
+        frame.pendingEvents = []
+        return { kind: 'events', events: [] }
+      }
+      continue
+    }
+    if (instruction.kind === 'partitionPiles') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const partitioner = evaluatePlayerReference(instruction.partitioner, context)[0]
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const cards = objectActions(instruction.cards, context)
+      if (!partitioner || !chooser || cards.length === 0) {
+        frame.choices = { ...frame.choices, [instruction.bindChosen]: [], [instruction.bindOther]: [] }
+        continue
+      }
+      openCardSelection(draft, {
+        seat: partitioner,
+        kind: 'partition',
+        count: cards.length,
+        candidates: cards.map((object) => object.id),
+        sourceId: frame.source.ref.objectId,
+        source: frame.source.snapshot.name,
+        prompt: 'Separate these cards into two piles.',
+        destinations: ['face-up', 'face-down'],
+        fromSeat: cards[0]?.owner ?? chooser,
+        fromZone: 'library',
+        pileController: chooser,
+        pileReveal: 'public',
+        pileVisibility: 'public',
+        canonicalChoice: {
+          stackId: frame.stackId,
+          scopeId: scope.scopeId,
+          binding: instruction.bindChosen,
+          bindOther: instruction.bindOther,
+          action: 'partitionPiles',
+        },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'choosePlayer') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)

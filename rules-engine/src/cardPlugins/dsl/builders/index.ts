@@ -69,6 +69,7 @@ import type {
   TokenDefinition,
   TriggeredAbilityDefinition,
   VariableSpec,
+  VoteSpec,
   WheneverConfiguration,
   Zone,
 } from '../schema/v1'
@@ -134,6 +135,33 @@ export const resultAmount = (binding: string, field: Extract<Amount, { kind: 're
 
 export const inspectTop = (input: { player: PlayerReference; count: AmountInput; bindChoice: string; visibility?: LibraryVisibility }) =>
   immutableData({ kind: 'inspectTop' as const, ...input, count: toAmount(input.count), visibility: input.visibility ?? LIBRARY_VISIBILITY.private })
+
+export const partitionPiles = (input: {
+  cards: ObjectRecipient
+  partitioner: PlayerReference
+  chooser: PlayerReference
+  bindChosen: string
+  bindOther: string
+}) => immutableData({ kind: 'partitionPiles' as const, ...input })
+
+export const vote = (input: {
+  prompt: string
+  options: VoteSpec
+  bindResult: string
+  bindWinners?: string
+}) => immutableData({
+  kind: 'vote' as const,
+  prompt: input.prompt,
+  options: input.options,
+  bindResult: input.bindResult,
+  ...(input.bindWinners !== undefined ? { bindWinners: input.bindWinners } : {}),
+})
+
+export const voteLeads = (binding: string, option: string) =>
+  immutableData({ kind: 'voteLeads' as const, binding, option })
+
+export const voteTally = (binding: string, option: string) =>
+  immutableData({ kind: 'voteTally' as const, binding, option })
 
 export const capturePlayer = (input: { player: PlayerReference; bindResult: string }) =>
   immutableData({ kind: 'capturePlayer' as const, ...input })

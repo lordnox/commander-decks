@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 124,
+    "cardRegistrations": 119,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
-    "builtInPlugins": 55,
+    "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 30,
     "customEventDispatchSites": 84,
     "directMutationSites": 577,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 64,
+    "instructionUnobservedGaps": 68,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 121,
-    "candidateOnlyCardRows": 119
+    "candidateOnlyInstructionRows": 117,
+    "candidateOnlyCardRows": 114
   },
   "cardEffects": [
     {
@@ -606,14 +606,13 @@
         "Price of Fame:effects[1]",
         "Quantum Misalignment:effects[0]",
         "Snuff Out:effects[1]",
-        "Split Decision:effects[0]",
         "Tear Asunder:effects[1]",
         "Vantress Visions:effects[0]",
         "Wash Away:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 53,
+        "matches": 46,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1077 — test('a host restart rebuilds an open dredge replacement choice', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -664,9 +663,7 @@
         "Cavern of Souls:effects[0]",
         "Círdan the Shipwright:effects[0]",
         "Círdan the Shipwright:effects[1]",
-        "Coercive Portal:effects[0]",
         "Colossification:effects[1]",
-        "Council's Judgment:effects[0]",
         "Courser of Kruphix:effects[3]",
         "Crawling Sensation:effects[0]",
         "Crawling Sensation:effects[1]",
@@ -674,7 +671,6 @@
         "Erestor of the Council:effects[0]",
         "Eureka:effects[0]",
         "Everflowing Chalice:effects[1]",
-        "Fact or Fiction:effects[0]",
         "Famished Worldsire:effects[2]",
         "Forgotten Cellar:effects[0]",
         "Glorious Protector:effects[2]",
@@ -715,7 +711,6 @@
         "Roaming Throne:effects[2]",
         "Sail into the West:effects[0]",
         "Sakashima of a Thousand Faces:effects[1]",
-        "Selvala's Stampede:effects[0]",
         "Show and Tell:effects[0]",
         "Sin, Spira's Punishment:effects[0]",
         "Sin, Spira's Punishment:effects[1]",
@@ -737,9 +732,9 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 206,
+        "matches": 193,
         "samples": [
-          "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
+          "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:1236 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
           "live-runner/src/kernelHost.test.ts:1904 — test('Joint Exploration put-land dispatches a kernel move', () => {",
@@ -1072,7 +1067,7 @@
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -1097,8 +1092,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:134 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:313 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:621 — test(\"Thespian's Stage lists its handlers\", () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:314 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:625 — test(\"Thespian's Stage lists its handlers\", () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1122,7 +1117,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:333 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1191,7 +1186,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:586 — test('Círdan misc cards keep their handler composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1300,7 +1295,7 @@
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:210 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:607 — test('Homer remaining cards keep their resolve composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:611 — test('Homer remaining cards keep their resolve composition', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -1454,8 +1449,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:349 — test('Wedding Ring copies for the targeted opponent and mirrors their draws', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:370 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:426 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:371 — test('the Lady Evangela remaining group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:427 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -1517,21 +1512,11 @@
     {
       "variant": "copyTargetSpell",
       "mechanic": "copy and token action",
-      "currentRegistrations": [
-        "Split Decision:effects[0].do[0].outcome[0].whenFalse[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:102",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:108",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:123 — test('only an instant or sorcery spell is a legal target', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:170 — test('denial with more votes counters the targeted spell, which never resolves', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:194 — test('a tie copies the spell, and only the caster may choose new targets for the copy', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:41"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed copy/token action",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1541,27 +1526,17 @@
         "05",
         "09"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
       "variant": "counterTargetSpell",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Split Decision:effects[0].do[0].outcome[0].whenTrue[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:102",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:108",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:123 — test('only an instant or sorcery spell is a legal target', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:170 — test('denial with more votes counters the targeted spell, which never resolves', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:194 — test('a tie copies the spell, and only the caster may choose new targets for the copy', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:41"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1570,7 +1545,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -1660,11 +1635,11 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:115",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:532 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:583 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:554 — test('council cards register the vote engine handlers they need', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1794,7 +1769,7 @@
           "rules-engine/src/cardPlugins/planeswalker.test.ts:33",
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:662 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:666 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1875,20 +1850,11 @@
     {
       "variant": "destroyAll",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Coercive Portal:effects[0].do[0].outcome[0].whenTrue[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:425 — test('an open vote survives a host restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:447 — test('triggers only at its controller upkeep and asks a public carnage/homage vote', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:470 — test('homage winning draws a card for the controller and keeps every permanent', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:489 — test('carnage winning sacrifices the Portal and destroys every nonland permanent', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:553 — test('council cards register the vote engine handlers they need', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1897,7 +1863,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2023,7 +1989,6 @@
       "mechanic": "semantic game action",
       "currentRegistrations": [
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
-        "Coercive Portal:effects[0].do[0].outcome[0].whenFalse[0]",
         "Erestor of the Council:effects[0].do[2]",
         "Illusion of Choice:effects[0].do[1]",
         "Jace, Multiverse Architect:effects[1].do[0]",
@@ -2036,7 +2001,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 101,
+        "matches": 96,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2044,8 +2009,8 @@
           "live-runner/src/kernelHost.test.ts:503 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:115"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2091,7 +2056,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1092 — test('declining ends the offer and keeps every card in hand', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1106 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:955 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:594 — test('Círdan misc cards keep their handler composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:599 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2265,14 +2230,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:267 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:279 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:521 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:641 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2325,7 +2290,7 @@
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
           "rules-engine/src/cardPlugins/embalm.test.ts:46 — test('clone-safe embalm builder stamps parameterized exceptions', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:327 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:328 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2352,7 +2317,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/encore.test.ts:59 — test('encore builder clones safely', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:767 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:771 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2479,14 +2444,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:267 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:279 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:521 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:641 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2509,7 +2474,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:333 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2524,17 +2489,11 @@
     {
       "variant": "exileVoteWinners",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Council's Judgment:effects[0].do[0].outcome[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:50 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:616 — test(\"Council's Judgment: everybody voting alike gives every opponent a Treasure and no scry\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:277 — test('the Lady Evangela copy-politics group stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2542,7 +2501,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2659,11 +2618,11 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:562 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:381 — test('with no creature the caster does not control there is nothing to vote on', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:43"
+          "rules-engine/src/cardPlugins/registry.test.ts:567 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:284 — test('an open vote and an open copy choice both survive a host restart', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:341 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:398 — test('with no creature the caster does not control there is nothing to vote on', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:45"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -2686,11 +2645,11 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:115",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:532 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:583 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:554 — test('council cards register the vote engine handlers they need', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -2880,7 +2839,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:696 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:700 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2946,7 +2905,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 24,
+        "matches": 27,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -2997,22 +2956,20 @@
       "variant": "ifVoteLeads",
       "mechanic": "structured control flow",
       "currentRegistrations": [
-        "Coercive Portal:effects[0].do[0].outcome[0]",
-        "Sail into the West:effects[0].do[0].outcome[0]",
-        "Split Decision:effects[0].do[0].outcome[0]"
+        "Sail into the West:effects[0].do[0].outcome[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 22,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:267 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:279 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:425 — test('an open vote survives a host restart', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -3060,7 +3017,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:696 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:700 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3091,8 +3048,8 @@
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2088 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2111 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2154 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2177 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:869 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:892 — test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {"
         ]
@@ -3188,7 +3145,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:127 — test('Curious Colossus chooses an opponent then shrinks their board', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:735 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:739 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3354,7 +3311,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1092 — test('declining ends the offer and keeps every card in hand', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1106 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:955 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:594 — test('Círdan misc cards keep their handler composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:599 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -3424,7 +3381,7 @@
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:41",
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:63",
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:72 — test('only its controller gaining life puts the trigger on the stack', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:346 — test('Niv-Mizzet, Ghost Counsel stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:347 — test('Niv-Mizzet, Ghost Counsel stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3555,8 +3512,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:372 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:428 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:373 — test('the Lady Evangela remaining group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:429 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -3580,7 +3537,7 @@
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -3599,19 +3556,15 @@
       "variant": "opponentPiles",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Fact or Fiction:effects[0].do[0]",
         "Fortune's Favor:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 3,
         "samples": [
-          "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/actions.test.ts:436 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
           "rules-engine/src/cardPlugins/opponentPiles.test.ts:172 — test('an untargeted public split asks an opponent, then the controller picks a pile', () => {",
-          "rules-engine/src/cardPlugins/opponentPiles.test.ts:422 — test('Fact or Fiction uses a public opponent pile split', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:601 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:69 — test('the Homer dumpster cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:70 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3769,7 +3722,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:696 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:700 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3835,7 +3788,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1788 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1803 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1939 — test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2094 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2160 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4037,7 +3990,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:341 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:302 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:303 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4118,7 +4071,7 @@
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4216,21 +4169,18 @@
       "variant": "putPermanentsFromHand",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Selvala's Stampede:effects[0].do[0].outcome[1]",
         "Ugin, the Spirit Dragon:effects[2].do[2]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 6,
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:100",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:294 — test('an open vote survives a host restart and still resolves', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:380 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:159 — test('−10 gains and draws seven, then puts only the chosen permanents onto the battlefield', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:18",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:33"
+          "rules-engine/src/cardPlugins/planeswalker.test.ts:33",
+          "rules-engine/src/replay.test.ts:238 — test('imports printed and current planeswalker loyalty', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4334,7 +4284,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:3071 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:569 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:147 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:181 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
@@ -4364,7 +4314,7 @@
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -4412,14 +4362,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:267 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:279 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:521 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:641 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4660,21 +4610,20 @@
       "variant": "revealUntil",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Jace, Multiverse Architect:effects[2].do[1]",
-        "Selvala's Stampede:effects[0].do[0].outcome[0]"
+        "Jace, Multiverse Architect:effects[2].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:100",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:294 — test('an open vote survives a host restart and still resolves', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:380 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:270 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1208 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:13",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
-          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44"
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
+          "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {",
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4766,21 +4715,16 @@
       "variant": "sacrificeSelf",
       "mechanic": "cost or announcement action",
       "currentRegistrations": [
-        "Coercive Portal:effects[0].do[0].outcome[0].whenTrue[0]",
         "Mulldrifter:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:425 — test('an open vote survives a host restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:447 — test('triggers only at its controller upkeep and asks a public carnage/homage vote', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:470 — test('homage winning draws a card for the controller and keeps every permanent', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:489 — test('carnage winning sacrifices the Portal and destroys every nonland permanent', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:411 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -4808,11 +4752,11 @@
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1056 — test('a restored private choice survives a host restart', async () => {",
           "live-runner/src/kernelHost.test.ts:3961 — test('a top-of-library choice preserves its revealed order', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:115",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:532 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:583 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:652 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:649 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4837,7 +4781,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:61 — test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:95 — test('Alabaster Host Intercessor plainscycles from hand through library search', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:729 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:733 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4880,7 +4824,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:562 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:559 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:206 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:13",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:146 — test('a host restart still sees the open secret vote', () => {",
@@ -4916,7 +4860,7 @@
           "rules-engine/src/cardPlugins/landfall.test.ts:119 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:569 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -4988,11 +4932,11 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:610 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:628 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:562 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:381 — test('with no creature the caster does not control there is nothing to vote on', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:43"
+          "rules-engine/src/cardPlugins/registry.test.ts:567 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:284 — test('an open vote and an open copy choice both survive a host restart', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:341 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:398 — test('with no creature the caster does not control there is nothing to vote on', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:45"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -5141,7 +5085,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:586 — test('Círdan misc cards keep their handler composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {",
           "rules-engine/src/cardPlugins/unearth.test.ts:166 — test('stamps a clone-safe unearth builder on effects', () => {"
         ]
       },
@@ -5193,25 +5137,21 @@
       "variant": "vote",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Coercive Portal:effects[0].do[0]",
-        "Council's Judgment:effects[0].do[0]",
         "Sail into the West:effects[0].do[0]",
-        "Selvala's Stampede:effects[0].do[0]",
-        "Split Decision:effects[0].do[0]",
         "Trap the Trespassers:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 35,
+        "matches": 24,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1311 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:50 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:100",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {"
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:69 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -5256,7 +5196,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:61 — test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:95 — test('Alabaster Host Intercessor plainscycles from hand through library search', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:729 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:733 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, static, trigger] and instructions [linkExile, searchLibrary]",
@@ -5299,7 +5239,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:197 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:671 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:675 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, handler, static, trigger] and instructions [linkExile]",
@@ -5400,7 +5340,7 @@
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:327 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:328 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, handler, static, trigger] and instructions [embalmToken, linkExile]",
@@ -5444,7 +5384,7 @@
           "live-runner/src/kernelHost.test.ts:2789 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:105 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:82 — test('a tapped Archangel does not impose its attack tax', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:469 — test('Archangel and Baird register the reusable combat-tax handler', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:470 — test('Archangel and Baird register the reusable combat-tax handler', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -5515,7 +5455,7 @@
           "rules-engine/src/cardPlugins/combatTax.test.ts:186 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:29 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:64 — test('Baird does not tax a creature attacking another opponent', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:470 — test('Archangel and Baird register the reusable combat-tax handler', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:471 — test('Archangel and Baird register the reusable combat-tax handler', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -5585,7 +5525,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:383 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:384 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -5618,7 +5558,7 @@
           "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
           "rules-engine/src/cardPlugins/dsl/counter.test.ts:263 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:490 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:491 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:292 — test('without the replacement an ordinary permanent is still taken, so the Colossus is the exception', () => {",
           "rules-engine/src/cardPlugins/watchedEnters.test.ts:388 — test('a dead creature card blocks the next copy, but a shuffled-away Colossus never does', () => {",
@@ -5720,49 +5660,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Coercive Portal",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Coercive Portal"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:425 — test('an open vote survives a host restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:447 — test('triggers only at its controller upkeep and asks a public carnage/homage vote', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:470 — test('homage winning draws a card for the controller and keeps every permanent', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:489 — test('carnage winning sacrifices the Portal and destroys every nonland permanent', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:553 — test('council cards register the vote engine handlers they need', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyAll, draw, ifVoteLeads, sacrificeSelf, vote]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "destroyAll",
-        "draw",
-        "ifVoteLeads",
-        "sacrificeSelf",
-        "vote"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "vote"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Colossification",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -5830,43 +5727,6 @@
       ],
       "handlerIds": [
         "sharedHaste"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Council's Judgment",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Council's Judgment"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:50 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:616 — test(\"Council's Judgment: everybody voting alike gives every opponent a Treasure and no scry\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:277 — test('the Lady Evangela copy-politics group stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [exileVoteWinners, vote]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "exileVoteWinners",
-        "vote"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve",
-        "vote"
       ],
       "embeddedRulePaths": []
     },
@@ -5952,7 +5812,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:127 — test('Curious Colossus chooses an opponent then shrinks their board', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:735 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:739 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseAbilitiesBecome]",
@@ -5983,7 +5843,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:562 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:559 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:206 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:13",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:146 — test('a host restart still sees the open secret vote', () => {",
@@ -6061,8 +5921,8 @@
           "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
           "rules-engine/src/cardPlugins/dsl/counter.test.ts:263 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:258 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:490 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:736 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:491 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:740 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
           "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:713 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/plugins/combatKeywords.test.ts:456 — test('without a first or double striker there is only the regular damage step', () => {"
@@ -6196,8 +6056,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:26 — test('Ephemerate returns a stolen creature under its owner’s control', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:434 — test('Lady Evangela blink-value cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:660 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:435 — test('Lady Evangela blink-value cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:664 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -6225,11 +6085,11 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:115",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:532 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:583 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:554 — test('council cards register the vote engine handlers they need', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:114",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:509 — test('an open vote survives a host restart and a tie still draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:529 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:580 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [createTreasures, draw, forEachVoter, scry]",
@@ -6301,7 +6161,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:341 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:302 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:303 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [putChargeCountersFromTimesKicked]",
@@ -6337,7 +6197,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:399 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:400 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -6352,44 +6212,6 @@
       "pluginIds": [],
       "handlerIds": [
         "combatPreventionCards"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Fact or Fiction",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Fact or Fiction"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/actions.test.ts:436 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
-          "rules-engine/src/cardPlugins/opponentPiles.test.ts:422 — test('Fact or Fiction uses a public opponent pile split', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:601 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:69 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [opponentPiles]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "opponentPiles"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "onResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -6525,7 +6347,7 @@
         "matches": 4,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:615 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:619 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/plugins/rooms.test.ts:179 — test('a door without inline effects takes its rules text from the card table', () => {",
           "site/src/TableBoard.test.tsx:65 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
         ]
@@ -6555,7 +6377,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:604 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:70 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -6592,7 +6414,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:662 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:666 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [blink, dealDamageToChosenTarget]",
@@ -6631,7 +6453,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:331 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:332 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler, static, trigger] and instructions [linkExile]",
@@ -6924,7 +6746,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:569 — test('Incarnation Technique loads both the trigger and the copy handler', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique loads both the trigger and the copy handler', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler, trigger] and instructions [reanimateCreatureFromGraveyards, selfMill]",
@@ -7035,7 +6857,7 @@
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:47 — test('registry exposes the begin-combat optional pay handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:353 — test('Jace, Multiverse Architect is registered with optional mana pay', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, handler, trigger] and instructions [attackBanUntilEot, draw, opponentMayPayMana, putHandCardOnLibraryBottom, removeTarget, revealUntil]",
@@ -7119,7 +6941,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:586 — test('Círdan misc cards keep their handler composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, trigger] and instructions [bounceAll, unearthSelf]",
@@ -7232,8 +7054,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:372 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:428 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:373 — test('the Lady Evangela remaining group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:429 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [opponentMayDrawThenStealCast]",
@@ -7311,7 +7133,7 @@
           "rules-engine/src/cardPlugins/dredge.test.ts:76 — test('does not offer dredge when the library has fewer than N cards', () => {",
           "rules-engine/src/cardPlugins/dredge.test.ts:87 — test('offers every eligible dredger for at most one replacement', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:93 — test('Life from the Loam returns up to three lands to hand', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:612 — test('Homer remaining cards keep their resolve composition', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [dredge, targetedResolve] and instructions []",
@@ -7345,7 +7167,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:140 — test('Lotho triggers only for each player’s second spell in a turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:438 — test('Lady Evangela blink-value cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:439 — test('Lady Evangela blink-value cards stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -7590,7 +7412,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:411 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
         ]
       },
@@ -7631,7 +7453,7 @@
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:591 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:48 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:128 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:310 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:311 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, search] and instructions []",
@@ -7701,7 +7523,7 @@
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:41",
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:63",
           "rules-engine/src/cardPlugins/nivMizzetGhostCounsel.test.ts:72 — test('only its controller gaining life puts the trigger on the stack', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:346 — test('Niv-Mizzet, Ghost Counsel stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:347 — test('Niv-Mizzet, Ghost Counsel stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, trigger] and instructions [gainLife, loseLife, mayPayLifeDraw]",
@@ -7740,7 +7562,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:235 — test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:333 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:334 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [becomeMonarch, exileUntilOpponentBecomesMonarch]",
@@ -7776,7 +7598,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
           "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:168 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:665 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:669 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [blink, if]",
@@ -7817,7 +7639,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:696 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:700 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
@@ -8289,7 +8111,7 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1092 — test('declining ends the offer and keeps every card in hand', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1106 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:955 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:594 — test('Círdan misc cards keep their handler composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:599 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [drawGreatestPower, mayCastFromHandWithoutPayingMana]",
@@ -8329,7 +8151,7 @@
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:607 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:611 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:76 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -8368,14 +8190,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:140",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:158",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:164 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:216 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:267 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:279 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:521 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:641 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:518 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:638 — test('every opponent voting differently scries for each of them and makes no Treasure', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [eachPlayerMayWheel, exileThisSpell, ifVoteLeads, returnChosenLandFromGraveyard, vote]",
@@ -8438,45 +8260,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Selvala's Stampede",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Selvala's Stampede"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:100",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:294 — test('an open vote survives a host restart and still resolves', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:380 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:552 — test('council cards register the vote engine handlers they need', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [putPermanentsFromHand, revealUntil, vote]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "putPermanentsFromHand",
-        "revealUntil",
-        "vote"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve",
-        "vote"
       ],
       "embeddedRulePaths": []
     },
@@ -8564,7 +8347,7 @@
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:46",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:61 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:262 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:500 — test('Sire of Seven Deaths registers only the Ward-pay-7-life stamp', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:501 — test('Sire of Seven Deaths registers only the Ward-pay-7-life stamp', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:25 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {"
         ]
       },
@@ -8635,7 +8418,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:81 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:418 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:419 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
@@ -8668,7 +8451,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:767 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:771 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [encoreTokens]",
@@ -8730,51 +8513,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Split Decision",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Split Decision"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:559 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:102",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:108",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:123 — test('only an instant or sorcery spell is a legal target', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:170 — test('denial with more votes counters the targeted spell, which never resolves', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:194 — test('a tie copies the spell, and only the caster may choose new targets for the copy', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:41"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [copyTargetSpell, counterTargetSpell, ifVoteLeads, vote]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "copyTargetSpell",
-        "counterTargetSpell",
-        "ifVoteLeads",
-        "vote"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "stackCopy",
-        "targetedResolve",
-        "vote"
       ],
       "embeddedRulePaths": []
     },
@@ -9067,8 +8805,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:134 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:313 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:621 — test(\"Thespian's Stage lists its handlers\", () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:314 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:625 — test(\"Thespian's Stage lists its handlers\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [becomeCopyOfTarget]",
@@ -9103,11 +8841,11 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:562 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:381 — test('with no creature the caster does not control there is nothing to vote on', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:43"
+          "rules-engine/src/cardPlugins/registry.test.ts:567 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:284 — test('an open vote and an open copy choice both survive a host restart', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:341 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:398 — test('with no creature the caster does not control there is nothing to vote on', () => {",
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:45"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [forEachVotedOption, putCounters, tap, vote]",
@@ -9188,7 +8926,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:695 — test('Urborg lets a Forest tap for {B}', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:748 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:421 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:422 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -9255,7 +8993,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:52 — test('Vanish uses last-known stats, returns at the next upkeep, then opens typed discard', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:436 — test('Lady Evangela blink-value cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:437 — test('Lady Evangela blink-value cards stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -9341,7 +9079,7 @@
         "matches": 7,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:265 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:510 — test('Void Winnower registers even-parity cast and block restrictions', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:511 — test('Void Winnower registers even-parity cast and block restrictions', () => {",
           "rules-engine/src/plugins/opponentRestrictions.test.ts:122 — test('the restriction ends when the source leaves the battlefield', () => {",
           "rules-engine/src/plugins/opponentRestrictions.test.ts:194 — test('the restriction ends the moment Void Winnower leaves the battlefield', () => {",
           "rules-engine/src/plugins/opponentRestrictions.test.ts:213 — test('two Void Winnowers on opposite sides each restrict only the other player', () => {",
@@ -9375,7 +9113,7 @@
         "matches": 4,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:612 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:616 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/plugins/rooms.test.ts:178 — test('a door without inline effects takes its rules text from the card table', () => {",
           "site/src/TableBoard.test.tsx:63 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
         ]
@@ -9514,8 +9252,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:349 — test('Wedding Ring copies for the targeted opponent and mirrors their draws', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:370 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:426 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:371 — test('the Lady Evangela remaining group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:427 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [copySelf, draw, gainLife]",
@@ -10857,7 +10595,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:596 — test('Círdan misc cards keep their handler composition', () => {",
           "rules-engine/src/plugins/saga.test.ts:27",
           "rules-engine/src/plugins/saga.test.ts:42"
         ]
@@ -10874,7 +10612,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 236,
+        "matches": 242,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -10916,7 +10654,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 60,
+        "matches": 62,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3415 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:793 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -11047,7 +10785,7 @@
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:123 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:695 — test('Urborg lets a Forest tap for {B}', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:748 — test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:383 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:384 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -11113,6 +10851,35 @@
       "ownerPart": "16",
       "dependencyParts": [],
       "status": "unobserved"
+    },
+    {
+      "variant": "vote",
+      "mechanic": "runtime plugin hook",
+      "currentRegistrations": [
+        "Sail into the West",
+        "Trap the Trespassers"
+      ],
+      "executableCoverageEvidence": [
+        "rules-engine/src/cardPlugins/vote.test.ts — dedicated plugin/mechanic suite"
+      ],
+      "candidateEvidence": {
+        "matches": 30,
+        "samples": [
+          "live-runner/src/kernelHost.test.ts:1311 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:69 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:139",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:157",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:163 — test('casting and resolving opens a public return/embark vote in turn order from the caster', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:215 — test('return wins: each player returns up to two graveyard cards privately, then Sail is exiled', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:266 — test('a tie goes to embark: each player may discard their hand and draw seven, one at a time', () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:278 — test('embark winning outright wheels too, and the open wheel survives a restart', () => {"
+        ]
+      },
+      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
+      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
+      "ownerPart": "16",
+      "dependencyParts": [],
+      "status": "confirmed-executable-evidence"
     },
     {
       "variant": "warp",
@@ -11566,16 +11333,15 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 7,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1969 — test('a generic pending dialog can put several permanent cards from hand', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:359 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:407 — test('all free votes reveal nothing and offer up to four permanents; restart keeps the offer', () => {",
-          "rules-engine/src/cardPlugins/councilCards.test.ts:589 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:586 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/dumpFromHand.test.ts:50 — test('Show and Tell asks each player to put a permanent', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:160 — test('−10 gains and draws seven, then puts only the chosen permanents onto the battlefield', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:127 — test('finishing the council is heard like any other vote', () => {",
-          "rules-engine/src/cardPlugins/secretCouncil.test.ts:77 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {"
+          "rules-engine/src/cardPlugins/secretCouncil.test.ts:77 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {",
+          "rules-engine/src/cardPlugins/vote.test.ts:356 — test('counts read from the vote parameterize later instructions', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -11674,7 +11440,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/councilCards.test.ts:576 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:573 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:156 — test('a host restart still sees the open secret vote', () => {",
           "rules-engine/src/cardPlugins/secretCouncil.test.ts:49 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {"
         ]
@@ -11784,7 +11550,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:926",
+        "rules-engine/src/cardPlugins/cardRules.ts:872",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -11808,14 +11574,14 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1323"
+        "rules-engine/src/types.ts:1325"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts — becomeCopyOfTarget > stamped creature filter copies power and toughness"
       ],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 24,
         "samples": [
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:10",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:11",
@@ -11871,7 +11637,7 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
-        "rules-engine/src/driver.ts:1304",
+        "rules-engine/src/driver.ts:1308",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -11956,7 +11722,7 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
         "rules-engine/src/definitions.ts:73",
-        "rules-engine/src/formats.ts:123",
+        "rules-engine/src/formats.ts:125",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
         "rules-engine/src/kernel.ts:741",
@@ -11967,7 +11733,7 @@
         "rules-engine/src/newGame.ts:132",
         "rules-engine/src/newGame.ts:183",
         "rules-engine/src/newGame.ts:288",
-        "rules-engine/src/plugins/index.ts:104",
+        "rules-engine/src/plugins/index.ts:106",
         "rules-engine/src/plugins/index.ts:43",
         "rules-engine/src/plugins/rooms.ts:52",
         "rules-engine/src/plugins/rooms.ts:71",
@@ -12217,12 +11983,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          390,
-          487
+          392,
+          489
         ],
         "samples": [
-          "390: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "487: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "392: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "489: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -12411,12 +12177,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          716,
-          735
+          717,
+          736
         ],
         "samples": [
-          "716: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "735: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "717: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "736: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12981,15 +12747,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          314,
-          714,
-          1786,
-          1816
+          317,
+          718,
+          1861,
+          1891
         ],
         "samples": [
-          "314: const liveSource = draft.object(source.ref.objectId)",
-          "714: const source = draft.object(sourceId)",
-          "1786: const object = draft.object(item.objectId)"
+          "317: const liveSource = draft.object(source.ref.objectId)",
+          "718: const source = draft.object(sourceId)",
+          "1861: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13598,44 +13364,44 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          379,
-          819,
-          846,
-          855,
-          873,
-          892,
-          933,
-          943,
-          952,
-          965,
-          967,
-          979,
-          990,
-          994,
-          999,
+          380,
+          878,
+          905,
+          914,
+          932,
+          951,
+          992,
           1002,
           1011,
-          1017,
-          1029,
-          1033,
-          1046,
+          1024,
+          1026,
+          1038,
+          1049,
           1053,
-          1068,
-          1138,
-          1205,
-          1208,
-          1228,
-          1232,
-          1241,
-          1247,
-          1255,
-          1257,
-          1262
+          1058,
+          1061,
+          1070,
+          1076,
+          1088,
+          1092,
+          1105,
+          1112,
+          1127,
+          1197,
+          1264,
+          1267,
+          1287,
+          1291,
+          1300,
+          1306,
+          1314,
+          1316,
+          1321
         ],
         "samples": [
-          "379: draft.enqueue({",
-          "819: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "846: const object = objectId ? draft.object(objectId) : undefined"
+          "380: draft.enqueue({",
+          "878: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "905: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -14286,12 +14052,12 @@
       {
         "path": "rules-engine/src/cardPlugins/vote.ts",
         "lines": [
-          103,
-          113
+          124,
+          136
         ],
         "samples": [
-          "103: draft.enqueue({",
-          "113: draft.enqueue({"
+          "124: draft.enqueue({",
+          "136: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

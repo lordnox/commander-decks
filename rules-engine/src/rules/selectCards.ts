@@ -150,7 +150,8 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck'
+    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'partitionPiles' | 'choosePile'
+    bindOther?: string
     replacementFrameId?: string
     payment?: {
       cost: Cost
@@ -796,6 +797,64 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
 
   if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
     && draft.resolution.stackId === canonicalChoice.stackId) {
+    if (canonicalChoice.action === 'partitionPiles' && selection.kind === 'partition') {
+      const choices = parseChoices(event)
+      if (!choices || !selection.pileController) return
+      const faceUp = choices
+        .filter(({ destination }) => destination === 'face-up')
+        .map(({ objectId }) => objectId)
+      const faceDown = choices
+        .filter(({ destination }) => destination === 'face-down')
+        .map(({ objectId }) => objectId)
+      markKnownToAll(draft, [...faceUp, ...faceDown])
+      const named = (ids: string[]) => ids
+        .map((objectId) => draft.objects[objectId]?.name ?? 'a card')
+        .join(', ')
+        || 'no cards'
+      draft.note(`${event.seat} made two piles for ${selection.source ?? 'the spell'}: ${named(faceUp)} and ${named(faceDown)}`)
+      openCardSelection(draft, {
+        seat: selection.pileController,
+        kind: 'choosePile',
+        count: 1,
+        min: 0,
+        candidates: [...faceUp, ...faceDown],
+        sourceId: selection.sourceId,
+        source: selection.source,
+        prompt: 'Choose a pile.',
+        destinations: ['hand'],
+        fromSeat: selection.pileController,
+        fromZone: 'library',
+        piles: { 'face-up': faceUp, 'face-down': faceDown },
+        pileController: selection.pileController,
+        pileReveal: selection.pileReveal,
+        pileVisibility: selection.pileVisibility,
+        canonicalChoice: {
+          ...canonicalChoice,
+          action: 'choosePile',
+        },
+      })
+      return
+    }
+    if (canonicalChoice.action === 'choosePile' && selection.kind === 'choosePile') {
+      const taken = event.objectIds ?? []
+      const piles = selection.piles
+      if (!piles || !canonicalChoice.bindOther) return
+      const faceUp = piles['face-up']
+      const faceDown = piles['face-down']
+      const chosen = sameIdSet(taken, faceUp) ? faceUp : faceDown
+      const other = chosen === faceUp ? faceDown : faceUp
+      const bound = (ids: string[]) => ids.flatMap((objectId) => {
+        const object = draft.objects[objectId]
+        return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
+      })
+      draft.resolution.choices = {
+        ...draft.resolution.choices,
+        [canonicalChoice.binding]: bound(chosen),
+        [canonicalChoice.bindOther]: bound(other),
+      }
+      draft.priority = null
+      return
+    }
     if (canonicalChoice.action === 'topDeck' && (selection.kind === 'scry' || selection.kind === 'surveil')) {
       const pending = draft.resolution.pendingTopDeck
       const choices = parseChoices(event)

@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after persistent linked-card sets and five consumers, including family 43 Room doors plus Marina Vendrell. **124 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 39 public piles and public votes, including persistent linked-card sets. **113 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **124 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **113 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -21,10 +21,8 @@ Current readiness: **0 composition candidates**; **124 blocked or awaiting sourc
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
-| `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Colossification` | 22 | [22-attachment](CARD-MIGRATION-BATCHES.md#22-attachment) | Blocked by mechanics | Retain the entry tap trigger and attached +20/+20 effect. |
 | `Concordant Crossroads` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [42-world](CARD-MIGRATION-BATCHES.md#42-world) | Blocked by mechanics | World supertype requires the world state-based rule; haste grants alone are insufficient. |
-| `Council's Judgment` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
 | `Courser of Kruphix` | 26 | [26-library-lands](CARD-MIGRATION-BATCHES.md#26-library-lands) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; retain landfall life gain. |
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Curious Colossus` | 22 | [22-ability-loss](CARD-MIGRATION-BATCHES.md#22-ability-loss) | Blocked by mechanics | Preserve all three layers: ability loss, Coward addition, and base 1/1. |
@@ -39,7 +37,6 @@ Current readiness: **0 composition candidates**; **124 blocked or awaiting sourc
 | `Eureka` | 27 | [27-repeat](CARD-MIGRATION-BATCHES.md#27-repeat) | Blocked by mechanics | — |
 | `Everflowing Chalice` | 10 | [25-multikicker](CARD-MIGRATION-BATCHES.md#25-multikicker), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters), [17-counters](CARD-MIGRATION-BATCHES.md#17-counters) | Blocked by mechanics | Multikicker count determines entry counters and mana production. |
 | `Everybody Lives!` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player) | Blocked by mechanics | Creature hexproof/indestructible and player hexproof plus life/game-result restrictions. |
-| `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
 | `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection and land devour are available; ward remains. Verify every printed clause before authoring. |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
@@ -93,9 +90,8 @@ Current readiness: **0 composition candidates**; **124 blocked or awaiting sourc
 | `Ripples of Undeath` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill) | Blocked by mechanics | Paid recovery must choose from the cards actually milled by this trigger. |
 | `Rishkar's Expertise` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand) | Blocked by mechanics | — |
 | `Roaming Throne` | 29 | [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
-| `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public will-of-the-council vote, not secret council. Return up to two graveyard cards per player or offer discard-hand/draw-seven; preserve the resolving exile branch. |
+| `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public voting is available. Still needs a resolving `exileThisSpell` branch after the return outcome; do not migrate until that instruction exists. |
 | `Sakashima of a Thousand Faces` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [28-legend](CARD-MIGRATION-BATCHES.md#28-legend) | Blocked by mechanics | — |
-| `Selvala's Stampede` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | Votes determine the creature-reveal count and own-hand placement count; this is not multi-player hand placement. |
 | `Show and Tell` | 27 | [27-place](CARD-MIGRATION-BATCHES.md#27-place) | Blocked by mechanics | — |
 | `Sin, Spira's Punishment` | 38 | [38-random](CARD-MIGRATION-BATCHES.md#38-random), [38-tapped](CARD-MIGRATION-BATCHES.md#38-tapped), [38-repeat](CARD-MIGRATION-BATCHES.md#38-repeat) | Blocked by mechanics | Entry or attack: repeat for as long as each randomly exiled card is a land. This is not a repeat-once or defending-player program. |
 | `Sire of Seven Deaths` | 21 | [21-ward-life](CARD-MIGRATION-BATCHES.md#21-ward-life), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach), [21-first-strike](CARD-MIGRATION-BATCHES.md#21-first-strike), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
@@ -103,7 +99,6 @@ Current readiness: **0 composition candidates**; **124 blocked or awaiting sourc
 | `Snuff Out` | 25 | [25-alternative](CARD-MIGRATION-BATCHES.md#25-alternative), [42-regeneration](CARD-MIGRATION-BATCHES.md#42-regeneration) | Blocked by mechanics | — |
 | `Soul of Eternity` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Blocked by mechanics | — |
 | `Spark Double` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [17-counters](CARD-MIGRATION-BATCHES.md#17-counters) | Blocked by mechanics | — |
-| `Split Decision` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | Retain counter-versus-copy results, stack targets, and copy retargeting. |
 | `Springheart Nantuko` | 41 | [41-bestow](CARD-MIGRATION-BATCHES.md#41-bestow), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Include attached +1/+1, optional copy payment, and fallback Insect only when no copy was created. |
 | `Standard Bearer` | 21 | [21-targets](CARD-MIGRATION-BATCHES.md#21-targets) | Blocked by mechanics | — |
 | `Starfield of Nyx` | 26 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include upkeep return and enchantment animation. |

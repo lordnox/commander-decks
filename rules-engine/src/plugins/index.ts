@@ -47,6 +47,7 @@ import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, instructionResume, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
+import { vote } from '../cardPlugins/vote'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
 import { activated as canonicalActivated } from '../cardPlugins/activated'
@@ -90,6 +91,7 @@ export const builtInPlugins = [
   selectPlayers,
   triggers,
   instructionResume,
+  vote,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

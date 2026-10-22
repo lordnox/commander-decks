@@ -13,6 +13,7 @@ import type {
   OccurrenceSnapshot,
   PlayerId,
   StackItem,
+  VoteResult,
 } from '../../../types'
 import type {
   InstructionResult,
@@ -73,6 +74,7 @@ export type RuleDslRuntimeContext = RuntimeBindings & {
   occurrence?: OccurrenceSnapshot
   stackItemId?: string
   optionChoices?: Readonly<Record<string, string>>
+  voteResults?: Readonly<Record<string, VoteResult>>
 }
 
 const targetRecipients = (reference: TargetReference, context: RuleDslRuntimeContext) => {
@@ -573,6 +575,7 @@ export const amountEvaluationContext = (
     oneReferenceValue(reference, context, characteristic, information, fallback),
   lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),
   damageDealtThisTurn: (to, by) => damageDealtThisTurnAmong(to, by, context),
+  voteTally: (binding, option) => context.voteResults?.[binding]?.tallies[option] ?? 0,
 } satisfies AmountEvaluationContext)
 
 const lifeLostThisTurnAmong = (
@@ -676,6 +679,10 @@ export const evaluateCondition = (
     case 'all': return condition.conditions.every((part) => evaluateCondition(part, context))
     case 'any': return condition.conditions.some((part) => evaluateCondition(part, context))
     case 'not': return !evaluateCondition(condition.condition, context)
+    case 'voteLeads': {
+      const result = context.voteResults?.[condition.binding]
+      return Boolean(result && result.winners.length === 1 && result.winners[0] === condition.option)
+    }
   }
 }
 

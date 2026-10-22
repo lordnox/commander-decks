@@ -15,7 +15,7 @@ import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './
 type Data = Record<string, unknown>
 type Domain = 'damage' | 'player' | 'object' | 'stack' | 'boolean' | 'number'
 type Binding = {
-  kind: 'choice' | 'result'
+  kind: 'choice' | 'result' | 'vote'
   domain: Domain
   fields?: ReadonlySet<ResultField>
 }
@@ -417,6 +417,20 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.by !== undefined) validateRecipient(node.by, childPath(path, 'by'), env, ['player'])
         return
       }
+      case 'voteTally': {
+        exactKeys(node, path, ['kind', 'binding', 'option'], ['kind', 'binding', 'option'])
+        const name = bindingName(node.binding, childPath(path, 'binding'))
+        if (typeof node.option !== 'string' || node.option.length === 0) {
+          issue(childPath(path, 'option'), 'binding-name', 'voteTally requires a nonempty option id')
+        }
+        if (name) {
+          const binding = env.locals.get(name)
+          if (!binding || binding.kind !== 'vote') {
+            issue(childPath(path, 'binding'), 'unresolved-binding', `vote ${name} is not produced on every control-flow path`)
+          }
+        }
+        return
+      }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported amount kind: ${String(node.kind)}`)
     }
   }
@@ -539,6 +553,20 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'condition'], ['kind', 'condition'])
         validateCondition(node.condition, childPath(path, 'condition'), env, depth + 1)
         return
+      case 'voteLeads': {
+        exactKeys(node, path, ['kind', 'binding', 'option'], ['kind', 'binding', 'option'])
+        const name = bindingName(node.binding, childPath(path, 'binding'))
+        if (typeof node.option !== 'string' || node.option.length === 0) {
+          issue(childPath(path, 'option'), 'binding-name', 'voteLeads requires a nonempty option id')
+        }
+        if (name) {
+          const binding = env.locals.get(name)
+          if (!binding || binding.kind !== 'vote') {
+            issue(childPath(path, 'binding'), 'unresolved-binding', `vote ${name} is not produced on every control-flow path`)
+          }
+        }
+        return
+      }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported condition kind: ${String(node.kind)}`)
     }
   }
@@ -729,6 +757,65 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(node.visibility, childPath(path, 'visibility'), new Set(Object.values(LIBRARY_VISIBILITY)), 'library visibility')
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         return
+      case 'partitionPiles':
+        exactKeys(node, path, ['kind', 'cards', 'partitioner', 'chooser', 'bindChosen', 'bindOther'], ['kind', 'cards', 'partitioner', 'chooser', 'bindChosen', 'bindOther'])
+        validateRecipient(node.cards, childPath(path, 'cards'), env, ['object'])
+        validateReference(node.partitioner, childPath(path, 'partitioner'), env, ['player'])
+        validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
+        declareBinding(env, bindingName(node.bindChosen, childPath(path, 'bindChosen')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChosen'))
+        declareBinding(env, bindingName(node.bindOther, childPath(path, 'bindOther')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindOther'))
+        return
+      case 'vote': {
+        exactKeys(node, path, ['kind', 'prompt', 'options', 'bindResult', 'bindWinners'], ['kind', 'prompt', 'options', 'bindResult'])
+        if (typeof node.prompt !== 'string' || node.prompt.length === 0 || node.prompt.length > 256) {
+          issue(childPath(path, 'prompt'), 'type', 'vote prompt must be a nonempty string of at most 256 characters')
+        }
+        const options = object(node.options, childPath(path, 'options'))
+        let objectsBallot = false
+        if (options) {
+          switch (options.kind) {
+            case 'named': {
+              exactKeys(options, childPath(path, 'options'), ['kind', 'options'], ['kind', 'options'])
+              const entries = array(options.options, childPath(childPath(path, 'options'), 'options'), { nonempty: true })
+              const seen = new Set<string>()
+              entries.forEach((entry, index) => {
+                const optionPath = childPath(childPath(childPath(path, 'options'), 'options'), index)
+                const optionNode = object(entry, optionPath)
+                if (!optionNode) return
+                exactKeys(optionNode, optionPath, ['id', 'label'], ['id', 'label'])
+                if (typeof optionNode.id !== 'string' || optionNode.id.length === 0) {
+                  issue(childPath(optionPath, 'id'), 'binding-name', 'vote option ids must be nonempty')
+                } else if (seen.has(optionNode.id)) {
+                  issue(childPath(optionPath, 'id'), 'duplicate-binding', `vote option ${optionNode.id} is already declared`)
+                } else seen.add(optionNode.id)
+                if (typeof optionNode.label !== 'string' || optionNode.label.length === 0 || optionNode.label.length > 128) {
+                  issue(childPath(optionPath, 'label'), 'type', 'vote option labels must be nonempty strings of at most 128 characters')
+                }
+              })
+              break
+            }
+            case 'objects':
+              objectsBallot = true
+              exactKeys(options, childPath(path, 'options'), ['kind', 'filter'], ['kind', 'filter'])
+              if (validateSelector(options.filter, childPath(childPath(path, 'options'), 'filter'), env) !== 'object') {
+                issue(childPath(childPath(path, 'options'), 'filter'), 'domain', 'object votes require an object selector')
+              }
+              break
+            case 'players':
+              exactKeys(options, childPath(path, 'options'), ['kind', 'filter'], ['kind'])
+              if (options.filter !== undefined) validatePlayerFilter(options.filter, childPath(childPath(path, 'options'), 'filter'), env)
+              break
+            default:
+              issue(childPath(childPath(path, 'options'), 'kind'), 'unsupported-kind', `unsupported vote options kind: ${String(options.kind)}`)
+          }
+        }
+        declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'vote', domain: 'boolean' }, childPath(path, 'bindResult'))
+        if (node.bindWinners !== undefined) {
+          if (!objectsBallot) issue(childPath(path, 'bindWinners'), 'domain', 'bindWinners requires object vote options')
+          declareBinding(env, bindingName(node.bindWinners, childPath(path, 'bindWinners')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindWinners'))
+        }
+        return
+      }
       case 'capturePlayer':
         exactKeys(node, path, ['kind', 'player', 'bindResult'], ['kind', 'player', 'bindResult'])
         validateReference(node.player, childPath(path, 'player'), env, ['player'])

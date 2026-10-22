@@ -176,6 +176,8 @@ export type Amount =
     }
   | { kind: 'lifeLostThisTurn'; of: PlayerRecipient; combine?: LifeLostCombine }
   | { kind: 'damageDealtThisTurn'; to: ObjectReference; by?: PlayerRecipient }
+  /** Count of recorded ballots for one option of a finished public vote. */
+  | { kind: 'voteTally'; binding: string; option: string }
 
 export type AmountInput = number | Amount
 
@@ -372,6 +374,8 @@ export type Condition =
   | { kind: 'all'; conditions: readonly Condition[] }
   | { kind: 'any'; conditions: readonly Condition[] }
   | { kind: 'not'; condition: Condition }
+  /** The named option has strictly more votes than every other option. Ties are false. */
+  | { kind: 'voteLeads'; binding: string; option: string }
 
 export type PlayerRecipient = PlayerReference | PlayerSelector
 export type ObjectRecipient = ObjectReference | ObjectSelector
@@ -395,11 +399,37 @@ export type TokenDefinition = {
   abilities?: readonly AbilityDefinition[]
 }
 
+export type NamedVoteOption = { id: string; label: string }
+
+/** Public vote options. Secret ballots and extra-vote control stay on later 39 slices. */
+export type VoteSpec =
+  | { kind: 'named'; options: readonly NamedVoteOption[] }
+  | { kind: 'objects'; filter: ObjectSelector }
+  | { kind: 'players'; filter?: PlayerFilter }
+
 export type Instruction =
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
   | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
+  /** Public sequential votes; bind the result and continue after every ballot is in. */
+  | {
+      kind: 'vote'
+      prompt: string
+      options: VoteSpec
+      bindResult: string
+      /** Object identities of the winning option ids when voting for permanents. */
+      bindWinners?: string
+    }
+  /** An opponent partitions bound cards; the chooser picks a pile; both piles stay bound. */
+  | {
+      kind: 'partitionPiles'
+      cards: ObjectRecipient
+      partitioner: PlayerReference
+      chooser: PlayerReference
+      bindChosen: string
+      bindOther: string
+    }
   /** Evaluate an amount now, preserving it for later instructions and continuations. */
   | { kind: 'capturePlayer'; player: PlayerReference; bindResult: string }
   | { kind: 'captureAmount'; amount: Amount; bindResult: string }
@@ -842,4 +872,5 @@ export type AmountEvaluationContext = {
   counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
   damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number
+  voteTally?: (binding: string, option: string) => number
 }

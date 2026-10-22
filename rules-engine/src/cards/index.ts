@@ -99,7 +99,9 @@ import childrenOfKorlis from './children-of-korlis'
 import cloudshift from './cloudshift'
 import collectorsVault from './collectors-vault'
 import comeuppance from './comeuppance'
+import coercivePortal from './coercive-portal'
 import commandersSphere from './commanders-sphere'
+import councilsJudgment from './councils-judgment'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
 import cropRotation from './crop-rotation'
@@ -136,6 +138,7 @@ import explore from './explore'
 import fabledPassage from './fabled-passage'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
+import factOrFiction from './fact-or-fiction'
 import fateUnraveler from './fate-unraveler'
 import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
@@ -231,6 +234,7 @@ import seaGateReborn from './sea-gate-reborn'
 import seaGateRestoration from './sea-gate-restoration'
 import secludedSteppe from './secluded-steppe'
 import seleniaDarkAngel from './selenia-dark-angel'
+import selvalasStampede from './selvalas-stampede'
 import settleTheWreckage from './settle-the-wreckage'
 import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
@@ -244,6 +248,7 @@ import soporificSprings from './soporific-springs'
 import soulsOfTheFaultless from './souls-of-the-faultless'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
+import splitDecision from './split-decision'
 import stifle from './stifle'
 import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
@@ -388,9 +393,11 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cloudshift": cloudshift,
   "Collector's Vault": collectorsVault,
   "Comeuppance": comeuppance,
+  "Coercive Portal": coercivePortal,
   "Commander's Sphere": commandersSphere,
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
+  "Council's Judgment": councilsJudgment,
   "Crop Rotation": cropRotation,
   "Cryptic Command": crypticCommand,
   "Cultivate": cultivate,
@@ -427,6 +434,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fabled Passage": fabledPassage,
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
+  "Fact or Fiction": factOrFiction,
   "Fate Unraveler": fateUnraveler,
   "Felidar Guardian": felidarGuardian,
   "Fell Mire": fellMire,
@@ -533,6 +541,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sea Gate, Reborn": seaGateReborn,
   "Secluded Steppe": secludedSteppe,
   "Selenia, Dark Angel": seleniaDarkAngel,
+  "Selvala's Stampede": selvalasStampede,
   "Settle the Wreckage": settleTheWreckage,
   "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
@@ -547,6 +556,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Souls of the Faultless": soulsOfTheFaultless,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
+  "Split Decision": splitDecision,
   "Stifle": stifle,
   "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,

@@ -3,7 +3,6 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import {
   DIALOG_CHOSEN,
-  dialogCandidates,
   pendingDialog,
 } from '../pendingDialog'
 import { createServerGame, projectForViewer } from '../runtime'
@@ -354,25 +353,21 @@ describe("Selvala's Stampede", () => {
     // One wild vote reveals up to the first creature; the free votes open the dump.
     expect(on(done.state, 'First Creature')).toBe('battlefield')
     expect(on(done.state, 'Second Creature')).toBe('library')
-    const dialog = pendingDialog(done.state)
-    expect(dialog).toMatchObject({
-      kind: 'put-permanents',
-      seat: 'p1',
-      optional: true,
-      permanent: true,
-      requirements: { battlefield: { max: 3 } },
-    })
-    expect(dialogCandidates(done.state, dialog!).map((object) => object.name).toSorted())
+    const dump = pendingSelectionFor(done.state, 'p1')!
+    expect(dump).toMatchObject({ kind: 'choose', seat: 'p1', min: 0, count: 3 })
+    expect(dump.candidates.map((id) => done.state.objects[id].name).toSorted())
       .toEqual(['Hand Creature', 'Hand Land', 'Hand Relic'])
-    // Only the caster is asked, and nobody else sees the question.
-    expect(pendingDialog(projectForViewer(done.state, 'p2'))).toBeUndefined()
+    expect(pendingSelectionFor(projectForViewer(done.state, 'p2'), 'p1')).toBeUndefined()
 
-    let current = done.state
-    for (const name of ['Hand Creature', 'Hand Relic']) {
-      current = ok(game.rules(current, { type: 'move', objectId: named(current, name).id, to: 'battlefield' }))
-    }
-    current = ok(game.rules(current, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1' }))
-    expect(pendingDialog(current)).toBeUndefined()
+    let current = ok(game.rules(done.state, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: dump.id,
+      kind: 'choose',
+      count: 3,
+      objectIds: [named(done.state, 'Hand Creature').id, named(done.state, 'Hand Relic').id],
+    }))
+    expect(pendingSelectionFor(current, 'p1')).toBeUndefined()
     expect(on(current, 'Hand Creature')).toBe('battlefield')
     expect(on(current, 'Hand Relic')).toBe('battlefield')
     expect(on(current, 'Hand Land')).toBe('hand')
@@ -392,23 +387,25 @@ describe("Selvala's Stampede", () => {
     const current = resolveStack(game.rules, done.state)
     expect(on(current, 'Only Creature')).toBe('battlefield')
     expect(current.zoneOrder.p1.library).toHaveLength(2)
-    expect(pendingDialog(current)).toBeUndefined()
+    expect(pendingSelectionFor(current, 'p1')).toBeUndefined()
     expect(on(current, 'Hand Creature')).toBe('hand')
   })
 
   test('all free votes reveal nothing and offer up to four permanents; restart keeps the offer', () => {
-    const { game, state } = stampedeGame(library(), [bear('Hand Creature')])
+    const { game, state } = stampedeGame(library(), [
+      bear('Hand Creature'),
+      bear('Hand Beast'),
+      cardTemplate('Hand Relic', { types: ['Artifact'] }),
+      cardTemplate('Hand Land', { types: ['Land'] }),
+    ])
     const done = castVotes(game, state, [
       ['p1', 'free'], ['p2', 'free'], ['p3', 'free'], ['p4', 'free'],
     ])
     expect(['First Creature', 'Second Creature'].map((name) => on(done.state, name)))
       .toEqual(['library', 'library'])
-    expect(pendingDialog(done.state)).toMatchObject({
-      kind: 'put-permanents',
-      requirements: { battlefield: { max: 4 } },
-    })
+    expect(pendingSelectionFor(done.state, 'p1')).toMatchObject({ kind: 'choose', count: 4, min: 0 })
     const restarted = structuredClone(done.state)
-    expect(pendingDialog(restarted)).toMatchObject({ seat: 'p1', kind: 'put-permanents' })
+    expect(pendingSelectionFor(restarted, 'p1')).toMatchObject({ seat: 'p1', kind: 'choose' })
   })
 
   test('an open vote survives a host restart', () => {

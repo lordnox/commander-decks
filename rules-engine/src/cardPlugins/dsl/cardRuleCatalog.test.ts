@@ -2073,6 +2073,72 @@ test('catalog Marina Vendrell inspects seven for enchantments and toggles a Room
   })
 })
 
+test('catalog Fact or Fiction inspects five, lets an opponent partition, and routes both piles', () => {
+  expect(effectsFor('Fact or Fiction')).toEqual([])
+  expect(cardTemplateDefaultsFor('Fact or Fiction')).toMatchObject({ types: ['Instant'], manaCost: '{3}{U}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 5 }, visibility: 'public' },
+      { kind: 'choosePlayer' },
+      { kind: 'partitionPiles' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'graveyard' },
+    ],
+  })
+})
+
+test("catalog Council's Judgment votes for opponent nonlands and exiles every winner", () => {
+  expect(effectsFor("Council's Judgment")).toEqual([])
+  expect(cardTemplateDefaultsFor("Council's Judgment")).toMatchObject({ types: ['Sorcery'], manaCost: '{1}{W}{W}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor("Council's Judgment")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', bindWinners: 'winners', options: { kind: 'objects' } },
+      { kind: 'move', to: 'exile' },
+    ],
+  })
+})
+
+test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {
+  expect(effectsFor('Coercive Portal')).toEqual([])
+  expect(cardTemplateDefaultsFor('Coercive Portal')).toMatchObject({ types: ['Artifact'], manaCost: '{4}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Coercive Portal')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'upkeep' },
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+    ],
+  })
+})
+
+test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {
+  expect(effectsFor('Split Decision')).toEqual([])
+  expect(cardTemplateDefaultsFor('Split Decision')).toMatchObject({ types: ['Instant'], manaCost: '{1}{U}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor('Split Decision')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+    ],
+  })
+})
+
+test("catalog Selvala's Stampede tallies wild reveals and free-hand permanents", () => {
+  expect(effectsFor("Selvala's Stampede")).toEqual([])
+  expect(cardTemplateDefaultsFor("Selvala's Stampede")).toMatchObject({ types: ['Sorcery'], manaCost: '{4}{G}{G}', manaValue: 6 })
+  expect(cardRuleDefinitionSnapshotFor("Selvala's Stampede")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+      { kind: 'chooseCards' },
+      { kind: 'move', to: 'battlefield' },
+    ],
+  })
+})
+
 test('Repay in Kind sets every living player to the signed lowest life total', () => {
   expect(cardTemplateDefaultsFor('Repay in Kind')).toMatchObject({ types: ['Sorcery'], manaCost: '{5}{B}{B}', manaValue: 7 })
   expect(cardRuleDefinitionSnapshotFor('Repay in Kind')!.definition.abilities[0]).toMatchObject({

@@ -549,7 +549,7 @@ export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | {
 
 export type ProgramScopeFrame = {
   iterationPlayer?: PlayerId
-  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
+  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'voteResults' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
   collectMax?: ResultMaxBinding
   path: string
   /** Target binding scope used by instructions in this frame. */
@@ -587,6 +587,8 @@ export type CanonicalResolutionFrame = {
   playerChoiceBindings?: string[]
   choices?: Record<string, CanonicalChoiceRecipient[]>
   results?: Record<string, InstructionResult>
+  /** Finished public votes keyed by the instruction bindResult. */
+  voteResults?: Record<string, VoteResult>
   /** Maxima collected across forEachPlayer iterations; restore does not rewind them. */
   resultMaxima?: Record<string, number>
   pendingResult?: {

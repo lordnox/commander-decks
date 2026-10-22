@@ -24,7 +24,6 @@ import {
   copyControlledCreature,
   copySelf,
   copyTargetCreature,
-  counterTargetSpell,
   createTokenInstruction,
   createTreasures,
   crew,
@@ -140,19 +139,16 @@ import {
   restrictedLegendaryMana,
   createHeroWithLandCounters,
   removeTarget,
-  exileVoteWinners,
   vote,
   ifVoteLeads,
   forEachVoter,
   forEachVotedOption,
-  copyTargetSpell,
   putCountersOnTriggeringObject,
   tapTriggeringObject,
   onVotesFinished,
   eachPlayerReturn,
   eachPlayerMayWheel,
   exileThisSpell,
-  destroyAll,
   playerAuraDeal,
   targetingRequirement,
   opponentMayDrawThenStealCast,
@@ -345,33 +341,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
     ),
   ],
-  'Coercive Portal': [yourUpkeep(vote(
-    'Vote for carnage or homage.',
-    {
-      kind: 'named',
-      options: [{ id: 'carnage', label: 'Carnage' }, { id: 'homage', label: 'Homage' }],
-    },
-    [ifVoteLeads(
-      'carnage',
-      [{ kind: 'sacrificeSelf' }, destroyAll({ nonland: true })],
-      [draw(1)],
-    )],
-  ))],
   Colossification: [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
     enters(tapAttached(), pumpAttached(20, 20)),
   ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
-  "Council's Judgment": [
-    onResolve(vote(
-      'Vote for a nonland permanent you do not control.',
-      {
-        kind: 'objects',
-        filter: { zone: 'battlefield', nonland: true, controller: 'opponent' },
-      },
-      [exileVoteWinners()],
-    )),
-  ],
   'Courser of Kruphix': [
     staticRevealLibraryTop(),
     staticPlayLandsFromLibraryTop(),
@@ -409,7 +383,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(putChargeCountersFromTimesKicked()),
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),
     handler('ward'),
@@ -817,19 +790,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
   ],
-  "Selvala's Stampede": [
-    onResolve(vote(
-      'Vote for wild or free.',
-      {
-        kind: 'named',
-        options: [{ id: 'wild', label: 'Wild' }, { id: 'free', label: 'Free' }],
-      },
-      [
-        revealUntil({ voters: { votedFor: 'wild' } }, { type: 'Creature' }, 'battlefield', 'shuffle'),
-        putPermanentsFromHand({ voters: { votedFor: 'free' } }),
-      ],
-    )),
-  ],
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
@@ -854,20 +814,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     encore('{7}{W}{W}'),
   ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
-  'Split Decision': [
-    targetOnResolve(
-      'select',
-      { zone: 'stack', types: ['Instant', 'Sorcery'] },
-      vote(
-        'Vote for denial or duplication.',
-        {
-          kind: 'named',
-          options: [{ id: 'denial', label: 'Denial' }, { id: 'duplication', label: 'Duplication' }],
-        },
-        [ifVoteLeads('denial', [counterTargetSpell(true)], [copyTargetSpell()])],
-      ),
-    ),
-  ],
   'Springheart Nantuko': [
     bestow('{1}{G}', { power: 1, toughness: 1 }),
     landfall(attachedCopyOrToken('{1}{G}', insectToken)),
