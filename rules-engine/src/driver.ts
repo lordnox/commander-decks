@@ -1120,10 +1120,14 @@ const actionEvents = (
     }
     case 'mill': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.count, context)
-      if (amount === undefined || amount === 0) return []
-      return targets.flatMap((seat) => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
-        .map((objectId) => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
+      const amount = availableAmount(instruction.count, context) ?? 0
+      const ids = targets.flatMap(seat => (context.state.zoneOrder[seat].library ?? []).slice(0, amount))
+      if (instruction.bindChoice) frame.pendingMilledChoice = {
+        binding: instruction.bindChoice,
+        objects: ids.map(id => objectIdentity(context.state.objects[id]!)),
+      }
+      return targets.flatMap(seat => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
+        .map(objectId => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
     }
     case 'shuffle': {
       return recipients(instruction.targets, context).map((seat) => ({
@@ -1349,6 +1353,16 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (frame.pendingMilledChoice) {
+    const pending = frame.pendingMilledChoice
+    frame.choices = { ...frame.choices, [pending.binding]: pending.objects.flatMap(ref => {
+      const object = draft.objects[ref.objectId]
+      if (!object || object.incarnation !== ref.incarnation + 1 || object.faceDown
+        || object.zone === 'library' || object.zone === 'hand') return []
+      return [{ kind: 'object' as const, ...objectIdentity(object) }]
+    }) }
+    delete frame.pendingMilledChoice
+  }
   if (frame.pendingMovedChoice) {
     const pending = frame.pendingMovedChoice
     frame.choices = { ...frame.choices, [pending.binding]: pending.objects

@@ -758,6 +758,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'mill': {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'library') return
+      const pending = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution.pendingMilledChoice : undefined
+      // A replacement can mill additional cards (CR 701.17d).
+      if (pending && !pending.objects.some(ref => ref.objectId === object.id && ref.incarnation === object.incarnation)) {
+        pending.objects.push({ objectId: object.id, incarnation: object.incarnation, zone: object.zone })
+      }
       draft.move(object.id, 'graveyard')
       draft.note(`${object.name} is milled`)
       return

@@ -472,7 +472,7 @@ export type Instruction =
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
-  | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
+  | { kind: 'mill'; count: Amount; targets: PlayerRecipient; bindChoice?: string }
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
   | { kind: 'shuffle'; targets: PlayerRecipient }
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */

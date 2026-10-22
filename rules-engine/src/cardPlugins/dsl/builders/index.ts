@@ -782,8 +782,8 @@ export const returnLinkedExile = (input: { returnTo?: LinkedExileReturn } = {}) 
     ...(input.returnTo ? { returnTo: input.returnTo } : {}),
   })
 
-export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
-  immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })
+export const mill = (input: { count: AmountInput; targets: PlayerRecipient; bindChoice?: string }): Instruction =>
+  immutableData({ kind: 'mill', ...input, count: toAmount(input.count) })
 
 export const shuffle = (input: { targets: PlayerRecipient }) =>
   immutableData({ kind: 'shuffle' as const, targets: input.targets })

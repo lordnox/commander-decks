@@ -10569,7 +10569,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 245,
+        "matches": 246,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -11531,7 +11531,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1339"
+        "rules-engine/src/types.ts:1341"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -11594,7 +11594,7 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
-        "rules-engine/src/driver.ts:1320",
+        "rules-engine/src/driver.ts:1324",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -12666,10 +12666,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1551
+          1556
         ],
         "samples": [
-          "1551: event.name === SEARCH_CHOSEN"
+          "1556: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -12706,13 +12706,13 @@
         "lines": [
           319,
           730,
-          1873,
-          1903
+          1887,
+          1917
         ],
         "samples": [
           "319: const liveSource = draft.object(source.ref.objectId)",
           "730: const source = draft.object(sourceId)",
-          "1873: const object = draft.object(item.objectId)"
+          "1887: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -15114,10 +15114,10 @@
           689,
           704,
           759,
-          761,
-          767,
-          784,
-          789
+          766,
+          772,
+          789,
+          794
         ],
         "samples": [
           "497: const object = draft.object(event.objectRef.objectId)",

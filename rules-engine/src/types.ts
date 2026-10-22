@@ -627,6 +627,8 @@ export type CanonicalResolutionFrame = {
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   /** New identities to bind after the current move instruction commits. */
   pendingMovedChoice?: { binding: string; objects: ObjectIdentity[] }
+  /** Library identities whose first public destinations belong to this mill action (CR 701.17c). */
+  pendingMilledChoice?: { binding: string; objects: ObjectIdentity[] }
   /** Last-known objects to bind after destroy events commit and tokens cease. */
   pendingDestroyedChoice?: {
     binding: string

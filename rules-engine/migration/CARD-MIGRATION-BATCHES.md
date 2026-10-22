@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after monarch and Palace Jailer, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **118 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after mill-result identity binding, monarch and Palace Jailer, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **118 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 71 available, 1 awaiting correctness follow-up, and 98 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**171 mechanic entries:** 72 available, 1 awaiting correctness follow-up, and 98 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -61,7 +61,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **14-difference and 14-counters are available:** nonnegative subtraction composes with current counts; named counter amounts preserve captured object identity and read the current count at each instruction. Sandstone Oracle and Mossborn Hydra have migrated, including the former’s non-target opponent choice and the latter’s entry replacement.
 
-**20 is available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, provenance, or **21-ward**.
+**20 original contracts are available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, provenance, or **21-ward**.
 
 **13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin and Mister Negative have migrated. Kuroki and Sire of Seven Deaths retain their other gates.
 
@@ -130,7 +130,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
-| <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Open | Capture resulting identities of the cards milled this way for later optional recovery; retain replacement and zone-change behavior instead of substituting an unrelated inspect/move program. | [07](#07) | `Ripples of Undeath`; `Six` |
+| <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Available | `mill({ bindChoice })` binds first public destination identities, including additional replacement mills, excludes prevented/hidden destinations, and never follows later incarnations. Mechanic tests cover filtered recovery and restore. Ripples still needs 20-combined-payment; Six still needs 26-retrace. | [07](#07) | `Ripples of Undeath`; `Six` |
 
 ### 08. Top-library inspection and selection
 
@@ -245,6 +245,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="20-destination"></a>**20-destination — Conditional counter destination** | Available | On successful counter, move the original artifact/creature card to the battlefield instead of the graveyard. Desertion has migrated. | [07](#07) | None remaining |
 | <a id="20-origin"></a>**20-origin — Cast-origin predicates** | Available | Filter by the zone/owner from which a spell was cast via stack/object `castFrom` and stack `owner`. Remaining consumers still need warp, rebound, demonstrate, plot, cleave, adventure, or provenance. | — | `All-Fates Stalker`; `Ephemerate`; `Incarnation Technique`; `Pitiless Carnage`; `Quantum Misalignment`; `Vantress Visions`; `Virtue of Knowledge`; `Wash Away`; `Wedding Ring`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
 | <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Available | Resolution-time mana payment by the targeted spell's controller, with typed choices and mana opportunities. Decisive Denial has migrated. Remaining consumers still need 21-ward. | — | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
+| <a id="20-combined-payment"></a>**20-combined-payment — Combined optional resolution costs** | Open | Offer mana plus life as one optional payment, verify the full cost before committing either part, and preserve mana-ability opportunities and restore without partial payment on decline. | [20-payment](#20-payment) | `Ripples of Undeath` |
 | <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Available | Filter spells by the permanents/players they currently target, retaining announced object identities and rechecking current control. Keep Safe has migrated. | — | None remaining |
 
 ### 21. Combat and keywords

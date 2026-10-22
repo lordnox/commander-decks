@@ -27,6 +27,7 @@ type Environment = {
   locals: Map<string, Binding>
   declared: Set<string>
   eventAmount: boolean
+  replacementEmission?: true
 }
 
 const MAX_TREE_DEPTH = 32
@@ -932,8 +933,14 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.returnTo !== undefined) enumeration(node.returnTo, childPath(path, 'returnTo'), new Set(LINKED_EXILE_RETURN), 'linked exile return')
         return
       case 'scry':
-      case 'surveil':
-      case 'mill': amountInstruction('count', ['player']); return
+      case 'surveil': amountInstruction('count', ['player']); return
+      case 'mill':
+        if (env.replacementEmission && node.bindChoice !== undefined) issue(childPath(path, 'bindChoice'), 'unsupported-kind', 'emitted replacement actions cannot bind mill results before they commit')
+        exactKeys(node, path, ['kind', 'count', 'targets', 'bindChoice'], ['kind', 'count', 'targets'])
+        validateAmount(node.count, childPath(path, 'count'), env)
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        if (node.bindChoice !== undefined) declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
+        return
       case 'damage':
         exactKeys(node, path, ['kind', 'amount', 'targets', 'source', 'bindResult'], ['kind', 'amount', 'targets', 'source'])
         validateAmount(node.amount, childPath(path, 'amount'), env)
@@ -1650,7 +1657,7 @@ export const validateDefinitionV1 = (root: unknown): {
             return
           case 'emit':
             exactKeys(node, entryPath, ['kind', 'instructions'], ['kind', 'instructions'])
-            validateInstructionList(node.instructions, childPath(entryPath, 'instructions'), programEnv)
+            validateInstructionList(node.instructions, childPath(entryPath, 'instructions'), { ...programEnv, replacementEmission: true })
             return
           default:
             issue(childPath(entryPath, 'kind'), 'unsupported-kind', `unsupported replacement program kind: ${String(node.kind)}`)
