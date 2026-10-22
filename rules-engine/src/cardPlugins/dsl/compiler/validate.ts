@@ -927,6 +927,9 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'exileThisSpell':
+        exactKeys(node, path, ['kind'], ['kind'])
+        return
       case 'becomeMonarch':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])

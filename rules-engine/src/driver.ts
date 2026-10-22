@@ -61,6 +61,7 @@ import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLa
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'exileThisSpell',
   'becomeMonarch',
   'choosePlayer',
   'forEachPlayer',
@@ -168,6 +169,7 @@ const preflightInstructions = (
       case 'destroy':
       case 'sacrifice':
       case 'move':
+      case 'exileThisSpell':
       case 'reveal':
       case 'tap':
       case 'untap':
@@ -698,6 +700,12 @@ const actionEvents = (
   path: string,
 ) => {
   switch (instruction.kind) {
+    case 'exileThisSpell': {
+      const item = draft.stack.find(candidate => candidate.id === frame.stackId) ?? frame.inlineItem
+      const object = item ? draft.objects[item.objectId] : undefined
+      if (item?.kind !== 'spell' || object?.zone !== 'stack' || !isSameObject(object, frame.source.ref)) return []
+      return [{ type: 'move' as const, objectId: object.id, to: 'exile' as const }]
+    }
     case 'addManaChosenColor': {
       const source = evaluateObjectReference(instruction.of, context, 'currentOrLastKnown')[0]
       const color = source?.chosenColor

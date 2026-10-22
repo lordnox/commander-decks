@@ -10268,7 +10268,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 250,
+        "matches": 251,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -11293,7 +11293,7 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
-        "rules-engine/src/driver.ts:1361",
+        "rules-engine/src/driver.ts:1369",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -12420,15 +12420,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          325,
-          736,
-          1972,
-          2002
+          327,
+          744,
+          1980,
+          2010
         ],
         "samples": [
-          "325: const liveSource = draft.object(source.ref.objectId)",
-          "736: const source = draft.object(sourceId)",
-          "1972: const object = draft.object(item.objectId)"
+          "327: const liveSource = draft.object(source.ref.objectId)",
+          "744: const source = draft.object(sourceId)",
+          "1980: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

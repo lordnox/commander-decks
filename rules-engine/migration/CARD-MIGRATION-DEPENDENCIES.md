@@ -1,6 +1,6 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after Mirkwood Bats and families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus Phial of Galadriel. **111 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after canonical resolving-spell exile, Mirkwood Bats, and families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus Phial of Galadriel. **111 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
@@ -84,7 +84,7 @@ Current readiness: **0 composition candidates**; **111 blocked or awaiting sourc
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |
 | `Rishkar's Expertise` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand) | Blocked by mechanics | — |
 | `Roaming Throne` | 29 | [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
-| `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public voting is available. Still needs a resolving `exileThisSpell` branch after the return outcome; do not migrate until that instruction exists. |
+| `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [39-exile](CARD-MIGRATION-BATCHES.md#39-exile), [15-simultaneous](CARD-MIGRATION-BATCHES.md#15-simultaneous) | Blocked by mechanics | Public voting and resolving self-exile are Available. Collect every player's recovery or embark decision before committing shared actions; sequential choose-then-act iteration is insufficient. |
 | `Sakashima of a Thousand Faces` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [28-legend](CARD-MIGRATION-BATCHES.md#28-legend) | Blocked by mechanics | — |
 | `Show and Tell` | 27 | [27-place](CARD-MIGRATION-BATCHES.md#27-place) | Blocked by mechanics | — |
 | `Sire of Seven Deaths` | 21 | [21-ward-life](CARD-MIGRATION-BATCHES.md#21-ward-life), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach), [21-first-strike](CARD-MIGRATION-BATCHES.md#21-first-strike), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |

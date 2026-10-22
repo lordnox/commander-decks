@@ -479,6 +479,8 @@ export type Instruction =
   /** Grant unlimited hand size for the rest of the game independently of the resolving source. */
   | { kind: 'grantNoMaximumHandSize'; targets: PlayerRecipient }
   | { kind: 'becomeMonarch'; targets: PlayerRecipient }
+  /** Exile this resolving spell, preserving the resolution cursor for remaining instructions. */
+  | { kind: 'exileThisSpell' }
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */

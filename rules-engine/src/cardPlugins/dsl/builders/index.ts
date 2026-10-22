@@ -1225,3 +1225,5 @@ export const addManaFrom = (input: { of: ObjectSelector; basis?: ManaQueryBasis;
 
 export const becomesTapped = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'becomesTapped' as const, filter })
 export const tappedForMana = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'tappedForMana' as const, filter })
+
+export const exileThisSpell = () => immutableData({ kind: 'exileThisSpell' as const })
