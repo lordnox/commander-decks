@@ -344,12 +344,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "c84e416cca8f43e7f762232c9e5069324ba268fab8a98e7130547c5863784bae",
-    "card": "Sandstone Oracle"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "d15043bdf240603f0fda180cabc55b2092d6afeefe623fe65516321d7830eca9",
     "card": "Sin, Spira's Punishment"
   },

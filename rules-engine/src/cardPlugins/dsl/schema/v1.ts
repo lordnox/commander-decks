@@ -131,7 +131,7 @@ export type Amount =
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
-  | { kind: 'multiply' | 'minimum' | 'add'; left: Amount; right: Amount }
+  | { kind: 'multiply' | 'minimum' | 'add' | 'difference'; left: Amount; right: Amount }
   | { kind: 'manaSpent'; color: CardColor }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }

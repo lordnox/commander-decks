@@ -1932,3 +1932,15 @@ test('Archetype of Endurance grants controlled creatures hexproof and prohibits 
     ] },
   ])
 })
+
+
+test('Sandstone Oracle chooses rather than targets an opponent and draws the nonnegative hand difference', () => {
+  expect(cardTemplateDefaultsFor('Sandstone Oracle')).toMatchObject({ types: ['Artifact', 'Creature'], subtypes: ['Sphinx'], manaCost: '{7}' })
+  expect(cardRuleDefinitionSnapshotFor('Sandstone Oracle')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.flying },
+    { kind: 'triggered', decisions: { targets: [] }, instructions: [
+      { kind: 'choosePlayer', filter: { kind: 'players', filter: { relation: 'opponent' } }, bindChoice: 'opponent' },
+      { kind: 'draw', count: { kind: 'difference', left: { kind: 'count', of: { filter: { zone: 'hand', owner: { kind: 'choiceRef', binding: 'opponent' } } } }, right: { kind: 'count', of: { filter: { zone: 'hand', owner: { kind: 'contextRef', name: 'controller' } } } } } },
+    ] },
+  ])
+})

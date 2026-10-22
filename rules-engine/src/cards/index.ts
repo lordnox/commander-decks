@@ -1,3 +1,4 @@
+import sandstoneOracle from './sandstone-oracle'
 import archetypeOfEndurance from './archetype-of-endurance'
 import thunderfootBaloth from './thunderfoot-baloth'
 import profaneCommand from './profane-command'
@@ -275,6 +276,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Sandstone Oracle': sandstoneOracle,
   'Archetype of Endurance': archetypeOfEndurance,
   'Thunderfoot Baloth': thunderfootBaloth,
   'Profane Command': profaneCommand,

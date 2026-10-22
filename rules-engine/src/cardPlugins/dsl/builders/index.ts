@@ -105,6 +105,9 @@ export const minimum = (left: AmountInput, right: AmountInput) =>
 export const addAmount = (left: AmountInput, right: AmountInput) =>
   immutableData({ kind: 'add' as const, left: toAmount(left), right: toAmount(right) })
 
+export const difference = (left: AmountInput, right: AmountInput) =>
+  immutableData({ kind: 'difference' as const, left: toAmount(left), right: toAmount(right) })
+
 export const greatest = (input: {
   of: ObjectSelector
   characteristic: ObjectNumericCharacteristic

@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { addAmount, minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { choice, choosePlayer, players, addAmount, difference, minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
@@ -142,4 +143,37 @@ test('addition draws hand size plus one from current objects', () => {
     type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
   })))
   expect(resolved.zoneOrder.p1.hand).toHaveLength(5)
+})
+
+
+test.each([[7, 3, 4], [3, 7, 0], [3, 3, 0], [0, 0, 0]])('difference floors %s minus %s at zero (%s)', (left, right, expected) => {
+  expect(evaluateAmount(difference(left, right), context)).toBe(expected)
+})
+
+test('difference composes with dynamic amounts and preserves operand validation', () => {
+  expect(evaluateAmount(difference(count(objects()), variable('X')), context)).toBe(2)
+  expect(() => evaluateAmount(difference(1, variable('X')), { ...context, variables: {} })).toThrow()
+  expect(() => evaluateAmount(difference(-1, 0), context)).toThrow()
+  expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: difference(variable('X'), 1), targets: ref('controller') })] })]))).toThrow()
+})
+
+
+test.each([[3, 1, 2], [1, 3, 0], [2, 2, 0]])('a chosen player hand difference (%s versus %s) draws %s cards', (otherHand, ownHand, drawn) => {
+  const fixtures = (count: number) => Array.from({ length: count }, (_, index) => cardTemplate(`Card fixture ${index}`))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [instructionSpell({ instructions: [
+        choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'other' }),
+        draw({ targets: ref('controller'), count: difference(count(objects({ zone: 'hand', owner: choice('other') })), count(objects({ zone: 'hand', owner: ref('controller') }))) }),
+      ] }), ...fixtures(ownHand)],
+      p2: fixtures(otherHand),
+    },
+    libraries: { p1: fixtures(5) },
+  }, { random: () => 0 })
+  const waiting = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  const pick = pendingPlayerSelectionFor(waiting, 'p1')!
+  const resolved = ok(server.rules(structuredClone(waiting), { type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p2'] }))
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(ownHand + drawn)
+  expect(resolved.zoneOrder.p2.hand).toHaveLength(otherHand)
 })

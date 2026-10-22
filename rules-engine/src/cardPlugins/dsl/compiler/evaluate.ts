@@ -40,6 +40,7 @@ export const evaluateAmount = (
       return runtimeAmount(value, `variable ${expression.name}`)
     }
     case 'multiply': return runtimeAmount(evaluateAmount(expression.left, context, depth + 1) * evaluateAmount(expression.right, context, depth + 1), 'multiplication')
+    case 'difference': return Math.max(0, evaluateAmount(expression.left, context, depth + 1) - evaluateAmount(expression.right, context, depth + 1))
     case 'minimum': return Math.min(evaluateAmount(expression.left, context, depth + 1), evaluateAmount(expression.right, context, depth + 1))
     case 'add': return runtimeAmount(evaluateAmount(expression.left, context, depth + 1) + evaluateAmount(expression.right, context, depth + 1), 'addition')
     case 'greatest': return runtimeAmount(

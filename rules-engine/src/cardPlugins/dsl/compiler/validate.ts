@@ -326,6 +326,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'multiply':
       case 'minimum':
+      case 'difference':
       case 'add':
         exactKeys(node, path, ['kind', 'left', 'right'], ['kind', 'left', 'right'])
         validateAmount(node.left, childPath(path, 'left'), env, depth + 1)

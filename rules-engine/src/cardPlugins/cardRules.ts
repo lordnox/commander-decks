@@ -37,7 +37,6 @@ import {
   dealDamageToChosenTarget,
   draw,
   drawGreatestPower,
-  drawHandDifference,
   encore,
   enters,
   entersIfCastOption,
@@ -939,7 +938,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
   ],
-  'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
   "Selvala's Stampede": [
     onResolve(vote(
       'Vote for wild or free.',
