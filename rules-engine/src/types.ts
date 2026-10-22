@@ -997,7 +997,14 @@ export type GameEvent =
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
   /** Internal canonical instruction event; never offered as a player action. */
-  | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
+  | {
+      type: 'counterStackItem'
+      stackId: string
+      sourceId?: string
+      objectRef?: ObjectIdentity
+      destination?: ZoneId
+      controller?: PlayerId
+    }
   /** Internal canonical instruction group; all members share one before-state. */
   | { type: 'actionGroup'; events: GameEvent[]; atomic?: boolean }
   /** A resolved control-changing effect, guarded against a replacement incarnation. */

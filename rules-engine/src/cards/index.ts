@@ -103,6 +103,8 @@ import drainLife from './drain-life'
 import exsanguinate from './exsanguinate'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
+import desertion from './desertion'
+import dovinsVeto from './dovins-veto'
 import diabolicTutor from './diabolic-tutor'
 import digThroughTime from './dig-through-time'
 import dimirAqueduct from './dimir-aqueduct'
@@ -187,6 +189,7 @@ import morphicPool from './morphic-pool'
 import murder from './murder'
 import naturesLore from './natures-lore'
 import necrologia from './necrologia'
+import nezahalPrimalTide from './nezahal-primal-tide'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
 import obscuraStorefront from './obscura-storefront'
@@ -387,11 +390,13 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Exsanguinate": exsanguinate,
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
+  "Desertion": desertion,
   "Diabolic Tutor": diabolicTutor,
   "Dig Through Time": digThroughTime,
   "Dimir Aqueduct": dimirAqueduct,
   "Dimir Signet": dimirSignet,
   "Dismember": dismember,
+  "Dovin's Veto": dovinsVeto,
   "Dreamscape Artist": dreamscapeArtist,
   "Drowned Catacomb": drownedCatacomb,
   "Duskdale Wurm": duskdaleWurm,
@@ -474,6 +479,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Murder": murder,
   "Nature's Lore": naturesLore,
   "Necrologia": necrologia,
+  "Nezahal, Primal Tide": nezahalPrimalTide,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
   "Obscura Storefront": obscuraStorefront,

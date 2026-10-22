@@ -396,6 +396,10 @@ const matchesObjectFilter = (
   }
   if (filter.tapped !== undefined && object.tapped !== filter.tapped) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
+  if (filter.castFrom !== undefined) {
+    const item = context.state.stack.find((candidate) => candidate.objectId === object.id)
+    if (!item || item.castFrom !== filter.castFrom) return false
+  }
   return true
 }
 
@@ -422,6 +426,9 @@ const matchesStackItemFilter = (
   if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
   if (mismatchesController(item, filter, context)) return false
+  const source = context.state.objects[item.objectId]
+  if (filter.owner !== undefined && (!source || mismatchesOwner(source, filter, context))) return false
+  if (filter.castFrom !== undefined && item.castFrom !== filter.castFrom) return false
   if (filter.targets) {
     switch (filter.targets.kind) {
       case 'objects': {

@@ -34,6 +34,8 @@ test.each([
   ['Unmarked Grave', ['sequence']],
   ['Diabolic Tutor', ['sequence']],
   ['Foil', ['counter']],
+  ["Dovin's Veto", ['counter']],
+  ['Desertion', ['counter']],
   ['Murder', ['destroy']],
   ['Sign in Blood', ['draw', 'loseLife']],
   ['Darkness', ['createEffect']],
@@ -56,6 +58,8 @@ test.each([
 test.each([
   ['Counterspell', 'stackItems', { kind: 'spell' }],
   ['Absorb', 'stackItems', { kind: 'spell' }],
+  ['Desertion', 'stackItems', { kind: 'spell' }],
+  ["Dovin's Veto", 'stackItems', { kind: 'spell', not: { type: 'Creature' } }],
   ['Dismember', 'objects', { zone: 'battlefield', type: 'Creature' }],
   ['Anguished Unmaking', 'objects', { zone: 'battlefield', not: { type: 'Land' } }],
   ['Sink into Stupor', 'objects', {
@@ -172,6 +176,23 @@ test.each([
     { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'graveyard' },
     { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
   ] }] })
+})
+
+test('catalog Dovin’s Veto is an uncounterable noncreature counter', () => {
+  expect(cardRuleDefinitionSnapshotFor("Dovin's Veto")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', uncounterable: true,
+    instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test('catalog Desertion redirects artifact and creature spells to the battlefield', () => {
+  expect(cardRuleDefinitionSnapshotFor('Desertion')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{
+      kind: 'counter',
+      destination: { to: 'battlefield', controller: { kind: 'contextRef', name: 'controller' }, types: ['Artifact', 'Creature'] },
+    }],
+  })
 })
 
 test('catalog instruction parameters preserve controller life changes and exile destination', () => {
@@ -1244,6 +1265,18 @@ test('protection cards compose canonical keywords, target restrictions, and temp
     { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } }] }, instructions: [
       ...[KEYWORDS.hexproof, KEYWORDS.indestructible].map(keyword => ({ kind: 'createEffect', targets: { kind: 'targetRef', clauseIndex: 0 }, effect: { kind: 'grantKeyword', keyword }, duration: { kind: 'untilCleanup' } })),
       { kind: 'gainLife', amount: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } },
+    ] },
+  ])
+})
+
+test('catalog Nezahal composes uncounterable, hand size, a cast trigger, and a discard blink', () => {
+  expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'cannotBeCountered' }, { kind: 'noMaximumHandSize' }] },
+    { kind: 'triggered', on: { kind: 'cast', filter: { controller: 'opponent', not: { type: 'Creature' } } }, instructions: [{ kind: 'draw' }] },
+    { kind: 'activated', costs: [{ kind: 'discard', count: { kind: 'constant', value: 3 } }], instructions: [
+      { kind: 'move', to: 'exile' },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'end' } },
     ] },
   ])
 })

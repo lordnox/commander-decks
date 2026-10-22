@@ -173,7 +173,7 @@ describe('Lady Evangela replacement gaps', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: veto.id,
-      targets: [{ kind: 'object', objectId: threat.id }],
+      targets: [{ kind: 'stackItem', stackId: threatCast.stack.find(item => item.objectId === threat.id)!.id }],
     }))
     expect(vetoCast.stack[0].uncounterable).toBe(true)
 

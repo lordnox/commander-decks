@@ -17,7 +17,6 @@ import {
   blink,
   blockTax,
   branch,
-  casts,
   cleave,
   controlledLands,
   convoke,
@@ -146,7 +145,6 @@ import {
   setAllLifeToLowest,
   yourEndTargetingOpponent,
   cumulativeUpkeepOpponentLife,
-  uncounterable,
   restrictedCreatureMana,
   restrictedLegendaryMana,
   createHeroWithLandCounters,
@@ -195,7 +193,6 @@ import {
   onUnlock,
   unearth,
   bounceAll,
-  blinkSelf,
   pumpFromLinkedExileStats,
   persist,
   annihilator,
@@ -413,16 +410,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Dakmor Salvage': [dredge(2), entersTapped()],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Delighted Halfling': [restrictedLegendaryMana()],
-  Desertion: [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', stealIfTypes: ['Artifact', 'Creature'] },
-    ),
-  ],
-  "Dovin's Veto": [
-    uncounterable(),
-    targetOnResolve('counter', { zone: 'stack', noncreature: true }),
-  ],
   'Drag to the Roots': [
     reduceGenericIf(2, graveyardCardTypes(4)),
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
@@ -764,17 +751,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'select',
       { zone: 'battlefield', type: 'Creature', controller: 'you' },
       copyAllCreaturesUntilEot(),
-    ),
-  ],
-  'Nezahal, Primal Tide': [
-    uncounterable(),
-    staticGrant('noMaxHand'),
-    handler('noMaxHand'),
-    casts(draw(1), { castBy: 'opponent', noncreatureOnly: true }),
-    ability(
-      { id: 'nezahal.reset' },
-      { discard: 'any', discardCount: 3 },
-      blinkSelf({ when: 'nextEndStep', tapped: true }),
     ),
   ],
   'Niv-Mizzet, Ghost Counsel': [

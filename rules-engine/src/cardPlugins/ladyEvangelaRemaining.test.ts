@@ -307,7 +307,7 @@ describe('Lady Evangela remaining coverage', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Desertion').id,
-      targets: [{ kind: 'object', objectId: bears }],
+      targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === bears)!.id }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[bears].zone).toBe('battlefield')

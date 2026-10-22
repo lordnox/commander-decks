@@ -87,6 +87,8 @@ export type ObjectFilter = {
   name?: string
   tapped?: boolean
   attacking?: boolean
+  /** Zone the spell was cast from while this object is on the stack. */
+  castFrom?: Zone
   powerAtLeast?: number
   compareCharacteristic?: {
     characteristic: ObjectNumericCharacteristic
@@ -99,14 +101,17 @@ export type ObjectFilter = {
 }
 
 export type StackItemFilter = {
-  /** At least one announced target matches this object/player selector. */
-  targets?: ObjectSelector | PlayerSelector
   kind?: 'spell' | 'ability'
   /** Card type of the stack object, for "instant or sorcery spell" and similar. */
   type?: string
   color?: CardColor
   other?: boolean
   controller?: PlayerMatch
+  owner?: PlayerMatch
+  /** Zone the spell or ability was cast or activated from. */
+  castFrom?: Zone
+  /** At least one announced target matches this object/player selector. */
+  targets?: ObjectSelector | PlayerSelector
   all?: readonly StackItemFilter[]
   any?: readonly StackItemFilter[]
   not?: StackItemFilter
@@ -439,7 +444,13 @@ export type Instruction =
   /** Put the evaluated number of the named counter on each resolved object recipient. */
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   /** Counter each resolved stack item before it can resolve. */
-  | { kind: 'counter'; targets: StackItemRecipient; bindResult?: string }
+  | {
+      kind: 'counter'
+      targets: StackItemRecipient
+      bindResult?: string
+      /** On a successful counter, send matching original spells here instead of the graveyard. */
+      destination?: CounterDestination
+    }
   /** Apply the created effect to each resolved object for the supplied duration. */
   | {
       kind: 'createEffect'
@@ -630,6 +641,8 @@ export type ContinuousEffectDefinition =
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'noMaximumHandSize' }
+  /** Marker for “this spell can’t be countered”; inspected at cast, not as a layer. */
+  | { kind: 'cannotBeCountered' }
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector }
   | {
@@ -655,8 +668,16 @@ export const KEYWORDS = {
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 
+export type CounterDestination = {
+  to: Zone
+  controller?: PlayerReference
+  types?: readonly string[]
+}
+
 export type SpellAbilityDefinition = {
   kind: 'spell'
+  /** This spell can't be countered while it is on the stack. */
+  uncounterable?: true
   /** Cast restriction evaluated at announcement; not a triggered ability. */
   when?: Condition
   decisions: DecisionsSpec

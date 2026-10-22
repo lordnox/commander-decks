@@ -632,12 +632,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "25b4294e2f459d0be18be14d88106bac8ff3fe5f34d27f400946bd97f70f540a",
-    "card": "Dovin's Veto"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "256b3d1db82fa34965f144f05b223dbfe2b4abeb989df38f3d5529c9e44d8a07",
     "card": "Everybody Lives!"
   },
@@ -812,12 +806,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "9e58503a3ba5755f2e8bed3bab2c29b5c494027d072e808f48da8a46718b2769",
-    "card": "Desertion"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "89e696f6c207cdff83c61ae70944f39ac35cfe669008ad2e73c7e58e604b7598",
     "card": "Wedding Ring"
   },
@@ -832,12 +820,6 @@
     "code": "legacy-card-registration",
     "digest": "acba535601cbbb12b9de417dd0f58fead4129944af831bddff3c8883f3bbdf88",
     "card": "Kederekt Leviathan"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "8cbf0cbe1add408604a40ac63a2bb175f475f2382c46d07656174a32181ce97b",
-    "card": "Nezahal, Primal Tide"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

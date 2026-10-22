@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after counter payments and stack targeting relationships. **137 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 20 countering and spell-eligibility slices. **134 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **137 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **134 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -34,8 +34,6 @@ Current readiness: **0 composition candidates**; **137 blocked or awaiting sourc
 | `Dakmor Salvage` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | — |
 | `Darksteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle) | Blocked by mechanics | — |
 | `Delighted Halfling` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana) | Blocked by mechanics | — |
-| `Desertion` | 20 | [20-destination](CARD-MIGRATION-BATCHES.md#20-destination) | Blocked by mechanics | — |
-| `Dovin's Veto` | 20 | [20-counterability](CARD-MIGRATION-BATCHES.md#20-counterability) | Blocked by mechanics | — |
 | `Drag to the Roots` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
 | `Dread Return` | 25 | [25-flashback](CARD-MIGRATION-BATCHES.md#25-flashback) | Blocked by mechanics | — |
 | `Endless Sands` | 18 | [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
@@ -83,7 +81,6 @@ Current readiness: **0 composition candidates**; **137 blocked or awaiting sourc
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
-| `Nezahal, Primal Tide` | 44 | [20-counterability](CARD-MIGRATION-BATCHES.md#20-counterability) | Blocked by mechanics | Other effects are composition candidates: cast trigger, unlimited hand size, discard-three, captured exile and delayed tapped owner return. |
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |
 | `Palace Jailer` | 18 | [18-monarch](CARD-MIGRATION-BATCHES.md#18-monarch) | Blocked by mechanics | — |
 | `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |

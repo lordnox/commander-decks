@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, test } from 'bun:test'
 import { hasKeyword } from '../keywords'
 import { legalActsFor } from '../actions'
+import { maximumHandSize } from '../plugins/turnStructure'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -873,12 +874,12 @@ describe('Nezahal, Primal Tide', () => {
       ok(server.rules(big, { type: 'move', objectId: nezahal.id, to: 'hand' })),
       { type: 'move', objectId: nezahal.id, to: 'battlefield' },
     ))
-    expect(entered.players.p1.data.maximumHandSize).toBeNull()
+    expect(maximumHandSize(entered, 'p1')).toBeNull()
     const cleanup = { ...entered, step: 'cleanup' as const, active: 'p1', priority: 'p1' }
     expect(ok(server.rules(cleanup, { type: 'advanceStep' })).step).toBe('untap')
 
     const gone = ok(server.rules(entered, { type: 'move', objectId: nezahal.id, to: 'graveyard' }))
-    expect(gone.players.p1.data.maximumHandSize).toBeUndefined()
+    expect(maximumHandSize(gone, 'p1')).toBe(7)
     expect(server.rules({ ...gone, step: 'cleanup' as const, active: 'p1', priority: 'p1' }, { type: 'advanceStep' }))
       .toMatchObject({ ok: false, error: expect.stringContaining('must discard 2') })
   })
@@ -887,6 +888,9 @@ describe('Nezahal, Primal Tide', () => {
     const { server, state } = await setup()
     const ready = mainPhase(state)
     const nezahal = named(ready, 'Nezahal, Primal Tide')
+    const offer = legalActsFor(ready, 'p1').find((action) =>
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
+    if (!offer || offer.kind !== 'activateAbility') throw new Error('discard ability not offered')
     const kernel = handleFor(server.rules, ready)
     const lobby = playLobby()
     const picks = ['Held 1', 'Held 3', 'Held 5'].map((name) => named(ready, name).id)
@@ -894,8 +898,8 @@ describe('Nezahal, Primal Tide', () => {
       type: 'act',
       kind: 'activateAbility',
       objectId: nezahal.id,
-      abilityId: 'nezahal.reset',
-      text: 'nezahal.reset',
+      abilityId: offer.abilityId,
+      text: offer.text,
       targetObjectIds,
     })
 
@@ -908,7 +912,7 @@ describe('Nezahal, Primal Tide', () => {
     const cost = kernel.history.current()
     expect(picks.every((id) => cost.objects[id].zone === 'graveyard')).toBe(true)
     expect(handOf(cost).toSorted()).toEqual(['Held 2', 'Held 4'])
-    expect(cost.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'nezahal.reset' })
+    expect(cost.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[2]' })
     expect(cost.objects[nezahal.id].zone).toBe('battlefield')
 
     const exiled = passUntilResolved(kernel)
@@ -935,12 +939,12 @@ describe('Nezahal, Primal Tide', () => {
       card.zone = 'graveyard'
     }
     expect(legalActsFor(poor, 'p1').some((action) =>
-      action.kind === 'activateAbility' && action.abilityId === 'nezahal.reset')).toBe(false)
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')).toBe(false)
     expect(server.rules(poor, {
       type: 'activateAbility',
       seat: 'p1',
       objectId: named(poor, 'Nezahal, Primal Tide').id,
-      abilityId: 'nezahal.reset',
+      abilityId: '$.abilities[2]',
       choices: [named(poor, 'Held 4').id, named(poor, 'Held 5').id],
     }).ok).toBe(false)
   })

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 137,
+    "cardRegistrations": 134,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 60,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 126,
-    "candidateOnlyCardRows": 132
+    "candidateOnlyCardRows": 129
   },
   "cardEffects": [
     {
@@ -55,7 +55,6 @@
         "Lair of the Hydra:effects[1]",
         "Marina Vendrell:effects[1]",
         "Maskwood Nexus:effects[1]",
-        "Nezahal, Primal Tide:effects[4]",
         "Niv-Mizzet, Ghost Counsel:effects[1]",
         "Soul of Eternity:effects[1]",
         "Teferi, Who Slows the Sunset:effects[0]",
@@ -69,7 +68,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 84,
+        "matches": 79,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2573 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
@@ -167,8 +166,8 @@
       "candidateEvidence": {
         "matches": 26,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1352 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1429 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1356 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1433 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:111 — test('rejects tapped, opposing, noncreature, and duplicate convoke objects', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:137 — test('legal acts offer convoke when it is needed to cast the spell', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:154 — test('Pile On destroys its target and completes surveil 2 after convoking', () => {",
@@ -271,7 +270,6 @@
         "Lotho, Corrupt Shirriff:effects[0]",
         "Lumbering Battlement:effects[0]",
         "Lumbering Battlement:effects[1]",
-        "Nezahal, Primal Tide:effects[2]",
         "Pit of Offerings:effects[1]",
         "Reins of Power:effects[1]",
         "Rings of Brighthearth:effects[0]",
@@ -283,7 +281,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 73,
+        "matches": 67,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1904 — test('Joint Exploration put-land dispatches a kernel move', () => {",
@@ -455,14 +453,14 @@
       "candidateEvidence": {
         "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:454 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:535 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:560 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:626 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:645 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:663 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:672 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:690 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:455 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:536 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:561 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:627 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:646 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:664 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:673 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:691 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
         ]
       },
       "neededCanonicalNode": "chapter occurrence programs",
@@ -510,22 +508,13 @@
     {
       "variant": "spellTrait",
       "mechanic": "specialized legacy effect",
-      "currentRegistrations": [
-        "Dovin's Veto:effects[0]",
-        "Nezahal, Primal Tide:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 2,
         "samples": [
-          "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:844 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:780 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:828 — test('the spell cannot be countered', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:871 — test('you have no maximum hand size while it is on the battlefield', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:889 — test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:942 — test('the discard ability is not offered with fewer than three cards in hand', async () => {"
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:233 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:476 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
         ]
       },
       "neededCanonicalNode": "new canonical ability/effect node",
@@ -566,7 +555,6 @@
         "Masked Vandal:effects[0]",
         "Maskwood Nexus:effects[0]",
         "Mole Man, Moloid Master:effects[0]",
-        "Nezahal, Primal Tide:effects[1]",
         "Phial of Galadriel:effects[0]",
         "Phyrexian Ingester:effects[0]",
         "Roaming Throne:effects[0]",
@@ -591,7 +579,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 128,
+        "matches": 124,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2789 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -619,8 +607,6 @@
       "currentRegistrations": [
         "Cling to Dust:effects[1]",
         "Colossification:effects[0]",
-        "Desertion:effects[0]",
-        "Dovin's Veto:effects[1]",
         "Drag to the Roots:effects[1]",
         "Dread Return:effects[1]",
         "Fortune's Favor:effects[0]",
@@ -642,16 +628,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 58,
+        "matches": 53,
         "samples": [
-          "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:1077 — test('a host restart rebuilds an open dredge replacement choice', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "live-runner/src/kernelHost.test.ts:844 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1352 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1429 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1356 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1433 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
+          "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
+          "rules-engine/src/cardPlugins/cleave.test.ts:18",
+          "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
+          "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -734,7 +720,6 @@
         "Mole Man, Moloid Master:effects[1].do[0].token.effects[0]",
         "Mulldrifter:effects[1]",
         "Mulldrifter:effects[2]",
-        "Nezahal, Primal Tide:effects[3]",
         "Niv-Mizzet, Ghost Counsel:effects[0]",
         "Palace Jailer:effects[0]",
         "Perch Protection:effects[1]",
@@ -775,7 +760,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 231,
+        "matches": 227,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -1175,21 +1160,20 @@
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
         "Getaway Glamer:effects[0].spree[0].do[0]",
-        "Nezahal, Primal Tide:effects[4].do[0]",
         "Parting Gust:effects[1].do[0].whenTrue[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:780 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:828 — test('the spell cannot be countered', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:871 — test('you have no maximum hand size while it is on the battlefield', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:889 — test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:942 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:783 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:797 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:804 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:818 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:829 — test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:845 — test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1226,10 +1210,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:312 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:340 — test('entering returns every other nonland permanent to its owner', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:373 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:402 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:313 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
@@ -1670,14 +1654,14 @@
       "candidateEvidence": {
         "matches": 24,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:454 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:535 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:560 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:626 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:645 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:663 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:672 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:690 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:455 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:536 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:561 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:627 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:646 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:664 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:673 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:691 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1799,8 +1783,8 @@
           "live-runner/src/kernelHost.test.ts:527 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:133 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1595 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1870 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1628 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1903 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {"
@@ -2091,7 +2075,6 @@
         "Jace, Multiverse Architect:effects[1].do[0]",
         "Joint Exploration:effects[0].do[0]",
         "Mulldrifter:effects[2].do[0]",
-        "Nezahal, Primal Tide:effects[3].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[1]",
         "Wedding Ring:effects[1].do[0]",
         "Zimone and Dina:effects[1].do[0]",
@@ -2099,7 +2082,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 102,
+        "matches": 97,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2107,8 +2090,8 @@
           "live-runner/src/kernelHost.test.ts:503 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:780 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:828 — test('the spell cannot be countered', async () => {"
+          "rules-engine/src/cardPlugins/councilCards.test.ts:106",
+          "rules-engine/src/cardPlugins/councilCards.test.ts:115"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2150,10 +2133,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1157 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1202 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1294 — test('declining ends the offer and keeps every card in hand', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1308 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1161 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1206 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1298 — test('declining ends the offer and keeps every card in hand', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1312 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:601 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
@@ -2622,7 +2605,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:288 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:309 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2644,14 +2627,14 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1010 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1029 — test('Apex Altisaur fights on entry and whenever it is dealt damage', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1067 — test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1261 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1306 — test('green modal spell fronts compose their fight and protection instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1961 — test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:763 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:775 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1031 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1050 — test('Apex Altisaur fights on entry and whenever it is dealt damage', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1088 — test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1294 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1339 — test('green modal spell fronts compose their fight and protection instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1994 — test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:784 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:796 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2782,14 +2765,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:454 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:535 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:560 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:626 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:645 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:663 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:672 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:690 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:455 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:536 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:561 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:627 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:646 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:664 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:673 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:691 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2822,8 +2805,8 @@
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:66 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1039 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1246 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1060 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1267 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3019,12 +3002,12 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1105 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1336 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1477 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1517 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1590 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1624 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1126 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1369 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1510 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1550 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1623 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1657 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -3165,9 +3148,9 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1009 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1045 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1055 — test('a second imprint after re-entering counts only the new exiled creature', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1001 — test('offers every nontoken creature, including its own, but no tokens, noncreatures, or hexproof creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1013 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1049 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -3315,11 +3298,11 @@
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:145 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1039 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1279 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1351 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1375 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1647 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1060 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1312 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1384 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1408 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1680 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3429,10 +3412,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1157 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1202 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1294 — test('declining ends the offer and keeps every card in hand', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1308 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1161 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1206 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1298 — test('declining ends the offer and keeps every card in hand', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1312 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:601 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
@@ -3605,9 +3588,10 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1382 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1275 — test('catalog Nezahal composes uncounterable, hand size, a cast trigger, and a discard blink', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1415 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
           "rules-engine/src/cardPlugins/seaGate.test.ts:52 — test('instructions are clone-safe', () => {"
         ]
       },
@@ -3906,14 +3890,14 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1099 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1198 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1372 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1754 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1769 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1905 — test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:577 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:95 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1120 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1219 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1405 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1787 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1802 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1938 — test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:598 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:99 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4142,10 +4126,10 @@
       "candidateEvidence": {
         "matches": 13,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1060 — test('Breena rewards attacks on a richer opponent', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1310 — test('green modal spell fronts compose their fight and protection instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1594 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1954 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1081 — test('Breena rewards attacks on a richer opponent', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1343 — test('green modal spell fronts compose their fight and protection instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1627 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1987 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:160 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:82 — test('a delayed program retains a parent card choice after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
@@ -4552,7 +4536,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:188 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:906 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:927 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:305 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -4771,7 +4755,7 @@
           "rules-engine/src/cardPlugins/councilCards.test.ts:294 — test('an open vote survives a host restart and still resolves', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:380 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:270 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1186 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1207 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:13",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:32",
           "rules-engine/src/cardPlugins/jaceMultiverseArchitect.test.ts:44"
@@ -5091,8 +5075,8 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:588 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:606 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:609 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:627 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:567 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
@@ -5119,14 +5103,14 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:454 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:535 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:560 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:626 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:645 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:663 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:672 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:690 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:455 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:536 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:561 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:627 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:646 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:664 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:673 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:691 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -5242,10 +5226,10 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:312 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:340 — test('entering returns every other nonland permanent to its owner', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:373 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:402 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:313 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {",
           "rules-engine/src/cardPlugins/unearth.test.ts:166 — test('stamps a clone-safe unearth builder on effects', () => {"
         ]
@@ -5337,7 +5321,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1733 — test('catalog life-history and win cards compose canonical instructions', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1766 — test('catalog life-history and win cards compose canonical instructions', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -6293,73 +6277,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Desertion",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Desertion"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:284 — test('Desertion puts a countered creature onto the battlefield', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:373 — test('the Lady Evangela remaining group stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Dovin's Veto",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dovin's Veto"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:844 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:152 — test(\"Dovin's Veto remains a legal target but cannot be countered\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:160 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:403 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [spellTrait, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "spellTrait",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Drag to the Roots",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6369,8 +6286,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1352 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1429 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1356 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1433 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
           "rules-engine/src/cardPlugins/targetedResolve.test.ts:446 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
         ]
       },
@@ -7403,10 +7320,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:312 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:340 — test('entering returns every other nonland permanent to its owner', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:373 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:402 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:313 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:591 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
@@ -7479,14 +7396,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:454 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:535 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:560 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:626 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:645 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:663 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:672 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:690 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:455 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:536 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:561 — test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:627 — test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:646 — test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:664 — test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:673 — test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:691 — test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [saga] and instructions [createToken, gainControlPermanent, tapAll]",
@@ -8089,56 +8006,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Nezahal, Primal Tide",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Nezahal, Primal Tide"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:780 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:828 — test('the spell cannot be countered', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:871 — test('you have no maximum hand size while it is on the battlefield', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:889 — test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:942 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:592 — test('Círdan misc cards keep their handler composition', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, handler, spellTrait, static, trigger] and instructions [blink, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "handler",
-        "spellTrait",
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "blink",
-        "draw"
-      ],
-      "pluginIds": [
-        "noMaxHand"
-      ],
-      "handlerIds": [
-        "activated",
-        "blink",
-        "castTriggers",
-        "noMaxHand"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Niv-Mizzet, Ghost Counsel",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8348,14 +8215,14 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1009 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1045 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1055 — test('a second imprint after re-entering counts only the new exiled creature', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1063 — test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1071 — test('exiling your own creature or the Ingester itself is allowed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1085 — test('declining exiles nothing and asks nothing further', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1105 — test('a target that left the battlefield before resolution is not exiled and nothing else is offered', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1117 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1001 — test('offers every nontoken creature, including its own, but no tokens, noncreatures, or hexproof creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1013 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1049 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1059 — test('a second imprint after re-entering counts only the new exiled creature', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1067 — test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1075 — test('exiling your own creature or the Ingester itself is allowed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1089 — test('declining exiles nothing and asks nothing further', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1109 — test('a target that left the battlefield before resolution is not exiled and nothing else is offered', async () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [linkExile]",
@@ -8852,10 +8719,10 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1157 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1202 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1294 — test('declining ends the offer and keeps every card in hand', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1308 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1161 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1206 — test('draws cards equal to your greatest power, counting only your creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1298 — test('declining ends the offer and keeps every card in hand', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1312 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:601 — test('Círdan misc cards keep their handler composition', () => {"
         ]
       },
@@ -10588,7 +10455,6 @@
         "Lair of the Hydra",
         "Marina Vendrell",
         "Maskwood Nexus",
-        "Nezahal, Primal Tide",
         "Niv-Mizzet, Ghost Counsel",
         "Soul of Eternity",
         "Thespian's Stage",
@@ -10596,7 +10462,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 115,
+        "matches": 111,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:150 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
@@ -10604,8 +10470,8 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:172 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:312 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:340 — test('entering returns every other nonland permanent to its owner', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:313 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10738,16 +10604,16 @@
         "rules-engine/src/plugins/commander.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 28,
         "samples": [
           "rules-engine/src/actions.test.ts:311 — test('accounts for commander tax', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
           "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts:14 — test('commander queries use the controlled battlefield instance rather than ownership or legendary status', () => {",
+          "rules-engine/src/cardPlugins/dsl/stackItemFilters.test.ts:28 — test('stack filters distinguish command-zone casts from hand casts', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:364 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {"
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10796,10 +10662,10 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:133 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:164 — test('drain catalog entries compose numeric action results with life gain', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1595 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1870 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1628 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1903 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:29",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:319 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:340 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10816,7 +10682,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 93,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -10857,7 +10723,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 192,
+        "matches": 193,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -10941,14 +10807,14 @@
       "candidateEvidence": {
         "matches": 20,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1009 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1045 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1055 — test('a second imprint after re-entering counts only the new exiled creature', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1063 — test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1071 — test('exiling your own creature or the Ingester itself is allowed', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1085 — test('declining exiles nothing and asks nothing further', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1105 — test('a target that left the battlefield before resolution is not exiled and nothing else is offered', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1117 — test('the choice is private, survives a host restart, and finishes through the live host', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1001 — test('offers every nontoken creature, including its own, but no tokens, noncreatures, or hexproof creatures', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1013 — test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1049 — test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1059 — test('a second imprint after re-entering counts only the new exiled creature', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1067 — test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1075 — test('exiling your own creature or the Ingester itself is allowed', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1089 — test('declining exiles nothing and asks nothing further', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1109 — test('a target that left the battlefield before resolution is not exiled and nothing else is offered', async () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -11171,9 +11037,9 @@
         "matches": 15,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:256 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1324 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1811 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:597 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1357 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1844 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:618 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:51 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:283 — test('pumps a stack target using linked exile power', () => {",
@@ -11200,8 +11066,8 @@
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:218 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:277 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:514 — test('fractional life costs are evaluated and paid at announcement', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1059 — test('Breena rewards attacks on a richer opponent', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1098 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1080 — test('Breena rewards attacks on a richer opponent', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1119 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -11242,7 +11108,7 @@
       "candidateEvidence": {
         "matches": 70,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:292 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:293 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:158 — test('an attacker cannot also tap to pay its own attack tax', () => {",
@@ -11555,7 +11421,7 @@
           "live-runner/src/kernelHost.test.ts:3415 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:793 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:170 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:734 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:735 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:143 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:236 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
@@ -12417,8 +12283,8 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1023",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
+        "rules-engine/src/cardPlugins/cardRules.ts:999",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -12442,7 +12308,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1300"
+        "rules-engine/src/types.ts:1307"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -12546,8 +12412,8 @@
           "live-runner/src/kernelHost.test.ts:2462 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
           "live-runner/src/kernelHost.test.ts:2511 — test('casts one Room half and later unlocks the other from structured acts', () => {",
           "live-runner/src/kernelHost.test.ts:3255 — test('publishes and applies the defeated Siege casting choice', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1292 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1549 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1325 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1582 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:246 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {"
         ]
@@ -12589,7 +12455,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:718",
+        "rules-engine/src/kernel.ts:719",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -12603,7 +12469,7 @@
         "rules-engine/src/plugins/rooms.ts:68",
         "rules-engine/src/plugins/rooms.ts:85",
         "rules-engine/src/plugins/rooms.ts:89",
-        "rules-engine/src/plugins/spells.ts:477",
+        "rules-engine/src/plugins/spells.ts:484",
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:9",
@@ -12660,10 +12526,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1198
+          1205
         ],
         "samples": [
-          "1198: if (object.name === 'Timetwister') {"
+          "1205: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -12848,11 +12714,11 @@
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
           388,
-          478
+          485
         ],
         "samples": [
           "388: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "478: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "485: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -13590,10 +13456,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1525
+          1526
         ],
         "samples": [
-          "1525: event.name === SEARCH_CHOSEN"
+          "1526: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -13630,13 +13496,13 @@
         "lines": [
           311,
           711,
-          1728,
-          1758
+          1738,
+          1768
         ],
         "samples": [
           "311: const liveSource = draft.object(source.ref.objectId)",
           "711: const source = draft.object(sourceId)",
-          "1728: const object = draft.object(item.objectId)"
+          "1738: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13915,32 +13781,32 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          901,
-          907,
-          984,
-          1004,
-          1006,
-          1009,
-          1019,
-          1022,
-          1037,
-          1038,
-          1043,
+          908,
+          914,
+          991,
+          1011,
+          1013,
+          1016,
+          1026,
+          1029,
           1044,
-          1143,
-          1153,
-          1174,
-          1189,
-          1205,
-          1207,
-          1213,
-          1225,
-          1246
+          1045,
+          1050,
+          1051,
+          1150,
+          1160,
+          1181,
+          1196,
+          1212,
+          1214,
+          1220,
+          1232,
+          1253
         ],
         "samples": [
-          "901: const moved = draft.object(event.objectId)",
-          "907: const object = draft.object(event.objectId)",
-          "984: .map((objectId) => draft.object(objectId))"
+          "908: const moved = draft.object(event.objectId)",
+          "914: const object = draft.object(event.objectId)",
+          "991: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16040,13 +15906,13 @@
           622,
           625,
           634,
-          668,
-          680,
-          733,
-          735,
-          741,
-          758,
-          763
+          669,
+          681,
+          734,
+          736,
+          742,
+          759,
+          764
         ],
         "samples": [
           "495: const object = draft.object(event.objectRef.objectId)",

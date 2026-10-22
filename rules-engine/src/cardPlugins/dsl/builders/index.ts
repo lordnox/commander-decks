@@ -317,6 +317,9 @@ export const suppressKeyword = (input: Omit<Extract<ContinuousEffectDefinition, 
 export const noMaximumHandSize = (): ContinuousEffectDefinition =>
   immutableData({ kind: 'noMaximumHandSize' })
 
+export const cannotBeCountered = (): ContinuousEffectDefinition =>
+  immutableData({ kind: 'cannotBeCountered' })
+
 export const extraLandPlays = (count: number): ContinuousEffectDefinition =>
   immutableData({ kind: 'extraLandPlays', count })
 
@@ -542,9 +545,11 @@ const normalizeCostFields = (input: CostFieldsInput) => ({
 export const spell = (input: {
   decisions?: DecisionsInput
   when?: Condition
+  uncounterable?: true
 } & CostFieldsInput & ResolutionProgramInput) => immutableData({
   kind: 'spell' as const,
   ...(input.when ? { when: input.when } : {}),
+  ...(input.uncounterable ? { uncounterable: true as const } : {}),
   decisions: decisions(input.decisions),
   ...normalizeCostFields(input),
   ...normalizeProgram(input),
@@ -849,10 +854,12 @@ export const putCounters = (input: {
 export const counter = (input: {
   targets: Extract<Instruction, { kind: 'counter' }>['targets']
   bindResult?: string
+  destination?: Extract<Instruction, { kind: 'counter' }>['destination']
 }): Instruction => immutableData({
   kind: 'counter',
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+  ...(input.destination ? { destination: input.destination } : {}),
 })
 
 export const createEffect = (input: {

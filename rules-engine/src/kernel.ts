@@ -634,7 +634,8 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         draft.enqueue({
           type: 'move',
           objectId: object.id,
-          to: finishedSpellZone(item, 'graveyard'),
+          to: event.destination ?? finishedSpellZone(item, 'graveyard'),
+          ...(event.controller ? { controller: event.controller } : {}),
         })
       }
       draft.note(`${item.name} was countered`)

@@ -296,9 +296,16 @@ export const spellCost = (
   return reduceGenericManaCost(total, reduction)
 }
 
-const cannotBeCountered = (object: GameObject) =>
-  effectsOf(object).some((effect) =>
-    effect.op === 'spellTrait' && effect.uncounterable)
+const cannotBeCountered = (object: GameObject) => {
+  if (effectsOf(object).some((effect) => effect.op === 'spellTrait' && effect.uncounterable)) return true
+  const abilities = object.ruleDefinition?.definition.abilities
+  if (!abilities) return false
+  return abilities.some((ability) => {
+    if (ability.kind === 'spell' && ability.uncounterable) return true
+    return ability.kind === 'static'
+      && ability.effects.some((effect) => effect.kind === 'cannotBeCountered')
+  })
+}
 
 type ColoredCost = {
   choices: ManaId[]

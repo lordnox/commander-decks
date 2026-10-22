@@ -221,8 +221,9 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
+    if (node.castFrom !== undefined) enumeration(node.castFrom, childPath(path, 'castFrom'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
     for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
     if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
@@ -266,12 +267,14 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['kind', 'type', 'color', 'other', 'controller', 'targets', 'all', 'any', 'not'])
+    exactKeys(node, path, ['kind', 'type', 'color', 'other', 'controller', 'owner', 'castFrom', 'targets', 'all', 'any', 'not'])
     if (node.kind !== undefined) enumeration(node.kind, childPath(path, 'kind'), new Set(['spell', 'ability']), 'stack-item kind')
     if (node.type !== undefined && typeof node.type !== 'string') issue(childPath(path, 'type'), 'type', 'expected a string')
     if (node.color !== undefined) enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.controller !== undefined) validatePlayerMatch(node.controller, childPath(path, 'controller'), env)
+    if (node.owner !== undefined) validatePlayerMatch(node.owner, childPath(path, 'owner'), env)
+    if (node.castFrom !== undefined) enumeration(node.castFrom, childPath(path, 'castFrom'), ZONES, 'zone')
     if (node.targets !== undefined) {
       const targets = object(node.targets, childPath(path, 'targets'))
       if (targets?.kind !== 'objects' && targets?.kind !== 'players') {
@@ -982,10 +985,27 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       case 'counter': {
-        exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'destination'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['stack'])
         if (node.bindResult !== undefined && !recipientIsProvablySingle(node.targets, env, 'stack')) {
           issue(childPath(path, 'bindResult'), 'aggregate-result', 'scalar counter results require a provably single stack-item recipient')
+        }
+        if (node.destination !== undefined) {
+          const destination = object(node.destination, childPath(path, 'destination'))
+          if (destination) {
+            exactKeys(destination, childPath(path, 'destination'), ['to', 'controller', 'types'], ['to'])
+            enumeration(destination.to, childPath(childPath(path, 'destination'), 'to'), ZONES, 'zone')
+            if (destination.controller !== undefined) {
+              validateReference(destination.controller, childPath(childPath(path, 'destination'), 'controller'), env, ['player'])
+            }
+            if (destination.types !== undefined) {
+              array(destination.types, childPath(childPath(path, 'destination'), 'types'), { nonempty: true }).forEach((type, index) => {
+                if (typeof type !== 'string') {
+                  issue(childPath(childPath(childPath(path, 'destination'), 'types'), index), 'type', 'expected a string')
+                }
+              })
+            }
+          }
         }
         const name = node.bindResult === undefined ? undefined : bindingName(node.bindResult, childPath(path, 'bindResult'))
         declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['countered']) }, childPath(path, 'bindResult'))
@@ -1569,7 +1589,10 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     switch (ability.kind) {
       case 'spell': {
-        exactKeys(ability, path, commonProgramKeys, ['kind', 'decisions', 'costs'])
+        exactKeys(ability, path, [...commonProgramKeys, 'uncounterable'], ['kind', 'decisions', 'costs'])
+        if (ability.uncounterable !== undefined && ability.uncounterable !== true) {
+          issue(childPath(path, 'uncounterable'), 'constant', 'uncounterable must be true when present')
+        }
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
@@ -1678,7 +1701,8 @@ export const validateDefinitionV1 = (root: unknown): {
               if (validateSelector(node.filter, childPath(effectPath, 'filter'), baseEnvironment()) !== 'object') issue(effectPath, 'type', 'enchant requires an object selector')
               return
             case 'loseLifeOnManaLoss':
-            case 'noMaximumHandSize': {
+            case 'noMaximumHandSize':
+            case 'cannotBeCountered': {
               exactKeys(node, effectPath, ['kind'], ['kind'])
               return
             }

@@ -1136,11 +1136,21 @@ const actionEvents = (
       const counterEvent = (stackId: string) => {
         const item = context.state.stack.find((candidate) => candidate.id === stackId)
         const object = item ? context.state.objects[item.objectId] : undefined
+        const destination = instruction.destination
+        const redirect = Boolean(
+          destination
+          && (!destination.types || destination.types.some((type) => object?.types.includes(type))),
+        )
+        const controller = redirect && destination?.controller
+          ? evaluatePlayerReference(destination.controller, context)[0]
+          : undefined
         return {
           type: 'counterStackItem' as const,
           stackId,
           sourceId: frame.source.ref.objectId,
           ...(object ? { objectRef: objectIdentity(object) } : {}),
+          ...(redirect && destination ? { destination: destination.to } : {}),
+          ...(controller ? { controller } : {}),
         }
       }
       return targets.flatMap((target) => target.kind === 'stackItem'
