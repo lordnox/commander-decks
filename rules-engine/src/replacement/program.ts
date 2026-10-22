@@ -20,13 +20,12 @@ export const applyReplacementTransform = (
     case 'suppress':
       return { kind: 'prevented' }
     case 'modifyEvent': {
-      if (proposal.type === 'dealDamage' && transform.changes.amount) {
+      if ((proposal.type === 'dealDamage' || proposal.type === 'gainLife') && transform.changes.amount) {
         const change = transform.changes.amount
-        const factor = change.kind === 'multiply' && change.factor.kind === 'constant' ? change.factor.value : 1
-        const delta = change.kind === 'add' && change.delta.kind === 'constant' ? change.delta.value : 0
-        const amount = change.kind === 'multiply'
-          ? proposal.amount * factor
-          : proposal.amount + delta
+        const expression = change.kind === 'multiply' ? change.factor : change.delta
+        const value = context ? evaluateRuntimeAmount(expression, context) : expression.kind === 'constant' ? expression.value : undefined
+        if (value === undefined) throw new Error('replacement amount requires a runtime context')
+        const amount = change.kind === 'multiply' ? proposal.amount * value : proposal.amount + value
         const next = { ...proposal, amount: Math.max(0, amount) }
         return { kind: 'continue', event: withLineage(next, descendantLineage(lineage)) }
       }

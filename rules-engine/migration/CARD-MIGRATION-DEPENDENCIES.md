@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after combined optional mana/life payment and Ripples of Undeath, including family 39 public piles, public votes, and persistent linked-card sets. **117 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after conditional draw/life replacements and Phial of Galadriel, including family 39 public piles, public votes, and persistent linked-card sets. **116 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **117 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **116 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -75,7 +75,6 @@ Current readiness: **0 composition candidates**; **117 blocked or awaiting sourc
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |
 | `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |
 | `Perch Protection` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player), [42-turn](CARD-MIGRATION-BATCHES.md#42-turn) | Blocked by mechanics | Full gift, four Birds, phase-out, protection duration, and resolving exile. |
-| `Phial of Galadriel` | 42 | [42-conditional](CARD-MIGRATION-BATCHES.md#42-conditional) | Blocked by mechanics | — |
 | `Pile On` | 25 | [25-convoke](CARD-MIGRATION-BATCHES.md#25-convoke) | Blocked by mechanics | — |
 | `Pitiless Carnage` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [25-plot](CARD-MIGRATION-BATCHES.md#25-plot) | Blocked by mechanics | — |
 | `Portal to Phyrexia` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-types](CARD-MIGRATION-BATCHES.md#22-types) | Blocked by mechanics | Upkeep reanimation adds the Phyrexian type without replacing the original types. |

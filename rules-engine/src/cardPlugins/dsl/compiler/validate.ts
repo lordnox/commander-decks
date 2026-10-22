@@ -1937,6 +1937,14 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'replacement': {
               exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
               if (isData(node.transform) && node.transform.kind === 'modifyEvent' && isData(node.transform.changes) && node.transform.changes.enterCounters !== undefined) validateEventFieldChanges(node.transform.changes, `${effectPath}.transform.changes`, baseEnvironment())
+              if (isData(node.event) && node.event.kind === 'gainLife') {
+                exactKeys(node.event, `${effectPath}.event`, ['kind', 'filter'], ['kind', 'filter'])
+                const filter = object(node.event.filter, `${effectPath}.event.filter`)
+                if (filter) {
+                  exactKeys(filter, `${effectPath}.event.filter`, ['player'], ['player'])
+                  validateRecipient(filter.player, `${effectPath}.event.filter.player`, baseEnvironment(), ['player'])
+                }
+              }
               if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
               if (node.program !== undefined) validateReplacementProgram(node.program, childPath(effectPath, 'program'), baseEnvironment())
               return

@@ -2200,3 +2200,13 @@ test('Ripples of Undeath binds its first-main mill and pays mana plus life befor
     ] },
   ])
 })
+
+
+test('Phial of Galadriel composes both conditional replacements and five-color tap mana', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Phial of Galadriel')!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'draw' }, when: { kind: 'compareAmount', operator: 'eq', right: { value: 0 } } }] },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'gainLife' }, when: { kind: 'compareAmount', operator: 'lte', right: { value: 5 } }, transform: { kind: 'modifyEvent', changes: { amount: { kind: 'multiply', factor: { value: 2 } } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: ['W', 'U', 'B', 'R', 'G'].map(label => ({ label, instructions: [{ kind: 'addMana', amount: { [label]: { value: 1 } } }] })) }] },
+  ])
+})

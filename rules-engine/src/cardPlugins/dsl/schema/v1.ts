@@ -657,6 +657,7 @@ export type DamageReplacementFilter = {
 
 export type ReplacementEventPattern =
   | { kind: 'draw'; filter: DrawReplacementFilter }
+  | { kind: 'gainLife'; filter: { player: PlayerReference | PlayerSelector } }
   | { kind: 'enterBattlefield'; filter: { object: ObjectFilter | ObjectReference } }
   | { kind: 'move'; filter: { object?: ObjectFilter | ObjectReference; to?: Zone } }
   | { kind: 'damage'; filter?: DamageReplacementFilter }

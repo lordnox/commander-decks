@@ -87,6 +87,12 @@ const eventMatchesPattern = (
       }
       return true
     }
+    case 'gainLife': {
+      if (event.type !== 'gainLife') return false
+      const player = effect.event.filter.player
+      const seats = player.kind === 'players' ? evaluatePlayerSelector(player, runtime) : evaluatePlayerReference(player, runtime)
+      return seats.includes(event.seat)
+    }
     case 'enterBattlefield': {
       if (event.type !== 'move' || event.to !== 'battlefield') return false
       const object = runtime.state.objects[event.objectId]
@@ -137,6 +143,7 @@ const categoryFor = (effect: ReplacementEffectDefinition, event: GameEvent, sour
 const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
   switch (event.type) {
     case 'draw':
+    case 'gainLife':
       return event.seat
     case 'dealDamage':
       if (event.target.kind === 'player') return event.target.player

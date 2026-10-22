@@ -702,7 +702,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ),
     ),
   ],
-  'Phial of Galadriel': [staticGrant('phialReplacement')],
   'Pile On': [
     convoke(),
     targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),

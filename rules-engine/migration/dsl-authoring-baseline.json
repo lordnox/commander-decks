@@ -656,12 +656,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "134785387322d15d5ba62748626b892da363ea0c472b6a0ea06a221fb0c06b86",
-    "card": "Phial of Galadriel"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "823a33d65113dc3e053c810628f9b5a760e197ad92e072d5d14adcbd80e0c1be",
     "card": "Urborg, Tomb of Yawgmoth"
   },

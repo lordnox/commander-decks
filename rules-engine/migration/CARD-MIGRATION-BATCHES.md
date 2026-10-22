@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after combined optional mana/life payment and Ripples of Undeath, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **117 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after conditional draw/life replacements and Phial of Galadriel, including family 39 public piles, public votes, and persistent linked-card sets; continues #394 and #383. **116 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**171 mechanic entries:** 73 available, 1 awaiting correctness follow-up, and 97 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**171 mechanic entries:** 74 available, 1 awaiting correctness follow-up, and 96 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -461,7 +461,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="42-conditional"></a>**42-conditional — Conditional draw/life replacement** | Open | Evaluate hand/life thresholds at each individual replaced event, including competing replacements. | — | `Phial of Galadriel` |
+| <a id="42-conditional"></a>**42-conditional — Conditional draw/life replacement** | Available | Canonical gainLife replacement patterns and amount transforms compose with live hand/life conditions. Recheck each individual draw and successive life gain; preserve affected-player ordering and restore. Structural draw splitting applies again when a replacement introduces a new multi-draw batch. Phial of Galadriel has migrated with both replacements and tap mana. | — | None remaining |
 | <a id="42-player"></a>**42-player — Player life, targeting, and game-result restrictions** | Open | Player hexproof/protection, cannot-lose/change-life, and cannot-win/lose-game with explicit durations. | — | `Everybody Lives!`; `Perch Protection` |
 | <a id="42-regeneration"></a>**42-regeneration — Cannot-regenerate destruction** | Open | Express and enforce a no-regeneration destruction constraint; check the engine's regeneration support before migration. | — | `Snuff Out` |
 | <a id="42-shuffle"></a>**42-shuffle — Reveal-and-shuffle graveyard replacement** | Open | Replace a graveyard move with reveal and shuffle of the specific card, including from nonbattlefield zones. | — | `Blightsteel Colossus`; `Darksteel Colossus` |

@@ -425,6 +425,9 @@ export const preventionCreatedEffect = (
   ...(additionalEffects ? { additionalEffects } : {}),
 })
 
+export const wouldGainLife = (player: PlayerReference | PlayerSelector = ref('controller')) =>
+  immutableData({ kind: 'gainLife' as const, filter: { player } })
+
 export const wouldDealDamage = (filter: Extract<ReplacementEventPattern, { kind: 'damage' }>['filter'] = {}) =>
   immutableData({ kind: 'damage' as const, filter })
 

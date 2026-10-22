@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 117,
+    "cardRegistrations": 116,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 70,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 115,
-    "candidateOnlyCardRows": 112
+    "candidateOnlyCardRows": 111
   },
   "cardEffects": [
     {
@@ -541,7 +541,6 @@
         "Masked Vandal:effects[0]",
         "Maskwood Nexus:effects[0]",
         "Mole Man, Moloid Master:effects[0]",
-        "Phial of Galadriel:effects[0]",
         "Roaming Throne:effects[0]",
         "Sakashima of a Thousand Faces:effects[0]",
         "Sire of Seven Deaths:effects[0]",
@@ -564,16 +563,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 107,
+        "matches": 99,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2789 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "live-runner/src/kernelHost.test.ts:2979 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "live-runner/src/kernelHost.test.ts:3653 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
-          "live-runner/src/kernelHost.test.ts:852 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:251 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {"
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
+          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -789,7 +788,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 48,
+        "matches": 49,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1997,7 +1996,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 96,
+        "matches": 97,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2695,7 +2694,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 107,
+        "matches": 108,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:3385 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -7623,43 +7622,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Phial of Galadriel",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Phial of Galadriel"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 9,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:852 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:203 — test('Phial doubles draws from an empty hand and life gains at five or less', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:149 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:258 — test('the action runner emits a no-target fixed loyalty activation', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:306 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:339 — test('+1 rejects two targets competing for the same type slot', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:383 — test('−7 untaps and draws during each opponent turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:158 — test('the Lady Evangela alternate and replacement cards stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [
-        "phialReplacement"
-      ],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Pile On",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9646,7 +9608,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 104,
+        "matches": 105,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
@@ -9907,7 +9869,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 198,
+        "matches": 201,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -10214,7 +10176,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 51,
+        "matches": 52,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
@@ -10363,22 +10325,11 @@
     {
       "variant": "phialReplacement",
       "mechanic": "runtime plugin hook",
-      "currentRegistrations": [
-        "Phial of Galadriel"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:852 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:203 — test('Phial doubles draws from an empty hand and life gains at five or less', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:149 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:258 — test('the action runner emits a no-target fixed loyalty activation', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:306 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:339 — test('+1 rejects two targets competing for the same type slot', () => {",
-          "rules-engine/src/cardPlugins/planeswalker.test.ts:383 — test('−7 untaps and draws during each opponent turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:158 — test('the Lady Evangela alternate and replacement cards stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
@@ -10386,7 +10337,7 @@
       "dependencyParts": [
         "07"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "priority",
@@ -11467,7 +11418,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:861",
+        "rules-engine/src/cardPlugins/cardRules.ts:860",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
@@ -11577,7 +11528,7 @@
         "rules-engine/src/plugins/rooms.ts:2",
         "rules-engine/src/plugins/rooms.ts:41",
         "rules-engine/src/plugins/rooms.ts:97",
-        "rules-engine/src/replacement/discovery.ts:100",
+        "rules-engine/src/replacement/discovery.ts:103",
         "rules-engine/src/replacement/types.ts:5",
         "rules-engine/src/replay.ts:161",
         "rules-engine/src/replay.ts:164",
