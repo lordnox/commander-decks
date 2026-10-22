@@ -449,6 +449,7 @@ describe('events for available actions', () => {
     expect(action).toBeDefined()
     expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
       type: 'castSpell',
+      targets: [], targetClauses: [],
       seat: 'p1',
       objectId: objectNamed(state, 'Fact or Fiction').id,
     })
