@@ -2136,13 +2136,13 @@ describe('kernel host journal', () => {
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      cards: ['p2'],
-      requirements: { target: { min: 0, max: 1 } },
-      kernel: { stage: 'select-players' },
+      cards: ['Accept', 'Decline'],
+      requirements: { target: { min: 1, max: 1 } },
+      kernel: { stage: 'option-selection' },
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'p2', destination: 'target' }],
+      choices: [{ card: 'Accept', destination: 'target' }, { card: 'Decline', destination: 'skip' }],
     }))).toBe(true)
 
     const state = kernel.history.current()

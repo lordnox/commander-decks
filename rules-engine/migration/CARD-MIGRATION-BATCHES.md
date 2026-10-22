@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 20 countering and spell-eligibility slices; continues #394 and #383. **132 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal, Primal Tide are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after untap participation, lifelink, and menace plus concurrent family 20 work; continues #394 and #383. **132 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal, Primal Tide are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 60 available, 1 awaiting correctness follow-up, and 109 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 61 available, 1 awaiting correctness follow-up, and 108 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -61,6 +61,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **14-difference and 14-counters are available:** nonnegative subtraction composes with current counts; named counter amounts preserve captured object identity and read the current count at each instruction. Sandstone Oracle and Mossborn Hydra have migrated, including the former’s non-target opponent choice and the latter’s entry replacement.
 
 **20 is available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, provenance, or **21-ward**.
+
+**13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin and Mister Negative have migrated. Kuroki and Sire of Seven Deaths retain their other gates.
 
 ## Suggested next work
 
@@ -241,8 +243,8 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-fear"></a>**21-fear — Fear** | Available | Canonical keyword authoring and artifact-or-black blocker restriction. Profane Command has migrated. | — | None remaining |
 | <a id="21-first-strike"></a>**21-first-strike — First strike** | Open | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
-| <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring and actual-damage life gain. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
-| <a id="21-menace"></a>**21-menace — Menace** | Open | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
+| <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative has migrated. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
+| <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
 | <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
 | <a id="21-static"></a>**21-static — Continuous keyword grants** | Available | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Concordant Crossroads` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Available | Layer-aware removal and cannot-have-or-gain precedence for a keyword. Archetype of Endurance has migrated. | [21-static](#21-static) | None remaining |
