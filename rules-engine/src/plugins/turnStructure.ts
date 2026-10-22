@@ -1,3 +1,4 @@
+import { objectIdentity } from '../objectIdentity'
 import { STEP_IDS } from '../types'
 import { activePrintedStaticModifiers } from '../cardPlugins/dsl/staticModifierCore'
 import { emptyMana, nextPlayer, type Draft } from '../draft'
@@ -94,6 +95,12 @@ const onDraw = (draft: Draft) => {
  * It runs once per damage step; `combat` decides who deals damage in which.
  */
 const onCombatDamage = (draft: Draft) => {
+  if (draft.step === 'firstStrikeDamage') {
+    draft.firstStrikeCombatants = draft.zoneOf('battlefield')
+      .filter(object => object.attacking !== null || object.blocking !== null)
+      .filter(strikesFirst)
+      .map(objectIdentity)
+  }
   const attacking = draft
     .zoneOf('battlefield')
     .some((object) => object.attacking !== null)
@@ -101,6 +108,7 @@ const onCombatDamage = (draft: Draft) => {
 }
 
 const onCleanup = (draft: Draft) => {
+  delete draft.firstStrikeCombatants
   for (const object of draft.zoneOf('battlefield')) {
     object.damageMarked = 0
     delete object.deathtouched
@@ -115,10 +123,17 @@ const onCleanup = (draft: Draft) => {
 }
 
 const enterStep = (draft: Draft, step: StepId) => {
-  if (step === 'untap') return onUntap(draft)
-  if (step === 'draw') return onDraw(draft)
-  if (step === 'firstStrikeDamage' || step === 'combatDamage') return onCombatDamage(draft)
-  if (step === 'cleanup') return onCleanup(draft)
+  switch (step) {
+    case 'beginCombat':
+    case 'endCombat':
+      delete draft.firstStrikeCombatants
+      return
+    case 'untap': return onUntap(draft)
+    case 'draw': return onDraw(draft)
+    case 'firstStrikeDamage':
+    case 'combatDamage': return onCombatDamage(draft)
+    case 'cleanup': return onCleanup(draft)
+  }
 }
 
 const inCombat = (draft: Draft) =>

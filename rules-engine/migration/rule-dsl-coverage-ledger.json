@@ -12115,7 +12115,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1310"
+        "rules-engine/src/types.ts:1312"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -12646,10 +12646,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          163
+          178
         ],
         "samples": [
-          "163: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "178: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -13629,15 +13629,15 @@
       {
         "path": "rules-engine/src/plugins/combat.ts",
         "lines": [
-          52,
-          196,
-          207,
-          209
+          59,
+          203,
+          214,
+          216
         ],
         "samples": [
-          "52: if (amount > 0) draft.enqueue({ type: 'combatDamage', sourceId: source.id, target, amount })",
-          "196: const attacker = draft.object(declaration.objectId)",
-          "207: const blocker = draft.object(declaration.blockerId)"
+          "59: if (amount > 0) draft.enqueue({ type: 'combatDamage', sourceId: source.id, target, amount })",
+          "203: const attacker = draft.object(declaration.objectId)",
+          "214: const blocker = draft.object(declaration.blockerId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13725,12 +13725,12 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          89,
-          100
+          90,
+          107
         ],
         "samples": [
-          "89: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
-          "100: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
+          "90: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
+          "107: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 33 actual discard totals plus concurrent untap, lifelink, and menace work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after signed life minimums and first strike plus concurrent family 33 work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 63 available, 1 awaiting correctness follow-up, and 106 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 65 available, 1 awaiting correctness follow-up, and 104 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -65,6 +65,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin and Mister Negative have migrated. Kuroki and Sire of Seven Deaths retain their other gates.
 
 **14-result-max and 33-discard are available:** per-player programs can keep a surviving maximum of actual action results such as discarded counts; whole-hand discards bind those counts after replacement. Windfall has migrated.
+
+**14-signed-minimum and 21-first-strike are available:** signed lowest-life queries are restricted to life-total consumers; Repay in Kind has migrated. First-strike eligibility is captured by object identity for both damage steps, surviving restore and keyword changes. Sire of Seven Deaths still needs ward support.
 
 ## Suggested next work
 
@@ -179,7 +181,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Available | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. Sandstone Oracle has migrated. | — | None remaining |
 | <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
-| <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Open | Compute the lowest actual life total across players, including negative totals. | — | `Repay in Kind` |
+| <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Available | Compute the lowest current life total across living players, including negative totals, once per set-life instruction. Repay in Kind has migrated. | — | None remaining |
 | <a id="14-result-max"></a>**14-result-max — Maximum action result** | Available | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. Windfall has migrated. | — | None remaining |
 
 ### 15. Predicates and player iteration
@@ -243,7 +245,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-annihilator"></a>**21-annihilator — Annihilator** | Open | Defending-player sacrifice on attack, through ordinary typed sacrifice choices. | [09-count](#09-count), [34-defender](#34-defender) | `It That Betrays` |
 | <a id="21-even"></a>**21-even — Even-mana-value restrictions** | Open | Apply parity restrictions to casting and blocking, including mana value zero. | — | `Void Winnower` |
 | <a id="21-fear"></a>**21-fear — Fear** | Available | Canonical keyword authoring and artifact-or-black blocker restriction. Profane Command has migrated. | — | None remaining |
-| <a id="21-first-strike"></a>**21-first-strike — First strike** | Open | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
+| <a id="21-first-strike"></a>**21-first-strike — First strike** | Available | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative has migrated. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
 | <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |

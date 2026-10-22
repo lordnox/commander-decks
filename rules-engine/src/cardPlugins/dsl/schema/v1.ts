@@ -678,7 +678,7 @@ export type ContinuousEffectDefinition =
 
 export const KEYWORDS = {
   deathtouch: 'deathtouch', defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
-  hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace',
+  hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace', firstStrike: 'first strike',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 

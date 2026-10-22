@@ -8,6 +8,7 @@ export const keyword = Object.freeze({
   get haste() { return keywordAbility(KEYWORDS.haste) },
   get vigilance() { return keywordAbility(KEYWORDS.vigilance) },
   get flash() { return keywordAbility(KEYWORDS.flash) },
+  get firstStrike() { return keywordAbility(KEYWORDS.firstStrike) },
   get menace() { return keywordAbility(KEYWORDS.menace) },
   get lifelink() { return keywordAbility(KEYWORDS.lifelink) },
   get fear() { return keywordAbility(KEYWORDS.fear) },

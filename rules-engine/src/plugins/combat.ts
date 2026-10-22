@@ -1,3 +1,4 @@
+import { isSameObject } from '../objectIdentity'
 import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
 import { attackDeclarationBanned } from '../cardPlugins/attackBan'
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'
@@ -40,12 +41,18 @@ export const blockRestriction = (state: GameState, blocker: GameObject, attacker
   }
 }
 
-/** CR 510.4: first and double strikers deal damage first; double strikers and everyone without it deal again. */
+/** CR 510.4: the first step's eligibility is fixed even if keywords change afterward. */
 const dealsDamageIn = (object: GameObject, step: StepId, state: GameState) => {
   const doubleStrike = hasKeyword(object, 'double strike', state)
+  const firstStep = state.firstStrikeCombatants
+  if (firstStep) {
+    const struckFirst = firstStep.some(identity => isSameObject(object, identity))
+    return step === 'firstStrikeDamage' ? struckFirst : !struckFirst || doubleStrike
+  }
+  // Preserve older saved states without a recorded first-step snapshot.
   return step === 'firstStrikeDamage'
-    ? hasKeyword(object, 'first strike', state) || doubleStrike
-    : !hasKeyword(object, 'first strike', state) || doubleStrike
+    ? hasKeyword(object, KEYWORDS.firstStrike, state) || doubleStrike
+    : !hasKeyword(object, KEYWORDS.firstStrike, state) || doubleStrike
 }
 
 const enqueueDamage = (draft: Draft, source: GameObject, target: TargetRef, amount: number) => {
