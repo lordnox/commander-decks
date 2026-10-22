@@ -138,7 +138,7 @@ const capturedOccurrence = (
 ): OccurrenceSnapshot => {
   const objectId = triggeringObjectId ?? eventObjectId(event)
   const before = objectId ? state.objects[objectId] : undefined
-  const after = objectId ? draft.objects[objectId] : undefined
+  const after = event.type === 'tokenCreated' ? event.object : objectId ? draft.objects[objectId] : undefined
   const sourceId = 'sourceId' in event && typeof event.sourceId === 'string'
     ? event.sourceId
     : 'source' in event && typeof event.source === 'string'
@@ -291,6 +291,14 @@ const matchesRoomUnlock = (
   return object.id === source.id
 }
 
+const matchesTokenAction = (state: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'tokenCreated' | 'sacrificed' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  const object = pattern.kind === 'sacrificed' ? occurrence.object?.before : occurrence.object?.after
+  const matches = pattern.kind === 'sacrificed'
+    ? event.type === 'move' && event.sacrifice === true && object?.zone === 'battlefield' && occurrence.object?.after?.zone !== 'battlefield'
+    : event.type === 'tokenCreated' && object?.token === true
+  return Boolean(matches && object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
+}
+
 const canonicalPatternMatches = (
   state: GameState,
   beforeState: GameState,
@@ -300,6 +308,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'tokenCreated' || pattern.kind === 'sacrificed') return matchesTokenAction(state, source, pattern, occurrence, event)
   if (pattern.kind === 'becomesTapped' || pattern.kind === 'tappedForMana') return matchesTapOccurrence(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'stepBegins') return matchesBeginningStep(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'manaAdded') {
@@ -403,6 +412,8 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'tokenCreated':
+    case 'sacrificed': return matchesTokenAction(state, source, pattern, occurrence, event, execution)
     case 'becomesTapped':
     case 'tappedForMana': return matchesTapOccurrence(beforeState, afterState, source, pattern, occurrence, event, execution)
     case 'stepBegins': return matchesBeginningStep(beforeState, afterState, source, pattern, occurrence, event, lexicalContext)
@@ -741,7 +752,7 @@ const canonicalTriggersForOccurrence = (
           spec.amount,
           spec.defender,
         )
-        const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
+        const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' || candidate.on.kind === 'sacrificed' ? state : draft
         if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
         const context = {
           state: predicateState,
@@ -1256,6 +1267,7 @@ const collectCasts = (
 }
 
 const eventObjectId = (event: GameEvent) => {
+  if (event.type === 'tokenCreated') return event.object.id
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
   if (event.type === 'custom' && event.name === MANA_ABILITY_RESOLVED && typeof event.payload?.sourceId === 'string') return event.payload.sourceId
   if (event.type === 'dealDamage' && event.target.kind === 'object') return event.target.objectId

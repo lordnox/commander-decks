@@ -171,7 +171,7 @@ export const damage: Plugin = {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield') return
       recordInstructionAmount(draft, 'sacrifice', 1, object)
-      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard', sacrifice: true })
       draft.note(`${object.controller} sacrifices ${object.name}`)
       return
     }

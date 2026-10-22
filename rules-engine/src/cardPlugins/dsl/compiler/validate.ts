@@ -1545,11 +1545,13 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return env
       }
+      case 'tokenCreated':
       case 'enters':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
+      case 'sacrificed':
       case 'dies':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.before', 'object'], ['triggering.object.after', 'object']])

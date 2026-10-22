@@ -92,12 +92,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "9102a3139181cdce08745db9cf86c8e09f9e88c3b27cf4e0552fd459a6e79e1e",
-    "card": "Mirkwood Bats"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "3b8557352824bfceb9851fc606b0b60095d44b5c5ac11d0ff6b0367fb203be8b",
     "card": "Will of the Sultai"
   },

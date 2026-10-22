@@ -1,3 +1,4 @@
+import { snapshotObject } from '../objectIdentity'
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
@@ -111,6 +112,7 @@ export const createToken = (
     })
   }
   draft.note(`${controller} creates ${token.name}`)
+  draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })
   if (emitEntry) {
     draft.enqueue({
       type: 'custom',

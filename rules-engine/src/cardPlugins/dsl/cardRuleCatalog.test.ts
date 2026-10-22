@@ -2249,3 +2249,11 @@ test('Summon: Titan mills, returns lands, then pumps another creature', () => {
     ] },
   ])
 })
+
+test('Mirkwood Bats retains flying and one untargeted opponent drain per created or sacrificed token', () => {
+  expect(cardRuleDefinitionSnapshotFor('Mirkwood Bats')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'tokenCreated', filter: { controller: 'you' } }, decisions: { targets: [] }, instructions: [{ kind: 'loseLife', amount: { value: 1 }, targets: { kind: 'players', filter: { relation: 'opponent' } } }] },
+    { kind: 'triggered', on: { kind: 'sacrificed', filter: { controller: 'you', token: true } }, decisions: { targets: [] }, instructions: [{ kind: 'loseLife', amount: { value: 1 }, targets: { kind: 'players', filter: { relation: 'opponent' } } }] },
+  ])
+})

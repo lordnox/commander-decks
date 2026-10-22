@@ -711,6 +711,10 @@ export const spellCast = (input: { filter: ObjectOccurrenceFilter }): Occurrence
 export const enters = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'enters', filter: input.filter })
 
+export const tokenCreated = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'tokenCreated' as const, filter })
+
+export const sacrificed = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'sacrificed' as const, filter })
+
 export const dies = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'dies', filter: input.filter })
 

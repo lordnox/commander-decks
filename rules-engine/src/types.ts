@@ -1161,6 +1161,8 @@ export type GameEvent =
     }
   | {
       type: 'move'
+      /** This move completes a sacrifice action; replacements retain its provenance. */
+      sacrifice?: true
       /** Record only the final exile identity, after replacement has applied. */
       exileLink?: Omit<LinkedExileSet, 'cards'>
       objectId: string
@@ -1324,6 +1326,7 @@ export type GameEvent =
       source?: string
     }
   | { type: 'winGame'; seat: PlayerId; source?: string }
+  | { type: 'tokenCreated'; object: ObjectSnapshot }
   | { type: 'sacrifice'; objectId: string; sourceId?: string }
   | { type: 'proliferate'; seat: PlayerId; sourceId?: string }
   | { type: 'fight'; leftId: string; rightId: string }

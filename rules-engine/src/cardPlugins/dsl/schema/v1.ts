@@ -226,6 +226,7 @@ export type OccurrencePattern =
         defender?: PlayerReference | PlayerSelector
       }
     }
+  | { kind: 'tokenCreated' | 'sacrificed'; filter: ObjectOccurrenceFilter }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }

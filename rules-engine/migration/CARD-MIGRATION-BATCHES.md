@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus the prior Phial of Galadriel conditional replacements; continues #394 and #383. **112 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after Mirkwood Bats and families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus the prior Phial of Galadriel conditional replacements; continues #394 and #383. **111 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**171 mechanic entries:** 80 available, 1 awaiting correctness follow-up, and 90 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**171 mechanic entries:** 81 available, 1 awaiting correctness follow-up, and 89 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -411,7 +411,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="35-ordinal"></a>**35-ordinal — Per-turn event ordinals** | Open | First/second cast, draw, or grouped zone-change event; keep scope and reset rules explicit. | — | `Crawling Sensation`; `Lotho, Corrupt Shirriff`; `Zimone and Dina` |
 | <a id="35-provenance"></a>**35-provenance — Was-cast and turn provenance** | Open | Distinguish a cast permanent from other entries and filter ongoing programs by the relevant player's turn. | [20-origin](#20-origin) | `Wedding Ring` |
 | <a id="35-repeat"></a>**35-repeat — Conditionally repeat a program once** | Open | Repeat draw/hand-placement instructions once at resolution after checking the current condition; preserve choices. | — | `Zimone and Dina` |
-| <a id="35-token"></a>**35-token — Token creation/sacrifice occurrences** | Open | Observe actual creation/sacrifice of tokens and preserve the required trigger cardinality. | — | `Mirkwood Bats` |
+| <a id="35-token"></a>**35-token — Token creation/sacrifice occurrences** | Available | Typed tokenCreated events retain creation snapshots; canonical tokenCreated/sacrificed patterns preserve controller/token filters and one trigger per token. Exclude resolving permanent spell copies, prevented actions, and nonsacrifice departures. Mirkwood Bats has migrated with flying and untargeted opponent drains. | — | None remaining |
 
 ### 36. Optional exile on resolution
 

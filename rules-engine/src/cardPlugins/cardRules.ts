@@ -555,10 +555,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })],
     }),
   ],
-  'Mirkwood Bats': [
-    enters({ filter: { controller: 'you', token: true }, createdOnly: true }, opponentsLoseLife(1)),
-    permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
-  ],
   Mirrorweave: [
     targetOnResolve(
       'select',

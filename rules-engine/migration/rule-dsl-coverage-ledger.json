@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 112,
+    "cardRegistrations": 111,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -28,12 +28,12 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 30,
     "customEventDispatchSites": 85,
-    "directMutationSites": 575,
+    "directMutationSites": 576,
     "instructionRegistrationOnlyGaps": 1,
     "instructionUnobservedGaps": 72,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 113,
-    "candidateOnlyCardRows": 107
+    "candidateOnlyCardRows": 106
   },
   "cardEffects": [
     {
@@ -679,8 +679,6 @@
         "Kuroki, Thief of Talents:effects[0]",
         "Lumra, Bellow of the Woods:effects[1]",
         "Masked Vandal:effects[1]",
-        "Mirkwood Bats:effects[0]",
-        "Mirkwood Bats:effects[1]",
         "Mole Man, Moloid Master:effects[1]",
         "Mole Man, Moloid Master:effects[1].do[0].token.effects[0]",
         "Mulldrifter:effects[1]",
@@ -717,7 +715,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 191,
+        "matches": 185,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -1302,7 +1300,7 @@
         "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:587 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -2116,7 +2114,7 @@
         "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:587 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -2143,7 +2141,7 @@
         "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:587 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -2235,7 +2233,7 @@
         "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:587 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -3142,14 +3140,12 @@
       "variant": "loseLife",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Mirkwood Bats:effects[0].do[0]",
-        "Mirkwood Bats:effects[1].do[0]",
         "Niv-Mizzet, Ghost Counsel:effects[1].do[0]",
         "Rankle, Master of Pranks:effects[0].do[0].modes[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 35,
+        "matches": 30,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
@@ -7151,42 +7147,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Mirkwood Bats",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mirkwood Bats"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:576 — test('two drain sources trigger in APNAP order', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:601 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:635 — test('a queued ability resolves after Mirkwood Bats leaves', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:644 — test('Bats outside the battlefield or phased out do not trigger', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:658 — test('a token copy of Bats triggers on its own creation and sacrifice', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:471 — test('lands sacrificed while a search spell resolves trigger it', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseLife]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "loseLife"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mirrorweave",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -7753,7 +7713,7 @@
         "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2911 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:694 — test('two Bats each trigger for each token', () => {",
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:587 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:152 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:86 — test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -10308,7 +10268,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 249,
+        "matches": 250,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -11246,12 +11206,12 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:794",
+        "rules-engine/src/cardPlugins/cardRules.ts:790",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:163",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:402",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:518",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:660",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:165",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:404",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:520",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:662",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -11270,7 +11230,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1351"
+        "rules-engine/src/types.ts:1354"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -11308,9 +11268,9 @@
         "rules-engine/src/actions.ts:855",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:210",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:341",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:345",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:212",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:343",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:347",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:258",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:342",
         "rules-engine/src/cardPlugins/librarySearch.ts:192",
@@ -11362,7 +11322,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1384",
+        "rules-engine/src/rules/triggers.ts:1396",
         "rules-engine/src/types.ts:322",
         "rules-engine/src/types.ts:324",
         "rules-engine/src/types.ts:328"
@@ -11405,11 +11365,11 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:65",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:675",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:859",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:104",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:157",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:436",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:604",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:605",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:105",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:159",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:438",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:606",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:607",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
@@ -11556,10 +11516,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          419
+          421
         ],
         "samples": [
-          "419: if (!extra.keepName && object.name !== copied.name) {"
+          "421: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11896,15 +11856,15 @@
           152,
           171,
           253,
-          359,
-          360,
-          497,
-          986,
-          1103,
-          1260,
-          1262,
-          1302,
-          1303
+          368,
+          369,
+          508,
+          997,
+          1114,
+          1272,
+          1274,
+          1314,
+          1315
         ],
         "samples": [
           "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -13318,24 +13278,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          756,
-          841,
-          936,
-          970,
-          1049,
-          1114,
-          1127,
-          1167,
-          1248,
-          1325,
-          1382,
-          1550,
-          1664
+          767,
+          852,
+          947,
+          981,
+          1060,
+          1125,
+          1138,
+          1178,
+          1259,
+          1337,
+          1394,
+          1562,
+          1676
         ],
         "samples": [
-          "756: const frequencySource = draft.object(source.id) ?? source",
-          "841: const live = draft.object(source.id)",
-          "936: const land = draft.object(objectId)"
+          "767: const frequencySource = draft.object(source.id) ?? source",
+          "852: const live = draft.object(source.id)",
+          "947: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13367,14 +13327,15 @@
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
           115,
-          363,
-          372,
-          373
+          117,
+          365,
+          374,
+          375
         ],
         "samples": [
-          "115: draft.enqueue({",
-          "363: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })",
-          "372: draft.enqueue({ type: 'move', objectId: object.id, to: 'battlefield' })"
+          "115: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
+          "117: draft.enqueue({",
+          "365: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
