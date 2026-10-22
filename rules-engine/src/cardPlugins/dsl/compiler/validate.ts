@@ -266,12 +266,18 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['kind', 'type', 'color', 'other', 'controller', 'all', 'any', 'not'])
+    exactKeys(node, path, ['kind', 'type', 'color', 'other', 'controller', 'targets', 'all', 'any', 'not'])
     if (node.kind !== undefined) enumeration(node.kind, childPath(path, 'kind'), new Set(['spell', 'ability']), 'stack-item kind')
     if (node.type !== undefined && typeof node.type !== 'string') issue(childPath(path, 'type'), 'type', 'expected a string')
     if (node.color !== undefined) enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.controller !== undefined) validatePlayerMatch(node.controller, childPath(path, 'controller'), env)
+    if (node.targets !== undefined) {
+      const targets = object(node.targets, childPath(path, 'targets'))
+      if (targets?.kind !== 'objects' && targets?.kind !== 'players') {
+        issue(childPath(path, 'targets'), 'domain', 'target relationships require an object or player selector')
+      } else validateSelector(node.targets, childPath(path, 'targets'), env)
+    }
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
       array(node[key], childPath(path, key), { nonempty: true }).forEach((part, index) =>
         validateStackFilter(part, childPath(childPath(path, key), index), env, depth + 1))

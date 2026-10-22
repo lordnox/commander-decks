@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 138,
+    "cardRegistrations": 137,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 60,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 126,
-    "candidateOnlyCardRows": 133
+    "candidateOnlyCardRows": 132
   },
   "cardEffects": [
     {
@@ -627,7 +627,6 @@
         "Getaway Glamer:effects[1]",
         "Hagra Mauling // Hagra Broodpit:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
-        "Keep Safe:effects[0]",
         "Life from the Loam:effects[1]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
@@ -643,7 +642,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 61,
+        "matches": 58,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:1077 — test('a host restart rebuilds an open dredge replacement choice', () => {",
@@ -2091,7 +2090,6 @@
         "Illusion of Choice:effects[0].do[1]",
         "Jace, Multiverse Architect:effects[1].do[0]",
         "Joint Exploration:effects[0].do[0]",
-        "Keep Safe:effects[0].do[0]",
         "Mulldrifter:effects[2].do[0]",
         "Nezahal, Primal Tide:effects[3].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[1]",
@@ -2101,7 +2099,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 104,
+        "matches": 102,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -6373,7 +6371,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1352 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1429 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:521 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:446 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions []",
@@ -7433,41 +7431,6 @@
       "handlerIds": [
         "activated",
         "unearth"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Keep Safe",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Keep Safe"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:51 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:147 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:186 — test('Keep Safe counters the targeted spell and draws a card', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -8574,7 +8537,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:458 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:383 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [surveil]",
@@ -10894,7 +10857,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 191,
+        "matches": 192,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -12454,7 +12417,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1031",
+        "rules-engine/src/cardPlugins/cardRules.ts:1023",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -12885,11 +12848,11 @@
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
           388,
-          462
+          478
         ],
         "samples": [
           "388: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "462: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "478: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

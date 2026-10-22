@@ -1,3 +1,4 @@
+import keepSafe from './keep-safe'
 import decisiveDenial from './decisive-denial'
 import mossbornHydra from './mossborn-hydra'
 import sandstoneOracle from './sandstone-oracle'
@@ -278,6 +279,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Keep Safe': keepSafe,
   'Decisive Denial': decisiveDenial,
   'Mossborn Hydra': mossbornHydra,
   'Sandstone Oracle': sandstoneOracle,

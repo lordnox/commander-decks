@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after nonnegative differences and counter-count amounts. **138 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after counter payments and stack targeting relationships. **137 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **138 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **137 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -65,7 +65,6 @@ Current readiness: **0 composition candidates**; **138 blocked or awaiting sourc
 | `Jace, Multiverse Architect` | 32 | [32-loyalty](CARD-MIGRATION-BATCHES.md#32-loyalty), [08](CARD-MIGRATION-BATCHES.md#08) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; verify every loyalty/static ability and all printed keywords. |
 | `Joint Exploration` | 25 | [25-kicker](CARD-MIGRATION-BATCHES.md#25-kicker) | Blocked by mechanics | Retain scry 2 before draw, then optional land placement if kicked. |
 | `Kederekt Leviathan` | 30 | [30-unearth](CARD-MIGRATION-BATCHES.md#30-unearth) | Blocked by mechanics | — |
-| `Keep Safe` | 20 | [20-relationships](CARD-MIGRATION-BATCHES.md#20-relationships) | Blocked by mechanics | — |
 | `Kindred Dominance` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Kiora Bests the Sea God` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [40-skip](CARD-MIGRATION-BATCHES.md#40-skip) | Blocked by mechanics | Permanent control gain is available from Dack; its chosen target must still use canonical targeting. |
 | `Kuroki, Thief of Talents` | 44 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace) | Blocked by mechanics | Opponent chooses whether to draw; cast from that opponent's private hand or put counters on Kuroki. |

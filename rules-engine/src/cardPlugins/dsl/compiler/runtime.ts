@@ -3,7 +3,7 @@ import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { isSwamp } from '../../../plugins/swampOverlay'
 import { isForest } from '../../../plugins/forestOverlay'
-import { isSameObject } from '../../../objectIdentity'
+import { isSameObject, targetObject } from '../../../objectIdentity'
 import type {
   CapturedObject,
   GameObject,
@@ -422,6 +422,22 @@ const matchesStackItemFilter = (
   if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
   if (mismatchesController(item, filter, context)) return false
+  if (filter.targets) {
+    switch (filter.targets.kind) {
+      case 'objects': {
+        const candidates = new Set(evaluateObjectSelector(filter.targets, context).map(object => object.id))
+        if (!item.targets.some(target => target.kind === 'object'
+          && targetObject(context.state, target)
+          && candidates.has(target.objectId))) return false
+        break
+      }
+      case 'players': {
+        const candidates = new Set(evaluatePlayerSelector(filter.targets, context))
+        if (!item.targets.some(target => target.kind === 'player' && candidates.has(target.player))) return false
+        break
+      }
+    }
+  }
   return true
 }
 

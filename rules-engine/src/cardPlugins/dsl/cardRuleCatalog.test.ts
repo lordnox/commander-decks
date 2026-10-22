@@ -1963,3 +1963,12 @@ test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncrea
     ],
   })
 })
+
+
+test('Keep Safe counters a spell targeting a controlled permanent then draws once', () => {
+  expect(cardTemplateDefaultsFor('Keep Safe')).toMatchObject({ types: ['Instant'], manaCost: '{1}{U}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor('Keep Safe')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } } } }] },
+    instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }, { kind: 'draw', count: { kind: 'constant', value: 1 } }],
+  })
+})

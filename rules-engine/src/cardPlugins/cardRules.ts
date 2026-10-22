@@ -625,13 +625,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(bounceAll({ nonland: true, other: true })),
     unearth('{6}{U}'),
   ],
-  'Keep Safe': [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', spellTargetsControlledPermanent: true },
-      draw(1),
-    ),
-  ],
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Kiora Bests the Sea God': [sagaChapters(
     {

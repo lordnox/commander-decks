@@ -302,12 +302,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "b0908401731458ea63e925c36358064f52aa2e5e08da5ccab913b12cb5e57e0d",
-    "card": "Keep Safe"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "d7a647c5a053a133f88e9b5b7b64c5a62018f388bcca76785732537b2be518ce",
     "card": "Lair of the Hydra"
   },

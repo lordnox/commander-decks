@@ -99,6 +99,8 @@ export type ObjectFilter = {
 }
 
 export type StackItemFilter = {
+  /** At least one announced target matches this object/player selector. */
+  targets?: ObjectSelector | PlayerSelector
   kind?: 'spell' | 'ability'
   /** Card type of the stack object, for "instant or sorcery spell" and similar. */
   type?: string

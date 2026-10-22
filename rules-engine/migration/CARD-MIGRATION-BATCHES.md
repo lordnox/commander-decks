@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after nonnegative differences and counter-count amounts; continues #394 and #383. **138 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after counter payments and stack targeting relationships; continues #394 and #383. **137 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 54 available, 1 awaiting correctness follow-up, and 115 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 55 available, 1 awaiting correctness follow-up, and 114 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -59,6 +59,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **21-static and 21-suppress are available:** filtered and conditional keyword grants, conditional stat modifiers, and cannot-have-or-gain suppression use canonical printed-static lifetimes. Thunderfoot Baloth and Archetype of Endurance have migrated. Concordant Crossroads retains its newly identified **42-world** gate.
 
 **14-difference and 14-counters are available:** nonnegative subtraction composes with current counts; named counter amounts preserve captured object identity and read the current count at each instruction. Sandstone Oracle and Mossborn Hydra have migrated, including the former’s non-target opponent choice and the latter’s entry replacement.
+
+**20-payment and 20-relationships are available:** counter-unless-payment composes typed resolution payments for the targeted item’s controller; stack filters query announced object/player targets with incarnation guards. Decisive Denial and Keep Safe have migrated.
 
 ## Suggested next work
 
@@ -228,7 +230,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="20-destination"></a>**20-destination — Conditional counter destination** | Open | On successful counter, move the original artifact/creature card to the battlefield instead of the graveyard. | [07](#07) | `Desertion` |
 | <a id="20-origin"></a>**20-origin — Cast-origin predicates** | Open | Filter by the zone/owner from which a spell was cast; also used by rebound and other provenance-dependent rules. | — | `All-Fates Stalker`; `Ephemerate`; `Incarnation Technique`; `Pitiless Carnage`; `Quantum Misalignment`; `Vantress Visions`; `Virtue of Knowledge`; `Wash Away`; `Wedding Ring`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
 | <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Available | Resolution-time mana payment by the spell controller, with typed choices and mana opportunities. | — | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
-| <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Open | Filter spells by the permanents/players they target, and retain target object identities. | — | `Keep Safe` |
+| <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Available | Filter spells by the permanents/players they target, retaining announced object identities and rechecking current control. Keep Safe has migrated. | — | None remaining |
 
 ### 21. Combat and keywords
 
