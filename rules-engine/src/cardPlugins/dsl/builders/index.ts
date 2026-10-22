@@ -82,7 +82,7 @@ import {
 } from '../schema/v1'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
-import type { StepId } from '../../../types'
+import type { RoomDoorId, StepId } from '../../../types'
 
 export const amount = (value: number): Amount => immutableData({ kind: 'constant', value })
 
@@ -656,6 +656,17 @@ export const draws = (input: Extract<OccurrencePattern, { kind: 'draw' }>['filte
   immutableData({ kind: 'draw', filter: input })
 
 export const manaAdded = (): OccurrencePattern => immutableData({ kind: 'manaAdded' })
+
+export const unlockDoor = (
+  input: { door?: RoomDoorId; filter?: ObjectOccurrenceFilter } = {},
+): OccurrencePattern => immutableData({ kind: 'unlockDoor' as const, ...input })
+
+export const fullyUnlock = (
+  input: { filter?: ObjectOccurrenceFilter } = {},
+): OccurrencePattern => immutableData({ kind: 'fullyUnlock' as const, ...input })
+
+export const lockOrUnlockDoor = (input: { targets: ObjectRecipient }): Instruction =>
+  immutableData({ kind: 'lockOrUnlockDoor' as const, ...input })
 
 export const draw = (input: number | { count: AmountInput; targets: PlayerRecipient }) => {
   const { count, targets } = typeof input === 'number'

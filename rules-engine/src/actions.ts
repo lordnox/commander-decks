@@ -1260,7 +1260,7 @@ const combatDamageIsThreatened = (state: GameState) =>
 const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
   if (!object.ruleDefinition || object.controller !== seat) return []
   const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
-  return definition.abilities.flatMap((ability, index) => {
+  return definition.abilities.flatMap((ability, index): AvailableAction[] => {
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       ...activatedPermissionFields(ability) })) return []
@@ -1277,6 +1277,23 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
     if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
     const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
     if (targetGroups.some(group => group.targets.length < group.min)) return []
+    if (ability.instructions.some(instruction => instruction.kind === 'lockOrUnlockDoor')) {
+      const rooms = targetGroups.at(-1)?.targets ?? []
+      return rooms.flatMap(room =>
+        (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
+          const characteristics = roomDoor(state.objects[room.objectId], door)
+          if (!characteristics) return []
+          return [{
+            kind: 'activateAbility',
+            objectId: object.id,
+            name: object.name,
+            text: `Lock or unlock ${characteristics.name}`,
+            abilityId: `$.abilities[${index}]`,
+            targetObjectIds: [room.objectId],
+            door,
+          }]
+        })) satisfies AvailableAction[]
+    }
     return [{ kind: 'activateAbility', objectId: object.id, name: object.name,
       text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups }] satisfies AvailableAction[]
   })
@@ -2390,7 +2407,16 @@ export const eventsForAvailableAction = (
           ? new Set([object.id]) : new Set<string>()
         const funding = fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded)
         if (!funding) return null
-        return [...funding, { type: 'activateAbility', seat, objectId: object.id, abilityId: action.abilityId, targetClauses, ...(choices.length ? { choices } : {}) }]
+        return [...funding, {
+          type: 'activateAbility',
+          seat,
+          objectId: object.id,
+          abilityId: action.abilityId,
+          targetClauses,
+          ...(targets.length ? { targets } : {}),
+          ...(action.door ? { door: action.door } : {}),
+          ...(choices.length ? { choices } : {}),
+        }]
       } catch {
         return null
       }

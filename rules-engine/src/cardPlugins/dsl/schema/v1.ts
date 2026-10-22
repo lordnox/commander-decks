@@ -1,4 +1,6 @@
-import type { StepId } from '../../../types'
+import type { RoomDoorId, StepId } from '../../../types'
+
+export const ROOM_DOORS = ['left', 'right'] as const
 
 export const RULE_DSL_SCHEMA_VERSION = 1 as const
 
@@ -228,6 +230,8 @@ export type OccurrencePattern =
   | { kind: 'manaAdded' }
   | { kind: 'manaAbilityActivated' }
   | { kind: 'manaAbilityResolved' }
+  | { kind: 'unlockDoor'; door?: RoomDoorId; filter?: ObjectOccurrenceFilter }
+  | { kind: 'fullyUnlock'; filter?: ObjectOccurrenceFilter }
 
 export type VariableSpec = {
   name: 'X'
@@ -399,6 +403,8 @@ export type Instruction =
   | { kind: 'addManaChosenColor'; of: ObjectReference; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addManaFrom'; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
+  /** Lock an unlocked door or unlock a locked door of the targeted Room, using the activating item's door. */
+  | { kind: 'lockOrUnlockDoor'; targets: ObjectRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
   /** Queue life gain for each resolved player recipient at this point in resolution. */

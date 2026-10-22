@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after optional resolution exile costs plus signed life minimums, first strike, and concurrent family 33 work; continues #394 and #383. **130 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 43 Room doors plus Marina Vendrell, including optional resolution exile costs, first strike, and signed life minimums; continues #394 and #383. **129 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Marina Vendrell, Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 66 available, 1 awaiting correctness follow-up, and 103 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 67 available, 1 awaiting correctness follow-up, and 102 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -47,6 +47,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 - **15 is available:** player choice/iteration, commander status, quantified player comparisons, mana-ability filters, and name queries are canonical. Beza, Guardian Project, Field of the Dead, Moonsilver Key, and Singularity Rupture have migrated. Other consumers retain their independent prerequisites.
 - **16-hand-limit and 16-stack-object are available:** Sea Gate Restoration // Sea Gate, Reborn and Sink into Stupor // Soporific Springs have migrated with pay-life MDFC composition.
+- **43-room is available:** door programs, unlock/fullyUnlock occurrences, and lock-or-unlock instructions compose onto kernel Room doors. Marina Vendrell has migrated. Forgotten Cellar and Walk-In Closet still need graveyard permission. 43-adventure stays open on 26-permission.
 
 - **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Mossborn Hydra has migrated with counter-count amounts; Everflowing Chalice, Famished Worldsire, and Spark Double retain their multikicker/ward/copy-entry gates.
 
@@ -129,7 +130,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Marina Vendrell`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
 
 ### 09. Sacrifice outcomes and entry sacrifice
 
@@ -464,8 +465,8 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="43-adventure"></a>**43-adventure — Adventure faces and permission** | Open | Resolve the Adventure face into the correct exile permission, then allow the permanent face. | [26-permission](#26-permission), [20-origin](#20-origin) | `Vantress Visions`; `Virtue of Knowledge`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
-| <a id="43-room"></a>**43-room — Room doors** | Open | Both door programs, casting/lock/unlock costs, sorcery timing, and unlock occurrences. | — | `Forgotten Cellar`; `Marina Vendrell`; `Walk-In Closet` |
+| <a id="43-adventure"></a>**43-adventure — Adventure faces and permission** | Open | Resolve the Adventure face into the correct exile permission, then allow the permanent face. 20-origin is available; 26-permission remains the gate. | [26-permission](#26-permission), [20-origin](#20-origin) | `Vantress Visions`; `Virtue of Knowledge`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
+| <a id="43-room"></a>**43-room — Room doors** | Available | Both door programs, casting/lock/unlock costs, sorcery timing, and unlock occurrences. Marina Vendrell has migrated. | — | `Forgotten Cellar`; `Walk-In Closet` |
 
 ### 44. Retired package bucket
 

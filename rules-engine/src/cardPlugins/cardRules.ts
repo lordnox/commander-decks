@@ -68,7 +68,6 @@ import {
   loyaltyX,
   lookTopPick,
   lookTopPutLand,
-  lockOrUnlockDoor,
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
@@ -88,7 +87,6 @@ import {
   putLandFromHand,
   putMilledLandTapped,
   putPermanentsFromHand,
-  revealMatchingToHand,
   revealPick,
   revealUntil,
   opponentMayPayMana,
@@ -664,16 +662,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Lumra, Bellow of the Woods': [
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
-  ],
-  'Marina Vendrell': [
-    enters(revealMatchingToHand(7, 'Enchantment')),
-    activate({
-      id: 'marina.lockOrUnlock',
-      costs: { tap: true },
-      targets: { zone: 'battlefield', subtype: 'Room', controller: 'you' },
-      sorcery: true,
-      do: [lockOrUnlockDoor()],
-    }),
   ],
   'Masked Vandal': [
     allCreatureTypes(),

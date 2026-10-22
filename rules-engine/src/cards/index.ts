@@ -1,3 +1,4 @@
+import marinaVendrell from './marina-vendrell'
 import repayInKind from './repay-in-kind'
 import misterNegative from './mister-negative'
 import bendersWaterskin from './benders-waterskin'
@@ -475,6 +476,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Malakir Rebirth": malakirRebirth,
   "Malakir Rebirth // Malakir Mire": malakirRebirth,
   "Mana Drain": manaDrain,
+  "Marina Vendrell": marinaVendrell,
   "Marsh Flats": marshFlats,
   "Meteor Golem": meteorGolem,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,

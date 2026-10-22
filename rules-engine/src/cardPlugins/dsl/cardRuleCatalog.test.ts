@@ -2045,6 +2045,34 @@ test('Windfall discards each hand then draws the greatest actual discarded count
   })
 })
 
+test('catalog Marina Vendrell inspects seven for enchantments and toggles a Room door', () => {
+  expect(effectsFor('Marina Vendrell')).toEqual([])
+  expect(cardTemplateDefaultsFor('Marina Vendrell')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Warlock'],
+    supertypes: ['Legendary'],
+    manaCost: '{W}{U}{B}{R}{G}',
+    manaValue: 5,
+  })
+  const abilities = cardRuleDefinitionSnapshotFor('Marina Vendrell')!.definition.abilities
+  expect(abilities).toHaveLength(2)
+  expect(abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'enters' },
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 7 }, visibility: 'public' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'library', position: 'bottom', order: 'random' },
+    ],
+  })
+  expect(abilities[1]).toMatchObject({
+    kind: 'activated',
+    timing: 'sorcery',
+    costs: [{ kind: 'tapSource' }],
+    instructions: [{ kind: 'lockOrUnlockDoor', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
 test('Repay in Kind sets every living player to the signed lowest life total', () => {
   expect(cardTemplateDefaultsFor('Repay in Kind')).toMatchObject({ types: ['Sorcery'], manaCost: '{5}{B}{B}', manaValue: 7 })
   expect(cardRuleDefinitionSnapshotFor('Repay in Kind')!.definition.abilities[0]).toMatchObject({

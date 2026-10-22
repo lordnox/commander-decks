@@ -257,6 +257,38 @@ const matchesBeginningStep = (
     : evaluatePlayerReference(pattern.player, context).includes(after.active)
 }
 
+const unlockingDoor = (event: GameEvent, beforeState: GameState) => {
+  if (event.type === 'unlockDoor') return { objectId: event.objectId, door: event.door, player: event.seat }
+  if (event.type === 'resolveTop') {
+    const item = beforeState.stack[0]
+    if (item?.kind === 'spell' && item.door) {
+      return { objectId: item.objectId, door: item.door, player: item.controller }
+    }
+  }
+}
+
+const matchesRoomUnlock = (
+  state: GameState,
+  beforeState: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'unlockDoor' | 'fullyUnlock' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+) => {
+  const unlocking = unlockingDoor(event, beforeState)
+  if (!unlocking) return false
+  if (pattern.kind === 'unlockDoor' && pattern.door !== undefined && pattern.door !== unlocking.door) return false
+  const object = occurrence.object?.after
+  if (!object || object.zone !== 'battlefield') return false
+  if (pattern.kind === 'fullyUnlock') {
+    const beforeCount = beforeState.objects[object.id]?.unlockedDoors?.length ?? 0
+    const afterCount = state.objects[object.id]?.unlockedDoors?.length ?? 0
+    if (afterCount !== 2 || beforeCount >= 2) return false
+  }
+  if (pattern.filter) return canonicalFilterMatch(state, source, object, pattern.filter, occurrence)
+  return object.id === source.id
+}
+
 const canonicalPatternMatches = (
   state: GameState,
   beforeState: GameState,
@@ -309,6 +341,9 @@ const canonicalPatternMatches = (
   }
   if (pattern.kind === 'playerAttacks') {
     return matchesPlayerAttacks(state, source, pattern, occurrence, event)
+  }
+  if (pattern.kind === 'unlockDoor' || pattern.kind === 'fullyUnlock') {
+    return matchesRoomUnlock(state, beforeState, source, pattern, occurrence, event)
   }
   switch (pattern.kind) {
     case 'attacks':
@@ -589,6 +624,11 @@ const occurrenceSpecsForPattern = (
         player: damageSource?.controller,
         amount: event.amount,
       }]
+    }
+    case 'unlockDoor':
+    case 'fullyUnlock': {
+      const unlocking = unlockingDoor(event, state)
+      return unlocking ? [{ objectId: unlocking.objectId, player: unlocking.player }] : []
     }
     default:
       return [{

@@ -473,8 +473,9 @@ describe('card plugin registry', () => {
     ])).toEqual(['combatTax'])
   })
 
-  test('Marina Vendrell registers only the generic activated handler', () => {
-    expect(cardPluginEntry('Marina Vendrell')?.handlerIds).toEqual(['activated'])
+  test('Marina Vendrell uses a canonical definition without legacy effects', () => {
+    expect(effectsFor('Marina Vendrell')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Marina Vendrell')).toBeDefined()
   })
 
   test('Yurlok uses a canonical static consequence', () => {

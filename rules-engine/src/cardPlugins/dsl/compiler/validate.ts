@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -1266,6 +1266,10 @@ export const validateDefinitionV1 = (root: unknown): {
         intersectBranches(env, [whenTrue, otherwise])
         return
       }
+      case 'lockOrUnlockDoor':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        return
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported instruction kind: ${String(node.kind)}`)
     }
   }
@@ -1343,6 +1347,12 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'step':
         exactKeys(node, path, ['kind', 'step', 'active'], ['kind', 'step'])
         break
+      case 'unlockDoor':
+        exactKeys(node, path, ['kind', 'door', 'filter'], ['kind'])
+        break
+      case 'fullyUnlock':
+        exactKeys(node, path, ['kind', 'filter'], ['kind'])
+        break
       default:
         exactKeys(node, path, ['kind', 'filter'], ['kind'])
     }
@@ -1414,6 +1424,15 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'manaAdded':
       case 'manaAbilityActivated':
       case 'manaAbilityResolved':
+        return env
+      case 'unlockDoor':
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
+        if (node.door !== undefined) enumeration(node.door, childPath(path, 'door'), new Set(ROOM_DOORS), 'room door')
+        if (node.filter !== undefined) validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
+        return env
+      case 'fullyUnlock':
+        env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
+        if (node.filter !== undefined) validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'event':
         exactKeys(node, path, ['kind', 'type', 'objectId', 'from', 'to'], ['kind', 'type'])

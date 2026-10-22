@@ -422,12 +422,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "c304ee7fdba0e7b97396c0b6e9e9ce479eb30c0b72984ffc4cf07724ae10ad53",
-    "card": "Marina Vendrell"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4e1635c38d070fd903e64a001a36046e443c3b1638b300638e7471ea522a6e71",
     "card": "Masked Vandal"
   },

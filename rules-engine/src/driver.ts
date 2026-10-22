@@ -176,6 +176,7 @@ const preflightInstructions = (
       case 'mill':
       case 'discard':
       case 'shuffle':
+      case 'lockOrUnlockDoor':
         return
       case 'if':
         preflightInstructions(instruction.then, `${instructionPath}.then`)
@@ -1289,6 +1290,26 @@ const actionEvents = (
     case 'createDelayed': {
       registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets, instruction.notThisTurn, instruction.repeatUntilCleanup)
       return []
+    }
+    case 'lockOrUnlockDoor': {
+      const item = frame.inlineItem
+        ?? draft.stack.find(candidate => candidate.id === frame.stackId)
+        ?? context.state.stack.find(candidate => candidate.id === frame.stackId)
+      const door = item?.door
+      if (door !== 'left' && door !== 'right') return []
+      return objectActions(instruction.targets, context).flatMap((object): GameEvent[] => {
+        if (!object.roomDoors || object.controller !== frame.controller) return []
+        if (object.unlockedDoors?.includes(door)) {
+          return [{ type: 'lockDoor', seat: frame.controller, objectId: object.id, door }]
+        }
+        return [{
+          type: 'unlockDoor',
+          seat: frame.controller,
+          objectId: object.id,
+          door,
+          withoutCost: true,
+        }]
+      })
     }
     default:
       throw pathError(frame, path, `${instruction.kind} is not executable in Part 04`)

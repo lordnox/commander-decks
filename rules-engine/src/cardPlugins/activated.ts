@@ -170,6 +170,10 @@ export const activated: Plugin = {
           modal?.modeIndices,
         )
         if (canonicalTargetErrorMessage) return canonicalTargetErrorMessage
+        if ((activatedCanonical.instructions ?? []).some(instruction => instruction.kind === 'lockOrUnlockDoor')
+          && event.door !== 'left' && event.door !== 'right') {
+          return `${source.name} needs a door to lock or unlock`
+        }
         const groupedTargets = targetClauses.length === 0
           ? []
           : event.targetClauses
@@ -467,6 +471,7 @@ export const activated: Plugin = {
           payload: { instructions: canonicalInstructions },
           execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
+          ...(event.door ? { door: event.door } : {}),
         }
         if (costEvents.length > 0) {
           const pendingActivation = manaClassification.isManaAbility
