@@ -29,6 +29,7 @@ import type {
   KeywordAbilityDefinition,
   LifeLostCombine,
   LifeTotalAmount,
+  ManaQueryBasis,
   LinkedExileReturn,
   ModeDefinition,
   ModeInput,
@@ -157,6 +158,9 @@ export const variable = (name: 'X'): Amount => immutableData({ kind: 'variable',
 export const eventAmount = (): Amount => immutableData({ kind: 'eventAmount' })
 
 export const manaSpent = (color: CardColor): Amount => immutableData({ kind: 'manaSpent', color })
+
+export const sumCharacteristics = (of: ObjectSelector, characteristic: 'power' | 'toughness') =>
+  immutableData({ kind: 'sumCharacteristics' as const, of, characteristic })
 
 export const count = (of: Selector): Amount => immutableData({ kind: 'count', of })
 
@@ -1136,7 +1140,7 @@ export const damageDealtThisTurn = (
   input: Omit<Extract<Amount, { kind: 'damageDealtThisTurn' }>, 'kind'>,
 ) => immutableData({ kind: 'damageDealtThisTurn' as const, ...input })
 
-export const addManaFrom = (input: { of: ObjectSelector; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })
+export const addManaFrom = (input: { of: ObjectSelector; basis?: ManaQueryBasis; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, ...(input.basis !== undefined ? { basis: input.basis } : {}), of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })
 
 export const becomesTapped = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'becomesTapped' as const, filter })
 export const tappedForMana = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'tappedForMana' as const, filter })

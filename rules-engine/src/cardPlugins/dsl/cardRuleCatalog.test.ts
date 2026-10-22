@@ -2079,3 +2079,37 @@ test('Repay in Kind sets every living player to the signed lowest life total', (
     kind: 'spell', instructions: [{ kind: 'setLife', targets: { kind: 'players', filter: {} }, amount: { kind: 'lowestLife', of: { kind: 'players', filter: {} } } }],
   })
 })
+
+
+test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {
+  const sands = cardRuleDefinitionSnapshotFor('Endless Sands')!.definition.abilities
+  expect(sands).toMatchObject([
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } }] }, instructions: [{ kind: 'linkExile' }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'forEach', of: { kind: 'objects', filter: { zone: 'exile', type: 'Creature', exiledWith: { kind: 'contextRef', name: 'source' } } }, instructions: [{ kind: 'move', to: 'battlefield', controller: { kind: 'relatedPlayer', relation: 'owner' } }] }] },
+  ])
+  const bishop = cardRuleDefinitionSnapshotFor('Bishop of Binding')!.definition.abilities
+  expect(bishop).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'linkExile', untilSourceLeaves: true }] },
+    { kind: 'triggered', decisions: { targets: [{ filter: { filter: { type: 'Creature', subtypes: ['Vampire'] } } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'sumCharacteristics', characteristic: 'power' }, toughness: { kind: 'sumCharacteristics', characteristic: 'power' } } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Lumbering Battlement')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'triggered', instructions: [{ kind: 'chooseCards', filter: { filter: { token: false, other: true, controller: 'you' } } }, { kind: 'linkExile', untilSourceLeaves: true }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { kind: 'multiply' }, toughness: { kind: 'multiply' } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Phyrexian Ingester')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', decisions: { targets: [{ min: { kind: 'constant', value: 1 }, filter: { filter: { token: false, type: 'Creature' } } }] }, instructions: [{ kind: 'chooseInstructions', optional: true }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { kind: 'sumCharacteristics', characteristic: 'power' }, toughness: { kind: 'sumCharacteristics', characteristic: 'toughness' } }] },
+  ])
+})
+
+
+test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Pit of Offerings')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'triggered', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 3 } }] }, instructions: [{ kind: 'linkExile' }] },
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', instructions: [{ kind: 'addManaFrom', basis: 'colors', of: { filter: { zone: 'exile', exiledWith: { kind: 'contextRef', name: 'source' } } } }] },
+  ])
+})

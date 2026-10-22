@@ -1,6 +1,7 @@
 import type { GameObject, GameState, ManaId } from '../../types'
 import type { RuleDslRuntimeContext } from './compiler/runtime'
-import type { Instruction, ObjectSelector } from './schema/v1'
+import { MANA_QUERY_BASIS } from './schema/v1'
+import type { Instruction, ManaQueryBasis, ObjectSelector } from './schema/v1'
 import { captureObject } from '../../objectIdentity'
 import { activatedManaOptions } from '../manaChoice'
 import { hasForestOverlay } from '../../plugins/forestOverlay'
@@ -11,8 +12,14 @@ import { evaluateCondition, evaluateObjectSelector, evaluateRuntimeAmount } from
 export const MANA_TYPES = ['W', 'U', 'B', 'R', 'G', 'C'] as const
 const BASIC_TYPES: Readonly<Record<string, ManaId>> = { Plains: 'W', Island: 'U', Swamp: 'B', Mountain: 'R', Forest: 'G' }
 
-/** CR 106.7: evaluate production, ignoring the ability's activation costs. */
-export const availableManaTypes = (state: GameState, source: GameObject, of: ObjectSelector, colorsOnly: boolean, context?: RuleDslRuntimeContext) => {
+const selectedCardColors = (of: ObjectSelector, context: RuleDslRuntimeContext) => {
+  const cards = evaluateObjectSelector(of, context)
+  return MANA_TYPES.filter(type => type !== 'C' && cards.some(card => card.colors.includes(type)))
+}
+
+/** Production queries ignore activation costs; color queries read the selected cards' current colors. */
+export const availableManaTypes = (state: GameState, source: GameObject, of: ObjectSelector, colorsOnly: boolean, context?: RuleDslRuntimeContext, basis: ManaQueryBasis = MANA_QUERY_BASIS.production) => {
+  if (basis === MANA_QUERY_BASIS.colors) return selectedCardColors(of, context ?? { state, controller: source.controller, source: captureObject(source) })
   const permanents = Object.values(state.objects).filter(object => object.zone === 'battlefield' && !object.phasedOut)
   const known = new Map(permanents.map(object => [object.id, new Set<ManaId>()]))
   const contextFor = (object: GameObject) => ({ state, controller: object.controller, source: captureObject(object) })
@@ -46,7 +53,7 @@ export const availableManaTypes = (state: GameState, source: GameObject, of: Obj
               for (const type of MANA_TYPES) if (instruction.amount[type] && evaluateRuntimeAmount(instruction.amount[type]!, producerContext) > 0) add(type)
               break
             case 'addManaFrom':
-              if (evaluateRuntimeAmount(instruction.amount, producerContext) > 0) for (const type of queried(object, instruction.of, instruction.colorsOnly)) add(type)
+              if (evaluateRuntimeAmount(instruction.amount, producerContext) > 0) for (const type of instruction.basis === MANA_QUERY_BASIS.colors ? selectedCardColors(instruction.of, producerContext) : queried(object, instruction.of, instruction.colorsOnly)) add(type)
               break
             case 'sequence':
             case 'forEach':
@@ -68,5 +75,5 @@ export const availableManaTypes = (state: GameState, source: GameObject, of: Obj
 
 export const manaFromPools = (state: GameState, source: GameObject, instruction: Extract<Instruction, { kind: 'addManaFrom' }>) => {
   const amount = evaluateRuntimeAmount(instruction.amount, { state, controller: source.controller, source: captureObject(source) })
-  return amount > 0 ? availableManaTypes(state, source, instruction.of, instruction.colorsOnly).map(type => ({ [type]: amount })) : []
+  return amount > 0 ? availableManaTypes(state, source, instruction.of, instruction.colorsOnly, undefined, instruction.basis).map(type => ({ [type]: amount })) : []
 }

@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
+import { MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -221,11 +221,12 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     if (node.castFrom !== undefined) enumeration(node.castFrom, childPath(path, 'castFrom'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
     for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
+    if (node.exiledWith !== undefined) validateReference(node.exiledWith, childPath(path, 'exiledWith'), env, ['object'])
     if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
     if (node.sameNameAs !== undefined) validateReference(node.sameNameAs, childPath(path, 'sameNameAs'), env, ['object'])
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
@@ -425,6 +426,12 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node?.kind === 'constant') {
       exactKeys(node, path, ['kind', 'value'], ['kind', 'value'])
       integer(node.value, childPath(path, 'value'), { min: -MAX_LITERAL_AMOUNT })
+      return
+    }
+    if (node?.kind === 'sumCharacteristics') {
+      exactKeys(node, path, ['kind', 'of', 'characteristic'], ['kind', 'of', 'characteristic'])
+      if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'domain', 'sumCharacteristics requires an object selector')
+      enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(['power', 'toughness']), 'summed characteristic')
       return
     }
     if (node?.kind === 'negate') {
@@ -744,7 +751,8 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'addManaFrom':
-        exactKeys(node, path, ['kind', 'of', 'colorsOnly', 'amount', 'targets'], ['kind', 'of', 'colorsOnly', 'amount', 'targets'])
+        if (node.basis !== undefined) enumeration(node.basis, childPath(path, 'basis'), new Set(Object.values(MANA_QUERY_BASIS)), 'mana query basis')
+        exactKeys(node, path, ['kind', 'of', 'basis', 'colorsOnly', 'amount', 'targets'], ['kind', 'of', 'colorsOnly', 'amount', 'targets'])
         if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'type', 'expected an object selector')
         if (typeof node.colorsOnly !== 'boolean') issue(childPath(path, 'colorsOnly'), 'type', 'expected a boolean')
         validateAmount(node.amount, childPath(path, 'amount'), env)
@@ -1210,11 +1218,14 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
-      case 'forEach':
+      case 'forEach': {
         exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['object'])
-        validateInstructionList(node.instructions, childPath(path, 'instructions'), withEventPlayer(env), depth + 1)
+        const iteration = withEventPlayer(env)
+        iteration.context = new Map([...iteration.context, ['triggering.object.after', 'object']])
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), iteration, depth + 1)
         return
+      }
       case 'chooseInstructions': {
         exactKeys(node, path, ['kind', 'chooser', 'count', 'options', 'whenInsufficient', 'prompt', 'optional'], ['kind', 'chooser', 'count', 'options', 'whenInsufficient'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])

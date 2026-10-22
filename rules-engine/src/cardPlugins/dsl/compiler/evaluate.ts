@@ -103,6 +103,10 @@ export const evaluateStatDelta = (
   context: AmountEvaluationContext,
 ) => {
   switch (expression.kind) {
+    case 'sumCharacteristics': {
+      if (!context.sumCharacteristics) throw new RuleDslEvaluationError('sumCharacteristics is not available in this execution context')
+      return runtimeSignedAmount(context.sumCharacteristics(expression.of, expression.characteristic), 'summed characteristics')
+    }
     case 'constant': return runtimeSignedAmount(expression.value, 'stat delta')
     case 'negate': {
       const value = evaluateAmount(expression.value, context, 1)

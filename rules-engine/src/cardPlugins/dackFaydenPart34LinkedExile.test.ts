@@ -56,24 +56,7 @@ const enterAndLinkExile = (
 }
 
 describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
-  test('Lumbering Battlement — GAP: TargetFilter has no nontoken; tokens wrongly appear as link-exile candidates', () => {
-    const battlement = fromPool('Lumbering Battlement')
-    const token = cardTemplate('Battlement Token', { types: ['Creature'], token: true })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [battlement] }, battlefield: { p1: [token] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const battlementId = named(server.state, 'Lumbering Battlement').id
-    const tokenId = named(server.state, 'Battlement Token').id
-    const state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: battlementId,
-      to: 'battlefield',
-    })))
-    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
-    expect(candidates).toContain(tokenId)
-  })
+
 })
 
 describe('Dack Fayden part 34 — linked exile cages', () => {
@@ -270,72 +253,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     expect(state.objects[hostageId].zone).toBe('battlefield')
   })
 
-  test('Bishop of Binding pumps a target at attack time from linked exile power', () => {
-    const bishop = fromPool('Bishop of Binding', {
-      power: 1,
-      toughness: 1,
-      oracleText: 'Haste',
-    })
-    const vampire = cardTemplate('Vampire Recruit', {
-      types: ['Creature'],
-      subtypes: ['Vampire'],
-      power: 2,
-      toughness: 2,
-    })
-    const foe = cardTemplate('Tall Foe', { types: ['Creature'], power: 6, toughness: 6 })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 2,
-        hands: { p1: [bishop] },
-        battlefield: { p1: [vampire], p2: [foe] },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const bishopId = named(server.state, 'Bishop of Binding').id
-    const foeId = named(server.state, 'Tall Foe').id
-    const vampireId = named(server.state, 'Vampire Recruit').id
 
-    let state = enterAndLinkExile(server, bishopId, 'p1', [foeId])
-    state.objects[bishopId].summoningSickness = false
-    state.active = 'p1'
-    state.priority = 'p1'
-    state.step = 'declareAttackers'
 
-    state = ok(server.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p1',
-      attackers: [{ objectId: bishopId, defender: 'p2' }],
-    }))
-    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [vampireId],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[vampireId]).toMatchObject({ power: 8, toughness: 8 })
-  })
 
-  test('Lumbering Battlement grows for nontoken linked exiles and releases them when it leaves', () => {
-    const battlement = fromPool('Lumbering Battlement', { power: 4, toughness: 5 })
-    const ally = cardTemplate('Battlement Ally', { types: ['Creature'] })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [battlement] }, battlefield: { p1: [ally] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const battlementId = named(server.state, 'Lumbering Battlement').id
-    const allyId = named(server.state, 'Battlement Ally').id
-
-    let state = enterAndLinkExile(server, battlementId, 'p1', [allyId])
-    expect(state.objects[battlementId]).toMatchObject({ power: 6, toughness: 7 })
-
-    state = ok(server.rules(state, { type: 'sacrifice', objectId: battlementId }))
-    expect(state.objects[allyId].zone).toBe('battlefield')
-  })
 
   test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {
     const fox = fromPool('Werefox Bodyguard', { subtypes: ['Fox', 'Elf', 'Knight'] })

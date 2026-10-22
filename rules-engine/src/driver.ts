@@ -713,14 +713,16 @@ const actionEvents = (
       const sourceId = frame.source.ref.objectId
       const source = draft.object(sourceId)
       if (!source) return []
-      if (instruction.untilSourceLeaves && source.zone !== 'battlefield') return []
+      if (instruction.untilSourceLeaves && (source.zone !== 'battlefield' || !isSameObject(source, frame.source.ref))) return []
       const objectIds = objectActions(instruction.targets, context)
-        .filter(object => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
         .map(object => object.id)
       if (objectIds.length === 0) return []
       return [{
         type: 'linkExile' as const,
         sourceId,
+        sourceRef: { ...frame.source.ref },
+        targetRefs: objectIds.map(id => objectIdentity(context.state.objects[id])),
         objectIds,
         ...(instruction.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
         ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
@@ -730,6 +732,7 @@ const actionEvents = (
       return [{
         type: 'returnLinkedExile' as const,
         sourceId: frame.source.ref.objectId,
+        sourceRef: { ...frame.source.ref },
         ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
       }]
     }
@@ -1514,7 +1517,7 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (instruction.kind === 'addManaFrom') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       if (availableAmount(instruction.amount, context) === 0) continue
-      const types = availableManaTypes(context.state, frame.source.snapshot, instruction.of, instruction.colorsOnly, context)
+      const types = availableManaTypes(context.state, frame.source.snapshot, instruction.of, instruction.colorsOnly, context, instruction.basis)
       const selected = item.choices?.[0]
       const options = types.map(type => ({ label: type, instructions: [{ kind: 'addMana' as const, targets: instruction.targets, amount: { [type]: instruction.amount } }] }))
       const chosen = options.find(option => option.label === selected)

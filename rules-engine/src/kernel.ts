@@ -1,5 +1,6 @@
 import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
+import { commitExileLink, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
 import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
 import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
@@ -568,6 +569,19 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const source = draft.object(event.sourceId)
       if (!source) return
       if (event.untilSourceLeaves && source.zone !== 'battlefield') return
+      if (event.sourceRef) {
+        if (event.untilSourceLeaves && !isSameObject(source, event.sourceRef)) return
+        for (const ref of event.targetRefs ?? []) {
+          const target = draft.objects[ref.objectId]
+          if (!isSameObject(target, ref)) continue
+          draft.enqueue({ type: 'move', objectId: target.id, to: 'exile', exileLink: {
+            source: { ...event.sourceRef },
+            ...(event.untilSourceLeaves ? { untilSourceLeaves: true } : {}),
+            ...(event.returnTo ? { returnTo: event.returnTo } : {}),
+          } })
+        }
+        return
+      }
       linkExileSelected(draft, source, event.objectIds)
       if (event.untilSourceLeaves) source.returnLinkedExile = event.returnTo ?? 'battlefield'
       return
@@ -575,6 +589,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'returnLinkedExile': {
       const source = draft.object(event.sourceId)
       if (!source) return
+      if (event.sourceRef) {
+        releaseCanonicalLinkedExile(draft, event.sourceRef, event.returnTo ?? 'battlefield')
+        return
+      }
       releaseLinkedExile(draft, source, event.returnTo ?? 'battlefield')
       return
     }
@@ -668,6 +686,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'move': {
       const object = draft.object(event.objectId)
       if (!object) return
+      if (event.exileLink?.untilSourceLeaves && !isSameObject(draft.objects[event.exileLink.source.objectId], event.exileLink.source)) return
       const frame = draft.resolution
       if (frame?.kind === 'canonicalSpell'
         && frame.pendingResult?.kind === 'amount'
@@ -675,6 +694,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         && frame.pendingResult.destination === event.to) {
         recordInstructionAmount(draft, 'move', 1)
       }
+      const previousRef = { objectId: object.id, incarnation: object.incarnation, zone: object.zone }
       const previous = object.zone
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
@@ -687,7 +707,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       object.controller = event.to === 'battlefield'
         ? event.controller ?? object.controller
         : object.owner
+      if (event.to === 'exile' && event.exileLink) commitExileLink(draft, event.exileLink, object)
       if (leftBattlefield) {
+        releaseCanonicalLinkedExile(draft, previousRef, undefined, true)
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
         if (previous === 'battlefield' && event.to === 'graveyard') {
           markPutIntoGraveyardFromBattlefieldThisTurn(object)

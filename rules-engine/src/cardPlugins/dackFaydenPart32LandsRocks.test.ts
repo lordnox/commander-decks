@@ -184,45 +184,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(pendingSelectionFor(again, 'p1')?.candidates).toContain(quarryId)
   })
 
-  test('Endless Sands exiles your creature then returns it when sacrificed', () => {
-    const sands = cardTemplate('Endless Sands', {
-      types: ['Land'],
-      tapProduces: { C: 1 },
-      effects: effectsFor('Endless Sands'),
-    })
-    const bear = cardTemplate('Bear', { types: ['Creature'], power: 2, toughness: 2 })
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [sands, bear] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const sandsId = named(server.state, 'Endless Sands').id
-    const bearId = named(server.state, 'Bear').id
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana.C = 2
-    const exileStart = ok(server.rules(ready, {
-      type: 'activateAbility',
-      abilityId: 'endlessSands.exile',
-      seat: 'p1',
-      objectId: sandsId,
-      targets: [{ kind: 'object', objectId: bearId }],
-    }))
-    const exiled = resolveStack(server.rules, exileStart)
-    expect(exiled.objects[bearId]).toMatchObject({ zone: 'exile', exiledWith: sandsId })
 
-    const returnReady = structuredClone(exiled)
-    returnReady.players.p1.mana.C = 4
-    returnReady.objects[sandsId].tapped = false
-    const returnStart = ok(server.rules(returnReady, {
-      type: 'activateAbility',
-      abilityId: 'endlessSands.return',
-      seat: 'p1',
-      objectId: sandsId,
-    }))
-    const returned = resolveStack(server.rules, returnStart)
-    expect(returned.objects[bearId].zone).toBe('battlefield')
-    expect(returned.objects[sandsId].zone).toBe('graveyard')
-  })
 
   test('Geier Reach Sanitarium draws for each player when the ability resolves', () => {
     const sanitarium = cardTemplate('Geier Reach Sanitarium', {

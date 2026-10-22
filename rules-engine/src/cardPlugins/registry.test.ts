@@ -340,8 +340,6 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Banisher Priest')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Fiend Hunter')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Werefox Bodyguard')).toBeDefined()
-    expect(cardPluginEntry('Bishop of Binding')?.handlerIds?.toSorted())
-      .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
   })
 
   test('Niv-Mizzet, Ghost Counsel stays registered', () => {
@@ -589,8 +587,6 @@ describe('card plugin registry', () => {
     expect(handlerIdsForNames(['Nezahal, Primal Tide'])).toEqual([])
     expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')).toBeDefined()
-    expect(handlerIdsForNames(['Phyrexian Ingester']).toSorted())
-      .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
     const [saga] = effectsFor('Kiora Bests the Sea God')
     expect(saga).toMatchObject({ op: 'saga' })
     expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers))
@@ -621,10 +617,7 @@ describe('card plugin registry', () => {
     ])
   })
 
-  test("Endless Sands and Thespian's Stage list their handlers", () => {
-    expect(cardDefinition('Endless Sands')?.handlerIds).toEqual(
-      expect.arrayContaining(['linkedExile', 'activated']),
-    )
+  test("Thespian's Stage lists its handlers", () => {
     expect(cardDefinition("Thespian's Stage")?.handlerIds).toEqual(
       expect.arrayContaining(['becomeCopyOfTarget', 'activated']),
     )

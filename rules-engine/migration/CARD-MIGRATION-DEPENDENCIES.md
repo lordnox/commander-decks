@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 43 Room doors plus Marina Vendrell, including optional resolution exile costs, first strike, and signed life minimums. **129 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after persistent linked-card sets and five consumers, including family 43 Room doors plus Marina Vendrell. **124 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **129 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **124 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -17,7 +17,6 @@ Current readiness: **0 composition candidates**; **129 blocked or awaiting sourc
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
 | `Baird, Steward of Argive` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
-| `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
@@ -35,7 +34,6 @@ Current readiness: **0 composition candidates**; **129 blocked or awaiting sourc
 | `Delighted Halfling` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana) | Blocked by mechanics | — |
 | `Drag to the Roots` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
 | `Dread Return` | 25 | [25-flashback](CARD-MIGRATION-BATCHES.md#25-flashback) | Blocked by mechanics | — |
-| `Endless Sands` | 18 | [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
 | `Ephemerate` | 30 | [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |
 | `Erestor of the Council` | 39 | [39-finished](CARD-MIGRATION-BATCHES.md#39-finished) | Blocked by mechanics | Observe finished votes, compare each opponent's choices with yours, create Treasures, scry the counted opponents, then draw. |
 | `Eureka` | 27 | [27-repeat](CARD-MIGRATION-BATCHES.md#27-repeat) | Blocked by mechanics | — |
@@ -68,7 +66,6 @@ Current readiness: **0 composition candidates**; **129 blocked or awaiting sourc
 | `Lair of the Hydra` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Retain the nonzero-X bound on its animation activation. |
 | `Life from the Loam` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | Retain up-to-three graveyard land targets. |
 | `Lotho, Corrupt Shirriff` | 35 | [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal) | Blocked by mechanics | — |
-| `Lumbering Battlement` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Include linked-card count in continuous stat modification. |
 | `Lumra, Bellow of the Woods` | 22 | [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach/vigilance, land-count CDA, and mill/return lands. |
 | `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | Optional exile cost is Available; complete migration still requires changeling in every applicable zone. |
 | `Maskwood Nexus` | 22 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
@@ -79,13 +76,11 @@ Current readiness: **0 composition candidates**; **129 blocked or awaiting sourc
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |
-| `Palace Jailer` | 18 | [18-monarch](CARD-MIGRATION-BATCHES.md#18-monarch) | Blocked by mechanics | — |
+| `Palace Jailer` | 18 | [18-monarch](CARD-MIGRATION-BATCHES.md#18-monarch) | Blocked by mechanics | #448: monarch inherent abilities currently bypass the stack; require source-less canonical triggers plus source-independent exile duration. Preserve both separate ETB abilities. |
 | `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |
 | `Perch Protection` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player), [42-turn](CARD-MIGRATION-BATCHES.md#42-turn) | Blocked by mechanics | Full gift, four Birds, phase-out, protection duration, and resolving exile. |
 | `Phial of Galadriel` | 42 | [42-conditional](CARD-MIGRATION-BATCHES.md#42-conditional) | Blocked by mechanics | — |
-| `Phyrexian Ingester` | 18 | [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Linked printed/current card characteristics drive the independent power/toughness bonus. |
 | `Pile On` | 25 | [25-convoke](CARD-MIGRATION-BATCHES.md#25-convoke) | Blocked by mechanics | — |
-| `Pit of Offerings` | 15 | [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Retain up-to-three graveyard targets and query linked exiled colors for mana. |
 | `Pitiless Carnage` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [25-plot](CARD-MIGRATION-BATCHES.md#25-plot) | Blocked by mechanics | — |
 | `Portal to Phyrexia` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-types](CARD-MIGRATION-BATCHES.md#22-types) | Blocked by mechanics | Upkeep reanimation adds the Phyrexian type without replacing the original types. |
 | `Price of Fame` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |

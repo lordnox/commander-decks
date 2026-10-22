@@ -1,3 +1,5 @@
+import { captureObject } from '../objectIdentity'
+import { evaluateRuntimeAmount } from '../cardPlugins/dsl/compiler/runtime'
 import { manaLossConsequences } from '../cardPlugins/dsl/manaLoss'
 import { manaFromPools } from '../cardPlugins/dsl/manaTypes'
 import { canonicalManaAbilityForTap } from '../cardPlugins/dsl/manaPrograms'
@@ -114,11 +116,18 @@ export const manaModes = (
 ): Partial<Record<ManaId, number>>[] => {
   if (state && object.id && object.ruleDefinition) {
     const source = state.objects[object.id]
-    const ability = object.ruleDefinition.definition.abilities.find(candidate => candidate.kind === 'activated'
+    const abilities = object.ruleDefinition.definition.abilities.filter(candidate => candidate.kind === 'activated'
       && candidate.costs.every(cost => cost.kind === 'tapSource' || cost.kind === 'life')
-      && candidate.instructions?.length === 1 && candidate.instructions[0]?.kind === 'addManaFrom')
-    const instruction = ability && 'instructions' in ability ? ability.instructions?.[0] : undefined
-    if (source && instruction?.kind === 'addManaFrom') return manaFromPools(state as GameState, source, instruction)
+      && candidate.instructions?.length === 1)
+    if (source && abilities.some(ability => ability.kind === 'activated' && ability.instructions?.[0]?.kind === 'addManaFrom')) {
+      return abilities.flatMap(ability => {
+        const instruction = ability.kind === 'activated' ? ability.instructions?.[0] : undefined
+        if (instruction?.kind === 'addManaFrom') return manaFromPools(state as GameState, source, instruction)
+        if (instruction?.kind !== 'addMana') return []
+        const context = { state: state as GameState, controller: source.controller, source: captureObject(source) }
+        return [Object.fromEntries(MANA_IDS.flatMap(type => instruction.amount[type] ? [[type, evaluateRuntimeAmount(instruction.amount[type]!, context)]] : []))]
+      })
+    }
   }
   const nextVisited = new Set(visited)
   if (object.id) nextVisited.add(object.id)

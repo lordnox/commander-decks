@@ -54,37 +54,39 @@ export const canonicalManaClassification = (ability: Extract<ReturnType<typeof c
 export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) => {
   if (!source.ruleDefinition) return undefined
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-  const entry = compiled.definition.abilities
+  const entries = compiled.definition.abilities
     .map((ability, index) => ({ ability, index }))
-    .find((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
+    .filter((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
       entry.ability.kind === 'activated'
       && entry.ability.costs.every((cost) => cost.kind === 'tapSource' || cost.kind === 'life')
       && canonicalManaClassification(entry.ability).isManaAbility)
-  if (!entry) return undefined
-  if (!entry.ability.modes) {
-    const instructions = entry.ability.instructions ?? []
-    const producesRequested = instructions.some((instruction) => {
-      switch (instruction.kind) {
-        case 'addMana':
-          return mana === undefined || instruction.amount[mana] !== undefined
-        case 'addManaFrom':
-          return true
-        default:
-          return false
-      }
-    })
-    if (!producesRequested) return undefined
-    return { ...entry, modeIndices: undefined }
+  for (const entry of entries) {
+    if (!entry.ability.modes) {
+      const instructions = entry.ability.instructions ?? []
+      const producesRequested = instructions.some((instruction) => {
+        switch (instruction.kind) {
+          case 'addMana':
+            return mana === undefined || instruction.amount[mana] !== undefined
+          case 'addManaFrom':
+            return true
+          default:
+            return false
+        }
+      })
+      if (!producesRequested) continue
+      return { ...entry, modeIndices: undefined }
+    }
+    const defaultColors = Object.keys(source.tapProduces ?? {}) as ManaId[]
+    const chosenMana = mana ?? (defaultColors.length === 1 ? defaultColors[0] : undefined)
+    if (chosenMana === undefined) return { ...entry, modeIndices: undefined }
+    const count = entry.ability.decisions.modes?.count
+    if (count?.kind !== 'constant' || count.value !== 1) continue
+    const modeIndex = entry.ability.modes.findIndex(mode => mode.instructions.length > 0 && mode.instructions.every(instruction =>
+      instruction.kind === 'addMana' && instruction.amount[chosenMana] !== undefined
+      && Object.keys(instruction.amount).every(color => color === chosenMana)))
+    if (modeIndex >= 0) return { ...entry, modeIndices: [modeIndex] }
   }
-  const defaultColors = Object.keys(source.tapProduces ?? {}) as ManaId[]
-  const chosenMana = mana ?? (defaultColors.length === 1 ? defaultColors[0] : undefined)
-  if (chosenMana === undefined) return { ...entry, modeIndices: undefined }
-  const count = entry.ability.decisions.modes?.count
-  if (count?.kind !== 'constant' || count.value !== 1) return undefined
-  const modeIndex = entry.ability.modes.findIndex(mode => mode.instructions.length > 0 && mode.instructions.every(instruction =>
-    instruction.kind === 'addMana' && instruction.amount[chosenMana] !== undefined
-    && Object.keys(instruction.amount).every(color => color === chosenMana)))
-  return modeIndex < 0 ? undefined : { ...entry, modeIndices: [modeIndex] }
+  return undefined
 }
 
 

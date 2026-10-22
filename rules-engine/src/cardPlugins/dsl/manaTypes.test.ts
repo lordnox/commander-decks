@@ -8,8 +8,9 @@ import { ok } from '../../testHelpers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { activatedManaOptions } from '../manaChoice'
 import { manaModes } from '../../plugins/mana'
+import { captureObject } from '../../objectIdentity'
 import { availableManaTypes } from './manaTypes'
-import { activated, addManaFrom, amount, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, manaCost, objects, ref, tapCost } from './v1'
+import { MANA_QUERY_BASIS, activated, addManaFrom, amount, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, manaCost, objects, ref, tapCost } from './v1'
 
 const ownLands = objects({ zone: 'battlefield', type: 'Land', controller: 'you' })
 const snapshot = (colorsOnly = false, opponent = false) => createDefinitionSnapshot(compileCardRuleDefinition(card([
@@ -93,4 +94,30 @@ test('planned spell payment uses a queried type, paying life even when the refer
   expect(state.players.p1.life).toBe(39)
   expect(named(state, 'Planner fixture').zone).toBe('stack')
   expect(named(state, 'Horizon of Progress').tapped).toBe(true)
+})
+
+
+test('card-color mana queries use only current linked identities and feed production queries', () => {
+  const colors = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: amount(1) } }] }),
+    activated({ costs: [tapCost()], instructions: [addManaFrom({ of: objects({ zone: 'exile', exiledWith: ref('source') }), basis: MANA_QUERY_BASIS.colors })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Color query fixture', { types: ['Land'], colors: ['G'], ruleDefinition: colors }), queryLand()] },
+    libraries: { p2: [cardTemplate('Multicolor fixture', { types: ['Creature'], colors: ['U', 'B'], zone: 'graveyard' }), cardTemplate('Colorless fixture', { colors: [], zone: 'graveyard' }), cardTemplate('Unrelated fixture', { colors: ['R'], zone: 'exile' })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Color query fixture')
+  expect(manaModes(source, server.state)).toEqual([{ C: 1 }])
+  const ids = server.state.zoneOrder.p2.graveyard
+  let state = ok(server.rules(server.state, { type: 'linkExile', sourceId: source.id, sourceRef: captureObject(source).ref, objectIds: ids, targetRefs: ids.map(id => captureObject(server.state.objects[id]).ref) }))
+  expect(manaModes(state.objects[source.id], state)).toEqual([{ C: 1 }, { U: 1 }, { B: 1 }])
+  expect(manaModes(named(state, 'Query fixture'), state)).toEqual([{ U: 1 }, { B: 1 }, { C: 1 }])
+  const mana = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'tapForMana', seat: 'p1', objectId: source.id, mana: 'B' }))
+  expect(mana.players.p1.mana.B).toBe(1)
+  expect(mana.stack).toHaveLength(0)
+  const colored = named(state, 'Multicolor fixture').id
+  state = ok(server.rules(state, { type: 'move', objectId: colored, to: 'hand' }))
+  state = ok(server.rules(state, { type: 'move', objectId: colored, to: 'exile' }))
+  expect(manaModes(state.objects[source.id], state)).toEqual([{ C: 1 }])
+  expect(manaModes(named(state, 'Query fixture'), state)).toEqual([{ C: 1 }])
 })

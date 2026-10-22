@@ -1,3 +1,8 @@
+import pitOfOfferings from './pit-of-offerings'
+import endlessSands from './endless-sands'
+import lumberingBattlement from './lumbering-battlement'
+import bishopOfBinding from './bishop-of-binding'
+import phyrexianIngester from './phyrexian-ingester'
 import marinaVendrell from './marina-vendrell'
 import repayInKind from './repay-in-kind'
 import misterNegative from './mister-negative'
@@ -476,7 +481,12 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Malakir Rebirth": malakirRebirth,
   "Malakir Rebirth // Malakir Mire": malakirRebirth,
   "Mana Drain": manaDrain,
+  'Endless Sands': endlessSands,
+  'Lumbering Battlement': lumberingBattlement,
+  'Bishop of Binding': bishopOfBinding,
+  'Phyrexian Ingester': phyrexianIngester,
   "Marina Vendrell": marinaVendrell,
+  "Pit of Offerings": pitOfOfferings,
   "Marsh Flats": marshFlats,
   "Meteor Golem": meteorGolem,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,

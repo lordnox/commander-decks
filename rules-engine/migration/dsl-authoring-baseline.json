@@ -260,12 +260,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "2168a0aa2b3c8930c9cb1dd32c068938f9b76ba0e117cc7d5ee7713f077aa5a3",
-    "card": "Endless Sands"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "cf720a708d517db28320c8d24e5df39b630a0fde85919856373493fcece362c9",
     "card": "Everflowing Chalice"
   },
@@ -304,12 +298,6 @@
     "code": "legacy-card-registration",
     "digest": "34d8ed05e9e85c9d11c122bbf56334f9ef433fafcaf2927716d1f7363ace8d97",
     "card": "Myriad Landscape"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "d3abbb83694e8e2390cc5010ccf851903ca8352cdcdab8ace846d5805983d0fc",
-    "card": "Pit of Offerings"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -740,20 +728,8 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "e92e71af0407d1b9140a8cbd01c14af2e7fe446f3ded8a408c0834a074e6a928",
-    "card": "Bishop of Binding"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "1ef115f46b1b69e7be8dcb0594f74ef9308b1488d168469ad9119e0e92e17fae",
     "card": "Glorious Protector"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "53c848c90e998b6bafb97b16441ac4553a9a45b4b7d4840fa4ac8c80d4f74298",
-    "card": "Lumbering Battlement"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -790,12 +766,6 @@
     "code": "legacy-card-registration",
     "digest": "acba535601cbbb12b9de417dd0f58fead4129944af831bddff3c8883f3bbdf88",
     "card": "Kederekt Leviathan"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "6062a31a40195022c50872a5d911fb88b46c0047c9f57b257cec7cdb1a7f7d79",
-    "card": "Phyrexian Ingester"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

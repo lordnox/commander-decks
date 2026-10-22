@@ -1,3 +1,4 @@
+import { objectIdentity } from '../objectIdentity'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import {
@@ -201,7 +202,7 @@ const SCENARIOS: Record<string, Scenario> = {
     exile: [cardTemplate('Exiled Red Card', { types: ['Creature'], colors: ['R'] })],
     setup: (state, sourceId) => {
       const exiled = Object.values(state.objects).find((object) => object.name === 'Exiled Red Card')!
-      state.objects[sourceId].exiledCards = [exiled.id]
+      state.linkedExileSets = [{ source: objectIdentity(state.objects[sourceId]), cards: [objectIdentity(exiled)] }]
     },
     fund: ['{C}', '{R}'],
     refuse: ['{G}', '{U}'],

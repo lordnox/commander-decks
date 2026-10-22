@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 43 Room doors plus Marina Vendrell, including optional resolution exile costs, first strike, and signed life minimums; continues #394 and #383. **129 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Marina Vendrell, Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after persistent linked-card sets and five consumers, including family 43 Room doors plus Marina Vendrell; continues #394 and #383. **124 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Marina Vendrell, Windfall, Bender's Waterskin, and Mister Negative are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**170 mechanic entries:** 67 available, 1 awaiting correctness follow-up, and 102 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**170 mechanic entries:** 68 available, 1 awaiting correctness follow-up, and 101 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -70,6 +70,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **14-signed-minimum and 21-first-strike are available:** signed lowest-life queries are restricted to life-total consumers; Repay in Kind has migrated. First-strike eligibility is captured by object identity for both damage steps, surviving restore and keyword changes. Sire of Seven Deaths still needs ward support.
 
 **36-exile is available:** `exileForEffect` composes a typed optional one-card choice, exile, and conditional continuation from canonical instructions. Its payment condition follows CR 118.12, including modified destinations; mechanic tests cover decline, no eligible cards, countering, illegal targets, and journal restore. Masked Vandal remains unmigrated because **22-changeling** is Open; do not omit its all-creature-types ability.
+
+**18-links is available:** identity-pinned sets now compose Bishop of Binding, Endless Sands, Lumbering Battlement, Phyrexian Ingester, and Pit of Offerings. Embedded cached Scryfall data preserves Vampire-only attack targets, nontoken optional exile, both land mana modes, independent signed power/toughness bonuses, and owner-controlled returns. Monarch duration remains the separate **18-monarch** contract.
 
 ## Suggested next work
 
@@ -218,9 +220,9 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Bishop of Binding`; `Glorious Protector`; `Lumbering Battlement` |
-| <a id="18-links"></a>**18-links — Persistent linked-card sets** | Open | Retain one/many exiled identities for later activations or linked characteristics, including power, toughness, counts, and colors. | — | `Bishop of Binding`; `Endless Sands`; `Lumbering Battlement`; `Phyrexian Ingester`; `Pit of Offerings`; `Valgavoth, Terror Eater` |
-| <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Open | Become monarch, observe opponent monarch changes, and end linked exile on that event. | — | `Palace Jailer` |
+| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Glorious Protector` |
+| <a id="18-links"></a>**18-links — Persistent linked-card sets** | Available | Persist source-incarnation and actual exiled-card identities; query current linked sets for later activations, signed power/toughness sums, counts, and current colors. Redirected/prevented exile creates no link; departing/reentered cards or fresh source incarnations do not inherit links. Return owner-controlled cards after source sacrifice; color-derived mana participates in planning. | — | `Valgavoth, Terror Eater` |
+| <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Open | Become monarch; correctly queue source-less inherent draw/crown-transfer triggers (CR 725.2–725.4; baseline defect #448); capture the relevant player for source-independent exile until an opponent becomes monarch. Preserve controller, priority, elimination, and restore semantics. | — | `Palace Jailer` |
 | <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Available | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | None remaining |
 
 ### 19. Life totals and game outcomes

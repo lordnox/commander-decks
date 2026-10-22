@@ -821,6 +821,13 @@ export type PlayerState = {
  * `zoneCounts` stay public even when `zoneOrder.library` is emptied for a client.
  * `rules` is the active plugin list. `log` is a human-readable apply trace.
  */
+export type LinkedExileSet = {
+  source: ObjectIdentity
+  cards: ObjectIdentity[]
+  untilSourceLeaves?: true
+  returnTo?: 'battlefield' | 'hand'
+}
+
 export type GameState = {
   format: string
   /** Opponent relationships are defined by the format, then stored for deterministic replay. */
@@ -873,6 +880,8 @@ export type GameState = {
   prevented?: boolean
   /** At most one monarch; `null` when the crown is vacant. */
   monarch: PlayerId | null
+  /** Canonical exiled-card identities, keyed by the original source incarnation. */
+  linkedExileSets?: LinkedExileSet[]
   log: string[]
 }
 
@@ -995,9 +1004,9 @@ export type GameEvent =
   /** Internal canonical player grant; lasts for the rest of the game. */
   | { type: 'grantNoMaximumHandSize'; seat: PlayerId }
   /** Exile chosen permanents and stamp them as linked to the source. */
-  | { type: 'linkExile'; sourceId: string; objectIds: string[]; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
+  | { type: 'linkExile'; sourceId: string; objectIds: string[]; sourceRef?: ObjectIdentity; targetRefs?: ObjectIdentity[]; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
   /** Return cards currently linked to the named source. */
-  | { type: 'returnLinkedExile'; sourceId: string; returnTo?: 'battlefield' | 'hand' }
+  | { type: 'returnLinkedExile'; sourceId: string; sourceRef?: ObjectIdentity; returnTo?: 'battlefield' | 'hand' }
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
@@ -1124,6 +1133,8 @@ export type GameEvent =
     }
   | {
       type: 'move'
+      /** Record only the final exile identity, after replacement has applied. */
+      exileLink?: Omit<LinkedExileSet, 'cards'>
       objectId: string
       to: ZoneId
       position?: 'top' | 'bottom'

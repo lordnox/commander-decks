@@ -55,6 +55,9 @@ export type ContextBinding =
   | 'grant.source'
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
+export const MANA_QUERY_BASIS = { production: 'production', colors: 'colors' } as const
+export type ManaQueryBasis = typeof MANA_QUERY_BASIS[keyof typeof MANA_QUERY_BASIS]
+
 export type InstructionResult = boolean | number | string
 
 export const NUMERIC_RESULT_FIELDS = ['amount', 'discardedCount', 'created'] as const
@@ -86,6 +89,8 @@ export type ObjectFilter = {
   commander?: boolean
   manaAbility?: boolean
   enchantedBy?: ObjectReference
+  /** Current cards exiled by the referenced source incarnation. */
+  exiledWith?: ObjectReference
   sameNameAs?: ObjectReference
   /** Restrict matches to the current identities of a bound object reference. */
   among?: ObjectReference
@@ -185,6 +190,7 @@ export type PreventionCapacityInput = AmountInput | UnlimitedPreventionCapacity
 
 /** Signed expressions are accepted only where a power/toughness delta is required. */
 export type StatDelta = Amount | { kind: 'negate'; value: Amount }
+  | { kind: 'sumCharacteristics'; of: ObjectSelector; characteristic: 'power' | 'toughness' }
 export type StatDeltaInput = number | StatDelta
 
 export type ObjectOccurrenceFilter =
@@ -401,7 +407,7 @@ export type Instruction =
   | { kind: 'captureCopy'; targets: ObjectRecipient; bindResult: string }
   /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addManaChosenColor'; of: ObjectReference; amount: Amount; targets: PlayerRecipient }
-  | { kind: 'addManaFrom'; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
+  | { kind: 'addManaFrom'; basis?: ManaQueryBasis; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Lock an unlocked door or unlock a locked door of the targeted Room, using the activating item's door. */
   | { kind: 'lockOrUnlockDoor'; targets: ObjectRecipient }
@@ -831,6 +837,7 @@ export type AmountEvaluationContext = {
     information: 'current' | 'currentOrLastKnown',
     fallback?: number,
   ) => number
+  sumCharacteristics?: (of: ObjectSelector, characteristic: 'power' | 'toughness') => number
   lowestLife?: (of: PlayerSelector) => number
   counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number

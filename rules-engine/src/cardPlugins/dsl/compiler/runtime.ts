@@ -1,3 +1,4 @@
+import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
 import { hasManaAbility } from '../manaPrograms'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
@@ -366,6 +367,7 @@ const matchesObjectFilter = (
   if (filter.other && isSameObject(object, context.source.ref)) return false
   if (filter.commander !== undefined && object.tags.includes('commander') !== filter.commander) return false
   if (filter.manaAbility !== undefined && hasManaAbility(object) !== filter.manaAbility) return false
+  if (filter.exiledWith && !evaluateObjectReference(filter.exiledWith, context, 'currentOrLastKnown').some(source => linkedExileCards(context.state, source).some(card => card.id === object.id))) return false
   if (filter.enchantedBy && !evaluateObjectReference(filter.enchantedBy, context).some(aura => aura.attachedTo === object.id && (!aura.attachedToRef || isSameObject(object, aura.attachedToRef)))) return false
   if (filter.sameNameAs && !evaluateObjectReference(filter.sameNameAs, context, 'currentOrLastKnown').some(other => other.name === object.name)) return false
   if (filter.among && !evaluateObjectReference(filter.among, context).some(candidate => candidate.id === object.id)) return false
@@ -566,6 +568,7 @@ export const amountEvaluationContext = (
     })
     return values.length === 0 ? 0 : Math.max(0, ...values)
   },
+  sumCharacteristics: (of, characteristic) => evaluateObjectSelector(of, context).reduce((sum, object) => sum + (object[characteristic] ?? 0), 0),
   characteristic: (reference, characteristic, information, fallback) =>
     oneReferenceValue(reference, context, characteristic, information, fallback),
   lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),

@@ -81,8 +81,6 @@ import {
   pluginIdsFromEffects,
   ptEqualsLife,
   pumpControlled,
-  pumpFromLinkedExilePower,
-  pumpPerLinkedExile,
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
@@ -95,7 +93,6 @@ import {
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnTargetFromGraveyard,
-  returnLinkedExile,
   returnOwnedGraveyardLands,
   searchAbility,
   searchSpell,
@@ -187,7 +184,6 @@ import {
   onUnlock,
   unearth,
   bounceAll,
-  pumpFromLinkedExileStats,
   persist,
   annihilator,
   shuffleIntoLibraryInstead,
@@ -335,18 +331,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     allCreatureTypes(),
     encore('{6}{W}{W}'),
   ],
-  'Bishop of Binding': [
-    handler('linkedExile'),
-    handler('exilePayoffs'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-    {
-      op: 'trigger',
-      on: 'attacks',
-      targets: { filter: { type: 'Creature' } },
-      do: [pumpFromLinkedExilePower('stackTarget')],
-    },
-  ],
   'Blanket of Night': [staticGrant('swampOverlay')],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
   'Cavern of Souls': [
@@ -412,22 +396,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       sacrifice: { type: 'Creature', count: 3 },
     }),
     targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
-  ],
-  'Endless Sands': [
-    handler('linkedExile'),
-    ability(
-      {
-        id: 'endlessSands.exile',
-        targets: { filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } },
-      },
-      { mana: '{2}', tap: true },
-      linkExile({ type: 'Creature', controller: 'you' }, {}),
-    ),
-    ability(
-      { id: 'endlessSands.return' },
-      { mana: '{4}', tap: true, sacrifice: 'self' },
-      returnLinkedExile(),
-    ),
   ],
   Ephemerate: [handler('blinkValue')],
   'Erestor of the Council': [onVotesFinished(
@@ -649,16 +617,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
   ],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
-  'Lumbering Battlement': [
-    handler('linkedExile'),
-    handler('exilePayoffs'),
-    linkedExileUntilLeaves(),
-    pumpPerLinkedExile(2, 2),
-    enters(linkExile(
-      { type: 'Creature', other: true },
-      { controlled: true, optional: true },
-    )),
-  ],
   'Lumra, Bellow of the Woods': [
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
@@ -782,20 +740,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Phial of Galadriel': [staticGrant('phialReplacement')],
-  'Phyrexian Ingester': [
-    pumpFromLinkedExileStats(),
-    {
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { type: 'Creature', nontoken: true }, min: 0 },
-      do: [linkExile({ type: 'Creature', nontoken: true }, { optional: true, max: 1 })],
-    },
-  ],
   'Pile On': [
     convoke(),
     targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
   ],
-  'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
   'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
   'Portal to Phyrexia': [
     enters(opponentsSacrifice('Creature', 3)),

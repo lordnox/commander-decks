@@ -130,7 +130,7 @@ const canonicalManaOptions = (state: GameState, object: GameObject) => {
       const instruction = ability.instructions?.length === 1 ? ability.instructions[0] : undefined
       if (instruction?.kind === 'addManaFrom') {
         const amount = evaluateRuntimeAmount(instruction.amount, { state, controller: object.controller, source: captureObject(object) })
-        return amount > 0 ? availableManaTypes(state, object, instruction.of, instruction.colorsOnly).map(type => ({ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool: { [type]: amount }, choice: type, sacrifices: ability.costs.some(isSourceSacrificeCost) })) : []
+        return amount > 0 ? availableManaTypes(state, object, instruction.of, instruction.colorsOnly, undefined, instruction.basis).map(type => ({ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool: { [type]: amount }, choice: type, sacrifices: ability.costs.some(isSourceSacrificeCost) })) : []
       }
       const pool = fixedCanonicalMana(state, object, ability.instructions ?? [])
       return pool ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool,
