@@ -159,7 +159,7 @@ describe('card plugin registry', () => {
       'Snuff Out',
       'Wall of Shards',
     ])).toEqual([])
-    expect(cardPluginEntry('Mulldrifter')?.handlerIds).toEqual(['alternateCosts'])
+    expect(cardPluginEntry('Mulldrifter')).toBeUndefined()
     expect(cardPluginEntry('Wall of Shards')?.handlerIds ?? []).toEqual([])
   })
 

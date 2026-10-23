@@ -144,7 +144,7 @@ export default {
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
   colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
-    spell({ optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0], instructions: [] }),
+    spell({ costLabels: { optional: ['Multikicker {2}'] }, optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0], instructions: [] }),
     staticAbility(replacement(wouldEnter(), modifyEvent({ enterCounters: { charge: paidCostCount('optional', 0) } }))),
     activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: counterCount(ref('source'), 'charge') } }] }),
   ]),

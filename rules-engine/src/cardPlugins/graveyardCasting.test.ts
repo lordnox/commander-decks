@@ -147,7 +147,7 @@ describe('graveyard casting keywords', () => {
       type: 'castSpell',
       seat: 'p2',
       objectId: wash.id,
-      targets: [{ kind: 'object', objectId: dread.id }],
+      targets: [{ kind: 'stackItem', stackId: cast.stack.find(item => item.objectId === dread.id)!.id }],
     }))
     const countered = ok(server.rules(response, { type: 'resolveTop' }))
     expect(countered.objects[dread.id].zone).toBe('exile')

@@ -457,6 +457,7 @@ const matchesStackItemFilter = (
   filter: StackItemFilter,
   context: RuleDslRuntimeContext,
 ): boolean => {
+  if (filter.when && !evaluateCondition(filter.when, context)) return false
   if (filter.all && !filter.all.every((part) => matchesStackItemFilter(item, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesStackItemFilter(item, part, context))) return false
   if (filter.not && matchesStackItemFilter(item, filter.not, context)) return false

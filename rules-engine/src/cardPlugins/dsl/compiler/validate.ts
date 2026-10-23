@@ -313,7 +313,8 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['kind', 'type', 'color', 'other', 'controller', 'owner', 'castFrom', 'targets', 'all', 'any', 'not'])
+    exactKeys(node, path, ['when', 'kind', 'type', 'color', 'other', 'controller', 'owner', 'castFrom', 'targets', 'all', 'any', 'not'])
+    if (node.when !== undefined) validateCondition(node.when, childPath(path, 'when'), env)
     if (node.kind !== undefined) enumeration(node.kind, childPath(path, 'kind'), new Set(['spell', 'ability']), 'stack-item kind')
     if (node.type !== undefined && typeof node.type !== 'string') issue(childPath(path, 'type'), 'type', 'expected a string')
     if (node.color !== undefined) enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
@@ -1956,8 +1957,21 @@ export const validateDefinitionV1 = (root: unknown): {
     const ability = object(value, path)
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
-    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
+    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'costLabels', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
     const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment, reductionEnv = env) => {
+      if (node.costLabels !== undefined) {
+        const labels = object(node.costLabels, childPath(nodePath, 'costLabels'))
+        if (labels) {
+          exactKeys(labels, childPath(nodePath, 'costLabels'), ['optional', 'alternative'])
+          for (const kind of ['optional', 'alternative']) {
+            if (labels[kind] === undefined) continue
+            const values = array(labels[kind], `${nodePath}.costLabels.${kind}`)
+            values.forEach((label, index) => nonemptyString(label, `${nodePath}.costLabels.${kind}[${index}]`))
+            const costs = kind === 'optional' ? node.optionalCosts : node.alternativeCosts
+            if (!Array.isArray(costs) || costs.length !== values.length) issue(nodePath, 'cost-labels', 'cost labels must match their declared options')
+          }
+        }
+      }
       if (node.additionalCosts !== undefined) array(node.additionalCosts, childPath(nodePath, 'additionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.additionalCosts[${index}]`, env))
       if (node.costConditions !== undefined) array(node.costConditions, childPath(nodePath, 'costConditions')).forEach((value, ordinal) => {
         const conditionPath = `${nodePath}.costConditions[${ordinal}]`

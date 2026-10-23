@@ -2526,3 +2526,20 @@ test('conditional-reduction catalog entries keep their independent spell and lan
     { kind: 'activated', instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] },
   ])
 })
+
+
+test('cleave and evoke compose ordinary alternative costs with their targeting or entry effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wash Away')!.definition.abilities).toMatchObject([
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{1}{U}{U}' }]], costLabels: { alternative: ['Cleave {1}{U}{U}'] },
+      decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', any: [
+        { not: { castFrom: 'hand' } }, { when: { left: { kind: 'paidCostCount', cost: 'alternative', index: 0 } } },
+      ] } } }] }, instructions: [{ kind: 'counter' }],
+    },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Mulldrifter')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{2}{U}' }]], costLabels: { alternative: ['Evoke {2}{U}'] } },
+    { kind: 'triggered', instructions: [{ kind: 'draw', count: { value: 2 } }] },
+    { kind: 'triggered', triggerOnlyIf: { left: { kind: 'paidCostCount', cost: 'alternative', index: 0 } }, instructions: [{ kind: 'sacrifice' }] },
+  ])
+})

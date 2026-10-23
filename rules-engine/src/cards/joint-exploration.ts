@@ -148,7 +148,7 @@ export default {
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
   colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
-    spell({ optionalCosts: [manaCost('{G}')], instructions: [
+    spell({ costLabels: { optional: ['Kicker {G}'] }, optionalCosts: [manaCost('{G}')], instructions: [
       scry({ targets: ref('controller'), count: 2 }),
       draw({ targets: ref('controller'), count: 1 }),
       ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), { then: [

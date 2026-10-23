@@ -1,5 +1,11 @@
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { describe, expect, test } from 'bun:test'
 import {
+  compareAmount,
+  gainLife,
+  ref,
+  sacrifice,
+  whenever,
   manaCost,
   modifyEvent,
   paidCostCount,
@@ -200,4 +206,28 @@ test('repeatable additional payments remain available to an as-enters replacemen
   expect(gone.objects[objectId].castCostChoices).toBeUndefined()
   const returned = ok(server.rules(gone, { type: 'move', objectId, to: 'battlefield' }))
   expect(returned.objects[objectId].counters.charge ?? 0).toBe(0)
+})
+
+
+test('a paid alternative option creates an independent entry sacrifice trigger only for that incarnation', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    spell({ alternativeCosts: [[manaCost('{1}')]], instructions: [] }),
+    whenever(self.enters, { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+    whenever(self.enters, { triggerOnlyIf: compareAmount(paidCostCount('alternative', 0), 'gte', 1), instructions: [sacrifice({ targets: ref('source') })] }),
+  ])))
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Alternative entry fixture', { types: ['Creature'], power: 2, toughness: 2, manaCost: '{3}', ruleDefinition: definition })] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 1
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }))
+  let entered = ok(server.rules(cast, { type: 'resolveTop' }))
+  const order = pendingSelectionFor(entered, 'p1')!
+  entered = ok(server.rules(entered, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates }))
+  expect(entered.objects[objectId].zone).toBe('battlefield')
+  expect(entered.stack).toHaveLength(2)
+  const gone = resolveStack(server.rules, entered)
+  expect(gone.objects[objectId].zone).toBe('graveyard')
+  expect(gone.players.p1.life).toBe(41)
+  const returned = resolveStack(server.rules, ok(server.rules(gone, { type: 'move', objectId, to: 'battlefield' })))
+  expect(returned.objects[objectId].zone).toBe('battlefield')
+  expect(returned.players.p1.life).toBe(42)
 })

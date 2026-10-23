@@ -139,6 +139,7 @@ export type ObjectFilter = {
 }
 
 export type StackItemFilter = {
+  when?: Condition
   kind?: 'spell' | 'ability'
   /** Card type of the stack object, for "instant or sorcery spell" and similar. */
   type?: string
@@ -839,6 +840,7 @@ export type SpellAbilityDefinition = {
   when?: Condition
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  costLabels?: { optional?: readonly string[]; alternative?: readonly string[] }
   additionalCosts?: readonly Cost[]
   costConditions?: readonly CostOptionCondition[]
   optionalCosts?: readonly Cost[]
@@ -860,6 +862,7 @@ export type ActivatedAbilityDefinition = {
   cycling?: true
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  costLabels?: { optional?: readonly string[]; alternative?: readonly string[] }
   additionalCosts?: readonly Cost[]
   costConditions?: readonly CostOptionCondition[]
   optionalCosts?: readonly Cost[]

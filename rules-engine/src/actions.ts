@@ -1044,7 +1044,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     canonicalActionManaCost(state, seat, object, action)
   const withCostOptions = (base: Extract<AvailableAction, { kind: 'castSpell' }>) => {
     if (!canonicalAbility || canonicalAbility.kind !== 'spell' || (!canonicalAbility.optionalCosts?.length && !canonicalAbility.alternativeCosts?.length)) return [base]
-    let variants = [base, ...(canonicalAbility.alternativeCosts ?? []).map((_, selectedAlternativeCost) => ({ ...base, selectedAlternativeCost }))]
+    let variants = [base, ...(canonicalAbility.alternativeCosts ?? []).map((_, selectedAlternativeCost) => ({ ...base, selectedAlternativeCost, castLabel: canonicalAbility.costLabels?.alternative?.[selectedAlternativeCost] ?? `Alternative payment ${selectedAlternativeCost + 1}` }))]
     for (const [index] of (canonicalAbility.optionalCosts ?? []).entries()) {
       variants = variants.flatMap(action => {
         const next = [action]
@@ -1052,7 +1052,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         const limit = canonicalAbility.repeatableOptionalCosts?.includes(index) ? 256 - optional.length : 1
         for (let count = 0; count < limit; count += 1) {
           optional = [...optional, index]
-          const candidate = { ...action, selectedOptionalCosts: optional, castLabel: `Additional cost ${index + 1} ×${count + 1}` }
+          const candidate = { ...action, selectedOptionalCosts: optional, castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional payment ${index + 1}`}${count > 0 ? ` ×${count + 1}` : ''}` }
           const cost = preview(candidate)
           if (cost === undefined || !canFund(state, seat, cost, [], spell)) break
           next.push(candidate)

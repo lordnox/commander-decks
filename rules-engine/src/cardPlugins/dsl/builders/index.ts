@@ -631,13 +631,14 @@ type CostReductionInput = { generic: AmountInput; when?: Condition; reason?: str
 
 type CostFieldsInput = Partial<Pick<
   SpellAbilityDefinition,
-  'costs' | 'additionalCosts' | 'costConditions' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts' | 'costIncreases'
+  'costs' | 'costLabels' | 'additionalCosts' | 'costConditions' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts' | 'costIncreases'
 >> & {
   costReductions?: readonly CostReductionInput[]
 }
 
 const normalizeCostFields = (input: CostFieldsInput) => ({
   costs: input.costs ?? [],
+  ...(input.costLabels ? { costLabels: input.costLabels } : {}),
   ...(input.additionalCosts ? { additionalCosts: input.additionalCosts } : {}),
   ...(input.costConditions ? { costConditions: input.costConditions } : {}),
   ...(input.repeatableOptionalCosts ? { repeatableOptionalCosts: input.repeatableOptionalCosts } : {}),

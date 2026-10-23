@@ -1,10 +1,8 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingSelectionFor } from '../rules/selectCards'
-import { ok, resolveStack } from '../testHelpers'
+import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
 import { targetedResolve } from './targetedResolve'
@@ -13,61 +11,6 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('Lady Evangela replacement gaps', () => {
-  test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Mulldrifter', {
-            types: ['Creature'],
-            manaCost: '{4}{U}',
-            power: 2,
-            toughness: 2,
-          })],
-        },
-        libraries: {
-          p1: [
-            cardTemplate('First card'),
-            cardTemplate('Second card'),
-          ],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [alternateCosts] },
-    )
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
-    const mulldrifter = named(ready, 'Mulldrifter')
-    const actions = legalActsFor(ready, 'p1').filter(
-      (action) => action.kind === 'castSpell' && action.objectId === mulldrifter.id,
-    )
-    expect(actions).toContainEqual(expect.objectContaining({
-      castOption: 'evoke',
-      castLabel: 'Evoke {2}{U}',
-    }))
-    expect(actions.some((action) => action.kind === 'castSpell' && !action.castOption)).toBe(false)
-
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: mulldrifter.id,
-      castOption: 'evoke',
-    }))
-    expect(cast.stack[0].castOption).toBe('evoke')
-    const enteredUnordered = ok(server.rules(cast, { type: 'resolveTop' }))
-    const order = pendingSelectionFor(enteredUnordered, 'p1')!
-    const entered = ok(server.rules(enteredUnordered, {
-      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
-      count: order.count, objectIds: order.candidates,
-    }))
-    expect(entered.objects[mulldrifter.id].zone).toBe('battlefield')
-    expect(entered.stack.map((item) => item.name)).toEqual(['Mulldrifter', 'Mulldrifter'])
-
-    const resolved = resolveStack(server.rules, entered)
-    expect(resolved.zoneOrder.p1.hand.map((id) => resolved.objects[id].name).sort())
-      .toEqual(['First card', 'Second card'])
-    expect(resolved.objects[mulldrifter.id].zone).toBe('graveyard')
-  })
-
   test('Snuff Out validates the Swamp and four-life alternate cost', () => {
     const server = createServerGame(
       commanderRules,
@@ -180,8 +123,8 @@ describe('Lady Evangela replacement gaps', () => {
       type: 'castSpell',
       seat: 'p3',
       objectId: wash.id,
-      castOption: 'cleave',
-      targets: [{ kind: 'object', objectId: veto.id }],
+      selectedAlternativeCost: 0,
+      targets: [{ kind: 'stackItem', stackId: vetoCast.stack.find(item => item.objectId === veto.id)!.id }],
     }))
     const washResolved = ok(server.rules(washCast, { type: 'resolveTop' }))
     expect(washResolved.objects[veto.id].zone).toBe('stack')

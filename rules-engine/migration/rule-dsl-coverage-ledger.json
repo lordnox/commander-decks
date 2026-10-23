@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 69,
+    "cardRegistrations": 67,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 97,
+    "instructionUnobservedGaps": 98,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 88,
-    "candidateOnlyCardRows": 64
+    "candidateOnlyInstructionRows": 87,
+    "candidateOnlyCardRows": 62
   },
   "cardEffects": [
     {
@@ -85,23 +85,21 @@
         "All-Fates Stalker:effects[1]",
         "Cling to Dust:effects[0]",
         "Dread Return:effects[0]",
-        "Mulldrifter:effects[0]",
         "Snuff Out:effects[0]",
-        "Wash Away:effects[0]",
         "Zanarkand, Ancient Metropolis // Lasting Fayth:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 13,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1451 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:18",
-          "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
-          "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {"
+          "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:255 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:197 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {"
         ]
       },
       "neededCanonicalNode": "typed casting permission and alternative cost",
@@ -509,21 +507,20 @@
         "Pile On:effects[1]",
         "Quantum Misalignment:effects[0]",
         "Snuff Out:effects[1]",
-        "Vantress Visions:effects[0]",
-        "Wash Away:effects[1]"
+        "Vantress Visions:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 26,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1451 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:18",
-          "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:111 — test('rejects tapped, opposing, noncreature, and duplicate convoke objects', () => {",
-          "rules-engine/src/cardPlugins/convoke.test.ts:137 — test('legal acts offer convoke when it is needed to cast the spell', () => {"
+          "rules-engine/src/cardPlugins/convoke.test.ts:137 — test('legal acts offer convoke when it is needed to cast the spell', () => {",
+          "rules-engine/src/cardPlugins/convoke.test.ts:154 — test('Pile On destroys its target and completes surveil 2 after convoking', () => {",
+          "rules-engine/src/cardPlugins/convoke.test.ts:25",
+          "rules-engine/src/cardPlugins/convoke.test.ts:62 — test('matching colors pay colored symbols and other creatures pay generic mana', () => {",
+          "rules-engine/src/cardPlugins/convoke.test.ts:88 — test('rejects a creature whose color cannot cover the remaining colored symbol', () => {",
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:121 — test('Mirrorweave rejects legendary targets and restores copied creatures at cleanup', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -574,8 +571,6 @@
         "It That Betrays:effects[1]",
         "Kederekt Leviathan:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
-        "Mulldrifter:effects[1]",
-        "Mulldrifter:effects[2]",
         "Niv-Mizzet, Ghost Counsel:effects[0]",
         "Perch Protection:effects[1]",
         "Pitiless Carnage:effects[0]",
@@ -603,7 +598,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 139,
+        "matches": 136,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:1235 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
@@ -1815,14 +1810,13 @@
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
         "Erestor of the Council:effects[0].do[2]",
         "Illusion of Choice:effects[0].do[1]",
-        "Mulldrifter:effects[2].do[0]",
         "Wedding Ring:effects[1].do[0]",
         "Zimone and Dina:effects[1].do[0]",
         "Zimone and Dina:effects[1].do[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 88,
+        "matches": 86,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1451 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -4352,18 +4346,11 @@
     {
       "variant": "sacrificeSelf",
       "mechanic": "cost or announcement action",
-      "currentRegistrations": [
-        "Mulldrifter:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:21 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4374,7 +4361,7 @@
         "06",
         "07"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -6001,45 +5988,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Mulldrifter",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mulldrifter"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:21 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [alternateCast, trigger] and instructions [draw, sacrificeSelf]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "alternateCast",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "draw",
-        "sacrificeSelf"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "alternateCosts"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Nanogene Conversion",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6653,7 +6601,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:76 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:418 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
@@ -7018,45 +6966,6 @@
       "instructionVariants": [],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Wash Away",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Wash Away"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:18",
-          "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
-          "rules-engine/src/cardPlugins/graveyardCasting.test.ts:123 — test('a countered flashback spell is exiled', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:149 — test(\"Dovin's Veto remains a legal target but cannot be countered\", () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "alternateCast",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "alternateCosts",
-        "targetedResolve"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -7790,7 +7699,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 209,
+        "matches": 210,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -8143,7 +8052,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 77,
+        "matches": 78,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:293 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -8559,7 +8468,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:118 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {"
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:61 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -9315,7 +9224,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:474",
+        "rules-engine/src/cardPlugins/cardRules.ts:467",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -9724,10 +9633,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          687
+          688
         ],
         "samples": [
-          "687: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "688: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9755,13 +9664,13 @@
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
           430,
-          527,
-          748
+          528,
+          749
         ],
         "samples": [
           "430: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "527: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "748: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "528: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "749: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

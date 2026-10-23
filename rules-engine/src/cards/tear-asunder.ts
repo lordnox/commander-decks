@@ -144,7 +144,7 @@ const scryfall = {
 export default {
   scryfall, types: ['Instant'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
-    spell({ optionalCosts: [manaCost('{1}{B}')], decisions: { targets: [select({ filter: objects({ zone: 'battlefield', any: [
+    spell({ costLabels: { optional: ['Kicker {1}{B}'] }, optionalCosts: [manaCost('{1}{B}')], decisions: { targets: [select({ filter: objects({ zone: 'battlefield', any: [
       { type: 'Artifact' }, { type: 'Enchantment' },
       { when: compareAmount(paidCostCount('optional', 0), 'gte', 1), not: { type: 'Land' } },
     ] }), count: 1 })] }, instructions: [move({ targets: target(0), to: 'exile' })] }),

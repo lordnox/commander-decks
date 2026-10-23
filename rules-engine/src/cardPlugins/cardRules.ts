@@ -12,7 +12,6 @@ import {
   embalm,
   bestow,
   blink,
-  cleave,
   controlledLands,
   convoke,
   copyAllCreaturesUntilEot,
@@ -27,7 +26,6 @@ import {
   drawGreatestPower,
   encore,
   enters,
-  entersIfCastOption,
   entersTapped,
   gift,
   ifGiftPromised,
@@ -339,11 +337,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyAllCreaturesUntilEot(false),
     ),
   ],
-  Mulldrifter: [
-    alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
-    entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),
-    enters(draw(2)),
-  ],
   'Nanogene Conversion': [
     targetOnResolve(
       'select',
@@ -505,13 +498,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Wash Away': [
-    cleave('{1}{U}{U}'),
-    targetOnResolve('counter', {
-      zone: 'stack',
-      bracketed: { castFromNot: 'hand' },
-    }),
-  ],
   'Wedding Ring': [
     triggerOn('enters', {
       if: { fromSpell: true },

@@ -308,12 +308,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "61313ee44514ea255ea684f0391ca2d541faa8fcea3edb0c40ddc0b6454dd7cc",
-    "card": "Wash Away"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "de98c9354cb7072c3450ced9a8b350f780653831ee85b9e0c7fec2a0c5904768",
     "card": "Yarok, the Desecrated"
   },
@@ -388,12 +382,6 @@
     "code": "legacy-card-registration",
     "digest": "4ff3cf910ddcc0ffefe63ff93497d559b2ca3210a31d84e00f4fb69d92196301",
     "card": "Mirrorweave"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "85ea3b50458fdc3d9f1768d9870ed71d634ab3a82e10bde887ab1ccd75f8ba05",
-    "card": "Mulldrifter"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

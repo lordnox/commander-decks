@@ -11,7 +11,7 @@ import type { GameEvent, GameState } from '../../types'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
-import { activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup } from './v1'
+import { compareAmount, manaCost, paidCostCount, activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup } from './v1'
 
 import { deckCard } from '../cirdanCreatureCards'
 import { shuffleIntoLibraryInstead } from '../shuffleIntoLibraryInstead'
@@ -499,4 +499,28 @@ test('a successful counter can put an artifact or creature onto the battlefield 
   expect(stolen.state.objects[stolen.victim.id]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
   const instant = setup(['Instant'])
   expect(instant.state.objects[instant.victim.id]).toMatchObject({ zone: 'graveyard', controller: 'p2' })
+})
+
+
+test.each(['hand', 'graveyard'] as const)('an alternative cost can remove a cast-origin target restriction (%s)', origin => {
+  const server = createServerGame(commanderRules, { players: 2, hands: {
+    p1: [instructionSpell({ alternativeCosts: [[manaCost('{1}')]], decisions: { targets: [select({ filter: stackItems({ kind: 'spell', any: [
+      { not: { castFrom: 'hand' } }, { when: compareAmount(paidCostCount('alternative', 0), 'gte', 1) },
+    ] }), count: 1 })] }, instructions: [counter({ targets: target(0) })] })],
+    p2: [cardTemplate('Target origin fixture', { types: ['Instant'], manaCost: '{0}' })],
+  } }, { random: () => 0 })
+  let state = server.state
+  const counterId = state.zoneOrder.p1.hand[0]
+  const targetId = state.zoneOrder.p2.hand[0]
+  if (origin === 'graveyard') state = ok(server.rules(state, { type: 'move', objectId: targetId, to: 'graveyard' }))
+  state.castableZones = ['hand', 'graveyard']
+  state.priority = 'p2'
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p2', objectId: targetId }))
+  state = ok(server.rules(state, { type: 'passPriority', seat: 'p2' }))
+  state.players.p1.mana.C = 1
+  const targets = [{ kind: 'stackItem' as const, stackId: state.stack[0].id }]
+  const normal = server.rules(state, { type: 'castSpell', seat: 'p1', objectId: counterId, targets })
+  expect(normal.ok).toBe(origin !== 'hand')
+  const paid = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: counterId, targets, selectedAlternativeCost: 0 }))
+  expect(ok(server.rules(paid, { type: 'resolveTop' })).objects[targetId].zone).toBe('graveyard')
 })
