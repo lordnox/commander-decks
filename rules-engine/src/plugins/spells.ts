@@ -1110,6 +1110,7 @@ export const spells: Plugin = {
           const groupedTargets = modal?.targetClauses
             ? event.targetClauses ?? (modal.targetClauses.length === 1 ? [event.targets ?? []] : [])
             : event.targetClauses
+          if (canonicalTransaction) object.castCostChoices = announcementCostChoices(canonicalTransaction)
           stacked.execution.targetBindings = [...(canonicalTransaction?.targetBindings ?? canonicalTargetBindings(
             state,
             object,
@@ -1138,7 +1139,6 @@ export const spells: Plugin = {
                 })))
               : [])
           if (lockedDistributionBounds.length > 0) stacked.execution.distributionBounds = structuredClone(lockedDistributionBounds)
-          if (canonicalTransaction) object.castCostChoices = announcementCostChoices(canonicalTransaction)
           stacked.execution.announcement = canonicalTransaction
             ? {
                 id: canonicalTransaction.id,

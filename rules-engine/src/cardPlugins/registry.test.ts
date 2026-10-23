@@ -672,7 +672,6 @@ describe('card plugin registry', () => {
       'choiceEffects',
       'giftCast',
       'linkedExile',
-      'spreeCast',
       'targetedResolve',
     ])
   })

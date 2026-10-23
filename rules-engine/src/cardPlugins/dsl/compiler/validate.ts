@@ -562,6 +562,12 @@ export const validateDefinitionV1 = (root: unknown): {
         if (!isData(node.value) || node.value.kind !== 'resultRef') issue(childPath(path, 'value'), 'binding-kind', 'resultIsTrue requires a resultRef')
         validateReference(node.value, childPath(path, 'value'), env, ['boolean'])
         return
+      case 'hasGreatestCharacteristic':
+        exactKeys(node, path, ['kind', 'of', 'among', 'characteristic'], ['kind', 'of', 'among', 'characteristic'])
+        validateReference(node.of, childPath(path, 'of'), env, ['object'])
+        if (validateSelector(node.among, childPath(path, 'among'), env) !== 'object') issue(path, 'domain', 'greatest characteristic requires an object selector')
+        enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(OBJECT_NUMERIC_CHARACTERISTICS), 'object characteristic')
+        return
       case 'compareAmount':
         exactKeys(node, path, ['kind', 'left', 'operator', 'right'], ['kind', 'left', 'operator', 'right'])
         validateAmount(node.left, childPath(path, 'left'), env)
@@ -1958,8 +1964,16 @@ export const validateDefinitionV1 = (root: unknown): {
     const ability = object(value, path)
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
-    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'costLabels', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
+    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'costLabels', 'additionalCosts', 'costConditions', 'optionalCostBounds', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
     const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment, reductionEnv = env) => {
+      if (node.optionalCostBounds !== undefined) {
+        const bounds = object(node.optionalCostBounds, childPath(nodePath, 'optionalCostBounds'))
+        if (bounds) {
+          exactKeys(bounds, childPath(nodePath, 'optionalCostBounds'), ['min', 'max'], ['min'])
+          integer(bounds.min, `${nodePath}.optionalCostBounds.min`)
+          if (bounds.max !== undefined) integer(bounds.max, `${nodePath}.optionalCostBounds.max`, { min: typeof bounds.min === 'number' ? bounds.min : 0 })
+        }
+      }
       const selectableCosts = [node.additionalCosts, node.optionalCosts, ...(Array.isArray(node.alternativeCosts) ? node.alternativeCosts : [])]
       if (selectableCosts.some(costs => Array.isArray(costs) && costs.some(cost => isData(cost) && cost.kind === 'convoke'))) issue(nodePath, 'domain', 'convoke must be declared as a spell payment method, not a selectable cost')
       if (node.costLabels !== undefined) {

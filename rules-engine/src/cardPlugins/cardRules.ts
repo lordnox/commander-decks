@@ -20,7 +20,6 @@ import {
   createTokenInstruction,
   createTreasures,
   crew,
-  dealDamageToChosenTarget,
   draw,
   drawGreatestPower,
   encore,
@@ -66,8 +65,6 @@ import {
   sacrificePermanentsThenDraw,
   secretCouncil,
   selfMill,
-  spree,
-  spreeMode,
   staticGrant,
   scry,
   triggerOn,
@@ -248,23 +245,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { players: 'opponent' },
       opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
     ),
-  ],
-  'Getaway Glamer': [
-    spree([
-      spreeMode(
-        'blink',
-        '+ {1} — Exile target nontoken creature. Return it to the battlefield under its owner\'s control at the beginning of the next end step.',
-        '{1}',
-        [blink({ when: 'nextEndStep', returnController: 'owner', targetIndex: 0 })],
-      ),
-      spreeMode(
-        'kill',
-        '+ {2} — Destroy target creature if no other creature has greater power.',
-        '{2}',
-        [dealDamageToChosenTarget(9999)],
-      ),
-    ]),
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
   ],
   'Glorious Protector': [
     handler('linkedExile'),

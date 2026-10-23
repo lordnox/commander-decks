@@ -107,45 +107,6 @@ describe('Dack party blink pass 2', () => {
     })
   })
 
-  test('Getaway Glamer spree blink mode exiles until the next end step', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Getaway Glamer')] },
-      battlefield: {
-        p2: [cardTemplate('Glamer Prey', { types: ['Creature'], power: 3, toughness: 3 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const preyId = named(server.state, 'Glamer Prey').id
-    const resolved = castAndResolve(
-      server,
-      server.state,
-      'Getaway Glamer',
-      [{ kind: 'object', objectId: preyId }],
-      { spreeModes: ['blink'] },
-    )
-    expect(resolved.objects[preyId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, resolved)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[preyId].zone).toBe('battlefield')
-  })
-
-  test('Getaway Glamer spree kill mode removes the chosen creature', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Getaway Glamer')] },
-      battlefield: {
-        p2: [cardTemplate('Solo Beast', { types: ['Creature'], power: 4, toughness: 4 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const beastId = named(server.state, 'Solo Beast').id
-    const resolved = castAndResolve(
-      server,
-      server.state,
-      'Getaway Glamer',
-      [{ kind: 'object', objectId: beastId }],
-      { spreeModes: ['kill'] },
-    )
-    expect(resolved.objects[beastId].zone).toBe('graveyard')
-  })
-
   test('Parting Gust without the gift blinks with a counter at the next end step', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [cardTemplate('Parting Gust')] },

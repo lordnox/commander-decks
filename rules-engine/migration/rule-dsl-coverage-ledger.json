@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 66,
+    "cardRegistrations": 65,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 98,
+    "instructionUnobservedGaps": 99,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 87,
-    "candidateOnlyCardRows": 61
+    "candidateOnlyInstructionRows": 86,
+    "candidateOnlyCardRows": 60
   },
   "cardEffects": [
     {
@@ -97,7 +97,7 @@
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:255 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:197 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:158 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {"
         ]
@@ -137,22 +137,21 @@
       "variant": "castCost",
       "mechanic": "casting cost modifier",
       "currentRegistrations": [
-        "Getaway Glamer:effects[0]",
         "Parting Gust:effects[0]",
         "Perch Protection:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:148 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:168 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:655 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
+          "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost modifier",
@@ -498,7 +497,6 @@
         "Cling to Dust:effects[1]",
         "Dread Return:effects[1]",
         "Fortune's Favor:effects[0]",
-        "Getaway Glamer:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
@@ -509,7 +507,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 20,
+        "matches": 18,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1451 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:121 — test('Mirrorweave rejects legendary targets and restores copied creatures at cleanup', () => {",
@@ -517,8 +515,8 @@
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {"
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -980,21 +978,20 @@
       "variant": "blink",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Getaway Glamer:effects[0].spree[0].do[0]",
         "Parting Gust:effects[1].do[0].whenTrue[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:805 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:819 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:830 — test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:846 — test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {"
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1572,7 +1569,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1914 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2482 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
+          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:69 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
         ]
       },
@@ -1588,17 +1585,11 @@
     {
       "variant": "dealDamageToChosenTarget",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Getaway Glamer:effects[0].spree[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:655 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1607,7 +1598,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2119,7 +2110,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/encore.test.ts:59 — test('encore builder clones safely', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:760 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:759 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2600,7 +2591,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:689 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2665,7 +2656,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 28,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -2762,7 +2753,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:689 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3428,7 +3419,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:689 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -4765,7 +4756,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:197 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:158 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:664 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -5136,7 +5127,7 @@
           "rules-engine/src/cardPlugins/dsl/counter.test.ts:263 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:494 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:729 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:728 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
           "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:718 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/plugins/combatKeywords.test.ts:456 — test('without a first or double striker there is only the regular damage step', () => {"
@@ -5430,46 +5421,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Getaway Glamer",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Getaway Glamer"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:655 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [blink, dealDamageToChosenTarget]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "blink",
-        "dealDamageToChosenTarget"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "spreeCast",
         "targetedResolve"
       ],
       "embeddedRulePaths": []
@@ -6068,8 +6019,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:168 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -6111,7 +6062,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:689 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
@@ -6590,7 +6541,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:760 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:759 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [encoreTokens]",
@@ -7962,9 +7913,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:225 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:284 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:521 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:226 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:285 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:522 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1081 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1120 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]
@@ -8006,7 +7957,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 78,
+        "matches": 79,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:293 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -9178,7 +9129,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:462",
+        "rules-engine/src/cardPlugins/cardRules.ts:441",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -9236,9 +9187,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1420",
-        "rules-engine/src/actions.ts:1589",
-        "rules-engine/src/actions.ts:883",
+        "rules-engine/src/actions.ts:1425",
+        "rules-engine/src/actions.ts:1594",
+        "rules-engine/src/actions.ts:888",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:245",
@@ -9467,12 +9418,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1850,
-          2758
+          1855,
+          2763
         ],
         "samples": [
-          "1850: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2758: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1855: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2763: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9587,10 +9538,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          690
+          691
         ],
         "samples": [
-          "690: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "691: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9602,10 +9553,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          471
+          474
         ],
         "samples": [
-          "471: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "474: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9619,12 +9570,12 @@
         "lines": [
           430,
           528,
-          749
+          756
         ],
         "samples": [
           "430: if (filter.name !== undefined && object.name !== filter.name) return false",
           "528: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "749: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "756: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

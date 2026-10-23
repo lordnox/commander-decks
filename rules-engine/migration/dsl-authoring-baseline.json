@@ -344,12 +344,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "aec0dfa48f07d81a5ca0617747de39b6e7c74c97c0046f22015eb866738c1515",
-    "card": "Getaway Glamer"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "74699b725425c2c5ded21743c3aaa550720c4ac7a774bf2196c5e9dbfd5a5bc2",
     "card": "Lotho, Corrupt Shirriff"
   },

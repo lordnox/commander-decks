@@ -8,6 +8,8 @@ import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
 import {
+  hasGreatestCharacteristic,
+  evaluateCondition,
   card,
   chooseX,
   compileCardRuleDefinition,
@@ -134,4 +136,18 @@ test("Black Sun's Twilight pumps an optional target and returns a graveyard crea
   }))
   expect(named(returned, 'Cheap corpse')).toMatchObject({ zone: 'battlefield', tapped: true })
   expect(named(returned, 'Dear corpse').zone).toBe('graveyard')
+})
+
+
+test('greatest-characteristic comparisons include tied and negative values without unsigned amount conversion', () => {
+  for (const [power, otherPower, expected] of [[-1, -2, true], [-2, -1, false], [-1, -1, true], [0, 1, false]] as const) {
+    const server = createServerGame(commanderRules, { battlefield: { p1: [
+      cardTemplate('Subject fixture', { types: ['Creature'], power, toughness: 2 }),
+      cardTemplate('Other fixture', { types: ['Creature'], power: otherPower, toughness: 2 }),
+    ] } }, { random: () => 0 })
+    const source = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
+    expect(evaluateCondition(hasGreatestCharacteristic(ref('source'), objects({ zone: 'battlefield', type: 'Creature' }), 'power'), {
+      state: server.state, controller: 'p1', source: captureObject(source),
+    })).toBe(expected)
+  }
 })

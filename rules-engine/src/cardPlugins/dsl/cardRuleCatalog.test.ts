@@ -2552,3 +2552,18 @@ test('Pile On composes a contribution payment method with destruction and survei
     },
   ])
 })
+
+
+test('Getaway Glamer composes paid target counts, delayed return, and a greatest-power destruction condition', () => {
+  expect(cardRuleDefinitionSnapshotFor('Getaway Glamer')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCostBounds: { min: 1 }, optionalCosts: [{ kind: 'mana', amount: '{1}' }, { kind: 'mana', amount: '{2}' }],
+      decisions: { targets: [
+        { min: { kind: 'paidCostCount', cost: 'optional', index: 0 }, max: { kind: 'paidCostCount', cost: 'optional', index: 0 }, filter: { filter: { token: false } } },
+        { min: { kind: 'paidCostCount', cost: 'optional', index: 1 }, max: { kind: 'paidCostCount', cost: 'optional', index: 1 } },
+      ] }, instructions: [
+        { kind: 'if', then: [{ kind: 'sequence', instructions: [{ kind: 'move', to: 'exile' }, { kind: 'createDelayed', condition: { kind: 'step', step: 'end' } }] }] },
+        { kind: 'if', then: [{ kind: 'if', condition: { kind: 'hasGreatestCharacteristic', characteristic: 'power' }, then: [{ kind: 'destroy' }] }] },
+      ],
+    },
+  ])
+})

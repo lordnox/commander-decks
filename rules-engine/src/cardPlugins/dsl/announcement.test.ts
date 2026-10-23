@@ -2,6 +2,7 @@ import { availableActions, legalActsFor, eventsForAvailableAction } from '../../
 import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
 import {
+  ifThen,
   destroy,
   countDistinctCardTypes,
   compareAmount,
@@ -764,4 +765,42 @@ test('reductions apply after alternative, mandatory additional, and optional cos
   const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], selectedAlternativeCost: 0, selectedOptionalCosts: [0] }))
   expect(cast.players.p1.mana.C).toBe(0)
   expect(cast.players.p1.mana.B).toBe(0)
+})
+
+
+test.each([{ min: 1, max: 2 }, { min: 2, max: 2 }, { min: 1, max: 1 }])('optional payment bounds activate only the selected target clauses and programs (%s)', bounds => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    optionalCosts: [manaCost('{1}'), manaCost('{2}')], optionalCostBounds: bounds,
+    decisions: { targets: [
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: paidCostCount('optional', 0) }),
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: paidCostCount('optional', 1) }),
+    ] },
+    instructions: [
+      ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), { then: [move({ targets: target(0), to: 'exile' })] }),
+      ifThen(compareAmount(paidCostCount('optional', 1), 'gte', 1), { then: [destroy({ targets: target(1) })] }),
+    ],
+  })])))
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Paid programs fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })] }, battlefield: { p2: [
+    cardTemplate('First creature', { types: ['Creature'], power: 2, toughness: 2 }), cardTemplate('Second creature', { types: ['Creature'], power: 2, toughness: 2 }),
+  ] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 3
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const [first, second] = server.state.zoneOrder.p2.battlefield
+  const targetOf = (id: string) => ({ kind: 'object' as const, objectId: id })
+  expect(availableActions(server.state, 'p1').filter(action => action.kind === 'castSpell').map(action => action.kind === 'castSpell' ? action.selectedOptionalCosts?.join(',') : '').sort()).toEqual([[0], [0, 1], [1]].filter(selected => selected.length >= bounds.min && selected.length <= bounds.max).map(selected => selected.join(',')))
+  for (const action of legalActsFor(server.state, 'p1')) {
+    if (action.kind === 'castSpell') expect(action.targetGroups).toHaveLength(action.selectedOptionalCosts!.length)
+  }
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, targetClauses: [[], []] }).ok).toBe(false)
+  for (const selected of [[0], [1], [0, 1]]) {
+    const result = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: selected, targetClauses: [selected.includes(0) ? [targetOf(first)] : [], selected.includes(1) ? [targetOf(second)] : []] })
+    if (selected.length < bounds.min || selected.length > bounds.max) {
+      expect(result.ok).toBe(false)
+      continue
+    }
+    const cast = ok(result)
+    const resolved = resolveStack(server.rules, cast)
+    expect(resolved.objects[first].zone).toBe(selected.includes(0) ? 'exile' : 'battlefield')
+    expect(resolved.objects[second].zone).toBe(selected.includes(1) ? 'graveyard' : 'battlefield')
+  }
 })

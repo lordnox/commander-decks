@@ -406,6 +406,7 @@ export type Condition =
       legendary?: true
     }
   | { kind: 'resultIsTrue'; value: ResultReference }
+  | { kind: 'hasGreatestCharacteristic'; of: ObjectReference; among: ObjectSelector; characteristic: ObjectNumericCharacteristic }
   | { kind: 'compareAmount'; left: Amount; operator: AmountCompareOperator; right: Amount }
   | { kind: 'choiceIs'; binding: string; option: string }
   | { kind: 'activePlayer'; of: PlayerReference }
@@ -845,6 +846,7 @@ export type SpellAbilityDefinition = {
   costLabels?: { optional?: readonly string[]; alternative?: readonly string[] }
   additionalCosts?: readonly Cost[]
   costConditions?: readonly CostOptionCondition[]
+  optionalCostBounds?: { min: number; max?: number }
   optionalCosts?: readonly Cost[]
   repeatableOptionalCosts?: readonly number[]
   alternativeCosts?: readonly (readonly Cost[])[]
@@ -867,6 +869,7 @@ export type ActivatedAbilityDefinition = {
   costLabels?: { optional?: readonly string[]; alternative?: readonly string[] }
   additionalCosts?: readonly Cost[]
   costConditions?: readonly CostOptionCondition[]
+  optionalCostBounds?: { min: number; max?: number }
   optionalCosts?: readonly Cost[]
   repeatableOptionalCosts?: readonly number[]
   alternativeCosts?: readonly (readonly Cost[])[]

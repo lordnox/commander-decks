@@ -709,6 +709,13 @@ export const evaluateCondition = (
       const value = context.results?.[condition.value.binding]
       return value === true || (typeof value === 'number' && value > 0)
     }
+    case 'hasGreatestCharacteristic': {
+      const subjects = evaluateObjectReference(condition.of, context)
+      if (subjects.length !== 1) return false
+      const value = (object: GameObject) => condition.characteristic === 'loyalty'
+        ? object.counters.loyalty ?? 0 : object[condition.characteristic] ?? 0
+      return evaluateObjectSelector(condition.among, context).every(object => value(object) <= value(subjects[0]))
+    }
     case 'compareAmount':
       return compareAmounts(
         evaluateRuntimeAmount(condition.left, context),

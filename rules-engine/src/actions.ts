@@ -846,23 +846,28 @@ const canonicalSpellProgram = (object: GameObject) => object.ruleDefinition
 const paysVariableLife = (object: GameObject) => effectsOf(object).some(effect => effect.op === 'castCost' && effect.lifeX)
   || canonicalSpellProgram(object)?.costs.some(cost => cost.kind === 'life' && cost.amount.kind === 'variable') === true
 
-const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameObject, action: Extract<AvailableAction, { kind: 'castSpell' }>) => {
-  const definition = object.ruleDefinition ? loadDefinitionSnapshot(object.ruleDefinition).definition : undefined
-  const abilityIndex = definition?.abilities.findIndex(entry => entry.kind === 'spell') ?? -1
-  const ability = definition?.abilities[abilityIndex]
-  if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length)) return undefined
-  const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), seat)
-  const choices = canonicalCostPreviewChoices(entries)
-  if (!choices) return undefined
-  const costCount = entries.reduce((total, entry) => total + entry.group.min, 0)
-  const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
-  const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
-  const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
-  const result = beginSpellAnnouncement(state, object, seat, ability, grouped, action.x, choices, {
-    targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
-    selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost,
-  })
-  return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
+const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameObject, action: Extract<AvailableAction, { kind: 'castSpell' }>, partial = false) => {
+  try {
+    const definition = object.ruleDefinition ? loadDefinitionSnapshot(object.ruleDefinition).definition : undefined
+    const abilityIndex = definition?.abilities.findIndex(entry => entry.kind === 'spell') ?? -1
+    const ability = definition?.abilities[abilityIndex]
+    if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length)) return undefined
+    const previewAbility = partial && ability.optionalCostBounds ? { ...ability, optionalCostBounds: { ...ability.optionalCostBounds, min: 0 } } : ability
+    const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), seat)
+    const choices = canonicalCostPreviewChoices(entries)
+    if (!choices) return undefined
+    const costCount = entries.reduce((total, entry) => total + entry.group.min, 0)
+    const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
+    const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
+    const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
+    const result = beginSpellAnnouncement(state, object, seat, previewAbility, grouped, action.x, choices, {
+      targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
+      selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost,
+    })
+    return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
+  } catch {
+    return undefined
+  }
 }
 
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
@@ -1053,7 +1058,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         for (let count = 0; count < limit; count += 1) {
           optional = [...optional, index]
           const candidate = { ...action, selectedOptionalCosts: optional, castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional payment ${index + 1}`}${count > 0 ? ` ×${count + 1}` : ''}` }
-          const cost = preview(candidate)
+          const cost = canonicalActionManaCost(state, seat, object, candidate, true)
           if (cost === undefined || fundedCasts(state, seat, object, cost).length === 0) break
           next.push(candidate)
         }
@@ -1825,7 +1830,7 @@ const targetVariants = (
         }) }
       }
       if (groups.some(group => group.targets.length < group.min)) return []
-      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...costGroups, ...groups] }]
+      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...costGroups, ...groups.filter(group => group.max > 0)] }]
     })
   }
   if (source && action.castOption === 'bestow' && bestowEffect(source)) {

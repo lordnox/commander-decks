@@ -32,6 +32,7 @@ export type CostPlan = {
   mandatory: readonly Cost[]
   additional?: readonly Cost[]
   conditions?: readonly CostOptionCondition[]
+  optionalBounds?: { min: number; max?: number }
   optional?: readonly Cost[]
   repeatableOptional?: readonly number[]
   alternative?: readonly (readonly Cost[])[]
@@ -185,6 +186,7 @@ export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => 
 
 const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedOptional' | 'selectedAlternative'>) => {
   const selections = proposal.selectedOptional ?? []
+  if (selections.length < (proposal.costs.optionalBounds?.min ?? 0) || selections.length > (proposal.costs.optionalBounds?.max ?? Infinity)) throw new TypeError('optional cost selection does not satisfy its bounds')
   const seen = new Set<number>()
   for (const index of selections) {
     if (!Number.isSafeInteger(index) || index < 0) throw new TypeError('optional cost selection is out of range')
@@ -204,9 +206,9 @@ const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedO
 
 /** One selection routine for legality, previews, and final payment. */
 export const chosenAbilityCosts = (
-  ability: Pick<SpellAbilityDefinition, 'costs' | 'additionalCosts' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts'>,
+  ability: Pick<SpellAbilityDefinition, 'costs' | 'additionalCosts' | 'optionalCostBounds' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts'>,
   choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'> = {},
-) => selectedCosts({ costs: { mandatory: ability.costs, additional: ability.additionalCosts, optional: ability.optionalCosts, repeatableOptional: ability.repeatableOptionalCosts, alternative: ability.alternativeCosts }, ...choices })
+) => selectedCosts({ costs: { mandatory: ability.costs, additional: ability.additionalCosts, optionalBounds: ability.optionalCostBounds, optional: ability.optionalCosts, repeatableOptional: ability.repeatableOptionalCosts, alternative: ability.alternativeCosts }, ...choices })
 
 const validateVariables = (variables: AnnouncementProposal['variables']) => {
   const x = variables?.X
@@ -442,6 +444,7 @@ const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>
           controller: proposal.payer,
           source: captureObject(source),
           variables: proposal.variables,
+          paidCosts: proposalCostChoices(proposal),
         }))
       } catch {
         return undefined
@@ -589,6 +592,7 @@ export const beginSpellAnnouncement = (
         : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
       additional: ability.additionalCosts,
       conditions: ability.costConditions,
+      optionalBounds: ability.optionalCostBounds,
       optional: ability.optionalCosts,
       repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
@@ -627,6 +631,7 @@ export const beginActivatedAnnouncement = (
       mandatory: ability.costs,
       additional: ability.additionalCosts,
       conditions: ability.costConditions,
+      optionalBounds: ability.optionalCostBounds,
       optional: ability.optionalCosts,
       repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,

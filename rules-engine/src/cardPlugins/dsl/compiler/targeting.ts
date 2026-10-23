@@ -105,6 +105,7 @@ const contextFor = (
         },
       }
     : {}),
+  ...((execution?.announcement?.costChoices ?? item?.execution?.announcement?.costChoices) ? { paidCosts: execution?.announcement?.costChoices ?? item?.execution?.announcement?.costChoices } : {}),
   state,
   controller,
   source: captureObject(source),

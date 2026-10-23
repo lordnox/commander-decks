@@ -633,7 +633,7 @@ type CostReductionInput = { generic: AmountInput; when?: Condition; reason?: str
 
 type CostFieldsInput = Partial<Pick<
   SpellAbilityDefinition,
-  'costs' | 'costLabels' | 'additionalCosts' | 'costConditions' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts' | 'costIncreases'
+  'costs' | 'costLabels' | 'additionalCosts' | 'costConditions' | 'optionalCostBounds' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts' | 'costIncreases'
 >> & {
   costReductions?: readonly CostReductionInput[]
 }
@@ -644,6 +644,7 @@ const normalizeCostFields = (input: CostFieldsInput) => ({
   ...(input.additionalCosts ? { additionalCosts: input.additionalCosts } : {}),
   ...(input.costConditions ? { costConditions: input.costConditions } : {}),
   ...(input.repeatableOptionalCosts ? { repeatableOptionalCosts: input.repeatableOptionalCosts } : {}),
+  ...(input.optionalCostBounds ? { optionalCostBounds: input.optionalCostBounds } : {}),
   ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
   ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
   ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
@@ -1388,3 +1389,6 @@ export const paidCostCount = (cost: 'optional' | 'alternative', index: number): 
   immutableData({ kind: 'paidCostCount', cost, index })
 
 export const countDistinctCardTypes = (of: ObjectSelector): Amount => immutableData({ kind: 'countDistinctCardTypes', of })
+
+export const hasGreatestCharacteristic = (of: ObjectReference, among: ObjectSelector, characteristic: ObjectNumericCharacteristic): Condition =>
+  immutableData({ kind: 'hasGreatestCharacteristic', of, among, characteristic })

@@ -1,3 +1,4 @@
+import getawayGlamer from './getaway-glamer'
 import pileOn from './pile-on'
 import mulldrifter from './mulldrifter'
 import washAway from './wash-away'
@@ -351,6 +352,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Getaway Glamer': getawayGlamer,
   'Pile On': pileOn,
   'Mulldrifter': mulldrifter,
   'Wash Away': washAway,
