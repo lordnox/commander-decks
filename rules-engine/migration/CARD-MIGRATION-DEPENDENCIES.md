@@ -62,7 +62,6 @@ Current readiness: **0 composition candidates**; **55 blocked or awaiting source
 | `Walk-In Closet` | 26 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [26-graveyard-spells](CARD-MIGRATION-BATCHES.md#26-graveyard-spells), [26-graveyard-replacement](CARD-MIGRATION-BATCHES.md#26-graveyard-replacement) | Blocked by mechanics | 43-room is available. Same physical Room as Forgotten Cellar: still needs both graveyard doors and exile replacement. |
 | `Woodfall Primus` | 30 | [30-persist](CARD-MIGRATION-BATCHES.md#30-persist) | Blocked by mechanics | — |
 | `Yarok, the Desecrated` | 29 | [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
-| `Zanarkand, Ancient Metropolis // Lasting Fayth` | 43 | [43-adventure](CARD-MIGRATION-BATCHES.md#43-adventure), [38-token-refs](CARD-MIGRATION-BATCHES.md#38-token-refs) | Blocked by mechanics | Create the Hero, then put counters on that new token equal to your land count; retain the tapped land face and Adventure permission. |
 
 ## Original group 08 cards that were blocked
 

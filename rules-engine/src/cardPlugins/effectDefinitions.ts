@@ -144,7 +144,6 @@ export type CardInstruction =
   | { kind: 'putHandCardOnLibraryBottom' }
   | { kind: 'putSelfOntoBattlefield' }
   | { kind: 'phaseOutTarget' }
-  | { kind: 'createHeroWithLandCounters' }
   | { kind: 'searchTargetControllerForBasicLandType' }
   /** Taps this object, or the voted object when `subject` is `triggeringObject`. */
   | { kind: 'tap'; subject?: 'triggeringObject' }

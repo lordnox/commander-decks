@@ -505,10 +505,6 @@ export const putSelfOntoBattlefield = (): CardInstruction => ({
 
 export const phaseOutTarget = (): CardInstruction => ({ kind: 'phaseOutTarget' })
 
-export const createHeroWithLandCounters = (): CardInstruction => ({
-  kind: 'createHeroWithLandCounters',
-})
-
 export const searchTargetControllerForBasicLandType = (): CardInstruction => ({
   kind: 'searchTargetControllerForBasicLandType',
 })

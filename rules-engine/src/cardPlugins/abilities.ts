@@ -29,16 +29,6 @@ export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
-export const onResolveIfCastOption = (
-  castOption: string,
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'resolve',
-  if: { kind: 'castOption', id: castOption },
-  do: instructions,
-})
-
 export const targetingRequirement = (
   kind: Extract<CardEffect, { op: 'targetingRequirement' }>['kind'],
 ): CardEffect => ({ op: 'targetingRequirement', kind })

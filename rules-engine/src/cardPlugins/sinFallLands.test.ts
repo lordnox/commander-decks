@@ -5,11 +5,8 @@ import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
-import type { FaceCharacteristics, GameState } from '../types'
+import type { GameState } from '../types'
 import { activated } from './activated'
-import { alternateCosts } from './alternateCosts'
-import { entersTapped } from './entersTapped'
-import { onResolve } from './onResolve'
 import { phasing } from './phasing'
 
 const named = (state: GameState, name: string) =>
@@ -213,39 +210,13 @@ describe('Sin-fall lands and alternate casting', () => {
   })
 
   test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {
-    const landFace: FaceCharacteristics = {
-      types: ['Land'],
-      subtypes: ['Town'],
-      supertypes: [],
-      manaCost: '',
-      manaValue: 0,
-      colors: [],
-      oracleText: 'This land enters tapped.\n{T}: Add {G}.',
-    }
-    const adventureFace: FaceCharacteristics = {
-      types: ['Sorcery'],
-      subtypes: ['Adventure'],
-      supertypes: [],
-      manaCost: '{4}{G}{G}',
-      manaValue: 6,
-      colors: ['G'],
-      oracleText: 'Create a 1/1 colorless Hero creature token.',
-    }
     const server = createServerGame(
       commanderRules,
       {
         battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
-        hands: {
-          p1: [card('Zanarkand, Ancient Metropolis // Lasting Fayth', ['Land'], {
-            frontFace: landFace,
-            backFace: adventureFace,
-          })],
-        },
+        hands: { p1: [cardTemplate('Zanarkand, Ancient Metropolis // Lasting Fayth')] },
       },
-      {
-        random: () => 0.5,
-        cardPlugins: [alternateCosts, entersTapped, onResolve],
-      },
+      { random: () => 0.5 },
     )
     let state = structuredClone(server.state)
     state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 4 }
@@ -259,14 +230,16 @@ describe('Sin-fall lands and alternate casting', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: zanarkand.id,
-      castOption: 'adventure',
+      adventureCast: true,
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     const hero = named(state, 'Hero')
     expect(hero.counters['+1/+1']).toBe(2)
     expect(state.objects[zanarkand.id]).toMatchObject({
       zone: 'exile',
+      adventured: true,
       adventureReady: true,
+      types: ['Land'],
     })
     state = ok(server.rules(state, {
       type: 'playLand',

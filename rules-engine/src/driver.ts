@@ -10,6 +10,7 @@ import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
 import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
+import { completeAdventureSpell } from './plugins/adventure'
 import { isPermanentType } from './definitions'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from './objectIdentity'
 import {
@@ -2133,6 +2134,7 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
   }
   const object = draft.object(item.objectId)
+  if (object && item.adventureCast) completeAdventureSpell(object)
   const destination = object ? resolvedSpellDestination(item, object) : undefined
   const event = item.kind === 'spell'
     && object?.zone === 'stack'

@@ -6,12 +6,14 @@ import { bird22UFlying } from './bird'
 import { eldraziSpawn01 } from './eldrazi-spawn'
 import { elephant33G } from './elephant'
 import { forestDryad11G } from './forest-dryad'
+import { hero11 } from './hero'
 import { inkling21WbFlying } from './inkling'
 import { insect11G } from './insect'
 import { treasure } from './treasure'
 
 const catalog = {
   'Fish-1-1-U': fish11U,
+  'Hero-1-1': hero11,
   'Zombie-2-2-B': zombie22B,
   'Beast-3-3-G': beast33G,
   'Bird-2-2-U-flying': bird22UFlying,

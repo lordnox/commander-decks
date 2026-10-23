@@ -81,12 +81,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "07b6e2712b5f145c1ea5af66aa748c137a5d21df7ef8eb6fded766b2bf065491",
-    "card": "Zanarkand, Ancient Metropolis // Lasting Fayth"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "7292ffc1f9a02b7a365fb5fab32399fa12385ce36a556c926952f55869144c12",
     "card": "C\u00edrdan the Shipwright"
   },

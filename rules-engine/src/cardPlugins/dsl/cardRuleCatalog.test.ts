@@ -2268,6 +2268,22 @@ test('Mirkwood Bats retains flying and one untargeted opponent drain per created
   ])
 })
 
+test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {
+  expect(effectsFor('Zanarkand, Ancient Metropolis // Lasting Fayth')).toEqual([])
+  const entry = cardTemplateDefaultsFor('Zanarkand, Ancient Metropolis // Lasting Fayth')!
+  expect(entry.types).toEqual(['Land'])
+  expect(entry.subtypes).toEqual(['Town'])
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.frontFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+  expect(entry.backFace).toMatchObject({ types: ['Sorcery'], subtypes: ['Adventure'], manaCost: '{4}{G}{G}' })
+  expect(entry.backFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'createToken' }, { kind: 'putCounters' }] },
+  ])
+})
+
 test('Springheart Nantuko composes bestow, attached +1/+1, and copy-or-insect landfall', () => {
   expect(effectsFor('Springheart Nantuko')).toEqual([])
   expect(cardRuleDefinitionSnapshotFor('Springheart Nantuko')!.definition.abilities).toMatchObject([

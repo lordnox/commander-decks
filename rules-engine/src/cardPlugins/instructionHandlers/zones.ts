@@ -8,7 +8,6 @@ import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
 import {
   addPlusCounters,
-  createToken,
   millLibrary,
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
@@ -220,25 +219,6 @@ const phaseOutTarget: InstructionHandler<'phaseOutTarget'> = ({ draft, item }) =
   if (target?.kind === 'object') {
     draft.enqueue({ type: 'phaseOut', objectId: target.objectId })
   }
-}
-
-const createHeroWithLandCounters: InstructionHandler<'createHeroWithLandCounters'> = (
-  { draft, source },
-) => {
-  const lands = Object.values(draft.objects).filter((object) =>
-    object.zone === 'battlefield'
-    && !object.phasedOut
-    && object.controller === source.controller
-    && object.types.includes('Land')).length
-  const hero = createToken(draft, source.controller, {
-    name: 'Hero',
-    types: ['Creature'],
-    subtypes: ['Hero'],
-    colors: [],
-    power: 1,
-    toughness: 1,
-  })
-  if (lands > 0) addPlusCounters(hero, lands)
 }
 
 const searchTargetControllerForBasicLandType: InstructionHandler<
@@ -999,7 +979,6 @@ export const zoneHandlers = {
   exileThisSpell,
   putSelfOntoBattlefield,
   phaseOutTarget,
-  createHeroWithLandCounters,
   searchTargetControllerForBasicLandType,
   sacrificeSelf,
   revealUntil,

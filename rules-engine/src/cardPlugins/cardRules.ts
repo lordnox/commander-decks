@@ -39,7 +39,6 @@ import {
   legendRuleOff,
   mayCastFromHandWithoutPayingMana,
   onResolve,
-  onResolveIfCastOption,
   optionalMill,
   otherLands,
   playLandsFromGraveyard,
@@ -65,7 +64,6 @@ import {
   type CardInstruction,
   playExiledWithLife,
   yourEndTargetingOpponent,
-  createHeroWithLandCounters,
   vote,
   forEachVoter,
   forEachVotedOption,
@@ -392,14 +390,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     persist(),
   ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
-  'Zanarkand, Ancient Metropolis // Lasting Fayth': [
-    entersTapped(),
-    alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {
-      fromZone: 'hand',
-      exileAfterUse: true,
-    }),
-    onResolveIfCastOption('adventure', createHeroWithLandCounters()),
-  ],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

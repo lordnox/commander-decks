@@ -358,6 +358,7 @@ import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
 import yavimayaCradleOfGrowth from './yavimaya-cradle-of-growth'
 import zagothTriome from './zagoth-triome'
+import zanarkandAncientMetropolis from './zanarkand-ancient-metropolis'
 import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
@@ -733,5 +734,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Worn Powerstone": wornPowerstone,
   "Yavimaya, Cradle of Growth": yavimayaCradleOfGrowth,
   "Zagoth Triome": zagothTriome,
+  "Zanarkand, Ancient Metropolis": zanarkandAncientMetropolis,
+  "Zanarkand, Ancient Metropolis // Lasting Fayth": zanarkandAncientMetropolis,
   "Zimone and Dina": zimoneAndDina,
 })

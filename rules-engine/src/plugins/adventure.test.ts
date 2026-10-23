@@ -130,6 +130,59 @@ describe('Adventure spells', () => {
     }).ok).toBe(false)
   })
 
+  test('an adventured land is played from exile, not recast', () => {
+    const card = () => cardTemplate('Town Square // Lasting March', {
+      types: ['Land'],
+      subtypes: ['Town'],
+      manaCost: '',
+      manaValue: 0,
+      colors: [],
+      frontFace: {
+        types: ['Land'],
+        subtypes: ['Town'],
+        supertypes: [],
+        manaCost: '',
+        manaValue: 0,
+        colors: [],
+        oracleText: 'This land enters tapped.',
+      },
+      backFace: {
+        types: ['Sorcery'],
+        subtypes: ['Adventure'],
+        supertypes: [],
+        manaCost: '{G}',
+        manaValue: 1,
+        colors: ['G'],
+        oracleText: 'Draw a card.',
+      },
+    })
+    const server = createServerGame(commanderRules, { hands: { p1: [card()] } })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const ready = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 0 } },
+      },
+    }
+    const resolved = ok(server.rules(ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId,
+      adventureCast: true,
+    })), { type: 'resolveTop' }))
+    expect(resolved.objects[objectId]).toMatchObject({
+      zone: 'exile',
+      adventured: true,
+      adventureReady: true,
+      types: ['Land'],
+    })
+    expect(legalActsFor(resolved, 'p1').some(action =>
+      action.kind === 'castSpell' && action.objectId === objectId)).toBe(false)
+    const played = ok(server.rules(resolved, { type: 'playLand', seat: 'p1', objectId }))
+    expect(played.objects[objectId]).toMatchObject({ zone: 'battlefield', types: ['Land'] })
+  })
+
   test('eventsForAvailableAction carries adventureCast', () => {
     const server = createServerGame(commanderRules, { hands: { p1: [fictionalAdventure()] } })
     const objectId = server.state.zoneOrder.p1.hand[0]

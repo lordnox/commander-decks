@@ -2,6 +2,7 @@ import { canonicalLandPermission } from '../cardPlugins/dsl/playPermissions'
 import { seatPlaysLandsFromLibraryTop } from '../cardPlugins/libraryTopKnowledge'
 import type { GameState, Plugin } from '../types'
 import { effectsOf } from '../cardPlugins/cardRules'
+import { mayPlayAdventuredLand } from './adventure'
 import { applyFace, landFaceOf } from './doubleFaced'
 
 const MAIN_STEPS = ['precombatMain', 'postcombatMain']
@@ -20,7 +21,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   const fromLibraryTop = object.zone === 'library'
     && seatPlaysLandsFromLibraryTop(state, event.seat)
     && state.zoneOrder[event.seat].library[0] === event.objectId
-  const fromAdventure = object.zone === 'exile' && object.adventureReady === true
+  const fromAdventure = mayPlayAdventuredLand(object)
   if (
     (!fromGraveyard && !fromLibraryTop && !fromAdventure && object.zone !== 'hand'
       && !canonicalLandPermission(state, event.seat, object, event.face))

@@ -137,11 +137,13 @@ export const finishedSpellZone = (
 export const resolvedSpellDestination = (
   item: StackItem,
   object: { types: readonly string[] },
-) => (
-  isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure'
-    ? 'battlefield'
-    : finishedSpellZone(item, item.adventureCast ? 'exile' : 'graveyard')
-)
+) => {
+  if (item.adventureCast) return finishedSpellZone(item, 'exile')
+  if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {
+    return 'battlefield'
+  }
+  return finishedSpellZone(item, 'graveyard')
+}
 
 export const alternateCosts: Plugin = {
   id: 'alternateCosts',

@@ -62,7 +62,7 @@ import {
   landFacesOf,
   permanentFaceOf,
 } from './plugins/doubleFaced'
-import { resolveCastFace } from './plugins/adventure'
+import { mayPlayAdventuredLand, resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { freeCastCandidates, pendingFreeCastFor } from './plugins/rebound'
 import { enchantPlayerTargets, enchantTargets } from './plugins/enchant'
@@ -937,7 +937,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         castLabel: adventureLabel,
       }))
     }
-    if (permanent && object.adventured && object.zone === 'exile') {
+    if (permanent && object.adventured && object.zone === 'exile' && castFaceOf(object)) {
       actions.push(...fundedForFace(permanent, {
         kind: 'castSpell',
         objectId: object.id,
@@ -1561,7 +1561,7 @@ export const availableActions = (
       ...hand,
       ...Object.values(state.objects).filter(object =>
         object.zone !== 'hand' && object.controller === seat
-        && (object.adventureReady && object.zone === 'exile' || canonicalLandPermission(state, seat, object)))
+        && (mayPlayAdventuredLand(object) || canonicalLandPermission(state, seat, object)))
         .map(object => object.id),
     ]
     for (const id of playableLands) {
@@ -1570,7 +1570,7 @@ export const availableActions = (
       if (object && landFaces.length > 1) {
         const names = object.name.split(' // ')
         for (const { choice } of landFaces) {
-          if (object.zone !== 'hand' && !object.adventureReady && !canonicalLandPermission(state, seat, object, choice)) continue
+          if (object.zone !== 'hand' && !mayPlayAdventuredLand(object) && !canonicalLandPermission(state, seat, object, choice)) continue
           actions.push({
             kind: 'playLand',
             objectId: id,
