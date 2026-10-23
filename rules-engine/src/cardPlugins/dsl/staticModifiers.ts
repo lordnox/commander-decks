@@ -22,7 +22,7 @@ import {
   sourceActiveZones,
   sourceStaticAbilitiesActive,
 } from './staticModifierCore'
-import type { ContinuousEffectDefinition, Keyword } from './schema/v1'
+import type { BasicLandType, ContinuousEffectDefinition, Keyword } from './schema/v1'
 
 const SYNC = 'dslStaticModifiers.sync'
 
@@ -30,6 +30,11 @@ const keywordGrant = (keyword: Keyword): ReversibleEffect => ({
   kind: 'staticKeywords',
   grant: [keyword],
   suppress: [],
+})
+
+const landTypeGrant = (landType: BasicLandType): ReversibleEffect => ({
+  kind: 'subtypeGrant',
+  subtype: landType,
 })
 
 const existingPrintedStamp = (
@@ -201,7 +206,7 @@ const syncModifyStats = (
 const modifierTargets = (
   state: GameState,
   source: GameObject,
-  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' | 'modifyStats' }>,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' | 'modifyStats' | 'grantLandType' }>,
 ) => {
   const context = { state, controller: source.controller, source: captureObject(source) }
   if (effect.when && !evaluateCondition(effect.when, context)) return []
@@ -229,6 +234,27 @@ const syncKeywordModifier = (
       ? keywordGrant(effect.keyword)
       : { kind: 'staticKeywords', grant: [], suppress: [effect.keyword] }
     stampEffect(object, modifier, duration)
+  }
+}
+
+const syncLandTypeModifier = (
+  draft: Draft,
+  source: GameObject,
+  abilityIndex: number,
+  effectIndex: number,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantLandType' }>,
+  timestamp: number,
+) => {
+  const targetIds = new Set(modifierTargets(draft, source, effect).map(object => object.id))
+  const duration = printedStaticDuration(source, abilityIndex, effectIndex, timestamp)
+  for (const object of Object.values(draft.objects)) {
+    const existing = existingPrintedStamp(object, source.id, abilityIndex, effectIndex)
+    if (!targetIds.has(object.id)) {
+      if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
+      continue
+    }
+    if (existing) continue
+    stampEffect(object, landTypeGrant(effect.landType), duration)
   }
 }
 
@@ -296,6 +322,9 @@ const syncSource = (draft: Draft, source: GameObject) => {
     }
     if (effect.kind === 'grantKeyword' || effect.kind === 'suppressKeyword') {
       syncKeywordModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
+    }
+    if (effect.kind === 'grantLandType') {
+      syncLandTypeModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
     if (effect.kind === 'grantAbility') {
       syncGrantAbility(draft, source, abilityIndex, effectIndex, effect)
@@ -383,7 +412,7 @@ const modifiersOutOfSync = (state: GameState) => {
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
       }
-      if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword') {
+      if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword' || entry.effect.kind === 'grantLandType') {
         const targetIds = new Set(modifierTargets(state, source, entry.effect).map(object => object.id))
         for (const object of Object.values(state.objects)) {
           if (targetIds.has(object.id) !== Boolean(existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex))) return true

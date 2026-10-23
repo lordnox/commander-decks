@@ -100,9 +100,10 @@ describe('mana', () => {
     const chamber = {
       ...forest(),
       name: 'Simic Growth Chamber',
+      subtypes: [],
       oracleText: "This land enters tapped.\nWhen this land enters, return a land you control"
         + " to its owner's hand.\n{T}: Add {G}{U}.",
-      tapProduces: { G: 1 },
+      tapProduces: { G: 1, U: 1 },
     }
     const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [chamber] } })
     const objectId = idOf(state, 'Simic Growth Chamber', 'battlefield')

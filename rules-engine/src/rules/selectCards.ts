@@ -19,7 +19,7 @@ import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { isKnownTo, markKnownTo, markKnownToAll } from '../knowledge'
 import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
-import { addPlusCounters } from '../cardPlugins/effectRuntime'
+import { addPlusCounters, sharedBasicLandType } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
@@ -28,7 +28,8 @@ import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
-import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
+import { CHOICE_RELATIONS } from '../cardPlugins/dsl/schema/v1'
+import type { ChoiceRelation, Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 import { completeReplacementDiscard, continueReplacementProgram } from '../replacement/instructionProgram'
 import type { ProgramStep } from '../replacement/instructionProgram'
@@ -104,6 +105,8 @@ export type PendingCardSelection = {
   fromZone?: ZoneId
   /** The chooser may inspect the whole library while selecting matching candidates. */
   viewLibrary?: true
+  /** Constraint across the chosen set, such as sharing a basic land type. */
+  related?: ChoiceRelation
   sequence?: number
   after?: Array<'resolveTop' | 'shuffleLibrary'>
   drawPerSelected?: number
@@ -504,6 +507,10 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
       if (!allowed.has(objectId)) {
         return 'card is no longer a valid choice'
       }
+    }
+    if (selection.related === CHOICE_RELATIONS.shareLandType) {
+      const error = sharedBasicLandType(objectIds.map((objectId) => state.objects[objectId]).filter((object): object is NonNullable<typeof object> => Boolean(object)))
+      if (error) return error
     }
     if (selection.canonicalChoice?.action === 'copySpellTargets' && objectIds.length > 0) {
       const action = selection.canonicalChoice

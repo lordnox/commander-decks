@@ -272,6 +272,17 @@ describe('Rule DSL v1 structural and domain validation', () => {
     })])
     expect(compileCardRuleDefinition(fullLibraryChoice).definition).toEqual(fullLibraryChoice)
 
+    const multiZone = card([spell({
+      instructions: [chooseCards({
+        bindChoice: 'found',
+        chooser: ref('controller'),
+        filter: objects({ owner: 'you', any: [{ zone: 'library' }, { zone: 'graveyard' }] }),
+        count: 1,
+        viewLibrary: true,
+      })],
+    })])
+    expect(compileCardRuleDefinition(multiZone).definition).toEqual(multiZone)
+
     const wrongZone = structuredClone(fullLibraryChoice) as unknown as Record<string, unknown>
     const firstInstruction = (definition: Record<string, unknown>) =>
       ((definition.abilities as Array<Record<string, unknown>>)[0].instructions as Array<Record<string, unknown>>)[0]

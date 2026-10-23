@@ -82,6 +82,7 @@ import banisherPriest from './banisher-priest'
 import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
 import blackSunsTwilight from './black-suns-twilight'
+import blanketOfNight from './blanket-of-night'
 import blightedWoodland from './blighted-woodland'
 import blitzball from './blitzball'
 import blossomingTortoise from './blossoming-tortoise'
@@ -117,6 +118,7 @@ import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
 import cultivate from './cultivate'
 import dailyBugleNewspaper from './daily-bugle-newspaper'
+import dakmorSalvage from './dakmor-salvage'
 import darkness from './darkness'
 import debtToTheDeathless from './debt-to-the-deathless'
 import drainLife from './drain-life'
@@ -153,6 +155,7 @@ import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
 import fellTheProfane from './fell-the-profane'
 import fiendHunter from './fiend-hunter'
+import finaleOfDevastation from './finale-of-devastation'
 import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
 import flickerwisp from './flickerwisp'
@@ -183,6 +186,7 @@ import hinterlandHarbor from './hinterland-harbor'
 import homerTheHermit from './homer-the-hermit'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
+import inundatedArchive from './inundated-archive'
 import joinTheDead from './join-the-dead'
 import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
@@ -190,6 +194,7 @@ import khalniTerritory from './khalni-territory'
 import kodamasReach from './kodamas-reach'
 import koglaTheTitanApe from './kogla-the-titan-ape'
 import ladyEvangela from './lady-evangela'
+import lifeFromTheLoam from './life-from-the-loam'
 import lightningBolt from './lightning-bolt'
 import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
@@ -208,6 +213,7 @@ import mistvaultBridge from './mistvault-bridge'
 import mistyRainforest from './misty-rainforest'
 import morphicPool from './morphic-pool'
 import murder from './murder'
+import myriadLandscape from './myriad-landscape'
 import naturesLore from './natures-lore'
 import necrologia from './necrologia'
 import nezahalPrimalTide from './nezahal-primal-tide'
@@ -288,6 +294,7 @@ import ulvenwaldTracker from './ulvenwald-tracker'
 import undercitySewers from './undercity-sewers'
 import undergroundMortuary from './underground-mortuary'
 import unmarkedGrave from './unmarked-grave'
+import urborgTombOfYawgmoth from './urborg-tomb-of-yawgmoth'
 import urzasCave from './urzas-cave'
 import vampireHounds from './vampire-hounds'
 import vaultOfChampions from './vault-of-champions'
@@ -296,12 +303,14 @@ import voyagerStaff from './voyager-staff'
 import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
+import waterloggedTeachings from './waterlogged-teachings'
 import wateryGrave from './watery-grave'
 import werefoxBodyguard from './werefox-bodyguard'
 import windfall from './windfall'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
+import yavimayaCradleOfGrowth from './yavimaya-cradle-of-growth'
 import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
@@ -374,8 +383,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
   "Black Sun's Twilight": blackSunsTwilight,
-  "Blitzball": blitzball,
+  "Blanket of Night": blanketOfNight,
   "Blighted Woodland": blightedWoodland,
+  "Blitzball": blitzball,
   "Blossoming Tortoise": blossomingTortoise,
   "Blood Celebrant": bloodCelebrant,
   "Boggart Bog": boggartBog,
@@ -412,6 +422,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cryptic Command": crypticCommand,
   "Cultivate": cultivate,
   "Daily Bugle Newspaper": dailyBugleNewspaper,
+  "Dakmor Salvage": dakmorSalvage,
   "Dark Confidant": darkConfidant,
   "Dark Tutelage": darkTutelage,
   "Darkness": darkness,
@@ -451,6 +462,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fell the Profane": fellTheProfane,
   "Fell the Profane // Fell Mire": fellTheProfane,
   "Fiend Hunter": fiendHunter,
+  "Finale of Devastation": finaleOfDevastation,
   "Flame Rift": flameRift,
   "Flicker of Fate": flickerOfFate,
   "Flickerwisp": flickerwisp,
@@ -481,6 +493,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Homer, the Hermit": homerTheHermit,
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
+  "Inundated Archive": inundatedArchive,
   "Join the Dead": joinTheDead,
   "Kami of False Hope": kamiOfFalseHope,
   "Khalni Ambush": khalniAmbush,
@@ -490,6 +503,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Kiora Bests the Sea God": kioraBestsTheSeaGod,
   "Kogla, the Titan Ape": koglaTheTitanApe,
   "Lady Evangela": ladyEvangela,
+  "Life from the Loam": lifeFromTheLoam,
   "Lightning Bolt": lightningBolt,
   "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
@@ -520,6 +534,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Misty Rainforest": mistyRainforest,
   "Morphic Pool": morphicPool,
   "Murder": murder,
+  "Myriad Landscape": myriadLandscape,
   "Nature's Lore": naturesLore,
   "Necrologia": necrologia,
   "Nezahal, Primal Tide": nezahalPrimalTide,
@@ -605,6 +620,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Undercity Sewers": undercitySewers,
   "Underground Mortuary": undergroundMortuary,
   "Unmarked Grave": unmarkedGrave,
+  "Urborg, Tomb of Yawgmoth": urborgTombOfYawgmoth,
   "Urza's Cave": urzasCave,
   "Vampire Hounds": vampireHounds,
   "Vault of Champions": vaultOfChampions,
@@ -613,11 +629,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Voyager Staff": voyagerStaff,
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
+  "Waterlogged Teachings": waterloggedTeachings,
+  "Waterlogged Teachings // Inundated Archive": waterloggedTeachings,
   "Watery Grave": wateryGrave,
   "Werefox Bodyguard": werefoxBodyguard,
   "Windfall": windfall,
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,
+  "Yavimaya, Cradle of Growth": yavimayaCradleOfGrowth,
   "Zagoth Triome": zagothTriome,
 })

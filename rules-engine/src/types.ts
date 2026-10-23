@@ -115,6 +115,8 @@ export type ReversibleEffect =
   | { kind: 'protectionFromEverything' }
   /** Static-layer keywords: `suppress` ("can't have or gain") beats `grant`; read by `hasKeyword`. */
   | { kind: 'staticKeywords'; grant: string[]; suppress: string[]; incarnation?: number }
+  /** Layer 4: this object has the named basic land type in addition to its other types. */
+  | { kind: 'subtypeGrant'; subtype: string }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
   /**

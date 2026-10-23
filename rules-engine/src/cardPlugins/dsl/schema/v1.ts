@@ -103,6 +103,7 @@ export type ObjectFilter = {
   owner?: PlayerMatch
   token?: boolean
   name?: string
+  keyword?: Keyword
   tapped?: boolean
   attacking?: boolean
   /** Zone the spell was cast from while this object is on the stack. */
@@ -577,6 +578,7 @@ export type Instruction =
       /** Let the chooser inspect the full library while selecting matching cards. */
       viewLibrary?: true
       viewCards?: ObjectReference
+      related?: ChoiceRelation
       min: Amount
       max: Amount
       distinct: true
@@ -729,6 +731,8 @@ export type ContinuousEffectDefinition =
       set?: true
     }
   | { kind: 'grantKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
+  /** Layer 4: add a basic land type in addition to existing types, with CR 305.6 mana. */
+  | { kind: 'grantLandType'; targets: ObjectSelector; landType: BasicLandType; when?: Condition }
   /** Remove the keyword and prohibit gaining it while this modifier applies (CR 113.11). */
   | { kind: 'suppressKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
   | { kind: 'grantAbility'; targets: ObjectSelector; ability: GeneratedAbility }
@@ -741,6 +745,12 @@ export const KEYWORDS = {
   hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace', firstStrike: 'first strike',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
+
+export const BASIC_LAND_TYPES = ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'] as const
+export type BasicLandType = typeof BASIC_LAND_TYPES[number]
+
+export const CHOICE_RELATIONS = { shareLandType: 'shareLandType' } as const
+export type ChoiceRelation = typeof CHOICE_RELATIONS[keyof typeof CHOICE_RELATIONS]
 
 export type CounterDestination = {
   to: Zone
@@ -810,6 +820,12 @@ export type KeywordAbilityDefinition = {
   when?: Condition
 }
 
+/** CR 702.51: optional draw replacement that functions in a graveyard. */
+export type DredgeAbilityDefinition = {
+  kind: 'dredge'
+  count: number
+}
+
 export type SagaChapterDefinition = {
   numbers: readonly number[]
   decisions?: DecisionsSpec
@@ -828,6 +844,7 @@ export type AbilityDefinition =
   | TriggeredAbilityDefinition
   | StaticAbilityDefinition
   | KeywordAbilityDefinition
+  | DredgeAbilityDefinition
   | SagaAbilityDefinition
 
 export type CardRuleDefinitionV1 = {

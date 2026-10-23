@@ -6,7 +6,9 @@ const DREDGE_ID = 'dredge'
 
 const dredgeCount = (object: GameObject) => {
   const effect = object.effects?.find((candidate) => candidate.op === 'dredge')
-  return effect?.op === 'dredge' ? effect.count : undefined
+  if (effect?.op === 'dredge') return effect.count
+  const ability = object.ruleDefinition?.definition.abilities.find((entry) => entry.kind === 'dredge')
+  return ability?.kind === 'dredge' ? ability.count : undefined
 }
 
 const dredgersFor = (state: GameState, seat: string) => {

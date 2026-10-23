@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
+import { MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -41,6 +41,16 @@ const CONTEXT_DOMAINS = new Map<ContextBinding, Domain>([
 ])
 
 const isData = (value: unknown): value is Data => value !== null && typeof value === 'object' && !Array.isArray(value)
+
+const objectFilterMentionsZone = (filter: unknown, zone: string): boolean => {
+  if (!isData(filter)) return false
+  if (filter.zone === zone) return true
+  for (const key of ['all', 'any'] as const) {
+    const parts = filter[key]
+    if (Array.isArray(parts) && parts.some((part) => objectFilterMentionsZone(part, zone))) return true
+  }
+  return objectFilterMentionsZone(filter.not, zone)
+}
 const childPath = (path: string, key: string | number): string =>
   typeof key === 'number' ? `${path}[${key}]` : `${path}.${key}`
 
@@ -229,10 +239,11 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     if (node.castFrom !== undefined) enumeration(node.castFrom, childPath(path, 'castFrom'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
+    if (node.keyword !== undefined) enumeration(node.keyword, childPath(path, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
     for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
     if (node.exiledWith !== undefined) validateReference(node.exiledWith, childPath(path, 'exiledWith'), env, ['object'])
     if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
@@ -1281,14 +1292,17 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'chooseCards': {
-        exactKeys(node, path, ['kind', 'bindChoice', 'chooser', 'filter', 'viewLibrary', 'viewCards', 'min', 'max', 'distinct', 'whenInsufficient'], ['kind', 'bindChoice', 'chooser', 'filter', 'min', 'max', 'distinct', 'whenInsufficient'])
+        exactKeys(node, path, ['kind', 'bindChoice', 'chooser', 'filter', 'viewLibrary', 'viewCards', 'related', 'min', 'max', 'distinct', 'whenInsufficient'], ['kind', 'bindChoice', 'chooser', 'filter', 'min', 'max', 'distinct', 'whenInsufficient'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
         if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'object') issue(childPath(path, 'filter'), 'domain', 'chooseCards requires an object selector')
         if (node.viewCards !== undefined) validateReference(node.viewCards, childPath(path, 'viewCards'), env, ['object'])
         if (node.viewCards !== undefined && node.viewLibrary !== undefined) issue(path, LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE.VIEW_SCOPE, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE.VIEW_SCOPE)
         if (node.viewLibrary !== undefined && node.viewLibrary !== true) issue(childPath(path, 'viewLibrary'), 'constant', 'chooseCards viewLibrary must be true when present')
-        if (node.viewLibrary === true && !(isData(node.filter) && isData(node.filter.filter) && node.filter.filter.zone === 'library')) {
+        if (node.viewLibrary === true && !(isData(node.filter) && isData(node.filter.filter) && objectFilterMentionsZone(node.filter.filter, 'library'))) {
           issue(childPath(path, 'viewLibrary'), 'zone', 'chooseCards viewLibrary requires a library filter')
+        }
+        if (node.related !== undefined) {
+          enumeration(node.related, childPath(path, 'related'), new Set(Object.values(CHOICE_RELATIONS)), 'choice relation')
         }
         validateAmount(node.min, childPath(path, 'min'), env)
         validateAmount(node.max, childPath(path, 'max'), env)
@@ -1952,6 +1966,15 @@ export const validateDefinitionV1 = (root: unknown): {
               if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
               return
             }
+            case 'grantLandType': {
+              exactKeys(node, effectPath, ['kind', 'targets', 'landType', 'when'], ['kind', 'targets', 'landType'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'land-type grants require an object selector')
+              }
+              enumeration(node.landType, childPath(effectPath, 'landType'), new Set(BASIC_LAND_TYPES), 'basic land type')
+              if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+              return
+            }
             case 'modifyStats': {
               exactKeys(node, effectPath, ['kind', 'targets', 'power', 'toughness', 'set', 'when'], ['kind', 'targets', 'power', 'toughness'])
               if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
@@ -2039,6 +2062,14 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(ability.keyword, childPath(path, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), baseEnvironment())
         return
+      case 'dredge': {
+        exactKeys(ability, path, ['kind', 'count'], ['kind', 'count'])
+        const count = ability.count
+        if (typeof count !== 'number' || !Number.isInteger(count) || count < 1) {
+          issue(childPath(path, 'count'), 'domain', 'dredge count must be a positive integer')
+        }
+        return
+      }
       case 'saga': {
         exactKeys(ability, path, ['kind', 'readAhead', 'chapters'], ['kind', 'chapters'])
         if (ability.readAhead !== undefined && ability.readAhead !== true) {

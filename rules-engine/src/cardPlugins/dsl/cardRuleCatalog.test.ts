@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
+import { CARD_COLORS, CHOICE_RELATIONS, KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -1319,6 +1319,7 @@ test('Reanimate captures graveyard mana value before returning a creature under 
 test.each([
   ['Khalni Ambush // Khalni Territory', 'Khalni Ambush', 'Khalni Territory'],
   ['Revitalizing Repast // Old-Growth Grove', 'Revitalizing Repast', 'Old-Growth Grove'],
+  ['Waterlogged Teachings // Inundated Archive', 'Waterlogged Teachings', 'Inundated Archive'],
 ])('modal catalog %s pins independent front and land programs', (combined, front, back) => {
   expect(effectsFor(combined)).toEqual([])
   const entry = cardTemplateDefaultsFor(combined)!
@@ -1347,6 +1348,7 @@ test('green modal spell fronts compose their fight and protection instructions',
   ])
   expect(cardRuleDefinitionSnapshotFor('Old-Growth Grove')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['B', 'G'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
   expect(cardRuleDefinitionSnapshotFor('Khalni Territory')!.definition.abilities[1]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } } }] })
+  expect(cardRuleDefinitionSnapshotFor('Inundated Archive')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['U', 'B'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
 })
 
 
@@ -1566,6 +1568,14 @@ test.each([
   ['Queza, Augur of Agonies', ['triggered']],
   ['Scute Swarm', ['triggered']],
   ['Talon Gates of Madara', ['triggered', 'activated', 'activated', 'activated']],
+  ['Waterlogged Teachings', ['spell']],
+  ['Blanket of Night', ['static']],
+  ['Urborg, Tomb of Yawgmoth', ['static']],
+  ['Yavimaya, Cradle of Growth', ['static']],
+  ['Dakmor Salvage', ['dredge', 'static', 'activated']],
+  ['Life from the Loam', ['dredge', 'spell']],
+  ['Myriad Landscape', ['static', 'activated', 'activated']],
+  ['Finale of Devastation', ['spell']],
 ] as const)('catalog %s declares its canonical abilities', (name, kinds) => {
   expect(effectsFor(name)).toEqual([])
   expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.map(ability => ability.kind)).toEqual([...kinds])
@@ -2268,5 +2278,68 @@ test('Sail into the West composes public voting with collected recovery or optio
         { kind: 'move', to: 'hand' }, { kind: 'exileThisSpell' },
       ], otherwise: [{ kind: 'chooseParticipants' }, { kind: 'discardHands' }, { kind: 'draw', count: { value: 7 } }] },
     ] },
+  ])
+})
+
+test.each([
+  ['Blanket of Night', 'Swamp'],
+  ['Urborg, Tomb of Yawgmoth', 'Swamp'],
+  ['Yavimaya, Cradle of Growth', 'Forest'],
+] as const)('catalog %s grants %s to every land', (name, landType) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'grantLandType', landType, targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Land' } } }] },
+  ])
+})
+
+test('Dakmor Salvage dredges two beside tapped entry and {B}', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dakmor Salvage')!.definition.abilities).toMatchObject([
+    { kind: 'dredge', count: 2 },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] },
+  ])
+})
+
+test('Life from the Loam dredges three and returns up to three owned graveyard lands', () => {
+  expect(cardRuleDefinitionSnapshotFor('Life from the Loam')!.definition.abilities).toMatchObject([
+    { kind: 'dredge', count: 3 },
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, min: { value: 0 }, max: { value: 3 } }] }, instructions: [{ kind: 'move', to: 'hand' }] },
+  ])
+})
+
+test('Myriad Landscape searches two basics that share a land type', () => {
+  expect(cardRuleDefinitionSnapshotFor('Myriad Landscape')!.definition.abilities).toMatchObject([
+    { kind: 'static' },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', related: CHOICE_RELATIONS.shareLandType, min: { value: 0 }, max: { value: 2 }, filter: { filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] }] },
+  ])
+})
+
+test('Finale of Devastation searches library or graveyard and pumps only at X ≥ 10', () => {
+  expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { variables: [{ name: 'X' }] }, instructions: [
+      { kind: 'sequence', instructions: [
+        { kind: 'chooseCards', filter: { filter: { owner: 'you', type: 'Creature', any: [{ zone: 'library' }, { zone: 'graveyard' }] } } },
+        { kind: 'captureAmount' },
+        { kind: 'move', to: 'battlefield' },
+        { kind: 'if' },
+      ] },
+      { kind: 'if', condition: { kind: 'compareAmount', operator: 'gte', right: { value: 10 } } },
+    ] },
+  ])
+})
+
+test('Waterlogged Teachings searches an instant or a card with flash', () => {
+  expect(cardRuleDefinitionSnapshotFor('Waterlogged Teachings')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { filter: { zone: 'library', owner: 'you', any: [{ type: 'Instant' }, { keyword: KEYWORDS.flash }] } } },
+      { kind: 'reveal' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'shuffle' },
+    ] }] },
   ])
 })

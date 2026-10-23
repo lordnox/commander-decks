@@ -8,20 +8,12 @@ import { hasKeyword } from '../keywords'
 import type { CardEffect } from '../cardPlugins/effects'
 import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
-import { hasForestOverlay } from './forestOverlay'
-import { hasSwampOverlay } from './swampOverlay'
+import { BASIC_LAND_MANA, BASIC_LAND_TYPES, hasBasicLandType } from './landTypes'
 import { effectsOf } from '../cardPlugins/cardRules'
 import { romanNumber } from './saga'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
-const BASIC_LAND_MANA: Record<string, ManaId> = {
-  Plains: 'W',
-  Island: 'U',
-  Swamp: 'B',
-  Mountain: 'R',
-  Forest: 'G',
-}
 
 type ManaSource = {
   id?: string
@@ -31,6 +23,7 @@ type ManaSource = {
   controller?: PlayerId
   types?: string[]
   subtypes?: string[]
+  continuousEffects?: GameObject['continuousEffects']
   effects?: CardEffect[]
   chosenType?: string
   ruleDefinition?: GameObject['ruleDefinition']
@@ -201,29 +194,16 @@ export const manaModes = (
       }
     }
   }
-  if (
-    state
-    && hasSwampOverlay(state)
-    && object.types?.includes('Land')
-    && !object.subtypes?.includes('Swamp')
-    && !modes.some((mode) => mode.B === 1 && Object.keys(mode).length === 1)
-  ) {
-    modes.push({ B: 1 })
-  }
-  if (
-    state
-    && hasForestOverlay(state)
-    && object.types?.includes('Land')
-    && !object.subtypes?.includes('Forest')
-    && !modes.some((mode) => mode.G === 1 && Object.keys(mode).length === 1)
-  ) {
-    modes.push({ G: 1 })
-  }
-  // CR 305.6: a land with a basic land type has that type's mana ability even
-  // when its text does not print it (Dryad Arbor).
-  if (modes.length === 0 && object.types?.includes('Land')) {
-    for (const subtype of object.subtypes ?? []) {
-      if (BASIC_LAND_MANA[subtype]) modes.push({ [BASIC_LAND_MANA[subtype]]: 1 })
+  // CR 305.6: a land with a basic land type has that type's intrinsic mana
+  // ability in addition to its other abilities (Urborg on a Forest, Dryad Arbor).
+  if (object.types?.includes('Land')) {
+    for (const subtype of BASIC_LAND_TYPES) {
+      const mana = BASIC_LAND_MANA[subtype]
+      const hasType = object.subtypes?.includes(subtype)
+        || (state ? hasBasicLandType(object, subtype, state) : false)
+      if (!hasType) continue
+      if (modes.some((mode) => mode[mana] === 1 && Object.keys(mode).length === 1)) continue
+      modes.push({ [mana]: 1 })
     }
   }
   if (modes.length === 0 && object.tapProduces) modes.push(object.tapProduces)

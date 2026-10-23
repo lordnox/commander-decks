@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after collected simultaneous choices and Sail into the West, including Mirkwood Bats and families 38 and 40, including Sin, Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan, plus the prior Phial of Galadriel conditional replacements; continues #394 and #383. **110 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **102 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 83 available, 1 awaiting correctness follow-up, and 89 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 88 available, 1 awaiting correctness follow-up, and 84 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -38,7 +38,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
 - **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **26-hand**.
-- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. Finale of Devastation still needs **31-multizone**; Getaway Glamer still needs **25-spree**; Profane Command has migrated with **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
+- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight and Finale of Devastation have migrated. Getaway Glamer still needs **25-spree**; Profane Command has migrated with **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -81,13 +81,19 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **40-saga and 40-skip are available:** canonical saga abilities feed kernel lore, chapter triggers, and CR 714.4 sacrifice; `tap` can skip the controller's next untap. Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan have migrated. Summon: Leviathan still needs **21-ward**.
 
+**12-dredge is available:** a `{ kind: 'dredge', count }` ability is an optional draw replacement that mills the printed number and returns the card. Dakmor Salvage and Life from the Loam have migrated.
+
+**22-land-types is available:** `grantLandType` adds a basic land type in layer 4 and confers that type's intrinsic mana ability in addition to printed tap abilities. Blanket of Night, Urborg, Tomb of Yawgmoth, and Yavimaya, Cradle of Growth have migrated.
+
+**31-flash, 31-related, and 31-multizone are available:** object filters match printed and granted keywords, selected cards can be required to share a basic land type, and a multi-zone search shuffles only when a library card was chosen. Waterlogged Teachings // Inundated Archive, Myriad Landscape, and Finale of Devastation have migrated.
+
 ## Suggested next work
 
 First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
+| [13-upkeep](#13-upkeep) | Wall of Shards | Cumulative upkeep chooses an opponent to gain life. |
 
 **No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
 
@@ -97,13 +103,13 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="01"></a>**01 — Mixed targeting and identity-safe actions** | Available | Player/permanent target kinds; typed announcement choices; captured death-return identities. | — | `Waterlogged Teachings // Inundated Archive` |
+| <a id="01"></a>**01 — Mixed targeting and identity-safe actions** | Available | Player/permanent target kinds; typed announcement choices; captured death-return identities. | — | None remaining |
 
 ### 02. Library search and destination composition
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. Boseiju, Who Endures has migrated. | — | `Finale of Devastation` |
+| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. Boseiju, Who Endures has migrated. | — | None remaining |
 
 ### 03. Cycling
 
@@ -174,7 +180,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="12-dredge"></a>**12-dredge — Dredge draw replacement** | Open | Optional draw replacement, exact mill cost/library sufficiency, graveyard identity, competing replacements, and restore. | [10-mill](#10-mill) | `Dakmor Salvage`; `Life from the Loam` |
+| <a id="12-dredge"></a>**12-dredge — Dredge draw replacement** | Available | Optional draw replacement, exact mill cost/library sufficiency, graveyard identity, competing replacements, and restore. Dakmor Salvage and Life from the Loam have migrated. | [10-mill](#10-mill) | None remaining |
 
 ### 13. Turn-step scheduling
 
@@ -284,7 +290,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="22-characteristics"></a>**22-characteristics — Continuous characteristic definitions** | Open | CDA power/toughness from a live amount, conditional animation/base stats, and continuous type/stat updates. | — | `Lumra, Bellow of the Woods`; `Soul of Eternity`; `Starfield of Nyx` |
 | <a id="22-choose-type"></a>**22-choose-type — Choose a creature type** | Open | Persist a non-target creature-type choice and use it in subsequent filters and continuous effects. | — | `Cavern of Souls`; `Kindred Dominance`; `Raise the Palisade`; `Roaming Throne` |
 | <a id="22-grants"></a>**22-grants — Grant activated ability programs** | Open | Grant canonical activated abilities with independent lexical/source bindings and duration; existing generated grants cover triggered abilities. | — | `Rain of Filth` |
-| <a id="22-land-types"></a>**22-land-types — Land-type overlays** | Open | Layer-aware addition of basic land types and the intrinsic mana abilities they confer. | — | `Blanket of Night`; `Urborg, Tomb of Yawgmoth`; `Yavimaya, Cradle of Growth` |
+| <a id="22-land-types"></a>**22-land-types — Land-type overlays** | Available | Layer-aware addition of basic land types and the intrinsic mana abilities they confer. Blanket of Night, Urborg, Tomb of Yawgmoth, and Yavimaya, Cradle of Growth have migrated. | — | None remaining |
 | <a id="22-types"></a>**22-types — Additive type/subtype changes** | Open | Add a subtype to a returned/current permanent without replacing its existing types or making a copy. | — | `Portal to Phyrexia` |
 
 ### 23. Mana provenance
@@ -378,9 +384,9 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="31-flash"></a>**31-flash — Ability predicates for library selection** | Open | Filter for cards with flash and other rule-granted ability predicates, not only Oracle text. | — | `Waterlogged Teachings // Inundated Archive` |
-| <a id="31-multizone"></a>**31-multizone — Multi-zone search** | Open | Search library and/or graveyard as one optional program; shuffle only when the library was searched. | [02](#02) | `Finale of Devastation` |
-| <a id="31-related"></a>**31-related — Relationships between selected cards** | Open | Selected basics must share a land type; preserve reveal, fail-to-find, and shuffle semantics. | — | `Myriad Landscape` |
+| <a id="31-flash"></a>**31-flash — Ability predicates for library selection** | Available | Filter for cards with flash and other rule-granted ability predicates, not only Oracle text. Waterlogged Teachings // Inundated Archive has migrated. | — | None remaining |
+| <a id="31-multizone"></a>**31-multizone — Multi-zone search** | Available | Search library and/or graveyard as one optional program; shuffle only when the library was searched. Finale of Devastation has migrated. | [02](#02) | None remaining |
+| <a id="31-related"></a>**31-related — Relationships between selected cards** | Available | Selected basics must share a land type; preserve reveal, fail-to-find, and shuffle semantics. Myriad Landscape has migrated. | — | None remaining |
 
 ### 32. Loyalty and emblems
 

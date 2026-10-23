@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
+import { hasKeyword } from '../keywords'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
@@ -33,10 +34,6 @@ import {
   searchSpell,
 } from './effects'
 
-import {exiledWith} from './exiledWith'
-import {onResolve} from './onResolve'
-import {castCosts} from './castCosts'
-import {ward} from './ward'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -484,61 +481,41 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const finisherPlugins = [
-    onResolve,
-    choiceEffects,
-    librarySearch,
-    castCosts,
-    ward,
-    exiledWith,
-    pendingDialogLock,
-  ]
-
   test('Finale of Devastation finds a graveyard creature without shuffling', () => {
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          hands: {
+            p1: [
+              cardTemplate('Finale of Devastation'),
+              creature('Graveyard Pet', '{1}{G}', { zone: 'graveyard' }),
+            ],
+          },
           libraries: { p1: [forest()] },
         },
-        { random: () => 0.5, cardPlugins: finisherPlugins },
+        { random: () => 0.5 },
       )
       const ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 5, C: 0 }
-      const pet = creature('Graveyard Pet', '{1}{G}')
-      const petId = server.state.nextId
-      ready.objects[`o${petId}`] = {
-        ...pet,
-        id: `o${petId}`,
-        owner: 'p1',
-        controller: 'p1',
-        zone: 'graveyard',
-      }
-      ready.zoneOrder.p1.graveyard.push(`o${petId}`)
-      ready.zoneCounts.p1.graveyard += 1
-      ready.nextId = petId + 1
       const libraryBefore = [...ready.zoneOrder.p1.library]
       const spell = named(ready, 'Finale of Devastation')
-
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        x: 3,
-      }))
-      const searching = run(server, cast, [{ type: 'resolveTop' }])
-
-      expect(searchingSeat(searching)).toBe('p1')
-      expect(pendingSearch(searching, 'p1')?.x).toBe(3)
-
-      const petObject = named(searching, 'Graveyard Pet')
-      const done = run(server, searching, [
-        { type: 'move', objectId: petObject.id, to: 'battlefield' },
-        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      const searching = run(server, ready, [
+        { type: 'castSpell', seat: 'p1', objectId: spell.id, x: 3 },
+        { type: 'resolveTop' },
       ])
-
+      const pick = pendingSelectionFor(searching, 'p1')!
+      expect(pick.viewLibrary).toBe(true)
+      const done = ok(server.rules(searching, {
+        type: 'selectCards',
+        seat: 'p1',
+        selectionId: pick.id,
+        kind: 'choose',
+        count: 1,
+        objectIds: [named(searching, 'Graveyard Pet').id],
+      }))
       expect(named(done, 'Graveyard Pet').zone).toBe('battlefield')
       expect(done.zoneOrder.p1.library).toEqual(libraryBefore)
+      expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(0)
       expect(done.objects[spell.id].zone).toBe('graveyard')
     })
 
@@ -546,11 +523,11 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          hands: { p1: [cardTemplate('Finale of Devastation')] },
           battlefield: { p1: [creature('Team Mate', '{2}{G}')] },
           libraries: { p1: [creature('Library Pet', '{2}{G}')] },
         },
-        { random: () => 0.5, cardPlugins: finisherPlugins },
+        { random: () => 0.5 },
       )
       const ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 12, C: 0 }
@@ -558,23 +535,23 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
       const spell = named(ready, 'Finale of Devastation')
       const pet = named(ready, 'Library Pet')
       const mate = named(ready, 'Team Mate')
-
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        x: 10,
-      }))
-      const searching = run(server, cast, [{ type: 'resolveTop' }])
-      const done = run(server, searching, [
-        { type: 'move', objectId: pet.id, to: 'battlefield' },
-        { type: 'shuffleLibrary', seat: 'p1' },
-        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      const searching = run(server, ready, [
+        { type: 'castSpell', seat: 'p1', objectId: spell.id, x: 10 },
+        { type: 'resolveTop' },
       ])
-
+      const pick = pendingSelectionFor(searching, 'p1')!
+      const done = ok(server.rules(searching, {
+        type: 'selectCards',
+        seat: 'p1',
+        selectionId: pick.id,
+        kind: 'choose',
+        count: 1,
+        objectIds: [pet.id],
+      }))
       expect(named(done, 'Library Pet').zone).toBe('battlefield')
+      expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
       expect(done.objects[mate.id]).toMatchObject({ power: 12, toughness: 12 })
-      expect(done.objects[mate.id].oracleText.toLowerCase()).toContain('haste')
+      expect(hasKeyword(done.objects[mate.id], 'haste', done)).toBe(true)
     })
 
 })

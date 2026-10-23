@@ -128,18 +128,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "afd0576f0b05a5fd5e1d907389967638b7fcfa530ce6f8e67e7ec3306b352f05",
-    "card": "Waterlogged Teachings // Inundated Archive"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "343ba5a4846308a3a69d7cc65b3fef261adbfc404786808244979d695411cf82",
-    "card": "Yavimaya, Cradle of Growth"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "07b6e2712b5f145c1ea5af66aa748c137a5d21df7ef8eb6fded766b2bf065491",
     "card": "Zanarkand, Ancient Metropolis // Lasting Fayth"
   },
@@ -188,12 +176,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "25124e203d851d46a023e4f9e9a3d7d964c26f1f83574ab4c0f4c354677f3ef1",
-    "card": "Finale of Devastation"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "2fd5901c256baddc6451880dd0ea461784d1a6bec5be392534eaa78c9633b97f",
     "card": "Hypergenesis"
   },
@@ -226,12 +208,6 @@
     "code": "legacy-card-registration",
     "digest": "0ec0dc713408f1e296b74b000261264f0aceeb7f9b59b8a0e088350c8680160e",
     "card": "All-Fates Stalker"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "5057157fd32c4770a4d398d86f0f54d39af621d72dc32b1627bdaf3b4afa75e0",
-    "card": "Dakmor Salvage"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -274,12 +250,6 @@
     "code": "legacy-card-registration",
     "digest": "0c5d20cbe18fae709a4a5b288b04e472c03b72550cc60aa58b96399826a7c83b",
     "card": "Mole Man, Moloid Master"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "34d8ed05e9e85c9d11c122bbf56334f9ef433fafcaf2927716d1f7363ace8d97",
-    "card": "Myriad Landscape"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -358,12 +328,6 @@
     "code": "legacy-card-registration",
     "digest": "3ff3dcf8c24f1db2f97dff0df57eb3a87bfb4b9f5fd64c2fda83de91d3aa592c",
     "card": "Kindred Dominance"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "706e7e8abbba524eb42d75ab133826e2f7ecaade10ed0aafb7c131641b4f861c",
-    "card": "Life from the Loam"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -536,12 +500,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "61760250d87e61d1f8e4116d8f12d60443fbbff668c70d6f4dfa93a761d5d626",
-    "card": "Blanket of Night"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4970f77ee20938dc1c20d44ce0f5212f039804ea91dde80c60670504843fd65d",
     "card": "Ephemerate"
   },
@@ -616,12 +574,6 @@
     "code": "legacy-card-registration",
     "digest": "b9efc282489397318794ca87153b262ed7cf60f2dafdb48e975ae66e67db467a",
     "card": "Snuff Out"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "823a33d65113dc3e053c810628f9b5a760e197ad92e072d5d14adcbd80e0c1be",
-    "card": "Urborg, Tomb of Yawgmoth"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

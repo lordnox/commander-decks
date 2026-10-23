@@ -2,8 +2,7 @@ import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
 import { hasManaAbility } from '../manaPrograms'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
-import { isSwamp } from '../../../plugins/swampOverlay'
-import { isForest } from '../../../plugins/forestOverlay'
+import { BASIC_LAND_TYPES, hasBasicLandType } from '../../../plugins/landTypes'
 import { isSameObject, targetObject } from '../../../objectIdentity'
 import type {
   CapturedObject,
@@ -393,12 +392,10 @@ const matchesObjectFilter = (
     if (object.subtypes.includes(subtype)) return true
     if (hasKeyword(object, 'changeling')) return true
     if (object.zone !== 'battlefield') return false
-    switch (subtype) {
-      case 'Swamp': return isSwamp(object, context.state)
-      case 'Forest': return isForest(object, context.state)
-      default: return false
-    }
+    return (BASIC_LAND_TYPES as readonly string[]).includes(subtype)
+      && hasBasicLandType(object, subtype as typeof BASIC_LAND_TYPES[number], context.state)
   })) return false
+  if (filter.keyword && !hasKeyword(object, filter.keyword, context.state)) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (mismatchesController(object, filter, context)) return false
   if (mismatchesOwner(object, filter, context)) return false

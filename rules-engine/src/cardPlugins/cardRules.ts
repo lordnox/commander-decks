@@ -14,7 +14,6 @@ import {
   bestow,
   blink,
   blockTax,
-  branch,
   cleave,
   controlledLands,
   convoke,
@@ -26,7 +25,6 @@ import {
   createTreasures,
   crew,
   devour,
-  dredge,
   dealDamageToChosenTarget,
   draw,
   drawGreatestPower,
@@ -45,7 +43,6 @@ import {
   extraLandfall,
   exileColoredPermanentsAtMostX,
   gainLife,
-  grantControlledUntilEot,
   graveyardCards,
   graveyardCardTypes,
   handler,
@@ -76,7 +73,6 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
-  pumpControlled,
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
@@ -90,16 +86,13 @@ import {
   reanimateCreatureFromGraveyards,
   returnTargetFromGraveyard,
   returnOwnedGraveyardLands,
-  searchAbility,
   searchSpell,
   sacrificePermanentsThenDraw,
   secretCouncil,
   selfMill,
-  sharedBasicLandType,
   spree,
   spreeMode,
   staticExtraLandPlays,
-  stackXAtLeast,
   staticGrant,
   staticPlayLandsFromLibraryTop,
   staticRevealLibraryTop,
@@ -123,7 +116,6 @@ import {
   addUntilCleanupRule,
   ifGiftNotPromised,
   ward,
-  xMana,
   yourUpkeep,
   yourUpkeepTarget,
   type CardEffect,
@@ -161,7 +153,6 @@ import {
   repeatIf,
   ifYouDoExileFromGraveyard,
   ptEqualsCount,
-  upToTargetsOnResolve,
   addChosenColorMana,
   destroyTargetPermanent,
   secondCardDrawn,
@@ -178,31 +169,6 @@ import {
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
 } from './effects'
-
-const fetchBasic = (prompt: string, extra: {
-  life?: number
-  tapped?: boolean
-  manaCost?: string
-  min?: number
-  max?: number
-  untapWithFourLands?: boolean
-  validateSelection?: typeof sharedBasicLandType
-} = {}): CardEffect => {
-  const { life, manaCost, ...spec } = extra
-  return searchAbility({
-    prompt,
-    match: basicLand,
-    destination: 'battlefield',
-    min: spec.min ?? 1,
-    max: spec.max ?? 1,
-    ...spec,
-  }, {
-    tap: true,
-    sacrifice: 'self',
-    ...(life ? { life } : {}),
-    ...(manaCost ? { mana: manaCost } : {}),
-  })
-}
 
 const insectToken = {
   name: 'Insect',
@@ -289,7 +255,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     allCreatureTypes(),
     encore('{6}{W}{W}'),
   ],
-  'Blanket of Night': [staticGrant('swampOverlay')],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
@@ -320,7 +285,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
-  'Dakmor Salvage': [dredge(2), entersTapped()],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Delighted Halfling': [restrictedLegendaryMana()],
   'Drag to the Roots': [
@@ -356,25 +320,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         shuffleAfter: true,
       })),
     ),
-  ],
-  'Finale of Devastation': [
-    xMana(),
-    searchSpell({
-      prompt: 'Search your library and/or graveyard for a creature card with mana value X or less and put it onto the battlefield.',
-      match: (object) => object.types.includes('Creature'),
-      maxManaValue: 'x',
-      zones: ['library', 'graveyard'],
-      destination: 'battlefield',
-      min: 0,
-      max: 1,
-      shuffleIfSearched: true,
-      then: [
-        branch(stackXAtLeast(10), [
-          pumpControlled(0, 0, { fromStackX: true }),
-          grantControlledUntilEot('haste'),
-        ]),
-      ],
-    }),
   ],
   'Firdoch Core': [
     allCreatureTypes(),
@@ -520,10 +465,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(0, 0, { fromX: true })],
     }),
   ],
-  'Life from the Loam': [
-    dredge(3),
-    upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
-  ],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Lumra, Bellow of the Woods': [
     ptEqualsCount('Land'),
@@ -574,19 +515,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
     entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),
     enters(draw(2)),
-  ],
-  'Myriad Landscape': [
-    entersTapped(),
-    fetchBasic(
-      'Search your library for up to two basic land cards that share a land type. They enter tapped.',
-      {
-        tapped: true,
-        min: 0,
-        max: 2,
-        manaCost: '{2}',
-        validateSelection: sharedBasicLandType,
-      },
-    ),
   ],
   'Nanogene Conversion': [
     targetOnResolve(
@@ -801,7 +729,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'ugin.minus-ten',
     }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
   ],
-  'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   'Valgavoth, Terror Eater': [
     ward({ sacrifice: { count: 3, nonland: true } }),
     staticGrant('exiledWith'),
@@ -826,18 +753,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('counter', {
       zone: 'stack',
       bracketed: { castFromNot: 'hand' },
-    }),
-  ],
-  'Waterlogged Teachings // Inundated Archive': [
-    entersTapped(),
-    searchSpell({
-      prompt: 'Search your library for an instant card or a card with flash.',
-      match: (object) =>
-        object.types.includes('Instant') || /\bflash\b/i.test(object.oracleText),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
     }),
   ],
   'Wedding Ring': [
@@ -875,7 +790,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     persist(),
   ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
-  'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
   'Zanarkand, Ancient Metropolis // Lasting Fayth': [
     entersTapped(),
     alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {

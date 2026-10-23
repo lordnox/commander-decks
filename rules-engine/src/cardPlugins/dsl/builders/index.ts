@@ -18,9 +18,11 @@ import type {
   ContextReference,
   Cost,
   CostReduction,
+  ChoiceRelation,
   DecisionsInput,
   DecisionsSpec,
   DelayedPattern,
+  DredgeAbilityDefinition,
   EffectDuration,
   DistributionSpec,
   Instruction,
@@ -357,6 +359,9 @@ export const prohibitActivation = (
 export const grantKeyword = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' }>, 'kind'>) =>
   immutableData({ kind: 'grantKeyword' as const, ...input })
 
+export const grantLandType = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'grantLandType' }>, 'kind'>) =>
+  immutableData({ kind: 'grantLandType' as const, ...input })
+
 export const suppressKeyword = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'suppressKeyword' }>, 'kind'>) =>
   immutableData({ kind: 'suppressKeyword' as const, ...input })
 
@@ -649,6 +654,9 @@ export const staticAbility = (
 
 export const keywordAbility = (keyword: Keyword, options: { when?: Condition } = {}): KeywordAbilityDefinition =>
   immutableData({ kind: 'keyword', keyword, ...(options.when ? { when: options.when } : {}) })
+
+export const dredgeAbility = (count: number): DredgeAbilityDefinition =>
+  immutableData({ kind: 'dredge', count })
 
 export const saga = (input: {
   readAhead?: true
@@ -1051,6 +1059,7 @@ export const chooseCards = (input: {
   filter: ObjectSelector
   viewLibrary?: true
   viewCards?: ObjectReference
+  related?: ChoiceRelation
   count?: AmountInput
   min?: AmountInput
   max?: AmountInput
@@ -1070,6 +1079,7 @@ export const chooseCards = (input: {
     filter: input.filter,
     ...(input.viewLibrary ? { viewLibrary: true as const } : {}),
     ...(input.viewCards ? { viewCards: input.viewCards } : {}),
+    ...(input.related ? { related: input.related } : {}),
     min: clause.min,
     max: clause.max,
     distinct: true as const,
@@ -1094,18 +1104,37 @@ export const searchLibrary = (input: {
   to: Zone
   tapped?: boolean
   reveal?: boolean
-}) => sequence(
-  chooseCards({
-    bindChoice: input.bindChoice,
+  related?: ChoiceRelation
+  shuffle?: true | 'ifLibraryChosen'
+}) => {
+  const found = input.bindChoice
+  const choose = chooseCards({
+    bindChoice: found,
     chooser: input.chooser,
     filter: input.filter ?? objects({ zone: 'library', owner: 'you' }),
     viewLibrary: true,
+    ...(input.related ? { related: input.related } : {}),
     ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
-  }),
-  ...(input.reveal ? [reveal(choice(input.bindChoice))] : []),
-  move({ targets: choice(input.bindChoice), to: input.to, ...(input.tapped !== undefined ? { tapped: input.tapped } : {}) }),
-  shuffle({ targets: input.chooser }),
-)
+  })
+  const moved = move({ targets: choice(found), to: input.to, ...(input.tapped !== undefined ? { tapped: input.tapped } : {}) })
+  const shuffled = shuffle({ targets: input.chooser })
+  if (input.shuffle === 'ifLibraryChosen') {
+    const fromLibrary = `${found}FromLibrary`
+    return sequence(
+      choose,
+      captureAmount({ amount: count(objects({ among: choice(found), zone: 'library' })), bindResult: fromLibrary }),
+      ...(input.reveal ? [reveal(choice(found))] : []),
+      moved,
+      ifThen(compareAmount(resultAmount(fromLibrary), 'gte', 1), { then: [shuffled] }),
+    )
+  }
+  return sequence(
+    choose,
+    ...(input.reveal ? [reveal(choice(found))] : []),
+    moved,
+    shuffled,
+  )
+}
 
 /** Search, reveal, choose a subset destination, then move the remaining identities. */
 export const splitSearchLibrary = (input: {

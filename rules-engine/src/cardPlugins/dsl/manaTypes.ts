@@ -4,13 +4,12 @@ import { MANA_QUERY_BASIS } from './schema/v1'
 import type { Instruction, ManaQueryBasis, ObjectSelector } from './schema/v1'
 import { captureObject } from '../../objectIdentity'
 import { activatedManaOptions } from '../manaChoice'
-import { hasForestOverlay } from '../../plugins/forestOverlay'
-import { hasSwampOverlay } from '../../plugins/swampOverlay'
+import { BASIC_LAND_MANA, hasBasicLandType } from '../../plugins/landTypes'
+import { BASIC_LAND_TYPES } from './schema/v1'
 import { manaModes } from '../../plugins/mana'
 import { evaluateCondition, evaluateObjectSelector, evaluateRuntimeAmount } from './compiler/runtime'
 
 export const MANA_TYPES = ['W', 'U', 'B', 'R', 'G', 'C'] as const
-const BASIC_TYPES: Readonly<Record<string, ManaId>> = { Plains: 'W', Island: 'U', Swamp: 'B', Mountain: 'R', Forest: 'G' }
 
 const selectedCardColors = (of: ObjectSelector, context: RuleDslRuntimeContext) => {
   const cards = evaluateObjectSelector(of, context)
@@ -36,9 +35,9 @@ export const availableManaTypes = (state: GameState, source: GameObject, of: Obj
       const types = known.get(object.id)!
       const add = (type: ManaId) => { if (!types.has(type)) { types.add(type); changed = true } }
       if (object.types.includes('Land')) {
-        for (const subtype of object.subtypes) if (BASIC_TYPES[subtype]) add(BASIC_TYPES[subtype])
-        if (hasForestOverlay(state)) add('G')
-        if (hasSwampOverlay(state)) add('B')
+        for (const subtype of BASIC_LAND_TYPES) {
+          if (hasBasicLandType(object, subtype, state)) add(BASIC_LAND_MANA[subtype])
+        }
       }
       if (!object.ruleDefinition) {
         for (const pool of [...manaModes(object, state), ...activatedManaOptions(state, object).map(option => option.pool)]) for (const type of MANA_TYPES) if ((pool[type] ?? 0) > 0) add(type)

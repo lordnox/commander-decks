@@ -173,10 +173,9 @@ describe('card plugin registry', () => {
       'choiceEffects',
       'ward',
     ])
-    expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([
-      'castCosts',
-      'librarySearch',
-    ])
+    expect(handlerIdsForNames(['Finale of Devastation'])).toEqual([])
+    expect(cardPluginEntry('Finale of Devastation')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')).toBeDefined()
     expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([
       'exiledWith',
       'ward',
@@ -607,10 +606,8 @@ describe('card plugin registry', () => {
       { op: 'targetedResolve', filter: { players: 'opponent' } },
     ])
     expect(cardDefinition('Roaming Throne')?.handlerIds).toContain('ward')
-    expect(cardDefinition('Life from the Loam')?.effects).toMatchObject([
-      { op: 'dredge' },
-      { op: 'targetedResolve', min: 0, max: 3, optional: true },
-    ])
+    expect(effectsFor('Life from the Loam')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Life from the Loam')).toBeDefined()
     expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([
       { op: 'static', playLandsFromGraveyard: true },
     ])

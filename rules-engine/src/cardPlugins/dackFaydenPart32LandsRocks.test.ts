@@ -11,12 +11,7 @@ import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { effectsFor } from './cardRules'
 import { cycling } from './cycling'
 import { entersTapped } from './entersTapped'
-import {
-  librarySearch,
-  SEARCH_FETCH,
-  searchCandidates,
-  searchSpecFor,
-} from './librarySearch'
+import { librarySearch } from './librarySearch'
 import { linkedExile } from './linkedExile'
 import { onResolve } from './onResolve'
 
@@ -588,11 +583,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
   })
 
   test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {
-    const landscape = cardTemplate('Myriad Landscape', {
-      types: ['Land'],
-      tapProduces: { C: 1 },
-      effects: effectsFor('Myriad Landscape'),
-    })
+    const landscape = cardTemplate('Myriad Landscape')
     const forestA = cardTemplate('Forest A', {
       types: ['Land'],
       subtypes: ['Forest'],
@@ -613,14 +604,16 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const landscapeId = named(server.state, 'Myriad Landscape').id
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 2
-    const opened = ok(server.rules(ready, {
+    const announced = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: landscapeId,
     }))
-    expect(opened.objects[landscapeId].zone).toBe('graveyard')
-    const spec = searchSpecFor('Myriad Landscape')!
-    expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Forest A', 'Forest B'])
+    expect(announced.objects[landscapeId].zone).toBe('graveyard')
+    const searching = resolveStack(server.rules, announced)
+    const pick = pendingSelectionFor(searching, 'p1')!
+    expect(pick.related).toBe('shareLandType')
+    expect(pick.candidates.map(id => searching.objects[id]!.name)).toEqual(['Forest A', 'Forest B'])
   })
 })

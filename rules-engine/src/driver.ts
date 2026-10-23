@@ -1826,6 +1826,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           destinations: ['target', 'skip'],
           canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice },
           ...(instruction.viewLibrary ? { viewLibrary: true as const } : {}),
+          ...(instruction.related ? { related: instruction.related } : {}),
           ...(fromZone ? {
             fromZone,
             fromSeat: candidates[0]?.owner ?? chooser,

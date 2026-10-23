@@ -1,6 +1,7 @@
 import type { GameObject, ManaId } from '../../types'
 import type { Instruction } from './schema/v1'
 import { classifyManaAbility, compileCardRuleDefinition } from './compiler'
+import { grantedOrPrintedBasicLandTypes } from '../../plugins/landTypes'
 
 // Recursive instruction walks require explicit result types for TypeScript inference.
 export const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
@@ -92,7 +93,7 @@ export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) =>
 
 /** Classify printed/intrinsic abilities; mana in reminder text is not an ability. */
 export const hasManaAbility = (source: GameObject) => {
-  if (source.types.includes('Land') && source.subtypes.some(subtype => ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'].includes(subtype))) return true
+  if (source.types.includes('Land') && grantedOrPrintedBasicLandTypes(source).length > 0) return true
   if (Object.values(source.tapProduces ?? {}).some(value => typeof value === 'number' && value > 0)) return true
   if (!source.ruleDefinition) return false
   return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities.some(ability => {

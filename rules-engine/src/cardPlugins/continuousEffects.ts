@@ -572,6 +572,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     // Status only; combat reads continuousEffects directly.
   } else if (effect.kind === 'encoreAttack') {
     // combat restriction metadata only
+  } else if (effect.kind === 'subtypeGrant') {
+    // Status only; land-type readers inspect continuousEffects.
   } else if (effect.kind === 'triggerGrant') {
     const effects = object.effects ?? []
     const index = effects.findIndex((entry) => triggersMatch(entry, effect.trigger))
@@ -626,6 +628,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     // Status only; combat reads continuousEffects directly.
   } else if (effect.kind === 'encoreAttack') {
     // combat restriction metadata only
+  } else if (effect.kind === 'subtypeGrant') {
+    // Status only; land-type readers inspect continuousEffects.
   } else if (effect.kind === 'triggerGrant') {
     const effects = baseEffects(object)
     if (!effects.some((entry) => triggersMatch(entry, effect.trigger))) {
