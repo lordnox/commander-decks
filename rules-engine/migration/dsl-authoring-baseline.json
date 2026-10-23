@@ -201,12 +201,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "ee9e881f7d24b27dc1c5502b0cd58b7c268374629248d0519270a6252967e7c0",
-    "card": "Parting Gust"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "fe13f7bc1a82fe8f298cecbed6211620777d38148958a2fb0e587c7244fe2caa",
     "card": "Quantum Misalignment"
   },

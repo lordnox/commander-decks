@@ -6,7 +6,7 @@ import type { ActivatedAbilityDefinition, Amount, Condition, Cost, CostOptionCon
 import type { CanonicalTargetBinding, GameObject, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage, activePrintedStaticModifiers } from '../staticModifierCore'
-import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluateObjectSelector, evaluatePlayerSelector, evaluateRuntimeAmount } from './runtime'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
@@ -55,6 +55,7 @@ export type AnnouncementProposal = {
   /** Optional client answer; the server still rechecks all candidates. */
   selectedOptional?: readonly number[]
   selectedAlternative?: number
+  selectedPlayers?: Readonly<Record<number, PlayerId>>
   excludeSourceFromCosts?: boolean
   /** Server-computed generic adjustment from format and legacy cost modifiers. */
   genericAdjustment?: number
@@ -184,7 +185,7 @@ export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => 
   return `${generic > 0 ? `{${generic}}` : ''}${nonGeneric}`
 }
 
-const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedOptional' | 'selectedAlternative'>) => {
+const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => {
   const selections = proposal.selectedOptional ?? []
   if (selections.length < (proposal.costs.optionalBounds?.min ?? 0) || selections.length > (proposal.costs.optionalBounds?.max ?? Infinity)) throw new TypeError('optional cost selection does not satisfy its bounds')
   const seen = new Set<number>()
@@ -207,7 +208,7 @@ const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedO
 /** One selection routine for legality, previews, and final payment. */
 export const chosenAbilityCosts = (
   ability: Pick<SpellAbilityDefinition, 'costs' | 'additionalCosts' | 'optionalCostBounds' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts'>,
-  choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'> = {},
+  choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'> = {},
 ) => selectedCosts({ costs: { mandatory: ability.costs, additional: ability.additionalCosts, optionalBounds: ability.optionalCostBounds, optional: ability.optionalCosts, repeatableOptional: ability.repeatableOptionalCosts, alternative: ability.alternativeCosts }, ...choices })
 
 const validateVariables = (variables: AnnouncementProposal['variables']) => {
@@ -501,6 +502,19 @@ export const beginAnnouncement = (
       if (!context || !evaluateCondition(condition.when, { ...context, paidCosts: proposalCostChoices(proposal) })) return { ok: false, error: 'selected cost option is not permitted' }
     }
     const costs = selectedCosts(proposal)
+    const playerChoices = proposal.selectedPlayers ?? {}
+    for (const key of Object.keys(playerChoices)) {
+      const index = Number(key)
+      if (!Number.isInteger(index) || String(index) !== key || !proposal.selectedOptional?.includes(index)
+        || proposal.costs.optional?.[index]?.kind !== 'choosePlayer') return { ok: false, error: 'unexpected cost player choice' }
+    }
+    for (const index of proposal.selectedOptional ?? []) {
+      const cost = proposal.costs.optional?.[index]
+      if (cost?.kind !== 'choosePlayer') continue
+      const context = announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X)
+      const player = playerChoices[index]
+      if (!context || !player || !evaluatePlayerSelector(cost.players, context).includes(player)) return { ok: false, error: 'illegal cost player choice' }
+    }
     const plan: CostPlan = { xManaColor: proposal.costs.xManaColor, mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
     validateNonManaCosts(
       state,
@@ -564,6 +578,7 @@ export const beginSpellAnnouncement = (
   options: {
     selectedOptional?: readonly number[]
     selectedAlternative?: number
+    selectedPlayers?: Readonly<Record<number, PlayerId>>
     genericAdjustment?: number
     deferPayment?: boolean
     targetClauses?: readonly TargetClause[]
@@ -645,13 +660,14 @@ export const beginActivatedAnnouncement = (
   }, `activation:${source.id}`)
 }
 
-const proposalCostChoices = (choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'>) => ({
+const proposalCostChoices = (choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => ({
   optional: [...(choices.selectedOptional ?? [])],
+  ...(choices.selectedPlayers ? { players: { ...choices.selectedPlayers } } : {}),
   ...(choices.selectedAlternative !== undefined ? { alternative: choices.selectedAlternative } : {}),
 })
 
 /** A private proposal view lets targeting inspect announced choices before payment. */
-export const proposedCostSource = (source: GameObject, choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'>) => ({
+export const proposedCostSource = (source: GameObject, choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => ({
   ...source, castCostChoices: proposalCostChoices(choices),
 })
 

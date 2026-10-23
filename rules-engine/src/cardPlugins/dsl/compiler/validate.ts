@@ -206,6 +206,11 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         break
       }
+      case 'paidCostPlayer':
+        exactKeys(node, path, ['kind', 'index'], ['kind', 'index'])
+        integer(node.index, childPath(path, 'index'), { max: MAX_LIST_LENGTH - 1 })
+        domain = 'player'
+        break
       case 'relatedPlayer':
         exactKeys(node, path, ['kind', 'relation', 'of', 'information'], ['kind', 'relation', 'of'])
         if (node.information !== undefined) enumeration(node.information, childPath(path, 'information'), new Set(['currentOrLastKnown']), 'information policy')
@@ -751,6 +756,11 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!node) return
     declarations.push({ path, kind: `cost:${String(node.kind)}` })
     switch (node.kind) {
+      case 'choosePlayer':
+        exactKeys(node, path, ['kind', 'players'], ['kind', 'players'])
+        if (validateSelector(node.players, childPath(path, 'players'), env) !== 'player') issue(path, 'domain', 'player costs require a player selector')
+        if (!/\.optionalCosts\[\d+\]$/.test(path)) issue(path, 'domain', 'player choices must be optional spell costs')
+        return
       case 'tapSource':
         exactKeys(node, path, ['kind'], ['kind'])
         return
@@ -1136,9 +1146,10 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'createToken': {
-        exactKeys(node, path, ['kind', 'count', 'targets', 'token', 'bindResult', 'bindChoice'], ['kind', 'count', 'targets', 'token'])
+        exactKeys(node, path, ['kind', 'count', 'targets', 'token', 'tapped', 'bindResult', 'bindChoice'], ['kind', 'count', 'targets', 'token'])
         validateAmount(node.count, childPath(path, 'count'), env)
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
         const token = object(node.token, childPath(path, 'token'))
         if (token) {
           exactKeys(token, childPath(path, 'token'), ['name', 'types', 'subtypes', 'colors', 'power', 'toughness', 'oracleText', 'abilities'], ['name', 'types'])
@@ -2026,6 +2037,8 @@ export const validateDefinitionV1 = (root: unknown): {
           if (bounds.max !== undefined) integer(bounds.max, `${nodePath}.optionalCostBounds.max`, { min: typeof bounds.min === 'number' ? bounds.min : 0 })
         }
       }
+      const playerCostIndexes = Array.isArray(node.optionalCosts) ? node.optionalCosts.flatMap((cost, index) => isData(cost) && cost.kind === 'choosePlayer' ? [index] : []) : []
+      if (playerCostIndexes.length && (node.kind !== 'spell' || (Array.isArray(node.repeatableOptionalCosts) && node.repeatableOptionalCosts.some(index => playerCostIndexes.includes(Number(index)))))) issue(nodePath, 'domain', 'player choices require nonrepeatable optional spell costs')
       const selectableCosts = [node.additionalCosts, node.optionalCosts, ...(Array.isArray(node.alternativeCosts) ? node.alternativeCosts : [])]
       if (selectableCosts.some(costs => Array.isArray(costs) && costs.some(cost => isData(cost) && cost.kind === 'convoke'))) issue(nodePath, 'domain', 'convoke must be declared as a spell payment method, not a selectable cost')
       if (node.costLabels !== undefined) {

@@ -2662,3 +2662,18 @@ test('Will of the Sultai keeps one-or-both mode bounds separate from payment', (
     ] },
   ])
 })
+
+
+test('Parting Gust composes a promised tapped blue Fish before conditional nontoken exile and delayed return', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Parting Gust')!.definition.abilities[0]!
+  expect(ability).toMatchObject({
+    kind: 'spell', optionalCosts: [{ kind: 'choosePlayer', players: { kind: 'players', filter: { relation: 'opponent' } } }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', token: false } } }] },
+    instructions: [
+      { kind: 'if', then: [{ kind: 'createToken', targets: { kind: 'paidCostPlayer', index: 0 }, tapped: true, token: { colors: ['U'], power: 1, toughness: 1 } }] },
+      { kind: 'if', then: [{ kind: 'move', to: 'exile' }], otherwise: [{ kind: 'sequence', instructions: [
+        { kind: 'move', to: 'exile' }, { kind: 'createDelayed', instructions: [{ kind: 'move', to: 'battlefield', enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } }] },
+      ] }] },
+    ],
+  })
+})

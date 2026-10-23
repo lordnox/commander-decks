@@ -39,7 +39,6 @@ Current readiness: **0 composition candidates**; **55 blocked or awaiting source
 | `Lair of the Hydra` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Retain the nonzero-X bound on its animation activation. |
 | `Mirrorweave` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
-| `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |
 | `Perch Protection` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player), [42-turn](CARD-MIGRATION-BATCHES.md#42-turn) | Blocked by mechanics | Full gift, four Birds, phase-out, protection duration, and resolving exile. |
 | `Pitiless Carnage` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [25-plot](CARD-MIGRATION-BATCHES.md#25-plot) | Blocked by mechanics | — |
 | `Quantum Misalignment` | 28 | [28-modifiers](CARD-MIGRATION-BATCHES.md#28-modifiers), [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |

@@ -8,6 +8,8 @@ import {
   compareAmount,
   count,
   paidCostCount,
+  paidCostPlayer,
+  choosePlayerCost,
   characteristic,
   chooseX,
   divide,
@@ -42,7 +44,7 @@ import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
-import type { GameState } from '../../types'
+import type { GameEvent, GameState } from '../../types'
 import type { Amount } from './v1'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
@@ -806,4 +808,69 @@ test.each([{ min: 1, max: 2 }, { min: 2, max: 2 }, { min: 1, max: 1 }])('optiona
     expect(resolved.objects[first].zone).toBe(selected.includes(0) ? 'exile' : 'battlefield')
     expect(resolved.objects[second].zone).toBe(selected.includes(1) ? 'graveyard' : 'battlefield')
   }
+})
+
+
+describe('optional player choices as casting costs', () => {
+  const fixture = () => createServerGame(commanderRules, { players: 3, hands: { p1: [instructionSpell({
+    costs: [], optionalCosts: [choosePlayerCost(players({ relation: 'opponent' }))],
+    instructions: [
+      ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), { then: [gainLife({ targets: paidCostPlayer(0), amount: 2 })] }),
+      gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) }),
+    ],
+  })] } }, { random: () => 0 })
+
+  test('offers each opponent, locks the nontarget choice, and grants the benefit only on resolution after restore', () => {
+    const server = fixture()
+    const id = named(server.state, 'Instruction fixture').id
+    const actions = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell' && action.objectId === id)
+    expect(actions.filter(action => action.kind === 'castSpell' && action.selectedOptionalCosts?.includes(0)).map(action => action.kind === 'castSpell' ? action.costPlayers?.[0] : undefined).sort()).toEqual(['p2', 'p3'])
+    const action = actions.find(action => action.kind === 'castSpell' && action.costPlayers?.[0] === 'p2')!
+    let cast = server.state
+    for (const event of eventsForAvailableAction(cast, 'p1', action) ?? []) cast = ok(server.rules(cast, event))
+    expect(cast.players.p2.life).toBe(40)
+    expect(cast.objects[id].castCostChoices).toEqual({ optional: [0], players: { 0: 'p2' } })
+    const restored = restoreJournal(createJournal(cast), server.rules).current()
+    const resolved = resolveStack(server.rules, restored)
+    expect(resolved.players.p2.life).toBe(42)
+    expect(resolved.players.p1.life).toBe(41)
+  })
+
+  test('omitting the option gives no benefit; invalid, missing, and unsolicited recipients are rejected atomically', () => {
+    const server = fixture()
+    const objectId = named(server.state, 'Instruction fixture').id
+    const base = { type: 'castSpell' as const, seat: 'p1', objectId }
+    const normal = resolveStack(server.rules, ok(server.rules(server.state, base)))
+    expect(normal.players.p1.life).toBe(40)
+    expect(normal.players.p2.life).toBe(40)
+    const invalidOptions: Partial<Extract<GameEvent, { type: 'castSpell' }>>[] = [
+      { selectedOptionalCosts: [0] },
+      { selectedOptionalCosts: [0], costPlayers: { 0: 'p1' } },
+      { selectedOptionalCosts: [0], costPlayers: { 0: 'missing' } },
+      { costPlayers: { 0: 'p2' } },
+      { selectedOptionalCosts: [0], costPlayers: { 0: 'p2', 1: 'p3' } },
+    ]
+    for (const options of invalidOptions) expect(server.rules(server.state, { ...base, ...options }).ok).toBe(false)
+    expect(server.state.objects[objectId].zone).toBe('hand')
+  })
+
+  test('countering the spell prevents every promised benefit', () => {
+    const server = fixture()
+    const objectId = named(server.state, 'Instruction fixture').id
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: [0], costPlayers: { 0: 'p2' } }))
+    const countered = ok(server.rules(cast, { type: 'counterStackItem', stackId: cast.stack[0]!.id }))
+    expect(countered.objects[objectId].zone).toBe('graveyard')
+    expect(countered.players.p1.life).toBe(40)
+    expect(countered.players.p2.life).toBe(40)
+  })
+
+  test('a departing chosen player does not erase the paid option', () => {
+    const server = fixture()
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id, selectedOptionalCosts: [0], costPlayers: { 0: 'p2' } }))
+    const departed = structuredClone(cast)
+    departed.players.p2.lost = true
+    const resolved = resolveStack(server.rules, departed)
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.players.p2.life).toBe(40)
+  })
 })

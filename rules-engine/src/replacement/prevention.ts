@@ -119,7 +119,7 @@ const matchesObjectRecipient = (
       return evaluateObjectSelector(recipient, runtime)
         .some((object) => object.id === target.objectId)
     }
-    if (recipient.kind === 'players' || recipient.kind === 'relatedPlayer' || recipient.kind === 'resultRef') return false
+    if (recipient.kind === 'players' || recipient.kind === 'paidCostPlayer' || recipient.kind === 'relatedPlayer' || recipient.kind === 'resultRef') return false
     return evaluateObjectReference(recipient, runtime)
       .some((object) => object.id === target.objectId)
   }

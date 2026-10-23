@@ -1097,6 +1097,7 @@ const actionEvents = (
         controller: seat,
         token: {
           ...token,
+          ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
           ...(ruleDefinition ? { ruleDefinition } : {}),
           types: [...instruction.token.types],
           ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),

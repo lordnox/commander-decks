@@ -33,7 +33,7 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
-import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeBounds, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
+import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeBounds, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluatePlayerSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
 import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
@@ -153,6 +153,7 @@ export type AvailableAction =
       spreeModes?: string[]
       timesKicked?: number
       selectedOptionalCosts?: number[]
+      costPlayers?: Readonly<Record<number, PlayerId>>
       selectedAlternativeCost?: number
       castOption?: string
       castLabel?: string
@@ -853,16 +854,16 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const ability = definition?.abilities[abilityIndex]
     if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length)) return undefined
     const previewAbility = partial && ability.optionalCostBounds ? { ...ability, optionalCostBounds: { ...ability.optionalCostBounds, min: 0 } } : ability
-    const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), seat)
+    const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat)
     const choices = canonicalCostPreviewChoices(entries)
     if (!choices) return undefined
     const costCount = entries.reduce((total, entry) => total + entry.group.min, 0)
     const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
     const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
-    const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
+    const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
     const result = beginSpellAnnouncement(state, object, seat, previewAbility, grouped, action.x, choices, {
       targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
-      selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost,
+      selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
     })
     return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
   } catch {
@@ -1050,9 +1051,18 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const withCostOptions = (base: Extract<AvailableAction, { kind: 'castSpell' }>) => {
     if (!canonicalAbility || canonicalAbility.kind !== 'spell' || (!canonicalAbility.optionalCosts?.length && !canonicalAbility.alternativeCosts?.length)) return [base]
     let variants = [base, ...(canonicalAbility.alternativeCosts ?? []).map((_, selectedAlternativeCost) => ({ ...base, selectedAlternativeCost, castLabel: canonicalAbility.costLabels?.alternative?.[selectedAlternativeCost] ?? `Alternative payment ${selectedAlternativeCost + 1}` }))]
-    for (const [index] of (canonicalAbility.optionalCosts ?? []).entries()) {
+    for (const [index, optionalCost] of (canonicalAbility.optionalCosts ?? []).entries()) {
       variants = variants.flatMap(action => {
         const next = [action]
+        if (optionalCost.kind === 'choosePlayer') {
+          const context = { state, controller: seat, source: captureObject(object) }
+          for (const player of evaluatePlayerSelector(optionalCost.players, context)) {
+            next.push({ ...action, selectedOptionalCosts: [...(action.selectedOptionalCosts ?? []), index],
+              costPlayers: { ...action.costPlayers, [index]: player },
+              castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional choice ${index + 1}`} to ${player}` })
+          }
+          return next
+        }
         let optional = [...(action.selectedOptionalCosts ?? [])]
         const limit = canonicalAbility.repeatableOptionalCosts?.includes(index) ? 256 - optional.length : 1
         for (let count = 0; count < limit; count += 1) {
@@ -1791,7 +1801,7 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const originalSource = state.objects[action.objectId]
-  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }) : undefined
+  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }) : undefined
   const playerAttachments = source && !action.castOption ? enchantPlayerTargets(state, source) : undefined
   if (playerAttachments) return playerAttachments.map(player => ({ ...action, targetObjectId: player, targetName: player }))
   const objectAttachments = source && !action.castOption ? enchantTargets(state, source) : undefined
@@ -1801,7 +1811,7 @@ const targetVariants = (
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
     const ability = definition.abilities[abilityIndex]
     if (ability?.kind !== 'spell') return [{ ...action, targetGroups: [] }]
-    const costGroups = canonicalActionCostGroups(state, source, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), seat).map(entry => entry.group)
+    const costGroups = canonicalActionCostGroups(state, source, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat).map(entry => entry.group)
     const printedCost = spellCost(state, source, {
       additionalGeneric: taxFor(state, seat, source),
       x: action.x,
@@ -2214,6 +2224,7 @@ export const sameLegalAct = (
     kicked?: boolean
     timesKicked?: number
     selectedOptionalCosts?: number[]
+    costPlayers?: Readonly<Record<number, PlayerId>>
     selectedAlternativeCost?: number
     giftPromised?: boolean
     giftRecipientId?: string
@@ -2252,6 +2263,7 @@ export const sameLegalAct = (
       && left.giftPromised === right.giftPromised
       && left.giftRecipientId === right.giftRecipientId
       && JSON.stringify(left.spreeModes ?? []) === JSON.stringify(right.spreeModes ?? [])
+      && JSON.stringify(left.costPlayers ?? {}) === JSON.stringify(right.costPlayers ?? {})
       && JSON.stringify(left.selectedOptionalCosts ?? []) === JSON.stringify(right.selectedOptionalCosts ?? [])
       && left.selectedAlternativeCost === right.selectedAlternativeCost
       && left.timesKicked === right.timesKicked
@@ -2607,13 +2619,13 @@ export const eventsForAvailableAction = (
   }
   if (action.kind !== 'castSpell') return null
   const originalSource = state.objects[action.objectId]
-  const canonicalSource = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }) : undefined
+  const canonicalSource = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }) : undefined
   if (canonicalSource?.ruleDefinition) {
     const definition = loadDefinitionSnapshot(canonicalSource.ruleDefinition).definition
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
     const ability = definition.abilities[abilityIndex]
     try {
-      const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost }), seat) : []
+      const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat) : []
       const costGroups = costEntries.map(entry => entry.group)
       const chosen = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
       const costCount = costGroups.reduce((count, group) => count + group.min, 0)
@@ -2637,7 +2649,7 @@ export const eventsForAvailableAction = (
         : []
       const tax = taxFor(state, seat, canonicalSource)
       const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
-        { selectedOptional: action.selectedOptionalCosts, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
+        { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
       if (announcement && !announcement.ok) return null
       const cost = reduceGenericManaCost(
         announcement?.ok ? announcement.transaction.lockedCost.mana ?? ''
@@ -2653,6 +2665,7 @@ export const eventsForAvailableAction = (
         ...(action.delve?.length ? { delve: action.delve } : {}),
         ...(action.convoke?.length ? { convoke: action.convoke } : {}),
         ...(action.selectedOptionalCosts ? { selectedOptionalCosts: action.selectedOptionalCosts } : {}),
+        ...(action.costPlayers ? { costPlayers: { ...action.costPlayers } } : {}),
         ...(action.selectedAlternativeCost !== undefined ? { selectedAlternativeCost: action.selectedAlternativeCost } : {}),
         ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}), ...(action.x !== undefined ? { x: action.x } : {}),
         ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),

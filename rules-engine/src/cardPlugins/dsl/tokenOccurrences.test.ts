@@ -117,3 +117,22 @@ test('a prevented sacrifice destination move does not emit a completed sacrifice
   expect(state.stack).toHaveLength(0)
   expect(state.objects[token.id]!.zone).toBe('battlefield')
 })
+
+
+test('creation can enter tapped before creation observers run without giving the token a permanent entry ability', () => {
+  const observer = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(tokenCreated({ controller: 'you', tapped: true }), { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Tapped observer fixture', { types: ['Artifact'], ruleDefinition: observer })] },
+    hands: { p1: [instructionSpell({ instructions: [createToken({ targets: ref('controller'), count: 1, tapped: true, token: { name: 'Tapped fixture', types: ['Creature'], colors: ['U'], power: 1, toughness: 1 } })] })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }))
+  const created = ok(server.rules(cast, { type: 'resolveTop' }))
+  const token = Object.values(created.objects).find(object => object.token)!
+  expect(token).toMatchObject({ tapped: true, colors: ['U'] })
+  expect(token.ruleDefinition).toBeUndefined()
+  expect(created.players.p1.life).toBe(40)
+  expect(created.stack).toHaveLength(1)
+  expect(resolveStack(server.rules, created).players.p1.life).toBe(41)
+})

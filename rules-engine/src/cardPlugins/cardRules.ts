@@ -9,7 +9,6 @@ import {
   attacks,
   basicLand,
   embalm,
-  blink,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copyTargetCreature,
@@ -58,7 +57,6 @@ import {
   chooseCreatureType,
   chooseVotesThisTurn,
   exchangeControlUntilEot,
-  ifGiftNotPromised,
   ward,
   type CardEffect,
   type CardInstruction,
@@ -267,29 +265,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'select',
       { zone: 'battlefield', type: 'Creature', controller: 'you' },
       copyAllCreaturesUntilEot(),
-    ),
-  ],
-  'Parting Gust': [
-    gift({
-      label: 'Gift a tapped Fish',
-      token: {
-        name: 'Fish',
-        types: ['Creature'],
-        subtypes: ['Fish'],
-        power: 1,
-        toughness: 1,
-        tapped: true,
-      },
-    }),
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', type: 'Creature' },
-      ifGiftNotPromised(blink({
-        when: 'nextEndStep',
-        plusCounters: 1,
-        returnController: 'owner',
-        targetIndex: 0,
-      })),
     ),
   ],
   'Perch Protection': [

@@ -984,6 +984,7 @@ export const proliferate = (input: {
 }): Instruction => immutableData({ kind: 'proliferate', targets: input.targets })
 
 export const createToken = (input: {
+  tapped?: boolean
   count: AmountInput
   targets: Extract<Instruction, { kind: 'createToken' }>['targets']
   token: TokenDefinition
@@ -991,6 +992,7 @@ export const createToken = (input: {
   bindChoice?: string
 }): Instruction => immutableData({
   kind: 'createToken',
+  ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   count: toAmount(input.count),
   targets: input.targets,
   token: input.token,
@@ -1420,3 +1422,6 @@ export const countDistinctCardTypes = (of: ObjectSelector): Amount => immutableD
 
 export const hasGreatestCharacteristic = (of: ObjectReference, among: ObjectSelector, characteristic: ObjectNumericCharacteristic): Condition =>
   immutableData({ kind: 'hasGreatestCharacteristic', of, among, characteristic })
+
+export const paidCostPlayer = (index: number) => immutableData({ kind: 'paidCostPlayer' as const, index })
+export const choosePlayerCost = (players: PlayerSelector) => immutableData({ kind: 'choosePlayer' as const, players })

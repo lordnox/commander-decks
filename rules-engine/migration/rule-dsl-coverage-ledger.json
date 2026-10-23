@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 54,
+    "cardRegistrations": 53,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 115,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 69,
-    "candidateOnlyCardRows": 49
+    "candidateOnlyCardRows": 48
   },
   "cardEffects": [
     {
@@ -93,7 +93,7 @@
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:158 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:113 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:418 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
@@ -130,19 +130,15 @@
       "variant": "castCost",
       "mechanic": "casting cost modifier",
       "currentRegistrations": [
-        "Parting Gust:effects[0]",
         "Perch Protection:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:148 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:688 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
@@ -486,14 +482,13 @@
         "Irenicus's Vile Duplication:effects[0]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
-        "Parting Gust:effects[1]",
         "Quantum Misalignment:effects[0]",
         "Snuff Out:effects[1]",
         "Vantress Visions:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 18,
+        "matches": 15,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:121 — test('Mirrorweave rejects legendary targets and restores copied creatures at cleanup', () => {",
@@ -501,8 +496,8 @@
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -939,21 +934,16 @@
     {
       "variant": "blink",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Parting Gust:effects[1].do[0].whenTrue[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:805 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:819 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:830 — test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:846 — test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:846 — test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1363,7 +1353,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 15,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
@@ -1490,7 +1480,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1914 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2567 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:69 — test('copied lifelink damage uses the copied source and controller', () => {",
+          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:72 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
         ]
       },
@@ -2525,12 +2515,11 @@
       "variant": "if",
       "mechanic": "structured control flow",
       "currentRegistrations": [
-        "Parting Gust:effects[1].do[0]",
         "Perch Protection:effects[1].do[4]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 29,
+        "matches": 27,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -4567,7 +4556,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:158 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:113 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:664 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -5673,47 +5662,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Parting Gust",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Parting Gust"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:129 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:658 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [blink, if]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "blink",
-        "if"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "blink",
-        "castCosts",
-        "giftCast",
         "targetedResolve"
       ],
       "embeddedRulePaths": []
@@ -7305,9 +7253,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:226 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:285 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:522 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:228 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:287 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:524 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1081 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1120 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]
@@ -8515,7 +8463,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:351",
+        "rules-engine/src/cardPlugins/cardRules.ts:327",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -8540,7 +8488,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1400"
+        "rules-engine/src/types.ts:1401"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -8573,9 +8521,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1425",
-        "rules-engine/src/actions.ts:1594",
-        "rules-engine/src/actions.ts:888",
+        "rules-engine/src/actions.ts:1435",
+        "rules-engine/src/actions.ts:1604",
+        "rules-engine/src/actions.ts:889",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:245",
@@ -8609,7 +8557,7 @@
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1455",
+        "rules-engine/src/driver.ts:1456",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -8806,12 +8754,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1857,
-          2765
+          1867,
+          2778
         ],
         "samples": [
-          "1857: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2765: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1867: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2778: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -8940,10 +8888,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          474
+          475
         ],
         "samples": [
-          "474: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "475: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -8955,14 +8903,14 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          457,
-          555,
-          783
+          467,
+          565,
+          791
         ],
         "samples": [
-          "457: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "555: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "783: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "467: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "565: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "791: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9722,8 +9670,8 @@
           343,
           348,
           786,
-          2136,
-          2168
+          2137,
+          2169
         ],
         "samples": [
           "343: const liveSource = draft.object(source.ref.objectId)",

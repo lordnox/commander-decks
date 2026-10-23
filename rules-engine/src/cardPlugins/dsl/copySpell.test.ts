@@ -5,6 +5,9 @@ import {
   gainLife,
   manaCost,
   paidCostCount,
+  paidCostPlayer,
+  choosePlayerCost,
+  players,
   target,
   card,
   amount,
@@ -294,14 +297,15 @@ describe('copySpell', () => {
 
 test('spell copies retain the original optional payment receipt without paying again', () => {
   const server = createServerGame(commanderRules, { hands: { p1: [
-    instructionSpell({ optionalCosts: [manaCost('{2}')], instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) })] }),
+    instructionSpell({ optionalCosts: [manaCost('{2}'), choosePlayerCost(players({ relation: 'opponent' }))], instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) }), gainLife({ targets: paidCostPlayer(1), amount: paidCostCount('optional', 1) })] }),
     instructionSpell({ decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] }, instructions: [copySpell({ targets: target(0), retarget: { kind: 'keep' } })] }),
   ] } }, { random: () => 0 })
   server.state.players.p1.mana.C = 2
   const [original, copier] = server.state.zoneOrder.p1.hand
-  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: original, selectedOptionalCosts: [0] }))
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: original, selectedOptionalCosts: [0, 1], costPlayers: { 1: 'p2' } }))
   const copying = ok(server.rules(cast, { type: 'castSpell', seat: 'p1', objectId: copier, targets: [{ kind: 'stackItem', stackId: cast.stack[0].id }] }))
   const resolved = resolveStack(server.rules, copying)
   expect(resolved.players.p1.life).toBe(42)
+  expect(resolved.players.p2.life).toBe(42)
   expect(resolved.players.p1.mana.C).toBe(0)
 })

@@ -666,13 +666,9 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(names)).toEqual([])
     expect(handlerIdsForNames(names)).toEqual([
       'alternateCosts',
-      'blink',
       'blinkValue',
-      'castCosts',
       'choiceEffects',
-      'giftCast',
       'linkedExile',
-      'targetedResolve',
     ])
   })
 

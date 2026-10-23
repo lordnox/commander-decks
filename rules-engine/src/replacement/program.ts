@@ -38,7 +38,7 @@ export const applyReplacementTransform = (
       }
       const attachment = transform.changes.attachTo
       const playerAttachment = attachment && context && referenceIsPlayer(attachment, context)
-      const attachedObject = attachment && attachment.kind !== 'relatedPlayer' && attachment.kind !== 'resultRef' && !playerAttachment && context ? evaluateObjectReference(attachment, context)[0] : undefined
+      const attachedObject = attachment && attachment.kind !== 'paidCostPlayer' && attachment.kind !== 'relatedPlayer' && attachment.kind !== 'resultRef' && !playerAttachment && context ? evaluateObjectReference(attachment, context)[0] : undefined
       const attachedPlayer = attachment && context && playerAttachment ? evaluatePlayerReference(attachment, context)[0] : undefined
       if (attachment && !attachedObject && !attachedPlayer) return { kind: 'prevented' }
       const next = {

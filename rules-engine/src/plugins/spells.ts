@@ -84,7 +84,7 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<Abil
 export const preparePlannedSpellAnnouncement = (state: GameState, event: InternalCastEvent) => {
   if (!event.manaActivations?.length) return { ok: false as const, error: 'mana payment plan is empty' }
   const originalSource = state.objects[event.objectId]
-  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost }) : undefined
+  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost }) : undefined
   if (!source?.ruleDefinition) return { ok: false as const, error: 'planned payment requires a canonical spell' }
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
   const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -105,7 +105,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     event.x,
     [...(event.discard ?? []), ...(event.sacrifice ?? [])],
     {
-      selectedOptional: event.selectedOptionalCosts,
+      selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
       selectedAlternative: event.selectedAlternativeCost,
       phyrexianLife: event.phyrexianLife,
       deferPayment: true,
@@ -505,7 +505,7 @@ export const spells: Plugin = {
       return
     }
     const originalObject = state.objects[event.objectId]
-    const object = originalObject ? proposedCostSource(originalObject, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost }) : undefined
+    const object = originalObject ? proposedCostSource(originalObject, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost }) : undefined
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
     const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -526,7 +526,7 @@ export const spells: Plugin = {
       event.x,
       [...(event.discard ?? []), ...(event.sacrifice ?? [])],
       {
-        selectedOptional: event.selectedOptionalCosts,
+        selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
         selectedAlternative: event.selectedAlternativeCost,
         phyrexianLife: event.phyrexianLife,
         targetClauses,
@@ -622,7 +622,7 @@ export const spells: Plugin = {
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = resolveCastFace(object, event)
-      const spell = proposedCostSource(face ? { ...object, ...face } : object, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost })
+      const spell = proposedCostSource(face ? { ...object, ...face } : object, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost })
       let canonicalLockedManaCost: string | undefined
       if (object.ruleDefinition && !event.copy) {
         if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
@@ -699,7 +699,7 @@ export const spells: Plugin = {
               event.x,
               [...(event.discard ?? []), ...(event.sacrifice ?? [])],
               {
-                selectedOptional: event.selectedOptionalCosts,
+                selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
                 selectedAlternative: event.selectedAlternativeCost,
                 phyrexianLife: event.phyrexianLife,
                 deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
@@ -953,7 +953,7 @@ export const spells: Plugin = {
           : undefined
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
-            selectedOptional: event.selectedOptionalCosts,
+            selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
             deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,

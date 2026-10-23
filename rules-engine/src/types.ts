@@ -440,7 +440,7 @@ export type GameObject = {
  * `id` is allocated once via `draft.allocId('stack')` and never regenerated —
  * stable for `continueAction`, replay, and client round-trips.
  */
-export type PaidCostChoices = { optional: readonly number[]; alternative?: number }
+export type PaidCostChoices = { optional: readonly number[]; alternative?: number; players?: Readonly<Record<number, PlayerId>> }
 
 export type StackItem = {
   id: string
@@ -1146,6 +1146,7 @@ export type GameEvent =
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       wardPaid?: boolean
       selectedOptionalCosts?: number[]
+      costPlayers?: Readonly<Record<number, PlayerId>>
       selectedAlternativeCost?: number
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }

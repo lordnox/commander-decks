@@ -171,11 +171,21 @@ const playerContextReference = (
   }
 }
 
+const paidCostChoices = (context: RuleDslRuntimeContext) => {
+  const item = context.stackItemId ? context.state.stack.find(candidate => candidate.id === context.stackItemId) : undefined
+  return context.paidCosts ?? item?.execution?.announcement?.costChoices
+    ?? context.source.snapshot.castCostChoices ?? currentSource(context)?.castCostChoices
+}
+
 export const evaluatePlayerReference = (
   reference: PlayerReference,
   context: RuleDslRuntimeContext,
 ) => {
   switch (reference.kind) {
+    case 'paidCostPlayer': {
+      const player = paidCostChoices(context)?.players?.[reference.index]
+      return player && context.state.players[player] && !context.state.players[player].lost ? [player] : []
+    }
     case 'resultRef': {
       const value = context.results?.[reference.binding]
       if (typeof value !== 'string' || !context.state.players[value]) throw new RuleDslEvaluationError(`player result ${reference.binding} is not bound`)
@@ -312,7 +322,7 @@ const characteristicObjects = (
   context: RuleDslRuntimeContext,
   information: 'current' | 'currentOrLastKnown',
 ) => {
-  if (reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') return []
+  if (reference.kind === 'paidCostPlayer' || reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') return []
   if (reference.kind === 'targetRef' || reference.kind === 'choiceRef') {
     const bound = recipients(reference, context)
     if (bound.every(recipient => recipient.kind === 'stackItem')) {
@@ -562,7 +572,7 @@ const oneReferenceValue = (
     if (players.length !== 1) throw new RuleDslEvaluationError('life reference must resolve to exactly one player')
     return context.state.players[players[0]].life
   }
-  if (reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') {
+  if (reference.kind === 'paidCostPlayer' || reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') {
     throw new RuleDslEvaluationError(`${characteristic} cannot read an instruction result`)
   }
   const objects = characteristicObjects(reference, context, information)
@@ -600,10 +610,7 @@ export const amountEvaluationContext = (
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
   paidCostCount: (cost, index) => {
-    const item = context.stackItemId ? context.state.stack.find(candidate => candidate.id === context.stackItemId) : undefined
-    const choices = context.paidCosts ?? item?.execution?.announcement?.costChoices
-      ?? context.source.snapshot.castCostChoices
-      ?? currentSource(context)?.castCostChoices
+    const choices = paidCostChoices(context)
     return cost === 'optional'
       ? choices?.optional.filter(selected => selected === index).length ?? 0
       : Number(choices?.alternative === index)
@@ -778,6 +785,7 @@ export const objectMatchesSelector = (
 /** Disambiguate references whose serialized shape can bind either player or object identities. */
 export const referenceIsPlayer = (reference: PlayerReference | ObjectReference, context: RuleDslRuntimeContext) => {
   switch (reference.kind) {
+    case 'paidCostPlayer':
     case 'relatedPlayer':
     case 'resultRef': return true
     case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)

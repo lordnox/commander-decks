@@ -82,9 +82,10 @@ export type TargetReference = { kind: 'targetRef'; clauseIndex: number }
 export type ChoiceReference = { kind: 'choiceRef'; binding: string }
 export type ResultReference = { kind: 'resultRef'; binding: string; field: ResultField }
 export type RelatedPlayerReference = { kind: 'relatedPlayer'; relation: 'controller' | 'owner'; information?: 'currentOrLastKnown'; of: ObjectReference | StackItemReference }
-export type Reference = ContextReference | TargetReference | ChoiceReference | ResultReference | RelatedPlayerReference
+export type PaidCostPlayerReference = { kind: 'paidCostPlayer'; index: number }
+export type Reference = PaidCostPlayerReference | ContextReference | TargetReference | ChoiceReference | ResultReference | RelatedPlayerReference
 
-export type PlayerReference = ContextReference | TargetReference | ChoiceReference | RelatedPlayerReference | (ResultReference & { field: 'player' })
+export type PlayerReference = PaidCostPlayerReference | ContextReference | TargetReference | ChoiceReference | RelatedPlayerReference | (ResultReference & { field: 'player' })
 export type ObjectReference = ContextReference | TargetReference | ChoiceReference
 export type StackItemReference = TargetReference | ChoiceReference
 
@@ -344,6 +345,7 @@ export type ManaCost = string
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
+  | { kind: 'choosePlayer'; players: PlayerSelector }
   | { kind: 'tapSource' }
   | { kind: 'discard'; filter: ObjectRecipient; count: Amount }
   | { kind: 'sacrifice'; filter: ObjectRecipient; count: Amount }
@@ -578,7 +580,7 @@ export type Instruction =
   /** Have each resolved player recipient choose permanents and players with counters to proliferate. */
   | { kind: 'proliferate'; targets: PlayerRecipient }
   /** Create the evaluated number of token objects under each resolved player recipient. */
-  | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string; bindChoice?: string }
+  | { kind: 'createToken'; tapped?: boolean; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string; bindChoice?: string }
   /** Place a source-independent emblem in each recipient's command zone. */
   | { kind: 'createEmblem'; targets: PlayerRecipient; emblem: EmblemDefinition }
   /** Creatures the chosen attackers control cannot attack matching defenders this turn. */
