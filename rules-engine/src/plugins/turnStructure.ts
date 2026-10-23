@@ -12,7 +12,7 @@ import { phaseInControlledBeforeUntap } from './phasing'
 import { clearAttackBans } from '../cardPlugins/attackBan'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
 import { beginDrawStepInstance } from '../rules/drawStepHistory'
-import { otherPlayerUntapParticipants } from '../cardPlugins/dsl/untapParticipation'
+import { otherPlayerDrawSeats, otherPlayerUntapParticipants } from '../cardPlugins/dsl/untapParticipation'
 import { untapPermanent, untapStepUntaps } from '../rules/untap'
 
 export const STEPS: StepId[] = [...STEP_IDS]
@@ -88,6 +88,9 @@ const onUntap = (draft: Draft) => {
 const onDraw = (draft: Draft) => {
   beginDrawStepInstance(draft, draft.active)
   draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })
+  for (const seat of otherPlayerDrawSeats(draft)) {
+    draft.enqueue({ type: 'draw', seat, count: 1 })
+  }
 }
 
 /**

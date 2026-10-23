@@ -82,6 +82,8 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'phase',
   'proliferate',
   'createToken',
+  'createEmblem',
+  'banAttacks',
   'copy',
   'copySpell',
   'putCounters',
@@ -184,6 +186,8 @@ const preflightInstructions = (
       case 'phase':
       case 'proliferate':
       case 'createToken':
+      case 'createEmblem':
+      case 'banAttacks':
       case 'copy':
       case 'copySpell':
       case 'putCounters':
@@ -1073,6 +1077,33 @@ const actionEvents = (
           dsl: true as const,
         },
       })))
+    }
+    case 'createEmblem': {
+      const targets = recipients(instruction.targets, context)
+      const { abilities, ...emblem } = instruction.emblem
+      const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, { abilities })))
+      return targets.map((seat) => ({
+        type: 'createEmblem' as const,
+        controller: seat,
+        emblem: {
+          name: emblem.name,
+          ...(emblem.subtypes ? { subtypes: [...emblem.subtypes] } : {}),
+          ...(emblem.oracleText !== undefined ? { oracleText: emblem.oracleText } : {}),
+          ruleDefinition,
+        },
+      }))
+    }
+    case 'banAttacks': {
+      const attackers = instruction.attackers.kind === 'players'
+        ? evaluatePlayerSelector(instruction.attackers, context)
+        : evaluatePlayerReference(instruction.attackers, context)
+      return attackers.map((seat) => ({
+        type: 'banAttacks' as const,
+        attackerController: seat,
+        protectorController: frame.controller,
+        source: structuredClone(frame.source),
+        defenders: structuredClone(instruction.defenders),
+      }))
     }
     case 'copy': {
       const sources = instruction.snapshot

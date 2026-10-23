@@ -21,12 +21,23 @@ import { activatedPermissionFields, activationPermission, beginActivatedAnnounce
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
-import type { AbilityDefinition } from './dsl/schema/v1'
+import type { AbilityDefinition, TargetClause } from './dsl/schema/v1'
 import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
 import { canonicalManaAbilityForTap, canonicalManaClassification } from './dsl/manaPrograms'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+
+const groupedActivatedTargets = (
+  targetClauses: readonly TargetClause[],
+  event: Extract<GameEvent, { type: 'activateAbility' }>,
+  partition: () => TargetRef[][] | undefined,
+) => {
+  if (targetClauses.length === 0) return []
+  if (event.targetClauses) return event.targetClauses
+  if (targetClauses.length === 1) return [event.targets ?? []]
+  return partition()
+}
 
 const activatedModalInputs = (state: GameState, source: GameObject, ability: Extract<AbilityDefinition, { kind: 'activated' }>, abilityIndex: number, event: Extract<GameEvent, { type: 'activateAbility' }>) => {
   if (!('modes' in ability)) return undefined
@@ -176,10 +187,17 @@ export const activated: Plugin = {
           && event.door !== 'left' && event.door !== 'right') {
           return `${source.name} needs a door to lock or unlock`
         }
-        const groupedTargets = targetClauses.length === 0
-          ? []
-          : event.targetClauses
-            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
+        const groupedTargets = groupedActivatedTargets(targetClauses, event, () => {
+          try {
+            return canonicalTargetBindings(
+              state, source, compiled.definition, Number(abilityIndex),
+              event.targets ?? event.targetClauses?.flat() ?? [], undefined, undefined,
+              event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+            ).map(binding => binding.recipients)
+          } catch {
+            return undefined
+          }
+        })
         if (groupedTargets !== undefined) {
           if (selectedDistributionSpecs(activatedCanonical, event.modeIndices).length > 0) {
             try {
@@ -355,10 +373,17 @@ export const activated: Plugin = {
         const manaClassification = canonicalManaClassification(canonical)
         const modal = activatedModalInputs(draft, source, canonical, Number(abilityIndex), event)
         const targetClauses = modal?.targetClauses ?? canonical.decisions.targets
-        const groupedTargets = targetClauses.length === 0
-          ? []
-          : event.targetClauses
-            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
+        const groupedTargets = groupedActivatedTargets(targetClauses, event, () => {
+          try {
+            return canonicalTargetBindings(
+              draft, source, compiled.definition, Number(abilityIndex),
+              event.targets ?? event.targetClauses?.flat() ?? [], undefined, undefined,
+              event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+            ).map(binding => binding.recipients)
+          } catch {
+            return undefined
+          }
+        })
         if (groupedTargets === undefined) return
         const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices, {
           selectedOptional: event.selectedOptionalCosts,
@@ -384,6 +409,12 @@ export const activated: Plugin = {
                 amount: evaluateAnnouncementCostAmount(costPart.amount, event.x), source: source.name,
               })
               break
+            case 'loyalty': {
+              const amount = evaluateAnnouncementCostAmount(costPart.amount, committed.lockedCost.x)
+              source.counters.loyalty = (source.counters.loyalty ?? 0) + (costPart.minus ? -amount : amount)
+              source.loyaltyActivatedTurn = state.turn
+              break
+            }
           }
         }
         const costObjectIds = resolveNonManaCostObjectChoices(

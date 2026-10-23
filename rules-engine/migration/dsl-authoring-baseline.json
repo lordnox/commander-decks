@@ -188,12 +188,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "3ddeb1524aab9fa65ebec412acf6a74a998cbc74c5eec07052d6ccba1c7c5c73",
-    "card": "Jace, Multiverse Architect"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "89d0c046964e9e52c18dbf4528ea72d29a4710486825ba8763676f9f1e5393dd",
     "card": "Joint Exploration"
   },
@@ -214,18 +208,6 @@
     "code": "legacy-card-registration",
     "digest": "999ebce2f25deba11af6e4656e76b2a3673d804b795a6a37f387dc21bcbff89b",
     "card": "Thespian's Stage"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "8105e185b3485413c663326ebc6cddda896938a89f747b3a9ee3073f30ee1a0e",
-    "card": "Teferi, Who Slows the Sunset"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4e84547502d8e49cd505d581d629126338bdf36f097151dbc73f805047b328d8",
-    "card": "Ugin, the Spirit Dragon"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

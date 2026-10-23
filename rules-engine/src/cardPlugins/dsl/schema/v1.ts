@@ -97,6 +97,8 @@ export type ObjectFilter = {
   other?: boolean
   commander?: boolean
   manaAbility?: boolean
+  /** True matches permanents with one or more colors; false matches colorless. */
+  colored?: boolean
   enchantedBy?: ObjectReference
   /** Current cards exiled by the referenced source incarnation. */
   exiledWith?: ObjectReference
@@ -314,6 +316,8 @@ export type Cost =
   | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
+  /** Add or remove loyalty counters as an activation cost (CR 606.4). `minus` pays the amount. */
+  | { kind: 'loyalty'; amount: Amount; minus?: true }
   /** Exile chosen graveyard cards while paying to cover generic mana only. */
   | { kind: 'delve' }
 
@@ -417,6 +421,14 @@ export type TokenDefinition = {
   toughness?: number | null
   oracleText?: string
   abilities?: readonly AbilityDefinition[]
+}
+
+/** Source-independent command-zone program created by a loyalty ability (CR 113). */
+export type EmblemDefinition = {
+  name: string
+  subtypes?: string[]
+  oracleText?: string
+  abilities: readonly AbilityDefinition[]
 }
 
 export type NamedVoteOption = { id: string; label: string }
@@ -526,6 +538,10 @@ export type Instruction =
   | { kind: 'proliferate'; targets: PlayerRecipient }
   /** Create the evaluated number of token objects under each resolved player recipient. */
   | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string; bindChoice?: string }
+  /** Place a source-independent emblem in each recipient's command zone. */
+  | { kind: 'createEmblem'; targets: PlayerRecipient; emblem: EmblemDefinition }
+  /** Creatures the chosen attackers control cannot attack matching defenders this turn. */
+  | { kind: 'banAttacks'; attackers: PlayerRecipient; defenders: ObjectSelector }
   /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
   | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; bindResult?: string; bindChoice?: string }
   /** Copy a spell already on the stack; this creates a copy without casting a card. */
@@ -752,6 +768,8 @@ export type ContinuousEffectDefinition =
   /** CR 702.21: counter an opponent’s targeted spell or ability unless its controller pays. */
   | { kind: 'ward'; cost: WardCost }
   | { kind: 'untapDuringOthers'; targets: ObjectSelector }
+  /** Controller draws during each other player's draw step. */
+  | { kind: 'drawDuringOthers'; targets: PlayerSelector }
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector | PlayerSelector }
   | {

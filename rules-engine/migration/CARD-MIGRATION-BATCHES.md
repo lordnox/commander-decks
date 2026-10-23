@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 21 combat keywords (annihilator, infect, even-mana restrictions, Flagbearer, attack/block taxes, and ward including life and sacrifice payments), plus the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **80 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **77 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 108 available, 0 awaiting correctness follow-up, and 65 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 110 available, 0 awaiting correctness follow-up, and 63 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -31,14 +31,14 @@ Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), bu
 
 The historical family numbers 01–44 remain stable for earlier discussions. Suffixes identify independent mechanic work inside a family. A numbered family is a navigation heading, not a requirement to finish all of its rows together. New cross-family dependencies are explicit. The old unique card-to-batch ownership rule is retired. The **Former batch** column in the card list is historical provenance only.
 
-- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire has migrated with **09-devour** and **21-ward**. Hostile Negotiations still needs **39-hidden**.
+- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire has migrated with **09-devour** and **21-ward**. Jace, Multiverse Architect and Teferi, Who Slows the Sunset have migrated with **32-loyalty**. Hostile Negotiations still needs **39-hidden**.
 - **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot. Deferred choices for the same player now reopen correctly (#444).
 - **09-devour is available:** entry-replacement devour chooses eligible permanents, sacrifices as the creature enters, and stamps +1/+1 counters from the actual count before ETB observers and SBAs. Land devour is included, including on a resolving creature spell. Famished Worldsire has migrated.
 - **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
 - **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **26-hand**.
-- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight and Finale of Devastation have migrated. Getaway Glamer still needs **25-spree**; Profane Command has migrated with **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
+- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight and Finale of Devastation have migrated. Getaway Glamer still needs **25-spree**; Profane Command has migrated with **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon has migrated with **32-loyalty**.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -150,7 +150,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset` |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fortune's Favor`; `Hostile Negotiations` |
 
 ### 09. Sacrifice outcomes and entry sacrifice
 
@@ -202,7 +202,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
 | <a id="14-counters"></a>**14-counters — Counter-count amounts** | Available | Read named current counter counts for production, doubling, or other numeric effects. Mossborn Hydra has migrated. | — | `Everflowing Chalice` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Available | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. Sandstone Oracle has migrated. | — | None remaining |
-| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
+| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Getaway Glamer`; `Rishkar's Expertise` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
 | <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Available | Compute the lowest current life total across living players, including negative totals, once per set-life instruction. Repay in Kind has migrated. | — | None remaining |
 | <a id="14-result-max"></a>**14-result-max — Maximum action result** | Available | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. Windfall has migrated. | — | None remaining |
@@ -396,8 +396,8 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="32-emblems"></a>**32-emblems — Emblems** | Open | Source-independent command-zone programs with ongoing abilities. | [32-loyalty](#32-loyalty) | `Teferi, Who Slows the Sunset` |
-| <a id="32-loyalty"></a>**32-loyalty — Loyalty activation** | Open | Loyalty costs including X, once-per-turn use, timing, and full announcement validation. | — | `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset`; `Ugin, the Spirit Dragon` |
+| <a id="32-emblems"></a>**32-emblems — Emblems** | Available | Source-independent command-zone programs with ongoing abilities. Teferi, Who Slows the Sunset has migrated. | [32-loyalty](#32-loyalty) | None remaining |
+| <a id="32-loyalty"></a>**32-loyalty — Loyalty activation** | Available | Loyalty costs including X, once-per-turn use, timing, and full announcement validation. Jace, Multiverse Architect, Teferi, Who Slows the Sunset, and Ugin, the Spirit Dragon have migrated. | — | None remaining |
 
 ### 33. Simultaneous discard/draw
 

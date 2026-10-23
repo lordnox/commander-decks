@@ -49,7 +49,7 @@ export const canonicalManaClassification = (ability: Extract<ReturnType<typeof c
     addsMana: instructionAddsMana(instructions),
     abilityKind: 'activated',
     hasTargets: ability.decisions.targets.length > 0 || (ability.modes?.some(mode => mode.decisions.targets.length > 0) ?? false),
-    hasLoyaltyCost: false,
+    hasLoyaltyCost: ability.costs.some(cost => cost.kind === 'loyalty'),
     movesCards: instructionMovesLibrary(instructions),
   })
 }

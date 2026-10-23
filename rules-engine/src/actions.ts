@@ -184,6 +184,7 @@ export type AvailableAction =
       distributionBindings?: DistributionAllocation[]
       mana?: ManaId
       door?: RoomDoorId
+      x?: number
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | {
@@ -1259,46 +1260,65 @@ const combatDamageIsThreatened = (state: GameState) =>
     (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
   )
 
+const loyaltyXValues = (object: GameObject, ability: Extract<CardRuleDefinitionV1['abilities'][number], { kind: 'activated' }>) => {
+  const variables = ability.decisions.variables ?? []
+  if (variables.length !== 1) return
+  const [variable] = variables
+  const cost = ability.costs.find((entry): entry is Extract<Cost, { kind: 'loyalty' }> => entry.kind === 'loyalty')
+  if (!cost || cost.amount.kind !== 'variable' || cost.amount.name !== variable.name) return
+  const max = cost.minus ? Math.min(variable.max, object.counters.loyalty ?? 0) : variable.max
+  if (max < variable.min) return []
+  return Array.from({ length: max - variable.min + 1 }, (_, index) => variable.min + index)
+}
+
 const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
   if ((!object.ruleDefinition && !object.canonicalGrantedActivations?.length) || object.controller !== seat) return []
   const definition = effectiveActivatedDefinition(object).definition
   return definition.abilities.flatMap((ability, index): AvailableAction[] => {
     if (!canonicalActivationIsActive(object, index)) return []
-    if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
+    if (ability.kind !== 'activated' || ability.modes) return []
+    const xs = loyaltyXValues(object, ability)
+    if (ability.decisions.variables?.length && xs === undefined) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       ...activatedPermissionFields(ability) })) return []
     if (ability.instructions.some(fogsAllCombatThisTurn) && !combatDamageIsThreatened(state)) return []
     const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
     const costChoices = canonicalCostPreviewChoices(costEntries)
     if (!costChoices) return []
-    const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], undefined, costChoices,
-      { targetClauses: [], deferPayment: true })
-    if (!announcement.ok) return []
-    const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
-      || isSourceObjectCost(cost))
-      ? new Set([object.id]) : new Set<string>()
-    if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
-    const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
-    if (targetGroups.some(group => group.targets.length < group.min)) return []
-    if (ability.instructions.some(instruction => instruction.kind === 'lockOrUnlockDoor')) {
-      const rooms = targetGroups.at(-1)?.targets ?? []
-      return rooms.flatMap(room =>
-        (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
-          const characteristics = roomDoor(state.objects[room.objectId], door)
-          if (!characteristics) return []
-          return [{
-            kind: 'activateAbility',
-            objectId: object.id,
-            name: object.name,
-            text: `Lock or unlock ${characteristics.name}`,
-            abilityId: `$.abilities[${index}]`,
-            targetObjectIds: [room.objectId],
-            door,
-          }]
-        })) satisfies AvailableAction[]
-    }
-    return [{ kind: 'activateAbility', objectId: object.id, name: object.name,
-      text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups }] satisfies AvailableAction[]
+    return (xs ?? [undefined]).flatMap((x): AvailableAction[] => {
+      const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], x, costChoices,
+        { targetClauses: [], deferPayment: true })
+      if (!announcement.ok) return []
+      const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
+        || isSourceObjectCost(cost))
+        ? new Set([object.id]) : new Set<string>()
+      if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
+      const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
+      if (targetGroups.some(group => group.targets.length < group.min)) return []
+      if (ability.instructions.some(instruction => instruction.kind === 'lockOrUnlockDoor')) {
+        const rooms = targetGroups.at(-1)?.targets ?? []
+        return rooms.flatMap(room =>
+          (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
+            const characteristics = roomDoor(state.objects[room.objectId], door)
+            if (!characteristics) return []
+            return [{
+              kind: 'activateAbility',
+              objectId: object.id,
+              name: object.name,
+              text: `Lock or unlock ${characteristics.name}`,
+              abilityId: `$.abilities[${index}]`,
+              targetObjectIds: [room.objectId],
+              door,
+              ...(x !== undefined ? { x } : {}),
+            }]
+          }))
+      }
+      return [{
+        kind: 'activateAbility', objectId: object.id, name: object.name,
+        text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups,
+        ...(x !== undefined ? { x } : {}),
+      }]
+    })
   })
 }
 
@@ -2151,6 +2171,7 @@ export const sameLegalAct = (
       && left.text === right.text
       && left.mana === right.mana
       && left.door === right.door
+      && left.x === right.x
       && samePickedTargets
   }
   if (left.kind === 'castSpell') {
@@ -2395,7 +2416,8 @@ export const eventsForAvailableAction = (
       const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
       const abilityIndex = Number(/\[(\d+)\]/.exec(action.abilityId)![1])
       const ability = definition.abilities[abilityIndex]
-      if (ability?.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return null
+      if (ability?.kind !== 'activated' || ability.modes) return null
+      if (ability.decisions.variables?.length && action.x === undefined) return null
       try {
         const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
         const chosen = action.targetObjectIds ?? []
@@ -2409,9 +2431,9 @@ export const eventsForAvailableAction = (
           return ids
         })
         const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))
-        const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat)
+        const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat, action.x)
           .map(binding => binding.recipients)
-        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, choices, { deferPayment: true })
+        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, action.x, choices, { deferPayment: true })
         if (!announcement.ok) return null
         const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
           || isSourceObjectCost(cost))
@@ -2427,6 +2449,7 @@ export const eventsForAvailableAction = (
           ...(targets.length ? { targets } : {}),
           ...(action.door ? { door: action.door } : {}),
           ...(choices.length ? { choices } : {}),
+          ...(action.x !== undefined ? { x: action.x } : {}),
         }]
       } catch {
         return null

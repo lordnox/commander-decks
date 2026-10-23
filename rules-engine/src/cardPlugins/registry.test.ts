@@ -352,9 +352,7 @@ describe('card plugin registry', () => {
 
   test('Jace, Multiverse Architect is registered with optional mana pay', () => {
     expect(missingCardPlugins(['Jace, Multiverse Architect'])).toEqual([])
-    expect(cardPluginEntry('Jace, Multiverse Architect')?.handlerIds).toEqual(
-      expect.arrayContaining(['optionalManaPay', 'planeswalker']),
-    )
+    expect(cardPluginEntry('Jace, Multiverse Architect')).toBeUndefined()
   })
 
   test('the Lady Evangela remaining group stays registered', () => {

@@ -124,6 +124,39 @@ export const createToken = (
   return token
 }
 
+/** Emblems are command-zone objects, not tokens, and do not enter the battlefield. */
+export const createEmblem = (
+  draft: Draft,
+  controller: PlayerId,
+  emblem: {
+    name: string
+    subtypes?: string[]
+    oracleText?: string
+    ruleDefinition?: GameObject['ruleDefinition']
+  },
+) => {
+  const id = draft.allocId('emblem')
+  const object: GameObject = {
+    ...gameObjectFieldDefaults(),
+    name: emblem.name,
+    types: ['Emblem'],
+    subtypes: emblem.subtypes ? [...emblem.subtypes] : [],
+    oracleText: emblem.oracleText ?? '',
+    ...(emblem.ruleDefinition ? { ruleDefinition: emblem.ruleDefinition } : {}),
+    id,
+    owner: controller,
+    controller,
+    zone: 'command',
+    token: false,
+    effects: [],
+  }
+  draft.objects[id] = object
+  draft.zoneOrder[controller].command.push(id)
+  draft.zoneCounts[controller].command += 1
+  draft.note(`${controller} gets ${object.name}`)
+  return object
+}
+
 export const manaValueOf = (object: GameObject) => {
   if (object.manaValue !== 0 || !object.manaCost) return object.manaValue
   return [...object.manaCost.matchAll(/\{([^}]+)\}/g)].reduce((total, match) => {

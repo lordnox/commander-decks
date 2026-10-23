@@ -4,6 +4,7 @@ import type { CardRuleDefinitionSnapshotV1 } from '../cardPlugins/dsl/schema/v1'
 export type CardTemplate = Pick<GameObject, 'types' | 'colors' | 'manaCost' | 'manaValue' | 'frontFace' | 'backFace'> & {
   subtypes?: GameObject['subtypes']
   supertypes?: GameObject['supertypes']
+  printedLoyalty?: GameObject['printedLoyalty']
   ruleDefinition: CardRuleDefinitionSnapshotV1
 }
 

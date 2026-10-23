@@ -74,6 +74,7 @@ import type {
   TargetConstraint,
   TargetReference,
   TokenDefinition,
+  EmblemDefinition,
   TriggeredAbilityDefinition,
   VariableSpec,
   VoteSpec,
@@ -310,6 +311,12 @@ export const tapCost = () => immutableData({ kind: 'tapSource' as const }) satis
 export const lifeCost = (value: AmountInput): Cost =>
   immutableData({ kind: 'life', amount: toAmount(value) })
 
+export const plusLoyalty = (value: AmountInput): Cost =>
+  immutableData({ kind: 'loyalty' as const, amount: toAmount(value) })
+
+export const minusLoyalty = (value: AmountInput): Cost =>
+  immutableData({ kind: 'loyalty' as const, amount: toAmount(value), minus: true as const })
+
 export const manaCost = (value: string): Cost =>
   immutableData({ kind: 'mana', amount: value })
 
@@ -376,6 +383,9 @@ export const suppressKeyword = (input: Omit<Extract<ContinuousEffectDefinition, 
 
 export const untapDuringOtherPlayersSteps = (targets: ObjectSelector) =>
   immutableData({ kind: 'untapDuringOthers' as const, targets })
+
+export const drawDuringOtherPlayersSteps = (targets: PlayerSelector) =>
+  immutableData({ kind: 'drawDuringOthers' as const, targets })
 
 export const noMaximumHandSize = (): ContinuousEffectDefinition =>
   immutableData({ kind: 'noMaximumHandSize' })
@@ -952,6 +962,24 @@ export const createToken = (input: {
   token: input.token,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
+})
+
+export const createEmblem = (input: {
+  targets: Extract<Instruction, { kind: 'createEmblem' }>['targets']
+  emblem: EmblemDefinition
+}): Instruction => immutableData({
+  kind: 'createEmblem',
+  targets: input.targets,
+  emblem: input.emblem,
+})
+
+export const banAttacks = (input: {
+  attackers: Extract<Instruction, { kind: 'banAttacks' }>['attackers']
+  defenders: ObjectSelector
+}): Instruction => immutableData({
+  kind: 'banAttacks',
+  attackers: input.attackers,
+  defenders: input.defenders,
 })
 
 export const copy = (input: {

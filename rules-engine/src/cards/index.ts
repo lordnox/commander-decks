@@ -207,6 +207,7 @@ import homerTheHermit from './homer-the-hermit'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
 import inundatedArchive from './inundated-archive'
+import jaceMultiverseArchitect from './jace-multiverse-architect'
 import joinTheDead from './join-the-dead'
 import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
@@ -299,6 +300,7 @@ import talonGatesOfMadara from './talon-gates-of-madara'
 import tanglespanBridgeworks from './tanglespan-bridgeworks'
 import templeOfDeceit from './temple-of-deceit'
 import templeOfTheFalseGod from './temple-of-the-false-god'
+import teferiWhoSlowsTheSunset from './teferi-who-slows-the-sunset'
 import terastodon from './terastodon'
 import terramorphicExpanse from './terramorphic-expanse'
 import testOfEndurance from './test-of-endurance'
@@ -312,6 +314,7 @@ import toxicDeluge from './toxic-deluge'
 import tradeRoutes from './trade-routes'
 import triangleOfWar from './triangle-of-war'
 import twincast from './twincast'
+import uginTheSpiritDragon from './ugin-the-spirit-dragon'
 import ulvenwaldTracker from './ulvenwald-tracker'
 import undercitySewers from './undercity-sewers'
 import undergroundMortuary from './underground-mortuary'
@@ -535,6 +538,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
   "Inundated Archive": inundatedArchive,
+  "Jace, Multiverse Architect": jaceMultiverseArchitect,
   "Join the Dead": joinTheDead,
   "Kami of False Hope": kamiOfFalseHope,
   "Khalni Ambush": khalniAmbush,
@@ -647,6 +651,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Tanglespan Bridgeworks": tanglespanBridgeworks,
   "Temple of Deceit": templeOfDeceit,
   "Temple of the False God": templeOfTheFalseGod,
+  "Teferi, Who Slows the Sunset": teferiWhoSlowsTheSunset,
   "Terastodon": terastodon,
   "Terramorphic Expanse": terramorphicExpanse,
   "Test of Endurance": testOfEndurance,
@@ -660,6 +665,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Trade Routes": tradeRoutes,
   "Triangle of War": triangleOfWar,
   "Twincast": twincast,
+  "Ugin, the Spirit Dragon": uginTheSpiritDragon,
   "Ulvenwald Tracker": ulvenwaldTracker,
   "Undercity Sewers": undercitySewers,
   "Underground Mortuary": undergroundMortuary,

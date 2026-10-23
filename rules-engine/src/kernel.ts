@@ -59,7 +59,8 @@ import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject, refreshExecutionReferences } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
 import { hasKeyword } from './keywords'
-import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
+import { copyCharacteristics, createEmblem, createToken } from './cardPlugins/effectRuntime'
+import { addAttackBan } from './cardPlugins/attackBan'
 import { recordInstructionAmount } from './cardPlugins/dsl/instructionResults'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
@@ -676,6 +677,20 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'createToken': {
       if (!event.token.dsl) return
       createToken(draft, event.controller, event.token)
+      return
+    }
+    case 'createEmblem': {
+      createEmblem(draft, event.controller, event.emblem)
+      return
+    }
+    case 'banAttacks': {
+      addAttackBan(draft, {
+        turn: draft.turn,
+        attackerController: event.attackerController,
+        protectorController: event.protectorController,
+        defenderSelector: event.defenders,
+        source: event.source,
+      })
       return
     }
     case 'counterStackItem': {

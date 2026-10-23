@@ -260,7 +260,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
     if (node.enchantableBy !== undefined) validateReference(node.enchantableBy, childPath(path, 'enchantableBy'), env, ['object'])
     if (node.creatureType !== undefined) validateCreatureType(node.creatureType, childPath(path, 'creatureType'), env)
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
@@ -272,6 +272,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
     if (node.sameNameAs !== undefined) validateReference(node.sameNameAs, childPath(path, 'sameNameAs'), env, ['object'])
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
+    if (node.colored !== undefined && typeof node.colored !== 'boolean') issue(childPath(path, 'colored'), 'type', 'expected a boolean')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.powerAtLeast !== undefined) integer(node.powerAtLeast, childPath(path, 'powerAtLeast'), { min: -MAX_LITERAL_AMOUNT })
     if (node.compareCharacteristic !== undefined) {
@@ -748,6 +749,11 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         validateAmount(node.amount, childPath(path, 'amount'), env)
         return
+      case 'loyalty':
+        exactKeys(node, path, ['kind', 'amount', 'minus'], ['kind', 'amount'])
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        if (node.minus !== undefined && node.minus !== true) issue(childPath(path, 'minus'), 'type', 'loyalty minus must be true')
+        return
       case 'mill':
       case 'draw':
         exactKeys(node, path, ['kind', 'count'], ['kind', 'count'])
@@ -1114,6 +1120,31 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'createEmblem': {
+        exactKeys(node, path, ['kind', 'targets', 'emblem'], ['kind', 'targets', 'emblem'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        const emblem = object(node.emblem, childPath(path, 'emblem'))
+        if (emblem) {
+          exactKeys(emblem, childPath(path, 'emblem'), ['name', 'subtypes', 'oracleText', 'abilities'], ['name', 'abilities'])
+          if (typeof emblem.name !== 'string') issue(childPath(path, 'emblem.name'), 'type', 'emblem requires a name')
+          if (emblem.subtypes !== undefined) array(emblem.subtypes, childPath(path, 'emblem.subtypes')).forEach((part, index) => {
+            if (typeof part !== 'string') issue(childPath(childPath(path, 'emblem.subtypes'), index), 'type', 'expected a string')
+          })
+          if (emblem.oracleText !== undefined && typeof emblem.oracleText !== 'string') {
+            issue(childPath(path, 'emblem.oracleText'), 'type', 'expected a string')
+          }
+          array(emblem.abilities, childPath(path, 'emblem.abilities')).forEach((ability, index) =>
+            validateAbility(ability, `${path}.emblem.abilities[${index}]`))
+        }
+        return
+      }
+      case 'banAttacks':
+        exactKeys(node, path, ['kind', 'attackers', 'defenders'], ['kind', 'attackers', 'defenders'])
+        validateRecipient(node.attackers, childPath(path, 'attackers'), env, ['player'])
+        if (validateSelector(node.defenders, childPath(path, 'defenders'), env) !== 'object') {
+          issue(childPath(path, 'defenders'), 'domain', 'banAttacks requires an object selector')
+        }
+        return
       case 'copy': {
         const hasTargets = node.targets !== undefined
         const hasSnapshot = node.snapshot !== undefined
@@ -2019,6 +2050,13 @@ export const validateDefinitionV1 = (root: unknown): {
               exactKeys(node, effectPath, ['kind', 'targets'], ['kind', 'targets'])
               if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
                 issue(childPath(effectPath, 'targets'), 'domain', 'untap participation requires an object selector')
+              }
+              return
+            }
+            case 'drawDuringOthers': {
+              exactKeys(node, effectPath, ['kind', 'targets'], ['kind', 'targets'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'player') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'draw participation requires a player selector')
               }
               return
             }

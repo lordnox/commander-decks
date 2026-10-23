@@ -257,6 +257,7 @@ const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeCont
     case 'sacrifice':
       return { ...cost, count: lockAmount(cost.count, x, runtime) }
     case 'life':
+    case 'loyalty':
       return { ...cost, amount: lockAmount(cost.amount, x, runtime) }
     default:
       return cost
@@ -324,7 +325,7 @@ export const resolveNonManaCostObjectChoices = (
 }
 
 const validateNonManaCosts = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules' | 'turn'>>,
   payer: PlayerId,
   sourceId: string,
   costs: readonly Cost[],
@@ -345,6 +346,21 @@ const validateNonManaCosts = (
       case 'life':
         lifeTotal += costAmount(cost.amount, x, runtime)
         break
+      case 'loyalty': {
+        const source = state.objects[runtimeSourceId]
+        if (!source || source.zone !== 'battlefield' || source.phasedOut || source.controller !== payer) {
+          throw new TypeError('loyalty cost requires a controlled planeswalker on the battlefield')
+        }
+        if (!source.types.includes('Planeswalker')) throw new TypeError('loyalty cost requires a planeswalker')
+        if (state.turn !== undefined && source.loyaltyActivatedTurn === state.turn) {
+          throw new TypeError(`${source.name} already activated a loyalty ability this turn`)
+        }
+        const amount = costAmount(cost.amount, x, runtime)
+        if (cost.minus && (source.counters.loyalty ?? 0) < amount) {
+          throw new TypeError(`${source.name} does not have enough loyalty`)
+        }
+        break
+      }
       case 'draw':
         costAmount(cost.count, x, runtime)
         break

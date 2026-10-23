@@ -2598,13 +2598,15 @@ describe('kernel host journal', () => {
     const kernel = handleFor(server.rules, initial)
     const lobby = createLobby()
     lobby.phase = 'play'
+    const plusOne = legalActsFor(initial, 'p1').find((action) =>
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[0]')!
 
     applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: teferi.id,
-      abilityId: 'teferi.plus-one',
-      text: 'teferi.plus-one',
+      abilityId: plusOne.abilityId,
+      text: plusOne.kind === 'activateAbility' ? plusOne.text : '',
       targetObjectIds: [rock.id, creature.id, land.id],
     })
 
@@ -2612,7 +2614,7 @@ describe('kernel host journal', () => {
     expect(current.objects[teferi.id].counters.loyalty).toBe(5)
     expect(current.stack[0]).toMatchObject({
       kind: 'ability',
-      abilityId: 'teferi.plus-one',
+      abilityId: '$.abilities[0]',
       targets: [
         { kind: 'object', objectId: rock.id },
         { kind: 'object', objectId: creature.id },

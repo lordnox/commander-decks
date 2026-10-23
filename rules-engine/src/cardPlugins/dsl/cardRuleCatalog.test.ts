@@ -2458,3 +2458,27 @@ test('zone-play catalog entries compose land permissions, top visibility, and to
     ] } }] },
   ])
 })
+
+test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {
+  expect(effectsFor('Ugin, the Spirit Dragon')).toEqual([])
+  expect(effectsFor('Teferi, Who Slows the Sunset')).toEqual([])
+  expect(effectsFor('Jace, Multiverse Architect')).toEqual([])
+  expect(cardTemplateDefaultsFor('Ugin, the Spirit Dragon')).toMatchObject({
+    types: ['Planeswalker'], supertypes: ['Legendary'], subtypes: ['Ugin'], printedLoyalty: 7,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Ugin, the Spirit Dragon')!.definition.abilities).toMatchObject([
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 2 } }], instructions: [{ kind: 'damage', amount: { value: 3 } }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { kind: 'variable', name: 'X' } }], instructions: [{ kind: 'move', to: 'exile' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 10 } }], instructions: [{ kind: 'gainLife' }, { kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'move', to: 'battlefield' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Teferi, Who Slows the Sunset')!.definition.abilities).toMatchObject([
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 1 } }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 2 } }], instructions: [{ kind: 'inspectTop' }, { kind: 'chooseCards' }, { kind: 'move', to: 'hand' }, { kind: 'move', to: 'library', position: 'bottom' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 7 } }], instructions: [{ kind: 'createEmblem' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Jace, Multiverse Architect')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'beginCombat' }, instructions: [{ kind: 'payOptional', ifDeclined: [{ kind: 'banAttacks' }] }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 1 } }], instructions: [{ kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'move', to: 'library', position: 'bottom' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 3 } }], instructions: [{ kind: 'move', to: 'exile' }, { kind: 'revealUntil' }, { kind: 'move', to: 'library', order: 'random' }] },
+  ])
+})

@@ -37,7 +37,6 @@ import {
   exileOpponentGraveyard,
   extraEnters,
   extraLandfall,
-  exileColoredPermanentsAtMostX,
   gainLife,
   graveyardCards,
   graveyardCardTypes,
@@ -52,9 +51,6 @@ import {
   kicker,
   multikicker,
   putChargeCountersFromTimesKicked,
-  loyalty,
-  loyaltyX,
-  lookTopPick,
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
@@ -70,12 +66,7 @@ import {
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
-  putPermanentsFromHand,
   revealPick,
-  revealUntil,
-  opponentMayPayMana,
-  attackBanUntilEot,
-  putHandCardOnLibraryBottom,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnOwnedGraveyardLands,
@@ -89,8 +80,6 @@ import {
   scry,
   surveil,
   triggerOn,
-  teferiSunsetEmblem,
-  teferiSunsetPlusOne,
   targetOnResolve,
   targetOnResolveKicked,
   upkeep,
@@ -112,7 +101,6 @@ import {
   restrictedCreatureMana,
   restrictedLegendaryMana,
   createHeroWithLandCounters,
-  removeTarget,
   vote,
   forEachVoter,
   forEachVotedOption,
@@ -353,39 +341,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       putTriggeringCardOntoBattlefield(),
     ),
   ],
-  'Jace, Multiverse Architect': [
-    triggerOn('beginCombat', {
-      if: { kind: 'notActivePlayer' },
-      do: [
-        opponentMayPayMana('{2}', [
-          attackBanUntilEot({
-            zone: 'battlefield',
-            types: ['Planeswalker'],
-            subtypes: ['Jace'],
-            controller: 'you',
-          }),
-        ]),
-      ],
-    }),
-    ability({ id: 'jace.plus-one' }, loyalty(1), draw(2), putHandCardOnLibraryBottom()),
-    ability(
-      {
-        id: 'jace.minus-three',
-        targets: {
-          filter: {
-            zone: 'battlefield',
-            types: ['Creature', 'Planeswalker'],
-            controller: 'you',
-            other: true,
-          },
-        },
-      },
-      loyalty(-3),
-      removeTarget('exile'),
-      revealUntil(1, { types: ['Creature', 'Planeswalker'] }, 'battlefield', 'bottomRandom'),
-    ),
-    handler('optionalManaPay'),
-  ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Kederekt Leviathan': [
     enters(bounceAll({ nonland: true, other: true })),
@@ -553,19 +508,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'battlefield', nonland: true },
     ),
   ],
-  'Teferi, Who Slows the Sunset': [
-    ability({
-      id: 'teferi.plus-one',
-      targets: 'teferiSunsetPlusOne',
-    }, loyalty(1), teferiSunsetPlusOne()),
-    ability({
-      id: 'teferi.minus-two',
-    }, loyalty(-2), lookTopPick(3, 1)),
-    ability({
-      id: 'teferi.minus-seven',
-    }, loyalty(-7), teferiSunsetEmblem()),
-    handler('teferiSunset'),
-  ],
   'Thespian\'s Stage': [
     ability(
       { id: 'thespiansStage.copy', sorcery: true },
@@ -589,18 +531,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       )],
       true,
     )),
-  ],
-  'Ugin, the Spirit Dragon': [
-    ability({
-      id: 'ugin.plus-two',
-      targets: 'any',
-    }, loyalty(2), dealDamageToChosenTarget(3)),
-    ability({
-      id: 'ugin.minus-x',
-    }, loyaltyX(), exileColoredPermanentsAtMostX()),
-    ability({
-      id: 'ugin.minus-ten',
-    }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
   ],
   'Valgavoth, Terror Eater': [
     ward({ sacrifice: { count: 3, nonland: true } }),
