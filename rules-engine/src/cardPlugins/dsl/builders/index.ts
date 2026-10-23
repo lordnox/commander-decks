@@ -627,22 +627,25 @@ const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram =>
   })
 }
 
-type CostReductionInput = { generic: AmountInput; reason?: string }
+type CostReductionInput = { generic: AmountInput; when?: Condition; reason?: string }
 
 type CostFieldsInput = Partial<Pick<
   SpellAbilityDefinition,
-  'costs' | 'optionalCosts' | 'alternativeCosts' | 'costIncreases'
+  'costs' | 'additionalCosts' | 'costConditions' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts' | 'costIncreases'
 >> & {
   costReductions?: readonly CostReductionInput[]
 }
 
 const normalizeCostFields = (input: CostFieldsInput) => ({
   costs: input.costs ?? [],
+  ...(input.additionalCosts ? { additionalCosts: input.additionalCosts } : {}),
+  ...(input.costConditions ? { costConditions: input.costConditions } : {}),
+  ...(input.repeatableOptionalCosts ? { repeatableOptionalCosts: input.repeatableOptionalCosts } : {}),
   ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
   ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
   ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
   ...(input.costReductions ? {
-    costReductions: input.costReductions.map((reduction) => costReduction(reduction.generic, reduction.reason)),
+    costReductions: input.costReductions.map((reduction) => ({ ...costReduction(reduction.generic, reduction.reason), ...(reduction.when ? { when: reduction.when } : {}) })),
   } : {}),
 })
 
@@ -1377,3 +1380,6 @@ export const playLands = (players: PlayerSelector, cards: ObjectSelector, option
 
 export const revealLibraryTop = (players: PlayerSelector): ContinuousEffectDefinition =>
   immutableData({ kind: 'revealLibraryTop', players })
+
+export const paidCostCount = (cost: 'optional' | 'alternative', index: number): Amount =>
+  immutableData({ kind: 'paidCostCount', cost, index })

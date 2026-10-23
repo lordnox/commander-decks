@@ -2494,3 +2494,17 @@ test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans'
     { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 3 } }], instructions: [{ kind: 'move', to: 'exile' }, { kind: 'revealUntil' }, { kind: 'move', to: 'library', order: 'random' }] },
   ])
 })
+
+test('kicker catalog entries compose optional payments with independent effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Everflowing Chalice')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'mana', amount: '{2}' }], repeatableOptionalCosts: [0] },
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { enterCounters: { charge: { kind: 'paidCostCount', cost: 'optional', index: 0 } } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'counterCount', counter: 'charge' } } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Joint Exploration')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'mana', amount: '{G}' }], instructions: [
+      { kind: 'scry', count: { value: 2 } }, { kind: 'draw', count: { value: 1 } },
+      { kind: 'if', condition: { left: { kind: 'paidCostCount', cost: 'optional', index: 0 } } },
+    ] },
+  ])
+})

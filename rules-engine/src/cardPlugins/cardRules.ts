@@ -48,9 +48,6 @@ import {
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
-  kicker,
-  multikicker,
-  putChargeCountersFromTimesKicked,
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
@@ -81,7 +78,6 @@ import {
   surveil,
   triggerOn,
   targetOnResolve,
-  targetOnResolveKicked,
   upkeep,
   chooseModes,
   chooseCreatureType,
@@ -240,10 +236,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     draw(1),
   )],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
-  'Everflowing Chalice': [
-    multikicker('{2}'),
-    enters(putChargeCountersFromTimesKicked()),
-  ],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Firdoch Core': [
     allCreatureTypes(),
@@ -334,7 +326,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       putTriggeringCardOntoBattlefield(),
     ),
   ],
-  'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Kederekt Leviathan': [
     enters(bounceAll({ nonland: true, other: true })),
     unearth('{6}{U}'),
@@ -492,14 +483,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Springheart Nantuko': [
     bestow('{1}{G}', { power: 1, toughness: 1 }),
     landfall(attachedCopyOrToken('{1}{G}', insectToken)),
-  ],
-  'Tear Asunder': [
-    kicker('{1}{B}'),
-    targetOnResolveKicked(
-      'exile',
-      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
-      { zone: 'battlefield', nonland: true },
-    ),
   ],
   'Thespian\'s Stage': [
     ability(

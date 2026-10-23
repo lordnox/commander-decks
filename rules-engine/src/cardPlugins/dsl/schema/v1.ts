@@ -98,6 +98,7 @@ export type ManaSpendRestriction = {
 }
 
 export type ObjectFilter = {
+  when?: Condition
   enchantableBy?: ObjectReference
   creatureType?: CreatureTypeReference
   /** Exclude the executing source's captured object identity. False adds no restriction. */
@@ -173,6 +174,7 @@ export type Amount =
   | { kind: 'resultRef'; binding: string; field: 'amount' | 'discardedCount' | 'created' }
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
+  | { kind: 'paidCostCount'; cost: 'optional' | 'alternative'; index: number }
   | { kind: 'eventAmount' }
   | { kind: 'multiply' | 'minimum' | 'add' | 'difference'; left: Amount; right: Amount }
   | { kind: 'manaSpent'; color: CardColor }
@@ -332,7 +334,8 @@ export type Cost =
 export type ResolutionCost = Cost | { kind: 'manaAndLife'; mana: ManaCost; life: Amount }
 
 export type CostIncrease = { amount: ManaCost; reason?: string }
-export type CostReduction = { generic: Amount; reason?: string }
+export type CostReduction = { generic: Amount; when?: Condition; reason?: string }
+export type CostOptionCondition = { cost: 'optional' | 'alternative'; index: number; when: Condition }
 
 /** A duration is data, so a temporary effect survives persistence/resume. */
 export type EffectDuration =
@@ -834,7 +837,10 @@ export type SpellAbilityDefinition = {
   when?: Condition
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  additionalCosts?: readonly Cost[]
+  costConditions?: readonly CostOptionCondition[]
   optionalCosts?: readonly Cost[]
+  repeatableOptionalCosts?: readonly number[]
   alternativeCosts?: readonly (readonly Cost[])[]
   costIncreases?: readonly CostIncrease[]
   costReductions?: readonly CostReduction[]
@@ -852,7 +858,10 @@ export type ActivatedAbilityDefinition = {
   cycling?: true
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  additionalCosts?: readonly Cost[]
+  costConditions?: readonly CostOptionCondition[]
   optionalCosts?: readonly Cost[]
+  repeatableOptionalCosts?: readonly number[]
   alternativeCosts?: readonly (readonly Cost[])[]
   costIncreases?: readonly CostIncrease[]
   costReductions?: readonly CostReduction[]
@@ -972,6 +981,7 @@ export type AmountEvaluationContext = {
   result?: (reference: Extract<Amount, { kind: 'resultRef' }>) => number | undefined
   variables?: Readonly<Partial<Record<'X', number>>>
   eventAmount?: number
+  paidCostCount?: (cost: 'optional' | 'alternative', index: number) => number
   manaSpent?: (color: CardColor) => number
   count: (selector: Selector, distinctNames?: true) => number
   greatest: (

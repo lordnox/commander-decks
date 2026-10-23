@@ -2,7 +2,7 @@ import { expandVariableMana, variableManaColor } from '../variableMana'
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
-import type { ActivatedAbilityDefinition, Amount, Condition, Cost, CostReduction, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
+import type { ActivatedAbilityDefinition, Amount, Condition, Cost, CostOptionCondition, CostReduction, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage, activePrintedStaticModifiers } from '../staticModifierCore'
@@ -30,7 +30,10 @@ export const isSourceSacrificeCost = (cost: Cost) =>
 export type CostPlan = {
   xManaColor?: ManaId
   mandatory: readonly Cost[]
+  additional?: readonly Cost[]
+  conditions?: readonly CostOptionCondition[]
   optional?: readonly Cost[]
+  repeatableOptional?: readonly number[]
   alternative?: readonly (readonly Cost[])[]
   increases?: readonly ManaCostIncrease[]
   reductions?: readonly ManaCostReduction[]
@@ -180,9 +183,13 @@ export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => 
   return `${generic > 0 ? `{${generic}}` : ''}${nonGeneric}`
 }
 
-const selectedCosts = (proposal: AnnouncementProposal) => {
-  if ((proposal.selectedOptional ?? []).length !== new Set(proposal.selectedOptional ?? []).size) {
-    throw new TypeError('optional cost selection contains a duplicate')
+const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedOptional' | 'selectedAlternative'>) => {
+  const selections = proposal.selectedOptional ?? []
+  const seen = new Set<number>()
+  for (const index of selections) {
+    if (!Number.isSafeInteger(index) || index < 0) throw new TypeError('optional cost selection is out of range')
+    if (seen.has(index) && !proposal.costs.repeatableOptional?.includes(index)) throw new TypeError('optional cost selection contains a duplicate')
+    seen.add(index)
   }
   const optional = (proposal.selectedOptional ?? []).map((index) => proposal.costs.optional?.[index])
   if (optional.some((cost) => !cost)) throw new TypeError('optional cost selection is out of range')
@@ -192,8 +199,14 @@ const selectedCosts = (proposal: AnnouncementProposal) => {
       ? proposal.costs.alternative[proposal.selectedAlternative]
       : undefined
   if (!alternative) throw new TypeError('alternative cost selection is unavailable')
-  return [...alternative, ...(optional as Cost[])]
+  return [...alternative, ...(proposal.costs.additional ?? []), ...(optional as Cost[])]
 }
+
+/** One selection routine for legality, previews, and final payment. */
+export const chosenAbilityCosts = (
+  ability: Pick<SpellAbilityDefinition, 'costs' | 'additionalCosts' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts'>,
+  choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'> = {},
+) => selectedCosts({ costs: { mandatory: ability.costs, additional: ability.additionalCosts, optional: ability.optionalCosts, repeatableOptional: ability.repeatableOptionalCosts, alternative: ability.alternativeCosts }, ...choices })
 
 const validateVariables = (variables: AnnouncementProposal['variables']) => {
   const x = variables?.X
@@ -476,6 +489,14 @@ export const beginAnnouncement = (
     validateVariables(proposal.variables)
     validateTargets(state, proposal)
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
+    for (const condition of proposal.costs.conditions ?? []) {
+      const selected = condition.cost === 'optional'
+        ? proposal.selectedOptional?.includes(condition.index)
+        : proposal.selectedAlternative === condition.index
+      if (!selected) continue
+      const context = announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X)
+      if (!context || !evaluateCondition(condition.when, { ...context, paidCosts: proposalCostChoices(proposal) })) return { ok: false, error: 'selected cost option is not permitted' }
+    }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { xManaColor: proposal.costs.xManaColor, mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
     validateNonManaCosts(
@@ -566,7 +587,10 @@ export const beginSpellAnnouncement = (
       mandatory: ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
         ? ability.costs
         : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
+      additional: ability.additionalCosts,
+      conditions: ability.costConditions,
       optional: ability.optionalCosts,
+      repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
       reductions: planReductions(state, source.id, payer, ability, x),
@@ -601,7 +625,10 @@ export const beginActivatedAnnouncement = (
     costs: {
       xManaColor: variableManaColor(ability.decisions.variables),
       mandatory: ability.costs,
+      additional: ability.additionalCosts,
+      conditions: ability.costConditions,
       optional: ability.optionalCosts,
+      repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
       reductions: planReductions(state, source.id, payer, ability, x),
@@ -612,6 +639,18 @@ export const beginActivatedAnnouncement = (
     ...options,
   }, `activation:${source.id}`)
 }
+
+const proposalCostChoices = (choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'>) => ({
+  optional: [...(choices.selectedOptional ?? [])],
+  ...(choices.selectedAlternative !== undefined ? { alternative: choices.selectedAlternative } : {}),
+})
+
+/** A private proposal view lets targeting inspect announced choices before payment. */
+export const proposedCostSource = (source: GameObject, choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative'>) => ({
+  ...source, castCostChoices: proposalCostChoices(choices),
+})
+
+export const announcementCostChoices = (transaction: AnnouncementTransaction) => proposalCostChoices(transaction.proposal)
 
 export const commitAnnouncement = (transaction: AnnouncementTransaction): AnnouncementTransaction => {
   if (transaction.status !== 'provisional') throw new Error('announcement transaction is no longer provisional')
@@ -687,7 +726,7 @@ const evaluatedReductions = (
   reductions: readonly CostReduction[] | undefined,
   context: RuleDslRuntimeContext,
 ): ManaCostReduction[] =>
-  (reductions ?? []).map((reduction) => ({
+  (reductions ?? []).filter(reduction => !reduction.when || evaluateCondition(reduction.when, context)).map((reduction) => ({
     generic: evaluateRuntimeAmount(reduction.generic, context),
     ...(reduction.reason ? { reason: reduction.reason } : {}),
   }))

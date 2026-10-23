@@ -332,33 +332,6 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(state.players.p1.landsPlayed).toBe(0)
   })
 
-  test('Everflowing Chalice enters with charge counters from multikicker', () => {
-    const chalice = cardTemplate('Everflowing Chalice', {
-      types: ['Artifact'],
-      manaCost: '{0}',
-      oracleText: '{T}: Add {C} for each charge counter on this artifact.',
-      effects: effectsFor('Everflowing Chalice'),
-    })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [chalice] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const ready = structuredClone(server.state)
-    ready.step = 'precombatMain'
-    ready.active = 'p1'
-    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 4 }
-    const spell = ready.zoneOrder.p1.hand[0]
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell,
-      timesKicked: 2,
-    }))
-    const resolved = resolveStack(server.rules, cast)
-    expect(resolved.objects[spell].counters.charge).toBe(2)
-  })
-
   test('Secluded Steppe cycles for {W} and draws from hand', () => {
     const server = createServerGame(
       commanderRules,

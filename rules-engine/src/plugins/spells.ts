@@ -45,7 +45,7 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
+import { proposedCostSource, announcementCostChoices, activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/dsl/manaPrograms'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
@@ -80,7 +80,8 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<Abil
 /** Build the server-owned payment frame before any planned mana event runs. */
 export const preparePlannedSpellAnnouncement = (state: GameState, event: InternalCastEvent) => {
   if (!event.manaActivations?.length) return { ok: false as const, error: 'mana payment plan is empty' }
-  const source = state.objects[event.objectId]
+  const originalSource = state.objects[event.objectId]
+  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost }) : undefined
   if (!source?.ruleDefinition) return { ok: false as const, error: 'planned payment requires a canonical spell' }
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
   const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -499,7 +500,8 @@ export const spells: Plugin = {
     if (event.manaActivations && event.manaActivations.length > 0) {
       return
     }
-    const object = state.objects[event.objectId]
+    const originalObject = state.objects[event.objectId]
+    const object = originalObject ? proposedCostSource(originalObject, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost }) : undefined
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
     const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -615,7 +617,7 @@ export const spells: Plugin = {
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = resolveCastFace(object, event)
-      const spell = face ? { ...object, ...face } : object
+      const spell = proposedCostSource(face ? { ...object, ...face } : object, { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost })
       let canonicalLockedManaCost: string | undefined
       if (object.ruleDefinition && !event.copy) {
         if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
@@ -681,7 +683,7 @@ export const spells: Plugin = {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
             }
           }
-          if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana
+          if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana ?? ''
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
             const announcement = beginSpellAnnouncement(
               state,
@@ -711,7 +713,7 @@ export const spells: Plugin = {
               },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
-            canonicalLockedManaCost = announcement.transaction.lockedCost.mana
+            canonicalLockedManaCost = announcement.transaction.lockedCost.mana ?? ''
           }
           const flagbearerError = canonicalFlagbearerError(
             state,
@@ -965,12 +967,12 @@ export const spells: Plugin = {
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
           canonicalTransaction = committed
-          canonicalLockedCost = committed.lockedCost.mana
+          canonicalLockedCost = committed.lockedCost.mana ?? ''
           canonicalNonManaCosts = committed.lockedCost.nonMana
         }
         if (precommitted) {
           canonicalTransaction = precommitted
-          canonicalLockedCost = precommitted.lockedCost.mana
+          canonicalLockedCost = precommitted.lockedCost.mana ?? ''
           canonicalNonManaCosts = precommitted.lockedCost.nonMana
         }
       }
@@ -1133,11 +1135,13 @@ export const spells: Plugin = {
                 })))
               : [])
           if (lockedDistributionBounds.length > 0) stacked.execution.distributionBounds = structuredClone(lockedDistributionBounds)
+          if (canonicalTransaction) object.castCostChoices = announcementCostChoices(canonicalTransaction)
           stacked.execution.announcement = canonicalTransaction
             ? {
                 id: canonicalTransaction.id,
                 sourceId: canonicalTransaction.proposal.sourceId,
                 phase: 'committed',
+                costChoices: announcementCostChoices(canonicalTransaction),
                 lockedCost: canonicalTransaction.lockedCost,
                 payment: canonicalTransaction.payment,
               }

@@ -17,7 +17,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { announcementCostChoices, activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -486,6 +486,7 @@ export const activated: Plugin = {
             id: committed.id,
             sourceId: committed.proposal.sourceId,
             phase: 'committed' as const,
+            costChoices: announcementCostChoices(committed),
             lockedCost: committed.lockedCost,
             payment: committed.payment,
           },

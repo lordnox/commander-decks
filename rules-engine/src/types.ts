@@ -398,6 +398,7 @@ export type GameObject = {
   printedStaticModifiers?: PrintedStaticModifier[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
+  castCostChoices?: PaidCostChoices
   /** Multikicker count stamped when this permanent entered from a resolving spell. */
   enteredWithTimesKicked?: number
   /** Turn this object most recently entered the battlefield. */
@@ -433,6 +434,8 @@ export type GameObject = {
  * `id` is allocated once via `draft.allocId('stack')` and never regenerated —
  * stable for `continueAction`, replay, and client round-trips.
  */
+export type PaidCostChoices = { optional: readonly number[]; alternative?: number }
+
 export type StackItem = {
   id: string
   kind: 'spell' | 'ability' | 'action'
@@ -548,6 +551,7 @@ export type StackExecutionContext = {
     id: string
     sourceId: string
     phase: 'committed'
+    costChoices?: PaidCostChoices
     lockedCost: {
       mana?: string
       nonMana: readonly Cost[]

@@ -67,6 +67,10 @@ export const evaluateAmount = (
       if (context.eventAmount === undefined) throw new RuleDslEvaluationError('eventAmount is not available in this execution context')
       return runtimeAmount(context.eventAmount, 'eventAmount')
     }
+    case 'paidCostCount': {
+      if (!context.paidCostCount) throw new RuleDslEvaluationError('paid costs are unavailable in this execution context')
+      return runtimeAmount(context.paidCostCount(expression.cost, expression.index), 'paid cost count')
+    }
     case 'manaSpent': {
       if (!context.manaSpent) throw new RuleDslEvaluationError('manaSpent is not available in this execution context')
       return runtimeAmount(context.manaSpent(expression.color), 'manaSpent')

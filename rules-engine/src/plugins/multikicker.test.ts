@@ -1,17 +1,16 @@
+import type { GameEvent, GameState, ReduceResult } from '../types'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { resolveStack } from '../testHelpers'
-import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
   enters,
   multikicker,
   putChargeCountersFromTimesKicked,
 } from '../cardPlugins/effects'
 
-import {targetedResolve} from '../cardPlugins/targetedResolve'
 const quartzCoil = () => cardTemplate('Quartz Coil', {
   types: ['Artifact'],
   manaCost: '{0}',
@@ -119,96 +118,4 @@ describe('multikicker', () => {
     const cast = run(server, ready, events)
     expect(cast.stack[0].timesKicked).toBe(2)
   })
-})
-
-describe('relocated from homerKeywordCosts.test.ts → multikicker.test.ts', () => {
-  const card = (
-    name: string,
-    types: string[],
-    extra: Parameters<typeof cardTemplate>[1] = {},
-  ) => cardTemplate(name, { types, ...extra })
-
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-  const ok = (result: ReduceResult) => {
-    if (!result.ok) throw new Error(result.error)
-    return result.state
-  }
-
-  const run = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    events: GameEvent[],
-  ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
-
-  test('Tear Asunder offers both costs, charges kicker, and uses the kicked target filter', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [card('Tear Asunder', ['Instant'], { manaCost: '{1}{G}' })],
-          },
-          battlefield: {
-            p2: [
-              card('Relic', ['Artifact']),
-              card('Bear', ['Creature']),
-            ],
-          },
-        },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 1, C: 2 }
-      const spell = named(ready, 'Tear Asunder')
-      const relic = named(ready, 'Relic')
-      const bear = named(ready, 'Bear')
-      const actions = legalActsFor(ready, 'p1')
-        .filter((action) => action.kind === 'castSpell')
-        .filter((action) => action.objectId === spell.id)
-
-      expect(actions.some((action) =>
-        action.kind === 'castSpell'
-        && action.targetObjectId === relic.id
-        && !action.kicked)).toBe(true)
-      expect(actions.some((action) =>
-        action.kind === 'castSpell'
-        && action.targetObjectId === relic.id
-        && action.kicked)).toBe(true)
-      expect(actions.some((action) =>
-        action.kind === 'castSpell'
-        && action.targetObjectId === bear.id
-        && action.kicked)).toBe(true)
-      expect(actions.some((action) =>
-        action.kind === 'castSpell'
-        && action.targetObjectId === bear.id
-        && !action.kicked)).toBe(false)
-
-      const underfunded = structuredClone(ready)
-      underfunded.players.p1.mana.B = 0
-      underfunded.players.p1.mana.C = 1
-      const illegal = server.rules(underfunded, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        targets: [{ kind: 'object', objectId: bear.id }],
-        kicked: true,
-      })
-      expect(illegal.ok).toBe(false)
-      expect(illegal.ok === false && illegal.error).toBe('not enough mana')
-
-      const kicked = actions.find((action) =>
-        action.kind === 'castSpell'
-        && action.kicked
-        && action.targetObjectId === bear.id)!
-      const events = eventsForAvailableAction(ready, 'p1', kicked)!
-      const cast = run(server, ready, events)
-      expect(cast.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
-      expect(cast.stack[0].kicked).toBe(true)
-
-      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-      expect(resolved.objects[bear.id].zone).toBe('exile')
-      expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    })
-
 })

@@ -135,6 +135,7 @@ export const makeDraft = (state: GameState): Draft => {
     object.zone = to
     if (becomesNewObject) {
       object.incarnation += 1
+      if (!(from === 'stack' && to === 'battlefield')) delete object.castCostChoices
       delete object.canonicalGrantedActivations
       // CR 400.7a: characteristic changes follow a permanent spell as it resolves.
       if (from === 'stack' && to === 'battlefield') {

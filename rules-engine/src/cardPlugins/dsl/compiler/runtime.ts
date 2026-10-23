@@ -7,6 +7,7 @@ import { hasKeyword } from '../../../keywords'
 import { BASIC_LAND_TYPES, hasBasicLandType } from '../../../plugins/landTypes'
 import { isSameObject, targetObject } from '../../../objectIdentity'
 import type {
+  PaidCostChoices,
   CapturedObject,
   GameObject,
   GameState,
@@ -57,6 +58,7 @@ export type BoundRecipient =
   | { kind: 'stackItem'; stackId: string }
 
 export type RuntimeBindings = {
+  paidCosts?: PaidCostChoices
   targets?: Readonly<Record<number, readonly BoundRecipient[]>>
   targetLegality?: Readonly<Record<number, readonly boolean[]>>
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
@@ -391,6 +393,7 @@ const matchesObjectFilter = (
   filter: ObjectFilter,
   context: RuleDslRuntimeContext,
 ): boolean => {
+  if (filter.when && !evaluateCondition(filter.when, context)) return false
   if (filter.enchantableBy && (object.phasedOut || evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, object))) return false
   if (filter.all && !filter.all.every((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesObjectFilter(object, part, context))) return false
@@ -565,6 +568,15 @@ export const amountEvaluationContext = (
   },
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
+  paidCostCount: (cost, index) => {
+    const item = context.stackItemId ? context.state.stack.find(candidate => candidate.id === context.stackItemId) : undefined
+    const choices = context.paidCosts ?? item?.execution?.announcement?.costChoices
+      ?? context.source.snapshot.castCostChoices
+      ?? currentSource(context)?.castCostChoices
+    return cost === 'optional'
+      ? choices?.optional.filter(selected => selected === index).length ?? 0
+      : Number(choices?.alternative === index)
+  },
   manaSpent: (color) => {
     const item = context.stackItemId
       ? context.state.stack.find((candidate) => candidate.id === context.stackItemId)

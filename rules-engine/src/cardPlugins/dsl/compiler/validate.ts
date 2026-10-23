@@ -260,7 +260,8 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['when', 'enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    if (node.when !== undefined) validateCondition(node.when, childPath(path, 'when'), env)
     if (node.enchantableBy !== undefined) validateReference(node.enchantableBy, childPath(path, 'enchantableBy'), env, ['object'])
     if (node.creatureType !== undefined) validateCreatureType(node.creatureType, childPath(path, 'creatureType'), env)
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
@@ -397,6 +398,11 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'eventAmount':
         exactKeys(node, path, ['kind'], ['kind'])
         if (!env.eventAmount) issue(path, 'unresolved-binding', 'eventAmount is not available in this execution context')
+        return
+      case 'paidCostCount':
+        exactKeys(node, path, ['kind', 'cost', 'index'], ['kind', 'cost', 'index'])
+        enumeration(node.cost, childPath(path, 'cost'), new Set(['optional', 'alternative']), 'cost selection kind')
+        integer(node.index, childPath(path, 'index'))
         return
       case 'manaSpent':
         exactKeys(node, path, ['kind', 'color'], ['kind', 'color'])
@@ -1948,8 +1954,24 @@ export const validateDefinitionV1 = (root: unknown): {
     const ability = object(value, path)
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
-    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'optionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
+    const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
     const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment) => {
+      if (node.additionalCosts !== undefined) array(node.additionalCosts, childPath(nodePath, 'additionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.additionalCosts[${index}]`, env))
+      if (node.costConditions !== undefined) array(node.costConditions, childPath(nodePath, 'costConditions')).forEach((value, ordinal) => {
+        const conditionPath = `${nodePath}.costConditions[${ordinal}]`
+        const condition = object(value, conditionPath)
+        if (!condition) return
+        exactKeys(condition, conditionPath, ['cost', 'index', 'when'], ['cost', 'index', 'when'])
+        enumeration(condition.cost, childPath(conditionPath, 'cost'), new Set(['optional', 'alternative']), 'cost selection kind')
+        const options = condition.cost === 'optional' ? node.optionalCosts : node.alternativeCosts
+        integer(condition.index, childPath(conditionPath, 'index'), { max: Array.isArray(options) ? options.length - 1 : -1 })
+        validateCondition(condition.when, childPath(conditionPath, 'when'), env)
+      })
+      if (node.repeatableOptionalCosts !== undefined) {
+        const indexes = array(node.repeatableOptionalCosts, childPath(nodePath, 'repeatableOptionalCosts'))
+        indexes.forEach((index, ordinal) => integer(index, `${nodePath}.repeatableOptionalCosts[${ordinal}]`, { max: Array.isArray(node.optionalCosts) ? node.optionalCosts.length - 1 : -1 }))
+        if (new Set(indexes).size !== indexes.length) issue(nodePath, 'duplicate-cost', 'repeatable optional indexes must be unique')
+      }
       if (node.optionalCosts !== undefined) array(node.optionalCosts, childPath(nodePath, 'optionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.optionalCosts[${index}]`, env))
       if (node.alternativeCosts !== undefined) array(node.alternativeCosts, childPath(nodePath, 'alternativeCosts')).forEach((alternative, alternativeIndex) =>
         array(alternative, `${nodePath}.alternativeCosts[${alternativeIndex}]`).forEach((cost, index) => validateCost(cost, `${nodePath}.alternativeCosts[${alternativeIndex}][${index}]`, env)))
@@ -1960,8 +1982,9 @@ export const validateDefinitionV1 = (root: unknown): {
       if (node.costReductions !== undefined) array(node.costReductions, childPath(nodePath, 'costReductions')).forEach((reduction, index) => {
         const entry = object(reduction, `${nodePath}.costReductions[${index}]`)
         if (!entry) return
-        exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason'], ['generic'])
+        exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason', 'when'], ['generic'])
         validateAmount(entry.generic, `${nodePath}.costReductions[${index}].generic`, env)
+        if (entry.when !== undefined) validateCondition(entry.when, `${nodePath}.costReductions[${index}].when`, env)
       })
     }
     switch (ability.kind) {

@@ -54,7 +54,6 @@ import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engin
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
-import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
   CUMULATIVE_UPKEEP_PENDING,
@@ -1896,60 +1895,6 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
     expect(projectForViewer(state, 'p1').zoneOrder.p1.library).toEqual([])
     expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
-  })
-
-  test('Joint Exploration put-land dispatches a kernel move', () => {
-    const spell = {
-      ...forest(),
-      name: 'Joint Exploration',
-      types: ['Instant'],
-      supertypes: [],
-      subtypes: [],
-      manaCost: '{1}{U}',
-      tapProduces: undefined,
-    }
-    const handLand = { ...forest(), name: 'Hand Land', supertypes: [] }
-    const server = createServerGame(
-      commanderRules,
-      {
-        first: 'p1',
-        hands: { p1: [spell, handLand] },
-        libraries: { p1: [{ ...forest(), name: 'Top Card', types: ['Instant'] }] },
-      },
-      { random: () => 0.5, cardPlugins: [jointExploration, onResolve] },
-    )
-    const initial = structuredClone(server.state)
-    initial.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 1, C: 0 }
-    const spellId = initial.zoneOrder.p1.hand[0]
-    const kernel = handleFor(server.rules, initial)
-    for (const event of [
-      { type: 'castSpell', seat: 'p1', objectId: spellId, kicked: true } as const,
-      { type: 'resolveTop' } as const,
-    ]) {
-      const result = kernel.dispatch(event)
-      if (!result.ok) throw new Error(result.error)
-    }
-    const lobby = createLobby()
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck?.kind).toBe('scry')
-    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
-      type: 'topdeck',
-      choices: [{ card: 'Top Card', destination: 'top' }],
-    }))).toBe(true)
-    expect(lobby.topdeck?.kind).toBe('put-land')
-    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
-      type: 'topdeck',
-      choices: [{ card: 'Hand Land', destination: 'battlefield' }],
-    }))).toBe(true)
-
-    const state = kernel.history.current()
-    const land = Object.values(state.objects).find((object) => object.name === 'Hand Land')!
-    expect(land.zone).toBe('battlefield')
-    expect(kernel.journal.events).toContainEqual({
-      type: 'move',
-      objectId: land.id,
-      to: 'battlefield',
-    })
   })
 
   test('a generic pending dialog can put several permanent cards from hand', () => {

@@ -630,10 +630,6 @@ describe('card plugin registry', () => {
       'Exile a creature you own, then return one exiled creature to the battlefield and other exiled cards to hand is not composable from linkedExile like Endless Sands.',
     ],
     [
-      'Everflowing Chalice (tap mana)',
-      'Multikicker charge counters on ETB are wired; {T}: Add {C} for each charge counter has no generic mana-capability.',
-    ],
-    [
       "Archaeomancer's Map (land enter)",
       'Second ability uses playLand + opponentHasMore, not land-enter nor comparing land counts to the triggering opponent in multiplayer.',
     ],

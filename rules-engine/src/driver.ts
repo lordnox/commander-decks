@@ -439,6 +439,7 @@ const runtimeContext = (
   source: frame.source,
   ...(frame.referencedObjects ? { referencedObjects: frame.referencedObjects } : {}),  ...(item.execution?.sourceLess ? { sourceLess: true as const } : {}),
   stackItemId: item.id,
+  ...(item.execution?.announcement?.costChoices ? { paidCosts: item.execution.announcement.costChoices } : {}),
   ...((frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence)
     ? { occurrence: frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence }
     : {}),

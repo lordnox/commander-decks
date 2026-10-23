@@ -1,5 +1,11 @@
+import { availableActions, legalActsFor, eventsForAvailableAction } from '../../actions'
+import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
 import {
+  destroy,
+  compareAmount,
+  count,
+  paidCostCount,
   characteristic,
   chooseX,
   divide,
@@ -587,4 +593,100 @@ test.each([1, 3, 4, 5])('generic reductions can reduce restricted X payment (red
   const cast = server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], x: 3 })
   expect(cast.ok).toBe(true)
   if (cast.ok) expect(Object.values(cast.state.players.p1.mana).reduce((sum, amount) => sum + amount, 0)).toBe(0)
+})
+
+
+describe('shared optional payment receipts', () => {
+  test.each([0, 1, 3])('pays the complete optional cost %s times and retains the count through restore', count => {
+    const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+      optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0],
+      instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) })],
+    })] } }, { random: () => 0 })
+    server.state.players.p1.mana.C = 6
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], selectedOptionalCosts: Array.from({ length: count }, () => 0) }))
+    expect(cast.players.p1.mana.C).toBe(6 - count * 2)
+    const restored = restoreJournal(createJournal(cast), server.rules).current()
+    const resolved = resolveStack(server.rules, restored)
+    expect(resolved.players.p1.life).toBe(40 + count)
+    expect(resolved.objects[cast.stack[0].objectId].castCostChoices).toBeUndefined()
+  })
+
+  test('an ordinary optional cost cannot be paid twice and insufficient payment is atomic', () => {
+    for (const repeatable of [false, true]) {
+      const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+        optionalCosts: [manaCost('{2}')], ...(repeatable ? { repeatableOptionalCosts: [0] } : {}),
+        instructions: [draw({ targets: ref('controller'), count: 1 })],
+      })] } }, { random: () => 0 })
+      server.state.players.p1.mana.C = 3
+      const before = structuredClone(server.state)
+      expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], selectedOptionalCosts: [0, 0] }).ok).toBe(false)
+      expect(server.state).toEqual(before)
+    }
+  })
+
+  test('alternative payments share the receipt while optional costs remain additional', () => {
+    const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+      alternativeCosts: [[lifeCost(4)]], optionalCosts: [manaCost('{2}')],
+      instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('alternative', 0) })],
+    }, '{8}')] } }, { random: () => 0 })
+    server.state.players.p1.mana.C = 2
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], selectedAlternativeCost: 0, selectedOptionalCosts: [0] }))
+    expect(cast.players.p1.life).toBe(36)
+    expect(cast.players.p1.mana.C).toBe(0)
+    expect(resolveStack(server.rules, cast).players.p1.life).toBe(37)
+  })
+})
+
+
+test('alternative payment preserves mandatory additional costs and respects its condition', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+    alternativeCosts: [[lifeCost(4)]], additionalCosts: [lifeCost(2)],
+    costConditions: [{ cost: 'alternative', index: 0, when: compareAmount(count(objects({ zone: 'battlefield', controller: 'you', type: 'Land' })), 'gte', 1) }],
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  }, '{5}')] }, libraries: { p1: [cardTemplate('Land fixture', { types: ['Land'] })] } }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }).ok).toBe(false)
+  const ready = ok(server.rules(server.state, { type: 'move', objectId: server.state.zoneOrder.p1.library[0], to: 'battlefield' }))
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }))
+  expect(cast.players.p1.life).toBe(34)
+})
+
+test('action offers fund repeated optional costs through the same announcement transaction', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+    optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0],
+    instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) })],
+  })] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 5
+  const options = availableActions(server.state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(options.map(action => action.kind === 'castSpell' ? action.selectedOptionalCosts?.length ?? 0 : -1)).toEqual([0, 1, 2])
+  const events = eventsForAvailableAction(server.state, 'p1', options[2])!
+  let current = server.state
+  for (const event of events) current = ok(server.rules(current, event))
+  expect(current.players.p1.mana.C).toBe(1)
+  expect(resolveStack(server.rules, current).players.p1.life).toBe(42)
+})
+
+
+test('an optional payment can expand target eligibility before costs are paid', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    optionalCosts: [manaCost('{1}')],
+    decisions: { targets: [select({ filter: objects({ zone: 'battlefield', any: [
+      { type: 'Artifact' }, { when: compareAmount(paidCostCount('optional', 0), 'gte', 1), not: { type: 'Land' } },
+    ] }), count: 1 })] },
+    instructions: [destroy({ targets: target(0) })],
+  })])))
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Target option fixture', { types: ['Instant'], manaCost: '{1}', ruleDefinition: definition })] }, battlefield: { p2: [
+    cardTemplate('Artifact fixture', { types: ['Artifact'] }), cardTemplate('Creature fixture', { types: ['Creature'], power: 2, toughness: 2 }),
+  ] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 2
+  const spellId = server.state.zoneOrder.p1.hand[0]
+  const creature = server.state.zoneOrder.p2.battlefield[1]
+  const plain = legalActsFor(server.state, 'p1').find(action => action.kind === 'castSpell' && !action.selectedOptionalCosts)
+  const paid = legalActsFor(server.state, 'p1').find(action => action.kind === 'castSpell' && action.selectedOptionalCosts?.length)
+  expect(plain?.kind === 'castSpell' && plain.targetGroups?.[0].targets.map(candidate => candidate.objectId)).not.toContain(creature)
+  expect(paid?.kind === 'castSpell' && paid.targetGroups?.[0].targets.map(candidate => candidate.objectId)).toContain(creature)
+  const targets = [{ kind: 'object' as const, objectId: creature }]
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets }).ok).toBe(false)
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets, selectedOptionalCosts: [0] }))
+  expect(resolveStack(server.rules, cast).objects[creature].zone).toBe('graveyard')
 })

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **75 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after shared casting costs/kicker, plus family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **72 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 111 available, 0 awaiting correctness follow-up, and 62 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 113 available, 0 awaiting correctness follow-up, and 60 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -200,7 +200,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
-| <a id="14-counters"></a>**14-counters — Counter-count amounts** | Available | Read named current counter counts for production, doubling, or other numeric effects. Mossborn Hydra has migrated. | — | `Everflowing Chalice` |
+| <a id="14-counters"></a>**14-counters — Counter-count amounts** | Available | Read named current counter counts for production, doubling, or other numeric effects. Mossborn Hydra has migrated. | — | — |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Available | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. Sandstone Oracle has migrated. | — | None remaining |
 | <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Getaway Glamer`; `Rishkar's Expertise` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
@@ -233,7 +233,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | --- | --- | --- | --- | --- |
 | <a id="17-entry"></a>**17-entry — Conditional tapped entry** | Available | Count other lands/land types as entry is determined; preserve actual untapped-entry conditions for triggers. | — | `Hall of Storm Giants`; `Lair of the Hydra` |
 | <a id="17-reveal"></a>**17-reveal — Reveal-from-hand entry choice** | Available | Optional hand reveal as an entry replacement, with private choice and public reveal semantics. | — | None remaining |
-| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Spark Double` |
+| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Spark Double` |
 
 ### 18. Linked exile
 
@@ -325,14 +325,14 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | <a id="25-flashback"></a>**25-flashback — Flashback** | Open | Cast from graveyard with alternate costs and the correct exile replacement. | [26-graveyard-spells](#26-graveyard-spells) | `Dread Return` |
 | <a id="25-foretell"></a>**25-foretell — Foretell** | Open | Private face-down exile, later-turn casting permission, and foretell cost. | [26-exile-play](#26-exile-play) | `Glorious Protector` |
 | <a id="25-gift"></a>**25-gift — Gift** | Open | Promise a gift at announcement; choose the recipient and apply the gift before the remaining effects. | [15-player](#15-player) | `Parting Gust`; `Perch Protection` |
-| <a id="25-kicker"></a>**25-kicker — Kicker** | Open | Persist a paid kicker option for targeting and resolution branches; repeatable multikicker is a separate extension. | — | `Everflowing Chalice`; `Joint Exploration`; `Tear Asunder` |
+| <a id="25-kicker"></a>**25-kicker — Kicker** | Available | Optional costs share the normal announcement/payment transaction, retain paid selections, expand target eligibility before payment, and drive resolution branches. | — | — |
 | <a id="25-modal"></a>**25-modal — Conditional mode counts** | Open | Announcement-time conditions change how many modes may be chosen. | [15-commander](#15-commander) | `Will of the Sultai` |
 | <a id="25-plot"></a>**25-plot — Plot** | Open | Special-action exile from hand and later-turn sorcery casting permission without paying mana. | [26-exile-play](#26-exile-play), [20-origin](#20-origin) | `Pitiless Carnage` |
 | <a id="25-reductions"></a>**25-reductions — Conditional spell-cost reductions** | Open | Apply reductions from graveyard card-type diversity, target characteristics, or opponent basics. | — | `Drag to the Roots`; `Hagra Mauling // Hagra Broodpit`; `Price of Fame` |
 | <a id="25-spree"></a>**25-spree — Spree** | Open | Choose one or more paid modes and preserve mode-dependent costs/targets. | — | `Getaway Glamer` |
 | <a id="25-suspend"></a>**25-suspend — Suspend** | Open | Time counters, upkeep removal, no-mana-cost casting, and resulting haste. | [13-step](#13-step), [26-exile-play](#26-exile-play) | `Hypergenesis` |
 | <a id="25-warp"></a>**25-warp — Warp** | Open | Alternate hand casting, delayed exile, and later-turn casting from that exile. | [26-exile-play](#26-exile-play), [20-origin](#20-origin), [13-step](#13-step) | `All-Fates Stalker` |
-| <a id="25-multikicker"></a>**25-multikicker — Multikicker** | Open | Allow repeated kicker payment and retain the paid count for entry effects. | [25-kicker](#25-kicker) | `Everflowing Chalice` |
+| <a id="25-multikicker"></a>**25-multikicker — Multikicker** | Available | Declared repeatable optional costs retain their paid count through restore and stack-to-battlefield entry replacements; counters drive ordinary canonical mana abilities. | [25-kicker](#25-kicker) | — |
 
 ### 26. Zone play permissions
 

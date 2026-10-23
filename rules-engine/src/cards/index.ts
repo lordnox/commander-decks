@@ -1,3 +1,6 @@
+import tearAsunder from './tear-asunder'
+import jointExploration from './joint-exploration'
+import everflowingChalice from './everflowing-chalice'
 import moleManMoloidMaster from './mole-man-moloid-master'
 import courserOfKruphix from './courser-of-kruphix'
 import icetillExplorer from './icetill-explorer'
@@ -342,6 +345,9 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Tear Asunder': tearAsunder,
+  'Joint Exploration': jointExploration,
+  'Everflowing Chalice': everflowingChalice,
   'Mole Man, Moloid Master': moleManMoloidMaster,
   'Courser of Kruphix': courserOfKruphix,
   'Icetill Explorer': icetillExplorer,

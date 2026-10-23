@@ -111,7 +111,7 @@
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
     "digest": "7292ffc1f9a02b7a365fb5fab32399fa12385ce36a556c926952f55869144c12",
-    "card": "Círdan the Shipwright"
+    "card": "C\u00edrdan the Shipwright"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -166,18 +166,6 @@
     "code": "legacy-card-registration",
     "digest": "8bfed832068ebe6c62300a876959979d4d3f604265c457db7d6155df934cd8ac",
     "card": "Hall of Storm Giants"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "cf720a708d517db28320c8d24e5df39b630a0fde85919856373493fcece362c9",
-    "card": "Everflowing Chalice"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "89d0c046964e9e52c18dbf4528ea72d29a4710486825ba8763676f9f1e5393dd",
-    "card": "Joint Exploration"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -310,12 +298,6 @@
     "code": "legacy-card-registration",
     "digest": "1698c2c3dd0f86c87d3d647fee77e15bebbde9e172a3e48a490aa83aa4449a30",
     "card": "Rankle, Master of Pranks"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "7dadc1e4afe66901654a6e7ee00263ec5b155faf1c8d3b86ed9e51b492a279fd",
-    "card": "Tear Asunder"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
