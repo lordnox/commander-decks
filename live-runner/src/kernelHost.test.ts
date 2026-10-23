@@ -2376,16 +2376,18 @@ describe('kernel host journal', () => {
         { name: 'Forest', subtypes: ['Forest'] },
         { name: 'Island', subtypes: ['Island'] },
       ],
+      0,
+      '$.abilities[2]',
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(() => applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'Forest', destination: 'battlefield' },
-        { card: 'Island', destination: 'battlefield' },
+        { card: 'Forest', destination: 'target' },
+        { card: 'Island', destination: 'target' },
       ],
     }))).toThrow('must share a land type')
-    expect(searchingSeat(kernel.history.current())).toBe('p1')
+    expect(waitingSelectCards(kernel.history.current(), 'p1')).toBeDefined()
   })
 
   test('advances a coarse phase through the kernel without a judge round', async () => {
