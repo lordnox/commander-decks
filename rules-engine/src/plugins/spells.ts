@@ -74,7 +74,7 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<Abil
       controller: event.seat,
       source: captureObject(source),
       variables: event.x === undefined ? undefined : { X: event.x },
-    }),
+    }, event.modeIndices?.length),
   }
 }
 

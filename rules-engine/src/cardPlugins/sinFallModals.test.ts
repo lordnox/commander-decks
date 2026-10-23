@@ -4,8 +4,6 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
-import { DIALOG_CHOSEN } from '../pendingDialog'
 import { choiceEffects } from './choiceEffects'
 import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
@@ -125,47 +123,5 @@ describe('Sin-fall modal and saga behavior', () => {
     expect(named(state, 'Top Card').zone).toBe('hand')
   })
 
-
-  test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [card('Will of the Sultai', ['Sorcery'], { manaCost: '{2}{B}{G}' })],
-        },
-        libraries: {
-          p2: [card('Milled A', ['Instant']), card('Milled B', ['Instant']), card('Milled C', ['Instant'])],
-          p1: [card('Yard Land', ['Land'], { zone: 'graveyard' })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 1, C: 2 }
-    const spell = named(state, 'Will of the Sultai').id
-    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: {
-        modes: [
-          'Target player mills three cards. Return all land cards from your graveyard tapped.',
-        ],
-      },
-    }))
-    const pick = pendingPlayerSelectionFor(state, 'p1')!
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pick.id,
-      players: ['p2'],
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.zoneOrder.p2.graveyard).toHaveLength(3)
-    expect(named(state, 'Yard Land').zone).toBe('battlefield')
-    expect(named(state, 'Yard Land').tapped).toBe(true)
-  })
 
 })

@@ -1,3 +1,4 @@
+import willOfTheSultai from './will-of-the-sultai'
 import getawayGlamer from './getaway-glamer'
 import pileOn from './pile-on'
 import mulldrifter from './mulldrifter'
@@ -358,6 +359,7 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Will of the Sultai': willOfTheSultai,
   'Getaway Glamer': getawayGlamer,
   'Pile On': pileOn,
   'Mulldrifter': mulldrifter,

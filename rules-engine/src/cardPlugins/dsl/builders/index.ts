@@ -285,8 +285,8 @@ export const select = (input: TargetClauseInput): TargetClause => {
 export const chooseX = (bounds: { min?: number; max?: number; manaColor?: VariableSpec['manaColor'] } = {}): VariableSpec =>
   immutableData({ name: 'X', min: bounds.min ?? 0, max: bounds.max ?? 1_000_000, ...(bounds.manaColor ? { manaColor: bounds.manaColor } : {}) })
 
-export const chooseModes = (input: { count: AmountInput; repeatable?: boolean }): ModeSpec =>
-  immutableData({ count: toAmount(input.count), repeatable: input.repeatable ?? false })
+export const chooseModes = (input: { count: AmountInput; min?: AmountInput; repeatable?: boolean }): ModeSpec =>
+  immutableData({ count: toAmount(input.count), ...(input.min !== undefined ? { min: toAmount(input.min) } : {}), repeatable: input.repeatable ?? false })
 
 export const distribution = (input: {
   targetClauseIndex: number

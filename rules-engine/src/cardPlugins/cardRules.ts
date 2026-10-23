@@ -41,8 +41,6 @@ import {
   linkedExileUntilLeaves,
   legendRuleOff,
   mayCastFromHandWithoutPayingMana,
-  millTarget,
-  modalCommanderChooseBoth,
   onResolve,
   onResolveIfCastOption,
   optionalMill,
@@ -55,7 +53,6 @@ import {
   putMilledLandTapped,
   revealPick,
   reanimateCreatureFromGraveyards,
-  returnOwnedGraveyardLands,
   searchSpell,
   sacrificePermanentsThenDraw,
   secretCouncil,
@@ -91,8 +88,6 @@ import {
   grantRetrace,
   warp,
   ifTargetTypes,
-  pumpTargetEqualToLands,
-  addPlusCountersEqualToLands,
   escape,
   hiddenPileNegotiation,
   opponentPiles,
@@ -437,18 +432,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Will of the Sultai': [modalCommanderChooseBoth(
-    {
-      id: 'lands',
-      label: 'Target player mills three cards. Return all land cards from your graveyard tapped.',
-      do: [millTarget(3), returnOwnedGraveyardLands()],
-    },
-    {
-      id: 'pump',
-      label: 'Put X +1/+1 counters on target creature, where X is the number of lands you control. It gains trample.',
-      do: [addPlusCountersEqualToLands(), pumpTargetEqualToLands(true)],
-    },
-  )],
   'Woodfall Primus': [
     entersTargeting(
       { zone: 'battlefield', permanent: true, noncreature: true },

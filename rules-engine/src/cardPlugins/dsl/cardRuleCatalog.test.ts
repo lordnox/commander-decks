@@ -2603,3 +2603,13 @@ test('Getaway Glamer composes paid target counts, delayed return, and a greatest
     },
   ])
 })
+
+
+test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Will of the Sultai')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costs: [], decisions: { modes: { min: { value: 1 }, count: { kind: 'add', right: { kind: 'minimum', right: { of: { filter: { commander: true, controller: 'you', zone: 'battlefield' } } } } } } }, modes: [
+      { decisions: { targets: [{ filter: { kind: 'players' } }] }, instructions: [{ kind: 'mill', count: { value: 3 } }, { kind: 'move', to: 'battlefield', tapped: true, targets: { filter: { zone: 'graveyard', owner: 'you', type: 'Land' } } }] },
+      { decisions: { targets: [{ filter: { filter: { type: 'Creature' } } }] }, instructions: [{ kind: 'putCounters', counter: '+1/+1', count: { of: { filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } } }, { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: 'trample' }, duration: { kind: 'untilCleanup' } }] },
+    ] },
+  ])
+})

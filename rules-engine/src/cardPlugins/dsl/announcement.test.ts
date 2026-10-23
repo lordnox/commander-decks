@@ -649,6 +649,9 @@ test('alternative payment preserves mandatory additional costs and respects its 
   const objectId = server.state.zoneOrder.p1.hand[0]
   expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }).ok).toBe(false)
   const ready = ok(server.rules(server.state, { type: 'move', objectId: server.state.zoneOrder.p1.library[0], to: 'battlefield' }))
+  const insufficient = structuredClone(ready)
+  insufficient.players.p1.life = 5
+  expect(server.rules(insufficient, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }).ok).toBe(false)
   const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId, selectedAlternativeCost: 0 }))
   expect(cast.players.p1.life).toBe(34)
 })

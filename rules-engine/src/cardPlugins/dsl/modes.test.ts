@@ -1,5 +1,10 @@
+import { legalActsFor } from '../../actions'
 import { describe, expect, test } from 'bun:test'
 import {
+  addAmount,
+  count,
+  gainLife,
+  minimum,
   amount,
   activated,
   card,
@@ -25,7 +30,8 @@ import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
+import { createJournal, restoreJournal } from '../../journal'
 import type { GameState } from '../../types'
 
 const named = (state: GameState, name: string) =>
@@ -610,4 +616,27 @@ test.each([0, 1, 2])('cast-triggered modes preserve targeting and bounded inspec
   expect(state.objects[server.state.zoneOrder.p2.battlefield[0]!].zone).toBe(mode === 0 ? 'graveyard' : 'battlefield')
   expect(state.players.p1.life).toBe(mode === 2 ? 44 : 40)
   expect(state.resolution).toBeUndefined()
+})
+
+
+test.each([0, 1, 2])('conditional spell mode bounds permit one or both and pin the announcement choice (commanders=%s)', commanders => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    decisions: { modes: chooseModes({ min: 1, count: addAmount(1, minimum(1, count(objects({ zone: 'battlefield', controller: 'you', commander: true })))) }) },
+    modes: [
+      { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] },
+      { instructions: [gainLife({ targets: ref('controller'), amount: 2 })] },
+    ],
+  })])))
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Conditional modes fixture', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] }, battlefield: { p1: Array.from({ length: commanders }, (_, index) => cardTemplate(`Commander fixture ${index}`, { types: ['Creature'], tags: ['commander'], power: 2, toughness: 2 })) } }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const offered = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(offered.map(action => action.kind === 'castSpell' ? action.modeIndices?.join(',') : '').sort()).toEqual(commanders ? ['0', '0,1', '1'] : ['0', '1'])
+  const single = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, modeIndices: [0] }))
+  expect(resolveStack(server.rules, single).players.p1.life).toBe(41)
+  const both = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, modeIndices: [0, 1] })
+  expect(both.ok).toBe(commanders > 0)
+  if (!both.ok) return
+  let restored = restoreJournal(createJournal(both.state), server.rules).current()
+  for (const id of restored.zoneOrder.p1.battlefield) restored = ok(server.rules(restored, { type: 'move', objectId: id, to: 'graveyard' }))
+  expect(resolveStack(server.rules, restored).players.p1.life).toBe(43)
 })

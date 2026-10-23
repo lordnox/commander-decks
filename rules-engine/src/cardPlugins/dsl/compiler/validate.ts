@@ -724,8 +724,10 @@ export const validateDefinitionV1 = (root: unknown): {
       if (!allowModes) issue(childPath(path, 'modes'), 'modal-structure', 'nested mode decisions are not supported in Rule DSL v1')
       const modes = object(node.modes, childPath(path, 'modes'))
       if (modes) {
-        exactKeys(modes, childPath(path, 'modes'), ['count', 'repeatable'], ['count', 'repeatable'])
+        exactKeys(modes, childPath(path, 'modes'), ['count', 'min', 'repeatable'], ['count', 'repeatable'])
         validateAmount(modes.count, childPath(childPath(path, 'modes'), 'count'), env)
+        if (modes.min !== undefined) validateAmount(modes.min, childPath(childPath(path, 'modes'), 'min'), env)
+        if (isData(modes.min) && modes.min.kind === 'constant' && isData(modes.count) && modes.count.kind === 'constant' && Number(modes.min.value) > Number(modes.count.value)) issue(path, 'modal-bounds', 'mode minimum exceeds its maximum')
         if (isData(modes.count) && modes.count.kind === 'constant') modeCount = integer(modes.count.value, childPath(childPath(childPath(path, 'modes'), 'count'), 'value'), { min: 1, max: MAX_LIST_LENGTH })
         if (typeof modes.repeatable !== 'boolean') issue(childPath(childPath(path, 'modes'), 'repeatable'), 'type', 'expected a boolean')
         else repeatable = modes.repeatable
@@ -2067,6 +2069,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (entry.when !== undefined) validateCondition(entry.when, `${nodePath}.costReductions[${index}].when`, reductionEnv)
       })
     }
+    if (ability.kind !== 'spell' && isData(ability.decisions) && isData(ability.decisions.modes) && ability.decisions.modes.min !== undefined) issue(path, 'domain', 'bounded mode counts currently require a spell announcement')
     switch (ability.kind) {
       case 'spell': {
         exactKeys(ability, path, [...commonProgramKeys, 'uncounterable'], ['kind', 'decisions', 'costs'])

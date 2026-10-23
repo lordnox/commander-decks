@@ -314,7 +314,9 @@ export type TargetConstraint = {
 }
 
 export type ModeSpec = {
+  /** Exact count unless min is supplied, in which case this is the maximum. */
   count: Amount
+  min?: Amount
   repeatable: boolean
 }
 

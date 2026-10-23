@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 59,
+    "cardRegistrations": 58,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 105,
+    "instructionUnobservedGaps": 109,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 80,
-    "candidateOnlyCardRows": 54
+    "candidateOnlyInstructionRows": 76,
+    "candidateOnlyCardRows": 53
   },
   "cardEffects": [
     {
@@ -288,17 +288,13 @@
     {
       "variant": "modal",
       "mechanic": "modal spell program",
-      "currentRegistrations": [
-        "Will of the Sultai:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "scoped announcement modes",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -770,15 +766,11 @@
     {
       "variant": "addPlusCountersEqualToLands",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Will of the Sultai:effects[0].modes[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -786,7 +778,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3079,15 +3071,11 @@
     {
       "variant": "millTarget",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Will of the Sultai:effects[0].modes[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3096,7 +3084,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3573,15 +3561,11 @@
     {
       "variant": "pumpTargetEqualToLands",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Will of the Sultai:effects[0].modes[1].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3591,7 +3575,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3640,16 +3624,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 14,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1082 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1345 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1638 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1998 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2612 — test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:160 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:82 — test('a delayed program retains a parent card choice after JSON restart', () => {",
-          "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
-          "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:213 — test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3995,15 +3979,11 @@
     {
       "variant": "returnOwnedGraveyardLands",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Will of the Sultai:effects[0].modes[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4011,7 +3991,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -6659,43 +6639,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Will of the Sultai",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Will of the Sultai"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:134 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [modal] and instructions [addPlusCountersEqualToLands, millTarget, pumpTargetEqualToLands, returnOwnedGraveyardLands]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "09",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "modal"
-      ],
-      "instructionVariants": [
-        "addPlusCountersEqualToLands",
-        "millTarget",
-        "pumpTargetEqualToLands",
-        "returnOwnedGraveyardLands"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "modalSpell"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Woodfall Primus",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -7191,16 +7134,16 @@
         "rules-engine/src/plugins/commander.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 29,
         "samples": [
           "rules-engine/src/actions.test.ts:311 — test('accounts for commander tax', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:630 — test('repeated phasing modes keep independent target scopes for the same creature', () => {",
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
           "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts:14 — test('commander queries use the controlled battlefield instance rather than ownership or legendary status', () => {",
           "rules-engine/src/cardPlugins/dsl/stackItemFilters.test.ts:28 — test('stack filters distinguish command-zone casts from hand casts', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:365 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:365 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -7963,7 +7906,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 65,
+        "matches": 64,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3365 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:792 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -8831,7 +8774,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:406",
+        "rules-engine/src/cardPlugins/cardRules.ts:401",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -9120,12 +9063,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1855,
-          2763
+          1857,
+          2765
         ],
         "samples": [
-          "1855: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2763: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1857: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2765: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

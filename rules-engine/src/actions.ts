@@ -33,7 +33,7 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
-import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
+import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeBounds, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
 import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
@@ -1817,8 +1817,10 @@ const targetVariants = (
       : undefined
     if (delveGroup === null) return []
     if (costGroups.some(group => group.targets.length < group.min)) return []
-    const variants = ability.modes && ability.decisions.modes
-      ? combinationsOf(ability.modes.map((_, index) => index), evaluateModeCount(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }))
+    const bounds = ability.decisions.modes ? evaluateModeBounds(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }) : undefined
+    const variants = ability.modes && bounds
+      ? Array.from({ length: Math.max(0, Math.min(bounds.max, ability.modes.length) - bounds.min + 1) }, (_, index) => bounds.min + index)
+          .flatMap(count => combinationsOf(ability.modes!.map((_, index) => index), count))
       : [undefined]
     return variants.flatMap(modeIndices => {
       const clauses = modeIndices ? modalTargetLayout(ability, abilityIndex, modeIndices).map(entry => entry.clause) : ability.decisions.targets
