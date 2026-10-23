@@ -199,6 +199,7 @@ const preflightInstructions = (
         preflightInstructions(instruction.then, `${instructionPath}.then`)
         preflightInstructions(instruction.otherwise, `${instructionPath}.otherwise`)
         return
+      case 'repeat':
       case 'repeatWhile':
         preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
         return
@@ -1499,6 +1500,10 @@ export const prepareResolutionStep = (draft: Draft) => {
   }
   while (frame.scopes.length > 0) {
     const scope = frame.scopes.at(-1)!
+    if (scope.cursor >= scope.instructions.length && (scope.repeatRemaining ?? 0) > 0) {
+      scope.repeatRemaining! -= 1
+      scope.cursor = 0
+    }
     if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
       if (scope.restoreBindings) {
@@ -1705,6 +1710,16 @@ export const prepareResolutionStep = (draft: Draft) => {
           },
         })
       }
+      continue
+    }
+    if (instruction.kind === 'repeat') {
+      const count = availableAmount(instruction.count, runtimeContext(draft, frame, item, scope.scopeId)) ?? 0
+      if (count === 0 || instruction.instructions.length === 0) continue
+      frame.scopes.push({
+        path: `${path}.instructions`, scopeId: scope.scopeId,
+        instructions: structuredClone(instruction.instructions), cursor: 0,
+        repeatRemaining: count - 1,
+      })
       continue
     }
     if (instruction.kind === 'repeatWhile') {

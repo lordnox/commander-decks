@@ -578,12 +578,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "39aa5f220f8c25ed066d7d5b0868a088224d273fc59dd16e0de721758d185471",
-    "card": "Wall of Shards"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "f49c4cbcc6e54803ff9e019842c6cae5337e50f4e647ab536db8a1bb4ce7bb47",
     "card": "Valgavoth, Terror Eater"
   },

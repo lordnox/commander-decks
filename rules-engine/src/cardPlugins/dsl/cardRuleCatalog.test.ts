@@ -2362,3 +2362,11 @@ test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling
     },
   ])
 })
+
+test('catalog Wall of Shards composes its keywords and cumulative upkeep payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wall of Shards')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'defender' },
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'players', filter: { relation: 'you' } } } },
+  ])
+})

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **101 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **100 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 89 available, 0 awaiting correctness follow-up, and 84 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 90 available, 0 awaiting correctness follow-up, and 83 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -93,7 +93,6 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [13-upkeep](#13-upkeep) | Wall of Shards | Cumulative upkeep chooses an opponent to gain life. |
 
 **No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
 
@@ -186,10 +185,10 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Tenuous Truce`; `Wall of Shards` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Tenuous Truce` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Available | Untap qualifying permanents during other players' turn-based untap action, once per permanent with stun and phasing semantics. Bender's Waterskin has migrated. | — | None remaining |
-| <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
+| <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Available | Age counters and optional full repeated payment compose through counted repetition, separate opponent choices, and sacrifice on decline. Wall of Shards has migrated. | [13-step](#13-step) | None remaining |
 
 ### 14. Amounts and characteristic queries
 
@@ -213,7 +212,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="15-simultaneous"></a>**15-simultaneous — Collect per-player choices before shared actions** | Available | `chooseParticipants` and `chooseCardsForEachPlayer` collect choices in APNAP order without intervening actions, bind player/card sets, preserve private candidates, insufficient-card choices, and restore. `discardHands` discards the participating hands in one action group; subsequent draws retain APNAP order. Sail into the West has migrated. | [15-each](#15-each) | None remaining |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
 | <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
-| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Wall of Shards` |
+| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection` |
 
 ### 16. Modal faces
 

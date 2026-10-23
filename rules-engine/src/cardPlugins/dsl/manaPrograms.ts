@@ -12,6 +12,7 @@ export const instructionMovesLibrary = (instructions: readonly Instruction[]): b
     case 'move':
       return instruction.to === 'library'
         || (instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library')
+    case 'repeat':
     case 'sequence':
     case 'forEachPlayer':
       case 'forEach':
@@ -30,6 +31,7 @@ export const instructionAddsMana = (instructions: readonly Instruction[]): boole
     case 'addMana':
     case 'addManaChosenColor':
     case 'addManaFrom': return true
+    case 'repeat':
     case 'sequence':
     case 'forEachPlayer':
       case 'forEach':

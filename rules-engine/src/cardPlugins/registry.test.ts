@@ -160,7 +160,7 @@ describe('card plugin registry', () => {
       'Wall of Shards',
     ])).toEqual([])
     expect(cardPluginEntry('Mulldrifter')?.handlerIds).toEqual(['alternateCosts'])
-    expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])
+    expect(cardPluginEntry('Wall of Shards')?.handlerIds ?? []).toEqual([])
   })
 
   test('the Sin Fall finisher cards load their handlers', () => {

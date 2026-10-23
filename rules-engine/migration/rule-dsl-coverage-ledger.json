@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 101,
+    "cardRegistrations": 100,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 85,
     "directMutationSites": 574,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 78,
+    "instructionUnobservedGaps": 79,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 107,
-    "candidateOnlyCardRows": 96
+    "candidateOnlyInstructionRows": 106,
+    "candidateOnlyCardRows": 95
   },
   "cardEffects": [
     {
@@ -669,7 +669,6 @@
         "Springheart Nantuko:effects[1]",
         "Starfield of Nyx:effects[1]",
         "Trap the Trespassers:effects[0]",
-        "Wall of Shards:effects[0]",
         "Wedding Ring:effects[0]",
         "Wedding Ring:effects[1]",
         "Wedding Ring:effects[2]",
@@ -682,7 +681,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 175,
+        "matches": 172,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -691,7 +690,7 @@
           "live-runner/src/kernelHost.test.ts:2913 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "live-runner/src/kernelHost.test.ts:2981 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "live-runner/src/kernelHost.test.ts:3073 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
-          "live-runner/src/kernelHost.test.ts:760 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {"
+          "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1649,18 +1648,11 @@
     {
       "variant": "cumulativeUpkeepOpponentLife",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Wall of Shards:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:760 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:225 — test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:160 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "site/src/liveCompact.test.ts:357 — test('browser wire preserves the typed request envelope metadata', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1668,7 +1660,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4576,7 +4568,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:21 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
@@ -6945,7 +6937,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:21 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
@@ -7729,7 +7721,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:81 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:76 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:159 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:418 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
@@ -8381,42 +8373,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Wall of Shards",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Wall of Shards"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:760 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:225 — test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:160 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "site/src/liveCompact.test.ts:357 — test('browser wire preserves the typed request envelope metadata', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [cumulativeUpkeepOpponentLife]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "cumulativeUpkeepOpponentLife"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "cumulativeUpkeep"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Wash Away",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8432,7 +8388,7 @@
           "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:123 — test('a countered flashback spell is exiled', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:154 — test(\"Dovin's Veto remains a legal target but cannot be countered\", () => {"
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:149 — test(\"Dovin's Veto remains a legal target but cannot be countered\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
@@ -9840,7 +9796,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 63,
+        "matches": 65,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3417 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:793 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -9965,7 +9921,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:123 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {"
+          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:118 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -10729,7 +10685,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:694",
+        "rules-engine/src/cardPlugins/cardRules.ts:693",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:165",
         "rules-engine/src/cardPlugins/effectRuntime.ts:404",
@@ -10753,7 +10709,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1358"
+        "rules-engine/src/types.ts:1359"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -10818,7 +10774,7 @@
         "rules-engine/src/cards/types.ts:4",
         "rules-engine/src/cards/waterlogged-teachings.ts:29",
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
-        "rules-engine/src/driver.ts:1378",
+        "rules-engine/src/driver.ts:1379",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -11149,10 +11105,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          638
+          641
         ],
         "samples": [
-          "638: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "641: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11960,15 +11916,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          334,
-          751,
-          2011,
-          2041
+          335,
+          752,
+          2026,
+          2056
         ],
         "samples": [
-          "334: const liveSource = draft.object(source.ref.objectId)",
-          "751: const source = draft.object(sourceId)",
-          "2011: const object = draft.object(item.objectId)"
+          "335: const liveSource = draft.object(source.ref.objectId)",
+          "752: const source = draft.object(sourceId)",
+          "2026: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -7,11 +7,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
-import {
-  CUMULATIVE_UPKEEP_PENDING,
-  cumulativeUpkeep,
-  pendingCumulativeUpkeep,
-} from './cumulativeUpkeep'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
@@ -217,67 +212,5 @@ describe('Lady Evangela replacement gaps', () => {
     expect(state.players.p1.life).toBe(11)
   })
 
-  test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: {
-          p1: [cardTemplate('Wall of Shards', {
-            types: ['Creature'],
-            subtypes: ['Wall'],
-            power: 1,
-            toughness: 8,
-          })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [cumulativeUpkeep] },
-    )
-    const ready = structuredClone(server.state)
-    ready.step = 'untap'
-    const wall = named(ready, 'Wall of Shards')
-    const upkeepTrigger = ok(server.rules(ready, { type: 'advanceStep' }))
-    const choosing = ok(server.rules(upkeepTrigger, { type: 'resolveTop' }))
-    const first = pendingCumulativeUpkeep(choosing, 'p1')!
-    expect(choosing.objects[wall.id].counters.age).toBe(1)
-    expect(first.count).toBe(1)
-    expect(server.project(choosing, 'p2').players.p1.data[CUMULATIVE_UPKEEP_PENDING])
-      .toBeUndefined()
-    expect(server.project(choosing, 'p1').players.p1.data[CUMULATIVE_UPKEEP_PENDING])
-      .toBeDefined()
 
-    expect(server.rules(choosing, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: first.id,
-      objectId: wall.id,
-      pay: true,
-      recipients: [],
-    }).ok).toBe(false)
-    const paid = ok(server.rules(choosing, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: first.id,
-      objectId: wall.id,
-      pay: true,
-      recipients: ['p2'],
-    }))
-    expect(paid.players.p2.life).toBe(41)
-
-    const nextUpkeep = structuredClone(paid)
-    nextUpkeep.step = 'untap'
-    nextUpkeep.active = 'p1'
-    nextUpkeep.priority = 'p1'
-    const secondTrigger = ok(server.rules(nextUpkeep, { type: 'advanceStep' }))
-    const secondChoice = ok(server.rules(secondTrigger, { type: 'resolveTop' }))
-    const second = pendingCumulativeUpkeep(secondChoice, 'p1')!
-    expect(second.count).toBe(2)
-    const declined = ok(server.rules(secondChoice, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: second.id,
-      objectId: wall.id,
-      pay: false,
-    }))
-    expect(declined.objects[wall.id].zone).toBe('graveyard')
-  })
 })

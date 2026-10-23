@@ -143,6 +143,9 @@ export const inspectTop = (input: { player: PlayerReference; count: AmountInput;
 export const chooseRandom = (input: { filter: ObjectSelector; bindChoice: string }) =>
   immutableData({ kind: 'chooseRandom' as const, filter: input.filter, bindChoice: input.bindChoice })
 
+export const repeat = (count: AmountInput, instructions: readonly Instruction[]) =>
+  immutableData({ kind: 'repeat' as const, count: toAmount(count), instructions })
+
 export const repeatWhile = (input: { condition: Condition; instructions: readonly Instruction[] }) =>
   immutableData({ kind: 'repeatWhile' as const, condition: input.condition, instructions: input.instructions })
 

@@ -571,6 +571,7 @@ export type ProgramScopeFrame = {
   /** Overlay for nested iteration, such as forEach over destroyed permanents. */
   occurrence?: OccurrenceSnapshot
   /** Trailing repeatWhile re-entry checks the condition before running the body again. */
+  repeatRemaining?: number
   continueWhile?: true
 }
 

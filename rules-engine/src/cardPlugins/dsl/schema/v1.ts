@@ -424,6 +424,7 @@ export type Instruction =
   /** Persist an authoritative random pick from a current object set. */
   | { kind: 'chooseRandom'; filter: ObjectSelector; bindChoice: string }
   /** Run the body once, then again while the latest bound result still qualifies. */
+  | { kind: 'repeat'; count: Amount; instructions: readonly Instruction[] }
   | { kind: 'repeatWhile'; condition: Condition; instructions: readonly Instruction[] }
   /** Give control of resolved permanents to one player without a further assignment. */
   | { kind: 'changeControl'; targets: ObjectRecipient; controller: PlayerReference }

@@ -1,3 +1,4 @@
+import wallOfShards from './wall-of-shards'
 import alabasterHostIntercessor from './alabaster-host-intercessor'
 import sailIntoTheWest from './sail-into-the-west'
 import mirkwoodBats from './mirkwood-bats'
@@ -316,6 +317,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Wall of Shards': wallOfShards,
   'Alabaster Host Intercessor': alabasterHostIntercessor,
   'Repay in Kind': repayInKind,
   'Mister Negative': misterNegative,

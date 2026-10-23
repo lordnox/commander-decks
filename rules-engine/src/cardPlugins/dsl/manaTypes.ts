@@ -54,7 +54,8 @@ export const availableManaTypes = (state: GameState, source: GameObject, of: Obj
             case 'addManaFrom':
               if (evaluateRuntimeAmount(instruction.amount, producerContext) > 0) for (const type of instruction.basis === MANA_QUERY_BASIS.colors ? selectedCardColors(instruction.of, producerContext) : queried(object, instruction.of, instruction.colorsOnly)) add(type)
               break
-            case 'sequence':
+            case 'repeat':
+    case 'sequence':
             case 'forEach':
             case 'forEachPlayer': walk(instruction.instructions); break
             case 'chooseInstructions': for (const option of instruction.options) walk(option.instructions); break

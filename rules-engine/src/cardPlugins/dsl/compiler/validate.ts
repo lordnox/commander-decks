@@ -1448,6 +1448,14 @@ export const validateDefinitionV1 = (root: unknown): {
         intersectBranches(env, [whenTrue, otherwise])
         return
       }
+      case 'repeat': {
+        exactKeys(node, path, ['kind', 'count', 'instructions'], ['kind', 'count', 'instructions'])
+        validateAmount(node.count, childPath(path, 'count'), env)
+        const body = cloneEnv(env)
+        body.rebindLocals = true
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), body, depth + 1)
+        return
+      }
       case 'repeatWhile': {
         exactKeys(node, path, ['kind', 'condition', 'instructions'], ['kind', 'condition', 'instructions'])
         validateCondition(node.condition, childPath(path, 'condition'), env)

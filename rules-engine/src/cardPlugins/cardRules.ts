@@ -121,7 +121,6 @@ import {
   type CardInstruction,
   playExiledWithLife,
   yourEndTargetingOpponent,
-  cumulativeUpkeepOpponentLife,
   restrictedCreatureMana,
   restrictedLegendaryMana,
   createHeroWithLandCounters,
@@ -741,7 +740,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     opponentsCantBlock({ parity: 'even' }),
   ],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Wash Away': [
     cleave('{1}{U}{U}'),
     targetOnResolve('counter', {
