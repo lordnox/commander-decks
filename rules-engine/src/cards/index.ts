@@ -267,9 +267,11 @@ import overgrownTomb from './overgrown-tomb'
 import overwhelmingStampede from './overwhelming-stampede'
 import pathbreakerIbex from './pathbreaker-ibex'
 import pollutedDelta from './polluted-delta'
+import portalToPhyrexia from './portal-to-phyrexia'
 import prismaticVista from './prismatic-vista'
 import quezaAugurOfAgonies from './queza-augur-of-agonies'
 import raffinesTower from './raffines-tower'
+import rankleMasterOfPranks from './rankle-master-of-pranks'
 import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
 import reliquaryTower from './reliquary-tower'
@@ -632,9 +634,11 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Overwhelming Stampede": overwhelmingStampede,
   "Pathbreaker Ibex": pathbreakerIbex,
   "Polluted Delta": pollutedDelta,
+  "Portal to Phyrexia": portalToPhyrexia,
   "Prismatic Vista": prismaticVista,
   "Queza, Augur of Agonies": quezaAugurOfAgonies,
   "Raffine's Tower": raffinesTower,
+  "Rankle, Master of Pranks": rankleMasterOfPranks,
   "Reanimate": reanimate,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Reliquary Tower": reliquaryTower,

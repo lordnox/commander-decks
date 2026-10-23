@@ -45,7 +45,6 @@ import {
   onResolveIfCastOption,
   optionalMill,
   otherLands,
-  opponentsSacrifice,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
@@ -59,16 +58,9 @@ import {
   selfMill,
   staticGrant,
   scry,
-  triggerOn,
   targetOnResolve,
-  upkeep,
-  chooseModes,
   chooseCreatureType,
   chooseVotesThisTurn,
-  eachPlayerDiscard,
-  eachPlayerDraw,
-  eachPlayerLoseLife,
-  eachPlayerSacrifice,
   exchangeControlUntilEot,
   ifGiftNotPromised,
   ward,
@@ -325,37 +317,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
-  'Portal to Phyrexia': [
-    enters(opponentsSacrifice('Creature', 3)),
-    upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
-  ],
   'Quantum Misalignment': [
     targetOnResolve(
       'select',
       { zone: 'battlefield', type: 'Creature', controller: 'you' },
       copyTargetCreature({ notLegendary: true }),
     ),
-  ],
-  'Rankle, Master of Pranks': [
-    triggerOn('combatDamage', {
-      do: [chooseModes('any', [
-        {
-          id: 'discard',
-          label: 'Each player discards a card',
-          do: [eachPlayerDiscard(1)],
-        },
-        {
-          id: 'drain',
-          label: 'Each player loses 1 life and draws a card',
-          do: [eachPlayerLoseLife(1), eachPlayerDraw(1)],
-        },
-        {
-          id: 'sacrifice',
-          label: 'Each player sacrifices a creature',
-          do: [eachPlayerSacrifice('Creature')],
-        },
-      ])],
-    }),
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Rings of Brighthearth': [handler('stackCopy')],

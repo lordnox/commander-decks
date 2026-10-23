@@ -1,9 +1,9 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
-import { evaluateDistributionBounds, modeOccurrences, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { evaluateDistributionBounds, evaluateModeBounds, modeOccurrences, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
-import { evaluateAmount, evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
+import { evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
 import type { CardRuleDefinitionSnapshotV1, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import type { CanonicalTargetBinding, GameObject, StackExecutionContext, TargetRef } from '../types'
@@ -217,9 +217,9 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
   if ('modes' in ability && announcement.selectedModes === undefined) {
     const modes = ability.modes ?? []
     const modeSpec = ability.decisions.modes
-    const count = modeSpec
-      ? evaluateAmount(modeSpec.count, amountEvaluationContext(announcementContext(draft, announcement)))
-      : 1
+    const bounds = modeSpec
+      ? evaluateModeBounds(modeSpec, announcementContext(draft, announcement))
+      : { min: 1, max: 1 }
     const legalModes = modes.map((mode, index) => ({ mode, index })).filter(({ mode }) => {
       const candidates = canonicalTargetCandidates(
         draft,
@@ -233,26 +233,37 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
         announcement.execution.capturedOccurrenceBindings,
       )
       return mode.decisions.targets.every((clause, clauseIndex) => {
-        const bounds = evaluateTargetBounds(clause, amountEvaluationContext(announcementContext(draft, announcement)))
-        return (candidates[clauseIndex]?.length ?? 0) >= bounds.min
+        const clauseBounds = evaluateTargetBounds(clause, amountEvaluationContext(announcementContext(draft, announcement)))
+        return (candidates[clauseIndex]?.length ?? 0) >= clauseBounds.min
       })
     })
-    if (legalModes.length === 0 || (!modeSpec?.repeatable && legalModes.length < count)) return false
+    const distinctRequired = modeSpec?.repeatable ? Math.min(bounds.min, 1) : bounds.min
+    if (legalModes.length < distinctRequired) return false
+    if (legalModes.length === 0) {
+      return stackCanonical(draft, { ...announcement, selectedModes: [] })
+    }
+    const modeOptions = legalModes.map(({ index }) => ({ id: `mode:${index}`, label: `Mode ${index + 1}` }))
     openOptionSelection(draft, {
       seat: announcement.execution.controller,
       sourceId: source.id,
       source: source.name,
-      prompt: `Choose ${count} mode${count === 1 ? '' : 's'} for ${source.name}.`,
-      options: legalModes.map(({ index }) => ({ id: `mode:${index}`, label: `Mode ${index + 1}` })),
+      prompt: bounds.min === bounds.max
+        ? `Choose ${bounds.max} mode${bounds.max === 1 ? '' : 's'} for ${source.name}.`
+        : bounds.min === 0
+          ? `Choose up to ${bounds.max} mode${bounds.max === 1 ? '' : 's'} for ${source.name}.`
+          : `Choose ${bounds.min} to ${bounds.max} modes for ${source.name}.`,
+      options: bounds.min === 0 ? [...modeOptions, { id: 'done', label: 'Done' }] : modeOptions,
       action: {
         kind: 'putCanonicalModeTriggeredAbility',
         definitionSnapshot: announcement.definitionSnapshot,
         abilityIndex: announcement.abilityIndex,
-        execution: { ...announcement.execution, modeCount: count },
+        execution: { ...announcement.execution },
         sourceId: source.id,
         targets: announcement.targets,
         targetBindings,
-        modeCount: count,
+        modeCount: bounds.max,
+        modeMin: bounds.min,
+        modeMax: bounds.max,
         repeatable: modeSpec?.repeatable ?? false,
         selectedModes: [],
         modeClauses: legalModes.flatMap(({ mode }) => mode.decisions.targets),
@@ -280,7 +291,9 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       ...announcement.execution,
       definitionSnapshot: announcement.definitionSnapshot,
       abilityIndex: announcement.abilityIndex,
-      ...(announcement.selectedModes ? { modeIndices: announcement.selectedModes } : {}),
+      ...(announcement.selectedModes !== undefined
+        ? { modeIndices: announcement.selectedModes, modeCount: announcement.selectedModes.length }
+        : {}),
       ...(announcement.execution.variables ? { variables: structuredClone(announcement.execution.variables) } : {}),
       ...(announcement.execution.results ? { results: structuredClone(announcement.execution.results) } : {}),
       ...(announcement.execution.scopeId ? { scopeId: announcement.execution.scopeId } : {}),

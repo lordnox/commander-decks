@@ -669,6 +669,8 @@ const matchesDealtDamage = (
   if (event.type !== 'dealDamage' || (occurrence.amount ?? 0) <= 0) return false
   if (pattern.filter.combat === true && event.combat !== true) return false
   if (pattern.filter.combat === false && event.combat === true) return false
+  if (pattern.filter.player === true && event.target.kind !== 'player') return false
+  if (pattern.filter.player === false && event.target.kind === 'player') return false
   const recipient = occurrence.object?.after ?? occurrence.object?.before
   if (pattern.filter.recipient) {
     if (!recipient) return false

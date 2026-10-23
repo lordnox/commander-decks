@@ -178,6 +178,8 @@ export type PendingOptionSelection = {
     targets: TargetRef[]
     targetBindings: CanonicalTargetBinding[]
     modeCount: number
+    modeMin?: number
+    modeMax?: number
     repeatable: boolean
     selectedModes: number[]
     modeClauses?: TargetClause[]
@@ -461,10 +463,15 @@ export const selectOptions: Plugin = {
       return 'option was not offered for this selection'
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
-      const modeIndex = Number(event.optionId.replace('mode:', ''))
-      if (!Number.isInteger(modeIndex) || modeIndex < 0) return 'invalid mode choice'
-      if (!selection.action.repeatable && selection.action.selectedModes.includes(modeIndex)) {
-        return 'that mode cannot be selected again'
+      if (event.optionId === 'done') {
+        const modeMin = selection.action.modeMin ?? selection.action.modeCount
+        if (selection.action.selectedModes.length < modeMin) return 'not enough modes selected'
+      } else {
+        const modeIndex = Number(event.optionId.replace('mode:', ''))
+        if (!Number.isInteger(modeIndex) || modeIndex < 0) return 'invalid mode choice'
+        if (!selection.action.repeatable && selection.action.selectedModes.includes(modeIndex)) {
+          return 'that mode cannot be selected again'
+        }
       }
     }
     if (selection.action.kind === 'canonical-copy-retarget' && event.optionId === 'keep') {
@@ -935,14 +942,20 @@ export const selectOptions: Plugin = {
       return
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
-      const modeIndex = Number(event.optionId.replace('mode:', ''))
-      const selectedModes = [...selection.action.selectedModes, modeIndex]
-      if (selectedModes.length < selection.action.modeCount) {
+      const modeMax = selection.action.modeMax ?? selection.action.modeCount
+      const modeMin = selection.action.modeMin ?? selection.action.modeCount
+      const selectedModes = event.optionId === 'done'
+        ? selection.action.selectedModes
+        : [...selection.action.selectedModes, Number(event.optionId.replace('mode:', ''))]
+      if (event.optionId !== 'done' && selectedModes.length < modeMax) {
+        const remaining = selection.action.repeatable
+          ? selection.options.filter((option) => option.id !== 'done')
+          : selection.options.filter((option) => option.id !== event.optionId && option.id !== 'done')
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
           ...selection,
-          options: selection.action.repeatable
-            ? selection.options
-            : selection.options.filter((option) => option.id !== event.optionId),
+          options: selectedModes.length >= modeMin
+            ? [...remaining, { id: 'done', label: 'Done' }]
+            : remaining,
           action: { ...selection.action, selectedModes },
         }
         draft.priority = event.seat
@@ -950,9 +963,13 @@ export const selectOptions: Plugin = {
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       validateModeSelection(
-        { count: { kind: 'constant', value: selection.action.modeCount }, repeatable: selection.action.repeatable },
-        selection.action.modeClausesByMode?.length ?? selection.options.length,
-        selection.action.modeCount,
+        {
+          count: { kind: 'constant', value: modeMax },
+          ...(modeMin !== modeMax ? { min: { kind: 'constant' as const, value: modeMin } } : {}),
+          repeatable: selection.action.repeatable,
+        },
+        selection.action.modeClausesByMode?.length ?? selection.options.filter((option) => option.id !== 'done').length,
+        selectedModes.length,
         selectedModes,
       )
       const modeClausesByMode = selection.action.modeClausesByMode
@@ -964,7 +981,7 @@ export const selectOptions: Plugin = {
         continueCanonicalModeTargets(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
-          execution: selection.action.execution,
+          execution: { ...selection.action.execution, modeIndices: selectedModes, modeCount: selectedModes.length },
           source: selection.action.execution.source.snapshot,
           sourceId: selection.action.sourceId,
           targets: selection.action.targets,
@@ -994,7 +1011,7 @@ export const selectOptions: Plugin = {
         stackCanonical(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
-          execution: selection.action.execution,
+          execution: { ...selection.action.execution, modeIndices: selectedModes, modeCount: selectedModes.length },
           source,
           sourceId: source.id,
           targets: selection.action.targets,
@@ -1022,6 +1039,7 @@ export const selectOptions: Plugin = {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
           modeIndices: selectedModes,
+          modeCount: selectedModes.length,
           ...(selection.action.modeScopeIds ? { modeScopeIds: [...selection.action.modeScopeIds] } : {}),
           targetBindings: selection.action.targetBindings,
         },

@@ -255,9 +255,6 @@ export const startCanonicalResolution = (
   const selectedInstructions = 'modes' in ability
     ? selectedModes.flatMap((index) => ability.modes?.[index]?.instructions ?? [])
     : ability.instructions
-  if ('modes' in ability && selectedInstructions.length === 0) {
-    throw new Error(`${declarationPath}.modes: a mode must be selected before resolution`)
-  }
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
@@ -1293,9 +1290,9 @@ const actionEvents = (
         : [])
     }
     case 'createEffect': {
-      const targets = instruction.effect.kind === 'prevention' && instruction.targets.kind !== 'objects'
-        ? evaluateObjectReference(instruction.targets, context, 'currentOrLastKnown')
-        : objectActions(instruction.targets, context)
+      const targets = instruction.targets.kind === 'objects'
+        ? evaluateObjectSelector(instruction.targets, context)
+        : evaluateObjectReference(instruction.targets, context, 'currentOrLastKnown')
       if (instruction.effect.kind === 'prevention') {
         const preventionEffect = instruction.effect
         const capacity = preventionEffect.capacity.kind === 'unlimited'

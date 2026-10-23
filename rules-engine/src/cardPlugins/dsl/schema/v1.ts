@@ -248,6 +248,8 @@ export type OccurrencePattern =
         recipient?: ObjectOccurrenceFilter
         source?: ObjectOccurrenceFilter
         combat?: boolean
+        /** True matches damage to a player; false matches damage to an object. */
+        player?: boolean
       }
     }
   | {

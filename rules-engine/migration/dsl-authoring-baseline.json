@@ -81,12 +81,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "3fe8733ffcfa035deadfd26a1643f23c0e7f06bb152c0ebab895cc182ff47302",
-    "card": "Portal to Phyrexia"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "07b6e2712b5f145c1ea5af66aa748c137a5d21df7ef8eb6fded766b2bf065491",
     "card": "Zanarkand, Ancient Metropolis // Lasting Fayth"
   },
@@ -251,12 +245,6 @@
     "code": "legacy-card-registration",
     "digest": "1acb63374c66dbd37d4e77682b50fb0364cbc6540ae308a7a299a55967d155b2",
     "card": "Springheart Nantuko"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "1698c2c3dd0f86c87d3d647fee77e15bebbde9e172a3e48a490aa83aa4449a30",
-    "card": "Rankle, Master of Pranks"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

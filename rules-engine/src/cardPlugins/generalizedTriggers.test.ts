@@ -2,13 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { bolt, cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
-import { choiceEffects } from './choiceEffects'
 import {
   casts,
   dies,
@@ -27,7 +25,6 @@ import {
 import { onResolve } from './onResolve'
 
 import {type CardTemplate} from '../newGame'
-import {modalSpell} from './modalSpell'
 const knight = (name = 'Knight', token = false) => cardTemplate(name, {
   types: ['Creature'], subtypes: ['Knight'], colors: ['W'], power: 2, toughness: 2, token,
 })
@@ -572,12 +569,6 @@ describe('opponent discard life loss', () => {
 })
 
 describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => {
-  const RANKLE_MODES = {
-    discard: 'Each player discards a card',
-    drain: 'Each player loses 1 life and draws a card',
-    sacrifice: 'Each player sacrifices a creature',
-  } as const
-
   const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
     cardTemplate(name, { types, ...extra })
 
@@ -589,10 +580,6 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
     subtypes: ['Faerie', 'Rogue'],
     power: 3,
     toughness: 3,
-    oracleText:
-      'Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n'
-      + '• Each player discards a card.\n• Each player loses 1 life and draws a card.\n'
-      + '• Each player sacrifices a creature of their choice.',
   })
 
   const game = (extra: { caress?: boolean } = {}) => createServerGame(
@@ -613,7 +600,7 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
         p2: [card('Plains', ['Land'])],
       },
     },
-    { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+    { random: () => 0.5 },
   )
 
   const connect = (server: ReturnType<typeof createServerGame>, state = server.state) => {
@@ -627,56 +614,55 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
     }))
   }
 
-  const resolveRankleTrigger = (
+  const pickModes = (
     server: ReturnType<typeof createServerGame>,
     state: GameState,
-  ) => resolveStack(server.rules, state)
-
-  const chooseModes = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    modes: string[],
-  ) => ok(server.rules(state, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
-    seat: 'p1',
-    payload: { modes },
-  }))
+    indices: number[],
+  ) => {
+    let current = state
+    for (const index of indices) {
+      const pending = pendingOptionSelection(current, 'p1')!
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `mode:${index}`,
+      }))
+    }
+    const pending = pendingOptionSelection(current, 'p1')
+    if (pending?.options.some(option => option.id === 'done')) {
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'done',
+      }))
+    }
+    return current
+  }
 
   test('the discard mode drains through Liliana\'s Caress', () => {
     const server = game({ caress: true })
-    const asked = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server)),
-      [RANKLE_MODES.discard],
-    )
-    const island = Object.values(asked.objects).find((object) => object.name === 'Island')!
-    const discarded = ok(server.rules(asked, {
+    const asked = resolveStack(server.rules, pickModes(server, connect(server), [0]))
+    const swamp = Object.values(asked.objects).find((object) => object.name === 'Swamp')!
+    const afterP1 = ok(server.rules(asked, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [swamp.id],
+    }))
+    const island = Object.values(afterP1.objects).find((object) => object.name === 'Island')!
+    const discarded = ok(server.rules(afterP1, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'discard',
+      kind: 'choose',
       count: 1,
       objectIds: [island.id],
     }))
 
-    const swamp = Object.values(discarded.objects).find((object) => object.name === 'Swamp')!
-    const resolvedRankle = ok(server.rules(discarded, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'discard',
-      count: 1,
-      objectIds: [swamp.id],
-    }))
-
     expect(discarded.objects[island.id].zone).toBe('graveyard')
-    // CR 603: Caress triggers on the stack; life loss waits for resolution after combat damage.
     expect(discarded.players.p2.life).toBe(commanderRules.startingLife - 3)
-    expect(resolvedRankle.stack[0]).toMatchObject({
+    expect(discarded.stack[0]).toMatchObject({
       kind: 'ability',
       name: "Liliana's Caress",
     })
 
-    const resolved = ok(server.rules(resolvedRankle, { type: 'resolveTop' }))
+    const resolved = ok(server.rules(discarded, { type: 'resolveTop' }))
     expect(resolved.players.p2.life).toBe(commanderRules.startingLife - 5)
   })
 

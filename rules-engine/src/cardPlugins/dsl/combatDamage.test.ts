@@ -92,6 +92,36 @@ test('dealt-damage occurrences fire once per actual damage event and honor comba
   expect(noncombat.players.p2.life).toBe(37)
 })
 
+test('dealt-damage player filters match combat damage to a player and ignore object recipients', () => {
+  const definition = snapshot([whenever(dealtDamage({ source: ref('self'), combat: true, player: true }), {
+    instructions: [gainLife({ amount: eventAmount(), targets: ref('controller') })],
+  })])
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [creature('Prankster', { power: 3, ruleDefinition: definition })],
+      p2: [creature('Wall', { toughness: 10 })],
+    },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Prankster').id
+  const wall = named(server.state, 'Wall').id
+  const toPlayer = ok(server.rules(server.state, {
+    type: 'combatDamage', sourceId: source, target: { kind: 'player', player: 'p2' }, amount: 3,
+  }))
+  expect(toPlayer.stack).toHaveLength(1)
+  expect(resolveStack(server.rules, toPlayer).players.p1.life).toBe(43)
+
+  const toCreature = ok(server.rules(server.state, {
+    type: 'combatDamage', sourceId: source, target: { kind: 'object', objectId: wall }, amount: 3,
+  }))
+  expect(toCreature.stack).toHaveLength(0)
+
+  const noncombat = ok(server.rules(server.state, {
+    type: 'dealDamage', sourceId: source, target: { kind: 'player', player: 'p2' }, amount: 3,
+  }))
+  expect(noncombat.stack).toHaveLength(0)
+})
+
 test('player-attack occurrences fire once per defender and compare that defender against other opponents', () => {
   const definition = snapshot([whenever(playerAttacks({ defender: players({ relation: 'opponent' }) }), {
     interveningIf: somePlayerHasLess({

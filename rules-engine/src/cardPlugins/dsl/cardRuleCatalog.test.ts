@@ -2268,6 +2268,29 @@ test('Mirkwood Bats retains flying and one untargeted opponent drain per created
   ])
 })
 
+test('Portal to Phyrexia and Rankle compose per-player sacrifice and any-number triggered modes', () => {
+  expect(effectsFor('Portal to Phyrexia')).toEqual([])
+  expect(effectsFor('Rankle, Master of Pranks')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Portal to Phyrexia')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'chooseCardsForEachPlayer' }, { kind: 'sacrifice' }] },
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' }, instructions: [{ kind: 'move', to: 'battlefield' }, { kind: 'createEffect' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Rankle, Master of Pranks')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'keyword', keyword: 'haste' },
+    {
+      kind: 'triggered',
+      on: { kind: 'dealtDamage', filter: { combat: true, player: true } },
+      decisions: { modes: { min: { value: 0 }, count: { value: 3 } } },
+      modes: [
+        { instructions: [{ kind: 'forEachPlayer' }] },
+        { instructions: [{ kind: 'loseLife' }, { kind: 'draw' }] },
+        { instructions: [{ kind: 'chooseCardsForEachPlayer' }, { kind: 'sacrifice' }] },
+      ],
+    },
+  ])
+})
+
 test('catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once', () => {
   for (const name of [
     'Crawling Sensation',

@@ -3,7 +3,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import { addTypesEffect, addTypesTo, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, keyword, objects, spell, staticAbility, untilCleanup } from './v1'
+import { addTypesEffect, addTypesTo, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, keyword, move, objects, permanentEffect, ref, select, spell, staticAbility, target, untilCleanup } from './v1'
 
 const snapshot = (abilities: Parameters<typeof card>[0]) => createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
@@ -43,4 +43,28 @@ test('temporary additive types retain existing characteristics and survive resto
   const ended = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'end' }, { type: 'advanceStep' }))
   expect(ended.objects[subject]!.types).toEqual(['Artifact'])
   expect(ended.objects[subject]!.subtypes).toEqual(['Food'])
+})
+
+test('additive types follow a targeted creature that was just moved onto the battlefield', () => {
+  const definition = snapshot([spell({
+    decisions: { targets: [select({ filter: objects({ zone: 'graveyard', type: 'Creature' }), count: 1 })] },
+    instructions: [
+      move({ targets: target(0), to: 'battlefield', controller: ref('controller') }),
+      createEffect({ targets: target(0), effect: addTypesEffect({ subtypes: ['Phyrexian'] }), duration: permanentEffect() }),
+    ],
+  })])
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate('Reanimator', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })],
+      p2: [cardTemplate('Borrowed Body', { types: ['Creature'], subtypes: ['Beast'] })],
+    },
+  }, { random: () => 0 })
+  const body = server.state.zoneOrder.p2.hand[0]!
+  const gy = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))
+  const resolved = resolveStack(server.rules, ok(server.rules(gy, {
+    type: 'castSpell', seat: 'p1', objectId: gy.zoneOrder.p1.hand[0]!,
+    targets: [{ kind: 'object', objectId: body }],
+  })))
+  expect(resolved.objects[body]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+  expect(resolved.objects[body]!.subtypes).toEqual(['Beast', 'Phyrexian'])
 })

@@ -287,7 +287,9 @@ export const evaluateObjectReference = (
   return recipientsInDomain(reference, context, 'object', (recipient) => recipient.kind === 'object').flatMap((recipient) => {
     const object = context.state.objects[recipient.objectId]
     if (isSameObject(object, recipient)) return [object]
-    const watched = information === 'currentOrLastKnown' ? context.referencedObjects?.find(entry => entry.ref.objectId === recipient.objectId && entry.ref.incarnation === recipient.incarnation && entry.ref.zone === recipient.zone) : undefined
+    if (information !== 'currentOrLastKnown') return []
+    if (object) return [object]
+    const watched = context.referencedObjects?.find(entry => entry.ref.objectId === recipient.objectId && entry.ref.incarnation === recipient.incarnation && entry.ref.zone === recipient.zone)
     return watched ? [watched.snapshot] : []
   })
 }

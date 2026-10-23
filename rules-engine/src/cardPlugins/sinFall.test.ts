@@ -161,12 +161,12 @@ describe('Sin Fall routine card support', () => {
     }))
     const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
     const selection = pendingSelectionFor(choosing, 'p2')!
-    expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+    expect(selection).toMatchObject({ kind: 'choose', count: 2 })
 
     const resolved = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       objectIds: [...selection.candidates],
     }))
@@ -185,19 +185,19 @@ describe('Sin Fall routine card support', () => {
     let state = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))
     state = { ...state, step: 'untap', active: 'p1', priority: 'p1' }
     state = ok(server.rules(state, { type: 'advanceStep' }))
-    expect(state.stack[0]?.name).toBe('Portal to Phyrexia')
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-
+    expect(state.stack).toHaveLength(0)
     const restarted = structuredClone(state)
     const selection = pendingSelectionFor(restarted, 'p1')!
     expect(selection).toMatchObject({ kind: 'choose', count: 1 })
-    const resolved = ok(server.rules(restarted, {
+    const stacked = ok(server.rules(restarted, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
       count: 1,
       objectIds: [body],
     }))
+    expect(stacked.stack[0]?.name).toBe('Portal to Phyrexia')
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.objects[body]).toMatchObject({
       zone: 'battlefield',
       controller: 'p1',

@@ -6,7 +6,7 @@ import { ok } from '../../testHelpers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { instructionSpell } from './instructionTestSupport'
-import { choice, chooseCardsForEachPlayer, chooseParticipants, discardHands, draw, move, objects, players, ref } from './v1'
+import { choice, chooseCardsForEachPlayer, chooseParticipants, discardHands, draw, move, objects, players, ref, sacrifice } from './v1'
 import { PARTICIPATION_OPTION } from './collectedChoices'
 
 const setup = (cards = false) => createServerGame(commanderRules, { players: 3,
@@ -100,5 +100,34 @@ test.each([0, 1, 2])('collected card choices choose all available when fewer tha
     state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p2', selectionId: pending!.id, kind: 'choose', count: pending!.count, objectIds: pending!.candidates }))
   } else expect(pending).toBeUndefined()
   expect(state.zoneOrder.p2.exile).toHaveLength(size)
+  expect(state.resolution).toBeUndefined()
+})
+
+test.each([0, 1, 3])('per-player sacrifice requests choose all available when fewer than required (%s)', size => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [
+      chooseCardsForEachPlayer({
+        of: players({ relation: 'opponent' }),
+        filter: objects({ zone: 'battlefield', type: 'Creature', controller: ref('event.player') }),
+        min: 3,
+        max: 3,
+        bindChoice: 'sacrificed',
+      }),
+      sacrifice({ targets: choice('sacrificed') }),
+    ] })] },
+    battlefield: { p2: Array.from({ length: size }, (_, i) => cardTemplate(`Victim ${i}`, { types: ['Creature'] })) },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }))
+  let state = ok(server.rules(cast, { type: 'resolveTop' }))
+  const pending = pendingSelectionFor(state, 'p2')
+  if (size) {
+    expect(pending).toMatchObject({ kind: 'choose', count: size, min: size })
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), {
+      type: 'selectCards', seat: 'p2', selectionId: pending!.id, kind: 'choose', count: pending!.count, objectIds: pending!.candidates,
+    }))
+  } else expect(pending).toBeUndefined()
+  expect(state.zoneOrder.p2.graveyard).toHaveLength(size)
+  expect(state.zoneOrder.p2.battlefield).toHaveLength(0)
   expect(state.resolution).toBeUndefined()
 })

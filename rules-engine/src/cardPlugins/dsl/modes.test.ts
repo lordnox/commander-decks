@@ -640,3 +640,66 @@ test.each([0, 1, 2])('conditional spell mode bounds permit one or both and pin t
   for (const id of restored.zoneOrder.p1.battlefield) restored = ok(server.rules(restored, { type: 'move', objectId: id, to: 'graveyard' }))
   expect(resolveStack(server.rules, restored).players.p1.life).toBe(43)
 })
+
+const anyNumberTrigger = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever({ kind: 'draw', filter: {} }, {
+    decisions: { modes: chooseModes({ min: 0, count: 3 }) },
+    modes: [
+      { instructions: [gainLife({ amount: 1, targets: ref('controller') })] },
+      { instructions: [gainLife({ amount: 2, targets: ref('controller') })] },
+      { instructions: [gainLife({ amount: 4, targets: ref('controller') })] },
+    ],
+  }),
+])))
+
+const pickTriggeredModes = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  indices: number[],
+) => {
+  let current = state
+  for (const index of indices) {
+    const pending = pendingOptionSelection(current, 'p1')!
+    current = ok(server.rules(current, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `mode:${index}`,
+    }))
+  }
+  const pending = pendingOptionSelection(current, 'p1')
+  if (pending?.options.some(option => option.id === 'done')) {
+    current = ok(server.rules(current, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'done',
+    }))
+  }
+  return current
+}
+
+test.each([
+  [[], 40],
+  [[0], 41],
+  [[0, 1, 2], 47],
+] as const)('triggered any-number modes pin the selected count including zero (%j)', (indices, life) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Any-number watcher', { types: ['Creature'], ruleDefinition: anyNumberTrigger() })] },
+    libraries: { p1: [cardTemplate('Drawn')] },
+  }, { random: () => 0 })
+  const waiting = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+  expect(waiting.stack).toHaveLength(0)
+  const first = pendingOptionSelection(waiting, 'p1')!
+  expect(first.options.map(option => option.id)).toEqual(['mode:0', 'mode:1', 'mode:2', 'done'])
+  const restored = restoreJournal(createJournal(waiting), server.rules).current()
+  expect(pendingOptionSelection(restored, 'p1')?.options.map(option => option.id)).toEqual(first.options.map(option => option.id))
+  const stacked = pickTriggeredModes(server, restored, [...indices])
+  expect(stacked.stack[0]?.execution?.modeIndices).toEqual([...indices])
+  expect(stacked.stack[0]?.execution?.modeCount).toBe(indices.length)
+  expect(resolveStack(server.rules, stacked).players.p1.life).toBe(life)
+})
+
+test('activated abilities still reject bounded mode minima', () => {
+  expect(() => compileCardRuleDefinition(card([
+    activated({
+      decisions: { modes: chooseModes({ min: 0, count: 2 }) },
+      modes: [{ instructions: [] }, { instructions: [] }],
+    }),
+  ]))).toThrow('bounded mode counts currently require a spell or triggered announcement')
+})

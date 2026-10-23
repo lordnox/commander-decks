@@ -28,7 +28,6 @@ import {
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
-import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
 import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
@@ -53,7 +52,6 @@ import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCost
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
-import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
   CUMULATIVE_UPKEEP_PENDING,
@@ -123,12 +121,6 @@ import {
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
 import { validateInteractionAnswer } from '../../shared/interaction'
-
-const RANKLE_MODES = {
-  discard: 'Each player discards a card',
-  drain: 'Each player loses 1 life and draws a card',
-  sacrifice: 'Each player sacrifices a creature',
-} as const
 
 /**
  * Answers an open dialog the way the UI does: every choice names its position
@@ -2862,7 +2854,7 @@ describe('kernel host journal', () => {
           p2: [{ ...faerieBody('Lone Hydra'), grantedRules: [] }],
         },
       },
-      { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2876,43 +2868,56 @@ describe('kernel host journal', () => {
       amount: 3,
     }).ok).toBe(true)
 
-    expect(kernel.history.current().stack[0]).toMatchObject({
-      kind: 'ability',
-      name: 'Rankle, Master of Pranks',
-    })
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(false)
-
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(kernel.history.current().stack).toHaveLength(0)
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-modes',
-      cards: [RANKLE_MODES.discard, RANKLE_MODES.drain, RANKLE_MODES.sacrifice],
+      kind: 'choose',
+      cards: ['Mode 1', 'Mode 2', 'Mode 3', 'Done'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: RANKLE_MODES.discard, destination: 'skip' },
-        { card: RANKLE_MODES.drain, destination: 'skip' },
-        { card: RANKLE_MODES.sacrifice, destination: 'target' },
+        { card: 'Mode 1', destination: 'skip' },
+        { card: 'Mode 2', destination: 'skip' },
+        { card: 'Mode 3', destination: 'target' },
+        { card: 'Done', destination: 'skip' },
       ],
     }))).toBe(true)
     prepareKernelPendingChoice(kernel, lobby)
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Mode 1', destination: 'skip' },
+        { card: 'Mode 2', destination: 'skip' },
+        { card: 'Done', destination: 'target' },
+      ],
+    }))).toBe(true)
+    expect(kernel.history.current().stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Rankle, Master of Pranks',
+    })
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'sacrifice',
+      kind: 'choose',
       cards: ['Rankle, Master of Pranks'],
-      destinations: ['battlefield', 'sacrifice'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Rankle, Master of Pranks', destination: 'sacrifice' }],
+      choices: [{ card: 'Rankle, Master of Pranks', destination: 'target' }],
+    }))).toBe(true)
+    expect(kernel.history.current().objects[source.id].zone).toBe('battlefield')
+    prepareKernelPendingChoice(kernel, lobby)
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'choose' })
+    expect(applyKernelChoice(kernel, lobby, 'p2', slotted(lobby, {
+      type: 'topdeck',
+      choices: [{ card: 'Lone Hydra', destination: 'target' }],
     }))).toBe(true)
     expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
-    prepareKernelPendingChoice(kernel, lobby)
-    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
   })
 
   test('publishes and applies a Roaming Throne creature-type choice', () => {
@@ -3050,7 +3055,6 @@ describe('kernel host journal', () => {
     lobby.phase = 'play'
 
     expect(kernel.dispatch({ type: 'advanceStep' }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
@@ -3063,6 +3067,10 @@ describe('kernel host journal', () => {
       type: 'topdeck',
       choices: [{ card: 'Borrowed Body', destination: 'target' }],
     }))).toBe(true)
+    const stacked = kernel.history.current()
+    if (stacked.stack.length > 0) {
+      expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    }
     expect(kernel.history.current().objects[body]).toMatchObject({
       zone: 'battlefield',
       controller: 'p1',

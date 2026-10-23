@@ -1698,11 +1698,14 @@ export const validateDefinitionV1 = (root: unknown): {
         env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player'], ['triggering.source', 'object']])
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
-          exactKeys(filter, childPath(path, 'filter'), ['recipient', 'source', 'combat'])
+          exactKeys(filter, childPath(path, 'filter'), ['recipient', 'source', 'combat', 'player'])
           if (filter.recipient !== undefined) validateObjectOccurrenceFilter(filter.recipient, childPath(childPath(path, 'filter'), 'recipient'), env)
           if (filter.source !== undefined) validateObjectOccurrenceFilter(filter.source, childPath(childPath(path, 'filter'), 'source'), env)
           if (filter.combat !== undefined && typeof filter.combat !== 'boolean') {
             issue(childPath(childPath(path, 'filter'), 'combat'), 'type', 'expected a boolean')
+          }
+          if (filter.player !== undefined && typeof filter.player !== 'boolean') {
+            issue(childPath(childPath(path, 'filter'), 'player'), 'type', 'expected a boolean')
           }
         }
         return env
@@ -2069,7 +2072,9 @@ export const validateDefinitionV1 = (root: unknown): {
         if (entry.when !== undefined) validateCondition(entry.when, `${nodePath}.costReductions[${index}].when`, reductionEnv)
       })
     }
-    if (ability.kind !== 'spell' && isData(ability.decisions) && isData(ability.decisions.modes) && ability.decisions.modes.min !== undefined) issue(path, 'domain', 'bounded mode counts currently require a spell announcement')
+    if (ability.kind === 'activated' && isData(ability.decisions) && isData(ability.decisions.modes) && ability.decisions.modes.min !== undefined) {
+      issue(path, 'domain', 'bounded mode counts currently require a spell or triggered announcement')
+    }
     switch (ability.kind) {
       case 'spell': {
         exactKeys(ability, path, [...commonProgramKeys, 'uncounterable'], ['kind', 'decisions', 'costs'])
