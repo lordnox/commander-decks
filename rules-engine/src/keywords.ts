@@ -20,8 +20,9 @@ export const abilityTokens = (oracleText: string) =>
 export const hasKeyword = (object: GameObject, keyword: string, state?: {
   rules: Array<{ pluginId: string; params: Record<string, unknown> }>
 }) => {
-  const layers = (object.continuousEffects ?? []).flatMap(({ effect }) =>
-    effect.kind === 'staticKeywords' ? [effect] : [])
+  const effects = object.continuousEffects ?? []
+  const lastLoss = effects.findLastIndex(({ effect }) => effect.kind === 'removeAbilities' || effect.kind === 'loseAbilitiesBecome')
+  const layers = effects.flatMap(({ effect }, index) => effect.kind === 'staticKeywords' ? [{ ...effect, grant: index > lastLoss ? effect.grant : [] }] : [])
   // "Can't have or gain" outranks every source of the keyword, printed or granted.
   if (layers.some(({ suppress }) => suppress.includes(keyword))) return false
   if (layers.some(({ grant }) => grant.includes(keyword))) return true

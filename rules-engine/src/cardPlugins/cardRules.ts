@@ -31,7 +31,6 @@ import {
   encore,
   enters,
   entersIfCastOption,
-  entersTarget,
   entersTapped,
   gift,
   ifGiftPromised,
@@ -53,7 +52,6 @@ import {
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
-  loseAbilitiesBecome,
   kicker,
   multikicker,
   putChargeCountersFromTimesKicked,
@@ -84,7 +82,6 @@ import {
   putHandCardOnLibraryBottom,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
-  returnTargetFromGraveyard,
   returnOwnedGraveyardLands,
   searchSpell,
   sacrificePermanentsThenDraw,
@@ -116,7 +113,6 @@ import {
   ifGiftNotPromised,
   ward,
   yourUpkeep,
-  yourUpkeepTarget,
   type CardEffect,
   type CardInstruction,
   playExiledWithLife,
@@ -131,7 +127,6 @@ import {
   putCountersOnTriggeringObject,
   tapTriggeringObject,
   onVotesFinished,
-  playerAuraDeal,
   targetingRequirement,
   opponentMayDrawThenStealCast,
   flashback,
@@ -139,18 +134,14 @@ import {
   warp,
   ifTargetTypes,
   opponentsLoseLife,
-  pumpAttached,
   pumpTargetEqualToLands,
   sagaChapters,
-  tapAttached,
   bounceCreaturesExcept,
   addPlusCountersEqualToLands,
   escape,
   hiddenPileNegotiation,
   opponentPiles,
   repeatIf,
-  ifYouDoExileFromGraveyard,
-  ptEqualsCount,
   addChosenColorMana,
   destroyTargetPermanent,
   secondCardDrawn,
@@ -261,10 +252,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
     ),
   ],
-  Colossification: [
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
-    enters(tapAttached(), pumpAttached(20, 20)),
-  ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   'Courser of Kruphix': [
     staticRevealLibraryTop(),
@@ -276,7 +263,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeep(optionalMill(2)),
     landToGraveyardOnce(insect),
   ],
-  'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Delighted Halfling': [restrictedLegendaryMana()],
@@ -446,7 +432,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(bounceAll({ nonland: true, other: true })),
     unearth('{6}{U}'),
   ],
-  'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
   ],
@@ -459,32 +444,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
-  'Lumra, Bellow of the Woods': [
-    ptEqualsCount('Land'),
-    enters(selfMill(4), returnOwnedGraveyardLands()),
-  ],
-  'Masked Vandal': [
-    allCreatureTypes(),
-    entersTarget(
-      { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
-      ifYouDoExileFromGraveyard({ type: 'Creature' }),
-    ),
-  ],
-  'Maskwood Nexus': [
-    allCreatureTypes(),
-    activate({
-      id: 'maskwood.token',
-      costs: { mana: '{3}', tap: true },
-      do: [createTokenInstruction({
-        name: 'Shapeshifter',
-        types: ['Creature'],
-        subtypes: ['Shapeshifter'],
-        power: 2,
-        toughness: 2,
-        oracleText: 'Changeling',
-      })],
-    }),
-  ],
   Mirrorweave: [
     targetOnResolve(
       'select',
@@ -581,10 +540,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true }),
     ),
   ],
-  'Rain of Filth': [
-    onResolve(addUntilCleanupRule('sacrificeLandMana')),
-  ],
-  'Raise the Palisade': [onResolve(chooseCreatureType('bounceOthers'))],
   'Rankle, Master of Pranks': [
     triggerOn('combatDamage', {
       do: [chooseModes('any', [
@@ -645,13 +600,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landfall(attachedCopyOrToken('{1}{G}', insectToken)),
   ],
   'Standard Bearer': [targetingRequirement('flagbearer')],
-  'Starfield of Nyx': [
-    staticGrant('starfieldOfNyx'),
-    yourUpkeepTarget(
-      { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
-      [returnTargetFromGraveyard('battlefield', false, true)],
-    ),
-  ],
   'Summon: Leviathan': [sagaChapters(
     {
       numbers: [1],
@@ -685,7 +633,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(-7), teferiSunsetEmblem()),
     handler('teferiSunset'),
   ],
-  'Tenuous Truce': [playerAuraDeal()],
   'Thespian\'s Stage': [
     ability(
       { id: 'thespiansStage.copy', sorcery: true },

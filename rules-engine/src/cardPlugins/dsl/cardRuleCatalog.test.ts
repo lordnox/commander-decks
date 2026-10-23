@@ -2370,3 +2370,28 @@ test('catalog Wall of Shards composes its keywords and cumulative upkeep payment
     { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'players', filter: { relation: 'you' } } } },
   ])
 })
+
+test('family 22 catalog composes characteristics, types, grants, and attachments', () => {
+  const abilities = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities('Curious Colossus')).toMatchObject([{ decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [
+    { kind: 'createEffect', effect: { kind: 'addTypes', subtypes: ['Coward'] }, duration: { kind: 'permanent' } },
+    { kind: 'createEffect', effect: { kind: 'removeAbilities' } },
+    { kind: 'createEffect', effect: { kind: 'setStats', power: { kind: 'constant', value: 1 }, toughness: { kind: 'constant', value: 1 } } },
+  ] }])
+  expect(abilities('Masked Vandal')).toMatchObject([{ kind: 'keyword', keyword: 'changeling' }, { on: { kind: 'enters' }, instructions: [{ kind: 'sequence' }] }])
+  expect(abilities('Maskwood Nexus')).toMatchObject([
+    { effects: [{ kind: 'addTypes', allCreatureTypes: true }] },
+    { costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'createToken', token: { colors: ['U'], abilities: [{ keyword: 'changeling' }] } }] },
+  ])
+  expect(cardTemplateDefaultsFor('Lumra, Bellow of the Woods')).toMatchObject({ types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Elemental', 'Bear'] })
+  expect(abilities('Lumra, Bellow of the Woods')).toMatchObject([
+    { keyword: 'reach' }, { keyword: 'vigilance' }, { effects: [{ kind: 'modifyStats', set: true, characteristicDefining: true }] },
+    { instructions: [{ kind: 'mill', count: { value: 4 } }, { kind: 'move', to: 'battlefield', tapped: true }] },
+  ])
+  expect(abilities('Starfield of Nyx')).toMatchObject([{ on: { kind: 'stepBegins', step: 'upkeep' } }, { effects: [{ kind: 'addTypes', types: ['Creature'] }, { kind: 'modifyStats', set: true }] }])
+  expect(abilities('Rain of Filth')).toMatchObject([{ instructions: [{ kind: 'createEffect', duration: { kind: 'untilCleanup' }, effect: { kind: 'grantActivatedAbility', ability: { costs: [{ kind: 'sacrifice', filter: { name: 'source' } }], instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] } } }] }])
+  expect(abilities('Kindred Dominance')).toMatchObject([{ instructions: [{ kind: 'chooseCreatureType' }, { kind: 'destroy' }] }])
+  expect(abilities('Raise the Palisade')).toMatchObject([{ instructions: [{ kind: 'chooseCreatureType' }, { kind: 'move', to: 'hand' }] }])
+  expect(abilities('Colossification')).toMatchObject([{ effects: [{ kind: 'enchant' }, { kind: 'modifyStats', power: { value: 20 }, toughness: { value: 20 } }] }, { on: { kind: 'enters' }, instructions: [{ kind: 'tap' }] }])
+  expect(abilities('Tenuous Truce')).toMatchObject([{ effects: [{ kind: 'enchant', filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, { on: { step: 'end' }, instructions: [{ kind: 'draw' }, { kind: 'draw' }] }, { on: { kind: 'playerAttacks' } }, { on: { kind: 'playerAttacks' } }])
+})

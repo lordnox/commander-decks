@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 100,
+    "cardRegistrations": 90,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
     "builtInPlugins": 57,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 31,
+    "cardNameDispatchSites": 32,
     "customEventDispatchSites": 85,
     "directMutationSites": 574,
-    "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 79,
+    "instructionRegistrationOnlyGaps": 2,
+    "instructionUnobservedGaps": 84,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 106,
-    "candidateOnlyCardRows": 95
+    "candidateOnlyInstructionRows": 100,
+    "candidateOnlyCardRows": 85
   },
   "cardEffects": [
     {
@@ -50,7 +50,6 @@
         "Jace, Multiverse Architect:effects[2]",
         "Kederekt Leviathan:effects[1]",
         "Lair of the Hydra:effects[1]",
-        "Maskwood Nexus:effects[1]",
         "Niv-Mizzet, Ghost Counsel:effects[1]",
         "Soul of Eternity:effects[1]",
         "Teferi, Who Slows the Sunset:effects[0]",
@@ -337,23 +336,17 @@
     {
       "variant": "playerAuraDeal",
       "mechanic": "specialized legacy effect",
-      "currentRegistrations": [
-        "Tenuous Truce:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:330 — test('Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:375 — test('live action enumeration exposes Tenuous Truce opponents and Sokrates creature targets', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:281 — test('the Lady Evangela copy-politics group stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new canonical ability/effect node",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "replacement",
@@ -499,16 +492,12 @@
         "Glorious Protector:effects[1]",
         "Icetill Explorer:effects[0]",
         "Icetill Explorer:effects[1]",
-        "Lumra, Bellow of the Woods:effects[0]",
-        "Masked Vandal:effects[0]",
-        "Maskwood Nexus:effects[0]",
         "Mole Man, Moloid Master:effects[0]",
         "Roaming Throne:effects[0]",
         "Sakashima of a Thousand Faces:effects[0]",
         "Sire of Seven Deaths:effects[0]",
         "Six:effects[1]",
         "Soul of Eternity:effects[0]",
-        "Starfield of Nyx:effects[0]",
         "Valgavoth, Terror Eater:effects[0]",
         "Valgavoth, Terror Eater:effects[1]",
         "Valgavoth, Terror Eater:effects[2]",
@@ -523,7 +512,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 93,
+        "matches": 86,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2791 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -550,7 +539,6 @@
       "mechanic": "legacy positional targets",
       "currentRegistrations": [
         "Cling to Dust:effects[1]",
-        "Colossification:effects[0]",
         "Drag to the Roots:effects[1]",
         "Dread Return:effects[1]",
         "Fortune's Favor:effects[0]",
@@ -570,7 +558,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 39,
+        "matches": 38,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1149 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
@@ -620,11 +608,9 @@
         "Cavern of Souls:effects[0]",
         "Círdan the Shipwright:effects[0]",
         "Círdan the Shipwright:effects[1]",
-        "Colossification:effects[1]",
         "Courser of Kruphix:effects[3]",
         "Crawling Sensation:effects[0]",
         "Crawling Sensation:effects[1]",
-        "Curious Colossus:effects[0]",
         "Erestor of the Council:effects[0]",
         "Eureka:effects[0]",
         "Everflowing Chalice:effects[1]",
@@ -643,10 +629,7 @@
         "Jace, Multiverse Architect:effects[0]",
         "Joint Exploration:effects[0]",
         "Kederekt Leviathan:effects[0]",
-        "Kindred Dominance:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
-        "Lumra, Bellow of the Woods:effects[1]",
-        "Masked Vandal:effects[1]",
         "Mole Man, Moloid Master:effects[1]",
         "Mole Man, Moloid Master:effects[1].do[0].token.effects[0]",
         "Mulldrifter:effects[1]",
@@ -656,8 +639,6 @@
         "Pitiless Carnage:effects[0]",
         "Portal to Phyrexia:effects[0]",
         "Portal to Phyrexia:effects[1]",
-        "Rain of Filth:effects[0]",
-        "Raise the Palisade:effects[0]",
         "Rankle, Master of Pranks:effects[0]",
         "Reins of Power:effects[0]",
         "Rishkar's Expertise:effects[0]",
@@ -667,7 +648,6 @@
         "Six:effects[0]",
         "Spark Double:effects[0]",
         "Springheart Nantuko:effects[1]",
-        "Starfield of Nyx:effects[1]",
         "Trap the Trespassers:effects[0]",
         "Wedding Ring:effects[0]",
         "Wedding Ring:effects[1]",
@@ -681,7 +661,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 172,
+        "matches": 159,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -740,7 +720,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 50,
+        "matches": 52,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -928,21 +908,18 @@
       "variant": "addUntilCleanupRule",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Rain of Filth:effects[0].do[0]",
         "Summon: Leviathan:effects[0].chapters[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFall.test.ts:248 — test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "registration-only",
       "handlerDiscovered": true
     },
     {
@@ -1227,22 +1204,20 @@
       "mechanic": "resolution choice",
       "currentRegistrations": [
         "Cavern of Souls:effects[0].do[0]",
-        "Kindred Dominance:effects[0].do[0]",
-        "Raise the Palisade:effects[0].do[0]",
         "Roaming Throne:effects[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2981 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:111 — test('Kindred Dominance destroys only other types and respects indestructible', () => {",
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:135 — test('Raise the Palisade returns creatures outside the chosen type', () => {",
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
+          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:114 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2393 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:210 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:76 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -1544,13 +1519,12 @@
         "Belonging:effects[0].do[1]",
         "Belonging:effects[0].do[2]",
         "Crawling Sensation:effects[1].do[0]",
-        "Maskwood Nexus:effects[1].do[0]",
         "Mole Man, Moloid Master:effects[1].do[0]",
         "Perch Protection:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 16,
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
@@ -1935,7 +1909,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 98,
+        "matches": 99,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2865,15 +2839,11 @@
     {
       "variant": "ifYouDoExileFromGraveyard",
       "mechanic": "structured control flow",
-      "currentRegistrations": [
-        "Masked Vandal:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:73 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2882,7 +2852,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3016,16 +2986,11 @@
     {
       "variant": "loseAbilitiesBecome",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Curious Colossus:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:45 — test('Curious Colossus chooses an opponent then shrinks their board', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:734 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3035,7 +3000,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3480,8 +3445,8 @@
         "matches": 3,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3073 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:147 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:181 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
+          "rules-engine/src/cardPlugins/sinFall.test.ts:146 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
+          "rules-engine/src/cardPlugins/sinFall.test.ts:180 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3697,15 +3662,11 @@
     {
       "variant": "pumpAttached",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Colossification:effects[1].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:218 — test('Colossification attaches, taps, and pumps the creature', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3715,7 +3676,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4146,8 +4107,8 @@
           "live-runner/src/kernelHost.test.ts:3073 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:573 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:147 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:181 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
+          "rules-engine/src/cardPlugins/sinFall.test.ts:146 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
+          "rules-engine/src/cardPlugins/sinFall.test.ts:180 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4277,16 +4238,13 @@
       "variant": "returnOwnedGraveyardLands",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Lumra, Bellow of the Woods:effects[1].do[1]",
         "Will of the Sultai:effects[0].modes[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:133 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {",
-          "rules-engine/src/plugins/cdaLifePt.test.ts:242 — test('Lumra CDA equals controlled lands', () => {"
+          "rules-engine/src/cardPlugins/sinFallModals.test.ts:133 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4348,20 +4306,11 @@
     {
       "variant": "returnTargetFromGraveyard",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Starfield of Nyx:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:27",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:276 — test('excludes itself, Auras, and opponents enchantments', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:312 — test('reverts below five enchantments and when Starfield leaves', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:362 — test('restores an enchantment creature to its printed stats plus its counters', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:83",
-          "rules-engine/src/plugins/rooms.test.ts:63"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4370,7 +4319,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4686,12 +4635,11 @@
       "currentRegistrations": [
         "Icetill Explorer:effects[2].do[0]",
         "Incarnation Technique:effects[0].do[0]",
-        "Lumra, Bellow of the Woods:effects[1].do[0]",
         "Six:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
@@ -4700,7 +4648,7 @@
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:573 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/selfMill.test.ts:61 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4767,16 +4715,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 9,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2245 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2395 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:610 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:628 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:566 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:284 — test('an open vote and an open copy choice both survive a host restart', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:341 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:398 — test('with no creature the caster does not control there is nothing to vote on', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:45"
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:398 — test('with no creature the caster does not control there is nothing to vote on', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4811,15 +4759,11 @@
     {
       "variant": "tapAttached",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Colossification:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:218 — test('Colossification attaches, taps, and pumps the creature', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4827,7 +4771,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -5380,43 +5324,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Colossification",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Colossification"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:218 — test('Colossification attaches, taps, and pumps the creature', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve, trigger] and instructions [pumpAttached, tapAttached]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "06",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "pumpAttached",
-        "tapAttached"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Concordant Crossroads",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -5519,38 +5426,6 @@
       "handlerIds": [
         "choiceEffects"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Curious Colossus",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Curious Colossus"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:45 — test('Curious Colossus chooses an opponent then shrinks their board', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:734 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseAbilitiesBecome]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "loseAbilitiesBecome"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -5991,7 +5866,7 @@
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:614 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/plugins/rooms.test.ts:179 — test('a door without inline effects takes its rules text from the card table', () => {",
+          "rules-engine/src/plugins/rooms.test.ts:180 — test('a door without inline effects takes its rules text from the card table', () => {",
           "site/src/TableBoard.test.tsx:65 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
         ]
       },
@@ -6612,41 +6487,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Kindred Dominance",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Kindred Dominance"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:111 — test('Kindred Dominance destroys only other types and respects indestructible', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [chooseCreatureType]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "chooseCreatureType"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "creatureTypeChoice",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Kuroki, Thief of Talents",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6745,109 +6585,6 @@
       "pluginIds": [],
       "handlerIds": [
         "blinkValue"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Lumra, Bellow of the Woods",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Lumra, Bellow of the Woods"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/plugins/cdaLifePt.test.ts:242 — test('Lumra CDA equals controlled lands', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [returnOwnedGraveyardLands, selfMill]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "returnOwnedGraveyardLands",
-        "selfMill"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Masked Vandal",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Masked Vandal"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:73 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [ifYouDoExileFromGraveyard]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "ifYouDoExileFromGraveyard"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Maskwood Nexus",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Maskwood Nexus"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:68 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [createToken]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "static"
-      ],
-      "instructionVariants": [
-        "createToken"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -7210,8 +6947,8 @@
         "matches": 3,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3073 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:147 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:181 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
+          "rules-engine/src/cardPlugins/sinFall.test.ts:146 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
+          "rules-engine/src/cardPlugins/sinFall.test.ts:180 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [opponentsSacrifice, reanimateCreatureFromGraveyards]",
@@ -7300,73 +7037,6 @@
       "handlerIds": [
         "choiceEffects",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Rain of Filth",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Rain of Filth"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFall.test.ts:248 — test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [addUntilCleanupRule]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "addUntilCleanupRule"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Raise the Palisade",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Raise the Palisade"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:135 — test('Raise the Palisade returns creatures outside the chosen type', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [chooseCreatureType]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "chooseCreatureType"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "creatureTypeChoice",
-        "onResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -7532,7 +7202,7 @@
         "matches": 6,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2981 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
+          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:114 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:608 — test('Homer remaining cards keep their resolve composition', () => {",
@@ -7887,46 +7557,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Starfield of Nyx",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Starfield of Nyx"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:27",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:276 — test('excludes itself, Auras, and opponents enchantments', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:312 — test('reverts below five enchantments and when Starfield leaves', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:362 — test('restores an enchantment creature to its printed stats plus its counters', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:83",
-          "rules-engine/src/plugins/rooms.test.ts:63"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [returnTargetFromGraveyard]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "returnTargetFromGraveyard"
-      ],
-      "pluginIds": [
-        "starfieldOfNyx"
-      ],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Summon: Leviathan",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8032,36 +7662,6 @@
       "handlerIds": [
         "planeswalker",
         "teferiSunset"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Tenuous Truce",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Tenuous Truce"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:330 — test('Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:375 — test('live action enumeration exposes Tenuous Truce opponents and Sokrates creature targets', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:281 — test('the Lady Evangela copy-politics group stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [playerAuraDeal] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "playerAuraDeal"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "attackDeal"
       ],
       "embeddedRulePaths": []
     },
@@ -8353,7 +7953,7 @@
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:611 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/plugins/rooms.test.ts:178 — test('a door without inline effects takes its rules text from the card table', () => {",
+          "rules-engine/src/plugins/rooms.test.ts:179 — test('a door without inline effects takes its rules text from the card table', () => {",
           "site/src/TableBoard.test.tsx:63 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
         ]
       },
@@ -8860,7 +8460,6 @@
         "Hedge Shredder",
         "Kederekt Leviathan",
         "Lair of the Hydra",
-        "Maskwood Nexus",
         "Niv-Mizzet, Ghost Counsel",
         "Soul of Eternity",
         "Thespian's Stage",
@@ -9144,7 +8743,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 203,
+        "matches": 204,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -9497,7 +9096,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 72,
+        "matches": 73,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:293 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -9754,7 +9353,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 257,
+        "matches": 259,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -9843,22 +9442,13 @@
     {
       "variant": "starfieldOfNyx",
       "mechanic": "runtime plugin hook",
-      "currentRegistrations": [
-        "Starfield of Nyx"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/enchantmentAnimation.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:27",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:276 — test('excludes itself, Auras, and opponents enchantments', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:312 — test('reverts below five enchantments and when Starfield leaves', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:362 — test('restores an enchantment creature to its printed stats plus its counters', () => {",
-          "rules-engine/src/plugins/enchantmentAnimation.test.ts:83",
-          "rules-engine/src/plugins/rooms.test.ts:63"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
@@ -10630,7 +10220,7 @@
         "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3686 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
-          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:183 — test('Roaming Throne stamps Ward {2}', () => {"
+          "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:131 — test('Roaming Throne stamps Ward {2}', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -10685,7 +10275,7 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
-        "rules-engine/src/cardPlugins/cardRules.ts:693",
+        "rules-engine/src/cardPlugins/cardRules.ts:640",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:165",
         "rules-engine/src/cardPlugins/effectRuntime.ts:404",
@@ -10709,7 +10299,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1359"
+        "rules-engine/src/types.ts:1366"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -10742,9 +10332,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1343",
-        "rules-engine/src/actions.ts:1508",
-        "rules-engine/src/actions.ts:855",
+        "rules-engine/src/actions.ts:1345",
+        "rules-engine/src/actions.ts:1510",
+        "rules-engine/src/actions.ts:856",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:212",
@@ -10774,7 +10364,7 @@
         "rules-engine/src/cards/types.ts:4",
         "rules-engine/src/cards/waterlogged-teachings.ts:29",
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
-        "rules-engine/src/driver.ts:1379",
+        "rules-engine/src/driver.ts:1397",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -10803,10 +10393,10 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1396",
-        "rules-engine/src/types.ts:325",
-        "rules-engine/src/types.ts:327",
-        "rules-engine/src/types.ts:331"
+        "rules-engine/src/rules/triggers.ts:1397",
+        "rules-engine/src/types.ts:328",
+        "rules-engine/src/types.ts:330",
+        "rules-engine/src/types.ts:334"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -10841,8 +10431,11 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:562",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:620",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:550",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:574",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:610",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:612",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:641",
         "rules-engine/src/cardPlugins/continuousEffects.ts:65",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:675",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:859",
@@ -10862,7 +10455,9 @@
         "rules-engine/src/formats.ts:127",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:750",
+        "rules-engine/src/kernel.ts:520",
+        "rules-engine/src/kernel.ts:522",
+        "rules-engine/src/kernel.ts:795",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -10879,10 +10474,11 @@
         "rules-engine/src/plugins/spells.ts:484",
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
-        "rules-engine/src/rules/triggers.ts:10",
-        "rules-engine/src/types.ts:152",
-        "rules-engine/src/types.ts:288",
-        "rules-engine/src/types.ts:350",
+        "rules-engine/src/rules/triggers.ts:11",
+        "rules-engine/src/types.ts:111",
+        "rules-engine/src/types.ts:155",
+        "rules-engine/src/types.ts:291",
+        "rules-engine/src/types.ts:353",
         "rules-engine/src/types.ts:74",
         "rules-engine/src/types.ts:91"
       ],
@@ -10965,12 +10561,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1758,
-          2653
+          1764,
+          2659
         ],
         "samples": [
-          "1758: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2653: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1764: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2659: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -10982,10 +10578,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          236
+          237
         ],
         "samples": [
-          "236: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "237: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11105,10 +10701,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          641
+          644
         ],
         "samples": [
-          "641: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "644: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11135,12 +10731,14 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          403,
-          500
+          423,
+          520,
+          731
         ],
         "samples": [
-          "403: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "500: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
+          "423: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "520: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "731: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -11348,24 +10946,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          70,
-          152,
-          171,
-          253,
-          368,
+          71,
+          153,
+          172,
+          254,
           369,
-          508,
-          997,
-          1114,
-          1272,
-          1274,
-          1314,
-          1315
+          370,
+          509,
+          998,
+          1115,
+          1273,
+          1275,
+          1315,
+          1316
         ],
         "samples": [
-          "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "152: eventType: event.type === 'custom' ? event.name : event.type,",
-          "171: : event.type === 'custom' && event.name === 'advanceStep'"
+          "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
+          "153: eventType: event.type === 'custom' ? event.name : event.type,",
+          "172: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -11568,14 +11166,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          974,
-          975,
-          977
+          995,
+          996,
+          998
         ],
         "samples": [
-          "974: const endTurnEffects = event.type === 'custom'",
-          "975: && event.name === 'advanceStep'",
-          "977: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "995: const endTurnEffects = event.type === 'custom'",
+          "996: && event.name === 'advanceStep'",
+          "998: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -11878,10 +11476,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1554
+          1599
         ],
         "samples": [
-          "1554: event.name === SEARCH_CHOSEN"
+          "1599: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -11897,12 +11495,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          180,
-          213
+          181,
+          214
         ],
         "samples": [
-          "180: const source = draft.object(cloned.objectId)",
-          "213: return draft.addToStack({"
+          "181: const source = draft.object(cloned.objectId)",
+          "214: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -11916,15 +11514,15 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          335,
-          752,
-          2026,
-          2056
+          338,
+          755,
+          2056,
+          2087
         ],
         "samples": [
-          "335: const liveSource = draft.object(source.ref.objectId)",
-          "752: const source = draft.object(sourceId)",
-          "2026: const object = draft.object(item.objectId)"
+          "338: const liveSource = draft.object(source.ref.objectId)",
+          "755: const source = draft.object(sourceId)",
+          "2056: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -12580,17 +12178,17 @@
       {
         "path": "rules-engine/src/rules/selectPlayers.ts",
         "lines": [
-          171,
-          203,
-          210,
-          218,
-          222,
-          262
+          180,
+          212,
+          219,
+          227,
+          231,
+          271
         ],
         "samples": [
-          "171: const object = draft.object(objectId)",
-          "203: draft.enqueue({",
-          "210: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
+          "180: const object = draft.object(objectId)",
+          "212: draft.enqueue({",
+          "219: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -12745,22 +12343,22 @@
       {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
-          359,
-          533,
-          630,
-          639,
-          720,
-          737,
-          779,
-          801,
-          860,
-          975,
-          1002
+          364,
+          538,
+          642,
+          651,
+          732,
+          749,
+          791,
+          813,
+          872,
+          987,
+          1014
         ],
         "samples": [
-          "359: const object = draft.object(identity.objectId)",
-          "533: const object = draft.object(recipient.objectId)",
-          "630: const source = draft.object(original.objectId)"
+          "364: const object = draft.object(identity.objectId)",
+          "538: const object = draft.object(recipient.objectId)",
+          "642: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -12774,24 +12372,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          767,
-          852,
-          947,
-          981,
-          1060,
-          1125,
-          1138,
-          1178,
-          1259,
-          1337,
-          1394,
-          1562,
-          1676
+          768,
+          853,
+          948,
+          982,
+          1061,
+          1126,
+          1139,
+          1179,
+          1260,
+          1338,
+          1395,
+          1563,
+          1677
         ],
         "samples": [
-          "767: const frequencySource = draft.object(source.id) ?? source",
-          "852: const live = draft.object(source.id)",
-          "947: const land = draft.object(objectId)"
+          "768: const frequencySource = draft.object(source.id) ?? source",
+          "853: const live = draft.object(source.id)",
+          "948: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -13273,17 +12871,17 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          329,
-          332,
-          345,
-          520,
-          552,
-          572
+          331,
+          334,
+          347,
+          524,
+          556,
+          576
         ],
         "samples": [
-          "329: const source = draft.object(event.objectId)",
-          "332: draft.enqueue({",
-          "345: const source = draft.object(event.objectId)"
+          "331: const source = draft.object(event.objectId)",
+          "334: draft.enqueue({",
+          "347: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -14292,31 +13890,31 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          503,
-          510,
-          570,
-          572,
-          576,
-          584,
-          599,
-          608,
-          611,
-          621,
-          648,
+          506,
+          513,
+          613,
+          615,
+          619,
+          627,
+          642,
           651,
-          660,
-          695,
-          710,
-          765,
-          772,
-          778,
-          795,
-          803
+          654,
+          664,
+          691,
+          694,
+          703,
+          738,
+          753,
+          810,
+          817,
+          823,
+          840,
+          848
         ],
         "samples": [
-          "503: const object = draft.object(event.objectRef.objectId)",
-          "510: const object = draft.object(event.objectId)",
-          "570: const object = draft.object(event.objectId)"
+          "506: const object = draft.object(event.objectRef.objectId)",
+          "513: const object = draft.object(event.objectId)",
+          "613: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

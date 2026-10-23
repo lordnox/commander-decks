@@ -1,3 +1,4 @@
+import { sourceStaticAbilitiesActive } from '../cardPlugins/dsl/staticModifierCore'
 import { withReferencedObjects } from './canonicalReferences'
 import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 /**
@@ -738,7 +739,7 @@ const canonicalTriggersForOccurrence = (
   const seen = new Set<string>()
   for (const source of sources) {
     const definitionSnapshot = source.ruleDefinition
-    if (source.phasedOut || !definitionSnapshot) continue
+    if (!sourceStaticAbilitiesActive(source) || !definitionSnapshot) continue
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return

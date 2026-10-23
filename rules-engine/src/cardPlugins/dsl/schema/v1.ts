@@ -37,6 +37,7 @@ export type ObjectNumericCharacteristic = typeof OBJECT_NUMERIC_CHARACTERISTICS[
 export type PlayerMatch = PlayerRelation | PlayerReference
 
 export type PlayerFilter = {
+  enchantableBy?: ObjectReference
   relation?: PlayerMatch
   all?: readonly PlayerFilter[]
   any?: readonly PlayerFilter[]
@@ -45,6 +46,7 @@ export type PlayerFilter = {
 
 export type ContextBinding =
   | 'source'
+  | 'subject'
   | 'controller'
   | 'event.player'
   | 'triggering.player'
@@ -54,6 +56,7 @@ export type ContextBinding =
   | 'triggering.source'
   | 'triggering.object.controller'
   | 'grant.source'
+  | 'enchanted.player'
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export const MANA_QUERY_BASIS = { production: 'production', colors: 'colors' } as const
@@ -84,7 +87,12 @@ export type PlayerReference = ContextReference | TargetReference | ChoiceReferen
 export type ObjectReference = ContextReference | TargetReference | ChoiceReference
 export type StackItemReference = TargetReference | ChoiceReference
 
+export const CHOSEN_CREATURE_TYPE_BINDING = 'chosenType' as const
+export type CreatureTypeReference = string | { kind: 'typeChoice'; binding: string } | { kind: 'chosenCreatureType'; of: ObjectReference }
+
 export type ObjectFilter = {
+  enchantableBy?: ObjectReference
+  creatureType?: CreatureTypeReference
   /** Exclude the executing source's captured object identity. False adds no restriction. */
   other?: boolean
   commander?: boolean
@@ -348,7 +356,13 @@ export type PreventionEffectDefinition = {
   transform: PreventDamageTransform
 }
 
+export type TypeAdditions = { creatureType?: CreatureTypeReference; allCreatureTypes?: true; types?: readonly string[]; subtypes?: readonly string[] }
+
 export type CreatedEffect =
+  | { kind: 'grantActivatedAbility'; ability: ActivatedAbilityDefinition }
+  | { kind: 'removeAbilities' }
+  | { kind: 'setStats'; power: StatDelta; toughness: StatDelta }
+  | ({ kind: 'addTypes' } & TypeAdditions)
   | { kind: 'goad' }
   | { kind: 'setColors'; colors: readonly CardColor[] }
   | { kind: 'pump'; power: StatDelta; toughness: StatDelta }
@@ -414,6 +428,7 @@ export type VoteSpec =
   | { kind: 'players'; filter?: PlayerFilter }
 
 export type Instruction =
+  | { kind: 'chooseCreatureType'; chooser: PlayerReference; bindResult: string }
   | { kind: 'discardHands'; targets: PlayerRecipient }
   | { kind: 'chooseParticipants'; of: PlayerRecipient; bindChoice: string; prompt?: string }
   | { kind: 'chooseCardsForEachPlayer'; of: PlayerRecipient; filter: ObjectSelector; min: Amount; max: Amount; bindChoice: string }
@@ -682,6 +697,7 @@ export type AmountFieldChange =
   | { kind: 'add'; delta: Amount }
 
 export type EventFieldChanges = {
+  attachTo?: ObjectReference | PlayerReference
   /** Additional counters placed before the permanent is considered to have entered. */
   enterCounters?: Readonly<Record<string, Amount>>
   to?: Zone
@@ -696,7 +712,7 @@ export type ReplacementTransform =
   | { kind: 'suppress' }
 
 export type ReplacementProgramInstruction =
-  | Extract<Instruction, { kind: 'chooseCards' | 'reveal' | 'captureAmount' }>
+  | Extract<Instruction, { kind: 'chooseCards' | 'choosePlayer' | 'reveal' | 'captureAmount' }>
   | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[]; prompt?: string }
   | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
   | { kind: 'modifyEvent'; changes: EventFieldChanges }
@@ -714,6 +730,8 @@ export type ReplacementEffectDefinition = {
 }
 
 export type ContinuousEffectDefinition =
+  | { kind: 'grantActivatedAbility'; targets: ObjectSelector; ability: ActivatedAbilityDefinition }
+  | ({ kind: 'addTypes'; targets: ObjectSelector; when?: Condition } & TypeAdditions)
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'noMaximumHandSize' }
@@ -721,7 +739,7 @@ export type ContinuousEffectDefinition =
   | { kind: 'cannotBeCountered' }
   | { kind: 'untapDuringOthers'; targets: ObjectSelector }
   | { kind: 'loseLifeOnManaLoss' }
-  | { kind: 'enchant'; filter: ObjectSelector }
+  | { kind: 'enchant'; filter: ObjectSelector | PlayerSelector }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector
@@ -730,6 +748,7 @@ export type ContinuousEffectDefinition =
       toughness: StatDelta
       /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
       set?: true
+      characteristicDefining?: true
     }
   | { kind: 'grantKeyword'; targets: ObjectSelector; keyword: Keyword; when?: Condition }
   /** Layer 4: add a basic land type in addition to existing types, with CR 305.6 mana. */
@@ -742,7 +761,7 @@ export type ContinuousEffectDefinition =
   | PreventionEffectDefinition
 
 export const KEYWORDS = {
-  deathtouch: 'deathtouch', defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
+  changeling: 'changeling', deathtouch: 'deathtouch', defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
   hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace', firstStrike: 'first strike',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
@@ -774,6 +793,8 @@ export type SpellAbilityDefinition = {
 } & ResolutionProgram
 
 export type ActivatedAbilityDefinition = {
+  generated?: true
+  capturedBindings?: TriggeredAbilityDefinition['capturedBindings']
   kind: 'activated'
   availableFrom: readonly Zone[]
   timing: ActivationTiming

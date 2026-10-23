@@ -1,3 +1,6 @@
+import { REPLACEMENT_APPLICATION_PLAYER_CHOICE } from '../replacement/constants'
+import { freezeDraft } from '../draft'
+import { resumeReplacementProgramChoice, enqueueReplacementSettlement } from '../replacement/processor'
 import { PLAYER_PROGRAM_CHOICE_ACTION } from '../cardPlugins/dsl/playerProgramConstants'
 import { CONTROL_CHOICE_ACTION } from '../cardPlugins/dsl/controlConstants'
 import { continueControlAssignment } from '../cardPlugins/dsl/controlAssignment'
@@ -24,6 +27,7 @@ export type PendingPlayerSelection = {
   max: number
   candidates: PlayerId[]
   action:
+    | { kind: typeof REPLACEMENT_APPLICATION_PLAYER_CHOICE; frameId: string; binding: string }
     | { kind: typeof PLAYER_PROGRAM_CHOICE_ACTION.choose; stackId: string; binding: string }
     | ControlAssignment
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
@@ -147,12 +151,17 @@ export const selectPlayers: Plugin = {
       }
     }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ event, draft, catalog }) => {
     if (event.type !== 'selectPlayers') return
     const selection = pendingPlayerSelectionFor(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
     clearSelection(draft, event.seat)
     const target = event.players[0]
+    if (selection.action.kind === REPLACEMENT_APPLICATION_PLAYER_CHOICE) {
+      const settled = resumeReplacementProgramChoice(freezeDraft(draft), selection.action.frameId, selection.action.binding, event.players, catalog)
+      if (settled.kind !== 'invalid') enqueueReplacementSettlement(draft, settled)
+      return
+    }
     if (selection.action.kind === PLAYER_PROGRAM_CHOICE_ACTION.choose) {
       const frame = draft.resolution
       if (frame?.kind === 'canonicalSpell' && frame.stackId === selection.action.stackId) {

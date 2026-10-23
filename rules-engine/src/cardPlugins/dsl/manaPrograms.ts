@@ -1,3 +1,4 @@
+import { effectiveActivatedDefinition, canonicalActivationIsActive } from './activatedGrants'
 import type { GameObject, ManaId } from '../../types'
 import type { Instruction } from './schema/v1'
 import { classifyManaAbility, compileCardRuleDefinition } from './compiler'
@@ -55,12 +56,13 @@ export const canonicalManaClassification = (ability: Extract<ReturnType<typeof c
 
 // The tap shortcut can announce one monochromatic mode; other modal programs need explicit announcements.
 export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) => {
-  if (!source.ruleDefinition) return undefined
-  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+  if (!source.ruleDefinition && !source.canonicalGrantedActivations?.length) return undefined
+  const compiled = effectiveActivatedDefinition(source)
   const entries = compiled.definition.abilities
     .map((ability, index) => ({ ability, index }))
     .filter((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
       entry.ability.kind === 'activated'
+      && canonicalActivationIsActive(source, entry.index)
       && entry.ability.costs.every((cost) => cost.kind === 'tapSource' || cost.kind === 'life')
       && canonicalManaClassification(entry.ability).isManaAbility)
   for (const entry of entries) {

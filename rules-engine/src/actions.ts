@@ -1,3 +1,4 @@
+import { effectiveActivatedDefinition, canonicalActivationIsActive } from './cardPlugins/dsl/activatedGrants'
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
@@ -62,7 +63,7 @@ import {
 import { resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { freeCastCandidates, pendingFreeCastFor } from './plugins/rebound'
-import { enchantTargets } from './plugins/enchant'
+import { enchantPlayerTargets, enchantTargets } from './plugins/enchant'
 import { mayCastAsThoughFlash } from './plugins/flashGrant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
@@ -1258,9 +1259,10 @@ const combatDamageIsThreatened = (state: GameState) =>
   )
 
 const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
-  if (!object.ruleDefinition || object.controller !== seat) return []
-  const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
+  if ((!object.ruleDefinition && !object.canonicalGrantedActivations?.length) || object.controller !== seat) return []
+  const definition = effectiveActivatedDefinition(object).definition
   return definition.abilities.flatMap((ability, index): AvailableAction[] => {
+    if (!canonicalActivationIsActive(object, index)) return []
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       ...activatedPermissionFields(ability) })) return []
@@ -1705,6 +1707,10 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const source = state.objects[action.objectId]
+  const playerAttachments = source && !action.castOption ? enchantPlayerTargets(state, source) : undefined
+  if (playerAttachments) return playerAttachments.map(player => ({ ...action, targetObjectId: player, targetName: player }))
+  const objectAttachments = source && !action.castOption ? enchantTargets(state, source) : undefined
+  if (objectAttachments) return objectAttachments.map(object => ({ ...action, targetObjectId: object.id, targetName: object.name }))
   if (source?.ruleDefinition) {
     const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
@@ -1768,7 +1774,7 @@ const targetVariants = (
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
   const playerAura = source
-    ? effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
+    ? Boolean(enchantPlayerTargets(state, source)) || effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
     : false
   if (playerAura) {
     return state.playerOrder
@@ -2575,7 +2581,7 @@ export const eventsForAvailableAction = (
         || effect.op === 'playerAuraDeal')
       : false)
   const playerAura = object
-    ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
+    ? Boolean(enchantPlayerTargets(state, object)) || effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>

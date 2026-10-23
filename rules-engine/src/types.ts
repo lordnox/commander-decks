@@ -5,7 +5,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { InstructionResult, ObjectOccurrenceFilter, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
+import type { ActivatedAbilityDefinition, InstructionResult, ObjectOccurrenceFilter, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -108,6 +108,8 @@ export type ReversibleEffect =
     }
   | { kind: 'oracleLine'; line: string }
   | { kind: 'typeChange'; before: string[]; after: string[] }
+  | { kind: 'removeAbilities'; timestamp?: number; before: { oracleText: string; grantedRules: string[]; effects?: CardEffect[] } }
+  | { kind: 'addTypes'; before: { types: string[]; subtypes: string[] }; types: string[]; subtypes: string[] }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
   /** CR 701.38: attacks each combat if able; prefers non-goading players. */
@@ -136,6 +138,7 @@ export type ReversibleEffect =
    */
   | {
       kind: 'setPt'
+      cda?: true
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
     }
@@ -378,6 +381,7 @@ export type GameObject = {
     definitionRevision: string
     duration: DslEffectDuration
     createdTurn: number
+    timestamp?: number
     execution?: StackExecutionContext
     untilTurn?: number
     untilStepTurn?: number
@@ -385,6 +389,7 @@ export type GameObject = {
     untilStepActive?: PlayerId
     printedStatic?: { abilityIndex: number; effectIndex: number }
   }>
+  canonicalGrantedActivations?: Array<Omit<NonNullable<GameObject['canonicalGrantedAbilities']>[number], 'ability'> & { ability: ActivatedAbilityDefinition }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
   /** CR 613.7a rules timestamp for printed static abilities on this object. */
@@ -772,7 +777,7 @@ export type EventProcessingFrame = {
 
 /** Durable choices and results for a replacement's application procedure. */
 export type ReplacementProgramCursor = {
-  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  choices?: Record<string, (({ kind: 'object' } & ObjectIdentity) | { kind: 'player'; playerId: PlayerId })[]>
   results?: Record<string, InstructionResult>
   instructions: readonly ReplacementProgramInstruction[]
   index: number
@@ -1183,9 +1188,11 @@ export type GameEvent =
       replacementLineage?: ReplacementLineage
       tapped?: boolean
       /** Counters supplied by the effect putting this permanent onto the battlefield. */
+      attachPlayer?: PlayerId
       attachTo?: ObjectIdentity
       enterCounters?: Readonly<Record<string, number>>
       /** Color chosen as this object enters (CR 614.12). */
+      chosenType?: string
       chosenColor?: ManaId
       /** Take a non-resolving spell off the stack when this card leaves it (bounce, not counter). */
       dropStackItem?: boolean

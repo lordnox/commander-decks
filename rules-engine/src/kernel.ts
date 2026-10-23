@@ -1,3 +1,6 @@
+import { effectiveActivatedDefinition } from './cardPlugins/dsl/activatedGrants'
+import { setStats } from './cardPlugins/continuousEffects'
+import { CREATURE_TYPES } from './creatureTypes'
 import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import { commitExileLink, opponentBecameMonarchSince, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
@@ -238,7 +241,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   if (parent.source && parent.definitionSnapshot) {
     const liveSource = current.objects[parent.source.ref.objectId]
     if (!liveSource || !isSameObject(liveSource, parent.source.ref)
-      || JSON.stringify(liveSource.ruleDefinition?.definition) !== JSON.stringify(parent.definitionSnapshot.definition)) {
+      || JSON.stringify(effectiveActivatedDefinition(liveSource).definition) !== JSON.stringify(parent.definitionSnapshot.definition)) {
       const error = 'planned announcement source or definition changed before payment completed'
       return { ok: false, error, state: frame.baseline, trace: entries }
     }
@@ -513,6 +516,29 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'removeAbilities': {
+          const before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules], ...(object.effects ? { effects: structuredClone(object.effects) } : {}) }
+          object.oracleText = ''
+          object.grantedRules = []
+          object.effects = []
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'removeAbilities', timestamp: draft.allocTs(), before }, duration }]
+          break
+        }
+        case 'setStats': {
+          const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
+          const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: setStats(object, power, toughness), duration }]
+          break
+        }
+        case 'addTypes': {
+          const before = { types: [...object.types], subtypes: [...object.subtypes] }
+          object.types = [...new Set([...object.types, ...(event.effect.types ?? [])])]
+          object.subtypes = [...new Set([...object.subtypes, ...(event.effect.allCreatureTypes ? CREATURE_TYPES : event.effect.subtypes ?? [])])]
+          object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'addTypes', before, types: [...(event.effect.types ?? [])], subtypes: [...(event.effect.allCreatureTypes ? CREATURE_TYPES : event.effect.subtypes ?? [])] }, duration,
+          }]
+          break
+        }
         case 'goad':
           if (event.effectPlayer) object.continuousEffects = [...(object.continuousEffects ?? []), {
             effect: { kind: 'goad', sourceController: event.effectPlayer }, duration,
@@ -541,6 +567,22 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
             effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [], incarnation: object.incarnation }, duration,
           }]
           break
+        case 'grantActivatedAbility':
+          object.canonicalGrantedActivations = [...(object.canonicalGrantedActivations ?? []), {
+            ability: structuredClone(event.effect.ability),
+            sourceId: event.sourceId ?? object.id,
+            sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
+            definitionRevision: event.sourceRevision ?? 'unknown',
+            duration: structuredClone(event.duration),
+            createdTurn: event.createdTurn ?? draft.turn,
+            timestamp: draft.allocTs(),
+            ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
+            ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
+            ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
+            ...(event.durationUntilStepNotBeforeTurn !== undefined ? { untilStepNotBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
+            ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
+          }]
+          break
         case 'grantAbility':
           object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
             ability: structuredClone(event.effect.ability),
@@ -549,6 +591,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
             definitionRevision: event.sourceRevision ?? 'unknown',
             duration: structuredClone(event.duration),
             createdTurn: event.createdTurn ?? draft.turn,
+            timestamp: draft.allocTs(),
             ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
             ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
             ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
@@ -730,8 +773,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         }
         draft.note(`${object.name} leaves battlefield`)
       }
+      if (event.chosenType) object.chosenType = event.chosenType
       if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
+        if (event.attachPlayer && draft.players[event.attachPlayer] && !draft.players[event.attachPlayer].lost) object.attachedTo = event.attachPlayer
         if (event.attachTo && isSameObject(draft.objects[event.attachTo.objectId], event.attachTo)) { object.attachedTo = event.attachTo.objectId; object.attachedToRef = { ...event.attachTo } }
         if (event.enterCounters) {
           const before = counterPtBonus(object)

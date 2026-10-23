@@ -1,3 +1,4 @@
+import { CREATURE_TYPES } from '../../creatureTypes'
 import type Draft from '../../draft'
 import { captureObject } from '../../objectIdentity'
 import type { ContinuousEffect, GameObject, GameState, Plugin, ReversibleEffect } from '../../types'
@@ -8,7 +9,7 @@ import {
   setStats,
 } from '../continuousEffects'
 import { evaluateStatDelta } from './compiler/evaluate'
-import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector } from './compiler/runtime'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluateCreatureType } from './compiler/runtime'
 import { syncStaticPreventionInstances } from '../../replacement/prevention'
 import {
   activePrintedStaticModifiers,
@@ -153,6 +154,26 @@ const syncGrantAbility = (
   }
 }
 
+const syncActivatedGrant = (
+  draft: Draft, source: GameObject, abilityIndex: number, effectIndex: number,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantActivatedAbility' }>,
+) => {
+  const targetIds = new Set(evaluateObjectSelector(effect.targets, { state: draft, controller: source.controller, source: captureObject(source) }).filter(object => object.zone === 'battlefield').map(object => object.id))
+  for (const object of Object.values(draft.objects)) {
+    const grants = object.canonicalGrantedActivations ?? []
+    const matching = (grant: typeof grants[number]) => grant.sourceId === source.id && grant.printedStatic?.abilityIndex === abilityIndex && grant.printedStatic?.effectIndex === effectIndex
+    if (!targetIds.has(object.id)) {
+      object.canonicalGrantedActivations = grants.filter(grant => !matching(grant))
+    } else if (!grants.some(matching)) {
+      object.canonicalGrantedActivations = [...grants, {
+        ability: structuredClone(effect.ability), sourceId: source.id, sourceIncarnation: source.incarnation,
+        definitionRevision: source.ruleDefinition?.definitionRevision ?? 'unknown', duration: { kind: 'whileSourceOnBattlefield' }, createdTurn: draft.turn, timestamp: ensureStaticRulesTimestamp(source, () => draft.allocTs()),
+        printedStatic: { abilityIndex, effectIndex },
+      }]
+    }
+  }
+}
+
 const syncModifyStats = (
   draft: Draft,
   source: GameObject,
@@ -166,9 +187,6 @@ const syncModifyStats = (
     controller: source.controller,
     source: captureObject(source),
   }
-  const amountContext = amountEvaluationContext(context)
-  const power = evaluateStatDelta(effect.power, amountContext)
-  const toughness = evaluateStatDelta(effect.toughness, amountContext)
   const targetIds = new Set(
     modifierTargets(draft, source, effect)
       .map((object) => object.id),
@@ -181,6 +199,9 @@ const syncModifyStats = (
       if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
       continue
     }
+    const amountContext = amountEvaluationContext({ ...context, subject: object })
+    const power = evaluateStatDelta(effect.power, amountContext)
+    const toughness = evaluateStatDelta(effect.toughness, amountContext)
     if (effect.set) {
       if (
         existing
@@ -189,7 +210,7 @@ const syncModifyStats = (
         && existing.effect.after.toughness === toughness
       ) continue
       if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
-      stampEffect(object, setStats(object, power, toughness), duration)
+      stampEffect(object, { ...setStats(object, power, toughness), ...(effect.characteristicDefining ? { cda: true as const } : {}) }, duration)
       continue
     }
     if (
@@ -206,11 +227,11 @@ const syncModifyStats = (
 const modifierTargets = (
   state: GameState,
   source: GameObject,
-  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' | 'modifyStats' | 'grantLandType' }>,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'grantKeyword' | 'suppressKeyword' | 'modifyStats' | 'grantLandType' | 'addTypes' }>,
 ) => {
   const context = { state, controller: source.controller, source: captureObject(source) }
   if (effect.when && !evaluateCondition(effect.when, context)) return []
-  return evaluateObjectSelector(effect.targets, context).filter(object => object.zone === 'battlefield')
+  return evaluateObjectSelector(effect.targets, context).filter(object => effect.kind === 'addTypes' || (effect.kind === 'modifyStats' && effect.characteristicDefining) || object.zone === 'battlefield')
 }
 
 const syncKeywordModifier = (
@@ -234,6 +255,32 @@ const syncKeywordModifier = (
       ? keywordGrant(effect.keyword)
       : { kind: 'staticKeywords', grant: [], suppress: [effect.keyword] }
     stampEffect(object, modifier, duration)
+  }
+}
+
+const syncTypeModifier = (
+  draft: Draft, source: GameObject, abilityIndex: number, effectIndex: number,
+  effect: Extract<ContinuousEffectDefinition, { kind: 'addTypes' }>, timestamp: number,
+) => {
+  const selected = effect.creatureType ? evaluateCreatureType(effect.creatureType, { state: draft, source: captureObject(source), controller: source.controller }) : undefined
+  const subtypes = [...(effect.allCreatureTypes ? CREATURE_TYPES : effect.subtypes ?? []), ...(selected ? [selected] : [])]
+  const targetIds = new Set(modifierTargets(draft, source, effect).map(object => object.id))
+  const duration = printedStaticDuration(source, abilityIndex, effectIndex, timestamp)
+  for (const object of Object.values(draft.objects)) {
+    const existing = existingPrintedStamp(object, source.id, abilityIndex, effectIndex)
+    if (!targetIds.has(object.id)) {
+      if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
+      continue
+    }
+    if (existing) {
+      object.types = [...new Set([...object.types, ...(effect.types ?? [])])]
+      object.subtypes = [...new Set([...object.subtypes, ...subtypes])]
+      continue
+    }
+    const before = { types: [...object.types], subtypes: [...object.subtypes] }
+    object.types = [...new Set([...object.types, ...(effect.types ?? [])])]
+    object.subtypes = [...new Set([...object.subtypes, ...subtypes])]
+    stampEffect(object, { kind: 'addTypes', before, types: [...(effect.types ?? [])], subtypes: [...subtypes] }, duration)
   }
 }
 
@@ -307,7 +354,9 @@ const syncSource = (draft: Draft, source: GameObject) => {
 
   for (const entry of activePrintedStaticModifiers(draft, source)) {
     if (isActiveKeywordStatic(entry)) {
-      syncKeywordAbility(draft, source, entry.abilityIndex, entry.keyword)
+      if (entry.keyword === 'changeling') {
+        syncTypeModifier(draft, source, entry.abilityIndex, 0, { kind: 'addTypes', targets: { kind: 'objects', filter: { among: { kind: 'contextRef', name: 'source' } } }, allCreatureTypes: true }, timestamp)
+      } else syncKeywordAbility(draft, source, entry.abilityIndex, entry.keyword)
       continue
     }
     const { abilityIndex, effectIndex } = entry
@@ -323,9 +372,11 @@ const syncSource = (draft: Draft, source: GameObject) => {
     if (effect.kind === 'grantKeyword' || effect.kind === 'suppressKeyword') {
       syncKeywordModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
+    if (effect.kind === 'addTypes') syncTypeModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     if (effect.kind === 'grantLandType') {
       syncLandTypeModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
+    if (effect.kind === 'grantActivatedAbility') syncActivatedGrant(draft, source, abilityIndex, effectIndex, effect)
     if (effect.kind === 'grantAbility') {
       syncGrantAbility(draft, source, abilityIndex, effectIndex, effect)
     }
@@ -350,7 +401,7 @@ const printedStaticTimestamp = (entry: ContinuousEffect, fallback: number) =>
 const powerToughnessSublayer = (entry: ContinuousEffect) => {
   switch (entry.effect.kind) {
     case 'cdaLifePt': return 0
-    case 'setPt': return 1
+    case 'setPt': return entry.effect.cda ? 0 : 1
     case 'pump':
     case 'pumpPerLinkedExile': return 2
     default: return undefined
@@ -412,10 +463,11 @@ const modifiersOutOfSync = (state: GameState) => {
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
       }
-      if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword' || entry.effect.kind === 'grantLandType') {
+      if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword' || entry.effect.kind === 'grantLandType' || entry.effect.kind === 'addTypes') {
         const targetIds = new Set(modifierTargets(state, source, entry.effect).map(object => object.id))
         for (const object of Object.values(state.objects)) {
           if (targetIds.has(object.id) !== Boolean(existingPrintedStamp(object, source.id, entry.abilityIndex, entry.effectIndex))) return true
+          if (targetIds.has(object.id) && entry.effect.kind === 'addTypes' && ((entry.effect.types ?? []).some(type => !object.types.includes(type)) || (entry.effect.allCreatureTypes ? CREATURE_TYPES : entry.effect.subtypes ?? []).some(type => !object.subtypes.includes(type)))) return true
         }
       }
       if (entry.effect.kind === 'modifyStats' || entry.effect.kind === 'grantAbility') {
@@ -424,6 +476,14 @@ const modifiersOutOfSync = (state: GameState) => {
           ? modifierTargets(state, source, entry.effect)
           : evaluateObjectSelector(entry.effect.targets, runtime).filter(object => object.zone === 'battlefield')
         for (const target of targets) {
+          if (entry.effect.kind === 'modifyStats') {
+            const existing = existingPrintedStamp(target, source.id, entry.abilityIndex, entry.effectIndex)
+            const context = amountEvaluationContext({ ...runtime, subject: target })
+            const power = evaluateStatDelta(entry.effect.power, context)
+            const toughness = evaluateStatDelta(entry.effect.toughness, context)
+            if (existing?.effect.kind === 'setPt' && (existing.effect.after.power !== power || existing.effect.after.toughness !== toughness)) return true
+            if (existing?.effect.kind === 'pump' && (existing.effect.power !== power || existing.effect.toughness !== toughness)) return true
+          }
           if (entry.effect.kind === 'modifyStats'
             ? !existingPrintedStamp(target, source.id, entry.abilityIndex, entry.effectIndex)
             : !printedGrantStamp(target, source.id, entry.abilityIndex, entry.effectIndex)) return true

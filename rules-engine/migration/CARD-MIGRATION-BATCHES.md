@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **100 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after family 22 and cumulative upkeep, plus cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **90 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 90 available, 0 awaiting correctness follow-up, and 83 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 97 available, 0 awaiting correctness follow-up, and 76 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -87,12 +87,15 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **31-flash, 31-related, and 31-multizone are available:** object filters match printed and granted keywords, selected cards can be required to share a basic land type, and a multi-zone search shuffles only when a library card was chosen. Waterlogged Teachings // Inundated Archive, Myriad Landscape, and Finale of Devastation have migrated.
 
+**22 is available:** characteristic definitions, additive types, ability loss, creature-type choices, changeling, object/player attachments, and instruction-based activated grants are canonical. Ten fully eligible cards have migrated; remaining consumers retain external gates. **13-upkeep is available:** Wall of Shards has migrated with durable counted payments and separate opponent choices.
+
 ## Suggested next work
 
-First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
+Choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
+| [30-persist](#30-persist) | Woodfall Primus | Verify last-known counters and the returned incarnation. |
 
 **No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
 
@@ -138,14 +141,14 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Sakashima of a Thousand Faces`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. Boseiju, Who Endures has migrated. | — | `Angel of Sanctions`; `Belonging`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Sakashima of a Thousand Faces`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
 | <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Available | `mill({ bindChoice })` binds first public destination identities, including additional replacement mills, excludes prevented/hidden destinations, and never follows later incarnations. Mechanic tests cover filtered recovery and restore. Ripples of Undeath has migrated with 20-combined-payment; Six still needs 26-retrace. | [07](#07) | `Six` |
 
 ### 08. Top-library inspection and selection
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset` |
 
 ### 09. Sacrifice outcomes and entry sacrifice
 
@@ -163,7 +166,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="10-colors"></a>**10-colors — Available mana types** | Available | Query what own/opponent lands could produce, including colorless where applicable; avoid recursive Reflecting Pool loops. | — | None remaining |
 | <a id="10-filter"></a>**10-filter — Hybrid/filter mana payments** | Available | Hybrid activation costs, mixed-color production choices, and planner support. | — | None remaining |
 | <a id="10-loss"></a>**10-loss — Mana-loss consequences** | Available | Observe unspent mana being lost and apply the corresponding life loss. | — | None remaining |
-| <a id="10-mill"></a>**10-mill — Mill as a cost** | Available | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | `Dakmor Salvage`; `Life from the Loam` |
+| <a id="10-mill"></a>**10-mill — Mill as a cost** | Available | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | None remaining |
 | <a id="10-tapped"></a>**10-tapped — Becomes-tapped occurrence** | Available | Trigger on becoming tapped, including tapping for something other than mana. | — | None remaining |
 
 ### 11. Timing, conditions, and activation costs
@@ -185,7 +188,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Tenuous Truce` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Summon: Leviathan` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Available | Untap qualifying permanents during other players' turn-based untap action, once per permanent with stun and phasing semantics. Bender's Waterskin has migrated. | — | None remaining |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Available | Age counters and optional full repeated payment compose through counted repetition, separate opponent choices, and sacrifice on decline. Wall of Shards has migrated. | [13-step](#13-step) | None remaining |
@@ -197,7 +200,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
 | <a id="14-counters"></a>**14-counters — Counter-count amounts** | Available | Read named current counter counts for production, doubling, or other numeric effects. Mossborn Hydra has migrated. | — | `Everflowing Chalice` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Available | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. Sandstone Oracle has migrated. | — | None remaining |
-| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
+| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
 | <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Available | Compute the lowest current life total across living players, including negative totals, once per set-life instruction. Repay in Kind has migrated. | — | None remaining |
 | <a id="14-result-max"></a>**14-result-max — Maximum action result** | Available | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. Windfall has migrated. | — | None remaining |
@@ -208,11 +211,11 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Will of the Sultai` |
 | <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. `somePlayerHasLess` is the inverse. Beza and Breena have migrated. | — | None remaining |
-| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers` |
+| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Show and Tell`; `Trap the Trespassers` |
 | <a id="15-simultaneous"></a>**15-simultaneous — Collect per-player choices before shared actions** | Available | `chooseParticipants` and `chooseCardsForEachPlayer` collect choices in APNAP order without intervening actions, bind player/card sets, preserve private candidates, insufficient-card choices, and restore. `discardHands` discards the participating hands in one action group; subsequent draws retain APNAP order. Sail into the West has migrated. | [15-each](#15-each) | None remaining |
 | <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
 | <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
-| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection` |
+| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection` |
 
 ### 16. Modal faces
 
@@ -269,7 +272,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative has migrated. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
 | <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
-| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six` |
+| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Sire of Seven Deaths`; `Six` |
 | <a id="21-static"></a>**21-static — Continuous keyword grants** | Available | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Concordant Crossroads` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Available | Layer-aware removal and cannot-have-or-gain precedence for a keyword. Archetype of Endurance has migrated. | [21-static](#21-static) | None remaining |
 | <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
@@ -282,15 +285,15 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="22-ability-loss"></a>**22-ability-loss — Ability loss and type/base-stat changes** | Open | Layer-correct ability removal, subtype additions, and base P/T setting without deleting unrelated characteristics. | — | `Curious Colossus` |
+| <a id="22-ability-loss"></a>**22-ability-loss — Ability loss and type/base-stat changes** | Available | Canonical removeAbilities and independent setStats effects preserve unrelated types and counters, use layer-7 ordering, and restore on expiry. Curious Colossus has migrated. | — | None remaining |
 | <a id="22-aura"></a>**22-aura — Typed Aura spell attachment** | Available | Typed enchant selectors, targeted Aura spell entry with attachment identity, legality checks, host references, and chosen-color entry composition. Broader noncast entry/equipment/attachment continuous effects remain in 22-attachment. | — | None remaining |
-| <a id="22-attachment"></a>**22-attachment — Attachment references and Aura rules** | Open | Enchant restrictions, attached object/player references, and attachment-dependent continuous effects. | — | `Colossification`; `Springheart Nantuko`; `Tenuous Truce` |
-| <a id="22-changeling"></a>**22-changeling — All creature types** | Open | Changeling and all-creature-types effects in every applicable zone; preserve type unions and exclusions. | — | `Belonging`; `Firdoch Core`; `Masked Vandal`; `Maskwood Nexus` |
-| <a id="22-characteristics"></a>**22-characteristics — Continuous characteristic definitions** | Open | CDA power/toughness from a live amount, conditional animation/base stats, and continuous type/stat updates. | — | `Lumra, Bellow of the Woods`; `Soul of Eternity`; `Starfield of Nyx` |
-| <a id="22-choose-type"></a>**22-choose-type — Choose a creature type** | Open | Persist a non-target creature-type choice and use it in subsequent filters and continuous effects. | — | `Cavern of Souls`; `Kindred Dominance`; `Raise the Palisade`; `Roaming Throne` |
-| <a id="22-grants"></a>**22-grants — Grant activated ability programs** | Open | Grant canonical activated abilities with independent lexical/source bindings and duration; existing generated grants cover triggered abilities. | — | `Rain of Filth` |
+| <a id="22-attachment"></a>**22-attachment — Attachment references and Aura rules** | Available | Typed object/player enchant restrictions, pre-entry noncast attachment choices, pinned object hosts, enchanted-player references, and attachment-dependent static effects. Colossification and Tenuous Truce have migrated. | — | `Springheart Nantuko` |
+| <a id="22-changeling"></a>**22-changeling — All creature types** | Available | Changeling applies in every zone; typed additive characteristics grant every CR 205.3m creature type without granting land types. Masked Vandal and Maskwood Nexus have migrated. | — | `Belonging`; `Firdoch Core` |
+| <a id="22-characteristics"></a>**22-characteristics — Continuous characteristic definitions** | Available | Live characteristic-defining P/T applies across zones in layer 7a; conditional animation composes additive types with per-subject layer-7b setters. Room changes refresh before state-based actions. Lumra and Starfield of Nyx have migrated. | — | `Soul of Eternity` |
+| <a id="22-choose-type"></a>**22-choose-type — Choose a creature type** | Available | Non-target resolution and entry choices offer the complete CR creature-type list, persist through restore, and feed filters or source-stored choices. Kindred Dominance and Raise the Palisade have migrated. | — | `Cavern of Souls`; `Roaming Throne` |
+| <a id="22-grants"></a>**22-grants — Grant activated ability programs** | Available | Canonical instruction-based activated programs are granted to recipient permanents, with separate source identity, lexical captures, activation costs, mana classification, and duration. Modal generated activations are outside this slice. Rain of Filth has migrated. | — | None remaining |
 | <a id="22-land-types"></a>**22-land-types — Land-type overlays** | Available | Layer-aware addition of basic land types and the intrinsic mana abilities they confer. Blanket of Night, Urborg, Tomb of Yawgmoth, and Yavimaya, Cradle of Growth have migrated. | — | None remaining |
-| <a id="22-types"></a>**22-types — Additive type/subtype changes** | Open | Add a subtype to a returned/current permanent without replacing its existing types or making a copy. | — | `Portal to Phyrexia` |
+| <a id="22-types"></a>**22-types — Additive type/subtype changes** | Available | Canonical additive type/subtype effects retain existing characteristics and revert or expire independently. Portal to Phyrexia retains its per-player sacrifice gate. | — | `Portal to Phyrexia` |
 
 ### 23. Mana provenance
 
@@ -405,7 +408,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="34-damage"></a>**34-damage — Damage/enrage occurrences** | Available | `dealtDamage` occurrences bind recipient, source, amount, and optional combat. Apex Altisaur and Souls of the Faultless have migrated. | — | `Rankle, Master of Pranks` |
-| <a id="34-defender"></a>**34-defender — Defending-player bindings** | Available | Attack occurrences capture `triggering.defender`; `playerAttacks` fires once per defending player. Breena, Kogla, and Souls of the Faultless have migrated. | — | `Belonging`; `It That Betrays`; `Soul of Eternity`; `Tenuous Truce` |
+| <a id="34-defender"></a>**34-defender — Defending-player bindings** | Available | Attack occurrences capture `triggering.defender`; `playerAttacks` fires once per defending player. Breena, Kogla, and Souls of the Faultless have migrated. | — | `Belonging`; `It That Betrays`; `Soul of Eternity` |
 | <a id="34-history"></a>**34-history — Source-attributed damage history** | Available | `damageDealtThisTurn` reads the object ledger; `combatDamageThisTurn` reads legendary combat-to-player history. Blitzball and Grothama have migrated. | [34-damage](#34-damage) | None remaining |
 
 ### 35. Event history and grouped occurrences
@@ -423,7 +426,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="36-exile"></a>**36-exile — Optional resolution exile cost** | Available | Choose zero or one eligible graveyard card after target announcement with typed selectCards; perform exile and continue only when the optional cost is paid. CR 118.11–118.12 preserves payment through replacement effects, rather than requiring the card to reach exile. Preserve decline, empty candidate sets, target revalidation, and restored choices. | — | `Masked Vandal` |
+| <a id="36-exile"></a>**36-exile — Optional resolution exile cost** | Available | Choose zero or one eligible graveyard card after target announcement with typed selectCards; perform exile and continue only when the optional cost is paid. CR 118.11–118.12 preserves payment through replacement effects, rather than requiring the card to reach exile. Preserve decline, empty candidate sets, target revalidation, and restored choices. | — | None remaining |
 
 ### 37. Player sacrifice and modal triggers
 
@@ -449,9 +452,9 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="39-finished"></a>**39-finished — Finished-voting occurrence** | Open | Expose recorded per-player ballots when a vote finishes so triggered programs can compare choices and count opponents. | [39-vote](#39-vote) | `Erestor of the Council` |
 | <a id="39-hidden"></a>**39-hidden — Face-down pile visibility** | Open | Per-seat knowledge of face-up/face-down piles through choices and restore; do not leak concealed identities. | [39-piles](#39-piles) | `Fortune's Favor`; `Hostile Negotiations` |
 | <a id="39-object"></a>**39-object — Object ballots** | Open | Vote for eligible object identities, then aggregate votes per object; combine with secret visibility when printed. | [39-vote](#39-vote) | `Trap the Trespassers` |
-| <a id="39-piles"></a>**39-piles — Pile division and opponent choices** | Available | Typed pile partition, opponent selection, choosing a pile, and identity-bound result routing. | [08](#08), [15-player](#15-player) | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations` |
+| <a id="39-piles"></a>**39-piles — Pile division and opponent choices** | Available | Typed pile partition, opponent selection, choosing a pile, and identity-bound result routing. | [08](#08), [15-player](#15-player) | `Fortune's Favor`; `Hostile Negotiations` |
 | <a id="39-secret"></a>**39-secret — Secret council** | Open | Private votes until reveal, per-player results, ties, and restore. | [39-vote](#39-vote) | `Círdan the Shipwright`; `Trap the Trespassers` |
-| <a id="39-vote"></a>**39-vote — Public voting** | Available | Typed sequential public votes, player choices, recorded ballots, totals/ties, and result-dependent continuation. | [15-each](#15-each) | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Illusion of Choice`; `Selvala's Stampede`; `Split Decision`; `Trap the Trespassers` |
+| <a id="39-vote"></a>**39-vote — Public voting** | Available | Typed sequential public votes, player choices, recorded ballots, totals/ties, and result-dependent continuation. | [15-each](#15-each) | `Círdan the Shipwright`; `Erestor of the Council`; `Illusion of Choice`; `Trap the Trespassers` |
 | <a id="39-exile"></a>**39-exile — Exile the resolving spell** | Available | `exileThisSpell` moves only the current resolving spell's pinned stack incarnation, retains the resolution cursor through later choices/restore, leaves ability source permanents alone, and lets exiled spell copies cease to exist. Sail into the West has migrated with 15-simultaneous. | — | None remaining |
 
 ### 40. Sagas

@@ -1,5 +1,5 @@
 import { captureObject } from '../objectIdentity'
-import { evaluateRuntimeAmount } from '../cardPlugins/dsl/compiler/runtime'
+import { evaluateRuntimeAmount, evaluateObjectReference, evaluatePlayerReference, referenceIsPlayer } from '../cardPlugins/dsl/compiler/runtime'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import type { Instruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
 import type { GameEvent, GameState, ReplacementLineage } from '../types'
@@ -36,8 +36,15 @@ export const applyReplacementTransform = (
         if (value === undefined) throw new Error('entry counter amounts require a runtime context')
         enterCounters[name] = (enterCounters[name] ?? 0) + value
       }
+      const attachment = transform.changes.attachTo
+      const playerAttachment = attachment && context && referenceIsPlayer(attachment, context)
+      const attachedObject = attachment && attachment.kind !== 'relatedPlayer' && attachment.kind !== 'resultRef' && !playerAttachment && context ? evaluateObjectReference(attachment, context)[0] : undefined
+      const attachedPlayer = attachment && context && playerAttachment ? evaluatePlayerReference(attachment, context)[0] : undefined
+      if (attachment && !attachedObject && !attachedPlayer) return { kind: 'prevented' }
       const next = {
         ...proposal,
+        ...(attachedObject ? { attachTo: { objectId: attachedObject.id, incarnation: attachedObject.incarnation, zone: attachedObject.zone } } : {}),
+        ...(attachedPlayer ? { attachPlayer: attachedPlayer } : {}),
         ...(transform.changes.enterCounters ? { enterCounters } : {}),
         ...(transform.changes.to ? { to: transform.changes.to } : {}),
         ...(transform.changes.tapped !== undefined ? { tapped: transform.changes.tapped } : {}),

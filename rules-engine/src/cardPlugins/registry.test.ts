@@ -286,7 +286,7 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor("Council's Judgment")).toBeDefined()
     expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')
     expect(cardPluginEntry('Sokrates, Athenian Teacher')).toBeUndefined()
-    expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
+    expect(cardPluginEntry('Tenuous Truce')?.handlerIds ?? []).toEqual([])
   })
 
   test('Dack Fayden, Helping Hand is registered', () => {

@@ -187,6 +187,24 @@ const discoverProspectiveSelfEntry = (
   if (event.type !== 'move' || event.to !== 'battlefield') return
   const host = state.objects[event.objectId]
   if (!host) return
+  if (host.subtypes.includes('Aura') && !event.attachTo && !event.attachPlayer) {
+    host.ruleDefinition?.definition.abilities.forEach((ability, abilityIndex) => {
+      if (ability.kind !== 'static') return
+      ability.effects.forEach((effect, effectIndex) => {
+        if (effect.kind !== 'enchant') return
+        const instanceId = `${printedStaticEffectKey(host.id, abilityIndex, effectIndex)}:attachment`
+        if (usedInstanceIds.includes(instanceId)) return
+        const choice = effect.filter.kind === 'players'
+          ? { kind: 'choosePlayer' as const, chooser: { kind: 'contextRef' as const, name: 'controller' as const }, filter: { kind: 'players' as const, filter: { all: [effect.filter.filter, { enchantableBy: { kind: 'contextRef' as const, name: 'source' as const } }] } }, bindChoice: 'attachment' }
+          : { kind: 'chooseCards' as const, chooser: { kind: 'contextRef' as const, name: 'controller' as const }, filter: { kind: 'objects' as const, filter: { all: [effect.filter.filter, { enchantableBy: { kind: 'contextRef' as const, name: 'source' as const } }] } }, min: { kind: 'constant' as const, value: 1 }, max: { kind: 'constant' as const, value: 1 }, bindChoice: 'attachment', distinct: true as const, whenInsufficient: 'chooseAvailable' as const }
+        pushCandidate(candidates, seen, {
+          kind: 'canonical', category: 'self', instanceId, sourceId: host.id, sourceName: host.name, abilityIndex, effectIndex,
+          effect: { kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: {} }, program: [choice, { kind: 'modifyEvent', changes: { attachTo: { kind: 'choiceRef', binding: 'attachment' } } }] },
+          label: host.name, optional: false, chooser: event.controller ?? host.controller, rulesTimestamp: host.staticRulesTimestamp ?? 0,
+        })
+      })
+    })
+  }
   const prospectiveController = event.controller ?? host.controller
   const runtime = runtimeFor(state, host.id, prospectiveController)
   for (const entry of prospectiveBattlefieldStaticReplacements(host)) {

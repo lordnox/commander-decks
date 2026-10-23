@@ -1,3 +1,13 @@
+import tenuousTruce from './tenuous-truce'
+import colossification from './colossification'
+import raisethePalisade from './raise-the-palisade'
+import kindredDominance from './kindred-dominance'
+import rainofFilth from './rain-of-filth'
+import starfieldofNyx from './starfield-of-nyx'
+import lumraBellowoftheWoods from './lumra-bellow-of-the-woods'
+import maskwoodNexus from './maskwood-nexus'
+import maskedVandal from './masked-vandal'
+import curiousColossus from './curious-colossus'
 import wallOfShards from './wall-of-shards'
 import alabasterHostIntercessor from './alabaster-host-intercessor'
 import sailIntoTheWest from './sail-into-the-west'
@@ -317,6 +327,16 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Tenuous Truce": tenuousTruce,
+  "Colossification": colossification,
+  "Raise the Palisade": raisethePalisade,
+  "Kindred Dominance": kindredDominance,
+  "Rain of Filth": rainofFilth,
+  "Starfield of Nyx": starfieldofNyx,
+  "Lumra, Bellow of the Woods": lumraBellowoftheWoods,
+  "Maskwood Nexus": maskwoodNexus,
+  "Masked Vandal": maskedVandal,
+  "Curious Colossus": curiousColossus,
   'Wall of Shards': wallOfShards,
   'Alabaster Host Intercessor': alabasterHostIntercessor,
   'Repay in Kind': repayInKind,

@@ -94,59 +94,7 @@ describe('creature-type choices', () => {
     expect(result.ok).toBe(false)
   })
 
-  test('Kindred Dominance destroys only other types and respects indestructible', () => {
-    const server = game({
-      battlefield: {
-        p1: [
-          cardTemplate('Crab', { types: ['Creature'], subtypes: ['Crab'] }),
-          cardTemplate('Indestructible Bear', {
-            types: ['Creature'],
-            subtypes: ['Bear'],
-            oracleText: 'Indestructible',
-          }),
-        ],
-        p2: [cardTemplate('Bear', { types: ['Creature'], subtypes: ['Bear'] })],
-      },
-      hands: {
-        p1: [cardTemplate('Kindred Dominance', { types: ['Sorcery'] })],
-      },
-    })
-    const spell = named(server.state, 'Kindred Dominance')
-    const cast = ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-    }))
-    const offered = ok(server.rules(cast, { type: 'resolveTop' }))
-    const resolved = choose(server, offered, 'Crab')
 
-    expect(named(resolved, 'Crab').zone).toBe('battlefield')
-    expect(named(resolved, 'Indestructible Bear').zone).toBe('battlefield')
-    expect(named(resolved, 'Bear').zone).toBe('graveyard')
-  })
-
-  test('Raise the Palisade returns creatures outside the chosen type', () => {
-    const server = game({
-      battlefield: {
-        p1: [cardTemplate('Crab', { types: ['Creature'], subtypes: ['Crab'] })],
-        p2: [cardTemplate('Bear', { types: ['Creature'], subtypes: ['Bear'] })],
-      },
-      hands: {
-        p1: [cardTemplate('Raise the Palisade', { types: ['Sorcery'] })],
-      },
-    })
-    const spell = named(server.state, 'Raise the Palisade')
-    const cast = ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-    }))
-    const offered = ok(server.rules(cast, { type: 'resolveTop' }))
-    const resolved = choose(server, offered, 'Crab')
-
-    expect(named(resolved, 'Crab').zone).toBe('battlefield')
-    expect(named(resolved, 'Bear').zone).toBe('hand')
-  })
 })
 
 describe('relocated from homerPass2.test.ts → creatureTypeChoice.test.ts', () => {

@@ -349,7 +349,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
     ending.active = 'p2'
     ending.step = 'postcombatMain'
     state = ok(server.rules(ending, { type: 'custom', name: 'advanceStep' }))
-    expect(state.stack[0]?.abilityId).toBe('attackDeal.draw')
+    expect(state.stack[0]?.execution?.abilityIndex).toBe(1)
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
     expect(state.zoneOrder.p2.hand).toHaveLength(1)
@@ -365,7 +365,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
       seat: 'p1',
       attackers: [{ objectId: diplomat.id, defender: 'p2' }],
     }))
-    expect(state.stack[0]?.abilityId).toBe('attackDeal.break')
+    expect(state.stack[0]?.execution?.abilityIndex).toBe(2)
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[truce.id].zone).toBe('graveyard')
   })

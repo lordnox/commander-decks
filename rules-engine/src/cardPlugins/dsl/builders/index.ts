@@ -1,6 +1,8 @@
+import { CREATURE_TYPES } from '../../../creatureTypes'
 import { ZONE_IDS } from '../../../types'
 import type {
   ActivatedAbilityDefinition,
+  CreatureTypeReference,
   Amount,
   AmountCompareOperator,
   AmountInput,
@@ -80,6 +82,7 @@ import type {
 import {
   LIBRARY_VISIBILITY,
   CHOSEN_COLOR_BINDING,
+  CHOSEN_CREATURE_TYPE_BINDING,
   DECLINE_LIFE_OPTION,
   ENTRY_PAYMENT_BINDING,
   PAY_LIFE_OPTION,
@@ -1266,3 +1269,19 @@ export const chooseParticipants = (input: Omit<Extract<Instruction, { kind: 'cho
 export const chooseCardsForEachPlayer = (input: Omit<Extract<Instruction, { kind: 'chooseCardsForEachPlayer' }>, 'kind' | 'min' | 'max'> & { min: AmountInput; max: AmountInput }) => immutableData({ kind: 'chooseCardsForEachPlayer' as const, ...input, min: toAmount(input.min), max: toAmount(input.max) })
 
 export const discardHands = (input: { targets: PlayerRecipient }) => immutableData({ kind: 'discardHands' as const, ...input })
+
+export const addTypesEffect = (input: Omit<Extract<CreatedEffect, { kind: 'addTypes' }>, 'kind'>) => immutableData({ kind: 'addTypes' as const, ...input })
+export const addTypesTo = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'addTypes' }>, 'kind'>) => immutableData({ kind: 'addTypes' as const, ...input })
+
+export const removeAbilitiesEffect = () => immutableData({ kind: 'removeAbilities' as const })
+export const setStatsEffect = (power: StatDeltaInput, toughness: StatDeltaInput) => immutableData({ kind: 'setStats' as const, power: toStatDelta(power), toughness: toStatDelta(toughness) })
+
+export const chooseCreatureType = (bindResult: string, chooser: PlayerReference = ref('controller')) => immutableData({ kind: 'chooseCreatureType' as const, bindResult, chooser })
+export const chosenCreatureType = (of: ObjectReference = ref('source')): CreatureTypeReference => immutableData({ kind: 'chosenCreatureType', of })
+export const creatureTypeChoice = (binding: string): CreatureTypeReference => immutableData({ kind: 'typeChoice', binding })
+export const chooseCreatureTypeAsEnters = () => replacement(wouldEnter(), modifyEvent({}), { program: [
+  { kind: 'choose', bindChoice: CHOSEN_CREATURE_TYPE_BINDING, options: CREATURE_TYPES.map(type => ({ id: type, label: type })) },
+  { kind: 'modifyEvent', changes: {} },
+] })
+
+export const grantActivatedAbilityEffect = (ability: ActivatedAbilityDefinition) => immutableData({ kind: 'grantActivatedAbility' as const, ability })

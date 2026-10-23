@@ -47,7 +47,7 @@ export const isActiveKeywordStatic = (
 
 export const sourceStaticAbilitiesActive = (source: GameObject) =>
   !source.phasedOut
-  && !(source.continuousEffects ?? []).some(({ effect }) => effect.kind === 'loseAbilitiesBecome')
+  && !(source.continuousEffects ?? []).some(({ effect }) => effect.kind === 'loseAbilitiesBecome' || effect.kind === 'removeAbilities')
 
 const abilityDefinition = (source: GameObject, abilityIndex: number): AbilityDefinition | undefined => {
   if (!source.ruleDefinition) return undefined
@@ -56,7 +56,7 @@ const abilityDefinition = (source: GameObject, abilityIndex: number): AbilityDef
 
 // CR 702.8a / 702.15d: flash and lifelink function outside the battlefield.
 const abilityActiveIn = (ability: AbilityDefinition): readonly Zone[] => {
-  if (ability.kind === 'keyword') return (ability.keyword === KEYWORDS.flash || ability.keyword === KEYWORDS.lifelink) ? ZONE_IDS : ['battlefield']
+  if (ability.kind === 'keyword') return (ability.keyword === KEYWORDS.flash || ability.keyword === KEYWORDS.lifelink || ability.keyword === KEYWORDS.changeling) ? ZONE_IDS : ['battlefield']
   if (ability.kind === 'static') return ability.activeIn
   return []
 }

@@ -1,3 +1,4 @@
+import { effectiveActivatedDefinition, activatedGrantAt, canonicalActivationIsActive } from './dsl/activatedGrants'
 import { hasUntaxedTapMana } from '../plugins/mana'
 import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import {
@@ -16,7 +17,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -132,12 +133,13 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = state.objects[event.objectId]
     if (!source) return 'no such object'
-    if (source.ruleDefinition) {
-      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+    if (source.ruleDefinition || source.canonicalGrantedActivations?.length) {
+      const compiled = effectiveActivatedDefinition(source)
       const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
+        if (!canonicalActivationIsActive(source, Number(abilityIndex))) return 'this object has lost that activated ability'
         let modal: ReturnType<typeof activatedModalInputs>
         try {
           modal = activatedModalInputs(state, source, activatedCanonical, Number(abilityIndex), event)
@@ -344,8 +346,8 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = draft.object(event.objectId)
     if (!source) return
-    if (source.ruleDefinition) {
-      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+    if (source.ruleDefinition || source.canonicalGrantedActivations?.length) {
+      const compiled = effectiveActivatedDefinition(source)
       const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
       const candidate = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const canonical = candidate?.kind === 'activated' ? candidate : undefined
@@ -428,7 +430,9 @@ export const activated: Plugin = {
           choiceIndex += count
         }
         const resolvedTargets = event.targets ?? event.targetClauses?.flat() ?? []
+        const activationGrant = activatedGrantAt(source, Number(abilityIndex))
         const canonicalExecution = {
+          ...(activationGrant ? { ...activationGrant.execution, grantSource: { objectId: activationGrant.sourceId, incarnation: activationGrant.sourceIncarnation }, ...(activationGrant.execution?.choices ? { choices: structuredClone(activationGrant.execution.choices) } : {}), ...(activationGrant.execution?.results ? { results: structuredClone(activationGrant.execution.results) } : {}) } : {}),
           controller: event.seat,
           source: captureObject(source),
           definitionSnapshot: createDefinitionSnapshot(compiled),

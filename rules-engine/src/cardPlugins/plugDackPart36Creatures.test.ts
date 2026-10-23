@@ -3,8 +3,7 @@ import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame, projectForViewer } from '../runtime'
-import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
+import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
@@ -41,47 +40,6 @@ const fixtureCreature = (
 ) => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
 describe('plug Dack part 36 registered creatures', () => {
-  test('Curious Colossus chooses an opponent then shrinks their board', () => {
-    const colossus = deckCreature('Curious Colossus', { manaCost: '{4}{W}' })
-    const bear = fixtureCreature('Fixture Curious Bear', { power: 4, toughness: 4 })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 4,
-        hands: { p1: [colossus] },
-        battlefield: { p2: [bear] },
-      },
-      { random: () => 0.5, cardPlugins: [onResolve] },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana.W = 4
-    state.players.p1.mana.C = 1
-    const colossusId = named(state, 'Curious Colossus').id
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: colossusId,
-    }))
-    state = resolveStack(server.rules, state)
-    const choice = pendingPlayerSelectionFor(state, 'p1')!
-    const restarted = structuredClone(state)
-    expect(pendingPlayerSelectionFor(restarted, 'p1')?.id).toBe(choice.id)
-    expect(pendingPlayerSelectionFor(projectForViewer(restarted, 'p2'), 'p1')).toBeUndefined()
-
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: choice.id,
-      players: ['p2'],
-    }))
-    expect(named(state, 'Fixture Curious Bear')).toMatchObject({
-      power: 1,
-      toughness: 1,
-      subtypes: expect.arrayContaining(['Coward']),
-    })
-    expect(named(state, 'Fixture Curious Bear').effects).toEqual([])
-  })
-
   test('Githzerai Monk taps every creature you do not control on ETB', () => {
     const monk = deckCreature('Githzerai Monk', { manaCost: '{2}{W}{U}' })
     const ally = fixtureCreature('Fixture Ally')

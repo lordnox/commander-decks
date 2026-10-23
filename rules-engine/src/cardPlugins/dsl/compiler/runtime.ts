@@ -1,3 +1,5 @@
+import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
+import { isCreatureType } from '../../../creatureTypes'
 import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
 import { hasManaAbility } from '../manaPrograms'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
@@ -16,6 +18,7 @@ import type {
 } from '../../../types'
 import type {
   InstructionResult,
+  CreatureTypeReference,
   Amount,
   AmountCompareOperator,
   StatDelta,
@@ -67,6 +70,7 @@ export type RuntimeBindings = {
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
+  subject?: GameObject
   sourceLess?: true
   referencedObjects?: readonly CapturedObject[]
   state: GameState
@@ -134,6 +138,10 @@ const playerContextReference = (
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
       return [context.occurrence.player]
+    case 'enchanted.player': {
+      const player = context.source.snapshot.attachedTo
+      return player && context.state.players[player] && !context.state.players[player].lost ? [player] : []
+    }
     case 'triggering.player': {
       const occurrence = context.capturedOccurrenceBindings?.includes('player')
         ? context.capturedOccurrence
@@ -215,6 +223,7 @@ export const evaluateObjectReference = (
   information: 'current' | 'currentOrLastKnown' = 'current',
 ) => {
   if (reference.kind === 'contextRef') {
+    if (reference.name === 'subject') return context.subject ? [context.subject] : []
     if (reference.name === 'source') {
       if (context.sourceLess) return []
       const current = currentSource(context)
@@ -336,6 +345,7 @@ const matchesPlayerFilter = (
   context: RuleDslRuntimeContext,
   includeLost?: true,
 ): boolean => {
+  if (filter.enchantableBy && (evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, undefined, player))) return false
   if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
   if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
   if (filter.not && matchesPlayerFilter(player, filter.not, context, includeLost)) return false
@@ -370,12 +380,18 @@ const objectNumericCharacteristic = (
   return typeof value === 'number' ? value : undefined
 }
 
+export const evaluateCreatureType = (reference: CreatureTypeReference, context: RuleDslRuntimeContext) => {
+  const type = typeof reference === 'string' ? reference : reference.kind === 'typeChoice' ? context.results?.[reference.binding] : evaluateObjectReference(reference.of, context)[0]?.chosenType
+  return typeof type === 'string' && isCreatureType(type) ? type : undefined
+}
+
 // Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
   object: GameObject,
   filter: ObjectFilter,
   context: RuleDslRuntimeContext,
 ): boolean => {
+  if (filter.enchantableBy && (object.phasedOut || evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, object))) return false
   if (filter.all && !filter.all.every((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.not && matchesObjectFilter(object, filter.not, context)) return false
@@ -390,11 +406,15 @@ const matchesObjectFilter = (
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every(subtype => {
     if (object.subtypes.includes(subtype)) return true
-    if (hasKeyword(object, 'changeling')) return true
+    if (isCreatureType(subtype) && hasKeyword(object, 'changeling')) return true
     if (object.zone !== 'battlefield') return false
     return (BASIC_LAND_TYPES as readonly string[]).includes(subtype)
       && hasBasicLandType(object, subtype as typeof BASIC_LAND_TYPES[number], context.state)
   })) return false
+  if (filter.creatureType !== undefined) {
+    const type = evaluateCreatureType(filter.creatureType, context)
+    if (typeof type !== 'string' || !isCreatureType(type) || (!object.subtypes.includes(type) && !hasKeyword(object, 'changeling'))) return false
+  }
   if (filter.keyword && !hasKeyword(object, filter.keyword, context.state)) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (mismatchesController(object, filter, context)) return false
@@ -702,3 +722,14 @@ export const objectMatchesSelector = (
   selector: ObjectSelector,
   context: RuleDslRuntimeContext,
 ) => !object.phasedOut && matchesObjectFilter(object, selector.filter, context)
+
+/** Disambiguate references whose serialized shape can bind either player or object identities. */
+export const referenceIsPlayer = (reference: PlayerReference | ObjectReference, context: RuleDslRuntimeContext) => {
+  switch (reference.kind) {
+    case 'relatedPlayer':
+    case 'resultRef': return true
+    case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)
+    case 'choiceRef':
+    case 'targetRef': return evaluateBoundRecipients(reference, context).some(value => value.kind === 'player')
+  }
+}

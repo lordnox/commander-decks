@@ -1,3 +1,4 @@
+import { CREATURE_TYPE_CHOICE_ACTION } from '../creatureTypes'
 import { COLLECTED_CHOICE_ACTION, PARTICIPATION_OPTION } from '../cardPlugins/dsl/collectedChoices'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
 import type Draft from '../draft'
@@ -116,6 +117,10 @@ export type PendingOptionSelection = {
     recipients: Array<{ id: string; kind: 'object' | 'player'; objectId?: string; seat?: PlayerId; counter: string }>
   } | {
     /** A canonical resolution program choice; the frame remains private. */
+    kind: typeof CREATURE_TYPE_CHOICE_ACTION
+    stackId: string
+    binding: string
+  } | {
     kind: 'canonicalInstructionChoice'
     stackId: string
     scopeId?: string
@@ -546,6 +551,13 @@ export const selectOptions: Plugin = {
         action: { ...selection.action, recipients: remaining },
       }
       draft.priority = event.seat
+      return
+    }
+    if (selection.action.kind === CREATURE_TYPE_CHOICE_ACTION) {
+      const frame = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution : undefined
+      if (frame?.stackId !== selection.action.stackId) return
+      frame.results = { ...frame.results, [selection.action.binding]: event.optionId }
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       return
     }
     if (selection.action.kind === 'canonicalInstructionChoice') {

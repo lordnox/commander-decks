@@ -68,12 +68,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "25cc988318f587f044837c51d4a9ac14dbfa59ac9517685ab18fcafb41116587",
-    "card": "Starfield of Nyx"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "e9ee92c77e7b6f8a6debb4aa9ea8f8a5942be2a1b17124b36570651c6bd7a3b3",
     "card": "Hagra Mauling // Hagra Broodpit"
   },
@@ -82,12 +76,6 @@
     "code": "legacy-card-registration",
     "digest": "9286108d4f17bbc0a28d12482c5c570e0d6052c41fd3ef01eb509a920f26ba4c",
     "card": "Cling to Dust"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "6fe8e402088fad86648f0c7013c8a2fa2f8503035bec2d35c916f0c8b71e32be",
-    "card": "Colossification"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -118,12 +106,6 @@
     "code": "legacy-card-registration",
     "digest": "3fe8733ffcfa035deadfd26a1643f23c0e7f06bb152c0ebab895cc182ff47302",
     "card": "Portal to Phyrexia"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "3555277ac47385a1c750b978aca43ddb4f2550020aeddbf058ed9119446f1c76",
-    "card": "Rain of Filth"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -326,30 +308,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "3ff3dcf8c24f1db2f97dff0df57eb3a87bfb4b9f5fd64c2fda83de91d3aa592c",
-    "card": "Kindred Dominance"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "155116f2e91ebb1d60efa5d3cc3a01b28d0e976ec6cb43b09d70d106fc52d290",
-    "card": "Lumra, Bellow of the Woods"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4e1635c38d070fd903e64a001a36046e443c3b1638b300638e7471ea522a6e71",
-    "card": "Masked Vandal"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "d11f283a18947296b53b7a155331af9df78a0ed1c90d782761674c59d7460e28",
-    "card": "Maskwood Nexus"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4e8ada68176b3de606ea431adb066b568bf3f3d34a31f86cf7e93e83c3417e47",
     "card": "Nanogene Conversion"
   },
@@ -376,12 +334,6 @@
     "code": "legacy-card-registration",
     "digest": "fe13f7bc1a82fe8f298cecbed6211620777d38148958a2fb0e587c7244fe2caa",
     "card": "Quantum Misalignment"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "eddb5ad3f1dfdba9b89d70102755a14fb73fb02f4851cee526e0a8330e4ca423",
-    "card": "Raise the Palisade"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -554,12 +506,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "95afdc20e0d91c15ffaa3492be6ad758bc62b6f3e547dd18b9cf399cccdd1e91",
-    "card": "Tenuous Truce"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "85ea3b50458fdc3d9f1768d9870ed71d634ab3a82e10bde887ab1ccd75f8ba05",
     "card": "Mulldrifter"
   },
@@ -598,12 +544,6 @@
     "code": "legacy-card-registration",
     "digest": "1ef115f46b1b69e7be8dcb0594f74ef9308b1488d168469ad9119e0e92e17fae",
     "card": "Glorious Protector"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "143abbf79fbbcbf1553d833832031b0e34bdb8df391dea1a66cd757be0e3a1db",
-    "card": "Curious Colossus"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

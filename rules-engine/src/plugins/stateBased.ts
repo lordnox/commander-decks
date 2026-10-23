@@ -106,7 +106,7 @@ export const stateBased: Plugin = {
           )
           || draft.players[object.attachedTo]?.lost
           || (object.attachedToRef && !isSameObject(draft.objects[object.attachedToRef.objectId], object.attachedToRef))
-          || (object.ruleDefinition && object.attachedTo && Boolean(enchantTargetError(draft, object, [{ kind: 'object', objectId: object.attachedTo }])))
+          || (object.ruleDefinition && object.attachedTo && Boolean(enchantTargetError(draft, object, [draft.players[object.attachedTo] ? { kind: 'player', player: object.attachedTo } : { kind: 'object', objectId: object.attachedTo }], false)))
         )
       ) {
         events.push(moveToGraveyard(object.id))

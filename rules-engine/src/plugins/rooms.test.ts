@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { activated } from '../cardPlugins/activated'
@@ -438,13 +439,8 @@ describe('Room doors', () => {
     }])
 
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [foyer.id],
-    }))
+    const option = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options.find(entry => entry.label === 'Accept')!.id }))
 
     // CR 709.5d gives the returned Room no unlocked designation; its resulting
     // 0 toughness makes CR 704.5f apply before the reducer returns.

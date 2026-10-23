@@ -1,10 +1,12 @@
-import { REPLACEMENT_APPLICATION_CARD_CHOICE } from './constants'
+import { openPlayerSelection } from '../rules/selectPlayers'
+import { isCreatureType } from '../creatureTypes'
+import { REPLACEMENT_APPLICATION_CARD_CHOICE, REPLACEMENT_APPLICATION_PLAYER_CHOICE } from './constants'
 import { openCardSelection } from '../rules/selectCards'
 import { freezeDraft, makeDraft } from '../draft'
 import { objectIdentity, captureObject, isSameObject } from '../objectIdentity'
-import { CHOSEN_COLOR_BINDING } from '../cardPlugins/dsl/schema/v1'
+import { CHOSEN_COLOR_BINDING, CHOSEN_CREATURE_TYPE_BINDING } from '../cardPlugins/dsl/schema/v1'
 import {
-  evaluateObjectReference, evaluateObjectSelector, evaluatePlayerReference,
+  evaluateObjectReference, evaluateObjectSelector, evaluatePlayerReference, evaluatePlayerSelector,
   evaluateCondition,
   evaluateRuntimeAmount,
 } from '../cardPlugins/dsl/compiler/runtime'
@@ -251,6 +253,22 @@ export const advanceApplicationProgram = (
   while (program.index < program.instructions.length) {
     const instruction = program.instructions[program.index]!
     switch (instruction.kind) {
+      case 'choosePlayer': {
+        const context = runtime()
+        const candidates = context ? evaluatePlayerSelector(instruction.filter, context) : []
+        const chooser = context ? evaluatePlayerReference(instruction.chooser, context)[0] : undefined
+        if (chooser && candidates.length > 0) {
+          openPlayerSelection(draft, {
+            seat: chooser, sourceId: program.sourceId, source: draft.objects[program.sourceId]?.name ?? '', prompt: 'Choose a player.', min: 1, max: 1, candidates,
+            action: { kind: REPLACEMENT_APPLICATION_PLAYER_CHOICE, frameId: frame.id, binding: instruction.bindChoice },
+          })
+          persistFollowUp(working, followUp)
+          return { kind: 'waiting' as const, state: freezeDraft(draft) }
+        }
+        program.choices = { ...program.choices, [instruction.bindChoice]: [] }
+        program.index += 1
+        continue
+      }
       case 'chooseCards': {
         const context = runtime()
         const chooser = context ? evaluatePlayerReference(instruction.chooser, context)[0] : undefined
@@ -268,7 +286,7 @@ export const advanceApplicationProgram = (
             canonicalChoice: { stackId: '', binding: instruction.bindChoice, action: REPLACEMENT_APPLICATION_CARD_CHOICE, replacementFrameId: frame.id },
             ...(visibleCards ? { visibleCards } : {}),
             ...(instruction.viewLibrary ? { viewLibrary: true as const } : {}),
-            ...(instruction.filter.filter.zone ? { fromZone: instruction.filter.filter.zone, fromSeat: chooser } : {}),
+            ...(instruction.filter.filter.zone && instruction.filter.filter.zone !== 'battlefield' ? { fromZone: instruction.filter.filter.zone, fromSeat: chooser } : {}),
           })
           persistFollowUp(working, followUp)
           return { kind: 'waiting' as const, state: freezeDraft(draft) }
@@ -398,6 +416,11 @@ export const rememberApplicationChoice = (
     return { kind: 'invalid' as const, error: 'replacement program choice is not active' }
   }
   const instruction = program.instructions[program.index]
+  if (instruction?.kind === 'choosePlayer' && typeof optionId !== 'string' && instruction.bindChoice === bindChoice) {
+    program.choices = { ...program.choices, [bindChoice]: optionId.map(playerId => ({ kind: 'player' as const, playerId })) }
+    program.index += 1
+    return advanceApplicationProgram(freezeDraft(draft), frame, false, catalog)
+  }
   if (instruction?.kind === 'chooseCards' && typeof optionId !== 'string' && instruction.bindChoice === bindChoice) {
     program.choices = { ...program.choices, [bindChoice]: optionId.map(id => ({ kind: 'object' as const, ...objectIdentity(draft.objects[id]!) })) }
     program.index += 1
@@ -409,6 +432,11 @@ export const rememberApplicationChoice = (
   const chooser = frame.chooser
   if (chooser) delete draft.players[chooser].data[PENDING_OPTION_SELECTION]
   program.bindings[bindChoice] = optionId
+  if (bindChoice === CHOSEN_CREATURE_TYPE_BINDING && isCreatureType(optionId)) {
+    if (frame.pendingEvent.type === 'move') frame.pendingEvent = { ...frame.pendingEvent, chosenType: optionId }
+    const source = draft.objects[program.sourceId]
+    if (source) source.chosenType = optionId
+  }
   if (bindChoice === CHOSEN_COLOR_BINDING) {
     storeChosenColor(frame, optionId)
     const source = draft.objects[program.sourceId]

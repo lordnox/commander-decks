@@ -1,3 +1,5 @@
+import { evaluateCreatureType } from './cardPlugins/dsl/compiler/runtime'
+import { CREATURE_TYPES, CREATURE_TYPE_CHOICE_ACTION } from './creatureTypes'
 import { advanceCollectedChoices } from './cardPlugins/dsl/collectedChoices'
 import { evaluateLifeTotalAmount } from './cardPlugins/dsl/compiler/evaluate'
 import { availableManaTypes } from './cardPlugins/dsl/manaTypes'
@@ -193,6 +195,7 @@ const preflightInstructions = (
       case 'discardHands':
       case 'discard':
       case 'shuffle':
+      case 'chooseCreatureType':
       case 'lockOrUnlockDoor':
         return
       case 'if':
@@ -1285,6 +1288,20 @@ const actionEvents = (
           }
         })
       }
+      if (instruction.effect.kind === 'grantActivatedAbility') {
+        const ability = instruction.effect.ability
+        if (ability.modes) throw new Error('granted activated programs require instructions')
+        const captured = captureLexicalBindings(ability.instructions ?? [], frame.choices, frame.results, [ability.decisions], [], frame.playerChoiceBindings)
+        return targets.map(object => ({
+          type: 'canonicalEffect' as const, objectId: object.id,
+          effect: { kind: 'grantActivatedAbility' as const, ability: { ...ability, generated: true as const, capturedBindings: captured.capturedBindings, decisions: captured.rewrittenAdditionalValues[0] as typeof ability.decisions, instructions: captured.instructions } },
+          duration: structuredClone(instruction.duration), sourceId: frame.source.ref.objectId, sourceRef: frame.source.ref, sourceRevision: frame.definitionSnapshot.definitionRevision,
+          execution: { controller: frame.controller, ...capturedExecutionSource(frame),
+            ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}), ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+            ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}), capturedChoiceAliases: captured.choiceAliases, capturedResultAliases: captured.resultAliases,
+          },
+        }))
+      }
       const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
       const grantChoices = grant
         ? captureLexicalBindings(
@@ -1322,13 +1339,14 @@ const actionEvents = (
             },
           }
         : undefined
-      const effect = instruction.effect.kind === 'pump'
+      const selectedType = instruction.effect.kind === 'addTypes' && instruction.effect.creatureType ? evaluateCreatureType(instruction.effect.creatureType, context) : undefined
+      const effect = instruction.effect.kind === 'pump' || instruction.effect.kind === 'setStats'
         ? {
-            kind: 'pump' as const,
+            kind: instruction.effect.kind,
             power: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.power, context) },
             toughness: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.toughness, context) },
           }
-        : structuredClone(grantEffect ?? instruction.effect)
+        : structuredClone(instruction.effect.kind === 'addTypes' && selectedType ? { ...instruction.effect, creatureType: undefined, subtypes: [...(instruction.effect.subtypes ?? []), selectedType] } : grantEffect ?? instruction.effect)
       const grantExecution = grant && grantChoices && (
         frame.choices !== undefined
         || frame.results !== undefined
@@ -1762,6 +1780,18 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.scopes.push({ path, scopeId: scope.scopeId, instructions: next, cursor: 0 })
       continue
     }
+    if (instruction.kind === 'chooseCreatureType') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      if (chooser) openOptionSelection(draft, {
+        seat: chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: 'Choose a creature type.', options: CREATURE_TYPES.map(type => ({ id: type, label: type })),
+        action: { kind: CREATURE_TYPE_CHOICE_ACTION, stackId: frame.stackId, binding: instruction.bindResult },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
     if (instruction.kind === 'chooseInstructions') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const announced = frame.inlineItem && item.choices?.[0]
@@ -2034,6 +2064,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         type: 'move' as const,
         objectId: object.id,
         to: destination,
+        ...(object.subtypes.includes('Aura') && item.targets[0]?.kind === 'player' ? { attachPlayer: item.targets[0].player } : {}),
         ...(object.subtypes.includes('Aura') && item.targets[0]?.kind === 'object' ? { attachTo: { objectId: item.targets[0].objectId, incarnation: item.targets[0].incarnation ?? draft.objects[item.targets[0].objectId]?.incarnation, zone: 'battlefield' as const } } : {}),
       }
     : undefined
