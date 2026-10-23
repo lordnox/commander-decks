@@ -244,6 +244,31 @@ export const evaluateObjectReference = (
       if (object && (incarnation === undefined || object.incarnation === incarnation)) return [object]
       return []
     }
+    if (reference.name === 'triggering.object.after' || reference.name === 'triggering.object.before') {
+      const binding = reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
+      const occurrence = context.capturedOccurrenceBindings?.includes(binding)
+        ? context.capturedOccurrence
+        : context.occurrence
+      const grouped = occurrence?.objects
+      if (grouped && grouped.length > 0) {
+        return grouped.flatMap(entry => {
+          const captured = reference.name === 'triggering.object.before' ? entry.before : entry.after
+          if (!captured) return []
+          if (information === 'currentOrLastKnown') {
+            const current = context.state.objects[captured.id]
+            if (isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })) {
+              return [current]
+            }
+            const watched = context.referencedObjects?.find(candidate => isSameObject(captured, candidate.ref))
+            return [watched?.snapshot ?? captured]
+          }
+          const current = context.state.objects[captured.id]
+          return current && isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })
+            ? [current]
+            : []
+        })
+      }
+    }
     const captured = capturedOccurrenceObject(reference, context)
     if (captured) {
       if (information === 'currentOrLastKnown') {

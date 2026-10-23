@@ -52,6 +52,7 @@ import type {
   ObjectRecipient,
   ObjectSelector,
   OccurrencePattern,
+  PlayerOccurrenceFilter,
   PlayerFilter,
   PlayerReference,
   PlayerRecipient,
@@ -156,6 +157,9 @@ export const repeat = (count: AmountInput, instructions: readonly Instruction[])
 
 export const repeatWhile = (input: { condition: Condition; instructions: readonly Instruction[] }) =>
   immutableData({ kind: 'repeatWhile' as const, condition: input.condition, instructions: input.instructions })
+
+export const repeatOnceIf = (input: { condition: Condition; instructions: readonly Instruction[] }) =>
+  immutableData({ kind: 'repeatOnceIf' as const, condition: input.condition, instructions: input.instructions })
 
 export const changeControl = (input: { targets: ObjectRecipient; controller: PlayerReference }) =>
   immutableData({ kind: 'changeControl' as const, targets: input.targets, controller: input.controller })
@@ -767,11 +771,15 @@ export const cardDiscarded = (filter: { player?: PlayerReference | PlayerSelecto
 export const cardCycled = (filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } = {}) =>
   immutableData({ kind: 'cycle' as const, filter })
 
-export const spellCast = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
-  immutableData({ kind: 'cast', filter: input.filter })
+export const spellCast = (input: { filter: ObjectOccurrenceFilter; nthThisTurn?: number }): OccurrencePattern =>
+  immutableData({ kind: 'cast', filter: input.filter, ...(input.nthThisTurn !== undefined ? { nthThisTurn: input.nthThisTurn } : {}) })
 
-export const enters = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
-  immutableData({ kind: 'enters', filter: input.filter })
+export const enters = (input: { filter: ObjectOccurrenceFilter; fromSpell?: boolean }): OccurrencePattern =>
+  immutableData({
+    kind: 'enters',
+    filter: input.filter,
+    ...(input.fromSpell ? { fromSpell: true as const } : {}),
+  })
 
 export const tokenCreated = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'tokenCreated' as const, filter })
 
@@ -785,6 +793,23 @@ export const leaves = (input: { filter: ObjectOccurrenceFilter }): OccurrencePat
 
 export const draws = (input: Extract<OccurrencePattern, { kind: 'draw' }>['filter'] = {}): OccurrencePattern =>
   immutableData({ kind: 'draw', filter: input })
+
+export const gainedLife = (filter: PlayerOccurrenceFilter = {}): OccurrencePattern =>
+  immutableData({ kind: 'gainedLife' as const, filter })
+
+export const moved = (input: {
+  filter: ObjectOccurrenceFilter
+  to: Zone
+  from?: Zone
+  group?: true
+}): OccurrencePattern =>
+  immutableData({
+    kind: 'moved' as const,
+    filter: input.filter,
+    to: input.to,
+    ...(input.from ? { from: input.from } : {}),
+    ...(input.group ? { group: true as const } : {}),
+  })
 
 export const manaAdded = (): OccurrencePattern => immutableData({ kind: 'manaAdded' })
 

@@ -2268,6 +2268,42 @@ test('Mirkwood Bats retains flying and one untargeted opponent drain per created
   ])
 })
 
+test('catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once', () => {
+  for (const name of [
+    'Crawling Sensation',
+    'Lotho, Corrupt Shirriff',
+    'It That Betrays',
+    'Wedding Ring',
+    'Zimone and Dina',
+    'Niv-Mizzet, Ghost Counsel',
+  ] as const) expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Crawling Sensation')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' }, instructions: [{ kind: 'chooseInstructions', optional: true }] },
+    { kind: 'triggered', on: { kind: 'moved', to: 'graveyard', group: true }, frequency: { kind: 'firstMatchingEachTurn' }, instructions: [{ kind: 'createToken' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Lotho, Corrupt Shirriff')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'cast', nthThisTurn: 2 }, instructions: [{ kind: 'loseLife' }, { kind: 'createToken' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('It That Betrays')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseCards' }, { kind: 'sacrifice' }] },
+    { kind: 'triggered', on: { kind: 'sacrificed', filter: { controller: 'opponent', token: false } }, instructions: [{ kind: 'move', to: 'battlefield' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Wedding Ring')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', fromSpell: true }, instructions: [{ kind: 'copy' }] },
+    { kind: 'triggered', on: { kind: 'draw', filter: { duringOwnTurn: true } }, instructions: [{ kind: 'draw' }] },
+    { kind: 'triggered', on: { kind: 'gainedLife', filter: { duringOwnTurn: true } }, instructions: [{ kind: 'gainLife' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Zimone and Dina')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'draw', filter: { nthThisTurn: 2 } }, instructions: [{ kind: 'loseLife' }, { kind: 'gainLife' }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'repeatOnceIf' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Niv-Mizzet, Ghost Counsel')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'gainedLife' }, instructions: [{ kind: 'payOptional', ifPaid: [{ kind: 'draw' }] }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'loseLife' }, { kind: 'gainLife' }] },
+  ])
+})
+
 
 test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {
   expect(cardRuleDefinitionSnapshotFor('Sail into the West')!.definition.abilities).toMatchObject([

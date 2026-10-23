@@ -346,8 +346,8 @@ describe('card plugin registry', () => {
 
   test('Niv-Mizzet, Ghost Counsel stays registered', () => {
     expect(missingCardPlugins(['Niv-Mizzet, Ghost Counsel'])).toEqual([])
-    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')?.handlerIds?.toSorted())
-      .toEqual(['activated', 'choiceEffects'])
+    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Niv-Mizzet, Ghost Counsel')).toBeDefined()
   })
 
   test('Jace, Multiverse Architect is registered with optional mana pay', () => {

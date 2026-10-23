@@ -36,6 +36,7 @@ import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { PENDING_STEAL_CAST } from '../rules/selectCards'
+import { SPELLS_CAST_THIS_TURN, spellsCastThisTurn } from '../rules/spellsCast'
 import { ceaseToExist } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
@@ -1166,6 +1167,10 @@ export const spells: Plugin = {
         for (const objectId of event.sacrifice ?? []) {
           draft.enqueue({ type: 'sacrifice', objectId })
         }
+      }
+      if (!event.copy) {
+        const caster = draft.players[event.seat]
+        caster.data[SPELLS_CAST_THIS_TURN] = spellsCastThisTurn(caster) + 1
       }
       draft.passedInRow = []
       draft.priority = event.seat

@@ -52,11 +52,6 @@
   {
     "path": "rules-engine/src/cardPlugins/blinkValue.ts",
     "code": "literal-name-dispatch",
-    "digest": "6496be1bf5e9b0220db5ea635a2acec3ec86193aec34b06cfb6411b6d1a8140d"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/blinkValue.ts",
-    "code": "literal-name-dispatch",
     "digest": "4fb325ca0f0d66d62fe676f81ead562598067e3d7837581d169c2116d30fad24"
   },
   {
@@ -188,12 +183,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "6081353024249c94a1eb9829c9a6a29737ddce7e9b18ba1d154cf71500a25e92",
-    "card": "Crawling Sensation"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4f0f3773f2fd563695bcb0611ff44eed613f49dbb2de05ac74a4adfb38ef9ae5",
     "card": "Dread Return"
   },
@@ -308,12 +297,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "30062f239b5cf10e16ddbe4ed647f2ebc2629bb6737fd52106d5a8017e2f2823",
-    "card": "Zimone and Dina"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "a13f3951794ca58676ce88259b1b8eeb79f14033e10e8eb7264a5366cb56fe1f",
     "card": "Incarnation Technique"
   },
@@ -344,12 +327,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "74699b725425c2c5ded21743c3aaa550720c4ac7a774bf2196c5e9dbfd5a5bc2",
-    "card": "Lotho, Corrupt Shirriff"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "405c63647124162857c622de51e3181220e6095cce4b27a57e6fb37de0fd6f26",
     "card": "Rings of Brighthearth"
   },
@@ -370,12 +347,6 @@
     "code": "legacy-card-registration",
     "digest": "4ff3cf910ddcc0ffefe63ff93497d559b2ca3210a31d84e00f4fb69d92196301",
     "card": "Mirrorweave"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "62a7fbcdcea3039b61f04cf935c4ea9b16abd1d165b88bb6634d7b6f1adea1d4",
-    "card": "Niv-Mizzet, Ghost Counsel"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -410,12 +381,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "89e696f6c207cdff83c61ae70944f39ac35cfe669008ad2e73c7e58e604b7598",
-    "card": "Wedding Ring"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "6fd35ae9088180717ddd74fe9884077122caecbd188b22423316d92c0b9986c5",
     "card": "Kuroki, Thief of Talents"
   },
@@ -442,12 +407,6 @@
     "code": "legacy-card-registration",
     "digest": "300d3ba23198c0d6dc43886f3d97d32c78ad86506fc96c08759743c2eaeb1edf",
     "card": "Woodfall Primus"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "6148a4a1bad884031a60c34789eb5c7d32c05a89ae3451d08182327e7b17b693",
-    "card": "It That Betrays"
   },
   {
     "path": "rules-engine/src/cardPlugins/combatPreventionCards.ts",

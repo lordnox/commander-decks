@@ -1570,6 +1570,14 @@ export const validateDefinitionV1 = (root: unknown): {
         validateInstructionList(node.instructions, childPath(path, 'instructions'), body, depth + 1)
         return
       }
+      case 'repeatOnceIf': {
+        exactKeys(node, path, ['kind', 'condition', 'instructions'], ['kind', 'condition', 'instructions'])
+        validateCondition(node.condition, childPath(path, 'condition'), env)
+        const body = cloneEnv(env)
+        body.rebindLocals = true
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), body, depth + 1)
+        return
+      }
       case 'lockOrUnlockDoor':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
@@ -1657,6 +1665,18 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'fullyUnlock':
         exactKeys(node, path, ['kind', 'filter'], ['kind'])
         break
+      case 'enters':
+        exactKeys(node, path, ['kind', 'filter', 'fromSpell'], ['kind', 'filter'])
+        break
+      case 'cast':
+        exactKeys(node, path, ['kind', 'filter', 'nthThisTurn'], ['kind', 'filter'])
+        break
+      case 'moved':
+        exactKeys(node, path, ['kind', 'filter', 'to', 'from', 'group'], ['kind', 'filter', 'to'])
+        break
+      case 'gainedLife':
+        exactKeys(node, path, ['kind', 'filter'], ['kind'])
+        break
       default:
         exactKeys(node, path, ['kind', 'filter'], ['kind'])
     }
@@ -1669,6 +1689,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.object.controller', 'player'], ['triggering.player', 'player'], ...(node.kind === 'attacks' ? [['triggering.defender', 'player'] as const] : [])])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
+        if (node.kind === 'cast' && node.nthThisTurn !== undefined) integer(node.nthThisTurn, childPath(path, 'nthThisTurn'), { min: 1 })
         return env
       case 'dealtDamage': {
         env.eventAmount = true
@@ -1699,7 +1720,31 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
+        if (node.kind === 'enters' && node.fromSpell !== undefined && typeof node.fromSpell !== 'boolean') {
+          issue(childPath(path, 'fromSpell'), 'type', 'expected a boolean')
+        }
         return env
+      case 'moved':
+        if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
+        if (node.to === undefined) issue(childPath(path, 'to'), 'missing-field', 'required field is missing')
+        else enumeration(node.to, childPath(path, 'to'), ZONES, 'zone')
+        if (node.from !== undefined) enumeration(node.from, childPath(path, 'from'), ZONES, 'zone')
+        if (node.group !== undefined && node.group !== true) issue(childPath(path, 'group'), 'constant', 'group must be true when present')
+        env.context = new Map([...env.context, ['triggering.object.before', 'object'], ['triggering.object.after', 'object']])
+        validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
+        return env
+      case 'gainedLife': {
+        env.eventAmount = true
+        env.context = new Map([...env.context, ['triggering.player', 'player']])
+        const filter = object(node.filter, childPath(path, 'filter')) ?? {}
+        exactKeys(filter, childPath(path, 'filter'), ['player', 'duringOwnTurn', 'nthThisTurn'])
+        if (filter.player !== undefined) validateRecipient(filter.player, childPath(childPath(path, 'filter'), 'player'), env, ['player'])
+        if (filter.duringOwnTurn !== undefined && typeof filter.duringOwnTurn !== 'boolean') {
+          issue(childPath(childPath(path, 'filter'), 'duringOwnTurn'), 'type', 'expected a boolean')
+        }
+        if (filter.nthThisTurn !== undefined) integer(filter.nthThisTurn, childPath(childPath(path, 'filter'), 'nthThisTurn'), { min: 1 })
+        return env
+      }
       case 'sacrificed':
       case 'dies':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
@@ -1720,9 +1765,11 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.kind === 'draw') env.eventAmount = true
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
-          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep'] : node.kind === 'cycle' ? ['player', 'object'] : ['player'])
+          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep', 'duringOwnTurn', 'nthThisTurn'] : node.kind === 'cycle' ? ['player', 'object'] : ['player'])
           if (filter.player !== undefined) validateRecipient(filter.player, childPath(childPath(path, 'filter'), 'player'), env, ['player'])
           if (filter.firstDrawInOwnDrawStep !== undefined && typeof filter.firstDrawInOwnDrawStep !== 'boolean') issue(childPath(childPath(path, 'filter'), 'firstDrawInOwnDrawStep'), 'type', 'expected a boolean')
+          if (filter.duringOwnTurn !== undefined && typeof filter.duringOwnTurn !== 'boolean') issue(childPath(childPath(path, 'filter'), 'duringOwnTurn'), 'type', 'expected a boolean')
+          if (filter.nthThisTurn !== undefined) integer(filter.nthThisTurn, childPath(childPath(path, 'filter'), 'nthThisTurn'), { min: 1 })
           if (filter.object !== undefined) validateObjectOccurrenceFilter(filter.object, childPath(childPath(path, 'filter'), 'object'), env)
         }
         return env

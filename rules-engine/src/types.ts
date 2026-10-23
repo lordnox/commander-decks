@@ -501,6 +501,11 @@ export type OccurrenceSnapshot = {
     before?: ObjectSnapshot
     after?: ObjectSnapshot
   }
+  /** Simultaneous one-or-more zone changes captured as a single occurrence. */
+  objects?: {
+    before?: ObjectSnapshot
+    after?: ObjectSnapshot
+  }[]
   source?: CapturedObject
 }
 
@@ -582,6 +587,8 @@ export type ProgramScopeFrame = {
   /** Trailing repeatWhile re-entry checks the condition before running the body again. */
   repeatRemaining?: number
   continueWhile?: true
+  /** Trailing repeatOnceIf re-entry checks the condition before a single extra pass. */
+  repeatOncePending?: true
 }
 
 /** Authoritative, private state for the one resolution currently in progress. */

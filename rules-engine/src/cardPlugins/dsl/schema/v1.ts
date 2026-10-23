@@ -226,12 +226,20 @@ export type ObjectOccurrenceFilter =
   | { any: readonly ObjectOccurrenceFilter[] }
   | { not: ObjectOccurrenceFilter }
 
+export type PlayerOccurrenceFilter = {
+  player?: PlayerReference | PlayerSelector
+  /** True when the occurrence's player is the active player. */
+  duringOwnTurn?: boolean
+  /** 1-based count of matching events by that player this turn. */
+  nthThisTurn?: number
+}
+
 export type OccurrencePattern =
   | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
-  | { kind: 'cast'; filter: ObjectOccurrenceFilter }
+  | { kind: 'cast'; filter: ObjectOccurrenceFilter; nthThisTurn?: number }
   | { kind: 'becomesTapped' | 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | { kind: 'attacks'; filter: ObjectOccurrenceFilter }
   | {
@@ -250,13 +258,24 @@ export type OccurrencePattern =
       }
     }
   | { kind: 'tokenCreated' | 'sacrificed'; filter: ObjectOccurrenceFilter }
-  | { kind: 'enters'; filter: ObjectOccurrenceFilter }
+  | { kind: 'enters'; filter: ObjectOccurrenceFilter; fromSpell?: boolean }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
   | {
+      kind: 'moved'
+      filter: ObjectOccurrenceFilter
+      to: Zone
+      from?: Zone
+      /** One-or-more simultaneous matches become a single occurrence. */
+      group?: true
+    }
+  | {
+      kind: 'gainedLife'
+      filter: PlayerOccurrenceFilter
+    }
+  | {
       kind: 'draw'
-      filter: {
-        player?: PlayerReference | PlayerSelector
+      filter: PlayerOccurrenceFilter & {
         firstDrawInOwnDrawStep?: boolean
       }
     }
@@ -469,6 +488,8 @@ export type Instruction =
   /** Run the body once, then again while the latest bound result still qualifies. */
   | { kind: 'repeat'; count: Amount; instructions: readonly Instruction[] }
   | { kind: 'repeatWhile'; condition: Condition; instructions: readonly Instruction[] }
+  /** Run the body once, then once more if the condition holds after that first pass. */
+  | { kind: 'repeatOnceIf'; condition: Condition; instructions: readonly Instruction[] }
   /** Give control of resolved permanents to one player without a further assignment. */
   | { kind: 'changeControl'; targets: ObjectRecipient; controller: PlayerReference }
   /** Public sequential votes; bind the result and continue after every ballot is in. */

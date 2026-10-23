@@ -208,6 +208,7 @@ const preflightInstructions = (
         return
       case 'repeat':
       case 'repeatWhile':
+      case 'repeatOnceIf':
         preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
         return
       case 'chooseInstructions':
@@ -1797,6 +1798,28 @@ export const prepareResolutionStep = (draft: Draft) => {
         instructions: [...instruction.instructions, instruction],
         cursor: 0,
         continueWhile: true,
+      })
+      continue
+    }
+    if (instruction.kind === 'repeatOnceIf') {
+      const extraPass = scope.repeatOncePending === true
+      if (extraPass) {
+        const context = runtimeContext(draft, frame, item, scope.scopeId)
+        if (!evaluateCondition(instruction.condition, context)) continue
+        frame.scopes.push({
+          path: `${path}.instructions`,
+          scopeId: scope.scopeId,
+          instructions: structuredClone(instruction.instructions),
+          cursor: 0,
+        })
+        continue
+      }
+      frame.scopes.push({
+        path: `${path}.instructions`,
+        scopeId: scope.scopeId,
+        instructions: [...instruction.instructions, instruction],
+        cursor: 0,
+        repeatOncePending: true,
       })
       continue
     }

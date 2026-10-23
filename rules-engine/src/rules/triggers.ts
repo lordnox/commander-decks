@@ -43,6 +43,7 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
+import { spellsCastThisTurn } from './spellsCast'
 import { isProtectedFirstDrawInOwnDrawStep } from './drawStepHistory'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
@@ -50,7 +51,7 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { objectMatchesSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
@@ -108,6 +109,22 @@ const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainL
  */
 const LAND_TO_GRAVEYARD_TURN = 'triggers.firstTimeEachTurn.landToGraveyard'
 
+const recordLandToGraveyardThisTurn = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+) => {
+  const objectId = event.type === 'move' && event.to === 'graveyard'
+    ? event.objectId
+    : event.type === 'mill'
+      ? event.objectId
+      : undefined
+  if (!objectId) return
+  const before = state.objects[objectId]
+  if (!before?.types.includes('Land')) return
+  draft.players[before.owner].data[LAND_TO_GRAVEYARD_TURN] = draft.turn
+}
+
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets' | 'onceEachTurn'>
 
@@ -136,6 +153,7 @@ const capturedOccurrence = (
   triggeringPlayer?: PlayerId,
   amount?: number,
   defender?: PlayerId,
+  groupedObjectIds?: readonly string[],
 ): OccurrenceSnapshot => {
   const objectId = triggeringObjectId ?? eventObjectId(event)
   const before = objectId ? state.objects[objectId] : undefined
@@ -148,6 +166,10 @@ const capturedOccurrence = (
   const eventSource = (event.type === 'dealDamage' || event.type === 'combatDamage') && event.sourceSnapshot && event.sourceSnapshot.ref.objectId === sourceId
     ? event.sourceSnapshot.snapshot
     : sourceId ? state.objects[sourceId] ?? draft.objects[sourceId] : undefined
+  const grouped = groupedObjectIds?.map(id => ({
+    ...(state.objects[id] ? { before: snapshotObject(state.objects[id]!) } : {}),
+    ...(draft.objects[id] ? { after: snapshotObject(draft.objects[id]!) } : {}),
+  }))
   return {
     kind: 'event',
     eventType: event.type === 'custom' ? event.name : event.type,
@@ -162,6 +184,7 @@ const capturedOccurrence = (
           },
         }
       : {}),
+    ...(grouped && grouped.length > 0 ? { objects: grouped } : {}),
     ...(eventSource ? { source: captureObject(eventSource) } : {}),
   }
 }
@@ -319,6 +342,17 @@ const canonicalPatternMatches = (
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
     return canonicalManaSourceEvent(state, event)
   }
+  if (pattern.kind === 'gainedLife') {
+    if (event.type !== 'gainLife' || (occurrence.amount ?? 0) <= 0) return false
+    return matchesPlayerOccurrenceFilter(pattern.filter, occurrence.player, occurrenceContext(state, source, occurrence))
+  }
+  if (pattern.kind === 'moved') {
+    if (!isMovedEvent(event, pattern)) return false
+    const matching = matchingMovedIds(pattern, beforeState, state, source, occurrence)
+    const eventId = eventObjectId(event)
+    if (!eventId || matching.length === 0 || !matching.includes(eventId)) return false
+    return !pattern.group || matching[0] === eventId
+  }
   if (pattern.kind === 'draw' || pattern.kind === 'discard' || pattern.kind === 'playLand' || pattern.kind === 'cycle') {
     if (event.type !== pattern.kind || !occurrence.player) return false
     if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
@@ -332,6 +366,14 @@ const canonicalPatternMatches = (
       && !isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
     if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
       && isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
+    if (pattern.kind === 'draw') {
+      return matchesPlayerOccurrenceFilter(
+        pattern.filter,
+        player,
+        occurrenceContext(state, source, occurrence),
+        cardsDrawnThisTurn(state.players[player]!),
+      )
+    }
     if (!pattern.filter.player) return true
     if (pattern.filter.player.kind === 'players') {
       return evaluatePlayerSelector(pattern.filter.player, {
@@ -363,6 +405,10 @@ const canonicalPatternMatches = (
       break
     case 'cast':
       if (event.type !== 'castSpell' || occurrence.object?.after?.zone !== 'stack') return false
+      if (pattern.nthThisTurn !== undefined) {
+        const caster = occurrence.player ?? occurrence.object.after?.controller
+        if (!caster || spellsCastThisTurn(state.players[caster]!) !== pattern.nthThisTurn) return false
+      }
       break
     case 'enters': {
       const enteringId = permanentEnteringObjectId(event, state)
@@ -370,6 +416,8 @@ const canonicalPatternMatches = (
         && event.name === 'cardPlugins.permanentEntered'
         && event.payload?.createdToken === true
       if (!enteringId || (!createdToken && occurrence.object?.before?.zone === 'battlefield')) return false
+      if (pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
+      if (pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
       break
     }
     case 'dies':
@@ -418,6 +466,20 @@ const generatedPatternMatches = (
     case 'becomesTapped':
     case 'tappedForMana': return matchesTapOccurrence(beforeState, afterState, source, pattern, occurrence, event, execution)
     case 'stepBegins': return matchesBeginningStep(beforeState, afterState, source, pattern, occurrence, event, lexicalContext)
+    case 'gainedLife':
+      if (event.type !== 'gainLife' || (occurrence.amount ?? 0) <= 0) return false
+      return matchesPlayerOccurrenceFilter(
+        pattern.filter,
+        occurrence.player,
+        { ...occurrenceContext(state, source, occurrence, execution), ...lexicalContext },
+      )
+    case 'moved': {
+      if (!isMovedEvent(event, pattern)) return false
+      const matching = matchingMovedIds(pattern, beforeState, afterState, source, occurrence, execution)
+      const eventId = eventObjectId(event)
+      if (!eventId || matching.length === 0 || !matching.includes(eventId)) return false
+      return !pattern.group || matching[0] === eventId
+    }
     case 'playLand':
     case 'discard':
     case 'cycle':
@@ -433,6 +495,14 @@ const generatedPatternMatches = (
         && !isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
       if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
         && isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
+      if (pattern.kind === 'draw') {
+        return matchesPlayerOccurrenceFilter(
+          pattern.filter,
+          occurrence.player,
+          { ...occurrenceContext(state, source, occurrence, execution), ...lexicalContext },
+          cardsDrawnThisTurn(afterState.players[occurrence.player]!),
+        )
+      }
       if (!pattern.filter.player) return true
       return pattern.filter.player.kind === 'players'
         ? evaluatePlayerSelector(pattern.filter.player, {
@@ -464,8 +534,11 @@ const generatedPatternMatches = (
     }
     case 'cast': {
       const object = occurrence.object?.after
-      return event.type === 'castSpell' && object?.zone === 'stack'
-        && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution)
+      if (event.type !== 'castSpell' || object?.zone !== 'stack'
+        || !canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution)) return false
+      if (pattern.nthThisTurn === undefined) return true
+      const caster = occurrence.player ?? object.controller
+      return spellsCastThisTurn(afterState.players[caster]!) === pattern.nthThisTurn
     }
     case 'enters':
     case 'dies':
@@ -473,6 +546,8 @@ const generatedPatternMatches = (
       const enteringId = permanentEnteringObjectId(event, state)
       if (pattern.kind === 'enters' && (
         !enteringId || occurrence.object?.before?.zone === 'battlefield')) return false
+      if (pattern.kind === 'enters' && pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
+      if (pattern.kind === 'enters' && pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
       if (pattern.kind === 'dies' && (
         event.type !== 'move'
         || event.to !== 'graveyard'
@@ -544,6 +619,43 @@ const matchesPlayerRecipient = (
   return recipient.kind === 'players'
     ? evaluatePlayerSelector(recipient, context).includes(player)
     : evaluatePlayerReference(recipient, context).includes(player)
+}
+
+const matchesPlayerOccurrenceFilter = (
+  filter: PlayerOccurrenceFilter | undefined,
+  player: PlayerId | undefined,
+  context: RuleDslRuntimeContext,
+  countThisTurn?: number,
+) => {
+  if (!player) return false
+  if (filter?.duringOwnTurn === true && player !== context.state.active) return false
+  if (filter?.duringOwnTurn === false && player === context.state.active) return false
+  if (filter?.nthThisTurn !== undefined && countThisTurn !== filter.nthThisTurn) return false
+  return matchesPlayerRecipient(player, filter?.player, context)
+}
+
+const matchingMovedIds = (
+  pattern: Extract<OccurrencePattern, { kind: 'moved' }>,
+  beforeState: GameState,
+  afterState: GameState,
+  source: GameObject,
+  occurrence: OccurrenceSnapshot,
+  execution?: StackExecutionContext,
+) => {
+  const ids: string[] = []
+  for (const before of Object.values(beforeState.objects)) {
+    const after = afterState.objects[before.id]
+    if (!after || after.zone === before.zone || after.zone !== pattern.to) continue
+    if (pattern.from && before.zone !== pattern.from) continue
+    if (!canonicalFilterMatch(afterState, source, after, pattern.filter, occurrence, execution)) continue
+    ids.push(before.id)
+  }
+  return ids.sort()
+}
+
+const isMovedEvent = (event: GameEvent, pattern: Extract<OccurrencePattern, { kind: 'moved' }>) => {
+  if (event.type === 'mill') return pattern.to === 'graveyard' && (pattern.from === undefined || pattern.from === 'library')
+  return event.type === 'move' && event.to === pattern.to
 }
 
 const matchesDealtDamage = (
@@ -744,7 +856,7 @@ const canonicalTriggersForOccurrence = (
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
       occurrenceSpecsForPattern(candidate.on, event, state, draft).forEach(spec => {
-        const occurrence = capturedOccurrence(
+        let occurrence = capturedOccurrence(
           state,
           draft,
           event,
@@ -755,19 +867,41 @@ const canonicalTriggersForOccurrence = (
         )
         const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' || candidate.on.kind === 'sacrificed' ? state : draft
         if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
+        const groupedIds = candidate.on.kind === 'moved' && candidate.on.group
+          ? matchingMovedIds(candidate.on, state, draft, source, occurrence)
+          : undefined
+        if (groupedIds && groupedIds.length > 0) {
+          occurrence = capturedOccurrence(
+            state,
+            draft,
+            event,
+            groupedIds[0],
+            spec.player,
+            spec.amount,
+            spec.defender,
+            groupedIds,
+          )
+        }
         const context = {
           state: predicateState,
           controller: source.controller,
           source: captureObject(source),
           occurrence,
         }
-        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${spec.objectId ?? ''}:${occurrence.player ?? ''}:${occurrence.defender ?? ''}:${occurrence.amount ?? ''}`
+        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${groupedIds?.join(',') ?? spec.objectId ?? ''}:${occurrence.player ?? ''}:${occurrence.defender ?? ''}:${occurrence.amount ?? ''}`
         if (seen.has(occurrenceKey)) return
         seen.add(occurrenceKey)
         const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
         const frequencySource = draft.object(source.id) ?? source
         if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
-          if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
+          if (candidate.on.kind === 'moved' && candidate.on.to === 'graveyard') {
+            const owners = [...new Set((groupedIds ?? matchingMovedIds(candidate.on, state, draft, source, occurrence))
+              .flatMap((id) => {
+                const owner = state.objects[id]?.owner ?? draft.objects[id]?.owner
+                return owner ? [owner] : []
+              }))]
+            if (owners.some((owner) => draft.players[owner]!.data[LAND_TO_GRAVEYARD_TURN] === draft.turn)) return
+          } else if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
           markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
         }
         if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
@@ -1155,7 +1289,6 @@ const collectMoveTriggers = (
     const fromLibrary = before.zone === 'library'
     const owner = draft.players[before.owner]
     const firstThisTurn = owner.data[LAND_TO_GRAVEYARD_TURN] !== draft.turn
-    owner.data[LAND_TO_GRAVEYARD_TURN] = draft.turn
     for (const source of draft.zoneOf('battlefield', before.owner)) {
       const catalog = effectsOf(source)
       for (const effect of triggerEffects(catalog, 'landToGraveyard')) {
@@ -1425,6 +1558,7 @@ const collectEventTriggers = (
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)
   canonicalTriggersForOccurrence(state, draft, event, matches)
+  recordLandToGraveyardThisTurn(state, draft, event)
   return matches
 }
 

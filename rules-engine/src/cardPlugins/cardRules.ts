@@ -12,10 +12,8 @@ import {
   embalm,
   bestow,
   blink,
-  controlledLands,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
-  copySelf,
   copyTargetCreature,
   createTokenInstruction,
   createTreasures,
@@ -38,13 +36,11 @@ import {
   handler,
   handlerIdsFromEffects,
   landToGraveyard,
-  landToGraveyardOnce,
   landfall,
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
   mayCastFromHandWithoutPayingMana,
-  mayPayLifeDraw,
   millTarget,
   modalCommanderChooseBoth,
   onResolve,
@@ -56,7 +52,6 @@ import {
   pluginIdsFromEffects,
   ptEqualsLife,
   putFromHand,
-  putLandFromHand,
   putMilledLandTapped,
   revealPick,
   reanimateCreatureFromGraveyards,
@@ -80,7 +75,6 @@ import {
   exchangeControlUntilEot,
   ifGiftNotPromised,
   ward,
-  yourUpkeep,
   type CardEffect,
   type CardInstruction,
   playExiledWithLife,
@@ -97,26 +91,19 @@ import {
   grantRetrace,
   warp,
   ifTargetTypes,
-  opponentsLoseLife,
   pumpTargetEqualToLands,
   addPlusCountersEqualToLands,
   escape,
   hiddenPileNegotiation,
   opponentPiles,
-  repeatIf,
   addChosenColorMana,
   destroyTargetPermanent,
-  secondCardDrawn,
-  loseLifeTargetPlayer,
   onUnlock,
   unearth,
   bounceAll,
   persist,
-  annihilator,
   shuffleIntoLibraryInstead,
   entersTargeting,
-  permanentSacrificed,
-  putTriggeringCardOntoBattlefield,
 } from './effects'
 
 const insectToken = {
@@ -126,8 +113,6 @@ const insectToken = {
   power: 1,
   toughness: 1,
 }
-
-const insect = createTokenInstruction(insectToken)
 
 const bird = createTokenInstruction({
   name: 'Bird',
@@ -204,10 +189,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
-  'Crawling Sensation': [
-    yourUpkeep(optionalMill(2)),
-    landToGraveyardOnce(insect),
-  ],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Dread Return': [
@@ -285,13 +266,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true, flying: true }),
     ),
   ],
-  'It That Betrays': [
-    annihilator(2),
-    permanentSacrificed(
-      { controller: 'opponent', nontoken: true },
-      putTriggeringCardOntoBattlefield(),
-    ),
-  ],
   'Kederekt Leviathan': [
     enters(bounceAll({ nonland: true, other: true })),
     unearth('{6}{U}'),
@@ -307,7 +281,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(0, 0, { fromX: true })],
     }),
   ],
-  'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   Mirrorweave: [
     targetOnResolve(
       'select',
@@ -321,14 +294,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'battlefield', type: 'Creature', controller: 'you' },
       copyAllCreaturesUntilEot(),
     ),
-  ],
-  'Niv-Mizzet, Ghost Counsel': [
-    triggerOn('gainLife', { if: { seat: 'controller' }, do: [mayPayLifeDraw()] }),
-    activate({
-      id: 'nivMizzetGhostCounsel.drain',
-      costs: { tap: true },
-      do: [opponentsLoseLife(1), gainLife(1)],
-    }),
   ],
   'Parting Gust': [
     gift({
@@ -472,21 +437,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Wedding Ring': [
-    triggerOn('enters', {
-      if: { fromSpell: true },
-      targets: 'opponent',
-      do: [copySelf({ for: 'targetPlayer' })],
-    }),
-    triggerOn('draw', {
-      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
-      do: [draw(1)],
-    }),
-    triggerOn('gainLife', {
-      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
-      do: [gainLife('triggerAmount')],
-    }),
-  ],
   'Will of the Sultai': [modalCommanderChooseBoth(
     {
       id: 'lands',
@@ -514,22 +464,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       exileAfterUse: true,
     }),
     onResolveIfCastOption('adventure', createHeroWithLandCounters()),
-  ],
-  'Zimone and Dina': [
-    triggerOn('draw', {
-      if: secondCardDrawn(),
-      targets: 'opponent',
-      do: [loseLifeTargetPlayer(2), gainLife(2)],
-    }),
-    activate({
-      id: 'zimone.draw',
-      costs: { tap: true, sacrificeTarget: 'creature', sacrificeOther: true },
-      do: [
-        draw(1),
-        putLandFromHand(true),
-        repeatIf(controlledLands({ min: 8 }), draw(1), putLandFromHand(true)),
-      ],
-    }),
   ],
 }
 

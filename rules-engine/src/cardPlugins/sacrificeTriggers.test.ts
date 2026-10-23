@@ -717,12 +717,12 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
       const server = game({
         battlefield: { p1: [betrayer()], p2: [deckCard('Darksteel Colossus')] },
       })
-      const choosing = ok(server.rules(attack(server, server.state), { type: 'resolveTop' }))
+      const choosing = resolveStack(server.rules, attack(server, server.state))
       expect(pendingSelectionFor(choosing, 'p2')).toMatchObject({ count: 1 })
       const sacrificed = ok(server.rules(choosing, {
         type: 'selectCards',
         seat: 'p2',
-        kind: 'sacrifice',
+        kind: 'choose',
         count: 1,
         objectIds: [named(choosing, 'Darksteel Colossus').id],
       }))

@@ -136,7 +136,7 @@ describe('simple card effects', () => {
 
     expect(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'zimone.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: zimone,
       choices: [zimone],
@@ -144,7 +144,7 @@ describe('simple card effects', () => {
 
     const paid = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'zimone.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: zimone,
       choices: [offering],

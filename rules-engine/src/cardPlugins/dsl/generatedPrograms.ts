@@ -31,6 +31,10 @@ export const generatedAbilitySnapshot = (
     case 'dies':
     case 'leaves':
     case 'draw':
+    case 'gainedLife':
+    case 'moved':
+    case 'tokenCreated':
+    case 'sacrificed':
     case 'manaAdded':
     case 'manaAbilityActivated':
     case 'manaAbilityResolved':
@@ -91,8 +95,12 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
     case 'playLand':
     case 'discard': return ['player']
     case 'cycle': return ['player', 'object.after']
-    case 'draw': return ['player']
+    case 'draw':
+    case 'gainedLife': return ['player']
+    case 'moved': return ['object.before', 'object.after']
+    case 'tokenCreated':
     case 'enters': return ['object.after']
+    case 'sacrificed': return ['object.before', 'object.after']
     case 'unlockDoor':
     case 'fullyUnlock': return ['player', 'object.after']
     case 'dies': return ['object.before', 'object.after']

@@ -11,6 +11,7 @@ import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
 import { clearAttackBans } from '../cardPlugins/attackBan'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
+import { SPELLS_CAST_THIS_TURN } from '../rules/spellsCast'
 import { beginDrawStepInstance } from '../rules/drawStepHistory'
 import { otherPlayerDrawSeats, otherPlayerUntapParticipants } from '../cardPlugins/dsl/untapParticipation'
 import { untapPermanent, untapStepUntaps } from '../rules/untap'
@@ -79,6 +80,7 @@ const onUntap = (draft: Draft) => {
     delete draft.players[player].data[LIFE_GAINED_THIS_TURN]
     delete draft.players[player].data[LEGENDARY_COMBAT_DAMAGE_FROM]
     delete draft.players[player].data[CARDS_DRAWN_THIS_TURN]
+    delete draft.players[player].data[SPELLS_CAST_THIS_TURN]
   }
   clearPutIntoGraveyardFromBattlefieldThisTurn(draft)
   clearAttackBans(draft)

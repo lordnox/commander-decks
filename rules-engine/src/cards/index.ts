@@ -144,6 +144,7 @@ import commandersSphere from './commanders-sphere'
 import councilsJudgment from './councils-judgment'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
+import crawlingSensation from './crawling-sensation'
 import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
 import cultivate from './cultivate'
@@ -218,6 +219,7 @@ import hinterlandHarbor from './hinterland-harbor'
 import homerTheHermit from './homer-the-hermit'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
+import itThatBetrays from './it-that-betrays'
 import inundatedArchive from './inundated-archive'
 import jaceMultiverseArchitect from './jace-multiverse-architect'
 import joinTheDead from './join-the-dead'
@@ -231,6 +233,7 @@ import lifeFromTheLoam from './life-from-the-loam'
 import lightningBolt from './lightning-bolt'
 import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
+import lothoCorruptShirriff from './lotho-corrupt-shirriff'
 import loranOfTheThirdPath from './loran-of-the-third-path'
 import lotusField from './lotus-field'
 import magusOfTheCoffers from './magus-of-the-coffers'
@@ -250,6 +253,7 @@ import myriadLandscape from './myriad-landscape'
 import naturesLore from './natures-lore'
 import necrologia from './necrologia'
 import nezahalPrimalTide from './nezahal-primal-tide'
+import nivMizzetGhostCounsel from './niv-mizzet-ghost-counsel'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
 import obscuraStorefront from './obscura-storefront'
@@ -342,6 +346,7 @@ import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
 import waterloggedTeachings from './waterlogged-teachings'
 import wateryGrave from './watery-grave'
+import weddingRing from './wedding-ring'
 import werefoxBodyguard from './werefox-bodyguard'
 import windfall from './windfall'
 import worldMap from './world-map'
@@ -349,6 +354,7 @@ import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
 import yavimayaCradleOfGrowth from './yavimaya-cradle-of-growth'
 import zagothTriome from './zagoth-triome'
+import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
@@ -485,6 +491,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
   "Council's Judgment": councilsJudgment,
+  "Crawling Sensation": crawlingSensation,
   "Crop Rotation": cropRotation,
   "Cryptic Command": crypticCommand,
   "Cultivate": cultivate,
@@ -562,6 +569,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Homer, the Hermit": homerTheHermit,
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
+  "It That Betrays": itThatBetrays,
   "Inundated Archive": inundatedArchive,
   "Jace, Multiverse Architect": jaceMultiverseArchitect,
   "Join the Dead": joinTheDead,
@@ -577,6 +585,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Lightning Bolt": lightningBolt,
   "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
+  "Lotho, Corrupt Shirriff": lothoCorruptShirriff,
   "Loran of the Third Path": loranOfTheThirdPath,
   "Lotus Field": lotusField,
   "Magus of the Coffers": magusOfTheCoffers,
@@ -608,6 +617,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Nature's Lore": naturesLore,
   "Necrologia": necrologia,
   "Nezahal, Primal Tide": nezahalPrimalTide,
+  "Niv-Mizzet, Ghost Counsel": nivMizzetGhostCounsel,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
   "Obscura Storefront": obscuraStorefront,
@@ -707,6 +717,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Waterlogged Teachings": waterloggedTeachings,
   "Waterlogged Teachings // Inundated Archive": waterloggedTeachings,
   "Watery Grave": wateryGrave,
+  "Wedding Ring": weddingRing,
   "Werefox Bodyguard": werefoxBodyguard,
   "Windfall": windfall,
   "World Map": worldMap,
@@ -714,4 +725,5 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Worn Powerstone": wornPowerstone,
   "Yavimaya, Cradle of Growth": yavimayaCradleOfGrowth,
   "Zagoth Triome": zagothTriome,
+  "Zimone and Dina": zimoneAndDina,
 })

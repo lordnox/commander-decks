@@ -2,7 +2,6 @@ import { openCardSelection } from '../rules/selectCards'
 import type { GameObject, PlayerId, Plugin, StackItem } from '../types'
 import { targetObject } from '../objectIdentity'
 
-const SPELLS_CAST = 'blinkValue.spellsCast'
 const VANISH_RETURNS = 'blinkValue.vanishReturns'
 const VANISH_COMPLETIONS = 'blinkValue.vanishCompletions'
 
@@ -94,36 +93,6 @@ const blinkNow = (
   }
 }
 
-const trackLotho = (
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-  seat: PlayerId,
-) => {
-  const previous = draft.players[seat].data[SPELLS_CAST] as
-    | { turn: number; count: number }
-    | undefined
-  const count = previous?.turn === draft.turn ? previous.count + 1 : 1
-  draft.players[seat].data[SPELLS_CAST] = { turn: draft.turn, count }
-  if (count !== 2) return
-  for (const lotho of draft.zoneOf('battlefield').filter(
-    (object) => object.name === 'Lotho, Corrupt Shirriff',
-  )) {
-    draft.addTriggeredAbility(lotho, [
-      { kind: 'loseLife', amount: 1, who: 'controller' },
-      {
-        kind: 'createToken',
-        token: {
-          name: 'Treasure',
-          types: ['Artifact'],
-          subtypes: ['Treasure'],
-          power: null,
-          toughness: null,
-          oracleText: '{T}, Sacrifice this artifact: Add one mana of any color.',
-        },
-      },
-    ])
-  }
-}
-
 const queueVanishReturns = (
   draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
 ) => {
@@ -165,7 +134,6 @@ export const blinkValue: Plugin = {
 
   },
   apply: ({ state, event, draft }) => {
-    if (event.type === 'castSpell') trackLotho(draft, event.seat)
     if (event.type === 'resolveTop') {
       const item = state.stack[0]
       if (!item) return
