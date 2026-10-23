@@ -3,6 +3,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
+import type { GameState } from '../../types'
 import {
   card,
   compileCardRuleDefinition,
@@ -45,7 +46,7 @@ test('createEmblem places a source-independent program in the command zone', () 
   expect(emblem.controller).toBe('p1')
   expect(emblem.subtypes).toEqual(['Teferi'])
   expect(resolved.zoneOrder.p1.command).toContain(emblem.id)
-  let state = { ...resolved, active: 'p1' as const, step: 'cleanup' as const }
+  let state: GameState = { ...resolved, active: 'p1', step: 'cleanup' }
   const beforeHand = state.zoneOrder.p1.hand.length
   state = ok(server.rules(state, { type: 'advanceStep' }))
   expect(Object.values(state.objects).find(object => object.name === 'Tapped Rock')?.tapped).toBe(false)
@@ -67,7 +68,7 @@ test('an emblem in the command zone untaps and draws during opponent steps', () 
     battlefield: { p1: [cardTemplate('Tapped Rock', { types: ['Artifact'], tapped: true })] },
     libraries: { p1: [cardTemplate('Drawn card')] },
   }, { random: () => 0 })
-  let state = { ...server.state, active: 'p1' as const, step: 'cleanup' as const }
+  let state: GameState = { ...server.state, active: 'p1', step: 'cleanup' }
   const beforeHand = state.zoneOrder.p1.hand.length
   state = ok(server.rules(state, { type: 'advanceStep' }))
   expect(state.active).toBe('p2')
