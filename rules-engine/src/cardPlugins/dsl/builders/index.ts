@@ -1,3 +1,4 @@
+import { ZONE_IDS } from '../../../types'
 import type {
   ActivatedAbilityDefinition,
   Amount,
@@ -634,7 +635,7 @@ export const whenever = (
   configuration: WheneverConfiguration,
 ): TriggeredAbilityDefinition => immutableData({
   kind: 'triggered',
-  activeIn: configuration.activeIn ?? ['battlefield'],
+  activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),
   on,
   decisions: decisions(configuration.decisions),
   ...(configuration.triggerOnlyIf ? { triggerOnlyIf: configuration.triggerOnlyIf } : {}),

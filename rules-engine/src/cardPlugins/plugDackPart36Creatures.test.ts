@@ -8,14 +8,6 @@ import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { activated } from './activated'
-import { cycling } from './cycling'
-import { linkedExile } from './linkedExile'
-import {
-  SEARCH_CHOSEN,
-  librarySearch,
-  pendingSearch,
-} from './librarySearch'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 
@@ -48,81 +40,7 @@ const fixtureCreature = (
   extra: Parameters<typeof cardTemplate>[1] = {},
 ) => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
-const plains = () =>
-  cardTemplate('Plains', {
-    types: ['Land'],
-    subtypes: ['Plains'],
-    supertypes: ['Basic'],
-    tapProduces: { W: 1 },
-  })
-
 describe('plug Dack part 36 registered creatures', () => {
-  test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {
-    const intercessor = deckCreature('Alabaster Host Intercessor', { manaCost: '{5}{W}' })
-    const foe = fixtureCreature('Fixture Hostage')
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 3,
-        hands: { p1: [intercessor] },
-        battlefield: { p2: [foe] },
-      },
-      { random: () => 0.5, cardPlugins: [linkedExile] },
-    )
-    let state = structuredClone(server.state)
-    const intercessorId = named(state, 'Alabaster Host Intercessor').id
-    const foeId = named(state, 'Fixture Hostage').id
-
-    state = ok(server.rules(state, {
-      type: 'move',
-      objectId: intercessorId,
-      to: 'battlefield',
-    }))
-    state = resolveStack(server.rules, state)
-    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [foeId],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[foeId]).toMatchObject({ zone: 'exile', exiledWith: intercessorId })
-  })
-
-  test('Alabaster Host Intercessor plainscycles from hand through library search', () => {
-    const intercessor = deckCreature('Alabaster Host Intercessor', { manaCost: '{5}{W}' })
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [intercessor] },
-        libraries: { p1: [plains()] },
-      },
-      { random: () => 0.5, cardPlugins: [activated, cycling, librarySearch] },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana.C = 2
-    const intercessorId = named(state, 'Alabaster Host Intercessor').id
-    const cycled = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: 'plainscycling.alabasterHostIntercessor',
-      seat: 'p1',
-      objectId: intercessorId,
-    }))
-    const opened = ok(server.rules(cycled, { type: 'resolveTop' }))
-    pendingSearch(opened, 'p1')!
-    const found = named(opened, 'Plains').id
-    state = ok(server.rules(opened, {
-      type: 'move',
-      objectId: found,
-      to: 'hand',
-    }))
-    state = ok(server.rules(state, { type: 'shuffleLibrary', seat: 'p1' }))
-    state = ok(server.rules(state, { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' }))
-    expect(named(state, 'Plains').zone).toBe('hand')
-  })
-
   test('Curious Colossus chooses an opponent then shrinks their board', () => {
     const colossus = deckCreature('Curious Colossus', { manaCost: '{4}{W}' })
     const bear = fixtureCreature('Fixture Curious Bear', { power: 4, toughness: 4 })

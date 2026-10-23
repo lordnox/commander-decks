@@ -608,12 +608,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "229fd09490e030a549b6980be240984c79d7bcd59abd4083982ef16437af9c26",
-    "card": "Alabaster Host Intercessor"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "143abbf79fbbcbf1553d833832031b0e34bdb8df391dea1a66cd757be0e3a1db",
     "card": "Curious Colossus"
   },

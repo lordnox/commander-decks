@@ -99,7 +99,6 @@ import {
   scry,
   surveil,
   triggerOn,
-  typecycleHand,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
   targetOnResolve,
@@ -202,11 +201,6 @@ const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 
 // Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
-  'Alabaster Host Intercessor': [
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-    typecycleHand('plainscycling.alabasterHostIntercessor', '{2}', 'Plains'),
-  ],
   'All-Fates Stalker': [
     ...warp('{1}{W}'),
     handler('linkedExile'),

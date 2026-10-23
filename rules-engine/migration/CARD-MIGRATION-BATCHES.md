@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **102 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **101 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 88 available, 1 awaiting correctness follow-up, and 84 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 89 available, 0 awaiting correctness follow-up, and 84 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -20,7 +20,7 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 ## Status and evidence
 
 - **Available:** reusable canonical support exists for the stated scope. This does not assert complete engine coverage beyond that scope.
-- **Review:** canonical support exists, but identified correctness work remains. Cycling issues [#440](https://github.com/lordnox/commander-decks/issues/440) and [#441](https://github.com/lordnox/commander-decks/issues/441) are explicit gates, not silently completed work.
+- **Review:** canonical support exists, but identified correctness work remains. Cycling issues [#440](https://github.com/lordnox/commander-decks/issues/440) and [#441](https://github.com/lordnox/commander-decks/issues/441) are addressed on this branch; their fixes remain subject to PR review and merge.
 - **Open:** implement or verify the missing reusable contract before depending on it. Multiple keywords/cost variants inside a row may warrant separate commits.
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
@@ -73,7 +73,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **18-links is available:** identity-pinned sets now compose Bishop of Binding, Endless Sands, Lumbering Battlement, Phyrexian Ingester, and Pit of Offerings. Embedded cached Scryfall data preserves Vampire-only attack targets, nontoken optional exile, both land mana modes, independent signed power/toughness bonuses, and owner-controlled returns. The separate **18-monarch** contract is now also Available; Palace Jailer has migrated with both independent ETB abilities.
 
-**39-piles and 39-vote are available:** public opponent partitions bind chosen and remainder piles without auto-moving; sequential public votes, including object ballots and tallies/leads, continue canonical programs. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede have migrated. Fortune's Favor and Hostile Negotiations still need **39-hidden**. Illusion of Choice still needs **39-control**; Erestor still needs **39-finished**; Círdan still needs **39-secret**; Trap still needs **39-secret** and **39-object**. Sail into the West still needs a resolving exile-this-spell branch.
+**39-piles and 39-vote are available:** public opponent partitions bind chosen and remainder piles without auto-moving; sequential public votes, including object ballots and tallies/leads, continue canonical programs. Fact or Fiction, Council's Judgment, Coercive Portal, Split Decision, and Selvala's Stampede have migrated. Fortune's Favor and Hostile Negotiations still need **39-hidden**. Illusion of Choice still needs **39-control**; Erestor still needs **39-finished**; Círdan still needs **39-secret**; Trap still needs **39-secret** and **39-object**. Sail into the West has migrated with 39-exile and 15-simultaneous.
 
 **Group 18 is complete:** all four linked-exile contracts are Available. Palace Jailer uses canonical source-less monarch triggers and incarnation-pinned, source-independent exile duration. Cards still listed under former batch 18 retain external gates such as cycling, warp, embalm, and foretell; completing linked exile does not implement those mechanics.
 
@@ -115,7 +115,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="03"></a>**03 — Cycling correctness follow-up** | Review | Canonical cycling exists, but #440 activation-time trigger timing and #441 self-cycling from exile still need correction. | — | `Alabaster Host Intercessor` |
+| <a id="03"></a>**03 — Cycling** | Available | Draw-cycling and typecycling emit on committed discard payment, before resolution; triggers survive countering. Self-cycling programs function in the discard destination, including redirected exile, and restore preserves pending targets/searches. Alabaster Host Intercessor has migrated. | — | None remaining |
 
 ### 04. Pay-life entry replacements
 
@@ -235,7 +235,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Glorious Protector` |
+| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `All-Fates Stalker`; `Angel of Sanctions`; `Glorious Protector` |
 | <a id="18-links"></a>**18-links — Persistent linked-card sets** | Available | Persist source-incarnation and actual exiled-card identities; query current linked sets for later activations, signed power/toughness sums, counts, and current colors. Redirected/prevented exile creates no link; departing/reentered cards or fresh source incarnations do not inherit links. Return owner-controlled cards after source sacrifice; color-derived mana participates in planning. | — | `Valgavoth, Terror Eater` |
 | <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Available | Become monarch; queue source-less inherent draw/crown-transfer abilities at priority checkpoints, retaining the original trigger controller. Read the damage creature’s current/last-known controller on resolution. Transfer on elimination and end source-independent exile on a captured player’s opponent acquiring the crown, including pre-resolution history. Restore and team relations are preserved; fixes #448. | — | None remaining |
 | <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Available | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | None remaining |

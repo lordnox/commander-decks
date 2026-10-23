@@ -1,14 +1,13 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **102 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **101 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **102 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **101 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
-| `Alabaster Host Intercessor` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [03](CARD-MIGRATION-BATCHES.md#03) | Blocked by mechanics | Plainscycling also depends on the cycling correctness follow-up. |
 | `All-Fates Stalker` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-warp](CARD-MIGRATION-BATCHES.md#25-warp) | Blocked by mechanics | — |
 | `Analyze the Pollen` | 25 | [25-evidence](CARD-MIGRATION-BATCHES.md#25-evidence) | Blocked by mechanics | — |
 | `Ancient Greenwarden` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |

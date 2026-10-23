@@ -569,6 +569,7 @@ export const activated: Plugin = {
       draft.passedInRow = []
       draft.priority = event.seat
     }
+    if (effect.cycling) draft.enqueue({ type: 'cycle', seat: event.seat, objectId: source.id })
     draft.note(`${event.seat} activates ${source.name}`)
   },
 }

@@ -14,7 +14,7 @@ export default {
   manaValue: 3,
   ruleDefinition: snapshotFor([
     whenever(cardCycled({ player: players({ relation: 'you' }) }), exileUntilEnd),
-    whenever(self.cycles, { activeIn: ['graveyard'], ...exileUntilEnd }),
+    whenever(self.cycles, { ...exileUntilEnd }),
     cycleFromHand({ mana: '{2}{W}' }),
   ]),
 } satisfies CatalogEntry

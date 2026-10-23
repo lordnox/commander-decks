@@ -279,6 +279,12 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
     }
     delete completed.provisionalAnnouncement
+    const cycle = canonicalCyclingEvent(frame.pendingActivation)
+    if (cycle) {
+      const cycled = applyEventTree(freezeDraft(completed), cycle, catalog)
+      entries.push(...nested(cycled.trace, 1))
+      return { ...cycled, trace: entries }
+    }
     return { ok: true, state: freezeDraft(completed), trace: entries }
   }
   if (!frame.continuation) {
@@ -1433,19 +1439,8 @@ const driveResolution = (
     const completedSpell = completed.resolution?.kind === 'canonicalSpell' ? completed.resolution : undefined
     const completedInline = Boolean(completedSpell?.inlineItem)
     const completedInlineItem = completedSpell?.inlineItem
-    const completedItem = completedSpell
-      ? completed.stack.find(item => item.id === completedSpell.stackId)
-      : undefined
-    const cyclingEvent = !completedInline && completedItem ? canonicalCyclingEvent(completedItem) : undefined
     finishResolution(completed)
     let completedState = freezeDraft(completed)
-    if (cyclingEvent) {
-      const cycle = applyEventTree(completedState, cyclingEvent, catalog)
-      if (cycle.ok) {
-        entries.push(...nested(cycle.trace, 1))
-        completedState = cycle.state
-      }
-    }
     if (completedInline) {
       if (completedInlineItem?.execution?.abilityIndex !== undefined) {
         const completion = applyEventTree(completedState, {

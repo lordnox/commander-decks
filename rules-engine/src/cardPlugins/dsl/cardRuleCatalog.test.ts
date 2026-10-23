@@ -1496,7 +1496,7 @@ test('catalog Astral Drift cycles itself and blinks a creature after you cycle a
   }
   expect(cardRuleDefinitionSnapshotFor('Astral Drift')!.definition.abilities).toMatchObject([
     { kind: 'triggered', on: { kind: 'cycle', filter: { player: { kind: 'players', filter: { relation: 'you' } } } }, activeIn: ['battlefield'], ...exileUntilEnd },
-    { kind: 'triggered', on: { kind: 'cycle', filter: { object: { kind: 'contextRef', name: 'source' } } }, activeIn: ['graveyard'], ...exileUntilEnd },
+    { kind: 'triggered', on: { kind: 'cycle', filter: { object: { kind: 'contextRef', name: 'source' } } }, activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'], ...exileUntilEnd },
     { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
       { kind: 'mana', amount: '{2}{W}' },
       { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } },
@@ -2341,5 +2341,24 @@ test('Waterlogged Teachings searches an instant or a card with flash', () => {
       { kind: 'move', to: 'hand' },
       { kind: 'shuffle' },
     ] }] },
+  ])
+})
+
+test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {
+  expect(cardRuleDefinitionSnapshotFor('Alabaster Host Intercessor')!.definition.abilities).toMatchObject([
+    {
+      kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
+      decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } } }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+    },
+    {
+      kind: 'activated', cycling: true, availableFrom: ['hand'],
+      costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } }],
+      instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', subtypes: ['Plains'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, bindChoice: 'found', viewLibrary: true },
+        { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'hand' },
+        { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+      ] }],
+    },
   ])
 })
