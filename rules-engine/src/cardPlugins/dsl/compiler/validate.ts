@@ -2030,6 +2030,76 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               return
             }
+            case 'attackTax': {
+              exactKeys(node, effectPath, ['kind', 'amount', 'whileUntapped'], ['kind', 'amount'])
+              const amount = node.amount
+              if (typeof amount !== 'number' || !Number.isInteger(amount) || amount < 1) {
+                issue(childPath(effectPath, 'amount'), 'domain', 'attackTax amount must be a positive integer')
+              }
+              if (node.whileUntapped !== undefined && node.whileUntapped !== true) {
+                issue(childPath(effectPath, 'whileUntapped'), 'constant', 'whileUntapped must be true when present')
+              }
+              return
+            }
+            case 'blockTax': {
+              exactKeys(node, effectPath, ['kind', 'amount', 'whileAttacking'], ['kind', 'amount'])
+              const amount = node.amount
+              if (typeof amount !== 'number' || !Number.isInteger(amount) || amount < 1) {
+                issue(childPath(effectPath, 'amount'), 'domain', 'blockTax amount must be a positive integer')
+              }
+              if (node.whileAttacking !== undefined && node.whileAttacking !== true) {
+                issue(childPath(effectPath, 'whileAttacking'), 'constant', 'whileAttacking must be true when present')
+              }
+              return
+            }
+            case 'opponentsCantCast':
+            case 'opponentsCantBlock': {
+              exactKeys(node, effectPath, ['kind', 'parity'], ['kind', 'parity'])
+              enumeration(node.parity, childPath(effectPath, 'parity'), new Set(['even', 'odd']), 'mana-value parity')
+              return
+            }
+            case 'targetingRequirement': {
+              exactKeys(node, effectPath, ['kind', 'requirement'], ['kind', 'requirement'])
+              enumeration(node.requirement, childPath(effectPath, 'requirement'), new Set(['flagbearer']), 'targeting requirement')
+              return
+            }
+            case 'ward': {
+              exactKeys(node, effectPath, ['kind', 'cost'], ['kind', 'cost'])
+              const cost = object(node.cost, childPath(effectPath, 'cost'))
+              if (!cost) return
+              switch (cost.kind) {
+                case 'mana': {
+                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'generic'], ['kind', 'generic'])
+                  const generic = cost.generic
+                  if (typeof generic !== 'number' || !Number.isInteger(generic) || generic < 1) {
+                    issue(childPath(childPath(effectPath, 'cost'), 'generic'), 'domain', 'ward mana must be a positive integer')
+                  }
+                  return
+                }
+                case 'life': {
+                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'amount'], ['kind', 'amount'])
+                  const amount = cost.amount
+                  if (typeof amount !== 'number' || !Number.isInteger(amount) || amount < 1) {
+                    issue(childPath(childPath(effectPath, 'cost'), 'amount'), 'domain', 'ward life must be a positive integer')
+                  }
+                  return
+                }
+                case 'sacrifice': {
+                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'count', 'nonland'], ['kind', 'count'])
+                  const count = cost.count
+                  if (typeof count !== 'number' || !Number.isInteger(count) || count < 1) {
+                    issue(childPath(childPath(effectPath, 'cost'), 'count'), 'domain', 'ward sacrifice count must be a positive integer')
+                  }
+                  if (cost.nonland !== undefined && cost.nonland !== true) {
+                    issue(childPath(childPath(effectPath, 'cost'), 'nonland'), 'constant', 'nonland must be true when present')
+                  }
+                  return
+                }
+                default:
+                  issue(childPath(childPath(effectPath, 'cost'), 'kind'), 'unsupported-kind', `unsupported ward cost: ${String(cost.kind)}`)
+              }
+              return
+            }
             case 'grantKeyword':
             case 'suppressKeyword': {
               exactKeys(node, effectPath, ['kind', 'targets', 'keyword', 'when'], ['kind', 'targets', 'keyword'])

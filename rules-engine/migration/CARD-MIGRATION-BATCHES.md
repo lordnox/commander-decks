@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after the family 26 land-permission slice, family 22 and cumulative upkeep, plus cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **87 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after family 21 combat keywords (annihilator, infect, even-mana restrictions, Flagbearer, attack/block taxes, and ward including life and sacrifice payments), plus the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **80 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 97 available, 0 awaiting correctness follow-up, and 76 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 108 available, 0 awaiting correctness follow-up, and 65 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -31,9 +31,9 @@ Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), bu
 
 The historical family numbers 01–44 remain stable for earlier discussions. Suffixes identify independent mechanic work inside a family. A numbered family is a navigation heading, not a requirement to finish all of its rows together. New cross-family dependencies are explicit. The old unique card-to-batch ownership rule is retired. The **Former batch** column in the card list is historical provenance only.
 
-- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire still needs **21-ward**; Hostile Negotiations still needs **39-hidden**.
+- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire has migrated with **09-devour** and **21-ward**. Hostile Negotiations still needs **39-hidden**.
 - **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot. Deferred choices for the same player now reopen correctly (#444).
-- **09-devour is available:** entry-replacement devour chooses eligible permanents, sacrifices as the creature enters, and stamps +1/+1 counters from the actual count before ETB observers and SBAs. Land devour is included. Famished Worldsire still needs **21-ward**.
+- **09-devour is available:** entry-replacement devour chooses eligible permanents, sacrifices as the creature enters, and stamps +1/+1 counters from the actual count before ETB observers and SBAs. Land devour is included, including on a resolving creature spell. Famished Worldsire has migrated.
 - **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
@@ -49,7 +49,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **16-hand-limit and 16-stack-object are available:** Sea Gate Restoration // Sea Gate, Reborn and Sink into Stupor // Soporific Springs have migrated with pay-life MDFC composition.
 - **43-room is available:** door programs, unlock/fullyUnlock occurrences, and lock-or-unlock instructions compose onto kernel Room doors. Marina Vendrell has migrated. Forgotten Cellar and Walk-In Closet still need graveyard permission. 43-adventure stays open on 26-permission.
 
-- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Mossborn Hydra has migrated with counter-count amounts; Everflowing Chalice, Famished Worldsire, and Spark Double retain their multikicker/ward/copy-entry gates.
+- **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward composition for Hall); Mossborn Hydra has migrated with counter-count amounts; Everflowing Chalice and Spark Double retain their multikicker/copy-entry gates. Famished Worldsire has migrated.
 
 - **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices are now also available.
 
@@ -61,13 +61,13 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **14-difference and 14-counters are available:** nonnegative subtraction composes with current counts; named counter amounts preserve captured object identity and read the current count at each instruction. Sandstone Oracle and Mossborn Hydra have migrated, including the former’s non-target opponent choice and the latter’s entry replacement.
 
-**20 original contracts are available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, provenance, or **21-ward**.
+**20 original contracts are available:** printed uncounterability, counter destination, cast-origin filters, counter-unless-pay by the targeted spell's controller, and stack targeting relationships are canonical. Dovin's Veto, Desertion, Keep Safe, Decisive Denial, and Nezahal have migrated. Qualified-mana uncounterability stays in **23-mana**; remaining origin and payment consumers still need warp, rebound, demonstrate, plot, cleave, adventure, or provenance.
 
-**13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin and Mister Negative have migrated. Kuroki and Sire of Seven Deaths retain their other gates.
+**13-untap, 21-lifelink, and 21-menace are available:** other-player untaps join the turn-based untap action, lifelink works with actual damage and sources outside the battlefield, and menace restricts blocker declarations. Bender's Waterskin, Mister Negative, and Sire of Seven Deaths have migrated. Kuroki retains its other gates.
 
 **14-result-max and 33-discard are available:** per-player programs can keep a surviving maximum of actual action results such as discarded counts; whole-hand discards bind those counts after replacement. Windfall has migrated.
 
-**14-signed-minimum and 21-first-strike are available:** signed lowest-life queries are restricted to life-total consumers; Repay in Kind has migrated. First-strike eligibility is captured by object identity for both damage steps, surviving restore and keyword changes. Sire of Seven Deaths still needs ward support.
+**14-signed-minimum and 21-first-strike are available:** signed lowest-life queries are restricted to life-total consumers; Repay in Kind has migrated. First-strike eligibility is captured by object identity for both damage steps, surviving restore and keyword changes. Sire of Seven Deaths has migrated with its printed combat keywords and Ward—Pay 7 life.
 
 **36-exile is available:** `exileForEffect` composes a typed optional one-card choice, exile, and conditional continuation from canonical instructions. Its payment condition follows CR 118.12, including modified destinations; mechanic tests cover decline, no eligible cards, countering, illegal targets, and journal restore. Masked Vandal remains unmigrated because **22-changeling** is Open; do not omit its all-creature-types ability.
 
@@ -79,7 +79,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 **38-random, 38-tapped, 38-repeat, and 38-token-refs are available:** authoritative `chooseRandom` persists through the journal, tapped copies exist before ETB observers, `repeatWhile` rebinds the latest qualifying result, and `createToken`/`copy` can bind the new identities. Sin, Spira's Punishment has migrated. Zanarkand still needs **43-adventure**.
 
-**40-saga and 40-skip are available:** canonical saga abilities feed kernel lore, chapter triggers, and CR 714.4 sacrifice; `tap` can skip the controller's next untap. Awaken the Honored Dead, Kiora Bests the Sea God, and Summon: Titan have migrated. Summon: Leviathan still needs **21-ward**.
+**40-saga and 40-skip are available:** canonical saga abilities feed kernel lore, chapter triggers, and CR 714.4 sacrifice; `tap` can skip the controller's next untap. Awaken the Honored Dead, Kiora Bests the Sea God, Summon: Titan, and Summon: Leviathan have migrated.
 
 **12-dredge is available:** a `{ kind: 'dredge', count }` ability is an optional draw replacement that mills the printed number and returns the card. Dakmor Salvage and Life from the Loam have migrated.
 
@@ -88,6 +88,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 **31-flash, 31-related, and 31-multizone are available:** object filters match printed and granted keywords, selected cards can be required to share a basic land type, and a multi-zone search shuffles only when a library card was chosen. Waterlogged Teachings // Inundated Archive, Myriad Landscape, and Finale of Devastation have migrated.
 
 **22 is available:** characteristic definitions, additive types, ability loss, creature-type choices, changeling, object/player attachments, and instruction-based activated grants are canonical. Ten fully eligible cards have migrated; remaining consumers retain external gates. **13-upkeep is available:** Wall of Shards has migrated with durable counted payments and separate opponent choices.
+
+**21 is available:** annihilator, infect, even-mana-value restrictions, Flagbearer targeting, attack/block taxes, and ward (mana, life, and sacrifice) are canonical printed statics or keyword/composed triggers. Archangel of Tithes, Baird, Steward of Argive, Standard Bearer, Void Winnower, Sire of Seven Deaths, Famished Worldsire, and Summon: Leviathan have migrated. Remaining former-21 consumers retain external gates such as shuffle-instead, animation, multiply, group sacrifice, or exile.
 
 ## Suggested next work
 
@@ -148,14 +150,14 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset` |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset` |
 
 ### 09. Sacrifice outcomes and entry sacrifice
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="09-count"></a>**09-count — Actual sacrifice counts** | Available | Typed optional choices, numeric `bindCount`, and independent boolean success bindings; count only selected object identities, survive replacement choices/restore, and ignore unrelated sacrifices. Reprocess, Scapeshift, and Victimize have migrated. | — | `Famished Worldsire`; `It That Betrays`; `Pitiless Carnage` |
-| <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Available | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. Famished Worldsire still needs ward. | [09-count](#09-count), [17-counters](#17-counters) | `Famished Worldsire` |
+| <a id="09-count"></a>**09-count — Actual sacrifice counts** | Available | Typed optional choices, numeric `bindCount`, and independent boolean success bindings; count only selected object identities, survive replacement choices/restore, and ignore unrelated sacrifices. Reprocess, Scapeshift, and Victimize have migrated. | — | `It That Betrays`; `Pitiless Carnage` |
+| <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Available | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. Nested sacrifices during a resolving creature spell apply immediately. Famished Worldsire has migrated. | [09-count](#09-count), [17-counters](#17-counters) | None remaining |
 
 ### 10. Mana production
 
@@ -188,7 +190,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity`; `Summon: Leviathan` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, Braids, Sygg, and Test of Endurance have migrated. | — | `All-Fates Stalker`; `Belonging`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Soul of Eternity` |
 | <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Available | Untap qualifying permanents during other players' turn-based untap action, once per permanent with stun and phasing semantics. Bender's Waterskin has migrated. | — | None remaining |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Available | Age counters and optional full repeated payment compose through counted repetition, separate opponent choices, and sacrifice on decline. Wall of Shards has migrated. | [13-step](#13-step) | None remaining |
@@ -231,7 +233,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | --- | --- | --- | --- | --- |
 | <a id="17-entry"></a>**17-entry — Conditional tapped entry** | Available | Count other lands/land types as entry is determined; preserve actual untapped-entry conditions for triggers. | — | `Hall of Storm Giants`; `Lair of the Hydra` |
 | <a id="17-reveal"></a>**17-reveal — Reveal-from-hand entry choice** | Available | Optional hand reveal as an entry replacement, with private choice and public reveal semantics. | — | None remaining |
-| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Famished Worldsire`; `Spark Double` |
+| <a id="17-counters"></a>**17-counters — Entry counters** | Available | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Spark Double` |
 
 ### 18. Linked exile
 
@@ -257,7 +259,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | <a id="20-counterability"></a>**20-counterability — Uncounterable spells** | Available | Persist and enforce printed uncounterability from `spell({ uncounterable })` and static `cannotBeCountered`. Dovin's Veto and Nezahal have migrated. Qualified-mana provenance stays in 23-mana. | — | `Cavern of Souls`; `Delighted Halfling` |
 | <a id="20-destination"></a>**20-destination — Conditional counter destination** | Available | On successful counter, move the original artifact/creature card to the battlefield instead of the graveyard. Desertion has migrated. | [07](#07) | None remaining |
 | <a id="20-origin"></a>**20-origin — Cast-origin predicates** | Available | Filter by the zone/owner from which a spell was cast via stack/object `castFrom` and stack `owner`. Remaining consumers still need warp, rebound, demonstrate, plot, cleave, adventure, or provenance. | — | `All-Fates Stalker`; `Ephemerate`; `Incarnation Technique`; `Pitiless Carnage`; `Quantum Misalignment`; `Vantress Visions`; `Virtue of Knowledge`; `Wash Away`; `Wedding Ring`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
-| <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Available | Resolution-time mana payment by the targeted spell's controller, with typed choices and mana opportunities. Decisive Denial has migrated. Remaining consumers still need 21-ward. | — | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
+| <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Available | Resolution-time mana payment by the targeted spell's controller, with typed choices and mana opportunities. Decisive Denial has migrated. Remaining consumers retain animation, multiply, or exile gates. | — | `Hall of Storm Giants`; `Roaming Throne`; `Valgavoth, Terror Eater` |
 | <a id="20-combined-payment"></a>**20-combined-payment — Combined optional resolution costs** | Available | `manaAndLifeCost` extends `payOptional` with one mana-plus-life decision, full-resource preflight, mana opportunities, durable pending payment, and one continuation. Decline and unsettled life payment spend no mana. Ripples of Undeath has migrated. | [20-payment](#20-payment) | None remaining |
 | <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Available | Filter spells by the permanents/players they currently target, retaining announced object identities and rechecking current control. Keep Safe has migrated. | — | None remaining |
 
@@ -265,21 +267,21 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="21-annihilator"></a>**21-annihilator — Annihilator** | Open | Defending-player sacrifice on attack, through ordinary typed sacrifice choices. | [09-count](#09-count), [34-defender](#34-defender) | `It That Betrays` |
-| <a id="21-even"></a>**21-even — Even-mana-value restrictions** | Open | Apply parity restrictions to casting and blocking, including mana value zero. | — | `Void Winnower` |
+| <a id="21-annihilator"></a>**21-annihilator — Annihilator** | Available | Defending-player sacrifice on attack, composed from `whenever(attacks self)`, a typed `chooseCards` (chooser is the triggering defender), and `sacrifice`. It That Betrays still needs group sacrifice capture. | [09-count](#09-count), [34-defender](#34-defender) | `It That Betrays` |
+| <a id="21-even"></a>**21-even — Even-mana-value restrictions** | Available | Printed statics apply even-mana-value restrictions to opponent casting and blocking, including mana value zero. Void Winnower has migrated. | — | None remaining |
 | <a id="21-fear"></a>**21-fear — Fear** | Available | Canonical keyword authoring and artifact-or-black blocker restriction. Profane Command has migrated. | — | None remaining |
-| <a id="21-first-strike"></a>**21-first-strike — First strike** | Available | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
-| <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
-| <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative has migrated. | — | `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
-| <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
-| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Sire of Seven Deaths`; `Six` |
+| <a id="21-first-strike"></a>**21-first-strike — First strike** | Available | Canonical keyword authoring and first-strike damage steps. Sire of Seven Deaths has migrated. | — | None remaining |
+| <a id="21-infect"></a>**21-infect — Infect** | Available | Canonical keyword authoring and poison/-1/-1-counter damage results. Blightsteel Colossus still needs shuffle-instead. | — | `Blightsteel Colossus` |
+| <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Available | Canonical keyword authoring in every damage zone, source snapshots, prevention-adjusted actual-damage life gain, and temporary grants. Mister Negative and Sire of Seven Deaths have migrated. | — | `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
+| <a id="21-menace"></a>**21-menace — Menace** | Available | Canonical keyword authoring and minimum-blocker requirements. Sire of Seven Deaths has migrated. | — | `Kuroki, Thief of Talents` |
+| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. Sire of Seven Deaths has migrated. | — | `Ancient Greenwarden`; `Six` |
 | <a id="21-static"></a>**21-static — Continuous keyword grants** | Available | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Concordant Crossroads` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Available | Layer-aware removal and cannot-have-or-gain precedence for a keyword. Archetype of Endurance has migrated. | [21-static](#21-static) | None remaining |
-| <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
-| <a id="21-tax"></a>**21-tax — Attack/block taxes** | Open | Announcement and payment of attack/block taxes, including untapped/attacking source conditions. | — | `Archangel of Tithes`; `Baird, Steward of Argive` |
-| <a id="21-ward"></a>**21-ward — Ward** | Open | Opponent targeting occurrence, source/target capture, mana payment, and countering the targeted spell/ability on nonpayment. Separate rows extend the payment kind. | [20-payment](#20-payment) | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
-| <a id="21-ward-life"></a>**21-ward-life — Life-payment ward** | Open | Extend ward to mandatory-or-counter life payment; preserve legal life-payment boundaries. | [21-ward](#21-ward) | `Sire of Seven Deaths` |
-| <a id="21-ward-sacrifice"></a>**21-ward-sacrifice — Sacrifice-payment ward** | Open | Extend ward to a chosen set of permanents as payment; require the full cost or counter the targeted item. | [21-ward](#21-ward) | `Valgavoth, Terror Eater` |
+| <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Available | Flagbearer-style obligations while announcing targets; enforce if-able rules. Standard Bearer has migrated. | — | None remaining |
+| <a id="21-tax"></a>**21-tax — Attack/block taxes** | Available | Announcement and payment of attack/block taxes, including untapped/attacking source conditions. Archangel of Tithes and Baird, Steward of Argive have migrated. | — | None remaining |
+| <a id="21-ward"></a>**21-ward — Ward** | Available | Opponent targeting of spells and abilities, source/target capture, mana payment, and countering the targeted spell/ability on nonpayment. CorePlugins apply after `spells` so the ward check sees the spell on the stack. Separate rows extend the payment kind. | [20-payment](#20-payment) | `Hall of Storm Giants`; `Roaming Throne`; `Valgavoth, Terror Eater` |
+| <a id="21-ward-life"></a>**21-ward-life — Life-payment ward** | Available | Extend ward to mandatory-or-counter life payment; preserve legal life-payment boundaries. Sire of Seven Deaths has migrated. | [21-ward](#21-ward) | None remaining |
+| <a id="21-ward-sacrifice"></a>**21-ward-sacrifice — Sacrifice-payment ward** | Available | Extend ward to a chosen set of permanents as payment; require the full cost or counter the targeted item. Valgavoth still needs exile. | [21-ward](#21-ward) | `Valgavoth, Terror Eater` |
 
 ### 22. Continuous characteristics and attachments
 
@@ -461,7 +463,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="40-saga"></a>**40-saga — Lore and chapter scheduling** | Available | Entry/precombat-main lore counters, chapter triggers, and sacrifice after the final chapter. | [13-step](#13-step) | `Summon: Leviathan` |
+| <a id="40-saga"></a>**40-saga — Lore and chapter scheduling** | Available | Entry/precombat-main lore counters, chapter triggers, and sacrifice after the final chapter. Summon: Leviathan has migrated. | [13-step](#13-step) | None remaining |
 | <a id="40-skip"></a>**40-skip — Skip the next untap** | Available | Duration-bound restrictions that consume the correct next untap event. | — | None remaining |
 
 ### 41. Encore and bestow

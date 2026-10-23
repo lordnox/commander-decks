@@ -101,6 +101,25 @@ describe('devour', () => {
     expect(named(state, 'Island').zone).toBe('graveyard')
   })
 
+  test('a resolving spell still counts emitted devour sacrifices into entry counters', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Devourer', {
+        types: ['Creature'],
+        manaCost: '{0}',
+        manaValue: 0,
+        power: 0,
+        toughness: 0,
+        ruleDefinition: snapshot([staticAbility(devour(3, ['Land']))]),
+      })] },
+      battlefield: { p1: [offering('Forest', ['Land']), offering('Island', ['Land'])] },
+    }, { random: () => 0 })
+    const id = server.state.zoneOrder.p1.hand[0]!
+    const paused = ok(server.rules(ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: id })), { type: 'resolveTop' }))
+    const state = chooseOfferings(server, paused, pendingSelectionFor(paused, 'p1')!.candidates)
+    expect(state.objects[id]).toMatchObject({ zone: 'battlefield', counters: { '+1/+1': 6 }, power: 6, toughness: 6 })
+    expect(named(state, 'Forest').zone).toBe('graveyard')
+  })
+
   test('the entering creature is not a legal devour sacrifice', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [devourer()] },

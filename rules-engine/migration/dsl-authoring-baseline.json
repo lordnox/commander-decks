@@ -86,12 +86,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "cc537150c570f532022875be961013a1a8b657eac00791935579f5547119cf78",
-    "card": "Summon: Leviathan"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "c9d593c6b0c70c6d7a14256a4c3eeb125ccab6e42b5f4ee9eafac89e3fa3c3a9",
     "card": "Rishkar's Expertise"
   },
@@ -129,7 +123,7 @@
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
     "digest": "7292ffc1f9a02b7a365fb5fab32399fa12385ce36a556c926952f55869144c12",
-    "card": "C\u00edrdan the Shipwright"
+    "card": "Círdan the Shipwright"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -142,12 +136,6 @@
     "code": "legacy-card-registration",
     "digest": "f548e840fb6b757cb105754d407e7448ac8c72bca8e9b1efc78a3d122ca91194",
     "card": "Eureka"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "5a73bfc4fdebb0e3b8bf3689e6d3184c160ab5f3cb460249ccd61d7e3876a860",
-    "card": "Famished Worldsire"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -410,12 +398,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "b220e66cbe967247ce0c97531a8a2eb2d224f1425897e4afd620daa9cb8e7c39",
-    "card": "Archangel of Tithes"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "c4e57478dbee603af93675da81710a775d66cbc123446222a1da7a63ed13005a",
     "card": "Belonging"
   },
@@ -424,12 +406,6 @@
     "code": "legacy-card-registration",
     "digest": "ab5fd1c106f1d72d0cbf263f55f3678dadb782775569c50f4171f91759e1b6c6",
     "card": "Perch Protection"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "b39fec1f917bdf09ac7cc75adcb2e7c29472ba4d1c26960a6f8ec9fd39c322be",
-    "card": "Baird, Steward of Argive"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -478,12 +454,6 @@
     "code": "legacy-card-registration",
     "digest": "4ff3cf910ddcc0ffefe63ff93497d559b2ca3210a31d84e00f4fb69d92196301",
     "card": "Mirrorweave"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "213b48366423975aae0703da2203bdc1f5ecf3518f0c233b7ef59b27eeb42796",
-    "card": "Standard Bearer"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -556,18 +526,6 @@
     "code": "legacy-card-registration",
     "digest": "b93cd4ce7e7e0587cf79fa5661d71cab1b7da6ec7468322662b148f003c6f8c9",
     "card": "Darksteel Colossus"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "b132c78992408aa1c79c6ebe0ecbc1678c8fcfaacd8095a14e025307e0b395ed",
-    "card": "Sire of Seven Deaths"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "93c7cc107d94329e224f9074749abdf13196cb4502b05786c1600ed1d2654138",
-    "card": "Void Winnower"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

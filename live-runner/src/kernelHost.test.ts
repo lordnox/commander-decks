@@ -2798,6 +2798,7 @@ describe('kernel host journal', () => {
               types: ['Creature'],
               power: 2,
               toughness: 2,
+              oracleText: 'Flying',
             }),
             {
               ...forest(),

@@ -21,6 +21,7 @@ import palaceJailer from './palace-jailer'
 import awakenTheHonoredDead from './awaken-the-honored-dead'
 import kioraBestsTheSeaGod from './kiora-bests-the-sea-god'
 import sinSpirasPunishment from './sin-spiras-punishment'
+import summonLeviathan from './summon-leviathan'
 import summonTitan from './summon-titan'
 import pitOfOfferings from './pit-of-offerings'
 import endlessSands from './endless-sands'
@@ -65,6 +66,7 @@ import darkTutelage from './dark-tutelage'
 import reprocess from './reprocess'
 import scapeshift from './scapeshift'
 import victimize from './victimize'
+import voidWinnower from './void-winnower'
 import type { CatalogEntry } from './types'
 import dackFaydenHelpingHand from './dack-fayden-helping-hand'
 import absorb from './absorb'
@@ -86,6 +88,7 @@ import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
 import apexAltisaur from './apex-altisaur'
 import archaeomancersMap from './archaeomancers-map'
+import archangelOfTithes from './archangel-of-tithes'
 import archdruidsCharm from './archdruids-charm'
 import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
@@ -93,6 +96,7 @@ import astralDrift from './astral-drift'
 import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
+import bairdStewardOfArgive from './baird-steward-of-argive'
 import banisherPriest from './banisher-priest'
 import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
@@ -162,6 +166,7 @@ import evolvingWilds from './evolving-wilds'
 import expeditionMap from './expedition-map'
 import explore from './explore'
 import fabledPassage from './fabled-passage'
+import famishedWorldsire from './famished-worldsire'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
 import factOrFiction from './fact-or-fiction'
@@ -270,6 +275,7 @@ import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
+import sireOfSevenDeaths from './sire-of-seven-deaths'
 import sinkIntoStupor from './sink-into-stupor'
 import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
@@ -279,6 +285,7 @@ import soulsOfTheFaultless from './souls-of-the-faultless'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import splitDecision from './split-decision'
+import standardBearer from './standard-bearer'
 import stifle from './stifle'
 import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
@@ -379,6 +386,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   'Reprocess': reprocess,
   'Scapeshift': scapeshift,
   'Victimize': victimize,
+  "Void Winnower": voidWinnower,
   "Animist's Awakening": animistsAwakening,
   "Dack Fayden, Helping Hand": dackFaydenHelpingHand,
   "Satyr Wayfinder": satyrWayfinder,
@@ -399,6 +407,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Anguished Unmaking": anguishedUnmaking,
   "Apex Altisaur": apexAltisaur,
   "Archaeomancer's Map": archaeomancersMap,
+  "Archangel of Tithes": archangelOfTithes,
   "Archdruid's Charm": archdruidsCharm,
   "Arbor Elf": arborElf,
   "Arcane Denial": arcaneDenial,
@@ -409,6 +418,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
+  "Baird, Steward of Argive": bairdStewardOfArgive,
   "Banisher Priest": banisherPriest,
   "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
@@ -483,6 +493,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Expedition Map": expeditionMap,
   "Explore": explore,
   "Fabled Passage": fabledPassage,
+  "Famished Worldsire": famishedWorldsire,
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
   "Fact or Fiction": factOrFiction,
@@ -609,6 +620,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sin, Spira's Punishment": sinSpirasPunishment,
   "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
+  "Sire of Seven Deaths": sireOfSevenDeaths,
   "Sink into Stupor": sinkIntoStupor,
   "Sink into Stupor // Soporific Springs": sinkIntoStupor,
   "Skull Prophet": skullProphet,
@@ -619,11 +631,13 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Split Decision": splitDecision,
+  "Standard Bearer": standardBearer,
   "Stifle": stifle,
   "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Summer Bloom": summerBloom,
+  "Summon: Leviathan": summonLeviathan,
   "Summon: Titan": summonTitan,
   "Sunken Hollow": sunkenHollow,
   "Sygg, River Cutthroat": syggRiverCutthroat,

@@ -7,13 +7,11 @@ import {
   allCreatureTypes,
   animateUntilEot,
   attachedCopyOrToken,
-  attackTax,
   attacks,
   basicLand,
   embalm,
   bestow,
   blink,
-  blockTax,
   cleave,
   controlledLands,
   convoke,
@@ -24,7 +22,6 @@ import {
   createTokenInstruction,
   createTreasures,
   crew,
-  devour,
   dealDamageToChosenTarget,
   draw,
   drawGreatestPower,
@@ -58,7 +55,6 @@ import {
   loyalty,
   loyaltyX,
   lookTopPick,
-  lookTopPutLand,
   mayCastFromHandWithoutPayingMana,
   mayPayLifeDraw,
   millTarget,
@@ -106,7 +102,6 @@ import {
   eachPlayerLoseLife,
   eachPlayerSacrifice,
   exchangeControlUntilEot,
-  addUntilCleanupRule,
   ifGiftNotPromised,
   ward,
   yourUpkeep,
@@ -124,7 +119,6 @@ import {
   putCountersOnTriggeringObject,
   tapTriggeringObject,
   onVotesFinished,
-  targetingRequirement,
   opponentMayDrawThenStealCast,
   flashback,
   grantRetrace,
@@ -132,8 +126,6 @@ import {
   ifTargetTypes,
   opponentsLoseLife,
   pumpTargetEqualToLands,
-  sagaChapters,
-  bounceCreaturesExcept,
   addPlusCountersEqualToLands,
   escape,
   hiddenPileNegotiation,
@@ -149,8 +141,6 @@ import {
   persist,
   annihilator,
   shuffleIntoLibraryInstead,
-  opponentsCantBlock,
-  opponentsCantCast,
   entersTargeting,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
@@ -222,11 +212,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
     enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
-  'Archangel of Tithes': [
-    attackTax(1, { whileUntapped: true }),
-    blockTax(1, { whileAttacking: true }),
-  ],
-  'Baird, Steward of Argive': [attackTax(1)],
   Belonging: [
     enters(
       changelingShapeshifter(),
@@ -279,18 +264,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(putChargeCountersFromTimesKicked()),
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Famished Worldsire': [
-    ward({ mana: 3 }),
-    handler('ward'),
-    enters(
-      devour(['Land'], 3, lookTopPutLand(0, {
-        countFromPower: true,
-        anyNumber: true,
-        tapped: true,
-        shuffleAfter: true,
-      })),
-    ),
-  ],
   'Firdoch Core': [
     allCreatureTypes(),
     activate({
@@ -552,7 +525,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
-  'Sire of Seven Deaths': [ward({ life: 7 })],
   Six: [
     attacks(selfMill(3), revealPick(3, { type: 'Land' })),
     grantRetrace(),
@@ -573,19 +545,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     bestow('{1}{G}', { power: 1, toughness: 1 }),
     landfall(attachedCopyOrToken('{1}{G}', insectToken)),
   ],
-  'Standard Bearer': [targetingRequirement('flagbearer')],
-  'Summon: Leviathan': [sagaChapters(
-    {
-      numbers: [1],
-      do: [bounceCreaturesExcept('Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent')],
-    },
-    {
-      numbers: [2, 3],
-      do: [addUntilCleanupRule('attackSubtypeDraw', {
-        subtypes: ['Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent'],
-      })],
-    },
-  )],
   'Tear Asunder': [
     kicker('{1}{B}'),
     targetOnResolveKicked(
@@ -656,10 +615,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
-  'Void Winnower': [
-    opponentsCantCast({ parity: 'even' }),
-    opponentsCantBlock({ parity: 'even' }),
-  ],
   'Walk-In Closet': [playLandsFromGraveyard()],
   'Wash Away': [
     cleave('{1}{U}{U}'),

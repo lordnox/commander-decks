@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { keyword, blink, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
+import { keyword, blink, flagbearer, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, staticAbility, target, counter, stackItems, variable, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -191,6 +191,34 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
       targets: [{ kind: 'object', objectId: own.id }],
     })
     expect(result.ok).toBe(true)
+  })
+
+  test('a canonical Flagbearer imposes the same if-able obligation', () => {
+    const flag = createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(flagbearer())])))
+    const snapshot = snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [targetCreature()])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Flagbearer Test Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: {
+        p1: [cardTemplate('Own Creature', { types: ['Creature'], power: 1, toughness: 1 })],
+        p2: [cardTemplate('Opposing Flagbearer', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: flag })],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'Flagbearer Test Spell')
+    const own = named(server.state, 'Own Creature')
+    const missed = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: own.id }],
+    })
+    expect(missed.ok).toBe(false)
+    if (!missed.ok) expect(missed.error).toContain('Flagbearer')
+    const flagbearerId = named(server.state, 'Opposing Flagbearer').id
+    expect(ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: flagbearerId }],
+    })).stack).toHaveLength(1)
   })
 
   test('canonical player targets are retained by clause and drive player instructions', () => {

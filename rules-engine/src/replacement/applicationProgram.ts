@@ -163,6 +163,7 @@ const applyEmitEvents = (
       ...current,
       eventProcessing: undefined,
       deferredEventProcessing: undefined,
+      resolution: undefined,
     }
     const applied = nestedApply(isolated, event, catalog)
     if (!applied.ok) {
@@ -189,12 +190,13 @@ const applyEmitEvents = (
           ...applied.state,
           eventProcessing: frames[0],
           deferredEventProcessing: frames.length > 1 ? frames.slice(1) : undefined,
+          resolution: current.resolution,
         },
       }
     }
     if (sacrificedAfter(identity, applied.state)) currentCount += 1
     remaining = rest
-    current = { ...applied.state, eventProcessing: working }
+    current = { ...applied.state, eventProcessing: working, resolution: current.resolution }
   }
   bindEmitResults(program, currentCount, bindCount, bindResult)
   return { kind: 'done', state: current }

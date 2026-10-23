@@ -33,6 +33,7 @@ import type {
   Keyword,
   KeywordAbilityDefinition,
   LifeLostCombine,
+  ManaValueParity,
   LifeTotalAmount,
   ManaQueryBasis,
   LinkedExileReturn,
@@ -77,6 +78,7 @@ import type {
   VariableSpec,
   VoteSpec,
   WheneverConfiguration,
+  WardCost,
   Zone,
 } from '../schema/v1'
 import {
@@ -383,6 +385,32 @@ export const cannotBeCountered = (): ContinuousEffectDefinition =>
 
 export const extraLandPlays = (count: number): ContinuousEffectDefinition =>
   immutableData({ kind: 'extraLandPlays', count })
+
+export const attackTax = (amount: number, options: { whileUntapped?: true } = {}): ContinuousEffectDefinition =>
+  immutableData({
+    kind: 'attackTax',
+    amount,
+    ...(options.whileUntapped ? { whileUntapped: true as const } : {}),
+  })
+
+export const blockTax = (amount: number, options: { whileAttacking?: true } = {}): ContinuousEffectDefinition =>
+  immutableData({
+    kind: 'blockTax',
+    amount,
+    ...(options.whileAttacking ? { whileAttacking: true as const } : {}),
+  })
+
+export const opponentsCantCast = (parity: ManaValueParity): ContinuousEffectDefinition =>
+  immutableData({ kind: 'opponentsCantCast', parity })
+
+export const opponentsCantBlock = (parity: ManaValueParity): ContinuousEffectDefinition =>
+  immutableData({ kind: 'opponentsCantBlock', parity })
+
+export const flagbearer = (): ContinuousEffectDefinition =>
+  immutableData({ kind: 'targetingRequirement', requirement: 'flagbearer' })
+
+export const ward = (cost: WardCost): ContinuousEffectDefinition =>
+  immutableData({ kind: 'ward', cost })
 
 export const reduceActivationCost = (input: {
   targets: ObjectSelector
@@ -1093,6 +1121,20 @@ export const chooseCards = (input: {
     whenInsufficient: input.whenInsufficient ?? 'chooseAvailable',
   }) satisfies Extract<Instruction, { kind: 'chooseCards' }>
 }
+
+/** CR 702.86: whenever this attacks, the defending player sacrifices N permanents. */
+export const annihilator = (count: number) => whenever(attacks({ filter: ref('self') }), {
+  instructions: [
+    chooseCards({
+      chooser: ref('triggering.defender'),
+      filter: objects({ zone: 'battlefield', controller: ref('triggering.defender') }),
+      min: count,
+      max: count,
+      bindChoice: 'annihilated',
+    }),
+    sacrifice({ targets: choice('annihilated') }),
+  ],
+})
 
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>
   immutableData({ kind: 'sequence', instructions })

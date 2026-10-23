@@ -739,6 +739,18 @@ export type ContinuousEffectDefinition =
   | { kind: 'noMaximumHandSize' }
   /** Marker for “this spell can’t be countered”; inspected at cast, not as a layer. */
   | { kind: 'cannotBeCountered' }
+  /** Creatures attacking this controller (or their planeswalkers) cost {N} each. */
+  | { kind: 'attackTax'; amount: number; whileUntapped?: true }
+  /** Creatures blocking while this source is attacking cost {N} each. */
+  | { kind: 'blockTax'; amount: number; whileAttacking?: true }
+  /** Opponents can’t cast spells whose mana value has this parity. Zero is even. */
+  | { kind: 'opponentsCantCast'; parity: ManaValueParity }
+  /** Opponents can’t block with creatures whose mana value has this parity. Zero is even. */
+  | { kind: 'opponentsCantBlock'; parity: ManaValueParity }
+  /** Flagbearer-style obligation while an opponent announces targets. */
+  | { kind: 'targetingRequirement'; requirement: 'flagbearer' }
+  /** CR 702.21: counter an opponent’s targeted spell or ability unless its controller pays. */
+  | { kind: 'ward'; cost: WardCost }
   | { kind: 'untapDuringOthers'; targets: ObjectSelector }
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector | PlayerSelector }
@@ -765,8 +777,17 @@ export type ContinuousEffectDefinition =
 export const KEYWORDS = {
   changeling: 'changeling', deathtouch: 'deathtouch', defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
   hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace', firstStrike: 'first strike',
+  infect: 'infect',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
+
+export const MANA_VALUE_PARITIES = { even: 'even', odd: 'odd' } as const
+export type ManaValueParity = typeof MANA_VALUE_PARITIES[keyof typeof MANA_VALUE_PARITIES]
+
+export type WardCost =
+  | { kind: 'mana'; generic: number }
+  | { kind: 'life'; amount: number }
+  | { kind: 'sacrifice'; count: number; nonland?: true }
 
 export const BASIC_LAND_TYPES = ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'] as const
 export type BasicLandType = typeof BASIC_LAND_TYPES[number]

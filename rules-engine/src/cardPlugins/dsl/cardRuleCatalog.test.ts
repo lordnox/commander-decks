@@ -2363,6 +2363,48 @@ test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling
   ])
 })
 
+test('family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions', () => {
+  expect(cardRuleDefinitionSnapshotFor('Archangel of Tithes')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'static', effects: [{ kind: 'attackTax', amount: 1, whileUntapped: true }, { kind: 'blockTax', amount: 1, whileAttacking: true }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Baird, Steward of Argive')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'static', effects: [{ kind: 'attackTax', amount: 1 }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Standard Bearer')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'targetingRequirement', requirement: 'flagbearer' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Void Winnower')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'opponentsCantCast', parity: 'even' }, { kind: 'opponentsCantBlock', parity: 'even' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'reach' },
+    { kind: 'keyword', keyword: KEYWORDS.firstStrike },
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'keyword', keyword: 'menace' },
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'lifelink' },
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'life', amount: 7 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Famished Worldsire')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'mana', generic: 3 } }, { kind: 'replacement' }] },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'inspectTop' },
+      { kind: 'chooseCards' },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'move', to: 'library', position: 'bottom', order: 'random' },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Summon: Leviathan')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'mana', generic: 2 } }] },
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'move', to: 'hand' }] },
+      { numbers: [2, 3], instructions: [{ kind: 'createDelayed', repeatUntilCleanup: true }] },
+    ] },
+  ])
+})
+
 test('catalog Wall of Shards composes its keywords and cumulative upkeep payment', () => {
   expect(cardRuleDefinitionSnapshotFor('Wall of Shards')!.definition.abilities).toMatchObject([
     { kind: 'keyword', keyword: 'defender' },

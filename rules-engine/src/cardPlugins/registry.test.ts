@@ -169,10 +169,9 @@ describe('card plugin registry', () => {
       'Finale of Devastation',
       'Valgavoth, Terror Eater',
     ])).toEqual([])
-    expect(handlerIdsForNames(['Famished Worldsire']).toSorted()).toEqual([
-      'choiceEffects',
-      'ward',
-    ])
+    expect(handlerIdsForNames(['Famished Worldsire'])).toEqual([])
+    expect(cardPluginEntry('Famished Worldsire')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Famished Worldsire')).toBeDefined()
     expect(handlerIdsForNames(['Finale of Devastation'])).toEqual([])
     expect(cardPluginEntry('Finale of Devastation')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')).toBeDefined()
@@ -267,7 +266,8 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])
-    expect(cardPluginEntry('Sire of Seven Deaths')?.handlerIds).toEqual(['ward'])
+    expect(cardPluginEntry('Sire of Seven Deaths')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')).toBeDefined()
     expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
   })
 
@@ -285,7 +285,8 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')
     expect(cardPluginEntry("Council's Judgment")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Council's Judgment")).toBeDefined()
-    expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')
+    expect(cardPluginEntry('Standard Bearer')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Standard Bearer')).toBeDefined()
     expect(cardPluginEntry('Sokrates, Athenian Teacher')).toBeUndefined()
     expect(cardPluginEntry('Tenuous Truce')?.handlerIds ?? []).toEqual([])
   })
@@ -465,11 +466,15 @@ describe('card plugin registry', () => {
     ])).toEqual([])
   })
 
-  test('Archangel and Baird register the reusable combat-tax handler', () => {
+  test('Archangel and Baird use canonical combat-tax definitions', () => {
     expect(handlerIdsForNames([
       'Archangel of Tithes',
       'Baird, Steward of Argive',
-    ])).toEqual(['combatTax'])
+    ])).toEqual([])
+    expect(cardPluginEntry('Archangel of Tithes')).toBeUndefined()
+    expect(cardPluginEntry('Baird, Steward of Argive')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Archangel of Tithes')).toBeDefined()
+    expect(cardRuleDefinitionSnapshotFor('Baird, Steward of Argive')).toBeDefined()
   })
 
   test('Marina Vendrell uses a canonical definition without legacy effects', () => {
@@ -497,22 +502,16 @@ describe('card plugin registry', () => {
     }
   })
 
-  test('Sire of Seven Deaths registers only the Ward-pay-7-life stamp', () => {
-    expect(effectsFor('Sire of Seven Deaths')).toEqual([
-      { op: 'static', ward: { life: 7 } },
-    ])
-    expect(cardPluginEntry('Sire of Seven Deaths')).toMatchObject({
-      pluginIds: [],
-      handlerIds: ['ward'],
-    })
+  test('Sire of Seven Deaths uses a canonical Ward-pay-7-life definition', () => {
+    expect(effectsFor('Sire of Seven Deaths')).toEqual([])
+    expect(cardPluginEntry('Sire of Seven Deaths')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')).toBeDefined()
   })
 
-  test('Void Winnower registers even-parity cast and block restrictions', () => {
-    expect(effectsFor('Void Winnower')).toEqual([
-      { op: 'static', opponentsCantCast: { parity: 'even' } },
-      { op: 'static', opponentsCantBlock: { parity: 'even' } },
-    ])
-    expect(cardPluginEntry('Void Winnower')).toMatchObject({ pluginIds: [], handlerIds: [] })
+  test('Void Winnower uses canonical even-parity restrictions', () => {
+    expect(effectsFor('Void Winnower')).toEqual([])
+    expect(cardPluginEntry('Void Winnower')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Void Winnower')).toBeDefined()
   })
 
   test('Grothama registers an attack grant and a leaves-draw trigger', () => {

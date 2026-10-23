@@ -5,7 +5,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
-import { DIALOG_CHOSEN, pendingDialogLock } from '../pendingDialog'
+import { pendingDialogLock } from '../pendingDialog'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
@@ -16,7 +16,6 @@ import {
 
 import { createTreasures, enters } from './effects'
 import {type CardTemplate} from '../newGame'
-import {pendingDialog} from '../pendingDialog'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
@@ -607,11 +606,13 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
         objectId: spell.id,
       }))
       const opened = run(server, cast, [{ type: 'resolveTop' }])
+      const devour = pendingSelectionFor(opened, 'p1')!
       const resolved = run(server, opened, [
         {
           type: 'selectCards',
           seat: 'p1',
-          kind: 'sacrifice',
+          selectionId: devour.id,
+          kind: devour.kind,
           count: 2,
           objectIds: [landA.id, landB.id],
         },
@@ -622,20 +623,24 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
       expect(worldsire.counters['+1/+1']).toBe(6)
       expect(worldsire.power).toBe(6)
 
-      const dialog = pendingDialog(resolved)
-      expect(dialog?.kind).toBe('look-top-land')
-      expect(dialog?.count).toBe(6)
-
-      const topLand = named(resolved, 'Top Land 1')
-      const finished = run(server, resolved, [{
-        type: 'custom',
-        name: DIALOG_CHOSEN,
+      const inspecting = run(server, resolved, [{ type: 'resolveTop' }])
+      const pick = pendingSelectionFor(inspecting, 'p1')!
+      expect(pick.candidates).toEqual([
+        named(inspecting, 'Top Land 1').id,
+        named(inspecting, 'Top Land 2').id,
+      ])
+      const topLand = named(inspecting, 'Top Land 1')
+      const finished = run(server, inspecting, [{
+        type: 'selectCards',
         seat: 'p1',
-        payload: { objectIds: [topLand.id] },
+        selectionId: pick.id,
+        kind: pick.kind,
+        count: pick.count,
+        objectIds: [topLand.id],
       }])
 
       expect(named(finished, 'Top Land 1')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(pendingDialog(finished)).toBeUndefined()
+      expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
     })
 
 })

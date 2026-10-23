@@ -42,7 +42,10 @@ import { rooms } from './plugins/rooms'
 import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from './cardPlugins/staticBoardPump'
 import { additionalLandPlay } from './cardPlugins/additionalLandPlay'
+import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
+import { targetingRequirements } from './cardPlugins/targetingRequirements'
+import { ward } from './cardPlugins/ward'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
@@ -93,6 +96,9 @@ export const corePlugins = [
   mana,
   lands,
   spells,
+  combatTax,
+  targetingRequirements,
+  ward,
   adventure,
   foretell,
   rebound,

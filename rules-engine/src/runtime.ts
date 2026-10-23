@@ -186,10 +186,10 @@ export const createServerGame = (
   const runtimeCardPlugins = dependencies.cardPlugins ?? []
   const initialState = newGame(format, {
     ...options,
-    builtinRules: options?.builtinRules ?? [
+    builtinRules: options?.builtinRules ?? [...new Set([
       ...format.rules,
       ...runtimeCardPlugins.map((plugin) => plugin.id),
-    ],
+    ])],
   })
   initializeRandomState(initialState, dependencies.random)
   const boot = makeDraft(initialState)

@@ -4,7 +4,7 @@ import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector } fro
 import { compileCardRuleDefinition } from './compiler'
 import { KEYWORDS } from './schema/v1'
 import { ZONE_IDS } from '../../types'
-import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, Zone } from './schema/v1'
+import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, WardCost, Zone } from './schema/v1'
 
 export type ActiveKeywordStatic = {
   abilityIndex: number
@@ -54,9 +54,16 @@ const abilityDefinition = (source: GameObject, abilityIndex: number): AbilityDef
   return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities[abilityIndex]
 }
 
-// CR 702.8a / 702.15d: flash and lifelink function outside the battlefield.
+// CR 702.8a / 702.15d / 702.90a: flash, lifelink, and infect function outside the battlefield.
 const abilityActiveIn = (ability: AbilityDefinition): readonly Zone[] => {
-  if (ability.kind === 'keyword') return (ability.keyword === KEYWORDS.flash || ability.keyword === KEYWORDS.lifelink || ability.keyword === KEYWORDS.changeling) ? ZONE_IDS : ['battlefield']
+  if (ability.kind === 'keyword') {
+    return (
+      ability.keyword === KEYWORDS.flash
+      || ability.keyword === KEYWORDS.lifelink
+      || ability.keyword === KEYWORDS.infect
+      || ability.keyword === KEYWORDS.changeling
+    ) ? ZONE_IDS : ['battlefield']
+  }
   if (ability.kind === 'static') return ability.activeIn
   return []
 }
@@ -140,6 +147,36 @@ export const activationRestrictionMessage = (
     }
   }
   return undefined
+}
+
+export const printedStaticEffectsOfKind = <K extends ContinuousEffectDefinition['kind']>(
+  state: GameState,
+  source: GameObject,
+  kind: K,
+) => activePrintedStaticModifiers(state, source).flatMap((entry) =>
+  'effect' in entry && entry.effect.kind === kind
+    ? [entry.effect as Extract<ContinuousEffectDefinition, { kind: K }>]
+    : [])
+
+export const battlefieldPrintedStatics = <K extends ContinuousEffectDefinition['kind']>(
+  state: GameState,
+  kind: K,
+) => Object.values(state.objects).flatMap((object) =>
+  object.zone === 'battlefield'
+    ? printedStaticEffectsOfKind(state, object, kind).map((effect) => ({ object, effect }))
+    : [])
+
+export const canonicalWardSpec = (cost: WardCost) => {
+  switch (cost.kind) {
+    case 'mana': return { mana: cost.generic }
+    case 'life': return { life: cost.amount }
+    case 'sacrifice': return {
+      sacrifice: {
+        count: cost.count,
+        ...(cost.nonland ? { nonland: true as const } : {}),
+      },
+    }
+  }
 }
 
 export const activePrintedStaticModifiers = (state: GameState, source: GameObject) => {

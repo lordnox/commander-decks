@@ -2,6 +2,7 @@ import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { effectsOf } from '../../cardRules'
+import { printedStaticEffectsOfKind } from '../staticModifierCore'
 import type { CardRuleDefinitionV1, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
@@ -545,9 +546,12 @@ export const canonicalFlagbearerError = (
   x?: number,
 ) => {
   const targetingController = controller ?? source.controller
+  const isFlagbearer = (object: GameObject) =>
+    effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer')
+    || printedStaticEffectsOfKind(state, object, 'targetingRequirement')
+      .some((effect) => effect.requirement === 'flagbearer')
   const flagbearers = Object.values(state.objects).filter((object) =>
-    object.zone === 'battlefield'
-    && effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer'))
+    object.zone === 'battlefield' && isFlagbearer(object))
   const opposingFlagbearers = flagbearers.filter((object) => object.controller !== targetingController)
   if (opposingFlagbearers.length === 0) return
   const ability = definition.abilities[abilityIndex]

@@ -17,4 +17,5 @@ export const keyword = Object.freeze({
   get flying() { return keywordAbility(KEYWORDS.flying) },
   get defender() { return keywordAbility(KEYWORDS.defender) },
   get trample() { return keywordAbility(KEYWORDS.trample) },
+  get infect() { return keywordAbility(KEYWORDS.infect) },
 })

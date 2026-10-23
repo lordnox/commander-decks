@@ -12,6 +12,7 @@ import type { CapturedObject, GameEvent, GameObject, GameState, Plugin, TargetRe
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
 import type { CardEffect } from './effects'
+import { canonicalWardSpec, printedStaticEffectsOfKind } from './dsl/staticModifierCore'
 
 export const WARD_PENDING_CAST = 'ward.pendingCast'
 export const WARD_AWAITING = 'ward.awaitingSacrifice'
@@ -34,7 +35,7 @@ const canonicalCast = (state: GameState, event: GameEvent) =>
   && !event.copy
   && Boolean(state.objects[event.objectId]?.ruleDefinition)
 
-const wardEffect = (object: GameObject): WardSpec | undefined => {
+const wardEffect = (state: GameState, object: GameObject): WardSpec | undefined => {
   const stamped = effectsOf(object).flatMap((effect) =>
     effect.op === 'static' && effect.ward ? [effect.ward] : [])[0]
   if (stamped) {
@@ -43,6 +44,8 @@ const wardEffect = (object: GameObject): WardSpec | undefined => {
     }
     return stamped
   }
+  const canonical = printedStaticEffectsOfKind(state, object, 'ward')[0]
+  if (canonical) return canonicalWardSpec(canonical.cost)
   const generic = wardGeneric(object)
   if (generic !== undefined) return { mana: generic }
 }
@@ -66,7 +69,7 @@ const wardTargets = (
   if (wardPaid) return []
   return targetedObjectIds(targets).flatMap((objectId) => {
   const object = state.objects[objectId]
-  const ward = object ? wardEffect(object) : undefined
+  const ward = object ? wardEffect(state, object) : undefined
   if (
     !object
     || !ward

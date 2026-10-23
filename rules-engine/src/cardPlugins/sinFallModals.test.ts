@@ -112,7 +112,7 @@ describe('Sin-fall modal and saga behavior', () => {
     state = ok(server.rules(state, { type: 'advanceStep' }))
     expect(state.objects[leviathan].counters.lore).toBe(2)
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.rules.some((rule) => rule.pluginId === 'attackSubtypeDraw')).toBe(true)
+    expect(state.delayedTriggers).toHaveLength(1)
     const sin = named(state, 'Sin').id
     state.step = 'declareAttackers'
     state.priority = 'p1'
@@ -121,6 +121,7 @@ describe('Sin-fall modal and saga behavior', () => {
       seat: 'p1',
       attackers: [{ objectId: sin, defender: 'p2' }],
     }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(named(state, 'Top Card').zone).toBe('hand')
   })
 
