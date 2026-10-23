@@ -5,7 +5,7 @@ import { reducedActivationMana } from './activationCosts'
 import { effectsOf } from './cardRules'
 import { conditionHolds } from './effects'
 import { captureObject } from '../objectIdentity'
-import { evaluatePlayerReference, evaluatePlayerSelector, evaluateRuntimeAmount, isSourceSacrificeCost, loadDefinitionSnapshot, lockedManaCost } from './dsl/compiler'
+import { evaluateCreatureType, evaluatePlayerReference, evaluatePlayerSelector, evaluateRuntimeAmount, isSourceSacrificeCost, loadDefinitionSnapshot, lockedManaCost } from './dsl/compiler'
 import type { Instruction } from './dsl/schema/v1'
 import type { InstructionHandler } from './instructionHandlers/types'
 
@@ -69,6 +69,8 @@ export type ActivatedManaOption = {
   choice?: string
   /** The ability sacrifices its source as a cost. */
   sacrifices: boolean
+  /** Spend this pool only on matching spells (chosen creature type or legendary). */
+  restriction?: { creatureType?: string; legendary?: boolean }
 }
 
 const addPools = (left: Pool, right: Pool) => {
@@ -77,6 +79,29 @@ const addPools = (left: Pool, right: Pool) => {
     if (right[symbol]) sum[symbol] = (sum[symbol] ?? 0) + right[symbol]
   }
   return sum
+}
+
+const spendRestriction = (
+  instructions: readonly Instruction[],
+  context: Parameters<typeof evaluateCreatureType>[1],
+): ActivatedManaOption['restriction'] => {
+  for (const instruction of instructions) {
+    if (instruction.kind === 'addMana' && instruction.restriction) {
+      const creatureType = instruction.restriction.creatureType
+        ? evaluateCreatureType(instruction.restriction.creatureType, context)
+        : undefined
+      if (!instruction.restriction.legendary && !creatureType) continue
+      return {
+        ...(instruction.restriction.legendary ? { legendary: true } : {}),
+        ...(creatureType ? { creatureType } : {}),
+      }
+    }
+    if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
+      const nested = spendRestriction(instruction.instructions, context)
+      if (nested) return nested
+    }
+  }
+  return undefined
 }
 
 // Recursive sequence evaluation needs an explicit result type.
@@ -125,7 +150,8 @@ const canonicalManaOptions = (state: GameState, object: GameObject) => {
       if (mill > state.zoneOrder[object.controller]!.library.length) return []
       if (ability.instructions?.length === 1 && ability.instructions[0]?.kind === 'chooseInstructions') return ability.instructions[0].options.flatMap(option => {
         const pool = fixedCanonicalMana(state, object, option.instructions)
-        return pool && option.label ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool, choice: option.label, sacrifices: ability.costs.some(isSourceSacrificeCost) }] : []
+        const restriction = spendRestriction(option.instructions, runtime)
+        return pool && option.label ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool, choice: option.label, sacrifices: ability.costs.some(isSourceSacrificeCost), ...(restriction ? { restriction } : {}) }] : []
       })
       const instruction = ability.instructions?.length === 1 ? ability.instructions[0] : undefined
       if (instruction?.kind === 'addManaFrom') {
@@ -133,8 +159,9 @@ const canonicalManaOptions = (state: GameState, object: GameObject) => {
         return amount > 0 ? availableManaTypes(state, object, instruction.of, instruction.colorsOnly, undefined, instruction.basis).map(type => ({ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool: { [type]: amount }, choice: type, sacrifices: ability.costs.some(isSourceSacrificeCost) })) : []
       }
       const pool = fixedCanonicalMana(state, object, ability.instructions ?? [])
+      const restriction = spendRestriction(ability.instructions ?? [], runtime)
       return pool ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool,
-        sacrifices: ability.costs.some(isSourceSacrificeCost) }] : []
+        sacrifices: ability.costs.some(isSourceSacrificeCost), ...(restriction ? { restriction } : {}) }] : []
     } catch {
       return []
     }

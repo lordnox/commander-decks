@@ -122,6 +122,7 @@ import bushwhack from './bushwhack'
 import cabalCoffers from './cabal-coffers'
 import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
+import cavernOfSouls from './cavern-of-souls'
 import cephalidColiseum from './cephalid-coliseum'
 import charcoalDiamond from './charcoal-diamond'
 import childrenOfKorlis from './children-of-korlis'
@@ -143,6 +144,7 @@ import debtToTheDeathless from './debt-to-the-deathless'
 import drainLife from './drain-life'
 import exsanguinate from './exsanguinate'
 import deathsprout from './deathsprout'
+import delightedHalfling from './delighted-halfling'
 import desertedTemple from './deserted-temple'
 import desertion from './desertion'
 import dovinsVeto from './dovins-veto'
@@ -450,6 +452,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cabal Coffers": cabalCoffers,
   "Cabal Stronghold": cabalStronghold,
   "Castle Garenbrig": castleGarenbrig,
+  "Cavern of Souls": cavernOfSouls,
   "Cephalid Coliseum": cephalidColiseum,
   "Charcoal Diamond": charcoalDiamond,
   "Children of Korlis": childrenOfKorlis,
@@ -473,6 +476,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Drain Life": drainLife,
   "Exsanguinate": exsanguinate,
   "Deathsprout": deathsprout,
+  "Delighted Halfling": delightedHalfling,
   "Deserted Temple": desertedTemple,
   "Desertion": desertion,
   "Diabolic Tutor": diabolicTutor,

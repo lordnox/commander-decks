@@ -98,8 +98,6 @@ import {
   type CardInstruction,
   playExiledWithLife,
   yourEndTargetingOpponent,
-  restrictedCreatureMana,
-  restrictedLegendaryMana,
   createHeroWithLandCounters,
   vote,
   forEachVoter,
@@ -210,10 +208,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     encore('{6}{W}{W}'),
   ],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
-  'Cavern of Souls': [
-    enters(chooseCreatureType('setChosenType')),
-    restrictedCreatureMana(),
-  ],
   'Cling to Dust': [
     escape('{3}{B}', 5),
     targetOnResolve(
@@ -229,7 +223,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  'Delighted Halfling': [restrictedLegendaryMana()],
   'Drag to the Roots': [
     reduceGenericIf(2, graveyardCardTypes(4)),
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),

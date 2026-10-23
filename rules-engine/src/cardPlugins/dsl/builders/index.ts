@@ -35,7 +35,9 @@ import type {
   LifeLostCombine,
   ManaValueParity,
   LifeTotalAmount,
+  ManaId,
   ManaQueryBasis,
+  ManaSpendRestriction,
   LinkedExileReturn,
   ModeDefinition,
   ModeInput,
@@ -1328,6 +1330,19 @@ export const damageDealtThisTurn = (
 ) => immutableData({ kind: 'damageDealtThisTurn' as const, ...input })
 
 export const addManaFrom = (input: { of: ObjectSelector; basis?: ManaQueryBasis; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, ...(input.basis !== undefined ? { basis: input.basis } : {}), of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })
+
+export const addMana = (input: {
+  amount: Partial<Record<ManaId, AmountInput>>
+  targets?: PlayerRecipient
+  restriction?: ManaSpendRestriction
+}) => immutableData({
+  kind: 'addMana' as const,
+  amount: Object.fromEntries(
+    Object.entries(input.amount).flatMap(([symbol, value]) => value === undefined ? [] : [[symbol, toAmount(value)]]),
+  ) as Partial<Record<ManaId, Amount>>,
+  targets: input.targets ?? ref('controller'),
+  ...(input.restriction ? { restriction: immutableData(input.restriction) } : {}),
+})
 
 export const becomesTapped = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'becomesTapped' as const, filter })
 export const tappedForMana = (filter: ObjectOccurrenceFilter) => immutableData({ kind: 'tappedForMana' as const, filter })

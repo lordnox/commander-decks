@@ -74,6 +74,9 @@ export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) =>
             return mana === undefined || instruction.amount[mana] !== undefined
           case 'addManaFrom':
             return true
+          case 'chooseInstructions':
+            return mana !== undefined && instruction.options.some((option) =>
+              option.label === mana && instructionAddsMana(option.instructions))
           default:
             return false
         }

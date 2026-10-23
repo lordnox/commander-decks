@@ -901,13 +901,29 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'addMana': {
-        exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
+        exactKeys(node, path, ['kind', 'amount', 'targets', 'restriction'], ['kind', 'amount', 'targets'])
         const amount = object(node.amount, childPath(path, 'amount'))
         if (amount) for (const [symbol, value] of Object.entries(amount)) {
           if (!['W', 'U', 'B', 'R', 'G', 'C'].includes(symbol)) issue(childPath(path, 'amount'), 'mana-symbol', `invalid mana symbol ${symbol}`)
           validateAmount(value, childPath(childPath(path, 'amount'), symbol), env)
         }
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        if (node.restriction !== undefined) {
+          const restriction = object(node.restriction, childPath(path, 'restriction'))
+          if (restriction) {
+            exactKeys(restriction, childPath(path, 'restriction'), ['creatureType', 'legendary', 'uncounterable'])
+            if (restriction.creatureType !== undefined) validateCreatureType(restriction.creatureType, childPath(childPath(path, 'restriction'), 'creatureType'), env)
+            if (restriction.legendary !== undefined && restriction.legendary !== true) {
+              issue(childPath(childPath(path, 'restriction'), 'legendary'), 'constant', 'legendary must be true when present')
+            }
+            if (restriction.uncounterable !== undefined && restriction.uncounterable !== true) {
+              issue(childPath(childPath(path, 'restriction'), 'uncounterable'), 'constant', 'uncounterable must be true when present')
+            }
+            if (restriction.creatureType === undefined && restriction.legendary !== true) {
+              issue(childPath(path, 'restriction'), 'missing-field', 'restricted mana needs a creature-type or legendary spend filter')
+            }
+          }
+        }
         return
       }
       case 'loseLife':

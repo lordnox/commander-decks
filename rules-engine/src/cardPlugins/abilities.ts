@@ -49,18 +49,6 @@ export const playerAuraDeal = (): CardEffect => ({
   breakOnMutualAttack: true,
 })
 
-export const restrictedCreatureMana = (): CardEffect => ({
-  op: 'restrictedMana',
-  creatureOfChosenType: true,
-  uncounterable: true,
-})
-
-export const restrictedLegendaryMana = (): CardEffect => ({
-  op: 'restrictedMana',
-  legendary: true,
-  uncounterable: true,
-})
-
 export const bestow = (
   cost: string,
   bonus: { power: number; toughness: number },

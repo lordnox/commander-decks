@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 32 loyalty and emblems, plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **77 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 23 restricted mana, plus family 32 loyalty and emblems, plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **75 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **77 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **75 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -14,13 +14,11 @@ Current readiness: **0 composition candidates**; **77 blocked or awaiting source
 | `Angel of Sanctions` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-embalm](CARD-MIGRATION-BATCHES.md#25-embalm) | Blocked by mechanics | — |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |
-| `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Concordant Crossroads` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [42-world](CARD-MIGRATION-BATCHES.md#42-world) | Blocked by mechanics | World supertype requires the world state-based rule; haste grants alone are insufficient. |
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Círdan the Shipwright` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret) | Blocked by mechanics | Retain both entry and attack triggers. |
 | `Darksteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle) | Blocked by mechanics | — |
-| `Delighted Halfling` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana) | Blocked by mechanics | — |
 | `Drag to the Roots` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
 | `Dread Return` | 25 | [25-flashback](CARD-MIGRATION-BATCHES.md#25-flashback) | Blocked by mechanics | — |
 | `Ephemerate` | 30 | [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |

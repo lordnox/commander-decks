@@ -492,19 +492,22 @@ const manaPlays = (
           }]
         : []
     }),
-    ...activatedOptions.map(({ abilityId, cost, pool, choice, sacrifices }): ManaPlay => ({
-      pool,
-      cost,
-      ...(sacrifices ? { sacrifices: true as const } : {}),
-      event: {
-        type: 'activateAbility',
-        seat,
-        objectId: source.id,
-        abilityId,
-        manaAbility: true,
-        ...(choice ? { choices: [choice] } : {}),
-      },
-    })),
+    ...activatedOptions.flatMap(({ abilityId, cost, pool, choice, sacrifices, restriction }): ManaPlay[] => {
+      if (spell && restriction && !canUseRestrictedMana(state, seat, spell, restriction)) return []
+      return [{
+        pool,
+        cost,
+        ...(sacrifices ? { sacrifices: true as const } : {}),
+        event: {
+          type: 'activateAbility',
+          seat,
+          objectId: source.id,
+          abilityId,
+          manaAbility: true,
+          ...(choice ? { choices: [choice] } : {}),
+        },
+      }]
+    }),
   ]
 }
 

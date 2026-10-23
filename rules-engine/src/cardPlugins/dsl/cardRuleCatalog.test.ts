@@ -2438,6 +2438,18 @@ test('family 22 catalog composes characteristics, types, grants, and attachments
   expect(abilities('Tenuous Truce')).toMatchObject([{ effects: [{ kind: 'enchant', filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, { on: { step: 'end' }, instructions: [{ kind: 'draw' }, { kind: 'draw' }] }, { on: { kind: 'playerAttacks' } }, { on: { kind: 'playerAttacks' } }])
 })
 
+test('Cavern of Souls and Delighted Halfling compose restricted any-color mana', () => {
+  const abilities = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities('Cavern of Souls')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+  expect(abilities('Delighted Halfling')).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+})
 
 test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {
   const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities

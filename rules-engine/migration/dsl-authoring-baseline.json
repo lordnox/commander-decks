@@ -110,18 +110,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "6093c87471af82b76446e5e8d69f63d93471b248ba33dad09e702bea6b322950",
-    "card": "Cavern of Souls"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "18c47a254413abbf931186a36f96191e27855f57cae77da732bfc30e3be40d5b",
-    "card": "Delighted Halfling"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "7292ffc1f9a02b7a365fb5fab32399fa12385ce36a556c926952f55869144c12",
     "card": "Círdan the Shipwright"
   },

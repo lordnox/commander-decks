@@ -733,7 +733,20 @@ const actionEvents = (
         const value = availableAmount(amount, context)
         return typeof value === 'number' && value > 0 ? [[symbol, value]] : []
       }))
-      return targets.map((seat) => ({ type: 'addMana' as const, seat, mana, sourceId: frame.source.ref.objectId }))
+      const spec = instruction.restriction
+      const creatureType = spec?.creatureType ? evaluateCreatureType(spec.creatureType, context) : undefined
+      const restriction = spec ? {
+        ...(spec.legendary ? { legendary: true as const } : {}),
+        ...(spec.uncounterable ? { uncounterable: true as const } : {}),
+        ...(creatureType ? { creatureType } : {}),
+      } : undefined
+      return targets.map((seat) => ({
+        type: 'addMana' as const,
+        seat,
+        mana,
+        sourceId: frame.source.ref.objectId,
+        ...(restriction && Object.keys(restriction).length > 0 ? { restriction } : {}),
+      }))
     }
     case 'grantLandPlays': {
       const count = availableAmount(instruction.count, context)

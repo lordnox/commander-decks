@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 77,
+    "cardRegistrations": 75,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 96,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 89,
-    "candidateOnlyCardRows": 72
+    "candidateOnlyCardRows": 70
   },
   "cardEffects": [
     {
@@ -352,7 +352,7 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:245 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:239 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:420 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
         ]
@@ -370,19 +370,11 @@
     {
       "variant": "restrictedMana",
       "mechanic": "restricted mana",
-      "currentRegistrations": [
-        "Cavern of Souls:effects[1]",
-        "Delighted Halfling:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:210 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:35 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {",
-          "rules-engine/src/cardPlugins/targetingMana.test.ts:578 — test('chapter III may discard then return a graveyard creature or land', () => {",
-          "rules-engine/src/cardPlugins/targetingMana.test.ts:646 — test('a summoning-sick source cannot tap, and a tapped one cannot tap again', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed mana production and spending restriction",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -390,7 +382,7 @@
       "dependencyParts": [
         "07"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "saga",
@@ -574,7 +566,6 @@
         "All-Fates Stalker:effects[4]",
         "Angel of Sanctions:effects[3]",
         "Belonging:effects[0]",
-        "Cavern of Souls:effects[0]",
         "Círdan the Shipwright:effects[0]",
         "Círdan the Shipwright:effects[1]",
         "Crawling Sensation:effects[0]",
@@ -624,7 +615,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 145,
+        "matches": 144,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -683,7 +674,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 52,
+        "matches": 53,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1155,19 +1146,17 @@
       "variant": "chooseCreatureType",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Cavern of Souls:effects[0].do[0]",
         "Roaming Throne:effects[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 7,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2984 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:114 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2435 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:210 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:606 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:76 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
@@ -1451,7 +1440,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:255 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:245 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:239 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1601,7 +1590,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1914 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2470 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2482 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
         ]
@@ -2323,7 +2312,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2450 — test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2462 — test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:310 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
@@ -4288,7 +4277,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:270 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1208 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2482 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2494 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:75 — test('stamped revealUntil effects are structuredClone-safe', () => {"
         ]
@@ -5023,43 +5012,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Cavern of Souls",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Cavern of Souls"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:210 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:35 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [restrictedMana, trigger] and instructions [chooseCreatureType]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "restrictedMana",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "chooseCreatureType"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "creatureTypeChoice"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Cling to Dust",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -5241,36 +5193,6 @@
       "handlerIds": [
         "shuffleIntoLibraryInstead"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Delighted Halfling",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Delighted Halfling"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:222 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/targetingMana.test.ts:578 — test('chapter III may discard then return a graveyard creature or land', () => {",
-          "rules-engine/src/cardPlugins/targetingMana.test.ts:646 — test('a summoning-sick source cannot tap, and a tapped one cannot tap again', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [restrictedMana] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "restrictedMana"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -7520,7 +7442,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:255 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:245 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:239 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, replacement, trigger] and instructions [createHeroWithLandCounters]",
@@ -7823,7 +7745,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 106,
+        "matches": 107,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
@@ -7866,7 +7788,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:268 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:262 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -8039,7 +7961,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:164 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1914 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2470 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2482 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:29"
         ]
       },
@@ -9032,10 +8954,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3007 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "rules-engine/src/cardPlugins/sinFallLands.test.ts:59 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {"
+          "live-runner/src/kernelHost.test.ts:3007 — test('publishes and applies a Roaming Throne creature-type choice', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -9626,7 +9547,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:515",
+        "rules-engine/src/cardPlugins/cardRules.ts:508",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -9684,9 +9605,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1365",
-        "rules-engine/src/actions.ts:1534",
-        "rules-engine/src/actions.ts:858",
+        "rules-engine/src/actions.ts:1369",
+        "rules-engine/src/actions.ts:1538",
+        "rules-engine/src/actions.ts:861",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:245",
@@ -9716,7 +9637,7 @@
         "rules-engine/src/cards/types.ts:4",
         "rules-engine/src/cards/waterlogged-teachings.ts:29",
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
-        "rules-engine/src/driver.ts:1428",
+        "rules-engine/src/driver.ts:1441",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -9913,12 +9834,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1788,
-          2686
+          1792,
+          2690
         ],
         "samples": [
-          "1788: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2686: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1792: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2690: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -10053,10 +9974,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          682
+          684
         ],
         "samples": [
-          "682: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "684: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -10867,14 +10788,14 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           342,
-          759,
-          2087,
-          2118
+          772,
+          2100,
+          2131
         ],
         "samples": [
           "342: const liveSource = draft.object(source.ref.objectId)",
-          "759: const source = draft.object(sourceId)",
-          "2087: const object = draft.object(item.objectId)"
+          "772: const source = draft.object(sourceId)",
+          "2100: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -10995,17 +10916,17 @@
       {
         "path": "rules-engine/src/plugins/mana.ts",
         "lines": [
-          274,
-          280,
-          299,
-          306,
+          282,
+          288,
+          307,
           314,
-          337
+          322,
+          356
         ],
         "samples": [
-          "274: const object = draft.object(event.objectId)",
-          "280: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
-          "299: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
+          "282: const object = draft.object(event.objectId)",
+          "288: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
+          "307: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

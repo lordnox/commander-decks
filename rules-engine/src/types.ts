@@ -1250,7 +1250,7 @@ export type GameEvent =
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
   // — Mana —
   | { type: 'tapForMana'; seat: PlayerId; objectId: string; mana?: ManaId }
-  | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool>; sourceId?: string }
+  | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool>; sourceId?: string; restriction?: Pick<RestrictedMana, 'creatureType' | 'legendary' | 'uncounterable'> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
   | {
       type: 'payExtort'

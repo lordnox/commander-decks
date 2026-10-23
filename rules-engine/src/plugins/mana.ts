@@ -239,8 +239,16 @@ export const tapForManaError = (
   if (requiresTap && object.tapped) return `${object.name} is already tapped`
   if (!poolForChoice(object, mana, state)) {
     const canonical = canonicalManaAbilityForTap(object, mana)
-    const printedAdd = canonical?.ability.instructions?.some((instruction) =>
-      instruction.kind === 'addMana' && (mana === undefined || instruction.amount[mana] !== undefined))
+    const printedAdd = canonical?.ability.instructions?.some((instruction) => {
+      switch (instruction.kind) {
+        case 'addMana':
+          return mana === undefined || instruction.amount[mana] !== undefined
+        case 'chooseInstructions':
+          return mana !== undefined && instruction.options.some((option) => option.label === mana)
+        default:
+          return false
+      }
+    })
     if (!printedAdd) {
       if (mana && MANA_IDS.includes(mana)) {
         return `${object.name} cannot produce ${mana}`
@@ -322,6 +330,17 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
   }
   if (event.type === 'addMana') {
     const player = draft.players[event.seat]
+    if (event.restriction) {
+      const added = MANA_IDS.flatMap((symbol) =>
+        Array.from({ length: event.mana[symbol] ?? 0 }, () => ({
+          mana: symbol,
+          sourceId: event.sourceId ?? '',
+          ...event.restriction,
+        })))
+      if (added.length > 0) player.restrictedMana = [...(player.restrictedMana ?? []), ...added]
+      draft.note(`${event.seat} adds restricted mana`)
+      return
+    }
     player.mana = addPools(player.mana, event.mana)
     draft.note(`${event.seat} adds mana`)
     return

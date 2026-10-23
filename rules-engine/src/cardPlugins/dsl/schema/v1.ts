@@ -90,6 +90,13 @@ export type StackItemReference = TargetReference | ChoiceReference
 export const CHOSEN_CREATURE_TYPE_BINDING = 'chosenType' as const
 export type CreatureTypeReference = string | { kind: 'typeChoice'; binding: string } | { kind: 'chosenCreatureType'; of: ObjectReference }
 
+/** Spend filter and producer provenance for restricted mana (Cavern of Souls, Delighted Halfling). */
+export type ManaSpendRestriction = {
+  creatureType?: CreatureTypeReference
+  legendary?: true
+  uncounterable?: true
+}
+
 export type ObjectFilter = {
   enchantableBy?: ObjectReference
   creatureType?: CreatureTypeReference
@@ -481,7 +488,7 @@ export type Instruction =
   /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addManaChosenColor'; of: ObjectReference; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addManaFrom'; basis?: ManaQueryBasis; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
-  | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
+  | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient; restriction?: ManaSpendRestriction }
   /** Lock an unlocked door or unlock a locked door of the targeted Room, using the activating item's door. */
   | { kind: 'lockOrUnlockDoor'; targets: ObjectRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
