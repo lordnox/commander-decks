@@ -768,6 +768,7 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'count'], ['kind', 'count'])
         validateAmount(node.count, childPath(path, 'count'), env)
         return
+      case 'convoke':
       case 'delve':
         exactKeys(node, path, ['kind'], ['kind'])
         return
@@ -1959,6 +1960,8 @@ export const validateDefinitionV1 = (root: unknown): {
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
     const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'costLabels', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
     const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment, reductionEnv = env) => {
+      const selectableCosts = [node.additionalCosts, node.optionalCosts, ...(Array.isArray(node.alternativeCosts) ? node.alternativeCosts : [])]
+      if (selectableCosts.some(costs => Array.isArray(costs) && costs.some(cost => isData(cost) && cost.kind === 'convoke'))) issue(nodePath, 'domain', 'convoke must be declared as a spell payment method, not a selectable cost')
       if (node.costLabels !== undefined) {
         const labels = object(node.costLabels, childPath(nodePath, 'costLabels'))
         if (labels) {
@@ -2023,6 +2026,7 @@ export const validateDefinitionV1 = (root: unknown): {
           enumeration(zone, childPath(childPath(path, 'availableFrom'), index), ZONES, 'zone'))
         enumeration(ability.timing, childPath(path, 'timing'), new Set(['anyTime', 'instant', 'sorcery']), 'activation timing')
         if (ability.cycling !== undefined && ability.cycling !== true) issue(childPath(path, 'cycling'), 'constant', 'cycling must be true when present')
+        if ([...(Array.isArray(ability.costs) ? ability.costs : []), ...(Array.isArray(ability.additionalCosts) ? ability.additionalCosts : []), ...(Array.isArray(ability.optionalCosts) ? ability.optionalCosts : []), ...(Array.isArray(ability.alternativeCosts) ? ability.alternativeCosts.flat() : [])].some(cost => isData(cost) && cost.kind === 'convoke')) issue(path, 'domain', 'convoke is a spell payment method')
         const activatedEnv = parentEnvironment ? cloneEnv(parentEnvironment) : baseEnvironment()
         if (ability.generated === true || parentEnvironment) activatedEnv.context = new Map([...activatedEnv.context, ['grant.source', 'object']])
         if (ability.capturedBindings !== undefined && ability.generated !== true) issue(path, 'domain', 'captured bindings require a generated ability')

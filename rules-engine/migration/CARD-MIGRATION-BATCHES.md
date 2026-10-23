@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after cleave/evoke, conditional spell-cost reductions, shared casting costs/kicker, plus family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **67 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after convoke, cleave/evoke, conditional spell-cost reductions, shared casting costs/kicker, plus family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **66 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 116 available, 0 awaiting correctness follow-up, and 57 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 117 available, 0 awaiting correctness follow-up, and 56 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -316,7 +316,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 | --- | --- | --- | --- | --- |
 | <a id="25-alternative"></a>**25-alternative — Conditional alternative life payment** | Open | Conditionally replace a mana cost with life; keep life payment distinct from damage. | — | `Snuff Out` |
 | <a id="25-cleave"></a>**25-cleave — Cleave** | Available | An ordinary alternative payment removes a conditional stack-target restriction at announcement; the paid receipt preserves eligibility during resolution. | [20-origin](#20-origin) | — |
-| <a id="25-convoke"></a>**25-convoke — Convoke** | Open | Creature tapping as mana contribution, preserving color and summoning-sickness rules. | — | `Pile On` |
+| <a id="25-convoke"></a>**25-convoke — Convoke** | Available | Canonical convoke contributes creature taps after the shared total cost locks, preserving colored requirements, summoning-sickness eligibility, mana-spent provenance, and exclusion from simultaneous mana activations. | — | — |
 | <a id="25-delve"></a>**25-delve — Delve** | Available | Exile chosen graveyard cards during payment to cover generic mana only; preserve colored requirements, reductions, and restore. | — | None remaining |
 | <a id="25-embalm"></a>**25-embalm — Embalm** | Open | Graveyard exile cost and modified white Zombie token copy with no mana cost. | [28-modifiers](#28-modifiers) | `Angel of Sanctions` |
 | <a id="25-escape"></a>**25-escape — Escape** | Open | Graveyard casting with mana plus exile-other-cards costs. | [26-graveyard-spells](#26-graveyard-spells) | `Cling to Dust` |

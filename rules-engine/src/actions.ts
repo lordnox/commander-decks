@@ -1054,7 +1054,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           optional = [...optional, index]
           const candidate = { ...action, selectedOptionalCosts: optional, castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional payment ${index + 1}`}${count > 0 ? ` ×${count + 1}` : ''}` }
           const cost = preview(candidate)
-          if (cost === undefined || !canFund(state, seat, cost, [], spell)) break
+          if (cost === undefined || fundedCasts(state, seat, object, cost).length === 0) break
           next.push(candidate)
         }
         return next
@@ -1138,6 +1138,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         candidate.zone === 'battlefield'
         && candidate.controller === seat
         && candidate.types.includes('Creature')
+        && !candidate.phasedOut
         && !candidate.tapped).length
     : 0
   const manaUpper = poolTotal(state.players[seat].mana) + sourceMana + convokeUpper
@@ -2346,6 +2347,7 @@ const convokeFundingPlan = (
     object.zone === 'battlefield'
     && object.controller === seat
     && object.types.includes('Creature')
+    && !object.phasedOut
     && !object.tapped)
   const symbols = genericCostForAction(cost)
     + [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length
@@ -2635,12 +2637,14 @@ export const eventsForAvailableAction = (
           : spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) }),
         action.delve?.length ?? 0,
       )
-      const funding = fundingEvents(state, seat, cost, new Set(costChoices), { phyrexianLife: action.phyrexianLife }, canonicalSource)
+      const creatures = (action.convoke ?? []).map(id => state.objects[id]).filter((object): object is GameObject => Boolean(object))
+      const funding = fundingEvents(state, seat, cost, new Set([...costChoices, ...(action.convoke ?? [])]), { creatures, phyrexianLife: action.phyrexianLife }, canonicalSource)
       if (!funding) return null
       return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
         ...(tax > 0 ? { additionalGeneric: tax } : {}),
         ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
         ...(action.delve?.length ? { delve: action.delve } : {}),
+        ...(action.convoke?.length ? { convoke: action.convoke } : {}),
         ...(action.selectedOptionalCosts ? { selectedOptionalCosts: action.selectedOptionalCosts } : {}),
         ...(action.selectedAlternativeCost !== undefined ? { selectedAlternativeCost: action.selectedAlternativeCost } : {}),
         ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}), ...(action.x !== undefined ? { x: action.x } : {}),

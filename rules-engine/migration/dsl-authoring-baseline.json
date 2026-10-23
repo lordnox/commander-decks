@@ -230,12 +230,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "0fef20cbd67536e688c02caf1b21d68daff817f7fa2475e7d84a4877faa7fb49",
-    "card": "Pile On"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "ee9e881f7d24b27dc1c5502b0cd58b7c268374629248d0519270a6252967e7c0",
     "card": "Parting Gust"
   },

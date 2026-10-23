@@ -183,7 +183,7 @@ const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boole
   const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
   const spell = compiled.definition.abilities.find((ability) => ability.kind === 'spell')
   if (!spell) return false
-  if (spell.costs.some((cost) => cost.kind === kind)) return true
+  if (spell.costs.some((cost) => cost.kind === kind) || spell.additionalCosts?.some(cost => cost.kind === kind)) return true
   if (spell.optionalCosts?.some((cost) => cost.kind === kind)) return true
   return spell.alternativeCosts?.some((alternative) => alternative.some((cost) => cost.kind === kind)) ?? false
 }
@@ -476,6 +476,7 @@ const paySpellCost = (
 
 export const hasConvoke = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
+  || compiledCanonicalHasCost(object, 'convoke')
 
 export const hasDelve = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.delve)
@@ -593,6 +594,7 @@ export const spells: Plugin = {
           for (let i = 0; i < count; i += 1) costs.push({ type: 'draw', seat: event.seat, count: 1 })
           break
         }
+        case 'convoke':
         case 'delve':
           break
       }
@@ -697,7 +699,7 @@ export const spells: Plugin = {
                 selectedOptional: event.selectedOptionalCosts,
                 selectedAlternative: event.selectedAlternativeCost,
                 phyrexianLife: event.phyrexianLife,
-                deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0,
+                deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
                 targetClauses,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
@@ -864,6 +866,7 @@ export const spells: Plugin = {
         || creature.controller !== event.seat
         || !creature.types.includes('Creature')
         || creature.tapped
+        || creature.phasedOut
       )) {
         return 'illegal convoke creature'
       }
@@ -949,7 +952,7 @@ export const spells: Plugin = {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
-            deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0,
+            deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
             targetClauses,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,

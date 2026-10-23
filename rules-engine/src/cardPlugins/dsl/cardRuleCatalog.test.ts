@@ -2543,3 +2543,12 @@ test('cleave and evoke compose ordinary alternative costs with their targeting o
     { kind: 'triggered', triggerOnlyIf: { left: { kind: 'paidCostCount', cost: 'alternative', index: 0 } }, instructions: [{ kind: 'sacrifice' }] },
   ])
 })
+
+
+test('Pile On composes a contribution payment method with destruction and surveil', () => {
+  expect(cardRuleDefinitionSnapshotFor('Pile On')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costs: [{ kind: 'convoke' }], decisions: { targets: [{ filter: { filter: { zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Planeswalker' }] } } }] },
+      instructions: [{ kind: 'destroy' }, { kind: 'surveil', count: { value: 2 } }],
+    },
+  ])
+})

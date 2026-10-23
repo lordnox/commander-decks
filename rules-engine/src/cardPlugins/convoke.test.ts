@@ -3,9 +3,9 @@ import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingSelectionFor } from '../rules/selectCards'
 import type { GameState, ReduceResult } from '../types'
-import { targetedResolve } from './targetedResolve'
+import { card as definition, compileCardRuleDefinition, activated, convoke, destroy, objects, select, target } from './dsl/v1'
+import { instructionSpell } from './dsl/instructionTestSupport'
 
 const card = (name: string, types: string[], colors: string[] = []) =>
   cardTemplate(name, { types, colors })
@@ -22,36 +22,28 @@ const game = () => createServerGame(
   commanderRules,
   {
     hands: {
-      p1: [cardTemplate('Pile On', {
-        types: ['Instant'],
-        manaCost: '{3}{B}',
-      }), cardTemplate('Ordinary Spell', {
+      p1: [instructionSpell({ costs: [convoke()], decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] }, instructions: [destroy({ targets: target(0) })] }, '{3}{B}'), cardTemplate('Ordinary Spell', {
         types: ['Instant'],
         manaCost: '{3}{B}',
       })],
     },
     battlefield: {
       p1: [
-        card('Black Creature', ['Creature'], ['B']),
+        { ...card('Black Creature', ['Creature'], ['B']), tapProduces: { C: 1 } },
         card('Green Creature', ['Creature'], ['G']),
         card('Colorless Creature', ['Creature']),
         card('Mana Rock', ['Artifact'], ['B']),
         { ...card('Tapped Creature', ['Creature'], ['B']), tapped: true },
+        { ...card('Phased Creature', ['Creature'], ['B']), phasedOut: true },
       ],
       p2: [
         card('Opponent Creature', ['Creature'], ['B']),
         card('Target Bear', ['Creature'], ['G']),
       ],
     },
-    libraries: {
-      p1: [
-        card('Surveil Top', ['Sorcery']),
-        card('Surveil Second', ['Land']),
-        card('Library Bottom', ['Instant']),
-      ],
-    },
+
   },
-  { random: () => 0.5, cardPlugins: [targetedResolve] },
+  { random: () => 0.5 },
 )
 
 describe('convoke', () => {
@@ -59,8 +51,9 @@ describe('convoke', () => {
     const server = game()
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 2
-    const spell = named(ready, 'Pile On')
+    const spell = named(ready, 'Instruction fixture')
     const black = named(ready, 'Black Creature')
+    black.summoningSickness = true
     const green = named(ready, 'Green Creature')
     const target = named(ready, 'Target Bear')
 
@@ -73,6 +66,7 @@ describe('convoke', () => {
     }))
 
     expect(cast.players.p1.mana.C).toBe(0)
+    expect(cast.stack[0].manaSpent).toEqual({ C: 2 })
     expect(cast.objects[black.id].tapped).toBe(true)
     expect(cast.objects[green.id].tapped).toBe(true)
   })
@@ -85,7 +79,7 @@ describe('convoke', () => {
     const result = server.rules(ready, {
       type: 'castSpell',
       seat: 'p1',
-      objectId: named(ready, 'Pile On').id,
+      objectId: named(ready, 'Instruction fixture').id,
       convoke: [named(ready, 'Green Creature').id],
       targets: [{ kind: 'object', objectId: named(ready, 'Target Bear').id }],
     })
@@ -97,6 +91,7 @@ describe('convoke', () => {
     const server = game()
     const cases = [
       ['Tapped Creature'],
+      ['Phased Creature'],
       ['Opponent Creature'],
       ['Mana Rock'],
       ['Black Creature', 'Black Creature'],
@@ -108,7 +103,7 @@ describe('convoke', () => {
       const result = server.rules(ready, {
         type: 'castSpell',
         seat: 'p1',
-        objectId: named(ready, 'Pile On').id,
+        objectId: named(ready, 'Instruction fixture').id,
         convoke: names.map((name) => named(ready, name).id),
         targets: [{ kind: 'object', objectId: named(ready, 'Target Bear').id }],
       })
@@ -130,56 +125,29 @@ describe('convoke', () => {
     expect(result).toMatchObject({ ok: false, error: 'Ordinary Spell does not have convoke' })
   })
 
-  test('legal acts offer convoke when it is needed to cast the spell', () => {
+  test('legal acts and dispatch fund a canonical spell without double-tapping its contribution', () => {
     const server = game()
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 3
-    const spell = named(ready, 'Pile On')
+    const spell = named(ready, 'Instruction fixture')
     const black = named(ready, 'Black Creature')
     const target = named(ready, 'Target Bear')
-    const action = legalActsFor(ready, 'p1').find((candidate) =>
-      candidate.kind === 'castSpell'
-      && candidate.objectId === spell.id
-      && candidate.targetObjectId === target.id)
-
+    const action = legalActsFor(ready, 'p1').find(candidate => candidate.kind === 'castSpell' && candidate.objectId === spell.id)!
     expect(action).toMatchObject({ kind: 'castSpell', convoke: [black.id] })
-    expect(action && eventsForAvailableAction(ready, 'p1', action)?.at(-1))
-      .toMatchObject({ type: 'castSpell', convoke: [black.id] })
+    if (action.kind !== 'castSpell') throw new Error('expected a casting action')
+    const events = eventsForAvailableAction(ready, 'p1', { ...action, targetObjectIds: [target.id] })!
+    expect(events.at(-1)).toMatchObject({ type: 'castSpell', convoke: [black.id] })
+    let state = ready
+    for (const event of events) state = ok(server.rules(state, event))
+    expect(state.objects[black.id].tapped).toBe(true)
+    expect(state.players.p1.mana.C).toBe(0)
+    const underfunded = structuredClone(ready)
+    underfunded.players.p1.mana.C = 2
+    expect(eventsForAvailableAction(underfunded, 'p1', { ...action, targetObjectIds: [target.id] })).toBeNull()
   })
+})
 
-  test('Pile On destroys its target and completes surveil 2 after convoking', () => {
-    const server = game()
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana.C = 3
-    const spell = named(ready, 'Pile On')
-    const black = named(ready, 'Black Creature')
-    const target = named(ready, 'Target Bear')
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-      convoke: [black.id],
-      targets: [{ kind: 'object', objectId: target.id }],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    const selection = pendingSelectionFor(resolved, 'p1')
 
-    expect(resolved.objects[target.id].zone).toBe('graveyard')
-    expect(selection).toMatchObject({ kind: 'surveil', count: 2 })
-    const [top, second] = selection!.candidates
-    const completed = ok(server.rules(resolved, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'surveil',
-      count: 2,
-      choices: [
-        { objectId: top, destination: 'graveyard' },
-        { objectId: second, destination: 'top' },
-      ],
-    }))
-    expect(completed.objects[spell.id].zone).toBe('graveyard')
-    expect(completed.objects[target.id].zone).toBe('graveyard')
-    expect(completed.objects[top].zone).toBe('graveyard')
-    expect(completed.zoneOrder.p1.library[0]).toBe(second)
-  })
+test('convoke is accepted as a spell payment method and rejected as an activated cost', () => {
+  expect(() => compileCardRuleDefinition(definition([activated({ costs: [convoke()], instructions: [] })]))).toThrow('convoke is a spell payment method')
 })

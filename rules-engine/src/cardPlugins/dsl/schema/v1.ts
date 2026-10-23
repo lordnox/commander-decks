@@ -332,6 +332,8 @@ export type Cost =
   | { kind: 'loyalty'; amount: Amount; minus?: true }
   /** Exile chosen graveyard cards while paying to cover generic mana only. */
   | { kind: 'delve' }
+  /** Tap creatures as contributions after the total spell cost is locked. */
+  | { kind: 'convoke' }
 
 /** A resolution payment may combine mana and life into one optional decision. */
 export type ResolutionCost = Cost | { kind: 'manaAndLife'; mana: ManaCost; life: Amount }

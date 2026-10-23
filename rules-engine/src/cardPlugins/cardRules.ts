@@ -13,7 +13,6 @@ import {
   bestow,
   blink,
   controlledLands,
-  convoke,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copySelf,
@@ -71,7 +70,6 @@ import {
   spreeMode,
   staticGrant,
   scry,
-  surveil,
   triggerOn,
   targetOnResolve,
   upkeep,
@@ -385,10 +383,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         lifeTotalCannotChange(),
       ),
     ),
-  ],
-  'Pile On': [
-    convoke(),
-    targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
   ],
   'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
   'Portal to Phyrexia': [

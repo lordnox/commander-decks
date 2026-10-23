@@ -322,6 +322,8 @@ export const minusLoyalty = (value: AmountInput): Cost =>
 export const manaCost = (value: string): Cost =>
   immutableData({ kind: 'mana', amount: value })
 
+export const convoke = (): Cost => immutableData({ kind: 'convoke' as const })
+
 export const delve = (): Cost =>
   immutableData({ kind: 'delve' as const }) satisfies Cost
 
