@@ -71,16 +71,16 @@ describe('mana', () => {
     expect(result.ok === false && result.error).toContain('no mana ability')
   })
 
-  test('Phial of Galadriel produces the chosen color without judge fallback', () => {
+  test('oracle any-color mana produces the chosen color without judge fallback', () => {
     const phial = {
       ...bears(),
-      name: 'Phial of Galadriel',
+      name: 'Any-color fixture',
       types: ['Artifact'],
       oracleText: '{T}: Add one mana of any color.',
       tapProduces: undefined,
     }
     const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [phial] } })
-    const objectId = idOf(state, 'Phial of Galadriel', 'battlefield')
+    const objectId = idOf(state, 'Any-color fixture', 'battlefield')
 
     const missingChoice = rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalog)
     expect(missingChoice.ok).toBe(false)
