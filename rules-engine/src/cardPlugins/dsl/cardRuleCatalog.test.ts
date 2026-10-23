@@ -2508,3 +2508,21 @@ test('kicker catalog entries compose optional payments with independent effects'
     ] },
   ])
 })
+
+
+test('conditional-reduction catalog entries keep their independent spell and land effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Drag to the Roots')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 2 }, when: { left: { kind: 'countDistinctCardTypes' }, right: { value: 4 } } }], instructions: [{ kind: 'destroy' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Price of Fame')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 2 }, when: { left: { of: { filter: { among: { kind: 'targetRef', clauseIndex: 0 }, supertypes: ['Legendary'] } } } } }], instructions: [{ kind: 'destroy' }, { kind: 'surveil', count: { value: 2 } }] },
+  ])
+  const hagra = cardTemplateDefaultsFor('Hagra Mauling // Hagra Broodpit')!
+  expect(hagra.frontFace?.ruleDefinition?.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 1 }, when: { left: { of: { filter: { relation: 'opponent', not: { controls: { type: 'Land', supertypes: ['Basic'] } } } } } } }], instructions: [{ kind: 'destroy' }] },
+  ])
+  expect(hagra.backFace?.ruleDefinition?.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { changes: { tapped: true } } }] },
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] },
+  ])
+})

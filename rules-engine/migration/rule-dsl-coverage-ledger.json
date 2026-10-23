@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 72,
+    "cardRegistrations": 69,
     "cardEffects": 21,
     "cardInstructions": 188,
     "instructionHandlersDiscovered": 188,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 97,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 88,
-    "candidateOnlyCardRows": 67
+    "candidateOnlyCardRows": 64
   },
   "cardEffects": [
     {
@@ -139,25 +139,23 @@
       "variant": "castCost",
       "mechanic": "casting cost modifier",
       "currentRegistrations": [
-        "Drag to the Roots:effects[0]",
         "Getaway Glamer:effects[0]",
         "Parting Gust:effects[0]",
         "Perch Protection:effects[0]",
-        "Pile On:effects[0]",
-        "Price of Fame:effects[0]"
+        "Pile On:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 20,
+        "matches": 16,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1149 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1226 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:111 — test('rejects tapped, opposing, noncreature, and duplicate convoke objects', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:137 — test('legal acts offer convoke when it is needed to cast the spell', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:154 — test('Pile On destroys its target and completes surveil 2 after convoking', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:25",
           "rules-engine/src/cardPlugins/convoke.test.ts:62 — test('matching colors pay colored symbols and other creatures pay generic mana', () => {",
-          "rules-engine/src/cardPlugins/convoke.test.ts:88 — test('rejects a creature whose color cannot cover the remaining colored symbol', () => {"
+          "rules-engine/src/cardPlugins/convoke.test.ts:88 — test('rejects a creature whose color cannot cover the remaining colored symbol', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost modifier",
@@ -337,7 +335,6 @@
       "variant": "replacement",
       "mechanic": "replacement effect",
       "currentRegistrations": [
-        "Hagra Mauling // Hagra Broodpit:effects[0]",
         "Hall of Storm Giants:effects[0]",
         "Lair of the Hydra:effects[0]",
         "Zanarkand, Ancient Metropolis // Lasting Fayth:effects[0]"
@@ -502,17 +499,14 @@
       "mechanic": "legacy positional targets",
       "currentRegistrations": [
         "Cling to Dust:effects[1]",
-        "Drag to the Roots:effects[1]",
         "Dread Return:effects[1]",
         "Fortune's Favor:effects[0]",
         "Getaway Glamer:effects[1]",
-        "Hagra Mauling // Hagra Broodpit:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
         "Parting Gust:effects[1]",
         "Pile On:effects[1]",
-        "Price of Fame:effects[1]",
         "Quantum Misalignment:effects[0]",
         "Snuff Out:effects[1]",
         "Vantress Visions:effects[0]",
@@ -520,16 +514,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 37,
+        "matches": 32,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1451 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1149 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1226 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:18",
           "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
-          "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {"
+          "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
+          "rules-engine/src/cardPlugins/convoke.test.ts:111 — test('rejects tapped, opposing, noncreature, and duplicate convoke objects', () => {",
+          "rules-engine/src/cardPlugins/convoke.test.ts:137 — test('legal acts offer convoke when it is needed to cast the spell', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -668,7 +662,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 54,
+        "matches": 55,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -4523,8 +4517,7 @@
       "variant": "surveil",
       "mechanic": "resolution choice",
       "currentRegistrations": [
-        "Pile On:effects[1].do[0]",
-        "Price of Fame:effects[1].do[0]"
+        "Pile On:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -4537,7 +4530,7 @@
           "rules-engine/src/cardPlugins/convoke.test.ts:25",
           "rules-engine/src/cardPlugins/convoke.test.ts:62 — test('matching colors pay colored symbols and other creatures pay generic mana', () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:88 — test('rejects a creature whose color cannot cover the remaining colored symbol', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:393 — test('land search ignores a modal card whose front face is a sorcery', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2518 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -5184,41 +5177,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Drag to the Roots",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Drag to the Roots"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1149 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1226 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:446 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Dread Return",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -5567,39 +5525,6 @@
       "handlerIds": [
         "choiceEffects",
         "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hagra Mauling // Hagra Broodpit",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hagra Mauling // Hagra Broodpit"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:249 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped",
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -6380,43 +6305,6 @@
       ],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Price of Fame",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Price of Fame"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:383 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [surveil]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "surveil"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "choiceEffects",
-        "targetedResolve"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -7627,7 +7515,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 108,
+        "matches": 109,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
@@ -8211,9 +8099,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:224 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:283 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:520 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:225 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:284 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:521 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1081 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1120 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]
@@ -8513,7 +8401,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 261,
+        "matches": 260,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2174 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -9351,10 +9239,10 @@
           "live-runner/src/host.test.ts:130 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1060 — test('a restored private choice survives a host restart', async () => {",
           "rules-engine/src/cardPlugins/convoke.test.ts:168 — test('Pile On destroys its target and completes surveil 2 after convoking', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2518 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:393 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
-          "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:104 — test('every surveil land carries its enter trigger, not just its tap', () => {"
+          "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -9427,7 +9315,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:491",
+        "rules-engine/src/cardPlugins/cardRules.ts:474",
         "rules-engine/src/cardPlugins/cardRules.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:498",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
@@ -9485,9 +9373,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1412",
-        "rules-engine/src/actions.ts:1581",
-        "rules-engine/src/actions.ts:877",
+        "rules-engine/src/actions.ts:1419",
+        "rules-engine/src/actions.ts:1588",
+        "rules-engine/src/actions.ts:883",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:245",
@@ -9504,6 +9392,8 @@
         "rules-engine/src/cards/bridgeworks-battle.ts:37",
         "rules-engine/src/cards/fell-the-profane.ts:24",
         "rules-engine/src/cards/fell-the-profane.ts:34",
+        "rules-engine/src/cards/hagra-mauling.ts:200",
+        "rules-engine/src/cards/hagra-mauling.ts:201",
         "rules-engine/src/cards/khalni-ambush.ts:19",
         "rules-engine/src/cards/khalni-ambush.ts:23",
         "rules-engine/src/cards/malakir-rebirth.ts:26",
@@ -9556,7 +9446,7 @@
         "rules-engine/src/plugins/rooms.test.ts — Room doors > casts either half and unlocks only the cast door as it enters"
       ],
       "candidateEvidence": {
-        "matches": 26,
+        "matches": 27,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2409 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
@@ -9564,8 +9454,8 @@
           "live-runner/src/kernelHost.test.ts:3205 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1327 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1593 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
-          "rules-engine/src/cardPlugins/dsl/playPermissions.test.ts:81 — test('land permissions evaluate the played face of a modal double-faced card', () => {",
-          "rules-engine/src/cardPlugins/dsl/roomDoors.test.ts:23"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2521 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/playPermissions.test.ts:81 — test('land permissions evaluate the played face of a modal double-faced card', () => {"
         ]
       },
       "neededCanonicalNode": "face-aware definition reference and typed casting/room procedures",
@@ -9604,7 +9494,7 @@
         "rules-engine/src/cardPlugins/index.ts:20",
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
-        "rules-engine/src/definitions.ts:73",
+        "rules-engine/src/definitions.ts:74",
         "rules-engine/src/formats.ts:133",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
@@ -9714,12 +9604,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1836,
-          2741
+          1849,
+          2754
         ],
         "samples": [
-          "1836: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2741: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1849: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2754: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9864,14 +9754,14 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          427,
-          524,
-          744
+          430,
+          527,
+          748
         ],
         "samples": [
-          "427: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "524: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "744: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "430: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "527: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "748: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

@@ -1,3 +1,6 @@
+import hagraMauling from './hagra-mauling'
+import priceOfFame from './price-of-fame'
+import dragToTheRoots from './drag-to-the-roots'
 import tearAsunder from './tear-asunder'
 import jointExploration from './joint-exploration'
 import everflowingChalice from './everflowing-chalice'
@@ -345,6 +348,10 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Hagra Mauling // Hagra Broodpit': hagraMauling,
+  'Hagra Mauling': hagraMauling,
+  'Price of Fame': priceOfFame,
+  'Drag to the Roots': dragToTheRoots,
   'Tear Asunder': tearAsunder,
   'Joint Exploration': jointExploration,
   'Everflowing Chalice': everflowingChalice,

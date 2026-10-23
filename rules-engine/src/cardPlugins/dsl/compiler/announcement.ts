@@ -7,7 +7,7 @@ import type { CanonicalTargetBinding, GameObject, GameState, ManaId, ManaPool, P
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage, activePrintedStaticModifiers } from '../staticModifierCore'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
-import type { RuleDslRuntimeContext } from './runtime'
+import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
 
@@ -593,7 +593,7 @@ export const beginSpellAnnouncement = (
       repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: planReductions(state, source.id, payer, ability, x),
+      reductions: planReductions(state, source.id, payer, ability, x, targets),
     },
     excludeSourceFromCosts: true,
     payment,
@@ -631,7 +631,7 @@ export const beginActivatedAnnouncement = (
       repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: planReductions(state, source.id, payer, ability, x),
+      reductions: planReductions(state, source.id, payer, ability, x, targets),
     },
     excludeSourceFromCosts: true,
     payment,
@@ -747,16 +747,35 @@ export const printedActivationCostReductions = (
   return reductions
 }
 
+// Recursive traversal requires an explicit return type. Input is validated DSL data.
+export const costsDependOnTargets = (value: unknown): boolean => {
+  if (!value || typeof value !== 'object') return false
+  if ('kind' in value && value.kind === 'targetRef') return true
+  return Object.values(value).some(costsDependOnTargets)
+}
+
 const planReductions = (
   state: GameState,
   sourceId: string,
   payer: PlayerId,
   ability: SpellAbilityDefinition | ActivatedAbilityDefinition,
   x?: number,
+  targets?: readonly (readonly TargetRef[])[],
 ): ManaCostReduction[] => {
   const context = announcementContext(state, sourceId, payer, x)
   if (!context) return []
-  const printed = evaluatedReductions(ability.costReductions, context)
+  context.targets = Object.fromEntries((targets ?? []).map((entries, index) => [index, entries.flatMap<BoundRecipient>(target => {
+    switch (target.kind) {
+      case 'player': return [{ kind: 'player' as const, playerId: target.player }]
+      case 'stackItem': return [{ kind: 'stackItem' as const, stackId: target.stackId }]
+      case 'object': {
+        const object = state.objects[target.objectId]
+        return object ? [{ kind: 'object' as const, objectId: object.id, incarnation: object.incarnation, zone: object.zone }] : []
+      }
+    }
+  })]))
+  const reductions = ability.costReductions?.filter(reduction => targets?.length || !costsDependOnTargets(reduction))
+  const printed = evaluatedReductions(reductions, context)
   if (ability.kind !== 'activated') return printed
   const source = state.objects[sourceId]
   return source ? [...printed, ...printedActivationCostReductions(state, source)] : printed

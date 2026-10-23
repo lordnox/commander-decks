@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after shared casting costs/kicker, plus family 23 restricted mana, plus family 32 loyalty and emblems, plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **72 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after conditional spell-cost reductions, shared casting costs/kicker, plus family 23 restricted mana, plus family 32 loyalty and emblems, plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **69 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **72 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **69 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -19,7 +19,6 @@ Current readiness: **0 composition candidates**; **72 blocked or awaiting source
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Círdan the Shipwright` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret) | Blocked by mechanics | Retain both entry and attack triggers. |
 | `Darksteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle) | Blocked by mechanics | — |
-| `Drag to the Roots` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
 | `Dread Return` | 25 | [25-flashback](CARD-MIGRATION-BATCHES.md#25-flashback) | Blocked by mechanics | — |
 | `Ephemerate` | 30 | [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |
 | `Erestor of the Council` | 39 | [39-finished](CARD-MIGRATION-BATCHES.md#39-finished) | Blocked by mechanics | Observe finished votes, compare each opponent's choices with yours, create Treasures, scry the counted opponents, then draw. |
@@ -30,7 +29,6 @@ Current readiness: **0 composition candidates**; **72 blocked or awaiting source
 | `Fortune's Favor` | 39 | [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | — |
 | `Getaway Glamer` | 25 | [25-spree](CARD-MIGRATION-BATCHES.md#25-spree), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | — |
 | `Glorious Protector` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-foretell](CARD-MIGRATION-BATCHES.md#25-foretell) | Blocked by mechanics | — |
-| `Hagra Mauling // Hagra Broodpit` | 17 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | Complete both faces; land always enters tapped, while the spell reduction checks opponent basic lands. |
 | `Hall of Storm Giants` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
 | `Hedge Shredder` | 24 | [24-crew](CARD-MIGRATION-BATCHES.md#24-crew), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Hostile Negotiations` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | Reuse public/private inspection; hidden piles, opponent choice, result routing, and life loss compose afterward. |
@@ -52,7 +50,6 @@ Current readiness: **0 composition candidates**; **72 blocked or awaiting source
 | `Pile On` | 25 | [25-convoke](CARD-MIGRATION-BATCHES.md#25-convoke) | Blocked by mechanics | — |
 | `Pitiless Carnage` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [25-plot](CARD-MIGRATION-BATCHES.md#25-plot) | Blocked by mechanics | — |
 | `Portal to Phyrexia` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-types](CARD-MIGRATION-BATCHES.md#22-types) | Blocked by mechanics | Upkeep reanimation adds the Phyrexian type without replacing the original types. |
-| `Price of Fame` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
 | `Quantum Misalignment` | 28 | [28-modifiers](CARD-MIGRATION-BATCHES.md#28-modifiers), [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |
 | `Rankle, Master of Pranks` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [37-modes](CARD-MIGRATION-BATCHES.md#37-modes), [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Blocked by mechanics | Combat-damage-to-player occurrence; retain all printed keywords and every mode. |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |

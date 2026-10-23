@@ -79,6 +79,10 @@ export const evaluateAmount = (
       if (!context.counterCount) throw new RuleDslEvaluationError('counterCount is not available in this execution context')
       return runtimeAmount(context.counterCount(expression.of, expression.counter), 'counter count')
     }
+    case 'countDistinctCardTypes': {
+      if (!context.countDistinctCardTypes) throw new RuleDslEvaluationError('card type counts are unavailable in this execution context')
+      return runtimeAmount(context.countDistinctCardTypes(expression.of), 'distinct card type count')
+    }
     case 'countDistinctNames': return runtimeAmount(context.count(expression.of, true), 'distinct name count')
     case 'count': return runtimeAmount(context.count(expression.of), 'selector count')
     case 'characteristic': return runtimeAmount(

@@ -37,6 +37,7 @@ export type ObjectNumericCharacteristic = typeof OBJECT_NUMERIC_CHARACTERISTICS[
 export type PlayerMatch = PlayerRelation | PlayerReference
 
 export type PlayerFilter = {
+  controls?: ObjectFilter
   enchantableBy?: ObjectReference
   relation?: PlayerMatch
   all?: readonly PlayerFilter[]
@@ -182,6 +183,7 @@ export type Amount =
   | { kind: 'count'; of: Selector }
   | { kind: 'counterCount'; of: ObjectReference; counter: string }
   | { kind: 'countDistinctNames'; of: ObjectSelector }
+  | { kind: 'countDistinctCardTypes'; of: ObjectSelector }
   | {
       kind: 'greatest'
       of: ObjectSelector
@@ -997,6 +999,7 @@ export type AmountEvaluationContext = {
   ) => number
   sumCharacteristics?: (of: ObjectSelector, characteristic: 'power' | 'toughness') => number
   lowestLife?: (of: PlayerSelector) => number
+  countDistinctCardTypes?: (of: ObjectSelector) => number
   counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
   damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number

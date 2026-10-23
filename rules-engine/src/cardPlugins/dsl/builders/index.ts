@@ -1383,3 +1383,5 @@ export const revealLibraryTop = (players: PlayerSelector): ContinuousEffectDefin
 
 export const paidCostCount = (cost: 'optional' | 'alternative', index: number): Amount =>
   immutableData({ kind: 'paidCostCount', cost, index })
+
+export const countDistinctCardTypes = (of: ObjectSelector): Amount => immutableData({ kind: 'countDistinctCardTypes', of })

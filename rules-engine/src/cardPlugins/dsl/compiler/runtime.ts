@@ -1,3 +1,4 @@
+import { CARD_TYPES } from '../../../definitions'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { isCreatureType } from '../../../creatureTypes'
 import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
@@ -347,6 +348,8 @@ const matchesPlayerFilter = (
   context: RuleDslRuntimeContext,
   includeLost?: true,
 ): boolean => {
+  const controlledFilter = filter.controls
+  if (controlledFilter && !Object.values(context.state.objects).some(object => object.zone === 'battlefield' && !object.phasedOut && object.controller === player && matchesObjectFilter(object, controlledFilter, context))) return false
   if (filter.enchantableBy && (evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, undefined, player))) return false
   if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
   if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
@@ -583,6 +586,7 @@ export const amountEvaluationContext = (
       : undefined
     return item?.manaSpent?.[color] ?? 0
   },
+  countDistinctCardTypes: (selector) => new Set(evaluateObjectSelector(selector, context).flatMap(object => object.types.filter(type => (CARD_TYPES as readonly string[]).includes(type)))).size,
   count: (selector: Selector, distinctNames?: true) => {
     switch (selector.kind) {
       case 'anyTarget': return evaluateSelector(selector, context).length

@@ -3,6 +3,7 @@ import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
 import {
   destroy,
+  countDistinctCardTypes,
   compareAmount,
   count,
   paidCostCount,
@@ -689,4 +690,78 @@ test('an optional payment can expand target eligibility before costs are paid', 
   expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets }).ok).toBe(false)
   const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets, selectedOptionalCosts: [0] }))
   expect(resolveStack(server.rules, cast).objects[creature].zone).toBe('graveyard')
+})
+
+
+describe('conditional cost reductions', () => {
+  test('a chosen target determines a generic reduction without reducing colored mana', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      costReductions: [{ generic: 2, when: compareAmount(count(objects({ among: target(0), supertypes: ['Legendary'] })), 'gte', 1) }],
+      instructions: [destroy({ targets: target(0) })],
+    })])))
+    const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Reduced target fixture', { types: ['Instant'], manaCost: '{3}{B}', ruleDefinition: definition })] }, battlefield: { p2: [
+      cardTemplate('Legend fixture', { types: ['Creature'], supertypes: ['Legendary'], power: 2, toughness: 2 }),
+      cardTemplate('Other fixture', { types: ['Creature'], power: 2, toughness: 2 }),
+    ] } }, { random: () => 0 })
+    server.state.players.p1.mana.B = 1
+    server.state.players.p1.mana.C = 1
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const [legend, other] = server.state.zoneOrder.p2.battlefield
+    const offered = legalActsFor(server.state, 'p1').find(action => action.kind === 'castSpell')
+    expect(offered?.kind === 'castSpell' && offered.targetGroups?.[0].targets.map(candidate => candidate.objectId)).toEqual([legend])
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, targets: [{ kind: 'object', objectId: other }] }).ok).toBe(false)
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, targets: [{ kind: 'object', objectId: legend }] }))
+    expect(cast.players.p1.mana.B + cast.players.p1.mana.C).toBe(0)
+    expect(resolveStack(server.rules, cast).objects[legend].zone).toBe('graveyard')
+  })
+
+  test('card type diversity counts multitype cards once per type, including Kindred', () => {
+    const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+      costReductions: [{ generic: 2, when: compareAmount(countDistinctCardTypes(objects({ zone: 'graveyard', owner: 'you' })), 'gte', 4) }],
+      instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    }, '{4}{G}')] }, libraries: { p1: [
+      cardTemplate('Artifact creature fixture', { types: ['Artifact', 'Creature'], zone: 'graveyard' }),
+      cardTemplate('Kindred spell fixture', { types: ['Kindred', 'Sorcery'], zone: 'graveyard' }),
+    ] } }, { random: () => 0 })
+    server.state.players.p1.mana.G = 1
+    server.state.players.p1.mana.C = 2
+    expect(availableActions(server.state, 'p1').some(action => action.kind === 'castSpell')).toBe(true)
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(true)
+    const reduced = structuredClone(server.state)
+    reduced.objects[reduced.zoneOrder.p1.graveyard[1]].types = ['Sorcery']
+    expect(server.rules(reduced, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(false)
+  })
+
+  test('one opponent with no basic lands is enough even when another controls one', () => {
+    const server = createServerGame(commanderRules, { players: 3, hands: { p1: [instructionSpell({
+      costReductions: [{ generic: 1, when: compareAmount(count(players({ relation: 'opponent', not: { controls: { type: 'Land', supertypes: ['Basic'] } } })), 'gte', 1) }],
+      instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    }, '{2}{B}{B}')] }, battlefield: { p2: [cardTemplate('Basic fixture', { types: ['Land'], supertypes: ['Basic'] })] } }, { random: () => 0 })
+    server.state.players.p1.mana.B = 2
+    server.state.players.p1.mana.C = 1
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(true)
+    const changed = structuredClone(server.state)
+    const basic = changed.objects[changed.zoneOrder.p2.battlefield[0]]
+    const duplicate = { ...structuredClone(basic), id: 'other-basic', owner: 'p3', controller: 'p3' }
+    changed.objects[duplicate.id] = duplicate
+    changed.zoneOrder.p3.battlefield.push(duplicate.id)
+    expect(server.rules(changed, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(false)
+  })
+})
+
+
+test('reductions apply after alternative, mandatory additional, and optional costs are combined', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({
+    alternativeCosts: [[manaCost('{1}{B}')]], additionalCosts: [manaCost('{2}')], optionalCosts: [manaCost('{1}')],
+    costReductions: [{ generic: 2, when: compareAmount(count(players({ relation: 'you' })), 'gte', 1) }],
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  }, '{7}{B}')] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 2
+  server.state.players.p1.mana.B = 1
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], selectedAlternativeCost: 0, selectedOptionalCosts: [0] }))
+  expect(cast.players.p1.mana.C).toBe(0)
+  expect(cast.players.p1.mana.B).toBe(0)
 })

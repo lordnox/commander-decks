@@ -15,13 +15,20 @@ export type ScryfallCardData = {
   oracle_id: string
   name: string
   scryfall_uri: string
-  mana_cost: string
   cmc: number
   type_line: string
-  oracle_text: string
-  colors: string[]
   [field: string]: unknown
-}
+} & ({ mana_cost: string; oracle_text: string; colors: string[] } | {
+  card_faces: readonly {
+    object: 'card_face'
+    name: string
+    mana_cost: string
+    type_line: string
+    oracle_text: string
+    colors: string[]
+    [field: string]: unknown
+  }[]
+})
 
 export type CatalogEntry = CardTemplate & {
   scryfall?: ScryfallCardData

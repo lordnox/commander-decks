@@ -155,7 +155,8 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['relation', 'all', 'any', 'not', 'enchantableBy'])
+    exactKeys(node, path, ['relation', 'all', 'any', 'not', 'enchantableBy', 'controls'])
+    if (node.controls !== undefined) validateObjectFilter(node.controls, childPath(path, 'controls'), env)
     if (node.enchantableBy !== undefined) validateReference(node.enchantableBy, childPath(path, 'enchantableBy'), env, ['object'])
     if (node.relation !== undefined) validatePlayerMatch(node.relation, childPath(path, 'relation'), env)
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
@@ -413,6 +414,7 @@ export const validateDefinitionV1 = (root: unknown): {
         validateReference(node.of, childPath(path, 'of'), env, ['object'])
         if (typeof node.counter !== 'string' || node.counter.trim().length === 0) issue(childPath(path, 'counter'), 'type', 'expected a nonempty counter name')
         return
+      case 'countDistinctCardTypes':
       case 'countDistinctNames':
         exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
         if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'domain', 'countDistinctNames requires an object selector')
@@ -1955,7 +1957,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
     const commonProgramKeys = ['kind', 'when', 'decisions', 'costs', 'additionalCosts', 'costConditions', 'optionalCosts', 'repeatableOptionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
-    const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment) => {
+    const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment, reductionEnv = env) => {
       if (node.additionalCosts !== undefined) array(node.additionalCosts, childPath(nodePath, 'additionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.additionalCosts[${index}]`, env))
       if (node.costConditions !== undefined) array(node.costConditions, childPath(nodePath, 'costConditions')).forEach((value, ordinal) => {
         const conditionPath = `${nodePath}.costConditions[${ordinal}]`
@@ -1983,8 +1985,8 @@ export const validateDefinitionV1 = (root: unknown): {
         const entry = object(reduction, `${nodePath}.costReductions[${index}]`)
         if (!entry) return
         exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason', 'when'], ['generic'])
-        validateAmount(entry.generic, `${nodePath}.costReductions[${index}].generic`, env)
-        if (entry.when !== undefined) validateCondition(entry.when, `${nodePath}.costReductions[${index}].when`, env)
+        validateAmount(entry.generic, `${nodePath}.costReductions[${index}].generic`, reductionEnv)
+        if (entry.when !== undefined) validateCondition(entry.when, `${nodePath}.costReductions[${index}].when`, reductionEnv)
       })
     }
     switch (ability.kind) {
@@ -1997,7 +1999,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
-        validateCostPlan(ability, path, costEnv)
+        validateCostPlan(ability, path, costEnv, result.env)
         validateProgram(ability, path, result)
         return
       }
@@ -2015,7 +2017,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
-        validateCostPlan(ability, path, costEnv)
+        validateCostPlan(ability, path, costEnv, result.env)
         validateProgram(ability, path, result)
         return
       }

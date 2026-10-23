@@ -39,7 +39,6 @@ import {
   extraLandfall,
   gainLife,
   graveyardCards,
-  graveyardCardTypes,
   handler,
   handlerIdsFromEffects,
   landToGraveyard,
@@ -64,7 +63,6 @@ import {
   putLandFromHand,
   putMilledLandTapped,
   revealPick,
-  reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnOwnedGraveyardLands,
   searchSpell,
@@ -219,10 +217,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  'Drag to the Roots': [
-    reduceGenericIf(2, graveyardCardTypes(4)),
-    targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
-  ],
   'Dread Return': [
     flashback('Flashback—Sacrifice three creatures.', '', {
       sacrifice: { type: 'Creature', count: 3 },
@@ -283,10 +277,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
       { controlled: true, optional: true },
     )),
-  ],
-  'Hagra Mauling // Hagra Broodpit': [
-    entersTapped(),
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
   ],
   'Hall of Storm Giants': [
     entersTapped(otherLands({ min: 2 })),
@@ -411,13 +401,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Portal to Phyrexia': [
     enters(opponentsSacrifice('Creature', 3)),
     upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
-  ],
-  'Price of Fame': [
-    reduceGenericIf(2, {
-      kind: 'target',
-      filter: { zone: 'battlefield', type: 'Creature', supertype: 'Legendary' },
-    }),
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }, surveil(2)),
   ],
   'Quantum Misalignment': [
     targetOnResolve(
