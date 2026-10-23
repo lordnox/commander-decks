@@ -248,5 +248,6 @@ export const freezeDraft = (draft: Draft): GameState => {
     addTriggeredAbility: _j,
     ...state
   } = draft
+  if (state.preventionInstances === undefined) delete state.preventionInstances
   return state
 }

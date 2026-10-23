@@ -406,17 +406,28 @@ describe('relocated from cirdanColossi.test.ts → shuffleIntoLibraryInstead.tes
 
         test(`annihilator makes p2 sacrifice ${colossusName} and a rock: the rock is stolen, the Colossus shuffled`, () => {
           const server = betrayGame(colossusName)
-          const choosing = ok(server.rules(attack(server, server.state), { type: 'resolveTop' }))
+          const choosing = resolveStack(server.rules, attack(server, server.state))
           const selection = pendingSelectionFor(choosing, 'p2')!
-          expect(selection).toMatchObject({ kind: 'sacrifice', count: 2, seat: 'p2' })
+          expect(selection).toMatchObject({ kind: 'choose', count: 2, seat: 'p2' })
           const sacrificed = ok(server.rules(choosing, {
             type: 'selectCards',
             seat: 'p2',
-            kind: 'sacrifice',
+            kind: 'choose',
             count: 2,
             objectIds: [named(choosing, colossusName).id, named(choosing, 'P2 Rock').id],
           }))
-          const settled = resolveStack(server.rules, sacrificed)
+          const order = pendingSelectionFor(sacrificed, 'p1')
+          const ordered = order?.triggerOrder
+            ? ok(server.rules(sacrificed, {
+              type: 'selectCards',
+              seat: 'p1',
+              selectionId: order.id,
+              kind: 'choose',
+              count: order.count,
+              objectIds: order.candidates,
+            }))
+            : sacrificed
+          const settled = resolveStack(server.rules, ordered)
           const colossus = named(settled, colossusName)
           expect(colossus.zone).toBe('library')
           expect(colossus.controller).toBe('p2')

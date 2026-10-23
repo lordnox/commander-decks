@@ -1072,6 +1072,7 @@
             "landsPlayed": 0,
             "landPlaysAllowed": 1,
             "data": {
+              "cast.spellsThisTurn": 1,
               "commanderDamage": {},
               "commanderTax": {},
               "hiddenInformation.randomState": 2147483648,
