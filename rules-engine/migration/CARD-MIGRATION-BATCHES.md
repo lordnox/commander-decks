@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 43-adventure (Zanarkand, Ancient Metropolis // Lasting Fayth migrated; Virtue of Knowledge / Vantress Visions still need copy/multiply), plus family 41 bestow (Springheart Nantuko migrated; encore still needs copy exceptions), plus family 37 player-sacrifice and any-number triggered modes (Portal to Phyrexia and Rankle, Master of Pranks migrated), plus conditional modal counts and family 35 event-history slices (Crawling Sensation, Lotho, It That Betrays, Wedding Ring, Zimone and Dina, and Niv-Mizzet, Ghost Counsel migrated; Hedge Shredder still needs crew), plus paid-mode composition, convoke, cleave/evoke, conditional spell-cost reductions, shared casting costs/kicker, plus family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **54 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
+Snapshot: PR #432 after family 30-persist (Woodfall Primus migrated), plus Parting Gust, plus family 43-adventure (Zanarkand, Ancient Metropolis // Lasting Fayth migrated; Virtue of Knowledge / Vantress Visions still need copy/multiply), plus family 41 bestow (Springheart Nantuko migrated; encore still needs copy exceptions), plus family 37 player-sacrifice and any-number triggered modes (Portal to Phyrexia and Rankle, Master of Pranks migrated), plus conditional modal counts and family 35 event-history slices (Crawling Sensation, Lotho, It That Betrays, Wedding Ring, Zimone and Dina, and Niv-Mizzet, Ghost Counsel migrated; Hedge Shredder still needs crew), plus paid-mode composition, convoke, cleave/evoke, conditional spell-cost reductions, shared casting costs/kicker, plus family 23 restricted mana (Cavern of Souls and Delighted Halfling migrated), plus family 32 loyalty and emblems (Ugin, Teferi, and Jace migrated), plus family 21 combat keywords, the family 26 land-permission slice, family 22 and cumulative upkeep, cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40; continues #394 and #383. **52 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Palace Jailer, Ripples of Undeath, Phial of Galadriel, and the family 39 public pile/vote cards remain canonical from the prior snapshot.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 129 available, 0 awaiting correctness follow-up, and 44 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 130 available, 0 awaiting correctness follow-up, and 43 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -52,6 +52,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **43-room is available:** door programs, unlock/fullyUnlock occurrences, and lock-or-unlock instructions compose onto kernel Room doors. Marina Vendrell has migrated. Forgotten Cellar and Walk-In Closet still need graveyard permission.
 
 - **43-adventure is available:** resolving an Adventure face exiles the card adventured, then the permanent face may be cast or, for a land, played from exile. Zanarkand, Ancient Metropolis // Lasting Fayth has migrated. Virtue of Knowledge / Vantress Visions still need copy/multiply. Generic flashback-style spell permissions remain **26-permission**.
+
+- **30-persist is available:** a dies trigger with an intervening if over last-known battlefield `-1/-1` counters returns the graveyard identity under its owner with a `-1/-1` counter as it enters. Woodfall Primus has migrated.
 
 - **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward composition for Hall); Mossborn Hydra has migrated with counter-count amounts; Everflowing Chalice and Spark Double retain their multikicker/copy-entry gates. Famished Worldsire has migrated.
 
@@ -101,7 +103,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [30-persist](#30-persist) | Woodfall Primus | Verify last-known counters and the returned incarnation. |
+| [30-return-result](#30-return-result) | Vanish into Memory | Capture returned identities and branch on actual return success. |
 
 **No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
 
@@ -384,7 +386,7 @@ Choose a small mechanic that unlocks cards, rather than implementing entire broa
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="30-persist"></a>**30-persist — Persist** | Open | Dies trigger with last-known counters; return the correct graveyard identity with a -1/-1 counter. | — | `Woodfall Primus` |
+| <a id="30-persist"></a>**30-persist — Persist** | Available | Dies trigger with last-known counters; return the correct graveyard identity with a -1/-1 counter. Woodfall Primus has migrated. | — | None remaining |
 | <a id="30-return-result"></a>**30-return-result — Return-success-dependent follow-up** | Open | Capture returned identities/current toughness and branch on actual return success after replacement. | [07](#07) | `Vanish into Memory` |
 | <a id="30-unearth"></a>**30-unearth — Unearth** | Open | Graveyard activation, haste, end-step exile, and leave-battlefield exile replacement. | [13-step](#13-step), [26-permission](#26-permission) | `Kederekt Leviathan` |
 

@@ -518,21 +518,23 @@ describe('card plugin registry', () => {
   })
 
   test('Woodfall Primus registers persist and a mandatory noncreature destroy', () => {
-    expect(effectsFor('Woodfall Primus')).toEqual([
+    expect(effectsFor('Woodfall Primus')).toEqual([])
+    expect(cardPluginEntry('Woodfall Primus')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Woodfall Primus')!.definition.abilities).toMatchObject([
+      { kind: 'keyword', keyword: 'trample' },
       {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true } },
-        do: [{ kind: 'destroyTargetPermanent', types: [] }],
+        kind: 'triggered',
+        on: { kind: 'enters' },
+        decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } } }] },
+        instructions: [{ kind: 'destroy' }],
       },
       {
-        op: 'trigger',
-        on: 'dies',
-        if: { kind: 'lacksCounter', counter: '-1/-1' },
-        do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }],
+        kind: 'triggered',
+        on: { kind: 'dies' },
+        interveningIf: { kind: 'compareAmount', operator: 'eq' },
+        instructions: [{ kind: 'move', to: 'battlefield', enterCounters: { '-1/-1': { kind: 'constant', value: 1 } } }],
       },
     ])
-    expect(cardPluginEntry('Woodfall Primus')?.handlerIds).toEqual(['choiceEffects'])
   })
 
   test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {

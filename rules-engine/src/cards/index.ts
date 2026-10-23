@@ -354,6 +354,7 @@ import wateryGrave from './watery-grave'
 import weddingRing from './wedding-ring'
 import werefoxBodyguard from './werefox-bodyguard'
 import windfall from './windfall'
+import woodfallPrimus from './woodfall-primus'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
@@ -731,6 +732,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Wedding Ring": weddingRing,
   "Werefox Bodyguard": werefoxBodyguard,
   "Windfall": windfall,
+  "Woodfall Primus": woodfallPrimus,
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,

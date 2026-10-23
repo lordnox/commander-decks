@@ -2284,6 +2284,45 @@ test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counte
   ])
 })
 
+test('Woodfall Primus composes trample, a mandatory noncreature destroy, and persist', () => {
+  expect(effectsFor('Woodfall Primus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Woodfall Primus')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Treefolk', 'Shaman'],
+    colors: ['G'],
+    manaCost: '{5}{G}{G}{G}',
+    manaValue: 8,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Woodfall Primus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } },
+        min: { kind: 'constant', value: 1 },
+        max: { kind: 'constant', value: 1 },
+      }] },
+      instructions: [{ kind: 'destroy', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+    },
+    {
+      kind: 'triggered',
+      on: { kind: 'dies', filter: { kind: 'contextRef', name: 'source' } },
+      interveningIf: {
+        kind: 'compareAmount',
+        operator: 'eq',
+        left: { kind: 'counterCount', counter: '-1/-1' },
+        right: { kind: 'constant', value: 0 },
+      },
+      instructions: [{
+        kind: 'move',
+        to: 'battlefield',
+        enterCounters: { '-1/-1': { kind: 'constant', value: 1 } },
+      }],
+    },
+  ])
+})
+
 test('Springheart Nantuko composes bestow, attached +1/+1, and copy-or-insect landfall', () => {
   expect(effectsFor('Springheart Nantuko')).toEqual([])
   expect(cardRuleDefinitionSnapshotFor('Springheart Nantuko')!.definition.abilities).toMatchObject([

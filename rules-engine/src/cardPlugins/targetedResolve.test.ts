@@ -607,7 +607,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
         battlefield,
         libraries: libraries(['p1', 'p2', 'p3']),
       },
-      { random: () => 0.5, cardPlugins: [choiceEffects] },
+      { random: () => 0.5 },
     )
     return { server, start: server.state }
   }

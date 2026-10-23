@@ -367,12 +367,6 @@
     "card": "Darksteel Colossus"
   },
   {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "300d3ba23198c0d6dc43886f3d97d32c78ad86506fc96c08759743c2eaeb1edf",
-    "card": "Woodfall Primus"
-  },
-  {
     "path": "rules-engine/src/cardPlugins/combatPreventionCards.ts",
     "code": "literal-name-dispatch",
     "digest": "3422807e2393fda10d69f1cb39b35251c9c43f8a450ccb63c4f1b0c352d24e6a"

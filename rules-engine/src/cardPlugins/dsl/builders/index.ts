@@ -1200,6 +1200,19 @@ export const annihilator = (count: number) => whenever(attacks({ filter: ref('se
   ],
 })
 
+/** CR 702.79: when this dies, if it had no -1/-1 counters on it, return it under its owner's control with a -1/-1 counter. The intervening if reads last-known battlefield counters. */
+export const persist = () => whenever(dies({ filter: ref('self') }), {
+  interveningIf: compareAmount(counterCount(ref('triggering.object.before'), '-1/-1'), 'eq', 0),
+  instructions: [
+    move({
+      targets: ref('triggering.object.after'),
+      to: 'battlefield',
+      controller: ownerOf(ref('triggering.object.after')),
+      enterCounters: { '-1/-1': 1 },
+    }),
+  ],
+})
+
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>
   immutableData({ kind: 'sequence', instructions })
 

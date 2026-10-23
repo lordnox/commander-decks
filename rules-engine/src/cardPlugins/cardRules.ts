@@ -77,13 +77,10 @@ import {
   hiddenPileNegotiation,
   opponentPiles,
   addChosenColorMana,
-  destroyTargetPermanent,
   onUnlock,
   unearth,
   bounceAll,
-  persist,
   shuffleIntoLibraryInstead,
-  entersTargeting,
 } from './effects'
 
 const bird = createTokenInstruction({
@@ -357,13 +354,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Woodfall Primus': [
-    entersTargeting(
-      { zone: 'battlefield', permanent: true, noncreature: true },
-      destroyTargetPermanent(),
-    ),
-    persist(),
-  ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
 }
 
