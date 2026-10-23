@@ -1285,3 +1285,10 @@ export const chooseCreatureTypeAsEnters = () => replacement(wouldEnter(), modify
 ] })
 
 export const grantActivatedAbilityEffect = (ability: ActivatedAbilityDefinition) => immutableData({ kind: 'grantActivatedAbility' as const, ability })
+
+/** Zone permission only: ordinary land timing and play limits still apply. */
+export const playLands = (players: PlayerSelector, cards: ObjectSelector, options: { topOnly?: true } = {}): ContinuousEffectDefinition =>
+  immutableData({ kind: 'playLands', players, cards, ...options })
+
+export const revealLibraryTop = (players: PlayerSelector): ContinuousEffectDefinition =>
+  immutableData({ kind: 'revealLibraryTop', players })

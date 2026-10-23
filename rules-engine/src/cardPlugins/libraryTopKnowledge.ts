@@ -1,3 +1,6 @@
+import { captureObject } from '../objectIdentity'
+import { activePrintedStaticModifiers, isActiveKeywordStatic } from './dsl/staticModifierCore'
+import { evaluatePlayerSelector } from './dsl/compiler/runtime'
 import type Draft from '../draft'
 import { markKnownToAll } from '../knowledge'
 import type { GameState, PlayerId } from '../types'
@@ -18,6 +21,10 @@ const hasStatic = (
 
 export const seatRevealsLibraryTop = (state: GameState | Draft, seat: PlayerId) =>
   hasStatic(state, seat, 'revealLibraryTop')
+  || Object.values(state.objects).some(source =>
+    activePrintedStaticModifiers(state, source).some(entry =>
+      !isActiveKeywordStatic(entry) && entry.effect.kind === 'revealLibraryTop'
+      && evaluatePlayerSelector(entry.effect.players, { state, controller: source.controller, source: captureObject(source) }).includes(seat)))
 
 export const seatPlaysLandsFromLibraryTop = (state: GameState | Draft, seat: PlayerId) =>
   hasStatic(state, seat, 'playLandsFromLibraryTop')

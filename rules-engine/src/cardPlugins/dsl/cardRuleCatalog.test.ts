@@ -2395,3 +2395,24 @@ test('family 22 catalog composes characteristics, types, grants, and attachments
   expect(abilities('Colossification')).toMatchObject([{ effects: [{ kind: 'enchant' }, { kind: 'modifyStats', power: { value: 20 }, toughness: { value: 20 } }] }, { on: { kind: 'enters' }, instructions: [{ kind: 'tap' }] }])
   expect(abilities('Tenuous Truce')).toMatchObject([{ effects: [{ kind: 'enchant', filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, { on: { step: 'end' }, instructions: [{ kind: 'draw' }, { kind: 'draw' }] }, { on: { kind: 'playerAttacks' } }, { on: { kind: 'playerAttacks' } }])
 })
+
+
+test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {
+  const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(definitions('Courser of Kruphix')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'revealLibraryTop', players: { filter: { relation: 'you' } } }] },
+    { kind: 'static', effects: [{ kind: 'playLands', topOnly: true, cards: { filter: { zone: 'library', type: 'Land', owner: 'you' } } }] },
+    { kind: 'triggered', instructions: [{ kind: 'gainLife', amount: { kind: 'constant', value: 1 } }] },
+  ])
+  expect(definitions('Icetill Explorer')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'extraLandPlays', count: 1 }] },
+    { kind: 'static', effects: [{ kind: 'playLands', cards: { filter: { zone: 'graveyard', owner: 'you', type: 'Land' } } }] },
+    { kind: 'triggered', instructions: [{ kind: 'mill', count: { kind: 'constant', value: 1 } }] },
+  ])
+  expect(definitions('Mole Man, Moloid Master')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'playLands' }] },
+    { kind: 'triggered', instructions: [{ kind: 'createToken', token: { name: 'Moloid', colors: ['G'], abilities: [
+      { kind: 'triggered', instructions: [{ kind: 'chooseInstructions' }] },
+    ] } }] },
+  ])
+})

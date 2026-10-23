@@ -730,10 +730,12 @@ export type ReplacementEffectDefinition = {
 }
 
 export type ContinuousEffectDefinition =
+  | { kind: 'playLands'; players: PlayerSelector; cards: ObjectSelector; topOnly?: true }
   | { kind: 'grantActivatedAbility'; targets: ObjectSelector; ability: ActivatedAbilityDefinition }
   | ({ kind: 'addTypes'; targets: ObjectSelector; when?: Condition } & TypeAdditions)
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
   | { kind: 'extraLandPlays'; count: number }
+  | { kind: 'revealLibraryTop'; players: PlayerSelector }
   | { kind: 'noMaximumHandSize' }
   /** Marker for “this spell can’t be countered”; inspected at cast, not as a layer. */
   | { kind: 'cannotBeCountered' }

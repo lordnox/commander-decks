@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 22 and cumulative upkeep, plus cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **90 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after the family 26 land-permission slice, family 22 and cumulative upkeep, plus cycling correctness fixes and Alabaster Host Intercessor, plus families 12, 22-land-types, and 31, including Dakmor Salvage, Life from the Loam, Blanket of Night, Urborg, Yavimaya, Waterlogged Teachings, Myriad Landscape, and Finale of Devastation, plus the prior Sail into the West / Mirkwood Bats and families 38 and 40. **87 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **90 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **87 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -19,7 +19,6 @@ Current readiness: **0 composition candidates**; **90 blocked or awaiting source
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Concordant Crossroads` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [42-world](CARD-MIGRATION-BATCHES.md#42-world) | Blocked by mechanics | World supertype requires the world state-based rule; haste grants alone are insufficient. |
-| `Courser of Kruphix` | 26 | [26-library-lands](CARD-MIGRATION-BATCHES.md#26-library-lands) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; retain landfall life gain. |
 | `Crawling Sensation` | 35 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Círdan the Shipwright` | 39 | [39-secret](CARD-MIGRATION-BATCHES.md#39-secret) | Blocked by mechanics | Retain both entry and attack triggers. |
 | `Darksteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle) | Blocked by mechanics | — |
@@ -42,7 +41,6 @@ Current readiness: **0 composition candidates**; **90 blocked or awaiting source
 | `Hedge Shredder` | 24 | [24-crew](CARD-MIGRATION-BATCHES.md#24-crew), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
 | `Hostile Negotiations` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | Reuse public/private inspection; hidden piles, opponent choice, result routing, and life loss compose afterward. |
 | `Hypergenesis` | 27 | [27-repeat](CARD-MIGRATION-BATCHES.md#27-repeat), [25-suspend](CARD-MIGRATION-BATCHES.md#25-suspend) | Blocked by mechanics | — |
-| `Icetill Explorer` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands) | Blocked by mechanics | — |
 | `Illusion of Choice` | 39 | [39-control](CARD-MIGRATION-BATCHES.md#39-control) | Blocked by mechanics | — |
 | `Incarnation Technique` | 44 | [28-demonstrate](CARD-MIGRATION-BATCHES.md#28-demonstrate) | Blocked by mechanics | — |
 | `Irenicus's Vile Duplication` | 28 | [28-modifiers](CARD-MIGRATION-BATCHES.md#28-modifiers) | Blocked by mechanics | — |
@@ -54,7 +52,6 @@ Current readiness: **0 composition candidates**; **90 blocked or awaiting source
 | `Lair of the Hydra` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Retain the nonzero-X bound on its animation activation. |
 | `Lotho, Corrupt Shirriff` | 35 | [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal) | Blocked by mechanics | — |
 | `Mirrorweave` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
-| `Mole Man, Moloid Master` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands) | Blocked by mechanics | Retain landfall and the Moloid token's canonical attack-triggered optional mill. |
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |

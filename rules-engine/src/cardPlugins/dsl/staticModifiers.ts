@@ -1,3 +1,4 @@
+import { seatRevealsLibraryTop, syncRevealedLibraryTop } from '../libraryTopKnowledge'
 import { CREATURE_TYPES } from '../../creatureTypes'
 import type Draft from '../../draft'
 import { captureObject } from '../../objectIdentity'
@@ -502,8 +503,9 @@ const modifiersOutOfSync = (state: GameState) => {
 
 export const dslStaticModifiers: Plugin = {
   id: 'dslStaticModifiers',
-  apply: ({ draft }) => {
+  apply: ({ draft, state }) => {
     syncAll(draft)
+    syncRevealedLibraryTop(draft, draft.playerOrder.filter(seat => seatRevealsLibraryTop(state, seat) || seatRevealsLibraryTop(draft, seat)))
   },
   recompute: ({ draft }) =>
     modifiersOutOfSync(draft) ? [{ type: 'custom', name: SYNC }] : [],

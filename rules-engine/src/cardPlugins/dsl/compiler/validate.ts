@@ -1995,6 +1995,16 @@ export const validateDefinitionV1 = (root: unknown): {
               if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'), baseEnvironment())
               return
             }
+            case 'revealLibraryTop':
+              exactKeys(node, effectPath, ['kind', 'players'], ['kind', 'players'])
+              if (validateSelector(node.players, childPath(effectPath, 'players'), baseEnvironment()) !== 'player') issue(effectPath, 'domain', 'top visibility requires a player selector')
+              return
+            case 'playLands':
+              exactKeys(node, effectPath, ['kind', 'players', 'cards', 'topOnly'], ['kind', 'players', 'cards'])
+              if (validateSelector(node.players, childPath(effectPath, 'players'), baseEnvironment()) !== 'player') issue(effectPath, 'domain', 'land permissions require a player selector')
+              if (validateSelector(node.cards, childPath(effectPath, 'cards'), baseEnvironment()) !== 'object') issue(effectPath, 'domain', 'land permissions require an object selector')
+              if (node.topOnly !== undefined && node.topOnly !== true) issue(effectPath, 'type', 'topOnly must be true')
+              return
             case 'enchant':
               exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
               if (!['object', 'player'].includes(validateSelector(node.filter, childPath(effectPath, 'filter'), baseEnvironment()) ?? '')) issue(effectPath, 'type', 'enchant requires an object or player selector')

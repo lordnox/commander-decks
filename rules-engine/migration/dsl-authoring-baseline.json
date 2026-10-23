@@ -140,12 +140,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "d7391503690b9500fce04abc6facdfdcd33da304d90454219e821529f0ae536c",
-    "card": "Courser of Kruphix"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "f548e840fb6b757cb105754d407e7448ac8c72bca8e9b1efc78a3d122ca91194",
     "card": "Eureka"
   },
@@ -206,12 +200,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "3c8101f9a0164a48c2bfad46f9b80b2bb732d4c492174cb17d2c2b65a4cead17",
-    "card": "Icetill Explorer"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "3ddeb1524aab9fa65ebec412acf6a74a998cbc74c5eec07052d6ccba1c7c5c73",
     "card": "Jace, Multiverse Architect"
   },
@@ -226,12 +214,6 @@
     "code": "legacy-card-registration",
     "digest": "d7a647c5a053a133f88e9b5b7b64c5a62018f388bcca76785732537b2be518ce",
     "card": "Lair of the Hydra"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "0c5d20cbe18fae709a4a5b288b04e472c03b72550cc60aa58b96399826a7c83b",
-    "card": "Mole Man, Moloid Master"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

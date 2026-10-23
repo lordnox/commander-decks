@@ -4,7 +4,6 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { onResolve } from './onResolve'
-import {cardDefinition} from './cardRules'
 import {targetedResolve} from './targetedResolve'
 
 const card = (
@@ -59,21 +58,6 @@ describe('graveyard lands', () => {
       (id) => resolved.objects[id].tapped,
     )).toBe(true)
   })
-
-})
-
-describe('relocated from homerPass2.test.ts → graveyardLands.test.ts', () => {
-  test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {
-      const effects = cardDefinition('Mole Man, Moloid Master')?.effects ?? []
-      expect(effects.some((effect) => effect.op === 'static' && effect.playLandsFromGraveyard)).toBe(true)
-      const token = effects.flatMap((effect) =>
-        effect.op === 'trigger' && effect.on === 'landfall'
-          ? effect.do.filter((step) => step.kind === 'createToken')
-          : [])[0]
-      expect(token?.kind === 'createToken' && token.token.effects).toMatchObject([
-        { op: 'trigger', on: 'attacks' },
-      ])
-    })
 
 })
 

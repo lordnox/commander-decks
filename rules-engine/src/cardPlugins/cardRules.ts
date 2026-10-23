@@ -89,10 +89,7 @@ import {
   selfMill,
   spree,
   spreeMode,
-  staticExtraLandPlays,
   staticGrant,
-  staticPlayLandsFromLibraryTop,
-  staticRevealLibraryTop,
   scry,
   surveil,
   triggerOn,
@@ -253,12 +250,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
-  'Courser of Kruphix': [
-    staticRevealLibraryTop(),
-    staticPlayLandsFromLibraryTop(),
-    handler('courserOfKruphix'),
-    landfall(gainLife(1)),
-  ],
   'Crawling Sensation': [
     yourUpkeep(optionalMill(2)),
     landToGraveyardOnce(insect),
@@ -370,11 +361,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
     repeat: true,
   }))],
-  'Icetill Explorer': [
-    staticExtraLandPlays(1),
-    playLandsFromGraveyard(),
-    landfall(selfMill(1)),
-  ],
   'Illusion of Choice': [onResolve(chooseVotesThisTurn(), draw(1))],
   'Incarnation Technique': [
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
@@ -450,18 +436,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'battlefield', type: 'Creature', nonlegendary: true },
       copyAllCreaturesUntilEot(false),
     ),
-  ],
-  'Mole Man, Moloid Master': [
-    playLandsFromGraveyard(),
-    landfall(createTokenInstruction({
-      name: 'Moloid',
-      types: ['Creature'],
-      subtypes: ['Minion'],
-      power: 1,
-      toughness: 1,
-      oracleText: 'Whenever this token attacks, you may mill a card.',
-      effects: [attacks(optionalMill(1))],
-    })),
   ],
   Mulldrifter: [
     alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),

@@ -1,3 +1,4 @@
+import { canonicalLandPermission } from './cardPlugins/dsl/playPermissions'
 import { effectiveActivatedDefinition, canonicalActivationIsActive } from './cardPlugins/dsl/activatedGrants'
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
@@ -1479,7 +1480,10 @@ export const availableActions = (
   ) {
     const playableLands = [
       ...hand,
-      ...state.zoneOrder[seat].exile.filter((id) => state.objects[id]?.adventureReady),
+      ...Object.values(state.objects).filter(object =>
+        object.zone !== 'hand' && object.controller === seat
+        && (object.adventureReady && object.zone === 'exile' || canonicalLandPermission(state, seat, object)))
+        .map(object => object.id),
     ]
     for (const id of playableLands) {
       const object = state.objects[id]
@@ -1487,6 +1491,7 @@ export const availableActions = (
       if (object && landFaces.length > 1) {
         const names = object.name.split(' // ')
         for (const { choice } of landFaces) {
+          if (object.zone !== 'hand' && !object.adventureReady && !canonicalLandPermission(state, seat, object, choice)) continue
           actions.push({
             kind: 'playLand',
             objectId: id,

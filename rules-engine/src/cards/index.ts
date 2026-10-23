@@ -1,3 +1,6 @@
+import moleManMoloidMaster from './mole-man-moloid-master'
+import courserOfKruphix from './courser-of-kruphix'
+import icetillExplorer from './icetill-explorer'
 import tenuousTruce from './tenuous-truce'
 import colossification from './colossification'
 import raisethePalisade from './raise-the-palisade'
@@ -327,6 +330,9 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Mole Man, Moloid Master': moleManMoloidMaster,
+  'Courser of Kruphix': courserOfKruphix,
+  'Icetill Explorer': icetillExplorer,
   "Tenuous Truce": tenuousTruce,
   "Colossification": colossification,
   "Raise the Palisade": raisethePalisade,
