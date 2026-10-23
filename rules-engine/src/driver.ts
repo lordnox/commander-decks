@@ -28,6 +28,8 @@ import {
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
+import { canonicalBestowEffect, markBestowCeased, paidBestowAlternative } from './cardPlugins/dsl/bestowRuntime'
+import { syncCanonicalStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { compileCardRuleDefinition, createDefinitionSnapshot, loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
@@ -341,7 +343,19 @@ export const startCanonicalResolution = (
   const sourceObject = liveSource && isSameObject(liveSource, source.ref)
     ? liveSource
     : source.snapshot
-  const gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
+  let gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
+  const resolving = draft.object(item.objectId)
+  if (
+    gate.outcome === 'didNotResolve:allTargetsIllegal'
+    && resolving
+    && canonicalBestowEffect(resolving)
+    && paidBestowAlternative(resolving)
+    && !resolving.bestowedCeased
+  ) {
+    markBestowCeased(resolving)
+    syncCanonicalStaticModifiers(draft)
+    gate = { ...gate, outcome: 'resolved' }
+  }
   const capturedChoices = item.execution?.choices
     ? {
         ...structuredClone(item.execution.choices),
@@ -1133,7 +1147,7 @@ const actionEvents = (
           ? evaluatePlayerSelector(instruction.controller, context)
           : evaluatePlayerReference(instruction.controller, context))
         : [context.controller]
-      if (instruction.bindResult && sources.length > 0 && controllers.length > 0) {
+      if (instruction.bindResult) {
         frame.pendingResult = {
           binding: instruction.bindResult,
           kind: 'action',

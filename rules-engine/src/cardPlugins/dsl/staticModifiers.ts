@@ -25,6 +25,7 @@ import {
   sourceStaticAbilitiesActive,
 } from './staticModifierCore'
 import type { BasicLandType, ContinuousEffectDefinition, Keyword } from './schema/v1'
+import { isCurrentlyBestowed, legalBestowHost } from './bestowRuntime'
 
 const SYNC = 'dslStaticModifiers.sync'
 
@@ -285,6 +286,37 @@ const syncTypeModifier = (
   }
 }
 
+const syncBestow = (
+  draft: Draft,
+  source: GameObject,
+  abilityIndex: number,
+  effectIndex: number,
+  timestamp: number,
+) => {
+  const duration = printedStaticDuration(source, abilityIndex, effectIndex, timestamp)
+  const existing = existingPrintedStamp(source, source.id, abilityIndex, effectIndex)
+  if (!isCurrentlyBestowed(draft, source)) {
+    if (!legalBestowHost(draft, source)) {
+      source.attachedTo = null
+      delete source.attachedToRef
+    }
+    if (existing) removePrintedStaticStamp(source, source.id, abilityIndex, effectIndex)
+    return
+  }
+  if (existing) return
+  const before = {
+    types: [...source.types],
+    subtypes: [...source.subtypes],
+    power: source.power,
+    toughness: source.toughness,
+  }
+  source.types = [...new Set([...source.types.filter(type => type !== 'Creature'), 'Enchantment'])]
+  source.subtypes = ['Aura']
+  source.power = null
+  source.toughness = null
+  stampEffect(source, { kind: 'bestowAura', before }, duration)
+}
+
 const syncLandTypeModifier = (
   draft: Draft,
   source: GameObject,
@@ -374,6 +406,7 @@ const syncSource = (draft: Draft, source: GameObject) => {
       syncKeywordModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
     if (effect.kind === 'addTypes') syncTypeModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
+    if (effect.kind === 'bestow') syncBestow(draft, source, abilityIndex, effectIndex, effectTimestamp)
     if (effect.kind === 'grantLandType') {
       syncLandTypeModifier(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
@@ -462,6 +495,12 @@ const modifiersOutOfSync = (state: GameState) => {
       if (isActiveKeywordStatic(entry)) {
         if (printedStaticAbilityActive(state, source, entry.abilityIndex)
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
+        continue
+      }
+      if (entry.effect.kind === 'bestow') {
+        const should = isCurrentlyBestowed(state, source)
+        if (should !== Boolean(existingPrintedStamp(source, source.id, entry.abilityIndex, entry.effectIndex))) return true
+        if (should && !source.subtypes.includes('Aura')) return true
         continue
       }
       if (entry.effect.kind === 'grantKeyword' || entry.effect.kind === 'suppressKeyword' || entry.effect.kind === 'grantLandType' || entry.effect.kind === 'addTypes') {

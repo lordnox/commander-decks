@@ -6,11 +6,9 @@ import {
   becomeCopyOfTarget,
   allCreatureTypes,
   animateUntilEot,
-  attachedCopyOrToken,
   attacks,
   basicLand,
   embalm,
-  bestow,
   blink,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
@@ -36,7 +34,6 @@ import {
   handler,
   handlerIdsFromEffects,
   landToGraveyard,
-  landfall,
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
@@ -92,14 +89,6 @@ import {
   shuffleIntoLibraryInstead,
   entersTargeting,
 } from './effects'
-
-const insectToken = {
-  name: 'Insect',
-  types: ['Creature'],
-  subtypes: ['Insect'],
-  power: 1,
-  toughness: 1,
-}
 
 const bird = createTokenInstruction({
   name: 'Bird',
@@ -357,10 +346,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     encore('{7}{W}{W}'),
   ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
-  'Springheart Nantuko': [
-    bestow('{1}{G}', { power: 1, toughness: 1 }),
-    landfall(attachedCopyOrToken('{1}{G}', insectToken)),
-  ],
   'Thespian\'s Stage': [
     ability(
       { id: 'thespiansStage.copy', sorcery: true },

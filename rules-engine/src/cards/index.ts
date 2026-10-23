@@ -305,6 +305,7 @@ import soulsOfTheFaultless from './souls-of-the-faultless'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import splitDecision from './split-decision'
+import springheartNantuko from './springheart-nantuko'
 import standardBearer from './standard-bearer'
 import stifle from './stifle'
 import stitchTogether from './stitch-together'
@@ -676,6 +677,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Split Decision": splitDecision,
+  "Springheart Nantuko": springheartNantuko,
   "Standard Bearer": standardBearer,
   "Stifle": stifle,
   "Stitch Together": stitchTogether,

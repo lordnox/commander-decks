@@ -813,6 +813,7 @@ export type ContinuousEffectDefinition =
   | { kind: 'drawDuringOthers'; targets: PlayerSelector }
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector | PlayerSelector }
+  | { kind: 'bestow'; cost: string }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector

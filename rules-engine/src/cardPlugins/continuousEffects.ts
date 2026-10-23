@@ -526,7 +526,7 @@ const effectHolds = (
   entry: NonNullable<GameObject['continuousEffects']>[number],
   endTurnEffects: boolean,
 ) =>
-  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange' || (entry.effect.kind === 'addTypes' && entry.duration.kind === 'printedStatic') || (entry.effect.kind === 'setPt' && entry.effect.cda === true)
+  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange' || ((entry.effect.kind === 'addTypes' || entry.effect.kind === 'bestowAura') && entry.duration.kind === 'printedStatic') || (entry.effect.kind === 'setPt' && entry.effect.cda === true)
     || (entry.effect.kind === 'staticKeywords' && entry.effect.grant.includes(KEYWORDS.flash)))
   && (entry.effect.kind !== 'colorChange' || entry.effect.incarnation === object.incarnation)
   && (entry.effect.kind !== 'staticKeywords' || entry.effect.incarnation === undefined || entry.effect.incarnation === object.incarnation)
@@ -569,6 +569,11 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.before]
+  } else if (effect.kind === 'bestowAura') {
+    object.types = [...effect.before.types]
+    object.subtypes = [...effect.before.subtypes]
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'loseAbilitiesBecome') {
     object.oracleText = effect.before.oracleText
     object.grantedRules = [...effect.before.grantedRules]
@@ -636,6 +641,17 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     }
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.after]
+  } else if (effect.kind === 'bestowAura') {
+    effect.before = {
+      types: [...object.types],
+      subtypes: [...object.subtypes],
+      power: withoutCounters(object, object.power),
+      toughness: withoutCounters(object, object.toughness),
+    }
+    object.types = [...new Set([...object.types.filter(type => type !== 'Creature'), 'Enchantment'])]
+    object.subtypes = ['Aura']
+    object.power = null
+    object.toughness = null
   } else if (effect.kind === 'loseAbilitiesBecome') {
     object.oracleText = ''
     object.grantedRules = []

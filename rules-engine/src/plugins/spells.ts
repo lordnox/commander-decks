@@ -43,6 +43,8 @@ import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
 import { cantCastSpellWith } from './opponentRestrictions'
 import { enchantTargetError } from './enchant'
+import { canonicalBestowEffect, legalBestowTarget, markBestowCeased, paidBestowAlternative } from '../cardPlugins/dsl/bestowRuntime'
+import { syncCanonicalStaticModifiers } from '../cardPlugins/dsl/staticModifiers'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
@@ -919,6 +921,7 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
+      delete object.bestowedCeased
       if (event.door) applyRoomDoors(object, [event.door])
       else applyCastFace(object, event)
       const selected = availableAlternateCastEffect(
@@ -1227,7 +1230,15 @@ export const spells: Plugin = {
         }
       }
 
-      if (enchantTargetError(state, object, item.targets)) {
+      if (
+        canonicalBestowEffect(object)
+        && paidBestowAlternative(object)
+        && !object.bestowedCeased
+        && !legalBestowTarget(draft, item.targets)
+      ) {
+        markBestowCeased(object)
+        syncCanonicalStaticModifiers(draft)
+      } else if (enchantTargetError(state, object, item.targets)) {
         // CR 608.2b: an Aura spell whose target is gone or illegal does not resolve.
         draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
         draft.passedInRow = []

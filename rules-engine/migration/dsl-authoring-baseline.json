@@ -243,12 +243,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "1acb63374c66dbd37d4e77682b50fb0364cbc6540ae308a7a299a55967d155b2",
-    "card": "Springheart Nantuko"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "c9c3dba4dfb689cce90df6c4000ba9732b8e2fa65c8eb8b43a74d3f56d9cd5c4",
     "card": "Virtue of Knowledge"
   },

@@ -2268,6 +2268,16 @@ test('Mirkwood Bats retains flying and one untargeted opponent drain per created
   ])
 })
 
+test('Springheart Nantuko composes bestow, attached +1/+1, and copy-or-insect landfall', () => {
+  expect(effectsFor('Springheart Nantuko')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Springheart Nantuko')!.definition.abilities).toMatchObject([
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{1}{G}' }]], costLabels: { alternative: ['Bestow {1}{G}'] } },
+    { kind: 'static', activeIn: ['stack', 'battlefield'], effects: [{ kind: 'bestow', cost: '{1}{G}' }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { value: 1 }, toughness: { value: 1 } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'if' }] },
+  ])
+})
+
 test('Portal to Phyrexia and Rankle compose per-player sacrifice and any-number triggered modes', () => {
   expect(effectsFor('Portal to Phyrexia')).toEqual([])
   expect(effectsFor('Rankle, Master of Pranks')).toEqual([])

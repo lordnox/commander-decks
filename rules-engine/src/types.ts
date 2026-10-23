@@ -108,6 +108,10 @@ export type ReversibleEffect =
     }
   | { kind: 'oracleLine'; line: string }
   | { kind: 'typeChange'; before: string[]; after: string[] }
+  | {
+      kind: 'bestowAura'
+      before: { types: string[]; subtypes: string[]; power: number | null; toughness: number | null }
+    }
   | { kind: 'removeAbilities'; timestamp?: number; before: { oracleText: string; grantedRules: string[]; effects?: CardEffect[] } }
   | { kind: 'addTypes'; before: { types: string[]; subtypes: string[] }; types: string[]; subtypes: string[] }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
@@ -398,6 +402,8 @@ export type GameObject = {
   printedStaticModifiers?: PrintedStaticModifier[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
+  /** CR 702.103e–g: a bestowed Aura that has already ceased to be bestowed. */
+  bestowedCeased?: true
   castCostChoices?: PaidCostChoices
   /** Multikicker count stamped when this permanent entered from a resolving spell. */
   enteredWithTimesKicked?: number

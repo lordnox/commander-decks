@@ -247,6 +247,7 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Return of the Wildspeaker')).toBeUndefined()
     expect(handlerIdsForNames(['Overwhelming Stampede', 'Pathbreaker Ibex', 'Return of the Wildspeaker'])).toEqual([])
     expect(cardPluginEntry('Rankle, Master of Pranks')).toBeUndefined()
+    expect(cardPluginEntry('Springheart Nantuko')).toBeUndefined()
   })
 
   test('the Círdan creature group stays registered', () => {

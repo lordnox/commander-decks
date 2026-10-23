@@ -2168,6 +2168,10 @@ export const validateDefinitionV1 = (root: unknown): {
               exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
               if (!['object', 'player'].includes(validateSelector(node.filter, childPath(effectPath, 'filter'), baseEnvironment()) ?? '')) issue(effectPath, 'type', 'enchant requires an object or player selector')
               return
+            case 'bestow':
+              exactKeys(node, effectPath, ['kind', 'cost'], ['kind', 'cost'])
+              validateCost({ kind: 'mana', amount: node.cost }, childPath(effectPath, 'cost'), baseEnvironment())
+              return
             case 'loseLifeOnManaLoss':
             case 'noMaximumHandSize':
             case 'cannotBeCountered': {
