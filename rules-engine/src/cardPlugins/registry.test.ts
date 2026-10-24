@@ -181,8 +181,6 @@ describe('card plugin registry', () => {
       'Hostile Negotiations',
     ])).toEqual([])
     expect(handlerIdsForNames(['Abundance'])).toEqual([])
-    expect(handlerIdsForNames(['Hostile Negotiations']).toSorted())
-      .toEqual(['hiddenPiles', 'onResolve'])
     expect(handlerIdsForNames(['Cling to Dust']).toSorted())
       .toEqual(['alternateCosts', 'targetedResolve'])
   })
@@ -551,18 +549,12 @@ describe('card plugin registry', () => {
     expect(handlerIdsForNames(['Coercive Portal'])).toEqual([])
     expect(cardPluginEntry('Coercive Portal')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Coercive Portal')).toBeDefined()
-    expect(cardDefinition('Erestor of the Council')?.effects)
-      .toMatchObject([{ op: 'trigger', on: 'votesFinished' }])
   })
 
   test('Split Decision and Trap the Trespassers register vote handlers', () => {
     expect(handlerIdsForNames(['Split Decision'])).toEqual([])
     expect(cardPluginEntry('Split Decision')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Split Decision')).toBeDefined()
-    expect(handlerIdsForNames(['Trap the Trespassers'])).toEqual(
-      expect.arrayContaining(['onResolve', 'vote']),
-    )
-    expect(cardDefinition('Trap the Trespassers')?.effects).toBeDefined()
   })
 
   test('Incarnation Technique loads both the trigger and the copy handler', () => {
@@ -597,9 +589,6 @@ describe('card plugin registry', () => {
   test('Homer remaining cards keep their resolve composition', () => {
     expect(effectsFor('Fact or Fiction')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')).toBeDefined()
-    expect(cardDefinition("Fortune's Favor")?.effects).toMatchObject([
-      { op: 'targetedResolve', filter: { players: 'opponent' } },
-    ])
     expect(effectsFor('Life from the Loam')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Life from the Loam')).toBeDefined()
     expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([

@@ -1,3 +1,4 @@
+import { isKnownTo } from '../../rules-engine/src/knowledge'
 import { optionalDrawOffer } from './optionalDrawPolicy'
 import {
   waitingCastTransformed,
@@ -218,9 +219,10 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
   if (selection.kind === 'choosePile') {
     const piles = selection.piles ?? { 'face-up': [], 'face-down': [] }
     const hideFaceDown = selection.pileVisibility === 'facedown-faceup'
+    const choosingOnly = selection.destinations?.includes('target') === true
     const pileCards = [
-      pileLabel(state, piles['face-up'], false, 'Face-up pile'),
-      pileLabel(state, piles['face-down'], hideFaceDown, 'Face-down pile'),
+      pileLabel(state, piles['face-up'], piles['face-up'].some(id => !isKnownTo(state.objects[id]!, seat, state.playerOrder)), selection.pileLabels?.['face-up'] ?? 'Face-up pile'),
+      pileLabel(state, piles['face-down'], hideFaceDown && piles['face-down'].some(id => !isKnownTo(state.objects[id]!, seat, state.playerOrder)), selection.pileLabels?.['face-down'] ?? 'Face-down pile'),
     ]
     return openTopdeck(
       lobby,
@@ -229,8 +231,8 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         kind: 'choosePile',
         source: selection.source,
         cards: pileCards,
-        destinations: ['graveyard', 'hand'],
-        requirements: { hand: { min: 1, max: 1 } },
+        destinations: choosingOnly ? ['skip', 'target'] : ['graveyard', 'hand'],
+        requirements: choosingOnly ? { target: { min: 1, max: 1 } } : { hand: { min: 1, max: 1 } },
         kernel: {
           sourceId: selection.sourceId ?? '',
           stage: 'select-cards',

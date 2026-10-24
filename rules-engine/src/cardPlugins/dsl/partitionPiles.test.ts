@@ -11,6 +11,11 @@ import { instructionSpell } from './instructionTestSupport'
 import {
   LIBRARY_VISIBILITY,
   choice,
+  choosePile,
+  lookAt,
+  loseLife,
+  reveal,
+  select,
   choosePlayer,
   inspectTop,
   move,
@@ -117,4 +122,70 @@ test('an empty public pile is a legal choice and leaves the other pile as the re
   expect(named(state, 'Epsilon').zone).toBe('graveyard')
   expect(state.zoneOrder.p1.hand).toHaveLength(0)
   expect(state.resolution).toBeUndefined()
+})
+
+const answerPartition = (game: ReturnType<typeof setup>, state: GameState, seat: string, up: string[], down: string[]) => ok(game.rules(state, {
+  type: 'selectCards', seat, selectionId: pendingSelectionFor(state, seat)!.id, kind: 'partition', count: up.length + down.length,
+  choices: [...up.map(objectId => ({ objectId, destination: 'face-up' as const })), ...down.map(objectId => ({ objectId, destination: 'face-down' as const }))],
+}))
+
+test.each([true, false])('a private partition exposes only its face-up pile to the chooser and spectators (keep hidden=%s)', keepHidden => {
+  const game = createServerGame(commanderRules, { players: 4,
+    hands: { p1: [instructionSpell({ instructions: [inspectTop({ player: ref('controller'), count: 4, bindChoice: 'cards', visibility: LIBRARY_VISIBILITY.private }), partitionPiles({ cards: choice('cards'), partitioner: { kind: 'targetRef', clauseIndex: 0 }, chooser: ref('controller'), visibility: 'facedown-faceup', bindChosen: 'kept', bindOther: 'rest' }), move({ targets: choice('kept'), to: 'hand' }), move({ targets: choice('rest'), to: 'graveyard' })], decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] } })] },
+    libraries: { p1: libraryCards('Public A', 'Secret A', 'Secret B', 'Public B', 'Uninspected') },
+  }, { random: () => 0 })
+  let state = resolveStack(game.rules, ok(game.rules(game.state, { type: 'castSpell', seat: 'p1', objectId: game.state.zoneOrder.p1.hand[0]!, targets: [{ kind: 'player', player: 'p2' }] })))
+  const ids = state.zoneOrder.p1.library.slice(0, 4), up = [ids[0]!, ids[3]!], down = [ids[1]!, ids[2]!]
+  expect(projectForViewer(state, 'p1').objects[down[0]!]).toBeUndefined()
+  expect(projectForViewer(state, 'p2').objects[down[0]!]).toBeDefined()
+  expect(projectForViewer(state, 'p3').objects[down[0]!]).toBeUndefined()
+  state = answerPartition(game, state, 'p2', up, down)
+  const mine = projectForViewer(state, 'p1'), spectator = projectForViewer(state, null)
+  expect(mine.objects[down[0]!]).toBeUndefined()
+  expect(spectator.players.p1.data.revealed_library).toEqual(['Public A', 'Public B'])
+  expect(JSON.stringify(spectator)).not.toContain('Secret A')
+  expect(state.log.join(' ')).not.toContain('Secret A')
+  state = ok(game.rules(restoreJournal(createJournal(state), game.rules).current(), { type: 'selectCards', seat: 'p1', selectionId: pendingSelectionFor(state, 'p1')!.id, kind: 'choosePile', count: 1, objectIds: keepHidden ? down : up }))
+  expect(state.zoneOrder.p1.hand).toEqual(keepHidden ? down : up)
+  expect(state.zoneOrder.p1.graveyard).toEqual(expect.arrayContaining(keepHidden ? up : down))
+  const projected = projectForViewer(state, null)
+  if (keepHidden) expect(projected.objects[down[0]!]).toBeUndefined()
+  else expect(projected.objects[down[0]!]).toBeDefined()
+})
+
+test.each([0, 2, 4, 6])('fixed private exile piles preserve short-library sizes and reveal only the chosen pile (%s cards)', size => {
+  const game = createServerGame(commanderRules, { players: 4, hands: { p1: [instructionSpell({ instructions: [
+    inspectTop({ player: ref('controller'), count: 3, bindChoice: 'top1', visibility: LIBRARY_VISIBILITY.private }), move({ targets: choice('top1'), to: 'exile', faceDown: true, bindChoice: 'first' }),
+    inspectTop({ player: ref('controller'), count: 3, bindChoice: 'top2', visibility: LIBRARY_VISIBILITY.private }), move({ targets: choice('top2'), to: 'exile', faceDown: true, bindChoice: 'second' }),
+    lookAt({ cards: choice('first'), viewers: ref('controller') }), lookAt({ cards: choice('second'), viewers: ref('controller') }),
+    choosePile({ piles: [choice('first'), choice('second')], chooser: ref('controller'), bindChosen: 'revealed', bindOther: 'hidden' }), reveal(choice('revealed'), { turnFaceUp: true }),
+    choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'opponent' }),
+    choosePile({ piles: [choice('revealed'), choice('hidden')], chooser: choice('opponent'), bindChosen: 'kept', bindOther: 'rest' }),
+    move({ targets: choice('kept'), to: 'hand' }), move({ targets: choice('rest'), to: 'graveyard' }), loseLife({ targets: ref('controller'), amount: 3 }),
+  ] })] }, libraries: { p1: Array.from({ length: size }, (_, index) => cardTemplate(`Private ${index}`)) } }, { random: () => 0 })
+  const first = game.state.zoneOrder.p1.library.slice(0, 3), second = game.state.zoneOrder.p1.library.slice(3, 6)
+  let state = begin(game)
+  expect(pendingSelectionFor(state, 'p1')!.piles).toEqual({ 'face-up': first, 'face-down': second })
+  for (const id of [...first, ...second]) {
+    expect(projectForViewer(state, 'p1').objects[id]).toBeDefined()
+    expect(projectForViewer(state, 'p2').objects[id]).toBeUndefined()
+    expect(projectForViewer(state, null).objects[id]).toBeUndefined()
+  }
+  // Choose the second pile to reveal, including when it is empty.
+  state = ok(game.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: pendingSelectionFor(state, 'p1')!.id, kind: 'choosePile', count: 1, objectIds: second }))
+  for (const id of second) expect(state.objects[id]!.faceDown).not.toBe(true)
+  const opponent = pendingPlayerSelectionFor(state, 'p1')!
+  state = ok(game.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: opponent.id, players: ['p2'] }))
+  const replica = projectForViewer(state, 'p2')
+  for (const id of first) expect(replica.objects[id]).toBeUndefined()
+  for (const id of second) expect(replica.objects[id]).toBeDefined()
+  state = ok(game.rules(restoreJournal(createJournal(state), game.rules).current(), { type: 'selectCards', seat: 'p2', selectionId: pendingSelectionFor(state, 'p2')!.id, kind: 'choosePile', count: 1, objectIds: first }))
+  expect(state.players.p1.life).toBe(37)
+  expect(state.zoneOrder.p1.hand).toEqual(first)
+  for (const id of first) {
+    expect(state.objects[id]!.faceDown).not.toBe(true)
+    expect(projectForViewer(state, 'p2').objects[id]).toBeUndefined()
+  }
+  for (const id of second) expect(state.objects[id]!.zone).toBe('graveyard')
+  expect(state.zoneOrder.p1.exile).toHaveLength(0)
 })

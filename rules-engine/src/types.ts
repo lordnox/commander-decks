@@ -502,6 +502,7 @@ export type OccurrenceSnapshot = {
   kind: 'event'
   eventType: string
   stackItemId?: string
+  vote?: VoteResult
   player?: PlayerId
   defender?: PlayerId
   amount?: number
@@ -959,6 +960,7 @@ export type GameState = {
   linkedExileSets?: LinkedExileSet[]
   /** Temporary one-shot or uses-limited spell-cast permissions (26-permission). */
   spellPermissions?: SpellCastPermission[]
+  voteModifiers?: { players: PlayerId[]; controller?: PlayerId; additional?: number; expiresTurn?: number }[]
   monarchRevision?: number
   /** Latest actual crown acquisition for each seat; retained through elimination. */
   monarchAcquiredAt?: Record<PlayerId, number>
@@ -999,6 +1001,8 @@ export type ManaPayment = { objectId: string; mana?: ManaId }
  * highest nonzero tally; `tied` says several do.
  */
 export type VoteResult = {
+  /** Full ballots when an effect grants additional votes; votes retains each first ballot. */
+  ballots?: Record<PlayerId, string[]>
   votes: Record<PlayerId, string>
   tallies: Record<string, number>
   winners: string[]
@@ -1233,6 +1237,7 @@ export type GameEvent =
     }
   | {
       type: 'move'
+      faceDown?: boolean
       /** This move completes a sacrifice action; replacements retain its provenance. */
       sacrifice?: true
       /** Record only the final exile identity, after replacement has applied. */
@@ -1292,7 +1297,7 @@ export type GameEvent =
   | { type: 'scry' | 'surveil'; seat: PlayerId; count: number }
   | { type: 'cycle'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
-  | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
+  | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string; turnFaceUp?: true }
   // — Mana —
   | { type: 'tapForMana'; seat: PlayerId; objectId: string; mana?: ManaId }
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool>; sourceId?: string; restriction?: Pick<RestrictedMana, 'creatureType' | 'legendary' | 'uncounterable'> }

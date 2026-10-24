@@ -275,3 +275,15 @@ test('Dack catalog composes reveal, movement, shuffle, permanent goad, and disti
     ],
   }])
 })
+
+
+test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {
+  const programs = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(programs('Illusion of Choice')).toMatchObject([{ kind: 'spell', instructions: [{ kind: 'modifyVotes', players: { kind: 'players', filter: {} }, controller: { name: 'controller' }, duration: 'untilEndOfTurn' }, { kind: 'draw' }] }])
+  expect(programs('Erestor of the Council')).toMatchObject([{ kind: 'triggered', on: { kind: 'votesFinished', bindResult: 'vote' }, instructions: [{ kind: 'createToken', targets: { filter: { relation: 'opponent', voted: { agreement: 'same' } } } }, { kind: 'scry', count: { kind: 'count', of: { filter: { relation: 'opponent', voted: { agreement: 'different' } } } } }, { kind: 'draw' }] }])
+  const council = programs('Círdan the Shipwright')
+  expect(council).toMatchObject([{ kind: 'keyword', keyword: 'vigilance' }, { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'vote', secret: true }, { kind: 'forEachPlayer', instructions: [{ kind: 'draw' }] }, { kind: 'forEachPlayer', instructions: [{ kind: 'if' }] }] }, { kind: 'triggered', on: { kind: 'attacks' } }])
+  expect(programs('Trap the Trespassers')).toMatchObject([{ kind: 'spell', instructions: [{ kind: 'vote', secret: true, bindObjects: 'voted', options: { kind: 'objects', filter: { filter: { type: 'Creature', not: { controller: 'you' } } } } }, { kind: 'forEach', instructions: [{ kind: 'putCounters', counter: 'stun' }, { kind: 'tap' }] }] }])
+  expect(programs("Fortune's Favor")).toMatchObject([{ kind: 'spell', decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [{ kind: 'inspectTop', count: { value: 4 }, visibility: 'private' }, { kind: 'partitionPiles', visibility: 'facedown-faceup' }, { kind: 'move', to: 'hand' }, { kind: 'move', to: 'graveyard' }] }])
+  expect(programs('Hostile Negotiations')).toMatchObject([{ kind: 'spell', instructions: [{ kind: 'inspectTop', count: { value: 3 } }, { kind: 'move', to: 'exile', faceDown: true }, { kind: 'inspectTop', count: { value: 3 } }, { kind: 'move', to: 'exile', faceDown: true }, { kind: 'lookAt' }, { kind: 'lookAt' }, { kind: 'choosePile' }, { kind: 'reveal', turnFaceUp: true }, { kind: 'choosePlayer', filter: { filter: { relation: 'opponent' } } }, { kind: 'choosePile' }, { kind: 'move', to: 'hand' }, { kind: 'move', to: 'graveyard' }, { kind: 'loseLife', amount: { value: 3 } }] }])
+})

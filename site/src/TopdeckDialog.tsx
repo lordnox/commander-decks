@@ -349,7 +349,7 @@ export const TopdeckDialog = ({
                   : partitioning
                     ? 'Put each card into the face-up pile or the face-down pile.'
                   : choosingPile
-                    ? 'Put one pile into your hand. The other pile goes to your graveyard.'
+                    ? (decision.destinations.includes('target') ? 'Choose one pile.' : 'Put one pile into your hand. The other pile goes to your graveyard.')
                   : `Choose top or ${destinationLabel} for each card.`)}
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
@@ -497,7 +497,9 @@ export const TopdeckDialog = ({
                             : 'bg-white/10 text-stone-200 hover:bg-white/15'
                         } disabled:opacity-40`}
                       >
-                        {targetingPlayers
+                        {choosingPile && decision.destinations.includes('target')
+                          ? (destination === 'target' ? 'Choose this pile' : 'Leave this pile')
+                          : targetingPlayers
                           ? (destination === 'target' ? 'Target this player' : 'Do not target')
                           : puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')

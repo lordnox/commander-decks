@@ -1,3 +1,4 @@
+import { markKnownTo } from './knowledge'
 import { canonicalCopySource } from './cardPlugins/dsl/copies'
 import { evaluateCreatureType } from './cardPlugins/dsl/compiler/runtime'
 import { CREATURE_TYPES, CREATURE_TYPE_CHOICE_ACTION } from './creatureTypes'
@@ -77,6 +78,8 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'becomeMonarch',
   'choosePlayer',
   'forEachPlayer',
+  'lookAt',
+  'modifyVotes',
   'inspectTop',
   'distributeControl',
   'captureAmount',
@@ -155,6 +158,7 @@ const preflightInstructions = (
     }
     switch (instruction.kind) {
       case 'draw':
+      case 'modifyVotes':
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
       case 'grantFlash':
@@ -165,6 +169,8 @@ const preflightInstructions = (
       case 'linkExile':
       case 'returnLinkedExile':
       case 'addMana':
+      case 'lookAt':
+      case 'choosePile':
       case 'inspectTop':
       case 'partitionPiles':
       case 'vote':
@@ -405,6 +411,7 @@ export const startCanonicalResolution = (
     ...(capturedChoices ? { choices: capturedChoices } : {}),
     ...(capturedBindings?.playerChoices ? { playerChoiceBindings: [...capturedBindings.playerChoices] } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
+    ...(ability.kind === 'triggered' && ability.on.kind === 'votesFinished' && item.execution?.occurrence?.vote ? { voteResults: { [ability.on.bindResult]: structuredClone(item.execution.occurrence.vote) } } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
@@ -768,6 +775,18 @@ const actionEvents = (
         ...(restriction && Object.keys(restriction).length > 0 ? { restriction } : {}),
       }))
     }
+    case 'modifyVotes': {
+      const controller = instruction.controller ? evaluatePlayerReference(instruction.controller, context)[0] : undefined
+      const affected = [...recipients(instruction.players, context)]
+      if (affected.length === 0 || (instruction.controller && !controller)) return []
+      draft.voteModifiers = [...(draft.voteModifiers ?? []), {
+        players: affected,
+        ...(controller ? { controller } : {}),
+        ...(instruction.additional ? { additional: availableAmount(instruction.additional, context) ?? 0 } : {}),
+        ...(instruction.duration === 'untilEndOfTurn' ? { expiresTurn: draft.turn } : {}),
+      }]
+      return []
+    }
     case 'grantLandPlays': {
       const count = availableAmount(instruction.count, context)
       if (count === undefined || count === 0) return []
@@ -850,6 +869,10 @@ const actionEvents = (
         if (assigned === 0) return []
         return [{ type: 'draw' as const, seat, count: assigned }]
       })
+    }
+    case 'lookAt': {
+      markKnownTo(draft, objectActions(instruction.cards, context).map(object => object.id), [...recipients(instruction.viewers, context)])
+      return []
     }
     case 'inspectTop': {
       const players = evaluatePlayerReference(instruction.player, context)
@@ -1065,6 +1088,7 @@ const actionEvents = (
           type: 'move' as const,
           objectId: object.id,
           to: instruction.to,
+          ...(instruction.faceDown !== undefined ? { faceDown: instruction.faceDown } : {}),
           ...(dropStackItem ? { dropStackItem: true } : {}),
           ...(instruction.position !== undefined ? { position: instruction.position } : {}),
           ...(controllers ? { controller: controllers[0] } : {}),
@@ -1083,7 +1107,7 @@ const actionEvents = (
         ids.push(object.id)
         owners.set(object.owner, ids)
       }
-      return [...owners].map(([seat, objectIds]) => ({ type: 'reveal' as const, seat, objectIds }))
+      return [...owners].map(([seat, objectIds]) => ({ type: 'reveal' as const, seat, objectIds, ...(instruction.turnFaceUp ? { turnFaceUp: true as const } : {}) }))
     }
     case 'tap':
       return objectActions(instruction.targets, context)
@@ -1738,10 +1762,13 @@ export const prepareResolutionStep = (draft: Draft) => {
         item,
         prompt: instruction.prompt,
         options,
+        secret: instruction.secret,
+        ...(instruction.options.kind === 'objects' ? { optionObjects: evaluateObjectSelector(instruction.options.filter, context).map(objectIdentity) } : {}),
         canonical: {
           stackId: frame.stackId,
           bindResult: instruction.bindResult,
           ...(instruction.bindWinners ? { bindWinners: instruction.bindWinners } : {}),
+          ...(instruction.bindObjects ? { bindObjects: instruction.bindObjects } : {}),
         },
       })
       if (pendingVote(draft)) {
@@ -1750,6 +1777,31 @@ export const prepareResolutionStep = (draft: Draft) => {
         return { kind: 'events', events: [] }
       }
       continue
+    }
+    if (instruction.kind === 'choosePile') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const first = objectActions(instruction.piles[0], context).map(object => object.id)
+      const second = objectActions(instruction.piles[1], context).map(object => object.id)
+      if (new Set([...first, ...second]).size !== first.length + second.length) throw new RuleDslEvaluationError('pile choices require disjoint card identities')
+      if (!chooser) {
+        frame.choices = { ...frame.choices, [instruction.bindChosen]: [], [instruction.bindOther]: [] }
+        continue
+      }
+      openCardSelection(draft, {
+        seat: chooser, kind: 'choosePile', count: 1, min: 0,
+        candidates: [...first, ...second],
+        targetIdentities: Object.fromEntries([...first, ...second].map(id => [id, objectIdentity(draft.objects[id]!)])),
+        piles: { 'face-up': first, 'face-down': second },
+        pileController: chooser, pileVisibility: 'facedown-faceup',
+        pileLabels: { 'face-up': 'Pile 1', 'face-down': 'Pile 2' },
+        sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: instruction.prompt ?? 'Choose a pile.', destinations: ['target'],
+        canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChosen, bindOther: instruction.bindOther, action: 'choosePile' },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'partitionPiles') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
@@ -1765,15 +1817,16 @@ export const prepareResolutionStep = (draft: Draft) => {
         kind: 'partition',
         count: cards.length,
         candidates: cards.map((object) => object.id),
+        targetIdentities: Object.fromEntries(cards.map(object => [object.id, objectIdentity(object)])),
         sourceId: frame.source.ref.objectId,
         source: frame.source.snapshot.name,
         prompt: 'Separate these cards into two piles.',
         destinations: ['face-up', 'face-down'],
         fromSeat: cards[0]?.owner ?? chooser,
-        fromZone: 'library',
+        fromZone: cards[0]?.zone ?? 'library',
         pileController: chooser,
-        pileReveal: 'public',
-        pileVisibility: 'public',
+        pileReveal: instruction.visibility === 'facedown-faceup' ? 'look' : 'public',
+        pileVisibility: instruction.visibility ?? 'public',
         canonicalChoice: {
           stackId: frame.stackId,
           scopeId: scope.scopeId,

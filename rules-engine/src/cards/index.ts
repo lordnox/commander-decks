@@ -1,3 +1,9 @@
+import hostileNegotiations from './hostile-negotiations'
+import fortunesFavor from './fortunes-favor'
+import trapTheTrespassers from './trap-the-trespassers'
+import cirdanTheShipwright from './cirdan-the-shipwright'
+import erestorOfTheCouncil from './erestor-of-the-council'
+import illusionOfChoice from './illusion-of-choice'
 import virtueOfKnowledge from './virtue-of-knowledge'
 import roamingThrone from './roaming-throne'
 import yarokTheDesecrated from './yarok-the-desecrated'
@@ -381,6 +387,12 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Fortune's Favor": fortunesFavor,
+  'Hostile Negotiations': hostileNegotiations,
+  'Illusion of Choice': illusionOfChoice,
+  'Erestor of the Council': erestorOfTheCouncil,
+  'Círdan the Shipwright': cirdanTheShipwright,
+  'Trap the Trespassers': trapTheTrespassers,
   'Rings of Brighthearth': ringsOfBrighthearth,
   'Ancient Greenwarden': ancientGreenwarden,
   'Yarok, the Desecrated': yarokTheDesecrated,

@@ -170,6 +170,7 @@ export const changeControl = (input: { targets: ObjectRecipient; controller: Pla
 export const partitionPiles = (input: {
   cards: ObjectRecipient
   partitioner: PlayerReference
+  visibility?: 'public' | 'facedown-faceup'
   chooser: PlayerReference
   bindChosen: string
   bindOther: string
@@ -180,18 +181,22 @@ export const vote = (input: {
   options: VoteSpec
   bindResult: string
   bindWinners?: string
+  bindObjects?: string
+  secret?: boolean
 }) => immutableData({
   kind: 'vote' as const,
   prompt: input.prompt,
   options: input.options,
   bindResult: input.bindResult,
   ...(input.bindWinners !== undefined ? { bindWinners: input.bindWinners } : {}),
+  ...(input.bindObjects !== undefined ? { bindObjects: input.bindObjects } : {}),
+  ...(input.secret !== undefined ? { secret: input.secret } : {}),
 })
 
 export const voteLeads = (binding: string, option: string) =>
   immutableData({ kind: 'voteLeads' as const, binding, option })
 
-export const voteTally = (binding: string, option: string) =>
+export const voteTally = (binding: string, option: Extract<Amount, { kind: 'voteTally' }>['option']) =>
   immutableData({ kind: 'voteTally' as const, binding, option })
 
 export const capturePlayer = (input: { player: PlayerReference; bindResult: string }) =>
@@ -945,7 +950,7 @@ export const blink = (input: Omit<Extract<Instruction, { kind: 'blink' }>, 'kind
 
 export const fight = (input: { left: ObjectReference; right: ObjectReference }) => immutableData({ kind: 'fight' as const, ...input }) satisfies Instruction
 
-export const reveal = (targets: ObjectRecipient) => immutableData({ kind: 'reveal' as const, targets }) satisfies Instruction
+export const reveal = (targets: ObjectRecipient, options: { turnFaceUp?: true } = {}) => immutableData({ kind: 'reveal' as const, targets, ...options }) satisfies Instruction
 
 export const tap = (targets: ObjectRecipient, extra: { skipNextUntap?: true } = {}) =>
   immutableData({
@@ -962,11 +967,13 @@ export const move = (input: {
   order?: 'random'
   controller?: Extract<Instruction, { kind: 'move' }>['controller']
   tapped?: boolean
+  faceDown?: boolean
   enterCounters?: Readonly<Record<string, AmountInput>>
   bindResult?: string
   bindChoice?: string
 }): Instruction => immutableData({
   kind: 'move',
+  ...(input.faceDown !== undefined ? { faceDown: input.faceDown } : {}),
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
   targets: input.targets,
   to: input.to,
@@ -1517,3 +1524,9 @@ export const abilityActivated = (filter: PlayerSelector) => immutableData({ kind
 export const eventStackItem = () => immutableData({ kind: 'eventStackItem' as const })
 
 export const multiplyTriggers = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'multiplyTriggers' }>, 'kind'>) => immutableData({ kind: 'multiplyTriggers' as const, ...input })
+
+export const votesFinished = (bindResult: string) => immutableData({ kind: 'votesFinished' as const, bindResult })
+export const modifyVotes = (input: Omit<Extract<Instruction, { kind: 'modifyVotes' }>, 'kind'>) => immutableData({ kind: 'modifyVotes' as const, ...input })
+
+export const lookAt = (input: Omit<Extract<Instruction, { kind: 'lookAt' }>, 'kind'>) => immutableData({ kind: 'lookAt' as const, ...input })
+export const choosePile = (input: Omit<Extract<Instruction, { kind: 'choosePile' }>, 'kind'>) => immutableData({ kind: 'choosePile' as const, ...input })

@@ -1,3 +1,4 @@
+import { pendingPlayerSelectionFor } from '../../rules-engine/src/rules/selectPlayers'
 import {
   existsSync,
   mkdirSync,
@@ -4363,4 +4364,27 @@ test('canonical control assignments rebuild after a host restart and exclude ass
   const finished = restartedKernel.history.current()
   expect(Object.values(finished.objects).find(object => object.name === 'Alpha')?.controller).toBe('p3')
   expect(Object.values(finished.objects).find(object => object.name === 'Beta')?.controller).toBe('p2')
+})
+
+test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {
+  const server = createServerGame(commanderRules, { players: 3,
+    hands: { p1: [cardTemplate('Hostile Negotiations', { manaCost: '{0}' })] },
+    libraries: { p1: Array.from({ length: 6 }, (_, index) => cardTemplate(`Pile fixture ${index}`)) },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }).ok).toBe(true)
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  const lobby = createLobby(); lobby.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck!.cards[0]).toContain('Pile fixture 0')
+  expect(lobby.topdeck!.cards[1]).toContain('Pile fixture 3')
+  expect(lobby.topdeck!.destinations).toEqual(['skip', 'target'])
+  expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, { type: 'topdeck', choices: lobby.topdeck!.cards.map((card, index) => ({ card: String(card), destination: index === 0 ? 'target' : 'skip' })) }))).toBe(true)
+  const pick = pendingPlayerSelectionFor(kernel.history.current(), 'p1')!
+  expect(kernel.dispatch({ type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p2'] }).ok).toBe(true)
+  const opponentLobby = createLobby(); opponentLobby.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, opponentLobby)).toBe(true)
+  expect(opponentLobby.topdeck!.cards[0]).toContain('Pile fixture 0')
+  expect(opponentLobby.topdeck!.cards[1]).not.toContain('Pile fixture 3')
+  expect(opponentLobby.topdeck!.cards[1]).toContain('3 cards')
 })

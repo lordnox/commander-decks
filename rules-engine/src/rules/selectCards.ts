@@ -144,6 +144,7 @@ export type PendingCardSelection = {
   piles?: { 'face-up': string[]; 'face-down': string[] }
   pileController?: PlayerId
   pileReveal?: OpponentPileReveal
+  pileLabels?: Record<'face-up' | 'face-down', string>
   pileVisibility?: OpponentPileVisibility
   /** Refresh candidates from `fromZone` while the choice is open. */
   liveZone?: true
@@ -316,7 +317,8 @@ export const liveSelectionCandidates = (
   if (selection.kind === 'choosePile') {
     return selection.candidates.filter((objectId) => {
       const object = state.objects[objectId]
-      return object?.zone === 'library'
+      const identity = selection.targetIdentities?.[objectId]
+      return identity ? Boolean(targetObject(state, { kind: 'object', ...identity })) : object?.zone === (selection.fromZone ?? 'library')
     })
   }
   if (selection.kind === 'sacrifice') {
@@ -823,12 +825,13 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       const faceDown = choices
         .filter(({ destination }) => destination === 'face-down')
         .map(({ objectId }) => objectId)
-      markKnownToAll(draft, [...faceUp, ...faceDown])
+      if (selection.pileVisibility === 'public') markKnownToAll(draft, [...faceUp, ...faceDown])
+      else { markKnownToAll(draft, faceUp); markKnownTo(draft, faceDown, [event.seat]) }
       const named = (ids: string[]) => ids
         .map((objectId) => draft.objects[objectId]?.name ?? 'a card')
         .join(', ')
         || 'no cards'
-      draft.note(`${event.seat} made two piles for ${selection.source ?? 'the spell'}: ${named(faceUp)} and ${named(faceDown)}`)
+      draft.note(selection.pileVisibility === 'public' ? `${event.seat} made two piles for ${selection.source ?? 'the spell'}: ${named(faceUp)} and ${named(faceDown)}` : `${event.seat} made a face-up pile (${named(faceUp)}) and a face-down pile`)
       openCardSelection(draft, {
         seat: selection.pileController,
         kind: 'choosePile',
@@ -840,7 +843,8 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
         prompt: 'Choose a pile.',
         destinations: ['hand'],
         fromSeat: selection.pileController,
-        fromZone: 'library',
+        fromZone: selection.fromZone ?? 'library',
+        ...(selection.targetIdentities ? { targetIdentities: structuredClone(selection.targetIdentities) } : {}),
         piles: { 'face-up': faceUp, 'face-down': faceDown },
         pileController: selection.pileController,
         pileReveal: selection.pileReveal,

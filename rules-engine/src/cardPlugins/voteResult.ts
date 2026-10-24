@@ -5,15 +5,17 @@ import type { InstructionCount, VoterGroup } from './effectDefinitions'
 export const tallyVotes = (
   votes: Record<PlayerId, string>,
   optionIds: string[],
+  ballots?: Record<PlayerId, string[]>,
 ): VoteResult => {
   const counted = Object.fromEntries(
     Object.entries(votes).filter(([, optionId]) => optionIds.includes(optionId)),
   )
   const tallies = Object.fromEntries(optionIds.map((id) => [id, 0]))
-  for (const optionId of Object.values(counted)) tallies[optionId] += 1
+  const allBallots = ballots ? Object.fromEntries(Object.entries(ballots).map(([voter, options]) => [voter, options.filter(option => optionIds.includes(option))])) : undefined
+  for (const optionId of allBallots ? Object.values(allBallots).flat() : Object.values(counted)) tallies[optionId] += 1
   const most = Math.max(0, ...Object.values(tallies))
   const winners = most === 0 ? [] : optionIds.filter((id) => tallies[id] === most)
-  return { votes: counted, tallies, winners, tied: winners.length > 1 }
+  return { votes: counted, ...(allBallots ? { ballots: allBallots } : {}), tallies, winners, tied: winners.length > 1 }
 }
 
 /** The vote an instruction list is resolving for, carried on its stack item. */

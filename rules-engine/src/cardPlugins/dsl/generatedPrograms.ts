@@ -17,6 +17,7 @@ export const generatedAbilitySnapshot = (
 ) => {
   let on: TriggeredAbilityDefinition['on']
   switch (ability.on.kind) {
+    case 'votesFinished':
     case 'abilityActivated':
     case 'becomesTapped':
     case 'tappedForMana':

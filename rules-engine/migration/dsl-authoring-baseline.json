@@ -57,12 +57,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "0d9588df7e678dfa47273c7b1108024e168302e778759b31d94b937b10204eb9",
-    "card": "Hostile Negotiations"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "9286108d4f17bbc0a28d12482c5c570e0d6052c41fd3ef01eb509a920f26ba4c",
     "card": "Cling to Dust"
   },
@@ -75,12 +69,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "7292ffc1f9a02b7a365fb5fab32399fa12385ce36a556c926952f55869144c12",
-    "card": "C\u00edrdan the Shipwright"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "163954689e281c315c7b878b1cbe019cc25eea460fdda6175a103ac4c1a6a82e",
     "card": "Concordant Crossroads"
   },
@@ -89,12 +77,6 @@
     "code": "legacy-card-registration",
     "digest": "2fd5901c256baddc6451880dd0ea461784d1a6bec5be392534eaa78c9633b97f",
     "card": "Hypergenesis"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "9e6373824b6f34a6d07e997517a399d54d33d084942892e872cc1d38f15fc2da",
-    "card": "Illusion of Choice"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -131,12 +113,6 @@
     "code": "legacy-card-registration",
     "digest": "4f0f3773f2fd563695bcb0611ff44eed613f49dbb2de05ac74a4adfb38ef9ae5",
     "card": "Dread Return"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "1c579b6af56f8297b6f34b1905d2f6b1c1843ff45e69dcdcac5da4f2778d6853",
-    "card": "Fortune's Favor"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -209,18 +185,6 @@
     "code": "legacy-card-registration",
     "digest": "256b3d1db82fa34965f144f05b223dbfe2b4abeb989df38f3d5529c9e44d8a07",
     "card": "Everybody Lives!"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "9c87fed9bca9590c225936cd971c5adc067c6feed1346ad4c64c5dde2a39317c",
-    "card": "Erestor of the Council"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "d717d8e21ef5a93ba226322dc0e6ebff02e0d122ee9ba1b9c8750ffecd83406a",
-    "card": "Trap the Trespassers"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

@@ -391,6 +391,14 @@ const matchesPlayerFilter = (
   const controlledFilter = filter.controls
   if (controlledFilter && !Object.values(context.state.objects).some(object => object.zone === 'battlefield' && !object.phasedOut && object.controller === player && matchesObjectFilter(object, controlledFilter, context))) return false
   if (filter.enchantableBy && (evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, undefined, player))) return false
+  if (filter.voted) {
+    const result = context.voteResults?.[filter.voted.binding]
+    const other = evaluatePlayerReference(filter.voted.with, context)[0]
+    const own = result?.ballots?.[player] ?? (result?.votes[player] ? [result.votes[player]!] : [])
+    const compared = other ? result?.ballots?.[other] ?? (result?.votes[other] ? [result.votes[other]!] : []) : []
+    const matches = filter.voted.agreement === 'same' ? own.some(option => compared.includes(option)) : own.some(option => !compared.includes(option))
+    if (!matches) return false
+  }
   if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
   if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
   if (filter.not && matchesPlayerFilter(player, filter.not, context, includeLost)) return false
@@ -661,7 +669,12 @@ export const amountEvaluationContext = (
     oneReferenceValue(reference, context, characteristic, information, fallback),
   lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),
   damageDealtThisTurn: (to, by) => damageDealtThisTurnAmong(to, by, context),
-  voteTally: (binding, option) => context.voteResults?.[binding]?.tallies[option] ?? 0,
+  voteTally: (binding, option) => {
+    const ids = typeof option === 'string' ? [option] : 'player' in option
+      ? evaluatePlayerReference(option.player, context)
+      : evaluateObjectReference(option.object, context, 'currentOrLastKnown').map(object => object.id)
+    return ids.reduce((sum, id) => sum + (context.voteResults?.[binding]?.tallies[id] ?? 0), 0)
+  },
 } satisfies AmountEvaluationContext)
 
 const lifeLostThisTurnAmong = (

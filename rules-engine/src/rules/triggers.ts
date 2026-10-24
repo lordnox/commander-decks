@@ -175,6 +175,7 @@ const capturedOccurrence = (
   return {
     kind: 'event',
     ...(event.type === 'abilityActivated' ? { stackItemId: event.stackId } : {}),
+    ...(event.type === 'votesFinished' ? { vote: structuredClone(event.result) } : {}),
     eventType: event.type === 'custom' ? event.name : event.type,
     ...(triggeringPlayer ? { player: triggeringPlayer } : {}),
     ...(defender ? { defender } : {}),
@@ -335,6 +336,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'votesFinished') return event.type === 'votesFinished'
   if (pattern.kind === 'abilityActivated') return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
   if (pattern.kind === 'tokenCreated' || pattern.kind === 'sacrificed') return matchesTokenAction(state, source, pattern, occurrence, event)
   if (pattern.kind === 'becomesTapped' || pattern.kind === 'tappedForMana') return matchesTapOccurrence(beforeState, state, source, pattern, occurrence, event)
@@ -465,6 +467,7 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'votesFinished': return event.type === 'votesFinished'
     case 'abilityActivated': return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
     case 'tokenCreated':
     case 'sacrificed': return matchesTokenAction(state, source, pattern, occurrence, event, execution)

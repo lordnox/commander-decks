@@ -13,6 +13,17 @@ import { instructionSpell } from './instructionTestSupport'
 import type { Instruction } from './schema/v1'
 import {
   choice,
+  amount,
+  count,
+  createDefinitionSnapshot,
+  forEach,
+  forEachPlayer,
+  modifyVotes,
+  players,
+  putCounters,
+  tap,
+  votesFinished,
+  whenever,
   compileCardRuleDefinition,
   card,
   destroy,
@@ -238,4 +249,113 @@ test.each([
     expect(state.objects[spellId]!.zone).toBe('graveyard')
   }
   expect(state.resolution).toBeUndefined()
+})
+
+test('secret object ballots bind every voted identity with its own tally through restore', () => {
+  const game = server([
+    vote({ prompt: 'Secretly choose a creature.', secret: true, options: { kind: 'objects', filter: objects({ zone: 'battlefield', type: 'Creature', not: { controller: 'you' } }) }, bindResult: 'vote', bindObjects: 'voted' }),
+    forEach({ of: choice('voted'), instructions: [putCounters({ targets: ref('triggering.object.after'), counter: 'stun', count: voteTally('vote', { object: ref('triggering.object.after') }) }), tap(ref('triggering.object.after'))] }),
+  ], { battlefield: { p1: [creature('Mine')], p2: [creature('Left')], p3: [creature('Right'), creature('Unvoted')] } })
+  let state = begin(game)
+  const left = named(state, 'Left').id, right = named(state, 'Right').id
+  state = ok(answer(game, state, 'p1', left))
+  expect(pendingVote(projectForViewer(state, 'p1'))!.votes.p1).toBe(left)
+  expect(pendingVote(projectForViewer(state, 'p2'))!.votes.p1).toBe('*')
+  expect(pendingVote(projectForViewer(state, null))!.votes.p1).toBe('*')
+  state = restoreJournal(createJournal(state), game.rules).current()
+  state = castAll(game, state, [['p2', right], ['p3', left], ['p4', left]]).state
+  expect(named(state, 'Left')).toMatchObject({ tapped: true, counters: { stun: 3 } })
+  expect(named(state, 'Right')).toMatchObject({ tapped: true, counters: { stun: 1 } })
+  expect(named(state, 'Unvoted').tapped).toBe(false)
+})
+
+test('scoped vote control and additional ballots preserve secrecy, full results and cleanup duration', () => {
+  const game = server([
+    modifyVotes({ players: players({ relation: 'opponent' }), controller: ref('controller'), additional: amount(1), duration: 'untilEndOfTurn' }),
+    vote({ prompt: 'Secret vote.', secret: true, options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] }, bindResult: 'vote' }),
+    gainLife({ targets: ref('controller'), amount: voteTally('vote', 'a') }),
+  ])
+  let state = begin(game)
+  expect(answer(game, state, 'p2', 'a').ok).toBe(false)
+  state = ok(answer(game, state, 'p1', 'a'))
+  expect(pendingOptionSelection(state, 'p1')?.action).toMatchObject({ voter: 'p2' })
+  state = ok(answer(game, state, 'p1', 'a'))
+  expect(pendingOptionSelection(state, 'p1')?.action).toMatchObject({ voter: 'p2' })
+  expect(pendingVote(projectForViewer(state, 'p3'))!.ballots!.p2).toEqual(['*'])
+  expect(pendingVote(projectForViewer(state, null))!.ballots!.p2).toEqual(['*'])
+  state = restoreJournal(createJournal(state), game.rules).current()
+  for (let index = 0; index < 5; index++) state = ok(answer(game, state, 'p1', 'a'))
+  expect(state.players.p1.life).toBe(47)
+  expect(state.voteModifiers).toHaveLength(1)
+  state = ok(game.rules({ ...state, step: 'end' }, { type: 'advanceStep' }))
+  expect(state.step).toBe('cleanup')
+  expect(state.voteModifiers).toBeUndefined()
+})
+
+test('finished-vote observers compare all ballots and retain the result after leaving', () => {
+  const observer = createDefinitionSnapshot(compileCardRuleDefinition(card([whenever(votesFinished('vote'), { instructions: [
+    gainLife({ targets: ref('controller'), amount: count(players({ relation: 'opponent', voted: { binding: 'vote', with: ref('controller'), agreement: 'same' } })) }),
+    gainLife({ targets: ref('controller'), amount: count(players({ relation: 'opponent', voted: { binding: 'vote', with: ref('controller'), agreement: 'different' } })) }),
+  ] })])))
+  const game = server([
+    modifyVotes({ players: players({ relation: 'opponent' }), additional: amount(1), duration: 'permanent' }),
+    vote({ prompt: 'Vote.', options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] }, bindResult: 'vote' }),
+  ], { battlefield: { p1: [cardTemplate('Observer fixture', { types: ['Creature'], ruleDefinition: observer })] } })
+  let state = castAll(game, begin(game), [['p1', 'a'], ['p2', 'a'], ['p2', 'b'], ['p3', 'b'], ['p3', 'b'], ['p4', 'a'], ['p4', 'a']]).state
+  expect(state.stack).toHaveLength(1)
+  expect(state.players.p1.life).toBe(40)
+  const source = named(state, 'Observer fixture').id
+  state = ok(game.rules(state, { type: 'move', objectId: source, to: 'graveyard' }))
+  state = resolveStack(game.rules, restoreJournal(createJournal(state), game.rules).current())
+  // p2 and p4 agree; p2 and p3 disagree. A multi-vote opponent can be both.
+  expect(state.players.p1.life).toBe(44)
+})
+
+
+test('the catalog player-ballot program completes all APNAP draws before sequential optional placements', () => {
+  const game = createServerGame(commanderRules, { players: 4, hands: {
+    p1: [creature('One placement')], p2: [cardTemplate('Círdan the Shipwright')],
+    p3: [cardTemplate('Three placement', { types: ['Artifact'] })], p4: [cardTemplate('Four placement', { types: ['Enchantment'] })],
+  }, libraries: { p2: Array.from({ length: 5 }, (_, i) => cardTemplate(`Draw fixture ${i}`)) } }, { random: () => 0 })
+  let state = structuredClone(game.state)
+  state.active = 'p3'
+  state.priority = 'p3'
+  state = resolveStack(game.rules, ok(game.rules(state, { type: 'move', objectId: named(state, 'Círdan the Shipwright').id, to: 'battlefield' })))
+  state = castAll(game, state, [['p2', 'p2'], ['p3', 'p2'], ['p4', 'p2'], ['p1', 'p2']]).state
+  expect(state.zoneOrder.p2.hand).toHaveLength(4)
+  expect(state.priority).toBeNull()
+  for (const [seat, name] of [['p3', 'Three placement'], ['p4', 'Four placement'], ['p1', 'One placement']]) {
+    const pick = pendingSelectionFor(state, seat!)!
+    expect(pick).toBeDefined()
+    state = ok(game.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: seat!, selectionId: pick.id, kind: 'choose', count: pick.count, objectIds: [named(state, name!).id] }))
+    expect(named(state, name!).zone).toBe('battlefield')
+  }
+  expect(state.resolution).toBeUndefined()
+})
+
+test('the catalog finished-vote program creates Treasures for matching opponents before scry and draw', () => {
+  const game = server([vote({ prompt: 'Vote.', options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] }, bindResult: 'vote' })], { battlefield: { p2: [cardTemplate('Erestor of the Council')] }, libraries: { p2: [cardTemplate('First draw'), cardTemplate('Second draw')] } })
+  let state = castAll(game, begin(game), [['p1', 'a'], ['p2', 'a'], ['p3', 'b'], ['p4', 'a']]).state
+  expect(state.stack).toHaveLength(1)
+  state = ok(game.rules(state, { type: 'resolveTop' }))
+  expect(Object.values(state.objects).filter(object => object.name === 'Treasure').map(object => object.controller).sort()).toEqual(['p1', 'p4'])
+  const pick = pendingSelectionFor(state, 'p2')!
+  expect(pick).toMatchObject({ kind: 'scry', count: 1 })
+  expect(state.zoneOrder.p2.hand).toHaveLength(0)
+  state = ok(game.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p2', selectionId: pick.id, kind: 'scry', count: 1, choices: [{ objectId: pick.candidates[0]!, destination: 'top' }] }))
+  expect(named(state, 'First draw').zone).toBe('hand')
+})
+
+test('the most recently resolved vote controller wins, including after restoring a permanent effect', () => {
+  const game = server([
+    forEachPlayer({ of: players({ relation: 'opponent' }), instructions: [modifyVotes({ players: players(), controller: ref('event.player'), duration: 'permanent' })] }),
+    vote({ prompt: 'Vote.', options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }] }, bindResult: 'vote' }),
+  ])
+  let state = begin(game)
+  expect(pendingOptionSelection(state, 'p4')?.action).toMatchObject({ voter: 'p1' })
+  expect(answer(game, state, 'p2', 'a').ok).toBe(false)
+  state = restoreJournal(createJournal(state), game.rules).current()
+  for (let index = 0; index < 4; index++) state = ok(answer(game, state, 'p4', 'a'))
+  state = ok(game.rules({ ...state, step: 'end' }, { type: 'advanceStep' }))
+  expect(state.voteModifiers).toHaveLength(3)
 })

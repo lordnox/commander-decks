@@ -49,6 +49,7 @@ export type ObjectNumericCharacteristic = typeof OBJECT_NUMERIC_CHARACTERISTICS[
 export type PlayerMatch = PlayerRelation | PlayerReference
 
 export type PlayerFilter = {
+  voted?: { binding: string; with: PlayerReference; agreement: 'same' | 'different' }
   controls?: ObjectFilter
   enchantableBy?: ObjectReference
   relation?: PlayerMatch
@@ -214,8 +215,8 @@ export type Amount =
     }
   | { kind: 'lifeLostThisTurn'; of: PlayerRecipient; combine?: LifeLostCombine }
   | { kind: 'damageDealtThisTurn'; to: ObjectReference; by?: PlayerRecipient }
-  /** Count of recorded ballots for one option of a finished public vote. */
-  | { kind: 'voteTally'; binding: string; option: string }
+  /** Count of recorded ballots for one option of a finished vote. */
+  | { kind: 'voteTally'; binding: string; option: string | { player: PlayerReference } | { object: ObjectReference } }
 
 export type AmountInput = number | Amount
 
@@ -249,6 +250,7 @@ export type PlayerOccurrenceFilter = {
 }
 
 export type OccurrencePattern =
+  | { kind: 'votesFinished'; bindResult: string }
   | { kind: 'abilityActivated'; filter: PlayerSelector }
   | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
@@ -490,13 +492,14 @@ export type EmblemDefinition = {
 
 export type NamedVoteOption = { id: string; label: string }
 
-/** Public vote options. Secret ballots and extra-vote control stay on later 39 slices. */
+/** Ballot options; object choices retain their offered identities. */
 export type VoteSpec =
   | { kind: 'named'; options: readonly NamedVoteOption[] }
   | { kind: 'objects'; filter: ObjectSelector }
   | { kind: 'players'; filter?: PlayerFilter }
 
 export type Instruction =
+  | { kind: 'modifyVotes'; players: PlayerRecipient; controller?: PlayerReference; additional?: Amount; duration: 'untilEndOfTurn' | 'permanent' }
   | { kind: 'chooseCreatureType'; chooser: PlayerReference; bindResult: string }
   | { kind: 'discardHands'; targets: PlayerRecipient }
   | { kind: 'chooseParticipants'; of: PlayerRecipient; bindChoice: string; prompt?: string }
@@ -504,6 +507,8 @@ export type Instruction =
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
   | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */
+  | { kind: 'lookAt'; cards: ObjectRecipient; viewers: PlayerRecipient }
+  | { kind: 'choosePile'; piles: readonly [ObjectRecipient, ObjectRecipient]; chooser: PlayerReference; bindChosen: string; bindOther: string; prompt?: string }
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
   /** Persist an authoritative random pick from a current object set. */
   | { kind: 'chooseRandom'; filter: ObjectSelector; bindChoice: string }
@@ -514,9 +519,11 @@ export type Instruction =
   | { kind: 'repeatOnceIf'; condition: Condition; instructions: readonly Instruction[] }
   /** Give control of resolved permanents to one player without a further assignment. */
   | { kind: 'changeControl'; targets: ObjectRecipient; controller: PlayerReference }
-  /** Public sequential votes; bind the result and continue after every ballot is in. */
+  /** Collect public or secret ballots, bind the revealed result, then continue. */
   | {
       kind: 'vote'
+      secret?: boolean
+      bindObjects?: string
       prompt: string
       options: VoteSpec
       bindResult: string
@@ -526,6 +533,7 @@ export type Instruction =
   /** An opponent partitions bound cards; the chooser picks a pile; both piles stay bound. */
   | {
       kind: 'partitionPiles'
+      visibility?: 'public' | 'facedown-faceup'
       cards: ObjectRecipient
       partitioner: PlayerReference
       chooser: PlayerReference
@@ -598,11 +606,11 @@ export type Instruction =
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string; bindCount?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
-  | { kind: 'move'; targets: ObjectRecipient; to: Zone; position?: 'top' | 'bottom'; order?: 'random'; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; faceDown?: boolean; position?: 'top' | 'bottom'; order?: 'random'; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
   /** Inspect and order the top cards of each selected player's library. */
   | { kind: 'scry' | 'surveil'; targets: PlayerRecipient; count: Amount }
   /** Reveal each resolved object to every player through the ordinary visibility event. */
-  | { kind: 'reveal'; targets: ObjectRecipient }
+  | { kind: 'reveal'; targets: ObjectRecipient; turnFaceUp?: true }
   /** Tap or untap each resolved object through the ordinary event pipeline. */
   | { kind: 'tap'; targets: ObjectRecipient; skipNextUntap?: true }
   | { kind: 'untap'; targets: ObjectRecipient }
@@ -1085,5 +1093,5 @@ export type AmountEvaluationContext = {
   counterCount?: (of: ObjectReference, counter: string) => number
   lifeLostThisTurn?: (of: PlayerRecipient, combine?: LifeLostCombine) => number
   damageDealtThisTurn?: (to: ObjectReference, by?: PlayerRecipient) => number
-  voteTally?: (binding: string, option: string) => number
+  voteTally?: (binding: string, option: Extract<Amount, { kind: 'voteTally' }>['option']) => number
 }

@@ -781,6 +781,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position, event.sameZone)
+      if (event.faceDown !== undefined) {
+        object.faceDown = event.faceDown
+        object.knownTo = []
+      }
+      else if (previous !== event.to && previous === 'exile') delete object.faceDown
       if (event.dropStackItem && previous === 'stack' && event.to !== 'stack') {
         const resolvingId = draft.resolution?.stackId
         draft.stack = draft.stack.filter((item) =>
