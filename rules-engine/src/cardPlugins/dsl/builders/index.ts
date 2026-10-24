@@ -1031,6 +1031,7 @@ export const banAttacks = (input: {
 })
 
 export const copy = (input: {
+  information?: 'current' | 'currentOrLastKnown'
   targets?: ObjectRecipient
   snapshot?: string
   controller?: Extract<Instruction, { kind: 'copy' }>['controller']
@@ -1040,6 +1041,7 @@ export const copy = (input: {
   bindChoice?: string
 }): Instruction => immutableData({
   kind: 'copy',
+  ...(input.information !== undefined ? { information: input.information } : {}),
   ...(input.targets !== undefined ? { targets: input.targets } : {}),
   ...(input.snapshot !== undefined ? { snapshot: input.snapshot } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
@@ -1565,3 +1567,5 @@ export const choosePile = (input: Omit<Extract<Instruction, { kind: 'choosePile'
 
 /** CR 701.59: exile graveyard cards with at least the stated total mana value. */
 export const collectEvidence = (amount: AmountInput): Cost => immutableData({ kind: 'collectEvidence', amount: toAmount(amount) })
+
+export const exileSourceCost = (from: Zone): Cost => immutableData({ kind: 'exileSource', from })

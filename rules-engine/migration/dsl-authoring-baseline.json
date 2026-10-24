@@ -167,12 +167,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "476866e403e07621bb2461f63f77516d67b1bb286b87d4a046110f5a7c25dcec",
-    "card": "Angel of Sanctions"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "1ef115f46b1b69e7be8dcb0594f74ef9308b1488d168469ad9119e0e92e17fae",
     "card": "Glorious Protector"
   },

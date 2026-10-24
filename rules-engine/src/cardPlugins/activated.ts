@@ -405,6 +405,9 @@ export const activated: Plugin = {
             case 'crew':
               costEvents.push({ type: 'actionGroup', events: (event.choices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
               break
+            case 'exileSource':
+              costEvents.push({ type: 'move', objectId: source.id, to: 'exile' })
+              break
             case 'tapSource':
               costEvents.push({ type: 'tap', objectId: source.id })
               break

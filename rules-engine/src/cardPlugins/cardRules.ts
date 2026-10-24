@@ -4,7 +4,6 @@ import {
   alternateCast,
   becomeCopyOfTarget,
   allCreatureTypes,
-  embalm,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copyTargetCreature,
@@ -75,12 +74,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         { optional: true, max: 1 },
       )],
     },
-  ],
-  'Angel of Sanctions': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
-    enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
   Belonging: [
     enters(

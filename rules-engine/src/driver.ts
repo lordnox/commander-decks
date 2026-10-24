@@ -1206,7 +1206,7 @@ const actionEvents = (
           if (!snapshot) throw new RuleDslEvaluationError(`copy snapshot ${instruction.snapshot} is not bound`)
           return [{ objectId: frame.source.ref.objectId, token: applyCopyModifiers({ ...snapshot }, modifiers) }]
         })()
-        : objectActions(instruction.targets!, context).map(object => ({
+        : (instruction.targets!.kind === 'objects' ? evaluateObjectSelector(instruction.targets!, context) : evaluateObjectReference(instruction.targets!, context, instruction.information)).map(object => ({
           objectId: object.id,
           token: copyCharacteristics(object, modifiers),
         }))

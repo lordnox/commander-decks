@@ -586,6 +586,9 @@ export const spells: Plugin = {
     const costs: GameEvent[] = evidencePaymentEvents(committed.proposal)
     for (const cost of committed.lockedCost.nonMana) {
       switch (cost.kind) {
+        case 'exileSource':
+          costs.push({ type: 'move', objectId: object.id, to: 'exile' })
+          break
         case 'tapSource':
           costs.push({ type: 'tap', objectId: object.id })
           break

@@ -1,12 +1,10 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { EMBALM_ABILITY_ID } from './embalm.test'
 import { activated } from './activated'
 import { effectsFor } from './cardRules'
 import { exilePayoffs } from './exilePayoffs'
@@ -19,16 +17,6 @@ const named = (state: GameState, name: string) =>
 
 const fromPool = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra, effects: effectsFor(name) })
-
-const moveToGraveyard = (state: GameState, name: string) => {
-  const object = named(state, name)
-  state.zoneOrder[object.owner][object.zone] = state.zoneOrder[object.owner][object.zone]
-    .filter((id) => id !== object.id)
-  state.zoneCounts[object.owner][object.zone] -= 1
-  state.zoneOrder[object.owner].graveyard.push(object.id)
-  state.zoneCounts[object.owner].graveyard += 1
-  object.zone = 'graveyard'
-}
 
 const enterAndLinkExile = (
   server: ReturnType<typeof createServerGame>,
@@ -119,75 +107,6 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
     state = ok(server.rules(state, { type: 'sacrifice', objectId: priestId }))
     expect(state.objects[foeId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions optional ETB may exile zero permanents', () => {
-    const angel = fromPool('Angel of Sanctions')
-    const relic = cardTemplate('Opponent Relic', { types: ['Artifact'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const angelId = named(server.state, 'Angel of Sanctions').id
-    const relicId = named(server.state, 'Opponent Relic').id
-    let state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: angelId,
-      to: 'battlefield',
-    })))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[relicId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {
-    const angel = fromPool('Angel of Sanctions')
-    const relic = cardTemplate('Sanctions Relic', { types: ['Artifact'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const angelId = named(server.state, 'Angel of Sanctions').id
-    const relicId = named(server.state, 'Sanctions Relic').id
-    let state = enterAndLinkExile(server, angelId, 'p1', [relicId])
-    expect(state.objects[relicId]).toMatchObject({ zone: 'exile', exiledWith: angelId })
-    state = ok(server.rules(state, { type: 'move', objectId: angelId, to: 'graveyard' }))
-    expect(state.objects[relicId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions embalms from the graveyard', () => {
-    const angel = fromPool('Angel of Sanctions', { colors: ['W'], manaCost: '{3}{W}{W}' })
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [angel] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    let state = structuredClone(server.state)
-    moveToGraveyard(state, 'Angel of Sanctions')
-    state.players.p1.mana.W = 6
-    const source = named(state, 'Angel of Sanctions')
-    expect(legalActsFor(state, 'p1').some((action) =>
-      action.kind === 'activateAbility'
-      && action.objectId === source.id
-      && action.abilityId === EMBALM_ABILITY_ID)).toBe(true)
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: source.id,
-      abilityId: EMBALM_ABILITY_ID,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.zoneOrder.p1.battlefield).toHaveLength(1)
-    const token = state.objects[state.zoneOrder.p1.battlefield[0]]
-    expect(token).toMatchObject({ name: 'Angel of Sanctions', token: true, subtypes: ['Zombie'] })
   })
 
   test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {

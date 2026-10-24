@@ -83,6 +83,9 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
       case 'crew':
         paymentEvents.push({ type: 'actionGroup', events: (transaction.proposal.nonManaChoices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
         break
+      case 'exileSource':
+        paymentEvents.push({ type: 'move', objectId: transaction.proposal.sourceId, to: 'exile' })
+        break
       case 'tapSource':
         paymentEvents.push({ type: 'tap', objectId: transaction.proposal.sourceId })
         break

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 23,
+    "cardRegistrations": 22,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
@@ -33,30 +33,29 @@
     "instructionUnobservedGaps": 132,
     "cardRegistrationOnlyGaps": 3,
     "candidateOnlyInstructionRows": 51,
-    "candidateOnlyCardRows": 20
+    "candidateOnlyCardRows": 19
   },
   "cardEffects": [
     {
       "variant": "activate",
       "mechanic": "activated ability",
       "currentRegistrations": [
-        "Angel of Sanctions:effects[2]",
         "Belonging:effects[2]",
         "Soul of Eternity:effects[1]",
         "Thespian's Stage:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:129 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/embalm.test.ts:40 — test('clone-safe embalm builder stamps parameterized exceptions', () => {",
           "rules-engine/src/cardPlugins/encore.test.ts:54 — test('encore builder clones safely', () => {",
-          "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {"
+          "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:322 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:613 — test(\"Thespian's Stage lists its handlers\", () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:750 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -198,7 +197,6 @@
       "mechanic": "specialized plugin hook",
       "currentRegistrations": [
         "All-Fates Stalker:effects[2]",
-        "Angel of Sanctions:effects[0]",
         "Concordant Crossroads:effects[1]",
         "Ephemerate:effects[0]",
         "Everybody Lives!:effects[0]",
@@ -208,16 +206,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 13,
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:26 — test('Ephemerate returns a stolen creature under its owner’s control', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:558 — test('swaps creature control until cleanup', () => {"
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:558 — test('swaps creature control until cleanup', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:212 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
@@ -393,7 +391,6 @@
       "mechanic": "static/granted rule",
       "currentRegistrations": [
         "All-Fates Stalker:effects[3]",
-        "Angel of Sanctions:effects[1]",
         "Belonging:effects[1]",
         "Concordant Crossroads:effects[0]",
         "Glorious Protector:effects[1]",
@@ -403,16 +400,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 18,
+        "matches": 15,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:3564 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:215 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -474,7 +471,6 @@
       "mechanic": "triggered ability",
       "currentRegistrations": [
         "All-Fates Stalker:effects[4]",
-        "Angel of Sanctions:effects[3]",
         "Belonging:effects[0]",
         "Forgotten Cellar:effects[0]",
         "Glorious Protector:effects[2]",
@@ -491,16 +487,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 49,
+        "matches": 46,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:325 — test('an opponent-owned clone entering under your control copies your creature', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1788,18 +1784,12 @@
     {
       "variant": "embalmToken",
       "mechanic": "copy and token action",
-      "currentRegistrations": [
-        "Angel of Sanctions:effects[2].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/embalm.test.ts:46 — test('clone-safe embalm builder stamps parameterized exceptions', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:336 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/embalm.test.ts:46 — test('clone-safe embalm builder stamps parameterized exceptions', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2454,21 +2444,20 @@
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
         "All-Fates Stalker:effects[4].do[0]",
-        "Angel of Sanctions:effects[3].do[0]",
         "Glorious Protector:effects[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2233 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2256 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2266 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2596 — test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2596 — test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:871 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:894 — test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:925 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4327,50 +4316,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Angel of Sanctions",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Angel of Sanctions"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:336 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, handler, static, trigger] and instructions [embalmToken, linkExile]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "handler",
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "embalmToken",
-        "linkExile"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Belonging",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -4544,7 +4489,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:194 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
         ]
       },
@@ -5321,23 +5266,22 @@
       "variant": "activated",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [
-        "Angel of Sanctions",
         "Belonging",
         "Soul of Eternity",
         "Thespian's Stage"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 86,
+        "matches": 82,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:359 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:252 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:252 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:162 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:139 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1006 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6236,7 +6180,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 265,
+        "matches": 264,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2124 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -7130,7 +7074,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:171",
+        "rules-engine/src/cardPlugins/cardRules.ts:164",
         "rules-engine/src/cardPlugins/cardRules.ts:5",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:250",
@@ -7317,9 +7261,9 @@
         "rules-engine/src/formats.ts:135",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:542",
-        "rules-engine/src/kernel.ts:544",
-        "rules-engine/src/kernel.ts:841",
+        "rules-engine/src/kernel.ts:545",
+        "rules-engine/src/kernel.ts:547",
+        "rules-engine/src/kernel.ts:844",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -7391,10 +7335,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1243
+          1246
         ],
         "samples": [
-          "1243: if (object.name === 'Timetwister') {"
+          "1246: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7556,10 +7500,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          537
+          544
         ],
         "samples": [
-          "537: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "544: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -8295,10 +8239,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1647
+          1650
         ],
         "samples": [
-          "1647: event.name === SEARCH_CHOSEN"
+          "1650: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8617,31 +8561,31 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          944,
-          950,
-          1029,
-          1049,
-          1051,
+          947,
+          953,
+          1032,
+          1052,
           1054,
-          1064,
+          1057,
           1067,
-          1082,
-          1083,
-          1093,
-          1094,
-          1194,
-          1219,
-          1234,
-          1250,
-          1252,
-          1266,
-          1278,
-          1299
+          1070,
+          1085,
+          1086,
+          1096,
+          1097,
+          1197,
+          1222,
+          1237,
+          1253,
+          1255,
+          1269,
+          1281,
+          1302
         ],
         "samples": [
-          "944: const moved = draft.object(event.objectId)",
-          "950: const object = draft.object(event.objectId)",
-          "1029: .map((objectId) => draft.object(objectId))"
+          "947: const moved = draft.object(event.objectId)",
+          "953: const object = draft.object(event.objectId)",
+          "1032: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9692,9 +9636,9 @@
           351,
           354,
           367,
-          561,
-          595,
-          616
+          564,
+          598,
+          619
         ],
         "samples": [
           "351: const source = draft.object(event.objectId)",
@@ -10682,30 +10626,30 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          525,
-          532,
-          638,
-          640,
-          644,
-          652,
-          667,
-          676,
+          528,
+          535,
+          641,
+          643,
+          647,
+          655,
+          670,
           679,
-          732,
+          682,
           735,
-          744,
-          779,
-          794,
-          856,
-          863,
-          869,
-          886,
-          894
+          738,
+          747,
+          782,
+          797,
+          859,
+          866,
+          872,
+          889,
+          897
         ],
         "samples": [
-          "525: const object = draft.object(event.objectRef.objectId)",
-          "532: const object = draft.object(event.objectId)",
-          "638: const object = draft.object(event.objectId)"
+          "528: const object = draft.object(event.objectRef.objectId)",
+          "535: const object = draft.object(event.objectId)",
+          "641: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

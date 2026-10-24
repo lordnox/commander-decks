@@ -825,6 +825,10 @@ export const validateDefinitionV1 = (root: unknown): {
         validateAmount(node.power, childPath(path, 'power'), env)
         if (!/\.costs\[\d+\]$/.test(path)) issue(path, 'domain', 'crew is an activation cost')
         return
+      case 'exileSource':
+        exactKeys(node, path, ['kind', 'from'], ['kind', 'from'])
+        enumeration(node.from, childPath(path, 'from'), ZONES, 'source cost zone')
+        return
       case 'tapSource':
         exactKeys(node, path, ['kind'], ['kind'])
         return
@@ -1314,7 +1318,8 @@ export const validateDefinitionV1 = (root: unknown): {
         const hasTargets = node.targets !== undefined
         const hasSnapshot = node.snapshot !== undefined
         if (hasTargets === hasSnapshot) issue(path, 'instruction-shape', 'copy requires exactly one of targets or snapshot')
-        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'tapped', 'except', 'bindResult', 'bindChoice'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
+        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'tapped', 'except', 'bindResult', 'bindChoice', 'information'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
+        if (node.information !== undefined) enumeration(node.information, childPath(path, 'information'), new Set(['current', 'currentOrLastKnown']), 'copy information')
         if (hasTargets) validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (hasSnapshot) {
           const name = bindingName(node.snapshot, childPath(path, 'snapshot'))

@@ -412,8 +412,15 @@ const validateNonManaCosts = (
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
   let sourceTapped = false
+  let sourceExiled = false
   for (const cost of costs) {
     switch (cost.kind) {
+      case 'exileSource': {
+        const source = state.objects[runtimeSourceId]
+        if (!source || source.zone !== cost.from || (source.zone === 'battlefield' ? source.controller : source.owner) !== payer || sourceExiled) throw new TypeError('source cannot be exiled to pay this cost')
+        sourceExiled = true
+        break
+      }
       case 'mill':
         millTotal += costAmount(cost.count, x, runtime)
         break

@@ -361,6 +361,7 @@ export type ManaCost = string
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
+  | { kind: 'exileSource'; from: Zone }
   | { kind: 'collectEvidence'; amount: Amount }
   | { kind: 'crew'; power: Amount }
   | { kind: 'choosePlayer'; players: PlayerSelector }
@@ -637,7 +638,7 @@ export type Instruction =
   /** Creatures the chosen attackers control cannot attack matching defenders this turn. */
   | { kind: 'banAttacks'; attackers: PlayerRecipient; defenders: ObjectSelector }
   /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
-  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; except?: CopyExcept; bindResult?: string; bindChoice?: string }
+  | { kind: 'copy'; information?: 'current' | 'currentOrLastKnown'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; except?: CopyExcept; bindResult?: string; bindChoice?: string }
   /** Copy a spell already on the stack without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Copy an activated or triggered ability without activating or triggering it again. */
