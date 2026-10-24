@@ -30,10 +30,4 @@ export const tapUnlessRevealSubtype = (...subtypes: string[]): CardEffect => ({
   subtypes,
 })
 
-/** Reveal this card and shuffle it into its owner's library instead of putting it into a graveyard. */
-export const shuffleIntoLibraryInstead = (): CardEffect => ({
-  op: 'static',
-  shuffleIntoLibraryInstead: true,
-})
-
 export const replaceDrawByType = (): CardEffect => ({ op: 'drawReplacementByType' })

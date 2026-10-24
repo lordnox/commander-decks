@@ -120,7 +120,7 @@ describe('cycling', () => {
     expect(finished.stack).toHaveLength(0)
   })
 
-  test('plainscycling cycle triggers wait until the library search closes', () => {
+  test('plainscycling listeners resolve before the library search', () => {
     const cycler = cardTemplate('Plains Cycler', {
       types: ['Creature'],
       effects: [typecycleHand('cycling.plainsCycler', '{2}', 'Plains')],
@@ -150,14 +150,14 @@ describe('cycling', () => {
       objectId: cyclerId,
     })), { type: 'resolveTop' }))
     expect(opened.stack.some((item) => item.name === 'Cycle Listener')).toBe(false)
+    expect(named(opened, 'Plains').zone).toBe('hand')
+    const searching = ok(server.rules(opened, { type: 'resolveTop' }))
 
-    const found = named(opened, 'Plains').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'hand' },
+    const finished = run(server, searching, [
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
     ])
-    expect(finished.stack.some((item) => item.name === 'Cycle Listener')).toBe(true)
+    expect(finished.stack.some((item) => item.name === 'Cycle Listener')).toBe(false)
     expect(named(finished, 'Bonus card').zone).toBe('library')
   })
 
@@ -192,8 +192,9 @@ describe('cycling', () => {
       seat: 'p1',
       objectId: cyclerId,
     }))
+    expect(stacked.stack.map(item => item.name)).toEqual(['Cycle Listener', 'Cycle Meadow'])
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(named(resolved, 'Bonus card').zone).toBe('hand')
-    expect(resolved.stack.some((item) => item.name === 'Cycle Listener')).toBe(true)
+    expect(resolved.stack.map(item => item.name)).toEqual(['Cycle Meadow'])
   })
 })

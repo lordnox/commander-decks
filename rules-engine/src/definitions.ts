@@ -8,6 +8,7 @@ export const CARD_TYPES = [
   'Creature',
   'Enchantment',
   'Instant',
+  'Kindred',
   'Land',
   'Planeswalker',
   'Sorcery',

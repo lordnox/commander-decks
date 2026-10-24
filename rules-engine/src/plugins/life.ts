@@ -1,4 +1,6 @@
+import { recordInstructionAmount } from '../cardPlugins/dsl/instructionResults'
 import type { GameEvent, PlayerState, Plugin } from '../types'
+import { playerCannotLoseGame } from './playerEffects'
 
 export const LIFE_GAINED_THIS_TURN = 'life.gainedThisTurn'
 export const LIFE_LOST_THIS_TURN = 'life.lostThisTurn'
@@ -49,6 +51,7 @@ export const life: Plugin = {
     if (event.type === 'loseLife') {
       const player = draft.players[event.seat]
       if (!player || player.lost || event.amount === 0) return
+      recordInstructionAmount(draft, 'loseLife', event.amount, undefined, event.seat)
       player.life -= event.amount
       player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
       draft.note(
@@ -113,7 +116,7 @@ export const life: Plugin = {
     }
     if (event.type === 'winGame') {
       for (const seat of draft.playerOrder) {
-        if (seat !== event.seat && !draft.players[seat].lost) {
+        if (seat !== event.seat && !draft.players[seat].lost && !playerCannotLoseGame(draft, seat)) {
           draft.enqueue({ type: 'concede', seat })
         }
       }

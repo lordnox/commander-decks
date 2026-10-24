@@ -338,11 +338,3 @@ export const castModal = (modal: ModalSpec, options: CastFilters = {}): CardEffe
   ...trigger('cast', castFilters(options)),
   modal,
 })
-
-export const yourEndTargetingOpponent = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'end',
-  targets: 'opponent',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-})

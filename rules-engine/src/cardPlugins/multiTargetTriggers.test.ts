@@ -12,9 +12,9 @@ import {
   entersTargeting,
   entersTargetingUpTo,
 } from './effects'
-import { PERMANENT_ENTERED } from './entersTapped'
-import { HOMER_CHOSEN, HOMER_NAME, homer } from './homer'
-import { pendingPlayerTargets } from './playerTargets'
+import { HOMER_NAME } from './homer'
+import { instructionSpell } from './dsl/instructionTestSupport'
+import { createToken, ref } from './dsl/v1'
 
 import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
@@ -345,25 +345,45 @@ const homerGame = () => createServerGame(
       p4: Array.from({ length: 6 }, (_, index) => seaCard(`P4 ${index}`, ['Instant'])),
     },
   },
-  { random: () => 0, cardPlugins: [homer] },
+  { random: () => 0 },
 )
+
+const pickHomerPlayers = (
+  server: ReturnType<typeof homerGame>,
+  state: GameState,
+  players: string[],
+) => {
+  const pick = pendingPlayerSelectionFor(state, 'p1')!
+  return ok(server.rules(state, {
+    type: 'selectPlayers',
+    seat: 'p1',
+    selectionId: pick.id,
+    players,
+  }))
+}
 
 describe('landfall player-target mill', () => {
   test('triggers when a land token enters', () => {
-    const tokenLand = { ...seaCard('Land Token', ['Land']), token: true }
     const server = createServerGame(
       commanderRules,
-      { battlefield: { p1: [seaCard(HOMER_NAME, ['Creature'], ['Crab']), tokenLand] } },
-      { random: () => 0, cardPlugins: [homer] },
+      {
+        battlefield: { p1: [seaCard(HOMER_NAME, ['Creature'], ['Crab'])] },
+        hands: { p1: [instructionSpell({
+          instructions: [createToken({
+            count: 1,
+            targets: ref('controller'),
+            token: { name: 'Land Token', types: ['Land'] },
+          })],
+        })] },
+      },
+      { random: () => 0 },
     )
-    const tokenId = server.state.zoneOrder.p1.battlefield[1]
-    const triggered = ok(server.rules(server.state, {
-      type: 'custom',
-      name: PERMANENT_ENTERED,
+    const triggered = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'castSpell',
       seat: 'p1',
-      payload: { objectId: tokenId },
-    }))
-    expect(pendingPlayerTargets(triggered)?.source).toBe(HOMER_NAME)
+      objectId: server.state.zoneOrder.p1.hand[0],
+    })))
+    expect(pendingPlayerSelectionFor(triggered, 'p1')).toMatchObject({ min: 0 })
   })
 
   test('triggers when a land spell resolves', () => {
@@ -376,7 +396,7 @@ describe('landfall player-target mill', () => {
     }))
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[landId].zone).toBe('battlefield')
-    expect(pendingPlayerTargets(resolved)?.source).toBe(HOMER_NAME)
+    expect(pendingPlayerSelectionFor(resolved, 'p1')).toMatchObject({ min: 0 })
   })
 
   test('landfall waits for any number of player targets, then mills each target', () => {
@@ -386,21 +406,12 @@ describe('landfall player-target mill', () => {
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
-    expect(pendingPlayerTargets(triggered)).toMatchObject({
-      controller: 'p1',
-      source: HOMER_NAME,
-      chosenEvent: HOMER_CHOSEN,
-    })
+    expect(pendingPlayerSelectionFor(triggered, 'p1')).toMatchObject({ min: 0, seat: 'p1' })
     expect(server.rules(triggered, { type: 'passPriority', seat: 'p1' })).toMatchObject({
       ok: false,
     })
-    const stacked = ok(server.rules(triggered, {
-      type: 'custom',
-      name: HOMER_CHOSEN,
-      seat: 'p1',
-      payload: { targets: ['p2', 'p4'] },
-    }))
-    expect(pendingPlayerTargets(stacked)).toBeUndefined()
+    const stacked = pickHomerPlayers(server, triggered, ['p2', 'p4'])
+    expect(pendingPlayerSelectionFor(stacked, 'p1')).toBeUndefined()
     expect(stacked.stack[0]?.kind).toBe('ability')
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.zoneOrder.p1.graveyard).toHaveLength(0)
@@ -416,12 +427,7 @@ describe('landfall player-target mill', () => {
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
-    const stacked = ok(server.rules(triggered, {
-      type: 'custom',
-      name: HOMER_CHOSEN,
-      seat: 'p1',
-      payload: { targets: ['p1'] },
-    }))
+    const stacked = pickHomerPlayers(server, triggered, ['p1'])
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
   })
@@ -444,19 +450,14 @@ describe('landfall player-target mill', () => {
           p1: Array.from({ length: 4 }, (_, index) => seaCard(`Card ${index}`, ['Instant'])),
         },
       },
-      { random: () => 0, cardPlugins: [homer] },
+      { random: () => 0 },
     )
     const landId = server.state.zoneOrder.p1.hand[0]
     const triggered = ok(server.rules(
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
-    const stacked = ok(server.rules(triggered, {
-      type: 'custom',
-      name: HOMER_CHOSEN,
-      seat: 'p1',
-      payload: { targets: ['p1'] },
-    }))
+    const stacked = pickHomerPlayers(server, triggered, ['p1'])
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
   })
@@ -468,12 +469,7 @@ describe('landfall player-target mill', () => {
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
-    let stacked = ok(server.rules(triggered, {
-      type: 'custom',
-      name: HOMER_CHOSEN,
-      seat: 'p1',
-      payload: { targets: ['p2'] },
-    }))
+    let stacked = pickHomerPlayers(server, triggered, ['p2'])
     const otherCrab = stacked.zoneOrder.p1.battlefield.find(
       (id) => stacked.objects[id].name === 'Two-Type Creature',
     )!
@@ -493,14 +489,9 @@ describe('landfall player-target mill', () => {
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
-    const stacked = ok(server.rules(triggered, {
-      type: 'custom',
-      name: HOMER_CHOSEN,
-      seat: 'p1',
-      payload: { targets: [] },
-    }))
+    const stacked = pickHomerPlayers(server, triggered, [])
     const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
-    expect(pendingPlayerTargets(resolved)).toBeUndefined()
+    expect(pendingPlayerSelectionFor(resolved, 'p1')).toBeUndefined()
     expect(resolved.playerOrder.map((seat) => resolved.zoneOrder[seat].graveyard.length))
       .toEqual([0, 0, 0, 0])
   })
@@ -512,10 +503,11 @@ describe('landfall player-target mill', () => {
       server.state,
       { type: 'playLand', seat: 'p1', objectId: landId },
     ))
+    const pick = pendingPlayerSelectionFor(triggered, 'p1')!
     for (const event of [
-      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p1', payload: { targets: ['p2', 'p2'] } },
-      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p1', payload: { targets: ['nobody'] } },
-      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p2', payload: { targets: ['p1'] } },
+      { type: 'selectPlayers' as const, seat: 'p1', selectionId: pick.id, players: ['p2', 'p2'] },
+      { type: 'selectPlayers' as const, seat: 'p1', selectionId: pick.id, players: ['nobody'] },
+      { type: 'selectPlayers' as const, seat: 'p2', selectionId: pick.id, players: ['p1'] },
     ]) {
       expect(server.rules(triggered, event).ok).toBe(false)
     }

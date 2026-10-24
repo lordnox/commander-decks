@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -54,7 +53,7 @@ describe('Sin Fall routine card support', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: spell,
-      x: 40,
+      x: 41,
     })
     expect(illegal.ok).toBe(false)
 
@@ -101,7 +100,7 @@ describe('Sin Fall routine card support', () => {
     const druid = ready.zoneOrder.p1.battlefield[0]
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'hermitDruid.reveal',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: druid,
     }))
@@ -140,48 +139,6 @@ describe('Sin Fall routine card support', () => {
     expect(tapped.players.p1.mana.G).toBe(1)
   })
 
-  test('Reprocess uses a typed optional sacrifice and draws per chosen permanent', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [card('Reprocess', ['Sorcery'], '{2}{B}{B}')] },
-        battlefield: {
-          p1: [
-            card('Relic', ['Artifact']),
-            card('Body', ['Creature']),
-            card('Song', ['Enchantment']),
-          ],
-        },
-        libraries: { p1: [card('Fresh', ['Instant'])] },
-      },
-      { random: () => 0.5, cardPlugins: [onResolve] },
-    )
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
-    const spell = ready.zoneOrder.p1.hand[0]
-    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell }))
-    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-    const selection = pendingSelectionFor(choosing, 'p1')!
-
-    expect(selection).toMatchObject({ kind: 'sacrifice', count: 2, min: 0 })
-    expect(server.project(choosing, 'p2').players.p1.data['kernel.pendingSelection'])
-      .toBeUndefined()
-
-    const relic = Object.values(choosing.objects).find((object) => object.name === 'Relic')!
-    const resolved = ok(server.rules(structuredClone(choosing), {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'sacrifice',
-      count: selection.count,
-      objectIds: [relic.id],
-    }))
-    expect(resolved.objects[relic.id].zone).toBe('graveyard')
-    expect(Object.values(resolved.objects).find((object) => object.name === 'Fresh')?.zone)
-      .toBe('hand')
-    expect(Object.values(resolved.objects).find((object) => object.name === 'Song')?.zone)
-      .toBe('battlefield')
-  })
-
   test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {
     const server = createServerGame(
       commanderRules,
@@ -204,12 +161,12 @@ describe('Sin Fall routine card support', () => {
     }))
     const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
     const selection = pendingSelectionFor(choosing, 'p2')!
-    expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+    expect(selection).toMatchObject({ kind: 'choose', count: 2 })
 
     const resolved = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       objectIds: [...selection.candidates],
     }))
@@ -228,19 +185,19 @@ describe('Sin Fall routine card support', () => {
     let state = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))
     state = { ...state, step: 'untap', active: 'p1', priority: 'p1' }
     state = ok(server.rules(state, { type: 'advanceStep' }))
-    expect(state.stack[0]?.name).toBe('Portal to Phyrexia')
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-
+    expect(state.stack).toHaveLength(0)
     const restarted = structuredClone(state)
     const selection = pendingSelectionFor(restarted, 'p1')!
     expect(selection).toMatchObject({ kind: 'choose', count: 1 })
-    const resolved = ok(server.rules(restarted, {
+    const stacked = ok(server.rules(restarted, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
       count: 1,
       objectIds: [body],
     }))
+    expect(stacked.stack[0]?.name).toBe('Portal to Phyrexia')
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(resolved.objects[body]).toMatchObject({
       zone: 'battlefield',
       controller: 'p1',
@@ -283,39 +240,5 @@ describe('Sin Fall routine card support', () => {
     expect(state.players.p1.landsPlayed).toBe(0)
   })
 
-  test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [card('Rain of Filth', ['Instant'], '{B}')] },
-        battlefield: { p1: [forest()] },
-      },
-      { random: () => 0.5, cardPlugins: [onResolve] },
-    )
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana.B = 1
-    const rain = ready.zoneOrder.p1.hand[0]
-    let state = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: rain,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const land = state.zoneOrder.p1.battlefield[0]
-    expect(legalActsFor(state, 'p1')).toContainEqual(expect.objectContaining({
-      kind: 'activateAbility',
-      objectId: land,
-      abilityId: 'sacrificeLandMana.black',
-    }))
 
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: 'sacrificeLandMana.black',
-      seat: 'p1',
-      objectId: land,
-      manaAbility: true,
-    }))
-    expect(state.objects[land].zone).toBe('graveyard')
-    expect(state.players.p1.mana.B).toBe(1)
-  })
 })

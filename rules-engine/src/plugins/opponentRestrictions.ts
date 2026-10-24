@@ -1,6 +1,7 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import type { ManaValuePredicate } from '../cardPlugins/effectDefinitions'
 import { manaValueOf } from '../cardPlugins/effectRuntime'
+import { printedStaticEffectsOfKind } from '../cardPlugins/dsl/staticModifierCore'
 import type { GameObject, GameState, PlayerId } from '../types'
 import { existsOnBattlefield } from './phasing'
 
@@ -19,11 +20,15 @@ const imposedOn = (
   seat: PlayerId,
   key: 'opponentsCantBlock' | 'opponentsCantCast',
 ) =>
-  Object.values(state.objects).flatMap((source) =>
-    existsOnBattlefield(source) && source.controller !== seat
-      ? effectsOf(source).flatMap((effect) =>
-        effect.op === 'static' && effect[key] ? [effect[key]] : [])
-      : [])
+  Object.values(state.objects).flatMap((source) => {
+    if (!existsOnBattlefield(source) || source.controller === seat) return []
+    const legacy = effectsOf(source).flatMap((effect) =>
+      effect.op === 'static' && effect[key] ? [effect[key]] : [])
+    const canonical = printedStaticEffectsOfKind(state, source, key).map((effect) => ({
+      parity: effect.parity,
+    }))
+    return [...legacy, ...canonical]
+  })
 
 export const cantBlockWith = (state: GameState, blocker: GameObject) => {
   const manaValue = manaValueOf(blocker)

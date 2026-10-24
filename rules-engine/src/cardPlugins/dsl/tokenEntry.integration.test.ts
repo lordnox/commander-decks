@@ -1,6 +1,10 @@
+import collectorsVault from '../../cards/collectors-vault'
 import { describe, expect, test } from 'bun:test'
 import {
+  activated,
   card,
+  chooseX,
+  variable,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createToken,
@@ -18,6 +22,7 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import type { GameState } from '../../types'
+import { instructionSpell } from './instructionTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -73,4 +78,48 @@ describe('tokenEntry — integration', () => {
       expect(Object.values(finished.objects).filter((object) => object.name === 'Part15 token' && object.zone === 'battlefield')).toHaveLength(1)
     })
   })
+})
+
+
+test.each([['Forest', 'G'], ['Island', 'U']] as const)('land creature tokens retain %s mana and creature tap restrictions', (subtype, mana) => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ decisions: { variables: [chooseX({ max: 3 })] }, instructions: [createToken({ count: variable('X'), targets: ref('controller'), token: { name: 'Land creature fixture', types: ['Land', 'Creature'], subtypes: [subtype], power: 1, toughness: 1 } })] })] },
+  }, { random: () => 0 })
+  const casted = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], x: 2 }))
+  const resolved = resolveStack(server.rules, casted)
+  const tokens = Object.values(resolved.objects).filter(object => object.token)
+  expect(tokens).toHaveLength(2)
+  const token = tokens[0]
+  expect(token).toMatchObject({ types: ['Land', 'Creature'], subtypes: [subtype], power: 1, toughness: 1, summoningSickness: true })
+  expect(server.rules(resolved, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana }).ok).toBe(false)
+  const ready = structuredClone(resolved)
+  ready.objects[token.id].summoningSickness = false
+  const tapped = ok(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana }))
+  expect(tapped.players.p1.mana[mana]).toBe(1)
+  expect(tapped.objects[token.id].tapped).toBe(true)
+})
+
+test('canonical artifact tokens retain their sacrifice-for-colored-mana ability', () => {
+  const ability = collectorsVault.ruleDefinition.definition.abilities[0]
+  if (ability.kind !== 'activated' || !ability.instructions) throw new Error('Expected activated program')
+  const instruction = ability.instructions[2]
+  if (instruction.kind !== 'createToken') throw new Error('Expected token creation')
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [{ ...instruction, token: { ...instruction.token, name: 'Mana token fixture' } }] })] },
+  }, { random: () => 0 })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  const token = named(resolved, 'Mana token fixture')
+  expect(token).toMatchObject({ zone: 'battlefield', types: ['Artifact'], subtypes: ['Treasure'], token: true })
+  const spent = ok(server.rules(resolved, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana: 'G' }))
+  expect(spent.players.p1.mana.G).toBe(1)
+  expect(spent.objects[token.id]).toBeUndefined()
+})
+
+test('token ability programs compile in their own lexical scope', () => {
+  const definition = card([spell({ decisions: { variables: [chooseX()] }, instructions: [createToken({ targets: ref('controller'), count: 1, token: {
+    name: 'Scoped token fixture', types: ['Artifact'], abilities: [activated({ instructions: [loseLife({ targets: ref('controller'), amount: variable('X') })] })],
+  } })] })])
+  expect(() => compileCardRuleDefinition(definition)).toThrow('X is not declared')
 })

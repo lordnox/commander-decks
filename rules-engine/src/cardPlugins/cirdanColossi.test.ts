@@ -4,12 +4,8 @@ import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok } from '../testHelpers'
 import { deckCard, named } from './cirdanCreatureCards'
-import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
-import { targetedResolve } from './targetedResolve'
 
 const COLOSSI = ['Blightsteel Colossus', 'Darksteel Colossus'] as const
-
-const plugins = [shuffleIntoLibraryInstead, targetedResolve]
 
 const filler = (count = 3) =>
   Array.from({ length: count }, (_, index) =>
@@ -19,7 +15,7 @@ const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
   createServerGame(
     commanderRules,
     { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-    { random: () => 0.5, cardPlugins: plugins },
+    { random: () => 0.5 },
   )
 
 for (const colossusName of COLOSSI) {

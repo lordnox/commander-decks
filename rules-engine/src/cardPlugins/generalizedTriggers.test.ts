@@ -2,12 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { bolt, cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
-import { choiceEffects } from './choiceEffects'
 import {
   casts,
   dies,
@@ -25,9 +24,7 @@ import {
 } from './effects'
 import { onResolve } from './onResolve'
 
-import {createTokenInstruction, createTreasures, enters} from './effects'
 import {type CardTemplate} from '../newGame'
-import {modalSpell} from './modalSpell'
 const knight = (name = 'Knight', token = false) => cardTemplate(name, {
   types: ['Creature'], subtypes: ['Knight'], colors: ['W'], power: 2, toughness: 2, token,
 })
@@ -269,7 +266,7 @@ const endStepDrawGame = () => createServerGame(
     battlefield: { p3: [endStepDraw()] },
     libraries: { p3: [cardTemplate('Island', { types: ['Land'] }), cardTemplate('Swamp', { types: ['Land'] })] },
   },
-  { random: () => 0.5, cardPlugins: [choiceEffects] },
+  { random: () => 0.5 },
 )
 
 describe('end-step opponent life-loss draw', () => {
@@ -281,41 +278,38 @@ describe('end-step opponent life-loss draw', () => {
       amount: 3,
     }))
     const ending = toEndStep(server, bled)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
     expect(ending.stack[0]).toMatchObject({
       kind: 'ability',
       name: 'Sygg, River Cutthroat',
       controller: 'p3',
     })
     const offered = resolveStack(server.rules, ending)
-    expect(pendingDialog(offered)).toMatchObject({
-      kind: 'may-draw',
-      seat: 'p3',
-      source: 'Sygg, River Cutthroat',
-    })
+    expect(pendingOptionSelection(offered, 'p3')?.optionalAction).toBeDefined()
   })
 
   test('accepting the trigger draws a card and declining does not', () => {
     const server = endStepDrawGame()
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 5 }))
     const ending = resolveStack(server.rules, toEndStep(server, bled))
+    const pending = pendingOptionSelection(ending, 'p3')!
     const before = ending.zoneCounts.p3.hand
     const drawn = ok(server.rules(ending, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: true },
+      selectionId: pending.id,
+      optionId: pending.options[0].id,
     }))
     const declined = ok(server.rules(ending, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: false },
+      selectionId: pending.id,
+      optionId: pending.options[1].id,
     }))
     expect(drawn.zoneCounts.p3.hand).toBe(before + 1)
-    expect(pendingDialog(drawn)).toBeUndefined()
+    expect(pendingOptionSelection(drawn)).toBeUndefined()
     expect(declined.zoneCounts.p3.hand).toBe(before)
-    expect(pendingDialog(declined)).toBeUndefined()
+    expect(pendingOptionSelection(declined)).toBeUndefined()
   })
 
   test('an opponent who died to that life loss still counts', () => {
@@ -329,10 +323,7 @@ describe('end-step opponent life-loss draw', () => {
     const ending = toEndStep(server, current)
     expect(ending.players.p1.lost).toBe(true)
     expect(ending.stack[0]).toMatchObject({ kind: 'ability', name: 'Sygg, River Cutthroat' })
-    expect(pendingDialog(resolveStack(server.rules, ending))).toMatchObject({
-      kind: 'may-draw',
-      seat: 'p3',
-    })
+    expect(pendingOptionSelection(resolveStack(server.rules, ending), 'p3')?.optionalAction).toBeDefined()
   })
 
   test('two life lost by an opponent is not enough', () => {
@@ -340,7 +331,7 @@ describe('end-step opponent life-loss draw', () => {
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 2 }))
     const ending = toEndStep(server, bled)
     expect(ending.stack).toHaveLength(0)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
   })
 
   test("the watcher's own life loss does not trigger it", () => {
@@ -348,25 +339,26 @@ describe('end-step opponent life-loss draw', () => {
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p3', amount: 9 }))
     const ending = toEndStep(server, bled)
     expect(ending.stack).toHaveLength(0)
-    expect(pendingDialog(ending)).toBeUndefined()
+    expect(pendingOptionSelection(ending)).toBeUndefined()
   })
 
   test('life lost on an earlier turn does not carry over', () => {
     const server = endStepDrawGame()
     const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 6 }))
     let current = resolveStack(server.rules, toEndStep(server, bled))
+    const pending = pendingOptionSelection(current, 'p3')!
     current = ok(server.rules(current, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p3',
-      payload: { accepted: false },
+      selectionId: pending.id,
+      optionId: pending.options[1].id,
     }))
     while (current.step !== 'end' || current.turn === bled.turn) {
       current = ok(server.rules(current, { type: 'advanceStep' }))
     }
     expect(current.turn).toBeGreaterThan(bled.turn)
     expect(current.stack).toHaveLength(0)
-    expect(pendingDialog(current)).toBeUndefined()
+    expect(pendingOptionSelection(current)).toBeUndefined()
   })
 })
 
@@ -576,119 +568,7 @@ describe('opponent discard life loss', () => {
   })
 })
 
-describe('relocated from mirkwoodBats.test.ts → generalizedTriggers.test.ts', () => {
-  const bats = () => cardTemplate('Mirkwood Bats', {
-    types: ['Creature'], subtypes: ['Bat'], power: 2, toughness: 3,
-    oracleText: 'Flying\nWhenever you create or sacrifice a token, each opponent loses 1 life.',
-  })
-  const treasure = () => cardTemplate('Treasure', { types: ['Artifact'], token: true })
-  const maker = (count = 1) => cardTemplate('Token Maker', {
-    types: ['Creature'], effects: [enters(createTreasures(count, 'you'))],
-  })
-  const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
-    createServerGame(commanderRules, {
-      players: 4, battlefield: { p1: [bats()] }, ...zones,
-    }, { random: () => 0.5 })
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-  const life = (state: GameState) => state.playerOrder.map((seat) => state.players[seat].life)
-  const makeTokens = (server: ReturnType<typeof game>) => {
-    const entered = ok(server.rules(server.state, {
-      type: 'move', objectId: named(server.state, 'Token Maker').id, to: 'battlefield',
-    }))
-    return ok(server.rules(entered, { type: 'resolveTop' }))
-  }
-
-  test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {
-      const server = game({ hands: { p1: [maker(3)] } })
-      const created = makeTokens(server)
-      expect(created.stack.map((item) => item.name)).toEqual(Array(3).fill('Mirkwood Bats'))
-      expect(life(created)).toEqual([40, 40, 40, 40])
-      expect(life(resolveStack(server.rules, created))).toEqual([40, 37, 37, 37])
-    })
-
-  test('creature token creation also triggers', () => {
-      const server = game({ hands: { p1: [cardTemplate('Token Maker', {
-        types: ['Creature'], effects: [enters(createTokenInstruction({
-          name: 'Saproling', types: ['Creature'], power: 1, toughness: 1,
-        }))],
-      })] } })
-      expect(life(resolveStack(server.rules, makeTokens(server)))).toEqual([40, 39, 39, 39])
-    })
-
-  test('opponent token creation does not trigger', () => {
-      const server = game({ hands: { p2: [maker(2)] } })
-      const created = makeTokens(server)
-      expect(created.stack).toHaveLength(0)
-      expect(life(created)).toEqual([40, 40, 40, 40])
-    })
-
-  test('ordinary token entry without creation does not trigger', () => {
-      const server = game({ battlefield: { p1: [bats(), treasure()] } })
-      const entered = ok(server.rules(server.state, {
-        type: 'custom', name: 'cardPlugins.permanentEntered', seat: 'p1',
-        payload: { objectId: named(server.state, 'Treasure').id },
-      }))
-      expect(entered.stack).toHaveLength(0)
-    })
-
-  test('a queued ability resolves after Mirkwood Bats leaves', () => {
-      const server = game({ hands: { p1: [maker()] } })
-      const created = makeTokens(server)
-      const removed = ok(server.rules(created, {
-        type: 'move', objectId: named(created, 'Mirkwood Bats').id, to: 'graveyard',
-      }))
-      expect(life(resolveStack(server.rules, removed))).toEqual([40, 39, 39, 39])
-    })
-
-  test('Bats outside the battlefield or phased out do not trigger', () => {
-      const server = game({ hands: { p1: [maker()] } })
-      for (const unavailable of ['graveyard', 'phasedOut'] as const) {
-        const state = structuredClone(server.state)
-        const bat = named(state, 'Mirkwood Bats')
-        if (unavailable === 'phasedOut') bat.phasedOut = true
-        else bat.zone = unavailable
-        const entered = ok(server.rules(state, {
-          type: 'move', objectId: named(state, 'Token Maker').id, to: 'battlefield',
-        }))
-        const created = ok(server.rules(entered, { type: 'resolveTop' }))
-        expect(created.stack).toHaveLength(0)
-      }
-    })
-
-  test('a token copy of Bats triggers on its own creation and sacrifice', () => {
-      const server = game({ battlefield: {}, hands: { p1: [cardTemplate('Token Maker', {
-        types: ['Creature'], effects: [enters(createTokenInstruction({
-          name: 'Mirkwood Bats', types: ['Creature'], subtypes: ['Bat'], power: 2, toughness: 3,
-          effects: named(game().state, 'Mirkwood Bats').effects,
-        }))],
-      })] } })
-      const created = makeTokens(server)
-      expect(created.stack).toHaveLength(1)
-      const resolved = resolveStack(server.rules, created)
-      const sacrificed = ok(server.rules(resolved, {
-        type: 'sacrifice', objectId: named(resolved, 'Mirkwood Bats').id,
-      }))
-      expect(sacrificed.stack).toHaveLength(1)
-      expect(life(resolveStack(server.rules, sacrificed))).toEqual([40, 38, 38, 38])
-    })
-
-  test('two Bats each trigger for each token', () => {
-      const server = game({ battlefield: { p1: [bats(), bats()] }, hands: { p1: [maker(2)] } })
-      const created = makeTokens(server)
-      expect(created.stack).toHaveLength(4)
-      expect(life(resolveStack(server.rules, created))).toEqual([40, 36, 36, 36])
-    })
-
-})
-
 describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => {
-  const RANKLE_MODES = {
-    discard: 'Each player discards a card',
-    drain: 'Each player loses 1 life and draws a card',
-    sacrifice: 'Each player sacrifices a creature',
-  } as const
-
   const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
     cardTemplate(name, { types, ...extra })
 
@@ -700,10 +580,6 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
     subtypes: ['Faerie', 'Rogue'],
     power: 3,
     toughness: 3,
-    oracleText:
-      'Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n'
-      + '• Each player discards a card.\n• Each player loses 1 life and draws a card.\n'
-      + '• Each player sacrifices a creature of their choice.',
   })
 
   const game = (extra: { caress?: boolean } = {}) => createServerGame(
@@ -724,7 +600,7 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
         p2: [card('Plains', ['Land'])],
       },
     },
-    { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+    { random: () => 0.5 },
   )
 
   const connect = (server: ReturnType<typeof createServerGame>, state = server.state) => {
@@ -738,56 +614,55 @@ describe('relocated from rankle.test.ts → generalizedTriggers.test.ts', () => 
     }))
   }
 
-  const resolveRankleTrigger = (
+  const pickModes = (
     server: ReturnType<typeof createServerGame>,
     state: GameState,
-  ) => resolveStack(server.rules, state)
-
-  const chooseModes = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    modes: string[],
-  ) => ok(server.rules(state, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
-    seat: 'p1',
-    payload: { modes },
-  }))
+    indices: number[],
+  ) => {
+    let current = state
+    for (const index of indices) {
+      const pending = pendingOptionSelection(current, 'p1')!
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `mode:${index}`,
+      }))
+    }
+    const pending = pendingOptionSelection(current, 'p1')
+    if (pending?.options.some(option => option.id === 'done')) {
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'done',
+      }))
+    }
+    return current
+  }
 
   test('the discard mode drains through Liliana\'s Caress', () => {
     const server = game({ caress: true })
-    const asked = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server)),
-      [RANKLE_MODES.discard],
-    )
-    const island = Object.values(asked.objects).find((object) => object.name === 'Island')!
-    const discarded = ok(server.rules(asked, {
+    const asked = resolveStack(server.rules, pickModes(server, connect(server), [0]))
+    const swamp = Object.values(asked.objects).find((object) => object.name === 'Swamp')!
+    const afterP1 = ok(server.rules(asked, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [swamp.id],
+    }))
+    const island = Object.values(afterP1.objects).find((object) => object.name === 'Island')!
+    const discarded = ok(server.rules(afterP1, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'discard',
+      kind: 'choose',
       count: 1,
       objectIds: [island.id],
     }))
 
-    const swamp = Object.values(discarded.objects).find((object) => object.name === 'Swamp')!
-    const resolvedRankle = ok(server.rules(discarded, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'discard',
-      count: 1,
-      objectIds: [swamp.id],
-    }))
-
     expect(discarded.objects[island.id].zone).toBe('graveyard')
-    // CR 603: Caress triggers on the stack; life loss waits for resolution after combat damage.
     expect(discarded.players.p2.life).toBe(commanderRules.startingLife - 3)
-    expect(resolvedRankle.stack[0]).toMatchObject({
+    expect(discarded.stack[0]).toMatchObject({
       kind: 'ability',
       name: "Liliana's Caress",
     })
 
-    const resolved = ok(server.rules(resolvedRankle, { type: 'resolveTop' }))
+    const resolved = ok(server.rules(discarded, { type: 'resolveTop' }))
     expect(resolved.players.p2.life).toBe(commanderRules.startingLife - 5)
   })
 

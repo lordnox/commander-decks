@@ -2,18 +2,10 @@ import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction, legalActsFor } from '../actions'
 import { cardTemplate, forest, planeswalker } from '../newGame'
 import { commanderRules } from '../formats'
-import {
-  DIALOG_CHOSEN,
-  dialogCandidates,
-  pendingDialog,
-} from '../pendingDialog'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { replayComparableState } from '../replay'
 import { createServerGame } from '../runtime'
 import type { GameObject, ReduceResult } from '../types'
-import { choiceEffects } from './choiceEffects'
 import { planeswalker as planeswalkerPlugin } from './planeswalker'
-import { teferiSunset } from './teferiSunset'
 
 const ugin = (loyalty = 7) => planeswalker('Ugin, the Spirit Dragon', 7, {
   manaCost: '{8}',
@@ -27,7 +19,7 @@ const gameWithUgin = (loyalty = 7, extras: Parameters<typeof createServerGame>[1
   createServerGame(commanderRules, {
     battlefield: { p1: [ugin(loyalty)] },
     ...extras,
-  }, { random: () => 0.5, cardPlugins: [planeswalkerPlugin, choiceEffects] })
+  }, { random: () => 0.5, cardPlugins: [planeswalkerPlugin] })
 
 const uginId = (state: ReturnType<typeof gameWithUgin>['state']) =>
   Object.values(state.objects).find((object) => object.name === 'Ugin, the Spirit Dragon')!.id
@@ -38,7 +30,7 @@ describe('planeswalker loyalty abilities', () => {
     const id = uginId(runtime.state)
     const activated = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.plus-two',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: id,
       targets: [{ kind: 'player', player: 'p2' }],
@@ -67,7 +59,7 @@ describe('planeswalker loyalty abilities', () => {
       .find((object) => object.name === 'Target Creature')!.id
     const activated = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.plus-two',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: id,
       targets: [{ kind: 'object', objectId: targetId }],
@@ -100,7 +92,7 @@ describe('planeswalker loyalty abilities', () => {
     const id = uginId(runtime.state)
     const activated = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.minus-x',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: id,
       x: 3,
@@ -133,7 +125,7 @@ describe('planeswalker loyalty abilities', () => {
     const id = uginId(runtime.state)
     const activated = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.minus-ten',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: id,
     })
@@ -154,37 +146,21 @@ describe('planeswalker loyalty abilities', () => {
     expect(resolved.state.players.p1.life).toBe(47)
     expect(resolved.state.zoneOrder.p1.hand).toHaveLength(15)
 
-    const dialog = pendingDialog(resolved.state)
-    expect(dialog).toMatchObject({
-      source: 'Ugin, the Spirit Dragon',
-      kind: 'put-permanents',
-      requirements: { battlefield: { max: 7 } },
-    })
-    const choices = [
-      ...dialogCandidates(resolved.state, dialog!).slice(0, 6),
-      Object.values(resolved.state.objects).find((object) => object.name === 'Drawn Permanent')!,
-    ]
+    const selection = pendingSelectionFor(resolved.state, 'p1')!
+    const drawn = Object.values(resolved.state.objects).find((object) => object.name === 'Drawn Permanent')!.id
+    const choices = [...selection.candidates.filter((id) => id !== drawn).slice(0, 6), drawn]
     expect(choices).toHaveLength(7)
-
-    let state = resolved.state
-    for (const object of choices) {
-      const moved = runtime.rules(state, {
-        type: 'move',
-        objectId: object.id,
-        to: 'battlefield',
-      })
-      if (!moved.ok) throw new Error(moved.error)
-      state = moved.state
-    }
-    const chosen = runtime.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+    const chosen = runtime.rules(resolved.state, {
+      type: 'selectCards',
       seat: 'p1',
+      selectionId: selection.id,
+      kind: 'choose',
+      count: 7,
+      objectIds: choices,
     })
     if (!chosen.ok) throw new Error(chosen.error)
-    expect(pendingDialog(chosen.state)).toBeUndefined()
-    expect(choices.every((choice) => chosen.state.objects[choice.id].zone === 'battlefield'))
-      .toBe(true)
+    expect(pendingSelectionFor(chosen.state, 'p1')).toBeUndefined()
+    expect(choices.every((id) => chosen.state.objects[id].zone === 'battlefield')).toBe(true)
   })
 
   test('a walker activates once per turn and cannot pay unavailable loyalty', () => {
@@ -192,7 +168,7 @@ describe('planeswalker loyalty abilities', () => {
     const id = uginId(runtime.state)
     const tooMuch = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.minus-ten',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: id,
     })
@@ -200,7 +176,7 @@ describe('planeswalker loyalty abilities', () => {
 
     const first = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.minus-x',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: id,
       x: 0,
@@ -210,7 +186,7 @@ describe('planeswalker loyalty abilities', () => {
     if (!resolved.ok) throw new Error(resolved.error)
     const second = runtime.rules(resolved.state, {
       type: 'activateAbility',
-      abilityId: 'ugin.minus-x',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: id,
       x: 0,
@@ -223,14 +199,15 @@ describe('planeswalker loyalty abilities', () => {
     const action = availableActions(runtime.state, 'p1').find(
       (candidate) =>
         candidate.kind === 'activateAbility'
-        && candidate.abilityId === 'ugin.minus-ten',
+        && candidate.abilityId === '$.abilities[2]',
     )
     expect(action).toBeDefined()
     expect(eventsForAvailableAction(runtime.state, 'p1', action!)).toEqual([{
       type: 'activateAbility',
-      abilityId: 'ugin.minus-ten',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: uginId(runtime.state),
+      targetClauses: [],
     }])
   })
 })
@@ -269,7 +246,7 @@ const teferiGame = (loyalty = 4) => createServerGame(
       p1: ['First', 'Second', 'Third', 'Fourth'].map((name) => cardTemplate(name)),
     },
   },
-  { random: () => 0.5, cardPlugins: [planeswalkerPlugin, teferiSunset] },
+  { random: () => 0.5, cardPlugins: [planeswalkerPlugin] },
 )
 
 const teferiTarget = (object: GameObject) => ({ kind: 'object' as const, objectId: object.id })
@@ -281,15 +258,15 @@ describe('multi-target loyalty activations', () => {
       .filter((action) => action.kind === 'activateAbility')
 
     expect(actions.map((action) => action.abilityId)).toEqual([
-      'teferi.plus-one',
-      'teferi.minus-two',
+      '$.abilities[0]',
+      '$.abilities[1]',
     ])
     expect(actions[0]).toMatchObject({
-      abilityId: 'teferi.plus-one',
+      abilityId: '$.abilities[0]',
       targetGroups: [
-        { label: 'Artifact', min: 0, max: 1 },
-        { label: 'Creature', min: 0, max: 1 },
-        { label: 'Land', min: 0, max: 1 },
+        { min: 0, max: 1 },
+        { min: 0, max: 1 },
+        { min: 0, max: 1 },
       ],
     })
   })
@@ -299,7 +276,7 @@ describe('multi-target loyalty activations', () => {
     const source = objectNamed(runtime.state, 'Teferi, Who Slows the Sunset')
     const activated = okPlaneswalker(runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'teferi.plus-one',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: source.id,
       targets: [
@@ -310,13 +287,12 @@ describe('multi-target loyalty activations', () => {
     }))
     expect(activated.objects[source.id].counters.loyalty).toBe(5)
     expect(activated.priority).toBe('p1')
-    expect(replayComparableState(activated).stack).toEqual([{
+    expect(activated.stack[0]).toMatchObject({
       name: 'Teferi, Who Slows the Sunset',
       kind: 'ability',
       controller: 'p1',
-      text: '+1 loyalty activation · targeting Phial of Galadriel (p1), '
-        + 'Mossborn Hydra (p2), Shadowy Backstreet (p1)',
-    }])
+      abilityId: '$.abilities[0]',
+    })
 
     const resolved = okPlaneswalker(runtime.rules(activated, { type: 'resolveTop' }))
     expect(objectNamed(resolved, 'Phial of Galadriel').tapped).toBe(false)
@@ -332,7 +308,7 @@ describe('multi-target loyalty activations', () => {
 
     const result = runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'teferi.plus-one',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: source.id,
       targets: [
@@ -348,18 +324,19 @@ describe('multi-target loyalty activations', () => {
     const source = objectNamed(runtime.state, 'Teferi, Who Slows the Sunset')
     const activated = okPlaneswalker(runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'teferi.minus-two',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: source.id,
     }))
     const resolved = okPlaneswalker(runtime.rules(activated, { type: 'resolveTop' }))
 
     expect(resolved.objects[source.id].counters.loyalty).toBe(2)
+    const top = runtime.state.zoneOrder.p1.library.slice(0, 3)
     expect(pendingSelectionFor(resolved, 'p1')).toMatchObject({
-      kind: 'scry',
-      count: 3,
-      destinations: ['bottom', 'hand'],
-      handQuota: 1,
+      kind: 'choose',
+      count: 1,
+      visibleCards: top,
+      candidates: top,
     })
   })
 
@@ -368,12 +345,14 @@ describe('multi-target loyalty activations', () => {
     const source = objectNamed(runtime.state, 'Teferi, Who Slows the Sunset')
     let state = okPlaneswalker(runtime.rules(runtime.state, {
       type: 'activateAbility',
-      abilityId: 'teferi.minus-seven',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: source.id,
     }))
     state = okPlaneswalker(runtime.rules(state, { type: 'resolveTop' }))
-    expect(state.players.p1.data['teferiSunset.emblems']).toBe(1)
+    const emblem = Object.values(state.objects).find((object) => object.types.includes('Emblem'))!
+    expect(emblem.zone).toBe('command')
+    expect(emblem.subtypes).toEqual(['Teferi'])
 
     state.active = 'p1'
     state.step = 'cleanup'

@@ -154,10 +154,10 @@ describe('relocated from homerPass2.test.ts → delayInstructions.test.ts', () =
       }))
       const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
       expect(resolved.players.p1.life).toBe(commanderRules.startingLife - 2)
-      expect(resolved.delayedTriggers).toHaveLength(1)
+      expect(resolved.objects[watched].canonicalGrantedAbilities).toHaveLength(1)
       const died = ok(server.rules(resolved, { type: 'move', objectId: watched, to: 'graveyard' }))
       const returned = resolveStack(server.rules, died)
-      expect(returned.objects[watched].zone).toBe('battlefield')
+      expect(returned.objects[watched]).toMatchObject({ zone: 'battlefield', tapped: true })
     })
 
 })

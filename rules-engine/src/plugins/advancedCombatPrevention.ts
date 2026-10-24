@@ -14,12 +14,6 @@ const protectedPlayer = (
 const sourceController = (state: GameState, sourceId: string) =>
   state.objects[sourceId]?.controller
 
-const hasMode = (state: GameState, mode: string) =>
-  state.rules.some((rule) =>
-    rule.pluginId === 'advancedCombatPrevention' && rule.params.mode === mode)
-
-export const everybodyLives = (state: GameState) => hasMode(state, 'everybodyLives')
-
 const comeuppanceReplacement = (
   state: GameState,
   event: Extract<Parameters<NonNullable<Plugin['replace']>>[0]['event'], { type: 'dealDamage' }>,
@@ -53,25 +47,7 @@ const comeuppanceReplacement = (
 
 export const advancedCombatPrevention: Plugin = {
   id: 'advancedCombatPrevention',
-  legal: ({ state, event }) => {
-    if (
-      (event.type !== 'castSpell' && event.type !== 'activateAbility')
-      || !everybodyLives(state)
-    ) {
-      return
-    }
-    for (const target of event.targets ?? []) {
-      if (
-        target.kind === 'player'
-        && target.player !== event.seat
-        && state.players[target.player]
-      ) {
-        return `${target.player} has hexproof`
-      }
-    }
-  },
   replace: ({ state, event, rule }) => {
-    if (rule.params.mode === 'everybodyLives' && event.type === 'loseLife') return null
     if (event.type !== 'dealDamage') return
     if (rule.params.mode === 'comeuppance') {
       return comeuppanceReplacement(state, event, rule)

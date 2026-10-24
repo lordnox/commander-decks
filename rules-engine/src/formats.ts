@@ -1,3 +1,4 @@
+import { preparedCasting } from './cardPlugins/dsl/preparedCasting'
 import { pendingDialogLock } from './pendingDialog'
 import { continuousEffects } from './cardPlugins/continuousEffects'
 import { abilities } from './plugins/activateAbility'
@@ -11,7 +12,6 @@ import { doubleFaced } from './plugins/doubleFaced'
 import { enchantedManaBoost } from './plugins/enchantedManaBoost'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { attackSubtypeDraw } from './plugins/attackSubtypeDraw'
-import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
 import { forestOverlay } from './plugins/forestOverlay'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
@@ -21,6 +21,7 @@ import { energy } from './plugins/energy'
 import { life } from './plugins/life'
 import { monarch } from './plugins/monarch'
 import { lifeTotalLock } from './plugins/lifeTotalLock'
+import { playerEffects } from './plugins/playerEffects'
 import { phasing } from './plugins/phasing'
 import { protectionFromEverything } from './plugins/protectionFromEverything'
 import { untilNextTurn } from './plugins/untilNextTurn'
@@ -35,6 +36,8 @@ import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { flashGrant } from './plugins/flashGrant'
 import { foretell } from './plugins/foretell'
 import { rebound } from './plugins/rebound'
+import { demonstrate } from './cardPlugins/demonstrate'
+import { stackCopy } from './cardPlugins/stackCopy'
 import { warp } from './plugins/warp'
 import { saga } from './plugins/saga'
 import { adventure } from './plugins/adventure'
@@ -43,12 +46,18 @@ import { rooms } from './plugins/rooms'
 import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from './cardPlugins/staticBoardPump'
 import { additionalLandPlay } from './cardPlugins/additionalLandPlay'
+import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
+import { targetingRequirements } from './cardPlugins/targetingRequirements'
+import { ward } from './cardPlugins/ward'
+import { alternateCosts } from './cardPlugins/alternateCosts'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
+import { vote } from './cardPlugins/vote'
+import { canonicalRandom } from './cardPlugins/dsl/canonicalRandom'
 import type { PlayerId, Plugin, ZoneId } from './types'
 
 export type GameFormat = {
@@ -81,6 +90,7 @@ export const corePlugins = [
   phasing,
   protectionFromEverything,
   lifeTotalLock,
+  playerEffects,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,
@@ -92,10 +102,17 @@ export const corePlugins = [
   mana,
   lands,
   spells,
+  combatTax,
+  targetingRequirements,
+  ward,
   adventure,
   foretell,
+  preparedCasting,
   rebound,
+  demonstrate,
+  stackCopy,
   warp,
+  alternateCosts,
   saga,
   rooms,
   stateBased,
@@ -108,6 +125,8 @@ export const corePlugins = [
   battle,
   doubleFaced,
   ...gameRules,
+  vote,
+  canonicalRandom,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,
@@ -124,7 +143,6 @@ export const optionalPlugins = [
   grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
-  extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

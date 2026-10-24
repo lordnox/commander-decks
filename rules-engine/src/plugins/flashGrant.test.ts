@@ -180,7 +180,7 @@ describe('registered legacy cost and mana integration', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: one(state, "Alchemist's Refuge").id,
-      abilityId: 'alchemistsRefuge.flash',
+      abilityId: '$.abilities[1]',
     })
     const castOf = (server: Server, state: GameState) =>
       server.rules(state, { type: 'castSpell', seat: 'p1', objectId: one(state, 'Surprise Bear').id })

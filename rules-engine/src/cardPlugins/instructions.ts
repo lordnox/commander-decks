@@ -170,16 +170,6 @@ export const goadTargetUntilEot = (): CardInstruction => ({
   untilEndOfTurn: true,
 })
 
-export const phaseOutControlled = (): CardInstruction => ({ kind: 'phaseOutControlled' })
-
-export const grantProtectionFromEverything = (): CardInstruction => ({
-  kind: 'grantProtectionFromEverything',
-})
-
-export const lifeTotalCannotChange = (): CardInstruction => ({
-  kind: 'lifeTotalCannotChange',
-})
-
 export const preventCombatDamage = (
   extra: { from?: 'target' | 'all'; toController?: boolean } = {},
 ): CardInstruction => ({
@@ -206,8 +196,6 @@ export const addManaPerSwamp = (basic = false): CardInstruction => ({
 })
 
 export const revealDrawLoseLife = (): CardInstruction => ({ kind: 'revealDrawLoseLife' })
-
-export const gainLifeTargetPower = (): CardInstruction => ({ kind: 'gainLifeTargetPower' })
 
 export const addUntilCleanupRule = (
   pluginId: string,
@@ -352,8 +340,6 @@ export const untapUpToLands = (count: number): CardInstruction => ({
 export const opponentsLoseLife = (amount: number): CardInstruction =>
   loseLife({ amount, to: players('opponent') })
 
-export const revealTopLandsTapped = (): CardInstruction => ({ kind: 'revealTopLandsTapped' })
-
 export const pumpAttached = (power: number, toughness: number): CardInstruction => ({
   kind: 'pumpAttached',
   power,
@@ -466,10 +452,6 @@ export const mayDiscard = (
   ...(then ? { then } : {}),
 })
 
-export const discardHandsThenDrawGreatest = (): CardInstruction => ({
-  kind: 'discardHandsThenDrawGreatest',
-})
-
 export const returnOwnedGraveyardLands = (tapped = true): CardInstruction => ({
   kind: 'returnOwnedGraveyardLands',
   tapped,
@@ -512,10 +494,6 @@ export const putSelfOntoBattlefield = (): CardInstruction => ({
 })
 
 export const phaseOutTarget = (): CardInstruction => ({ kind: 'phaseOutTarget' })
-
-export const createHeroWithLandCounters = (): CardInstruction => ({
-  kind: 'createHeroWithLandCounters',
-})
 
 export const searchTargetControllerForBasicLandType = (): CardInstruction => ({
   kind: 'searchTargetControllerForBasicLandType',
@@ -636,14 +614,7 @@ export const gainLife = (
   ? { kind: 'gainLife', count: value.amount, to: value.to }
   : { kind: 'gainLife', count: value }
 
-export const drainOpponentsX = (multiplier = 1): CardInstruction => ({
-  kind: 'drainOpponentsX',
-  multiplier,
-})
-
 export const drawX = (): CardInstruction => ({ kind: 'drawX' })
-
-export const dealDamageTargetX = (): CardInstruction => ({ kind: 'dealDamageTargetX' })
 
 export const setAllLifeToLowest = (): CardInstruction => ({ kind: 'setAllLifeToLowest' })
 
@@ -905,13 +876,6 @@ export const pairDonateToOpponents = (
   distinctWhenBalanced,
 })
 
-export const pairDonateRevealUntilMatches = (distinctWhenBalanced = true): CardInstruction => ({
-  kind: 'pairDonateToOpponents',
-  objectIds: [],
-  objectIdsFromRevealUntil: true,
-  distinctWhenBalanced,
-})
-
 export const bounceAttacking = (): CardInstruction => ({ kind: 'bounceAttacking' })
 
 export const chooseVotesThisTurn = (): CardInstruction => ({ kind: 'chooseVotesThisTurn' })
@@ -984,8 +948,6 @@ export const addManaAtNextMainFromTarget = (): CardInstruction => ({
   kind: 'addManaAtNextMainFromTarget',
 })
 
-export const gainLifeTargetToughness = (): CardInstruction => ({ kind: 'gainLifeTargetToughness' })
-
 export const tapOpponentsCreatures = (): CardInstruction => ({ kind: 'tapOpponentsCreatures' })
 
 export const counterTargetSpell = (chosen = false): CardInstruction => ({
@@ -999,10 +961,5 @@ export const bounceTargetPermanent = (): CardInstruction => ({ kind: 'bounceTarg
 
 export const addPlusCountersToControlled = (count: number): CardInstruction => ({
   kind: 'addPlusCountersToControlled',
-  count,
-})
-
-export const opponentMayDrawThenStealCast = (count: number): CardInstruction => ({
-  kind: 'opponentMayDrawThenStealCast',
   count,
 })

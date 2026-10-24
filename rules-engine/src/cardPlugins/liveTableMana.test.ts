@@ -1,3 +1,4 @@
+import { objectIdentity } from '../objectIdentity'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import {
@@ -10,6 +11,8 @@ import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN } from '../pendingDialog'
+import { pendingOptionSelection } from '../rules/selectOptions'
+import { DECLINE_LIFE_OPTION } from './dsl/v1'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ManaId, ManaPool } from '../types'
@@ -199,7 +202,7 @@ const SCENARIOS: Record<string, Scenario> = {
     exile: [cardTemplate('Exiled Red Card', { types: ['Creature'], colors: ['R'] })],
     setup: (state, sourceId) => {
       const exiled = Object.values(state.objects).find((object) => object.name === 'Exiled Red Card')!
-      state.objects[sourceId].exiledCards = [exiled.id]
+      state.linkedExileSets = [{ source: objectIdentity(state.objects[sourceId]), cards: [objectIdentity(exiled)] }]
     },
     fund: ['{C}', '{R}'],
     refuse: ['{G}', '{U}'],
@@ -278,25 +281,25 @@ const EVERY_COLOR: ActCase['adds'] = (['W', 'U', 'B', 'R', 'G'] as const)
 
 const ACT_CASES: Record<string, ActCase> = {
   Millikin: {
-    abilityId: 'selfMill.millikin',
+    abilityId: '$.abilities[0]',
     adds: [{ pool: { C: 1 } }],
     milled: 1,
     taps: true,
   },
   'Blood Celebrant': {
     pool: { B: 1 },
-    abilityId: 'bloodCelebrant.mana',
+    abilityId: '$.abilities[0]',
     adds: EVERY_COLOR,
     life: 1,
   },
   'Talon Gates of Madara': {
     pool: { C: 1 },
-    abilityId: 'talon.any-mana',
+    abilityId: '$.abilities[2]',
     adds: EVERY_COLOR,
     taps: true,
   },
   'Lotus Field': {
-    abilityId: 'lotusField.mana',
+    abilityId: '$.abilities[3]',
     adds: (['W', 'U', 'B', 'R', 'G'] as const).map((mana) => ({ mana, pool: { [mana]: 3 } })),
     taps: true,
   },
@@ -443,7 +446,16 @@ const attempt = (
   let state = built
   if (scenario.play) {
     state = ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: sourceId }))
-    if (state.players.p1.data['kernel.pendingDialog']) {
+    const pending = pendingOptionSelection(state, 'p1')
+    if (pending) {
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
+    else if (state.players.p1.data['kernel.pendingDialog']) {
       state = ok(server.rules(state, {
         type: 'custom',
         name: DIALOG_CHOSEN,
@@ -452,6 +464,7 @@ const attempt = (
       }))
     }
     state.objects[sourceId].tapped = false
+    if (!state.priority) state.priority = state.active
   }
   scenario.setup?.(state, sourceId)
   const before = state.players.p1.life
@@ -520,10 +533,15 @@ describe('act route: costed mana abilities are offered and add exactly their Ora
             candidate.kind === 'activateAbility'
             && candidate.objectId === sourceId
             && candidate.abilityId === scenario.abilityId
-            && candidate.mana === mana)
+            && (candidate.mana === mana || (candidate.mana === undefined && Boolean(state.objects[sourceId].ruleDefinition))))
           expect(act).toBeDefined()
           const events = eventsForAvailableAction(state, 'p1', act!)!
-          const next = events.reduce((current, event) => ok(server.rules(current, event)), state)
+          let next = events.reduce((current, event) => ok(server.rules(current, event)), state)
+          const pending = pendingOptionSelection(next, 'p1')
+          if (pending) {
+            const option = pending.options.find(option => option.label === mana)!
+            next = ok(server.rules(next, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: option.id }))
+          }
           expect(next.players.p1.mana).toEqual({ ...emptyMana(), ...pool })
           expect(lifeBefore - next.players.p1.life).toBe(scenario.life ?? 0)
           expect(libraryBefore - next.zoneOrder.p1.library.length).toBe(scenario.milled ?? 0)

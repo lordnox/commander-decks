@@ -3,7 +3,6 @@ import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
-import { STEAL_CAST_DRAW } from './stealCast'
 
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
@@ -44,18 +43,8 @@ export const choiceEffects: Plugin = {
       millLibrary(draft, event.seat, dialog.count ?? 0)
     }
     if (dialog.kind === 'may-draw' && event.payload?.accepted === true) {
-      const stealPending = Object.values(state.players).some((player) => {
-        const pending = player.data[STEAL_CAST_DRAW]
-        return Boolean(
-          pending
-          && typeof pending === 'object'
-          && (pending as { opponent?: string }).opponent === event.seat,
-        )
-      })
-      if (!stealPending) {
-        draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })
-        draft.note(`${event.seat} draws from ${dialog.source}`)
-      }
+      draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })
+      draft.note(`${event.seat} draws from ${dialog.source}`)
     }
     if (dialog.kind === 'may-pay-life') {
       const land = draft.object(dialog.sourceId)

@@ -83,6 +83,7 @@ const refreshExecutionSource = (value: unknown, before: GameObject) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return
   const execution = value as Record<string, unknown>
   refreshCapturedSource(execution.source, before)
+  if (Array.isArray(execution.referencedObjects)) for (const watched of execution.referencedObjects) refreshCapturedSource(watched, before)
 }
 
 /** Refresh execution source LKI without rewriting historical occurrence snapshots. */
@@ -95,7 +96,7 @@ export const refreshLastKnownSource = (value: unknown, before: GameObject) => {
 
   const record = value as Record<string, unknown>
   if (record.kind === 'canonicalSpell') {
-    refreshCapturedSource(record.source, before)
+    refreshExecutionSource(record, before)
   }
   if (record.kind === 'legacy') {
     const item = record.item
@@ -111,4 +112,13 @@ export const refreshLastKnownSource = (value: unknown, before: GameObject) => {
     }
     refreshLastKnownSource(child, before)
   }
+}
+
+
+/** Refresh live execution watches before a zone transition or permanent removal. */
+export const refreshExecutionReferences = (state: Pick<GameState, 'pendingTriggers' | 'stack' | 'resolution' | 'players' | 'playerOrder'>, before: GameObject) => {
+  refreshLastKnownSource(state.pendingTriggers, before)
+  refreshLastKnownSource(state.stack, before)
+  refreshLastKnownSource(state.resolution, before)
+  for (const player of state.playerOrder) refreshLastKnownSource(state.players[player].data, before)
 }

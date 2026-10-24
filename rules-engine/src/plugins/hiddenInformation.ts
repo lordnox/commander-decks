@@ -216,6 +216,10 @@ export const createAuthoritativeHiddenInformation = (
 
     if (event.type === 'reveal') {
       markKnownToAll(draft, event.objectIds)
+      if (event.turnFaceUp) for (const id of event.objectIds) {
+        const object = draft.objects[id]
+        if (object) delete object.faceDown
+      }
       const names = event.objectIds
         .map((id) => state.objects[id]?.name)
         .filter(Boolean)
@@ -235,6 +239,7 @@ export const createAuthoritativeHiddenInformation = (
         library[swap] = held
       }
       draft.zoneOrder[event.seat].library = library
+      for (const objectId of library) delete draft.objects[objectId]?.knownTo
       draft.note(`${event.seat} shuffles`)
       return
     }

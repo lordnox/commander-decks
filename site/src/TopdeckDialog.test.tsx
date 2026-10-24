@@ -436,3 +436,13 @@ test('an empty zero-total allocation still renders its submit button', () => {
   )
   expect(html).toContain('>Resolve allocate</button>')
 })
+
+
+test('a pile choice for a later instruction does not offer to move cards into hand', () => {
+  const game = { catalog: {} } as ReplayGame
+  const decision = { seat: 'p1', kind: 'choosePile', cards: ['Pile 1', 'Pile 2'], destinations: ['skip', 'target'] } as LiveTopdeck
+  const html = renderToStaticMarkup(<TopdeckDialog game={game} decision={decision} pending={false} onResolve={() => {}} />)
+  expect(html).toContain('Choose this pile')
+  expect(html).toContain('Leave this pile')
+  expect(html).not.toContain('Put one pile into your hand')
+})

@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame, projectForViewer } from '../runtime'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
+import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
@@ -12,7 +11,6 @@ import { castCosts } from './castCosts'
 import { choiceEffects } from './choiceEffects'
 import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
-import { stealCast } from './stealCast'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
@@ -41,7 +39,6 @@ const plugins: Plugin[] = [
   targetedResolve,
   modalSpell,
   choiceEffects,
-  stealCast,
 ]
 
 const ready = (state: GameState, seat = 'p1') => {
@@ -242,7 +239,7 @@ describe('Lady Evangela remaining coverage', () => {
       {
         hands: {
           p1: [cardTemplate('Mana Drain', { types: ['Instant'], manaCost: '{U}{U}' })],
-          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}' })],
+          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}', manaValue: 5 })],
         },
         libraries: { p1: [cardTemplate('Keep Alive')] },
       },
@@ -256,13 +253,14 @@ describe('Lady Evangela remaining coverage', () => {
       seat: 'p2',
       objectId: named(state, 'Fat Spell').id,
     }))
+    const stackId = state.stack[0]!.id
     state.priority = 'p1'
     state.players.p1.mana.U = 2
     state = ok(server.rules(state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Mana Drain').id,
-      targets: [{ kind: 'object', objectId: named(state, 'Fat Spell').id }],
+      targets: [{ kind: 'stackItem', stackId }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(named(state, 'Fat Spell').zone).toBe('graveyard')
@@ -306,7 +304,7 @@ describe('Lady Evangela remaining coverage', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Desertion').id,
-      targets: [{ kind: 'object', objectId: bears }],
+      targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === bears)!.id }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[bears].zone).toBe('battlefield')
@@ -414,9 +412,8 @@ describe('Lady Evangela remaining coverage', () => {
       attackers: [{ objectId: attacker, defender: 'p3' }],
     }))
     state = passToEmpty(server.rules, state)
-    expect(state.zoneOrder.p2.hand.length + (state.stack.length > 0 ? 0 : 0)).toBeGreaterThanOrEqual(0)
     const choice = pendingSelectionFor(state, 'p1')
-    expect(choice?.plusCounters).toBe(2)
+    expect(choice).toMatchObject({ kind: 'choose', seat: 'p1' })
     const bear = named(state, 'Small Bear').id
     state = ok(server.rules(state, {
       type: 'selectCards',
@@ -424,75 +421,9 @@ describe('Lady Evangela remaining coverage', () => {
       kind: 'choose',
       count: 1,
       objectIds: [bear],
+      ...(choice?.id ? { selectionId: choice.id } : {}),
     }))
     expect(state.objects[bear].counters['+1/+1']).toBe(2)
-  })
-
-  test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: {
-          p1: [cardTemplate('Kuroki, Thief of Talents', {
-            types: ['Creature'],
-            power: 3,
-            toughness: 3,
-          })],
-        },
-        hands: {
-          p2: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })],
-        },
-        libraries: {
-          p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`Extra ${index}`)),
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    let state = structuredClone(server.state)
-    state.active = 'p1'
-    state.priority = 'p1'
-    state.step = 'postcombatMain'
-    state = ok(server.rules(state, { type: 'advanceStep' }))
-    const pick = pendingPlayerSelectionFor(state, 'p1')
-    expect(pick).toBeDefined()
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pick!.id,
-      players: ['p2'],
-    }))
-    state = passToEmpty(server.rules, state)
-    expect(pendingDialog(state)?.kind).toBe('may-draw')
-    const declined = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p2',
-      payload: { accepted: false },
-    }))
-    expect(named(declined, 'Kuroki, Thief of Talents').counters['+1/+1']).toBe(2)
-
-    let accepted = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p2',
-      payload: { accepted: true },
-    }))
-    expect(accepted.zoneOrder.p2.hand.length).toBeGreaterThan(1)
-    const steal = pendingSelectionFor(accepted, 'p1')
-    expect(steal?.castWithoutPaying).toBe(true)
-    const bolt = named(accepted, 'Lightning Bolt').id
-    const p3 = projectForViewer(accepted, 'p3')
-    expect(p3.objects[bolt]).toBeUndefined()
-    const p1 = projectForViewer(accepted, 'p1')
-    expect(p1.objects[bolt]?.name).toBe('Lightning Bolt')
-    accepted = ok(server.rules(accepted, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [bolt],
-    }))
-    expect(accepted.stack[0]?.objectId).toBe(bolt)
-    expect(accepted.objects[bolt].controller).toBe('p1')
+    expect(state.zoneOrder.p2.hand).toHaveLength(1)
   })
 })

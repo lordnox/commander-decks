@@ -1,36 +1,26 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { forest } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
-import {
-  activated,
-  GHOST_TOWN_RETURN,
-} from './activated'
+import { activated } from './activated'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
 }
 
-const game = (name: string) =>
-  createServerGame(
-    commanderRules,
-    {
-      battlefield: {
-        p1: [{ ...forest(), name, supertypes: name.startsWith('Oboro') ? ['Legendary'] : [] }],
-      },
-    },
-    { random: () => 0.5, cardPlugins: [activated] },
-  )
-
 describe('self-bouncing lands', () => {
   test('Ghost Town returns only outside its controller’s turn', () => {
-    const server = game('Ghost Town')
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [cardTemplate('Ghost Town')] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
     const objectId = server.state.zoneOrder.p1.battlefield[0]
     const ownTurn = server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: GHOST_TOWN_RETURN,
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId,
     })
@@ -43,19 +33,22 @@ describe('self-bouncing lands', () => {
     }
     const afterActivate = ok(server.rules(otherTurn, {
       type: 'activateAbility',
-      abilityId: GHOST_TOWN_RETURN,
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId,
     }))
-    // CR 602.2/608.2 — bounce resolves from the stack, not at activation.
     expect(afterActivate.objects[objectId].zone).toBe('battlefield')
-    expect(afterActivate.stack[0]).toMatchObject({ kind: 'ability', abilityId: GHOST_TOWN_RETURN })
+    expect(afterActivate.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[1]' })
     const returned = ok(server.rules(afterActivate, { type: 'resolveTop' }))
     expect(returned.objects[objectId].zone).toBe('hand')
   })
 
   test('Oboro pays one mana and returns itself', () => {
-    const server = game('Oboro, Palace in the Clouds')
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [cardTemplate('Oboro, Palace in the Clouds')] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
     const objectId = server.state.zoneOrder.p1.battlefield[0]
     const ready = structuredClone(server.state)
     ready.players.p1.mana.U = 1
@@ -73,7 +66,11 @@ describe('self-bouncing lands', () => {
   })
 
   test('Oboro rejects an activation without mana', () => {
-    const server = game('Oboro, Palace in the Clouds')
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [cardTemplate('Oboro, Palace in the Clouds')] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
     const result = server.rules(server.state, {
       type: 'activateAbility',
       abilityId: '$.abilities[0]',

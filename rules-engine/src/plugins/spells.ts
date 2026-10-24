@@ -35,18 +35,22 @@ import { canPlayExiledWithLife } from '../cardPlugins/exiledWith'
 import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
-import { PENDING_STEAL_CAST } from '../rules/selectCards'
+import { consumeSpellCast, matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
+import { canonicalSpellPermission } from '../cardPlugins/dsl/playPermissions'
+import { SPELLS_CAST_THIS_TURN, spellsCastThisTurn } from '../rules/spellsCast'
 import { ceaseToExist } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
 import { cantCastSpellWith } from './opponentRestrictions'
 import { enchantTargetError } from './enchant'
+import { canonicalBestowEffect, legalBestowTarget, markBestowCeased, paidBestowAlternative } from '../cardPlugins/dsl/bestowRuntime'
+import { syncCanonicalStaticModifiers } from '../cardPlugins/dsl/staticModifiers'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
-import { canonicalManaClassification } from '../cardPlugins/activated'
+import { proposedCostSource, evidencePaymentEvents, announcementCostChoices, activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
+import { canonicalManaClassification } from '../cardPlugins/dsl/manaPrograms'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
 import { evaluateDistributionBounds, evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
@@ -73,14 +77,15 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<Abil
       controller: event.seat,
       source: captureObject(source),
       variables: event.x === undefined ? undefined : { X: event.x },
-    }),
+    }, event.modeIndices?.length),
   }
 }
 
 /** Build the server-owned payment frame before any planned mana event runs. */
 export const preparePlannedSpellAnnouncement = (state: GameState, event: InternalCastEvent) => {
   if (!event.manaActivations?.length) return { ok: false as const, error: 'mana payment plan is empty' }
-  const source = state.objects[event.objectId]
+  const originalSource = state.objects[event.objectId]
+  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost }) : undefined
   if (!source?.ruleDefinition) return { ok: false as const, error: 'planned payment requires a canonical spell' }
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
   const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -92,16 +97,18 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     ? []
     : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
   if (!groupedTargets) return { ok: false as const, error: 'targets are required for the spell' }
+  const selected = availableAlternateCastEffect(state, event.seat, source, event.castOption)
+  const announced = announcementSource(source, selected)
   const locked = beginSpellAnnouncement(
     state,
-    source,
+    announced,
     event.seat,
     ability,
     groupedTargets,
     event.x,
     [...(event.discard ?? []), ...(event.sacrifice ?? [])],
     {
-      selectedOptional: event.selectedOptionalCosts,
+      evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
       selectedAlternative: event.selectedAlternativeCost,
       phyrexianLife: event.phyrexianLife,
       deferPayment: true,
@@ -115,8 +122,9 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
+        selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-      }), event.x),
+      }), event.x, announced.manaCost),
     },
   )
   if (!locked.ok) return locked
@@ -156,7 +164,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     const paymentAbility = index === undefined ? undefined : paymentCompiled.definition.abilities[Number(index)]
     if (!paymentAbility || paymentAbility.kind !== 'activated') return { ok: false as const, error: 'planned payment ability does not exist' }
     const permissionError = activationPermission({
-      state, sourceId: paymentSource.id, payer: event.seat, action: 'manaPlanning', availableFrom: paymentAbility.availableFrom,
+      state, sourceId: paymentSource.id, payer: event.seat, action: 'manaPlanning', ...activatedPermissionFields(paymentAbility),
     })
     if (permissionError) return { ok: false as const, error: permissionError }
     const classification = canonicalManaClassification(paymentAbility)
@@ -182,7 +190,7 @@ const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boole
   const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
   const spell = compiled.definition.abilities.find((ability) => ability.kind === 'spell')
   if (!spell) return false
-  if (spell.costs.some((cost) => cost.kind === kind)) return true
+  if (spell.costs.some((cost) => cost.kind === kind) || spell.additionalCosts?.some(cost => cost.kind === kind)) return true
   if (spell.optionalCosts?.some((cost) => cost.kind === kind)) return true
   return spell.alternativeCosts?.some((alternative) => alternative.some((cost) => cost.kind === kind)) ?? false
 }
@@ -210,10 +218,17 @@ const targetInputsAgree = (state: GameState, event: Extract<GameEvent, { type: '
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0) => {
-  const base = object.manaCost.replaceAll('{X}', x > 0 ? `{${x}}` : '')
+const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0, baseMana = object.manaCost) => {
+  const base = baseMana.replaceAll('{X}', x > 0 ? `{${x}}` : '')
   return genericCost(adjustedMana) - genericCost(base)
 }
+
+export const announcementSource = (
+  object: GameObject,
+  selected: AlternateCastEffect | undefined,
+) => selected
+  ? { ...object, manaCost: printedAlternateManaCost(selected, object) }
+  : object
 
 const xManaKind = (object: GameObject) =>
   effectsOf(object).flatMap((effect) =>
@@ -296,9 +311,16 @@ export const spellCost = (
   return reduceGenericManaCost(total, reduction)
 }
 
-const cannotBeCountered = (object: GameObject) =>
-  effectsOf(object).some((effect) =>
-    effect.op === 'spellTrait' && effect.uncounterable)
+const cannotBeCountered = (object: GameObject) => {
+  if (effectsOf(object).some((effect) => effect.op === 'spellTrait' && effect.uncounterable)) return true
+  const abilities = object.ruleDefinition?.definition.abilities
+  if (!abilities) return false
+  return abilities.some((ability) => {
+    if (ability.kind === 'spell' && ability.uncounterable) return true
+    return ability.kind === 'static'
+      && ability.effects.some((effect) => effect.kind === 'cannotBeCountered')
+  })
+}
 
 type ColoredCost = {
   choices: ManaId[]
@@ -468,9 +490,11 @@ const paySpellCost = (
 
 export const hasConvoke = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
+  || compiledCanonicalHasCost(object, 'convoke')
 
 export const hasDelve = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.delve)
+  || compiledCanonicalHasCost(object, 'delve')
 
 const installGrantedRules = (draft: Draft, object: GameObject) => {
   for (const pluginId of object.grantedRules) {
@@ -491,7 +515,8 @@ export const spells: Plugin = {
     if (event.manaActivations && event.manaActivations.length > 0) {
       return
     }
-    const object = state.objects[event.objectId]
+    const originalObject = state.objects[event.objectId]
+    const object = originalObject ? proposedCostSource(originalObject, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost }) : undefined
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
     const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -503,16 +528,18 @@ export const spells: Plugin = {
       ? []
       : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
     if (!groupedTargets) return
+    const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
+    const announced = announcementSource(object, selected)
     const announcement = beginSpellAnnouncement(
       state,
-      object,
+      announced,
       event.seat,
       ability,
       groupedTargets,
       event.x,
       [...(event.discard ?? []), ...(event.sacrifice ?? [])],
       {
-        selectedOptional: event.selectedOptionalCosts,
+        evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
         selectedAlternative: event.selectedAlternativeCost,
         phyrexianLife: event.phyrexianLife,
         targetClauses,
@@ -525,8 +552,9 @@ export const spells: Plugin = {
           timesKicked: event.timesKicked,
           targets: event.targets,
           seat: event.seat,
+          selected,
           withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-        }), event.x),
+        }), event.x, announced.manaCost),
       },
     )
     if (!announcement.ok) return
@@ -553,9 +581,13 @@ export const spells: Plugin = {
       : committedBase
     const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
     let choiceIndex = 0
-    const costs: GameEvent[] = []
+    let millIndex = 0
+    const costs: GameEvent[] = evidencePaymentEvents(committed.proposal)
     for (const cost of committed.lockedCost.nonMana) {
       switch (cost.kind) {
+        case 'exileSource':
+          costs.push({ type: 'move', objectId: object.id, to: 'exile' })
+          break
         case 'tapSource':
           costs.push({ type: 'tap', objectId: object.id })
           break
@@ -571,11 +603,20 @@ export const spells: Plugin = {
           choiceIndex += count
           break
         }
+        case 'mill': {
+          const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+          for (const objectId of state.zoneOrder[event.seat]!.library.slice(millIndex, millIndex + count)) costs.push({ type: 'mill', seat: event.seat, objectId })
+          millIndex += count
+          break
+        }
         case 'draw': {
           const count = evaluateAnnouncementCostAmount(cost.count, event.x)
           for (let i = 0; i < count; i += 1) costs.push({ type: 'draw', seat: event.seat, count: 1 })
           break
         }
+        case 'convoke':
+        case 'delve':
+          break
       }
     }
     return costs.length > 0
@@ -586,6 +627,7 @@ export const spells: Plugin = {
   },
   legal: ({ state, event }) => {
     if (event.type === 'castSpell') {
+      if (event.evidence?.flat().some(id => (event.delve ?? []).includes(id) || (event.exile ?? []).includes(id))) return 'a card cannot pay multiple exile costs'
       if (Object.hasOwn(event, 'canonicalCostsPaid')) return 'canonical transaction state is server-private'
       if (event.canonicalTransaction !== undefined
         && (typeof event.canonicalTransaction !== 'object' || event.canonicalTransaction === null
@@ -598,7 +640,7 @@ export const spells: Plugin = {
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = resolveCastFace(object, event)
-      const spell = face ? { ...object, ...face } : object
+      const spell = proposedCostSource(face ? { ...object, ...face } : object, { selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers, selectedAlternative: event.selectedAlternativeCost })
       let canonicalLockedManaCost: string | undefined
       if (object.ruleDefinition && !event.copy) {
         if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
@@ -607,6 +649,10 @@ export const spells: Plugin = {
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
         const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
+          if (ability.kind === 'spell') {
+            const whenError = spellCastPermission(state, spell, ability, event.seat)
+            if (whenError) return whenError
+          }
           let modal: ReturnType<typeof modalInputs>
           try {
             modal = ability.kind === 'spell'
@@ -660,21 +706,23 @@ export const spells: Plugin = {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
             }
           }
-          if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana
+          if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana ?? ''
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
+            const selected = availableAlternateCastEffect(state, event.seat, spell, event.castOption)
+            const announced = announcementSource(spell, selected)
             const announcement = beginSpellAnnouncement(
               state,
-              object,
+              announced,
               event.seat,
               ability,
               groupedTargets,
               event.x,
               [...(event.discard ?? []), ...(event.sacrifice ?? [])],
               {
-                selectedOptional: event.selectedOptionalCosts,
+                evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
                 selectedAlternative: event.selectedAlternativeCost,
                 phyrexianLife: event.phyrexianLife,
-                deferPayment: Boolean(event.manaActivations),
+                deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
                 targetClauses,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
@@ -685,12 +733,13 @@ export const spells: Plugin = {
                   timesKicked: event.timesKicked,
                   targets: event.targets,
                   seat: event.seat,
+                  selected,
                   withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-                }), event.x),
+                }), event.x, announced.manaCost),
               },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
-            canonicalLockedManaCost = announcement.transaction.lockedCost.mana
+            canonicalLockedManaCost = announcement.transaction.lockedCost.mana ?? ''
           }
           const flagbearerError = canonicalFlagbearerError(
             state,
@@ -712,13 +761,11 @@ export const spells: Plugin = {
         event.castOption,
       )
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
-      const steal = state.players[event.seat]?.data[PENDING_STEAL_CAST]
-      const stealCast = Boolean(
-        steal
-        && typeof steal === 'object'
-        && (steal as { objectId?: string }).objectId === object.id
-        && (steal as { seat?: string }).seat === event.seat,
-      )
+      if (freeCast && (selected || event.selectedAlternativeCost !== undefined)) return 'a free cast cannot also use another alternative cost'
+      if (spell.manaCostAbsent && !freeCast && !selected && event.selectedAlternativeCost === undefined && !event.copy) return 'a spell with no mana cost requires an alternative cost'
+      const permission = matchingSpellCast(state, event.seat, object.id)
+      const staticPermission = canonicalSpellPermission(state, event.seat, object)
+      const stealCast = Boolean(permission?.takeControl)
       if (event.castOption === 'exiledWithLife') {
         if (!canPlayExiledWithLife(state, event.seat, object)) {
           return 'card cannot be played from exile this way'
@@ -733,6 +780,8 @@ export const spells: Plugin = {
         && !(freeCast && object.zone === 'exile')
         && !(object.adventured && object.zone === 'exile' && !event.adventureCast)
         && !(stealCast && object.zone === 'hand')
+        && !(permission && (permission.zone === object.zone || permission.objectId === object.id))
+        && !staticPermission
       ) {
         return 'spell is not in a castable zone'
       }
@@ -771,9 +820,11 @@ export const spells: Plugin = {
 
       if (
         !spell.types.includes('Instant')
-        && !hasKeyword(spell, KEYWORDS.flash, state)
+        && !hasKeyword(spell, KEYWORDS.flash)
         && !mayCastAsThoughFlash(state, event.seat)
-        && !(freeCast && !stealCast)
+        && !(freeCast && (permission?.asThoughFlash || !stealCast))
+        && !permission?.asThoughFlash
+        && !staticPermission?.asThoughFlash
         && event.castOption !== 'exiledWithLife'
       ) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
@@ -841,6 +892,7 @@ export const spells: Plugin = {
         || creature.controller !== event.seat
         || !creature.types.includes('Creature')
         || creature.tapped
+        || creature.phasedOut
       )) {
         return 'illegal convoke creature'
       }
@@ -892,6 +944,7 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
+      delete object.bestowedCeased
       if (event.door) applyRoomDoors(object, [event.door])
       else applyCastFace(object, event)
       const selected = availableAlternateCastEffect(
@@ -922,11 +975,12 @@ export const spells: Plugin = {
             ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
-          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
-            selectedOptional: event.selectedOptionalCosts,
+          const announced = announcementSource(object, selected)
+          const announcement = beginSpellAnnouncement(state, announced, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
+            evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
-            deferPayment: Boolean(event.manaActivations),
+            deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
             targetClauses,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,
@@ -939,17 +993,17 @@ export const spells: Plugin = {
               seat: event.seat,
               selected,
               withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-            }), event.x),
+            }), event.x, announced.manaCost),
           })
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
           canonicalTransaction = committed
-          canonicalLockedCost = committed.lockedCost.mana
+          canonicalLockedCost = committed.lockedCost.mana ?? ''
           canonicalNonManaCosts = committed.lockedCost.nonMana
         }
         if (precommitted) {
           canonicalTransaction = precommitted
-          canonicalLockedCost = precommitted.lockedCost.mana
+          canonicalLockedCost = precommitted.lockedCost.mana ?? ''
           canonicalNonManaCosts = precommitted.lockedCost.nonMana
         }
       }
@@ -1026,7 +1080,16 @@ export const spells: Plugin = {
         selectedIndex += count
       }
       const castFrom = object.zone
+      const permission = matchingSpellCast(state, event.seat, object.id)
+      if (permission?.takeControl) {
+        object.controller = event.seat
+      }
+      if (permission) consumeSpellCast(draft, event.seat, object.id)
       draft.move(object.id, 'stack')
+      if (permission?.grantHaste && object.types.includes('Creature')) {
+        object.castHasteController = event.seat
+        draft.enqueue({ type: 'canonicalEffect', objectId: object.id, effect: { kind: 'grantKeyword', keyword: 'haste' }, duration: { kind: 'whileControlUnchanged' } })
+      }
       const stacked = draft.addToStack({
         id: draft.allocId('s'),
         kind: 'spell',
@@ -1084,6 +1147,7 @@ export const spells: Plugin = {
           const groupedTargets = modal?.targetClauses
             ? event.targetClauses ?? (modal.targetClauses.length === 1 ? [event.targets ?? []] : [])
             : event.targetClauses
+          if (canonicalTransaction) object.castCostChoices = announcementCostChoices(canonicalTransaction)
           stacked.execution.targetBindings = [...(canonicalTransaction?.targetBindings ?? canonicalTargetBindings(
             state,
             object,
@@ -1117,21 +1181,11 @@ export const spells: Plugin = {
                 id: canonicalTransaction.id,
                 sourceId: canonicalTransaction.proposal.sourceId,
                 phase: 'committed',
+                costChoices: announcementCostChoices(canonicalTransaction),
                 lockedCost: canonicalTransaction.lockedCost,
                 payment: canonicalTransaction.payment,
               }
             : undefined
-        }
-      }
-      if (event.castOption === 'exiledWithLife') {
-        const life = manaValueOf(object)
-        if (life > 0) {
-          draft.enqueue({
-            type: 'loseLife',
-            seat: event.seat,
-            amount: life,
-            source: object.id,
-          })
         }
       }
       if (canonicalNonManaCosts.length === 0 && !event.canonicalTransaction) {
@@ -1139,9 +1193,12 @@ export const spells: Plugin = {
           draft.enqueue({ type: 'sacrifice', objectId })
         }
       }
+      if (!event.copy) {
+        const caster = draft.players[event.seat]
+        caster.data[SPELLS_CAST_THIS_TURN] = spellsCastThisTurn(caster) + 1
+      }
       draft.passedInRow = []
       draft.priority = event.seat
-      delete draft.players[event.seat].data[PENDING_STEAL_CAST]
       return
     }
 
@@ -1194,7 +1251,15 @@ export const spells: Plugin = {
         }
       }
 
-      if (enchantTargetError(state, object, item.targets)) {
+      if (
+        canonicalBestowEffect(object)
+        && paidBestowAlternative(object)
+        && !object.bestowedCeased
+        && !legalBestowTarget(draft, item.targets)
+      ) {
+        markBestowCeased(object)
+        syncCanonicalStaticModifiers(draft)
+      } else if (enchantTargetError(state, object, item.targets)) {
         // CR 608.2b: an Aura spell whose target is gone or illegal does not resolve.
         draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
         draft.passedInRow = []

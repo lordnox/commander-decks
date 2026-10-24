@@ -1,10 +1,14 @@
 import type { GameState, PlayerId, Plugin, RuleInstance } from '../types'
 
-export const stampUntilControllerNextTurn = (seat: PlayerId, turn: number) => ({
+export const stampUntilControllerNextTurn = (seat: PlayerId, turn: number, turnOf: PlayerId = seat) => ({
   untilControllerNextTurn: true,
   seat,
+  ...(turnOf !== seat ? { untilTurnOf: turnOf } : {}),
   createdOnTurn: turn,
 })
+
+/** The player whose next turn ends the effect; defaults to the affected seat. */
+const endingTurnOf = (rule: RuleInstance) => rule.params.untilTurnOf ?? rule.params.seat
 
 export const untilNextTurnExpired = (
   rule: RuleInstance,
@@ -12,7 +16,7 @@ export const untilNextTurnExpired = (
   turn: number,
 ) => Boolean(
   rule.params.untilControllerNextTurn
-  && rule.params.seat === active
+  && endingTurnOf(rule) === active
   && typeof rule.params.createdOnTurn === 'number'
   && turn > rule.params.createdOnTurn,
 )
@@ -27,7 +31,7 @@ export const untilNextTurnStillHolds = (
   turn: number,
 ) => {
   if (!rule.params.untilControllerNextTurn) return true
-  const seat = rule.params.seat
+  const seat = endingTurnOf(rule)
   const created = rule.params.createdOnTurn
   if (typeof seat !== 'string' || typeof created !== 'number') return true
   if (active === seat && turn > created) return false

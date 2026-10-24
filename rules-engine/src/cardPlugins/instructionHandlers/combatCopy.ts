@@ -27,21 +27,6 @@ const damage: InstructionHandler<'damage'> = ({ draft, source, item }, instructi
   }
 }
 
-const dealDamageTargetX: InstructionHandler<'dealDamageTargetX'> = (
-  { draft, source, item },
-) => {
-  const target = item?.targets[0]
-  if (target) {
-    draft.enqueue({
-      type: 'dealDamage',
-      sourceId: source.id,
-      target,
-      amount: Math.max(0, item?.x ?? 0),
-      gainLife: { seat: source.controller },
-    })
-  }
-}
-
 const pumpAllCreaturesByX: InstructionHandler<'pumpAllCreaturesByX'> = (
   { draft, item },
   instruction,
@@ -349,7 +334,6 @@ const copyTargetSpell: InstructionHandler<'copyTargetSpell'> = (
 
 export const combatCopyHandlers = {
   damage,
-  dealDamageTargetX,
   pumpAllCreaturesByX,
   teferiSunsetPlusOne,
   dealDamageToChosenTarget,

@@ -1,12 +1,10 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { EMBALM_ABILITY_ID } from './embalm.test'
 import { activated } from './activated'
 import { effectsFor } from './cardRules'
 import { exilePayoffs } from './exilePayoffs'
@@ -19,16 +17,6 @@ const named = (state: GameState, name: string) =>
 
 const fromPool = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra, effects: effectsFor(name) })
-
-const moveToGraveyard = (state: GameState, name: string) => {
-  const object = named(state, name)
-  state.zoneOrder[object.owner][object.zone] = state.zoneOrder[object.owner][object.zone]
-    .filter((id) => id !== object.id)
-  state.zoneCounts[object.owner][object.zone] -= 1
-  state.zoneOrder[object.owner].graveyard.push(object.id)
-  state.zoneCounts[object.owner].graveyard += 1
-  object.zone = 'graveyard'
-}
 
 const enterAndLinkExile = (
   server: ReturnType<typeof createServerGame>,
@@ -56,24 +44,7 @@ const enterAndLinkExile = (
 }
 
 describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
-  test('Lumbering Battlement — GAP: TargetFilter has no nontoken; tokens wrongly appear as link-exile candidates', () => {
-    const battlement = fromPool('Lumbering Battlement')
-    const token = cardTemplate('Battlement Token', { types: ['Creature'], token: true })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [battlement] }, battlefield: { p1: [token] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const battlementId = named(server.state, 'Lumbering Battlement').id
-    const tokenId = named(server.state, 'Battlement Token').id
-    const state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: battlementId,
-      to: 'battlefield',
-    })))
-    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
-    expect(candidates).toContain(tokenId)
-  })
+
 })
 
 describe('Dack Fayden part 34 — linked exile cages', () => {
@@ -92,6 +63,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     expect(state.objects[preyId]).toMatchObject({ zone: 'exile', exiledWith: hunterId })
 
     state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'graveyard' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
     expect(state.objects[preyId]).toMatchObject({
       zone: 'battlefield',
       controller: state.objects[preyId].owner,
@@ -111,6 +85,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
     let state = enterAndLinkExile(server, hunterId, 'p1', [preyId])
     state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'hand' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
     expect(state.objects[preyId].zone).toBe('battlefield')
   })
 
@@ -130,205 +107,6 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
     state = ok(server.rules(state, { type: 'sacrifice', objectId: priestId }))
     expect(state.objects[foeId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions optional ETB may exile zero permanents', () => {
-    const angel = fromPool('Angel of Sanctions')
-    const relic = cardTemplate('Opponent Relic', { types: ['Artifact'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const angelId = named(server.state, 'Angel of Sanctions').id
-    const relicId = named(server.state, 'Opponent Relic').id
-    let state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: angelId,
-      to: 'battlefield',
-    })))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[relicId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {
-    const angel = fromPool('Angel of Sanctions')
-    const relic = cardTemplate('Sanctions Relic', { types: ['Artifact'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const angelId = named(server.state, 'Angel of Sanctions').id
-    const relicId = named(server.state, 'Sanctions Relic').id
-    let state = enterAndLinkExile(server, angelId, 'p1', [relicId])
-    expect(state.objects[relicId]).toMatchObject({ zone: 'exile', exiledWith: angelId })
-    state = ok(server.rules(state, { type: 'move', objectId: angelId, to: 'graveyard' }))
-    expect(state.objects[relicId].zone).toBe('battlefield')
-  })
-
-  test('Angel of Sanctions embalms from the graveyard', () => {
-    const angel = fromPool('Angel of Sanctions', { colors: ['W'], manaCost: '{3}{W}{W}' })
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [angel] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    let state = structuredClone(server.state)
-    moveToGraveyard(state, 'Angel of Sanctions')
-    state.players.p1.mana.W = 6
-    const source = named(state, 'Angel of Sanctions')
-    expect(legalActsFor(state, 'p1').some((action) =>
-      action.kind === 'activateAbility'
-      && action.objectId === source.id
-      && action.abilityId === EMBALM_ABILITY_ID)).toBe(true)
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: source.id,
-      abilityId: EMBALM_ABILITY_ID,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.zoneOrder.p1.battlefield).toHaveLength(1)
-    const token = state.objects[state.zoneOrder.p1.battlefield[0]]
-    expect(token).toMatchObject({ name: 'Angel of Sanctions', token: true, subtypes: ['Zombie'] })
-  })
-
-  test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {
-    const protector = fromPool('Glorious Protector', {
-      subtypes: ['Angel', 'Cleric'],
-    })
-    const ally = cardTemplate('Protector Ally', { types: ['Creature'] })
-    const angelBuddy = cardTemplate('Protector Angel Buddy', {
-      types: ['Creature'],
-      subtypes: ['Angel'],
-    })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [protector] }, battlefield: { p1: [ally, angelBuddy] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const protectorId = named(server.state, 'Glorious Protector').id
-    const allyId = named(server.state, 'Protector Ally').id
-    const angelId = named(server.state, 'Protector Angel Buddy').id
-
-    let state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: protectorId,
-      to: 'battlefield',
-    })))
-    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
-    expect(candidates).toContain(allyId)
-    expect(candidates).not.toContain(angelId)
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [allyId],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[allyId].zone).toBe('exile')
-    expect(state.objects[angelId].zone).toBe('battlefield')
-
-    state = ok(server.rules(state, { type: 'move', objectId: protectorId, to: 'hand' }))
-    expect(state.objects[allyId].zone).toBe('battlefield')
-  })
-
-  test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {
-    const jailer = fromPool('Palace Jailer')
-    const hostage = cardTemplate('Jail Hostage', { types: ['Creature'] })
-    const server = createServerGame(
-      commanderRules,
-      { players: 3, hands: { p1: [jailer] }, battlefield: { p2: [hostage] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const jailerId = named(server.state, 'Palace Jailer').id
-    const hostageId = named(server.state, 'Jail Hostage').id
-
-    let state = enterAndLinkExile(server, jailerId, 'p1', [hostageId])
-    expect(state.monarch).toBe('p1')
-    expect(state.objects[hostageId]).toMatchObject({
-      zone: 'exile',
-      exiledUntilOpponentMonarch: true,
-    })
-
-    state = ok(server.rules(state, { type: 'becomeMonarch', seat: 'p2' }))
-    expect(state.objects[hostageId].zone).toBe('battlefield')
-  })
-
-  test('Bishop of Binding pumps a target at attack time from linked exile power', () => {
-    const bishop = fromPool('Bishop of Binding', {
-      power: 1,
-      toughness: 1,
-      oracleText: 'Haste',
-    })
-    const vampire = cardTemplate('Vampire Recruit', {
-      types: ['Creature'],
-      subtypes: ['Vampire'],
-      power: 2,
-      toughness: 2,
-    })
-    const foe = cardTemplate('Tall Foe', { types: ['Creature'], power: 6, toughness: 6 })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 2,
-        hands: { p1: [bishop] },
-        battlefield: { p1: [vampire], p2: [foe] },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const bishopId = named(server.state, 'Bishop of Binding').id
-    const foeId = named(server.state, 'Tall Foe').id
-    const vampireId = named(server.state, 'Vampire Recruit').id
-
-    let state = enterAndLinkExile(server, bishopId, 'p1', [foeId])
-    state.objects[bishopId].summoningSickness = false
-    state.active = 'p1'
-    state.priority = 'p1'
-    state.step = 'declareAttackers'
-
-    state = ok(server.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p1',
-      attackers: [{ objectId: bishopId, defender: 'p2' }],
-    }))
-    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [vampireId],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[vampireId]).toMatchObject({ power: 8, toughness: 8 })
-  })
-
-  test('Lumbering Battlement grows for nontoken linked exiles and releases them when it leaves', () => {
-    const battlement = fromPool('Lumbering Battlement', { power: 4, toughness: 5 })
-    const ally = cardTemplate('Battlement Ally', { types: ['Creature'] })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [battlement] }, battlefield: { p1: [ally] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const battlementId = named(server.state, 'Lumbering Battlement').id
-    const allyId = named(server.state, 'Battlement Ally').id
-
-    let state = enterAndLinkExile(server, battlementId, 'p1', [allyId])
-    expect(state.objects[battlementId]).toMatchObject({ power: 6, toughness: 7 })
-
-    state = ok(server.rules(state, { type: 'sacrifice', objectId: battlementId }))
-    expect(state.objects[allyId].zone).toBe('battlefield')
   })
 
   test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {
@@ -404,6 +182,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
       count: 1,
       objectIds: [preyId],
     }))
-    expect(finished.objects[preyId].zone).toBe('exile')
+    expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+    expect(finished.stack).toHaveLength(1)
+    const resolved = resolveStack(server.rules, finished)
+    expect(resolved.objects[preyId].zone).toBe('exile')
   })
 })

@@ -1,3 +1,6 @@
+import { battlefieldPrintedStatics, sourceStaticAbilitiesActive } from '../cardPlugins/dsl/staticModifierCore'
+import { withReferencedObjects } from './canonicalReferences'
+import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 /**
  * CR 603.1 — a matching actual occurrence creates a pending ability instance;
  * placement waits for the next explicit priority checkpoint.
@@ -26,6 +29,7 @@ import type {
   GameEvent,
   GameObject,
   GameState,
+  StackItem,
   PlayerId,
   PendingTrigger as CapturedPendingTrigger,
   Plugin,
@@ -40,16 +44,18 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
+import { spellsCastThisTurn } from './spellsCast'
 import { isProtectedFirstDrawInOwnDrawStep } from './drawStepHistory'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
+import { objectMatchesSelector, evaluateRuntimeAmount, evaluateObjectSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
+import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
-import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/activated'
+import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v1'
 
@@ -64,7 +70,7 @@ const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
 }
 
 const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
-  if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false
+  if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false
   const sourceId = event.payload?.sourceId
   const definitionSnapshot = event.payload?.definitionSnapshot
   const abilityIndex = event.payload?.abilityIndex
@@ -72,6 +78,27 @@ const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
   const definition = loadDefinitionSnapshot(definitionSnapshot).definition
   const ability = definition.abilities[abilityIndex]
   return ability?.kind === 'activated' && canonicalManaClassification(ability).isManaAbility
+}
+
+const tappedManaSource = (before: GameState, after: GameState, event: GameEvent) => {
+  if (event.type !== 'tap' && event.type !== 'tapForMana') return undefined
+  if (before.objects[event.objectId]?.tapped || !after.objects[event.objectId]?.tapped) return undefined
+  if (event.type === 'tapForMana') return event.objectId
+  const payment = before.provisionalAnnouncement
+  const activation = payment?.nestedManaPayment?.pendingActivation ?? (payment?.inlineManaAbility ? payment.pendingActivation : undefined)
+  if (activation?.objectId === event.objectId) return event.objectId
+  const resolution = before.resolution
+  if (resolution?.kind !== 'canonicalSpell' || resolution.inlineItem?.objectId !== event.objectId) return undefined
+  const ability = resolution.definitionSnapshot.definition.abilities[resolution.inlineItem.execution?.abilityIndex ?? -1]
+  return ability?.kind === 'activated' && ability.costs.some(cost => cost.kind === 'tapSource') ? event.objectId : undefined
+}
+
+const matchesTapOccurrence = (before: GameState, after: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'becomesTapped' | 'tappedForMana' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  const object = occurrence.object?.after
+  if (!object || object.zone !== 'battlefield') return false
+  const matches = pattern.kind === 'tappedForMana' ? tappedManaSource(before, after, event) === object.id
+    : occurrence.object?.before?.zone === 'battlefield' && !occurrence.object.before.tapped && object.tapped
+  return Boolean(matches && canonicalFilterMatch(after, source, object, pattern.filter, occurrence, execution))
 }
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
@@ -82,6 +109,22 @@ const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainL
  * has already done. A source entering later in the turn has still missed it.
  */
 const LAND_TO_GRAVEYARD_TURN = 'triggers.firstTimeEachTurn.landToGraveyard'
+
+const recordLandToGraveyardThisTurn = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+) => {
+  const objectId = event.type === 'move' && event.to === 'graveyard'
+    ? event.objectId
+    : event.type === 'mill'
+      ? event.objectId
+      : undefined
+  if (!objectId) return
+  const before = state.objects[objectId]
+  if (!before?.types.includes('Land')) return
+  draft.players[before.owner].data[LAND_TO_GRAVEYARD_TURN] = draft.turn
+}
 
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets' | 'onceEachTurn'>
@@ -101,6 +144,7 @@ type PendingTrigger = {
     abilityIndex: number
   }
   triggeredByAbility?: boolean
+  delayed?: true
 }
 
 const capturedOccurrence = (
@@ -110,22 +154,31 @@ const capturedOccurrence = (
   triggeringObjectId?: string,
   triggeringPlayer?: PlayerId,
   amount?: number,
+  defender?: PlayerId,
+  groupedObjectIds?: readonly string[],
 ): OccurrenceSnapshot => {
   const objectId = triggeringObjectId ?? eventObjectId(event)
   const before = objectId ? state.objects[objectId] : undefined
-  const after = objectId ? draft.objects[objectId] : undefined
-  const sourceId = 'sourceId' in event && typeof event.sourceId === 'string'
+  const after = event.type === 'tokenCreated' ? event.object : objectId ? draft.objects[objectId] : undefined
+  const sourceId = event.type === 'abilityActivated' ? event.objectId : 'sourceId' in event && typeof event.sourceId === 'string'
     ? event.sourceId
     : 'source' in event && typeof event.source === 'string'
       ? event.source
       : undefined
-  const eventSource = sourceId
-    ? state.objects[sourceId] ?? draft.objects[sourceId]
-    : undefined
+  const eventSource = (event.type === 'abilityActivated' || event.type === 'dealDamage' || event.type === 'combatDamage') && event.sourceSnapshot && event.sourceSnapshot.ref.objectId === sourceId
+    ? event.sourceSnapshot.snapshot
+    : sourceId ? state.objects[sourceId] ?? draft.objects[sourceId] : undefined
+  const grouped = groupedObjectIds?.map(id => ({
+    ...(state.objects[id] ? { before: snapshotObject(state.objects[id]!) } : {}),
+    ...(draft.objects[id] ? { after: snapshotObject(draft.objects[id]!) } : {}),
+  }))
   return {
     kind: 'event',
+    ...(event.type === 'abilityActivated' ? { stackItemId: event.stackId } : {}),
+    ...(event.type === 'votesFinished' ? { vote: structuredClone(event.result) } : {}),
     eventType: event.type === 'custom' ? event.name : event.type,
     ...(triggeringPlayer ? { player: triggeringPlayer } : {}),
+    ...(defender ? { defender } : {}),
     ...(amount !== undefined ? { amount } : {}),
     ...(before || after
       ? {
@@ -135,6 +188,7 @@ const capturedOccurrence = (
           },
         }
       : {}),
+    ...(grouped && grouped.length > 0 ? { objects: grouped } : {}),
     ...(eventSource ? { source: captureObject(eventSource) } : {}),
   }
 }
@@ -152,6 +206,7 @@ const triggerExecution = (
   state: GameState,
 ): StackExecutionContext => ({
   controller: source.controller,
+  ...(state.monarchRevision !== undefined ? { monarchRevision: state.monarchRevision } : {}),
   source: captureObject(
     source,
     isSameObject(state.objects[source.id], objectIdentity(source)) ? 'current' : 'lastKnown',
@@ -194,15 +249,90 @@ const canonicalFilterMatch = (
     canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
   if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence, execution)) return false
   const plain = filter as ObjectFilter
+  if (!objectMatchesSelector(object, { kind: 'objects', filter: {
+    ...(plain.commander !== undefined ? { commander: plain.commander } : {}),
+    ...(plain.manaAbility !== undefined ? { manaAbility: plain.manaAbility } : {}),
+    ...(plain.enchantedBy ? { enchantedBy: plain.enchantedBy } : {}),
+    ...(plain.subtypes ? { subtypes: plain.subtypes } : {}),
+    ...(plain.sameNameAs ? { sameNameAs: plain.sameNameAs } : {}),
+  } }, context)) return false
   if (plain.other && isSameObject(object, context.source.ref)) return false
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false
-  if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
+  if (plain.tapped !== undefined && object.tapped !== plain.tapped) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
+  if (plain.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < plain.powerAtLeast)) return false
   if (mismatchesController(object, plain, context)) return false
   if (mismatchesOwner(object, plain, context)) return false
   return true
+}
+
+// CR 603.2b: match the committed transition, never a snapshot already in the step.
+const matchesBeginningStep = (
+  before: GameState,
+  after: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'stepBegins' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  lexicalContext: Pick<RuleDslRuntimeContext, 'choices' | 'results' | 'variables'> = {},
+) => {
+  if (event.type !== 'custom' || event.name !== 'advanceStep' || after.step !== pattern.step
+    || (before.step === after.step && before.turn === after.turn && before.active === after.active)) return false
+  if (!pattern.player) return true
+  const context = { state: after, controller: source.controller, source: captureObject(source), occurrence, ...lexicalContext }
+  return pattern.player.kind === 'players'
+    ? evaluatePlayerSelector(pattern.player, context).includes(after.active)
+    : evaluatePlayerReference(pattern.player, context).includes(after.active)
+}
+
+const unlockingDoor = (event: GameEvent, beforeState: GameState) => {
+  if (event.type === 'unlockDoor') return { objectId: event.objectId, door: event.door, player: event.seat }
+  if (event.type === 'resolveTop') {
+    const item = beforeState.stack[0]
+    if (item?.kind === 'spell' && item.door) {
+      return { objectId: item.objectId, door: item.door, player: item.controller }
+    }
+  }
+}
+
+const matchesRoomUnlock = (
+  state: GameState,
+  beforeState: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'unlockDoor' | 'fullyUnlock' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+) => {
+  const unlocking = unlockingDoor(event, beforeState)
+  if (!unlocking) return false
+  if (pattern.kind === 'unlockDoor' && pattern.door !== undefined && pattern.door !== unlocking.door) return false
+  const object = occurrence.object?.after
+  if (!object || object.zone !== 'battlefield') return false
+  if (pattern.kind === 'fullyUnlock') {
+    const beforeCount = beforeState.objects[object.id]?.unlockedDoors?.length ?? 0
+    const afterCount = state.objects[object.id]?.unlockedDoors?.length ?? 0
+    if (afterCount !== 2 || beforeCount >= 2) return false
+  }
+  if (pattern.filter) return canonicalFilterMatch(state, source, object, pattern.filter, occurrence)
+  return object.id === source.id
+}
+
+const matchesTokenAction = (state: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'tokenCreated' | 'sacrificed' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  const object = pattern.kind === 'sacrificed' ? occurrence.object?.before : occurrence.object?.after
+  const matches = pattern.kind === 'sacrificed'
+    ? event.type === 'move' && event.sacrifice === true && object?.zone === 'battlefield' && occurrence.object?.after?.zone !== 'battlefield'
+    : event.type === 'tokenCreated' && object?.token === true
+  return Boolean(matches && object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
+}
+
+const matchesCountersRemoved = (state: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'countersRemoved' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  if (event.type !== 'removeCounters' || event.counter !== pattern.counter) return false
+  const before = occurrence.object?.before, after = occurrence.object?.after
+  return Boolean(before && after && (before.counters[pattern.counter] ?? 0) > (after.counters[pattern.counter] ?? 0)
+    && (!pattern.last || (after.counters[pattern.counter] ?? 0) === 0)
+    && canonicalFilterMatch(state, source, after, pattern.filter, occurrence, execution))
 }
 
 const canonicalPatternMatches = (
@@ -214,6 +344,12 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'countersRemoved') return matchesCountersRemoved(state, source, pattern, occurrence, event)
+  if (pattern.kind === 'votesFinished') return event.type === 'votesFinished'
+  if (pattern.kind === 'abilityActivated') return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
+  if (pattern.kind === 'tokenCreated' || pattern.kind === 'sacrificed') return matchesTokenAction(state, source, pattern, occurrence, event)
+  if (pattern.kind === 'becomesTapped' || pattern.kind === 'tappedForMana') return matchesTapOccurrence(beforeState, state, source, pattern, occurrence, event)
+  if (pattern.kind === 'stepBegins') return matchesBeginningStep(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'manaAdded') {
     return event.type === 'addMana' && event.sourceId !== source.id
   }
@@ -221,13 +357,38 @@ const canonicalPatternMatches = (
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
     return canonicalManaSourceEvent(state, event)
   }
-  if (pattern.kind === 'draw') {
-    if (event.type !== 'draw' || !occurrence.player) return false
+  if (pattern.kind === 'gainedLife') {
+    if (event.type !== 'gainLife' || (occurrence.amount ?? 0) <= 0) return false
+    return matchesPlayerOccurrenceFilter(pattern.filter, occurrence.player, occurrenceContext(state, source, occurrence))
+  }
+  if (pattern.kind === 'moved') {
+    if (!isMovedEvent(event, pattern)) return false
+    const matching = matchingMovedIds(pattern, beforeState, state, source, occurrence)
+    const eventId = eventObjectId(event)
+    if (!eventId || matching.length === 0 || !matching.includes(eventId)) return false
+    return !pattern.group || matching[0] === eventId
+  }
+  if (pattern.kind === 'draw' || pattern.kind === 'discard' || pattern.kind === 'playLand' || pattern.kind === 'cycle') {
+    if (event.type !== pattern.kind || !occurrence.player) return false
+    if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
+      || occurrence.object.before.controller !== occurrence.player)) return false
+    if (pattern.kind === 'cycle' && pattern.filter.object) {
+      const object = occurrence.object?.after
+      if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence)) return false
+    }
     const player = occurrence.player
-    if (pattern.filter.firstDrawInOwnDrawStep === true
+    if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
       && !isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
-    if (pattern.filter.firstDrawInOwnDrawStep === false
+    if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
       && isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
+    if (pattern.kind === 'draw') {
+      return matchesPlayerOccurrenceFilter(
+        pattern.filter,
+        player,
+        occurrenceContext(state, source, occurrence),
+        cardsDrawnThisTurn(state.players[player]!),
+      )
+    }
     if (!pattern.filter.player) return true
     if (pattern.filter.player.kind === 'players') {
       return evaluatePlayerSelector(pattern.filter.player, {
@@ -244,25 +405,46 @@ const canonicalPatternMatches = (
       occurrence,
     }).includes(player)
   }
-  const enteringId = permanentEnteringObjectId(event, state)
-  const createdToken = event.type === 'custom'
-    && event.name === 'cardPlugins.permanentEntered'
-    && event.payload?.createdToken === true
-  if (pattern.kind === 'enters' && (
-    !enteringId
-    || (!createdToken && occurrence.object?.before?.zone === 'battlefield')
-  )) return false
-  if (pattern.kind === 'dies' && (
-    event.type !== 'move'
-    || event.to !== 'graveyard'
-    || occurrence.object?.before?.zone !== 'battlefield'
-    || occurrence.object?.before?.types.includes('Creature') !== true
-  )) return false
-  if (pattern.kind === 'leaves' && (
-    event.type !== 'move'
-    || event.to === 'battlefield'
-    || occurrence.object?.before?.zone !== 'battlefield'
-  )) return false
+  if (pattern.kind === 'dealtDamage') {
+    return matchesDealtDamage(state, source, pattern, occurrence, event)
+  }
+  if (pattern.kind === 'playerAttacks') {
+    return matchesPlayerAttacks(state, source, pattern, occurrence, event)
+  }
+  if (pattern.kind === 'unlockDoor' || pattern.kind === 'fullyUnlock') {
+    return matchesRoomUnlock(state, beforeState, source, pattern, occurrence, event)
+  }
+  switch (pattern.kind) {
+    case 'attacks':
+      if (event.type !== 'declareAttackers' || !occurrence.object?.after) return false
+      break
+    case 'cast':
+      if (event.type !== 'castSpell' || occurrence.object?.after?.zone !== 'stack') return false
+      if (pattern.nthThisTurn !== undefined) {
+        const caster = occurrence.player ?? occurrence.object.after?.controller
+        if (!caster || spellsCastThisTurn(state.players[caster]!) !== pattern.nthThisTurn) return false
+      }
+      break
+    case 'enters': {
+      const enteringId = permanentEnteringObjectId(event, state)
+      const createdToken = event.type === 'custom'
+        && event.name === 'cardPlugins.permanentEntered'
+        && event.payload?.createdToken === true
+      if (!enteringId || (!createdToken && occurrence.object?.before?.zone === 'battlefield')) return false
+      if (pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
+      if (pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
+      break
+    }
+    case 'dies':
+      if (event.type !== 'move' || event.to !== 'graveyard'
+        || occurrence.object?.before?.zone !== 'battlefield'
+        || occurrence.object?.before?.types.includes('Creature') !== true) return false
+      break
+    case 'leaves':
+      if (event.type !== 'move' || event.to === 'battlefield'
+        || occurrence.object?.before?.zone !== 'battlefield') return false
+      break
+  }
   const object = pattern.kind === 'dies' || pattern.kind === 'leaves'
     ? occurrence.object?.before
     : occurrence.object?.after
@@ -294,12 +476,51 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'countersRemoved': return matchesCountersRemoved(state, source, pattern, occurrence, event, execution)
+    case 'votesFinished': return event.type === 'votesFinished'
+    case 'abilityActivated': return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
+    case 'tokenCreated':
+    case 'sacrificed': return matchesTokenAction(state, source, pattern, occurrence, event, execution)
+    case 'becomesTapped':
+    case 'tappedForMana': return matchesTapOccurrence(beforeState, afterState, source, pattern, occurrence, event, execution)
+    case 'stepBegins': return matchesBeginningStep(beforeState, afterState, source, pattern, occurrence, event, lexicalContext)
+    case 'gainedLife':
+      if (event.type !== 'gainLife' || (occurrence.amount ?? 0) <= 0) return false
+      return matchesPlayerOccurrenceFilter(
+        pattern.filter,
+        occurrence.player,
+        { ...occurrenceContext(state, source, occurrence, execution), ...lexicalContext },
+      )
+    case 'moved': {
+      if (!isMovedEvent(event, pattern)) return false
+      const matching = matchingMovedIds(pattern, beforeState, afterState, source, occurrence, execution)
+      const eventId = eventObjectId(event)
+      if (!eventId || matching.length === 0 || !matching.includes(eventId)) return false
+      return !pattern.group || matching[0] === eventId
+    }
+    case 'playLand':
+    case 'discard':
+    case 'cycle':
     case 'draw': {
-      if (event.type !== 'draw' || !occurrence.player) return false
-      if (pattern.filter.firstDrawInOwnDrawStep === true
+      if (event.type !== pattern.kind || !occurrence.player) return false
+      if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
+        || occurrence.object.before.controller !== occurrence.player)) return false
+      if (pattern.kind === 'cycle' && pattern.filter.object) {
+        const object = occurrence.object?.after
+        if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence, execution)) return false
+      }
+      if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
         && !isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
-      if (pattern.filter.firstDrawInOwnDrawStep === false
+      if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
         && isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
+      if (pattern.kind === 'draw') {
+        return matchesPlayerOccurrenceFilter(
+          pattern.filter,
+          occurrence.player,
+          { ...occurrenceContext(state, source, occurrence, execution), ...lexicalContext },
+          cardsDrawnThisTurn(afterState.players[occurrence.player]!),
+        )
+      }
       if (!pattern.filter.player) return true
       return pattern.filter.player.kind === 'players'
         ? evaluatePlayerSelector(pattern.filter.player, {
@@ -320,12 +541,31 @@ const generatedPatternMatches = (
     case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
     case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
     case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
+    case 'dealtDamage':
+      return matchesDealtDamage(state, source, pattern, occurrence, event, execution)
+    case 'playerAttacks':
+      return matchesPlayerAttacks(state, source, pattern, occurrence, event, execution)
+    case 'attacks': {
+      const object = occurrence.object?.after
+      return event.type === 'declareAttackers' && Boolean(object
+        && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
+    }
+    case 'cast': {
+      const object = occurrence.object?.after
+      if (event.type !== 'castSpell' || object?.zone !== 'stack'
+        || !canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution)) return false
+      if (pattern.nthThisTurn === undefined) return true
+      const caster = occurrence.player ?? object.controller
+      return spellsCastThisTurn(afterState.players[caster]!) === pattern.nthThisTurn
+    }
     case 'enters':
     case 'dies':
     case 'leaves': {
       const enteringId = permanentEnteringObjectId(event, state)
       if (pattern.kind === 'enters' && (
         !enteringId || occurrence.object?.before?.zone === 'battlefield')) return false
+      if (pattern.kind === 'enters' && pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
+      if (pattern.kind === 'enters' && pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
       if (pattern.kind === 'dies' && (
         event.type !== 'move'
         || event.to !== 'graveyard'
@@ -372,6 +612,179 @@ const generatedPatternMatches = (
   }
 }
 
+const occurrenceContext = (
+  state: GameState,
+  source: GameObject,
+  occurrence: OccurrenceSnapshot,
+  execution?: StackExecutionContext,
+): RuleDslRuntimeContext => ({
+  state,
+  controller: source.controller,
+  source: captureObject(source),
+  occurrence,
+  ...(execution?.choices ? { choices: execution.choices } : {}),
+  ...(execution?.results ? { results: execution.results } : {}),
+  ...(execution?.variables ? { variables: execution.variables } : {}),
+})
+
+const matchesPlayerRecipient = (
+  player: PlayerId | undefined,
+  recipient: PlayerReference | PlayerSelector | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  if (!recipient) return true
+  if (!player) return false
+  return recipient.kind === 'players'
+    ? evaluatePlayerSelector(recipient, context).includes(player)
+    : evaluatePlayerReference(recipient, context).includes(player)
+}
+
+const matchesPlayerOccurrenceFilter = (
+  filter: PlayerOccurrenceFilter | undefined,
+  player: PlayerId | undefined,
+  context: RuleDslRuntimeContext,
+  countThisTurn?: number,
+) => {
+  if (!player) return false
+  if (filter?.duringOwnTurn === true && player !== context.state.active) return false
+  if (filter?.duringOwnTurn === false && player === context.state.active) return false
+  if (filter?.nthThisTurn !== undefined && countThisTurn !== filter.nthThisTurn) return false
+  return matchesPlayerRecipient(player, filter?.player, context)
+}
+
+const matchingMovedIds = (
+  pattern: Extract<OccurrencePattern, { kind: 'moved' }>,
+  beforeState: GameState,
+  afterState: GameState,
+  source: GameObject,
+  occurrence: OccurrenceSnapshot,
+  execution?: StackExecutionContext,
+) => {
+  const ids: string[] = []
+  for (const before of Object.values(beforeState.objects)) {
+    const after = afterState.objects[before.id]
+    if (!after || after.zone === before.zone || after.zone !== pattern.to) continue
+    if (pattern.from && before.zone !== pattern.from) continue
+    if (!canonicalFilterMatch(afterState, source, after, pattern.filter, occurrence, execution)) continue
+    ids.push(before.id)
+  }
+  return ids.sort()
+}
+
+const isMovedEvent = (event: GameEvent, pattern: Extract<OccurrencePattern, { kind: 'moved' }>) => {
+  if (event.type === 'mill') return pattern.to === 'graveyard' && (pattern.from === undefined || pattern.from === 'library')
+  return event.type === 'move' && event.to === pattern.to
+}
+
+const matchesDealtDamage = (
+  state: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'dealtDamage' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  execution?: StackExecutionContext,
+) => {
+  if (event.type !== 'dealDamage' || (occurrence.amount ?? 0) <= 0) return false
+  if (pattern.filter.combat === true && event.combat !== true) return false
+  if (pattern.filter.combat === false && event.combat === true) return false
+  if (pattern.filter.player === true && event.target.kind !== 'player') return false
+  if (pattern.filter.player === false && event.target.kind === 'player') return false
+  const recipient = occurrence.object?.after ?? occurrence.object?.before
+  if (pattern.filter.recipient) {
+    if (!recipient) return false
+    if (!canonicalFilterMatch(state, source, recipient, pattern.filter.recipient, occurrence, execution)) return false
+  }
+  if (pattern.filter.source) {
+    const damageSource = occurrence.source?.snapshot
+    if (!damageSource) return false
+    if (!canonicalFilterMatch(state, source, damageSource, pattern.filter.source, occurrence, execution)) return false
+  }
+  return true
+}
+
+const matchesPlayerAttacks = (
+  state: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'playerAttacks' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  execution?: StackExecutionContext,
+) => {
+  if (event.type !== 'declareAttackers' || !occurrence.player || !occurrence.defender) return false
+  const context = occurrenceContext(state, source, occurrence, execution)
+  return matchesPlayerRecipient(occurrence.player, pattern.filter.attacker, context)
+    && matchesPlayerRecipient(occurrence.defender, pattern.filter.defender, context)
+}
+
+type OccurrenceSpec = {
+  objectId?: string
+  player?: PlayerId
+  defender?: PlayerId
+  amount?: number
+}
+
+// A declaration contains simultaneous occurrences, one for each attacker (CR 508.3a).
+const occurrenceSpecsForPattern = (
+  pattern: { kind: string },
+  event: GameEvent,
+  state: GameState,
+  draft: Draft,
+): OccurrenceSpec[] => {
+  switch (pattern.kind) {
+    case 'attacks':
+      return event.type === 'declareAttackers'
+        ? event.attackers.map(attacker => ({
+            objectId: attacker.objectId,
+            player: event.seat,
+            defender: defendingPlayer(state, attacker.defender),
+          }))
+        : []
+    case 'becomesTapped':
+      if (event.type === 'declareAttackers') {
+        return event.attackers.map(attacker => ({
+          objectId: attacker.objectId,
+          player: event.seat,
+        }))
+      }
+      return [{
+        objectId: eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined,
+        player: occurrencePlayerForEvent(event, draft),
+      }]
+    case 'playerAttacks': {
+      if (event.type !== 'declareAttackers') return []
+      const seen = new Set<string>()
+      const specs: OccurrenceSpec[] = []
+      for (const attacker of event.attackers) {
+        const defender = defendingPlayer(state, attacker.defender)
+        if (!defender || seen.has(defender)) continue
+        seen.add(defender)
+        specs.push({ player: event.seat, defender })
+      }
+      return specs
+    }
+    case 'dealtDamage': {
+      if (event.type !== 'dealDamage' || event.amount <= 0) return []
+      const damageSource = state.objects[event.sourceId] ?? draft.objects[event.sourceId]
+      return [{
+        objectId: event.target.kind === 'object' ? event.target.objectId : undefined,
+        player: damageSource?.controller,
+        amount: event.amount,
+      }]
+    }
+    case 'unlockDoor':
+    case 'fullyUnlock': {
+      const unlocking = unlockingDoor(event, state)
+      return unlocking ? [{ objectId: unlocking.objectId, player: unlocking.player }] : []
+    }
+    default:
+      return [{
+        objectId: eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined,
+        player: occurrencePlayerForEvent(event, draft),
+        amount: event.type === 'gainLife' || event.type === 'dealDamage' ? event.amount : undefined,
+      }]
+  }
+}
+
 const canonicalGrantedTriggersForOccurrence = (
   state: GameState,
   draft: Draft,
@@ -393,39 +806,42 @@ const canonicalGrantedTriggersForOccurrence = (
   const sources = [...sourcesById.values()]
   for (const source of sources) {
     source.canonicalGrantedAbilities?.forEach((grant, grantIndex) => {
-      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
-      const occurrence = capturedOccurrence(
-        state,
-        draft,
-        event,
-        occurrenceObjectId,
-        occurrencePlayerForEvent(event, draft),
-        event.type === 'gainLife' ? event.amount : undefined,
-      )
-      if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
-      matches.push({
-        source,
-        effect: { do: [] },
-        canonical: {
-          definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
-          abilityIndex: 0,
-        },
-        execution: {
-          ...triggerExecution(source, occurrence, draft),
-          ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
-          ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
-          ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
-          ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
-          ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
-          ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
-          ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
-          ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
-          ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
-        },
-        triggeringPlayer: occurrence.player ?? source.controller,
-        triggeringObjectId: occurrenceObjectId,
-        triggerAmount: occurrence.amount,
-        payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
+      occurrenceSpecsForPattern(grant.ability.on, event, state, draft).forEach(spec => {
+        const occurrence = capturedOccurrence(
+          state,
+          draft,
+          event,
+          spec.objectId,
+          spec.player,
+          spec.amount,
+          spec.defender,
+        )
+        if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
+        matches.push({
+          source,
+          effect: { do: [] },
+          canonical: {
+            definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
+            abilityIndex: 0,
+          },
+          execution: {
+            ...triggerExecution(source, occurrence, draft),
+            grantSource: { objectId: grant.sourceId, incarnation: grant.sourceIncarnation },
+            ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
+            ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
+            ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
+            ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
+            ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
+            ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
+            ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
+            ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
+            ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
+          },
+          triggeringPlayer: occurrence.player ?? source.controller,
+          triggeringObjectId: spec.objectId,
+          triggerAmount: occurrence.amount,
+          payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
+        })
       })
     })
   }
@@ -455,62 +871,86 @@ const canonicalTriggersForOccurrence = (
   const seen = new Set<string>()
   for (const source of sources) {
     const definitionSnapshot = source.ruleDefinition
-    if (source.phasedOut || !definitionSnapshot) continue
+    if (!sourceStaticAbilitiesActive(source) || !definitionSnapshot) continue
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
-      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
-      const occurrence = capturedOccurrence(
-        state,
-        draft,
-        event,
-        occurrenceObjectId,
-        occurrencePlayerForEvent(event, draft),
-        event.type === 'gainLife' ? event.amount : undefined,
-      )
-      const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
-      if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
-      const context = {
-        state: predicateState,
-        controller: source.controller,
-        source: captureObject(source),
-        occurrence,
-      }
-      const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${eventObjectId(event) ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
-      if (seen.has(occurrenceKey)) return
-      seen.add(occurrenceKey)
-      const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
-      const frequencySource = draft.object(source.id) ?? source
-      if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
-        if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
-        markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
-      }
-      if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
-      // An intervening-if condition gates both trigger creation and resolution.
-      // Capture evaluates it against the actual occurrence while the stack gate
-      // evaluates the same definition again when the ability resolves.
-      if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
-      if (candidate.frequency?.kind === 'onceEachTurn'
-        && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
-      const pendingTrigger = {
-        source,
-        effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
-        canonical: {
-          definitionSnapshot: structuredClone(definitionSnapshot),
-          abilityIndex,
-        },
-        execution: triggerExecution(source, occurrence, draft),
-        triggerEffectKey: frequencyKey,
-        triggeringPlayer: occurrence.player ?? source.controller,
-        triggeringObjectId: occurrenceObjectId,
-        triggerAmount: occurrence.amount,
-        triggeredByAbility: false,
-      }
-      const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
-      for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
-      if (candidate.frequency?.kind === 'onceEachTurn') {
-        markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
-      }
+      occurrenceSpecsForPattern(candidate.on, event, state, draft).forEach(spec => {
+        let occurrence = capturedOccurrence(
+          state,
+          draft,
+          event,
+          spec.objectId,
+          spec.player,
+          spec.amount,
+          spec.defender,
+        )
+        const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' || candidate.on.kind === 'sacrificed' ? state : draft
+        if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
+        const groupedIds = candidate.on.kind === 'moved' && candidate.on.group
+          ? matchingMovedIds(candidate.on, state, draft, source, occurrence)
+          : undefined
+        if (groupedIds && groupedIds.length > 0) {
+          occurrence = capturedOccurrence(
+            state,
+            draft,
+            event,
+            groupedIds[0],
+            spec.player,
+            spec.amount,
+            spec.defender,
+            groupedIds,
+          )
+        }
+        const context = {
+          state: predicateState,
+          controller: source.controller,
+          source: captureObject(source),
+          occurrence,
+        }
+        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${groupedIds?.join(',') ?? spec.objectId ?? ''}:${occurrence.player ?? ''}:${occurrence.defender ?? ''}:${occurrence.amount ?? ''}`
+        if (seen.has(occurrenceKey)) return
+        seen.add(occurrenceKey)
+        const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
+        const frequencySource = draft.object(source.id) ?? source
+        if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
+          if (candidate.on.kind === 'moved' && candidate.on.to === 'graveyard') {
+            const owners = [...new Set((groupedIds ?? matchingMovedIds(candidate.on, state, draft, source, occurrence))
+              .flatMap((id) => {
+                const owner = state.objects[id]?.owner ?? draft.objects[id]?.owner
+                return owner ? [owner] : []
+              }))]
+            if (owners.some((owner) => draft.players[owner]!.data[LAND_TO_GRAVEYARD_TURN] === draft.turn)) return
+          } else if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
+          markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
+        }
+        if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
+        // An intervening-if condition gates both trigger creation and resolution.
+        // Capture evaluates it against the actual occurrence while the stack gate
+        // evaluates the same definition again when the ability resolves.
+        if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
+        if (candidate.frequency?.kind === 'onceEachTurn'
+          && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
+        const pendingTrigger = {
+          source,
+          effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
+          canonical: {
+            definitionSnapshot: structuredClone(definitionSnapshot),
+            abilityIndex,
+          },
+          execution: triggerExecution(source, occurrence, draft),
+          triggerEffectKey: frequencyKey,
+          triggeringPlayer: occurrence.player ?? source.controller,
+          triggeringObjectId: spec.objectId,
+          triggerAmount: occurrence.amount,
+          triggeredByAbility: false,
+        }
+        const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
+        for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
+        if (candidate.frequency?.kind === 'onceEachTurn') {
+          markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
+        }
+      })
     })
   }
   canonicalGrantedTriggersForOccurrence(state, draft, event, matches)
@@ -542,11 +982,12 @@ const pushCopies = (
   copies: number,
   meta: Pick<
     PendingTrigger,
-    'triggerEffectKey' | 'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
+    'triggerEffectKey' | 'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload' | 'delayed'
   > = {},
 ) => {
+  const pending = { source, effect, ...meta }
   for (let index = 0; index < copies; index += 1) {
-    matches.push({ source, effect, ...meta })
+    matches.push(pending)
   }
 }
 
@@ -869,7 +1310,6 @@ const collectMoveTriggers = (
     const fromLibrary = before.zone === 'library'
     const owner = draft.players[before.owner]
     const firstThisTurn = owner.data[LAND_TO_GRAVEYARD_TURN] !== draft.turn
-    owner.data[LAND_TO_GRAVEYARD_TURN] = draft.turn
     for (const source of draft.zoneOf('battlefield', before.owner)) {
       const catalog = effectsOf(source)
       for (const effect of triggerEffects(catalog, 'landToGraveyard')) {
@@ -982,7 +1422,10 @@ const collectCasts = (
 }
 
 const eventObjectId = (event: GameEvent) => {
+  if (event.type === 'tokenCreated') return event.object.id
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
+  if (event.type === 'custom' && event.name === MANA_ABILITY_RESOLVED && typeof event.payload?.sourceId === 'string') return event.payload.sourceId
+  if (event.type === 'dealDamage' && event.target.kind === 'object') return event.target.objectId
   if (event.type === 'custom' && typeof event.payload?.objectId === 'string') return event.payload.objectId
   return undefined
 }
@@ -993,6 +1436,11 @@ const delayedTriggerMatches = (
   draft: Draft,
   event: GameEvent,
 ) => {
+  if (trigger.notBeforeTurn !== undefined && draft.turn < trigger.notBeforeTurn) return false
+  if (trigger.condition.kind === 'tappedForMana') {
+    const source = trigger.execution?.source.snapshot
+    return Boolean(source && matchesTapOccurrence(state, draft, source, trigger.condition, capturedOccurrence(state, draft, event, eventObjectId(event)), event, trigger.execution))
+  }
   if (trigger.condition.kind === 'event') {
     if (event.type !== trigger.condition.type) return false
     if (
@@ -1058,6 +1506,7 @@ const collectDelayedTriggers = (
       matches.push({
         source,
         effect: { do: [] },
+        delayed: true,
         canonical: structuredClone(delayed.canonical),
         execution: {
           ...structuredClone(delayed.execution),
@@ -1076,6 +1525,7 @@ const collectDelayedTriggers = (
         ? { targets: { filter: filter as TargetFilter } }
         : {}),
     }, 1, {
+      delayed: true,
       payload: delayed.payload,
     })
   }
@@ -1131,7 +1581,37 @@ const collectEventTriggers = (
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)
   canonicalTriggersForOccurrence(state, draft, event, matches)
+  recordLandToGraveyardThisTurn(state, draft, event)
   return matches
+}
+
+// CR 603.2d: modifiers add instances of the original trigger; they do not
+// multiply each other's additional instances or delayed triggered abilities.
+const multiplyPendingTriggers = (state: GameState, draft: Draft, event: GameEvent, matches: PendingTrigger[]) => {
+  const seen = new Set<PendingTrigger>()
+  const enteringId = event.type === 'playLand' ? event.objectId : permanentEnteringObjectId(event, state)
+  const entrant = enteringId ? draft.objects[enteringId] : undefined
+  const entered = entrant?.zone === 'battlefield'
+    && (event.type !== 'move' || state.objects[event.objectId]?.zone !== 'battlefield')
+  return matches.flatMap(pending => {
+    if (seen.has(pending) || pending.delayed || pending.effect.onceEachTurn) return [pending]
+    seen.add(pending)
+    const ability = pending.canonical?.definitionSnapshot.definition.abilities[pending.canonical.abilityIndex]
+    if (ability?.kind === 'triggered' && ability.frequency?.kind === 'onceEachTurn') return [pending]
+    const lookBack = ability?.kind === 'triggered'
+      && ['dies', 'leaves', 'sacrificed'].includes(ability.on.kind)
+    const lookup = lookBack || (event.type === 'move' && state.objects[event.objectId]?.zone === 'battlefield') ? state : draft
+    const triggerSource = lookup.objects[pending.source.id]
+    if (triggerSource?.zone !== 'battlefield') return [pending]
+    let additional = 0
+    for (const { object, effect } of battlefieldPrintedStatics(lookup, 'multiplyTriggers')) {
+      const context = { state: lookup, controller: object.controller, source: captureObject(object) }
+      if (!evaluateObjectSelector(effect.sources, context).some(source => source.id === triggerSource.id)) continue
+      if (effect.cause && (!entered || !objectMatchesSelector(entrant!, { kind: 'objects', filter: effect.cause.enters }, context))) continue
+      additional += Math.max(0, Math.floor(evaluateRuntimeAmount(effect.additional, context)))
+    }
+    return Array.from({ length: 1 + additional }, () => pending)
+  })
 }
 
 export const captureEventTriggers = (
@@ -1162,7 +1642,7 @@ export const captureEventTriggers = (
       effect.do.length !== 1 || effect.do[0].kind !== 'devour')
     if (ordinary.length === 0) return
 
-    const ordered = apnapOrder(draft, ordinary)
+    const ordered = apnapOrder(draft, multiplyPendingTriggers(state, draft, event, ordinary))
     const triggeringPlayer = 'seat' in event && typeof event.seat === 'string'
       ? event.seat
       : undefined
@@ -1187,7 +1667,8 @@ export const captureEventTriggers = (
         matchedPlayer ?? triggeringPlayer ?? occurrencePlayerForEvent(event, draft),
         triggerAmount,
       )
-      const execution = matchedExecution ?? triggerExecution(source, occurrence, draft)
+      const baseExecution = matchedExecution ?? triggerExecution(source, occurrence, draft)
+      const execution = canonical ? withReferencedObjects(draft, { ...baseExecution, ...(draft.monarchRevision !== undefined ? { monarchRevision: draft.monarchRevision } : {}) }, canonical.definitionSnapshot) : baseExecution
       noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
       return {
         id: pendingId ?? draft.allocId('trigger'),
@@ -1224,7 +1705,7 @@ const canonicalManaTrigger = (trigger: CapturedPendingTrigger) => {
   const definition = loadDefinitionSnapshot(trigger.canonical.definitionSnapshot).definition
   const ability = definition.abilities[trigger.canonical.abilityIndex]
   if (!ability || ability.kind !== 'triggered'
-    || !['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)) return false
+    || !['tappedForMana', 'manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)) return false
   const instructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
@@ -1275,7 +1756,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
   const manaInstructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
-  const isMana = ['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)
+  const isMana = ['tappedForMana', 'manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)
     && classifyManaAbility({
     addsMana: instructionAddsMana(manaInstructions),
     abilityKind: 'triggered',
@@ -1373,7 +1854,10 @@ export const placePendingTriggers = (draft: Draft) => {
     ...(remaining.length > 0 ? { orderIds: remaining } : {}),
   }
   removePendingTrigger(draft, trigger.id)
-  if (trigger.canonical) return !placeCanonicalTrigger(draft, trigger)
+  if (trigger.canonical) {
+    placeCanonicalTrigger(draft, trigger)
+    return false
+  }
   // Legacy triggers retain their existing target semantics, but a missing
   // mandatory candidate removes the trigger instead of lowering its minimum.
   const liveSource = draft.object(trigger.execution.source.ref.objectId)
@@ -1436,4 +1920,13 @@ export const placePendingTriggers = (draft: Draft) => {
     name: source.name,
   })
   return false
+}
+
+
+/** CR 602.2: captured once after a nonmana activation commits to the stack. */
+export const captureAbilityActivation = (state: GameState, draft: Draft, item: StackItem) => {
+  if (item.kind !== 'ability' || item.copy) return
+  const source = item.execution?.source ?? (state.objects[item.objectId] ? captureObject(state.objects[item.objectId]!) : undefined)
+  if (!source) return
+  captureEventTriggers(state, { type: 'abilityActivated', stackId: item.id, objectId: item.objectId, seat: item.controller, sourceSnapshot: structuredClone(source) }, draft)
 }

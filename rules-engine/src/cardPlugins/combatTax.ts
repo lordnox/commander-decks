@@ -11,6 +11,7 @@ import type {
   TargetRef,
 } from '../types'
 import { targetObject } from '../objectIdentity'
+import { battlefieldPrintedStatics } from './dsl/staticModifierCore'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 
@@ -38,7 +39,7 @@ export const attackTaxAmount = (
 ) => attackers.reduce((total, attacker) => {
   const defender = defendingPlayer(state, attacker.defender)
   if (!defender) return total
-  return total + battlefieldStatics(state).reduce((tax, { object, effect }) => {
+  const legacy = battlefieldStatics(state).reduce((tax, { object, effect }) => {
     if (
       !effect.attackTax
       || object.controller !== defender
@@ -48,6 +49,11 @@ export const attackTaxAmount = (
     }
     return tax + effect.attackTax.amount
   }, 0)
+  const canonical = battlefieldPrintedStatics(state, 'attackTax').reduce((tax, { object, effect }) => {
+    if (object.controller !== defender || (effect.whileUntapped && object.tapped)) return tax
+    return tax + effect.amount
+  }, 0)
+  return total + legacy + canonical
 }, 0)
 
 export const attackTaxByDefender = (state: GameState) => {
@@ -69,15 +75,22 @@ export const attackTaxByDefender = (state: GameState) => {
 export const blockTaxAmount = (
   state: GameState,
   blockerCount: number,
-) => blockerCount * battlefieldStatics(state).reduce((total, { object, effect }) => {
-  if (
-    !effect.blockTax
-    || (effect.blockTax.whileAttacking && !object.attacking)
-  ) {
-    return total
-  }
-  return total + effect.blockTax.amount
-}, 0)
+) => {
+  const legacy = battlefieldStatics(state).reduce((total, { object, effect }) => {
+    if (
+      !effect.blockTax
+      || (effect.blockTax.whileAttacking && !object.attacking)
+    ) {
+      return total
+    }
+    return total + effect.blockTax.amount
+  }, 0)
+  const canonical = battlefieldPrintedStatics(state, 'blockTax').reduce((total, { object, effect }) => {
+    if (effect.whileAttacking && !object.attacking) return total
+    return total + effect.amount
+  }, 0)
+  return blockerCount * (legacy + canonical)
+}
 
 export const blockTaxPerCreature = (state: GameState) => blockTaxAmount(state, 1)
 
@@ -115,7 +128,7 @@ const paymentMana = (
     if (
       object.types.includes('Creature')
       && object.summoningSickness
-      && !hasKeyword(object, 'haste', state)
+      && !hasKeyword(object, 'haste')
     ) {
       return 'combat tax payment uses a creature with summoning sickness'
     }
@@ -139,7 +152,7 @@ export const combatTax: Plugin = {
     const excluded = event.type === 'declareAttackers'
       ? new Set(event.attackers.flatMap((attacker) => {
           const object = state.objects[attacker.objectId]
-          return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
+          return object && !hasKeyword(object, 'vigilance') ? [object.id] : []
         }))
       : new Set<string>()
     const available = paymentMana(state, event.seat, payment, excluded)

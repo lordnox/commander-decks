@@ -34,7 +34,7 @@ export type TopdeckDecision = LiveInteractionMetadata & {
   /** Authoritative candidate identities; names are presentation only. */
   candidateIds?: string[]
   candidatePins?: Array<{ id: string; incarnation?: number; zone?: string }>
-  /** CR 701.19a: searching means looking at every card, not only the matches. */
+  /** Private inspected-library context; only entries in `cards` may be selected. */
   library?: string[]
   destinations: TopdeckDestination[]
   count?: number

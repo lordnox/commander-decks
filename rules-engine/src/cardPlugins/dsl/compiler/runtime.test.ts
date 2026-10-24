@@ -142,6 +142,19 @@ describe('Rule DSL runtime evaluation', () => {
   test('evaluates event amounts, current selector counts, and source LKI', () => {
     const context = contextFor()
     expect(evaluateRuntimeAmount({ kind: 'eventAmount' }, context)).toBe(4)
+    context.stackItemId = 'spell1'
+    context.state.stack = [{
+      id: 'spell1',
+      kind: 'spell',
+      objectId: context.source.ref.objectId,
+      controller: 'p1',
+      name: 'Named Relic',
+      targets: [],
+      manaSpent: { W: 2, U: 0, B: 1, R: 0, G: 0, C: 0 },
+    }]
+    expect(evaluateRuntimeAmount({ kind: 'manaSpent', color: 'W' }, context)).toBe(2)
+    expect(evaluateRuntimeAmount({ kind: 'manaSpent', color: 'B' }, context)).toBe(1)
+    expect(evaluateRuntimeAmount({ kind: 'manaSpent', color: 'U' }, context)).toBe(0)
     expect(evaluateRuntimeAmount({
       kind: 'count',
       of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Artifact' } },

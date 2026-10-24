@@ -2,9 +2,9 @@ import { loadDefinitionSnapshot } from './compiler'
 import { canonicalTargetError } from './compiler/targeting'
 import { putSpellCopyOnStack } from '../../rules/spellCopies'
 import type { Draft } from '../../draft'
-import { captureObject } from '../../objectIdentity'
+import { captureObject, isSameObject } from '../../objectIdentity'
 import type { CardRuleDefinitionV1, TargetClause } from './schema/v1'
-import type { GameObject, StackItem, TargetRef, PlayerId } from '../../types'
+import type { GameState, GameObject, StackItem, TargetRef, PlayerId } from '../../types'
 export const copyTargets = (
   original: StackItem,
   retargeted?: readonly TargetRef[],
@@ -247,4 +247,29 @@ export const putCanonicalSpellCopyOnStack = (
   created.abilityId = original.abilityId
   created.uncounterable = original.uncounterable
   return created
+}
+
+
+/** An ability keeps its captured source even if that permanent has changed zones. */
+export const canonicalCopySource = (state: Pick<GameState, 'objects'>, original: StackItem) => {
+  const captured = original.execution?.source
+  const current = state.objects[original.objectId]
+  return captured && !isSameObject(current, captured.ref) ? captured.snapshot : current ?? captured?.snapshot
+}
+
+/** CR 707.10b: copy the stack program and decisions without creating or activating an object. */
+export const putCanonicalAbilityCopyOnStack = (draft: Draft, original: StackItem, controller: PlayerId, targets?: readonly TargetRef[]) => {
+  if (original.kind !== 'ability') return
+  const copy = { ...structuredClone(original), id: draft.allocId('stack'), controller, copy: true, targets: [...copyTargets(original, targets)] }
+  delete copy.waiting
+  if (copy.execution) {
+    copy.execution.controller = controller
+    let cursor = 0
+    copy.execution.targetBindings = copy.execution.targetBindings?.map(binding => ({ ...binding, recipients: binding.recipients.map(recipient => {
+      const replacement = targets?.[cursor++]
+      return replacement && !recipientAndReplacementUnchanged(recipient, replacement) ? structuredClone(replacement) : recipient
+    }) }))
+  }
+  draft.addToStack(copy)
+  return copy
 }

@@ -88,12 +88,16 @@ type InboxPayload =
         | 'activateAbility'
         | 'unlockDoor'
         | 'foretell'
+        | 'plot'
+        | 'suspend'
         | 'declareAttackers'
         | 'declareBlockers'
       objectId?: string
       targetObjectId?: string
       targetPlayerId?: string
       targetObjectIds?: string[]
+      evidence?: string[][]
+      selectedOptionalCosts?: number[]
       /** Canonical target selections grouped by generated clause index. */
       targetClauses?: string[][]
       modeIndices?: number[]
@@ -175,6 +179,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     targetObjectId?: unknown
     targetPlayerId?: unknown
     targetObjectIds?: unknown
+    evidence?: unknown
+    selectedOptionalCosts?: unknown
     targetClauses?: unknown
     abilityId?: unknown
     castOption?: unknown
@@ -238,6 +244,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const objectId = message.objectId
       const targetObjectId = message.targetObjectId
       const targetPlayerId = message.targetPlayerId
+      const selectedOptionalCosts = message.selectedOptionalCosts
+      if (selectedOptionalCosts !== undefined && (!Array.isArray(selectedOptionalCosts) || !selectedOptionalCosts.every(index => Number.isSafeInteger(index) && index >= 0))) return null
+      const evidence = message.evidence
+      if (evidence !== undefined && (!Array.isArray(evidence) || !evidence.every(group => Array.isArray(group) && group.every(id => typeof id === 'string' && Boolean(id))))) return null
       const targetObjectIds = message.targetObjectIds
       const targetClauses = message.targetClauses
       const mana = message.mana
@@ -333,6 +343,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           'activateAbility',
           'unlockDoor',
           'foretell',
+          'plot',
+          'suspend',
         ].includes(kind as string)
         || typeof objectId !== 'string'
         || !objectId
@@ -369,10 +381,14 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           | 'declineFreeCast'
           | 'activateAbility'
           | 'unlockDoor'
-          | 'foretell',
+          | 'foretell'
+        | 'plot'
+        | 'suspend',
         objectId,
+        ...(selectedOptionalCosts === undefined ? {} : { selectedOptionalCosts: [...selectedOptionalCosts] }),
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
         ...(typeof targetPlayerId === 'string' ? { targetPlayerId } : {}),
+        ...(Array.isArray(evidence) && evidence.every(group => Array.isArray(group) && group.every(id => typeof id === 'string')) ? { evidence: evidence as string[][] } : {}),
         ...(Array.isArray(targetObjectIds) && targetObjectIds.every(
           (target): target is string => typeof target === 'string' && Boolean(target),
         ) ? { targetObjectIds } : {}),

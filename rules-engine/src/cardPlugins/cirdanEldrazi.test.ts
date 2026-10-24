@@ -25,7 +25,7 @@ const answer = (
 const boltEvent = (state: GameState, target = 'Sire of Seven Deaths'): GameEvent => ({
   type: 'castSpell',
   seat: 'p1',
-  objectId: named(state, 'Lightning Bolt').id,
+  objectId: named(state, 'Ward spell fixture').id,
   targets: [{ kind: 'object', objectId: named(state, target).id }],
 })
 
@@ -34,7 +34,7 @@ const poker = () => cardTemplate('Fixture Poker', {
   effects: [ability({ id: 'poker.poke', targets: 'creature' }, {}, { kind: 'gainLife', count: 1 })],
 })
 
-const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
+const bolt = () => cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })
 
 describe('Sire of Seven Deaths', () => {
   describe('ward', () => {
@@ -69,7 +69,7 @@ describe('Sire of Seven Deaths', () => {
 
       const paid = ok(answer(server, warded, 'pay'))
       expect(paid.players.p1.life).toBe(33)
-      expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: named(paid, 'Lightning Bolt').id })
+      expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: named(paid, 'Ward spell fixture').id })
       expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
     })
 

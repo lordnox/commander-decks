@@ -1,3 +1,4 @@
+import { recordInstructionAmount } from '../cardPlugins/dsl/instructionResults'
 import { hasKeyword } from '../keywords'
 import { captureObject, objectIdentity, targetObject } from '../objectIdentity'
 import type { GameEvent, GameObject, Plugin } from '../types'
@@ -47,6 +48,9 @@ export const damage: Plugin = {
 
     if (event.type === 'dealDamage') {
       if (event.target.kind === 'player') {
+        const recipient = draft.players[event.target.player]
+        if (!recipient || recipient.lost) return
+        recordInstructionAmount(draft, 'dealDamage', event.amount)
         if (event.combat === true && event.amount > 0) {
           const source = sourceFor(event, draft.objects)
           const victim = draft.players[event.target.player]
@@ -81,6 +85,7 @@ export const damage: Plugin = {
       if (event.target.kind !== 'object') return
       const object = targetObject(draft, event.target)
       if (!object || object.zone !== 'battlefield') return
+      recordInstructionAmount(draft, 'dealDamage', event.amount)
       const source = sourceFor(event, draft.objects)
       recordDamageDealt(object, source, event.amount)
       const maximum = object.types.includes('Planeswalker')
@@ -165,7 +170,8 @@ export const damage: Plugin = {
     if (event.type === 'sacrifice') {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield') return
-      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      recordInstructionAmount(draft, 'sacrifice', 1, object)
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard', sacrifice: true })
       draft.note(`${object.controller} sacrifices ${object.name}`)
       return
     }

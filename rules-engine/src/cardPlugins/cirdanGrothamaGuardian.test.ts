@@ -25,6 +25,28 @@ const attackEvent = (state: GameState, seat: PlayerId, names: string[]): GameEve
 const withGrant = (server: ReturnType<typeof createServerGame>, state: GameState) =>
   ok(server.rules(state, { type: 'custom', name: 'grantCreatureTrigger.sync' }))
 
+const placeGrantedTriggers = (
+  server: ReturnType<typeof createServerGame>,
+  start: GameState,
+) => {
+  let state = start
+  for (let guard = 0; guard < 8; guard += 1) {
+    const order = ['p1', 'p2', 'p3', 'p4']
+      .map((seat) => pendingSelectionFor(state, seat))
+      .find((selection) => selection?.triggerOrder)
+    if (!order?.triggerOrder) break
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: order.seat,
+      selectionId: order.id,
+      kind: 'choose',
+      count: order.count,
+      objectIds: order.candidates,
+    }))
+  }
+  return state
+}
+
 const grothamaGame = (
   battlefield: Record<string, CardTemplate[]>,
   options: { first?: PlayerId } = {},
@@ -82,7 +104,7 @@ describe('Grothama, All-Devouring', () => {
       p1: [deckCard('Grothama, All-Devouring')],
       p2: [brute('Raider', 3), brute('Ogre', 4)],
     })
-    const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre'])))
+    const attacked = placeGrantedTriggers(server, ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre']))))
     expect(attacked.stack).toHaveLength(2)
 
     const first = ok(server.rules(attacked, { type: 'resolveTop' }))

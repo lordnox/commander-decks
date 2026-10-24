@@ -34,7 +34,7 @@ const destroyThenTokenForController: InstructionHandler<'destroyThenTokenForCont
       !object
       || object.zone !== 'battlefield'
       || object.phasedOut
-      || hasKeyword(object, 'indestructible', draft)
+      || hasKeyword(object, 'indestructible')
     ) continue
     destroyed.push({ objectId: object.id, controller: object.controller })
     draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })

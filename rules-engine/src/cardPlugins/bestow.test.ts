@@ -10,6 +10,7 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { bestow } from './bestow'
+import { attachedCopyOrToken, landfall } from './effects'
 
 const creature = (name = 'Grizzly Bears') => cardTemplate(name, {
   types: ['Creature'],
@@ -17,14 +18,26 @@ const creature = (name = 'Grizzly Bears') => cardTemplate(name, {
   toughness: 2,
 })
 
+const insectToken = {
+  name: 'Insect',
+  types: ['Creature'],
+  subtypes: ['Insect'],
+  power: 1,
+  toughness: 1,
+}
+
 const springheart = (extra: Partial<CardTemplate> = {}) => cardTemplate(
-  'Springheart Nantuko',
+  'Test Bestower',
   {
     types: ['Enchantment', 'Creature'],
     subtypes: ['Insect', 'Monk'],
     manaCost: '{1}{G}',
     power: 1,
     toughness: 1,
+    effects: [
+      { op: 'bestow', cost: '{1}{G}', power: 1, toughness: 1 },
+      landfall(attachedCopyOrToken('{1}{G}', insectToken)),
+    ],
     ...extra,
   },
 )
@@ -46,7 +59,7 @@ const objectsNamed = (state: GameState, name: string) =>
 
 const attachedGame = () => {
   const server = game({ battlefield: [springheart(), creature()] })
-  const spring = objectsNamed(server.state, 'Springheart Nantuko')[0]
+  const spring = objectsNamed(server.state, 'Test Bestower')[0]
   const bear = objectsNamed(server.state, 'Grizzly Bears')[0]
   spring.types = ['Enchantment']
   spring.subtypes = ['Aura']

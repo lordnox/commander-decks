@@ -1,3 +1,4 @@
+import { preparedCasting } from '../cardPlugins/dsl/preparedCasting'
 import { pendingDialogLock } from '../pendingDialog'
 import { continuousEffects } from '../cardPlugins/continuousEffects'
 import { abilities } from './activateAbility'
@@ -11,7 +12,6 @@ import { doubleFaced } from './doubleFaced'
 import { enchantedManaBoost } from './enchantedManaBoost'
 import { extraSwampMana } from './extraSwampMana'
 import { attackSubtypeDraw } from './attackSubtypeDraw'
-import { extraUntap } from './extraUntap'
 import { flashGrant } from './flashGrant'
 import { fog } from './fog'
 import { forestOverlay } from './forestOverlay'
@@ -24,6 +24,7 @@ import { lands } from './lands'
 import { energy } from './energy'
 import { life } from './life'
 import { lifeTotalLock } from './lifeTotalLock'
+import { playerEffects } from './playerEffects'
 import { phasing } from './phasing'
 import { protectionFromEverything } from './protectionFromEverything'
 import { untilNextTurn } from './untilNextTurn'
@@ -38,6 +39,8 @@ import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { foretell } from './foretell'
 import { rebound } from './rebound'
+import { demonstrate } from '../cardPlugins/demonstrate'
+import { stackCopy } from '../cardPlugins/stackCopy'
 import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
@@ -48,9 +51,12 @@ import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, instructionResume, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
+import { vote } from '../cardPlugins/vote'
+import { canonicalRandom } from '../cardPlugins/dsl/canonicalRandom'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
 import { activated as canonicalActivated } from '../cardPlugins/activated'
+import { alternateCosts } from '../cardPlugins/alternateCosts'
 
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
@@ -59,6 +65,7 @@ export const builtInPlugins = [
   phasing,
   protectionFromEverything,
   lifeTotalLock,
+  playerEffects,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,
@@ -71,8 +78,12 @@ export const builtInPlugins = [
   spells,
   adventure,
   foretell,
+  preparedCasting,
   rebound,
+  demonstrate,
+  stackCopy,
   warp,
+  alternateCosts,
   saga,
   rooms,
   stateBased,
@@ -91,6 +102,8 @@ export const builtInPlugins = [
   selectPlayers,
   triggers,
   instructionResume,
+  vote,
+  canonicalRandom,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,
@@ -105,7 +118,6 @@ export const builtInPlugins = [
   grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
-  extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,
@@ -126,7 +138,6 @@ export {
   doubleFaced,
   enchantedManaBoost,
   extraSwampMana,
-  extraUntap,
   flashGrant,
   fog,
   forestOverlay,
@@ -143,7 +154,10 @@ export {
   phialReplacement,
   priority,
   foretell,
+  preparedCasting,
   rebound,
+  demonstrate,
+  stackCopy,
   warp,
   rooms,
   sacrificeLandMana,

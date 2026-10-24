@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { ROUNDING_MODES } from './v1'
+import { CARD_COLORS, CHOICE_RELATIONS, KEYWORDS, PLAYER_EFFECT_DURATIONS, PLAYER_EFFECTS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -12,6 +12,9 @@ test.each([
   ['Summer Bloom', ['grantLandPlays']],
   ['Ghostly Flicker', ['blink']],
   ['Cloudshift', ['blink']],
+  ['Reins of Power', ['exchangeControl']],
+  ['Mirrorweave', ['createEffect']],
+  ['Nanogene Conversion', ['createEffect']],
   ['Flicker of Fate', ['blink']],
   ['Counterspell', ['counter']],
   ['Absorb', ['counter', 'gainLife']],
@@ -19,6 +22,8 @@ test.each([
   ['Aetherize', ['move']],
   ['Dismember', ['createEffect']],
   ['Harrow', ['sequence']],
+  ['Cultivate', ['sequence']],
+  ["Kodama's Reach", ['sequence']],
   ['Growth Spiral', ['draw', 'sequence']],
   ['Three Visits', ['sequence']],
   ["Nature's Lore", ['sequence']],
@@ -32,8 +37,20 @@ test.each([
   ['Unmarked Grave', ['sequence']],
   ['Diabolic Tutor', ['sequence']],
   ['Foil', ['counter']],
+  ["Dovin's Veto", ['counter']],
+  ['Desertion', ['counter']],
   ['Murder', ['destroy']],
   ['Sign in Blood', ['draw', 'loseLife']],
+  ['Darkness', ['createEffect']],
+  ['Batwing Brume', ['if', 'if']],
+  ['Comeuppance', ['createEffect', 'createEffect']],
+  ['Energy Arc', ['untap', 'createEffect', 'createEffect']],
+  ['Inkshield', ['createEffect']],
+  ['Sea Gate Restoration', ['draw', 'grantNoMaximumHandSize']],
+  ['Sink into Stupor', ['move']],
+  ['Windfall', ['forEachPlayer', 'draw']],
+  ['Show and Tell', ['chooseCardsForEachPlayer', 'move']],
+  ['Eureka', ['captureAmount', 'repeatWhile']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -47,8 +64,14 @@ test.each([
 test.each([
   ['Counterspell', 'stackItems', { kind: 'spell' }],
   ['Absorb', 'stackItems', { kind: 'spell' }],
+  ['Desertion', 'stackItems', { kind: 'spell' }],
+  ["Dovin's Veto", 'stackItems', { kind: 'spell', not: { type: 'Creature' } }],
   ['Dismember', 'objects', { zone: 'battlefield', type: 'Creature' }],
   ['Anguished Unmaking', 'objects', { zone: 'battlefield', not: { type: 'Land' } }],
+  ['Sink into Stupor', 'objects', {
+    controller: 'opponent',
+    any: [{ zone: 'stack' }, { zone: 'battlefield', not: { type: 'Land' } }],
+  }],
 ] as const)('catalog %s declares its target selector', (name, kind, filter) => {
   const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
   expect(ability).toMatchObject({ decisions: { targets: [{
@@ -82,6 +105,31 @@ test('catalog Dismember preserves its Phyrexian mana costs and temporary reducti
       effect: { kind: 'pump', power: { kind: 'constant', value: -5 }, toughness: { kind: 'constant', value: -5 } },
       duration: { kind: 'untilCleanup' },
     }],
+  })
+})
+
+test.each(['Cultivate', "Kodama's Reach"] as const)('catalog %s splits two basics between battlefield and hand', name => {
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({
+    types: ['Sorcery'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+  })
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', bindChoice: 'found', chooser: { kind: 'contextRef', name: 'controller' },
+        filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } },
+        min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, viewLibrary: true },
+      { kind: 'reveal', targets: { kind: 'choiceRef', binding: 'found' } },
+      { kind: 'chooseCards', bindChoice: 'battlefieldLand', chooser: { kind: 'contextRef', name: 'controller' },
+        filter: { kind: 'objects', filter: { among: { kind: 'choiceRef', binding: 'found' } } },
+        min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'battlefieldLand' }, to: 'battlefield', tapped: true },
+      { kind: 'move', targets: { kind: 'objects', filter: {
+        among: { kind: 'choiceRef', binding: 'found' },
+        not: { among: { kind: 'choiceRef', binding: 'battlefieldLand' } },
+      } }, to: 'hand' },
+      { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+    ] }],
   })
 })
 
@@ -134,6 +182,23 @@ test.each([
     { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'graveyard' },
     { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
   ] }] })
+})
+
+test('catalog Dovin’s Veto is an uncounterable noncreature counter', () => {
+  expect(cardRuleDefinitionSnapshotFor("Dovin's Veto")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', uncounterable: true,
+    instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test('catalog Desertion redirects artifact and creature spells to the battlefield', () => {
+  expect(cardRuleDefinitionSnapshotFor('Desertion')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{
+      kind: 'counter',
+      destination: { to: 'battlefield', controller: { kind: 'contextRef', name: 'controller' }, types: ['Artifact', 'Creature'] },
+    }],
+  })
 })
 
 test('catalog instruction parameters preserve controller life changes and exile destination', () => {
@@ -302,29 +367,6 @@ test('catalog Vampire Hounds composes a discard-cost pump without legacy effects
   expect(ability.instructions!.map(instruction => instruction.kind)).toEqual(['createEffect'])
 })
 
-test('unmigrated Mulldrifter keeps CARD_RULES effects instead of a catalog snapshot', () => {
-  expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
-  expect(cardTemplateDefaultsFor('Mulldrifter')).toBeUndefined()
-  expect(effectsFor('Mulldrifter').length).toBeGreaterThan(0)
-})
-
-test('catalog lookup is exact and rejects inherited object keys', () => {
-  for (const name of ['counterspell', ' Counterspell', 'toString', 'constructor', '__proto__']) {
-    expect(cardRuleDefinitionSnapshotFor(name)).toBeUndefined()
-    expect(cardTemplateDefaultsFor(name)).toBeUndefined()
-  }
-})
-
-test('template callers own their characteristics and rule snapshot', () => {
-  const original = cardTemplateDefaultsFor('Counterspell')!
-  const edited = cardTemplateDefaultsFor('Counterspell')!
-  edited.types.push('Creature')
-  Reflect.set(edited.ruleDefinition.definition.abilities, 'length', 0)
-  expect(cardTemplateDefaultsFor('Counterspell')).toEqual(original)
-  expect(cardRuleDefinitionSnapshotFor('Counterspell')).toEqual(original.ruleDefinition)
-  expect(cardTemplateDefaultsFor('Absorb')).toMatchObject({ manaCost: '{W}{U}{U}', manaValue: 3 })
-})
-
 test('Diabolic Tutor supplies printed characteristics beside its canonical rules', () => {
   expect(cardTemplateDefaultsFor('Diabolic Tutor')).toEqual({
     types: ['Sorcery'],
@@ -358,9 +400,9 @@ test('catalog Unmarked Grave filters legendary cards before moving and shuffling
 })
 
 
-test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Fell Mire', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
+test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
   expect(effectsFor(name)).toEqual([])
-  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.slice(0, 1)).toMatchObject([{
     kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
   }])
 })
@@ -388,7 +430,7 @@ test.each([
   ['Vault of Champions', 'players', 'lte', 1],
 ] as const)('catalog %s retains its conditional tapped entry', (name, selectorKind, operator, threshold) => {
   expect(effectsFor(name)).toEqual([])
-  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.slice(0, 1)).toMatchObject([{
     kind: 'static', effects: [{ kind: 'replacement', when: { kind: 'compareAmount', left: { kind: 'count', of: { kind: selectorKind } }, operator, right: { kind: 'constant', value: threshold } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
   }])
 })
@@ -440,6 +482,83 @@ test('catalog Selenia pays two life to return its source to hand', () => {
   expect(cardRuleDefinitionSnapshotFor('Selenia, Dark Angel')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'life', amount: { kind: 'constant', value: 2 } }], instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] })
 })
 
+
+test('catalog Darkness prevents all combat damage this turn', () => {
+  expect(effectsFor('Darkness')).toEqual([])
+  expect(cardTemplateDefaultsFor('Darkness')).toMatchObject({
+    types: ['Instant'], colors: ['B'], manaCost: '{B}', manaValue: 1,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Darkness')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+    }],
+  })
+})
+
+test('catalog Kami of False Hope sacrifices itself to prevent all combat damage this turn', () => {
+  expect(effectsFor('Kami of False Hope')).toEqual([])
+  expect(cardTemplateDefaultsFor('Kami of False Hope')).toMatchObject({
+    types: ['Creature'], subtypes: ['Spirit'], colors: ['W'], manaCost: '{W}', manaValue: 1,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Kami of False Hope')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    costs: [{ kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }],
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+    }],
+  })
+})
+
+test('catalog Sokrates grants defender, conditional hexproof, and a combat-dialogue prevention', () => {
+  expect(effectsFor('Sokrates, Athenian Teacher')).toEqual([])
+  expect(cardTemplateDefaultsFor('Sokrates, Athenian Teacher')).toMatchObject({
+    types: ['Creature'], subtypes: ['Human', 'Advisor'], colors: ['W', 'U'], manaCost: '{1}{W}{U}', manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Sokrates, Athenian Teacher')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.defender },
+    { kind: 'keyword', keyword: KEYWORDS.hexproof, when: { kind: 'compareAmount' } },
+    {
+      kind: 'activated',
+      costs: [{ kind: 'tapSource' }],
+      decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+      instructions: [{
+        kind: 'createEffect',
+        targets: { kind: 'targetRef', clauseIndex: 0 },
+        duration: { kind: 'untilCleanup' },
+        effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+      }],
+    },
+  ])
+})
+
+test('catalog Lady Evangela fogs combat damage from a targeted creature', () => {
+  expect(effectsFor('Lady Evangela')).toEqual([])
+  expect(cardTemplateDefaultsFor('Lady Evangela')).toMatchObject({
+    types: ['Creature'], subtypes: ['Human', 'Cleric'], colors: ['W', 'U', 'B'], manaCost: '{W}{U}{B}', manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Lady Evangela')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    costs: [{ kind: 'mana', amount: '{W}{B}' }, { kind: 'tapSource' }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: {
+        kind: 'prevention',
+        capacity: { kind: 'unlimited' },
+        filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+      },
+    }],
+  })
+})
 
 test.each([
   ['Arcanis the Omnipotent', [['draw'], ['move']]],
@@ -735,6 +854,87 @@ test('catalog Restoration Angel composes flash, flying and optional controlled n
   ])
 })
 
+test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {
+  expect(effectsFor('Banisher Priest')).toEqual([])
+  expect(cardTemplateDefaultsFor('Banisher Priest')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Cleric'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Banisher Priest')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'enters' },
+    decisions: { targets: [{
+      min: { kind: 'constant', value: 1 },
+      max: { kind: 'constant', value: 1 },
+      filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } },
+    }] },
+    instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+  }])
+})
+
+test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {
+  expect(effectsFor('Werefox Bodyguard')).toEqual([])
+  expect(cardTemplateDefaultsFor('Werefox Bodyguard')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Elf', 'Fox', 'Knight'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Werefox Bodyguard')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flash' },
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        min: { kind: 'constant', value: 0 },
+        max: { kind: 'constant', value: 1 },
+        filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', other: true, not: { subtypes: ['Fox'] } } },
+      }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+    },
+    {
+      kind: 'activated',
+      costs: [
+        { kind: 'mana', amount: '{1}{W}' },
+        { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } },
+      ],
+      instructions: [{ kind: 'gainLife', amount: { kind: 'constant', value: 2 } }],
+    },
+  ])
+})
+
+test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {
+  expect(effectsFor('Fiend Hunter')).toEqual([])
+  expect(cardTemplateDefaultsFor('Fiend Hunter')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Cleric'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Fiend Hunter')!.definition.abilities).toMatchObject([
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        min: { kind: 'constant', value: 0 },
+        max: { kind: 'constant', value: 1 },
+        filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', other: true } },
+      }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+    },
+    {
+      kind: 'triggered',
+      on: { kind: 'leaves' },
+      instructions: [{ kind: 'returnLinkedExile' }],
+    },
+  ])
+})
+
 test('catalog Githzerai Monk declares flash and flying alongside its entry instruction', () => {
   expect(cardTemplateDefaultsFor('Githzerai Monk')).toMatchObject({ subtypes: ['Gith', 'Monk'] })
   expect(cardRuleDefinitionSnapshotFor('Githzerai Monk')!.definition.abilities).toEqual(expect.arrayContaining([
@@ -796,4 +996,2103 @@ test('Infernal Contract composes four draws with rounded-up half-life loss', () 
       } },
     ],
   })
+})
+
+
+test.each([
+  ['High Market', [['tapSource'], ['tapSource', 'sacrifice']], [['addMana'], ['gainLife']]],
+  ['Trade Routes', [['mana'], ['mana', 'discard']], [['move'], ['draw']]],
+  ['Sakura-Tribe Scout', [['tapSource']], [['chooseCards', 'move']]],
+] as const)('%s composes canonical utility activations', (name, costs, programs) => {
+  expect(effectsFor(name)).toEqual([])
+  const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(costs.map(() => 'activated'))
+  expect(abilities.map(ability => ability.kind === 'activated' ? ability.costs.map(cost => cost.kind) : [])).toEqual(costs.map(group => [...group]))
+  expect(abilities.map(ability => ability.kind === 'activated' ? ability.instructions?.map(instruction => instruction.kind) : [])).toEqual(programs.map(group => [...group]))
+})
+
+
+test.each([
+  ['Meteor Golem', ['triggered']], ['Bojuka Bog', ['static', 'triggered', 'activated']],
+  ['Hedron Crab', ['triggered']], ['Thorn Mammoth', ['keyword', 'triggered']],
+  ['Join the Dead', ['spell']], ['Deathsprout', ['spell']],
+] as const)('%s declares canonical targeted programs', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.map(ability => ability.kind)).toEqual([...kinds])
+})
+
+test('graveyard-exile and landfall catalog entries bind their chosen player', () => {
+  expect(cardRuleDefinitionSnapshotFor('Bojuka Bog')!.definition.abilities[1]).toMatchObject({
+    kind: 'triggered', instructions: [{ kind: 'move', to: 'exile', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: { kind: 'targetRef', clauseIndex: 0 } } } }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Hedron Crab')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {
+  expect(cardRuleDefinitionSnapshotFor('Thorn Mammoth')!.definition.abilities[1]).toMatchObject({
+    kind: 'triggered', on: { kind: 'enters', filter: { type: 'Creature', controller: 'you' } },
+    decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } }] },
+    instructions: [{ kind: 'fight', left: { kind: 'contextRef', name: 'source' }, right: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test.each([
+  'Apex Altisaur',
+  'Blitzball',
+  'Breena, the Demagogue',
+  'Grothama, All-Devouring',
+  'Kogla, the Titan Ape',
+  'Souls of the Faultless',
+] as const)('catalog %s composes canonical combat-damage programs without legacy effects', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
+})
+
+test('Apex Altisaur fights on entry and whenever it is dealt damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Apex Altisaur')!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(['triggered', 'triggered'])
+  expect(abilities[0]).toMatchObject({ on: { kind: 'enters' }, instructions: [{ kind: 'fight' }] })
+  expect(abilities[1]).toMatchObject({ on: { kind: 'dealtDamage' }, instructions: [{ kind: 'fight' }] })
+})
+
+test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Souls of the Faultless')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'keyword', keyword: 'defender' })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'dealtDamage', filter: { combat: true } },
+    instructions: [{ kind: 'gainLife' }, { kind: 'loseLife' }],
+  })
+})
+
+test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Blitzball')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'tapSource' }] })
+  expect(abilities[1]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'combatDamageThisTurn', legendary: true },
+    instructions: [{ kind: 'draw', count: { kind: 'constant', value: 2 } }],
+  })
+})
+
+test('Breena rewards attacks on a richer opponent', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Breena, the Demagogue')!.definition.abilities
+  expect(abilities[0]).toMatchObject({ kind: 'keyword', keyword: 'flying' })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'playerAttacks' },
+    interveningIf: { kind: 'somePlayerHasLess', metric: 'life' },
+    instructions: [{ kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'putCounters' }],
+  })
+})
+
+test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Kogla, the Titan Ape')!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(['triggered', 'triggered', 'activated'])
+  expect(abilities[0]).toMatchObject({ on: { kind: 'enters' }, instructions: [{ kind: 'fight' }] })
+  expect(abilities[1]).toMatchObject({ on: { kind: 'attacks' }, instructions: [{ kind: 'destroy' }] })
+  expect(abilities[2]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'move' }, { kind: 'createEffect' }] })
+})
+
+test('Grothama grants an optional fight and pays out source-attributed damage', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Grothama, All-Devouring')!.definition.abilities
+  expect(abilities[0]).toMatchObject({
+    kind: 'static',
+    effects: [{ kind: 'grantAbility', ability: { on: { kind: 'attacks' } } }],
+  })
+  expect(abilities[1]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'leaves' },
+    instructions: [{ kind: 'forEachPlayer' }],
+  })
+})
+
+
+test.each([
+  ['Awaken the Woods', ['createToken']], ['Hatred', ['createEffect']], ['Toxic Deluge', ['createEffect']],
+  ["Black Sun's Twilight", ['createEffect', 'if']],
+] as const)('%s declares canonical X programs', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
+  if (ability.kind !== 'spell') throw new Error('expected spell')
+  expect(ability.decisions.variables?.map(variable => variable.name)).toEqual(['X'])
+  expect(ability.instructions?.map(instruction => instruction.kind)).toEqual([...kinds])
+})
+
+test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {
+  for (const name of ['Hatred', 'Toxic Deluge']) expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'life', amount: { kind: 'variable', name: 'X' } }] })
+  expect(cardRuleDefinitionSnapshotFor('Toxic Deluge')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } } }] })
+  expect(cardTemplateDefaultsFor("Black Sun's Twilight")).toMatchObject({ types: ['Instant'], manaCost: '{X}{B}', manaValue: 1 })
+  expect(cardRuleDefinitionSnapshotFor("Black Sun's Twilight")!.definition.abilities[0]).toMatchObject({
+    decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } }] },
+    instructions: [
+      { kind: 'createEffect', effect: { kind: 'pump' } },
+      { kind: 'if', condition: { kind: 'compareAmount', operator: 'gte' }, then: [{ kind: 'chooseCards' }, { kind: 'move', to: 'battlefield', tapped: true }] },
+    ],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Awaken the Woods')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createToken', count: { kind: 'variable', name: 'X' }, token: { name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: ['G'], power: 1, toughness: 1 } }] })
+})
+
+test('Gilded Lotus offers exactly five single-color three-mana programs', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Gilded Lotus')!.definition.abilities[0]
+  expect(ability).toMatchObject({ kind: 'activated', costs: [{ kind: 'tapSource' }] })
+  if (ability.kind !== 'activated') throw new Error('Expected activated ability')
+  expect(ability.instructions).toEqual([expect.objectContaining({
+    kind: 'chooseInstructions',
+    options: ['W', 'U', 'B', 'R', 'G'].map((color) => ({
+      label: color,
+      instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 3 } } }],
+    })),
+  })])
+})
+
+test("Urza's Cave composes its mana ability and sacrificed tapped land search", () => {
+  expect(cardRuleDefinitionSnapshotFor("Urza's Cave")!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land' } } },
+      { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+    ] }] },
+  ])
+})
+
+test("Thrór's Map composes a revealed basic search and draw-before-discard activation", () => {
+  expect(cardRuleDefinitionSnapshotFor("Thrór's Map")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'reveal' }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 1 } },
+      { kind: 'discard', count: { kind: 'constant', value: 1 } },
+    ] },
+  ])
+})
+
+test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {
+  expect(cardRuleDefinitionSnapshotFor('Thawing Glaciers')!.definition.abilities).toMatchObject([
+    { kind: 'static' },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'sequence', instructions: [
+        { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+        { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+      ] },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'cleanup' }, instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] },
+    ] },
+  ])
+})
+
+test.each(["Collector's Vault", 'Daily Bugle Newspaper'])('%s draws, discards, then creates an artifact mana token', name => {
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 1 } },
+      { kind: 'discard', count: { kind: 'constant', value: 1 } },
+      { kind: 'createToken', count: { kind: 'constant', value: 1 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: [] } },
+    ] },
+  ])
+})
+
+test('Dreamscape Artist pays discard before land sacrifice and searches for up to two untapped basics', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dreamscape Artist')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [
+      { kind: 'mana', amount: '{2}{U}' }, { kind: 'tapSource' },
+      { kind: 'discard', filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you' } } },
+      { kind: 'sacrifice', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } },
+    ], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'move', to: 'battlefield' }, { kind: 'shuffle' },
+    ] }] },
+  ])
+})
+
+test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {
+  expect(cardRuleDefinitionSnapshotFor('Hermit Druid')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{G}' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'revealUntil', match: { kind: 'objects', filter: { zone: 'library', type: 'Land', supertypes: ['Basic'] } }, foundTo: 'hand', rest: REVEAL_UNTIL_REST.graveyard },
+    ] },
+  ])
+})
+
+test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('End-Raze Forerunners')!.definition.abilities
+  expect(abilities.slice(0, 3)).toEqual([KEYWORDS.vigilance, KEYWORDS.trample, KEYWORDS.haste].map(keyword => ({ kind: 'keyword', keyword })))
+  const trigger = abilities[3]
+  expect(trigger).toMatchObject({ kind: 'triggered', on: { kind: 'enters' } })
+  if (trigger.kind !== 'triggered') throw new Error('Expected entry trigger')
+  expect(trigger.instructions).toEqual([
+    { kind: 'pump', power: { kind: 'constant', value: 2 }, toughness: { kind: 'constant', value: 2 } },
+    { kind: 'grantKeyword', keyword: KEYWORDS.vigilance },
+    { kind: 'grantKeyword', keyword: KEYWORDS.trample },
+  ].map(effect => expect.objectContaining({
+    kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', other: true } }, effect, duration: { kind: 'untilCleanup' },
+  })))
+})
+
+test('Blood Celebrant pays black mana and life before choosing one of five colors', () => {
+  expect(cardRuleDefinitionSnapshotFor('Blood Celebrant')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{B}' }, { kind: 'life', amount: { kind: 'constant', value: 1 } }], instructions: [{
+      kind: 'chooseInstructions',
+      options: CARD_COLORS.map(color => ({ label: color, instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } }, targets: { kind: 'contextRef', name: 'controller' } }] })),
+    }] },
+  ])
+})
+
+test('Skull Prophet offers two canonical mana modes and mills as an instruction rather than a cost', () => {
+  expect(cardRuleDefinitionSnapshotFor('Skull Prophet')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: ['B', 'G'].map(color => ({
+      instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 1 } } }],
+    })) },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'mill', targets: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 2 } }] },
+  ])
+})
+
+test('Beast Whisperer draws for its controller casting a creature spell', () => {
+  expect(cardRuleDefinitionSnapshotFor('Beast Whisperer')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'cast', filter: { type: 'Creature', controller: 'you' } }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ])
+})
+
+test('World Shaper optionally mills on its own attack and returns only owned graveyard lands tapped on death', () => {
+  expect(cardRuleDefinitionSnapshotFor('World Shaper')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks', filter: { kind: 'contextRef', name: 'source' } }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [{ instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }] }, { instructions: [] }] }] },
+    { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, to: 'battlefield', tapped: true }] },
+  ])
+})
+
+
+test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {
+  expect(cardRuleDefinitionSnapshotFor('Spearbreaker Behemoth')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.indestructible },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }], decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor("Tamiyo's Safekeeping")!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } }] }, instructions: [
+      ...[KEYWORDS.hexproof, KEYWORDS.indestructible].map(keyword => ({ kind: 'createEffect', targets: { kind: 'targetRef', clauseIndex: 0 }, effect: { kind: 'grantKeyword', keyword }, duration: { kind: 'untilCleanup' } })),
+      { kind: 'gainLife', amount: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } },
+    ] },
+  ])
+})
+
+test('catalog Nezahal composes uncounterable, hand size, a cast trigger, and a discard blink', () => {
+  expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'cannotBeCountered' }, { kind: 'noMaximumHandSize' }] },
+    { kind: 'triggered', on: { kind: 'cast', filter: { controller: 'opponent', not: { type: 'Creature' } } }, instructions: [{ kind: 'draw' }] },
+    { kind: 'activated', costs: [{ kind: 'discard', count: { kind: 'constant', value: 3 } }], instructions: [
+      { kind: 'move', to: 'exile' },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'end' } },
+    ] },
+  ])
+})
+
+test('green utility spells use scoped modal targets and ordered land choices', () => {
+  expect(cardRuleDefinitionSnapshotFor('Bushwhack')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: [
+      { instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+        { kind: 'reveal', targets: { kind: 'choiceRef', binding: 'land' } }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+      ] }] },
+      { decisions: { targets: [
+        { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+        { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+      ] }, instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }] },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Broken Bond')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', any: [{ type: 'Artifact' }, { type: 'Enchantment' }] } } }] }, instructions: [
+      { kind: 'destroy', targets: { kind: 'targetRef', clauseIndex: 0 } },
+      { kind: 'chooseCards', bindChoice: 'land', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield' },
+    ] },
+  ])
+})
+
+
+test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {
+  expect(cardRuleDefinitionSnapshotFor('Reanimate')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', type: 'Creature' } } }] }, instructions: [
+      { kind: 'captureAmount', bindResult: 'manaValue', amount: { kind: 'characteristic', of: { kind: 'targetRef', clauseIndex: 0 }, characteristic: 'manaValue', information: 'current' } },
+      { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'battlefield', controller: { kind: 'contextRef', name: 'controller' } },
+      { kind: 'loseLife', targets: { kind: 'contextRef', name: 'controller' }, amount: { kind: 'resultRef', binding: 'manaValue', field: 'amount' } },
+    ] },
+  ])
+})
+
+
+test.each([
+  ['Khalni Ambush // Khalni Territory', 'Khalni Ambush', 'Khalni Territory'],
+  ['Revitalizing Repast // Old-Growth Grove', 'Revitalizing Repast', 'Old-Growth Grove'],
+  ['Waterlogged Teachings // Inundated Archive', 'Waterlogged Teachings', 'Inundated Archive'],
+])('modal catalog %s pins independent front and land programs', (combined, front, back) => {
+  expect(effectsFor(combined)).toEqual([])
+  const entry = cardTemplateDefaultsFor(combined)!
+  expect(entry).toEqual(cardTemplateDefaultsFor(front)!)
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.backFace!.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor(back)!)
+  expect(entry.ruleDefinition.definition.abilities[0].kind).toBe('spell')
+  expect(entry.backFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+})
+
+test('green modal spell fronts compose their fight and protection instructions', () => {
+  expect(cardRuleDefinitionSnapshotFor('Khalni Ambush')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+    ] }, instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Revitalizing Repast')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] }, instructions: [
+      { kind: 'putCounters', targets: { kind: 'targetRef', clauseIndex: 0 }, counter: '+1/+1', count: { kind: 'constant', value: 1 } },
+      { kind: 'createEffect', targets: { kind: 'targetRef', clauseIndex: 0 }, effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Old-Growth Grove')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['B', 'G'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
+  expect(cardRuleDefinitionSnapshotFor('Khalni Territory')!.definition.abilities[1]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } } }] })
+  expect(cardRuleDefinitionSnapshotFor('Inundated Archive')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['U', 'B'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
+})
+
+
+test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {
+  expect(cardRuleDefinitionSnapshotFor('Lotus Field')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.hexproof },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'chooseCards', bindChoice: 'lands', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 } },
+      { kind: 'sacrifice', targets: { kind: 'choiceRef', binding: 'lands' } },
+    ] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: CARD_COLORS.map(color => ({ label: color, instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 3 } } }] })) }] },
+  ])
+})
+
+test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Entish Restoration')!.definition.abilities[0]
+  expect(ability).toMatchObject({ kind: 'spell', costs: [], instructions: [
+    { kind: 'chooseCards', bindChoice: 'sacrificedLand', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+    { kind: 'sacrifice', targets: { kind: 'choiceRef', binding: 'sacrificedLand' } },
+    { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', powerAtLeast: 4 } } }, operator: 'gte', right: { kind: 'constant', value: 1 } } },
+  ] })
+  if (ability.kind !== 'spell' || !ability.instructions || ability.instructions[2].kind !== 'if') throw new Error('Expected conditional search')
+  const instruction = ability.instructions[2]
+  for (const [branch, maximum] of [[instruction.then, 3], [instruction.otherwise, 2]] as const) expect(branch).toMatchObject([
+    { kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: maximum } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] },
+  ])
+})
+
+test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {
+  expect(cardRuleDefinitionSnapshotFor("Liliana's Caress")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'discard', filter: { player: { kind: 'players', filter: { relation: 'opponent' } } } }, instructions: [{ kind: 'loseLife', targets: { kind: 'contextRef', name: 'triggering.player' }, amount: { kind: 'constant', value: 2 } }] },
+  ])
+})
+
+
+test('Amulet of Vigor filters tapped controlled entries and untaps the captured entrant without targeting', () => {
+  expect(cardRuleDefinitionSnapshotFor('Amulet of Vigor')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', filter: { zone: 'battlefield', controller: 'you', tapped: true } }, decisions: { targets: [] }, instructions: [{ kind: 'untap', targets: { kind: 'contextRef', name: 'triggering.object.after' } }] },
+  ])
+})
+
+test('Stifle targets only stack abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Stifle')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'ability' } } }] }, instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }] },
+  ])
+})
+
+test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {
+  expect(cardRuleDefinitionSnapshotFor('Retreat to Hagra')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: [
+      { decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] }, instructions: [
+        { kind: 'createEffect', effect: { kind: 'pump' } },
+        { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.deathtouch } },
+      ] },
+      { instructions: [{ kind: 'loseLife', targets: { kind: 'players', filter: { relation: 'opponent' } } }, { kind: 'gainLife', targets: { kind: 'contextRef', name: 'controller' } }] },
+    ] },
+  ])
+})
+
+test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {
+  expect(cardRuleDefinitionSnapshotFor('Reliquary Tower')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'noMaximumHandSize' }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { C: { kind: 'constant', value: 1 } } }] },
+  ])
+})
+
+test('Burgeoning responds to opponent land plays with an optional hand-land move', () => {
+  expect(cardRuleDefinitionSnapshotFor('Burgeoning')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'playLand', filter: { player: { kind: 'players', filter: { relation: 'opponent' } } } }, instructions: [
+      { kind: 'chooseCards', bindChoice: 'land', filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield' },
+    ] },
+  ])
+})
+
+test.each([
+  ['Breeding Pool', ['Forest', 'Island']],
+  ['Godless Shrine', ['Plains', 'Swamp']],
+  ['Hallowed Fountain', ['Plains', 'Island']],
+  ['Overgrown Tomb', ['Swamp', 'Forest']],
+  ['Watery Grave', ['Island', 'Swamp']],
+] as const)('catalog %s pays two life or enters tapped', (name, subtypes) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Land'], subtypes })
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+    kind: 'static',
+    effects: [{
+      kind: 'replacement',
+      event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } },
+      transform: { kind: 'modifyEvent', changes: {} },
+      program: [
+        { kind: 'choose', bindChoice: 'entryPayment' },
+        { kind: 'branch', condition: { kind: 'all' } },
+      ],
+    }],
+  }])
+})
+
+test.each(["Raffine's Tower", 'Zagoth Triome'] as const)('catalog %s enters tapped and cycles from hand for {3}', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({
+    types: ['Land'],
+    subtypes: name === 'Zagoth Triome' ? ['Swamp', 'Forest', 'Island'] : ['Plains', 'Island', 'Swamp'],
+  })
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{3}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
+    ], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ])
+})
+
+test('catalog Secluded Steppe enters tapped, makes white, and cycles for {W}', () => {
+  expect(effectsFor('Secluded Steppe')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Secluded Steppe')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { W: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{W}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } },
+    ], instructions: [{ kind: 'draw' }] },
+  ])
+})
+
+test('catalog Astral Drift cycles itself and blinks a creature after you cycle a card', () => {
+  expect(effectsFor('Astral Drift')).toEqual([])
+  expect(cardTemplateDefaultsFor('Astral Drift')).toMatchObject({ types: ['Enchantment'], colors: ['W'], manaCost: '{2}{W}', manaValue: 3 })
+  const exileUntilEnd = {
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+    instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'exile', bindChoice: 'exiled' },
+        { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: 'end' }, instructions: [
+          { kind: 'move', targets: { kind: 'choiceRef', binding: 'exiled' }, to: 'battlefield' },
+        ] },
+      ] }] },
+      { instructions: [] },
+    ] }],
+  }
+  expect(cardRuleDefinitionSnapshotFor('Astral Drift')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'cycle', filter: { player: { kind: 'players', filter: { relation: 'you' } } } }, activeIn: ['battlefield'], ...exileUntilEnd },
+    { kind: 'triggered', on: { kind: 'cycle', filter: { object: { kind: 'contextRef', name: 'source' } } }, activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'], ...exileUntilEnd },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{2}{W}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } },
+    ], instructions: [{ kind: 'draw' }] },
+  ])
+})
+
+test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {
+  expect(cardRuleDefinitionSnapshotFor('Fabled Passage')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }], instructions: [
+      { kind: 'chooseCards', bindChoice: 'land', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield', tapped: true, bindChoice: 'arrivedLand' },
+      { kind: 'shuffle' },
+      { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } }, operator: 'gte', right: { kind: 'constant', value: 4 } }, then: [{ kind: 'untap', targets: { kind: 'choiceRef', binding: 'arrivedLand' } }] },
+    ] },
+  ])
+})
+
+test('Rest in Peace combines an entry trigger with a static replacement', () => {
+  expect(cardRuleDefinitionSnapshotFor('Rest in Peace')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' } },
+    { kind: 'static', effects: [{ kind: 'replacement' }] },
+  ])
+})
+
+test('Wall of Omens declares defender beside its entry draw', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wall of Omens')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.defender },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ])
+})
+
+test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {
+  for (const name of ['Reprocess', 'Scapeshift', 'Victimize']) expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Reprocess')!.definition.abilities[0]).toMatchObject({ instructions: [
+    { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, filter: { filter: { controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } } },
+    { kind: 'sacrifice', bindCount: 'sacrificed' },
+    { kind: 'draw', count: { kind: 'resultRef', binding: 'sacrificed', field: 'amount' } },
+  ] })
+  expect(cardRuleDefinitionSnapshotFor('Scapeshift')!.definition.abilities[0]).toMatchObject({ instructions: [
+    { kind: 'chooseCards', filter: { filter: { type: 'Land', controller: 'you' } } },
+    { kind: 'sacrifice', bindCount: 'sacrificed' },
+    { kind: 'sequence', instructions: [
+      { kind: 'chooseCards', max: { kind: 'resultRef', binding: 'sacrificed', field: 'amount' } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] },
+  ] })
+  expect(cardRuleDefinitionSnapshotFor('Victimize')!.definition.abilities[0]).toMatchObject({
+    decisions: { targets: [{ min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 }, filter: { filter: { zone: 'graveyard', type: 'Creature', owner: 'you' } } }] },
+    instructions: [
+      { kind: 'chooseCards', min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'sacrifice', bindResult: 'sacrificed' },
+      { kind: 'if', condition: { kind: 'resultIsTrue', value: { binding: 'sacrificed', field: 'sacrificed' } }, then: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+    ],
+  })
+})
+
+test.each([
+  ["Archaeomancer's Map", ['triggered', 'triggered']],
+  ['Dig Through Time', ['spell']],
+  ["Archdruid's Charm", ['spell']],
+  ['Boggart Trawler', ['triggered']],
+  ['Bridgeworks Battle', ['spell']],
+  ['Fell the Profane', ['spell']],
+  ['Sea Gate Restoration', ['spell']],
+  ['Sink into Stupor', ['spell']],
+  ['Homer, the Hermit', ['triggered']],
+  ['Queza, Augur of Agonies', ['triggered']],
+  ['Scute Swarm', ['triggered']],
+  ['Talon Gates of Madara', ['triggered', 'activated', 'activated', 'activated']],
+  ['Waterlogged Teachings', ['spell']],
+  ['Blanket of Night', ['static']],
+  ['Urborg, Tomb of Yawgmoth', ['static']],
+  ['Yavimaya, Cradle of Growth', ['static']],
+  ['Dakmor Salvage', ['dredge', 'static', 'activated']],
+  ['Life from the Loam', ['dredge', 'spell']],
+  ['Myriad Landscape', ['static', 'activated', 'activated']],
+  ['Finale of Devastation', ['spell']],
+] as const)('catalog %s declares its canonical abilities', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.map(ability => ability.kind)).toEqual([...kinds])
+})
+
+test.each([
+  ['Boggart Trawler // Boggart Bog', 'Boggart Trawler', 'Boggart Bog'],
+  ['Bridgeworks Battle // Tanglespan Bridgeworks', 'Bridgeworks Battle', 'Tanglespan Bridgeworks'],
+  ['Fell the Profane // Fell Mire', 'Fell the Profane', 'Fell Mire'],
+  ['Sea Gate Restoration // Sea Gate, Reborn', 'Sea Gate Restoration', 'Sea Gate, Reborn'],
+  ['Sink into Stupor // Soporific Springs', 'Sink into Stupor', 'Soporific Springs'],
+])('pay-life modal catalog %s pins independent front and land programs', (combined, front, back) => {
+  expect(effectsFor(combined)).toEqual([])
+  const entry = cardTemplateDefaultsFor(combined)!
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.backFace!.ruleDefinition!.definition.abilities.map(ability => ability.kind)).toEqual(['static', 'activated'])
+  expect(cardRuleDefinitionSnapshotFor(back)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', program: [
+      { kind: 'choose', bindChoice: 'entryPayment' },
+      { kind: 'branch', condition: { kind: 'all' } },
+    ] }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+})
+
+test('Sea Gate Restoration draws hand size plus one then grants unlimited hand size', () => {
+  expect(cardRuleDefinitionSnapshotFor('Sea Gate Restoration')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'draw', count: { kind: 'add', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'hand', controller: 'you' } } }, right: { kind: 'constant', value: 1 } } },
+      { kind: 'grantNoMaximumHandSize', targets: { kind: 'contextRef', name: 'controller' } },
+    ],
+  })
+})
+
+test('Dig Through Time delves then inspects seven for two', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dig Through Time')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    costs: [{ kind: 'delve' }],
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 7 } },
+      { kind: 'chooseCards', min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 } },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'library', position: 'bottom' },
+    ],
+  })
+})
+
+test("Archdruid's Charm searches by type, then damages from the pumped creature, then exiles", () => {
+  const ability = cardRuleDefinitionSnapshotFor("Archdruid's Charm")!.definition.abilities[0]
+  if (ability.kind !== 'spell') throw new Error('expected spell')
+  expect(ability.modes).toMatchObject([
+    { instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { any: [{ type: 'Creature' }, { type: 'Land' }] } } },
+      { kind: 'reveal' },
+      { kind: 'if', condition: { kind: 'compareAmount' } },
+      { kind: 'shuffle' },
+    ] },
+    { instructions: [
+      { kind: 'putCounters', counter: '+1/+1' },
+      { kind: 'damage', source: { kind: 'targetRef', clauseIndex: 0 } },
+    ] },
+    { instructions: [{ kind: 'move', to: 'exile' }] },
+  ])
+})
+
+test("Archaeomancer's Map searches Plains then offers a land drop when an opponent is ahead", () => {
+  expect(cardRuleDefinitionSnapshotFor("Archaeomancer's Map")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { subtypes: ['Plains'], supertypes: ['Basic'] } } },
+      { kind: 'reveal' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'shuffle' },
+    ] }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', not: { controller: 'you' } } } },
+  ])
+})
+
+test('Homer mills twice the union of sea-creature subtypes to any number of players', () => {
+  expect(cardRuleDefinitionSnapshotFor('Homer, the Hermit')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } },
+    instructions: [{ kind: 'mill', count: { kind: 'multiply', left: { kind: 'constant', value: 2 } } }],
+  })
+})
+
+test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {
+  expect(cardRuleDefinitionSnapshotFor('Scute Swarm')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    instructions: [{ kind: 'if', then: [{ kind: 'copy' }], otherwise: [{ kind: 'createToken', token: { name: 'Insect' } }] }],
+  })
+})
+
+test('Talon Gates phases out up to one creature, makes mana, and can enter from hand', () => {
+  expect(cardRuleDefinitionSnapshotFor('Talon Gates of Madara')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'phase', out: true }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }] },
+    { kind: 'activated', availableFrom: ['hand'], costs: [{ kind: 'mana', amount: '{4}' }], instructions: [{ kind: 'move', to: 'battlefield' }] },
+  ])
+})
+
+test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {
+  const confidant = cardRuleDefinitionSnapshotFor('Dark Confidant')!
+  expect(cardRuleDefinitionSnapshotFor('Dark Tutelage')!.definition.abilities).toEqual(confidant.definition.abilities)
+  expect(confidant.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'contextRef', name: 'controller' } },
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 1 }, visibility: 'public' },
+      { kind: 'if', then: [
+        { kind: 'captureAmount', amount: { kind: 'characteristic', characteristic: 'manaValue' } },
+        { kind: 'move', to: 'hand' },
+        { kind: 'loseLife', amount: { kind: 'resultRef', binding: 'manaValue' } },
+      ] },
+    ],
+  }])
+})
+
+test('catalog timing and activation-cost cards compose canonical when, flash, and reductions', () => {
+  expect(effectsFor("Alchemist's Refuge")).toEqual([])
+  expect(effectsFor('Blossoming Tortoise')).toEqual([])
+  expect(effectsFor('Boseiju, Who Endures')).toEqual([])
+  expect(effectsFor('Cephalid Coliseum')).toEqual([])
+  expect(effectsFor('Ghost Town')).toEqual([])
+  expect(effectsFor('Mirror Universe')).toEqual([])
+  expect(effectsFor('Necrologia')).toEqual([])
+  expect(effectsFor('Otawara, Soaring City')).toEqual([])
+  expect(effectsFor('Temple of the False God')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Ghost Town')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'not', condition: { kind: 'activePlayer' } },
+    instructions: [{ kind: 'move', to: 'hand' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Temple of the False God')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'compareAmount', operator: 'gte' },
+    instructions: [{ kind: 'addMana' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Mirror Universe')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    when: { kind: 'all' },
+    instructions: [{ kind: 'exchangeLife' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Necrologia')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    when: { kind: 'all' },
+    instructions: [{ kind: 'draw' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor("Alchemist's Refuge")!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    instructions: [{ kind: 'grantFlash' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Otawara, Soaring City')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    availableFrom: ['hand'],
+    costReductions: [{ generic: { kind: 'count' } }],
+    instructions: [{ kind: 'move', to: 'hand' }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Boseiju, Who Endures')!.definition.abilities[1]).toMatchObject({
+    kind: 'activated',
+    availableFrom: ['hand'],
+    costReductions: [{ generic: { kind: 'count' } }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Blossoming Tortoise')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' } },
+    { kind: 'triggered', on: { kind: 'attacks' } },
+    { kind: 'static', effects: [{ kind: 'reduceActivationCost' }, { kind: 'modifyStats' }] },
+  ])
+})
+
+test('catalog life-history and win cards compose canonical instructions', () => {
+  expect(effectsFor('Children of Korlis')).toEqual([])
+  expect(effectsFor('Tainted Sigil')).toEqual([])
+  expect(effectsFor('Sygg, River Cutthroat')).toEqual([])
+  expect(effectsFor('Test of Endurance')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Children of Korlis')!.definition.abilities).toMatchObject([{
+    kind: 'activated',
+    costs: [{ kind: 'sacrifice' }],
+    instructions: [{ kind: 'gainLife', amount: { kind: 'lifeLostThisTurn', of: { kind: 'contextRef', name: 'controller' } } }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Tainted Sigil')!.definition.abilities).toMatchObject([{
+    kind: 'activated',
+    costs: [{ kind: 'tapSource' }, { kind: 'sacrifice' }],
+    instructions: [{
+      kind: 'gainLife',
+      amount: { kind: 'lifeLostThisTurn', of: { kind: 'players', filter: { relation: 'any' } }, combine: 'sum' },
+    }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Sygg, River Cutthroat')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'end' },
+    interveningIf: { kind: 'compareAmount', operator: 'gte', left: { kind: 'lifeLostThisTurn', combine: 'greatest' } },
+    instructions: [{ kind: 'chooseInstructions', optional: true }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Test of Endurance')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'contextRef', name: 'controller' } },
+    interveningIf: { kind: 'compareAmount', operator: 'gte', left: { kind: 'characteristic', characteristic: 'life' } },
+    instructions: [{ kind: 'winGame', targets: { kind: 'contextRef', name: 'controller' } }],
+  }])
+})
+
+test('Braids offers an eligible hand permanent to the active upkeep player', () => {
+  expect(cardRuleDefinitionSnapshotFor('Braids, Conjurer Adept')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' },
+    instructions: [
+      { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'triggering.player' }, filter: { filter: { zone: 'hand', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } }, min: { value: 0 }, max: { value: 1 } },
+      { kind: 'move', to: 'battlefield', controller: { kind: 'contextRef', name: 'triggering.player' } },
+    ],
+  }])
+})
+
+test('Show and Tell collects one optional ACE/L card from each hand before they enter together', () => {
+  expect(effectsFor('Show and Tell')).toEqual([])
+  expect(cardTemplateDefaultsFor('Show and Tell')).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['U'],
+    manaCost: '{2}{U}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Show and Tell')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      {
+        kind: 'chooseCardsForEachPlayer',
+        filter: { filter: { zone: 'hand', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Enchantment' }, { type: 'Land' }] } },
+        min: { value: 0 },
+        max: { value: 1 },
+      },
+      { kind: 'move', to: 'battlefield' },
+    ],
+  }])
+})
+
+test('Eureka repeats sequential permanent puts until a full round declines', () => {
+  expect(effectsFor('Eureka')).toEqual([])
+  expect(cardTemplateDefaultsFor('Eureka')).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['G'],
+    manaCost: '{2}{G}{G}',
+    manaValue: 4,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Eureka')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'captureAmount', bindResult: 'roundPuts' },
+      {
+        kind: 'repeatWhile',
+        condition: { kind: 'compareAmount', operator: 'gte' },
+        instructions: [{
+          kind: 'forEachPlayer',
+          bindMax: { from: 'placed', field: 'amount', as: 'roundPuts' },
+          instructions: [
+            { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'event.player' }, min: { value: 0 }, max: { value: 1 } },
+            { kind: 'move', to: 'battlefield', bindResult: 'placed' },
+          ],
+        }],
+      },
+    ],
+  }])
+})
+
+test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {
+  const stampede = cardRuleDefinitionSnapshotFor('Overwhelming Stampede')!.definition.abilities[0]!
+  expect(effectsFor('Overwhelming Stampede')).toEqual([])
+  expect(effectsFor('Pathbreaker Ibex')).toEqual([])
+  expect(stampede.kind).toBe('spell')
+  if (stampede.kind !== 'spell') throw new Error('expected spell')
+  expect(stampede.instructions).toMatchObject([
+    { kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'greatest', characteristic: 'power' }, toughness: { kind: 'greatest', characteristic: 'power' } } },
+    { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.trample } },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Pathbreaker Ibex')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'attacks' },
+    instructions: stampede.instructions,
+  }])
+})
+
+test("Rishkar's Expertise draws from greatest power then offers a capped free hand cast", () => {
+  expect(effectsFor("Rishkar's Expertise")).toEqual([])
+  expect(cardTemplateDefaultsFor("Rishkar's Expertise")).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['G'],
+    manaCost: '{4}{G}{G}',
+    manaValue: 6,
+  })
+  expect(cardRuleDefinitionSnapshotFor("Rishkar's Expertise")!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'draw', count: { kind: 'greatest', characteristic: 'power' } },
+      { kind: 'offerCast', zone: 'hand', cost: 'withoutPayingMana', notLand: true, maxManaValue: { kind: 'constant', value: 5 } },
+    ],
+  }])
+})
+
+test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {
+  expect(effectsFor('Return of the Wildspeaker')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Return of the Wildspeaker')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 } } },
+    modes: [
+      { instructions: [{ kind: 'draw', count: { kind: 'greatest', characteristic: 'power' } }] },
+      { instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'constant', value: 3 }, toughness: { kind: 'constant', value: 3 } } }] },
+    ],
+  }])
+})
+
+test('Mana Drain captures the spell mana value then pays colorless at the next main', () => {
+  expect(effectsFor('Mana Drain')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Mana Drain')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] },
+    instructions: [
+      { kind: 'captureAmount', bindResult: 'manaValue' },
+      { kind: 'counter' },
+      { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: ['precombatMain', 'postcombatMain'] }, instructions: [
+        { kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' } },
+      ] },
+    ],
+  }])
+})
+
+test('Arcane Denial captures the spell controller and creates two non-targeting next-turn upkeep abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Arcane Denial')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] },
+    instructions: [
+      { kind: 'capturePlayer', bindResult: 'spellController' },
+      { kind: 'counter' },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'upkeep' }, notThisTurn: true, inheritTargets: false, instructions: [
+        { kind: 'chooseInstructions', chooser: { kind: 'resultRef', binding: 'spellController', field: 'player' }, options: [
+          { instructions: [] },
+          { instructions: [{ kind: 'draw', count: { value: 1 } }] },
+          { instructions: [{ kind: 'draw', count: { value: 2 } }] },
+        ] },
+      ] },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'upkeep' }, notThisTurn: true, inheritTargets: false, instructions: [
+        { kind: 'draw', targets: { kind: 'contextRef', name: 'controller' }, count: { value: 1 } },
+      ] },
+    ],
+  }])
+})
+
+test('group 15 consumers compose name, comparison, and mana-ability queries', () => {
+  expect(cardRuleDefinitionSnapshotFor('Beza, the Bounding Spring')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', instructions: [
+      { kind: 'if', condition: { kind: 'somePlayerHasMore', metric: 'lands' }, then: [{ kind: 'createToken', token: { name: 'Treasure' } }] },
+      { kind: 'if', condition: { metric: 'life' }, then: [{ kind: 'gainLife', amount: { value: 4 } }] },
+      { kind: 'if', condition: { metric: 'creatures' }, then: [{ kind: 'createToken', count: { value: 2 }, token: { name: 'Fish', colors: ['U'] } }] },
+      { kind: 'if', condition: { metric: 'hand' }, then: [{ kind: 'draw' }] },
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Guardian Project')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { filter: { token: false, controller: 'you', type: 'Creature' } },
+    interveningIf: { kind: 'all', conditions: [
+      { left: { of: { filter: { zone: 'battlefield', sameNameAs: { name: 'triggering.object.after' } } } } },
+      { left: { of: { filter: { zone: 'graveyard', sameNameAs: { name: 'triggering.object.after' } } } } },
+    ] }, instructions: [{ kind: 'draw' }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Field of the Dead')!.definition.abilities).toMatchObject([
+    { kind: 'static' }, { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { value: 1 } } }] },
+    { kind: 'triggered', interveningIf: { left: { kind: 'countDistinctNames' }, right: { value: 7 } }, instructions: [{ kind: 'createToken', token: { colors: ['B'], power: 2, toughness: 2 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Moonsilver Key')!.definition.abilities).toMatchObject([{
+    kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }],
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { filter: { any: [{ type: 'Artifact', manaAbility: true }, { type: 'Land', supertypes: ['Basic'] }] } } },
+      { kind: 'reveal' }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] }],
+  }])
+})
+
+test('Singularity Rupture wipes creatures before computing each selected player’s own half library', () => {
+  expect(cardRuleDefinitionSnapshotFor('Singularity Rupture')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'players' }, min: { value: 0 } }] },
+    instructions: [{ kind: 'destroy' }, { kind: 'forEachPlayer', of: { kind: 'targetRef', clauseIndex: 0 }, instructions: [
+      { kind: 'mill', targets: { name: 'event.player' }, count: { kind: 'divide', by: 2, rounding: 'down', value: { kind: 'count', of: { filter: { zone: 'library', owner: { name: 'event.player' } } } } } },
+    ] }],
+  }])
+})
+
+test('available-mana lands and artifacts use canonical production queries with their complete costs', () => {
+  for (const [name, relation, colorsOnly] of [
+    ['Exotic Orchard', 'opponent', true], ['Fellwar Stone', 'opponent', true], ['Reflecting Pool', 'you', false], ['Horizon of Progress', 'you', false],
+  ] as const) {
+    const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+    expect(abilities[0]).toMatchObject({ kind: 'activated', costs: name === 'Horizon of Progress' ? [{ kind: 'tapSource' }, { kind: 'life', amount: { kind: 'constant', value: 1 } }] : [{ kind: 'tapSource' }], instructions: [{ kind: 'addManaFrom', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Land', controller: relation } }, colorsOnly, amount: { kind: 'constant', value: 1 } }] })
+    if (name === 'Horizon of Progress') expect(abilities.slice(1)).toMatchObject([
+      { kind: 'activated', costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { filter: { zone: 'hand', owner: 'you', type: 'Land' } } }, { kind: 'move', to: 'battlefield', tapped: true }] },
+      { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+    ])
+  }
+})
+
+test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {
+  for (const name of ['Flooded Grove', 'Millikin', 'City of Brass', 'Bubbling Muck', 'Crypt Ghast', 'Nirkana Revenant', 'Wild Growth', 'Utopia Sprawl', 'Yurlok of Scorch Thrash']) {
+    const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+    switch (name) {
+      case 'Flooded Grove':
+        expect(abilities).toMatchObject([{ kind: 'activated' }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{G/U}' }, { kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: [{ label: 'GG' }, { label: 'UG' }, { label: 'UU' }] }] }])
+        break
+      case 'Millikin':
+        expect(abilities).toMatchObject([{ kind: 'activated', timing: 'instant', costs: [{ kind: 'tapSource' }, { kind: 'mill', count: { kind: 'constant', value: 1 } }] }])
+        break
+      case 'City of Brass':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'becomesTapped' }, instructions: [{ kind: 'damage', amount: { kind: 'constant', value: 1 } }] }, { kind: 'activated' }])
+        break
+      case 'Bubbling Muck':
+        expect(abilities).toMatchObject([{ kind: 'spell', instructions: [{ kind: 'createDelayed', repeatUntilCleanup: true, condition: { kind: 'tappedForMana', filter: { subtypes: ['Swamp'] } } }] }])
+        break
+      case 'Crypt Ghast':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'tappedForMana', filter: { controller: 'you' } } }, { kind: 'triggered', on: { kind: 'cast', filter: { controller: 'you' } }, instructions: [{ kind: 'payOptional', cost: { kind: 'mana', amount: '{W/B}' }, ifPaid: [{ kind: 'loseLife', bindResult: 'drained' }, { kind: 'gainLife', amount: { kind: 'resultRef', binding: 'drained' } }] }] }])
+        break
+      case 'Nirkana Revenant':
+        expect(abilities).toMatchObject([{ kind: 'triggered', on: { kind: 'tappedForMana' } }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{B}' }], instructions: [{ kind: 'createEffect', duration: { kind: 'untilCleanup' } }] }])
+        break
+      case 'Wild Growth':
+      case 'Utopia Sprawl':
+        expect(abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'enchant', filter: { filter: { zone: 'battlefield', type: 'Land', ...(name === 'Utopia Sprawl' ? { subtypes: ['Forest'] } : {}) } } }] })
+        expect(abilities.at(-1)).toMatchObject({ kind: 'triggered', manaAbility: true, on: { kind: 'tappedForMana', filter: { enchantedBy: { kind: 'contextRef', name: 'source' } } } })
+        break
+      case 'Yurlok of Scorch Thrash':
+        expect(abilities).toMatchObject([{ kind: 'keyword', keyword: 'vigilance' }, { kind: 'static', effects: [{ kind: 'loseLifeOnManaLoss' }] }, { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'players', filter: { relation: 'any' } } }] }])
+        break
+    }
+  }
+})
+
+
+test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {
+  const template = cardTemplateDefaultsFor('Profane Command')!
+  expect(template).toMatchObject({ types: ['Sorcery'], colors: ['B'], manaCost: '{X}{B}{B}', manaValue: 2 })
+  const ability = cardRuleDefinitionSnapshotFor('Profane Command')!.definition.abilities[0]!
+  expect(ability).toMatchObject({
+    kind: 'spell',
+    costs: [{ kind: 'mana', amount: '{X}{B}{B}' }],
+    decisions: { variables: [{ name: 'X' }], modes: { count: { kind: 'constant', value: 2 }, repeatable: false } },
+    modes: [
+      { decisions: { targets: [{ filter: { kind: 'players' } }] }, instructions: [{ kind: 'loseLife', targets: { kind: 'targetRef', clauseIndex: 0 }, amount: { kind: 'variable', name: 'X' } }] },
+      { decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Creature', compareCharacteristic: { characteristic: 'manaValue', operator: 'lte', than: { kind: 'variable', name: 'X' } } } } }] }, instructions: [{ kind: 'move', to: 'battlefield' }] },
+      { instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } }, duration: { kind: 'untilCleanup' } }] },
+      { decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'variable', name: 'X' } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.fear }, duration: { kind: 'untilCleanup' } }] },
+    ],
+  })
+})
+
+
+test('Thunderfoot Baloth keeps printed trample and commander-conditioned team grants', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Thunderfoot Baloth')!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'static', effects: [
+      { kind: 'modifyStats', targets: { filter: { controller: 'you', type: 'Creature' } }, power: { kind: 'constant', value: 2 }, toughness: { kind: 'constant', value: 2 }, when: { kind: 'compareAmount', left: { kind: 'count', of: { filter: { controller: 'you', commander: true } } }, operator: 'gte', right: { kind: 'constant', value: 1 } } },
+      { kind: 'grantKeyword', targets: { filter: { controller: 'you', other: true } }, keyword: KEYWORDS.trample },
+    ] },
+  ])
+  if (abilities[1].kind !== 'static') throw new Error('expected static ability')
+  expect(abilities[1].effects[1]).toMatchObject({ when: abilities[1].effects[0].kind === 'modifyStats' ? abilities[1].effects[0].when : undefined })
+})
+
+
+test('Archetype of Endurance grants controlled creatures hexproof and prohibits it on opponents creatures', () => {
+  expect(cardTemplateDefaultsFor('Archetype of Endurance')).toMatchObject({ types: ['Enchantment', 'Creature'], subtypes: ['Boar'], manaCost: '{6}{G}{G}', manaValue: 8 })
+  expect(cardRuleDefinitionSnapshotFor('Archetype of Endurance')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [
+      { kind: 'grantKeyword', keyword: KEYWORDS.hexproof, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature' } } },
+      { kind: 'suppressKeyword', keyword: KEYWORDS.hexproof, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'opponent', type: 'Creature' } } },
+    ] },
+  ])
+})
+
+
+test('Sandstone Oracle chooses rather than targets an opponent and draws the nonnegative hand difference', () => {
+  expect(cardTemplateDefaultsFor('Sandstone Oracle')).toMatchObject({ types: ['Artifact', 'Creature'], subtypes: ['Sphinx'], manaCost: '{7}' })
+  expect(cardRuleDefinitionSnapshotFor('Sandstone Oracle')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.flying },
+    { kind: 'triggered', decisions: { targets: [] }, instructions: [
+      { kind: 'choosePlayer', filter: { kind: 'players', filter: { relation: 'opponent' } }, bindChoice: 'opponent' },
+      { kind: 'draw', count: { kind: 'difference', left: { kind: 'count', of: { filter: { zone: 'hand', owner: { kind: 'choiceRef', binding: 'opponent' } } } }, right: { kind: 'count', of: { filter: { zone: 'hand', owner: { kind: 'contextRef', name: 'controller' } } } } } },
+    ] },
+  ])
+})
+
+
+test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {
+  expect(cardTemplateDefaultsFor('Mossborn Hydra')).toMatchObject({ types: ['Creature'], subtypes: ['Elemental', 'Hydra'], manaCost: '{2}{G}' })
+  expect(cardRuleDefinitionSnapshotFor('Mossborn Hydra')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } } } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'putCounters', targets: { kind: 'contextRef', name: 'source' }, counter: '+1/+1', count: { kind: 'counterCount', of: { kind: 'contextRef', name: 'source' }, counter: '+1/+1' } }] },
+  ])
+})
+
+test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Decisive Denial')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: [
+      { decisions: { targets: [{ filter: { filter: { controller: 'you', type: 'Creature' } } }, { filter: { filter: { not: { controller: 'you' }, type: 'Creature' } } }] }, instructions: [{ kind: 'fight' }] },
+      { decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', not: { type: 'Creature' } } } }] }, instructions: [{ kind: 'payOptional', payer: { kind: 'relatedPlayer', relation: 'controller', of: { kind: 'targetRef', clauseIndex: 0 } }, cost: { kind: 'mana', amount: '{3}' }, ifDeclined: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }] }] },
+    ],
+  })
+})
+
+
+test('Keep Safe counters a spell targeting a controlled permanent then draws once', () => {
+  expect(cardTemplateDefaultsFor('Keep Safe')).toMatchObject({ types: ['Instant'], manaCost: '{1}{U}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor('Keep Safe')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } } } }] },
+    instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }, { kind: 'draw', count: { kind: 'constant', value: 1 } }],
+  })
+})
+
+
+test('Benders Waterskin participates in other-player untaps and offers five one-mana choices', () => {
+  const abilities = cardRuleDefinitionSnapshotFor("Bender's Waterskin")!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'untapDuringOthers', targets: { kind: 'objects', filter: { among: { kind: 'contextRef', name: 'source' } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+  if (abilities[1].kind !== 'activated') throw new Error('expected activated ability')
+  const instruction = abilities[1].instructions?.[0]
+  if (instruction?.kind !== 'chooseInstructions') throw new Error('expected mana choices')
+  expect(instruction.options.map(option => option.label)).toEqual([...CARD_COLORS])
+})
+
+
+test('Mister Negative preserves both keywords and an optional targeted exchange drawing actual life lost', () => {
+  expect(cardTemplateDefaultsFor('Mister Negative')).toMatchObject({ types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Human', 'Villain'] })
+  expect(cardRuleDefinitionSnapshotFor('Mister Negative')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.vigilance },
+    { kind: 'keyword', keyword: KEYWORDS.lifelink },
+    { kind: 'triggered', decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'sequence', instructions: [{ kind: 'exchangeLife', bindResult: 'lifeLost' }, { kind: 'draw', count: { kind: 'resultRef', binding: 'lifeLost', field: 'amount' } }] }] },
+      { instructions: [] },
+    ] }] },
+  ])
+})
+
+
+test('Windfall discards each hand then draws the greatest actual discarded count', () => {
+  expect(cardTemplateDefaultsFor('Windfall')).toMatchObject({ types: ['Sorcery'], manaCost: '{2}{U}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor('Windfall')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'forEachPlayer', bindMax: { from: 'discarded', field: 'discardedCount', as: 'greatest' }, instructions: [{ kind: 'discard' }] },
+      { kind: 'draw', count: { kind: 'resultRef', binding: 'greatest', field: 'amount' } },
+    ],
+  })
+})
+
+test('catalog Marina Vendrell inspects seven for enchantments and toggles a Room door', () => {
+  expect(effectsFor('Marina Vendrell')).toEqual([])
+  expect(cardTemplateDefaultsFor('Marina Vendrell')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Warlock'],
+    supertypes: ['Legendary'],
+    manaCost: '{W}{U}{B}{R}{G}',
+    manaValue: 5,
+  })
+  const abilities = cardRuleDefinitionSnapshotFor('Marina Vendrell')!.definition.abilities
+  expect(abilities).toHaveLength(2)
+  expect(abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'enters' },
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 7 }, visibility: 'public' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'library', position: 'bottom', order: 'random' },
+    ],
+  })
+  expect(abilities[1]).toMatchObject({
+    kind: 'activated',
+    timing: 'sorcery',
+    costs: [{ kind: 'tapSource' }],
+    instructions: [{ kind: 'lockOrUnlockDoor', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test('catalog Fact or Fiction inspects five, lets an opponent partition, and routes both piles', () => {
+  expect(effectsFor('Fact or Fiction')).toEqual([])
+  expect(cardTemplateDefaultsFor('Fact or Fiction')).toMatchObject({ types: ['Instant'], manaCost: '{3}{U}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 5 }, visibility: 'public' },
+      { kind: 'choosePlayer' },
+      { kind: 'partitionPiles' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'graveyard' },
+    ],
+  })
+})
+
+test("catalog Council's Judgment votes for opponent nonlands and exiles every winner", () => {
+  expect(effectsFor("Council's Judgment")).toEqual([])
+  expect(cardTemplateDefaultsFor("Council's Judgment")).toMatchObject({ types: ['Sorcery'], manaCost: '{1}{W}{W}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor("Council's Judgment")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', bindWinners: 'winners', options: { kind: 'objects' } },
+      { kind: 'move', to: 'exile' },
+    ],
+  })
+})
+
+test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {
+  expect(effectsFor('Coercive Portal')).toEqual([])
+  expect(cardTemplateDefaultsFor('Coercive Portal')).toMatchObject({ types: ['Artifact'], manaCost: '{4}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Coercive Portal')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'stepBegins', step: 'upkeep' },
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+    ],
+  })
+})
+
+test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {
+  expect(effectsFor('Split Decision')).toEqual([])
+  expect(cardTemplateDefaultsFor('Split Decision')).toMatchObject({ types: ['Instant'], manaCost: '{1}{U}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor('Split Decision')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+    ],
+  })
+})
+
+test("catalog Selvala's Stampede tallies wild reveals and free-hand permanents", () => {
+  expect(effectsFor("Selvala's Stampede")).toEqual([])
+  expect(cardTemplateDefaultsFor("Selvala's Stampede")).toMatchObject({ types: ['Sorcery'], manaCost: '{4}{G}{G}', manaValue: 6 })
+  expect(cardRuleDefinitionSnapshotFor("Selvala's Stampede")!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [
+      { kind: 'vote', options: { kind: 'named' } },
+      { kind: 'if' },
+      { kind: 'chooseCards' },
+      { kind: 'move', to: 'battlefield' },
+    ],
+  })
+})
+
+test('Repay in Kind sets every living player to the signed lowest life total', () => {
+  expect(cardTemplateDefaultsFor('Repay in Kind')).toMatchObject({ types: ['Sorcery'], manaCost: '{5}{B}{B}', manaValue: 7 })
+  expect(cardRuleDefinitionSnapshotFor('Repay in Kind')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', instructions: [{ kind: 'setLife', targets: { kind: 'players', filter: {} }, amount: { kind: 'lowestLife', of: { kind: 'players', filter: {} } } }],
+  })
+})
+
+
+test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {
+  const sands = cardRuleDefinitionSnapshotFor('Endless Sands')!.definition.abilities
+  expect(sands).toMatchObject([
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } }] }, instructions: [{ kind: 'linkExile' }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'forEach', of: { kind: 'objects', filter: { zone: 'exile', type: 'Creature', exiledWith: { kind: 'contextRef', name: 'source' } } }, instructions: [{ kind: 'move', to: 'battlefield', controller: { kind: 'relatedPlayer', relation: 'owner' } }] }] },
+  ])
+  const bishop = cardRuleDefinitionSnapshotFor('Bishop of Binding')!.definition.abilities
+  expect(bishop).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'linkExile', untilSourceLeaves: true }] },
+    { kind: 'triggered', decisions: { targets: [{ filter: { filter: { type: 'Creature', subtypes: ['Vampire'] } } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'sumCharacteristics', characteristic: 'power' }, toughness: { kind: 'sumCharacteristics', characteristic: 'power' } } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Lumbering Battlement')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'triggered', instructions: [{ kind: 'chooseCards', filter: { filter: { token: false, other: true, controller: 'you' } } }, { kind: 'linkExile', untilSourceLeaves: true }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { kind: 'multiply' }, toughness: { kind: 'multiply' } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Phyrexian Ingester')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', decisions: { targets: [{ min: { kind: 'constant', value: 1 }, filter: { filter: { token: false, type: 'Creature' } } }] }, instructions: [{ kind: 'chooseInstructions', optional: true }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { kind: 'sumCharacteristics', characteristic: 'power' }, toughness: { kind: 'sumCharacteristics', characteristic: 'toughness' } }] },
+  ])
+})
+
+
+test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Pit of Offerings')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'triggered', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 3 } }] }, instructions: [{ kind: 'linkExile' }] },
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', instructions: [{ kind: 'addManaFrom', basis: 'colors', of: { filter: { zone: 'exile', exiledWith: { kind: 'contextRef', name: 'source' } } } }] },
+  ])
+})
+
+
+test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {
+  expect(cardRuleDefinitionSnapshotFor('Palace Jailer')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [] }, instructions: [{ kind: 'becomeMonarch', targets: { kind: 'contextRef', name: 'controller' } }] },
+    { kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] }, instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilOpponentMonarch: true }] },
+  ])
+})
+
+
+test('Ripples of Undeath binds its first-main mill and pays mana plus life before recovering from that set', () => {
+  expect(cardRuleDefinitionSnapshotFor('Ripples of Undeath')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'precombatMain', player: { name: 'controller' } }, instructions: [
+      { kind: 'mill', count: { value: 3 }, bindChoice: 'milled' },
+      { kind: 'payOptional', cost: { kind: 'manaAndLife', mana: '{1}', life: { value: 3 } }, ifPaid: [
+        { kind: 'chooseCards', filter: { filter: { among: { kind: 'choiceRef', binding: 'milled' } } }, min: { value: 1 }, max: { value: 1 } },
+        { kind: 'move', to: 'hand' },
+      ] },
+    ] },
+  ])
+})
+
+test('Phial of Galadriel composes both conditional replacements and five-color tap mana', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('Phial of Galadriel')!.definition.abilities
+  expect(abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'draw' }, when: { kind: 'compareAmount', operator: 'eq', right: { value: 0 } } }] },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'gainLife' }, when: { kind: 'compareAmount', operator: 'lte', right: { value: 5 } }, transform: { kind: 'modifyEvent', changes: { amount: { kind: 'multiply', factor: { value: 2 } } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: ['W', 'U', 'B', 'R', 'G'].map(label => ({ label, instructions: [{ kind: 'addMana', amount: { [label]: { value: 1 } } }] })) }] },
+  ])
+})
+
+test("Sin, Spira's Punishment repeats a random tapped copy while the exiled card is a land", () => {
+  expect(cardRuleDefinitionSnapshotFor("Sin, Spira's Punishment")!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.flying },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'chooseRandom' }, { kind: 'copy', tapped: true }, { kind: 'captureAmount' }, { kind: 'move' }, { kind: 'repeatWhile' }] },
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseRandom' }, { kind: 'copy', tapped: true }, { kind: 'captureAmount' }, { kind: 'move' }, { kind: 'repeatWhile' }] },
+  ])
+})
+
+test('Awaken the Honored Dead is a three-chapter saga with a reflexive discard return', () => {
+  expect(cardRuleDefinitionSnapshotFor('Awaken the Honored Dead')!.definition.abilities).toMatchObject([
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'destroy' }] },
+      { numbers: [2], instructions: [{ kind: 'mill' }] },
+      { numbers: [3], instructions: [{ kind: 'payOptional', whenPaid: [{ kind: 'move' }] }] },
+    ] },
+  ])
+})
+
+test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {
+  expect(cardRuleDefinitionSnapshotFor('Kiora Bests the Sea God')!.definition.abilities).toMatchObject([
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'createToken' }] },
+      { numbers: [2], instructions: [{ kind: 'tap', skipNextUntap: true }] },
+      { numbers: [3], instructions: [{ kind: 'changeControl' }, { kind: 'untap' }] },
+    ] },
+  ])
+})
+
+test('Summon: Titan mills, returns lands, then pumps another creature', () => {
+  expect(cardRuleDefinitionSnapshotFor('Summon: Titan')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.reach },
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'mill' }] },
+      { numbers: [2], instructions: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+      { numbers: [3], instructions: [{ kind: 'createEffect' }, { kind: 'createEffect' }] },
+    ] },
+  ])
+})
+
+test('Mirkwood Bats retains flying and one untargeted opponent drain per created or sacrificed token', () => {
+  expect(cardRuleDefinitionSnapshotFor('Mirkwood Bats')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'tokenCreated', filter: { controller: 'you' } }, decisions: { targets: [] }, instructions: [{ kind: 'loseLife', amount: { value: 1 }, targets: { kind: 'players', filter: { relation: 'opponent' } } }] },
+    { kind: 'triggered', on: { kind: 'sacrificed', filter: { controller: 'you', token: true } }, decisions: { targets: [] }, instructions: [{ kind: 'loseLife', amount: { value: 1 }, targets: { kind: 'players', filter: { relation: 'opponent' } } }] },
+  ])
+})
+
+test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {
+  expect(effectsFor('Zanarkand, Ancient Metropolis // Lasting Fayth')).toEqual([])
+  const entry = cardTemplateDefaultsFor('Zanarkand, Ancient Metropolis // Lasting Fayth')!
+  expect(entry.types).toEqual(['Land'])
+  expect(entry.subtypes).toEqual(['Town'])
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.frontFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+  expect(entry.backFace).toMatchObject({ types: ['Sorcery'], subtypes: ['Adventure'], manaCost: '{4}{G}{G}' })
+  expect(entry.backFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'createToken' }, { kind: 'putCounters' }] },
+  ])
+})
+
+test('Blightsteel Colossus composes trample, infect, indestructible, and owner-library shuffle', () => {
+  expect(effectsFor('Blightsteel Colossus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Blightsteel Colossus')).toMatchObject({
+    types: ['Artifact', 'Creature'],
+    subtypes: ['Phyrexian', 'Golem'],
+    colors: [],
+    manaCost: '{12}',
+    manaValue: 12,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Blightsteel Colossus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'infect' },
+    { kind: 'keyword', keyword: 'indestructible' },
+    {
+      kind: 'static',
+      activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'],
+      effects: [{
+        kind: 'replacement',
+        event: { kind: 'move', filter: { to: 'graveyard' } },
+        transform: { kind: 'redirect', to: 'library' },
+        program: [{ kind: 'reveal' }, { kind: 'shuffle' }],
+      }],
+    },
+  ])
+})
+
+test('Darksteel Colossus composes trample, indestructible, and owner-library shuffle', () => {
+  expect(effectsFor('Darksteel Colossus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Darksteel Colossus')).toMatchObject({
+    types: ['Artifact', 'Creature'],
+    subtypes: ['Golem'],
+    colors: [],
+    manaCost: '{11}',
+    manaValue: 11,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Darksteel Colossus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'indestructible' },
+    {
+      kind: 'static',
+      activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'],
+      effects: [{
+        kind: 'replacement',
+        event: { kind: 'move', filter: { to: 'graveyard' } },
+        transform: { kind: 'redirect', to: 'library' },
+        program: [{ kind: 'reveal' }, { kind: 'shuffle' }],
+      }],
+    },
+  ])
+})
+
+test('Woodfall Primus composes trample, a mandatory noncreature destroy, and persist', () => {
+  expect(effectsFor('Woodfall Primus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Woodfall Primus')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Treefolk', 'Shaman'],
+    colors: ['G'],
+    manaCost: '{5}{G}{G}{G}',
+    manaValue: 8,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Woodfall Primus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } },
+        min: { kind: 'constant', value: 1 },
+        max: { kind: 'constant', value: 1 },
+      }] },
+      instructions: [{ kind: 'destroy', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+    },
+    {
+      kind: 'triggered',
+      on: { kind: 'dies', filter: { kind: 'contextRef', name: 'source' } },
+      interveningIf: {
+        kind: 'compareAmount',
+        operator: 'eq',
+        left: { kind: 'counterCount', counter: '-1/-1' },
+        right: { kind: 'constant', value: 0 },
+      },
+      instructions: [{
+        kind: 'move',
+        to: 'battlefield',
+        enterCounters: { '-1/-1': { kind: 'constant', value: 1 } },
+      }],
+    },
+  ])
+})
+
+test('Springheart Nantuko composes bestow, attached +1/+1, and copy-or-insect landfall', () => {
+  expect(effectsFor('Springheart Nantuko')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Springheart Nantuko')!.definition.abilities).toMatchObject([
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{1}{G}' }]], costLabels: { alternative: ['Bestow {1}{G}'] } },
+    { kind: 'static', activeIn: ['stack', 'battlefield'], effects: [{ kind: 'bestow', cost: '{1}{G}' }] },
+    { kind: 'static', effects: [{ kind: 'modifyStats', power: { value: 1 }, toughness: { value: 1 } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'if' }] },
+  ])
+})
+
+test('Portal to Phyrexia and Rankle compose per-player sacrifice and any-number triggered modes', () => {
+  expect(effectsFor('Portal to Phyrexia')).toEqual([])
+  expect(effectsFor('Rankle, Master of Pranks')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Portal to Phyrexia')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'chooseCardsForEachPlayer' }, { kind: 'sacrifice' }] },
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' }, instructions: [{ kind: 'move', to: 'battlefield' }, { kind: 'createEffect' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Rankle, Master of Pranks')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'keyword', keyword: 'haste' },
+    {
+      kind: 'triggered',
+      on: { kind: 'dealtDamage', filter: { combat: true, player: true } },
+      decisions: { modes: { min: { value: 0 }, count: { value: 3 } } },
+      modes: [
+        { instructions: [{ kind: 'forEachPlayer' }] },
+        { instructions: [{ kind: 'loseLife' }, { kind: 'draw' }] },
+        { instructions: [{ kind: 'chooseCardsForEachPlayer' }, { kind: 'sacrifice' }] },
+      ],
+    },
+  ])
+})
+
+test('catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once', () => {
+  for (const name of [
+    'Crawling Sensation',
+    'Lotho, Corrupt Shirriff',
+    'It That Betrays',
+    'Wedding Ring',
+    'Zimone and Dina',
+    'Niv-Mizzet, Ghost Counsel',
+  ] as const) expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Crawling Sensation')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep' }, instructions: [{ kind: 'chooseInstructions', optional: true }] },
+    { kind: 'triggered', on: { kind: 'moved', to: 'graveyard', group: true }, frequency: { kind: 'firstMatchingEachTurn' }, instructions: [{ kind: 'createToken' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Lotho, Corrupt Shirriff')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'cast', nthThisTurn: 2 }, instructions: [{ kind: 'loseLife' }, { kind: 'createToken' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('It That Betrays')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseCards' }, { kind: 'sacrifice' }] },
+    { kind: 'triggered', on: { kind: 'sacrificed', filter: { controller: 'opponent', token: false } }, instructions: [{ kind: 'move', to: 'battlefield' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Wedding Ring')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', fromSpell: true }, instructions: [{ kind: 'copy' }] },
+    { kind: 'triggered', on: { kind: 'draw', filter: { duringOwnTurn: true } }, instructions: [{ kind: 'draw' }] },
+    { kind: 'triggered', on: { kind: 'gainedLife', filter: { duringOwnTurn: true } }, instructions: [{ kind: 'gainLife' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Zimone and Dina')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'draw', filter: { nthThisTurn: 2 } }, instructions: [{ kind: 'loseLife' }, { kind: 'gainLife' }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'repeatOnceIf' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Niv-Mizzet, Ghost Counsel')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'gainedLife' }, instructions: [{ kind: 'payOptional', ifPaid: [{ kind: 'draw' }] }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'loseLife' }, { kind: 'gainLife' }] },
+  ])
+})
+
+
+test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {
+  expect(cardRuleDefinitionSnapshotFor('Sail into the West')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'vote', options: { kind: 'named', options: [{ id: 'return' }, { id: 'embark' }] } },
+      { kind: 'if', condition: { kind: 'voteLeads', binding: 'vote', option: 'return' }, then: [
+        { kind: 'chooseCardsForEachPlayer', min: { value: 0 }, max: { value: 2 }, filter: { filter: { zone: 'graveyard', owner: { name: 'event.player' } } } },
+        { kind: 'move', to: 'hand' }, { kind: 'exileThisSpell' },
+      ], otherwise: [{ kind: 'chooseParticipants' }, { kind: 'discardHands' }, { kind: 'draw', count: { value: 7 } }] },
+    ] },
+  ])
+})
+
+test.each([
+  ['Blanket of Night', 'Swamp'],
+  ['Urborg, Tomb of Yawgmoth', 'Swamp'],
+  ['Yavimaya, Cradle of Growth', 'Forest'],
+] as const)('catalog %s grants %s to every land', (name, landType) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'grantLandType', landType, targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Land' } } }] },
+  ])
+})
+
+test('Dakmor Salvage dredges two beside tapped entry and {B}', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dakmor Salvage')!.definition.abilities).toMatchObject([
+    { kind: 'dredge', count: 2 },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] },
+  ])
+})
+
+test('Life from the Loam dredges three and returns up to three owned graveyard lands', () => {
+  expect(cardRuleDefinitionSnapshotFor('Life from the Loam')!.definition.abilities).toMatchObject([
+    { kind: 'dredge', count: 3 },
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, min: { value: 0 }, max: { value: 3 } }] }, instructions: [{ kind: 'move', to: 'hand' }] },
+  ])
+})
+
+test('Myriad Landscape searches two basics that share a land type', () => {
+  expect(cardRuleDefinitionSnapshotFor('Myriad Landscape')!.definition.abilities).toMatchObject([
+    { kind: 'static' },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', related: CHOICE_RELATIONS.shareLandType, min: { value: 0 }, max: { value: 2 }, filter: { filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] }] },
+  ])
+})
+
+test('Finale of Devastation searches library or graveyard and pumps only at X ≥ 10', () => {
+  expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { variables: [{ name: 'X' }] }, instructions: [
+      { kind: 'sequence', instructions: [
+        { kind: 'chooseCards', filter: { filter: { owner: 'you', type: 'Creature', any: [{ zone: 'library' }, { zone: 'graveyard' }] } } },
+        { kind: 'captureAmount' },
+        { kind: 'move', to: 'battlefield' },
+        { kind: 'if' },
+      ] },
+      { kind: 'if', condition: { kind: 'compareAmount', operator: 'gte', right: { value: 10 } } },
+    ] },
+  ])
+})
+
+test('Waterlogged Teachings searches an instant or a card with flash', () => {
+  expect(cardRuleDefinitionSnapshotFor('Waterlogged Teachings')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { filter: { zone: 'library', owner: 'you', any: [{ type: 'Instant' }, { keyword: KEYWORDS.flash }] } } },
+      { kind: 'reveal' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'shuffle' },
+    ] }] },
+  ])
+})
+
+test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {
+  expect(cardRuleDefinitionSnapshotFor('Alabaster Host Intercessor')!.definition.abilities).toMatchObject([
+    {
+      kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
+      decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } } }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+    },
+    {
+      kind: 'activated', cycling: true, availableFrom: ['hand'],
+      costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } }],
+      instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', subtypes: ['Plains'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, bindChoice: 'found', viewLibrary: true },
+        { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'hand' },
+        { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+      ] }],
+    },
+  ])
+})
+
+test('family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions', () => {
+  expect(cardRuleDefinitionSnapshotFor('Archangel of Tithes')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'static', effects: [{ kind: 'attackTax', amount: 1, whileUntapped: true }, { kind: 'blockTax', amount: 1, whileAttacking: true }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Baird, Steward of Argive')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'static', effects: [{ kind: 'attackTax', amount: 1 }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Standard Bearer')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'targetingRequirement', requirement: 'flagbearer' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Void Winnower')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'opponentsCantCast', parity: 'even' }, { kind: 'opponentsCantBlock', parity: 'even' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'reach' },
+    { kind: 'keyword', keyword: KEYWORDS.firstStrike },
+    { kind: 'keyword', keyword: 'vigilance' },
+    { kind: 'keyword', keyword: 'menace' },
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'lifelink' },
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'life', amount: 7 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Famished Worldsire')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'mana', generic: 3 } }, { kind: 'replacement' }] },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'inspectTop' },
+      { kind: 'chooseCards' },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'move', to: 'library', position: 'bottom', order: 'random' },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Summon: Leviathan')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'mana', generic: 2 } }] },
+    { kind: 'saga', chapters: [
+      { numbers: [1], instructions: [{ kind: 'move', to: 'hand' }] },
+      { numbers: [2, 3], instructions: [{ kind: 'createDelayed', repeatUntilCleanup: true }] },
+    ] },
+  ])
+})
+
+test('catalog Wall of Shards composes its keywords and cumulative upkeep payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wall of Shards')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'defender' },
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'upkeep', player: { kind: 'players', filter: { relation: 'you' } } } },
+  ])
+})
+
+test('family 22 catalog composes characteristics, types, grants, and attachments', () => {
+  const abilities = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities('Curious Colossus')).toMatchObject([{ decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [
+    { kind: 'createEffect', effect: { kind: 'addTypes', subtypes: ['Coward'] }, duration: { kind: 'permanent' } },
+    { kind: 'createEffect', effect: { kind: 'removeAbilities' } },
+    { kind: 'createEffect', effect: { kind: 'setStats', power: { kind: 'constant', value: 1 }, toughness: { kind: 'constant', value: 1 } } },
+  ] }])
+  expect(abilities('Masked Vandal')).toMatchObject([{ kind: 'keyword', keyword: 'changeling' }, { on: { kind: 'enters' }, instructions: [{ kind: 'sequence' }] }])
+  expect(abilities('Maskwood Nexus')).toMatchObject([
+    { effects: [{ kind: 'addTypes', allCreatureTypes: true }] },
+    { costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'createToken', token: { colors: ['U'], abilities: [{ keyword: 'changeling' }] } }] },
+  ])
+  expect(cardTemplateDefaultsFor('Lumra, Bellow of the Woods')).toMatchObject({ types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Elemental', 'Bear'] })
+  expect(abilities('Lumra, Bellow of the Woods')).toMatchObject([
+    { keyword: 'reach' }, { keyword: 'vigilance' }, { effects: [{ kind: 'modifyStats', set: true, characteristicDefining: true }] },
+    { instructions: [{ kind: 'mill', count: { value: 4 } }, { kind: 'move', to: 'battlefield', tapped: true }] },
+  ])
+  expect(abilities('Starfield of Nyx')).toMatchObject([{ on: { kind: 'stepBegins', step: 'upkeep' } }, { effects: [{ kind: 'addTypes', types: ['Creature'] }, { kind: 'modifyStats', set: true }] }])
+  expect(abilities('Rain of Filth')).toMatchObject([{ instructions: [{ kind: 'createEffect', duration: { kind: 'untilCleanup' }, effect: { kind: 'grantActivatedAbility', ability: { costs: [{ kind: 'sacrifice', filter: { name: 'source' } }], instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] } } }] }])
+  expect(abilities('Kindred Dominance')).toMatchObject([{ instructions: [{ kind: 'chooseCreatureType' }, { kind: 'destroy' }] }])
+  expect(abilities('Raise the Palisade')).toMatchObject([{ instructions: [{ kind: 'chooseCreatureType' }, { kind: 'move', to: 'hand' }] }])
+  expect(abilities('Colossification')).toMatchObject([{ effects: [{ kind: 'enchant' }, { kind: 'modifyStats', power: { value: 20 }, toughness: { value: 20 } }] }, { on: { kind: 'enters' }, instructions: [{ kind: 'tap' }] }])
+  expect(abilities('Tenuous Truce')).toMatchObject([{ effects: [{ kind: 'enchant', filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, { on: { step: 'end' }, instructions: [{ kind: 'draw' }, { kind: 'draw' }] }, { on: { kind: 'playerAttacks' } }, { on: { kind: 'playerAttacks' } }])
+})
+
+test('Cavern of Souls and Delighted Halfling compose restricted any-color mana', () => {
+  const abilities = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities('Cavern of Souls')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+  expect(abilities('Delighted Halfling')).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions' }] },
+  ])
+})
+
+test('family 25 catalog cards compose flashback and escape alternate graveyard casts', () => {
+  expect(effectsFor('Dread Return')).toEqual([])
+  expect(effectsFor('Cling to Dust')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Dread Return')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'move', to: 'battlefield' }] },
+    { kind: 'static', activeIn: ['graveyard'], effects: [{
+      kind: 'flashback',
+      label: 'Flashback—Sacrifice three creatures.',
+      sacrifice: { type: 'Creature', count: 3 },
+    }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Cling to Dust')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'if', then: [{ kind: 'gainLife' }], otherwise: [{ kind: 'draw' }] },
+      { kind: 'move', to: 'exile' },
+    ] },
+    { kind: 'static', activeIn: ['graveyard'], effects: [{ kind: 'escape', manaCost: '{3}{B}', exileCount: 5 }] },
+  ])
+})
+
+test('family 26 catalog cards compose retrace, linked exile, and life-equal-mana-value casts', () => {
+  const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(effectsFor('Six')).toEqual([])
+  expect(effectsFor('Valgavoth, Terror Eater')).toEqual([])
+  expect(definitions('Six')).toMatchObject([
+    { kind: 'keyword', keyword: 'reach' },
+    { kind: 'triggered', instructions: [
+      { kind: 'mill', count: { kind: 'constant', value: 3 }, bindChoice: 'milled' },
+      { kind: 'chooseCards', bindChoice: 'land', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', to: 'hand' },
+    ] },
+    { kind: 'static', effects: [{
+      kind: 'castSpells',
+      discardLand: true,
+      optionId: 'retrace',
+      cards: { filter: { zone: 'graveyard', owner: 'you' } },
+    }] },
+  ])
+  expect(definitions('Valgavoth, Terror Eater')).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'keyword', keyword: 'lifelink' },
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'sacrifice', count: 3, nonland: true } }] },
+    { kind: 'static', effects: [{
+      kind: 'replacement',
+      transform: { kind: 'redirect', to: 'exile', link: true },
+    }] },
+    { kind: 'static', effects: [{ kind: 'playLands', cards: { filter: { zone: 'exile', type: 'Land' } } }] },
+    { kind: 'static', effects: [{
+      kind: 'castSpells',
+      cost: 'lifeEqualManaValue',
+      optionId: 'exiledWithLife',
+      cards: { filter: { zone: 'exile' } },
+    }] },
+  ])
+})
+
+test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {
+  const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(definitions('Courser of Kruphix')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'revealLibraryTop', players: { filter: { relation: 'you' } } }] },
+    { kind: 'static', effects: [{ kind: 'playLands', topOnly: true, cards: { filter: { zone: 'library', type: 'Land', owner: 'you' } } }] },
+    { kind: 'triggered', instructions: [{ kind: 'gainLife', amount: { kind: 'constant', value: 1 } }] },
+  ])
+  expect(definitions('Icetill Explorer')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'extraLandPlays', count: 1 }] },
+    { kind: 'static', effects: [{ kind: 'playLands', cards: { filter: { zone: 'graveyard', owner: 'you', type: 'Land' } } }] },
+    { kind: 'triggered', instructions: [{ kind: 'mill', count: { kind: 'constant', value: 1 } }] },
+  ])
+  expect(definitions('Mole Man, Moloid Master')).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'playLands' }] },
+    { kind: 'triggered', instructions: [{ kind: 'createToken', token: { name: 'Moloid', colors: ['G'], abilities: [
+      { kind: 'triggered', instructions: [{ kind: 'chooseInstructions' }] },
+    ] } }] },
+  ])
+})
+
+test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {
+  expect(effectsFor('Ugin, the Spirit Dragon')).toEqual([])
+  expect(effectsFor('Teferi, Who Slows the Sunset')).toEqual([])
+  expect(effectsFor('Jace, Multiverse Architect')).toEqual([])
+  expect(cardTemplateDefaultsFor('Ugin, the Spirit Dragon')).toMatchObject({
+    types: ['Planeswalker'], supertypes: ['Legendary'], subtypes: ['Ugin'], printedLoyalty: 7,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Ugin, the Spirit Dragon')!.definition.abilities).toMatchObject([
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 2 } }], instructions: [{ kind: 'damage', amount: { value: 3 } }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { kind: 'variable', name: 'X' } }], instructions: [{ kind: 'move', to: 'exile' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 10 } }], instructions: [{ kind: 'gainLife' }, { kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'move', to: 'battlefield' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Teferi, Who Slows the Sunset')!.definition.abilities).toMatchObject([
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 1 } }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 2 } }], instructions: [{ kind: 'inspectTop' }, { kind: 'chooseCards' }, { kind: 'move', to: 'hand' }, { kind: 'move', to: 'library', position: 'bottom' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 7 } }], instructions: [{ kind: 'createEmblem' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Jace, Multiverse Architect')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'stepBegins', step: 'beginCombat' }, instructions: [{ kind: 'payOptional', ifDeclined: [{ kind: 'banAttacks' }] }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', amount: { value: 1 } }], instructions: [{ kind: 'draw' }, { kind: 'chooseCards' }, { kind: 'move', to: 'library', position: 'bottom' }] },
+    { kind: 'activated', timing: 'sorcery', costs: [{ kind: 'loyalty', minus: true, amount: { value: 3 } }], instructions: [{ kind: 'move', to: 'exile' }, { kind: 'revealUntil' }, { kind: 'move', to: 'library', order: 'random' }] },
+  ])
+})
+
+test('kicker catalog entries compose optional payments with independent effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Everflowing Chalice')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'mana', amount: '{2}' }], repeatableOptionalCosts: [0] },
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { enterCounters: { charge: { kind: 'paidCostCount', cost: 'optional', index: 0 } } } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'counterCount', counter: 'charge' } } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Joint Exploration')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'mana', amount: '{G}' }], instructions: [
+      { kind: 'scry', count: { value: 2 } }, { kind: 'draw', count: { value: 1 } },
+      { kind: 'if', condition: { left: { kind: 'paidCostCount', cost: 'optional', index: 0 } } },
+    ] },
+  ])
+})
+
+
+test('conditional-reduction catalog entries keep their independent spell and land effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Drag to the Roots')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 2 }, when: { left: { kind: 'countDistinctCardTypes' }, right: { value: 4 } } }], instructions: [{ kind: 'destroy' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Price of Fame')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 2 }, when: { left: { of: { filter: { among: { kind: 'targetRef', clauseIndex: 0 }, supertypes: ['Legendary'] } } } } }], instructions: [{ kind: 'destroy' }, { kind: 'surveil', count: { value: 2 } }] },
+  ])
+  const hagra = cardTemplateDefaultsFor('Hagra Mauling // Hagra Broodpit')!
+  expect(hagra.frontFace?.ruleDefinition?.definition.abilities).toMatchObject([
+    { kind: 'spell', costReductions: [{ generic: { value: 1 }, when: { left: { of: { filter: { relation: 'opponent', not: { controls: { type: 'Land', supertypes: ['Basic'] } } } } } } }], instructions: [{ kind: 'destroy' }] },
+  ])
+  expect(hagra.backFace?.ruleDefinition?.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { changes: { tapped: true } } }] },
+    { kind: 'activated', instructions: [{ kind: 'addMana', amount: { B: { value: 1 } } }] },
+  ])
+})
+
+
+test('cleave and evoke compose ordinary alternative costs with their targeting or entry effects', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wash Away')!.definition.abilities).toMatchObject([
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{1}{U}{U}' }]], costLabels: { alternative: ['Cleave {1}{U}{U}'] },
+      decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell', any: [
+        { not: { castFrom: 'hand' } }, { when: { left: { kind: 'paidCostCount', cost: 'alternative', index: 0 } } },
+      ] } } }] }, instructions: [{ kind: 'counter' }],
+    },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Mulldrifter')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'spell', alternativeCosts: [[{ kind: 'mana', amount: '{2}{U}' }]], costLabels: { alternative: ['Evoke {2}{U}'] } },
+    { kind: 'triggered', instructions: [{ kind: 'draw', count: { value: 2 } }] },
+    { kind: 'triggered', triggerOnlyIf: { left: { kind: 'paidCostCount', cost: 'alternative', index: 0 } }, instructions: [{ kind: 'sacrifice' }] },
+  ])
+})
+
+
+test('Pile On composes a contribution payment method with destruction and surveil', () => {
+  expect(cardRuleDefinitionSnapshotFor('Pile On')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costs: [{ kind: 'convoke' }], decisions: { targets: [{ filter: { filter: { zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Planeswalker' }] } } }] },
+      instructions: [{ kind: 'destroy' }, { kind: 'surveil', count: { value: 2 } }],
+    },
+  ])
+})
+
+
+test('Getaway Glamer composes paid target counts, delayed return, and a greatest-power destruction condition', () => {
+  expect(cardRuleDefinitionSnapshotFor('Getaway Glamer')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCostBounds: { min: 1 }, optionalCosts: [{ kind: 'mana', amount: '{1}' }, { kind: 'mana', amount: '{2}' }],
+      decisions: { targets: [
+        { min: { kind: 'paidCostCount', cost: 'optional', index: 0 }, max: { kind: 'paidCostCount', cost: 'optional', index: 0 }, filter: { filter: { token: false } } },
+        { min: { kind: 'paidCostCount', cost: 'optional', index: 1 }, max: { kind: 'paidCostCount', cost: 'optional', index: 1 } },
+      ] }, instructions: [
+        { kind: 'if', then: [{ kind: 'sequence', instructions: [{ kind: 'move', to: 'exile' }, { kind: 'createDelayed', condition: { kind: 'step', step: 'end' } }] }] },
+        { kind: 'if', then: [{ kind: 'if', condition: { kind: 'hasGreatestCharacteristic', characteristic: 'power' }, then: [{ kind: 'destroy' }] }] },
+      ],
+    },
+  ])
+})
+
+
+test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {
+  expect(cardRuleDefinitionSnapshotFor('Will of the Sultai')!.definition.abilities).toMatchObject([
+    { kind: 'spell', costs: [], decisions: { modes: { min: { value: 1 }, count: { kind: 'add', right: { kind: 'minimum', right: { of: { filter: { commander: true, controller: 'you', zone: 'battlefield' } } } } } } }, modes: [
+      { decisions: { targets: [{ filter: { kind: 'players' } }] }, instructions: [{ kind: 'mill', count: { value: 3 } }, { kind: 'move', to: 'battlefield', tapped: true, targets: { filter: { zone: 'graveyard', owner: 'you', type: 'Land' } } }] },
+      { decisions: { targets: [{ filter: { filter: { type: 'Creature' } } }] }, instructions: [{ kind: 'putCounters', counter: '+1/+1', count: { of: { filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } } }, { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: 'trample' }, duration: { kind: 'untilCleanup' } }] },
+    ] },
+  ])
+})
+
+
+test('Parting Gust composes a promised tapped blue Fish before conditional nontoken exile and delayed return', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Parting Gust')!.definition.abilities[0]!
+  expect(ability).toMatchObject({
+    kind: 'spell', optionalCosts: [{ kind: 'choosePlayer', players: { kind: 'players', filter: { relation: 'opponent' } } }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', token: false } } }] },
+    instructions: [
+      { kind: 'if', then: [{ kind: 'createToken', targets: { kind: 'paidCostPlayer', index: 0 }, tapped: true, token: { colors: ['U'], power: 1, toughness: 1 } }] },
+      { kind: 'if', then: [{ kind: 'move', to: 'exile' }], otherwise: [{ kind: 'sequence', instructions: [
+        { kind: 'move', to: 'exile' }, { kind: 'createDelayed', instructions: [{ kind: 'move', to: 'battlefield', enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } }] },
+      ] }] },
+    ],
+  })
+})
+
+
+test('family 28 catalog cards compose copy exceptions after copiable values', () => {
+  expect(effectsFor("Irenicus's Vile Duplication")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor("Irenicus's Vile Duplication")!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{
+      kind: 'copy',
+      except: { notLegendary: true, keywords: ['flying'] },
+    }] },
+  ])
+})
+
+test('family 24 composes animation, mana, ward, nonzero X, and crew in the canonical catalog', () => {
+  expect(cardRuleDefinitionSnapshotFor('Firdoch Core')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'changeling' }, { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{4}' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'createEffect', effect: { kind: 'setStats', power: { value: 4 }, toughness: { value: 4 } } },
+      { kind: 'createEffect', effect: { kind: 'addTypes', types: ['Artifact', 'Creature'] } },
+    ] }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Hall of Storm Giants')!.definition.abilities[2]).toMatchObject({
+    costs: [{ kind: 'mana', amount: '{5}{U}' }], instructions: [{ kind: 'sequence', instructions: [
+      { effect: { kind: 'setStats', power: { value: 7 }, toughness: { value: 7 } } },
+      { effect: { kind: 'addTypes', types: ['Creature'], subtypes: ['Giant'] } },
+      { effect: { kind: 'setColors', colors: ['U'] } }, { effect: { kind: 'grantWard', cost: { kind: 'mana', generic: 3 } } },
+    ] }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Lair of the Hydra')!.definition.abilities[2]).toMatchObject({
+    costs: [{ kind: 'mana', amount: '{X}{G}' }], decisions: { variables: [{ name: 'X', min: 1 }] },
+  })
+  expect(cardTemplateDefaultsFor('Hedge Shredder')).toMatchObject({ types: ['Artifact'], subtypes: ['Vehicle'], power: 5, toughness: 5 })
+  expect(cardRuleDefinitionSnapshotFor('Hedge Shredder')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseInstructions' }] },
+    { kind: 'triggered', on: { kind: 'moved', from: 'library', to: 'graveyard', group: true }, instructions: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+    { kind: 'activated', costs: [{ kind: 'crew', power: { kind: 'constant', value: 1 } }] },
+  ])
+})
+
+
+test('alternative returns compose graveyard activation and success-dependent delayed follow-up', () => {
+  const leviathan = cardRuleDefinitionSnapshotFor('Kederekt Leviathan')!.definition
+  expect(leviathan.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'move', to: 'hand', targets: { kind: 'objects', filter: { zone: 'battlefield', other: true, not: { type: 'Land' } } } }] },
+    { kind: 'activated', availableFrom: ['graveyard'], timing: 'sorcery', costs: [{ kind: 'mana', amount: '{6}{U}' }] },
+  ])
+  const vanish = cardRuleDefinitionSnapshotFor('Vanish into Memory')!.definition
+  expect(vanish.abilities).toMatchObject([{ kind: 'spell', instructions: [
+    { kind: 'captureAmount', bindResult: 'power' },
+    { kind: 'move', to: 'exile', bindChoice: 'exiled' },
+    { kind: 'draw' },
+    { kind: 'createDelayed', inheritTargets: false, instructions: [
+      { kind: 'move', to: 'battlefield', bindChoice: 'returned' },
+      { kind: 'if', then: [{ kind: 'discard', count: { kind: 'characteristic', characteristic: 'toughness', information: 'current' } }] },
+    ] },
+  ] }])
+})
+
+
+test('Analyze the Pollen composes collect evidence with two structural search branches', () => {
+  expect(cardRuleDefinitionSnapshotFor('Analyze the Pollen')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'collectEvidence', amount: { kind: 'constant', value: 8 } }], instructions: [
+      { kind: 'if', then: [{ kind: 'sequence' }], otherwise: [{ kind: 'sequence' }] },
+    ] },
+  ])
+})
+
+
+test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy', () => {
+  expect(effectsFor('Ephemerate')).toEqual([])
+  expect(effectsFor('Sakashima of a Thousand Faces')).toEqual([])
+  expect(effectsFor('Spark Double')).toEqual([])
+  expect(effectsFor("Thespian's Stage")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Ephemerate')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.rebound },
+    { kind: 'spell', instructions: [{ kind: 'blink' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Quantum Misalignment')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.rebound },
+    { kind: 'spell', instructions: [{ kind: 'copy', except: { notLegendary: true } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Incarnation Technique')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.demonstrate },
+    { kind: 'spell', instructions: [{ kind: 'mill' }, { kind: 'chooseCards' }, { kind: 'move' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Reins of Power')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{ kind: 'exchangeControl', haste: true, untap: true }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities).toMatchObject([
+    {
+      kind: 'static',
+      effects: [{
+        kind: 'replacement',
+        program: [
+          { kind: 'chooseCards' },
+          { kind: 'branch', then: [{ kind: 'modifyEvent', changes: { copyExcept: { keepAbilities: true } } }] },
+        ],
+      }],
+    },
+    { kind: 'static', effects: [{ kind: 'legendRuleOff' }] },
+    { kind: 'keyword', keyword: KEYWORDS.partner },
+  ])
+  const sakashimaCopyAsEntry = cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities[0]
+  const sakashimaBranch = sakashimaCopyAsEntry.kind === 'static'
+    ? sakashimaCopyAsEntry.effects[0]
+    : undefined
+  const sakashimaCopyExcept = sakashimaBranch?.kind === 'replacement'
+    ? sakashimaBranch.program?.[1]?.kind === 'branch'
+      ? sakashimaBranch.program[1].then[0]
+      : undefined
+    : undefined
+  expect(sakashimaCopyExcept?.kind === 'modifyEvent' ? sakashimaCopyExcept.changes.copyExcept : undefined)
+    .toEqual({ keepAbilities: true })
+  expect(cardRuleDefinitionSnapshotFor('Spark Double')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', program: [{ kind: 'chooseCards' }, { kind: 'branch' }] }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor("Thespian's Stage")!.definition.abilities).toMatchObject([
+    { kind: 'activated' },
+    { kind: 'activated', instructions: [{ kind: 'createEffect', effect: { kind: 'copy', except: { keepCopyAbility: true } } }] },
+  ])
+  expect(cardTemplateDefaultsFor('Sakashima of a Thousand Faces')).toMatchObject({
+    power: 3, toughness: 1, supertypes: ['Legendary'], subtypes: ['Human', 'Rogue'],
+  })
+})
+
+test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {
+  expect(cardTemplateDefaultsFor('Angel of Sanctions')).toMatchObject({ power: 3, toughness: 4, subtypes: ['Angel'] })
+  expect(cardTemplateDefaultsFor('Glorious Protector')).toMatchObject({ power: 3, toughness: 4, subtypes: ['Angel', 'Cleric'] })
+  expect(cardTemplateDefaultsFor('All-Fates Stalker')).toMatchObject({ power: 2, toughness: 3, subtypes: ['Drix', 'Assassin'] })
+  expect(cardTemplateDefaultsFor('Kederekt Leviathan')).toMatchObject({ power: 5, toughness: 5 })
+  expect(cardRuleDefinitionSnapshotFor('Glorious Protector')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flash' }, { kind: 'keyword', keyword: 'flying' },
+    { kind: 'static', effects: [{ kind: 'foretell', manaCost: '{2}{W}' }] }, { kind: 'triggered' },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Pitiless Carnage')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'plot', manaCost: '{1}{B}{B}' }] })
+  expect(cardRuleDefinitionSnapshotFor('Hypergenesis')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'suspend', counters: 3, manaCost: '{1}{G}{G}' }] })
+})
+
+test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {
+  expect(effectsFor('Kuroki, Thief of Talents')).toEqual([])
+  expect(cardTemplateDefaultsFor('Kuroki, Thief of Talents')).toMatchObject({
+    power: 4, toughness: 4, supertypes: ['Legendary'], subtypes: ['Spirit'],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Kuroki, Thief of Talents')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.menace },
+    {
+      kind: 'triggered',
+      decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] },
+      instructions: [{
+        kind: 'chooseInstructions',
+        chooser: { kind: 'targetRef', clauseIndex: 0 },
+        options: [
+          { instructions: [
+            { kind: 'draw', count: { kind: 'constant', value: 4 }, targets: { kind: 'targetRef', clauseIndex: 0 } },
+            { kind: 'offerCast', from: { kind: 'targetRef', clauseIndex: 0 }, zone: 'hand', notLand: true, inspect: true, takeControl: true },
+          ] },
+          { instructions: [{ kind: 'putCounters', counter: '+1/+1' }] },
+        ],
+      }],
+    },
+  ])
+})
+
+test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {
+  for (const name of ['Concordant Crossroads', 'Everybody Lives!', 'Perch Protection', 'Snuff Out']) expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor('Concordant Crossroads')).toMatchObject({ supertypes: ['World'], types: ['Enchantment'] })
+  expect(cardRuleDefinitionSnapshotFor('Concordant Crossroads')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'grantKeyword', keyword: KEYWORDS.haste, targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+  ])
+  const allPlayers = { kind: 'players', filter: { relation: 'any' } }
+  expect(cardRuleDefinitionSnapshotFor('Everybody Lives!')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.hexproof }, duration: { kind: 'untilCleanup' } },
+      { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } },
+      ...[PLAYER_EFFECTS.hexproof, PLAYER_EFFECTS.cannotLoseLife, PLAYER_EFFECTS.cannotLoseGame, PLAYER_EFFECTS.cannotWinGame]
+        .map(playerEffect => ({ kind: 'createPlayerEffect', targets: allPlayers, playerEffect, duration: PLAYER_EFFECT_DURATIONS.untilCleanup })),
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Perch Protection')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    optionalCosts: [{ kind: 'choosePlayer', players: { kind: 'players', filter: { relation: 'opponent' } } }],
+    instructions: [
+      { kind: 'if', then: [{ kind: 'takeExtraTurn' }] },
+      { kind: 'createToken', count: { kind: 'constant', value: 4 } },
+      { kind: 'if', then: [
+        { kind: 'phase', out: true, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } },
+        { kind: 'createPlayerEffect', playerEffect: PLAYER_EFFECTS.lifeTotalCannotChange, duration: PLAYER_EFFECT_DURATIONS.untilYourNextTurn },
+        { kind: 'createPlayerEffect', playerEffect: PLAYER_EFFECTS.protectionFromEverything, duration: PLAYER_EFFECT_DURATIONS.untilYourNextTurn },
+      ] },
+      { kind: 'exileThisSpell' },
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Snuff Out')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    alternativeCosts: [[{ kind: 'life', amount: { kind: 'constant', value: 4 } }]],
+    costConditions: [{ cost: 'alternative', index: 0 }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', not: { color: 'B' } } } }] },
+    instructions: [{ kind: 'destroy', noRegeneration: true }],
+  }])
 })

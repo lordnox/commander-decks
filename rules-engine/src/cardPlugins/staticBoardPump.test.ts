@@ -136,10 +136,10 @@ const lieutenantGame = () => {
 describe('Thunderfoot Baloth', () => {
   test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {
     const { start } = lieutenantGame()
-    expect(hasKeyword(named(start, 'Thunderfoot Baloth'), 'trample', start)).toBe(true)
+    expect(hasKeyword(named(start, 'Thunderfoot Baloth'), 'trample')).toBe(true)
     expect(stats(start, 'Thunderfoot Baloth')).toEqual([5, 5])
     expect(stats(start, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(start, 'Ally Bear'), 'trample', start)).toBe(false)
+    expect(hasKeyword(named(start, 'Ally Bear'), 'trample')).toBe(false)
   })
 
   test('with your commander out it is 7/7 and your other creatures get +2/+2 and trample', () => {
@@ -148,12 +148,12 @@ describe('Thunderfoot Baloth', () => {
     expect(stats(state, 'Thunderfoot Baloth')).toEqual([7, 7])
     expect(stats(state, 'Ally Bear')).toEqual([4, 4])
     expect(stats(state, 'Our General')).toEqual([5, 5])
-    expect(hasKeyword(named(state, 'Ally Bear'), 'trample', state)).toBe(true)
-    expect(hasKeyword(named(state, 'Our General'), 'trample', state)).toBe(true)
+    expect(hasKeyword(named(state, 'Ally Bear'), 'trample')).toBe(true)
+    expect(hasKeyword(named(state, 'Our General'), 'trample')).toBe(true)
     expect(stats(state, 'Enemy Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(state, 'Enemy Bear'), 'trample', state)).toBe(false)
+    expect(hasKeyword(named(state, 'Enemy Bear'), 'trample')).toBe(false)
     // It never grants itself the keyword twice; it already has trample printed.
-    expect(hasKeyword(named(state, 'Thunderfoot Baloth'), 'trample', state)).toBe(true)
+    expect(hasKeyword(named(state, 'Thunderfoot Baloth'), 'trample')).toBe(true)
     // Noncreatures are not pumped.
     expect(stats(state, 'Ally Relic')).toEqual([null, null])
   })
@@ -169,7 +169,7 @@ describe('Thunderfoot Baloth', () => {
     expect(named(left, 'Our General').zone).toBe('command')
     expect(stats(left, 'Thunderfoot Baloth')).toEqual([5, 5])
     expect(stats(left, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(left, 'Ally Bear'), 'trample', left)).toBe(false)
+    expect(hasKeyword(named(left, 'Ally Bear'), 'trample')).toBe(false)
     const again = move(server, left, 'Our General')
     expect(stats(again, 'Thunderfoot Baloth')).toEqual([7, 7])
     expect(stats(again, 'Ally Bear')).toEqual([4, 4])
@@ -195,7 +195,7 @@ describe('Thunderfoot Baloth', () => {
     const arrived = move(server, start, 'Our General')
     const gone = move(server, arrived, 'Thunderfoot Baloth', 'graveyard')
     expect(stats(gone, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(gone, 'Ally Bear'), 'trample', gone)).toBe(false)
+    expect(hasKeyword(named(gone, 'Ally Bear'), 'trample')).toBe(false)
     expect(stats(gone, 'Our General')).toEqual([3, 3])
   })
 })

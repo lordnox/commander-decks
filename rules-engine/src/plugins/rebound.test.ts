@@ -5,6 +5,15 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState, PlayerId } from '../types'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  gainLife,
+  keyword,
+  ref,
+  spell,
+} from '../cardPlugins/dsl/v1'
 
 const reboundSpell = () => cardTemplate('Test Rebound', {
   types: ['Sorcery'],
@@ -205,5 +214,26 @@ describe('rebound', () => {
 
     expect(resolved.objects[objectId].zone).toBe('graveyard')
     expect(resolved.delayedTriggers).toHaveLength(0)
+  })
+
+  test('keywordAbility rebound also exiles a hand-cast spell', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Keyword Rebound', {
+          types: ['Sorcery'],
+          manaCost: '{0}',
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+            keyword.rebound,
+            spell({ instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+          ]))),
+        })],
+      },
+    })
+    const objectId = server.state.zoneOrder.p1.hand[0]!
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[objectId].zone).toBe('exile')
+    expect(resolved.delayedTriggers).toHaveLength(1)
   })
 })

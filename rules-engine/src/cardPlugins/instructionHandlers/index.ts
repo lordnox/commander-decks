@@ -24,7 +24,6 @@ import { unearthSelfInstruction } from '../unearth'
 import { zoneHandlers } from './zones'
 import { linkedExileInstructionHandlers } from '../linkedExile'
 import { blinkHandlers } from '../blink'
-import { statusEffectHandlers } from '../statusEffects'
 import { monstrosityInstruction } from '../monstrosity'
 import { targetedResolveInstructionHandlers } from '../targetedResolve'
 import { optionalManaPayInstructionHandlers } from '../optionalManaPay'
@@ -47,7 +46,6 @@ const instructionHandlers = {
   ...blinkHandlers,
   ...targetedResolveInstructionHandlers,
   ...destroyThenTokenHandlers,
-  ...statusEffectHandlers,
   ...encoreHandlers,
   ...opponentCreatureHandlers,
   ...voteResultHandlers,

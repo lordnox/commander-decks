@@ -136,25 +136,6 @@ const cumulativeUpkeepOpponentLife: InstructionHandler<'cumulativeUpkeepOpponent
   openCumulativeUpkeep(draft, source.id)
 }
 
-const drainOpponentsX: InstructionHandler<'drainOpponentsX'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
-  const opponents = draft.playerOrder.filter(
-    (seat) => seat !== source.controller && !draft.players[seat].lost,
-  )
-  draft.enqueue({
-    type: 'gainLife',
-    seat: source.controller,
-    amount: amount * opponents.length,
-    source: source.id,
-  })
-  for (const seat of opponents) {
-    draft.enqueue({ type: 'loseLife', seat, amount, source: source.id })
-  }
-}
-
 const drawX: InstructionHandler<'drawX'> = ({ draft, source, item }) => {
   draft.enqueue({
     type: 'draw',
@@ -668,38 +649,6 @@ const addManaPerSwamp: InstructionHandler<'addManaPerSwamp'> = (
   }
 }
 
-const gainLifeTargetPower: InstructionHandler<'gainLifeTargetPower'> = (
-  { draft, source, item },
-) => {
-  const target = item?.targets[0]
-  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
-  const amount = object?.power ?? 0
-  if (amount > 0) {
-    draft.enqueue({
-      type: 'gainLife',
-      seat: source.controller,
-      amount,
-      source: source.id,
-    })
-  }
-}
-
-const gainLifeTargetToughness: InstructionHandler<'gainLifeTargetToughness'> = (
-  { draft, source, item },
-) => {
-  const target = item?.targets[0]
-  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
-  const amount = object?.toughness ?? 0
-  if (amount > 0) {
-    draft.enqueue({
-      type: 'gainLife',
-      seat: object?.controller ?? source.controller,
-      amount,
-      source: source.id,
-    })
-  }
-}
-
 const loseHalfLifeRoundedUp: InstructionHandler<'loseHalfLifeRoundedUp'> = (
   { draft, source },
 ) => {
@@ -907,7 +856,6 @@ export const resourceHandlers = {
   discardCards,
   gainLife,
   cumulativeUpkeepOpponentLife,
-  drainOpponentsX,
   drawX,
   setAllLifeToLowest,
   gainLifeLostThisTurn,
@@ -940,8 +888,6 @@ export const resourceHandlers = {
   untapTarget,
   tapAll,
   addManaPerSwamp,
-  gainLifeTargetPower,
-  gainLifeTargetToughness,
   loseHalfLifeRoundedUp,
   addManaAtNextMainFromTarget,
   addPlusCountersToControlled,

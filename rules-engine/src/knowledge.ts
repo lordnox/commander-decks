@@ -4,11 +4,11 @@ import type { GameObject, PlayerId } from './types'
 export const isKnownTo = (
   object: GameObject,
   viewer: PlayerId | null,
-  _playerOrder: PlayerId[],
+  playerOrder: PlayerId[],
 ) => {
   const known = object.knownTo
   if (!known || known.length === 0) return false
-  if (viewer === null) return true
+  if (viewer === null) return playerOrder.every(player => known.includes(player))
   return known.includes(viewer)
 }
 

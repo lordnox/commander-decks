@@ -17,26 +17,14 @@ export const abilityTokens = (oracleText: string) =>
         .toLowerCase()
         .replace(/\.$/, ''))
 
-export const hasKeyword = (object: GameObject, keyword: string, state?: {
-  rules: Array<{ pluginId: string; params: Record<string, unknown> }>
-}) => {
-  const layers = (object.continuousEffects ?? []).flatMap(({ effect }) =>
-    effect.kind === 'staticKeywords' ? [effect] : [])
+export const hasKeyword = (object: GameObject, keyword: string) => {
+  const effects = object.continuousEffects ?? []
+  const lastLoss = effects.findLastIndex(({ effect }) => effect.kind === 'removeAbilities' || effect.kind === 'loseAbilitiesBecome')
+  const layers = effects.flatMap(({ effect }, index) => effect.kind === 'staticKeywords' ? [{ ...effect, grant: index > lastLoss ? effect.grant : [] }] : [])
   // "Can't have or gain" outranks every source of the keyword, printed or granted.
   if (layers.some(({ suppress }) => suppress.includes(keyword))) return false
   if (layers.some(({ grant }) => grant.includes(keyword))) return true
-  if (abilityTokens(object.oracleText).includes(keyword)) return true
-  if (
-    object.types.includes('Creature')
-    && (keyword === 'hexproof' || keyword === 'indestructible')
-    && state?.rules.some((rule) =>
-      rule.pluginId === 'advancedCombatPrevention'
-      && rule.params.mode === 'everybodyLives')
-  ) {
-    return true
-  }
-  return keyword === 'haste'
-    && Boolean(state?.rules.some((rule) => rule.pluginId === 'sharedHaste'))
+  return abilityTokens(object.oracleText).includes(keyword)
 }
 
 /** Generic Ward {N} from a keyword line. Stamped `ward(n)` effects take precedence at the plugin. */

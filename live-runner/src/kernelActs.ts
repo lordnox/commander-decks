@@ -18,6 +18,7 @@ const splitGroupSelection = (groups: ActionTargetGroup[], selected: string[]) =>
   let rest = selected
   const choices: string[] = []
   const delve: string[] = []
+  const evidence: string[][] = []
   for (const group of groups.filter(({ purpose }) => purpose === 'cost')) {
     const picks: string[] = []
     while (
@@ -29,18 +30,19 @@ const splitGroupSelection = (groups: ActionTargetGroup[], selected: string[]) =>
       rest = rest.slice(1)
     }
     if (picks.length < group.min) throw new Error(`Invalid selection for ${group.label}`)
-    if (group.delve) delve.push(...picks)
+    if (group.collectEvidence) evidence.push(picks)
+    else if (group.delve) delve.push(...picks)
     else choices.push(...picks)
   }
-  return { choices, delve, targets: rest }
+  return { choices, delve, evidence, targets: rest }
 }
 
-const targetRefs = (groups: ActionTargetGroup[], objectIds: string[]) =>
+const targetRefs = (groups: ActionTargetGroup[], objectIds: string[], state: GameState) =>
   objectIds.map((objectId) => {
     const group = groups.find((candidate) =>
       candidate.purpose !== 'cost'
       && candidate.targets.some((target) => target.objectId === objectId))
-    return group?.kind === 'player'
+    return group?.kind === 'player' || (group?.kind === 'anyTarget' && Boolean(state.players[objectId]))
       ? { kind: 'player' as const, player: objectId }
       : { kind: 'object' as const, objectId }
   })
@@ -135,7 +137,7 @@ export const applyKernelAct = (
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))
     ?? (message.kind === 'castSpell' && message.manaActivations
-      ? { kind: 'castSpell' as const, objectId: message.objectId!, name: state.objects[message.objectId!]?.name ?? 'planned spell' }
+      ? { kind: 'castSpell' as const, objectId: message.objectId!, name: state.objects[message.objectId!]?.name ?? 'planned spell', ...(message.selectedOptionalCosts ? { selectedOptionalCosts: [...message.selectedOptionalCosts] } : {}) }
       : undefined)
   if (!action) throw new Error('That action is not available now')
   const activationGroups = action.kind === 'activateAbility'
@@ -143,30 +145,33 @@ export const applyKernelAct = (
     : []
   const castGroups = action.kind === 'castSpell' ? action.targetGroups ?? [] : []
   const groups = action.kind === 'activateAbility' ? activationGroups : castGroups
-  const { choices, delve, targets: selectedTargets } =
-    splitGroupSelection(groups, message.targetObjectIds ?? [])
+  const { choices, delve, evidence, targets: selectedTargets } =
+    splitGroupSelection(message.evidence ? groups.filter(group => !group.collectEvidence) : groups, message.targetObjectIds ?? [])
   const groupedTargets = message.targetClauses?.map((clause) => groups.length > 0
-    ? targetRefs(groups, clause)
+    ? targetRefs(groups, clause, state)
     : clause.map((objectId) => state.players[objectId]
       ? { kind: 'player' as const, player: objectId }
       : { kind: 'object' as const, objectId }))
-  const otherGroups = groups.filter((group) => !group.delve)
+  const otherGroups = groups.filter((group) => !group.delve && !group.collectEvidence)
   // A delve cast is funded by the kernel like any other planned cast, so only
   // the delve picks and the spell's own targets travel on the event.
   const events = action.kind === 'castSpell' && otherGroups.length < groups.length
     ? eventsForAvailableAction(state, seat, {
         ...action,
         delve,
+        evidence: message.evidence ?? evidence,
         targetGroups: otherGroups.length > 0 ? otherGroups : undefined,
         ...(selectedTargets.length > 0 ? { targetObjectIds: selectedTargets } : {}),
       })
+    : action.kind === 'activateAbility' && state.objects[action.objectId]?.ruleDefinition
+    ? eventsForAvailableAction(state, seat, { ...action, evidence: message.evidence ?? evidence, targetObjectIds: [...choices, ...selectedTargets] })
     : action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,
         seat,
         objectId: action.objectId,
         abilityId: action.abilityId ?? '',
-        targets: targetRefs(activationGroups, selectedTargets),
+        targets: targetRefs(activationGroups, selectedTargets, state),
         choices,
         ...(message.modeIndices ? { modeIndices: message.modeIndices } : {}),
         ...(message.distributionBindings ? { distributionBindings: message.distributionBindings } : {}),
@@ -178,8 +183,15 @@ export const applyKernelAct = (
             ? availableAlternateCastEffect(state, seat, castObject, action.castOption)
             : undefined
           const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
+          const fromGroups = groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets, state)
           const spellTargets = hasTargetGroup
-            ? groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets)
+            ? fromGroups.length > 0
+              ? fromGroups
+              : message.targetObjectId
+                ? [{ kind: 'object' as const, objectId: message.targetObjectId }]
+                : message.targetPlayerId
+                  ? [{ kind: 'player' as const, player: message.targetPlayerId }]
+                  : []
             : action.targetObjectId
               ? [{ kind: 'object' as const, objectId: action.targetObjectId }]
               : action.targetPlayerId
@@ -202,6 +214,8 @@ export const applyKernelAct = (
             ...(message.modeIndices ? { modeIndices: message.modeIndices } : {}),
             ...(message.distributionBindings ? { distributionBindings: message.distributionBindings } : {}),
             ...(message.manaActivations ? { manaActivations: message.manaActivations } : {}),
+            ...(message.selectedOptionalCosts ? { selectedOptionalCosts: [...message.selectedOptionalCosts] } : {}),
+            ...(message.evidence ? { evidence: message.evidence.map(ids => [...ids]) } : {}),
           }]
         })()
     : eventsForAvailableAction(state, seat, action)

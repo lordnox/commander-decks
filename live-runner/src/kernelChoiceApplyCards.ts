@@ -75,8 +75,9 @@ export const applySelectCards = (
   ) {
     if (cardKind === 'choosePile') {
       const piles = waiting.selection.piles ?? { 'face-up': [], 'face-down': [] }
-      const taken = message.choices.find(({ destination }) => destination === 'hand')
-      if (!taken) throw new Error('Choose exactly one pile for your hand.')
+      const destination = waiting.selection.destinations?.includes('target') ? 'target' : 'hand'
+      const taken = message.choices.find(choice => choice.destination === destination)
+      if (!taken) throw new Error('Choose exactly one pile.')
       const faceUpLabel = decision.cards[0]
       const objectIds = taken.card === faceUpLabel ? piles['face-up'] : piles['face-down']
       const continued = kernel.dispatch({
@@ -91,8 +92,8 @@ export const applySelectCards = (
       return closeKernelChoice(kernel, lobby, seat, {
         privateJudge: {
           [seat]: waiting.selection.source
-            ? `${waiting.selection.source}: you took ${taken.card}.`
-            : `You took ${taken.card}.`,
+            ? `${waiting.selection.source}: you chose ${taken.card}.`
+            : `You chose ${taken.card}.`,
         },
         judge: waiting.selection.source
           ? `${lobby.occupants[seat]?.name ?? seat} chose a pile for ${waiting.selection.source}.`

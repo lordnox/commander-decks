@@ -1,3 +1,8 @@
+import { canPrepareCast, preparationCost } from './cardPlugins/dsl/preparedCasting'
+import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
+import { canonicalLandPermission, canonicalSpellPermission } from './cardPlugins/dsl/playPermissions'
+import { matchingSpellCast } from './cardPlugins/dsl/spellPermissions'
+import { effectiveActivatedDefinition, canonicalActivationIsActive } from './cardPlugins/dsl/activatedGrants'
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
@@ -10,6 +15,7 @@ import {
   multikickerCostOf,
 } from './plugins/kickCast'
 import {
+  announcementSource,
   convokeColors,
   hasConvoke,
   hasDelve,
@@ -29,11 +35,11 @@ import {
   sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
-import { canonicalManaAbilityForTap } from './cardPlugins/activated'
-import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceSacrificeCost } from './cardPlugins/dsl/compiler'
+import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
+import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeBounds, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluatePlayerSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
-import type { CardRuleDefinitionV1, Cost } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
@@ -59,10 +65,10 @@ import {
   landFacesOf,
   permanentFaceOf,
 } from './plugins/doubleFaced'
-import { resolveCastFace } from './plugins/adventure'
+import { mayPlayAdventuredLand, resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { freeCastCandidates, pendingFreeCastFor } from './plugins/rebound'
-import { enchantTargets } from './plugins/enchant'
+import { enchantPlayerTargets, enchantTargets } from './plugins/enchant'
 import { mayCastAsThoughFlash } from './plugins/flashGrant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
@@ -119,11 +125,14 @@ export type ActionTargetGroup = {
   label: string
   min: number
   max: number
-  kind?: 'object' | 'player'
+  kind?: 'object' | 'player' | 'anyTarget'
   purpose?: 'target' | 'cost'
   /** The cost group whose picks are exiled from the graveyard to pay generic mana. */
   delve?: true
-  targets: Array<{ objectId: string; name: string; controller: PlayerId }>
+  minTotalPower?: number
+  collectEvidence?: true
+  minTotalManaValue?: number
+  targets: Array<{ objectId: string; name: string; controller: PlayerId; manaValue?: number }>
 }
 
 export type AvailableAction =
@@ -149,10 +158,14 @@ export type AvailableAction =
       giftRecipientId?: string
       spreeModes?: string[]
       timesKicked?: number
+      selectedOptionalCosts?: number[]
+      costPlayers?: Readonly<Record<number, PlayerId>>
+      selectedAlternativeCost?: number
       castOption?: string
       castLabel?: string
       convoke?: string[]
       delve?: string[]
+      evidence?: string[][]
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
       door?: RoomDoorId
@@ -170,18 +183,21 @@ export type AvailableAction =
       doorName: string
     }
   | { kind: 'foretell'; objectId: string; name: string }
+  | { kind: 'plot' | 'suspend'; objectId: string; name: string }
   | {
       kind: 'activateAbility'
       objectId: string
       name: string
       text: string
       abilityId?: string
+      evidence?: string[][]
       targetObjectIds?: string[]
       targetGroups?: ActionTargetGroup[]
       modeIndices?: number[]
       distributionBindings?: DistributionAllocation[]
       mana?: ManaId
       door?: RoomDoorId
+      x?: number
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | {
@@ -434,8 +450,7 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
       sourceId: object.id,
       payer: seat,
       action: 'tapForMana',
-      sorcerySpeed: canonical.ability.timing === 'sorcery',
-      availableFrom: canonical.ability.availableFrom,
+      ...activatedPermissionFields(canonical.ability),
     }) === undefined
   })()
   && !object.phasedOut
@@ -447,7 +462,7 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
       && (
         !object.types.includes('Creature')
         || !object.summoningSickness
-        || hasKeyword(object, 'haste', state)
+        || hasKeyword(object, 'haste')
       )
     )
   )
@@ -490,25 +505,28 @@ const manaPlays = (
           }]
         : []
     }),
-    ...activatedOptions.map(({ abilityId, cost, pool, choice, sacrifices }): ManaPlay => ({
-      pool,
-      cost,
-      ...(sacrifices ? { sacrifices: true as const } : {}),
-      event: {
-        type: 'activateAbility',
-        seat,
-        objectId: source.id,
-        abilityId,
-        manaAbility: true,
-        ...(choice ? { choices: [choice] } : {}),
-      },
-    })),
+    ...activatedOptions.flatMap(({ abilityId, cost, pool, choice, sacrifices, restriction }): ManaPlay[] => {
+      if (spell && restriction && !canUseRestrictedMana(state, seat, spell, restriction)) return []
+      return [{
+        pool,
+        cost,
+        ...(sacrifices ? { sacrifices: true as const } : {}),
+        event: {
+          type: 'activateAbility',
+          seat,
+          objectId: source.id,
+          abilityId,
+          manaAbility: true,
+          ...(choice ? { choices: [choice] } : {}),
+        },
+      }]
+    }),
   ]
 }
 
 /** Sorcery-speed spells (and special actions) cannot be cast or taken while anything waits on the stack. */
 const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
-  !spell.types.includes('Instant') && !hasKeyword(spell, KEYWORDS.flash, state) && !mayCastAsThoughFlash(state, seat)
+  !spell.types.includes('Instant') && !hasKeyword(spell, KEYWORDS.flash) && !mayCastAsThoughFlash(state, seat)
 
 /**
  * Tapping this source for mana puts a "becomes tapped" trigger on the stack
@@ -517,6 +535,7 @@ const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
  */
 const tapTriggersOnStack = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'trigger' && effect.on === 'tapped')
+  || object.ruleDefinition?.definition.abilities.some(ability => ability.kind === 'triggered' && ability.on.kind === 'becomesTapped') === true
 
 /**
  * Sources that can add mana, ordered so a costed ability sees the mana the
@@ -617,6 +636,7 @@ const canCastAtTiming = (
 ) => {
   const face = spellFace ?? castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
+  if (object.types.includes('Land') && !face) return false
   const fromAlternateZone = availableAlternateCastEffects(state, seat, object)
     .some((effect) => effect.fromZone === object.zone)
   const fromAdventureExile = Boolean(
@@ -625,14 +645,20 @@ const canCastAtTiming = (
     && spellFace
     && !spellFace.subtypes.includes('Adventure'),
   )
+  const permission = matchingSpellCast(state, seat, object.id)
+  const staticPermission = canonicalSpellPermission(state, seat, object)
+  const fromPermissionZone = Boolean(
+    (permission && (permission.zone === object.zone || permission.objectId === object.id))
+    || staticPermission,
+  )
   if (
     !state.castableZones.includes(object.zone)
     && !(withoutPayingMana && object.zone === 'exile')
     && !fromAlternateZone
     && !fromAdventureExile
+    && !fromPermissionZone
   ) return false
-  if (object.types.includes('Land') && !face) return false
-  if (object.owner !== seat || object.controller !== seat) return false
+  if (!permission?.takeControl && (object.owner !== seat || object.controller !== seat)) return false
   const endStepOnly = effectsOf(object).some(
     (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',
   )
@@ -641,12 +667,20 @@ const canCastAtTiming = (
     && endStepOnly
     && (state.active !== seat || state.step !== 'end')
   ) return false
+  const spellAbility = canonicalSpellProgram(object)
+  if (
+    !withoutPayingMana
+    && spellAbility
+    && spellCastPermission(state, object, spellAbility, seat)
+  ) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (enchantTargets(state, spell)?.length === 0) return false
   if (
     !withoutPayingMana
+    && !permission?.asThoughFlash
+    && !staticPermission?.asThoughFlash
     && !spell.types.includes('Instant')
-    && !hasKeyword(spell, KEYWORDS.flash, state)
+    && !hasKeyword(spell, KEYWORDS.flash)
     && !mayCastAsThoughFlash(state, seat)
     && (
       state.active !== seat
@@ -824,6 +858,39 @@ const alternateCastCostGroups = (
 const bestowEffect = (object: GameObject) =>
   effectsOf(object).find((effect) => effect.op === 'bestow')
 
+const canonicalSpellProgram = (object: GameObject) => object.ruleDefinition
+  ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
+  : undefined
+
+const paysVariableLife = (object: GameObject) => effectsOf(object).some(effect => effect.op === 'castCost' && effect.lifeX)
+  || canonicalSpellProgram(object)?.costs.some(cost => cost.kind === 'life' && cost.amount.kind === 'variable') === true
+
+const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameObject, action: Extract<AvailableAction, { kind: 'castSpell' }>, partial = false) => {
+  try {
+    const definition = object.ruleDefinition ? loadDefinitionSnapshot(object.ruleDefinition).definition : undefined
+    const abilityIndex = definition?.abilities.findIndex(entry => entry.kind === 'spell') ?? -1
+    const ability = definition?.abilities[abilityIndex]
+    if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length)) return undefined
+    const previewAbility = partial && ability.optionalCostBounds ? { ...ability, optionalCostBounds: { ...ability.optionalCostBounds, min: 0 } } : ability
+    const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat)
+    const choices = canonicalCostPreviewChoices(entries)
+    if (!choices) return undefined
+    const evidence = canonicalEvidencePreview(entries)
+    if (!evidence) return undefined
+    const costCount = entries.filter(entry => entry.costKind !== 'collectEvidence').reduce((total, entry) => total + entry.group.min, 0)
+    const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
+    const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
+    const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
+    const result = beginSpellAnnouncement(state, announcementSource(object, availableAlternateCastEffect(state, seat, object, action.castOption)), seat, previewAbility, grouped, action.x, choices, {
+      evidence, targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
+      selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
+    })
+    return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
+  } catch {
+    return undefined
+  }
+}
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (canPlayExiledWithLife(state, seat, object)) {
     const life = manaValueOf(object)
@@ -858,7 +925,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   if (isAdventureCard(object)) {
     const permanent = permanentFaceOf(object)
     const adventure = adventureFaceOf(object)
-    const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    const paysLifeX = paysVariableLife(object)
     const fundedForFace = (
       face: FaceCharacteristics,
       base: Extract<AvailableAction, { kind: 'castSpell' }>,
@@ -891,7 +958,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         castLabel: adventureLabel,
       }))
     }
-    if (permanent && object.adventured && object.zone === 'exile') {
+    if (permanent && object.adventured && object.zone === 'exile' && castFaceOf(object)) {
       actions.push(...fundedForFace(permanent, {
         kind: 'castSpell',
         objectId: object.id,
@@ -904,12 +971,13 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   }
   if (!canCastAtTiming(state, seat, object)) return []
   const alternatives = availableAlternateCastEffects(state, seat, object)
-  const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+  const paysLifeX = paysVariableLife(object)
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
   const hasTargetReduction = effectsOf(object).some((effect) =>
     effect.op === 'castCost'
     && effect.reduceGeneric?.if.kind === 'target')
+    || Boolean(object.ruleDefinition && loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.some(ability => ability.kind === 'spell' && costsDependOnTargets(ability.costReductions)))
   const withKicker = (
     action: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
@@ -994,14 +1062,51 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       }
     })
   }
+  const canonicalAbility = object.ruleDefinition
+    ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
+    : undefined
+  const hasCanonicalCostOptions = canonicalAbility?.kind === 'spell' && Boolean(canonicalAbility.optionalCosts?.length || canonicalAbility.alternativeCosts?.length)
+  const preview = (action: Extract<AvailableAction, { kind: 'castSpell' }>) =>
+    canonicalActionManaCost(state, seat, object, action)
+  const withCostOptions = (base: Extract<AvailableAction, { kind: 'castSpell' }>) => {
+    if (!canonicalAbility || canonicalAbility.kind !== 'spell' || (!canonicalAbility.optionalCosts?.length && !canonicalAbility.alternativeCosts?.length)) return [base]
+    let variants = [base, ...(canonicalAbility.alternativeCosts ?? []).map((_, selectedAlternativeCost) => ({ ...base, selectedAlternativeCost, castLabel: canonicalAbility.costLabels?.alternative?.[selectedAlternativeCost] ?? `Alternative payment ${selectedAlternativeCost + 1}` }))]
+    for (const [index, optionalCost] of (canonicalAbility.optionalCosts ?? []).entries()) {
+      variants = variants.flatMap(action => {
+        const next = [action]
+        if (optionalCost.kind === 'choosePlayer') {
+          const context = { state, controller: seat, source: captureObject(object) }
+          for (const player of evaluatePlayerSelector(optionalCost.players, context)) {
+            next.push({ ...action, selectedOptionalCosts: [...(action.selectedOptionalCosts ?? []), index],
+              costPlayers: { ...action.costPlayers, [index]: player },
+              castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional choice ${index + 1}`} to ${player}` })
+          }
+          return next
+        }
+        let optional = [...(action.selectedOptionalCosts ?? [])]
+        const limit = canonicalAbility.repeatableOptionalCosts?.includes(index) ? 256 - optional.length : 1
+        for (let count = 0; count < limit; count += 1) {
+          optional = [...optional, index]
+          const candidate = { ...action, selectedOptionalCosts: optional, castLabel: `${canonicalAbility.costLabels?.optional?.[index] ?? `Additional payment ${index + 1}`}${count > 0 ? ` ×${count + 1}` : ''}` }
+          const cost = canonicalActionManaCost(state, seat, object, candidate, true)
+          if (cost === undefined || fundedCasts(state, seat, object, cost).length === 0) break
+          next.push(candidate)
+        }
+        return next
+      })
+    }
+    return variants
+  }
   const fundedVariants = (
     base: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
   ) => withGiftRecipients(
-    withKicker(base, options).flatMap((action) =>
+    withCostOptions(base).flatMap(action => withKicker(action, options)).flatMap((action) =>
       action.kind === 'castSpell' ? withSpree(action) : [action]).flatMap((action) => {
       if (action.kind !== 'castSpell') return []
-      const cost = spellCost(state, spell, {
+      if (object.manaCostAbsent && !action.castOption && !action.alternativeCost && action.selectedAlternativeCost === undefined) return []
+      if (hasCanonicalCostOptions && preview(action) === undefined) return []
+      const cost = preview(action) ?? spellCost(state, spell, {
         additionalGeneric: tax,
         x: options.x ?? action.x,
         castOption: options.castOption ?? action.castOption,
@@ -1026,9 +1131,18 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       })
     }).flatMap((action) => action.kind === 'castSpell' ? withGift(action) : [action]),
   )
+  const staticPermission = canonicalSpellPermission(state, seat, object)
+  const printedPermission = matchingSpellCast(state, seat, object.id)
+  const authorizedZone = state.castableZones.includes(object.zone)
+    || (
+      staticPermission
+      && !staticPermission.discardLand
+      && staticPermission.cost !== 'lifeEqualManaValue'
+    )
+    || printedPermission?.cost === 'printed'
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const adventure = alternatives.some((effect) => effect.id === 'adventure')
-    const actions: AvailableAction[] = state.castableZones.includes(object.zone) && !adventure
+    const actions: AvailableAction[] = authorizedZone && !adventure
       ? fundedVariants({
           kind: 'castSpell',
           objectId: object.id,
@@ -1069,6 +1183,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         candidate.zone === 'battlefield'
         && candidate.controller === seat
         && candidate.types.includes('Creature')
+        && !candidate.phasedOut
         && !candidate.tapped).length
     : 0
   const manaUpper = poolTotal(state.players[seat].mana) + sourceMana + convokeUpper
@@ -1077,8 +1192,11 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     : paysLifeX
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
-  if (!state.castableZones.includes(object.zone)) return []
-  return Array.from({ length: upper + 1 }, (_, x) => x)
+  if (!authorizedZone) return []
+  const variable = canonicalSpellProgram(object)?.decisions.variables?.[0]
+  const min = variable?.min ?? 0
+  const max = Math.min(upper, variable?.max ?? upper)
+  return Array.from({ length: Math.max(0, max - min + 1) }, (_, index) => min + index)
     .flatMap((x): AvailableAction[] => fundedVariants({
       kind: 'castSpell',
       objectId: object.id,
@@ -1125,12 +1243,8 @@ const canActivate = (
   // stop its controller at every step of every turn. Surface it once combat
   // damage is actually threatened; a later combat redeclares attackers and
   // reopens the window.
-  if (/prevent all combat damage[^.]*this turn/i.test(line)) {
-    if (!DAMAGE_PENDING_STEPS.has(state.step)) return false
-    const attacking = Object.values(state.objects).some(
-      (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
-    )
-    if (!attacking) return false
+  if (/prevent all combat damage[^.]*this turn/i.test(line) && !combatDamageIsThreatened(state)) {
+    return false
   }
   const manaCost = [...cost.matchAll(/\{(?:\d+|[WUBRGC](?:\/[WUBRGC])?)\}/gi)]
     .map((match) => match[0])
@@ -1164,7 +1278,7 @@ const canonicalActionTargetGroups = (
     const bounds = evaluateTargetBounds(clause, amountEvaluationContext(context))
     return {
       label: `Target ${clauseIndex + 1}`, min: bounds.min, max: bounds.max,
-      kind: clause.filter.kind === 'players' ? 'player' as const : 'object' as const,
+      kind: clause.filter.kind === 'anyTarget' ? 'anyTarget' as const : clause.filter.kind === 'players' ? 'player' as const : 'object' as const,
       targets: candidates[clauseIndex].map(target => {
         switch (target.kind) {
           case 'player': return { objectId: target.player, name: target.player, controller: target.player }
@@ -1182,20 +1296,85 @@ const canonicalActionTargetGroups = (
   })
 }
 
-const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId) => {
+const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId, options: { includeSourceCosts?: boolean; excludeSource?: boolean } = {}) => {
   const context = { state, controller: seat, source: captureObject(object) }
-  return costs.flatMap(cost => {
-    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return []
-    if (isSourceSacrificeCost(cost)) return []
+  return costs.map((cost, costIndex) => {
+    if (cost.kind === 'collectEvidence') {
+      const candidates = Object.values(state.objects).filter(candidate => (options.excludeSource === false || candidate.id !== object.id) && candidate.zone === 'graveyard' && candidate.owner === seat && !candidate.token)
+      const amount = evaluateRuntimeAmount(cost.amount, context)
+      return { costKind: cost.kind, sourceCost: false, group: { label: `Collect evidence ${amount} (payment ${costIndex + 1})`, purpose: 'cost' as const, collectEvidence: true as const, min: amount > 0 ? 1 : 0, max: candidates.length, minTotalManaValue: amount,
+        targets: candidates.map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller, manaValue: candidate.manaValue })),
+      } }
+    }
+    if (cost.kind === 'crew') {
+      const candidates = crewCandidates(state, seat, object.id)
+      const power = evaluateRuntimeAmount(cost.power, context)
+      return { costKind: cost.kind, sourceCost: false, group: { label: `Creatures to crew ${power}`, purpose: 'cost' as const, min: power > 0 ? 1 : 0, max: candidates.length, minTotalPower: power,
+        targets: candidates.map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller, power: candidate.power ?? 0 })),
+      } }
+    }
+    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return undefined
+    const sourceCost = isSourceObjectCost(cost)
+    if (sourceCost && !options.includeSourceCosts) return undefined
     const candidates = cost.filter.kind === 'objects'
       ? evaluateObjectSelector(cost.filter, context) : evaluateObjectReference(cost.filter, context)
     const count = evaluateRuntimeAmount(cost.count, context)
-    return [{ costKind: cost.kind, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
-      targets: candidates.filter(candidate => candidate.id !== object.id && candidate.controller === seat
+    return { costKind: cost.kind, sourceCost, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
+      targets: candidates.filter(candidate => (options.excludeSource === false || candidate.id !== object.id) && candidate.controller === seat
         && candidate.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield'))
         .map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller })),
-    } }]
-  })
+    } }
+  }).filter(entry => entry !== undefined)
+}
+
+/** Find a disjoint assignment to object-cost slots without requiring the user to have chosen yet. */
+const canonicalCostPreviewChoices = (allEntries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const entries = allEntries.filter(entry => entry.costKind !== 'collectEvidence')
+  const crew = entries.find(entry => entry.costKind === 'crew')
+  if (crew) {
+    const candidates = crew.group.targets.filter(candidate => 'power' in candidate && Number(candidate.power) > 0)
+    return candidates.reduce((sum, candidate) => sum + ('power' in candidate ? Number(candidate.power) : 0), 0) >= (crew.group.minTotalPower ?? 0) ? candidates.map(candidate => candidate.objectId) : undefined
+  }
+  const slots = entries.flatMap(entry => Array.from({ length: entry.group.min }, () => entry.group.targets))
+  const occupied = new Map<string, number>()
+  const assigned: string[] = []
+  // Recursive augmenting paths require the explicit return type.
+  const assign = (slot: number, seen: Set<string>): boolean => {
+    for (const candidate of slots[slot]) {
+      if (seen.has(candidate.objectId)) continue
+      seen.add(candidate.objectId)
+      const previous = occupied.get(candidate.objectId)
+      if (previous !== undefined && !assign(previous, seen)) continue
+      occupied.set(candidate.objectId, slot)
+      assigned[slot] = candidate.objectId
+      return true
+    }
+    return false
+  }
+  return slots.every((_, slot) => assign(slot, new Set())) ? assigned : undefined
+}
+
+/** Find independent payments without spending the same graveyard card twice. */
+const canonicalEvidencePreview = (entries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const groups = entries.filter(entry => entry.costKind === 'collectEvidence').map(entry => entry.group)
+  // Explicit return types support recursive inference. Backtracking prevents a greedy first payment from consuming the only valid second payment.
+  const pay = (index: number, used: Set<string>): string[][] | undefined => {
+    if (index === groups.length) return []
+    const group = groups[index]!
+    const candidates = group.targets.filter(candidate => !used.has(candidate.objectId) && (candidate.manaValue ?? 0) > 0)
+    const choose = (cursor: number, amount: number, selected: string[]): string[][] | undefined => {
+      if (amount >= (group.minTotalManaValue ?? 0)) {
+        const later = pay(index + 1, new Set([...used, ...selected]))
+        if (later) return [selected, ...later]
+        return undefined
+      }
+      if (cursor === candidates.length || amount + candidates.slice(cursor).reduce((total, candidate) => total + (candidate.manaValue ?? 0), 0) < (group.minTotalManaValue ?? 0)) return undefined
+      const candidate = candidates[cursor]!
+      return choose(cursor + 1, amount + (candidate.manaValue ?? 0), [...selected, candidate.objectId]) ?? choose(cursor + 1, amount, selected)
+    }
+    return choose(0, 0, [])
+  }
+  return pay(0, new Set())
 }
 
 const canonicalTargetRef = (state: GameState, id: string) => {
@@ -1204,24 +1383,91 @@ const canonicalTargetRef = (state: GameState, id: string) => {
   return { kind: 'object' as const, objectId: id }
 }
 
+const fogsAllCombatThisTurn = (instruction: Instruction): boolean => {
+  if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
+    return instruction.instructions.some(fogsAllCombatThisTurn)
+  }
+  if (instruction.kind !== 'createEffect' || instruction.effect.kind !== 'prevention') return false
+  const { effect, duration } = instruction
+  return effect.capacity.kind === 'unlimited'
+    && duration.kind === 'untilCleanup'
+    && effect.filter.combat === true
+    && effect.filter.source === undefined
+    && effect.filter.recipient === undefined
+}
+
+const combatDamageIsThreatened = (state: GameState) =>
+  DAMAGE_PENDING_STEPS.has(state.step)
+  && Object.values(state.objects).some(
+    (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
+  )
+
+const activationManaUpper = (state: GameState, seat: PlayerId) => poolTotal(state.players[seat].mana) + manaSources(state, seat).reduce((total, plays) => total + Math.max(0, ...plays.map(play => poolTotal({ ...emptyMana(), ...play.pool }) - (play.cost ? costSize(play.cost) : 0))), 0)
+
+const loyaltyXValues = (object: GameObject, ability: Extract<CardRuleDefinitionV1['abilities'][number], { kind: 'activated' }>) => {
+  const variables = ability.decisions.variables ?? []
+  if (variables.length !== 1) return
+  const [variable] = variables
+  const cost = ability.costs.find((entry): entry is Extract<Cost, { kind: 'loyalty' }> => entry.kind === 'loyalty')
+  if (!cost || cost.amount.kind !== 'variable' || cost.amount.name !== variable.name) return
+  const max = cost.minus ? Math.min(variable.max, object.counters.loyalty ?? 0) : variable.max
+  if (max < variable.min) return []
+  return Array.from({ length: max - variable.min + 1 }, (_, index) => variable.min + index)
+}
+
 const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
-  if (!object.ruleDefinition || object.controller !== seat) return []
-  const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
-  return definition.abilities.flatMap((ability, index) => {
-    if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
+  if ((!object.ruleDefinition && !object.canonicalGrantedActivations?.length) || object.controller !== seat) return []
+  const definition = effectiveActivatedDefinition(object).definition
+  return definition.abilities.flatMap((ability, index): AvailableAction[] => {
+    if (!canonicalActivationIsActive(object, index)) return []
+    if (ability.kind !== 'activated' || ability.modes) return []
+    const variable = ability.decisions.variables?.[0]
+    const xs = loyaltyXValues(object, ability) ?? (variable && ability.decisions.variables?.length === 1
+      && ability.costs.some(cost => cost.kind === 'mana' && cost.amount.includes('{X}'))
+      ? Array.from({ length: Math.max(0, Math.min(variable.max, activationManaUpper(state, seat)) - variable.min + 1) }, (_, index) => variable.min + index) : undefined)
+    if (ability.decisions.variables?.length && xs === undefined) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
-      sorcerySpeed: ability.timing === 'sorcery', availableFrom: ability.availableFrom })) return []
-    const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], undefined, undefined,
-      { targetClauses: [], deferPayment: true })
-    if (!announcement.ok) return []
-    const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
-      || isSourceSacrificeCost(cost))
-      ? new Set([object.id]) : new Set<string>()
-    if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
-    const targetGroups = canonicalActionTargetGroups(state, object, ability, seat)
-    if (targetGroups.some(group => group.targets.length < group.min)) return []
-    return [{ kind: 'activateAbility', objectId: object.id, name: object.name,
-      text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups }] satisfies AvailableAction[]
+      ...activatedPermissionFields(ability) })) return []
+    if (ability.instructions.some(fogsAllCombatThisTurn) && !combatDamageIsThreatened(state)) return []
+    const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+    const costChoices = canonicalCostPreviewChoices(costEntries)
+    if (!costChoices) return []
+    const evidence = canonicalEvidencePreview(costEntries)
+    if (!evidence) return []
+    return (xs ?? [undefined]).flatMap((x): AvailableAction[] => {
+      const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], x, costChoices,
+        { evidence, targetClauses: [], deferPayment: true })
+      if (!announcement.ok) return []
+      const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
+        || isSourceObjectCost(cost))
+        ? new Set([object.id]) : new Set<string>()
+      if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
+      const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
+      if (targetGroups.some(group => group.targets.length < group.min)) return []
+      if (ability.instructions.some(instruction => instruction.kind === 'lockOrUnlockDoor')) {
+        const rooms = targetGroups.at(-1)?.targets ?? []
+        return rooms.flatMap(room =>
+          (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
+            const characteristics = roomDoor(state.objects[room.objectId], door)
+            if (!characteristics) return []
+            return [{
+              kind: 'activateAbility',
+              objectId: object.id,
+              name: object.name,
+              text: `Lock or unlock ${characteristics.name}`,
+              abilityId: `$.abilities[${index}]`,
+              targetObjectIds: [room.objectId],
+              door,
+              ...(x !== undefined ? { x } : {}),
+            }]
+          }))
+      }
+      return [{
+        kind: 'activateAbility', objectId: object.id, name: object.name,
+        text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups,
+        ...(x !== undefined ? { x } : {}),
+      }]
+    })
   })
 }
 
@@ -1287,13 +1533,7 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
         instruction.kind === 'preventCombatDamage'
         && (instruction.from ?? 'all') === 'all'
         && !instruction.toController)
-      if (fogsAllCombat) {
-        if (!DAMAGE_PENDING_STEPS.has(state.step)) return []
-        const attacking = Object.values(state.objects).some(
-          (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
-        )
-        if (!attacking) return []
-      }
+      if (fogsAllCombat && !combatDamageIsThreatened(state)) return []
       return [{
         kind: 'activateAbility',
         objectId: object.id,
@@ -1409,7 +1649,10 @@ export const availableActions = (
   ) {
     const playableLands = [
       ...hand,
-      ...state.zoneOrder[seat].exile.filter((id) => state.objects[id]?.adventureReady),
+      ...Object.values(state.objects).filter(object =>
+        object.zone !== 'hand' && object.controller === seat
+        && (mayPlayAdventuredLand(object) || canonicalLandPermission(state, seat, object)))
+        .map(object => object.id),
     ]
     for (const id of playableLands) {
       const object = state.objects[id]
@@ -1417,6 +1660,7 @@ export const availableActions = (
       if (object && landFaces.length > 1) {
         const names = object.name.split(' // ')
         for (const { choice } of landFaces) {
+          if (object.zone !== 'hand' && !mayPlayAdventuredLand(object) && !canonicalLandPermission(state, seat, object, choice)) continue
           actions.push({
             kind: 'playLand',
             objectId: id,
@@ -1428,13 +1672,12 @@ export const availableActions = (
       } else if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
       }
-      if (object && canForetellFromHand(state, seat, object)) {
-        actions.push({ kind: 'foretell', objectId: id, name: object.name })
-      }
     }
   }
 
   for (const object of Object.values(state.objects)) {
+    if (canForetellFromHand(state, seat, object)) actions.push({ kind: 'foretell', objectId: object.id, name: object.name })
+    for (const kind of ['plot', 'suspend'] as const) if (canPrepareCast(state, seat, object, kind)) actions.push({ kind, objectId: object.id, name: object.name })
     actions.push(...castActions(state, seat, object))
     if (
       object.roomDoors
@@ -1499,7 +1742,7 @@ export const availableActions = (
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped
-        && (!object.summoningSickness || hasKeyword(object, 'haste', state)))
+        && (!object.summoningSickness || hasKeyword(object, 'haste')))
       .map((object) => object.id)
     if (objectIds.length > 0) {
       const taxByDefender = attackTaxByDefender(state)
@@ -1636,22 +1879,51 @@ const targetVariants = (
   action: AvailableAction,
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
-  const source = state.objects[action.objectId]
+  const originalSource = state.objects[action.objectId]
+  const source = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }) : undefined
+  const playerAttachments = source && !action.castOption ? enchantPlayerTargets(state, source) : undefined
+  if (playerAttachments) return playerAttachments.map(player => ({ ...action, targetObjectId: player, targetName: player }))
+  const objectAttachments = source && !action.castOption ? enchantTargets(state, source) : undefined
+  if (objectAttachments) return objectAttachments.map(object => ({ ...action, targetObjectId: object.id, targetName: object.name }))
   if (source?.ruleDefinition) {
     const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
     const ability = definition.abilities[abilityIndex]
     if (ability?.kind !== 'spell') return [{ ...action, targetGroups: [] }]
-    const costGroups = canonicalActionCostGroups(state, source, ability.costs, seat).map(entry => entry.group)
+    const costGroups = canonicalActionCostGroups(state, source, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat).map(entry => entry.group)
+    const printedCost = spellCost(state, source, {
+      additionalGeneric: taxFor(state, seat, source),
+      x: action.x,
+      castOption: action.castOption,
+      kicked: action.kicked,
+      spreeModes: action.spreeModes,
+      timesKicked: action.timesKicked,
+      seat,
+      withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
+    })
+    const delveGroup = ability.costs.some(cost => cost.kind === 'delve')
+      ? delveGroupFor(state, seat, source, printedCost, action.phyrexianLife ?? [])
+      : undefined
+    if (delveGroup === null) return []
     if (costGroups.some(group => group.targets.length < group.min)) return []
-    const variants = ability.modes && ability.decisions.modes
-      ? combinationsOf(ability.modes.map((_, index) => index), evaluateModeCount(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }))
+    const bounds = ability.decisions.modes ? evaluateModeBounds(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }) : undefined
+    const variants = ability.modes && bounds
+      ? Array.from({ length: Math.max(0, Math.min(bounds.max, ability.modes.length) - bounds.min + 1) }, (_, index) => bounds.min + index)
+          .flatMap(count => combinationsOf(ability.modes!.map((_, index) => index), count))
       : [undefined]
     return variants.flatMap(modeIndices => {
       const clauses = modeIndices ? modalTargetLayout(ability, abilityIndex, modeIndices).map(entry => entry.clause) : ability.decisions.targets
       const groups = canonicalActionTargetGroups(state, source, ability, seat, clauses)
+      if (costsDependOnTargets(ability.costReductions) && groups.length === 1 && groups[0].min === 1 && groups[0].max === 1) {
+        groups[0] = { ...groups[0], targets: groups[0].targets.filter(target => {
+          const cost = canonicalActionManaCost(state, seat, source, { ...action, targetObjectId: target.objectId })
+          return cost !== undefined && canFund(state, seat, cost, [], source)
+        }) }
+      }
       if (groups.some(group => group.targets.length < group.min)) return []
-      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...costGroups, ...groups] }]
+      const alternateCostGroups = (action.targetGroups ?? []).filter(group =>
+        group.purpose === 'cost' && !group.delve)
+      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...alternateCostGroups, ...costGroups, ...groups.filter(group => group.max > 0)] }]
     })
   }
   if (source && action.castOption === 'bestow' && bestowEffect(source)) {
@@ -1673,33 +1945,6 @@ const targetVariants = (
       targetName: target.name,
     }))
   }
-  if (source?.name === 'Settle the Wreckage') {
-    return state.playerOrder
-      .filter((player) => !state.players[player].lost)
-      .map((player) => ({
-        ...action,
-        targetPlayerId: player,
-        targetName: player,
-      }))
-  }
-  if (source?.name === 'Energy Arc') {
-    const targets = Object.values(state.objects)
-      .filter((object) => object.zone === 'battlefield' && object.types.includes('Creature'))
-      .map((object) => ({
-        objectId: object.id,
-        name: object.name,
-        controller: object.controller,
-      }))
-    return [{
-      ...action,
-      targetGroups: [{
-        label: 'Creatures',
-        min: 0,
-        max: targets.length,
-        targets,
-      }],
-    }]
-  }
   if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
     return Object.values(state.objects)
       .filter((object) => validBlinkSpellTarget(source.name, object, seat))
@@ -1713,7 +1958,7 @@ const targetVariants = (
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
   const playerAura = source
-    ? effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
+    ? Boolean(enchantPlayerTargets(state, source)) || effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
     : false
   if (playerAura) {
     return state.playerOrder
@@ -1789,7 +2034,7 @@ const targetVariants = (
         ? [{ kind: 'player' as const, player: candidate.targetPlayerId }]
         : []
     const delveMax = candidate.targetGroups?.find((group) => group.delve)?.max ?? 0
-    return canFund(state, seat, reduceGenericManaCost(spellCost(state, spell, {
+    return canFund(state, seat, reduceGenericManaCost(canonicalActionManaCost(state, seat, source, candidate) ?? spellCost(state, spell, {
       additionalGeneric: taxFor(state, seat, source),
       castOption: candidate.castOption,
       kicked: candidate.kicked,
@@ -2059,6 +2304,9 @@ export const sameLegalAct = (
     x?: number
     kicked?: boolean
     timesKicked?: number
+    selectedOptionalCosts?: number[]
+    costPlayers?: Readonly<Record<number, PlayerId>>
+    selectedAlternativeCost?: number
     giftPromised?: boolean
     giftRecipientId?: string
     spreeModes?: string[]
@@ -2085,16 +2333,25 @@ export const sameLegalAct = (
       && left.text === right.text
       && left.mana === right.mana
       && left.door === right.door
+      && left.x === right.x
       && samePickedTargets
   }
   if (left.kind === 'castSpell') {
-    return left.targetObjectId === right.targetObjectId
+    const samePickedTargets = left.targetObjectId === right.targetObjectId
+      || (
+        left.targetObjectId === undefined
+        && (left.targetGroups?.length ?? 0) > 0
+      )
+    return samePickedTargets
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
       && left.kicked === right.kicked
       && left.giftPromised === right.giftPromised
       && left.giftRecipientId === right.giftRecipientId
       && JSON.stringify(left.spreeModes ?? []) === JSON.stringify(right.spreeModes ?? [])
+      && JSON.stringify(left.costPlayers ?? {}) === JSON.stringify(right.costPlayers ?? {})
+      && JSON.stringify(left.selectedOptionalCosts ?? []) === JSON.stringify(right.selectedOptionalCosts ?? [])
+      && left.selectedAlternativeCost === right.selectedAlternativeCost
       && left.timesKicked === right.timesKicked
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
@@ -2103,7 +2360,7 @@ export const sameLegalAct = (
       && left.adventureCast === right.adventureCast
   }
   if (left.kind === 'unlockDoor') return left.door === right.door
-  if (left.kind === 'foretell') return true
+  if (left.kind === 'foretell' || left.kind === 'plot' || left.kind === 'suspend') return true
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
@@ -2195,6 +2452,7 @@ const convokeFundingPlan = (
     object.zone === 'battlefield'
     && object.controller === seat
     && object.types.includes('Creature')
+    && !object.phasedOut
     && !object.tapped)
   const symbols = genericCostForAction(cost)
     + [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length
@@ -2229,7 +2487,7 @@ export const eventsForCombatDeclaration = (
   const excluded = event.type === 'declareAttackers'
     ? new Set(event.attackers.flatMap((attacker) => {
         const object = state.objects[attacker.objectId]
-        return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
+        return object && !hasKeyword(object, 'vigilance') ? [object.id] : []
       }))
     : new Set(event.blockers.map((blocker) => blocker.blockerId))
   const funding = fundingEvents(state, event.seat, `{${tax}}`, excluded)
@@ -2329,19 +2587,46 @@ export const eventsForAvailableAction = (
       const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
       const abilityIndex = Number(/\[(\d+)\]/.exec(action.abilityId)![1])
       const ability = definition.abilities[abilityIndex]
-      if (ability?.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return null
+      if (ability?.kind !== 'activated' || ability.modes) return null
+      if (ability.decisions.variables?.length && action.x === undefined) return null
       try {
-        const targets = (action.targetObjectIds ?? []).map(id => canonicalTargetRef(state, id))
-        const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat)
+        const allCostEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+        const evidence = action.evidence ?? (allCostEntries.some(entry => entry.costKind === 'collectEvidence') ? undefined : [])
+        if (!evidence) return null
+        const costEntries = allCostEntries.filter(entry => entry.costKind !== 'collectEvidence')
+        const chosen = action.targetObjectIds ?? []
+        const costCount = ability.costs.some(cost => cost.kind === 'crew') ? chosen.length : costEntries.filter(entry => !entry.sourceCost).reduce((total, entry) => total + entry.group.min, 0)
+        if (chosen.length < costCount) return null
+        let cursor = 0
+        const choices = costEntries.flatMap(entry => {
+          if (entry.sourceCost) return Array.from({ length: entry.group.min }, () => object.id)
+          const count = entry.costKind === 'crew' ? chosen.length : entry.group.min
+          const ids = chosen.slice(cursor, cursor + count)
+          cursor += count
+          return ids
+        })
+        const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))
+        const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat, action.x)
           .map(binding => binding.recipients)
-        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, undefined, { deferPayment: true })
+        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, action.x, choices, { evidence, deferPayment: true })
         if (!announcement.ok) return null
         const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
-          || isSourceSacrificeCost(cost))
+          || isSourceObjectCost(cost))
           ? new Set([object.id]) : new Set<string>()
         const funding = fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded)
         if (!funding) return null
-        return [...funding, { type: 'activateAbility', seat, objectId: object.id, abilityId: action.abilityId, targetClauses }]
+        return [...funding, {
+          type: 'activateAbility',
+          seat,
+          objectId: object.id,
+          abilityId: action.abilityId,
+          targetClauses,
+          ...(targets.length ? { targets } : {}),
+          ...(action.door ? { door: action.door } : {}),
+          ...(choices.length ? { choices } : {}),
+          ...(evidence.length ? { evidence: evidence.map(ids => [...ids]) } : {}),
+          ...(action.x !== undefined ? { x: action.x } : {}),
+        }]
       } catch {
         return null
       }
@@ -2409,6 +2694,12 @@ export const eventsForAvailableAction = (
       },
     ]
   }
+  if (action.kind === 'plot' || action.kind === 'suspend') {
+    const object = state.objects[action.objectId]
+    if (!object || !canPrepareCast(state, seat, object, action.kind)) return null
+    const mana = fundingEvents(state, seat, preparationCost(object, action.kind)!)
+    return mana ? [...mana, { type: action.kind, seat, objectId: object.id }] : null
+  }
   if (action.kind === 'foretell') {
     const object = state.objects[action.objectId]
     if (!object || !canForetellFromHand(state, seat, object)) return null
@@ -2424,14 +2715,18 @@ export const eventsForAvailableAction = (
     ]
   }
   if (action.kind !== 'castSpell') return null
-  const canonicalSource = state.objects[action.objectId]
+  const originalSource = state.objects[action.objectId]
+  const canonicalSource = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }) : undefined
   if (canonicalSource?.ruleDefinition) {
     const definition = loadDefinitionSnapshot(canonicalSource.ruleDefinition).definition
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
     const ability = definition.abilities[abilityIndex]
     try {
-      const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, ability.costs, seat) : []
-      const costGroups = costEntries.map(entry => entry.group)
+      const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat) : []
+      const evidence = action.evidence ?? (costEntries.some(entry => entry.costKind === 'collectEvidence') ? undefined : [])
+      if (!evidence) return null
+      const ordinaryCostEntries = costEntries.filter(entry => entry.costKind !== 'collectEvidence')
+      const costGroups = ordinaryCostEntries.map(entry => entry.group)
       const chosen = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
       const costCount = costGroups.reduce((count, group) => count + group.min, 0)
       if (chosen.length < costCount) return null
@@ -2439,7 +2734,7 @@ export const eventsForAvailableAction = (
       const discard: string[] = []
       const sacrifice: string[] = []
       let offset = 0
-      for (const { costKind, group } of costEntries) {
+      for (const { costKind, group } of ordinaryCostEntries) {
         const selected = costChoices.slice(offset, offset + group.min)
         if (costKind === 'discard') discard.push(...selected)
         else sacrifice.push(...selected)
@@ -2453,16 +2748,28 @@ export const eventsForAvailableAction = (
             clauses, layout?.map(entry => entry.scopeId), layout?.map(entry => entry.modeIndex)).map(binding => binding.recipients)
         : []
       const tax = taxFor(state, seat, canonicalSource)
-      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
-        { deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
+      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, announcementSource(canonicalSource, availableAlternateCastEffect(state, seat, canonicalSource, action.castOption)), seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
+        { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
       if (announcement && !announcement.ok) return null
-      const cost = announcement?.ok && announcement.transaction.lockedCost.mana
-        || spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) })
-      const funding = fundingEvents(state, seat, cost, new Set(costChoices), { phyrexianLife: action.phyrexianLife }, canonicalSource)
+      const cost = reduceGenericManaCost(
+        announcement?.ok ? announcement.transaction.lockedCost.mana ?? ''
+          : spellCost(state, canonicalSource, { x: action.x, seat, castOption: action.castOption, withoutPayingMana: action.alternativeCost === 'withoutPayingMana', additionalGeneric: taxFor(state, seat, canonicalSource) }),
+        action.delve?.length ?? 0,
+      )
+      const creatures = (action.convoke ?? []).map(id => state.objects[id]).filter((object): object is GameObject => Boolean(object))
+      const funding = fundingEvents(state, seat, cost, new Set([...costChoices, ...(action.convoke ?? [])]), { creatures, phyrexianLife: action.phyrexianLife }, canonicalSource)
       if (!funding) return null
       return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
+        ...(action.castOption ? { castOption: action.castOption } : {}),
+        ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
         ...(tax > 0 ? { additionalGeneric: tax } : {}),
         ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
+        ...(evidence.length ? { evidence: evidence.map(ids => [...ids]) } : {}),
+        ...(action.delve?.length ? { delve: action.delve } : {}),
+        ...(action.convoke?.length ? { convoke: action.convoke } : {}),
+        ...(action.selectedOptionalCosts ? { selectedOptionalCosts: action.selectedOptionalCosts } : {}),
+        ...(action.costPlayers ? { costPlayers: { ...action.costPlayers } } : {}),
+        ...(action.selectedAlternativeCost !== undefined ? { selectedAlternativeCost: action.selectedAlternativeCost } : {}),
         ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}), ...(action.x !== undefined ? { x: action.x } : {}),
         ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       }]
@@ -2489,14 +2796,10 @@ export const eventsForAvailableAction = (
         (effect.op === 'trigger' && effect.on === 'resolve')
         || (effect.op === 'castCost' && effect.spree)
         || (effect.op === 'search' && effect.via === 'spell')
-        || (
-          effect.op === 'handler'
-          && effect.pluginId === 'combatPreventionCards'
-        )
         || effect.op === 'playerAuraDeal')
       : false)
   const playerAura = object
-    ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
+    ? Boolean(enchantPlayerTargets(state, object)) || effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
@@ -2581,7 +2884,7 @@ export const eventsForAvailableAction = (
     : undefined
   const targets = action.targetObjectIds?.length
     ? action.targetObjectIds.map((objectId) => (
-        playerAura || action.targetGroups?.some((group) => group.kind === 'player')
+        playerAura || action.targetGroups?.some((group) => group.kind === 'player' || (group.kind === 'anyTarget' && Boolean(state.players[objectId])))
           ? { kind: 'player' as const, player: objectId }
           : { kind: 'object' as const, objectId }
       ))

@@ -1,7 +1,8 @@
+import { withReferencedObjects } from './rules/canonicalReferences'
 import { STUN_COUNTER } from './rules/untap'
 import type { CardInstruction } from './cardPlugins/effects'
 import { counterPtBonus } from './definitions'
-import { captureObject, pinTarget, refreshLastKnownSource, snapshotObject } from './objectIdentity'
+import { captureObject, pinTarget, refreshExecutionReferences, snapshotObject } from './objectIdentity'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
@@ -116,9 +117,7 @@ export const makeDraft = (state: GameState): Draft => {
     const becomesNewObject = from !== to || sameZoneCreatesObject
     const before = becomesNewObject ? snapshotObject(object) : undefined
     if (before) {
-      refreshLastKnownSource(draft.stack, before)
-      refreshLastKnownSource(draft.resolution, before)
-      for (const player of draft.playerOrder) refreshLastKnownSource(draft.players[player].data, before)
+      refreshExecutionReferences(draft, before)
     }
     const zones = draft.zoneOrder[object.owner]
     zones[from] = zones[from].filter((objectId) => objectId !== id)
@@ -136,9 +135,16 @@ export const makeDraft = (state: GameState): Draft => {
     object.zone = to
     if (becomesNewObject) {
       object.incarnation += 1
+      if (!(from === 'stack' && to === 'battlefield')) delete object.castCostChoices
+      delete object.canonicalGrantedActivations
       // CR 400.7a: characteristic changes follow a permanent spell as it resolves.
       if (from === 'stack' && to === 'battlefield') {
         for (const entry of object.continuousEffects ?? []) {
+          if (entry.duration.kind === 'printedStatic'
+            && entry.duration.sourceId === object.id
+            && entry.duration.sourceIncarnation === object.incarnation - 1) {
+            entry.duration.sourceIncarnation = object.incarnation
+          }
           if ((entry.effect.kind === 'colorChange' || entry.effect.kind === 'staticKeywords')
             && entry.effect.incarnation === object.incarnation - 1) {
             entry.effect.incarnation = object.incarnation
@@ -147,8 +153,11 @@ export const makeDraft = (state: GameState): Draft => {
       }
       // CR 613.7d: a new zone entry receives a new timestamp.
       delete object.staticRulesTimestamp
+      if (to === 'battlefield') object.battlefieldTimestamp = draft.allocTs()
+      else delete object.battlefieldTimestamp
     }
     if (from === 'battlefield' && to !== 'battlefield') {
+      delete object.attachedToRef
       // CR 400.7: the object that arrives is new, so counters do not follow it.
       // Their contribution to P/T is stored eagerly and must come back out.
       const bonus = counterPtBonus(object)
@@ -179,6 +188,7 @@ export const makeDraft = (state: GameState): Draft => {
     const id = cloned.id ?? draft.allocId('stack')
     const source = draft.object(cloned.objectId)
     const existingExecution = cloned.execution
+    const monarchRevision = existingExecution?.monarchRevision ?? (existingExecution?.occurrence ? 0 : draft.monarchRevision)
     const capturedSource = existingExecution?.source.ref.objectId === item.objectId
       ? existingExecution.source
       : source
@@ -188,11 +198,13 @@ export const makeDraft = (state: GameState): Draft => {
       ...cloned,
       id,
       targets: cloned.targets.map((target) => pinTarget(draft, target)),
+      ...(existingExecution?.sourceLess ? { sourceLess: true as const } : {}),
       ...(capturedSource
         ? {
             execution: {
               ...existingExecution,
               controller: cloned.controller,
+              ...(monarchRevision !== undefined && monarchRevision !== 0 ? { monarchRevision } : {}),
               source: capturedSource,
               ...(cloned.kind === 'spell' && source?.ruleDefinition
                 ? { definitionSnapshot: source.ruleDefinition }
@@ -201,6 +213,7 @@ export const makeDraft = (state: GameState): Draft => {
           }
         : {}),
     }
+    if (stackItem.execution) stackItem.execution = withReferencedObjects(draft, stackItem.execution)
     draft.stack.unshift(stackItem)
     return stackItem
   }
@@ -242,5 +255,7 @@ export const freezeDraft = (draft: Draft): GameState => {
     addTriggeredAbility: _j,
     ...state
   } = draft
+  if (state.preventionInstances === undefined) delete state.preventionInstances
+  if (state.spellPermissions !== undefined && state.spellPermissions.length === 0) delete state.spellPermissions
   return state
 }

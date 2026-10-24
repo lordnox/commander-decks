@@ -62,7 +62,7 @@ export const sourceCanTap = (): AbilityCheck => (ctx) => {
   if (
     source.types.includes('Creature')
     && source.summoningSickness
-    && !hasKeyword(source, 'haste', ctx.state)
+    && !hasKeyword(source, 'haste')
   ) {
     return `${source.name} has summoning sickness`
   }
