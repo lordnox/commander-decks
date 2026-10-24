@@ -1,3 +1,8 @@
+import virtueOfKnowledge from './virtue-of-knowledge'
+import roamingThrone from './roaming-throne'
+import yarokTheDesecrated from './yarok-the-desecrated'
+import ancientGreenwarden from './ancient-greenwarden'
+import ringsOfBrighthearth from './rings-of-brighthearth'
 import hedgeShredder from './hedge-shredder'
 import lair_of_the_hydra from './lair-of-the-hydra'
 import hall_of_storm_giants from './hall-of-storm-giants'
@@ -374,6 +379,12 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Rings of Brighthearth': ringsOfBrighthearth,
+  'Ancient Greenwarden': ancientGreenwarden,
+  'Yarok, the Desecrated': yarokTheDesecrated,
+  'Roaming Throne': roamingThrone,
+  'Virtue of Knowledge': virtueOfKnowledge,
+  'Vantress Visions': virtueOfKnowledge,
   'Hedge Shredder': hedgeShredder,
   'Lair of the Hydra': lair_of_the_hydra,
   'Hall of Storm Giants': hall_of_storm_giants,

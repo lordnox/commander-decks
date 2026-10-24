@@ -193,6 +193,7 @@ export const evaluatePlayerReference = (
     }
     case 'relatedPlayer': {
       const referenced = reference.of
+      if (referenced.kind === 'eventStackItem') return evaluateStackItemReference(referenced, context).map(item => item.controller)
       if (referenced.kind !== 'contextRef') {
         const bound = recipients(referenced, context)
         if (bound.every(recipient => recipient.kind === 'stackItem')) {
@@ -307,7 +308,9 @@ export const evaluateObjectReference = (
 export const evaluateStackItemReference = (
   reference: StackItemReference,
   context: RuleDslRuntimeContext,
-) => recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
+) => reference.kind === 'eventStackItem'
+  ? context.state.stack.filter(item => item.id === context.occurrence?.stackItemId)
+  : recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
   const item = context.state.stack.find((candidate) => candidate.id === recipient.stackId)
   return item ? [item] : []
 })

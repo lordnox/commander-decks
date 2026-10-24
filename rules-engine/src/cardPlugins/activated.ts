@@ -1,3 +1,4 @@
+import { captureAbilityActivation } from '../rules/triggers'
 import { captureCanonicalWardTriggers } from './ward'
 import { effectiveActivatedDefinition, activatedGrantAt, canonicalActivationIsActive } from './dsl/activatedGrants'
 import { hasUntaxedTapMana } from '../plugins/mana'
@@ -558,6 +559,7 @@ export const activated: Plugin = {
           return
         }
         draft.addToStack(activationItem)
+        captureAbilityActivation(state, draft, draft.stack[0]!)
         captureCanonicalWardTriggers(state, draft, event, draft.stack[0]!)
         draft.passedInRow = []
         draft.priority = event.seat
@@ -607,6 +609,7 @@ export const activated: Plugin = {
         ...(event.choices ? { choices: event.choices } : {}),
         ...(event.door ? { door: event.door } : {}),
       })
+      captureAbilityActivation(state, draft, draft.stack[0]!)
       draft.passedInRow = []
       draft.priority = event.seat
     }

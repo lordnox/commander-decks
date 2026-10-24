@@ -1,3 +1,4 @@
+import { canonicalCopySource } from './cardPlugins/dsl/copies'
 import { evaluateCreatureType } from './cardPlugins/dsl/compiler/runtime'
 import { CREATURE_TYPES, CREATURE_TYPE_CHOICE_ACTION } from './creatureTypes'
 import { advanceCollectedChoices } from './cardPlugins/dsl/collectedChoices'
@@ -25,6 +26,7 @@ import {
   amountEvaluationContext,
   evaluateCondition,
   evaluateStackItemSelector,
+  evaluateStackItemReference,
   withOccurrencePlayer,
   type BoundRecipient,
   type RuleDslRuntimeContext,
@@ -90,6 +92,7 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'banAttacks',
   'copy',
   'copySpell',
+  'copyAbility',
   'putCounters',
   'draw',
   'mill',
@@ -194,6 +197,7 @@ const preflightInstructions = (
       case 'createEmblem':
       case 'banAttacks':
       case 'copy':
+      case 'copyAbility':
       case 'copySpell':
       case 'putCounters':
       case 'counter':
@@ -1197,10 +1201,11 @@ const actionEvents = (
         sourceId: frame.source.ref.objectId,
       })))
     }
+    case 'copyAbility':
     case 'copySpell': {
       const targets = instruction.targets.kind === 'stackItems'
         ? evaluateStackItemSelector(instruction.targets, context).map((candidate) => ({ kind: 'stackItem' as const, stackId: candidate.id }))
-        : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
+        : evaluateStackItemReference(instruction.targets, context).map(candidate => ({ kind: 'stackItem' as const, stackId: candidate.id }))
       const controllers = instruction.controller
         ? (instruction.controller.kind === 'players'
           ? evaluatePlayerSelector(instruction.controller, context)
@@ -1210,22 +1215,22 @@ const actionEvents = (
       for (const target of targets) {
         const original = context.state.stack.find((candidate) => candidate.id === target.stackId)
         if (!original) continue
-        const source = context.state.objects[original.objectId]
-        if (!source || original.kind !== 'spell') continue
+        const source = canonicalCopySource(context.state, original)
+        if (!source || original.kind !== (instruction.kind === 'copyAbility' ? 'ability' : 'spell')) continue
         // `keep` preserves the original target pins. Explicit retargeting is
         // answered through the durable typed offer API, never by refreshing
         // incarnations as a side effect of copying.
         if (instruction.retarget?.kind === 'chooseNewTargets') {
           const jobs = targets.flatMap((candidate) => controllers.map((controller) => {
             const item = context.state.stack.find((entry) => entry.id === candidate.stackId)
-            return item ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
+            return item && item.kind === (instruction.kind === 'copyAbility' ? 'ability' : 'spell') ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
           })).filter((job): job is NonNullable<typeof job> => Boolean(job))
           frame.pendingCopyTargets = jobs
           if (instruction.bindResult) frame.pendingResult = {
             binding: instruction.bindResult,
             kind: 'action',
             value: jobs.length,
-            eventType: 'copySpell',
+            eventType: instruction.kind,
           }
           if (jobs.length > 0) {
             openNextCopySlot(draft, frame)
@@ -1235,14 +1240,14 @@ const actionEvents = (
           }
         }
         for (const controller of controllers) {
-          copies.push({ type: 'copySpell', stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
+          copies.push({ type: instruction.kind, stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
         }
       }
       if (instruction.bindResult) frame.pendingResult = {
         binding: instruction.bindResult,
         kind: 'action',
         value: copies.length,
-        eventType: 'copySpell',
+        eventType: instruction.kind,
       }
       // Copy placement is itself the committed action; the stack mutation is
       // complete before the next written instruction is considered.
@@ -1297,7 +1302,7 @@ const actionEvents = (
         ? evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
         : instruction.targets.kind === 'stackItems'
           ? evaluateStackItemSelector(instruction.targets, context).map((item) => ({ kind: 'stackItem' as const, stackId: item.id }))
-          : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
+          : evaluateStackItemReference(instruction.targets, context).map(item => ({ kind: 'stackItem' as const, stackId: item.id }))
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = {
         binding: instruction.bindResult,
         kind: 'counter',

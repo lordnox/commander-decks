@@ -129,12 +129,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "e7b05a9dc60a67c7565d59cf9392680819493e07a4f1d8e32c3a21231ff3cdeb",
-    "card": "Ancient Greenwarden"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4f0f3773f2fd563695bcb0611ff44eed613f49dbb2de05ac74a4adfb38ef9ae5",
     "card": "Dread Return"
   },
@@ -165,12 +159,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "bc698c6cd062801474c994585aba1deba97c577c744bb31289b430a3598b1feb",
-    "card": "Roaming Throne"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "3654e5512e271adaa915027469dd50989583908c90e3035852171df8478e0342",
     "card": "Sakashima of a Thousand Faces"
   },
@@ -189,18 +177,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "c9c3dba4dfb689cce90df6c4000ba9732b8e2fa65c8eb8b43a74d3f56d9cd5c4",
-    "card": "Virtue of Knowledge"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "afdc611d9f6006e401327050877b6c56d9b951e406e993413a5603d6bcc487c8",
-    "card": "Vantress Visions"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "ac9b9477c1b0b35cc58b44757b2522b3207705f38c364264f219f9752e13e965",
     "card": "Walk-In Closet"
   },
@@ -209,12 +185,6 @@
     "code": "legacy-card-registration",
     "digest": "816db21a3c3c16b6433c06449a24894fda18005a81f5b5d83e39412d62584701",
     "card": "Forgotten Cellar"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "de98c9354cb7072c3450ced9a8b350f780653831ee85b9e0c7fec2a0c5904768",
-    "card": "Yarok, the Desecrated"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -245,12 +215,6 @@
     "code": "legacy-card-registration",
     "digest": "256b3d1db82fa34965f144f05b223dbfe2b4abeb989df38f3d5529c9e44d8a07",
     "card": "Everybody Lives!"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "405c63647124162857c622de51e3181220e6095cce4b27a57e6fb37de0fd6f26",
-    "card": "Rings of Brighthearth"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

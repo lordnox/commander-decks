@@ -1038,9 +1038,9 @@ export const copy = (input: {
 })
 
 export const copySpell = (input: {
-  targets: Extract<Instruction, { kind: 'copySpell' }>['targets']
-  controller?: Extract<Instruction, { kind: 'copySpell' }>['controller']
-  retarget?: Extract<Instruction, { kind: 'copySpell' }>['retarget']
+  targets: Extract<Instruction, { kind: 'copySpell' | 'copyAbility' }>['targets']
+  controller?: Extract<Instruction, { kind: 'copySpell' | 'copyAbility' }>['controller']
+  retarget?: Extract<Instruction, { kind: 'copySpell' | 'copyAbility' }>['retarget']
   bindResult?: string
 }): Instruction => immutableData({
   kind: 'copySpell',
@@ -1475,3 +1475,10 @@ export const hasGreatestCharacteristic = (of: ObjectReference, among: ObjectSele
 
 export const paidCostPlayer = (index: number) => immutableData({ kind: 'paidCostPlayer' as const, index })
 export const choosePlayerCost = (players: PlayerSelector) => immutableData({ kind: 'choosePlayer' as const, players })
+
+export const copyAbility = (input: Omit<Extract<Instruction, { kind: 'copySpell' }>, 'kind'>) => immutableData({ kind: 'copyAbility' as const, ...input })
+
+export const abilityActivated = (filter: PlayerSelector) => immutableData({ kind: 'abilityActivated' as const, filter })
+export const eventStackItem = () => immutableData({ kind: 'eventStackItem' as const })
+
+export const multiplyTriggers = (input: Omit<Extract<ContinuousEffectDefinition, { kind: 'multiplyTriggers' }>, 'kind'>) => immutableData({ kind: 'multiplyTriggers' as const, ...input })

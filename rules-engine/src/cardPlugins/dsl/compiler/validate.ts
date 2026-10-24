@@ -177,6 +177,11 @@ export const validateDefinitionV1 = (root: unknown): {
     const kind = node.kind
     let domain: Domain | undefined
     switch (kind) {
+      case 'eventStackItem':
+        exactKeys(node, path, ['kind'], ['kind'])
+        if (!env.context.has('triggering.ability')) issue(path, 'unresolved-binding', 'no activated ability occurrence is bound')
+        domain = 'stack'
+        break
       case 'contextRef': {
         exactKeys(node, path, ['kind', 'name'], ['kind', 'name'])
         if (typeof node.name !== 'string') issue(childPath(path, 'name'), 'type', 'expected a context binding name')
@@ -1265,6 +1270,7 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'copyAbility':
       case 'copySpell':
         exactKeys(node, path, ['kind', 'targets', 'controller', 'retarget', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['stack'])
@@ -1751,6 +1757,10 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     declarations.push({ path, kind: `occurrence:${String(node.kind)}` })
     switch (node.kind) {
+      case 'abilityActivated':
+        env.context = new Map([...env.context, ['triggering.ability', 'stack'], ['triggering.player', 'player']])
+        if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'player') issue(path, 'domain', 'activation occurrences require a player selector')
+        return env
       case 'becomesTapped':
       case 'tappedForMana':
       case 'attacks':
@@ -2230,6 +2240,18 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'revealLibraryTop':
               exactKeys(node, effectPath, ['kind', 'players'], ['kind', 'players'])
               if (validateSelector(node.players, childPath(effectPath, 'players'), baseEnvironment()) !== 'player') issue(effectPath, 'domain', 'top visibility requires a player selector')
+              return
+            case 'multiplyTriggers':
+              exactKeys(node, effectPath, ['kind', 'sources', 'additional', 'cause'], ['kind', 'sources', 'additional'])
+              if (validateSelector(node.sources, childPath(effectPath, 'sources'), baseEnvironment()) !== 'object') issue(effectPath, 'domain', 'trigger multiplication requires an object selector')
+              validateAmount(node.additional, childPath(effectPath, 'additional'), baseEnvironment())
+              if (node.cause !== undefined) {
+                const cause = object(node.cause, childPath(effectPath, 'cause'))
+                if (cause) {
+                  exactKeys(cause, childPath(effectPath, 'cause'), ['enters'], ['enters'])
+                  validateObjectFilter(cause.enters, childPath(childPath(effectPath, 'cause'), 'enters'), baseEnvironment())
+                }
+              }
               return
             case 'playLands':
               exactKeys(node, effectPath, ['kind', 'players', 'cards', 'topOnly'], ['kind', 'players', 'cards'])

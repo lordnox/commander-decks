@@ -27,7 +27,7 @@ export type ScryfallCardData = {
     mana_cost: string
     type_line: string
     oracle_text: string
-    colors: string[]
+    colors?: string[]
     [field: string]: unknown
   }[]
 })

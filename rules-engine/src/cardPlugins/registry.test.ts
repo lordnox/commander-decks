@@ -283,7 +283,6 @@ describe('card plugin registry', () => {
       'Tenuous Truce',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')
     expect(cardPluginEntry("Council's Judgment")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Council's Judgment")).toBeDefined()
     expect(cardPluginEntry('Standard Bearer')).toBeUndefined()
@@ -603,7 +602,6 @@ describe('card plugin registry', () => {
     expect(cardDefinition("Fortune's Favor")?.effects).toMatchObject([
       { op: 'targetedResolve', filter: { players: 'opponent' } },
     ])
-    expect(cardDefinition('Roaming Throne')?.handlerIds).toContain('ward')
     expect(effectsFor('Life from the Loam')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Life from the Loam')).toBeDefined()
     expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([

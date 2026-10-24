@@ -13,7 +13,7 @@ import { openOpponentPilePartition } from './selectCards'
 import { advanceCopySlot } from './selectOptions'
 import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { CanonicalChoicePayload } from './canonicalAnnouncement'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
+import { canonicalCopySource, copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -143,7 +143,7 @@ export const selectPlayers: Plugin = {
         ? state.resolution
         : undefined
       const original = state.stack.find((item) => item.id === action.copyStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (frame && job && original && source) {
         const error = validateCanonicalCopyTarget(state, original, source, action.slotIndex ?? 0, { kind: 'player', player: event.players[0]! }, job.answers, action.controller)

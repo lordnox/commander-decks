@@ -26,7 +26,7 @@ import { objectIdentity, targetObject } from '../objectIdentity'
 import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
+import { canonicalCopySource, copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
 import { CHOICE_RELATIONS } from '../cardPlugins/dsl/schema/v1'
 import type { ChoiceRelation, Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
@@ -518,7 +518,7 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
         ? state.resolution
         : undefined
       const original = state.stack.find((item) => item.id === action.copySpellStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       const object = state.objects[objectIds[0]!]
       if (frame && job && original && source && object) {

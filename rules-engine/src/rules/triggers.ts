@@ -1,4 +1,4 @@
-import { sourceStaticAbilitiesActive } from '../cardPlugins/dsl/staticModifierCore'
+import { battlefieldPrintedStatics, sourceStaticAbilitiesActive } from '../cardPlugins/dsl/staticModifierCore'
 import { withReferencedObjects } from './canonicalReferences'
 import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 /**
@@ -29,6 +29,7 @@ import type {
   GameEvent,
   GameObject,
   GameState,
+  StackItem,
   PlayerId,
   PendingTrigger as CapturedPendingTrigger,
   Plugin,
@@ -50,7 +51,7 @@ import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
-import { objectMatchesSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
+import { objectMatchesSelector, evaluateRuntimeAmount, evaluateObjectSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
@@ -143,6 +144,7 @@ type PendingTrigger = {
     abilityIndex: number
   }
   triggeredByAbility?: boolean
+  delayed?: true
 }
 
 const capturedOccurrence = (
@@ -158,12 +160,12 @@ const capturedOccurrence = (
   const objectId = triggeringObjectId ?? eventObjectId(event)
   const before = objectId ? state.objects[objectId] : undefined
   const after = event.type === 'tokenCreated' ? event.object : objectId ? draft.objects[objectId] : undefined
-  const sourceId = 'sourceId' in event && typeof event.sourceId === 'string'
+  const sourceId = event.type === 'abilityActivated' ? event.objectId : 'sourceId' in event && typeof event.sourceId === 'string'
     ? event.sourceId
     : 'source' in event && typeof event.source === 'string'
       ? event.source
       : undefined
-  const eventSource = (event.type === 'dealDamage' || event.type === 'combatDamage') && event.sourceSnapshot && event.sourceSnapshot.ref.objectId === sourceId
+  const eventSource = (event.type === 'abilityActivated' || event.type === 'dealDamage' || event.type === 'combatDamage') && event.sourceSnapshot && event.sourceSnapshot.ref.objectId === sourceId
     ? event.sourceSnapshot.snapshot
     : sourceId ? state.objects[sourceId] ?? draft.objects[sourceId] : undefined
   const grouped = groupedObjectIds?.map(id => ({
@@ -172,6 +174,7 @@ const capturedOccurrence = (
   }))
   return {
     kind: 'event',
+    ...(event.type === 'abilityActivated' ? { stackItemId: event.stackId } : {}),
     eventType: event.type === 'custom' ? event.name : event.type,
     ...(triggeringPlayer ? { player: triggeringPlayer } : {}),
     ...(defender ? { defender } : {}),
@@ -332,6 +335,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'abilityActivated') return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
   if (pattern.kind === 'tokenCreated' || pattern.kind === 'sacrificed') return matchesTokenAction(state, source, pattern, occurrence, event)
   if (pattern.kind === 'becomesTapped' || pattern.kind === 'tappedForMana') return matchesTapOccurrence(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'stepBegins') return matchesBeginningStep(beforeState, state, source, pattern, occurrence, event)
@@ -461,6 +465,7 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'abilityActivated': return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
     case 'tokenCreated':
     case 'sacrificed': return matchesTokenAction(state, source, pattern, occurrence, event, execution)
     case 'becomesTapped':
@@ -964,11 +969,12 @@ const pushCopies = (
   copies: number,
   meta: Pick<
     PendingTrigger,
-    'triggerEffectKey' | 'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
+    'triggerEffectKey' | 'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload' | 'delayed'
   > = {},
 ) => {
+  const pending = { source, effect, ...meta }
   for (let index = 0; index < copies; index += 1) {
-    matches.push({ source, effect, ...meta })
+    matches.push(pending)
   }
 }
 
@@ -1487,6 +1493,7 @@ const collectDelayedTriggers = (
       matches.push({
         source,
         effect: { do: [] },
+        delayed: true,
         canonical: structuredClone(delayed.canonical),
         execution: {
           ...structuredClone(delayed.execution),
@@ -1505,6 +1512,7 @@ const collectDelayedTriggers = (
         ? { targets: { filter: filter as TargetFilter } }
         : {}),
     }, 1, {
+      delayed: true,
       payload: delayed.payload,
     })
   }
@@ -1564,6 +1572,35 @@ const collectEventTriggers = (
   return matches
 }
 
+// CR 603.2d: modifiers add instances of the original trigger; they do not
+// multiply each other's additional instances or delayed triggered abilities.
+const multiplyPendingTriggers = (state: GameState, draft: Draft, event: GameEvent, matches: PendingTrigger[]) => {
+  const seen = new Set<PendingTrigger>()
+  const enteringId = event.type === 'playLand' ? event.objectId : permanentEnteringObjectId(event, state)
+  const entrant = enteringId ? draft.objects[enteringId] : undefined
+  const entered = entrant?.zone === 'battlefield'
+    && (event.type !== 'move' || state.objects[event.objectId]?.zone !== 'battlefield')
+  return matches.flatMap(pending => {
+    if (seen.has(pending) || pending.delayed || pending.effect.onceEachTurn) return [pending]
+    seen.add(pending)
+    const ability = pending.canonical?.definitionSnapshot.definition.abilities[pending.canonical.abilityIndex]
+    if (ability?.kind === 'triggered' && ability.frequency?.kind === 'onceEachTurn') return [pending]
+    const lookBack = ability?.kind === 'triggered'
+      && ['dies', 'leaves', 'sacrificed'].includes(ability.on.kind)
+    const lookup = lookBack || (event.type === 'move' && state.objects[event.objectId]?.zone === 'battlefield') ? state : draft
+    const triggerSource = lookup.objects[pending.source.id]
+    if (triggerSource?.zone !== 'battlefield') return [pending]
+    let additional = 0
+    for (const { object, effect } of battlefieldPrintedStatics(lookup, 'multiplyTriggers')) {
+      const context = { state: lookup, controller: object.controller, source: captureObject(object) }
+      if (!evaluateObjectSelector(effect.sources, context).some(source => source.id === triggerSource.id)) continue
+      if (effect.cause && (!entered || !objectMatchesSelector(entrant!, { kind: 'objects', filter: effect.cause.enters }, context))) continue
+      additional += Math.max(0, Math.floor(evaluateRuntimeAmount(effect.additional, context)))
+    }
+    return Array.from({ length: 1 + additional }, () => pending)
+  })
+}
+
 export const captureEventTriggers = (
   state: GameState,
   event: GameEvent,
@@ -1592,7 +1629,7 @@ export const captureEventTriggers = (
       effect.do.length !== 1 || effect.do[0].kind !== 'devour')
     if (ordinary.length === 0) return
 
-    const ordered = apnapOrder(draft, ordinary)
+    const ordered = apnapOrder(draft, multiplyPendingTriggers(state, draft, event, ordinary))
     const triggeringPlayer = 'seat' in event && typeof event.seat === 'string'
       ? event.seat
       : undefined
@@ -1870,4 +1907,13 @@ export const placePendingTriggers = (draft: Draft) => {
     name: source.name,
   })
   return false
+}
+
+
+/** CR 602.2: captured once after a nonmana activation commits to the stack. */
+export const captureAbilityActivation = (state: GameState, draft: Draft, item: StackItem) => {
+  if (item.kind !== 'ability' || item.copy) return
+  const source = item.execution?.source ?? (state.objects[item.objectId] ? captureObject(state.objects[item.objectId]!) : undefined)
+  if (!source) return
+  captureEventTriggers(state, { type: 'abilityActivated', stackId: item.id, objectId: item.objectId, seat: item.controller, sourceSnapshot: structuredClone(source) }, draft)
 }

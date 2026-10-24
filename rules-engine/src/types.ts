@@ -501,6 +501,7 @@ export type CapturedObject = {
 export type OccurrenceSnapshot = {
   kind: 'event'
   eventType: string
+  stackItemId?: string
   player?: PlayerId
   defender?: PlayerId
   amount?: number
@@ -1076,6 +1077,7 @@ export type DelayedTrigger = {
  * `loseLife`. Fog prevents at `combatDamage`; "prevent damage" at `dealDamage`.
  */
 export type GameEvent =
+  | { type: 'abilityActivated'; objectId: string; stackId: string; seat: PlayerId; sourceSnapshot: CapturedObject }
   /** Internal canonical player allowance; expires at cleanup. */
   | { type: 'grantLandPlays'; seat: PlayerId; count: number }
   /** Internal canonical player grant; lasts for the rest of the game. */
@@ -1104,8 +1106,8 @@ export type GameEvent =
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
-  /** Canonical spell-copy action; unlike castSpell it creates no cast occurrence. */
-  | { type: 'copySpell'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
+  /** Canonical stack-copy action; creates no cast or activation occurrence. */
+  | { type: 'copySpell' | 'copyAbility'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
   /** Canonical temporary effect; the event carries evaluated recipients and pinned source data. */
   | {
       type: 'canonicalEffect'

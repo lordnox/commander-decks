@@ -413,7 +413,7 @@ export const extraTriggerCount = (
   state: GameState,
   seat: PlayerId,
   kind: 'landfall' | 'enters',
-  source?: GameObject,
+  _source?: GameObject,
 ) =>
   Object.values(state.objects).reduce((total, object) => {
     if (object.zone !== 'battlefield' || object.controller !== seat) return total
@@ -422,12 +422,7 @@ export const extraTriggerCount = (
       if (kind === 'landfall') return sum + (effect.extraLandfall ?? 0)
       return sum + (effect.extraEnters ?? 0)
     }, 0)
-    const throne = object.chosenType
-      && source?.types.includes('Creature')
-      && source.subtypes.includes(object.chosenType)
-      ? 1
-      : 0
-    return total + staticCount + (kind === 'landfall' || kind === 'enters' ? throne : 0)
+    return total + staticCount
   }, 0)
 
 

@@ -34,7 +34,7 @@ import {
   prepareResolutionStep,
   startCanonicalResolution,
 } from './driver'
-import { captureEventTriggers, placePendingManaTriggers, placePendingTriggers } from './rules/triggers'
+import { captureAbilityActivation, captureEventTriggers, placePendingManaTriggers, placePendingTriggers } from './rules/triggers'
 import {
   INSTRUCTIONS_RESUME,
   PENDING_SELECTION,
@@ -68,7 +68,7 @@ import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
-import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
+import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
 import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
@@ -283,6 +283,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       completed.priority = null
     } else {
       completed.addToStack(frame.pendingActivation)
+      captureAbilityActivation(frame.baseline, completed, completed.stack[0]!)
       captureCanonicalWardTriggers(frame.baseline, completed, {
         type: 'activateAbility', seat: frame.payer, objectId: frame.pendingActivation.objectId,
         abilityId: frame.pendingActivation.abilityId ?? '', targets: structuredClone(frame.pendingActivation.targets),
@@ -671,19 +672,21 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       })
       return
     }
+    case 'copyAbility':
     case 'copySpell': {
       const original = draft.stack.find((item) => item.id === event.stackId)
-      if (!original || original.kind !== 'spell') return
-      const source = draft.object(original.objectId)
+      if (!original || original.kind !== (event.type === 'copyAbility' ? 'ability' : 'spell')) return
+      const source = canonicalCopySource(draft, original)
       if (!source) return
       const resolved = resolveCanonicalCopyTargets(draft, original, source, event.retarget === false
         ? { kind: 'keep' }
         : { kind: 'chooseNewTargets', targets: event.targets }, event.controller)
       if (!resolved.ok) {
-        draft.note(`copySpell rejected: ${resolved.error}`)
+        draft.note(`${event.type} rejected: ${resolved.error}`)
         return
       }
-      putCanonicalSpellCopyOnStack(draft, original, source, event.controller, resolved.targets)
+      if (event.type === 'copyAbility') putCanonicalAbilityCopyOnStack(draft, original, event.controller, resolved.targets)
+      else putCanonicalSpellCopyOnStack(draft, original, source, event.controller, resolved.targets)
       return
     }
     case 'createToken': {
@@ -1360,6 +1363,7 @@ const recordPendingInstructionResult = (
           switch (pending.eventType) {
             case 'createToken':
             case 'copyPermanent':
+            case 'copyAbility':
             case 'copySpell':
               result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
               break

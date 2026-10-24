@@ -59,6 +59,7 @@ export type ContextBinding =
   | 'triggering.object.before'
   | 'triggering.object.after'
   | 'triggering.source'
+  | 'triggering.ability'
   | 'triggering.object.controller'
   | 'grant.source'
   | 'enchanted.player'
@@ -91,7 +92,7 @@ export type Reference = PaidCostPlayerReference | ContextReference | TargetRefer
 
 export type PlayerReference = PaidCostPlayerReference | ContextReference | TargetReference | ChoiceReference | RelatedPlayerReference | (ResultReference & { field: 'player' })
 export type ObjectReference = ContextReference | TargetReference | ChoiceReference
-export type StackItemReference = TargetReference | ChoiceReference
+export type StackItemReference = TargetReference | ChoiceReference | { kind: 'eventStackItem' }
 
 export const CHOSEN_CREATURE_TYPE_BINDING = 'chosenType' as const
 export type CreatureTypeReference = string | { kind: 'typeChoice'; binding: string } | { kind: 'chosenCreatureType'; of: ObjectReference }
@@ -240,6 +241,7 @@ export type PlayerOccurrenceFilter = {
 }
 
 export type OccurrencePattern =
+  | { kind: 'abilityActivated'; filter: PlayerSelector }
   | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
@@ -605,8 +607,10 @@ export type Instruction =
   | { kind: 'banAttacks'; attackers: PlayerRecipient; defenders: ObjectSelector }
   /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
   | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; bindResult?: string; bindChoice?: string }
-  /** Copy a spell already on the stack; this creates a copy without casting a card. */
+  /** Copy a spell already on the stack without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
+  /** Copy an activated or triggered ability without activating or triggering it again. */
+  | { kind: 'copyAbility'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Put the evaluated number of the named counter on each resolved object recipient. */
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   /** Counter each resolved stack item before it can resolve. */
@@ -807,6 +811,7 @@ export type ReplacementEffectDefinition = {
 }
 
 export type ContinuousEffectDefinition =
+  | { kind: 'multiplyTriggers'; sources: ObjectSelector; additional: Amount; cause?: { enters: ObjectFilter } }
   | { kind: 'playLands'; players: PlayerSelector; cards: ObjectSelector; topOnly?: true }
   | { kind: 'grantActivatedAbility'; targets: ObjectSelector; ability: ActivatedAbilityDefinition }
   | ({ kind: 'addTypes'; targets: ObjectSelector; when?: Condition } & TypeAdditions)

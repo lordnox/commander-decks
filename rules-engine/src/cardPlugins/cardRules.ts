@@ -21,8 +21,6 @@ import {
   lifeTotalCannotChange,
   phaseOutControlled,
   exileOpponentGraveyard,
-  extraEnters,
-  extraLandfall,
   gainLife,
   handler,
   handlerIdsFromEffects,
@@ -43,7 +41,6 @@ import {
   staticGrant,
   scry,
   targetOnResolve,
-  chooseCreatureType,
   chooseVotesThisTurn,
   exchangeControlUntilEot,
   ward,
@@ -119,7 +116,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }),
   ],
-  'Ancient Greenwarden': [playLandsFromGraveyard(), extraLandfall(1)],
   'Angel of Sanctions': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
@@ -232,12 +228,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
-  'Rings of Brighthearth': [handler('stackCopy')],
-  'Roaming Throne': [
-    ward({ mana: 2 }),
-    handler('ward'),
-    enters(chooseCreatureType('addToSource')),
-  ],
   'Sakashima of a Thousand Faces': [
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
@@ -291,12 +281,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     handler('exiledWith'),
   ],
   'Vanish into Memory': [handler('blinkValue')],
-  'Vantress Visions': [
-    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
-  ],
-  'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

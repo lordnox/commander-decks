@@ -50,7 +50,6 @@ import {
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
-import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
@@ -2937,7 +2936,7 @@ describe('kernel host journal', () => {
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [creatureTypeChoice] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2949,29 +2948,23 @@ describe('kernel host journal', () => {
       objectId: throne.id,
       to: 'battlefield',
     }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-creature-type',
-      cards: ['Crab', 'Druid', 'Golem', 'Other (no current creature)'],
+      kind: 'choose',
     })
+    expect(lobby.topdeck!.cards).toContain('Crab')
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(settleKernelPriority(kernel, restarted)).toBe(true)
     expect(restarted.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-creature-type',
+      kind: 'choose',
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [
-        { card: 'Crab', destination: 'target' },
-        { card: 'Druid', destination: 'skip' },
-        { card: 'Golem', destination: 'skip' },
-        { card: 'Other (no current creature)', destination: 'skip' },
-      ],
+      choices: lobby.topdeck!.cards.map(card => ({ card, destination: card === 'Crab' ? 'target' as const : 'skip' as const })),
     }))).toBe(true)
     expect(kernel.history.current().objects[throne.id]).toMatchObject({
       chosenType: 'Crab',
