@@ -1,3 +1,4 @@
+import { canPrepareCast, preparationCost } from './cardPlugins/dsl/preparedCasting'
 import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
 import { canonicalLandPermission, canonicalSpellPermission } from './cardPlugins/dsl/playPermissions'
 import { matchingSpellCast } from './cardPlugins/dsl/spellPermissions'
@@ -14,6 +15,7 @@ import {
   multikickerCostOf,
 } from './plugins/kickCast'
 import {
+  announcementSource,
   convokeColors,
   hasConvoke,
   hasDelve,
@@ -181,6 +183,7 @@ export type AvailableAction =
       doorName: string
     }
   | { kind: 'foretell'; objectId: string; name: string }
+  | { kind: 'plot' | 'suspend'; objectId: string; name: string }
   | {
       kind: 'activateAbility'
       objectId: string
@@ -878,7 +881,7 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
     const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
     const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
-    const result = beginSpellAnnouncement(state, object, seat, previewAbility, grouped, action.x, choices, {
+    const result = beginSpellAnnouncement(state, announcementSource(object, availableAlternateCastEffect(state, seat, object, action.castOption)), seat, previewAbility, grouped, action.x, choices, {
       evidence, targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
       selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
     })
@@ -1101,6 +1104,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     withCostOptions(base).flatMap(action => withKicker(action, options)).flatMap((action) =>
       action.kind === 'castSpell' ? withSpree(action) : [action]).flatMap((action) => {
       if (action.kind !== 'castSpell') return []
+      if (object.manaCostAbsent && !action.castOption && !action.alternativeCost && action.selectedAlternativeCost === undefined) return []
       if (hasCanonicalCostOptions && preview(action) === undefined) return []
       const cost = preview(action) ?? spellCost(state, spell, {
         additionalGeneric: tax,
@@ -1668,13 +1672,12 @@ export const availableActions = (
       } else if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
       }
-      if (object && canForetellFromHand(state, seat, object)) {
-        actions.push({ kind: 'foretell', objectId: id, name: object.name })
-      }
     }
   }
 
   for (const object of Object.values(state.objects)) {
+    if (canForetellFromHand(state, seat, object)) actions.push({ kind: 'foretell', objectId: object.id, name: object.name })
+    for (const kind of ['plot', 'suspend'] as const) if (canPrepareCast(state, seat, object, kind)) actions.push({ kind, objectId: object.id, name: object.name })
     actions.push(...castActions(state, seat, object))
     if (
       object.roomDoors
@@ -2357,7 +2360,7 @@ export const sameLegalAct = (
       && left.adventureCast === right.adventureCast
   }
   if (left.kind === 'unlockDoor') return left.door === right.door
-  if (left.kind === 'foretell') return true
+  if (left.kind === 'foretell' || left.kind === 'plot' || left.kind === 'suspend') return true
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
@@ -2691,6 +2694,12 @@ export const eventsForAvailableAction = (
       },
     ]
   }
+  if (action.kind === 'plot' || action.kind === 'suspend') {
+    const object = state.objects[action.objectId]
+    if (!object || !canPrepareCast(state, seat, object, action.kind)) return null
+    const mana = fundingEvents(state, seat, preparationCost(object, action.kind)!)
+    return mana ? [...mana, { type: action.kind, seat, objectId: object.id }] : null
+  }
   if (action.kind === 'foretell') {
     const object = state.objects[action.objectId]
     if (!object || !canForetellFromHand(state, seat, object)) return null
@@ -2739,18 +2748,20 @@ export const eventsForAvailableAction = (
             clauses, layout?.map(entry => entry.scopeId), layout?.map(entry => entry.modeIndex)).map(binding => binding.recipients)
         : []
       const tax = taxFor(state, seat, canonicalSource)
-      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
+      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, announcementSource(canonicalSource, availableAlternateCastEffect(state, seat, canonicalSource, action.castOption)), seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
         { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
       if (announcement && !announcement.ok) return null
       const cost = reduceGenericManaCost(
         announcement?.ok ? announcement.transaction.lockedCost.mana ?? ''
-          : spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) }),
+          : spellCost(state, canonicalSource, { x: action.x, seat, castOption: action.castOption, withoutPayingMana: action.alternativeCost === 'withoutPayingMana', additionalGeneric: taxFor(state, seat, canonicalSource) }),
         action.delve?.length ?? 0,
       )
       const creatures = (action.convoke ?? []).map(id => state.objects[id]).filter((object): object is GameObject => Boolean(object))
       const funding = fundingEvents(state, seat, cost, new Set([...costChoices, ...(action.convoke ?? [])]), { creatures, phyrexianLife: action.phyrexianLife }, canonicalSource)
       if (!funding) return null
       return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
+        ...(action.castOption ? { castOption: action.castOption } : {}),
+        ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
         ...(tax > 0 ? { additionalGeneric: tax } : {}),
         ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
         ...(evidence.length ? { evidence: evidence.map(ids => [...ids]) } : {}),

@@ -2957,3 +2957,17 @@ test('Analyze the Pollen composes collect evidence with two structural search br
     ] },
   ])
 })
+
+
+test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {
+  expect(cardTemplateDefaultsFor('Angel of Sanctions')).toMatchObject({ power: 3, toughness: 4, subtypes: ['Angel'] })
+  expect(cardTemplateDefaultsFor('Glorious Protector')).toMatchObject({ power: 3, toughness: 4, subtypes: ['Angel', 'Cleric'] })
+  expect(cardTemplateDefaultsFor('All-Fates Stalker')).toMatchObject({ power: 2, toughness: 3, subtypes: ['Drix', 'Assassin'] })
+  expect(cardTemplateDefaultsFor('Kederekt Leviathan')).toMatchObject({ power: 5, toughness: 5 })
+  expect(cardRuleDefinitionSnapshotFor('Glorious Protector')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flash' }, { kind: 'keyword', keyword: 'flying' },
+    { kind: 'static', effects: [{ kind: 'foretell', manaCost: '{2}{W}' }] }, { kind: 'triggered' },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Pitiless Carnage')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'plot', manaCost: '{1}{B}{B}' }] })
+  expect(cardRuleDefinitionSnapshotFor('Hypergenesis')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'suspend', counters: 3, manaCost: '{1}{G}{G}' }] })
+})

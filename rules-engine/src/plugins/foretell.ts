@@ -1,3 +1,4 @@
+import { zoneMechanic } from '../cardPlugins/dsl/alternateMechanics'
 import { payCost } from './spells'
 import { effectsOf } from '../cardPlugins/cardRules'
 import type { AlternateCastEffect } from '../cardPlugins/alternateCosts'
@@ -13,9 +14,9 @@ export type ForetellEffect = Extract<CardEffect, { op: 'foretell' }>
 export const foretellEffects = (object: GameObject) =>
   effectsOf(object).filter((effect): effect is ForetellEffect => effect.op === 'foretell')
 
-export const foretellCostOf = (object: GameObject) => foretellEffects(object)[0]?.manaCost
+export const foretellCostOf = (object: GameObject) => zoneMechanic(object, 'foretell')?.manaCost ?? foretellEffects(object)[0]?.manaCost
 
-export const hasForetell = (object: GameObject) => foretellEffects(object).length > 0
+export const hasForetell = (object: GameObject) => foretellCostOf(object) !== undefined
 
 export const foretellAlternateCast = (object: GameObject): AlternateCastEffect => {
   const manaCost = foretellCostOf(object) ?? ''
@@ -37,14 +38,10 @@ export const isHiddenForetold = (
   && object.zone === 'exile'
   && !isKnownTo(object, viewer, playerOrder)
 
-const isMainPhase = (step: GameState['step']) =>
-  step === 'precombatMain' || step === 'postcombatMain'
-
 const foretellActionWindow = (state: GameState, seat: PlayerId) =>
   state.priority === seat
   && state.active === seat
-  && isMainPhase(state.step)
-  && state.stack.length === 0
+
 
 export const canForetellFromHand = (state: GameState, seat: PlayerId, object: GameObject) =>
   foretellActionWindow(state, seat)
@@ -59,6 +56,7 @@ export const canCastForetold = (state: GameState, object: GameObject) =>
   && object.zone === 'exile'
   && Boolean(foretellCostOf(object))
   && state.turn !== object.foretoldTurn
+  && (object.foretoldIncarnation === undefined || object.foretoldIncarnation === object.incarnation)
 
 const revealForetold = (draft: { objects: Record<string, GameObject>; playerOrder: PlayerId[] }, object: GameObject) => {
   if (!object.foretold) return
@@ -97,6 +95,7 @@ export const foretell: Plugin = {
       object.foretoldTurn = state.turn
       object.knownTo = [event.seat]
       draft.move(object.id, 'exile')
+      object.foretoldIncarnation = object.incarnation
       draft.passedInRow = []
       draft.priority = event.seat
       draft.note(`${event.seat} foretells a card face down`)
@@ -115,6 +114,7 @@ export const foretell: Plugin = {
       if (event.to === 'exile') return
       delete object.foretold
       delete object.foretoldTurn
+      delete object.foretoldIncarnation
     }
   },
 }

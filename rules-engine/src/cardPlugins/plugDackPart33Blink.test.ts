@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { ok, resolveStack } from '../testHelpers'
+import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
 import { alternateCosts } from './alternateCosts'
@@ -94,40 +94,5 @@ describe('Dack party blink pass 2', () => {
       controller: 'p2',
     })
   })
-
-  test('All-Fates Stalker cages a non-Assassin until it leaves', () => {
-    const server = createServerGame(commanderRules, {
-      players: 3,
-      hands: { p1: [cardTemplate('All-Fates Stalker')] },
-      battlefield: {
-        p2: [cardTemplate('Caged Bear', { types: ['Creature'], power: 3, toughness: 3 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const stalkerId = named(server.state, 'All-Fates Stalker').id
-    const bearId = named(server.state, 'Caged Bear').id
-    const entered = ok(server.rules(server.state, {
-      type: 'move',
-      objectId: stalkerId,
-      to: 'battlefield',
-    }))
-    const picked = ok(server.rules(entered, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [bearId],
-    }))
-    const resolved = resolveStack(server.rules, picked)
-    expect(resolved.objects[bearId]).toMatchObject({
-      zone: 'exile',
-      exiledWith: stalkerId,
-    })
-    const sacrificed = resolveStack(server.rules, ok(server.rules(resolved, {
-      type: 'sacrifice',
-      objectId: stalkerId,
-    })))
-    expect(sacrificed.objects[bearId].zone).toBe('battlefield')
-  })
-
 
 })

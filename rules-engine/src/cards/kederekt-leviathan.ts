@@ -145,6 +145,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
+  power: Number(scryfall.power), toughness: Number(scryfall.toughness),
   scryfall, types: ['Creature'], subtypes: ['Leviathan'],
   colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

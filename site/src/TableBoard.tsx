@@ -1023,6 +1023,8 @@ export const legalActLabel = (action: AvailableAction) => {
   }
   if (action.kind === 'unlockDoor') return `Unlock — ${action.doorName}`
   if (action.kind === 'foretell') return 'Foretell {2}'
+  if (action.kind === 'plot') return 'Plot'
+  if (action.kind === 'suspend') return 'Suspend'
   if (action.kind === 'declareAttackers') return 'Declare attackers'
   return 'Declare blockers'
 }

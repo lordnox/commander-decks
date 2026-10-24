@@ -47,32 +47,14 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "4dd391f5d52eac75038ee9fa09ef5bb57893d13c05fde40b820e993c4310d3ea",
-    "card": "Pitiless Carnage"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "163954689e281c315c7b878b1cbe019cc25eea460fdda6175a103ac4c1a6a82e",
     "card": "Concordant Crossroads"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "2fd5901c256baddc6451880dd0ea461784d1a6bec5be392534eaa78c9633b97f",
-    "card": "Hypergenesis"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "da8966c7ce4ccb861107783b808f011179852f2dcebc1f4d27dd3d8e6b2d19b1",
     "card": "Reins of Power"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "0ec0dc713408f1e296b74b000261264f0aceeb7f9b59b8a0e088350c8680160e",
-    "card": "All-Fates Stalker"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
@@ -163,12 +145,6 @@
     "code": "legacy-card-registration",
     "digest": "b9efc282489397318794ca87153b262ed7cf60f2dafdb48e975ae66e67db467a",
     "card": "Snuff Out"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "1ef115f46b1b69e7be8dcb0594f74ef9308b1488d168469ad9119e0e92e17fae",
-    "card": "Glorious Protector"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

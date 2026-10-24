@@ -96,3 +96,16 @@ test.each([false, true])('player iteration computes each targeted player library
   expect(state.zoneOrder.p2.library).toHaveLength(selected ? 3 : 5)
   expect(state.zoneOrder.p3.library).toHaveLength(selected ? 2 : 3)
 })
+
+
+test('an explicit starting player overrides APNAP and survives the choice continuation', () => {
+  const server = createServerGame(commanderRules, { players: 3, first: 'p2', hands: { p2: [instructionSpell({ instructions: [forEachPlayer({ of: players(), startingWith: ref('controller'), instructions: [choosePlayer({ chooser: ref('event.player'), filter: players(), bindChoice: 'picked' })] })] })] } }, { random: () => 0 })
+  const ready = { ...server.state, active: 'p1' }
+  let state = resolveStack(server.rules, ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: ready.zoneOrder.p2.hand[0]! })))
+  for (const seat of ['p2', 'p3', 'p1']) {
+    const pick = pendingPlayerSelectionFor(state, seat)!
+    expect(pick).toBeDefined()
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectPlayers', seat, selectionId: pick.id, players: [seat] }))
+  }
+  expect(state.resolution).toBeUndefined()
+})

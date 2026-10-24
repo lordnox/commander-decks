@@ -175,6 +175,7 @@ export type ReversibleEffect =
     }
 
 export type EffectDuration =
+  | { kind: 'whileControlUnchanged'; controller: PlayerId }
   | { kind: 'untilCleanup' }
   | { kind: 'permanent' }
   | { kind: 'untilStep'; step: StepId; active?: PlayerId; turn: number; notBeforeTurn?: number }
@@ -325,6 +326,8 @@ export type GameObject = {
   subtypes: string[]
   supertypes: string[]
   manaCost: string
+  /** An absent printed mana cost is unpayable, unlike {0}. */
+  manaCostAbsent?: true
   manaValue: number
   colors: string[]
   /**
@@ -430,6 +433,9 @@ export type GameObject = {
   foretold?: boolean
   /** Turn this card was foretold; same-turn foretell casts are illegal. */
   foretoldTurn?: number
+  plotted?: { turn: number; incarnation: number }
+  castHasteController?: PlayerId
+  foretoldIncarnation?: number
   /** A face-down card in a normally public zone. */
   faceDown?: boolean
   /** An Adventure card exiled by its Adventure spell may be played from exile. */
@@ -892,8 +898,10 @@ export type SpellCastPermission = {
   cost: 'withoutPayingMana' | 'printed' | 'lifeEqualManaValue'
   asThoughFlash?: true
   remainingUses: number
+  grantHaste?: true
   /** Cast this specific object (rebound exile / later-turn exile). */
   objectId?: string
+  objectIncarnation?: number
   /** Live zone query (offered hand, exile, or graveyard). */
   zone?: ZoneId
   fromSeat?: PlayerId
@@ -1271,6 +1279,7 @@ export type GameEvent =
   | { type: 'untap'; objectId: string }
   | { type: 'phaseOut'; objectId: string }
   | { type: 'phaseIn'; objectId: string }
+  | { type: 'removeCounters'; objectId: string; counter: string; count: number }
   | { type: 'putCounters'; objectId: string; counter: string; count: number }
   | { type: 'proliferateCounter'; recipient: { kind: 'object'; objectId: string; counter: string } | { kind: 'player'; seat: PlayerId; counter: 'poison' | 'energy' } }
   /** CR 704.5q: a permanent with both +1/+1 and -1/-1 counters removes a pair of each. */
@@ -1327,6 +1336,8 @@ export type GameEvent =
       /** Ability effects skip the paid special action (CR 709.5c vs Marina). */
       withoutCost?: boolean
     }
+  | { type: 'plot'; objectId: string; seat: PlayerId }
+  | { type: 'suspend'; objectId: string; seat: PlayerId }
   | { type: 'foretell'; seat: PlayerId; objectId: string }
   | {
       type: 'lockDoor'

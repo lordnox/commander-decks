@@ -36,6 +36,7 @@ export const generatedAbilitySnapshot = (
     case 'gainedLife':
     case 'moved':
     case 'tokenCreated':
+    case 'countersRemoved':
     case 'sacrificed':
     case 'manaAdded':
     case 'manaAbilityActivated':
@@ -103,6 +104,7 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
     case 'moved': return ['object.before', 'object.after']
     case 'tokenCreated':
     case 'enters': return ['object.after']
+    case 'countersRemoved':
     case 'sacrificed': return ['object.before', 'object.after']
     case 'unlockDoor':
     case 'fullyUnlock': return ['player', 'object.after']

@@ -277,6 +277,7 @@ export type OccurrencePattern =
       }
     }
   | { kind: 'tokenCreated' | 'sacrificed'; filter: ObjectOccurrenceFilter }
+  | { kind: 'countersRemoved'; filter: ObjectOccurrenceFilter; counter: string; last?: true }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter; fromSpell?: boolean }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
@@ -388,6 +389,7 @@ export type CostOptionCondition = { cost: 'optional' | 'alternative'; index: num
 
 /** A duration is data, so a temporary effect survives persistence/resume. */
 export type EffectDuration =
+  | { kind: 'whileControlUnchanged' }
   | { kind: 'untilCleanup' }
   | { kind: 'permanent' }
   | { kind: 'untilStep'; step: string; active?: PlayerReference }
@@ -518,7 +520,7 @@ export type Instruction =
   | { kind: 'chooseParticipants'; of: PlayerRecipient; bindChoice: string; prompt?: string }
   | { kind: 'chooseCardsForEachPlayer'; of: PlayerRecipient; filter: ObjectSelector; min: Amount; max: Amount; bindChoice: string }
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
-  | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
+  | { kind: 'forEachPlayer'; of: PlayerRecipient; startingWith?: PlayerReference; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'lookAt'; cards: ObjectRecipient; viewers: PlayerRecipient }
   | { kind: 'choosePile'; piles: readonly [ObjectRecipient, ObjectRecipient]; chooser: PlayerReference; bindChosen: string; bindOther: string; prompt?: string }
@@ -607,6 +609,7 @@ export type Instruction =
       takeControl?: true
       inspect?: true
       laterTurn?: true
+      grantHaste?: true
       timing?: SpellCastTiming
       object?: ObjectReference
     }
@@ -644,6 +647,7 @@ export type Instruction =
   /** Copy an activated or triggered ability without activating or triggering it again. */
   | { kind: 'copyAbility'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Put the evaluated number of the named counter on each resolved object recipient. */
+  | { kind: 'removeCounters'; targets: ObjectRecipient; counter: string; count: Amount }
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   /** Counter each resolved stack item before it can resolve. */
   | {
@@ -892,6 +896,10 @@ export type ContinuousEffectDefinition =
     }
   /** CR 702.138: alternative graveyard casting that exiles other graveyard cards. */
   | { kind: 'escape'; manaCost: string; exileCount: number }
+  | { kind: 'foretell'; manaCost: string }
+  | { kind: 'plot'; manaCost: string }
+  | { kind: 'warp'; manaCost: string }
+  | { kind: 'suspend'; manaCost: string; counters: number }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector

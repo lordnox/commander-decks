@@ -236,3 +236,9 @@ test('live action decoding preserves independent evidence payments and their opt
   expect(parseInbox(JSON.stringify({ ...message, evidence: [['a', 3]] }))).toBeNull()
   expect(parseInbox(JSON.stringify({ ...message, selectedOptionalCosts: [-1] }))).toBeNull()
 })
+
+
+test.each(['plot', 'suspend'] as const)('live protocol preserves the %s special action', kind => {
+  const message = { type: 'act' as const, kind, objectId: 'prepared' }
+  expect(parseInbox(JSON.stringify(message))).toEqual(message)
+})

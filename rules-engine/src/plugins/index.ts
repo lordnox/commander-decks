@@ -1,3 +1,4 @@
+import { preparedCasting } from '../cardPlugins/dsl/preparedCasting'
 import { pendingDialogLock } from '../pendingDialog'
 import { continuousEffects } from '../cardPlugins/continuousEffects'
 import { abilities } from './activateAbility'
@@ -73,6 +74,7 @@ export const builtInPlugins = [
   spells,
   adventure,
   foretell,
+  preparedCasting,
   rebound,
   warp,
   alternateCosts,
@@ -146,6 +148,7 @@ export {
   phialReplacement,
   priority,
   foretell,
+  preparedCasting,
   rebound,
   warp,
   rooms,

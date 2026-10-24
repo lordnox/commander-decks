@@ -659,12 +659,7 @@ describe('card plugin registry', () => {
       'All-Fates Stalker',
     ]
     expect(missingCardPlugins(names)).toEqual([])
-    expect(handlerIdsForNames(names)).toEqual([
-      'alternateCosts',
-      'blinkValue',
-      'choiceEffects',
-      'linkedExile',
-    ])
+    expect(handlerIdsForNames(names)).toEqual(['blinkValue'])
   })
 
   test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {

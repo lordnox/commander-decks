@@ -88,6 +88,8 @@ type InboxPayload =
         | 'activateAbility'
         | 'unlockDoor'
         | 'foretell'
+        | 'plot'
+        | 'suspend'
         | 'declareAttackers'
         | 'declareBlockers'
       objectId?: string
@@ -341,6 +343,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           'activateAbility',
           'unlockDoor',
           'foretell',
+          'plot',
+          'suspend',
         ].includes(kind as string)
         || typeof objectId !== 'string'
         || !objectId
@@ -377,7 +381,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           | 'declineFreeCast'
           | 'activateAbility'
           | 'unlockDoor'
-          | 'foretell',
+          | 'foretell'
+        | 'plot'
+        | 'suspend',
         objectId,
         ...(selectedOptionalCosts === undefined ? {} : { selectedOptionalCosts: [...selectedOptionalCosts] }),
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),

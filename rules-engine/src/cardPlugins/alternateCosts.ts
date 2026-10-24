@@ -1,3 +1,4 @@
+import { zoneMechanic } from './dsl/alternateMechanics'
 import { isPermanentType } from '../definitions'
 import type { GameObject, GameState, Plugin, StackItem, ZoneId } from '../types'
 import { isSwamp } from '../plugins/swampOverlay'
@@ -50,6 +51,10 @@ export const availableAlternateCastEffects = (
       effects.push(retraceEffect(object))
     }
   }
+  const plotted = zoneMechanic(object, 'plot')
+  if (plotted && object.zone === 'exile' && object.plotted?.incarnation === object.incarnation && state.turn > object.plotted.turn) effects.push({ op: 'alternateCast', id: 'plot', label: 'Cast plotted card', manaCost: '', fromZone: 'exile' })
+  const warped = zoneMechanic(object, 'warp')
+  if (warped && object.zone === 'hand') effects.push({ op: 'alternateCast', id: 'warp', label: `Warp ${warped.manaCost}`, manaCost: warped.manaCost, fromZone: 'hand' })
   if (object.zone === 'graveyard') {
     for (const entry of activePrintedStaticModifiers(state, object)) {
       if (isActiveKeywordStatic(entry)) continue
@@ -143,6 +148,7 @@ export const canChooseAlternateCast = (
   effect: AlternateCastEffect,
   object?: GameObject,
 ) => {
+  if (effect.id === 'plot' && (object?.plotted?.incarnation !== object?.incarnation || state.turn <= (object?.plotted?.turn ?? state.turn) || state.active !== seat || (state.step !== 'precombatMain' && state.step !== 'postcombatMain') || state.stack.length > 0)) return false
   if (effect.afterWarp) {
     if (object?.zone !== 'exile') return false
     if (object.warpExiledTurn === undefined) return false

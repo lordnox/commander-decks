@@ -1,3 +1,5 @@
+import { choice, compareAmount, count, ifThen, move, objects, offerCast, ownerOf, ref } from './cardPlugins/dsl/builders'
+import { zoneMechanic } from './cardPlugins/dsl/alternateMechanics'
 import { markKnownTo } from './knowledge'
 import { canonicalCopySource } from './cardPlugins/dsl/copies'
 import { evaluateCreatureType } from './cardPlugins/dsl/compiler/runtime'
@@ -205,6 +207,7 @@ const preflightInstructions = (
       case 'copy':
       case 'copyAbility':
       case 'copySpell':
+      case 'removeCounters':
       case 'putCounters':
       case 'counter':
       case 'createEffect':
@@ -815,6 +818,7 @@ const actionEvents = (
       const objectId = instruction.object
         ? evaluateObjectReference(instruction.object, context)[0]?.id
         : undefined
+      if (instruction.object && !objectId) return []
       openSpellCast(draft, {
         sourceId: frame.source.ref.objectId,
         sourceName: frame.source.snapshot.name,
@@ -826,6 +830,7 @@ const actionEvents = (
         ...(instruction.notLand ? { notLand: true } : {}),
         ...(instruction.takeControl ? { takeControl: true } : {}),
         ...(instruction.inspect ? { inspect: true } : {}),
+        ...(instruction.grantHaste ? { grantHaste: true as const } : {}),
         ...(instruction.laterTurn ? { availableFromTurn: draft.turn + 1 } : {}),
         ...(instruction.timing !== SPELL_CAST_TIMING.sorcery ? { asThoughFlash: true } : {}),
         ...(objectId ? { objectId } : {}),
@@ -1293,6 +1298,8 @@ const actionEvents = (
       // complete before the next written instruction is considered.
       return copies
     }
+    case 'removeCounters':
+      return objectActions(instruction.targets, context).map(object => ({ type: 'removeCounters' as const, objectId: object.id, counter: instruction.counter, count: availableAmount(instruction.count, context) ?? 0 }))
     case 'putCounters': {
       const targets = objectActions(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)
@@ -1706,7 +1713,9 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (instruction.kind === 'forEachPlayer') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const selected = new Set(recipients(instruction.of, context))
-      const players = apnapSeats(draft).filter(player => selected.has(player))
+      const first = instruction.startingWith ? evaluatePlayerReference(instruction.startingWith, context)[0] : undefined
+      const order = first ? [...draft.playerOrder.slice(draft.playerOrder.indexOf(first)), ...draft.playerOrder.slice(0, draft.playerOrder.indexOf(first))] : apnapSeats(draft)
+      const players = order.filter(player => selected.has(player))
       if (instruction.bindMax) {
         frame.resultMaxima = { ...frame.resultMaxima, [instruction.bindMax.as]: 0 }
         frame.results = { ...frame.results, [instruction.bindMax.as]: 0 }
@@ -2254,6 +2263,19 @@ export const finishResolution = (draft: Draft) => {
   if (!frame) return
   if (frame.kind !== 'canonicalSpell') return
   const outcome = frame.outcome ?? 'resolved'
+  const resolvedItem = draft.stack.find(item => item.id === frame.stackId) ?? frame.inlineItem
+  const permanent = resolvedItem ? draft.objects[resolvedItem.objectId] : undefined
+  if (outcome === 'resolved' && resolvedItem?.kind === 'spell' && resolvedItem.castOption === 'warp'
+    && zoneMechanic(frame.source.snapshot, 'warp') && permanent?.zone === 'battlefield'
+    && permanent.incarnation === frame.source.ref.incarnation + 1) {
+    const delayedFrame = { ...frame, source: captureObject(permanent) }
+    registerCanonicalDelayed(draft, { kind: 'step', step: 'end' }, [
+      move({ targets: ref('source'), to: 'exile', bindChoice: 'warped' }),
+      ifThen(compareAmount(count(objects({ among: choice('warped') })), 'gte', 1), { then: [
+        offerCast({ chooser: ownerOf(choice('warped')), from: ownerOf(choice('warped')), object: choice('warped'), zone: 'exile', cost: 'printed', laterTurn: true, timing: 'sorcery' }),
+      ] }),
+    ], delayedFrame, runtimeContext(draft, delayedFrame, resolvedItem, frame.scopeId), false)
+  }
   draft.note(`${frame.kind} ${frame.stackId} ${outcome}`)
   if (frame.inlineItem) {
     draft.resolution = frame.parentResolution

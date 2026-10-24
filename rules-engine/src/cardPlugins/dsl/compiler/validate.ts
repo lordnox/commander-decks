@@ -1115,7 +1115,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'offerCast':
-        exactKeys(node, path, ['kind', 'chooser', 'from', 'zone', 'cost', 'maxManaValue', 'notLand', 'takeControl', 'inspect', 'laterTurn', 'timing', 'object'], ['kind', 'chooser', 'from', 'zone', 'cost'])
+        exactKeys(node, path, ['kind', 'chooser', 'from', 'zone', 'cost', 'maxManaValue', 'notLand', 'takeControl', 'inspect', 'laterTurn', 'timing', 'object', 'grantHaste'], ['kind', 'chooser', 'from', 'zone', 'cost'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
         validateReference(node.from, childPath(path, 'from'), env, ['player'])
         enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
@@ -1127,6 +1127,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.laterTurn !== undefined && node.laterTurn !== true) issue(childPath(path, 'laterTurn'), 'constant', 'laterTurn must be true when present')
         if (node.timing !== undefined) enumeration(node.timing, childPath(path, 'timing'), new Set(Object.values(SPELL_CAST_TIMING)), 'spell-cast timing')
         if (node.object !== undefined) validateReference(node.object, childPath(path, 'object'), env, ['object'])
+        if (node.grantHaste !== undefined && node.grantHaste !== true) issue(path, 'type', 'grantHaste must be true')
         return
       case 'discardHands':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
@@ -1394,6 +1395,7 @@ export const validateDefinitionV1 = (root: unknown): {
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
         }
         return
+      case 'removeCounters':
       case 'putCounters':
         exactKeys(node, path, ['kind', 'targets', 'counter', 'count', 'bindResult'], ['kind', 'targets', 'counter', 'count'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
@@ -1437,7 +1439,7 @@ export const validateDefinitionV1 = (root: unknown): {
         const duration = object(node.duration, childPath(path, 'duration'))
         if (duration) {
           exactKeys(duration, childPath(path, 'duration'), ['kind', 'step', 'active', 'count'], ['kind'])
-          enumeration(duration.kind, childPath(childPath(path, 'duration'), 'kind'), new Set(['untilCleanup', 'permanent', 'untilStep', 'forTurns', 'whileSourceOnBattlefield']), 'effect duration')
+          enumeration(duration.kind, childPath(childPath(path, 'duration'), 'kind'), new Set(['untilCleanup', 'permanent', 'untilStep', 'forTurns', 'whileSourceOnBattlefield', 'whileControlUnchanged']), 'effect duration')
           if (duration.kind === 'untilStep') {
             if (typeof duration.step !== 'string' || duration.step.length === 0) issue(childPath(childPath(path, 'duration'), 'step'), 'type', 'untilStep requires a step name')
             if (duration.active !== undefined) validateReference(duration.active, childPath(childPath(path, 'duration'), 'active'), env, ['player'])
@@ -1658,8 +1660,9 @@ export const validateDefinitionV1 = (root: unknown): {
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'player' }, childPath(path, 'bindChoice'))
         return
       case 'forEachPlayer': {
-        exactKeys(node, path, ['kind', 'of', 'instructions', 'bindMax'], ['kind', 'of', 'instructions'])
+        exactKeys(node, path, ['kind', 'of', 'instructions', 'bindMax', 'startingWith'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
+        if (node.startingWith !== undefined) validateReference(node.startingWith, childPath(path, 'startingWith'), env, ['player'])
         const bodyEnv = withEventPlayer(env)
         validateInstructionList(node.instructions, childPath(path, 'instructions'), bodyEnv, depth + 1)
         if (node.bindMax !== undefined) {
@@ -1853,6 +1856,11 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'fullyUnlock':
         exactKeys(node, path, ['kind', 'filter'], ['kind'])
         break
+      case 'countersRemoved':
+        exactKeys(node, path, ['kind', 'filter', 'counter', 'last'], ['kind', 'filter', 'counter'])
+        nonemptyString(node.counter, childPath(path, 'counter'))
+        if (node.last !== undefined && node.last !== true) issue(path, 'type', 'last must be true')
+        break
       case 'enters':
         exactKeys(node, path, ['kind', 'filter', 'fromSpell'], ['kind', 'filter'])
         break
@@ -1914,6 +1922,7 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return env
       }
+      case 'countersRemoved':
       case 'tokenCreated':
       case 'enters':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
@@ -2413,6 +2422,17 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               return
             }
+            case 'foretell':
+            case 'plot':
+            case 'warp':
+              exactKeys(node, effectPath, ['kind', 'manaCost'], ['kind', 'manaCost'])
+              validateCost({ kind: 'mana', amount: node.manaCost }, childPath(effectPath, 'manaCost'), baseEnvironment())
+              return
+            case 'suspend':
+              exactKeys(node, effectPath, ['kind', 'manaCost', 'counters'], ['kind', 'manaCost', 'counters'])
+              validateCost({ kind: 'mana', amount: node.manaCost }, childPath(effectPath, 'manaCost'), baseEnvironment())
+              integer(node.counters, childPath(effectPath, 'counters'), { min: 1 })
+              return
             case 'escape':
               exactKeys(node, effectPath, ['kind', 'manaCost', 'exileCount'], ['kind', 'manaCost', 'exileCount'])
               validateCost({ kind: 'mana', amount: node.manaCost }, childPath(effectPath, 'manaCost'), baseEnvironment())

@@ -419,6 +419,7 @@ const validateNonManaCosts = (
         const source = state.objects[runtimeSourceId]
         if (!source || source.zone !== cost.from || (source.zone === 'battlefield' ? source.controller : source.owner) !== payer || sourceExiled) throw new TypeError('source cannot be exiled to pay this cost')
         sourceExiled = true
+        selectedObjects.add(runtimeSourceId)
         break
       }
       case 'mill':

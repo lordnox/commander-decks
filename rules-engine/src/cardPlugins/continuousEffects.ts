@@ -432,8 +432,9 @@ const durationHolds = (
       return objectSupportsPumpPerLinkedExile(object)
     default: break
   }
-  if (!anyZone && object.zone !== 'battlefield') return false
+  if (!anyZone && object.zone !== 'battlefield' && !(object.zone === 'stack' && duration.kind === 'whileControlUnchanged')) return false
   switch (duration.kind) {
+    case 'whileControlUnchanged': return object.controller === duration.controller
     case 'untilCleanup': return !endTurnEffects
     case 'permanent': return true
     case 'whileSourceOnBattlefield': {

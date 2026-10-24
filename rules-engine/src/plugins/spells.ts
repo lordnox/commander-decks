@@ -224,7 +224,7 @@ const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x 
   return genericCost(adjustedMana) - genericCost(base)
 }
 
-const announcementSource = (
+export const announcementSource = (
   object: GameObject,
   selected: AlternateCastEffect | undefined,
 ) => selected
@@ -762,6 +762,8 @@ export const spells: Plugin = {
         event.castOption,
       )
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
+      if (freeCast && (selected || event.selectedAlternativeCost !== undefined)) return 'a free cast cannot also use another alternative cost'
+      if (spell.manaCostAbsent && !freeCast && !selected && event.selectedAlternativeCost === undefined && !event.copy) return 'a spell with no mana cost requires an alternative cost'
       const steal = state.players[event.seat]?.data[PENDING_STEAL_CAST]
       const permission = matchingSpellCast(state, event.seat, object.id)
       const staticPermission = canonicalSpellPermission(state, event.seat, object)
@@ -1094,6 +1096,10 @@ export const spells: Plugin = {
       }
       if (permission) consumeSpellCast(draft, event.seat, object.id)
       draft.move(object.id, 'stack')
+      if (permission?.grantHaste && object.types.includes('Creature')) {
+        object.castHasteController = event.seat
+        draft.enqueue({ type: 'canonicalEffect', objectId: object.id, effect: { kind: 'grantKeyword', keyword: 'haste' }, duration: { kind: 'whileControlUnchanged' } })
+      }
       const stacked = draft.addToStack({
         id: draft.allocId('s'),
         kind: 'spell',

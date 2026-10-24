@@ -15,7 +15,7 @@ export const warp: Plugin = {
     const item = state.stack[0]
     if (!item || item.kind !== 'spell') return
     const object = draft.object(item.objectId)
-    if (!object) return
+    if (!object || object.ruleDefinition) return
     if (item.castOption === 'warp-from-exile') {
       delete object.warpExiledTurn
       return

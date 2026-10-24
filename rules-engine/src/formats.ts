@@ -1,3 +1,4 @@
+import { preparedCasting } from './cardPlugins/dsl/preparedCasting'
 import { pendingDialogLock } from './pendingDialog'
 import { continuousEffects } from './cardPlugins/continuousEffects'
 import { abilities } from './plugins/activateAbility'
@@ -102,6 +103,7 @@ export const corePlugins = [
   ward,
   adventure,
   foretell,
+  preparedCasting,
   rebound,
   warp,
   alternateCosts,

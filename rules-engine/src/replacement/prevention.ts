@@ -189,6 +189,8 @@ const preventionDurationFromDsl = (
   const createdTurn = event.createdTurn ?? state.turn
   const runtime = () => runtimeFor(state, host.id, host.controller, undefined, capturedSource)
   switch (duration.kind) {
+    case 'whileControlUnchanged':
+      throw new TypeError('control-bound duration requires an object effect')
     case 'untilCleanup':
       return { kind: 'untilCleanup' }
     case 'permanent':

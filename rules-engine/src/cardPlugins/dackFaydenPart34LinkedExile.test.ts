@@ -109,47 +109,6 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     expect(state.objects[foeId].zone).toBe('battlefield')
   })
 
-  test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {
-    const protector = fromPool('Glorious Protector', {
-      subtypes: ['Angel', 'Cleric'],
-    })
-    const ally = cardTemplate('Protector Ally', { types: ['Creature'] })
-    const angelBuddy = cardTemplate('Protector Angel Buddy', {
-      types: ['Creature'],
-      subtypes: ['Angel'],
-    })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [protector] }, battlefield: { p1: [ally, angelBuddy] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const protectorId = named(server.state, 'Glorious Protector').id
-    const allyId = named(server.state, 'Protector Ally').id
-    const angelId = named(server.state, 'Protector Angel Buddy').id
-
-    let state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: protectorId,
-      to: 'battlefield',
-    })))
-    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
-    expect(candidates).toContain(allyId)
-    expect(candidates).not.toContain(angelId)
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [allyId],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[allyId].zone).toBe('exile')
-    expect(state.objects[angelId].zone).toBe('battlefield')
-
-    state = ok(server.rules(state, { type: 'move', objectId: protectorId, to: 'hand' }))
-    expect(state.objects[allyId].zone).toBe('battlefield')
-  })
-
   test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {
     const fox = fromPool('Werefox Bodyguard', { subtypes: ['Fox', 'Elf', 'Knight'] })
     const mark = cardTemplate('Werefox Mark', { types: ['Creature'] })

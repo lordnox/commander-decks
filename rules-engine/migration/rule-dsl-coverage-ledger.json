@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 22,
+    "cardRegistrations": 18,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
-    "builtInPlugins": 58,
+    "builtInPlugins": 59,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 26,
     "customEventDispatchSites": 82,
-    "directMutationSites": 562,
-    "instructionRegistrationOnlyGaps": 2,
-    "instructionUnobservedGaps": 132,
-    "cardRegistrationOnlyGaps": 3,
-    "candidateOnlyInstructionRows": 51,
-    "candidateOnlyCardRows": 19
+    "directMutationSites": 567,
+    "instructionRegistrationOnlyGaps": 1,
+    "instructionUnobservedGaps": 134,
+    "cardRegistrationOnlyGaps": 2,
+    "candidateOnlyInstructionRows": 50,
+    "candidateOnlyCardRows": 16
   },
   "cardEffects": [
     {
@@ -55,7 +55,7 @@
           "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:322 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:613 — test(\"Thespian's Stage lists its handlers\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:750 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -72,19 +72,15 @@
       "variant": "alternateCast",
       "mechanic": "alternative casting permission",
       "currentRegistrations": [
-        "All-Fates Stalker:effects[0]",
-        "All-Fates Stalker:effects[1]",
         "Snuff Out:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:425 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:659 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:425 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed casting permission and alternative cost",
@@ -127,7 +123,7 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:679 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
       },
@@ -196,26 +192,24 @@
       "variant": "handler",
       "mechanic": "specialized plugin hook",
       "currentRegistrations": [
-        "All-Fates Stalker:effects[2]",
         "Concordant Crossroads:effects[1]",
         "Ephemerate:effects[0]",
         "Everybody Lives!:effects[0]",
-        "Glorious Protector:effects[0]",
         "Incarnation Technique:effects[1]",
         "Reins of Power:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:26 — test('Ephemerate returns a stolen creature under its owner’s control', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:184 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:558 — test('swaps creature control until cleanup', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:212 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:406 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:441 — test('Lady Evangela blink-value cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:572 — test('Incarnation Technique loads both the trigger and the copy handler', () => {"
         ]
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
@@ -390,26 +384,24 @@
       "variant": "static",
       "mechanic": "static/granted rule",
       "currentRegistrations": [
-        "All-Fates Stalker:effects[3]",
         "Belonging:effects[1]",
         "Concordant Crossroads:effects[0]",
-        "Glorious Protector:effects[1]",
         "Sakashima of a Thousand Faces:effects[0]",
         "Soul of Eternity:effects[0]",
         "Walk-In Closet:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 11,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:3564 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:215 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:53 — test('the Homer dumpster cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:604 — test('Homer remaining cards keep their resolve composition', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -470,15 +462,11 @@
       "variant": "trigger",
       "mechanic": "triggered ability",
       "currentRegistrations": [
-        "All-Fates Stalker:effects[4]",
         "Belonging:effects[0]",
         "Forgotten Cellar:effects[0]",
-        "Glorious Protector:effects[2]",
-        "Hypergenesis:effects[0]",
         "Incarnation Technique:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
         "Perch Protection:effects[1]",
-        "Pitiless Carnage:effects[0]",
         "Reins of Power:effects[0]",
         "Sakashima of a Thousand Faces:effects[1]",
         "Spark Double:effects[0]"
@@ -487,16 +475,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 46,
+        "matches": 41,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:325 — test('an opponent-owned clone entering under your control copies your creature', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {"
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1816,7 +1804,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/encore.test.ts:59 — test('encore builder clones safely', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:750 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2276,7 +2264,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:679 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2425,7 +2413,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:679 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2442,22 +2430,19 @@
     {
       "variant": "linkExile",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "All-Fates Stalker:effects[4].do[0]",
-        "Glorious Protector:effects[2].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2233 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2256 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2266 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2596 — test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:871 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:894 — test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:925 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:925 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {",
+          "rules-engine/src/cardPlugins/dsl/monarch.test.ts:144 — test('monarch instructions reject object recipients and conflicting exile durations', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -3039,7 +3024,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:679 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3329,16 +3314,11 @@
     {
       "variant": "putFromHand",
       "mechanic": "resolution choice",
-      "currentRegistrations": [
-        "Hypergenesis:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dumpFromHand.test.ts:23 — test('Hypergenesis asks each player to put a permanent', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:210 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3347,7 +3327,7 @@
         "03",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3873,9 +3853,7 @@
     {
       "variant": "sacrificePermanentsThenDraw",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Pitiless Carnage:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 0,
@@ -3887,7 +3865,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "registration-only",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4276,46 +4254,6 @@
   ],
   "cardRegistrations": [
     {
-      "card": "All-Fates Stalker",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.All-Fates Stalker"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:659 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [alternateCast, handler, static, trigger] and instructions [linkExile]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "alternateCast",
-        "handler",
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "linkExile"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "alternateCosts",
-        "choiceEffects",
-        "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Belonging",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -4480,79 +4418,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Glorious Protector",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Glorious Protector"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:113 — test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:340 — test('Dack Fayden part 34 linked-exile cages stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler, static, trigger] and instructions [linkExile]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler",
-        "static",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "linkExile"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hypergenesis",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hypergenesis"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dumpFromHand.test.ts:23 — test('Hypergenesis asks each player to put a permanent', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:210 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [putFromHand]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "putFromHand"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "dumpFromHand",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Incarnation Technique",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -4704,7 +4569,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:679 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
@@ -4732,37 +4597,6 @@
       "handlerIds": [
         "castCosts",
         "giftCast",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Pitiless Carnage",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Pitiless Carnage"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [sacrificePermanentsThenDraw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "sacrificePermanentsThenDraw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
         "onResolve"
       ],
       "embeddedRulePaths": []
@@ -4916,7 +4750,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:750 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [encoreTokens]",
@@ -5326,18 +5160,15 @@
       "variant": "alternateCosts",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [
-        "All-Fates Stalker",
         "Snuff Out"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:101 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:425 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:659 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:425 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5588,6 +5419,21 @@
       "status": "candidate-test-reference"
     },
     {
+      "variant": "dsl.preparedCasting",
+      "mechanic": "runtime plugin hook",
+      "currentRegistrations": [],
+      "executableCoverageEvidence": [],
+      "candidateEvidence": {
+        "matches": 0,
+        "samples": []
+      },
+      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
+      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
+      "ownerPart": "16",
+      "dependencyParts": [],
+      "status": "unobserved"
+    },
+    {
       "variant": "dslStaticModifiers",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [],
@@ -5748,15 +5594,16 @@
         "rules-engine/src/plugins/foretell.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 13,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2969 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:12",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:13",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:20",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:27",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:39 — test('foretell works during your combat with a spell on the stack; plot requires an empty main phase', () => {",
           "rules-engine/src/plugins/foretell.test.ts:120 — test('legal acts expose foretell during a main-phase special-action window', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:29",
-          "rules-engine/src/plugins/foretell.test.ts:32 — test('stamps a clone-safe foretell builder on effects', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:40 — test('foretell special action exiles face down and pays two generic', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:56 — test('opponents do not see a face-down foretold card in exile', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:71 — test('same-turn foretell cast is illegal', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:91 — test('a later turn offers and resolves a foretell cast from exile', () => {"
+          "rules-engine/src/plugins/foretell.test.ts:29"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6180,7 +6027,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 264,
+        "matches": 262,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2124 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -6222,7 +6069,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 67,
+        "matches": 68,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3326 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4343 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
@@ -6439,8 +6286,11 @@
         "rules-engine/src/plugins/warp.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 7,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/warp.test.ts:19 — test('warp creates its delayed exile during resolution, then permits only the captured exile incarnation on later turns', () => {",
+          "rules-engine/src/cardPlugins/dsl/warp.test.ts:42 — test('leaving before the end-step trigger resolves creates no later casting permission', () => {",
+          "rules-engine/src/cardPlugins/dsl/warp.test.ts:51 — test('countering a warped spell creates no delayed exile', () => {",
           "rules-engine/src/plugins/warp.test.ts:115 — test('allows casting from exile on a later turn for the printed mana cost', () => {",
           "rules-engine/src/plugins/warp.test.ts:34",
           "rules-engine/src/plugins/warp.test.ts:46 — test('casts for warp or normal mana from hand and only warped spells schedule end-step exile', () => {",
@@ -6872,10 +6722,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1864 — test('a generic pending dialog can put several permanent cards from hand', () => {",
-          "rules-engine/src/cardPlugins/dumpFromHand.test.ts:43 — test('Hypergenesis asks each player to put a permanent', () => {",
           "rules-engine/src/cardPlugins/vote.test.ts:356 — test('counts read from the vote parameterize later instructions', () => {"
         ]
       },
@@ -7074,7 +6923,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:164",
+        "rules-engine/src/cardPlugins/cardRules.ts:132",
         "rules-engine/src/cardPlugins/cardRules.ts:5",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:250",
@@ -7099,7 +6948,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1436"
+        "rules-engine/src/types.ts:1447"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -7132,9 +6981,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1511",
-        "rules-engine/src/actions.ts:1680",
-        "rules-engine/src/actions.ts:906",
+        "rules-engine/src/actions.ts:1515",
+        "rules-engine/src/actions.ts:1683",
+        "rules-engine/src/actions.ts:909",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
@@ -7170,7 +7019,7 @@
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1523",
+        "rules-engine/src/driver.ts:1530",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -7199,10 +7048,10 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1543",
-        "rules-engine/src/types.ts:334",
-        "rules-engine/src/types.ts:336",
-        "rules-engine/src/types.ts:340"
+        "rules-engine/src/rules/triggers.ts:1553",
+        "rules-engine/src/types.ts:337",
+        "rules-engine/src/types.ts:339",
+        "rules-engine/src/types.ts:343"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -7237,12 +7086,12 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:550",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:579",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:615",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:617",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:551",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:580",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:616",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:618",
         "rules-engine/src/cardPlugins/continuousEffects.ts:65",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:657",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:658",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:674",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:858",
         "rules-engine/src/cardPlugins/effectRuntime.ts:105",
@@ -7258,12 +7107,12 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
         "rules-engine/src/definitions.ts:74",
-        "rules-engine/src/formats.ts:135",
-        "rules-engine/src/formats.ts:42",
+        "rules-engine/src/formats.ts:137",
+        "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:545",
-        "rules-engine/src/kernel.ts:547",
-        "rules-engine/src/kernel.ts:844",
+        "rules-engine/src/kernel.ts:552",
+        "rules-engine/src/kernel.ts:554",
+        "rules-engine/src/kernel.ts:851",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -7271,8 +7120,8 @@
         "rules-engine/src/newGame.ts:132",
         "rules-engine/src/newGame.ts:183",
         "rules-engine/src/newGame.ts:288",
-        "rules-engine/src/plugins/index.ts:110",
-        "rules-engine/src/plugins/index.ts:43",
+        "rules-engine/src/plugins/index.ts:112",
+        "rules-engine/src/plugins/index.ts:44",
         "rules-engine/src/plugins/rooms.ts:52",
         "rules-engine/src/plugins/rooms.ts:71",
         "rules-engine/src/plugins/rooms.ts:88",
@@ -7283,8 +7132,8 @@
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:117",
         "rules-engine/src/types.ts:161",
-        "rules-engine/src/types.ts:297",
-        "rules-engine/src/types.ts:359",
+        "rules-engine/src/types.ts:298",
+        "rules-engine/src/types.ts:362",
         "rules-engine/src/types.ts:74",
         "rules-engine/src/types.ts:91"
       ],
@@ -7335,10 +7184,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1246
+          1252
         ],
         "samples": [
-          "1246: if (object.name === 'Timetwister') {"
+          "1252: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7367,12 +7216,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1945,
-          2870
+          1948,
+          2881
         ],
         "samples": [
-          "1945: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2870: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1948: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2881: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7500,10 +7349,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          544
+          545
         ],
         "samples": [
-          "544: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "545: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7734,15 +7583,15 @@
           179,
           199,
           281,
-          421,
-          422,
-          592,
-          1143,
-          1260,
-          1417,
-          1419,
-          1459,
-          1460
+          430,
+          431,
+          602,
+          1153,
+          1270,
+          1427,
+          1429,
+          1469,
+          1470
         ],
         "samples": [
           "73: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -7948,14 +7797,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          1011,
           1012,
-          1014
+          1013,
+          1015
         ],
         "samples": [
-          "1011: const endTurnEffects = event.type === 'custom'",
-          "1012: && event.name === 'advanceStep'",
-          "1014: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "1012: const endTurnEffects = event.type === 'custom'",
+          "1013: && event.name === 'advanceStep'",
+          "1015: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8239,10 +8088,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1650
+          1657
         ],
         "samples": [
-          "1650: event.name === SEARCH_CHOSEN"
+          "1657: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8277,16 +8126,16 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          355,
-          360,
-          838,
-          2233,
-          2265
+          358,
+          363,
+          843,
+          2242,
+          2287
         ],
         "samples": [
-          "355: const liveSource = draft.object(source.ref.objectId)",
-          "360: const resolving = draft.object(item.objectId)",
-          "838: const source = draft.object(sourceId)"
+          "358: const liveSource = draft.object(source.ref.objectId)",
+          "363: const resolving = draft.object(item.objectId)",
+          "843: const source = draft.object(sourceId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8497,15 +8346,15 @@
       {
         "path": "rules-engine/src/plugins/foretell.ts",
         "lines": [
-          91,
-          99,
-          107,
-          113
+          89,
+          97,
+          106,
+          112
         ],
         "samples": [
-          "91: const object = draft.object(event.objectId)",
-          "99: draft.move(object.id, 'exile')",
-          "107: const object = draft.object(event.objectId)"
+          "89: const object = draft.object(event.objectId)",
+          "97: draft.move(object.id, 'exile')",
+          "106: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8561,31 +8410,32 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          947,
-          953,
-          1032,
-          1052,
+          949,
+          955,
+          1034,
           1054,
-          1057,
-          1067,
-          1070,
-          1085,
-          1086,
-          1096,
-          1097,
-          1197,
-          1222,
-          1237,
-          1253,
-          1255,
-          1269,
-          1281,
-          1302
+          1056,
+          1059,
+          1069,
+          1072,
+          1087,
+          1088,
+          1098,
+          1101,
+          1103,
+          1203,
+          1228,
+          1243,
+          1259,
+          1261,
+          1275,
+          1287,
+          1308
         ],
         "samples": [
-          "947: const moved = draft.object(event.objectId)",
-          "953: const object = draft.object(event.objectId)",
-          "1032: .map((objectId) => draft.object(objectId))"
+          "949: const moved = draft.object(event.objectId)",
+          "955: const object = draft.object(event.objectId)",
+          "1034: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9134,24 +8984,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          905,
-          998,
-          1093,
-          1127,
-          1206,
-          1271,
-          1284,
-          1323,
-          1404,
-          1482,
-          1541,
-          1739,
-          1853
+          915,
+          1008,
+          1103,
+          1137,
+          1216,
+          1281,
+          1294,
+          1333,
+          1414,
+          1492,
+          1551,
+          1749,
+          1863
         ],
         "samples": [
-          "905: const frequencySource = draft.object(source.id) ?? source",
-          "998: const live = draft.object(source.id)",
-          "1093: const land = draft.object(objectId)"
+          "915: const frequencySource = draft.object(source.id) ?? source",
+          "1008: const live = draft.object(source.id)",
+          "1103: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9455,15 +9305,15 @@
       {
         "path": "rules-engine/src/cardPlugins/alternateCosts.ts",
         "lines": [
-          241,
-          248,
-          256,
-          259
+          247,
+          254,
+          262,
+          265
         ],
         "samples": [
-          "241: const object = draft.object(event.objectId)",
-          "248: draft.enqueue({",
-          "256: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
+          "247: const object = draft.object(event.objectId)",
+          "254: draft.enqueue({",
+          "262: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -10544,6 +10394,27 @@
         "status": "legacy-route"
       },
       {
+        "path": "rules-engine/src/cardPlugins/dsl/preparedCasting.ts",
+        "lines": [
+          32,
+          37,
+          44
+        ],
+        "samples": [
+          "32: draft.enqueue({ type: 'canonicalEffect', objectId: object.id, effect: { kind: 'grantKeyword', keyword: 'haste' }, duration: { kind: 'whileControlUnchanged' } })",
+          "37: const object = draft.object(event.objectId)",
+          "44: draft.move(object.id, 'exile')"
+        ],
+        "mechanic": "direct draft mutation or low-level event scheduling",
+        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
+        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
+        "ownerPart": "07",
+        "dependencyParts": [
+          "16"
+        ],
+        "status": "legacy-route"
+      },
+      {
         "path": "rules-engine/src/cardPlugins/homer.ts",
         "lines": [
           57,
@@ -10626,30 +10497,31 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          528,
+          530,
           535,
-          641,
-          643,
-          647,
-          655,
-          670,
-          679,
-          682,
-          735,
-          738,
-          747,
-          782,
-          797,
-          859,
+          542,
+          648,
+          650,
+          654,
+          662,
+          677,
+          686,
+          689,
+          742,
+          745,
+          754,
+          789,
+          804,
           866,
-          872,
-          889,
-          897
+          873,
+          879,
+          896,
+          904
         ],
         "samples": [
-          "528: const object = draft.object(event.objectRef.objectId)",
-          "535: const object = draft.object(event.objectId)",
-          "641: const object = draft.object(event.objectId)"
+          "530: const object = draft.object(event.objectId)",
+          "535: const object = draft.object(event.objectRef.objectId)",
+          "542: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

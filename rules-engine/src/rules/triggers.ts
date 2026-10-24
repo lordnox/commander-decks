@@ -327,6 +327,14 @@ const matchesTokenAction = (state: GameState, source: GameObject, pattern: Extra
   return Boolean(matches && object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
 }
 
+const matchesCountersRemoved = (state: GameState, source: GameObject, pattern: Extract<OccurrencePattern, { kind: 'countersRemoved' }>, occurrence: OccurrenceSnapshot, event: GameEvent, execution?: StackExecutionContext) => {
+  if (event.type !== 'removeCounters' || event.counter !== pattern.counter) return false
+  const before = occurrence.object?.before, after = occurrence.object?.after
+  return Boolean(before && after && (before.counters[pattern.counter] ?? 0) > (after.counters[pattern.counter] ?? 0)
+    && (!pattern.last || (after.counters[pattern.counter] ?? 0) === 0)
+    && canonicalFilterMatch(state, source, after, pattern.filter, occurrence, execution))
+}
+
 const canonicalPatternMatches = (
   state: GameState,
   beforeState: GameState,
@@ -336,6 +344,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'countersRemoved') return matchesCountersRemoved(state, source, pattern, occurrence, event)
   if (pattern.kind === 'votesFinished') return event.type === 'votesFinished'
   if (pattern.kind === 'abilityActivated') return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
   if (pattern.kind === 'tokenCreated' || pattern.kind === 'sacrificed') return matchesTokenAction(state, source, pattern, occurrence, event)
@@ -467,6 +476,7 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'countersRemoved': return matchesCountersRemoved(state, source, pattern, occurrence, event, execution)
     case 'votesFinished': return event.type === 'votesFinished'
     case 'abilityActivated': return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
     case 'tokenCreated':

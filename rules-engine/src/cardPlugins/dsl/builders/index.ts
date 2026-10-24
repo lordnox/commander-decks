@@ -1489,6 +1489,7 @@ export const offerCast = (input: {
   takeControl?: true
   inspect?: true
   laterTurn?: true
+  grantHaste?: true
   timing?: SpellCastTiming
   object?: ObjectReference
 }) => immutableData({
@@ -1502,6 +1503,7 @@ export const offerCast = (input: {
   ...(input.takeControl ? { takeControl: true as const } : {}),
   ...(input.inspect ? { inspect: true as const } : {}),
   ...(input.laterTurn ? { laterTurn: true as const } : {}),
+  ...(input.grantHaste ? { grantHaste: true as const } : {}),
   ...(input.timing ? { timing: input.timing } : {}),
   ...(input.object ? { object: input.object } : {}),
 })
@@ -1569,3 +1571,11 @@ export const choosePile = (input: Omit<Extract<Instruction, { kind: 'choosePile'
 export const collectEvidence = (amount: AmountInput): Cost => immutableData({ kind: 'collectEvidence', amount: toAmount(amount) })
 
 export const exileSourceCost = (from: Zone): Cost => immutableData({ kind: 'exileSource', from })
+
+export const foretell = (manaCost: string) => immutableData({ kind: 'static' as const, activeIn: ['hand', 'exile'] as const, effects: [{ kind: 'foretell' as const, manaCost }] })
+export const plot = (manaCost: string) => immutableData({ kind: 'static' as const, activeIn: ['hand', 'exile'] as const, effects: [{ kind: 'plot' as const, manaCost }] })
+export const warp = (manaCost: string) => immutableData({ kind: 'static' as const, activeIn: ['hand', 'stack'] as const, effects: [{ kind: 'warp' as const, manaCost }] })
+export const suspendEffect = (counters: number, manaCost: string) => immutableData({ kind: 'static' as const, activeIn: ['hand', 'exile'] as const, effects: [{ kind: 'suspend' as const, counters, manaCost }] })
+
+export const removeCounters = (input: { targets: ObjectRecipient; counter: string; count: AmountInput }) => immutableData({ ...input, kind: 'removeCounters' as const, count: toAmount(input.count) })
+export const countersRemoved = (input: Omit<Extract<OccurrencePattern, { kind: 'countersRemoved' }>, 'kind'>) => immutableData({ kind: 'countersRemoved' as const, ...input })

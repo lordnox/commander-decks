@@ -497,6 +497,8 @@ const canonicalEffectDuration = (
   draft: ReturnType<typeof makeDraft>,
 ) => {
   switch (event.duration.kind) {
+    case 'whileControlUnchanged':
+      return { kind: 'whileControlUnchanged' as const, controller: draft.objects[event.objectId]!.controller }
     case 'untilCleanup':
       return { kind: 'untilCleanup' as const }
     case 'permanent':
@@ -524,6 +526,11 @@ const canonicalEffectDuration = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case 'removeCounters': {
+      const object = draft.object(event.objectId)
+      if (object && Number.isSafeInteger(event.count) && event.count > 0) object.counters[event.counter] = Math.max(0, (object.counters[event.counter] ?? 0) - event.count)
+      break
+    }
     case CONTROL_EVENT.change: {
       const object = draft.object(event.objectRef.objectId)
       if (object?.zone === 'battlefield' && isSameObject(object, event.objectRef) && !draft.players[event.controller]?.lost) {
@@ -533,7 +540,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
-      const anyZone = event.effect.kind === 'setColors'
+      const anyZone = event.duration.kind === 'whileControlUnchanged' || event.effect.kind === 'setColors'
         || (event.effect.kind === 'grantKeyword' && event.effect.keyword === KEYWORDS.flash)
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)

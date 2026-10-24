@@ -27,7 +27,7 @@ export const spellCastCandidates = (state: PermissionState, permission: SpellCas
   if (permission.objectId) {
     const object = state.objects[permission.objectId]
     const zone = permission.zone ?? 'exile'
-    return object?.zone === zone ? [object] : []
+    return object?.zone === zone && (permission.objectIncarnation === undefined || object.incarnation === permission.objectIncarnation) ? [object] : []
   }
   const fromSeat = permission.fromSeat ?? permission.seat
   const zone = permission.zone ?? 'hand'
@@ -62,9 +62,11 @@ export const openSpellCast = (
     inspect?: true
     cost?: SpellCastPermission['cost']
     asThoughFlash?: true
+    grantHaste?: true
     availableFromTurn?: number
   },
 ) => {
+  if (input.objectId && !draft.objects[input.objectId]) return
   const cost = input.cost ?? SPELL_CAST_COSTS.withoutPayingMana
   const asThoughFlash = input.asThoughFlash
   const permission: SpellCastPermission = {
@@ -74,8 +76,9 @@ export const openSpellCast = (
     seat: input.seat,
     cost,
     remainingUses: 1,
+    ...(input.grantHaste ? { grantHaste: true as const } : {}),
     ...(asThoughFlash ? { asThoughFlash: true as const } : {}),
-    ...(input.objectId ? { objectId: input.objectId } : {}),
+    ...(input.objectId ? { objectId: input.objectId, objectIncarnation: draft.objects[input.objectId]!.incarnation } : {}),
     ...(input.zone ? { zone: input.zone } : {}),
     ...(input.fromSeat ? { fromSeat: input.fromSeat } : {}),
     ...(input.maxManaValue !== undefined ? { maxManaValue: input.maxManaValue } : {}),

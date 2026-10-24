@@ -17,16 +17,12 @@ import {
   phaseOutControlled,
   handler,
   handlerIdsFromEffects,
-  linkExile,
-  linkedExileUntilLeaves,
   legendRuleOff,
   onResolve,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
-  putFromHand,
   reanimateCreatureFromGraveyards,
-  sacrificePermanentsThenDraw,
   selfMill,
   staticGrant,
   targetOnResolve,
@@ -35,7 +31,6 @@ import {
   type CardInstruction,
   yourEndTargetingOpponent,
   opponentMayDrawThenStealCast,
-  warp,
   onUnlock,
 } from './effects'
 
@@ -61,20 +56,6 @@ const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 
 // Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
-  'All-Fates Stalker': [
-    ...warp('{1}{W}'),
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    {
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { type: 'Creature', excludeSubtypes: ['Assassin'] } },
-      do: [linkExile(
-        { type: 'Creature', excludeSubtypes: ['Assassin'] },
-        { optional: true, max: 1 },
-      )],
-    },
-  ],
   Belonging: [
     enters(
       changelingShapeshifter(),
@@ -88,18 +69,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Ephemerate: [handler('blinkValue')],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Forgotten Cellar': [onUnlock()],
-  'Glorious Protector': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile(
-      { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
-      { controlled: true, optional: true },
-    )),
-  ],
-  'Hypergenesis': [onResolve(putFromHand('each', {
-    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
-    repeat: true,
-  }))],
   'Incarnation Technique': [
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
     handler('demonstrate'),
@@ -132,7 +101,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ),
     ),
   ],
-  'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
   'Quantum Misalignment': [
     targetOnResolve(
       'select',
