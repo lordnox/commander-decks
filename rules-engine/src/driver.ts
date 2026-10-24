@@ -1065,7 +1065,7 @@ const actionEvents = (
         for (const object of targets) draft.objects[object.id]!.knownTo = []
       }
       const controllers = instruction.controller ? evaluatePlayerReference(instruction.controller, context) : undefined
-      if (controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
+      if (targets.length > 0 && controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
       if (instruction.bindChoice) frame.pendingMovedChoice = {
         binding: instruction.bindChoice,
         objects: targets.map(object => ({ objectId: object.id, zone: instruction.to,

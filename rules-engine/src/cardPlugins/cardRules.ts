@@ -40,8 +40,6 @@ import {
   opponentMayDrawThenStealCast,
   warp,
   onUnlock,
-  unearth,
-  bounceAll,
 } from './effects'
 
 const bird = createTokenInstruction({
@@ -135,10 +133,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true, flying: true }),
     ),
   ],
-  'Kederekt Leviathan': [
-    enters(bounceAll({ nonland: true, other: true })),
-    unearth('{6}{U}'),
-  ],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
   ],
@@ -202,7 +196,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Vanish into Memory': [handler('blinkValue')],
   'Walk-In Closet': [playLandsFromGraveyard()],
 }
 

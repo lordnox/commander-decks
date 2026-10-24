@@ -1,6 +1,11 @@
+import { snapshotFor } from '../../cards/snapshot'
 import { describe, expect, test } from 'bun:test'
 import {
   capturePlayer,
+  staticAbility,
+  replacement,
+  wouldEnter,
+  redirectEvent,
   controllerOf,
   resultPlayer,
   card,
@@ -412,4 +417,44 @@ test('delayed current-turn exclusion rejects values other than the explicit true
     kind: 'spell', costs: [], decisions: { targets: [] },
     instructions: [{ kind: 'createDelayed', notThisTurn: false, condition: stepDelayed({ step: 'upkeep' }), instructions: [] }],
   }] })).toThrow('notThisTurn')
+})
+
+
+test.each(['creature', 'token', 'noncreature', 'prevented', 'reentered'] as const)('a catalog delayed return discards only for the actual returned incarnation (%s)', change => {
+  const redirect = snapshotFor([staticAbility(replacement(wouldEnter(), redirectEvent('graveyard')))])
+  const server = createServerGame(commanderRules, { players: 2,
+    hands: { p1: [cardTemplate('Vanish into Memory', { manaCost: '{0}' })] },
+    libraries: { p1: Array.from({ length: 8 }, (_, i) => cardTemplate(`Draw fixture ${i}`)) },
+    battlefield: { p2: [cardTemplate('Return fixture', { types: ['Creature'], power: 2, toughness: 2, token: change === 'token' })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p2.battlefield[0]!
+  let state = ok(server.rules(server.state, { type: 'putCounters', objectId: id, counter: '+1/+1', count: 2 }))
+  state = resolveStack(server.rules, ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: state.zoneOrder.p1.hand[0]!, targets: [{ kind: 'object', objectId: id }] })))
+  expect(state.zoneOrder.p1.hand).toHaveLength(4)
+  if (change === 'noncreature') { state.objects[id]!.types = ['Artifact']; state.objects[id]!.power = null; state.objects[id]!.toughness = null }
+  if (change === 'prevented') state.objects[id]!.ruleDefinition = redirect
+  if (change === 'reentered') {
+    state = ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' }))
+    state = ok(server.rules(state, { type: 'move', objectId: id, to: 'exile' }))
+  }
+  // Another player's upkeep must not consume this controller's delayed trigger.
+  state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), active: 'p2', step: 'untap' }, { type: 'advanceStep' }))
+  expect(state.stack).toHaveLength(0)
+  state = ok(server.rules({ ...state, active: 'p1', step: 'untap', turn: state.turn + 1 }, { type: 'advanceStep' }))
+  state = resolveStack(server.rules, state)
+  const pick = pendingSelectionFor(state, 'p1')
+  if (change === 'creature') {
+    expect(state.objects[id]!).toMatchObject({ zone: 'battlefield', controller: 'p2' })
+    expect(pick).toMatchObject({ kind: 'discard', count: 2 })
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: pick!.id, kind: 'discard', count: 2, objectIds: pick!.candidates.slice(0, 2) }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+  } else {
+    expect(pick).toBeUndefined()
+    switch (change) {
+      case 'token': expect(state.objects[id]).toBeUndefined(); break
+      case 'noncreature': expect(state.objects[id]!).toMatchObject({ zone: 'battlefield', types: ['Artifact'] }); break
+      case 'prevented': expect(state.objects[id]!.zone).toBe('graveyard'); break
+      case 'reentered': expect(state.objects[id]!.zone).toBe('exile'); break
+    }
+  }
 })

@@ -94,6 +94,7 @@ export type CopySnapshot = {
 }
 
 export type ReversibleEffect =
+  | { kind: 'redirectDeparture'; to: ZoneId; incarnation: number; timestamp: number }
   | { kind: 'ward'; cost: WardCost }
   | { kind: 'colorChange'; before: string[]; after: string[]; incarnation: number }
   | { kind: 'pump'; power: number; toughness: number }
@@ -1472,13 +1473,6 @@ export type GameEvent =
       seat: PlayerId
       selectionId: string
       optionId: string
-    }
-  | {
-      type: 'completeDelayedReturn'
-      objectId: string
-      seat: PlayerId
-      sourceId: string
-      discardCount: number
     }
   | {
       type: 'payCumulativeUpkeep'

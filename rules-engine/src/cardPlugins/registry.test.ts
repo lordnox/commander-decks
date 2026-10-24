@@ -583,7 +583,6 @@ describe('card plugin registry', () => {
     ])).toEqual([])
     expect(cardPluginEntry('Sea Gate Restoration // Sea Gate, Reborn')).toBeUndefined()
     expect(cardPluginEntry('Sink into Stupor // Soporific Springs')).toBeUndefined()
-    expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
     expect(handlerIdsForNames(['Nezahal, Primal Tide'])).toEqual([])
     expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')).toBeDefined()

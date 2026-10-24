@@ -2919,3 +2919,22 @@ test('family 24 composes animation, mana, ward, nonzero X, and crew in the canon
     { kind: 'activated', costs: [{ kind: 'crew', power: { kind: 'constant', value: 1 } }] },
   ])
 })
+
+
+test('alternative returns compose graveyard activation and success-dependent delayed follow-up', () => {
+  const leviathan = cardRuleDefinitionSnapshotFor('Kederekt Leviathan')!.definition
+  expect(leviathan.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'move', to: 'hand', targets: { kind: 'objects', filter: { zone: 'battlefield', other: true, not: { type: 'Land' } } } }] },
+    { kind: 'activated', availableFrom: ['graveyard'], timing: 'sorcery', costs: [{ kind: 'mana', amount: '{6}{U}' }] },
+  ])
+  const vanish = cardRuleDefinitionSnapshotFor('Vanish into Memory')!.definition
+  expect(vanish.abilities).toMatchObject([{ kind: 'spell', instructions: [
+    { kind: 'captureAmount', bindResult: 'power' },
+    { kind: 'move', to: 'exile', bindChoice: 'exiled' },
+    { kind: 'draw' },
+    { kind: 'createDelayed', inheritTargets: false, instructions: [
+      { kind: 'move', to: 'battlefield', bindChoice: 'returned' },
+      { kind: 'if', then: [{ kind: 'discard', count: { kind: 'characteristic', characteristic: 'toughness', information: 'current' } }] },
+    ] },
+  ] }])
+})

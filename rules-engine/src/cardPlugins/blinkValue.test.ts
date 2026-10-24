@@ -46,46 +46,6 @@ describe('Lady Evangela blink and value cards', () => {
     })
   })
 
-  test('Vanish uses last-known stats, returns at the next upkeep, then opens typed discard', () => {
-    const server = createServerGame(commanderRules, {
-      hands: {
-        p1: [cardTemplate('Vanish into Memory', { types: ['Instant'], manaCost: '{2}{W}{U}' })],
-      },
-      libraries: {
-        p1: [forest(), forest(), forest(), forest()],
-      },
-      battlefield: {
-        p2: [cardTemplate('Uneven Body', { types: ['Creature'], power: 3, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
-    const ready = mana(structuredClone(server.state))
-    const body = named(ready, 'Uneven Body').id
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Vanish into Memory').id,
-      targets: [{ kind: 'object', objectId: body }],
-    }))
-    let state = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(state.objects[body].zone).toBe('exile')
-    expect(state.zoneOrder.p1.hand).toHaveLength(3)
-
-    state = structuredClone(state)
-    state.active = 'p1'
-    state.priority = 'p1'
-    state.step = 'untap'
-    state.turn += 1
-    state = ok(server.rules(state, { type: 'advanceStep' }))
-    expect(state.stack[0]?.abilityId).toBe('vanish.return')
-    state = resolveStack(server.rules, state)
-    expect(state.objects[body]).toMatchObject({ zone: 'battlefield', controller: 'p2' })
-    expect(pendingSelectionFor(state, 'p1')).toMatchObject({
-      kind: 'discard',
-      count: 2,
-      source: 'Vanish into Memory',
-    })
-  })
-
   test('Loran chooses a typed ETB target and her activation draws for both players', () => {
     const server = createServerGame(commanderRules, {
       hands: {

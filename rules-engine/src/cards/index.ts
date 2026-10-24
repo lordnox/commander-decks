@@ -1,3 +1,5 @@
+import kederektLeviathan from './kederekt-leviathan'
+import vanishIntoMemory from './vanish-into-memory'
 import hostileNegotiations from './hostile-negotiations'
 import fortunesFavor from './fortunes-favor'
 import trapTheTrespassers from './trap-the-trespassers'
@@ -389,6 +391,8 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Kederekt Leviathan': kederektLeviathan,
+  'Vanish into Memory': vanishIntoMemory,
   "Fortune's Favor": fortunesFavor,
   'Hostile Negotiations': hostileNegotiations,
   'Illusion of Choice': illusionOfChoice,

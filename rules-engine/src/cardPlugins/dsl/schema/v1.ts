@@ -420,6 +420,7 @@ export type PreventionEffectDefinition = {
 export type TypeAdditions = { creatureType?: CreatureTypeReference; allCreatureTypes?: true; types?: readonly string[]; subtypes?: readonly string[] }
 
 export type CreatedEffect =
+  | { kind: 'redirectDeparture'; to: Zone }
   | { kind: 'grantWard'; cost: WardCost }
   | { kind: 'grantActivatedAbility'; ability: ActivatedAbilityDefinition }
   | { kind: 'removeAbilities' }

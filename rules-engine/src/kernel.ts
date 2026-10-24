@@ -527,6 +527,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'redirectDeparture':
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'redirectDeparture', to: event.effect.to, incarnation: object.incarnation, timestamp: draft.allocTs() }, duration }]
+          break
         case 'removeAbilities': {
           const before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules], ...(object.effects ? { effects: structuredClone(object.effects) } : {}) }
           object.oracleText = ''

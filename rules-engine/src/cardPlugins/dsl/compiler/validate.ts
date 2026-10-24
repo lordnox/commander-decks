@@ -1399,8 +1399,13 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         const effect = object(node.effect, childPath(path, 'effect'))
         if (effect) {
-          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost'], ['kind'])
+          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost', 'to'], ['kind'])
           switch (effect.kind) {
+            case 'redirectDeparture':
+              exactKeys(effect, childPath(path, 'effect'), ['kind', 'to'], ['kind', 'to'])
+              enumeration(effect.to, childPath(path, 'effect.to'), ZONES, 'departure destination')
+              if (effect.to === 'battlefield') issue(path, 'domain', 'departure replacement must leave the battlefield')
+              break
             case 'removeAbilities':
             case 'goad':
               exactKeys(effect, childPath(path, 'effect'), ['kind'], ['kind'])

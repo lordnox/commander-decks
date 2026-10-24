@@ -239,6 +239,22 @@ export const discoverCanonicalModifiers = (
   const candidates: CanonicalReplacementCandidate[] = []
   const seen = new Set<string>()
   for (const source of Object.values(state.objects)) {
+    // A resolved departure replacement survives ability loss, but belongs only
+    // to this battlefield incarnation. An exile-and-return effect is unchanged.
+    for (const entry of source.continuousEffects ?? []) {
+      const effect = entry.effect
+      if (effect.kind !== 'redirectDeparture' || source.zone !== 'battlefield' || source.phasedOut
+        || source.incarnation !== effect.incarnation || event.type !== 'move'
+        || event.objectId !== source.id || event.to === 'battlefield' || event.to === effect.to) continue
+      const instanceId = `departure:${source.id}:${effect.incarnation}:${effect.timestamp}`
+      if (usedInstanceIds.includes(instanceId) || settledOptionalDeclines.includes(instanceId)) continue
+      pushCandidate(candidates, seen, {
+        kind: 'canonical', category: 'general', instanceId, sourceId: source.id, sourceName: source.name,
+        abilityIndex: -1, effectIndex: effect.timestamp,
+        effect: { kind: 'replacement', event: { kind: 'move', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'redirect', to: effect.to } },
+        label: source.name, optional: false, chooser: source.controller, rulesTimestamp: effect.timestamp,
+      })
+    }
     for (const modifier of source.printedStaticModifiers ?? []) {
       if (modifier.kind !== 'replacement') continue
       if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
