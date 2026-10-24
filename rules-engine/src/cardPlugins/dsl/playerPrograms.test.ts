@@ -1,3 +1,4 @@
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { expect, test } from 'bun:test'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -5,7 +6,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { instructionSpell } from './instructionTestSupport'
-import { amount, captureAmount, choice, choosePlayer, compareAmount, forEachPlayer, createDelayed, stepDelayed, gainLife, ifThen, players, ref, resultAmount, sequence } from './v1'
+import { amount, chooseCards, move, objects, captureAmount, choice, choosePlayer, compareAmount, forEachPlayer, createDelayed, stepDelayed, gainLife, ifThen, players, ref, resultAmount, sequence } from './v1'
 
 test('player iteration keeps nested player context, private continuation, and independent local results through restore', () => {
   const server = createServerGame(commanderRules, {
@@ -108,4 +109,42 @@ test('an explicit starting player overrides APNAP and survives the choice contin
     state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectPlayers', seat, selectionId: pick.id, players: [seat] }))
   }
   expect(state.resolution).toBeUndefined()
+})
+
+
+test('nested player loops collect pinned object choices across private choices and restore', () => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    hands: {
+      p1: [instructionSpell({ instructions: [
+        forEachPlayer({ of: players({ relation: 'you' }), collectObjects: { from: 'gathered', as: 'gathered' }, instructions: [
+          forEachPlayer({ of: players({ relation: 'opponent' }), collectObjects: { from: 'picked', as: 'gathered' }, instructions: [
+            chooseCards({ chooser: ref('event.player'), filter: objects({ zone: 'hand', owner: ref('event.player') }), min: 1, max: 1, bindChoice: 'picked' }),
+          ] }),
+        ] }),
+        move({ targets: choice('gathered'), to: 'exile' }),
+      ] })],
+      p2: [cardTemplate('First fixture', { types: ['Land'] })],
+      p3: [cardTemplate('Second fixture', { types: ['Land'] })],
+    },
+  })
+  const first = server.state.zoneOrder.p2.hand[0], second = server.state.zoneOrder.p3.hand[0]
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  for (const seat of ['p2', 'p3']) {
+    const pick = pendingSelectionFor(state, seat)!
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat, selectionId: pick.id, kind: 'choose', count: pick.count, objectIds: pick.candidates }))
+  }
+  expect([state.objects[first].zone, state.objects[second].zone]).toEqual(['exile', 'exile'])
+})
+
+
+test('empty player collections bind an empty object set; unresolved collection sources are rejected', () => {
+  const body = [chooseCards({ chooser: ref('event.player'), filter: objects({ zone: 'hand' }), min: 0, max: 0, bindChoice: 'picked' })]
+  const server = createServerGame(commanderRules, { hands: { p1: [instructionSpell({ instructions: [
+    forEachPlayer({ of: players({ not: { relation: 'any' } }), collectObjects: { from: 'picked', as: 'allPicks' }, instructions: body }),
+    move({ targets: choice('allPicks'), to: 'exile' }),
+  ] })] } })
+  const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(state.stack).toHaveLength(0)
+  expect(() => instructionSpell({ instructions: [forEachPlayer({ of: players(), collectObjects: { from: 'missing', as: 'all' }, instructions: [] })] })).toThrow()
 })

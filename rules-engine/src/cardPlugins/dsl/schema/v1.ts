@@ -82,6 +82,9 @@ export type InstructionResult = boolean | number | string
 export const NUMERIC_RESULT_FIELDS = ['amount', 'discardedCount', 'created'] as const
 export type NumericResultField = typeof NUMERIC_RESULT_FIELDS[number]
 
+/** Append each player iteration's pinned object choice into a binding outside the loop. */
+export type ObjectCollectionBinding = { from: string; as: string }
+
 /** Collect a surviving maximum from each forEachPlayer iteration's numeric result. */
 export type ResultMaxBinding = {
   from: string
@@ -426,6 +429,7 @@ export type PreventionEffectDefinition = {
 export type TypeAdditions = { creatureType?: CreatureTypeReference; allCreatureTypes?: true; types?: readonly string[]; subtypes?: readonly string[] }
 
 export type CreatedEffect =
+  | { kind: 'mustAttackPlayer'; player: PlayerReference }
   | { kind: 'redirectDeparture'; to: Zone }
   | { kind: 'grantWard'; cost: WardCost }
   | { kind: 'grantActivatedAbility'; ability: ActivatedAbilityDefinition }
@@ -522,7 +526,14 @@ export type Instruction =
   | { kind: 'chooseParticipants'; of: PlayerRecipient; bindChoice: string; prompt?: string }
   | { kind: 'chooseCardsForEachPlayer'; of: PlayerRecipient; filter: ObjectSelector; min: Amount; max: Amount; bindChoice: string }
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
-  | { kind: 'forEachPlayer'; of: PlayerRecipient; startingWith?: PlayerReference; instructions: readonly Instruction[]; bindMax?: ResultMaxBinding }
+  | {
+      kind: 'forEachPlayer'
+      of: PlayerRecipient
+      startingWith?: PlayerReference
+      instructions: readonly Instruction[]
+      bindMax?: ResultMaxBinding
+      collectObjects?: ObjectCollectionBinding
+    }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'lookAt'; cards: ObjectRecipient; viewers: PlayerRecipient }
   | { kind: 'choosePile'; piles: readonly [ObjectRecipient, ObjectRecipient]; chooser: PlayerReference; bindChosen: string; bindOther: string; prompt?: string }

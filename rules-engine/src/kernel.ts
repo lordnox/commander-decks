@@ -546,6 +546,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'mustAttackPlayer':
+          if (event.effectPlayer) object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'mustAttackPlayer', defender: event.effectPlayer }, duration,
+          }]
+          break
         case 'redirectDeparture':
           object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'redirectDeparture', to: event.effect.to, incarnation: object.incarnation, timestamp: draft.allocTs() }, duration }]
           break

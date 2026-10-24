@@ -1,3 +1,4 @@
+import { playerAttackRequirements } from '../rules/attackRequirements'
 import { hasKeyword } from '../keywords'
 import type {
   AttackerDecl,
@@ -80,7 +81,8 @@ export const defenderLegalForGoadedAttacker = (
   attacker: GameObject,
   defender: TargetRef | PlayerId,
 ) => {
-  if (!isGoaded(attacker)) return true
+  // Canonical player requirements and goad are maximized together by combat.
+  if (playerAttackRequirements(attacker).length || !isGoaded(attacker)) return true
   const ref = targetRef(defender)
   return legalDefendersForAttacker(state, attacker).some((candidate) =>
     candidate.kind === ref.kind
@@ -90,7 +92,8 @@ export const defenderLegalForGoadedAttacker = (
 }
 
 const mustAttackIfAble = (state: GameState, object: GameObject, seat: PlayerId) =>
-  isGoaded(object)
+  playerAttackRequirements(object).length === 0
+  && isGoaded(object)
   && canAttackThisCombat(state, object, seat)
   && legalDefendersForAttacker(state, object).length > 0
 

@@ -30,19 +30,6 @@ const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const playCreature = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  name: string,
-) => {
-  const objectId = named(state, name).id
-  return resolveStack(server.rules, ok(server.rules(state, {
-    type: 'move',
-    objectId,
-    to: 'battlefield',
-  })))
-}
-
 const resolveLootAbility = (
   server: ReturnType<typeof createServerGame>,
   state: GameState,
@@ -184,30 +171,6 @@ describe('Dack Party pass-35 cardRules', () => {
     expect(resolved.zoneCounts.p1.hand).toBe(2)
     expect(resolved.zoneCounts.p1.battlefield).toBe(0)
     expect(resolved.zoneCounts.p1.graveyard).toBe(1)
-  })
-
-  test('Belonging makes changelings and exposes encore from the graveyard', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [fromRules('Belonging', { types: ['Creature'] })] },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const entered = playCreature(server, server.state, 'Belonging')
-    const tokens = entered.zoneOrder.p1.battlefield.filter((id) =>
-      entered.objects[id].name === 'Shapeshifter')
-    expect(tokens.length).toBeGreaterThanOrEqual(3)
-
-    const belongingId = named(entered, 'Belonging').id
-    const died = resolveStack(server.rules, ok(server.rules(entered, {
-      type: 'move',
-      objectId: belongingId,
-      to: 'graveyard',
-    })))
-    const ready = structuredClone(died)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 6 }
-    const encoreLegal = legalActsFor(ready, 'p1').some((action) =>
-      action.kind === 'activateAbility'
-      && action.objectId === belongingId
-      && action.abilityId === 'encore')
-    expect(encoreLegal).toBe(true)
   })
 
   test('Perch Protection gift recipient choice survives host restart projection', () => {

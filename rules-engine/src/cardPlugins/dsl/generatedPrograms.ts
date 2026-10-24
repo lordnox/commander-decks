@@ -155,6 +155,10 @@ const inspectBindings = (
       if (node.name === 'triggering.source') occurrences.add('source')
       break
   }
+  if (node.collectObjects && typeof node.collectObjects === 'object' && !Array.isArray(node.collectObjects)) {
+    const collection = node.collectObjects as Record<string, unknown>
+    if (typeof collection.as === 'string') used.add(collection.as)
+  }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)
   if (typeof node.bindResult === 'string') used.add(node.bindResult)
   if (typeof node.bindCount === 'string') used.add(node.bindCount)
@@ -191,6 +195,7 @@ const rewriteInstructions = (
       }
       case 'forEachPlayer': {
         const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        if (instruction.collectObjects) shadowed.add(instruction.collectObjects.as)
         const bindMax = instruction.bindMax
           ? {
               ...instruction.bindMax,
@@ -201,6 +206,13 @@ const rewriteInstructions = (
           ...instruction,
           of: rewriteValue(instruction.of) as typeof instruction.of,
           instructions: nested.instructions,
+          ...(instruction.startingWith ? { startingWith: rewriteValue(instruction.startingWith) as typeof instruction.startingWith } : {}),
+          ...(instruction.collectObjects ? { collectObjects: {
+            ...instruction.collectObjects,
+            from: nested.shadowed.has(instruction.collectObjects.from)
+              ? instruction.collectObjects.from
+              : choiceAliases[instruction.collectObjects.from] ?? instruction.collectObjects.from,
+          } } : {}),
           ...(bindMax ? { bindMax } : {}),
         }
       }

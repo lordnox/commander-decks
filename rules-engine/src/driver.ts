@@ -1516,6 +1516,7 @@ const actionEvents = (
         objectId: object.id,
         effect,
         ...(effect.kind === 'goad' ? { effectPlayer: frame.controller } : {}),
+        ...(effect.kind === 'mustAttackPlayer' ? { effectPlayer: evaluatePlayerReference(effect.player, context)[0] } : {}),
         duration: structuredClone(instruction.duration),
         sourceId: frame.source.ref.objectId,
         sourceRef: structuredClone(frame.source.ref),
@@ -1667,6 +1668,13 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
       if (scope.restoreBindings) {
+        const collection = scope.collectObjects
+        if (collection && scope.cursor > 0) {
+          const objects = (frame.choices?.[collection.from] ?? []).filter(recipient => recipient.kind === 'object')
+          frame.objectCollections = { ...frame.objectCollections,
+            [collection.key]: [...(frame.objectCollections?.[collection.key] ?? []), ...structuredClone(objects)],
+          }
+        }
         const collected = scope.collectMax
           ? Math.max(
             frame.resultMaxima?.[scope.collectMax.as] ?? 0,
@@ -1680,6 +1688,9 @@ export const prepareResolutionStep = (draft: Draft) => {
           delete frame[key]
         }
         Object.assign(frame, structuredClone(scope.restoreBindings))
+        if (collection) frame.choices = { ...frame.choices,
+          [collection.as]: structuredClone(frame.objectCollections?.[collection.key] ?? []),
+        }
         if (scope.collectMax && collected !== undefined) {
           frame.results = { ...frame.results, [scope.collectMax.as]: collected }
         }
@@ -1725,6 +1736,10 @@ export const prepareResolutionStep = (draft: Draft) => {
       const first = instruction.startingWith ? evaluatePlayerReference(instruction.startingWith, context)[0] : undefined
       const order = first ? [...draft.playerOrder.slice(draft.playerOrder.indexOf(first)), ...draft.playerOrder.slice(0, draft.playerOrder.indexOf(first))] : apnapSeats(draft)
       const players = order.filter(player => selected.has(player))
+      if (instruction.collectObjects) {
+        frame.objectCollections = { ...frame.objectCollections, [path]: [] }
+        frame.choices = { ...frame.choices, [instruction.collectObjects.as]: [] }
+      }
       if (instruction.bindMax) {
         frame.resultMaxima = { ...frame.resultMaxima, [instruction.bindMax.as]: 0 }
         frame.results = { ...frame.results, [instruction.bindMax.as]: 0 }
@@ -1743,6 +1758,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         occurrence: { kind: 'event', eventType: 'forEachPlayer', player }, iterationPlayer: player,
         restoreBindings: structuredClone(restoreBindings),
         ...(instruction.bindMax ? { collectMax: instruction.bindMax } : {}),
+        ...(instruction.collectObjects ? { collectObjects: { ...instruction.collectObjects, key: path } } : {}),
       })
       continue
     }

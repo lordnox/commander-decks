@@ -1,3 +1,5 @@
+import belonging from './belonging'
+import soulOfEternity from './soul-of-eternity'
 import walkInCloset from './walk-in-closet'
 import allFatesStalker from './all-fates-stalker'
 import hypergenesis from './hypergenesis'
@@ -399,6 +401,8 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  Belonging: belonging,
+  'Soul of Eternity': soulOfEternity,
   'All-Fates Stalker': allFatesStalker,
   'Hypergenesis': hypergenesis,
   'Pitiless Carnage': pitilessCarnage,

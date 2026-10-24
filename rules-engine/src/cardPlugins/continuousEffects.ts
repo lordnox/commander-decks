@@ -588,7 +588,7 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     restoreCopy(object, effect.before)
   } else if (effect.kind === 'goad') {
     // Status only; combat reads continuousEffects directly.
-  } else if (effect.kind === 'encoreAttack') {
+  } else if (effect.kind === 'encoreAttack' || effect.kind === 'mustAttackPlayer') {
     // combat restriction metadata only
   } else if (effect.kind === 'subtypeGrant') {
     // Status only; land-type readers inspect continuousEffects.
@@ -664,7 +664,7 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     restoreCopy(object, effect.after)
   } else if (effect.kind === 'goad') {
     // Status only; combat reads continuousEffects directly.
-  } else if (effect.kind === 'encoreAttack') {
+  } else if (effect.kind === 'encoreAttack' || effect.kind === 'mustAttackPlayer') {
     // combat restriction metadata only
   } else if (effect.kind === 'subtypeGrant') {
     // Status only; land-type readers inspect continuousEffects.

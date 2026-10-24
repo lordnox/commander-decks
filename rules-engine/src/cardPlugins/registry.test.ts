@@ -4,7 +4,6 @@ import { describe, expect, test } from 'bun:test'
 import { cardTemplateDefaultsFor, cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { catalogEntry, deckCards } from '../deckCardFixtures'
 import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
-import { ptEqualsLife } from './effects'
 import {
   cardPluginEntry,
   grantedRulesFor,
@@ -853,10 +852,6 @@ describe('card plugin registry', () => {
     expect(gapReasons['The Restoration of Eiganjo // Architect of Restoration']).toContain('Saga')
     expect(gapReasons['Realm-Cloaked Giant // Cast Off']).toContain('Adventure')
     expect(gapReasons['Ondu Inversion // Ondu Skyruins']).toContain('nonland')
-    expect(cardDefinition('Soul of Eternity')?.effects).toMatchObject([
-      ptEqualsLife({ who: 'controller' }),
-      { op: 'activate', id: 'encore' },
-    ])
     expect(cardDefinition('Astral Drift')).toBeUndefined()
   })
 
@@ -866,4 +861,32 @@ describe('card plugin registry', () => {
     expect(catalogEntry(entry).faces?.[1].oracle_text)
       .toBe('As this land enters, you may pay 3 life. If you don\'t, it enters tapped.\n{T}: Add {U}.')
   })
+})
+
+
+test('encore catalog cards retain their full printed programs and shared graveyard activation', () => {
+  const belonging = cardTemplateDefaultsFor('Belonging')!
+  const soul = cardTemplateDefaultsFor('Soul of Eternity')!
+  expect(belonging).toMatchObject({ power: 6, toughness: 6, subtypes: ['Elemental', 'Incarnation'] })
+  expect(belonging.ruleDefinition.definition.abilities[0]).toMatchObject({ kind: 'triggered', instructions: [
+    { kind: 'createToken', count: { kind: 'constant', value: 3 }, token: { name: 'Shapeshifter', colors: [], power: 1, toughness: 1, abilities: [{ kind: 'keyword', keyword: 'changeling' }] } },
+  ] })
+  expect(belonging.ruleDefinition.definition.abilities.some(ability => ability.kind === 'keyword' && ability.keyword === 'changeling')).toBe(false)
+  expect(soul.ruleDefinition.definition.abilities[0]).toMatchObject({ kind: 'static',
+    activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'], effects: [
+      { kind: 'modifyStats', characteristicDefining: true, power: { kind: 'characteristic', characteristic: 'life' }, toughness: { kind: 'characteristic', characteristic: 'life' } },
+    ],
+  })
+  for (const [entry, cost] of [[belonging, '{6}{W}{W}'], [soul, '{7}{W}{W}']] as const) {
+    expect(entry.ruleDefinition.definition.abilities[1]).toMatchObject({ kind: 'activated', availableFrom: ['graveyard'], timing: 'sorcery',
+      costs: [{ kind: 'mana', amount: cost }, { kind: 'exileSource', from: 'graveyard' }], instructions: [
+        { kind: 'forEachPlayer', of: { kind: 'players', filter: { relation: 'opponent' } }, collectObjects: { from: 'encoreCopy', as: 'encoreCopies' }, instructions: [
+          { kind: 'copy', information: 'currentOrLastKnown' },
+          { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: 'haste' }, duration: { kind: 'permanent' } },
+          { kind: 'createEffect', effect: { kind: 'mustAttackPlayer' }, duration: { kind: 'untilCleanup' } },
+        ] },
+        { kind: 'createDelayed', condition: { kind: 'step', step: 'end' }, instructions: [{ kind: 'sacrifice' }] },
+      ],
+    })
+  }
 })

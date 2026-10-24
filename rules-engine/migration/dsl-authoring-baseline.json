@@ -59,12 +59,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "11accfd2b7ea70a793390f45f1ebdb6353ffe075dc3f48a7539e3fa4bae09b64",
-    "card": "Soul of Eternity"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "999ebce2f25deba11af6e4656e76b2a3673d804b795a6a37f387dc21bcbff89b",
     "card": "Thespian's Stage"
   },
@@ -97,12 +91,6 @@
     "code": "legacy-card-registration",
     "digest": "a13f3951794ca58676ce88259b1b8eeb79f14033e10e8eb7264a5366cb56fe1f",
     "card": "Incarnation Technique"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "c4e57478dbee603af93675da81710a775d66cbc123446222a1da7a63ed13005a",
-    "card": "Belonging"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

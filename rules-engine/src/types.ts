@@ -5,7 +5,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
+import type { ObjectCollectionBinding, ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -127,6 +127,8 @@ export type ReversibleEffect =
   | { kind: 'subtypeGrant'; subtype: string }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
+  /** An attack requirement, not a restriction; competing requirements use CR 508.1d. */
+  | { kind: 'mustAttackPlayer'; defender: PlayerId }
   /**
    * Layer 7a CDA: base power and toughness each equal a computed value
    * (life total, counted permanents, …). `after` is the 7a set; +1/+1
@@ -592,6 +594,7 @@ export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | {
 export type ProgramScopeFrame = {
   iterationPlayer?: PlayerId
   restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'voteResults' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
+  collectObjects?: ObjectCollectionBinding & { key: string }
   collectMax?: ResultMaxBinding
   path: string
   /** Target binding scope used by instructions in this frame. */
@@ -641,6 +644,8 @@ export type CanonicalResolutionFrame = {
   voteResults?: Record<string, VoteResult>
   /** Maxima collected across forEachPlayer iterations; restore does not rewind them. */
   resultMaxima?: Record<string, number>
+  /** Object identities collected by lexical loop path; nested loops cannot overwrite each other. */
+  objectCollections?: Record<string, CanonicalChoiceRecipient[]>
   pendingResult?: {
     binding: string
     kind: 'counter' | 'action' | 'amount'

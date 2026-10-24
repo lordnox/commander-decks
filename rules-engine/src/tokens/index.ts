@@ -1,3 +1,4 @@
+import { shapeshifter11Changeling } from './shapeshifter'
 import { fish11U } from './fish'
 import { zombie22B } from './zombie'
 import type { TokenDefinition } from '../cardPlugins/dsl/schema/v1'
@@ -12,6 +13,7 @@ import { insect11G } from './insect'
 import { treasure } from './treasure'
 
 const catalog = {
+  'Shapeshifter-1-1-changeling': shapeshifter11Changeling,
   'Fish-1-1-U': fish11U,
   'Hero-1-1': hero11,
   'Zombie-2-2-B': zombie22B,

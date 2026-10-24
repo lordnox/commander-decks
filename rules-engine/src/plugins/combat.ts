@@ -1,3 +1,4 @@
+import { playerAttackDeclarationError } from '../rules/attackRequirements'
 import { isSameObject } from '../objectIdentity'
 import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
 import { attackDeclarationBanned } from '../cardPlugins/attackBan'
@@ -90,6 +91,8 @@ export const combat: Plugin = {
       if (event.seat !== state.active || event.seat !== state.priority) {
         return 'only the active player with priority can declare attackers'
       }
+      const requirementError = playerAttackDeclarationError(state, event.seat, event.attackers)
+      if (requirementError) return requirementError
       const encoreError = encoreAttackDeclarationError(state, event.seat, event.attackers)
       if (encoreError) return encoreError
 

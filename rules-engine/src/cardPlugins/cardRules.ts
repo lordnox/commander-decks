@@ -3,12 +3,10 @@ import {
   ability,
   alternateCast,
   becomeCopyOfTarget,
-  allCreatureTypes,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copyTargetCreature,
   createTokenInstruction,
-  encore,
   enters,
   gift,
   ifGiftPromised,
@@ -20,7 +18,6 @@ import {
   legendRuleOff,
   onResolve,
   pluginIdsFromEffects,
-  ptEqualsLife,
   reanimateCreatureFromGraveyards,
   selfMill,
   staticGrant,
@@ -41,28 +38,10 @@ const bird = createTokenInstruction({
   oracleText: 'Flying',
 })
 
-const changelingShapeshifter = () => createTokenInstruction({
-  name: 'Shapeshifter',
-  types: ['Creature'],
-  subtypes: ['Shapeshifter'],
-  power: 1,
-  toughness: 1,
-  oracleText: 'Changeling',
-})
-
 const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 
 // Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
-  Belonging: [
-    enters(
-      changelingShapeshifter(),
-      changelingShapeshifter(),
-      changelingShapeshifter(),
-    ),
-    allCreatureTypes(),
-    encore('{6}{W}{W}'),
-  ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   Ephemerate: [handler('blinkValue')],
   'Everybody Lives!': [handler('combatPreventionCards')],
@@ -116,10 +95,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       controlledSubtype: 'Swamp',
     }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
-  ],
-  'Soul of Eternity': [
-    ptEqualsLife({ who: 'controller' }),
-    encore('{7}{W}{W}'),
   ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
   'Thespian\'s Stage': [

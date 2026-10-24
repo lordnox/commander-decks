@@ -1474,8 +1474,12 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         const effect = object(node.effect, childPath(path, 'effect'))
         if (effect) {
-          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost', 'to'], ['kind'])
+          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost', 'to', 'player'], ['kind'])
           switch (effect.kind) {
+            case 'mustAttackPlayer':
+              exactKeys(effect, childPath(path, 'effect'), ['kind', 'player'], ['kind', 'player'])
+              validateReference(effect.player, childPath(path, 'effect.player'), env, ['player'])
+              break
             case 'redirectDeparture':
               exactKeys(effect, childPath(path, 'effect'), ['kind', 'to'], ['kind', 'to'])
               enumeration(effect.to, childPath(path, 'effect.to'), ZONES, 'departure destination')
@@ -1686,11 +1690,24 @@ export const validateDefinitionV1 = (root: unknown): {
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'player' }, childPath(path, 'bindChoice'))
         return
       case 'forEachPlayer': {
-        exactKeys(node, path, ['kind', 'of', 'instructions', 'bindMax', 'startingWith'], ['kind', 'of', 'instructions'])
+        exactKeys(node, path, ['kind', 'of', 'instructions', 'bindMax', 'startingWith', 'collectObjects'], ['kind', 'of', 'instructions'])
         validateRecipient(node.of, childPath(path, 'of'), env, ['player'])
         if (node.startingWith !== undefined) validateReference(node.startingWith, childPath(path, 'startingWith'), env, ['player'])
         const bodyEnv = withEventPlayer(env)
         validateInstructionList(node.instructions, childPath(path, 'instructions'), bodyEnv, depth + 1)
+        if (node.collectObjects !== undefined) {
+          const collect = object(node.collectObjects, `${path}.collectObjects`)
+          if (collect) {
+            exactKeys(collect, `${path}.collectObjects`, ['from', 'as'], ['from', 'as'])
+            const from = bindingName(collect.from, `${path}.collectObjects.from`)
+            const as = bindingName(collect.as, `${path}.collectObjects.as`)
+            const source = from ? bodyEnv.locals.get(from) : undefined
+            if (!source || source.kind !== 'choice' || source.domain !== 'object') {
+              issue(`${path}.collectObjects.from`, 'unresolved-binding', 'collection requires an object choice available on every iteration path')
+            }
+            declareBinding(env, as, { kind: 'choice', domain: 'object' }, `${path}.collectObjects.as`)
+          }
+        }
         if (node.bindMax !== undefined) {
           const bindMax = object(node.bindMax, childPath(path, 'bindMax'))
           if (bindMax) {
