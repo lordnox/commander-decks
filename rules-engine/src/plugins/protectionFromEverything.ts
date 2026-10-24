@@ -18,8 +18,7 @@ export const hasProtectionFromEverything = (
 ) => {
   if (asPlayer && playerHasProtectionFromEverything(state, asPlayer)) return true
   if (!object) return false
-  if (objectHasProtectionFromEverything(object)) return true
-  return playerHasProtectionFromEverything(state, object.controller)
+  return objectHasProtectionFromEverything(object)
 }
 
 const protectedTarget = (
