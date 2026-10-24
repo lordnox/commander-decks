@@ -91,6 +91,7 @@ export type CopySnapshot = {
   grantedRules: string[]
   tapProduces?: Partial<ManaPool>
   effects?: GameObject['effects']
+  ruleDefinition?: GameObject['ruleDefinition']
 }
 
 export type ReversibleEffect =
@@ -1144,6 +1145,7 @@ export type GameEvent =
       objectId: string
       effect: CreatedEffect
       effectPlayer?: PlayerId
+      copySourceId?: string
       duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity
@@ -1284,6 +1286,21 @@ export type GameEvent =
       attachPlayer?: PlayerId
       attachTo?: ObjectIdentity
       enterCounters?: Readonly<Record<string, number>>
+      copyOf?: ObjectIdentity
+      copyExcept?: {
+        notLegendary?: boolean
+        plusCounters?: number
+        keepName?: boolean
+        keepAbility?: boolean
+        keepAbilities?: boolean
+        flying?: boolean
+        keywords?: readonly string[]
+        colors?: readonly string[]
+        extraTypes?: readonly string[]
+        extraSubtypes?: readonly string[]
+        noManaCost?: boolean
+        tapped?: boolean
+      }
       /** Color chosen as this object enters (CR 614.12). */
       chosenType?: string
       chosenColor?: ManaId

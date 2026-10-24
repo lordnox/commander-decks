@@ -12,10 +12,11 @@ import { CONTROL_CHOICE_ACTION, CONTROL_EVENT } from './cardPlugins/dsl/controlC
 import { pickRandomChoices, RANDOM_CHOICE as HIDDEN_RANDOM } from './plugins/hiddenInformation'
 import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
-import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v1'
+import { KEYWORDS, LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v1'
 import { openSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { completeAdventureSpell } from './plugins/adventure'
+import { reboundsOnResolution, scheduleRebound } from './plugins/rebound'
 import { isPermanentType } from './definitions'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from './objectIdentity'
 import {
@@ -63,7 +64,7 @@ import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
 import { openControlAssignment } from './cardPlugins/dsl/controlAssignment'
 import { openPlayerSelection } from './rules/selectPlayers'
-import { applyCopyModifiers, copyCharacteristics } from './cardPlugins/effectRuntime'
+import { applyCopyExtraFromExcept, applyCopyModifiers, copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
@@ -189,6 +190,7 @@ const preflightInstructions = (
       case 'loseLife':
       case 'setLife':
       case 'exchangeLife':
+      case 'exchangeControl':
       case 'winGame':
       case 'blink':
       case 'fight':
@@ -992,6 +994,51 @@ const actionEvents = (
         source: frame.source.ref.objectId,
       }]
     }
+    case 'exchangeControl': {
+      const first = recipients(instruction.first, context)
+      const second = recipients(instruction.second, context)
+      if (first.length !== 1 || second.length !== 1) {
+        throw new RuleDslEvaluationError('exchangeControl requires exactly one player on each side')
+      }
+      const left = first[0]!
+      const right = second[0]!
+      if (left === right) return []
+      const permanents = evaluateObjectSelector(instruction.permanents, context)
+        .filter(object => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+      const leftSet = permanents.filter(object => object.controller === left)
+      const rightSet = permanents.filter(object => object.controller === right)
+      const swapped = [...leftSet, ...rightSet]
+      const duration = structuredClone(instruction.duration)
+      const meta = durationMetadata(instruction.duration, context, draft)
+      const gainControl = (object: GameObject, controller: string) => ({
+        type: 'canonicalEffect' as const,
+        objectId: object.id,
+        effect: { kind: 'gainControl' as const, player: { kind: 'contextRef' as const, name: 'controller' as const } },
+        effectPlayer: controller,
+        duration,
+        sourceId: frame.source.ref.objectId,
+        sourceRef: structuredClone(frame.source.ref),
+        sourceRevision: frame.definitionSnapshot.definitionRevision,
+        createdTurn: draft.turn,
+        ...meta,
+      })
+      return [
+        ...(instruction.untap ? swapped.map(object => ({ type: 'untap' as const, objectId: object.id })) : []),
+        ...leftSet.map(object => gainControl(object, right)),
+        ...rightSet.map(object => gainControl(object, left)),
+        ...(instruction.haste ? swapped.map(object => ({
+          type: 'canonicalEffect' as const,
+          objectId: object.id,
+          effect: { kind: 'grantKeyword' as const, keyword: KEYWORDS.haste },
+          duration,
+          sourceId: frame.source.ref.objectId,
+          sourceRef: structuredClone(frame.source.ref),
+          sourceRevision: frame.definitionSnapshot.definitionRevision,
+          createdTurn: draft.turn,
+          ...meta,
+        })) : []),
+      ]
+    }
     case 'winGame':
       return recipients(instruction.targets, context).map((seat) => ({
         type: 'winGame' as const,
@@ -1206,12 +1253,7 @@ const actionEvents = (
     }
     case 'copy': {
       const modifiers = {
-        ...(instruction.except?.notLegendary ? { notLegendary: true } : {}),
-        ...(instruction.except?.noManaCost ? { noManaCost: true } : {}),
-        ...(instruction.except?.colors ? { colors: [...instruction.except.colors] } : {}),
-        ...(instruction.except?.types ? { extraTypes: [...instruction.except.types] } : {}),
-        ...(instruction.except?.subtypes ? { extraSubtypes: [...instruction.except.subtypes] } : {}),
-        ...(instruction.except?.keywords ? { keywords: [...instruction.except.keywords] } : {}),
+        ...applyCopyExtraFromExcept(instruction.except),
         ...(instruction.tapped ? { tapped: true as const } : {}),
       }
       const sources = instruction.snapshot
@@ -1516,7 +1558,8 @@ const actionEvents = (
         objectId: object.id,
         effect,
         ...(effect.kind === 'goad' ? { effectPlayer: frame.controller } : {}),
-        ...(effect.kind === 'mustAttackPlayer' ? { effectPlayer: evaluatePlayerReference(effect.player, context)[0] } : {}),
+        ...(effect.kind === 'mustAttackPlayer' || effect.kind === 'gainControl' ? { effectPlayer: evaluatePlayerReference(effect.player, context)[0] } : {}),
+        ...(effect.kind === 'copy' ? { copySourceId: evaluateObjectReference(effect.of, context, 'currentOrLastKnown')[0]?.id } : {}),
         duration: structuredClone(instruction.duration),
         sourceId: frame.source.ref.objectId,
         sourceRef: structuredClone(frame.source.ref),
@@ -2267,6 +2310,9 @@ export const prepareResolutionStep = (draft: Draft) => {
   const object = draft.object(item.objectId)
   if (object && item.adventureCast) completeAdventureSpell(object)
   const destination = object ? resolvedSpellDestination(item, object) : undefined
+  if (object && destination === 'exile' && reboundsOnResolution(object, item)) {
+    scheduleRebound(draft, object, item)
+  }
   const event = item.kind === 'spell'
     && object?.zone === 'stack'
     && isSameObject(object, frame.source.ref)

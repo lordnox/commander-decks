@@ -9,6 +9,7 @@ import {
 } from '../cardPlugins/dsl/spellPermissions'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
+import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
 import { registerDelayedTrigger } from '../rules/delayedTriggers'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
 
@@ -64,15 +65,29 @@ export const openFreeCast = (
   })
 }
 
+const hasRebound = (object: GameObject) =>
+  hasKeyword(object, KEYWORDS.rebound)
+  || (object.ruleDefinition?.definition.abilities.some(ability =>
+    ability.kind === 'keyword' && ability.keyword === KEYWORDS.rebound) ?? false)
+
 export const reboundsOnResolution = (object: GameObject, item: StackItem) =>
   item.kind === 'spell'
   && !item.copy
   && item.castFrom === 'hand'
-  && hasKeyword(object, 'rebound')
+  && hasRebound(object)
 
 const delayedFreeCast: CardInstruction[] = [{
   kind: 'mayCastFromExileWithoutPayingMana',
 }]
+
+export const scheduleRebound = (draft: Draft, object: GameObject, item: StackItem) => {
+  registerDelayedTrigger(
+    draft,
+    object,
+    { kind: 'step', step: 'upkeep', active: item.controller },
+    delayedFreeCast,
+  )
+}
 
 /**
  * What a player does with priority. The offer can open in the middle of a
@@ -130,11 +145,6 @@ export const rebound: Plugin = {
     const item = state.stack[0]
     const object = item ? state.objects[item.objectId] : undefined
     if (!item || !object || !reboundsOnResolution(object, item)) return
-    registerDelayedTrigger(
-      draft,
-      object,
-      { kind: 'step', step: 'upkeep', active: item.controller },
-      delayedFreeCast,
-    )
+    scheduleRebound(draft, object, item)
   },
 }

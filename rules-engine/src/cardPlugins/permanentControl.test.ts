@@ -23,12 +23,12 @@ import {
   permanentControl,
   pendingPermanentDonation,
 } from './permanentControl'
-import { reinsOfPower } from './reinsOfPower'
-import { onResolve as onResolvePlugin } from './onResolve'
 import { pendingPlayerSelectionFor, selectPlayers } from '../rules/selectPlayers'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { createServerGame } from '../runtime'
 import type { GameState } from '../types'
+import { hasKeyword } from '../keywords'
+import { KEYWORDS } from './dsl/schema/v1'
 import { ok, testObject } from '../testHelpers'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
@@ -551,8 +551,6 @@ describe('gain control of a target permanent without a player target', () => {
   })
 })
 
-const hasteText = (object: { oracleText: string }) => /haste/i.test(object.oracleText)
-
 describe('creature control swap until cleanup', () => {
   test('swaps creature control until cleanup', () => {
     const spell = cardTemplate('Reins of Power', {
@@ -574,7 +572,7 @@ describe('creature control swap until cleanup', () => {
         hands: { p1: [spell] },
         battlefield: { p1: [ours, hasty], p2: [theirs] },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin, reinsOfPower] },
+      { random: () => 0.5 },
     )
     const withMana = {
       ...server.state,
@@ -592,7 +590,7 @@ describe('creature control swap until cleanup', () => {
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[find(resolved, 'Pathbreaker Ibex').id].controller).toBe('p1')
     expect(resolved.objects[find(resolved, 'Llanowar Elves').id].controller).toBe('p2')
-    expect(hasteText(resolved.objects[find(resolved, 'Pathbreaker Ibex').id])).toBe(true)
+    expect(hasKeyword(resolved.objects[find(resolved, 'Pathbreaker Ibex').id], KEYWORDS.haste, resolved)).toBe(true)
 
     let state = resolved
     while (state.step !== 'cleanup') {
@@ -600,7 +598,7 @@ describe('creature control swap until cleanup', () => {
     }
     expect(state.objects[find(state, 'Pathbreaker Ibex').id].controller).toBe('p2')
     expect(state.objects[find(state, 'Llanowar Elves').id].controller).toBe('p1')
-    expect(hasteText(state.objects[find(state, 'Pathbreaker Ibex').id])).toBe(false)
-    expect(hasteText(state.objects[find(state, 'Raging Goblin').id])).toBe(true)
+    expect(hasKeyword(state.objects[find(state, 'Pathbreaker Ibex').id], KEYWORDS.haste, state)).toBe(false)
+    expect(hasKeyword(state.objects[find(state, 'Raging Goblin').id], KEYWORDS.haste, state)).toBe(true)
   })
 })

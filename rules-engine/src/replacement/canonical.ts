@@ -135,7 +135,19 @@ const eventMatchesPattern = (
   }
 }
 
+const copiesAsEntry = (effect: ReplacementEffectDefinition): boolean => {
+  const scan = (steps: ReplacementEffectDefinition['program']): boolean =>
+    (steps ?? []).some(step => {
+      if (step.kind === 'modifyEvent' && step.changes.copyOf) return true
+      if (step.kind === 'branch') return scan(step.then) || scan(step.otherwise)
+      return false
+    })
+  return Boolean(effect.transform.kind === 'modifyEvent' && effect.transform.changes.copyOf)
+    || scan(effect.program)
+}
+
 const categoryFor = (effect: ReplacementEffectDefinition, event: GameEvent, sourceId: string): ReplacementCategory => {
+  if (copiesAsEntry(effect)) return 'copyAsEntry'
   if (effect.event.kind === 'enterBattlefield' && event.type === 'move' && event.objectId === sourceId) return 'self'
   if (effect.event.kind === 'enterBattlefield') return 'entryControl'
   return 'general'
@@ -213,10 +225,11 @@ const discoverProspectiveSelfEntry = (
     if (usedInstanceIds.includes(instanceId) || settledOptionalDeclines.includes(instanceId)) continue
     if (entry.effect.when && !evaluateCondition(entry.effect.when, runtime)) continue
     if (!eventMatchesPattern(event, entry.effect, runtime, state, host.id, prospectiveController)) continue
-    if (categoryFor(entry.effect, event, host.id) !== 'self') continue
+    const category = categoryFor(entry.effect, event, host.id)
+    if (category !== 'self' && category !== 'copyAsEntry') continue
     pushCandidate(candidates, seen, {
       kind: 'canonical',
-      category: 'self',
+      category,
       instanceId,
       sourceId: host.id,
       sourceName: host.name,

@@ -430,6 +430,8 @@ export type TypeAdditions = { creatureType?: CreatureTypeReference; allCreatureT
 
 export type CreatedEffect =
   | { kind: 'mustAttackPlayer'; player: PlayerReference }
+  | { kind: 'gainControl'; player: PlayerReference }
+  | { kind: 'copy'; of: ObjectReference; except?: CopyExcept }
   | { kind: 'redirectDeparture'; to: Zone }
   | { kind: 'grantWard'; cost: WardCost }
   | { kind: 'grantActivatedAbility'; ability: ActivatedAbilityDefinition }
@@ -490,6 +492,9 @@ export type CopyExcept = {
   types?: readonly string[]
   subtypes?: readonly string[]
   keywords?: readonly Keyword[]
+  keepName?: true
+  keepCopyAbility?: true
+  keepAbilities?: true
 }
 
 export type TokenDefinition = {
@@ -587,6 +592,16 @@ export type Instruction =
   | { kind: 'setLife'; amount: LifeTotalAmount; targets: PlayerRecipient; bindResult?: string }
   /** Exchange two players' life totals as one action and optionally bind the first player's actual loss. */
   | { kind: 'exchangeLife'; first: PlayerRecipient; second: PlayerRecipient; bindResult?: string }
+  /** Snapshot matching permanents each player controls, then swap control for the duration. */
+  | {
+      kind: 'exchangeControl'
+      first: PlayerRecipient
+      second: PlayerRecipient
+      permanents: ObjectSelector
+      duration: EffectDuration
+      haste?: true
+      untap?: true
+    }
   /** Apply a win through the game-result event pipeline. */
   | { kind: 'winGame'; targets: PlayerRecipient }
   /** Deal damage from the referenced source, allowing the normal damage pipeline to apply. */
@@ -835,6 +850,9 @@ export type EventFieldChanges = {
   to?: Zone
   tapped?: boolean
   amount?: AmountFieldChange
+  /** Copiable values applied as this object enters (CR 616.1c / 707.2). */
+  copyOf?: ObjectReference
+  copyExcept?: CopyExcept
 }
 
 export type ReplacementTransform =
@@ -893,6 +911,8 @@ export type ContinuousEffectDefinition =
   | { kind: 'noMaximumHandSize' }
   /** Marker for “this spell can’t be countered”; inspected at cast, not as a layer. */
   | { kind: 'cannotBeCountered' }
+  /** The legend rule does not apply to permanents this source's controller controls. */
+  | { kind: 'legendRuleOff' }
   /** Creatures attacking this controller (or their planeswalkers) cost {N} each. */
   | { kind: 'attackTax'; amount: number; whileUntapped?: true }
   /** Creatures blocking while this source is attacking cost {N} each. */
@@ -947,7 +967,7 @@ export type ContinuousEffectDefinition =
 export const KEYWORDS = {
   changeling: 'changeling', deathtouch: 'deathtouch', defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
   hexproof: 'hexproof', indestructible: 'indestructible', reach: 'reach', fear: 'fear', lifelink: 'lifelink', menace: 'menace', firstStrike: 'first strike',
-  infect: 'infect',
+  infect: 'infect', rebound: 'rebound', demonstrate: 'demonstrate', partner: 'partner',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 

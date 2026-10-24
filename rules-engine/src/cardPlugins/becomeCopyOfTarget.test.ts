@@ -12,8 +12,6 @@ import { ability, becomeCopyOfTarget as becomeCopyInstruction } from './effectBu
 import { serializableEffects } from './effectRuntime'
 
 import {createServerGame as createRuntimeGame} from '../runtime'
-import {resolveStack} from '../testHelpers'
-import {DIALOG_CHOSEN, dialogCandidates, pendingDialog} from '../pendingDialog'
 import {choiceEffects} from './choiceEffects'
 import {entersTapped} from './entersTapped'
 import {librarySearch} from './librarySearch'
@@ -294,18 +292,20 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
           },
         },
       )
-      const moved = resolveStack(server.rules, ok(server.rules(server.state, {
+      const moved = ok(server.rules(server.state, {
         type: 'move',
         objectId: named(server.state, 'Sakashima of a Thousand Faces').id,
         to: 'battlefield',
-      })))
+      }))
       const sakashima = named(moved, 'Sakashima of a Thousand Faces')
-      expect(pendingDialog(moved)?.kind).toBe('copy-creature')
+      const pending = pendingSelectionFor(moved, 'p1')!
       const copied = ok(server.rules(moved, {
-        type: 'custom',
-        name: DIALOG_CHOSEN,
+        type: 'selectCards',
         seat: 'p1',
-        payload: { objectIds: [named(moved, 'Homer, the Hermit').id] },
+        selectionId: pending.id,
+        kind: 'choose',
+        count: 1,
+        objectIds: [named(moved, 'Homer, the Hermit').id],
       }))
       const clone = copied.objects[sakashima.id]
       expect(clone.name).toBe('Sakashima of a Thousand Faces')
@@ -336,17 +336,15 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
         objectId: spark.id,
         to: 'graveyard',
       }))
-      const entered = resolveStack(server.rules, ok(server.rules(buried, {
+      const entered = ok(server.rules(buried, {
         type: 'move',
         objectId: spark.id,
         to: 'battlefield',
         controller: 'p1',
-      })))
-      const dialog = pendingDialog(entered)
-      expect(entered.objects[spark.id].controller).toBe('p1')
-      expect(entered.objects[spark.id].zone).toBe('battlefield')
-      expect(dialog?.seat).toBe('p1')
-      expect(dialogCandidates(entered, dialog!).map((object) => object.name)).toEqual([
+      }))
+      expect(entered.objects[spark.id].zone).not.toBe('battlefield')
+      const pending = pendingSelectionFor(entered, 'p1')!
+      expect(pending.candidates.map(id => entered.objects[id].name)).toEqual([
         'Sygg, River Cutthroat',
       ])
     })

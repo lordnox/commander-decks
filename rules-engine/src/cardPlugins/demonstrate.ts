@@ -1,10 +1,15 @@
-import type { Plugin } from '../types'
+import type { GameObject, Plugin } from '../types'
+import { hasKeyword } from '../keywords'
+import { KEYWORDS } from './dsl/schema/v1'
 import { openStackCopyChoice } from './stackCopy'
 
 export const DEMONSTRATE_TRIGGER = 'demonstrate.trigger'
 
-const hasDemonstrate = (oracleText: string) =>
-  /^demonstrate(?:\s|\()/im.test(oracleText)
+const hasDemonstrate = (object: GameObject) =>
+  /^demonstrate(?:\s|\()/im.test(object.oracleText)
+  || hasKeyword(object, KEYWORDS.demonstrate)
+  || (object.ruleDefinition?.definition.abilities.some(ability =>
+    ability.kind === 'keyword' && ability.keyword === KEYWORDS.demonstrate) ?? false)
 
 /** CR 702.144a — casting a spell with demonstrate creates its copy trigger. */
 export const demonstrate: Plugin = {
@@ -14,7 +19,7 @@ export const demonstrate: Plugin = {
       const source = state.objects[event.objectId]
       const spell = draft.stack.find((item) =>
         item.kind === 'spell' && item.objectId === event.objectId)
-      if (!source || !spell || !hasDemonstrate(source.oracleText)) return
+      if (!source || !spell || !hasDemonstrate(source)) return
       draft.addToStack({
         kind: 'ability',
         objectId: source.id,

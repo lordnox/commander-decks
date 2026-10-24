@@ -53,68 +53,14 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "da8966c7ce4ccb861107783b808f011179852f2dcebc1f4d27dd3d8e6b2d19b1",
-    "card": "Reins of Power"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "999ebce2f25deba11af6e4656e76b2a3673d804b795a6a37f387dc21bcbff89b",
-    "card": "Thespian's Stage"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4e8ada68176b3de606ea431adb066b568bf3f3d34a31f86cf7e93e83c3417e47",
-    "card": "Nanogene Conversion"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "fe13f7bc1a82fe8f298cecbed6211620777d38148958a2fb0e587c7244fe2caa",
-    "card": "Quantum Misalignment"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "3654e5512e271adaa915027469dd50989583908c90e3035852171df8478e0342",
-    "card": "Sakashima of a Thousand Faces"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "6d08bebdb4eb2ad78947def2935e745331144db830390611afd5ad65093d7198",
-    "card": "Spark Double"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "a13f3951794ca58676ce88259b1b8eeb79f14033e10e8eb7264a5366cb56fe1f",
-    "card": "Incarnation Technique"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "ab5fd1c106f1d72d0cbf263f55f3678dadb782775569c50f4171f91759e1b6c6",
     "card": "Perch Protection"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "4970f77ee20938dc1c20d44ce0f5212f039804ea91dde80c60670504843fd65d",
-    "card": "Ephemerate"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "256b3d1db82fa34965f144f05b223dbfe2b4abeb989df38f3d5529c9e44d8a07",
     "card": "Everybody Lives!"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4ff3cf910ddcc0ffefe63ff93497d559b2ca3210a31d84e00f4fb69d92196301",
-    "card": "Mirrorweave"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

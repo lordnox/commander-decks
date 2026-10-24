@@ -129,7 +129,6 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const stage = cardTemplate("Thespian's Stage", {
       types: ['Land'],
       tapProduces: { C: 1 },
-      effects: effectsFor("Thespian's Stage"),
     })
     const quarry = cardTemplate('Quarry', {
       types: ['Land'],
@@ -148,35 +147,31 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.C = 2
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'thespiansStage.copy',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: stageId,
+      targets: [{ kind: 'object', objectId: quarryId }],
     }))
-    const opened = ok(server.rules(activatedState, { type: 'resolveTop' }))
-    expect(pendingSelectionFor(opened, 'p1')).toBeDefined()
-    const picked = ok(server.rules(opened, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [quarryId],
-    }))
+    const picked = ok(server.rules(activatedState, { type: 'resolveTop' }))
     expect(picked.objects[stageId]).toMatchObject({
       name: 'Quarry',
       tapProduces: { G: 1 },
     })
-    expect(picked.objects[stageId].effects?.some((effect) =>
-      effect.op === 'activate' && effect.id === 'thespiansStage.copy')).toBe(true)
+    expect(picked.objects[stageId].ruleDefinition?.definition.abilities.some(ability =>
+      ability.kind === 'activated'
+      && ability.instructions?.some(instruction =>
+        instruction.kind === 'createEffect' && instruction.effect.kind === 'copy'))).toBe(true)
     picked.players.p1.mana.C = 2
     picked.objects[stageId].tapped = false
     const reactivated = ok(server.rules(picked, {
       type: 'activateAbility',
-      abilityId: 'thespiansStage.copy',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: stageId,
+      targets: [{ kind: 'object', objectId: quarryId }],
     }))
     const again = ok(server.rules(reactivated, { type: 'resolveTop' }))
-    expect(pendingSelectionFor(again, 'p1')?.candidates).toContain(quarryId)
+    expect(again.objects[stageId]).toMatchObject({ name: 'Quarry', tapProduces: { G: 1 } })
   })
 
 

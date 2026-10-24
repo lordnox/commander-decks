@@ -392,7 +392,7 @@ const applyCandidate = (
   markInstanceUsed(lineage, candidate.instanceId)
   if (candidate.effect.program?.length) {
     const source = state.objects[candidate.sourceId]
-    const selfEntry = candidate.category === 'self'
+    const selfEntry = candidate.category === 'self' || candidate.category === 'copyAsEntry'
     const sourceController = selfEntry && proposal.type === 'move'
       ? (proposal.controller ?? source?.controller ?? candidate.chooser)
       : (source?.controller ?? candidate.chooser)

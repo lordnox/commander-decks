@@ -38,6 +38,8 @@ import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { foretell } from './foretell'
 import { rebound } from './rebound'
+import { demonstrate } from '../cardPlugins/demonstrate'
+import { stackCopy } from '../cardPlugins/stackCopy'
 import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
@@ -76,6 +78,8 @@ export const builtInPlugins = [
   foretell,
   preparedCasting,
   rebound,
+  demonstrate,
+  stackCopy,
   warp,
   alternateCosts,
   saga,
@@ -150,6 +154,8 @@ export {
   foretell,
   preparedCasting,
   rebound,
+  demonstrate,
+  stackCopy,
   warp,
   rooms,
   sacrificeLandMana,

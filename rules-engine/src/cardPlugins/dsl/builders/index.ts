@@ -356,6 +356,12 @@ export const setColorsEffect = (colors: Extract<CreatedEffect, { kind: 'setColor
   immutableData({ kind: 'setColors', colors })
 
 export const grantKeywordEffect = (keyword: Keyword): CreatedEffect => immutableData({ kind: 'grantKeyword', keyword })
+export const gainControlEffect = (player: PlayerReference): CreatedEffect =>
+  immutableData({ kind: 'gainControl', player })
+export const copyEffect = (input: { of: ObjectReference; except?: CopyExcept }): CreatedEffect =>
+  immutableData({ kind: 'copy', of: input.of, ...(input.except ? { except: input.except } : {}) })
+export const legendRuleOff = (): ContinuousEffectDefinition => immutableData({ kind: 'legendRuleOff' })
+export const permanently = (): EffectDuration => immutableData({ kind: 'permanent' })
 export const grantAbilityEffect = (ability: Extract<CreatedEffect, { kind: 'grantAbility' }>['ability']): CreatedEffect => immutableData({ kind: 'grantAbility', ability })
 export const eventDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'event' }>, 'kind'>): DelayedPattern => immutableData({ kind: 'event', ...input })
 export const stepDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'step' }>, 'kind'>): DelayedPattern => immutableData({ kind: 'step', ...input })
@@ -568,6 +574,35 @@ export const payLife = (value: AmountInput) =>
 
 export const emit = (...instructions: Instruction[]) =>
   immutableData({ kind: 'emit' as const, instructions })
+
+/** CR 706.14: you may have this enter as a copy, with optional copy exceptions and enter-with counters. */
+export const copyAsEntry = (input: {
+  filter: ObjectSelector
+  except?: CopyExcept
+  creatureCounters?: AmountInput
+  planeswalkerCounters?: AmountInput
+}) => {
+  const chosen = objects({ among: choice('copied') })
+  return replacement(wouldEnter(), modifyEvent({}), {
+    program: [
+      chooseCards({ chooser: ref('controller'), filter: input.filter, bindChoice: 'copied', min: 0, max: 1 }),
+      programBranch(compareAmount(count(chosen), 'gte', 1), [
+        modifyEvent({
+          copyOf: choice('copied'),
+          ...(input.except ? { copyExcept: input.except } : {}),
+        }),
+        ...(input.creatureCounters !== undefined ? [programBranch(
+          compareAmount(count(objects({ among: choice('copied'), type: 'Creature' })), 'gte', 1),
+          [modifyEvent({ enterCounters: { '+1/+1': toAmount(input.creatureCounters) } })],
+        )] : []),
+        ...(input.planeswalkerCounters !== undefined ? [programBranch(
+          compareAmount(count(objects({ among: choice('copied'), type: 'Planeswalker' })), 'gte', 1),
+          [modifyEvent({ enterCounters: { loyalty: toAmount(input.planeswalkerCounters) } })],
+        )] : []),
+      ]),
+    ],
+  })
+}
 
 /** CR 702.83: as this creature enters, you may sacrifice any number of the given permanents. */
 export const devour = (
@@ -868,6 +903,23 @@ export const exchangeLife = (input: {
   first: input.first,
   second: input.second,
   ...(input.bindResult ? { bindResult: input.bindResult } : {}),
+})
+
+export const exchangeControl = (input: {
+  first: PlayerRecipient
+  second: PlayerRecipient
+  permanents: ObjectSelector
+  duration: EffectDuration
+  haste?: true
+  untap?: true
+}): Instruction => immutableData({
+  kind: 'exchangeControl',
+  first: input.first,
+  second: input.second,
+  permanents: input.permanents,
+  duration: input.duration,
+  ...(input.haste ? { haste: true as const } : {}),
+  ...(input.untap ? { untap: true as const } : {}),
 })
 
 export const winGame = (input: { targets: PlayerRecipient }): Instruction =>

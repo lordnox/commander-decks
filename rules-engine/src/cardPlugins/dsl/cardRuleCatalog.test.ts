@@ -12,6 +12,9 @@ test.each([
   ['Summer Bloom', ['grantLandPlays']],
   ['Ghostly Flicker', ['blink']],
   ['Cloudshift', ['blink']],
+  ['Reins of Power', ['exchangeControl']],
+  ['Mirrorweave', ['createEffect']],
+  ['Nanogene Conversion', ['createEffect']],
   ['Flicker of Fate', ['blink']],
   ['Counterspell', ['counter']],
   ['Absorb', ['counter', 'gainLife']],
@@ -2958,6 +2961,44 @@ test('Analyze the Pollen composes collect evidence with two structural search br
   ])
 })
 
+
+test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy', () => {
+  expect(effectsFor('Ephemerate')).toEqual([])
+  expect(effectsFor('Sakashima of a Thousand Faces')).toEqual([])
+  expect(effectsFor('Spark Double')).toEqual([])
+  expect(effectsFor("Thespian's Stage")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Ephemerate')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.rebound },
+    { kind: 'spell', instructions: [{ kind: 'blink' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Quantum Misalignment')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.rebound },
+    { kind: 'spell', instructions: [{ kind: 'copy', except: { notLegendary: true } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Incarnation Technique')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.demonstrate },
+    { kind: 'spell', instructions: [{ kind: 'mill' }, { kind: 'chooseCards' }, { kind: 'move' }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Reins of Power')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{ kind: 'exchangeControl', haste: true, untap: true }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', program: [{ kind: 'chooseCards' }, { kind: 'branch' }] }] },
+    { kind: 'static', effects: [{ kind: 'legendRuleOff' }] },
+    { kind: 'keyword', keyword: KEYWORDS.partner },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Spark Double')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', program: [{ kind: 'chooseCards' }, { kind: 'branch' }] }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor("Thespian's Stage")!.definition.abilities).toMatchObject([
+    { kind: 'activated' },
+    { kind: 'activated', instructions: [{ kind: 'createEffect', effect: { kind: 'copy', except: { keepCopyAbility: true } } }] },
+  ])
+  expect(cardTemplateDefaultsFor('Sakashima of a Thousand Faces')).toMatchObject({
+    power: 3, toughness: 1, supertypes: ['Legendary'], subtypes: ['Human', 'Rogue'],
+  })
+})
 
 test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {
   expect(cardTemplateDefaultsFor('Angel of Sanctions')).toMatchObject({ power: 3, toughness: 4, subtypes: ['Angel'] })

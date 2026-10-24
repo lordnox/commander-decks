@@ -8,6 +8,7 @@ import type { CardEffect } from './effects'
 import { canonicalSpellPermission } from './dsl/playPermissions'
 import { activePrintedStaticModifiers, isActiveKeywordStatic } from './dsl/staticModifierCore'
 import { manaValueOf } from './effectRuntime'
+import { reboundsOnResolution } from '../plugins/rebound'
 
 export type AlternateCastEffect = Extract<CardEffect, { op: 'alternateCast' }>
 
@@ -191,12 +192,13 @@ export const finishedSpellZone = (
 /** CR 608.3 / 608.3f: a resolving permanent spell, or a copy of one, enters the battlefield. */
 export const resolvedSpellDestination = (
   item: StackItem,
-  object: { types: readonly string[] },
+  object: GameObject,
 ) => {
   if (item.adventureCast) return finishedSpellZone(item, 'exile')
   if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {
     return 'battlefield'
   }
+  if (reboundsOnResolution(object, item)) return 'exile'
   return finishedSpellZone(item, 'graveyard')
 }
 

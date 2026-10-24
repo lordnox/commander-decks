@@ -567,11 +567,13 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Split Decision')).toBeDefined()
   })
 
-  test('Incarnation Technique loads both the trigger and the copy handler', () => {
-    expect(cardPluginEntry('Incarnation Technique')?.handlerIds)
-      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
-    expect(handlerIdsForNames(['Incarnation Technique']))
-      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
+  test('Incarnation Technique is a catalog card with demonstrate', () => {
+    expect(effectsFor('Incarnation Technique')).toEqual([])
+    expect(cardPluginEntry('Incarnation Technique')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Incarnation Technique')!.definition.abilities).toMatchObject([
+      { kind: 'keyword', keyword: 'demonstrate' },
+      { kind: 'spell' },
+    ])
   })
 
   test('Círdan misc cards keep their handler composition', () => {
@@ -612,10 +614,13 @@ describe('card plugin registry', () => {
     ])
   })
 
-  test("Thespian's Stage lists its handlers", () => {
-    expect(cardDefinition("Thespian's Stage")?.handlerIds).toEqual(
-      expect.arrayContaining(['becomeCopyOfTarget', 'activated']),
-    )
+  test("Thespian's Stage is a catalog land with a kept copy activation", () => {
+    expect(effectsFor("Thespian's Stage")).toEqual([])
+    expect(cardDefinition("Thespian's Stage")).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor("Thespian's Stage")!.definition.abilities).toMatchObject([
+      { kind: 'activated' },
+      { kind: 'activated', instructions: [{ kind: 'createEffect', effect: { kind: 'copy' } }] },
+    ])
   })
 
   test.each([
@@ -662,7 +667,7 @@ describe('card plugin registry', () => {
       'All-Fates Stalker',
     ]
     expect(missingCardPlugins(names)).toEqual([])
-    expect(handlerIdsForNames(names)).toEqual(['blinkValue'])
+    expect(handlerIdsForNames(names)).toEqual([])
   })
 
   test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {

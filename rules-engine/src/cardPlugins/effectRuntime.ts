@@ -12,6 +12,9 @@ import type {
   StackItem,
 } from '../types'
 import type { CardCondition, CardEffect, CardInstruction, TokenSpec } from './effectDefinitions'
+import { cloneJsonData, deepFreezeData } from './dsl/compiler/data'
+import { RULE_DSL_SCHEMA_VERSION } from './dsl/schema/v1'
+import { card } from './dsl/sugar/card'
 
 export const basicLand = (object: GameObject) =>
   object.types.includes('Land') && object.supertypes.includes('Basic')
@@ -167,6 +170,28 @@ export const manaValueOf = (object: GameObject) => {
     return total + (hybridNumber ? Number(hybridNumber[1]) : 1)
   }, 0)
 }
+
+export const applyCopyExtraFromExcept = (except?: {
+  notLegendary?: true | boolean
+  noManaCost?: true | boolean
+  colors?: readonly string[]
+  types?: readonly string[]
+  subtypes?: readonly string[]
+  keywords?: readonly string[]
+  keepName?: true | boolean
+  keepCopyAbility?: true | boolean
+  keepAbilities?: true | boolean
+} ) => ({
+  ...(except?.notLegendary ? { notLegendary: true } : {}),
+  ...(except?.noManaCost ? { noManaCost: true } : {}),
+  ...(except?.colors ? { colors: [...except.colors] } : {}),
+  ...(except?.types ? { extraTypes: [...except.types] } : {}),
+  ...(except?.subtypes ? { extraSubtypes: [...except.subtypes] } : {}),
+  ...(except?.keywords ? { keywords: [...except.keywords] } : {}),
+  ...(except?.keepName ? { keepName: true } : {}),
+  ...(except?.keepCopyAbility ? { keepAbility: true } : {}),
+  ...(except?.keepAbilities ? { keepAbilities: true } : {}),
+})
 
 export type CopyModifiers = {
   notLegendary?: boolean
@@ -464,6 +489,14 @@ const copyExceptAbilities = (effects: CardEffect[] | undefined) =>
     effect.op === 'activate'
     && effect.do.some((instruction) => instruction.kind === 'becomeCopyOfTarget'))
 
+const abilityCopiesAsEntry = (ability: {
+  kind?: string
+  instructions?: readonly { kind?: string; effect?: { kind?: string } }[]
+}) =>
+  ability.kind === 'activated'
+  && (ability.instructions ?? []).some(instruction =>
+    instruction.kind === 'createEffect' && instruction.effect?.kind === 'copy')
+
 export function applyCopy (
   object: GameObject,
   copied: GameObject,
@@ -472,9 +505,18 @@ export function applyCopy (
     plusCounters?: number
     keepName?: boolean
     keepAbility?: boolean
+    keepAbilities?: boolean
+    flying?: boolean
+    keywords?: readonly string[]
+    colors?: readonly string[]
+    extraTypes?: readonly string[]
+    extraSubtypes?: readonly string[]
+    noManaCost?: boolean
+    tapped?: boolean
   } = {},
 ) {
   const characteristics = copyCharacteristics(copied, extra)
+  const keptDefinition = extra.keepAbilities || extra.keepAbility ? object.ruleDefinition : undefined
   const keptStatic = extra.keepName
     ? (object.effects ?? []).filter((effect) => effect.op === 'static')
     : []
@@ -502,6 +544,28 @@ export function applyCopy (
   if (keptStatic.length > 0) object.effects = [...object.effects, ...keptStatic]
   if (keptActivate.length > 0) {
     object.effects = [...(object.effects ?? []), ...keptActivate]
+  }
+  if ('ruleDefinition' in characteristics && characteristics.ruleDefinition) {
+    object.ruleDefinition = structuredClone(characteristics.ruleDefinition)
+  } else {
+    delete object.ruleDefinition
+  }
+  if (keptDefinition) {
+    const keptAbilities = extra.keepAbilities
+      ? keptDefinition.definition.abilities
+      : keptDefinition.definition.abilities.filter(abilityCopiesAsEntry)
+    if (keptAbilities.length > 0) {
+      const current = object.ruleDefinition
+      const definition = card([
+        ...(current?.definition.abilities ?? []),
+        ...keptAbilities,
+      ])
+      object.ruleDefinition = deepFreezeData(cloneJsonData({
+        schemaVersion: RULE_DSL_SCHEMA_VERSION,
+        definitionRevision: definition.definitionRevision,
+        definition,
+      }))
+    }
   }
   if (extra.plusCounters && extra.plusCounters > 0) addPlusCounters(object, extra.plusCounters)
 }

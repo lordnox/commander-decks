@@ -4,6 +4,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok } from '../testHelpers'
 import { millThenRecover, onResolve } from './effects'
+import { stackCopyPending } from './stackCopy'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
 
@@ -192,12 +193,23 @@ describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {
           },
         },
       )
-      const cast = ok(server.rules(server.state, {
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 4 }
+      const cast = ok(server.rules(ready, {
         type: 'castSpell',
         seat: 'p1',
-        objectId: named(server.state, 'Incarnation Technique').id,
+        objectId: named(ready, 'Incarnation Technique').id,
       }))
-      const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+      const demonstrated = ok(server.rules(cast, { type: 'resolveTop' }))
+      const pendingCopy = stackCopyPending(demonstrated)!
+      const declined = ok(server.rules(demonstrated, {
+        type: 'copyStackItem',
+        seat: 'p1',
+        sourceId: pendingCopy.sourceId,
+        stackId: pendingCopy.stackId,
+        accept: false,
+      }))
+      const choosing = ok(server.rules(declined, { type: 'resolveTop' }))
       const selection = pendingSelectionFor(choosing, 'p1')!
       expect(selection.candidates).toEqual([named(choosing, 'Body').id])
       const resolved = ok(server.rules(choosing, {

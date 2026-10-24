@@ -62,6 +62,9 @@ const abilityActiveIn = (ability: AbilityDefinition): readonly Zone[] => {
       || ability.keyword === KEYWORDS.lifelink
       || ability.keyword === KEYWORDS.infect
       || ability.keyword === KEYWORDS.changeling
+      || ability.keyword === KEYWORDS.rebound
+      || ability.keyword === KEYWORDS.demonstrate
+      || ability.keyword === KEYWORDS.partner
     ) ? ZONE_IDS : ['battlefield']
   }
   if (ability.kind === 'static') return ability.activeIn

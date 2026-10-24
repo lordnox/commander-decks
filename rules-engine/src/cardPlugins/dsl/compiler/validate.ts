@@ -1086,6 +1086,22 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.second, childPath(path, 'second'), env, ['player'])
         if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
         return
+      case 'exchangeControl': {
+        exactKeys(node, path, ['kind', 'first', 'second', 'permanents', 'duration', 'haste', 'untap'], ['kind', 'first', 'second', 'permanents', 'duration'])
+        validateRecipient(node.first, childPath(path, 'first'), env, ['player'])
+        validateRecipient(node.second, childPath(path, 'second'), env, ['player'])
+        if (validateSelector(node.permanents, childPath(path, 'permanents'), env) !== 'object') {
+          issue(childPath(path, 'permanents'), 'domain', 'exchangeControl requires an object selector')
+        }
+        const duration = object(node.duration, childPath(path, 'duration'))
+        if (duration) {
+          exactKeys(duration, childPath(path, 'duration'), ['kind', 'step', 'active', 'count'], ['kind'])
+          enumeration(duration.kind, childPath(childPath(path, 'duration'), 'kind'), new Set(['untilCleanup', 'permanent', 'untilStep', 'forTurns', 'whileSourceOnBattlefield', 'whileControlUnchanged']), 'effect duration')
+        }
+        if (node.haste !== undefined && node.haste !== true) issue(childPath(path, 'haste'), 'enum', 'exchangeControl haste must be true')
+        if (node.untap !== undefined && node.untap !== true) issue(childPath(path, 'untap'), 'enum', 'exchangeControl untap must be true')
+        return
+      }
       case 'winGame':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
@@ -1356,43 +1372,7 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
         if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
-        if (node.except !== undefined) {
-          const except = object(node.except, childPath(path, 'except'))
-          if (except) {
-            exactKeys(except, childPath(path, 'except'), ['notLegendary', 'noManaCost', 'colors', 'types', 'subtypes', 'keywords'])
-            if (Object.keys(except).length === 0) {
-              issue(childPath(path, 'except'), 'instruction-shape', 'copy except must name at least one exception')
-            }
-            if (except.notLegendary !== undefined && except.notLegendary !== true) {
-              issue(childPath(childPath(path, 'except'), 'notLegendary'), 'enum', 'copy except notLegendary must be true')
-            }
-            if (except.noManaCost !== undefined && except.noManaCost !== true) {
-              issue(childPath(childPath(path, 'except'), 'noManaCost'), 'enum', 'copy except noManaCost must be true')
-            }
-            if (except.colors !== undefined) {
-              array(except.colors, childPath(childPath(path, 'except'), 'colors')).forEach((color, index) =>
-                enumeration(color, childPath(childPath(childPath(path, 'except'), 'colors'), index), new Set(CARD_COLORS), 'card color'))
-            }
-            if (except.types !== undefined) {
-              array(except.types, childPath(childPath(path, 'except'), 'types'), { nonempty: true }).forEach((type, index) => {
-                if (typeof type !== 'string' || type.length === 0) {
-                  issue(childPath(childPath(childPath(path, 'except'), 'types'), index), 'type', 'copy except types must be nonempty strings')
-                }
-              })
-            }
-            if (except.subtypes !== undefined) {
-              array(except.subtypes, childPath(childPath(path, 'except'), 'subtypes'), { nonempty: true }).forEach((subtype, index) => {
-                if (typeof subtype !== 'string' || subtype.length === 0) {
-                  issue(childPath(childPath(childPath(path, 'except'), 'subtypes'), index), 'type', 'copy except subtypes must be nonempty strings')
-                }
-              })
-            }
-            if (except.keywords !== undefined) {
-              array(except.keywords, childPath(childPath(path, 'except'), 'keywords'), { nonempty: true }).forEach((keyword, index) =>
-                enumeration(keyword, childPath(childPath(childPath(path, 'except'), 'keywords'), index), new Set(Object.values(KEYWORDS)), 'keyword'))
-            }
-          }
-        }
+        if (node.except !== undefined) validateCopyExcept(node.except, childPath(path, 'except'))
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
@@ -1474,11 +1454,17 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         const effect = object(node.effect, childPath(path, 'effect'))
         if (effect) {
-          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost', 'to', 'player'], ['kind'])
+          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost', 'to', 'player', 'of', 'except'], ['kind'])
           switch (effect.kind) {
             case 'mustAttackPlayer':
+            case 'gainControl':
               exactKeys(effect, childPath(path, 'effect'), ['kind', 'player'], ['kind', 'player'])
               validateReference(effect.player, childPath(path, 'effect.player'), env, ['player'])
+              break
+            case 'copy':
+              exactKeys(effect, childPath(path, 'effect'), ['kind', 'of', 'except'], ['kind', 'of'])
+              validateReference(effect.of, childPath(path, 'effect.of'), env, ['object'])
+              if (effect.except !== undefined) validateCopyExcept(effect.except, childPath(path, 'effect.except'))
               break
             case 'redirectDeparture':
               exactKeys(effect, childPath(path, 'effect'), ['kind', 'to'], ['kind', 'to'])
@@ -2064,11 +2050,49 @@ export const validateDefinitionV1 = (root: unknown): {
     }
   }
 
+  const validateCopyExcept = (value: unknown, path: string, requireSome = true): void => {
+    const except = object(value, path)
+    if (!except) return
+    exactKeys(except, path, ['notLegendary', 'noManaCost', 'colors', 'types', 'subtypes', 'keywords', 'keepName', 'keepCopyAbility', 'keepAbilities'])
+    if (requireSome && Object.keys(except).length === 0) {
+      issue(path, 'instruction-shape', 'copy except must name at least one exception')
+    }
+    for (const flag of ['notLegendary', 'noManaCost', 'keepName', 'keepCopyAbility', 'keepAbilities'] as const) {
+      if (except[flag] !== undefined && except[flag] !== true) {
+        issue(childPath(path, flag), 'enum', `copy except ${flag} must be true`)
+      }
+    }
+    if (except.colors !== undefined) {
+      array(except.colors, childPath(path, 'colors')).forEach((color, index) =>
+        enumeration(color, childPath(childPath(path, 'colors'), index), new Set(CARD_COLORS), 'card color'))
+    }
+    if (except.types !== undefined) {
+      array(except.types, childPath(path, 'types'), { nonempty: true }).forEach((type, index) => {
+        if (typeof type !== 'string' || type.length === 0) {
+          issue(childPath(childPath(path, 'types'), index), 'type', 'copy except types must be nonempty strings')
+        }
+      })
+    }
+    if (except.subtypes !== undefined) {
+      array(except.subtypes, childPath(path, 'subtypes'), { nonempty: true }).forEach((subtype, index) => {
+        if (typeof subtype !== 'string' || subtype.length === 0) {
+          issue(childPath(childPath(path, 'subtypes'), index), 'type', 'copy except subtypes must be nonempty strings')
+        }
+      })
+    }
+    if (except.keywords !== undefined) {
+      array(except.keywords, childPath(path, 'keywords'), { nonempty: true }).forEach((keyword, index) =>
+        enumeration(keyword, childPath(childPath(path, 'keywords'), index), new Set(Object.values(KEYWORDS)), 'keyword'))
+    }
+  }
+
   const validateEventFieldChanges = (value: unknown, path: string, env: Environment): void => {
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['to', 'tapped', 'amount', 'enterCounters', 'attachTo'], [])
+    exactKeys(node, path, ['to', 'tapped', 'amount', 'enterCounters', 'attachTo', 'copyOf', 'copyExcept'], [])
     if (node.attachTo !== undefined) validateReference(node.attachTo, childPath(path, 'attachTo'), env, ['object', 'player'])
+    if (node.copyOf !== undefined) validateReference(node.copyOf, childPath(path, 'copyOf'), env, ['object'])
+    if (node.copyExcept !== undefined) validateCopyExcept(node.copyExcept, childPath(path, 'copyExcept'))
     if (node.enterCounters !== undefined) {
       const counters = object(node.enterCounters, childPath(path, 'enterCounters'))
       if (counters) for (const [name, counterAmount] of Object.entries(counters)) {
@@ -2482,6 +2506,7 @@ export const validateDefinitionV1 = (root: unknown): {
               integer(node.exileCount, childPath(effectPath, 'exileCount'), { min: 1 })
               return
             case 'loseLifeOnManaLoss':
+            case 'legendRuleOff':
             case 'noMaximumHandSize':
             case 'cannotBeCountered': {
               exactKeys(node, effectPath, ['kind'], ['kind'])

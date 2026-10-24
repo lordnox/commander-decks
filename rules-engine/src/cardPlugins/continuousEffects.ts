@@ -47,6 +47,7 @@ export const snapshotCopy = (object: GameObject): CopySnapshot => ({
   grantedRules: [...object.grantedRules],
   tapProduces: object.tapProduces ? { ...object.tapProduces } : undefined,
   effects: object.effects ? structuredClone(object.effects) : undefined,
+  ...(object.ruleDefinition ? { ruleDefinition: structuredClone(object.ruleDefinition) } : {}),
 })
 
 const restoreCopy = (object: GameObject, snapshot: CopySnapshot) => {
@@ -65,6 +66,8 @@ const restoreCopy = (object: GameObject, snapshot: CopySnapshot) => {
   object.grantedRules = [...snapshot.grantedRules]
   object.tapProduces = snapshot.tapProduces ? { ...snapshot.tapProduces } : undefined
   object.effects = snapshot.effects ? structuredClone(snapshot.effects) : undefined
+  if (snapshot.ruleDefinition) object.ruleDefinition = structuredClone(snapshot.ruleDefinition)
+  else delete object.ruleDefinition
 }
 
 export const changeStats = (
@@ -181,7 +184,7 @@ export const loseAbilitiesBecome = (
 export const copyObject = (
   object: GameObject,
   copied: GameObject,
-  extra: { notLegendary?: boolean } = {},
+  extra: Parameters<typeof applyCopy>[2] = {},
 ): ReversibleEffect => {
   const before = snapshotCopy(object)
   applyCopy(object, copied, extra)
@@ -379,7 +382,7 @@ export const goadPermanent = (object: GameObject, sourceController: PlayerId) =>
 export const copyUntilEndOfTurn = (
   object: GameObject,
   copied: GameObject,
-  extra: { notLegendary?: boolean } = {},
+  extra: Parameters<typeof applyCopy>[2] = {},
 ) => untilEndOfTurn(object, copyObject(object, copied, extra))
 
 export const linkedExileCardIds = (state: GameState, source: GameObject) =>

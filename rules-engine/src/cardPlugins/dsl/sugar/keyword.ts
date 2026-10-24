@@ -18,4 +18,7 @@ export const keyword = Object.freeze({
   get defender() { return keywordAbility(KEYWORDS.defender) },
   get trample() { return keywordAbility(KEYWORDS.trample) },
   get infect() { return keywordAbility(KEYWORDS.infect) },
+  get rebound() { return keywordAbility(KEYWORDS.rebound) },
+  get demonstrate() { return keywordAbility(KEYWORDS.demonstrate) },
+  get partner() { return keywordAbility(KEYWORDS.partner) },
 })

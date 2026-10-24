@@ -6,7 +6,8 @@ import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import { commitExileLink, opponentBecameMonarchSince, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
 import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
-import { changeControllerPermanent } from './cardPlugins/continuousEffects'
+import { changeController, changeControllerPermanent, copyObject } from './cardPlugins/continuousEffects'
+import { applyCopy, applyCopyExtraFromExcept } from './cardPlugins/effectRuntime'
 import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
 import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
@@ -624,6 +625,26 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
             ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
           }]
           break
+        case 'copy': {
+          const copied = event.copySourceId ? draft.object(event.copySourceId) : undefined
+          if (copied) {
+            object.continuousEffects = [...(object.continuousEffects ?? []), {
+              effect: copyObject(object, copied, applyCopyExtraFromExcept(
+                event.effect.kind === 'copy' ? event.effect.except : undefined,
+              )),
+              duration,
+            }]
+          }
+          break
+        }
+        case 'gainControl':
+          if (event.effectPlayer) {
+            object.continuousEffects = [...(object.continuousEffects ?? []), {
+              effect: changeController(object, event.effectPlayer),
+              duration,
+            }]
+          }
+          break
         case 'grantAbility':
           object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
             ability: structuredClone(event.effect.ability),
@@ -848,6 +869,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (entered) {
         if (event.attachPlayer && draft.players[event.attachPlayer] && !draft.players[event.attachPlayer].lost) object.attachedTo = event.attachPlayer
         if (event.attachTo && isSameObject(draft.objects[event.attachTo.objectId], event.attachTo)) { object.attachedTo = event.attachTo.objectId; object.attachedToRef = { ...event.attachTo } }
+        if (event.copyOf) {
+          const copied = draft.object(event.copyOf.objectId)
+          if (copied && isSameObject(copied, event.copyOf)) applyCopy(object, copied, event.copyExcept ?? {})
+        }
         if (event.enterCounters) {
           const before = counterPtBonus(object)
           for (const [counter, count] of Object.entries(event.enterCounters)) {

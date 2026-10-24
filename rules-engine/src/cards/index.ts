@@ -202,6 +202,7 @@ import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
 import endRazeForerunners from './end-raze-forerunners'
 import energyArc from './energy-arc'
+import ephemerate from './ephemerate'
 import entishRestoration from './entish-restoration'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
@@ -250,6 +251,7 @@ import hermitDruid from './hermit-druid'
 import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import homerTheHermit from './homer-the-hermit'
+import incarnationTechnique from './incarnation-technique'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
 import irenicussVileDuplication from './irenicuss-vile-duplication'
@@ -279,11 +281,13 @@ import meteorGolem from './meteor-golem'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
 import mindStone from './mind-stone'
 import mirrorUniverse from './mirror-universe'
+import mirrorweave from './mirrorweave'
 import mistvaultBridge from './mistvault-bridge'
 import mistyRainforest from './misty-rainforest'
 import morphicPool from './morphic-pool'
 import murder from './murder'
 import myriadLandscape from './myriad-landscape'
+import nanogeneConversion from './nanogene-conversion'
 import naturesLore from './natures-lore'
 import necrologia from './necrologia'
 import nezahalPrimalTide from './nezahal-primal-tide'
@@ -302,10 +306,12 @@ import pathbreakerIbex from './pathbreaker-ibex'
 import pollutedDelta from './polluted-delta'
 import portalToPhyrexia from './portal-to-phyrexia'
 import prismaticVista from './prismatic-vista'
+import quantumMisalignment from './quantum-misalignment'
 import quezaAugurOfAgonies from './queza-augur-of-agonies'
 import raffinesTower from './raffines-tower'
 import rankleMasterOfPranks from './rankle-master-of-pranks'
 import reanimate from './reanimate'
+import reinsOfPower from './reins-of-power'
 import rejuvenatingSprings from './rejuvenating-springs'
 import reliquaryTower from './reliquary-tower'
 import restInPeace from './rest-in-peace'
@@ -316,6 +322,7 @@ import reverberate from './reverberate'
 import revitalizingRepast from './revitalizing-repast'
 import rishkarsExpertise from './rishkars-expertise'
 import riveteersOverlook from './riveteers-overlook'
+import sakashimaOfAThousandFaces from './sakashima-of-a-thousand-faces'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
 import scuteSwarm from './scute-swarm'
@@ -339,6 +346,7 @@ import sokratesAthenianTeacher from './sokrates-athenian-teacher'
 import soporificSprings from './soporific-springs'
 import soulsOfTheFaultless from './souls-of-the-faultless'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
+import sparkDouble from './spark-double'
 import splendidReclamation from './splendid-reclamation'
 import splitDecision from './split-decision'
 import springheartNantuko from './springheart-nantuko'
@@ -362,6 +370,7 @@ import terramorphicExpanse from './terramorphic-expanse'
 import testOfEndurance from './test-of-endurance'
 import thaliasLancers from './thalias-lancers'
 import thawingGlaciers from './thawing-glaciers'
+import thespiansStage from './thespians-stage'
 import thornMammoth from './thorn-mammoth'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
@@ -602,6 +611,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Eureka": eureka,
   "Evolving Wilds": evolvingWilds,
   "Expedition Map": expeditionMap,
+  "Ephemerate": ephemerate,
   "Explore": explore,
   "Fabled Passage": fabledPassage,
   "Famished Worldsire": famishedWorldsire,
@@ -643,6 +653,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
   "Homer, the Hermit": homerTheHermit,
+  "Incarnation Technique": incarnationTechnique,
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
   "Irenicus's Vile Duplication": irenicussVileDuplication,
@@ -686,11 +697,13 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,
   "Mind Stone": mindStone,
   "Mirror Universe": mirrorUniverse,
+  "Mirrorweave": mirrorweave,
   "Mistvault Bridge": mistvaultBridge,
   "Misty Rainforest": mistyRainforest,
   "Morphic Pool": morphicPool,
   "Murder": murder,
   "Myriad Landscape": myriadLandscape,
+  "Nanogene Conversion": nanogeneConversion,
   "Nature's Lore": naturesLore,
   "Necrologia": necrologia,
   "Nezahal, Primal Tide": nezahalPrimalTide,
@@ -709,10 +722,12 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Polluted Delta": pollutedDelta,
   "Portal to Phyrexia": portalToPhyrexia,
   "Prismatic Vista": prismaticVista,
+  "Quantum Misalignment": quantumMisalignment,
   "Queza, Augur of Agonies": quezaAugurOfAgonies,
   "Raffine's Tower": raffinesTower,
   "Rankle, Master of Pranks": rankleMasterOfPranks,
   "Reanimate": reanimate,
+  "Reins of Power": reinsOfPower,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Reliquary Tower": reliquaryTower,
   "Rest in Peace": restInPeace,
@@ -724,6 +739,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Revitalizing Repast // Old-Growth Grove": revitalizingRepast,
   "Rishkar's Expertise": rishkarsExpertise,
   "Riveteers Overlook": riveteersOverlook,
+  "Sakashima of a Thousand Faces": sakashimaOfAThousandFaces,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,
   "Scute Swarm": scuteSwarm,
@@ -750,6 +766,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Soporific Springs": soporificSprings,
   "Souls of the Faultless": soulsOfTheFaultless,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
+  "Spark Double": sparkDouble,
   "Splendid Reclamation": splendidReclamation,
   "Split Decision": splitDecision,
   "Springheart Nantuko": springheartNantuko,
@@ -775,6 +792,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Test of Endurance": testOfEndurance,
   "Thalia's Lancers": thaliasLancers,
   "Thawing Glaciers": thawingGlaciers,
+  "Thespian's Stage": thespiansStage,
   "Thorn Mammoth": thornMammoth,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,

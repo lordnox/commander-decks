@@ -1,4 +1,5 @@
 import { captureObject } from '../objectIdentity'
+import { applyCopyExtraFromExcept } from '../cardPlugins/effectRuntime'
 import { evaluateRuntimeAmount, evaluateObjectReference, evaluatePlayerReference, referenceIsPlayer } from '../cardPlugins/dsl/compiler/runtime'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import type { Instruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
@@ -41,6 +42,9 @@ export const applyReplacementTransform = (
       const attachedObject = attachment && attachment.kind !== 'paidCostPlayer' && attachment.kind !== 'relatedPlayer' && attachment.kind !== 'resultRef' && !playerAttachment && context ? evaluateObjectReference(attachment, context)[0] : undefined
       const attachedPlayer = attachment && context && playerAttachment ? evaluatePlayerReference(attachment, context)[0] : undefined
       if (attachment && !attachedObject && !attachedPlayer) return { kind: 'prevented' }
+      const copied = transform.changes.copyOf && context
+        ? evaluateObjectReference(transform.changes.copyOf, context)[0]
+        : undefined
       const next = {
         ...proposal,
         ...(attachedObject ? { attachTo: { objectId: attachedObject.id, incarnation: attachedObject.incarnation, zone: attachedObject.zone } } : {}),
@@ -48,6 +52,12 @@ export const applyReplacementTransform = (
         ...(transform.changes.enterCounters ? { enterCounters } : {}),
         ...(transform.changes.to ? { to: transform.changes.to } : {}),
         ...(transform.changes.tapped !== undefined ? { tapped: transform.changes.tapped } : {}),
+        ...(copied ? {
+          copyOf: { objectId: copied.id, incarnation: copied.incarnation, zone: copied.zone },
+          ...(transform.changes.copyExcept
+            ? { copyExcept: applyCopyExtraFromExcept(transform.changes.copyExcept) }
+            : {}),
+        } : {}),
       } as GameEvent
       return { kind: 'continue', event: withLineage(next, descendantLineage(lineage)) }
     }
@@ -81,7 +91,7 @@ export const applyCanonicalTransform = (
 ) => {
   const source = state.objects[candidate.sourceId]!
   const context = candidate.resolvedContext ?? {
-    controller: candidate.category === 'self' && proposal.type === 'move'
+    controller: (candidate.category === 'self' || candidate.category === 'copyAsEntry') && proposal.type === 'move'
       ? proposal.controller ?? source.controller
       : source.controller,
     source: captureObject(source),

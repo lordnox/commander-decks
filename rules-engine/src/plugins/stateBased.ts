@@ -9,6 +9,7 @@ import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
 import { ceaseToExist } from '../rules/spellCopies'
 import { FAILED_DRAW_SINCE_SBA } from '../rules/draw'
+import { activePrintedStaticModifiers } from '../cardPlugins/dsl/staticModifierCore'
 import {
   BATTLE_DEFEATED_ABILITY,
   validBattleProtector,
@@ -203,7 +204,11 @@ export const stateBased: Plugin = {
         .filter((object) =>
           object.zone === 'battlefield'
           && !object.phasedOut
-          && (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff))
+          && (
+            (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff)
+            || activePrintedStaticModifiers(draft, object).some(entry =>
+              !('keyword' in entry) && entry.effect.kind === 'legendRuleOff')
+          ))
         .map((object) => object.controller),
     )
     const legendGroups = new Map<string, GameObject[]>()
