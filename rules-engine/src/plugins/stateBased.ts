@@ -1,4 +1,5 @@
 import { isSameObject } from '../objectIdentity'
+import { regenerationAvailable } from '../cardPlugins/dsl/regeneration'
 import { enchantTargetError } from './enchant'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
@@ -173,10 +174,20 @@ export const stateBased: Plugin = {
         object.zone === 'battlefield'
         && object.types.includes('Creature')
         && object.toughness !== null
+        && object.toughness <= 0
+        && !devourSacrificePending(draft, object.id)
+      ) {
+        // CR 704.5f: zero toughness is not destruction, so regeneration cannot apply.
+        events.push(moveToGraveyard(object.id))
+        continue
+      }
+      if (
+        object.zone === 'battlefield'
+        && object.types.includes('Creature')
+        && object.toughness !== null
         && !devourSacrificePending(draft, object.id)
         && (
-          object.toughness <= 0
-          || (
+          (
             object.damageMarked >= object.toughness
             && !hasKeyword(object, 'indestructible')
           )
@@ -188,7 +199,9 @@ export const stateBased: Plugin = {
           )
         )
       ) {
-        events.push(moveToGraveyard(object.id))
+        // CR 704.5g/h: lethal or deathtouch damage destroys, so regeneration can replace it.
+        // Unregenerated creatures still leave in this one simultaneous wave (CR 704.3).
+        events.push(regenerationAvailable(draft, object) ? { type: 'regenerate', objectId: object.id } : moveToGraveyard(object.id))
       }
     }
 

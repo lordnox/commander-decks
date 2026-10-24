@@ -3093,6 +3093,6 @@ test('family 42 catalog cards compose the world rule, player effects, extra turn
     alternativeCosts: [[{ kind: 'life', amount: { kind: 'constant', value: 4 } }]],
     costConditions: [{ cost: 'alternative', index: 0 }],
     decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', not: { color: 'B' } } } }] },
-    instructions: [{ kind: 'destroy', noRegeneration: true }],
+    instructions: [{ kind: 'destroy', cannotRegenerate: true }],
   }])
 })

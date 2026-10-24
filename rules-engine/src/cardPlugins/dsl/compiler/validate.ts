@@ -1254,9 +1254,9 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       case 'destroy':
-        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice', 'noRegeneration'], ['kind', 'targets'])
+        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice', 'cannotRegenerate'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
-        if (node.noRegeneration !== undefined && node.noRegeneration !== true) issue(childPath(path, 'noRegeneration'), 'constant', 'noRegeneration must be true when present')
+        if (node.cannotRegenerate !== undefined && node.cannotRegenerate !== true) issue(childPath(path, 'cannotRegenerate'), 'constant', 'cannotRegenerate must be true when present')
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['destroyed']) }, childPath(path, 'bindResult'))
@@ -1487,6 +1487,10 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'removeAbilities':
             case 'goad':
               exactKeys(effect, childPath(path, 'effect'), ['kind'], ['kind'])
+              break
+            case 'regenerationShield':
+              exactKeys(effect, childPath(path, 'effect'), ['kind'], ['kind'])
+              if (duration?.kind !== 'untilCleanup') issue(childPath(path, 'duration'), 'domain', 'a regeneration shield lasts only this turn (CR 701.19a)')
               break
             case 'setColors':
               array(effect.colors, childPath(childPath(path, 'effect'), 'colors')).forEach((color, index) =>
@@ -2523,6 +2527,13 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'noMaximumHandSize':
             case 'cannotBeCountered': {
               exactKeys(node, effectPath, ['kind'], ['kind'])
+              return
+            }
+            case 'regenerate': {
+              exactKeys(node, effectPath, ['kind', 'targets'], ['kind', 'targets'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'static regeneration requires an object selector')
+              }
               return
             }
             case 'untapDuringOthers': {

@@ -343,6 +343,14 @@ export const delve = (): Cost =>
   immutableData({ kind: 'delve' as const }) satisfies Cost
 
 export const untilCleanup = () => immutableData({ kind: 'untilCleanup' as const })
+
+/** "Regenerate [permanent]" from a resolving spell or ability: a one-use shield for this turn (CR 701.19a). */
+export const regenerate = (targets: Extract<Instruction, { kind: 'createEffect' }>['targets']) =>
+  immutableData({ kind: 'createEffect' as const, targets, effect: { kind: 'regenerationShield' as const }, duration: untilCleanup() })
+
+/** Static "regenerate" that replaces every destruction of matching permanents (CR 701.19b). */
+export const staticRegeneration = (targets: ObjectSelector) =>
+  immutableData({ kind: 'regenerate' as const, targets })
 export const permanentEffect = (): EffectDuration => immutableData({ kind: 'permanent' })
 export const untilStep = (step: string, active?: PlayerReference): EffectDuration => immutableData({
   kind: 'untilStep', step, ...(active ? { active } : {}),
@@ -987,13 +995,13 @@ export const destroy = (input: {
   bindResult?: string
   bindChoice?: string
   /** "It can't be regenerated" (CR 701.19c). */
-  noRegeneration?: true
+  cannotRegenerate?: true
 }): Instruction => immutableData({
   kind: 'destroy',
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
-  ...(input.noRegeneration ? { noRegeneration: true as const } : {}),
+  ...(input.cannotRegenerate ? { cannotRegenerate: true as const } : {}),
 })
 
 export const sacrifice = (input: {

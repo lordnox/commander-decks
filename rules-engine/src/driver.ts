@@ -1117,7 +1117,11 @@ const actionEvents = (
     case 'destroy': {
       const targets = objectActions(instruction.targets, context)
       const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible'))
-      if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'destroy' }
+      // Count only permanents actually destroyed, so a regenerated permanent is not reported as destroyed.
+      if (instruction.bindResult) frame.pendingResult = {
+        binding: instruction.bindResult, booleanBinding: instruction.bindResult,
+        kind: 'amount', value: 0, eventType: 'destroy', expectedObjects: legal.map(objectIdentity),
+      }
       if (instruction.bindChoice) frame.pendingDestroyedChoice = {
         binding: instruction.bindChoice,
         entries: legal.map(object => ({
@@ -1130,7 +1134,7 @@ const actionEvents = (
         type: 'destroy' as const,
         objectId: object.id,
         sourceId: frame.source.ref.objectId,
-        ...(instruction.noRegeneration ? { noRegeneration: true as const } : {}),
+        ...(instruction.cannotRegenerate ? { cannotRegenerate: true as const } : {}),
       }))
     }
     case 'sacrifice': {

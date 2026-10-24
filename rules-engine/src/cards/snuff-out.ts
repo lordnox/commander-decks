@@ -157,7 +157,7 @@ export default {
         when: compareAmount(count(objects({ zone: 'battlefield', controller: 'you', subtypes: ['Swamp'] })), 'gte', 1),
       }],
       decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', not: { color: 'B' } }), count: 1 })] },
-      instructions: [destroy({ targets: target(0), noRegeneration: true })],
+      instructions: [destroy({ targets: target(0), cannotRegenerate: true })],
     }),
   ]),
 } satisfies CatalogEntry

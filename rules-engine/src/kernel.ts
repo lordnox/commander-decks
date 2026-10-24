@@ -71,6 +71,7 @@ import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announc
 import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
 import { playerCannotWinGame } from './plugins/playerEffects'
+import { regenerate, regenerateInsteadOfDestroy } from './cardPlugins/dsl/regeneration'
 import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
 const CHECKPOINT_CAP = 32
@@ -539,6 +540,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       }
       return
     }
+    case 'regenerate': {
+      const object = draft.object(event.objectId)
+      if (object?.zone === 'battlefield') regenerate(draft, object)
+      return
+    }
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
       const anyZone = event.duration.kind === 'whileControlUnchanged' || event.effect.kind === 'setColors'
@@ -546,6 +552,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'regenerationShield':
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'regenerationShield' }, duration }]
+          break
         case 'mustAttackPlayer':
           if (event.effectPlayer) object.continuousEffects = [...(object.continuousEffects ?? []), {
             effect: { kind: 'mustAttackPlayer', defender: event.effectPlayer }, duration,
@@ -673,6 +682,8 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'destroy': {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible')) return
+      if (regenerateInsteadOfDestroy(draft, object, event.cannotRegenerate)) return
+      recordInstructionAmount(draft, 'destroy', 1, object)
       draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       return
     }
