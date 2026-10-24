@@ -377,7 +377,6 @@ describe('card plugin registry', () => {
       'Breena, the Demagogue',
       'Kuroki, Thief of Talents',
     ])).toEqual([])
-    expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')
     expect(cardPluginEntry('Cryptic Command')).toBeUndefined()
   })
 

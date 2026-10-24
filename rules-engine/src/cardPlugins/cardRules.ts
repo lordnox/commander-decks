@@ -15,8 +15,6 @@ import {
   targetOnResolve,
   type CardEffect,
   type CardInstruction,
-  yourEndTargetingOpponent,
-  opponentMayDrawThenStealCast,
 } from './effects'
 
 const bird = createTokenInstruction({
@@ -34,9 +32,6 @@ const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Kuroki, Thief of Talents': [
-    yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
-  ],
   'Perch Protection': [
     gift({ label: 'Gift an extra turn', extraTurn: true }),
     onResolve(

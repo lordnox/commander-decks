@@ -3032,3 +3032,28 @@ test('family 25 catalog cards retain printed stats and canonical keyword paramet
   expect(cardRuleDefinitionSnapshotFor('Pitiless Carnage')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'plot', manaCost: '{1}{B}{B}' }] })
   expect(cardRuleDefinitionSnapshotFor('Hypergenesis')!.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'suspend', counters: 3, manaCost: '{1}{G}{G}' }] })
 })
+
+test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {
+  expect(effectsFor('Kuroki, Thief of Talents')).toEqual([])
+  expect(cardTemplateDefaultsFor('Kuroki, Thief of Talents')).toMatchObject({
+    power: 4, toughness: 4, supertypes: ['Legendary'], subtypes: ['Spirit'],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Kuroki, Thief of Talents')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.menace },
+    {
+      kind: 'triggered',
+      decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] },
+      instructions: [{
+        kind: 'chooseInstructions',
+        chooser: { kind: 'targetRef', clauseIndex: 0 },
+        options: [
+          { instructions: [
+            { kind: 'draw', count: { kind: 'constant', value: 4 }, targets: { kind: 'targetRef', clauseIndex: 0 } },
+            { kind: 'offerCast', from: { kind: 'targetRef', clauseIndex: 0 }, zone: 'hand', notLand: true, inspect: true, takeControl: true },
+          ] },
+          { instructions: [{ kind: 'putCounters', counter: '+1/+1' }] },
+        ],
+      }],
+    },
+  ])
+})

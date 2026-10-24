@@ -69,12 +69,6 @@
     "card": "Snuff Out"
   },
   {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "6fd35ae9088180717ddd74fe9884077122caecbd188b22423316d92c0b9986c5",
-    "card": "Kuroki, Thief of Talents"
-  },
-  {
     "path": "rules-engine/src/cardPlugins/combatPreventionCards.ts",
     "code": "literal-name-dispatch",
     "digest": "3422807e2393fda10d69f1cb39b35251c9c43f8a450ccb63c4f1b0c352d24e6a"

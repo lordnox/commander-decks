@@ -4,6 +4,7 @@ import { commanderRules } from '../../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame, projectForViewer } from '../../runtime'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { onResolve as onResolveEffect, targetOnResolve } from '../effects'
@@ -11,12 +12,18 @@ import { onResolve } from '../onResolve'
 import { targetedResolve } from '../targetedResolve'
 import {
   card,
+  chooseInstructions,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   draw,
+  gainLife,
   offerCast,
+  players,
+  ref,
+  select,
   SPELL_CAST_TIMING,
   spell,
+  target,
 } from './v1'
 
 const definition = (maxManaValue: number) =>
@@ -312,5 +319,64 @@ describe('later-turn exile offerCast', () => {
       alternativeCost: 'withoutPayingMana',
     }))
     expect(free.objects[bear.id].zone).toBe('stack')
+  })
+})
+
+describe('offerCast from a chosen opponent hand', () => {
+  const stealDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    spell({
+      decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+      instructions: [chooseInstructions({
+        chooser: target(0),
+        options: [
+          { label: 'Accept', instructions: [
+            draw({ count: 1, targets: target(0) }),
+            offerCast({ chooser: ref('controller'), from: target(0), notLand: true, inspect: true, takeControl: true }),
+          ] },
+          { label: 'Decline', instructions: [gainLife({ amount: 2, targets: ref('controller') })] },
+        ],
+      })],
+    }),
+  ])))
+
+  const stealGame = () => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: {
+        p1: [testCard('Steal Caster', ['Sorcery'], '{0}', 0, { ruleDefinition: stealDefinition })],
+        p2: [testCard('Rival Land', ['Land'], '', 0)],
+      },
+      libraries: { p2: [testCard('Drawn Rival Bear', ['Creature'], '{3}{G}', 4)] },
+    }, { random: () => 0.5 })
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Steal Caster').id,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }))
+    const state = ok(server.rules(cast, { type: 'resolveTop' }))
+    return { server, state, pending: pendingOptionSelection(state, 'p2')! }
+  }
+
+  test('the targeted opponent chooses; declining runs only the other branch', () => {
+    const { server, state, pending } = stealGame()
+    expect(pending.seat).toBe('p2')
+    const declined = ok(server.rules(state, { type: 'selectOption', seat: 'p2', selectionId: pending.id, optionId: pending.options[1].id }))
+    expect(declined.players.p1.life).toBe(state.players.p1.life + 2)
+    expect(declined.zoneOrder.p2.hand).toHaveLength(1)
+    expect(legalActsFor(declined, 'p1').some(action => action.kind === 'declineFreeCast')).toBe(false)
+  })
+
+  test('accepting draws first, then the caster sees that hand and free-casts a nonland card under their control', () => {
+    const { server, state, pending } = stealGame()
+    const accepted = ok(server.rules(state, { type: 'selectOption', seat: 'p2', selectionId: pending.id, optionId: pending.options[0].id }))
+    expect(named(accepted, 'Drawn Rival Bear').zone).toBe('hand')
+    expect(castable(accepted)).toEqual(['Drawn Rival Bear'])
+    expect(projectForViewer(accepted, 'p1').objects[named(accepted, 'Drawn Rival Bear').id]?.name).toBe('Drawn Rival Bear')
+    expect(projectForViewer(accepted, 'p3').objects[named(accepted, 'Drawn Rival Bear').id]).toBeUndefined()
+
+    const cast = ok(server.rules(accepted, castFree(accepted, 'Drawn Rival Bear')))
+    expect(cast.stack[0]).toMatchObject({ name: 'Drawn Rival Bear', controller: 'p1' })
+    expect(cast.players.p1.mana).toEqual(accepted.players.p1.mana)
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(named(resolved, 'Drawn Rival Bear')).toMatchObject({ zone: 'battlefield', controller: 'p1', owner: 'p2' })
   })
 })

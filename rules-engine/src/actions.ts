@@ -658,7 +658,7 @@ const canCastAtTiming = (
     && !fromAdventureExile
     && !fromPermissionZone
   ) return false
-  if (object.owner !== seat || object.controller !== seat) return false
+  if (!permission?.takeControl && (object.owner !== seat || object.controller !== seat)) return false
   const endStepOnly = effectsOf(object).some(
     (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',
   )

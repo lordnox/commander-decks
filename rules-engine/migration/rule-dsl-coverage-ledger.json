@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 5,
+    "cardRegistrations": 4,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 82,
     "directMutationSites": 569,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 141,
+    "instructionUnobservedGaps": 142,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 44,
-    "candidateOnlyCardRows": 5
+    "candidateOnlyInstructionRows": 43,
+    "candidateOnlyCardRows": 4
   },
   "cardEffects": [
     {
@@ -74,7 +74,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:424 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed casting permission and alternative cost",
@@ -117,7 +117,7 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:682 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
       },
@@ -195,7 +195,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:214 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:405 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:404 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "rules-engine/src/cardPlugins/sharedHaste.test.ts:13 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
         ]
       },
@@ -404,7 +404,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:424 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "rules-engine/src/objectIdentity.test.ts:169 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
         ]
       },
@@ -435,23 +435,22 @@
       "variant": "trigger",
       "mechanic": "triggered ability",
       "currentRegistrations": [
-        "Kuroki, Thief of Talents:effects[0]",
         "Perch Protection:effects[1]"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 25,
+        "matches": 22,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:269 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:46 — test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:122 — test('trigger if gates ETB on opponent life lead', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:52 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {"
+          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:52 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1486,7 +1485,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 79,
+        "matches": 80,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:494 — test('publishes and validates a large typed allocation by entry identity', () => {",
@@ -2194,7 +2193,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:682 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2343,7 +2342,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:682 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2767,23 +2766,17 @@
     {
       "variant": "opponentMayDrawThenStealCast",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Kuroki, Thief of Talents:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:378 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:434 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2954,7 +2947,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:682 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3220,7 +3213,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 12,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:286 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1087 — test('Breena rewards attacks on a richer opponent', () => {",
@@ -3229,7 +3222,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2070 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2355 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2879 — test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:165 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3054 — test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4218,7 +4211,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:405 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:404 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -4237,41 +4230,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Kuroki, Thief of Talents",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Kuroki, Thief of Talents"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:378 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:434 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [opponentMayDrawThenStealCast]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "opponentMayDrawThenStealCast"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "stealCast"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Perch Protection",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -4283,7 +4241,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:682 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
@@ -4327,7 +4285,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:424 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
@@ -4631,7 +4589,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:424 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4827,7 +4785,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/demonstrate.test.ts:51",
-          "rules-engine/src/cardPlugins/registry.test.ts:574 — test('Incarnation Technique is a catalog card with demonstrate', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:573 — test('Incarnation Technique is a catalog card with demonstrate', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4883,7 +4841,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 222,
+        "matches": 223,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -5079,7 +5037,7 @@
       "candidateEvidence": {
         "matches": 13,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3010 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3030 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:12",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:13",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:20",
@@ -5510,7 +5468,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 265,
+        "matches": 266,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2124 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5552,7 +5510,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 68,
+        "matches": 67,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3326 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4343 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
@@ -6426,8 +6384,8 @@
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:275",
         "rules-engine/src/cardPlugins/effectRuntime.ts:490",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:645",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:784",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:675",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:814",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -6596,9 +6554,9 @@
         "rules-engine/src/cardPlugins/effectDefinitions.ts:858",
         "rules-engine/src/cardPlugins/effectRuntime.ts:108",
         "rules-engine/src/cardPlugins/effectRuntime.ts:265",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:541",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:728",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:729",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:571",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:758",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:759",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
@@ -6612,7 +6570,7 @@
         "rules-engine/src/index.ts:71",
         "rules-engine/src/kernel.ts:559",
         "rules-engine/src/kernel.ts:561",
-        "rules-engine/src/kernel.ts:890",
+        "rules-engine/src/kernel.ts:897",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -6748,10 +6706,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          524
+          554
         ],
         "samples": [
-          "524: if (!extra.keepName && object.name !== copied.name) {"
+          "554: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7588,10 +7546,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1696
+          1703
         ],
         "samples": [
-          "1696: event.name === SEARCH_CHOSEN"
+          "1703: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -10014,11 +9972,11 @@
           824,
           839,
           873,
-          905,
           912,
-          918,
-          935,
-          943
+          919,
+          925,
+          942,
+          950
         ],
         "samples": [
           "532: const object = draft.object(event.objectId)",
