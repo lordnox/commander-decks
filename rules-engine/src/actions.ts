@@ -629,6 +629,7 @@ const canCastAtTiming = (
 ) => {
   const face = spellFace ?? castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
+  if (object.types.includes('Land') && !face) return false
   const fromAlternateZone = availableAlternateCastEffects(state, seat, object)
     .some((effect) => effect.fromZone === object.zone)
   const fromAdventureExile = Boolean(
@@ -650,7 +651,6 @@ const canCastAtTiming = (
     && !fromAdventureExile
     && !fromPermissionZone
   ) return false
-  if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
   const endStepOnly = effectsOf(object).some(
     (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',

@@ -49,23 +49,25 @@ export const availableAlternateCastEffects = (
       effects.push(retraceEffect(object))
     }
   }
-  const permission = canonicalSpellPermission(state, seat, object)
-  if (permission?.discardLand) {
-    effects.push({
-      ...retraceEffect(object),
-      ...(permission.optionId ? { id: permission.optionId } : {}),
-      ...(permission.label ? { label: permission.label } : {}),
-    })
-  }
-  if (permission?.cost === 'lifeEqualManaValue') {
-    effects.push({
-      op: 'alternateCast',
-      id: permission.optionId ?? 'exiledWithLife',
-      label: permission.label ?? `Cast for ${manaValueOf(object)} life`,
-      manaCost: '',
-      fromZone: object.zone,
-      life: manaValueOf(object),
-    })
+  if (object.zone === 'graveyard' || object.zone === 'exile') {
+    const permission = canonicalSpellPermission(state, seat, object)
+    if (permission?.discardLand) {
+      effects.push({
+        ...retraceEffect(object),
+        ...(permission.optionId ? { id: permission.optionId } : {}),
+        ...(permission.label ? { label: permission.label } : {}),
+      })
+    }
+    if (permission?.cost === 'lifeEqualManaValue') {
+      effects.push({
+        op: 'alternateCast',
+        id: permission.optionId ?? 'exiledWithLife',
+        label: permission.label ?? `Cast for ${manaValueOf(object)} life`,
+        manaCost: '',
+        fromZone: object.zone,
+        life: manaValueOf(object),
+      })
+    }
   }
   return effects.filter(
     (effect, index) => effects.findIndex((candidate) => candidate.id === effect.id) === index,

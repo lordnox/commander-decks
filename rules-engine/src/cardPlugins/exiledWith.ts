@@ -7,8 +7,9 @@ export const canPlayExiledWithLife = (
   seat: PlayerId,
   card: GameObject,
 ) => {
+  if (card.zone !== 'exile') return false
   if (canonicalSpellPermission(state, seat, card)?.cost === 'lifeEqualManaValue') return true
-  if (card.zone !== 'exile' || !card.exiledWith) return false
+  if (!card.exiledWith) return false
   if (state.active !== seat) return false
   const source = state.objects[card.exiledWith]
   if (!source || source.zone !== 'battlefield' || source.controller !== seat) return false
