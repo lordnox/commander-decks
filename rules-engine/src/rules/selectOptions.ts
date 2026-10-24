@@ -382,7 +382,7 @@ export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace
   // Replacement choices can suspend the payment after payLife commits but
   // before its loseLife continuation. Keep both outcomes across that boundary.
   if (draft.eventProcessing) return
-  const lifeSettled = pending.lifePaymentApplied && pending.lifeLossApplied
+  const lifeSettled = pending.amount === 0 || (pending.lifePaymentApplied && pending.lifeLossApplied)
   const paid = hasLifeCost
     ? lifeSettled
     : cardsSettled && cardsHaveOutcome

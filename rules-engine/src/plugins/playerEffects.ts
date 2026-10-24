@@ -19,9 +19,6 @@ export const playerCannotLoseLife = (state: GameState, seat: PlayerId) =>
 export const playerCannotLoseGame = (state: GameState, seat: PlayerId) =>
   hasPlayerEffect(state, seat, PLAYER_EFFECTS.cannotLoseGame)
 
-export const playerCannotWinGame = (state: GameState, seat: PlayerId) =>
-  hasPlayerEffect(state, seat, PLAYER_EFFECTS.cannotWinGame)
-
 export const playerEffects: Plugin = {
   id: PLAYER_EFFECTS_PLUGIN_ID,
   legal: ({ state, event }) => {

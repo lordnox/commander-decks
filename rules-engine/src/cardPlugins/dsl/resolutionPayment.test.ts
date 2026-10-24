@@ -674,4 +674,8 @@ test.each([PLAYER_EFFECTS.lifeTotalCannotChange, PLAYER_EFFECTS.cannotLoseLife].
   const result = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
   expect(result.ok).toBe(payment === 0)
   expect(result.state.players.p1.life).toBe(40)
+  if (payment === 0) {
+    expect(pendingOptionSelection(result.state, 'p1')).toBeUndefined()
+    expect(result.state.resolution).toBeUndefined()
+  }
 })

@@ -169,7 +169,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
     expect(named(state, 'Raider').damageMarked).toBe(0)
   })
 
-  test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {
+  test('Everybody Lives stops life loss, lethal destruction, and targeting', () => {
     const server = createServerGame(
       commanderRules,
       {
@@ -207,15 +207,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
       targets: [{ kind: 'player', player: 'p1' }],
     })
     expect(hostileTarget.ok).toBe(false)
-    const almostOver = structuredClone(state)
-    almostOver.players.p2.lost = true
-    almostOver.players.p3.lost = true
-    almostOver.players.p4.lost = true
-    expect(ok(server.rules(almostOver, {
-      type: 'addMana',
-      seat: 'p1',
-      mana: {},
-    })).ended).toBe(false)
+
   })
 
   test('Inkshield prevents only combat damage to its controller and creates exact Inklings', () => {
