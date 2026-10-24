@@ -228,3 +228,17 @@ test('parseInbox carries typed modal occurrences and allocations', () => {
   expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","modeIndices":[-1]}')).toBeNull()
   expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","distributionBindings":[{"scopeId":"x","clauseIndex":0,"amounts":[-1]}]}')).toBeNull()
 })
+
+
+test('live action decoding preserves independent evidence payments and their optional-cost selection', () => {
+  const message = { type: 'act' as const, kind: 'castSpell' as const, objectId: 'spell', selectedOptionalCosts: [0, 0], evidence: [['a', 'b'], ['c']] }
+  expect(parseInbox(JSON.stringify(message))).toEqual(message)
+  expect(parseInbox(JSON.stringify({ ...message, evidence: [['a', 3]] }))).toBeNull()
+  expect(parseInbox(JSON.stringify({ ...message, selectedOptionalCosts: [-1] }))).toBeNull()
+})
+
+
+test.each(['plot', 'suspend'] as const)('live protocol preserves the %s special action', kind => {
+  const message = { type: 'act' as const, kind, objectId: 'prepared' }
+  expect(parseInbox(JSON.stringify(message))).toEqual(message)
+})

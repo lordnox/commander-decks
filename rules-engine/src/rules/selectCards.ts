@@ -1,3 +1,5 @@
+import { COLLECTED_CHOICE_ACTION } from '../cardPlugins/dsl/collectedChoices'
+import { REPLACEMENT_APPLICATION_CARD_CHOICE } from '../replacement/constants'
 import type Draft from '../draft'
 import { freezeDraft } from '../draft'
 import type {
@@ -12,34 +14,35 @@ import type {
   ZoneId,
 } from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
-import { linkExileSelected } from '../cardPlugins/linkedExile'
+import { linkExileSelected } from './linkExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { isKnownTo, markKnownTo, markKnownToAll } from '../knowledge'
 import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
-import { addPlusCounters } from '../cardPlugins/effectRuntime'
+import { addPlusCounters, sharedBasicLandType } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
 import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
+import { canonicalCopySource, copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
-import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
+import { CHOICE_RELATIONS } from '../cardPlugins/dsl/schema/v1'
+import type { ChoiceRelation, Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 import { completeReplacementDiscard, continueReplacementProgram } from '../replacement/instructionProgram'
 import type { ProgramStep } from '../replacement/instructionProgram'
 
 import {
   drawRemainderFollowUp,
+  resumeReplacementProgramChoice,
   enqueueReplacementSettlement,
   REPLACEMENT_DISCARD_RESUME,
 } from '../replacement/processor'
 import type { PluginCatalog } from '../catalog'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
-export const PENDING_STEAL_CAST = 'stealCast.pending'
 export const INSTRUCTIONS_RESUME = 'instructions.resume'
 
 export type InstructionResume = {
@@ -88,6 +91,8 @@ export type PendingCardSelection = {
   min?: number
   /** Object ids the chooser may pick from; host must not infer these from hidden zones. */
   candidates: string[]
+  /** Additional server-authorized context to show without making it selectable. */
+  visibleCards?: string[]
   sourceId?: string
   source?: string
   prompt?: string
@@ -99,6 +104,8 @@ export type PendingCardSelection = {
   fromZone?: ZoneId
   /** The chooser may inspect the whole library while selecting matching candidates. */
   viewLibrary?: true
+  /** Constraint across the chosen set, such as sharing a basic land type. */
+  related?: ChoiceRelation
   sequence?: number
   after?: Array<'resolveTop' | 'shuffleLibrary'>
   drawPerSelected?: number
@@ -109,7 +116,6 @@ export type PendingCardSelection = {
   tapSelected?: boolean
   untapSelected?: boolean
   plusCounters?: number
-  castWithoutPaying?: boolean
   action?: {
     kind: 'dredge'
     replacedBy: string[]
@@ -136,6 +142,7 @@ export type PendingCardSelection = {
   piles?: { 'face-up': string[]; 'face-down': string[] }
   pileController?: PlayerId
   pileReveal?: OpponentPileReveal
+  pileLabels?: Record<'face-up' | 'face-down', string>
   pileVisibility?: OpponentPileVisibility
   /** Refresh candidates from `fromZone` while the choice is open. */
   liveZone?: true
@@ -146,7 +153,8 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck'
+    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'partitionPiles' | 'choosePile' | typeof COLLECTED_CHOICE_ACTION.cards
+    bindOther?: string
     replacementFrameId?: string
     payment?: {
       cost: Cost
@@ -210,7 +218,7 @@ export const visibleLibrarySelectionIds = (
   const ids = new Set<string>()
   if (!viewer) return ids
   for (const selection of pendingSelectionsFor(state, viewer)) {
-    for (const objectId of selection.candidates) {
+    for (const objectId of [...selection.candidates, ...(selection.visibleCards ?? [])]) {
       const object = state.objects[objectId]
       if (object?.zone !== 'library') continue
       if (
@@ -307,7 +315,8 @@ export const liveSelectionCandidates = (
   if (selection.kind === 'choosePile') {
     return selection.candidates.filter((objectId) => {
       const object = state.objects[objectId]
-      return object?.zone === 'library'
+      const identity = selection.targetIdentities?.[objectId]
+      return identity ? Boolean(targetObject(state, { kind: 'object', ...identity })) : object?.zone === (selection.fromZone ?? 'library')
     })
   }
   if (selection.kind === 'sacrifice') {
@@ -499,13 +508,17 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
         return 'card is no longer a valid choice'
       }
     }
+    if (selection.related === CHOICE_RELATIONS.shareLandType) {
+      const error = sharedBasicLandType(objectIds.map((objectId) => state.objects[objectId]).filter((object): object is NonNullable<typeof object> => Boolean(object)))
+      if (error) return error
+    }
     if (selection.canonicalChoice?.action === 'copySpellTargets' && objectIds.length > 0) {
       const action = selection.canonicalChoice
       const frame = state.resolution?.kind === 'canonicalSpell' && state.resolution.stackId === action.stackId
         ? state.resolution
         : undefined
       const original = state.stack.find((item) => item.id === action.copySpellStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       const object = state.objects[objectIds[0]!]
       if (frame && job && original && source && object) {
@@ -745,6 +758,12 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
 
+  if (canonicalChoice?.action === REPLACEMENT_APPLICATION_CARD_CHOICE && canonicalChoice.replacementFrameId) {
+    const settled = resumeReplacementProgramChoice(freezeDraft(draft), canonicalChoice.replacementFrameId, canonicalChoice.binding, event.objectIds ?? [], catalog)
+    if (settled.kind !== 'invalid') enqueueReplacementSettlement(draft, settled)
+    return
+  }
+
   if (canonicalChoice?.action === 'replacementDiscard' && canonicalChoice.replacementFrameId) {
     const pending = draft.eventProcessing?.program?.pendingDiscard
     const settled = settledReplacementDiscard(
@@ -786,6 +805,75 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
 
   if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
     && draft.resolution.stackId === canonicalChoice.stackId) {
+    if (canonicalChoice.action === COLLECTED_CHOICE_ACTION.cards) {
+      const pending = draft.resolution.collectedPlayerChoices
+      if (!pending || pending.awaiting !== event.seat) return
+      pending.cards.push(...(event.objectIds ?? []).flatMap(id => draft.objects[id] ? [objectIdentity(draft.objects[id]!)] : []))
+      delete pending.awaiting
+      draft.resolution.phase = 'running'
+      draft.priority = null
+      return
+    }
+    if (canonicalChoice.action === 'partitionPiles' && selection.kind === 'partition') {
+      const choices = parseChoices(event)
+      if (!choices || !selection.pileController) return
+      const faceUp = choices
+        .filter(({ destination }) => destination === 'face-up')
+        .map(({ objectId }) => objectId)
+      const faceDown = choices
+        .filter(({ destination }) => destination === 'face-down')
+        .map(({ objectId }) => objectId)
+      if (selection.pileVisibility === 'public') markKnownToAll(draft, [...faceUp, ...faceDown])
+      else { markKnownToAll(draft, faceUp); markKnownTo(draft, faceDown, [event.seat]) }
+      const named = (ids: string[]) => ids
+        .map((objectId) => draft.objects[objectId]?.name ?? 'a card')
+        .join(', ')
+        || 'no cards'
+      draft.note(selection.pileVisibility === 'public' ? `${event.seat} made two piles for ${selection.source ?? 'the spell'}: ${named(faceUp)} and ${named(faceDown)}` : `${event.seat} made a face-up pile (${named(faceUp)}) and a face-down pile`)
+      openCardSelection(draft, {
+        seat: selection.pileController,
+        kind: 'choosePile',
+        count: 1,
+        min: 0,
+        candidates: [...faceUp, ...faceDown],
+        sourceId: selection.sourceId,
+        source: selection.source,
+        prompt: 'Choose a pile.',
+        destinations: ['hand'],
+        fromSeat: selection.pileController,
+        fromZone: selection.fromZone ?? 'library',
+        ...(selection.targetIdentities ? { targetIdentities: structuredClone(selection.targetIdentities) } : {}),
+        piles: { 'face-up': faceUp, 'face-down': faceDown },
+        pileController: selection.pileController,
+        pileReveal: selection.pileReveal,
+        pileVisibility: selection.pileVisibility,
+        canonicalChoice: {
+          ...canonicalChoice,
+          action: 'choosePile',
+        },
+      })
+      return
+    }
+    if (canonicalChoice.action === 'choosePile' && selection.kind === 'choosePile') {
+      const taken = event.objectIds ?? []
+      const piles = selection.piles
+      if (!piles || !canonicalChoice.bindOther) return
+      const faceUp = piles['face-up']
+      const faceDown = piles['face-down']
+      const chosen = sameIdSet(taken, faceUp) ? faceUp : faceDown
+      const other = chosen === faceUp ? faceDown : faceUp
+      const bound = (ids: string[]) => ids.flatMap((objectId) => {
+        const object = draft.objects[objectId]
+        return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
+      })
+      draft.resolution.choices = {
+        ...draft.resolution.choices,
+        [canonicalChoice.binding]: bound(chosen),
+        [canonicalChoice.bindOther]: bound(other),
+      }
+      draft.priority = null
+      return
+    }
     if (canonicalChoice.action === 'topDeck' && (selection.kind === 'scry' || selection.kind === 'surveil')) {
       const pending = draft.resolution.pendingTopDeck
       const choices = parseChoices(event)
@@ -907,8 +995,8 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
           }
           draft.resolution.pendingResult = {
             binding: pendingDiscard.binding ?? canonicalChoice.binding,
-            kind: 'action',
-            value: pendingDiscard.selected.length > 0,
+            kind: 'amount',
+            value: 0,
             eventType: 'discard',
           }
           delete draft.resolution.pendingDiscard
@@ -916,8 +1004,8 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       } else {
         draft.resolution.pendingResult = {
           binding: canonicalChoice.binding,
-          kind: 'action',
-          value: discarded.length > 0,
+          kind: 'amount',
+          value: 0,
           eventType: 'discard',
         }
         for (const objectId of discarded) draft.enqueue({ type: 'discard', seat: event.seat, objectId })
@@ -1029,23 +1117,6 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
         for (const keyword of selection.grantKeywordsUntilEot) {
           grantOracleLineUntilEndOfTurn(object, keyword)
         }
-      }
-    }
-    if (selection.castWithoutPaying) {
-      const objectId = event.objectIds?.[0]
-      const stolen = objectId ? draft.object(objectId) : undefined
-      if (stolen) {
-        stolen.controller = event.seat
-        draft.players[event.seat].data[PENDING_STEAL_CAST] = {
-          objectId: stolen.id,
-          seat: event.seat,
-        }
-        draft.enqueue({
-          type: 'castSpell',
-          seat: event.seat,
-          objectId: stolen.id,
-          withoutPayingMana: true,
-        })
       }
     }
   }

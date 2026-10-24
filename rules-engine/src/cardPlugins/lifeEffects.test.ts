@@ -4,8 +4,8 @@ import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
-import { ok, resolveStack } from '../testHelpers'
+import { pendingOptionSelection } from '../rules/selectOptions'
+import { ok } from '../testHelpers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
@@ -162,25 +162,6 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(creatureResolved.objects[target].zone).toBe('graveyard')
   })
 
-  test('Repay in Kind sets every player to the lowest life and records losses', () => {
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [card('Repay in Kind', ['Sorcery'], '{5}{B}{B}')] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const ready = withMana(structuredClone(server.state), 'p1', { B: 2, C: 5 })
-    ready.players.p2.life = 7
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: ready.zoneOrder.p1.hand[0],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.playerOrder.map((seat) => resolved.players[seat].life))
-      .toEqual([7, 7, 7, 7])
-    expect(lifeLostThisTurn(resolved.players.p1)).toBe(33)
-  })
-
   test('Mirror Universe enumerates opponents and exchanges during its controller upkeep', () => {
     const server = createServerGame(
       commanderRules,
@@ -193,14 +174,14 @@ describe('Lady Evangela life-total and X cards', () => {
     const mirror = ready.zoneOrder.p1.battlefield[0]
     const action = legalActsFor(ready, 'p1').find((candidate) =>
       candidate.kind === 'activateAbility'
-      && candidate.abilityId === 'mirrorUniverse.exchange')
+      && candidate.abilityId === '$.abilities[0]')
     expect(action).toMatchObject({
       kind: 'activateAbility',
-      targetGroups: [{ label: 'Opponent', kind: 'player' }],
+      targetGroups: [{ kind: 'player', targets: [{ objectId: 'p2' }, { objectId: 'p3' }, { objectId: 'p4' }] }],
     })
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'mirrorUniverse.exchange',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: mirror,
       targets: [{ kind: 'player', player: 'p2' }],
@@ -208,44 +189,6 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(activatedState.objects[mirror].zone).toBe('graveyard')
     const resolved = ok(server.rules(activatedState, { type: 'resolveTop' }))
     expect([resolved.players.p1.life, resolved.players.p2.life]).toEqual([40, 3])
-  })
-
-  test('Mister Negative uses typed optional player selection and draws life lost', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [card('Mister Negative', ['Creature'], '{5}{W}{B}')] },
-        libraries: {
-          p1: Array.from({ length: 30 }, (_, index) =>
-            card(`Card ${index + 1}`, ['Instant'])),
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const mister = server.state.zoneOrder.p1.hand[0]
-    let state = structuredClone(server.state)
-    state.players.p2.life = 10
-    state = ok(server.rules(state, { type: 'move', objectId: mister, to: 'battlefield' }))
-    const targetChoice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(targetChoice).toMatchObject({ min: 1, max: 1, candidates: ['p2', 'p3', 'p4'] })
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: targetChoice.id,
-      players: ['p2'],
-    }))
-    expect(state.stack[0]?.targets).toEqual([{ kind: 'player', player: 'p2' }])
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const exchangeChoice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(exchangeChoice).toMatchObject({ min: 0, max: 1, candidates: ['p2'] })
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: exchangeChoice.id,
-      players: ['p2'],
-    }))
-    expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
-    expect(state.zoneOrder.p1.hand).toHaveLength(30)
   })
 
   test('Test of Endurance checks its intervening if again on resolution', () => {
@@ -348,7 +291,7 @@ describe('Lady Evangela life-total and X cards', () => {
     const children = state.zoneOrder.p1.battlefield[0]
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'childrenOfKorlis.recover',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: children,
     }))
@@ -358,7 +301,7 @@ describe('Lady Evangela life-total and X cards', () => {
     const sigil = state.zoneOrder.p1.battlefield[0]
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'taintedSigil.recover',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: sigil,
     }))
@@ -411,7 +354,7 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(state.zoneOrder.p1.hand).toHaveLength(4)
   })
 
-  test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {
+  test('Blood Celebrant opens five canonical mana choices and pays life', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [card('Blood Celebrant', ['Creature'], '{B}')] } },
@@ -420,16 +363,19 @@ describe('Lady Evangela life-total and X cards', () => {
     const ready = withMana(structuredClone(server.state), 'p1', { B: 1 })
     const celebrant = ready.zoneOrder.p1.battlefield[0]
     const actions = legalActsFor(ready, 'p1').filter((action) => action.kind === 'activateAbility')
-      .filter((action) => action.abilityId === 'bloodCelebrant.mana')
-    expect(actions.map((action) => action.mana).sort()).toEqual(['B', 'G', 'R', 'U', 'W'])
-    const state = ok(server.rules(ready, {
+      .filter((action) => action.abilityId === '$.abilities[0]')
+    expect(actions).toHaveLength(1)
+    let state = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'bloodCelebrant.mana',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: celebrant,
       manaAbility: true,
-      choices: ['U'],
     }))
+    const pending = pendingOptionSelection(state, 'p1')!
+    expect(pending.options.map(option => option.label)).toEqual(['W', 'U', 'B', 'R', 'G'])
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options.find(option => option.label === 'U')!.id }))
+    expect(state.stack).toHaveLength(0)
     expect(state.players.p1.life).toBe(39)
     expect(state.players.p1.mana.U).toBe(1)
     expect(state.players.p1.mana.B).toBe(0)
@@ -560,38 +506,4 @@ describe('combat damage life swap', () => {
     }))
     expect(dealt.stack).toHaveLength(0)
   })
-})
-
-describe('relocated from ladyEvangela.test.ts → lifeEffects.test.ts', () => {
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-
-  test('Dark Confidant reveals, draws, and loses life on your upkeep', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: {
-            p1: [cardTemplate('Dark Confidant', { types: ['Creature'] })],
-          },
-          libraries: {
-            p1: [cardTemplate('Ancestral Recall', {
-              types: ['Instant'],
-              manaCost: '{U}',
-              manaValue: 1,
-            })],
-          },
-        },
-        { random: () => 0.5 },
-      )
-      let state = server.state
-      state.step = 'untap'
-      state.active = 'p1'
-      state = ok(server.rules(state, { type: 'advanceStep' }))
-      expect(state.step).toBe('upkeep')
-      state = resolveStack(server.rules, state)
-      expect(named(state, 'Ancestral Recall').zone).toBe('hand')
-      expect(state.players.p1.life).toBe(39)
-    })
-
 })

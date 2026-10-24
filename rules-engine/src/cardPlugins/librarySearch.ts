@@ -22,7 +22,6 @@ import {
   type SearchSpec,
 } from './effects'
 import { effectsFor, effectsOf } from './cardRules'
-import { emitCycleEvent, typecyclingFromHand } from './cycling'
 import { enteringObjectId } from './entersTapped'
 import { runInstructions } from './runInstructions'
 import {
@@ -488,12 +487,6 @@ export const librarySearch: Plugin = {
     if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {
       const pending = pendingSearch(state, event.seat)
       const spec = pending ? searchSpecForPending(state, pending) : undefined
-      if (pending?.via === 'resolve' && pending.sourceId) {
-        const source = draft.object(pending.sourceId) ?? state.objects[pending.sourceId]
-        if (source && typecyclingFromHand(source)) {
-          emitCycleEvent(draft, event.seat, pending.sourceId)
-        }
-      }
       closeSearch(draft, event.seat)
       if (pending?.via === 'spell') {
         const source = pending?.sourceId ? draft.object(pending.sourceId) : undefined

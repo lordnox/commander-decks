@@ -1,7 +1,8 @@
 import type Draft from '../../draft'
+import { objectIdentity } from '../../objectIdentity'
 import { markKnownToAll } from '../../knowledge'
 import { openCardSelection } from '../../rules/selectCards'
-import type { GameEvent } from '../../types'
+import type { GameEvent, ObjectIdentity } from '../../types'
 import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
@@ -10,6 +11,7 @@ import {
   type RuleDslRuntimeContext,
 } from './compiler/runtime'
 import type { Instruction, PlayerRecipient } from './schema/v1'
+import { REVEAL_UNTIL_REST } from './schema/v1'
 
 export type RevealUntilInstruction = Instruction & { kind: 'revealUntil' }
 
@@ -21,8 +23,8 @@ const librarySeats = (
   : evaluatePlayerReference(targets, context)
 
 export type RevealUntilBindings = {
-  found?: string[]
-  rest?: string[]
+  found?: Array<ObjectIdentity & { kind: 'object' }>
+  rest?: Array<ObjectIdentity & { kind: 'object' }>
 }
 
 export const runRevealUntil = (
@@ -39,12 +41,16 @@ export const runRevealUntil = (
   const resume = options?.resume
   const applyImmediately = options?.applyImmediately ?? false
   const seats = librarySeats(instruction.targets, context)
-  const needed = Math.max(1, evaluateRuntimeAmount(instruction.count ?? { kind: 'constant', value: 1 }, context))
-  const bindings: RevealUntilBindings = {}
+  const needed = Math.max(0, evaluateRuntimeAmount(instruction.count ?? { kind: 'constant', value: 1 }, context))
+  const bindings: RevealUntilBindings = {
+    ...(instruction.bindFound ? { found: [] } : {}),
+    ...(instruction.bindRest ? { rest: [] } : {}),
+  }
   const events: GameEvent[] = []
   let waiting = false
 
   for (const seat of seats) {
+    if (needed === 0) continue
     const library = context.state.zoneOrder[seat]?.library ?? []
     const revealed: string[] = []
     const found: string[] = []
@@ -72,35 +78,46 @@ export const runRevealUntil = (
 
     const matched = found.slice(0, needed)
     const rest = revealed.filter((id) => !matched.includes(id))
-    if (instruction.bindFound) bindings.found = [...(bindings.found ?? []), ...matched]
-    if (instruction.bindRest) bindings.rest = [...(bindings.rest ?? []), ...rest]
+    const boundIdentity = (id: string, to = context.state.objects[id]!.zone) => {
+      const object = context.state.objects[id]!
+      return { kind: 'object' as const, ...objectIdentity(object), zone: to,
+        incarnation: object.incarnation + (object.zone !== to ? 1 : 0) }
+    }
+    if (instruction.bindFound) bindings.found = [...(bindings.found ?? []), ...matched.map(id => boundIdentity(id, instruction.foundTo))]
+    if (instruction.bindRest) bindings.rest = [...(bindings.rest ?? []), ...rest.map(id => boundIdentity(id, instruction.rest === REVEAL_UNTIL_REST.graveyard ? 'graveyard' : 'library'))]
 
     for (const objectId of matched) {
-      events.push({ type: 'move', objectId, to: instruction.foundTo })
+      if (context.state.objects[objectId]?.zone !== instruction.foundTo) events.push({ type: 'move', objectId, to: instruction.foundTo })
     }
 
-    if (instruction.rest === 'orderBottom' && rest.length > 0) {
-      openCardSelection(draft, {
-        seat,
-        kind: 'scry',
-        count: rest.length,
-        candidates: rest,
-        sourceId: source.id,
-        source: source.name,
-        prompt: 'Put the other revealed cards on the bottom in any order.',
-        fromSeat: seat,
-        fromZone: 'library',
-        destinations: ['bottom'],
-        ...(resume ? {
-          canonicalChoice: {
-            stackId: resume.replacementFrameId,
-            binding: '__revealUntil_rest__',
-            action: 'replacementProgram',
-            replacementFrameId: resume.replacementFrameId,
-          },
-        } : {}),
-      })
-      waiting = true
+    switch (instruction.rest) {
+      case REVEAL_UNTIL_REST.graveyard:
+        for (const objectId of rest) events.push({ type: 'move', objectId, to: 'graveyard' })
+        break
+      case REVEAL_UNTIL_REST.orderBottom:
+        if (rest.length === 0) break
+        openCardSelection(draft, {
+          seat,
+          kind: 'scry',
+          count: rest.length,
+          candidates: rest,
+          sourceId: source.id,
+          source: source.name,
+          prompt: 'Put the other revealed cards on the bottom in any order.',
+          fromSeat: seat,
+          fromZone: 'library',
+          destinations: ['bottom'],
+          ...(resume ? {
+            canonicalChoice: {
+              stackId: resume.replacementFrameId,
+              binding: '__revealUntil_rest__',
+              action: 'replacementProgram',
+              replacementFrameId: resume.replacementFrameId,
+            },
+          } : {}),
+        })
+        waiting = true
+        break
     }
   }
 
@@ -115,7 +132,7 @@ export const runRevealUntil = (
   return { complete: true, events: returnedEvents, bindings }
 }
 
-export const storeRevealUntilBindings = <T extends Record<string, readonly { kind: 'object'; objectId: string }[]>>(
+export const storeRevealUntilBindings = <T extends Record<string, readonly ({ kind: 'object'; objectId: string } | { kind: 'player'; playerId: string })[]>>(
   choices: T | undefined,
   bindings: RevealUntilBindings,
   instruction: RevealUntilInstruction,
@@ -123,11 +140,11 @@ export const storeRevealUntilBindings = <T extends Record<string, readonly { kin
   const next = (choices ? { ...choices } : {}) as T
   if (instruction.bindFound && bindings.found) {
     (next as Record<string, readonly { kind: 'object'; objectId: string }[]>)[instruction.bindFound]
-      = bindings.found.map((objectId) => ({ kind: 'object' as const, objectId }))
+      = structuredClone(bindings.found)
   }
   if (instruction.bindRest && bindings.rest) {
     (next as Record<string, readonly { kind: 'object'; objectId: string }[]>)[instruction.bindRest]
-      = bindings.rest.map((objectId) => ({ kind: 'object' as const, objectId }))
+      = structuredClone(bindings.rest)
   }
   return next
 }

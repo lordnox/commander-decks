@@ -1,13 +1,14 @@
 import type { CatalogEntry } from './types'
 import { snapshotFor } from './snapshot'
-import { modifyEvent, replacement, staticAbility, wouldEnter } from '../cardPlugins/dsl/v1'
+import { activated, amount, asThisEntersPayLifeOrTap, ref, staticAbility, tapCost } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ["Land"],
+  types: ['Land'],
   colors: [],
-  manaCost: "",
+  manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([
-    staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }))),
+    staticAbility(asThisEntersPayLifeOrTap(3)),
+    activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { B: amount(1) } }] }),
   ]),
 } satisfies CatalogEntry

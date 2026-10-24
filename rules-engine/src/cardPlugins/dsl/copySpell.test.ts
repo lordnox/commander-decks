@@ -1,5 +1,20 @@
+import { pendingOptionSelection } from '../../rules/selectOptions'
+import { instructionSpell } from './instructionTestSupport'
+import { ok, resolveStack } from '../../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import {
+  activated,
+  chooseX,
+  variable,
+  lifeCost,
+  copyAbility,
+  gainLife,
+  manaCost,
+  paidCostCount,
+  paidCostPlayer,
+  choosePlayerCost,
+  players,
+  target,
   card,
   amount,
   compileCardRuleDefinition,
@@ -283,4 +298,70 @@ describe('copySpell', () => {
     }
   })
 
+})
+
+
+test('spell copies retain the original optional payment receipt without paying again', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [
+    instructionSpell({ optionalCosts: [manaCost('{2}'), choosePlayerCost(players({ relation: 'opponent' }))], instructions: [gainLife({ targets: ref('controller'), amount: paidCostCount('optional', 0) }), gainLife({ targets: paidCostPlayer(1), amount: paidCostCount('optional', 1) })] }),
+    instructionSpell({ decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] }, instructions: [copySpell({ targets: target(0), retarget: { kind: 'keep' } })] }),
+  ] } }, { random: () => 0 })
+  server.state.players.p1.mana.C = 2
+  const [original, copier] = server.state.zoneOrder.p1.hand
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: original, selectedOptionalCosts: [0, 1], costPlayers: { 1: 'p2' } }))
+  const copying = ok(server.rules(cast, { type: 'castSpell', seat: 'p1', objectId: copier, targets: [{ kind: 'stackItem', stackId: cast.stack[0].id }] }))
+  const resolved = resolveStack(server.rules, copying)
+  expect(resolved.players.p1.life).toBe(42)
+  expect(resolved.players.p2.life).toBe(42)
+  expect(resolved.players.p1.mana.C).toBe(0)
+})
+
+
+describe('copyAbility', () => {
+  const game = () => createServerGame(commanderRules, { players: 3,
+    battlefield: { p1: [cardTemplate('Ability source fixture', { types: ['Artifact'], ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({ costs: [manaCost('{X}'), lifeCost(2)], decisions: { variables: [chooseX({ min: 1, max: 4 })], targets: [select({ filter: players({}), count: 1 })] }, instructions: [gainLife({ targets: target(0), amount: variable('X') })] }),
+    ]))) })] },
+    hands: { p1: [instructionSpell({ decisions: { targets: [select({ filter: stackItems({ kind: 'ability' }), count: 1 })] }, instructions: [copyAbility({ targets: target(0), retarget: { kind: 'chooseNewTargets' } })] })] },
+  }, { random: () => 0 })
+
+  test('a copied activation retains X and its departed source, retargets through restore, and does not pay again', () => {
+    const server = game(), source = server.state.zoneOrder.p1.battlefield[0]!, copier = server.state.zoneOrder.p1.hand[0]!
+    server.state.players.p1.mana.C = 3
+    const activated = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]', x: 3, targets: [{ kind: 'player', player: 'p2' }] }))
+    const originalId = activated.stack[0]!.id
+    const departed = ok(server.rules(activated, { type: 'move', objectId: source, to: 'exile' }))
+    const cast = ok(server.rules(departed, { type: 'castSpell', seat: 'p1', objectId: copier, targets: [{ kind: 'stackItem', stackId: originalId }] }))
+    let state = ok(server.rules(cast, { type: 'resolveTop' }))
+    const option = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: 'retarget' }))
+    const player = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectPlayers', seat: 'p1', selectionId: player.id, players: ['p3'] }))
+    expect(state.stack).toHaveLength(2)
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', objectId: source, copy: true, x: 3, controller: 'p1', targets: [{ kind: 'player', player: 'p3' }] })
+    expect(state.stack[0]!.execution?.source).toEqual(departed.stack[0]!.execution?.source)
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(38)
+    expect(resolved.players.p2.life).toBe(43)
+    expect(resolved.players.p3.life).toBe(43)
+    expect(resolved.objects[source]!.zone).toBe('exile')
+  })
+})
+
+test('a triggered ability copy retains its original source while using the copy controller', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+    kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: { player: ref('controller') } },
+    decisions: { targets: [] }, instructions: [gainLife({ targets: ref('controller'), amount: 2 })],
+  }])))
+  const server = createServerGame(commanderRules, { battlefield: { p1: [cardTemplate('Trigger fixture', { types: ['Artifact'], ruleDefinition: definition })] }, libraries: { p1: [cardTemplate('Draw fixture')] }, hands: { p2: [instructionSpell({ instructions: [copyAbility({ targets: stackItems({ kind: 'ability' }), retarget: { kind: 'keep' } })] })] } }, { random: () => 0 })
+  let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+  const source = state.stack[0]!.execution!.source
+  state.priority = 'p2'
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p2', objectId: state.zoneOrder.p2.hand[0]! }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.stack).toHaveLength(2)
+  expect(state.stack[0]).toMatchObject({ kind: 'ability', copy: true, controller: 'p2', execution: { source } })
+  state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(state.players.p1.life).toBe(42)
+  expect(state.players.p2.life).toBe(42)
 })

@@ -4,11 +4,12 @@ import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { hasKeyword } from '../../keywords'
 import { cardTemplate } from '../../newGame'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, grantKeywordEffect, KEYWORDS, keyword, objects, untilCleanup } from './v1'
+import { card, chooseCards, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, grantKeywordEffect, KEYWORDS, keyword, objects, ref, untilCleanup } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find(object => object.name === name)!
 const setup = (printed = false) => createServerGame(commanderRules, {
@@ -27,7 +28,7 @@ test.each([false, true])('flash permits off-turn casting and responses with prin
   const server = setup(printed)
   const state = opponentsCombat(server.state)
   state.players.p1.mana.C = 2
-  expect(hasKeyword(named(state, 'Flash fixture'), KEYWORDS.flash, state)).toBe(true)
+  expect(hasKeyword(named(state, 'Flash fixture'), KEYWORDS.flash)).toBe(true)
   const restored = restoreJournal(createJournal(state), server.rules).current()
   expect(legalActsFor(restored, 'p1').some(action => action.kind === 'castSpell' && action.name === 'Flash fixture')).toBe(true)
   expect(legalActsFor(restored, 'p1').some(action => action.kind === 'castSpell' && action.name === 'Ordinary fixture')).toBe(false)
@@ -45,7 +46,7 @@ test('flash does not bypass priority, mana payment, or permission to cast from a
   state.players.p1.mana.C = 1
   expect(cast(server, { ...state, priority: 'p2' }).ok).toBe(false)
   const graveyard = ok(server.rules(state, { type: 'move', objectId: named(state, 'Flash fixture').id, to: 'graveyard' }))
-  expect(hasKeyword(named(graveyard, 'Flash fixture'), KEYWORDS.flash, graveyard)).toBe(true)
+  expect(hasKeyword(named(graveyard, 'Flash fixture'), KEYWORDS.flash)).toBe(true)
   expect(cast(server, graveyard).ok).toBe(false)
   expect(legalActsFor(graveyard, 'p1').some(action => action.kind === 'castSpell' && action.name === 'Flash fixture')).toBe(false)
 })
@@ -60,9 +61,9 @@ test('a canonical flash grant to a hand card affects timing only until cleanup',
   expect(ok(server.rules(offTurn, { type: 'castSpell', seat: 'p1', objectId: named(offTurn, 'Granted fixture').id })).stack).toHaveLength(1)
   const moved = ok(server.rules(granted, { type: 'move', objectId: named(granted, 'Granted fixture').id, to: 'graveyard' }))
   const returned = ok(server.rules(moved, { type: 'move', objectId: named(moved, 'Granted fixture').id, to: 'hand' }))
-  expect(hasKeyword(named(returned, 'Granted fixture'), KEYWORDS.flash, returned)).toBe(false)
+  expect(hasKeyword(named(returned, 'Granted fixture'), KEYWORDS.flash)).toBe(false)
   const cleanup = ok(server.rules({ ...granted, step: 'end' }, { type: 'advanceStep' }))
-  expect(hasKeyword(named(cleanup, 'Granted fixture'), KEYWORDS.flash, cleanup)).toBe(false)
+  expect(hasKeyword(named(cleanup, 'Granted fixture'), KEYWORDS.flash)).toBe(false)
   expect(server.rules(opponentsCombat(cleanup), { type: 'castSpell', seat: 'p1', objectId: named(cleanup, 'Granted fixture').id }).ok).toBe(false)
 })
 
@@ -75,12 +76,42 @@ test('a flash grant made to a permanent spell follows resolution but not a later
   const creature = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: id }))
   const reply = ok(server.rules(creature, { type: 'castSpell', seat: 'p1', objectId: named(creature, 'Instruction fixture').id }))
   const granted = ok(server.rules(reply, { type: 'resolveTop' }))
-  expect(hasKeyword(granted.objects[id]!, KEYWORDS.flash, granted)).toBe(true)
+  expect(hasKeyword(granted.objects[id]!, KEYWORDS.flash)).toBe(true)
   const permanent = resolveStack(server.rules, granted)
-  expect(hasKeyword(permanent.objects[id]!, KEYWORDS.flash, permanent)).toBe(true)
+  expect(hasKeyword(permanent.objects[id]!, KEYWORDS.flash)).toBe(true)
   const exiled = ok(server.rules(permanent, { type: 'move', objectId: id, to: 'exile' }))
   const returned = ok(server.rules(exiled, { type: 'move', objectId: id, to: 'battlefield' }))
-  expect(hasKeyword(returned.objects[id]!, KEYWORDS.flash, returned)).toBe(false)
+  expect(hasKeyword(returned.objects[id]!, KEYWORDS.flash)).toBe(false)
+})
+
+test('object filters match printed and granted flash, not oracle-text mentions', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [
+        cardTemplate('Printed flash', { types: ['Creature'], oracleText: 'Flash', power: 1, toughness: 1 }),
+        cardTemplate('Mention', { types: ['Creature'], oracleText: 'Target creature gains flash until end of turn.', power: 1, toughness: 1 }),
+        cardTemplate('Granted fixture', { types: ['Creature'], power: 1, toughness: 1 }),
+      ],
+    },
+    hands: { p1: [instructionSpell({
+      instructions: [
+        createEffect({ targets: objects({ zone: 'battlefield', name: 'Granted fixture' }), effect: grantKeywordEffect(KEYWORDS.flash), duration: untilCleanup() }),
+        chooseCards({
+          bindChoice: 'found',
+          chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', keyword: KEYWORDS.flash }),
+          min: 0,
+          max: 2,
+        }),
+      ],
+    })] },
+  }, { random: () => 0 })
+  const choosing = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
+  })))
+  expect(pendingSelectionFor(choosing, 'p1')!.candidates.map(id => choosing.objects[id]!.name).sort())
+    .toEqual(['Granted fixture', 'Printed flash'])
 })
 
 test('the shared keyword validator still rejects unsupported printed and granted abilities', () => {

@@ -1,3 +1,4 @@
+import { refreshExecutionReferences } from '../objectIdentity'
 import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import type { GameObject, PlayerId, TargetRef, ZoneId } from '../types'
@@ -55,6 +56,7 @@ export const ceaseToExist = (draft: Draft, object: GameObject) => {
     order.splice(index, 1)
     draft.zoneCounts[object.owner][object.zone] -= 1
   }
+  refreshExecutionReferences(draft, object)
   delete draft.objects[object.id]
 }
 

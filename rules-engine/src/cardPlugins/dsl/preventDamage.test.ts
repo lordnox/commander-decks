@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  capturePlayer,
+  resultPlayer,
+  spell,
+  activated,
   amount,
   card,
   compileCardRuleDefinition,
@@ -8,6 +12,7 @@ import {
   createEffect,
   chooseCards,
   draw,
+  eventAmount,
   forTurns,
   gainLife,
   multiplyDamage,
@@ -15,8 +20,13 @@ import {
   players,
   prevention,
   preventionCreatedEffect,
+  preventAllCombatDamageThisTurn,
   preventDamage,
   ref,
+  select,
+  tapCost,
+  target,
+  unlimitedPrevention,
   replacement,
   sequence,
   staticAbility,
@@ -31,10 +41,6 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, ReduceResult } from '../../types'
 import { loseAbilitiesBecome, permanent, reviseContinuousEffects } from '../continuousEffects'
-
-
-import { activated } from '../activated'
-import {onResolve} from '../onResolve'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -378,7 +384,7 @@ describe('preventDamage', () => {
     expect(state.preventionInstances?.[0]?.remaining).toBe(0)
   })
 
-  test('unpreventable damage still runs prevention additional effects', () => {
+  test('unpreventable damage does not run prevention additional effects', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
       staticAbility(prevention(
         { recipient: players({ relation: 'you' }) },
@@ -402,7 +408,7 @@ describe('preventDamage', () => {
       amount: 3,
       unpreventable: true,
     }))
-    expect(state.players.p1.life).toBe(38)
+    expect(state.players.p1.life).toBe(37)
     expect(state.preventionInstances?.[0]?.remaining).toBe(2)
   })
 
@@ -648,6 +654,312 @@ describe('preventDamage', () => {
     }))
     expect(state.players.p1.life).toBe(40)
   })
+
+  test('an unlimited combat shield prevents successive combat hits without shrinking', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { combat: true },
+        preventDamage(),
+        { capacity: unlimitedPrevention() },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fog aura', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const sourceId = Object.values(server.state.objects)[0]!.id
+    let state = ok(server.rules(server.state, {
+      type: 'dealDamage', sourceId, target: { kind: 'player', player: 'p1' }, amount: 5, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+    state = ok(server.rules(state, {
+      type: 'dealDamage', sourceId, target: { kind: 'player', player: 'p1' }, amount: 8, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
+
+  test('a combat-only unlimited shield leaves noncombat damage', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { combat: true },
+        preventDamage(),
+        { capacity: unlimitedPrevention() },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fog aura', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const sourceId = Object.values(server.state.objects)[0]!.id
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage', sourceId, target: { kind: 'player', player: 'p1' }, amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(37)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
+
+  test('unpreventable combat damage bypasses an unlimited shield without consuming it', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { combat: true },
+        preventDamage(),
+        { capacity: unlimitedPrevention() },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fog aura', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const sourceId = Object.values(server.state.objects)[0]!.id
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage', sourceId, target: { kind: 'player', player: 'p1' }, amount: 4, combat: true, unpreventable: true,
+    }))
+    expect(state.players.p1.life).toBe(36)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
+
+  test('createEffect can register an unlimited combat shield on its source', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [preventAllCombatDamageThisTurn()],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Fog spell', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Fog spell')!
+    let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.preventionInstances?.[0]).toMatchObject({
+      remaining: 'unlimited',
+      filter: { combat: true },
+    })
+    const fog = Object.values(state.objects).find((object) => object.name === 'Fog spell')!
+    expect(fog.zone).toBe('graveyard')
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: fog.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 7,
+      combat: true,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
+
+  test('createEffect source filter uses the bound target at damage time and after restore', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [preventAllCombatDamageThisTurn({ source: target(0) })],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Source fog', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })],
+      },
+      battlefield: {
+        p2: [
+          cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+          cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const angry = Object.values(server.state.objects).find((object) => object.name === 'Angry Bear')!.id
+    const quiet = Object.values(server.state.objects).find((object) => object.name === 'Quiet Bear')!.id
+    const fog = Object.values(server.state.objects).find((object) => object.name === 'Source fog')!.id
+    let state = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: fog, targets: [{ kind: 'object', objectId: angry }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.preventionInstances?.[0]).toMatchObject({
+      remaining: 'unlimited',
+      filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+    })
+    expect(state.preventionInstances?.[0]?.capturedBindings?.targets?.[0]?.[0]).toMatchObject({
+      kind: 'object', objectId: angry,
+    })
+    state = JSON.parse(JSON.stringify(state)) as GameState
+    state = ok(server.rules(state, {
+      type: 'dealDamage', sourceId: angry, target: { kind: 'player', player: 'p1' }, amount: 3, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'dealDamage', sourceId: quiet, target: { kind: 'player', player: 'p1' }, amount: 2, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(38)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
+
+  test('resolved createEffect prevention still applies after its host phases out', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [tapCost()],
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+        instructions: [preventAllCombatDamageThisTurn({ source: target(0) })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fogger', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: definition })],
+        p2: [
+          cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+          cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const fogger = Object.values(server.state.objects).find((object) => object.name === 'Fogger')!
+    const angry = Object.values(server.state.objects).find((object) => object.name === 'Angry Bear')!.id
+    const quiet = Object.values(server.state.objects).find((object) => object.name === 'Quiet Bear')!.id
+    fogger.summoningSickness = false
+    let state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[0]',
+      seat: 'p1',
+      objectId: fogger.id,
+      targets: [{ kind: 'object', objectId: angry }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = ok(server.rules(state, { type: 'phaseOut', objectId: fogger.id }))
+    expect(state.objects[fogger.id]?.phasedOut).toBe(true)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: angry,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: quiet,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(38)
+  })
+
+  test('resolved createEffect prevention still applies after its host leaves the game', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [tapCost()],
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+        instructions: [preventAllCombatDamageThisTurn({ source: target(0) })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fogger', {
+          types: ['Creature'], power: 1, toughness: 1, token: true, ruleDefinition: definition,
+        })],
+        p2: [
+          cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+          cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const fogger = Object.values(server.state.objects).find((object) => object.name === 'Fogger')!
+    const angry = Object.values(server.state.objects).find((object) => object.name === 'Angry Bear')!.id
+    const quiet = Object.values(server.state.objects).find((object) => object.name === 'Quiet Bear')!.id
+    fogger.summoningSickness = false
+    let state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[0]',
+      seat: 'p1',
+      objectId: fogger.id,
+      targets: [{ kind: 'object', objectId: angry }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = ok(server.rules(state, { type: 'destroy', objectId: fogger.id }))
+    expect(state.objects[fogger.id]).toBeUndefined()
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+    expect(state.preventionInstances?.[0]?.capturedSource?.snapshot.id).toBe(fogger.id)
+    state = JSON.parse(JSON.stringify(state)) as GameState
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: angry,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: quiet,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(38)
+  })
+
+  test('resolved createEffect prevention still applies when its host left before resolution', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [tapCost()],
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+        instructions: [preventAllCombatDamageThisTurn({ source: target(0) })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Fogger', {
+          types: ['Creature'], power: 1, toughness: 1, token: true, ruleDefinition: definition,
+        })],
+        p2: [
+          cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+          cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const fogger = Object.values(server.state.objects).find((object) => object.name === 'Fogger')!
+    const angry = Object.values(server.state.objects).find((object) => object.name === 'Angry Bear')!.id
+    const quiet = Object.values(server.state.objects).find((object) => object.name === 'Quiet Bear')!.id
+    fogger.summoningSickness = false
+    let state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[0]',
+      seat: 'p1',
+      objectId: fogger.id,
+      targets: [{ kind: 'object', objectId: angry }],
+    }))
+    expect(state.stack).toHaveLength(1)
+    state = ok(server.rules(state, { type: 'destroy', objectId: fogger.id }))
+    expect(state.objects[fogger.id]).toBeUndefined()
+    expect(state.preventionInstances ?? []).toEqual([])
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+    expect(state.preventionInstances?.[0]?.capturedSource?.snapshot.id).toBe(fogger.id)
+    state = JSON.parse(JSON.stringify(state)) as GameState
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: angry,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: quiet,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(38)
+  })
 })
 
 describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => {
@@ -676,10 +988,10 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Darkness', { types: ['Instant'], manaCost: '{B}' })] },
+          hands: { p1: [cardTemplate('Darkness')] },
           battlefield: { p2: [attacker] },
         },
-        { random: () => 0.5, cardPlugins: [onResolve] },
+        { random: () => 0.5 },
       )
       const ready = structuredClone(server.state)
       ready.players.p1.mana.B = 1
@@ -689,7 +1001,10 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
         objectId: named(ready, 'Darkness').id,
       }))
       const fogged = ok(server.rules(cast, { type: 'resolveTop' }))
-      expect(fogged.rules.some((rule) => rule.pluginId === 'fog' && rule.params.untilCleanup)).toBe(true)
+      expect(fogged.preventionInstances?.[0]).toMatchObject({
+        remaining: 'unlimited',
+        filter: { combat: true },
+      })
 
       let combat = structuredClone(fogged)
       combat.active = 'p2'
@@ -709,8 +1024,53 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       while (cleaned.step !== 'cleanup') {
         cleaned = ok(server.rules(cleaned, { type: 'advanceStep' }))
       }
-      expect(cleaned.rules.some((rule) => rule.pluginId === 'fog' && rule.params.untilCleanup))
-        .toBe(false)
+      expect(cleaned.preventionInstances ?? []).toEqual([])
+    })
+
+  test('Kami of False Hope prevents combat damage until cleanup', () => {
+      const attacker = cardTemplate('Grizzly Bears', {
+        types: ['Creature'],
+        power: 2,
+        toughness: 2,
+      })
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Kami of False Hope')],
+            p2: [attacker],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const kami = named(server.state, 'Kami of False Hope').id
+      const ready = structuredClone(server.state)
+      const activatedAbility = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: '$.abilities[0]',
+        seat: 'p1',
+        objectId: kami,
+      }))
+      const fogged = passToEmpty(server.rules, activatedAbility)
+      expect(fogged.objects[kami]?.zone).toBe('graveyard')
+      expect(fogged.preventionInstances?.[0]).toMatchObject({
+        remaining: 'unlimited',
+        filter: { combat: true },
+      })
+
+      let combat = structuredClone(fogged)
+      combat.active = 'p2'
+      combat.priority = 'p2'
+      combat.step = 'declareAttackers'
+      combat.objects[named(combat, 'Grizzly Bears').id].summoningSickness = false
+      combat = ok(server.rules(combat, {
+        type: 'declareAttackers',
+        seat: 'p2',
+        attackers: [{ objectId: named(combat, 'Grizzly Bears').id, defender: 'p1' }],
+      }))
+      combat.step = 'combatDamage'
+      combat = ok(server.rules(combat, { type: 'assignCombatDamage' }))
+      expect(combat.players.p1.life).toBe(40)
     })
 
   test('Lady Evangela fogs only the targeted creature', () => {
@@ -718,14 +1078,14 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
         commanderRules,
         {
           battlefield: {
-            p1: [cardTemplate('Lady Evangela', { types: ['Creature'] })],
+            p1: [cardTemplate('Lady Evangela')],
             p2: [
               cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
               cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
             ],
           },
         },
-        { random: () => 0.5, cardPlugins: [activated] },
+        { random: () => 0.5 },
       )
       const eva = named(server.state, 'Lady Evangela').id
       server.state.objects[eva].summoningSickness = false
@@ -734,14 +1094,19 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       const angry = named(ready, 'Angry Bear').id
       const activatedAbility = ok(server.rules(ready, {
         type: 'activateAbility',
-        abilityId: 'ladyEvangela.fog',
+        abilityId: '$.abilities[0]',
         seat: 'p1',
         objectId: eva,
         targets: [{ kind: 'object', objectId: angry }],
       }))
       const resolved = passToEmpty(server.rules, activatedAbility)
-      expect(resolved.rules.some((rule) =>
-        rule.pluginId === 'fog' && rule.params.sourceId === angry)).toBe(true)
+      expect(resolved.preventionInstances?.[0]).toMatchObject({
+        remaining: 'unlimited',
+        filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+      })
+      expect(resolved.preventionInstances?.[0]?.capturedBindings?.targets?.[0]?.[0]).toMatchObject({
+        kind: 'object', objectId: angry,
+      })
 
       let combat = structuredClone(resolved)
       combat.active = 'p2'
@@ -762,4 +1127,154 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       expect(combat.players.p1.life).toBe(38)
     })
 
+  test('Lady Evangela prevention continues after she phases out', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Lady Evangela')],
+            p2: [cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 })],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const eva = named(server.state, 'Lady Evangela').id
+      server.state.objects[eva].summoningSickness = false
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 1, U: 0, B: 1, R: 0, G: 0, C: 0 }
+      const angry = named(ready, 'Angry Bear').id
+      const activatedAbility = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: '$.abilities[0]',
+        seat: 'p1',
+        objectId: eva,
+        targets: [{ kind: 'object', objectId: angry }],
+      }))
+      const resolved = passToEmpty(server.rules, activatedAbility)
+      const phased = ok(server.rules(resolved, { type: 'phaseOut', objectId: eva }))
+      expect(phased.objects[eva]?.phasedOut).toBe(true)
+      const damaged = ok(server.rules(phased, {
+        type: 'combatDamage',
+        sourceId: angry,
+        target: { kind: 'player', player: 'p1' },
+        amount: 3,
+      }))
+      expect(damaged.players.p1.life).toBe(40)
+    })
+
+  test('Lady Evangela prevention continues after a token copy ceases to exist', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Lady Evangela', { token: true, power: 1, toughness: 2, summoningSickness: false })],
+            p2: [cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 })],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const eva = named(server.state, 'Lady Evangela').id
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 1, U: 0, B: 1, R: 0, G: 0, C: 0 }
+      const angry = named(ready, 'Angry Bear').id
+      const activatedAbility = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: '$.abilities[0]',
+        seat: 'p1',
+        objectId: eva,
+        targets: [{ kind: 'object', objectId: angry }],
+      }))
+      const resolved = passToEmpty(server.rules, activatedAbility)
+      const destroyed = ok(server.rules(resolved, { type: 'destroy', objectId: eva }))
+      expect(destroyed.objects[eva]).toBeUndefined()
+      const damaged = ok(server.rules(destroyed, {
+        type: 'combatDamage',
+        sourceId: angry,
+        target: { kind: 'player', player: 'p1' },
+        amount: 3,
+      }))
+      expect(damaged.players.p1.life).toBe(40)
+    })
+
+  test('Lady Evangela prevention continues when a token copy dies on the stack', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Lady Evangela', { token: true, power: 1, toughness: 2, summoningSickness: false })],
+            p2: [cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 })],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const eva = named(server.state, 'Lady Evangela').id
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 1, U: 0, B: 1, R: 0, G: 0, C: 0 }
+      const angry = named(ready, 'Angry Bear').id
+      const activatedAbility = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: '$.abilities[0]',
+        seat: 'p1',
+        objectId: eva,
+        targets: [{ kind: 'object', objectId: angry }],
+      }))
+      expect(activatedAbility.stack).toHaveLength(1)
+      const destroyed = ok(server.rules(activatedAbility, { type: 'destroy', objectId: eva }))
+      expect(destroyed.objects[eva]).toBeUndefined()
+      const resolved = passToEmpty(server.rules, destroyed)
+      expect(resolved.preventionInstances?.[0]?.remaining).toBe('unlimited')
+      const damaged = ok(server.rules(resolved, {
+        type: 'combatDamage',
+        sourceId: angry,
+        target: { kind: 'player', player: 'p1' },
+        amount: 3,
+      }))
+      expect(damaged.players.p1.life).toBe(40)
+    })
+
+  test('prevention additionalEffects can use the prevented event amount', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        {
+          capacity: amount(5),
+          additionalEffects: [draw({ count: eventAmount(), targets: ref('controller') })],
+        },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: { p1: [cardTemplate('Drawn A'), cardTemplate('Drawn B'), cardTemplate('Drawn C')] },
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: Object.values(server.state.objects)[0]!.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.zoneOrder.p1.hand).toHaveLength(3)
+  })
+
+})
+
+
+test('created prevention captures player results independently of its source after restore', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Captured shield fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({ instructions: [
+        capturePlayer({ player: ref('controller'), bindResult: 'recipient' }),
+        createEffect({ targets: ref('source'), effect: preventionCreatedEffect({ recipient: resultPlayer('recipient') }, 3), duration: untilCleanup() }),
+      ] }),
+    ]))) })] }, battlefield: { p2: [cardTemplate('Damage source', { types: ['Creature'], power: 3, toughness: 3 })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+  const damaged = ok(server.rules(JSON.parse(JSON.stringify(resolved)), { type: 'dealDamage', sourceId: resolved.zoneOrder.p2.battlefield[0]!, target: { kind: 'player', player: 'p1' }, amount: 3 }))
+  expect(damaged.players.p1.life).toBe(40)
+  expect(damaged.preventionInstances?.[0]?.remaining).toBe(0)
 })

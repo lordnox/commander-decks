@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
   manaCost,
+  collectEvidence,
+  move,
   objects,
   card,
   compileCardRuleDefinition,
@@ -14,16 +16,16 @@ import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 
 describe('persisted planned payment workflow', () => {
-  const fixture = (choice = false) => {
+  const fixture = (choice = false, evidence = false, removeEvidence = false) => {
     const sourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
       kind: 'activated', availableFrom: ['battlefield'], timing: 'anyTime', costs: [], decisions: { targets: [] },
-      instructions: choice ? [{ kind: 'chooseInstructions', chooser: ref('controller'), count: { kind: 'constant', value: 1 as const }, whenInsufficient: 'chooseAvailable', options: [{ instructions: [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }] }] }] : [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }],
+      instructions: choice ? [{ kind: 'chooseInstructions', chooser: ref('controller'), count: { kind: 'constant', value: 1 as const }, whenInsufficient: 'chooseAvailable', options: [{ instructions: [...(removeEvidence ? [move({ targets: objects({ zone: 'graveyard', owner: 'you' }), to: 'hand' })] : []), { kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }] }] }] : [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }],
     }])))
-    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{G}')], decisions: { targets: [] }, instructions: [] }])))
-    const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [cardTemplate('Planned source', { types: ['Artifact'], ruleDefinition: sourceDefinition })] }, hands: { p1: [cardTemplate('Planned spell', { types: ['Sorcery'], manaCost: '{G}', ruleDefinition: spellDefinition })] } }, { random: () => 0 })
+    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{G}')], ...(evidence ? { optionalCosts: [collectEvidence(8)] } : {}), decisions: { targets: [] }, instructions: [] }])))
+    const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [cardTemplate('Planned source', { types: ['Artifact'], ruleDefinition: sourceDefinition })] }, hands: { p1: [cardTemplate('Planned spell', { types: ['Sorcery'], manaCost: '{G}', ruleDefinition: spellDefinition }), ...(evidence ? [cardTemplate('Evidence fixture', { zone: 'graveyard', manaValue: 8 })] : [])] } }, { random: () => 0 })
     const source = Object.values(server.state.objects).find((object) => object.name === 'Planned source')!
     const spell = Object.values(server.state.objects).find((object) => object.name === 'Planned spell')!
-    return { server, source, spell, event: { type: 'castSpell' as const, seat: 'p1', objectId: spell.id, manaActivations: [{ objectId: source.id, abilityId: '$.abilities[0]' }] } }
+    return { server, source, spell, event: { type: 'castSpell' as const, seat: 'p1', objectId: spell.id, ...(evidence ? { selectedOptionalCosts: [0], evidence: [[server.state.zoneOrder.p1.graveyard[0]!]] } : {}), manaActivations: [{ objectId: source.id, abilityId: '$.abilities[0]' }] } }
   }
 
   const deathFixture = (choice = false) => {
@@ -71,6 +73,34 @@ describe('persisted planned payment workflow', () => {
     const cancelled = server.rules(restarted, { type: 'cancelAnnouncement', seat: 'p1', announcementId: restarted.provisionalAnnouncement.id })
     expect(cancelled.ok).toBe(true)
     if (cancelled.ok) expect(cancelled.state).toEqual(server.state)
+  })
+
+  test('a restored planned announcement pays evidence once after its mana choice', () => {
+    const { server, event } = fixture(true, true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const evidence = server.state.zoneOrder.p1.graveyard[0]!
+    expect(started.state.objects[evidence]!.zone).toBe('graveyard')
+    const restored = JSON.parse(JSON.stringify(started.state))
+    const pending = pendingOptionSelection(restored, 'p1')!
+    const result = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options[0]!.id })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[evidence]!.zone).toBe('exile')
+    expect(result.state.stack[0]!.execution?.announcement?.costChoices?.optional).toEqual([0])
+    expect(result.state.provisionalAnnouncement).toBeUndefined()
+  })
+
+  test('planned mana that removes selected evidence rolls back the whole announcement', () => {
+    const { server, event } = fixture(true, true, true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const pending = pendingOptionSelection(started.state, 'p1')!
+    const result = server.rules(JSON.parse(JSON.stringify(started.state)), { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options[0]!.id })
+    expect(result.ok).toBe(false)
+    expect(result.state).toEqual(server.state)
   })
 
   test('wrong-seat cancellation and invalid plans preserve the baseline', () => {

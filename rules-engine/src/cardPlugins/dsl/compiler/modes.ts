@@ -31,9 +31,10 @@ export const validateModeSelection = (
 ) => {
   integer(availableModes, 'available mode count')
   integer(expectedCount, 'mode count')
-  if (modeSpec.count.kind === 'constant' && modeSpec.count.value !== expectedCount) {
+  if (modeSpec.count.kind === 'constant' && (modeSpec.min ? expectedCount > modeSpec.count.value : modeSpec.count.value !== expectedCount)) {
     throw new RuleDslEvaluationError(`mode count ${expectedCount} does not match the declared count ${modeSpec.count.value}`)
   }
+  if (modeSpec.min?.kind === 'constant' && expectedCount < modeSpec.min.value) throw new RuleDslEvaluationError('selected mode count is below its minimum')
   integer(selectedModes.length, 'selected mode count')
   if (selectedModes.length !== expectedCount) throw new RuleDslEvaluationError(`expected ${expectedCount} selected modes, received ${selectedModes.length}`)
   const seen = new Set<number>()
@@ -67,13 +68,24 @@ export const resolveModalInputs = (
   const modeSpec = ability.decisions.modes
   if (!modeSpec) throw new RuleDslEvaluationError('modal program is missing its mode specification')
   if (!ability.modes) throw new RuleDslEvaluationError('modal program is missing its modes')
-  const expected = evaluateAmount(modeSpec.count, amountEvaluationContext(context))
+  const expected = evaluateModeCount(modeSpec, context, selectedModes.length)
   validateModeSelection(modeSpec, ability.modes.length, expected, selectedModes)
   return modalTargetLayout(ability, abilityIndex, selectedModes)
 }
 
-export const evaluateModeCount = (spec: ModeSpec, context: RuleDslRuntimeContext) =>
-  evaluateAmount(spec.count, amountEvaluationContext(context))
+export const evaluateModeBounds = (spec: ModeSpec, context: RuleDslRuntimeContext) => {
+  const max = evaluateAmount(spec.count, amountEvaluationContext(context))
+  const min = spec.min ? evaluateAmount(spec.min, amountEvaluationContext(context)) : max
+  if (min > max) throw new RuleDslEvaluationError('mode minimum exceeds its maximum')
+  return { min, max }
+}
+
+export const evaluateModeCount = (spec: ModeSpec, context: RuleDslRuntimeContext, selectedCount?: number) => {
+  const bounds = evaluateModeBounds(spec, context)
+  if (selectedCount === undefined) return bounds.max
+  if (selectedCount < bounds.min || selectedCount > bounds.max) throw new RuleDslEvaluationError(`expected ${bounds.min} to ${bounds.max} selected modes`)
+  return selectedCount
+}
 
 export const selectedDistributionSpecs = (
   ability: { decisions: { distributions?: readonly DistributionSpec[] }; modes?: readonly ModeDefinition[] },

@@ -1,4 +1,5 @@
 import { effectsOf } from '../cardPlugins/cardRules'
+import { composeUnlockedDoorPrograms } from '../cardPlugins/dsl/roomDoors'
 import type {
   GameObject,
   Plugin,
@@ -50,6 +51,8 @@ export const applyRoomDoors = (object: GameObject, doors: RoomDoorId[]) => {
   object.oracleText = characteristics.map((door) => door.oracleText).join(' // ')
   object.grantedRules = unique(characteristics.flatMap((door) => door.grantedRules ?? []))
   object.effects = characteristics.flatMap((door) => effectsOf(door))
+  if (object.zone === 'battlefield') composeUnlockedDoorPrograms(object, doors)
+  else delete object.ruleDefinition
 }
 
 export const applyRoomCard = (object: GameObject) => {

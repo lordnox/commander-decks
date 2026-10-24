@@ -56,7 +56,6 @@ export type CardCondition =
 export type GiftSpec = {
   label?: string
   draw?: number
-  extraTurn?: true
   token?: TokenSpec & { tapped?: boolean }
 }
 
@@ -144,7 +143,6 @@ export type CardInstruction =
   | { kind: 'putHandCardOnLibraryBottom' }
   | { kind: 'putSelfOntoBattlefield' }
   | { kind: 'phaseOutTarget' }
-  | { kind: 'createHeroWithLandCounters' }
   | { kind: 'searchTargetControllerForBasicLandType' }
   /** Taps this object, or the voted object when `subject` is `triggeringObject`. */
   | { kind: 'tap'; subject?: 'triggeringObject' }
@@ -167,13 +165,11 @@ export type CardInstruction =
     }
   | { kind: 'gainLife'; count: number | 'triggerAmount'; to?: PlayerSelector }
   | { kind: 'damage'; amount: number; to: PlayerSelector }
-  | { kind: 'drainOpponentsX'; multiplier: number }
   | { kind: 'drawX' }
   /** Draw cards equal to the number of cards in your hand, plus `plus`. */
   | { kind: 'drawHandSize'; plus?: number }
   /** For the rest of the game you have no maximum hand size. */
   | { kind: 'noMaximumHandSize' }
-  | { kind: 'dealDamageTargetX' }
   | { kind: 'setAllLifeToLowest' }
   | { kind: 'gainLifeLostThisTurn'; who: 'controller' | 'all' }
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
@@ -218,7 +214,6 @@ export type CardInstruction =
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
-  | { kind: 'discardHandsThenDrawGreatest' }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'returnSelfAsEnchantment' }
@@ -300,9 +295,6 @@ export type CardInstruction =
   | { kind: 'grantUntilEot'; keywords: string[]; maxFromX?: boolean }
   | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
   | { kind: 'goadObjectIds'; objectIds: string[]; objectIdsFromRevealUntil?: boolean }
-  | { kind: 'phaseOutControlled' }
-  | { kind: 'grantProtectionFromEverything' }
-  | { kind: 'lifeTotalCannotChange' }
   | { kind: 'crewVehicle' }
   | { kind: 'monstrosity'; count: number }
   | { kind: 'createXTokens'; token: TokenSpec }
@@ -345,7 +337,6 @@ export type CardInstruction =
   | { kind: 'millHalfTargetPlayers' }
   | { kind: 'untapUpToLands'; count: number }
   | { kind: 'opponentsLoseLife'; amount: number }
-  | { kind: 'revealTopLandsTapped' }
   | { kind: 'pumpAttached'; power: number; toughness: number }
   | { kind: 'tapAttached' }
   | { kind: 'addPlusCountersEqualToLands' }
@@ -450,7 +441,6 @@ export type CardInstruction =
     }
   | { kind: 'addManaPerSwamp'; basic?: boolean }
   | { kind: 'revealDrawLoseLife' }
-  | { kind: 'gainLifeTargetPower' }
   | { kind: 'mayCastFromExileWithoutPayingMana' }
   | { kind: 'mayCastFromHandWithoutPayingMana'; maxManaValue: number }
   | { kind: 'finishWarpExile' }
@@ -516,13 +506,11 @@ export type CardInstruction =
   | { kind: 'putLinkedExileToGraveyardGainLifeApply' }
   | { kind: 'loseHalfLifeRoundedUp' }
   | { kind: 'addManaAtNextMainFromTarget' }
-  | { kind: 'gainLifeTargetToughness' }
   | { kind: 'tapOpponentsCreatures' }
   /** `chosen` counters the spell this item already targeted instead of asking for one. */
   | { kind: 'counterTargetSpell'; chosen?: true }
   | { kind: 'bounceTargetPermanent' }
   | { kind: 'addPlusCountersToControlled'; count: number }
-  | { kind: 'opponentMayDrawThenStealCast'; count: number }
   | { kind: 'hiddenPileNegotiation'; pileSize: number; pileCount: 2; lifeLoss: number }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
@@ -875,8 +863,6 @@ export type CardEffect =
         do: CardInstruction[]
       }
       pumpPerLinkedExile?: LinkedExilePump
-      /** If this card would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library. */
-      shuffleIntoLibraryInstead?: true
       /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */
       enchantedManaBoost?: { mana: Exclude<ManaId, 'C'> } | { chosenColor: true }
       exileOpponentGraveyard?: boolean

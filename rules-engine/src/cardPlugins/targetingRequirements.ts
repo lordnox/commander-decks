@@ -1,13 +1,18 @@
 import type { GameObject, GameState, Plugin, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
+import { printedStaticEffectsOfKind } from './dsl/staticModifierCore'
 import { targetedEffectFilter, targetedEffectForIndex, validTarget } from './targetedResolve'
 
 const requirement = (
+  state: GameState,
   object: GameObject,
   kind: 'flagbearer' | 'hexproof-while-untapped',
 ) => effectsOf(object).some((effect) =>
   effect.op === 'targetingRequirement' && effect.kind === kind)
+  || (kind === 'flagbearer'
+    && printedStaticEffectsOfKind(state, object, 'targetingRequirement')
+      .some((effect) => effect.requirement === 'flagbearer'))
 
 const eventSource = (
   state: GameState,
@@ -70,7 +75,7 @@ export const targetingRequirements: Plugin = {
         target
         && target.controller !== event.seat
         && !target.tapped
-        && requirement(target, 'hexproof-while-untapped')
+        && requirement(state, target, 'hexproof-while-untapped')
       ) {
         return `${target.name} has hexproof while untapped`
       }
@@ -78,7 +83,7 @@ export const targetingRequirements: Plugin = {
 
     const allFlagbearers = Object.values(state.objects).filter((object) =>
       object.zone === 'battlefield'
-      && requirement(object, 'flagbearer'))
+      && requirement(state, object, 'flagbearer'))
     const imposed = allFlagbearers.some((object) => object.controller !== event.seat)
     if (!imposed || allFlagbearers.some((object) => objectIds.has(object.id))) return
 

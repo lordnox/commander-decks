@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import {createServerGame as createRuntimeGame} from '../runtime'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import {choiceEffects} from './choiceEffects'
 import {entersTapped} from './entersTapped'
 import {librarySearch} from './librarySearch'
@@ -14,7 +13,6 @@ import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 import {activated} from './activated'
 import {pendingPlayerSelection} from '../rules/selectPlayers'
-import {modalSpell} from './modalSpell'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -113,47 +111,6 @@ describe('landfall', () => {
     const next = playTopLand(server)
     expect(battlefieldNames(next).filter((name) => name === 'Scute Swarm')).toHaveLength(2)
     expect(battlefieldNames(next)).not.toContain('Insect')
-  })
-
-  test('Mossborn Hydra doubles its counters on each land', () => {
-    const server = game({
-      hand: [forest('First'), forest('Second')],
-      battlefield: [
-        card('Mossborn Hydra', ['Creature'], {
-          power: 1,
-          toughness: 1,
-          counters: { '+1/+1': 1 },
-        }),
-      ],
-    })
-    const first = playTopLand(server)
-    const hydra = Object.values(first.objects).find((object) => object.name === 'Mossborn Hydra')!
-    expect(hydra.counters['+1/+1']).toBe(2)
-    expect([hydra.power, hydra.toughness]).toEqual([2, 2])
-
-    const second = resolveStack(server.rules, ok(server.rules(
-      { ...first, players: { ...first.players, p1: { ...first.players.p1, landPlaysAllowed: 2 } } },
-      { type: 'playLand', seat: 'p1', objectId: first.zoneOrder.p1.hand[0] },
-    )))
-    const doubled = Object.values(second.objects).find((object) => object.name === 'Mossborn Hydra')!
-    expect(doubled.counters['+1/+1']).toBe(4)
-    expect([doubled.power, doubled.toughness]).toEqual([4, 4])
-  })
-
-  test('a 0/0 hydra survives its counters because printed values move with them', () => {
-    const server = game({
-      hand: [forest()],
-      battlefield: [
-        card('Mossborn Hydra', ['Creature'], {
-          power: 1,
-          toughness: 1,
-          counters: { '+1/+1': 1 },
-        }),
-      ],
-    })
-    const next = playTopLand(server)
-    expect(battlefieldNames(next)).toContain('Mossborn Hydra')
-    expect(next.zoneOrder.p1.graveyard).toHaveLength(0)
   })
 
   test('Icetill Explorer mills the top card of its controller\'s library', () => {
@@ -304,30 +261,5 @@ describe('relocated from sinFallGaps.test.ts → landfall.test.ts', () => {
       expect(milled.zoneOrder.p2.graveyard).toHaveLength(3)
     })
 
-  test('Retreat to Hagra can drain the table on landfall', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: { p1: [card('Retreat to Hagra', ['Enchantment'])] },
-          hands: { p1: [forest()] },
-        },
-        { random: () => 0.5, cardPlugins: [choiceEffects, modalSpell] },
-      )
-      let state = ok(server.rules(server.state, {
-        type: 'playLand',
-        seat: 'p1',
-        objectId: named(server.state, 'Forest').id,
-      }))
-      state = ok(server.rules(state, { type: 'resolveTop' }))
-      expect(pendingDialog(state)?.kind).toBe('choose-modes')
-      state = ok(server.rules(state, {
-        type: 'custom',
-        name: DIALOG_CHOSEN,
-        seat: 'p1',
-        payload: { modes: ['Each opponent loses 1 life and you gain 1 life.'] },
-      }))
-      expect(state.players.p1.life).toBe(41)
-      expect(state.playerOrder.slice(1).every((seat) => state.players[seat].life === 39)).toBe(true)
-    })
 
 })

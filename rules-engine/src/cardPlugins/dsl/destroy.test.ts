@@ -1,6 +1,12 @@
 import { test, expect } from 'bun:test'
 import {
   amount,
+  keyword,
+  createEffect,
+  grantKeywordEffect,
+  untilCleanup,
+  KEYWORDS,
+  destroy,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
@@ -32,4 +38,41 @@ test('destroying a hand card cannot report successful destruction',()=>{
  const {state}=run([{kind:'destroy',targets:objects({zone:'hand',name:'Discard'}),bindResult:'d'},{kind:'if',condition:{kind:'resultIsTrue',value:{kind:'resultRef',binding:'d',field:'destroyed'}},then:[{kind:'gainLife',amount:amount(3),targets:ref('controller')}],otherwise:[]}])
  expect(Object.values(state.objects).find(o=>o.name==='Discard')!.zone).toBe('hand')
  expect(state.players.p1.life).toBe(40)
+})
+
+
+test.each([false, true])('canonical native and granted indestructible survive destroy without printed text (granted=%s)', granted => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card(granted ? [] : [keyword.indestructible])))
+  const program = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [
+    ...(granted ? [createEffect({ targets: objects({ zone: 'battlefield', type: 'Creature' }), effect: grantKeywordEffect(KEYWORDS.indestructible), duration: untilCleanup() })] : []),
+    destroy({ targets: objects({ zone: 'battlefield', type: 'Creature' }) }),
+  ] }])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Resilient fixture', { types: ['Creature'], power: 2, toughness: 2, oracleText: '', ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Destroy fixture', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: program })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.battlefield[0]
+  const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })
+  if (!cast.ok) throw new Error(cast.error)
+  const resolved = server.rules(JSON.parse(JSON.stringify(cast.state)), { type: 'resolveTop' })
+  if (!resolved.ok) throw new Error(resolved.error)
+  expect(resolved.state.objects[id].zone).toBe('battlefield')
+})
+
+test("noRegeneration marks each destroy event as can't-be-regenerated and still destroys", () => {
+  const seen: unknown[] = []
+  const watch = { id: 'test.destroyWatch', apply: ({ event }: { event: { type: string } }) => { if (event.type === 'destroy') seen.push(event) } }
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [destroy({ targets: objects({ zone: 'battlefield', type: 'Creature' }), noRegeneration: true })] }])))
+  const server = createServerGame(commanderRules, { players: 2, battlefield: { p2: [cardTemplate('Doomed', { types: ['Creature'], power: 1, toughness: 1 })] }, hands: { p1: [cardTemplate('No regen', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })] } }, { random: () => 0, cardPlugins: [watch] })
+  const armed = server.rules(server.state, { type: 'addRule', pluginId: watch.id, sourceId: server.state.zoneOrder.p1.hand[0] })
+  if (!armed.ok) throw Error(armed.error)
+  const cast = server.rules(armed.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })
+  if (!cast.ok) throw Error(cast.error)
+  const resolved = server.rules(cast.state, { type: 'resolveTop' })
+  if (!resolved.ok) throw Error(resolved.error)
+  expect(seen.length).toBeGreaterThan(0)
+  expect(seen.every(event => (event as { noRegeneration?: true }).noRegeneration === true)).toBe(true)
+  expect(Object.values(resolved.state.objects).find(object => object.name === 'Doomed')!.zone).toBe('graveyard')
+  expect(() => compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'destroy', targets: ref('source'), noRegeneration: false } as never] }]))).toThrow()
 })

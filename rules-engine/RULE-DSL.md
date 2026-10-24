@@ -2503,3 +2503,9 @@ A `move` to `battlefield` can include `enterCounters`, a map from counter names 
 `divide({ value, by, rounding })` composes a DSL amount with a positive integer divisor and an explicit `ROUNDING_MODES.up` or `ROUNDING_MODES.down` policy (CR 107.1a). Its input can be a constant, X, selector count, event amount, current characteristic, or another division. A characteristic used as the dividend may be signed; a negative calculated quantity becomes zero under CR 107.1b. Literal, runtime, binding and expression-depth limits still apply.
 
 Amounts in instructions are evaluated at that instruction; amounts in costs are locked at announcement. Infernal Contract uses an ordinary draw of four followed by life loss equal to rounded-up division of its controller's current life by two.
+
+### Signed stat expressions
+
+`negate(value)` converts a nonnegative DSL amount into a signed power/toughness delta. Both temporary `pumpEffect` programs and printed `modifyStats` effects accept it. The operand retains normal amount binding, range, and depth validation; negation cannot be used as a draw count, token count, life cost, or other unsigned amount. Zero remains zero.
+
+Toxic Deluge composes `lifeCost(variable('X'))` with negative X stat deltas for all battlefield creatures. Hatred uses the same additional life cost with a positive X power delta on its chosen creature. Awaken the Woods uses X as a token count; Forest subtype land-creature tokens receive their intrinsic green mana ability and normal creature tap restrictions.

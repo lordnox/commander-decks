@@ -1,8 +1,12 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
+import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
+import type { SagaAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { validTarget, validTargetRef } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
+import { captureObject, snapshotObject } from '../objectIdentity'
 import { openCardSelection, pendingSelectionsFor, targetDestinations } from '../rules/selectCards'
 import { openPlayerSelection, pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
@@ -45,17 +49,60 @@ const sagaChapters = (object: GameObject) =>
   effectsOf(object).find((effect) => effect.op === 'saga')?.chapters
   ?? printedChapters(object)
 
+const canonicalSaga = (object: GameObject): SagaAbilityDefinition | undefined => {
+  if (!object.ruleDefinition) return
+  try {
+    return loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(
+      (ability): ability is SagaAbilityDefinition => ability.kind === 'saga',
+    )
+  } catch {
+    return
+  }
+}
+
 const isSaga = (object: GameObject) => object.subtypes.includes('Saga')
 
 const hasReadAhead = (object: GameObject) =>
-  effectsOf(object).some((effect) => effect.op === 'saga' && effect.readAhead)
+  canonicalSaga(object)?.readAhead === true
+  || effectsOf(object).some((effect) => effect.op === 'saga' && effect.readAhead)
   || /\bRead ahead\b/i.test(object.oracleText)
 
-const finalChapter = (object: GameObject) =>
-  Math.max(0, ...sagaChapters(object).flatMap((chapter) => chapter.numbers))
+const finalChapter = (object: GameObject) => {
+  const canonical = canonicalSaga(object)
+  if (canonical) return Math.max(0, ...canonical.chapters.flatMap((chapter) => chapter.numbers))
+  return Math.max(0, ...sagaChapters(object).flatMap((chapter) => chapter.numbers))
+}
 
 const chapterName = (source: GameObject, chapter: number) =>
   `${source.name} — chapter ${chapter}`
+
+const queueCanonicalChapter = (
+  draft: Draft,
+  source: GameObject,
+  chapter: SagaAbilityDefinition['chapters'][number],
+  number: number,
+) => {
+  const snapshot = generatedAbilitySnapshot({
+    kind: 'triggered',
+    on: { kind: 'draw', filter: {} },
+    decisions: chapter.decisions ?? { targets: [] },
+    instructions: chapter.instructions,
+  })
+  draft.pendingTriggers = [...(draft.pendingTriggers ?? []), {
+    id: draft.allocId('trigger'),
+    source: snapshotObject(source),
+    instructions: [],
+    effect: { do: [] },
+    canonical: { definitionSnapshot: snapshot, abilityIndex: 0 },
+    execution: {
+      controller: source.controller,
+      source: captureObject(source, 'current'),
+      sagaChapter: number,
+    },
+    triggeringPlayer: source.controller,
+    payload: { sagaChapter: number },
+  }]
+}
 
 const addChapterTriggers = (
   draft: Draft,
@@ -65,6 +112,17 @@ const addChapterTriggers = (
 ) => {
   const readAheadThisTurn = hasReadAhead(source)
     && source.enteredBattlefieldTurn === draft.turn
+  const canonical = canonicalSaga(source)
+  if (canonical) {
+    for (const chapter of canonical.chapters) {
+      for (const number of chapter.numbers) {
+        if (before >= number || after < number) continue
+        if (readAheadThisTurn && after !== number) continue
+        queueCanonicalChapter(draft, source, chapter, number)
+      }
+    }
+    return
+  }
 
   // CR 714.2b: each crossed chapter triggers; read ahead suppresses skipped
   // chapters during the entry turn (CR 702.155a).
@@ -186,15 +244,29 @@ const chapterPending = (state: GameState, objectId: string) =>
   state.stack.some((item) =>
     item.kind === 'ability'
     && item.objectId === objectId
-    && typeof item.payload?.sagaChapter === 'number')
+    && (typeof item.payload?.sagaChapter === 'number' || typeof item.execution?.sagaChapter === 'number'))
+  || (state.pendingTriggers ?? []).some((trigger) =>
+    trigger.source.id === objectId
+    && (typeof trigger.payload?.sagaChapter === 'number' || typeof trigger.execution.sagaChapter === 'number'))
   || state.playerOrder.some((seat) =>
     pendingSelectionsFor(state, seat).some((selection) =>
       selection.sourceId === objectId
-      && typeof selection.triggerPayload?.sagaChapter === 'number')
+      && (
+        typeof selection.triggerPayload?.sagaChapter === 'number'
+        || typeof selection.canonicalTrigger?.execution.sagaChapter === 'number'
+      ))
     || pendingPlayerSelectionsFor(state, seat).some((selection) =>
       selection.sourceId === objectId
-      && selection.action.kind === 'putTriggeredAbility'
-      && typeof selection.action.payload?.sagaChapter === 'number'))
+      && (
+        (
+          selection.action.kind === 'putTriggeredAbility'
+          && typeof selection.action.payload?.sagaChapter === 'number'
+        )
+        || (
+          selection.action.kind === 'putCanonicalTriggeredAbility'
+          && typeof selection.action.execution?.sagaChapter === 'number'
+        )
+      )))
 
 export const saga: Plugin = {
   id: 'saga',

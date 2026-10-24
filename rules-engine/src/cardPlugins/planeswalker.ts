@@ -136,7 +136,9 @@ export const planeswalker: Plugin = {
       const object = draft.object(event.objectId)
       if (!before || !object || !object.types.includes('Planeswalker')) return
       if (before.zone !== 'battlefield' && event.to === 'battlefield') {
-        if (object.printedLoyalty !== null) object.counters.loyalty = object.printedLoyalty
+        if (object.printedLoyalty !== null) {
+          object.counters.loyalty = (object.counters.loyalty ?? 0) + object.printedLoyalty
+        }
       }
       if (before.zone === 'battlefield' && event.to !== 'battlefield') {
         delete object.counters.loyalty

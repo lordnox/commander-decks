@@ -1,3 +1,7 @@
+import { matchesPlayer } from './dsl/compiler/runtime'
+import { PLAYER_RELATIONS } from './dsl/schema/v1'
+import type Draft from '../draft'
+import type { StackItem } from '../types'
 import {
   clearPendingDialog,
   DIALOG_CHOSEN,
@@ -12,6 +16,7 @@ import type { CapturedObject, GameEvent, GameObject, GameState, Plugin, TargetRe
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
 import type { CardEffect } from './effects'
+import { canonicalWardSpec, printedStaticEffectsOfKind } from './dsl/staticModifierCore'
 
 export const WARD_PENDING_CAST = 'ward.pendingCast'
 export const WARD_AWAITING = 'ward.awaitingSacrifice'
@@ -30,21 +35,25 @@ type PendingCast = {
 }
 
 const canonicalCast = (state: GameState, event: GameEvent) =>
-  event.type === 'castSpell'
-  && !event.copy
-  && Boolean(state.objects[event.objectId]?.ruleDefinition)
+  ((event.type === 'castSpell' && !event.copy) || (event.type === 'activateAbility' && /^\$\.abilities\[\d+\]$/.test(event.abilityId)))
+  && Boolean(state.objects[event.objectId]?.ruleDefinition || state.objects[event.objectId]?.canonicalGrantedActivations?.length)
 
-const wardEffect = (object: GameObject): WardSpec | undefined => {
+const wardEffects = (state: GameState, object: GameObject) => {
   const stamped = effectsOf(object).flatMap((effect) =>
     effect.op === 'static' && effect.ward ? [effect.ward] : [])[0]
   if (stamped) {
     if (stamped.generic !== undefined && stamped.mana === undefined) {
-      return { ...stamped, mana: stamped.generic }
+      return [{ ...stamped, mana: stamped.generic }]
     }
-    return stamped
+    return [stamped]
   }
+  const effects = object.continuousEffects ?? []
+  const lastLoss = effects.findLastIndex(({ effect }) => effect.kind === 'removeAbilities' || effect.kind === 'loseAbilitiesBecome')
+  const granted = effects.flatMap(({ effect }, index) => effect.kind === 'ward' && index > lastLoss ? [canonicalWardSpec(effect.cost)] : [])
+  const canonical = printedStaticEffectsOfKind(state, object, 'ward').map(effect => canonicalWardSpec(effect.cost))
+  if (canonical.length || granted.length) return [...canonical, ...granted]
   const generic = wardGeneric(object)
-  if (generic !== undefined) return { mana: generic }
+  return generic !== undefined && lastLoss < 0 ? [{ mana: generic }] : []
 }
 
 const targetedObjectIds = (targets: TargetRef[] | undefined) =>
@@ -64,17 +73,28 @@ const wardTargets = (
   wardPaid = false,
 ) => {
   if (wardPaid) return []
-  return targetedObjectIds(targets).flatMap((objectId) => {
+  return [...new Set(targetedObjectIds(targets))].flatMap((objectId) => {
   const object = state.objects[objectId]
-  const ward = object ? wardEffect(object) : undefined
   if (
     !object
-    || !ward
     || object.zone !== 'battlefield'
-    || object.controller === caster
+    || !matchesPlayer(caster, PLAYER_RELATIONS.opponent, { state, controller: object.controller, source: captureObject(object) })
   ) return []
-  return [{ object, ward }]
+  return wardEffects(state, object).map(ward => ({ object, ward }))
   })
+}
+
+/** Capture ward only after the targeting spell or nonmana ability is on the stack. */
+export const captureCanonicalWardTriggers = (state: GameState, draft: Draft, event: PendingCast['event'], item: StackItem) => {
+  if (event.wardPaid) return
+  for (const { object, ward } of wardTargets(state, event.seat, castTargets(event))) {
+    const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined
+    draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {
+      canonicalWard: true, spellStackId: item.id, cast: structuredClone(event), casterSeat: event.seat,
+      wardedId: object.id, warded: captureObject(object), ward: structuredClone(ward),
+      ...(spellObject ? { spellRef: objectIdentity(spellObject) } : {}),
+    } })
+  }
 }
 
 const pendingCastFor = (state: GameState, seat: string): PendingCast | undefined => {
@@ -206,7 +226,7 @@ const counterPending = (
   if (pending.event.type === 'activateAbility') {
     const ability = pending.event
     const index = draft.stack.findIndex((item) =>
-      item.kind === 'ability'
+      (!pending.stackId || item.id === pending.stackId) && item.kind === 'ability'
       && item.objectId === ability.objectId
       && item.abilityId === ability.abilityId)
     if (index >= 0) draft.stack.splice(index, 1)
@@ -249,34 +269,8 @@ export const ward: Plugin = {
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'castSpell' && canonicalCast(state, event) && !event.wardPaid) {
-      const warded = wardTargets(state, event.seat, castTargets(event))
-      const spell = draft.stack.find((item) => item.objectId === event.objectId)
-      if (spell) {
-        const seenWarded = new Set<string>()
-        for (const { object, ward } of warded) {
-          if (seenWarded.has(object.id)) continue
-          seenWarded.add(object.id)
-          const capturedWarded = captureObject(object)
-          const spellObject = draft.object(event.objectId)
-          draft.addToStack({
-            kind: 'ability',
-            objectId: object.id,
-            controller: object.controller,
-            name: `${object.name}'s Ward`,
-            targets: [],
-            payload: {
-              canonicalWard: true,
-              spellStackId: spell.id,
-              cast: structuredClone(event),
-              casterSeat: event.seat,
-              wardedId: object.id,
-              warded: capturedWarded,
-              ward: structuredClone(ward),
-              ...(spellObject ? { spellRef: objectIdentity(spellObject) } : {}),
-            },
-          })
-        }
-      }
+      const spell = draft.stack.find(item => item.kind === 'spell' && item.objectId === event.objectId)
+      if (spell) captureCanonicalWardTriggers(state, draft, event, spell)
       return
     }
     if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {

@@ -30,7 +30,7 @@ const wurm = () => cardTemplate('Warded Wurm', {
   effects: [ward({ life: 7 })],
 })
 
-const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
+const bolt = () => cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })
 
 const poker = () => cardTemplate('Poker', {
   types: ['Creature'],
@@ -60,7 +60,7 @@ const castBolt = (
 ) => ok(server.rules(state, {
   type: 'castSpell',
   seat: 'p1',
-  objectId: named(state, 'Lightning Bolt').id,
+  objectId: named(state, 'Ward spell fixture').id,
   targets: [{ kind: 'object', objectId: target.id }],
 }))
 
@@ -96,7 +96,7 @@ describe('Ward with a life payment', () => {
     const restarted = structuredClone(warded)
     const paid = ok(answer(server, restarted, 'pay'))
     expect(paid.players.p1.life).toBe(13)
-    expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: named(paid, 'Lightning Bolt').id })
+    expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: named(paid, 'Ward spell fixture').id })
     expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
     expect(paid.players.p1.data['ward.pendingCast']).toBeUndefined()
   })
@@ -106,7 +106,7 @@ describe('Ward with a life payment', () => {
     const declined = ok(answer(server, castBolt(server, ready), 'decline'))
     expect(declined.players.p1.life).toBe(20)
     expect(declined.stack).toHaveLength(0)
-    expect(named(declined, 'Lightning Bolt').zone).not.toBe('stack')
+    expect(named(declined, 'Ward spell fixture').zone).not.toBe('stack')
     expect(pendingOptionSelection(declined, 'p1')).toBeUndefined()
     expect(declined.log.some((line) => line.includes('countered by Ward'))).toBe(true)
   })
@@ -198,7 +198,7 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+          hands: { p1: [cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })] },
           battlefield: {
             p1: [
               creature('Sac 1', '{1}'),
@@ -213,7 +213,7 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
       const ready = structuredClone(server.state)
       ready.players.p1.mana.R = 1
       ready.priority = 'p1'
-      const bolt = named(ready, 'Lightning Bolt')
+      const bolt = named(ready, 'Ward spell fixture')
       const valgavoth = named(ready, 'Valgavoth, Terror Eater')
 
       const warded = ok(server.rules(ready, {
@@ -244,7 +244,7 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+          hands: { p1: [cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })] },
           battlefield: { p2: [creature('Famished Worldsire', '{8}{G}', { power: 0, toughness: 0 })] },
         },
         { random: () => 0.5, cardPlugins: finisherPlugins },
@@ -252,7 +252,7 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
       const ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 1, G: 0, C: 3 }
       ready.priority = 'p1'
-      const bolt = named(ready, 'Lightning Bolt')
+      const bolt = named(ready, 'Ward spell fixture')
       const worldsire = named(ready, 'Famished Worldsire')
 
       const warded = ok(server.rules(ready, {
@@ -291,7 +291,7 @@ describe('relocated from cirdanEldrazi.test.ts → wardLife.test.ts', () => {
   const boltEvent = (state: GameState, target = 'Sire of Seven Deaths'): GameEvent => ({
     type: 'castSpell',
     seat: 'p1',
-    objectId: named(state, 'Lightning Bolt').id,
+    objectId: named(state, 'Ward spell fixture').id,
     targets: [{ kind: 'object', objectId: named(state, target).id }],
   })
 
@@ -300,7 +300,7 @@ describe('relocated from cirdanEldrazi.test.ts → wardLife.test.ts', () => {
     effects: [ability({ id: 'poker.poke', targets: 'creature' }, {}, { kind: 'gainLife', count: 1 })],
   })
 
-  const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
+  const bolt = () => cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })
 
       const wardGame = (life = 40) => {
         const server = createServerGame(commanderRules, {
@@ -322,7 +322,7 @@ describe('relocated from cirdanEldrazi.test.ts → wardLife.test.ts', () => {
         const declined = ok(answer(server, ok(server.rules(ready, boltEvent(ready))), 'decline'))
         expect(declined.players.p1.life).toBe(40)
         expect(declined.stack).toHaveLength(0)
-        expect(named(declined, 'Lightning Bolt').zone).not.toBe('stack')
+        expect(named(declined, 'Ward spell fixture').zone).not.toBe('stack')
         expect(declined.log.some((line) => line.includes('countered by Ward'))).toBe(true)
       })
 

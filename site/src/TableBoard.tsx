@@ -1023,6 +1023,8 @@ export const legalActLabel = (action: AvailableAction) => {
   }
   if (action.kind === 'unlockDoor') return `Unlock — ${action.doorName}`
   if (action.kind === 'foretell') return 'Foretell {2}'
+  if (action.kind === 'plot') return 'Plot'
+  if (action.kind === 'suspend') return 'Suspend'
   if (action.kind === 'declareAttackers') return 'Declare attackers'
   return 'Declare blockers'
 }
@@ -1238,9 +1240,10 @@ export const CardPreview = ({
                         type="button"
                         onClick={() => onAct({
                           ...action,
-                          targetObjectIds: action.targetGroups.flatMap(
+                          targetObjectIds: action.targetGroups.filter(group => !group.collectEvidence).flatMap(
                             (group) => activationTargets[group.label] ?? [],
                           ),
+                          ...(action.targetGroups.some(group => group.collectEvidence) ? { evidence: action.targetGroups.filter(group => group.collectEvidence).map(group => [...(activationTargets[group.label] ?? [])]) } : {}),
                         })}
                         className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                       >

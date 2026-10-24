@@ -83,6 +83,7 @@ export const projectForViewer = (
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
   delete projected.resolution
+  delete projected.resolvedRuleEffects
   delete projected.pendingTriggers
   delete projected.triggerPlacement
   delete projected.eventProcessing
@@ -186,10 +187,10 @@ export const createServerGame = (
   const runtimeCardPlugins = dependencies.cardPlugins ?? []
   const initialState = newGame(format, {
     ...options,
-    builtinRules: options?.builtinRules ?? [
+    builtinRules: options?.builtinRules ?? [...new Set([
       ...format.rules,
       ...runtimeCardPlugins.map((plugin) => plugin.id),
-    ],
+    ])],
   })
   initializeRandomState(initialState, dependencies.random)
   const boot = makeDraft(initialState)

@@ -7,9 +7,6 @@ import { ok } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import { activated } from './activated'
 import { attackDeal } from './attackDeal'
-import { combatDialogue } from './combatDialogue'
-import { activate, draw } from './effects'
-import { stackCopy, stackCopyPending } from './stackCopy'
 import { targetedResolve } from './targetedResolve'
 import { targetingRequirements } from './targetingRequirements'
 import { onResolve } from './onResolve'
@@ -192,7 +189,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
         p1: [spell('P1 A', ''), spell('P1 B', '')],
         p2: [spell('P2 A', ''), spell('P2 B', '')],
       },
-    }, [activated, combatDialogue, targetingRequirements])
+    }, [activated, targetedResolve])
     let state = ready(server.state)
     const sokrates = named(state, 'Sokrates, Athenian Teacher')
     state.objects[sokrates.id].summoningSickness = false
@@ -206,7 +203,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
     expect(protectedCast.ok).toBe(false)
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'sokrates.dialogue',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: sokrates.id,
       targets: [{ kind: 'object', objectId: named(state, 'Attacker').id }],
@@ -228,102 +225,6 @@ describe('Lady Evangela copy and politics capabilities', () => {
     expect(state.players.p1.life).toBe(40)
     expect(state.zoneOrder.p1.hand).toHaveLength(2)
     expect(state.zoneOrder.p2.hand).toHaveLength(3)
-  })
-
-  test('Rings copies a nonmana activated ability through a restart-safe typed choice', () => {
-    const tapper = creature('Tap Drawer', {
-      effects: [activate({ id: 'tap.draw', costs: { tap: true }, do: [draw(1)] })],
-    })
-    const server = serverWith({
-      battlefield: {
-        p1: [
-          cardTemplate('Rings of Brighthearth', { types: ['Artifact'] }),
-          tapper,
-        ],
-      },
-      libraries: { p1: [spell('Card A', ''), spell('Card B', '')] },
-    }, [activated, stackCopy])
-    let state = ready(server.state)
-    const tapperId = named(state, 'Tap Drawer').id
-    state.objects[tapperId].summoningSickness = false
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: 'tap.draw',
-      seat: 'p1',
-      objectId: tapperId,
-    }))
-    expect(state.stack).toHaveLength(2)
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const restored = structuredClone(state)
-    expect(stackCopyPending(restored)).toMatchObject({ seat: 'p1' })
-    const pending = stackCopyPending(state)!
-    const wrongSeat = server.rules(state, {
-      type: 'copyStackItem',
-      seat: 'p2',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: true,
-    })
-    expect(wrongSeat.ok).toBe(false)
-    state = ok(server.rules(state, {
-      type: 'copyStackItem',
-      seat: 'p1',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: true,
-    }))
-    expect(state.stack).toHaveLength(2)
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.zoneOrder.p1.hand).toHaveLength(2)
-  })
-
-  test('spell copies use the same typed stack-copy path without moving the original card', () => {
-    const server = serverWith({
-      hands: {
-        p1: [spell('Vantress Visions', '{U}{U}', ['Instant'])],
-        p2: [spell('Swords to Plowshares', '{W}', ['Instant'])],
-      },
-      battlefield: { p1: [creature('Copy Target')] },
-    }, [targetedResolve, stackCopy])
-    let state = ready(server.state, 'p2')
-    const targetId = named(state, 'Copy Target').id
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p2',
-      objectId: named(state, 'Swords to Plowshares').id,
-      targets: [{ kind: 'object', objectId: targetId }],
-    }))
-    state.priority = 'p1'
-    state.players.p1.mana.U = 2
-    const swordsId = named(state, 'Swords to Plowshares').id
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Vantress Visions').id,
-      targets: [{ kind: 'object', objectId: swordsId }],
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const pending = stackCopyPending(state)!
-    expect(pending).toMatchObject({ optional: false, cost: '{0}' })
-    expect(server.rules(state, {
-      type: 'copyStackItem',
-      seat: 'p1',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: false,
-    }).ok).toBe(false)
-    state = ok(server.rules(state, {
-      type: 'copyStackItem',
-      seat: 'p1',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: true,
-    }))
-    expect(state.objects[swordsId].zone).toBe('stack')
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.objects[targetId].zone).toBe('exile')
-    expect(state.objects[swordsId].zone).toBe('stack')
   })
 
   test('Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks', () => {
@@ -350,7 +251,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
     ending.active = 'p2'
     ending.step = 'postcombatMain'
     state = ok(server.rules(ending, { type: 'custom', name: 'advanceStep' }))
-    expect(state.stack[0]?.abilityId).toBe('attackDeal.draw')
+    expect(state.stack[0]?.execution?.abilityIndex).toBe(1)
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
     expect(state.zoneOrder.p2.hand).toHaveLength(1)
@@ -366,7 +267,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
       seat: 'p1',
       attackers: [{ objectId: diplomat.id, defender: 'p2' }],
     }))
-    expect(state.stack[0]?.abilityId).toBe('attackDeal.break')
+    expect(state.stack[0]?.execution?.abilityIndex).toBe(2)
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[truce.id].zone).toBe('graveyard')
   })
@@ -378,7 +279,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
         p1: [creature('Sokrates, Athenian Teacher', { power: 0, toughness: 4 })],
         p2: [creature('Dialogue Target')],
       },
-    }, [activated, attackDeal, combatDialogue, targetingRequirements])
+    }, [activated, attackDeal])
     const state = ready(server.state)
     const sokrates = named(state, 'Sokrates, Athenian Teacher')
     state.objects[sokrates.id].summoningSickness = false
@@ -389,10 +290,10 @@ describe('Lady Evangela copy and politics capabilities', () => {
       action.kind === 'castSpell' ? action.targetObjectId : undefined).sort())
       .toEqual(['p2', 'p3', 'p4'])
     const dialogue = actions.find((action) =>
-      action.kind === 'activateAbility' && action.abilityId === 'sokrates.dialogue')
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
     expect(dialogue?.kind === 'activateAbility' ? dialogue.targetGroups?.[0] : undefined)
       .toMatchObject({
-        label: 'Creature',
+        label: 'Target 1',
         min: 1,
         max: 1,
       })

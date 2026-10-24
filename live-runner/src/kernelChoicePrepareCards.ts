@@ -1,3 +1,4 @@
+import { isKnownTo } from '../../rules-engine/src/knowledge'
 import { optionalDrawOffer } from './optionalDrawPolicy'
 import {
   waitingCastTransformed,
@@ -17,7 +18,7 @@ import {
 import type { LobbyState, TopdeckDecision } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
-import { discardOffer, openTopdeck, searchOffer, selectCardsOffer } from './kernelChoice'
+import { discardOffer, openTopdeck, searchOffer, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
 import { pendingOptionSelection, type PendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
@@ -218,9 +219,10 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
   if (selection.kind === 'choosePile') {
     const piles = selection.piles ?? { 'face-up': [], 'face-down': [] }
     const hideFaceDown = selection.pileVisibility === 'facedown-faceup'
+    const choosingOnly = selection.destinations?.includes('target') === true
     const pileCards = [
-      pileLabel(state, piles['face-up'], false, 'Face-up pile'),
-      pileLabel(state, piles['face-down'], hideFaceDown, 'Face-down pile'),
+      pileLabel(state, piles['face-up'], piles['face-up'].some(id => !isKnownTo(state.objects[id]!, seat, state.playerOrder)), selection.pileLabels?.['face-up'] ?? 'Face-up pile'),
+      pileLabel(state, piles['face-down'], hideFaceDown && piles['face-down'].some(id => !isKnownTo(state.objects[id]!, seat, state.playerOrder)), selection.pileLabels?.['face-down'] ?? 'Face-down pile'),
     ]
     return openTopdeck(
       lobby,
@@ -229,8 +231,8 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         kind: 'choosePile',
         source: selection.source,
         cards: pileCards,
-        destinations: ['graveyard', 'hand'],
-        requirements: { hand: { min: 1, max: 1 } },
+        destinations: choosingOnly ? ['skip', 'target'] : ['graveyard', 'hand'],
+        requirements: choosingOnly ? { target: { min: 1, max: 1 } } : { hand: { min: 1, max: 1 } },
         kernel: {
           sourceId: selection.sourceId ?? '',
           stage: 'select-cards',
@@ -281,6 +283,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       : selection.handQuota !== undefined
         ? { hand: { min: Math.min(selection.handQuota, count), max: Math.min(selection.handQuota, count) } }
       : undefined
+  const library = selectCardsLibraryView(state, selection)
   return openTopdeck(
     lobby,
     {
@@ -292,12 +295,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
           : selection.kind,
       source: selection.source,
       cards: offer.names,
-      ...(selection.viewLibrary ? {
-        library: (state.zoneOrder[selection.fromSeat ?? seat]?.library ?? [])
-          .map((objectId) => state.objects[objectId]?.name ?? '')
-          .filter(Boolean)
-          .sort((left, right) => left.localeCompare(right)),
-      } : {}),
+      ...(library !== undefined ? { library } : {}),
       destinations,
       count,
       ...(requirements ? { requirements } : {}),

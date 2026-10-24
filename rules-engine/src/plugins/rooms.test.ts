@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { activated } from '../cardPlugins/activated'
@@ -169,28 +170,6 @@ describe('Room doors', () => {
     expect(cast).toBeDefined()
     expect(eventsForAvailableAction(state, 'p1', cast!)).toEqual([
       { type: 'castSpell', seat: 'p1', objectId, door: 'left' },
-    ])
-  })
-
-  test('a door without inline effects takes its rules text from the card table', () => {
-    const closet = cardTemplate('Walk-In Closet // Forgotten Cellar', {
-      roomDoors: [
-        roomFace('Walk-In Closet', '{2}{G}', 'You may play lands from your graveyard.'),
-        roomFace('Forgotten Cellar', '{3}{G}{G}', 'When you unlock this door, cast from your graveyard.'),
-      ],
-    })
-    const server = createServerGame(commanderRules, { battlefield: { p1: [closet] } })
-    const objectId = server.state.zoneOrder.p1.battlefield[0]
-    const state = funded(server.state, { G: 2, C: 3 })
-
-    const unlocked = ok(server.rules(state, {
-      type: 'unlockDoor',
-      seat: 'p1',
-      objectId,
-      door: 'right',
-    }))
-    expect(unlocked.objects[objectId].effects).toEqual([
-      { op: 'trigger', on: 'unlock', do: [] },
     ])
   })
 
@@ -438,13 +417,8 @@ describe('Room doors', () => {
     }])
 
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [foyer.id],
-    }))
+    const option = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options.find(entry => entry.label === 'Accept')!.id }))
 
     // CR 709.5d gives the returned Room no unlocked designation; its resulting
     // 0 toughness makes CR 704.5f apply before the reducer returns.
@@ -532,25 +506,25 @@ describe('Room lock or unlock activations', () => {
     const mana = { ...server.state.players.p1.mana }
 
     const actions = legalActsFor(server.state, 'p1').filter(
-      (action) => action.kind === 'activateAbility' && action.abilityId === 'marina.lockOrUnlock',
+      (action) => action.kind === 'activateAbility' && action.abilityId === '$.abilities[1]',
     )
     expect(actions).toContainEqual(expect.objectContaining({
       door: 'right',
       targetObjectIds: [roomId],
     }))
     const unlock = actions.find((action) => action.kind === 'activateAbility' && action.door === 'right')
-    expect(eventsForAvailableAction(server.state, 'p1', unlock!)).toEqual([{
+    expect(eventsForAvailableAction(server.state, 'p1', unlock!)).toEqual([expect.objectContaining({
       type: 'activateAbility',
-      abilityId: 'marina.lockOrUnlock',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marinaId,
       targets: [{ kind: 'object', objectId: roomId }],
       door: 'right',
-    }])
+    })])
 
     const activatedState = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'marina.lockOrUnlock',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marinaId,
       targets: [{ kind: 'object', objectId: roomId }],
@@ -606,7 +580,7 @@ describe('Room lock or unlock activations', () => {
 
     const activatedState = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'marina.lockOrUnlock',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marinaId,
       targets: [{ kind: 'object', objectId: roomId }],
@@ -636,7 +610,7 @@ describe('Room lock or unlock activations', () => {
 
     expect(server.rules({ ...server.state, step: 'upkeep' }, {
       type: 'activateAbility',
-      abilityId: 'marina.lockOrUnlock',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marinaId,
       targets: [{ kind: 'object', objectId: roomId }],
@@ -647,14 +621,14 @@ describe('Room lock or unlock activations', () => {
     })
     expect(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'marina.lockOrUnlock',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marinaId,
       targets: [{ kind: 'object', objectId: roomId }],
       door: 'right',
     })).toMatchObject({
       ok: false,
-      error: 'Marina Vendrell needs one legal target',
+      error: 'supplied canonical targets do not satisfy the declared clauses',
     })
   })
 })

@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  count,
+  negate,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   modifyStats,
@@ -10,6 +12,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { ok } from '../../testHelpers'
 
 describe('powerToughnessLayers', () => {
 
@@ -93,4 +96,18 @@ describe('powerToughnessLayers', () => {
     expect(bear.power).toBe(3)
     expect(bear.toughness).toBe(3)
   })
+})
+
+
+test('a printed negative stat expression recomputes from the current selected group', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(modifyStats({
+    targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+    power: negate(count(objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }))), toughness: { kind: 'constant', value: 0 },
+  }))])))
+  const server = createServerGame(commanderRules, { battlefield: { p1: [cardTemplate('Static fixture', { types: ['Enchantment'], ruleDefinition }), cardTemplate('First fixture', { types: ['Creature'], power: 4, toughness: 4 }), cardTemplate('Second fixture', { types: ['Creature'], power: 4, toughness: 4 })] } }, { random: () => 0 })
+  const first = Object.values(server.state.objects).find(object => object.name === 'First fixture')!
+  const second = Object.values(server.state.objects).find(object => object.name === 'Second fixture')!
+  expect(first.power).toBe(2)
+  const left = ok(server.rules(server.state, { type: 'move', objectId: second.id, to: 'exile' }))
+  expect(left.objects[first.id]).toMatchObject({ power: 3, toughness: 4 })
 })

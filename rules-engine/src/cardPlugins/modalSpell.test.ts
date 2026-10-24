@@ -9,8 +9,8 @@ import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
 import { librarySearch } from './librarySearch'
 
-import {DIALOG_CHOSEN} from '../pendingDialog'
 import {pendingSelection, pendingSelectionFor} from '../rules/selectCards'
+import {pendingOptionSelection} from '../rules/selectOptions'
 import {resolveStack} from '../testHelpers'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
@@ -46,7 +46,7 @@ const run = (
 ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 describe('modalSpell', () => {
-  test('Bushwhack opens a mode choice before its instructions run', () => {
+  test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {
     const server = game({
       hand: [card('Bushwhack', ['Sorcery'], { manaCost: '{G}' })],
       library: [forest(), card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'] })],
@@ -60,45 +60,17 @@ describe('modalSpell', () => {
       },
     }
     const opened = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell },
+      { type: 'castSpell', seat: 'p1', objectId: spell, modeIndices: [0] },
       { type: 'resolveTop' },
     ])
-    expect(pendingDialog(opened)).toMatchObject({
-      kind: 'choose-modes',
-      source: 'Bushwhack',
-    })
+    expect(pendingDialog(opened)).toBeUndefined()
+    expect(pendingSelectionFor(opened, 'p1')?.candidates).toHaveLength(2)
   })
 
-  test('Decisive Denial opens the same modal flow as other choose-one spells', () => {
-    const server = game({
-      hand: [card('Decisive Denial', ['Instant'], { manaCost: '{G}{U}' })],
-    })
-    const spell = server.state.zoneOrder.p1.hand[0]
-    const funded = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: { ...server.state.players.p1, mana: { W: 0, U: 1, B: 0, R: 0, G: 1, C: 0 } },
-      },
-    }
-    const opened = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell },
-      { type: 'resolveTop' },
-    ])
-    expect(pendingDialog(opened)).toMatchObject({
-      kind: 'choose-modes',
-      source: 'Decisive Denial',
-    })
-  })
+
 })
 
 describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
-  const RANKLE_MODES = {
-    discard: 'Each player discards a card',
-    drain: 'Each player loses 1 life and draws a card',
-    sacrifice: 'Each player sacrifices a creature',
-  } as const
-
   const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
     cardTemplate(name, { types, ...extra })
 
@@ -110,10 +82,6 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
     subtypes: ['Faerie', 'Rogue'],
     power: 3,
     toughness: 3,
-    oracleText:
-      'Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n'
-      + '• Each player discards a card.\n• Each player loses 1 life and draws a card.\n'
-      + '• Each player sacrifices a creature of their choice.',
   })
 
   const game = (extra: { caress?: boolean } = {}) => createServerGame(
@@ -134,7 +102,7 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
         p2: [card('Plains', ['Land'])],
       },
     },
-    { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+    { random: () => 0.5 },
   )
 
   const connect = (server: ReturnType<typeof createServerGame>, state = server.state) => {
@@ -148,72 +116,83 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
     }))
   }
 
-  const resolveRankleTrigger = (
+  const pickModes = (
     server: ReturnType<typeof createServerGame>,
     state: GameState,
-  ) => resolveStack(server.rules, state)
+    indices: number[],
+  ) => {
+    let current = state
+    for (const index of indices) {
+      const pending = pendingOptionSelection(current, 'p1')!
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `mode:${index}`,
+      }))
+    }
+    const pending = pendingOptionSelection(current, 'p1')
+    if (pending?.options.some(option => option.id === 'done')) {
+      current = ok(server.rules(current, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'done',
+      }))
+    }
+    return current
+  }
 
-  const chooseModes = (
+  const resolveChosen = (
     server: ReturnType<typeof createServerGame>,
     state: GameState,
-    modes: string[],
-  ) => ok(server.rules(state, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
-    seat: 'p1',
-    payload: { modes },
-  }))
+    indices: number[],
+  ) => resolveStack(server.rules, pickModes(server, state, indices))
 
-  test('combat damage puts Rankle on the stack before its modes are chosen', () => {
+  test('combat damage chooses modes before Rankle is put on the stack', () => {
     const server = game()
     const triggered = connect(server)
 
-    expect(pendingDialog(triggered)).toBeUndefined()
-    expect(triggered.stack[0]).toMatchObject({
+    expect(triggered.stack).toHaveLength(0)
+    expect(pendingOptionSelection(triggered, 'p1')?.options.map(option => option.id))
+      .toEqual(['mode:0', 'mode:1', 'mode:2', 'done'])
+    const stacked = pickModes(server, triggered, [1])
+    expect(stacked.stack[0]).toMatchObject({
       kind: 'ability',
       name: 'Rankle, Master of Pranks',
       controller: 'p1',
-    })
-
-    const asked = resolveRankleTrigger(server, triggered)
-    expect(pendingDialog(asked)).toMatchObject({
-      kind: 'choose-modes',
-      seat: 'p1',
-      options: [
-        RANKLE_MODES.discard,
-        RANKLE_MODES.drain,
-        RANKLE_MODES.sacrifice,
-      ],
+      execution: { modeIndices: [1], modeCount: 1 },
     })
   })
 
   test('choosing no modes leaves the table alone', () => {
     const server = game()
-    const settled = chooseModes(server, resolveRankleTrigger(server, connect(server)), [])
+    const settled = resolveChosen(server, connect(server), [])
 
     expect(pendingDialog(settled)).toBeUndefined()
     expect(settled.players.p2.life).toBe(commanderRules.startingLife - 3)
+    expect(settled.players.p1.life).toBe(commanderRules.startingLife)
+    expect(settled.zoneOrder.p1.hand).toHaveLength(1)
   })
 
   test('the sacrifice mode asks every player with a creature', () => {
     const server = game()
-    const asked = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server)),
-      [RANKLE_MODES.sacrifice],
-    )
-    const hydra = Object.values(asked.objects).find((object) => object.name === 'Lone Hydra')!
-
-    expect(pendingSelectionFor(asked, 'p2')).toMatchObject({ kind: 'sacrifice', count: 1 })
-    const sacrificed = ok(server.rules(asked, {
+    const asked = resolveChosen(server, connect(server), [2])
+    expect(pendingSelectionFor(asked, 'p1')).toMatchObject({ kind: 'choose', count: 1 })
+    const rankle = Object.values(asked.objects).find((object) => object.name === 'Rankle, Master of Pranks')!
+    const afterP1 = ok(server.rules(asked, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [rankle.id],
+    }))
+    const hydra = Object.values(afterP1.objects).find((object) => object.name === 'Lone Hydra')!
+    expect(pendingSelectionFor(afterP1, 'p2')).toMatchObject({ kind: 'choose', count: 1 })
+    const sacrificed = ok(server.rules(afterP1, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
       objectIds: [hydra.id],
     }))
 
     expect(sacrificed.objects[hydra.id].zone).toBe('graveyard')
+    expect(sacrificed.objects[rankle.id].zone).toBe('graveyard')
     expect(pendingSelectionFor(sacrificed, 'p2')).toBeUndefined()
   })
 
@@ -226,23 +205,15 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
       objectId: hydra.id,
       to: 'graveyard',
     }))
-    const asked = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server, empty)),
-      [RANKLE_MODES.sacrifice],
-    )
+    const asked = resolveChosen(server, connect(server, empty), [2])
 
     expect(pendingSelectionFor(asked, 'p2')).toBeUndefined()
-    expect(pendingSelectionFor(asked, 'p1')).toMatchObject({ kind: 'sacrifice', count: 1 })
+    expect(pendingSelectionFor(asked, 'p1')).toMatchObject({ kind: 'choose', count: 1 })
   })
 
   test('the drain mode costs each player a life and draws them a card', () => {
     const server = game()
-    const drained = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server)),
-      [RANKLE_MODES.drain],
-    )
+    const drained = resolveChosen(server, connect(server), [1])
 
     expect(drained.players.p1.life).toBe(commanderRules.startingLife - 1)
     expect(drained.players.p2.life).toBe(commanderRules.startingLife - 4)
@@ -251,14 +222,10 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
 
   test('choosing every mode queues discards before sacrifices', () => {
     const server = game()
-    const asked = chooseModes(server, resolveRankleTrigger(server, connect(server)), [
-      RANKLE_MODES.sacrifice,
-      RANKLE_MODES.discard,
-      RANKLE_MODES.drain,
-    ])
+    const asked = resolveChosen(server, connect(server), [2, 0, 1])
 
-    expect(pendingSelectionFor(asked, 'p2')).toMatchObject({ kind: 'discard', count: 1 })
-    expect(asked.players.p2.life).toBe(commanderRules.startingLife - 4)
+    expect(pendingSelectionFor(asked, 'p1')).toMatchObject({ kind: 'choose', count: 1 })
+    expect(asked.players.p2.life).toBe(commanderRules.startingLife - 3)
   })
 
   test('each-player discard opens dialogs in APNAP order', () => {
@@ -277,26 +244,22 @@ describe('relocated from rankle.test.ts → modalSpell.test.ts', () => {
           p4: [card('Plains', ['Land'])],
         },
       },
-      { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+      { random: () => 0.5 },
     )
     const activeP3 = { ...server.state, active: 'p3', priority: 'p3' }
-    const asked = chooseModes(
-      server,
-      resolveRankleTrigger(server, connect(server, activeP3)),
-      [RANKLE_MODES.discard],
-    )
+    const asked = resolveChosen(server, connect(server, activeP3), [0])
 
-    expect(pendingSelection(asked)).toMatchObject({ kind: 'discard', seat: 'p3', count: 1 })
+    expect(pendingSelection(asked)).toMatchObject({ kind: 'choose', seat: 'p3', count: 1 })
 
     const mountain = Object.values(asked.objects).find((object) => object.name === 'Mountain')!
     const afterP3 = ok(server.rules(asked, {
       type: 'selectCards',
       seat: 'p3',
-      kind: 'discard',
+      kind: 'choose',
       count: 1,
       objectIds: [mountain.id],
     }))
-    expect(pendingSelection(afterP3)).toMatchObject({ kind: 'discard', seat: 'p4', count: 1 })
+    expect(pendingSelection(afterP3)).toMatchObject({ kind: 'choose', seat: 'p4', count: 1 })
   })
 
 })

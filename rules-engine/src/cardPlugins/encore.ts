@@ -38,7 +38,7 @@ const canAttackThisCombat = (
   && object.controller === seat
   && object.types.includes('Creature')
   && !object.tapped
-  && (!object.summoningSickness || hasKeyword(object, 'haste', state))
+  && (!object.summoningSickness || hasKeyword(object, 'haste'))
 
 const defenderPlayer = (state: GameState, target: TargetRef): PlayerId | null => {
   if (target.kind === 'player') return target.player

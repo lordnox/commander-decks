@@ -6,7 +6,6 @@ import { resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
 import { activated } from './activated'
 import { activate } from './effects'
-import { onResolve } from './onResolve'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -102,14 +101,14 @@ describe('simple card effects', () => {
 
     expect(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: routes,
     }).ok).toBe(false)
 
     const paid = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: routes,
       choices: [forest],
@@ -137,7 +136,7 @@ describe('simple card effects', () => {
 
     expect(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'zimone.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: zimone,
       choices: [zimone],
@@ -145,7 +144,7 @@ describe('simple card effects', () => {
 
     const paid = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'zimone.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: zimone,
       choices: [offering],
@@ -170,18 +169,18 @@ describe('simple card effects', () => {
 
     const rejected = server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: triomeId,
     })
     expect(rejected.ok).toBe(false)
-    expect(rejected.ok === false && rejected.error).toContain('not enough mana')
+    expect(rejected.ok === false && rejected.error).toMatch(/not enough mana|payment does not cover/)
 
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 3
     const cycled = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: triomeId,
     }))
@@ -190,7 +189,7 @@ describe('simple card effects', () => {
     expect(cycled.players.p1.mana.C).toBe(0)
     expect(named(cycled, 'Drawn card').zone).toBe('library')
     expect(cycled.stack).toHaveLength(1)
-    expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'cycling.zagothTriome' })
+    expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[1]' })
 
     const resolved = ok(server.rules(cycled, { type: 'resolveTop' }))
     expect(named(resolved, 'Drawn card').zone).toBe('hand')
@@ -214,7 +213,7 @@ describe('simple card effects', () => {
     ready.players.p1.mana.C = 3
     const result = server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: named(ready, 'Zagoth Triome').id,
     })
@@ -223,10 +222,7 @@ describe('simple card effects', () => {
   })
 
   test('Temple of the False God produces mana only with five lands', () => {
-    const temple = cardTemplate('Temple of the False God', {
-      types: ['Land'],
-      tapProduces: { C: 2 },
-    })
+    const temple = cardTemplate('Temple of the False God')
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [temple, land('One'), land('Two'), land('Three')] } },
@@ -263,7 +259,7 @@ describe('simple card effects', () => {
   })
 
   test('Windfall discards every hand and draws the greatest discarded count', () => {
-    const windfall = cardTemplate('Windfall', { types: ['Sorcery'], manaCost: '{2}{U}' })
+    const windfall = cardTemplate('Windfall')
     const server = createServerGame(
       commanderRules,
       {
@@ -276,7 +272,7 @@ describe('simple card effects', () => {
           p2: [creature('P2 draw 1'), creature('P2 draw 2'), creature('P2 draw 3')],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }

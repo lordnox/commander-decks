@@ -1,12 +1,11 @@
 import type { GameState } from '../types'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { legalActsFor } from '../actions'
 import { cardTemplate, planeswalker } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { pendingOptionalManaPayFor } from './optionalManaPay'
-import { optionalManaPay } from './optionalManaPay'
+import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { planeswalker as planeswalkerPlugin } from './planeswalker'
 import { projectForViewer } from '../runtime'
 
@@ -26,7 +25,7 @@ const game = (setup: Parameters<typeof createServerGame>[1] = {}) =>
     players: 2,
     battlefield: { p1: [jace()] },
     ...setup,
-  }, { random: () => 0, cardPlugins: [planeswalkerPlugin, optionalManaPay] })
+  }, { random: () => 0, cardPlugins: [planeswalkerPlugin] })
 
 const jaceId = (state: ReturnType<typeof game>['state']) =>
   Object.values(state.objects).find((object) => object.name === 'Jace, Multiverse Architect')!.id
@@ -59,13 +58,13 @@ describe('Jace, Multiverse Architect', () => {
     const targetJace = jaceId(runtime.state)
     let state = atOpponentBeginCombat(runtime, runtime.state)
     state = resolveStack(runtime.rules, state)
-    expect(pendingOptionalManaPayFor(state, 'p2')).toBeDefined()
+    const offer = pendingOptionSelection(state, 'p2')!
     state.players.p2.mana.C = 2
     state = ok(runtime.rules(state, {
-      type: 'payOptionalMana',
+      type: 'selectOption',
       seat: 'p2',
-      pendingId: pendingOptionalManaPayFor(state, 'p2')!.id,
-      cost: '{2}',
+      selectionId: offer.id,
+      optionId: 'pay',
     }))
     state = { ...state, step: 'declareAttackers', priority: 'p2', active: 'p2' }
     const declared = runtime.rules(state, {
@@ -84,9 +83,10 @@ describe('Jace, Multiverse Architect', () => {
     let state = atOpponentBeginCombat(runtime, runtime.state)
     state = resolveStack(runtime.rules, state)
     state = ok(runtime.rules(state, {
-      type: 'payOptionalMana',
+      type: 'selectOption',
       seat: 'p2',
-      pendingId: pendingOptionalManaPayFor(state, 'p2')!.id,
+      selectionId: pendingOptionSelection(state, 'p2')!.id,
+      optionId: 'decline',
     }))
     state = { ...state, step: 'declareAttackers', priority: 'p2', active: 'p2' }
     const blocked = runtime.rules(state, {
@@ -111,9 +111,10 @@ describe('Jace, Multiverse Architect', () => {
     let state = atOpponentBeginCombat(runtime, runtime.state)
     state = resolveStack(runtime.rules, state)
     state = ok(runtime.rules(state, {
-      type: 'payOptionalMana',
+      type: 'selectOption',
       seat: 'p2',
-      pendingId: pendingOptionalManaPayFor(state, 'p2')!.id,
+      selectionId: pendingOptionSelection(state, 'p2')!.id,
+      optionId: 'decline',
     }))
     state = { ...state, step: 'cleanup', active: 'p2' }
     state = ok(runtime.rules(state, { type: 'advanceStep' }))
@@ -134,18 +135,18 @@ describe('Jace, Multiverse Architect', () => {
     let state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     state = ok(runtime.rules(state, {
       type: 'activateAbility',
-      abilityId: 'jace.plus-one',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: id,
     }))
     state = resolveStack(runtime.rules, state)
     expect(state.zoneOrder.p1.hand.length).toBeGreaterThanOrEqual(2)
-    const actions = legalActsFor(state, 'p1').filter((action) => action.kind === 'selectCards')
-    expect(actions.length).toBeGreaterThan(0)
+    const selection = pendingSelectionFor(state, 'p1')!
     const handCard = state.zoneOrder.p1.hand[0]
     state = ok(runtime.rules(state, {
       type: 'selectCards',
       seat: 'p1',
+      selectionId: selection.id,
       kind: 'choose',
       count: 1,
       objectIds: [handCard],
@@ -170,7 +171,7 @@ describe('Jace, Multiverse Architect', () => {
     let state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     state = ok(runtime.rules(state, {
       type: 'activateAbility',
-      abilityId: 'jace.minus-three',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: id,
       targets: [{ kind: 'object', objectId: sacrificeId }],
@@ -188,7 +189,7 @@ describe('Jace, Multiverse Architect', () => {
     const state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     const activated = runtime.rules(state, {
       type: 'activateAbility',
-      abilityId: 'jace.minus-three',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: id,
       targets: [{ kind: 'object', objectId: id }],
@@ -201,9 +202,7 @@ describe('Jace, Multiverse Architect', () => {
     let state = atOpponentBeginCombat(runtime, runtime.state)
     state = resolveStack(runtime.rules, state)
     const projected = projectForViewer(state, 'p2')
-    expect(pendingOptionalManaPayFor(projected, 'p2')).toBeDefined()
-    const leaked = projectForViewer(state, 'p1')
-    expect(pendingOptionalManaPayFor(leaked, 'p2')).toBeDefined()
-    expect(leaked.players.p2.data).toEqual(projected.players.p2.data)
+    expect(pendingOptionSelection(projected, 'p2')).toBeDefined()
+    expect(pendingOptionSelection(projectForViewer(state, 'p1'), 'p2')).toBeUndefined()
   })
 })

@@ -2,9 +2,7 @@ import { expect, test } from 'bun:test'
 import { onResolve } from './cardPlugins/onResolve'
 import {
   discardCards,
-  loseLife,
   onResolve as onResolveEffect,
-  triggerOn,
 } from './cardPlugins/effects'
 import { commanderRules } from './formats'
 import { createJournal, recordAccepted, restoreJournal } from './journal'
@@ -18,16 +16,7 @@ import { pendingSelectionFor } from './rules/selectCards'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
 
-const caressCard = () => card("Liliana's Caress", ['Enchantment'], {
-  manaCost: '{1}{B}',
-  oracleText: 'Whenever an opponent discards a card, that player loses 2 life.',
-  effects: [
-    triggerOn('discard', {
-      if: { seat: 'opponent' },
-      do: [loseLife(2, 'triggeringPlayer')],
-    }),
-  ],
-})
+const caressCard = () => cardTemplate("Liliana's Caress")
 
 const cryCard = () => card('Cry of Contrition Test', ['Sorcery'], {
   manaCost: '',

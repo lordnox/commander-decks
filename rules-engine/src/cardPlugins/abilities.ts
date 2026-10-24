@@ -1,7 +1,7 @@
 import type { ZoneId } from '../types'
 import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, ModalMode, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
-import { draw, pumpControlled, putPermanentFromGraveyard } from './instructions'
+import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
 
 export const unearth = (manaCost: string): CardEffect =>
@@ -29,16 +29,6 @@ export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
-export const onResolveIfCastOption = (
-  castOption: string,
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'resolve',
-  if: { kind: 'castOption', id: castOption },
-  do: instructions,
-})
-
 export const targetingRequirement = (
   kind: Extract<CardEffect, { op: 'targetingRequirement' }>['kind'],
 ): CardEffect => ({ op: 'targetingRequirement', kind })
@@ -47,18 +37,6 @@ export const playerAuraDeal = (): CardEffect => ({
   op: 'playerAuraDeal',
   drawAtEnchantedEnd: 1,
   breakOnMutualAttack: true,
-})
-
-export const restrictedCreatureMana = (): CardEffect => ({
-  op: 'restrictedMana',
-  creatureOfChosenType: true,
-  uncounterable: true,
-})
-
-export const restrictedLegendaryMana = (): CardEffect => ({
-  op: 'restrictedMana',
-  legendary: true,
-  uncounterable: true,
 })
 
 export const bestow = (
@@ -354,20 +332,6 @@ export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect
   costs,
 })
 
-export const splitBasicLandSearch = (): SearchSpec => ({
-  prompt: 'Search your library for up to two basic land cards. Put one onto the battlefield tapped and the other into your hand.',
-  match: basicLand,
-  destination: 'battlefield',
-  min: 0,
-  max: 2,
-  split: {
-    battlefield: { min: 0, max: 1, tapped: true },
-    hand: { min: 0, max: 1 },
-    totalMax: 2,
-    paired: true,
-  },
-})
-
 export const optionalBasicLandEnters = (): SearchSpec => ({
   prompt: 'Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.',
   match: basicLand,
@@ -378,9 +342,6 @@ export const optionalBasicLandEnters = (): SearchSpec => ({
   sacrificeSource: false,
   optionalEnter: true,
 })
-
-export const pumpControlledNonHuman = (power: number, toughness: number) =>
-  pumpControlled(power, toughness, { nonHuman: true })
 
 export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
   op: 'modal',

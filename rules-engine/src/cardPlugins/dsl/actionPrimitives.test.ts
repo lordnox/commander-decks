@@ -1,6 +1,9 @@
+import { resolveStack } from '../../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import {
   amount,
+  activated,
+  tapCost,
   card,
   compareAmount,
   createToken,
@@ -71,4 +74,26 @@ describe('actionPrimitives', () => {
     expect(proliferate({ targets: ref('controller') }).kind).toBe('proliferate')
     expect(sequence(destroy({ targets: objects({}) })).kind).toBe('sequence')
   })
+})
+
+test.each([0, 1, 3].flatMap(library => [false, true].map(countered => ({ library, countered }))))('activated mill waits for resolution and survives restore (%j)', ({ library, countered }) => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [tapCost()], instructions: [mill({ targets: ref('controller'), count: 2 })] })])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Mill activation fixture', { types: ['Artifact'], ruleDefinition: definition })] },
+    libraries: { p1: Array.from({ length: library }, (_, index) => cardTemplate(`Library fixture ${index}`, { types: ['Instant'] })) },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]
+  let state = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(state.objects[source].tapped).toBe(true)
+  expect(state.stack).toHaveLength(1)
+  expect(state.zoneOrder.p1.library).toHaveLength(library)
+  expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+  state = JSON.parse(JSON.stringify(state))
+  if (countered) state = ok(server.rules(state, { type: 'counterStackItem', stackId: state.stack[0].id }))
+  state = resolveStack(server.rules, state)
+  const moved = countered ? 0 : Math.min(2, library)
+  expect(state.zoneOrder.p1.library).toHaveLength(library - moved)
+  expect(state.zoneOrder.p1.graveyard).toHaveLength(moved)
+  expect(state.stack).toHaveLength(0)
 })

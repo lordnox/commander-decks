@@ -7,7 +7,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState, ManaPool } from '../types'
-import { combatPreventionCards } from './combatPreventionCards'
 
 const spell = (name: string, manaCost: string) =>
   cardTemplate(name, { types: ['Instant'], manaCost })
@@ -64,7 +63,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
           p2: [creature('First Attacker'), creature('Second Attacker')],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 1, B: 1 })
@@ -73,7 +72,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
     }
     const resolved = castAndResolve(server, ready, 'Batwing Brume')
     expect(resolved.players.p2.life).toBe(38)
-    expect(resolved.rules.some((rule) => rule.pluginId === 'fog')).toBe(true)
+    expect(resolved.preventionInstances?.[0]?.remaining).toBe('unlimited')
     expect(ok(server.rules(resolved, {
       type: 'combatDamage',
       sourceId: named(resolved, 'First Attacker').id,
@@ -95,7 +94,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 1, C: 3 })
@@ -134,7 +133,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
           p2: [creature('Raider', 3)],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 1, U: 1 })
@@ -183,7 +182,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
           p2: [creature('Enemy', 4)],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 1, C: 1 })
@@ -226,7 +225,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
         hands: { p1: [spell('Inkshield', '{3}{W}{B}')] },
         battlefield: { p2: [creature('Attacker', 3)] },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 1, B: 1, C: 3 })
@@ -270,7 +269,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = mana({ W: 2, C: 2 })
@@ -343,16 +342,19 @@ describe('Lady Evangela advanced combat prevention cards', () => {
         },
         battlefield: { p2: [creature('Target')] },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const state = structuredClone(server.state)
     state.players.p1.mana = mana({ W: 3, U: 1, C: 2 })
     const acts = legalActsFor(state, 'p1')
     const settle = acts.filter((action) =>
       action.kind === 'castSpell' && action.name === 'Settle the Wreckage')
-    expect(settle).toHaveLength(4)
-    expect(settle.every((action) =>
-      action.kind === 'castSpell' && Boolean(action.targetPlayerId))).toBe(true)
+    expect(settle).toHaveLength(1)
+    const settleAct = settle[0]
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0]).toMatchObject({
+      kind: 'player', min: 1, max: 1,
+    })
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0].targets).toHaveLength(4)
     const energy = acts.find((action) =>
       action.kind === 'castSpell' && action.name === 'Energy Arc')
     expect(energy?.kind === 'castSpell' && energy.targetGroups?.[0].max).toBe(1)

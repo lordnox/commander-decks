@@ -1,14 +1,15 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { freezeDraft, makeDraft } from '../draft'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, PlayerId, ReduceResult } from '../types'
-import { targetOnResolve } from './effectBuilders'
+import { snapshotFor } from '../cards/snapshot'
+import { destroy, objects, select, spell, target } from './dsl/v1'
 import { onResolve } from './onResolve'
-import { stackCopy, stackCopyPending, stackCopyTargetCandidates } from './stackCopy'
+import { stackCopyPending } from './stackCopy'
 import { targetedResolve } from './targetedResolve'
 import { pendingVote, vote } from './vote'
 
@@ -34,19 +35,27 @@ const server = (options: Parameters<typeof createServerGame>[1]): Server =>
   createServerGame(
     commanderRules,
     { players: 4, ...options },
-    { random: () => 0.5, cardPlugins: [onResolve, targetedResolve, vote, stackCopy] },
+    { random: () => 0.5, cardPlugins: [onResolve, targetedResolve, vote] },
   )
 
 const split = () =>
   cardTemplate('Split Decision', { types: ['Instant'], manaCost: '{1}{U}', manaValue: 2 })
-const trap = () =>
-  cardTemplate('Trap the Trespassers', { types: ['Instant'], manaCost: '{2}{U}', manaValue: 3 })
 
 const smite = () => cardTemplate('Smite', {
   types: ['Instant'],
   manaCost: '{R}',
   manaValue: 1,
-  effects: [targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' })],
+  ruleDefinition: snapshotFor([
+    spell({
+      decisions: {
+        targets: [select({
+          filter: objects({ zone: 'battlefield', type: 'Creature' }),
+          count: 1,
+        })],
+      },
+      instructions: [destroy({ targets: target(0) })],
+    }),
+  ]),
 })
 
 const withMana = (state: GameState, seats: PlayerId[]) => {
@@ -100,7 +109,7 @@ const splitVote = () => {
     type: 'castSpell',
     seat: 'p1',
     objectId: named(state, 'Split Decision').id,
-    targets: [{ kind: 'object', objectId: named(state, 'Smite').id }],
+    targets: [{ kind: 'stackItem', stackId: state.stack[0].id }],
   }))
   return { game, state: ok(game.rules(state, { type: 'resolveTop' })) }
 }
@@ -117,12 +126,6 @@ describe('Split Decision', () => {
     let state = withMana(game.state, ['p1', 'p3'])
     state.step = 'precombatMain'
     state.active = 'p3'
-    const castSplit = (targetName: string) => game.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Split Decision').id,
-      targets: [{ kind: 'object', objectId: named(state, targetName).id }],
-    })
     state.priority = 'p3'
     state = ok(game.rules(state, {
       type: 'castSpell',
@@ -130,10 +133,16 @@ describe('Split Decision', () => {
       objectId: named(state, 'Grizzly').id,
     }))
     state.priority = 'p1'
+    const castSplit = (targets: GameState['stack'][number]['targets']) => game.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(state, 'Split Decision').id,
+      targets,
+    })
     // A permanent on the battlefield, a creature spell, and the spell itself are all illegal.
-    expect(castSplit('Bear').ok).toBe(false)
-    expect(castSplit('Grizzly').ok).toBe(false)
-    expect(castSplit('Split Decision').ok).toBe(false)
+    expect(castSplit([{ kind: 'object', objectId: named(state, 'Bear').id }]).ok).toBe(false)
+    expect(castSplit([{ kind: 'stackItem', stackId: state.stack[0].id }]).ok).toBe(false)
+    expect(castSplit([{ kind: 'object', objectId: named(state, 'Split Decision').id }]).ok).toBe(false)
   })
 
   test('the vote starts with the caster, and every ballot is public', () => {
@@ -174,27 +183,32 @@ describe('Split Decision', () => {
   test('a tie copies the spell, and only the caster may choose new targets for the copy', () => {
     const { game, state } = splitVote()
     const done = castVotes(game, state, ballot(TIE))
-    const pending = stackCopyPending(done)!
-    expect(pending).toMatchObject({ seat: 'p1' })
-    expect(done.priority).toBe('p1')
-    expect(stackCopyTargetCandidates(done, pending).map((object) => object.name).sort())
-      .toEqual(['Bear', 'Boar'])
-
-    const copy = (seat: PlayerId, accept: boolean, objectId?: string) =>
-      game.rules(done, {
-        type: 'copyStackItem',
-        seat,
-        sourceId: pending.sourceId,
-        stackId: pending.stackId,
-        accept,
-        ...(objectId ? { targets: [{ kind: 'object' as const, objectId }] } : {}),
-      })
-    expect(copy('p2', true).ok).toBe(false)
-    expect(copy('p1', false).ok).toBe(false)
-    expect(copy('p1', true, named(done, 'Split Decision').id).ok).toBe(false)
+    const offer = pendingOptionSelection(done, 'p1')!
+    expect(offer.options.map((option) => option.id)).toEqual(['keep', 'retarget'])
+    expect(pendingOptionSelection(done, 'p2')).toBeUndefined()
+    expect(answer(game, done, 'p2', 'keep').ok).toBe(false)
     expect(game.rules(done, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
 
-    let next = ok(copy('p1', true, named(done, 'Boar').id))
+    let next = ok(answer(game, done, 'p1', 'retarget'))
+    const pick = pendingSelectionFor(next, 'p1')!
+    expect(pick.candidates.map((id) => next.objects[id].name).toSorted()).toEqual(['Bear', 'Boar'])
+    expect(game.rules(next, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: pick.id,
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(next, 'Split Decision').id],
+    }).ok).toBe(false)
+
+    next = ok(game.rules(next, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: pick.id,
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(next, 'Boar').id],
+    }))
     expect(stackCopyPending(next)).toBeUndefined()
     expect(next.stack.map((item) => [item.name, item.copy ?? false, item.controller])).toEqual([
       ['Smite', true, 'p1'],
@@ -209,14 +223,7 @@ describe('Split Decision', () => {
   test('duplication with more votes copies the spell, and the copy may keep its targets', () => {
     const { game, state } = splitVote()
     const done = castVotes(game, state, ballot(COPY))
-    const pending = stackCopyPending(done)!
-    const next = ok(game.rules(done, {
-      type: 'copyStackItem',
-      seat: 'p1',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: true,
-    }))
+    const next = ok(answer(game, done, 'p1', 'keep'))
     expect(next.stack[0]).toMatchObject({
       copy: true,
       controller: 'p1',
@@ -248,148 +255,25 @@ describe('Split Decision', () => {
     expect(pendingOptionSelection(reloaded, 'p3')).toBeDefined()
 
     const done = castVotes(server({}), reloaded, [['p3', 'denial'], ['p4', 'duplication']])
-    const pending = stackCopyPending(done)!
-    expect(pending).toMatchObject({ seat: 'p1' })
+    expect(pendingOptionSelection(done, 'p1')?.options.map((option) => option.id))
+      .toEqual(['keep', 'retarget'])
     const afterRestart = structuredClone(done)
-    const next = ok(server({}).rules(afterRestart, {
-      type: 'copyStackItem',
+    let next = ok(server({}).rules(afterRestart, {
+      type: 'selectOption',
       seat: 'p1',
-      sourceId: pending.sourceId,
-      stackId: pending.stackId,
-      accept: true,
-      targets: [{ kind: 'object', objectId: named(afterRestart, 'Boar').id }],
+      selectionId: pendingOptionSelection(afterRestart, 'p1')!.id,
+      optionId: 'retarget',
+    }))
+    const pick = pendingSelectionFor(next, 'p1')!
+    next = ok(server({}).rules(next, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: pick.id,
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(next, 'Boar').id],
     }))
     expect(next.stack[0]).toMatchObject({ copy: true })
     expect(stackCopyPending(next)).toBeUndefined()
-  })
-})
-
-describe('Trap the Trespassers', () => {
-  const board = {
-    battlefield: {
-      p1: [bear('Ally')],
-      p2: [bear('Bear')],
-      p3: [bear('Boar')],
-      p4: [bear('Elk')],
-    },
-  }
-
-  const open = (battlefield: Record<PlayerId, ReturnType<typeof bear>[]> = board.battlefield) => {
-    const game = server({ battlefield, hands: { p1: [trap()] } })
-    const ready = withMana(game.state, ['p1'])
-    ready.step = 'precombatMain'
-    const cast = ok(game.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Trap the Trespassers').id,
-    }))
-    return { game, state: ok(game.rules(cast, { type: 'resolveTop' })) }
-  }
-
-  test('the options are only creatures the caster does not control, voting starts with the caster', () => {
-    const { game, state } = open()
-    const pending = pendingVote(state)!
-    expect(pending).toMatchObject({ owner: 'p1', secret: true, voters: ['p1', 'p2', 'p3', 'p4'] })
-    expect(pending.options.map((option) => option.label).sort()).toEqual(['Bear', 'Boar', 'Elk'])
-    expect(pending.options.some((option) => option.id === named(state, 'Ally').id)).toBe(false)
-    expect(answer(game, state, 'p1', named(state, 'Ally').id).ok).toBe(false)
-    expect(answer(game, state, 'p2', named(state, 'Bear').id).ok).toBe(false)
-    expect(answer(game, state, 'p1', 'nonsense').ok).toBe(false)
-  })
-
-  test('each seat sees only its own vote until all votes are in', () => {
-    const { game, state } = open()
-    const [bearId, boarId] = ['Bear', 'Boar'].map((name) => named(state, name).id)
-    const afterTwo = castVotes(game, state, [['p1', bearId], ['p2', boarId]])
-    expect(pendingVote(projectForViewer(afterTwo, 'p1'))?.votes).toEqual({ p1: bearId, p2: '*' })
-    expect(pendingVote(projectForViewer(afterTwo, 'p2'))?.votes).toEqual({ p1: '*', p2: boarId })
-    expect(pendingVote(projectForViewer(afterTwo, 'p3'))?.votes).toEqual({ p1: '*', p2: '*' })
-    expect(pendingVote(projectForViewer(afterTwo, null))?.votes).toEqual({ p1: '*', p2: '*' })
-    expect(named(afterTwo, 'Bear').counters.stun).toBeUndefined()
-    expect(named(afterTwo, 'Bear').tapped).toBe(false)
-  })
-
-  test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {
-    const { game, state } = open()
-    const [bearId, boarId] = ['Bear', 'Boar'].map((name) => named(state, name).id)
-    // The caster votes too, and every vote is for an opponent's creature.
-    const done = castVotes(game, state, [
-      ['p1', bearId], ['p2', bearId], ['p3', bearId], ['p4', boarId],
-    ])
-    expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 3 }, tapped: true })
-    expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
-    expect(named(done, 'Elk')).toMatchObject({ counters: {}, tapped: false })
-    expect(named(done, 'Ally')).toMatchObject({ counters: {}, tapped: false })
-    expect(pendingVote(done)).toBeUndefined()
-    expect(named(done, 'Trap the Trespassers').zone).toBe('graveyard')
-    // The votes are revealed once they are all in.
-    expect(done.log.some((line) => line.includes('p4 for Boar'))).toBe(true)
-  })
-
-  test('an already tapped creature still gains the counters, and votes may all differ', () => {
-    const { game, state } = open()
-    const [bearId, boarId, elkId] = ['Bear', 'Boar', 'Elk'].map((name) => named(state, name).id)
-    const tapped = structuredClone(state)
-    tapped.objects[bearId].tapped = true
-    const done = castVotes(game, tapped, [
-      ['p1', bearId], ['p2', boarId], ['p3', elkId], ['p4', bearId],
-    ])
-    expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 2 }, tapped: true })
-    expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
-    expect(named(done, 'Elk')).toMatchObject({ counters: { stun: 1 }, tapped: true })
-  })
-
-  test('stun counters replace the next untaps one at a time', () => {
-    const { game, state } = open()
-    const bearId = named(state, 'Bear').id
-    const stunned = castVotes(game, state, [
-      ['p1', bearId], ['p2', bearId], ['p3', bearId], ['p4', bearId],
-    ])
-    expect(named(stunned, 'Bear').counters.stun).toBe(4)
-    let next = stunned
-    for (let remaining = 3; remaining >= 0; remaining -= 1) {
-      next = ok(game.rules(next, { type: 'untap', objectId: bearId }))
-      expect(named(next, 'Bear').tapped).toBe(true)
-      expect(named(next, 'Bear').counters.stun ?? 0).toBe(remaining)
-    }
-    expect(named(ok(game.rules(next, { type: 'untap', objectId: bearId })), 'Bear').tapped)
-      .toBe(false)
-  })
-
-  test('a voted creature that left the battlefield is skipped', () => {
-    const { game, state } = open()
-    const bearId = named(state, 'Bear').id
-    const boarId = named(state, 'Boar').id
-    const voted = castVotes(game, state, [['p1', bearId], ['p2', boarId], ['p3', bearId]])
-    // Model an external effect removing the voted object. Ordinary game actions
-    // cannot interleave with the resolution's open vote.
-    const draft = makeDraft(voted)
-    draft.move(bearId, 'graveyard')
-    const gone = freezeDraft(draft)
-    const done = castVotes(game, gone, [['p4', boarId]])
-    expect(named(done, 'Bear')).toMatchObject({ zone: 'graveyard', counters: {}, tapped: false })
-    expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 2 }, tapped: true })
-  })
-
-  test('with no creature the caster does not control there is nothing to vote on', () => {
-    const { state } = open({ p1: [bear('Ally')] })
-    expect(pendingVote(state)).toBeUndefined()
-    for (const seat of ['p1', 'p2', 'p3', 'p4']) {
-      expect(pendingOptionSelection(state, seat)).toBeUndefined()
-    }
-    expect(named(state, 'Ally')).toMatchObject({ counters: {}, tapped: false })
-    expect(named(state, 'Trap the Trespassers').zone).toBe('graveyard')
-    expect(state.stack).toHaveLength(0)
-  })
-
-  test('an open secret vote survives a host restart and keeps hiding votes', () => {
-    const { game, state } = open()
-    const bearId = named(state, 'Bear').id
-    const midway = castVotes(game, state, [['p1', bearId]])
-    const reloaded = structuredClone(midway)
-    expect(pendingVote(reloaded)?.votes).toEqual({ p1: bearId })
-    expect(pendingVote(projectForViewer(reloaded, 'p2'))?.votes).toEqual({ p1: '*' })
-    const done = castVotes(server({}), reloaded, [['p2', bearId], ['p3', bearId], ['p4', bearId]])
-    expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 4 }, tapped: true })
   })
 })

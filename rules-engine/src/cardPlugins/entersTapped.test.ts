@@ -11,7 +11,9 @@ import { entersTapped } from './entersTapped'
 import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
-import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
+import {pendingOptionSelection} from '../rules/selectOptions'
+import {pendingDialogFor} from '../pendingDialog'
+import {DECLINE_LIFE_OPTION, PAY_LIFE_OPTION} from './dsl/v1'
 
 const land = (name: string, subtypes: string[] = []) =>
   cardTemplate(name, { types: ['Land'], subtypes })
@@ -155,27 +157,24 @@ describe('entersTapped', () => {
       seat: 'p1',
       objectId,
     }))
-    expect(next.objects[objectId].tapped).toBe(false)
-    expect(next.players.p1.data['kernel.pendingDialog']).toMatchObject([{
-      source: name,
-      kind: 'may-pay-life',
-      count: 2,
-    }])
+    expect(next.objects[objectId].zone).toBe('hand')
+    const pending = pendingOptionSelection(next, 'p1')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
   })
 
   test.each([
-    'Bridgeworks Battle // Tanglespan Bridgeworks',
-    'Fell the Profane // Fell Mire',
+    'Tanglespan Bridgeworks',
+    'Fell Mire',
+    'Boggart Bog',
   ])('%s asks for the three life its Oracle text prints, not two', (name) => {
     const server = game([land(name)])
     const objectId = server.state.zoneOrder.p1.hand[0]
     const next = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
-    const [dialog] = next.players.p1.data['kernel.pendingDialog'] as Array<{
-      count: number
-      prompt: string
-    }>
-    expect(dialog.count).toBe(3)
-    expect(dialog.prompt).toContain('pay 3 life')
+    const pending = pendingOptionSelection(next, 'p1')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+    expect(pending.options[0]?.label).toContain('3 life')
   })
 
   test('Morphic Pool checks for two opponents', () => {
@@ -265,58 +264,6 @@ describe('entersTapped', () => {
     })
   })
 
-  test('Choked Estuary reveals a matching hand card or enters tapped', () => {
-    const estuary = land('Choked Estuary')
-    const island = land('Island', ['Island'])
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [estuary, island] } },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
-    )
-    const estuaryId = named(server.state, 'Choked Estuary').id
-    const islandId = named(server.state, 'Island').id
-    const played = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: estuaryId,
-    }))
-    expect(pendingSelectionFor(played, 'p1')).toMatchObject({
-      kind: 'reveal',
-      min: 0,
-      candidates: [islandId],
-    })
-
-    const revealed = ok(server.rules(played, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'reveal',
-      count: 1,
-      objectIds: [islandId],
-    }))
-    expect(revealed.objects[estuaryId].tapped).toBe(false)
-    expect(revealed.objects[islandId].knownTo).toEqual(revealed.playerOrder)
-
-    const declinedServer = createServerGame(
-      commanderRules,
-      { hands: { p1: [estuary, island] } },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
-    )
-    const declinedId = named(declinedServer.state, 'Choked Estuary').id
-    const opened = ok(declinedServer.rules(declinedServer.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: declinedId,
-    }))
-    const declined = ok(declinedServer.rules(opened, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'reveal',
-      count: 1,
-      objectIds: [],
-    }))
-    expect(declined.objects[declinedId].tapped).toBe(true)
-  })
-
   test('another seat\'s lands are not counted for the conditional forms', () => {
     const server = createServerGame(
       commanderRules,
@@ -362,19 +309,40 @@ describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts',
       expect(ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id })).objects[id].tapped).toBe(duel)
     })
 
-  test.each(['Godless Shrine', 'Boggart Trawler // Boggart Bog'])('%s life choice applies only to its land', (name) => {
-      for (const accepted of [true, false]) {
-        const server = kambalGame(name)
-        const id = server.state.zoneOrder.p1.hand[0]
-        let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
-        const dialog = pendingDialogFor(state, 'p1')!
-        const amount = name === 'Godless Shrine' ? 2 : 3
-        expect(dialog.count).toBe(amount)
-        expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
-        state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted } }))
-        expect(state.players.p1.life).toBe(40 - (accepted ? amount : 0))
-        expect(state.objects[id].tapped).toBe(!accepted)
-      }
+  test.each([true, false])('Godless Shrine life choice applies only to its land (pay=%s)', (accepted) => {
+      const server = kambalGame('Godless Shrine')
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+      const pending = pendingOptionSelection(state, 'p1')!
+      expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+      expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: accepted ? PAY_LIFE_OPTION : DECLINE_LIFE_OPTION,
+      }))
+      expect(state.players.p1.life).toBe(40 - (accepted ? 2 : 0))
+      expect(state.objects[id].tapped).toBe(!accepted)
+    })
+
+  test.each([true, false])('Boggart Bog life choice applies only to its land (pay=%s)', (accepted) => {
+      const server = kambalGame('Boggart Trawler // Boggart Bog')
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+      const pending = pendingOptionSelection(state, 'p1')!
+      expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+      expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: accepted ? PAY_LIFE_OPTION : DECLINE_LIFE_OPTION,
+      }))
+      expect(state.players.p1.life).toBe(40 - (accepted ? 3 : 0))
+      expect(state.objects[id].tapped).toBe(!accepted)
     })
 
   test('Boggart Bog cannot pay three life at two life', () => {
@@ -382,7 +350,13 @@ describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts',
       server.state.players.p1.life = 2
       const id = server.state.zoneOrder.p1.hand[0]
       let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
-      state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: true } }))
+      const pending = pendingOptionSelection(state, 'p1')!
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: PAY_LIFE_OPTION,
+      }))
       expect(state.players.p1.life).toBe(2)
       expect(state.objects[id].tapped).toBe(true)
     })

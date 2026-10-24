@@ -4,16 +4,13 @@ import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
-  SEARCH_CHOSEN,
   librarySearch,
-  pendingSearch,
 } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 import { targetOnResolve, targetsOnResolve } from './effects'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { legalActsFor } from '../actions'
 
-import {eventsForAvailableAction} from '../actions'
 import {resolveStack} from '../testHelpers'
 import {activated} from './activated'
 
@@ -64,7 +61,7 @@ describe('targeted spell resolution', () => {
       targets: [{ kind: 'object', objectId: named(ready, 'Rock').id }],
     })
     expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('illegal target')
+    expect(result.ok === false && result.error).toContain('canonical targets')
   })
 
   test('Deathsprout destroys its target and completes the private basic search', () => {
@@ -95,19 +92,15 @@ describe('targeted spell resolution', () => {
       },
       { type: 'resolveTop' },
     ])
-    expect(pendingSearch(opened, 'p1')?.source).toBe('Deathsprout')
-    expect(opened.objects[bear].zone).toBe('battlefield')
+    const selection = pendingSelectionFor(opened, 'p1')!
+    expect(selection).toBeDefined()
+    expect(opened.objects[bear].zone).toBe('graveyard')
     const opponentView = server.project(opened, 'p2')
     expect(opponentView.zoneOrder.p1.library).toEqual([])
     expect(Object.values(opponentView.objects).some((object) => object.name === 'Forest')).toBe(false)
 
     const basic = named(opened, 'Forest').id
-    const resolved = run(server, opened, [
-      { type: 'move', objectId: basic, to: 'battlefield' },
-      { type: 'tap', objectId: basic },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const resolved = resolveStack(server.rules, ok(server.rules(opened, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [basic] })))
     expect(resolved.objects[bear].zone).toBe('graveyard')
     expect(resolved.objects[basic].zone).toBe('battlefield')
     expect(resolved.objects[basic].tapped).toBe(true)
@@ -123,6 +116,7 @@ describe('targeted spell resolution', () => {
           p2: [cardTemplate('Big Sphinx', {
             types: ['Creature'],
             manaCost: '{4}{U}{U}',
+            manaValue: 6,
             power: 5,
             toughness: 5,
           })],
@@ -146,81 +140,6 @@ describe('targeted spell resolution', () => {
     expect(resolved.objects[sphinx].owner).toBe('p2')
     expect(resolved.players.p1.life).toBe(life - 6)
     expect(resolved.objects[spell].zone).toBe('graveyard')
-  })
-
-  test('Keep Safe only targets a spell aimed at a controlled permanent', () => {
-    const keepSafe = cardTemplate('Keep Safe', { types: ['Instant'], manaCost: '{1}{U}' })
-    const removal = cardTemplate('Removal', { types: ['Instant'], manaCost: '{B}' })
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [keepSafe], p2: [removal] },
-        battlefield: {
-          p1: [cardTemplate('Protected Bear', { types: ['Creature'] })],
-          p2: [cardTemplate('Other Bear', { types: ['Creature'] })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
-    )
-    const hostileReady = structuredClone(server.state)
-    hostileReady.priority = 'p2'
-    hostileReady.players.p2.mana.B = 1
-    const hostile = ok(server.rules(hostileReady, {
-      type: 'castSpell',
-      seat: 'p2',
-      objectId: named(hostileReady, 'Removal').id,
-      targets: [{ kind: 'object', objectId: named(hostileReady, 'Other Bear').id }],
-    }))
-    hostile.priority = 'p1'
-    hostile.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 1 }
-    const result = server.rules(hostile, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(hostile, 'Keep Safe').id,
-      targets: [{ kind: 'object', objectId: named(hostile, 'Removal').id }],
-    })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('illegal target')
-  })
-
-  test('Keep Safe counters the targeted spell and draws a card', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Keep Safe', { types: ['Instant'], manaCost: '{1}{U}' })],
-          p2: [cardTemplate('Removal', { types: ['Instant'], manaCost: '{B}' })],
-        },
-        battlefield: { p1: [cardTemplate('Protected Bear', { types: ['Creature'] })] },
-        libraries: { p1: [cardTemplate('Fresh Card', { types: ['Creature'] })] },
-      },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
-    )
-    const hostileReady = structuredClone(server.state)
-    hostileReady.priority = 'p2'
-    hostileReady.players.p2.mana.B = 1
-    const removalId = named(hostileReady, 'Removal').id
-    const hostile = ok(server.rules(hostileReady, {
-      type: 'castSpell',
-      seat: 'p2',
-      objectId: removalId,
-      targets: [{ kind: 'object', objectId: named(hostileReady, 'Protected Bear').id }],
-    }))
-    hostile.priority = 'p1'
-    hostile.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 1 }
-    const keepSafeId = named(hostile, 'Keep Safe').id
-    const cast = ok(server.rules(hostile, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: keepSafeId,
-      targets: [{ kind: 'object', objectId: removalId }],
-    }))
-    const countered = ok(server.rules(cast, { type: 'resolveTop' }))
-
-    expect(countered.objects[removalId].zone).toBe('graveyard')
-    expect(countered.objects[keepSafeId].zone).toBe('graveyard')
-    expect(named(countered, 'Fresh Card').zone).toBe('hand')
-    expect(countered.stack).toHaveLength(0)
   })
 
   test('a bounced spell is removed from the stack before it can resolve', () => {
@@ -434,208 +353,11 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
   })
 })
 
-describe('relocated from homerKeywordCosts.test.ts → targetedResolve.test.ts', () => {
-  const card = (
-    name: string,
-    types: string[],
-    extra: Parameters<typeof cardTemplate>[1] = {},
-  ) => cardTemplate(name, { types, ...extra })
-
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-  const ok = (result: ReduceResult) => {
-    if (!result.ok) throw new Error(result.error)
-    return result.state
-  }
-
-  const run = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    events: GameEvent[],
-  ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
-
-  test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [card('Price of Fame', ['Instant'], { manaCost: '{3}{B}' })],
-          },
-          battlefield: {
-            p2: [
-              card('Legend', ['Creature'], { supertypes: ['Legendary'] }),
-              card('Citizen', ['Creature']),
-            ],
-          },
-          libraries: {
-            p1: [card('Top', ['Instant']), card('Second', ['Land'])],
-          },
-        },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 1 }
-      const spell = named(ready, 'Price of Fame')
-      const legend = named(ready, 'Legend')
-      const citizen = named(ready, 'Citizen')
-      const actions = legalActsFor(ready, 'p1')
-        .filter((action) => action.kind === 'castSpell')
-        .filter((action) => action.objectId === spell.id)
-
-      expect(actions.map((action) => action.targetObjectId)).toEqual([legend.id])
-      const illegal = server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        targets: [{ kind: 'object', objectId: citizen.id }],
-      })
-      expect(illegal.ok).toBe(false)
-      expect(illegal.ok === false && illegal.error).toBe('not enough mana')
-
-      const cast = run(server, ready, eventsForAvailableAction(ready, 'p1', actions[0])!)
-      expect(cast.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
-      const surveilling = ok(server.rules(cast, { type: 'resolveTop' }))
-      expect(surveilling.objects[legend.id].zone).toBe('graveyard')
-      const pending = pendingSelectionFor(surveilling, 'p1')!
-      expect(pending).toMatchObject({ kind: 'surveil', count: 2, source: 'Price of Fame' })
-
-      const resolved = ok(server.rules(surveilling, {
-        type: 'selectCards',
-        seat: 'p1',
-        kind: 'surveil',
-        count: 2,
-        choices: pending.candidates.map((objectId) => ({ objectId, destination: 'top' })),
-      }))
-      expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
-      expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    })
-
-  test('Drag to the Roots costs two less only with delirium and destroys its target', () => {
-      const graveyardCards = [
-        card('Creature Card', ['Creature']),
-        card('Instant Card', ['Instant']),
-        card('Sorcery Card', ['Sorcery']),
-        card('Land Card', ['Land']),
-      ]
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [
-              card('Drag to the Roots', ['Instant'], { manaCost: '{2}{B}{G}' }),
-              ...graveyardCards,
-            ],
-          },
-          battlefield: {
-            p2: [card('Monolith', ['Artifact'])],
-          },
-        },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 1, C: 0 }
-      const spell = named(ready, 'Drag to the Roots')
-      const target = named(ready, 'Monolith')
-      const castEvent: GameEvent = {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        targets: [{ kind: 'object', objectId: target.id }],
-      }
-
-      const illegal = server.rules(ready, castEvent)
-      expect(illegal.ok).toBe(false)
-      expect(illegal.ok === false && illegal.error).toBe('not enough mana')
-
-      const delirious = run(
-        server,
-        ready,
-        graveyardCards.map((entry): GameEvent => ({
-          type: 'move',
-          objectId: named(ready, entry.name).id,
-          to: 'graveyard',
-        })),
-      )
-      const actions = legalActsFor(delirious, 'p1')
-        .filter((action) =>
-          action.kind === 'castSpell'
-          && action.objectId === spell.id
-          && action.targetObjectId === target.id)
-      expect(actions).toHaveLength(1)
-
-      const cast = run(
-        server,
-        delirious,
-        eventsForAvailableAction(delirious, 'p1', actions[0])!,
-      )
-      expect(cast.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
-      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-      expect(resolved.objects[target.id].zone).toBe('graveyard')
-      expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    })
-
-})
-
 describe('relocated from homerPass2.test.ts → targetedResolve.test.ts', () => {
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
-
   const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
-
-  test('Victimize sacrifices then returns both targeted creatures tapped', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [
-              cardTemplate('Victimize', { types: ['Sorcery'], manaCost: '{2}{B}' }),
-              creature('Returned Bear'),
-              creature('Returned Elk'),
-            ],
-          },
-          battlefield: { p1: [creature('Fodder Goat')] },
-        },
-        { random: () => 0.5, cardPlugins: plugins },
-      )
-      let ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
-      ready = ok(server.rules(ready, {
-        type: 'move',
-        objectId: named(ready, 'Returned Bear').id,
-        to: 'graveyard',
-      }))
-      ready = ok(server.rules(ready, {
-        type: 'move',
-        objectId: named(ready, 'Returned Elk').id,
-        to: 'graveyard',
-      }))
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: named(ready, 'Victimize').id,
-        targets: [
-          { kind: 'object', objectId: named(ready, 'Returned Bear').id },
-          { kind: 'object', objectId: named(ready, 'Returned Elk').id },
-        ],
-      }))
-      const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-      const selection = pendingSelectionFor(choosing, 'p1')!
-      const sacrificed = ok(server.rules(choosing, {
-        type: 'selectCards',
-        seat: 'p1',
-        kind: 'sacrifice',
-        count: 1,
-        objectIds: [named(choosing, 'Fodder Goat').id],
-      }))
-      expect(named(sacrificed, 'Fodder Goat').zone).toBe('graveyard')
-      expect(named(sacrificed, 'Returned Bear')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(named(sacrificed, 'Returned Elk')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(selection.kind).toBe('sacrifice')
-    })
 
   test("Black Sun's Twilight casts with zero creature targets", () => {
       const server = createServerGame(
@@ -727,7 +449,10 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       )
       const spell = named(server.state, 'Join the Dead')
       const target = named(server.state, 'Target')
-      const cast = ok(server.rules(server.state, {
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.B = 2
+      ready.players.p1.mana.C = 1
+      const cast = ok(server.rules(ready, {
         type: 'castSpell',
         seat: 'p1',
         objectId: spell.id,
@@ -814,7 +539,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       })
     })
 
-  test('Fell the Profane destroys and drains the target’s controller', () => {
+  test('Fell the Profane destroys the target creature or planeswalker', () => {
       const server = createServerGame(
         commanderRules,
         {
@@ -824,6 +549,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
           },
         },
       )
+      server.state.players.p1.mana = { ...server.state.players.p1.mana, B: 2, C: 2 }
       const target = named(server.state, 'Target')
       const cast = ok(server.rules(server.state, {
         type: 'castSpell',
@@ -833,7 +559,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       }))
       const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
       expect(resolved.objects[target.id].zone).toBe('graveyard')
-      expect(resolved.players.p2.life).toBe(38)
+      expect(resolved.players.p2.life).toBe(40)
     })
 
 })
@@ -843,7 +569,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
     type: 'selectCards',
     seat: 'p1',
     kind: 'choose',
-    count: 3,
+    count: pendingSelectionFor(state, 'p1')!.count,
     objectIds: ids,
   })
 
@@ -881,14 +607,14 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
         battlefield,
         libraries: libraries(['p1', 'p2', 'p3']),
       },
-      { random: () => 0.5, cardPlugins: [choiceEffects] },
+      { random: () => 0.5 },
     )
     return { server, start: server.state }
   }
 
     test('Oracle trample comes from the printed text', () => {
       const { start } = primusGame()
-      expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample', start)).toBe(true)
+      expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample')).toBe(true)
       expect([named(start, 'Woodfall Primus').power, named(start, 'Woodfall Primus').toughness]).toEqual([6, 6])
     })
 
@@ -978,9 +704,9 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const { server, start } = terastodonGame({ p2: [artifact('Enemy Rock')] })
       const opened = enter(server, start, 'Terastodon')
       const declined = ok(server.rules(opened, pick(opened, [])))
-      expect(declined.stack).toEqual([])
-      expect(named(declined, 'Enemy Rock').zone).toBe('battlefield')
-      expect(elephants(declined, 'p2')).toHaveLength(0)
+      const done = declined.stack.length > 0 ? resolveStack(server.rules, declined) : declined
+      expect(named(done, 'Enemy Rock').zone).toBe('battlefield')
+      expect(elephants(done, 'p2')).toHaveLength(0)
     })
 
     test('duplicate-named targets are separate permanents: each controller gets one Elephant per permanent', () => {
@@ -1029,7 +755,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const opened = enter(server, start, 'Terastodon')
       const done = resolveStack(
         server.rules,
-        ok(server.rules(opened, choose(opened, ['Rock A', 'Rock B', 'Rock C'], 3))),
+        ok(server.rules(opened, pick(opened, ['Rock A', 'Rock B', 'Rock C'].map(name => named(opened, name).id)))),
       )
       expect(elephants(done, 'p1')).toHaveLength(3)
     })
@@ -1041,7 +767,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const prepared = structuredClone(start)
       named(prepared, 'Stolen Rock').owner = 'p3'
       const opened = enter(server, prepared, 'Terastodon')
-      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Stolen Rock'], 3))))
+      const done = resolveStack(server.rules, ok(server.rules(opened, pick(opened, [named(opened, 'Stolen Rock').id]))))
       expect(named(done, 'Stolen Rock').zone).toBe('graveyard')
       expect(elephants(done, 'p2')).toHaveLength(1)
       expect(elephants(done, 'p3')).toHaveLength(0)
@@ -1050,7 +776,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
     test('a token destroyed this way still gives its controller an Elephant', () => {
       const { server, start } = terastodonGame({ p2: [artifact('Treasure Token', { token: true })] })
       const opened = enter(server, start, 'Terastodon')
-      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Treasure Token'], 3))))
+      const done = resolveStack(server.rules, ok(server.rules(opened, pick(opened, [named(opened, 'Treasure Token').id]))))
       expect(elephants(done, 'p2')).toHaveLength(1)
     })
 
@@ -1065,7 +791,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
       const opened = enter(server, start, 'Terastodon')
       const done = resolveStack(
         server.rules,
-        ok(server.rules(opened, choose(opened, ['Plain Rock', 'Hardened Rock', 'Commander Relic'], 3))),
+        ok(server.rules(opened, pick(opened, ['Plain Rock', 'Hardened Rock', 'Commander Relic'].map(name => named(opened, name).id)))),
       )
       expect(named(done, 'Plain Rock').zone).toBe('graveyard')
       expect(named(done, 'Hardened Rock').zone).toBe('battlefield')

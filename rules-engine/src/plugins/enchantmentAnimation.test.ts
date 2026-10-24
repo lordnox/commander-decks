@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import {
   addPlusCountersInstruction,
@@ -400,13 +401,8 @@ describe('enchantment animation', () => {
     }])
 
     state = ok(withGraveyard.rules(state, { type: 'resolveTop' }))
-    state = ok(withGraveyard.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [named(state, 'Returned Enchantment').id],
-    }))
+    const option = pendingOptionSelection(state, 'p1')!
+    state = ok(withGraveyard.rules(state, { type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options.find(entry => entry.label === 'Accept')!.id }))
     expect(named(state, 'Returned Enchantment').zone).toBe('battlefield')
   })
 
@@ -430,13 +426,8 @@ describe('enchantment animation', () => {
       objectIds: [named(state, 'Declined Enchantment').id],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [],
-    }))
+    const option = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options.find(entry => entry.label === 'Decline')!.id }))
 
     expect(state.stack).toHaveLength(0)
     expect(named(state, 'Declined Enchantment').zone).toBe('graveyard')

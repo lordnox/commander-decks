@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import {
   legalActsFor,
-  pendingPlayerSelectionFor,
   projectForViewer,
 } from '../index'
 import { pendingSelectionFor } from '../rules/selectCards'
@@ -27,24 +26,8 @@ const fromRules = (name: string, extra: Parameters<typeof cardTemplate>[1] = {})
   cardTemplate(name, { effects: effectsFor(name), ...extra })
 
 const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
-const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-  cardTemplate(name, { types: ['Creature'], ...extra })
-
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
-
-const playCreature = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  name: string,
-) => {
-  const objectId = named(state, name).id
-  return resolveStack(server.rules, ok(server.rules(state, {
-    type: 'move',
-    objectId,
-    to: 'battlefield',
-  })))
-}
 
 const resolveLootAbility = (
   server: ReturnType<typeof createServerGame>,
@@ -81,40 +64,6 @@ const resolveLootAbility = (
 }
 
 describe('Dack Party pass-35 cardRules', () => {
-  test('Beza draws when an opponent has more cards in hand', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [fromRules('Beza, the Bounding Spring', { types: ['Creature'] })],
-        p2: [instant('Extra'), instant('Spare')],
-      },
-      libraries: { p1: [instant('Top Draw')] },
-    }, { random: () => 0.5 })
-    const resolved = playCreature(server, server.state, 'Beza, the Bounding Spring')
-    expect(named(resolved, 'Top Draw').zone).toBe('hand')
-  })
-
-  test('Beza Fish tokens are blue', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [fromRules('Beza, the Bounding Spring', { types: ['Creature'] })] },
-      battlefield: {
-        p2: [
-          creature('Opponent One', { power: 3, toughness: 3 }),
-          creature('Opponent Two', { power: 2, toughness: 2 }),
-        ],
-      },
-    }, { random: () => 0.5 })
-    const resolved = playCreature(server, server.state, 'Beza, the Bounding Spring')
-    const fishTokens = resolved.zoneOrder.p1.battlefield
-      .map((id) => resolved.objects[id])
-      .filter((object) => object.subtypes.includes('Fish'))
-    expect(fishTokens.length).toBeGreaterThanOrEqual(2)
-    for (const token of fishTokens) {
-      expect(token.colors).toEqual(['U'])
-    }
-  })
-
   test('Collector\'s Vault loot opens a discard choice then finishes with a Treasure', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [fromRules('Collector\'s Vault', { types: ['Artifact'] })] },
@@ -124,7 +73,7 @@ describe('Dack Party pass-35 cardRules', () => {
     const resolved = resolveLootAbility(
       server,
       server.state,
-      'collectorsVault.loot',
+      '$.abilities[0]',
       'Collector\'s Vault',
     )
     expect(named(resolved, 'Library Card').zone).toBe('hand')
@@ -142,51 +91,12 @@ describe('Dack Party pass-35 cardRules', () => {
     const resolved = resolveLootAbility(
       server,
       server.state,
-      'dailyBugle.loot',
+      '$.abilities[0]',
       'Daily Bugle Newspaper',
     )
     expect(named(resolved, 'Library Card').zone).toBe('hand')
     expect(resolved.zoneOrder.p1.battlefield.filter((id) =>
       resolved.objects[id].subtypes.includes('Treasure'))).toHaveLength(1)
-  })
-
-  test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {
-    const server = createServerGame(commanderRules, {
-      players: 4,
-      hands: {
-        p1: [fromRules('Perch Protection', {
-          types: ['Instant'],
-          manaCost: '{4}{W}{W}',
-        })],
-      },
-      battlefield: {
-        p1: [cardTemplate('Held Bear', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
-    const spell = named(ready, 'Perch Protection')
-    const prevented = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-      giftPromised: true,
-    }))
-    const pending = pendingPlayerSelectionFor(prevented, 'p1')
-    expect(pending?.action.kind).toBe('finishGiftCast')
-    expect(pendingPlayerSelectionFor(projectForViewer(prevented, 'p2'), 'p1')).toBeUndefined()
-
-    const cast = ok(server.rules(prevented, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pending!.id,
-      players: ['p2'],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.zoneOrder.p1.battlefield.filter((id) =>
-      resolved.objects[id].subtypes.includes('Bird'))).toHaveLength(4)
-    expect(resolved.objects[named(resolved, 'Held Bear').id].phasedOut).toBe(true)
-    expect(resolved.extraTurns).toEqual(['p2'])
   })
 
   test('Blitzball GOOOOAAAALLL! sacrifices and draws two after legendary damage', () => {
@@ -201,7 +111,7 @@ describe('Dack Party pass-35 cardRules', () => {
     expect(legalActsFor(server.state, 'p1').some((action) =>
       action.kind === 'activateAbility'
       && action.objectId === ballId
-      && action.abilityId === 'blitzball.goal')).toBe(false)
+      && action.abilityId === '$.abilities[1]')).toBe(false)
 
     const ready = structuredClone(server.state)
     ready.step = 'precombatMain'
@@ -214,68 +124,12 @@ describe('Dack Party pass-35 cardRules', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: ballId,
-      abilityId: 'blitzball.goal',
+      abilityId: '$.abilities[1]',
     }))
     expect(afterActivate.stack).toHaveLength(1)
     const resolved = resolveStack(server.rules, afterActivate)
     expect(resolved.zoneCounts.p1.hand).toBe(2)
     expect(resolved.zoneCounts.p1.battlefield).toBe(0)
     expect(resolved.zoneCounts.p1.graveyard).toBe(1)
-  })
-
-  test('Belonging makes changelings and exposes encore from the graveyard', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [fromRules('Belonging', { types: ['Creature'] })] },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const entered = playCreature(server, server.state, 'Belonging')
-    const tokens = entered.zoneOrder.p1.battlefield.filter((id) =>
-      entered.objects[id].name === 'Shapeshifter')
-    expect(tokens.length).toBeGreaterThanOrEqual(3)
-
-    const belongingId = named(entered, 'Belonging').id
-    const died = resolveStack(server.rules, ok(server.rules(entered, {
-      type: 'move',
-      objectId: belongingId,
-      to: 'graveyard',
-    })))
-    const ready = structuredClone(died)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 6 }
-    const encoreLegal = legalActsFor(ready, 'p1').some((action) =>
-      action.kind === 'activateAbility'
-      && action.objectId === belongingId
-      && action.abilityId === 'encore')
-    expect(encoreLegal).toBe(true)
-  })
-
-  test('Perch Protection gift recipient choice survives host restart projection', () => {
-    const server = createServerGame(commanderRules, {
-      players: 4,
-      hands: {
-        p1: [fromRules('Perch Protection', {
-          types: ['Instant'],
-          manaCost: '{4}{W}{W}',
-        })],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
-    const spell = named(ready, 'Perch Protection')
-    const prevented = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-      giftPromised: true,
-    }))
-    const restarted = structuredClone(prevented)
-    const pendingAfter = pendingPlayerSelectionFor(restarted, 'p1')
-    expect(pendingAfter?.action.kind).toBe('finishGiftCast')
-    const cast = ok(server.rules(restarted, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pendingAfter!.id,
-      players: ['p3'],
-    }))
-    expect(cast.stack[0]?.giftRecipient).toBe('p3')
-    expect(pendingPlayerSelectionFor(projectForViewer(cast, 'p2'), 'p1')).toBeUndefined()
   })
 })

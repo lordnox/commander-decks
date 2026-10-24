@@ -1,3 +1,6 @@
+import { captureAbilityActivation } from '../rules/triggers'
+import { captureCanonicalWardTriggers } from './ward'
+import { effectiveActivatedDefinition, activatedGrantAt, canonicalActivationIsActive } from './dsl/activatedGrants'
 import { hasUntaxedTapMana } from '../plugins/mana'
 import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import {
@@ -16,15 +19,27 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { evidencePaymentEvents, announcementCostChoices, activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
-import type { AbilityDefinition, Instruction } from './dsl/schema/v1'
+import type { AbilityDefinition, TargetClause } from './dsl/schema/v1'
 import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
+import { canonicalManaAbilityForTap, canonicalManaClassification } from './dsl/manaPrograms'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+
+const groupedActivatedTargets = (
+  targetClauses: readonly TargetClause[],
+  event: Extract<GameEvent, { type: 'activateAbility' }>,
+  partition: () => TargetRef[][] | undefined,
+) => {
+  if (targetClauses.length === 0) return []
+  if (event.targetClauses) return event.targetClauses
+  if (targetClauses.length === 1) return [event.targets ?? []]
+  return partition()
+}
 
 const activatedModalInputs = (state: GameState, source: GameObject, ability: Extract<AbilityDefinition, { kind: 'activated' }>, abilityIndex: number, event: Extract<GameEvent, { type: 'activateAbility' }>) => {
   if (!('modes' in ability)) return undefined
@@ -45,54 +60,6 @@ const activatedModalInputs = (state: GameState, source: GameObject, ability: Ext
       variables: event.x === undefined ? undefined : { X: event.x },
     }),
   }
-}
-
-export const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
-  switch (instruction.kind) {
-    case 'draw':
-    case 'mill':
-      return true
-    case 'move':
-      return instruction.to === 'library'
-        || (instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library')
-    case 'sequence':
-      return instructionMovesLibrary(instruction.instructions)
-    case 'if':
-      return instructionMovesLibrary(instruction.then) || instructionMovesLibrary(instruction.otherwise)
-    case 'chooseInstructions':
-      return instruction.options.some((option) => instructionMovesLibrary(option.instructions))
-    default:
-      return false
-  }
-})
-
-export const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
-  switch (instruction.kind) {
-    case 'addMana': return true
-    case 'sequence': return instructionAddsMana(instruction.instructions)
-    case 'if': return instructionAddsMana(instruction.then) || instructionAddsMana(instruction.otherwise)
-    case 'chooseInstructions': return instruction.options.some((option) => instructionAddsMana(option.instructions))
-    default: return false
-  }
-})
-
-export const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
-  return classifyManaAbility({
-    addsMana: instructionAddsMana(ability.instructions ?? []),
-    abilityKind: 'activated',
-    hasTargets: ability.decisions.targets.length > 0,
-    hasLoyaltyCost: false,
-    movesCards: instructionMovesLibrary(ability.instructions ?? []),
-  })
-}
-
-export const canonicalManaAbilityForTap = (source: GameObject) => {
-  if (!source.ruleDefinition) return undefined
-  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-  return compiled.definition.abilities
-    .map((ability, index) => ({ ability, index }))
-    .find((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
-      entry.ability.kind === 'activated' && canonicalManaClassification(entry.ability).isManaAbility)
 }
 
 const legalActivateTarget = (
@@ -128,10 +95,7 @@ const activatedTargetFilter = (
   return 'filter' in targets ? targets.filter : targets
 }
 
-export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
 export const MILLIKIN_MANA = 'selfMill.millikin'
-export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
-export const OBORO_RETURN = 'selfBounceLand.oboro'
 export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
 
 export const activated: Plugin = {
@@ -140,15 +104,14 @@ export const activated: Plugin = {
     if (event.type === 'tapForMana') {
       const source = state.objects[event.objectId]
       if (!source) return
-      const canonicalMana = canonicalManaAbilityForTap(source)
+      const canonicalMana = canonicalManaAbilityForTap(source, event.mana)
       if (canonicalMana) {
         const permissionError = activationPermission({
           state,
           sourceId: source.id,
           payer: event.seat,
           action: 'tapForMana',
-          sorcerySpeed: canonicalMana.ability.timing === 'sorcery',
-          availableFrom: canonicalMana.ability.availableFrom,
+          ...activatedPermissionFields(canonicalMana.ability),
         })
         if (permissionError) return permissionError
         return
@@ -183,12 +146,13 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = state.objects[event.objectId]
     if (!source) return 'no such object'
-    if (source.ruleDefinition) {
-      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+    if (source.ruleDefinition || source.canonicalGrantedActivations?.length) {
+      const compiled = effectiveActivatedDefinition(source)
       const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
+        if (!canonicalActivationIsActive(source, Number(abilityIndex))) return 'this object has lost that activated ability'
         let modal: ReturnType<typeof activatedModalInputs>
         try {
           modal = activatedModalInputs(state, source, activatedCanonical, Number(abilityIndex), event)
@@ -203,8 +167,7 @@ export const activated: Plugin = {
           sourceId: source.id,
           payer: event.seat,
           action: event.manaAbility ? 'nestedPayment' : 'activate',
-          sorcerySpeed: activatedCanonical.timing === 'sorcery',
-          availableFrom: activatedCanonical.availableFrom,
+          ...activatedPermissionFields(activatedCanonical),
         })
         if (permissionError) return permissionError
         const canonicalTargetErrorMessage = canonicalTargetError(
@@ -222,10 +185,21 @@ export const activated: Plugin = {
           modal?.modeIndices,
         )
         if (canonicalTargetErrorMessage) return canonicalTargetErrorMessage
-        const groupedTargets = targetClauses.length === 0
-          ? []
-          : event.targetClauses
-            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
+        if ((activatedCanonical.instructions ?? []).some(instruction => instruction.kind === 'lockOrUnlockDoor')
+          && event.door !== 'left' && event.door !== 'right') {
+          return `${source.name} needs a door to lock or unlock`
+        }
+        const groupedTargets = groupedActivatedTargets(targetClauses, event, () => {
+          try {
+            return canonicalTargetBindings(
+              state, source, compiled.definition, Number(abilityIndex),
+              event.targets ?? event.targetClauses?.flat() ?? [], undefined, undefined,
+              event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+            ).map(binding => binding.recipients)
+          } catch {
+            return undefined
+          }
+        })
         if (groupedTargets !== undefined) {
           if (selectedDistributionSpecs(activatedCanonical, event.modeIndices).length > 0) {
             try {
@@ -245,8 +219,11 @@ export const activated: Plugin = {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
             }
           }
-          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
-            selectedOptional: event.selectedOptionalCosts,
+          const programChoice = activatedCanonical.instructions?.length === 1 ? activatedCanonical.instructions[0] : undefined
+        if (canonicalManaClassification(activatedCanonical).isManaAbility && programChoice?.kind === 'chooseInstructions' && activatedCanonical.costs.every(cost => cost.kind !== 'discard' && cost.kind !== 'sacrifice') && event.choices?.[0]
+          && !programChoice.options.some(option => option.label === event.choices![0])) return `${source.name} cannot add ${event.choices[0]}`
+        const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
+            evidence: event.evidence, selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             targetClauses,
           })
@@ -372,14 +349,15 @@ export const activated: Plugin = {
   apply: ({ event, draft, state }) => {
     if (event.type === 'tapForMana') {
       const source = draft.object(event.objectId)
-      const canonicalMana = source && canonicalManaAbilityForTap(source)
+      const canonicalMana = source && canonicalManaAbilityForTap(source, event.mana)
       if (source && canonicalMana) {
-        source.tapped = true
         draft.enqueue({
           type: 'activateAbility',
           seat: event.seat,
           objectId: source.id,
           abilityId: `$.abilities[${canonicalMana.index}]`,
+          ...(canonicalMana.modeIndices ? { modeIndices: canonicalMana.modeIndices } : {}),
+          ...(event.mana && canonicalMana.ability.instructions?.some(instruction => instruction.kind === 'addManaFrom' || (instruction.kind === 'chooseInstructions' && instruction.options.some(option => option.label === event.mana))) ? { choices: [event.mana] } : {}),
           manaAbility: true,
         })
       }
@@ -388,8 +366,8 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = draft.object(event.objectId)
     if (!source) return
-    if (source.ruleDefinition) {
-      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+    if (source.ruleDefinition || source.canonicalGrantedActivations?.length) {
+      const compiled = effectiveActivatedDefinition(source)
       const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
       const candidate = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const canonical = candidate?.kind === 'activated' ? candidate : undefined
@@ -397,13 +375,20 @@ export const activated: Plugin = {
         const manaClassification = canonicalManaClassification(canonical)
         const modal = activatedModalInputs(draft, source, canonical, Number(abilityIndex), event)
         const targetClauses = modal?.targetClauses ?? canonical.decisions.targets
-        const groupedTargets = targetClauses.length === 0
-          ? []
-          : event.targetClauses
-            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
+        const groupedTargets = groupedActivatedTargets(targetClauses, event, () => {
+          try {
+            return canonicalTargetBindings(
+              draft, source, compiled.definition, Number(abilityIndex),
+              event.targets ?? event.targetClauses?.flat() ?? [], undefined, undefined,
+              event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+            ).map(binding => binding.recipients)
+          } catch {
+            return undefined
+          }
+        })
         if (groupedTargets === undefined) return
         const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices, {
-          selectedOptional: event.selectedOptionalCosts,
+          evidence: event.evidence, selectedOptional: event.selectedOptionalCosts,
           selectedAlternative: event.selectedAlternativeCost,
           targetClauses,
         })
@@ -414,9 +399,15 @@ export const activated: Plugin = {
           if (!paid) return
           draft.players[event.seat].mana = paid
         }
-        const costEvents: GameEvent[] = []
+        const costEvents: GameEvent[] = evidencePaymentEvents(committed.proposal)
         for (const costPart of committed.lockedCost.nonMana) {
           switch (costPart.kind) {
+            case 'crew':
+              costEvents.push({ type: 'actionGroup', events: (event.choices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
+              break
+            case 'exileSource':
+              costEvents.push({ type: 'move', objectId: source.id, to: 'exile' })
+              break
             case 'tapSource':
               costEvents.push({ type: 'tap', objectId: source.id })
               break
@@ -426,6 +417,12 @@ export const activated: Plugin = {
                 amount: evaluateAnnouncementCostAmount(costPart.amount, event.x), source: source.name,
               })
               break
+            case 'loyalty': {
+              const amount = evaluateAnnouncementCostAmount(costPart.amount, committed.lockedCost.x)
+              source.counters.loyalty = (source.counters.loyalty ?? 0) + (costPart.minus ? -amount : amount)
+              source.loyaltyActivatedTurn = state.turn
+              break
+            }
           }
         }
         const costObjectIds = resolveNonManaCostObjectChoices(
@@ -447,7 +444,14 @@ export const activated: Plugin = {
           }
         }
         let choiceIndex = 0
+        let millIndex = 0
         for (const costPart of committed.lockedCost.nonMana) {
+          if (costPart.kind === 'mill') {
+            const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
+            for (const objectId of draft.zoneOrder[event.seat]!.library.slice(millIndex, millIndex + count)) costEvents.push({ type: 'mill', seat: event.seat, objectId })
+            millIndex += count
+            continue
+          }
           if (costPart.kind === 'draw') {
             const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
             for (let i = 0; i < count; i += 1) {
@@ -465,7 +469,9 @@ export const activated: Plugin = {
           choiceIndex += count
         }
         const resolvedTargets = event.targets ?? event.targetClauses?.flat() ?? []
+        const activationGrant = activatedGrantAt(source, Number(abilityIndex))
         const canonicalExecution = {
+          ...(activationGrant ? { ...activationGrant.execution, grantSource: { objectId: activationGrant.sourceId, incarnation: activationGrant.sourceIncarnation }, ...(activationGrant.execution?.choices ? { choices: structuredClone(activationGrant.execution.choices) } : {}), ...(activationGrant.execution?.results ? { results: structuredClone(activationGrant.execution.results) } : {}) } : {}),
           controller: event.seat,
           source: captureObject(source),
           definitionSnapshot: createDefinitionSnapshot(compiled),
@@ -488,6 +494,7 @@ export const activated: Plugin = {
             id: committed.id,
             sourceId: committed.proposal.sourceId,
             phase: 'committed' as const,
+            costChoices: announcementCostChoices(committed),
             lockedCost: committed.lockedCost,
             payment: committed.payment,
           },
@@ -508,6 +515,7 @@ export const activated: Plugin = {
           payload: { instructions: canonicalInstructions },
           execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
+          ...(event.door ? { door: event.door } : {}),
         }
         if (costEvents.length > 0) {
           const pendingActivation = manaClassification.isManaAbility
@@ -554,6 +562,8 @@ export const activated: Plugin = {
           return
         }
         draft.addToStack(activationItem)
+        captureAbilityActivation(state, draft, draft.stack[0]!)
+        captureCanonicalWardTriggers(state, draft, event, draft.stack[0]!)
         draft.passedInRow = []
         draft.priority = event.seat
         draft.note(`${event.seat} activates ${source.name}`)
@@ -602,9 +612,11 @@ export const activated: Plugin = {
         ...(event.choices ? { choices: event.choices } : {}),
         ...(event.door ? { door: event.door } : {}),
       })
+      captureAbilityActivation(state, draft, draft.stack[0]!)
       draft.passedInRow = []
       draft.priority = event.seat
     }
+    if (effect.cycling) draft.enqueue({ type: 'cycle', seat: event.seat, objectId: source.id })
     draft.note(`${event.seat} activates ${source.name}`)
   },
 }

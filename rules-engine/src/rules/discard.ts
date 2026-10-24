@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { pickRandomChoices } from '../plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin, StackItem } from '../types'
+import { recordInstructionAmount } from '../cardPlugins/dsl/instructionResults'
 
 /** Parameters stored on a discard action stack item (`payload`). */
 type DiscardPayload = {
@@ -188,6 +189,7 @@ export const discard: Plugin = {
     if (event.type === 'discard') {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'hand') return
+      recordInstructionAmount(draft, 'discard', 1)
       // A `move` event, not a direct move, so "put into a graveyard" replacements see the discard.
       draft.enqueue({ type: 'move', objectId: event.objectId, to: 'graveyard' })
       draft.note(`${event.seat} discards ${object.name}`)

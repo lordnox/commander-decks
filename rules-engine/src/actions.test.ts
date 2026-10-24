@@ -9,6 +9,10 @@ import {
 import { commanderRules } from './formats'
 import { bears, bolt, cardTemplate, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
+import { activated, chooseX, discardCost, gainLife, lifeCost, move, objects, ref, sacrificeCost, select, tapCost, target, spell, variable } from './cardPlugins/dsl/v1'
+import { snapshotFor } from './cards/snapshot'
+import { createServerGame } from './runtime'
+import { ok, resolveStack } from './testHelpers'
 
 const empty = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 } satisfies ManaPool
 
@@ -52,7 +56,7 @@ describe('available actions', () => {
     const state = newGame(commanderRules, {
       battlefield: {
         p1: [
-          { ...forest(), name: 'Ghost Town' },
+          cardTemplate('Ghost Town'),
           { ...forest(), name: 'Misty Rainforest', supertypes: [] },
         ],
       },
@@ -65,7 +69,7 @@ describe('available actions', () => {
       expect.objectContaining({
         kind: 'activateAbility',
         name: 'Ghost Town',
-        abilityId: 'selfBounceLand.ghostTown',
+        abilityId: '$.abilities[1]',
       }),
       expect.objectContaining({
         kind: 'activateAbility',
@@ -85,12 +89,12 @@ describe('available actions', () => {
     state.players.p1.mana.C = 1
     const action = legalActsFor(state, 'p1').find((candidate) =>
       candidate.kind === 'activateAbility'
-      && candidate.abilityId === 'tradeRoutes.draw')
+      && candidate.abilityId === '$.abilities[1]')
 
     expect(action).toMatchObject({
       kind: 'activateAbility',
       targetGroups: [{
-        label: 'Land card to discard',
+        label: 'Discard',
         purpose: 'cost',
         min: 1,
         max: 1,
@@ -155,7 +159,8 @@ describe('available actions', () => {
       objectId: objectNamed(state, 'Kami of False Hope').id,
       name: 'Kami of False Hope',
       text: kami.oracleText,
-      abilityId: 'kami.fog',
+      abilityId: '$.abilities[0]',
+      targetGroups: [],
     })
 
     // Damage is behind us; a later combat declares attackers again.
@@ -271,7 +276,7 @@ describe('available actions', () => {
 
   test('a counterspell is not an action while the stack is empty', () => {
     const veto = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: "Dovin's Veto",
       types: ['Instant'],
       manaCost: '{W}{U}',
@@ -389,7 +394,7 @@ describe('events for available actions', () => {
 
   test('a supported one-target spell carries its chosen target through the fast path', () => {
     const reanimate = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: 'Reanimate',
       types: ['Sorcery'],
       manaCost: '{B}',
@@ -411,13 +416,13 @@ describe('events for available actions', () => {
     expect(action).toMatchObject({
       kind: 'castSpell',
       name: 'Reanimate',
-      targetName: 'Graveyard Creature',
-      targetObjectId: objectNamed(state, 'Graveyard Creature').id,
+      targetGroups: [{ min: 1, max: 1, targets: [{ name: 'Graveyard Creature', objectId: objectNamed(state, 'Graveyard Creature').id }] }],
     })
-    expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
+    expect(eventsForAvailableAction(state, 'p1', { ...action!, targetObjectIds: [targetObject.id] })?.at(-1)).toEqual({
       type: 'castSpell',
       seat: 'p1',
       objectId: objectNamed(state, 'Reanimate').id,
+      targetClauses: [[{ kind: 'object', objectId: targetObject.id, zone: 'graveyard', incarnation: targetObject.incarnation }]],
       targets: [{
         kind: 'object',
         objectId: objectNamed(state, 'Graveyard Creature').id,
@@ -427,7 +432,7 @@ describe('events for available actions', () => {
 
   test('a spell whose only choice happens on resolution uses the fast path', () => {
     const fact = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: 'Fact or Fiction',
       types: ['Instant'],
       manaCost: '{3}{U}',
@@ -444,6 +449,7 @@ describe('events for available actions', () => {
     expect(action).toBeDefined()
     expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
       type: 'castSpell',
+      targets: [], targetClauses: [],
       seat: 'p1',
       objectId: objectNamed(state, 'Fact or Fiction').id,
     })
@@ -452,14 +458,7 @@ describe('events for available actions', () => {
   // Scapeshift's sacrifice happens on resolution, so nothing about casting it
   // needs a choice and the fast path can send it straight to the stack.
   test('a spell whose only choices happen on resolution stays fast-castable', () => {
-    const scapeshift = {
-      ...bolt(),
-      name: 'Scapeshift',
-      types: ['Sorcery'],
-      manaCost: '{2}{G}{G}',
-      oracleText: 'Sacrifice any number of lands. Search your library for up to that many '
-        + 'land cards, put them onto the battlefield tapped, then shuffle.',
-    }
+    const scapeshift = cardTemplate('Scapeshift')
     const state = newGame(commanderRules, { hands: { p1: [scapeshift] } })
     state.players.p1.mana = { ...empty, G: 2, C: 2 }
     const action = availableActions(state, 'p1').find(
@@ -468,6 +467,7 @@ describe('events for available actions', () => {
 
     expect(eventsForAvailableAction(state, 'p1', action)?.at(-1)).toEqual({
       type: 'castSpell',
+      targets: [], targetClauses: [],
       seat: 'p1',
       objectId: objectNamed(state, 'Scapeshift').id,
     })
@@ -505,4 +505,80 @@ describe('mana affordances', () => {
       name: 'Forest',
     })
   })
+})
+
+
+test('canonical activation actions separate implicit source costs, explicit costs and targets', () => {
+  const definition = snapshotFor([activated({
+    costs: [tapCost(), sacrificeCost(ref('source'), 1), discardCost(objects({ zone: 'hand', type: 'Land' }), 1)],
+    decisions: { targets: [select({ filter: objects({ zone: 'battlefield', controller: 'opponent', type: 'Creature' }), count: 1 })] },
+    instructions: [move({ targets: target(0), to: 'hand' })],
+  })])
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Cost fixture', { types: ['Artifact'], ruleDefinition: definition })], p2: [bears()] },
+    hands: { p1: [forest()] },
+  }, { random: () => 0 })
+  const sourceId = server.state.zoneOrder.p1.battlefield[0]
+  const discardId = server.state.zoneOrder.p1.hand[0]
+  const targetId = server.state.zoneOrder.p2.battlefield[0]
+  const action = legalActsFor(server.state, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === sourceId)!
+  if (action.kind !== 'activateAbility') throw new Error('expected canonical activation')
+  expect(action.targetGroups?.map(group => group.purpose)).toEqual(['cost', undefined])
+  const events = eventsForAvailableAction(server.state, 'p1', { ...action, targetObjectIds: [discardId, targetId] })!
+  expect(events.at(-1)).toMatchObject({ type: 'activateAbility', choices: [sourceId, discardId], targetClauses: [[{ kind: 'object', objectId: targetId }]] })
+  let state = server.state
+  for (const event of events) state = ok(server.rules(state, event))
+  expect(state.objects[sourceId].zone).toBe('graveyard')
+  expect(state.objects[discardId].zone).toBe('graveyard')
+  expect(resolveStack(server.rules, state).objects[targetId].zone).toBe('hand')
+})
+
+test.each([false, true])('canonical cost previews require distinct cards across overlapping groups (extra=%s)', extra => {
+  const definition = snapshotFor([activated({
+    costs: [discardCost(objects({ zone: 'hand' }), 1), discardCost(objects({ zone: 'hand', type: 'Creature' }), 1)],
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  })])
+  const state = newGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Overlap fixture', { types: ['Enchantment'], ruleDefinition: definition })] },
+    hands: { p1: [bears(), ...(extra ? [forest()] : [])] },
+  })
+  const actions = legalActsFor(state, 'p1').filter(action => action.kind === 'activateAbility')
+  expect(actions).toHaveLength(extra ? 1 : 0)
+})
+
+
+test.each([[0, 2, [0, 1, 2]], [1, 4, [1, 2, 3]]] as const)('canonical life-X spells expose bounded affordable X choices (min=%s max=%s)', (min, max, expected) => {
+  const ruleDefinition = snapshotFor([spell({
+    costs: [lifeCost(variable('X'))], decisions: { variables: [chooseX({ min, max })] }, instructions: [],
+  })])
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Life-X fixture', { types: ['Instant'], manaCost: '{B}', ruleDefinition })] } }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.life = 3
+  state.players.p1.mana.B = 1
+  const actions = legalActsFor(state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(actions.map(action => action.x)).toEqual([...expected])
+  const action = actions.find(action => action.x === 2)!
+  const events = eventsForAvailableAction(state, 'p1', action)!
+  let casted = state
+  for (const event of events) casted = ok(server.rules(casted, event))
+  expect(casted.players.p1.life).toBe(1)
+  expect(casted.players.p1.mana.B).toBe(0)
+})
+
+test.each(['player', 'object'] as const)('any-target action groups retain %s target kinds through the fast path', kind => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Lightning Bolt')] },
+    battlefield: { p2: [cardTemplate('Damage recipient', { types: ['Creature'], power: 1, toughness: 5 })] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana.R = 1
+  const targetId = kind === 'player' ? 'p2' : state.zoneOrder.p2.battlefield[0]
+  const act = legalActsFor(state, 'p1').find(act => act.kind === 'castSpell')!
+  expect(act).toMatchObject({ targetGroups: [{ kind: 'anyTarget' }] })
+  const events = eventsForAvailableAction(state, 'p1', { ...act, targetObjectIds: [targetId] })!
+  const cast = events.reduce((state, event) => ok(server.rules(state, event)), state)
+  const finished = resolveStack(server.rules, cast)
+  if (kind === 'player') expect(finished.players.p2.life).toBe(37)
+  else expect(finished.objects[targetId].damageMarked).toBe(3)
 })

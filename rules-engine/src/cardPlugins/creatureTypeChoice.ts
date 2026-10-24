@@ -114,7 +114,7 @@ export const creatureTypeChoice: Plugin = {
           || !object.types.includes('Creature')
           || hasChosenType(draft.objects, object, chosenType)
         ) continue
-        if (pending.action === 'destroyOthers' && hasKeyword(object, 'indestructible', state)) {
+        if (pending.action === 'destroyOthers' && hasKeyword(object, 'indestructible')) {
           continue
         }
         draft.enqueue({
