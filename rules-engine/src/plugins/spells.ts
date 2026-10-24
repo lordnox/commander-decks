@@ -1,3 +1,4 @@
+import { canPayLife } from '../rules/lifePayments'
 import { isPermanentType } from '../definitions'
 import { hasKeyword } from '../keywords'
 import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
@@ -898,7 +899,7 @@ export const spells: Plugin = {
       }
       const phyrexianLife = event.phyrexianLife ?? []
       if (!validPhyrexianLife(cost, phyrexianLife)) return 'invalid Phyrexian mana payment'
-      if (phyrexianLife.length * 2 > state.players[event.seat].life) {
+      if (!canPayLife(state, event.seat, phyrexianLife.length * 2)) {
         return 'not enough life for Phyrexian mana'
       }
       if (!event.manaActivations && !paySpellCost(state, event.seat, spell, cost, {

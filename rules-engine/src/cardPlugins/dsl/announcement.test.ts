@@ -2,6 +2,9 @@ import { availableActions, legalActsFor, eventsForAvailableAction } from '../../
 import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
 import {
+  createPlayerEffect,
+  PLAYER_EFFECTS,
+  PLAYER_EFFECT_DURATIONS,
   ifThen,
   destroy,
   countDistinctCardTypes,
@@ -873,4 +876,51 @@ describe('optional player choices as casting costs', () => {
     expect(resolved.players.p1.life).toBe(41)
     expect(resolved.players.p2.life).toBe(40)
   })
+})
+
+
+const restrictedPaymentFixture = (playerEffect: typeof PLAYER_EFFECTS.lifeTotalCannotChange | typeof PLAYER_EFFECTS.cannotLoseLife, payment: number) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [
+      instructionSpell({ instructions: [createPlayerEffect({ targets: ref('controller'), playerEffect, duration: PLAYER_EFFECT_DURATIONS.untilCleanup })] }),
+      instructionSpell({ costs: [lifeCost(payment)], instructions: [] }),
+      instructionSpell({ instructions: [] }, '{W/P}'),
+    ] },
+    battlefield: { p1: [cardTemplate('Life payment activation fixture', {
+      types: ['Artifact'], ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        activated({ costs: [lifeCost(payment)], instructions: [] }),
+      ]))),
+    })] },
+  }, { random: () => 0 })
+  const ready = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  return { server, ready: JSON.parse(JSON.stringify(ready)) as GameState }
+}
+
+test.each([PLAYER_EFFECTS.lifeTotalCannotChange, PLAYER_EFFECTS.cannotLoseLife].flatMap(effect => [0, 4].map(payment => ({ effect, payment }))))('life payment restrictions govern casting and activation previews (%j)', ({ effect, payment }) => {
+  const { server, ready } = restrictedPaymentFixture(effect, payment)
+  const objectId = ready.zoneOrder.p1.hand[0]
+  const sourceId = ready.zoneOrder.p1.battlefield[0]
+  const payable = payment === 0
+  expect(legalActsFor(ready, 'p1').some(action => action.kind === 'castSpell' && action.objectId === objectId)).toBe(payable)
+  expect(legalActsFor(ready, 'p1').some(action => action.kind === 'activateAbility' && action.objectId === sourceId)).toBe(payable)
+  expect(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(payable)
+  expect(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: sourceId, abilityId: '$.abilities[0]' }).ok).toBe(payable)
+  expect(server.rules(ready, { type: 'payLife', seat: 'p1', amount: payment }).ok).toBe(payable)
+})
+
+test.each([PLAYER_EFFECTS.lifeTotalCannotChange, PLAYER_EFFECTS.cannotLoseLife])('Phyrexian mana can use mana but cannot pay locked life (%s)', effect => {
+  const { server, ready } = restrictedPaymentFixture(effect, 4)
+  const objectId = ready.zoneOrder.p1.hand[1]
+  expect(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId, phyrexianLife: [0] }).ok).toBe(false)
+  ready.players.p1.mana.W = 1
+  expect(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(true)
+})
+
+test('a zero life cost is payable even with a negative life total', () => {
+  expect(beginAnnouncement({ ...state, players: { p1: { ...state.players.p1, life: -1 } } }, {
+    payer: 'p1', sourceId: 'spell', costs: { mandatory: [lifeCost(0)] },
+  }).ok).toBe(true)
 })

@@ -1,3 +1,4 @@
+import { canPayLife } from '../../../rules/lifePayments'
 import { expandVariableMana, variableManaColor } from '../variableMana'
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
@@ -487,7 +488,7 @@ const validateNonManaCosts = (
     selectedObjects.add(id)
   }
   if (Object.values(state.objects).filter(object => object.zone === 'library' && object.owner === payer).length < millTotal) throw new TypeError('payer cannot mill enough cards for the cost')
-  if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
+  if (!canPayLife(state, payer, lifeTotal)) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
 }
 
 const targetIdentity = (target: TargetRef) => {
@@ -613,7 +614,7 @@ export const beginAnnouncement = (
       if (!validPhyrexianLifePayment(mana, phyrexianLife)) {
         return { ok: false, error: 'invalid Phyrexian mana payment' }
       }
-      if (phyrexianLife.length * 2 > state.players[proposal.payer].life) {
+      if (!canPayLife(state, proposal.payer, phyrexianLife.length * 2)) {
         return { ok: false, error: 'not enough life for Phyrexian mana' }
       }
     }

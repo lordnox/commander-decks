@@ -1,5 +1,6 @@
 import { recordInstructionAmount } from '../cardPlugins/dsl/instructionResults'
 import type { GameEvent, PlayerState, Plugin } from '../types'
+import { canPayLife } from '../rules/lifePayments'
 import { playerCannotLoseGame } from './playerEffects'
 
 export const LIFE_GAINED_THIS_TURN = 'life.gainedThisTurn'
@@ -29,7 +30,7 @@ export const life: Plugin = {
       const invalid = amountError(event, event.amount)
       if (invalid) return invalid
       if (!state.players[event.seat]) return `no such player ${event.seat}`
-      if (event.type === 'payLife' && event.amount > state.players[event.seat].life) {
+      if (event.type === 'payLife' && !canPayLife(state, event.seat, event.amount)) {
         return `${event.seat} cannot pay ${event.amount} life`
       }
     }

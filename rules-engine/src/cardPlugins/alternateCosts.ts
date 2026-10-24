@@ -1,3 +1,4 @@
+import { canPayLife } from '../rules/lifePayments'
 import { zoneMechanic } from './dsl/alternateMechanics'
 import { isPermanentType } from '../definitions'
 import type { GameObject, GameState, Plugin, StackItem, ZoneId } from '../types'
@@ -156,7 +157,7 @@ export const canChooseAlternateCast = (
     if (state.turn <= object.warpExiledTurn) return false
   }
   if (effect.fromZone && object?.zone !== effect.fromZone) return false
-  if ((effect.life ?? 0) > state.players[seat].life) return false
+  if (!canPayLife(state, seat, effect.life ?? 0)) return false
   if (
     effect.controlledSubtype
     && !Object.values(state.objects).some((candidate) =>
