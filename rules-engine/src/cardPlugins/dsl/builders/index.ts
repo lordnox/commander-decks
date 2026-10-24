@@ -46,6 +46,7 @@ import type {
   ModeSpec,
   NumericCharacteristic,
   ObjectNumericCharacteristic,
+  SpellCastCost,
   ObjectFilter,
   ObjectOccurrenceFilter,
   ObjectReference,
@@ -93,6 +94,7 @@ import {
   ENTRY_PAYMENT_BINDING,
   PAY_LIFE_OPTION,
   RULE_DSL_SCHEMA_VERSION,
+  SPELL_CAST_COSTS,
   UNLIMITED_PREVENTION,
 } from '../schema/v1'
 import { immutableData } from './immutable'
@@ -1434,6 +1436,28 @@ export const grantActivatedAbilityEffect = (ability: ActivatedAbilityDefinition)
 /** Zone permission only: ordinary land timing and play limits still apply. */
 export const playLands = (players: PlayerSelector, cards: ObjectSelector, options: { topOnly?: true } = {}): ContinuousEffectDefinition =>
   immutableData({ kind: 'playLands', players, cards, ...options })
+
+/** One-shot cast from a private zone; announcement uses the stored cost policy. */
+export const offerCast = (input: {
+  chooser?: PlayerReference
+  from?: PlayerReference
+  zone?: Zone
+  cost?: SpellCastCost
+  maxManaValue?: AmountInput
+  notLand?: true
+  takeControl?: true
+  inspect?: true
+}) => immutableData({
+  kind: 'offerCast' as const,
+  chooser: input.chooser ?? ref('controller'),
+  from: input.from ?? input.chooser ?? ref('controller'),
+  zone: input.zone ?? 'hand',
+  cost: input.cost ?? SPELL_CAST_COSTS.withoutPayingMana,
+  ...(input.maxManaValue !== undefined ? { maxManaValue: toAmount(input.maxManaValue) } : {}),
+  ...(input.notLand ? { notLand: true as const } : {}),
+  ...(input.takeControl ? { takeControl: true as const } : {}),
+  ...(input.inspect ? { inspect: true as const } : {}),
+})
 
 export const revealLibraryTop = (players: PlayerSelector): ContinuousEffectDefinition =>
   immutableData({ kind: 'revealLibraryTop', players })

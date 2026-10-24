@@ -69,12 +69,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "c9d593c6b0c70c6d7a14256a4c3eeb125ccab6e42b5f4ee9eafac89e3fa3c3a9",
-    "card": "Rishkar's Expertise"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4dd391f5d52eac75038ee9fa09ef5bb57893d13c05fde40b820e993c4310d3ea",
     "card": "Pitiless Carnage"
   },

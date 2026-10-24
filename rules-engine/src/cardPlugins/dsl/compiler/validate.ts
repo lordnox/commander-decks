@@ -7,7 +7,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS } from '../schema/v1'
+import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -1011,6 +1011,17 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'offerCast':
+        exactKeys(node, path, ['kind', 'chooser', 'from', 'zone', 'cost', 'maxManaValue', 'notLand', 'takeControl', 'inspect'], ['kind', 'chooser', 'from', 'zone', 'cost'])
+        validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
+        validateReference(node.from, childPath(path, 'from'), env, ['player'])
+        enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
+        enumeration(node.cost, childPath(path, 'cost'), new Set(Object.values(SPELL_CAST_COSTS)), 'spell-cast cost')
+        if (node.maxManaValue !== undefined) validateAmount(node.maxManaValue, childPath(path, 'maxManaValue'), env)
+        if (node.notLand !== undefined && node.notLand !== true) issue(childPath(path, 'notLand'), 'constant', 'notLand must be true when present')
+        if (node.takeControl !== undefined && node.takeControl !== true) issue(childPath(path, 'takeControl'), 'constant', 'takeControl must be true when present')
+        if (node.inspect !== undefined && node.inspect !== true) issue(childPath(path, 'inspect'), 'constant', 'inspect must be true when present')
+        return
       case 'discardHands':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])

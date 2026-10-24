@@ -879,6 +879,26 @@ export type LinkedExileSet = {
   returnTo?: 'battlefield' | 'hand'
 }
 
+/** Identity, cost, and remaining uses for a temporary spell-cast permission. */
+export type SpellCastPermission = {
+  id: string
+  sourceId: string
+  sourceName: string
+  seat: PlayerId
+  cost: 'withoutPayingMana'
+  asThoughFlash: true
+  remainingUses: number
+  /** Cast this specific object (rebound exile). */
+  objectId?: string
+  /** Live zone query (offered hand or similar). */
+  zone?: ZoneId
+  fromSeat?: PlayerId
+  maxManaValue?: number
+  notLand?: true
+  takeControl?: true
+  inspect?: true
+}
+
 export type GameState = {
   format: string
   /** Opponent relationships are defined by the format, then stored for deterministic replay. */
@@ -933,6 +953,8 @@ export type GameState = {
   monarch: PlayerId | null
   /** Canonical exiled-card identities, keyed by the original source incarnation. */
   linkedExileSets?: LinkedExileSet[]
+  /** Temporary one-shot or uses-limited spell-cast permissions (26-permission). */
+  spellPermissions?: SpellCastPermission[]
   monarchRevision?: number
   /** Latest actual crown acquisition for each seat; retained through elimination. */
   monarchAcquiredAt?: Record<PlayerId, number>

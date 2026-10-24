@@ -20,6 +20,10 @@ export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 
 export const LINKED_EXILE_RETURN = ['battlefield', 'hand'] as const
 export type LinkedExileReturn = typeof LINKED_EXILE_RETURN[number]
 
+/** Cost policy for a temporary spell-cast permission (26-permission). */
+export const SPELL_CAST_COSTS = { withoutPayingMana: 'withoutPayingMana' } as const
+export type SpellCastCost = typeof SPELL_CAST_COSTS[keyof typeof SPELL_CAST_COSTS]
+
 export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
 export type CardColor = typeof CARD_COLORS[number]
 
@@ -558,6 +562,18 @@ export type Instruction =
   | { kind: 'exileThisSpell' }
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
+  /** One-shot permission to cast from a private zone without ordinary priority. */
+  | {
+      kind: 'offerCast'
+      chooser: PlayerReference
+      from: PlayerReference
+      zone: Zone
+      cost: SpellCastCost
+      maxManaValue?: Amount
+      notLand?: true
+      takeControl?: true
+      inspect?: true
+    }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient; bindChoice?: string }
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */

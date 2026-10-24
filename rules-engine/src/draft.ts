@@ -254,5 +254,6 @@ export const freezeDraft = (draft: Draft): GameState => {
     ...state
   } = draft
   if (state.preventionInstances === undefined) delete state.preventionInstances
+  if (state.spellPermissions !== undefined && state.spellPermissions.length === 0) delete state.spellPermissions
   return state
 }

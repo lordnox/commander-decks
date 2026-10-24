@@ -1804,6 +1804,23 @@ test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample 
   }])
 })
 
+test("Rishkar's Expertise draws from greatest power then offers a capped free hand cast", () => {
+  expect(effectsFor("Rishkar's Expertise")).toEqual([])
+  expect(cardTemplateDefaultsFor("Rishkar's Expertise")).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['G'],
+    manaCost: '{4}{G}{G}',
+    manaValue: 6,
+  })
+  expect(cardRuleDefinitionSnapshotFor("Rishkar's Expertise")!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'draw', count: { kind: 'greatest', characteristic: 'power' } },
+      { kind: 'offerCast', zone: 'hand', cost: 'withoutPayingMana', notLand: true, maxManaValue: { kind: 'constant', value: 5 } },
+    ],
+  }])
+})
+
 test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {
   expect(effectsFor('Return of the Wildspeaker')).toEqual([])
   expect(cardRuleDefinitionSnapshotFor('Return of the Wildspeaker')!.definition.abilities).toMatchObject([{

@@ -16,7 +16,6 @@ import {
   createTreasures,
   crew,
   draw,
-  drawGreatestPower,
   encore,
   enters,
   entersTapped,
@@ -36,7 +35,6 @@ import {
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
-  mayCastFromHandWithoutPayingMana,
   onResolve,
   optionalMill,
   otherLands,
@@ -282,9 +280,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Rings of Brighthearth': [handler('stackCopy')],
-  "Rishkar's Expertise": [
-    onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-  ],
   'Roaming Throne': [
     ward({ mana: 2 }),
     handler('ward'),

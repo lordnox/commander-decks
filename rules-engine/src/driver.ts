@@ -9,6 +9,7 @@ import { pickRandomChoices, RANDOM_CHOICE as HIDDEN_RANDOM } from './plugins/hid
 import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
 import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
+import { openSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { completeAdventureSpell } from './plugins/adventure'
 import { isPermanentType } from './definitions'
@@ -154,6 +155,7 @@ const preflightInstructions = (
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
       case 'grantFlash':
+      case 'offerCast':
       case 'addManaChosenColor':
       case 'addManaFrom':
       case 'becomeMonarch':
@@ -779,6 +781,26 @@ const actionEvents = (
           controller: seat,
         },
       }))
+    }
+    case 'offerCast': {
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const from = evaluatePlayerReference(instruction.from, context)[0]
+      if (!chooser || !from) return []
+      const maxManaValue = instruction.maxManaValue === undefined
+        ? undefined
+        : availableAmount(instruction.maxManaValue, context)
+      openSpellCast(draft, {
+        sourceId: frame.source.ref.objectId,
+        sourceName: frame.source.snapshot.name,
+        seat: chooser,
+        zone: instruction.zone,
+        fromSeat: from,
+        ...(maxManaValue !== undefined ? { maxManaValue } : {}),
+        ...(instruction.notLand ? { notLand: true } : {}),
+        ...(instruction.takeControl ? { takeControl: true } : {}),
+        ...(instruction.inspect ? { inspect: true } : {}),
+      })
+      return []
     }
     case 'becomeMonarch': return recipients(instruction.targets, context).map(seat => ({ type: 'becomeMonarch' as const, seat }))
     case 'linkExile': {

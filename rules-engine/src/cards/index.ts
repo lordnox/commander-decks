@@ -284,6 +284,7 @@ import retreatToHagra from './retreat-to-hagra'
 import returnOfTheWildspeaker from './return-of-the-wildspeaker'
 import reverberate from './reverberate'
 import revitalizingRepast from './revitalizing-repast'
+import rishkarsExpertise from './rishkars-expertise'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
@@ -658,6 +659,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Reverberate": reverberate,
   "Revitalizing Repast": revitalizingRepast,
   "Revitalizing Repast // Old-Growth Grove": revitalizingRepast,
+  "Rishkar's Expertise": rishkarsExpertise,
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,

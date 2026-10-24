@@ -4,11 +4,6 @@ import { describe, expect, test } from 'bun:test'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { catalogEntry, deckCards } from '../deckCardFixtures'
 import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
-import {
-  drawGreatestPower,
-  mayCastFromHandWithoutPayingMana,
-  onResolve,
-} from './effectBuilders'
 import { ptEqualsLife } from './effects'
 import {
   cardPluginEntry,
@@ -592,9 +587,8 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')).toBeDefined()
     expect(effectsFor('Kiora Bests the Sea God')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Kiora Bests the Sea God')).toBeDefined()
-    expect(effectsFor("Rishkar's Expertise")).toEqual([
-      onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-    ])
+    expect(effectsFor("Rishkar's Expertise")).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor("Rishkar's Expertise")).toBeDefined()
     expect(cardPluginEntry('Spearbreaker Behemoth')).toBeUndefined()
   })
 
