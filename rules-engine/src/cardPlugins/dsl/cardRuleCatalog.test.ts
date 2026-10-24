@@ -2984,10 +2984,30 @@ test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and
     instructions: [{ kind: 'exchangeControl', haste: true, untap: true }],
   })
   expect(cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities).toMatchObject([
-    { kind: 'static', effects: [{ kind: 'replacement', program: [{ kind: 'chooseCards' }, { kind: 'branch' }] }] },
+    {
+      kind: 'static',
+      effects: [{
+        kind: 'replacement',
+        program: [
+          { kind: 'chooseCards' },
+          { kind: 'branch', then: [{ kind: 'modifyEvent', changes: { copyExcept: { keepAbilities: true } } }] },
+        ],
+      }],
+    },
     { kind: 'static', effects: [{ kind: 'legendRuleOff' }] },
     { kind: 'keyword', keyword: KEYWORDS.partner },
   ])
+  const sakashimaCopyAsEntry = cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities[0]
+  const sakashimaBranch = sakashimaCopyAsEntry.kind === 'static'
+    ? sakashimaCopyAsEntry.effects[0]
+    : undefined
+  const sakashimaCopyExcept = sakashimaBranch?.kind === 'replacement'
+    ? sakashimaBranch.program?.[1]?.kind === 'branch'
+      ? sakashimaBranch.program[1].then[0]
+      : undefined
+    : undefined
+  expect(sakashimaCopyExcept?.kind === 'modifyEvent' ? sakashimaCopyExcept.changes.copyExcept : undefined)
+    .toEqual({ keepAbilities: true })
   expect(cardRuleDefinitionSnapshotFor('Spark Double')!.definition.abilities).toMatchObject([
     { kind: 'static', effects: [{ kind: 'replacement', program: [{ kind: 'chooseCards' }, { kind: 'branch' }] }] },
   ])

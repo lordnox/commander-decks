@@ -872,6 +872,13 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         if (event.copyOf) {
           const copied = draft.object(event.copyOf.objectId)
           if (copied && isSameObject(copied, event.copyOf)) applyCopy(object, copied, event.copyExcept ?? {})
+          if (
+            object.types.includes('Planeswalker')
+            && object.printedLoyalty !== null
+            && object.counters.loyalty === undefined
+          ) {
+            object.counters.loyalty = object.printedLoyalty
+          }
         }
         if (event.enterCounters) {
           const before = counterPtBonus(object)

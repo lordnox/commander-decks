@@ -159,7 +159,7 @@ export default {
   ruleDefinition: snapshotFor([
     staticAbility(copyAsEntry({
       filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'you', other: true }),
-      except: { keepName: true, keepAbilities: true },
+      except: { keepAbilities: true },
     })),
     staticAbility(legendRuleOff()),
     keyword.partner,

@@ -308,8 +308,20 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
         objectIds: [named(moved, 'Homer, the Hermit').id],
       }))
       const clone = copied.objects[sakashima.id]
-      expect(clone.name).toBe('Sakashima of a Thousand Faces')
+      const abilities = clone.ruleDefinition?.definition.abilities ?? []
+      expect(clone.name).toBe('Homer, the Hermit')
+      expect(clone.printedName).toBe('Sakashima of a Thousand Faces')
       expect(clone.subtypes).toContain('Crab')
+      expect(clone.supertypes).toContain('Legendary')
+      expect(abilities.some(ability => ability.kind === 'triggered')).toBe(true)
+      expect(abilities).toEqual(expect.arrayContaining([
+        expect.objectContaining({ kind: 'static', effects: [expect.objectContaining({ kind: 'legendRuleOff' })] }),
+        expect.objectContaining({ kind: 'keyword', keyword: 'partner' }),
+      ]))
+      expect(abilities.filter(ability =>
+        ability.kind === 'static'
+        && ability.effects.some(effect => effect.kind === 'replacement'),
+      )).toHaveLength(0)
       expect(copied.zoneOrder.p1.battlefield).toHaveLength(2)
     })
 

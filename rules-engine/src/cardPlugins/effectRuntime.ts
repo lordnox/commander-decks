@@ -497,6 +497,36 @@ const abilityCopiesAsEntry = (ability: {
   && (ability.instructions ?? []).some(instruction =>
     instruction.kind === 'createEffect' && instruction.effect?.kind === 'copy')
 
+const replacementCopiesAsEntry = (effect: {
+  kind?: string
+  transform?: { kind?: string; changes?: { copyOf?: unknown } }
+  program?: readonly {
+    kind?: string
+    changes?: { copyOf?: unknown }
+    then?: readonly unknown[]
+    otherwise?: readonly unknown[]
+  }[]
+}): boolean => {
+  if (effect.kind !== 'replacement') return false
+  if (effect.transform?.kind === 'modifyEvent' && effect.transform.changes?.copyOf) return true
+  const scan = (steps: typeof effect.program): boolean =>
+    (steps ?? []).some(step => {
+      if (step.kind === 'modifyEvent' && step.changes?.copyOf) return true
+      if (step.kind === 'branch') {
+        return scan(step.then as typeof effect.program) || scan(step.otherwise as typeof effect.program)
+      }
+      return false
+    })
+  return scan(effect.program)
+}
+
+const abilityIsCopyAsEntryReplacement = (ability: {
+  kind?: string
+  effects?: readonly Parameters<typeof replacementCopiesAsEntry>[0][]
+}) =>
+  ability.kind === 'static'
+  && (ability.effects ?? []).some(replacementCopiesAsEntry)
+
 export function applyCopy (
   object: GameObject,
   copied: GameObject,
@@ -552,7 +582,7 @@ export function applyCopy (
   }
   if (keptDefinition) {
     const keptAbilities = extra.keepAbilities
-      ? keptDefinition.definition.abilities
+      ? keptDefinition.definition.abilities.filter(ability => !abilityIsCopyAsEntryReplacement(ability))
       : keptDefinition.definition.abilities.filter(abilityCopiesAsEntry)
     if (keptAbilities.length > 0) {
       const current = object.ruleDefinition
