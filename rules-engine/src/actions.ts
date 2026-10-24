@@ -1,4 +1,4 @@
-import { costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
+import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
 import { canonicalLandPermission } from './cardPlugins/dsl/playPermissions'
 import { effectiveActivatedDefinition, canonicalActivationIsActive } from './cardPlugins/dsl/activatedGrants'
 import { emptyMana, poolTotal } from './draft'
@@ -126,6 +126,7 @@ export type ActionTargetGroup = {
   purpose?: 'target' | 'cost'
   /** The cost group whose picks are exiled from the graveyard to pay generic mana. */
   delve?: true
+  minTotalPower?: number
   targets: Array<{ objectId: string; name: string; controller: PlayerId }>
 }
 
@@ -1268,23 +1269,35 @@ const canonicalActionTargetGroups = (
 
 const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId, options: { includeSourceCosts?: boolean; excludeSource?: boolean } = {}) => {
   const context = { state, controller: seat, source: captureObject(object) }
-  return costs.flatMap(cost => {
-    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return []
+  return costs.map(cost => {
+    if (cost.kind === 'crew') {
+      const candidates = crewCandidates(state, seat, object.id)
+      const power = evaluateRuntimeAmount(cost.power, context)
+      return { costKind: cost.kind, sourceCost: false, group: { label: `Creatures to crew ${power}`, purpose: 'cost' as const, min: power > 0 ? 1 : 0, max: candidates.length, minTotalPower: power,
+        targets: candidates.map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller, power: candidate.power ?? 0 })),
+      } }
+    }
+    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return undefined
     const sourceCost = isSourceObjectCost(cost)
-    if (sourceCost && !options.includeSourceCosts) return []
+    if (sourceCost && !options.includeSourceCosts) return undefined
     const candidates = cost.filter.kind === 'objects'
       ? evaluateObjectSelector(cost.filter, context) : evaluateObjectReference(cost.filter, context)
     const count = evaluateRuntimeAmount(cost.count, context)
-    return [{ costKind: cost.kind, sourceCost, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
+    return { costKind: cost.kind, sourceCost, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
       targets: candidates.filter(candidate => (options.excludeSource === false || candidate.id !== object.id) && candidate.controller === seat
         && candidate.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield'))
         .map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller })),
-    } }]
-  })
+    } }
+  }).filter(entry => entry !== undefined)
 }
 
 /** Find a disjoint assignment to object-cost slots without requiring the user to have chosen yet. */
 const canonicalCostPreviewChoices = (entries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const crew = entries.find(entry => entry.costKind === 'crew')
+  if (crew) {
+    const candidates = crew.group.targets.filter(candidate => 'power' in candidate && Number(candidate.power) > 0)
+    return candidates.reduce((sum, candidate) => sum + ('power' in candidate ? Number(candidate.power) : 0), 0) >= (crew.group.minTotalPower ?? 0) ? candidates.map(candidate => candidate.objectId) : undefined
+  }
   const slots = entries.flatMap(entry => Array.from({ length: entry.group.min }, () => entry.group.targets))
   const occupied = new Map<string, number>()
   const assigned: string[] = []
@@ -1329,6 +1342,8 @@ const combatDamageIsThreatened = (state: GameState) =>
     (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
   )
 
+const activationManaUpper = (state: GameState, seat: PlayerId) => poolTotal(state.players[seat].mana) + manaSources(state, seat).reduce((total, plays) => total + Math.max(0, ...plays.map(play => poolTotal({ ...emptyMana(), ...play.pool }) - (play.cost ? costSize(play.cost) : 0))), 0)
+
 const loyaltyXValues = (object: GameObject, ability: Extract<CardRuleDefinitionV1['abilities'][number], { kind: 'activated' }>) => {
   const variables = ability.decisions.variables ?? []
   if (variables.length !== 1) return
@@ -1346,7 +1361,10 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
   return definition.abilities.flatMap((ability, index): AvailableAction[] => {
     if (!canonicalActivationIsActive(object, index)) return []
     if (ability.kind !== 'activated' || ability.modes) return []
-    const xs = loyaltyXValues(object, ability)
+    const variable = ability.decisions.variables?.[0]
+    const xs = loyaltyXValues(object, ability) ?? (variable && ability.decisions.variables?.length === 1
+      && ability.costs.some(cost => cost.kind === 'mana' && cost.amount.includes('{X}'))
+      ? Array.from({ length: Math.max(0, Math.min(variable.max, activationManaUpper(state, seat)) - variable.min + 1) }, (_, index) => variable.min + index) : undefined)
     if (ability.decisions.variables?.length && xs === undefined) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       ...activatedPermissionFields(ability) })) return []
@@ -2506,13 +2524,14 @@ export const eventsForAvailableAction = (
       try {
         const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
         const chosen = action.targetObjectIds ?? []
-        const costCount = costEntries.filter(entry => !entry.sourceCost).reduce((total, entry) => total + entry.group.min, 0)
+        const costCount = ability.costs.some(cost => cost.kind === 'crew') ? chosen.length : costEntries.filter(entry => !entry.sourceCost).reduce((total, entry) => total + entry.group.min, 0)
         if (chosen.length < costCount) return null
         let cursor = 0
         const choices = costEntries.flatMap(entry => {
           if (entry.sourceCost) return Array.from({ length: entry.group.min }, () => object.id)
-          const ids = chosen.slice(cursor, cursor + entry.group.min)
-          cursor += entry.group.min
+          const count = entry.costKind === 'crew' ? chosen.length : entry.group.min
+          const ids = chosen.slice(cursor, cursor + count)
+          cursor += count
           return ids
         })
         const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))

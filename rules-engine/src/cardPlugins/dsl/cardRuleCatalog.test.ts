@@ -2784,3 +2784,30 @@ test('Parting Gust composes a promised tapped blue Fish before conditional nonto
     ],
   })
 })
+
+
+test('family 24 composes animation, mana, ward, nonzero X, and crew in the canonical catalog', () => {
+  expect(cardRuleDefinitionSnapshotFor('Firdoch Core')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'changeling' }, { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{4}' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'createEffect', effect: { kind: 'setStats', power: { value: 4 }, toughness: { value: 4 } } },
+      { kind: 'createEffect', effect: { kind: 'addTypes', types: ['Artifact', 'Creature'] } },
+    ] }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Hall of Storm Giants')!.definition.abilities[2]).toMatchObject({
+    costs: [{ kind: 'mana', amount: '{5}{U}' }], instructions: [{ kind: 'sequence', instructions: [
+      { effect: { kind: 'setStats', power: { value: 7 }, toughness: { value: 7 } } },
+      { effect: { kind: 'addTypes', types: ['Creature'], subtypes: ['Giant'] } },
+      { effect: { kind: 'setColors', colors: ['U'] } }, { effect: { kind: 'grantWard', cost: { kind: 'mana', generic: 3 } } },
+    ] }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Lair of the Hydra')!.definition.abilities[2]).toMatchObject({
+    costs: [{ kind: 'mana', amount: '{X}{G}' }], decisions: { variables: [{ name: 'X', min: 1 }] },
+  })
+  expect(cardTemplateDefaultsFor('Hedge Shredder')).toMatchObject({ types: ['Artifact'], subtypes: ['Vehicle'], power: 5, toughness: 5 })
+  expect(cardRuleDefinitionSnapshotFor('Hedge Shredder')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks' }, instructions: [{ kind: 'chooseInstructions' }] },
+    { kind: 'triggered', on: { kind: 'moved', from: 'library', to: 'graveyard', group: true }, instructions: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+    { kind: 'activated', costs: [{ kind: 'crew', power: { kind: 'constant', value: 1 } }] },
+  ])
+})

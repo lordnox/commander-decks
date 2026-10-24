@@ -1330,7 +1330,7 @@ const actionEvents = (
     case 'createEffect': {
       const targets = instruction.targets.kind === 'objects'
         ? evaluateObjectSelector(instruction.targets, context)
-        : evaluateObjectReference(instruction.targets, context, 'currentOrLastKnown')
+        : evaluateObjectReference(instruction.targets, context, instruction.effect.kind !== 'prevention' && instruction.targets.kind === 'contextRef' && instruction.targets.name === 'source' ? 'current' : 'currentOrLastKnown')
       if (instruction.effect.kind === 'prevention') {
         const preventionEffect = instruction.effect
         const capacity = preventionEffect.capacity.kind === 'unlimited'

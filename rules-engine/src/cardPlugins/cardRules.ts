@@ -2,10 +2,8 @@ import type { GameObject } from '../types'
 import {
   ability,
   alternateCast,
-  activate,
   becomeCopyOfTarget,
   allCreatureTypes,
-  animateUntilEot,
   attacks,
   basicLand,
   embalm,
@@ -14,11 +12,9 @@ import {
   copyTargetCreature,
   createTokenInstruction,
   createTreasures,
-  crew,
   draw,
   encore,
   enters,
-  entersTapped,
   gift,
   ifGiftPromised,
   grantProtectionFromEverything,
@@ -28,21 +24,16 @@ import {
   extraEnters,
   extraLandfall,
   gainLife,
-  graveyardCards,
   handler,
   handlerIdsFromEffects,
-  landToGraveyard,
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
   onResolve,
-  optionalMill,
-  otherLands,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
   putFromHand,
-  putMilledLandTapped,
   revealPick,
   reanimateCreatureFromGraveyards,
   searchSpell,
@@ -74,7 +65,6 @@ import {
   escape,
   hiddenPileNegotiation,
   opponentPiles,
-  addChosenColorMana,
   onUnlock,
   unearth,
   bounceAll,
@@ -169,20 +159,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   )],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Firdoch Core': [
-    allCreatureTypes(),
-    activate({
-      id: 'firdoch.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [addChosenColorMana()],
-    }),
-    activate({
-      id: 'animate.firdochCore',
-      costs: { mana: '{4}' },
-      do: [animateUntilEot(4, 4)],
-    }),
-  ],
   'Forgotten Cellar': [onUnlock()],
   "Fortune's Favor": [
     targetOnResolve(
@@ -198,20 +174,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
       { controlled: true, optional: true },
     )),
-  ],
-  'Hall of Storm Giants': [
-    entersTapped(otherLands({ min: 2 })),
-    activate({
-      id: 'hall.animate',
-      costs: { mana: '{6}{U}' },
-      if: graveyardCards(7),
-      do: [animateUntilEot(7, 7)],
-    }),
-  ],
-  'Hedge Shredder': [
-    attacks(optionalMill(2)),
-    landToGraveyard(putMilledLandTapped()),
-    crew(1),
   ],
   'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
   'Hypergenesis': [onResolve(putFromHand('each', {
@@ -236,14 +198,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
-  ],
-  'Lair of the Hydra': [
-    entersTapped(otherLands({ min: 2 })),
-    activate({
-      id: 'lair.animate',
-      costs: { mana: '{X}{G}', xMana: true },
-      do: [animateUntilEot(0, 0, { fromX: true })],
-    }),
   ],
   Mirrorweave: [
     targetOnResolve(

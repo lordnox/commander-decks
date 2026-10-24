@@ -1,9 +1,10 @@
+import { eventsForAvailableAction, legalActsFor } from '../../actions'
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import { addTypesEffect, addTypesTo, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, keyword, move, objects, permanentEffect, ref, select, spell, staticAbility, target, untilCleanup } from './v1'
+import { activated, animate, chooseX, manaCost, variable, addTypesEffect, addTypesTo, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, keyword, move, objects, permanentEffect, ref, select, spell, staticAbility, target, untilCleanup } from './v1'
 
 const snapshot = (abilities: Parameters<typeof card>[0]) => createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
@@ -67,4 +68,28 @@ test('additive types follow a targeted creature that was just moved onto the bat
   })))
   expect(resolved.objects[body]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
   expect(resolved.objects[body]!.subtypes).toEqual(['Beast', 'Phyrexian'])
+})
+
+
+test('animation retains land types and counters, sets color/subtype and chosen X, then restores after cleanup', () => {
+  const server = createServerGame(commanderRules, { battlefield: { p1: [cardTemplate('Animation fixture', {
+    types: ['Land'], subtypes: ['Forest'], summoningSickness: true, counters: { '+1/+1': 1 }, ruleDefinition: snapshot([
+      activated({ costs: [manaCost('{X}{G}')], decisions: { variables: [chooseX({ min: 1 })] }, instructions: [animate({ targets: ref('source'), power: variable('X'), toughness: variable('X'), subtypes: ['Hydra'], colors: ['G'] })] }),
+    ]),
+  })] } }, { random: () => 0 })
+  server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 3 }
+  const id = server.state.zoneOrder.p1.battlefield[0]!
+  const action = legalActsFor(server.state, 'p1').find(action => action.kind === 'activateAbility' && action.objectId === id && action.x === 3)!
+  expect(action).toBeDefined()
+  expect(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: id, abilityId: '$.abilities[0]', x: 0 }).ok).toBe(false)
+  let state = server.state
+  for (const event of eventsForAvailableAction(state, 'p1', action) ?? []) state = ok(server.rules(state, event))
+  expect(state.objects[id]!.types).toEqual(['Land'])
+  state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(state.objects[id]).toMatchObject({ types: ['Land', 'Creature'], subtypes: ['Forest', 'Hydra'], colors: ['G'], power: 4, toughness: 4 })
+  const attack = server.rules({ ...state, step: 'declareAttackers', priority: 'p1' }, { type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: id, defender: 'p2' }] })
+  expect(attack.ok).toBe(false)
+  if (!attack.ok) expect(attack.error).toContain('summoning sickness')
+  state = ok(server.rules({ ...state, step: 'end' }, { type: 'advanceStep' }))
+  expect(state.objects[id]).toMatchObject({ types: ['Land'], subtypes: ['Forest'], colors: [], power: null, toughness: null })
 })

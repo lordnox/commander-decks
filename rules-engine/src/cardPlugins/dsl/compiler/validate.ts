@@ -751,6 +751,42 @@ export const validateDefinitionV1 = (root: unknown): {
     return { env, modeCount, repeatable, modeDeclared }
   }
 
+  const validateWardCost = (value: unknown, path: string) => {
+    const cost = object(value, path)
+    if (!cost) return
+    switch (cost.kind) {
+      case 'mana': {
+        exactKeys(cost, path, ['kind', 'generic'], ['kind', 'generic'])
+        const generic = cost.generic
+        if (typeof generic !== 'number' || !Number.isInteger(generic) || generic < 1) {
+          issue(childPath(path, 'generic'), 'domain', 'ward mana must be a positive integer')
+        }
+        return
+      }
+      case 'life': {
+        exactKeys(cost, path, ['kind', 'amount'], ['kind', 'amount'])
+        const amount = cost.amount
+        if (typeof amount !== 'number' || !Number.isInteger(amount) || amount < 1) {
+          issue(childPath(path, 'amount'), 'domain', 'ward life must be a positive integer')
+        }
+        return
+      }
+      case 'sacrifice': {
+        exactKeys(cost, path, ['kind', 'count', 'nonland'], ['kind', 'count'])
+        const count = cost.count
+        if (typeof count !== 'number' || !Number.isInteger(count) || count < 1) {
+          issue(childPath(path, 'count'), 'domain', 'ward sacrifice count must be a positive integer')
+        }
+        if (cost.nonland !== undefined && cost.nonland !== true) {
+          issue(childPath(path, 'nonland'), 'constant', 'nonland must be true when present')
+        }
+        return
+      }
+      default:
+        issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported ward cost: ${String(cost.kind)}`)
+    }
+  }
+
   const validateCost = (value: unknown, path: string, env: Environment): void => {
     const node = object(value, path)
     if (!node) return
@@ -760,6 +796,11 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'players'], ['kind', 'players'])
         if (validateSelector(node.players, childPath(path, 'players'), env) !== 'player') issue(path, 'domain', 'player costs require a player selector')
         if (!/\.optionalCosts\[\d+\]$/.test(path)) issue(path, 'domain', 'player choices must be optional spell costs')
+        return
+      case 'crew':
+        exactKeys(node, path, ['kind', 'power'], ['kind', 'power'])
+        validateAmount(node.power, childPath(path, 'power'), env)
+        if (!/\.costs\[\d+\]$/.test(path)) issue(path, 'domain', 'crew is an activation cost')
         return
       case 'tapSource':
         exactKeys(node, path, ['kind'], ['kind'])
@@ -1294,7 +1335,7 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         const effect = object(node.effect, childPath(path, 'effect'))
         if (effect) {
-          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType'], ['kind'])
+          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors', 'types', 'subtypes', 'allCreatureTypes', 'creatureType', 'cost'], ['kind'])
           switch (effect.kind) {
             case 'removeAbilities':
             case 'goad':
@@ -1314,6 +1355,10 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'pump':
               validateStatDelta(effect.power, childPath(childPath(path, 'effect'), 'power'), env)
               validateStatDelta(effect.toughness, childPath(childPath(path, 'effect'), 'toughness'), env)
+              break
+            case 'grantWard':
+              exactKeys(effect, childPath(path, 'effect'), ['kind', 'cost'], ['kind', 'cost'])
+              validateWardCost(effect.cost, childPath(childPath(path, 'effect'), 'cost'))
               break
             case 'grantKeyword':
               enumeration(effect.keyword, childPath(childPath(path, 'effect'), 'keyword'), new Set(Object.values(KEYWORDS)), 'granted keyword')
@@ -2051,6 +2096,8 @@ export const validateDefinitionV1 = (root: unknown): {
       }
       const playerCostIndexes = Array.isArray(node.optionalCosts) ? node.optionalCosts.flatMap((cost, index) => isData(cost) && cost.kind === 'choosePlayer' ? [index] : []) : []
       if (playerCostIndexes.length && (node.kind !== 'spell' || (Array.isArray(node.repeatableOptionalCosts) && node.repeatableOptionalCosts.some(index => playerCostIndexes.includes(Number(index)))))) issue(nodePath, 'domain', 'player choices require nonrepeatable optional spell costs')
+      const crewCosts = Array.isArray(node.costs) ? node.costs.filter(cost => isData(cost) && cost.kind === 'crew') : []
+      if (crewCosts.length && (node.kind !== 'activated' || !Array.isArray(node.costs) || node.costs.length !== 1 || [node.additionalCosts, node.optionalCosts, node.alternativeCosts].some(costs => Array.isArray(costs) && costs.length) || (isData(node.decisions) && Array.isArray(node.decisions.targets) && node.decisions.targets.length))) issue(nodePath, 'domain', 'crew requires a standalone untargeted activated payment')
       const selectableCosts = [node.additionalCosts, node.optionalCosts, ...(Array.isArray(node.alternativeCosts) ? node.alternativeCosts : [])]
       if (selectableCosts.some(costs => Array.isArray(costs) && costs.some(cost => isData(cost) && cost.kind === 'convoke'))) issue(nodePath, 'domain', 'convoke must be declared as a spell payment method, not a selectable cost')
       if (node.costLabels !== undefined) {
@@ -2066,6 +2113,7 @@ export const validateDefinitionV1 = (root: unknown): {
           }
         }
       }
+      if ([node.additionalCosts, node.optionalCosts, ...(Array.isArray(node.alternativeCosts) ? node.alternativeCosts : [])].some(costs => Array.isArray(costs) && costs.some(cost => isData(cost) && cost.kind === 'crew'))) issue(nodePath, 'domain', 'crew cannot be a selectable or additional cost')
       if (node.additionalCosts !== undefined) array(node.additionalCosts, childPath(nodePath, 'additionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.additionalCosts[${index}]`, env))
       if (node.costConditions !== undefined) array(node.costConditions, childPath(nodePath, 'costConditions')).forEach((value, ordinal) => {
         const conditionPath = `${nodePath}.costConditions[${ordinal}]`
@@ -2260,39 +2308,7 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             case 'ward': {
               exactKeys(node, effectPath, ['kind', 'cost'], ['kind', 'cost'])
-              const cost = object(node.cost, childPath(effectPath, 'cost'))
-              if (!cost) return
-              switch (cost.kind) {
-                case 'mana': {
-                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'generic'], ['kind', 'generic'])
-                  const generic = cost.generic
-                  if (typeof generic !== 'number' || !Number.isInteger(generic) || generic < 1) {
-                    issue(childPath(childPath(effectPath, 'cost'), 'generic'), 'domain', 'ward mana must be a positive integer')
-                  }
-                  return
-                }
-                case 'life': {
-                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'amount'], ['kind', 'amount'])
-                  const amount = cost.amount
-                  if (typeof amount !== 'number' || !Number.isInteger(amount) || amount < 1) {
-                    issue(childPath(childPath(effectPath, 'cost'), 'amount'), 'domain', 'ward life must be a positive integer')
-                  }
-                  return
-                }
-                case 'sacrifice': {
-                  exactKeys(cost, childPath(effectPath, 'cost'), ['kind', 'count', 'nonland'], ['kind', 'count'])
-                  const count = cost.count
-                  if (typeof count !== 'number' || !Number.isInteger(count) || count < 1) {
-                    issue(childPath(childPath(effectPath, 'cost'), 'count'), 'domain', 'ward sacrifice count must be a positive integer')
-                  }
-                  if (cost.nonland !== undefined && cost.nonland !== true) {
-                    issue(childPath(childPath(effectPath, 'cost'), 'nonland'), 'constant', 'nonland must be true when present')
-                  }
-                  return
-                }
-                default:
-                  issue(childPath(childPath(effectPath, 'cost'), 'kind'), 'unsupported-kind', `unsupported ward cost: ${String(cost.kind)}`)
-              }
+              validateWardCost(node.cost, childPath(effectPath, 'cost'))
               return
             }
             case 'grantKeyword':

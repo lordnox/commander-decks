@@ -1,3 +1,7 @@
+import hedgeShredder from './hedge-shredder'
+import lair_of_the_hydra from './lair-of-the-hydra'
+import hall_of_storm_giants from './hall-of-storm-giants'
+import firdoch_core from './firdoch-core'
 import partingGust from './parting-gust'
 import willOfTheSultai from './will-of-the-sultai'
 import getawayGlamer from './getaway-glamer'
@@ -368,6 +372,10 @@ import zimoneAndDina from './zimone-and-dina'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Hedge Shredder': hedgeShredder,
+  'Lair of the Hydra': lair_of_the_hydra,
+  'Hall of Storm Giants': hall_of_storm_giants,
+  'Firdoch Core': firdoch_core,
   'Parting Gust': partingGust,
   'Will of the Sultai': willOfTheSultai,
   'Getaway Glamer': getawayGlamer,

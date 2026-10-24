@@ -5,7 +5,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivatedAbilityDefinition, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
+import type { ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -94,6 +94,7 @@ export type CopySnapshot = {
 }
 
 export type ReversibleEffect =
+  | { kind: 'ward'; cost: WardCost }
   | { kind: 'colorChange'; before: string[]; after: string[]; incarnation: number }
   | { kind: 'pump'; power: number; toughness: number }
   /**

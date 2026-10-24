@@ -272,6 +272,8 @@ const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeCont
     case 'discard':
     case 'sacrifice':
       return { ...cost, count: lockAmount(cost.count, x, runtime) }
+    case 'crew':
+      return { ...cost, power: lockAmount(cost.power, x, runtime) }
     case 'life':
     case 'loyalty':
       return { ...cost, amount: lockAmount(cost.amount, x, runtime) }
@@ -316,6 +318,16 @@ export const resolveNonManaCostObjectChoices = (
   const resolved: string[] = []
   let choiceIndex = 0
   for (const cost of costs) {
+    if (cost.kind === 'crew') {
+      if (!runtime) throw new TypeError('crew requires an announcement source')
+      const selected = choices ?? []
+      const candidates = crewCandidates(state, payer, runtimeSourceId)
+      if (new Set(selected).size !== selected.length || selected.some(id => !candidates.some(candidate => candidate.id === id))) throw new TypeError('crew requires distinct other untapped creatures you control')
+      const power = selected.reduce((sum, id) => sum + (state.objects[id]!.power ?? 0), 0)
+      if (power < costAmount(cost.power, x, runtime)) throw new TypeError('insufficient creature power to crew')
+      resolved.push(...selected)
+      continue
+    }
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
     if (!runtime) throw new TypeError(`${cost.kind} costs require an announcement source`)
     const candidates = objectCostCandidates(cost, runtime, payer, excludedSourceId)
@@ -339,6 +351,8 @@ export const resolveNonManaCostObjectChoices = (
   }
   return resolved
 }
+
+export const crewCandidates = (state: Pick<GameState, 'objects'>, payer: PlayerId, sourceId: string) => Object.values(state.objects).filter(object => object.id !== sourceId && object.zone === 'battlefield' && object.controller === payer && object.types.includes('Creature') && !object.tapped && !object.phasedOut)
 
 const validateNonManaCosts = (
   state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules' | 'turn'>>,
@@ -395,7 +409,7 @@ const validateNonManaCosts = (
       }
     }
   }
-  const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice')
+  const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice' || cost.kind === 'crew')
   if (explicitObjectCosts.length > 0) {
     const objectChoices = resolveNonManaCostObjectChoices(
       state,
@@ -411,7 +425,7 @@ const validateNonManaCosts = (
       selectedObjects.add(id)
     }
     const explicitChoiceCount = explicitObjectCosts.reduce(
-      (total, cost) => total + costAmount(cost.count, x, runtime),
+      (total, cost) => total + (cost.kind === 'crew' ? objectChoices.length : costAmount(cost.count, x, runtime)),
       0,
     )
     if (choices && choices.length !== explicitChoiceCount) throw new TypeError('unused nonmana cost selection')
@@ -632,6 +646,9 @@ export const beginActivatedAnnouncement = (
   nonManaChoices?: readonly string[],
   options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
 ) => {
+  for (const variable of ability.decisions.variables ?? []) {
+    if (x === undefined || !Number.isSafeInteger(x) || x < variable.min || x > variable.max) return { ok: false as const, error: `${variable.name} must be a safe integer from ${variable.min} to ${variable.max}` }
+  }
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))

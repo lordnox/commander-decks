@@ -1,3 +1,4 @@
+import { captureCanonicalWardTriggers } from './ward'
 import { effectiveActivatedDefinition, activatedGrantAt, canonicalActivationIsActive } from './dsl/activatedGrants'
 import { hasUntaxedTapMana } from '../plugins/mana'
 import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
@@ -400,6 +401,9 @@ export const activated: Plugin = {
         const costEvents: GameEvent[] = []
         for (const costPart of committed.lockedCost.nonMana) {
           switch (costPart.kind) {
+            case 'crew':
+              costEvents.push({ type: 'actionGroup', events: (event.choices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
+              break
             case 'tapSource':
               costEvents.push({ type: 'tap', objectId: source.id })
               break
@@ -554,6 +558,7 @@ export const activated: Plugin = {
           return
         }
         draft.addToStack(activationItem)
+        captureCanonicalWardTriggers(state, draft, event, draft.stack[0]!)
         draft.passedInRow = []
         draft.priority = event.seat
         draft.note(`${event.seat} activates ${source.name}`)

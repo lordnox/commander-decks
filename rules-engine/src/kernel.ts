@@ -1,3 +1,4 @@
+import { captureCanonicalWardTriggers } from './cardPlugins/ward'
 import { effectiveActivatedDefinition } from './cardPlugins/dsl/activatedGrants'
 import { setStats } from './cardPlugins/continuousEffects'
 import { CREATURE_TYPES } from './creatureTypes'
@@ -79,6 +80,9 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
   let millIndex = 0
   for (const cost of transaction.lockedCost.nonMana) {
     switch (cost.kind) {
+      case 'crew':
+        paymentEvents.push({ type: 'actionGroup', events: (transaction.proposal.nonManaChoices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
+        break
       case 'tapSource':
         paymentEvents.push({ type: 'tap', objectId: transaction.proposal.sourceId })
         break
@@ -279,6 +283,10 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       completed.priority = null
     } else {
       completed.addToStack(frame.pendingActivation)
+      captureCanonicalWardTriggers(frame.baseline, completed, {
+        type: 'activateAbility', seat: frame.payer, objectId: frame.pendingActivation.objectId,
+        abilityId: frame.pendingActivation.abilityId ?? '', targets: structuredClone(frame.pendingActivation.targets),
+      }, completed.stack[0]!)
       completed.passedInRow = []
       completed.priority = frame.payer
       completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
@@ -564,6 +572,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           }]
           break
         }
+        case 'grantWard':
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'ward', cost: structuredClone(event.effect.cost) }, duration }]
+          break
         case 'grantKeyword':
           object.continuousEffects = [...(object.continuousEffects ?? []), {
             effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [], incarnation: object.incarnation }, duration,

@@ -349,6 +349,7 @@ export type ManaCost = string
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
+  | { kind: 'crew'; power: Amount }
   | { kind: 'choosePlayer'; players: PlayerSelector }
   | { kind: 'tapSource' }
   | { kind: 'discard'; filter: ObjectRecipient; count: Amount }
@@ -407,6 +408,7 @@ export type PreventionEffectDefinition = {
 export type TypeAdditions = { creatureType?: CreatureTypeReference; allCreatureTypes?: true; types?: readonly string[]; subtypes?: readonly string[] }
 
 export type CreatedEffect =
+  | { kind: 'grantWard'; cost: WardCost }
   | { kind: 'grantActivatedAbility'; ability: ActivatedAbilityDefinition }
   | { kind: 'removeAbilities' }
   | { kind: 'setStats'; power: StatDelta; toughness: StatDelta }

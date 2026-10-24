@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 49,
+    "cardRegistrations": 45,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 572,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 118,
+    "instructionUnobservedGaps": 123,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 66,
-    "candidateOnlyCardRows": 44
+    "candidateOnlyInstructionRows": 61,
+    "candidateOnlyCardRows": 40
   },
   "cardEffects": [
     {
@@ -42,27 +42,22 @@
       "currentRegistrations": [
         "Angel of Sanctions:effects[2]",
         "Belonging:effects[2]",
-        "Firdoch Core:effects[1]",
-        "Firdoch Core:effects[2]",
-        "Hall of Storm Giants:effects[1]",
-        "Hedge Shredder:effects[2]",
         "Kederekt Leviathan:effects[1]",
-        "Lair of the Hydra:effects[1]",
         "Soul of Eternity:effects[1]",
         "Thespian's Stage:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 20,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:313 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:129 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:129 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:167 — test('Angel of Sanctions embalms from the graveyard', () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -314,20 +309,11 @@
     {
       "variant": "replacement",
       "mechanic": "replacement effect",
-      "currentRegistrations": [
-        "Hall of Storm Giants:effects[0]",
-        "Lair of the Hydra:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:420 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "canonical replacement definition",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -337,7 +323,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "restrictedMana",
@@ -430,7 +416,6 @@
         "Angel of Sanctions:effects[1]",
         "Belonging:effects[1]",
         "Concordant Crossroads:effects[0]",
-        "Firdoch Core:effects[0]",
         "Glorious Protector:effects[1]",
         "Roaming Throne:effects[0]",
         "Sakashima of a Thousand Faces:effects[0]",
@@ -448,7 +433,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 28,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2934 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
@@ -534,8 +519,6 @@
         "Eureka:effects[0]",
         "Forgotten Cellar:effects[0]",
         "Glorious Protector:effects[2]",
-        "Hedge Shredder:effects[0]",
-        "Hedge Shredder:effects[1]",
         "Hostile Negotiations:effects[0]",
         "Hypergenesis:effects[0]",
         "Illusion of Choice:effects[0]",
@@ -556,7 +539,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 82,
+        "matches": 77,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:1227 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
@@ -583,19 +566,11 @@
     {
       "variant": "addChosenColorMana",
       "mechanic": "cost or announcement action",
-      "currentRegistrations": [
-        "Firdoch Core:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:150 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -606,7 +581,7 @@
         "06",
         "07"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -814,24 +789,11 @@
     {
       "variant": "animateUntilEot",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Firdoch Core:effects[2].do[0]",
-        "Hall of Storm Giants:effects[1].do[0]",
-        "Lair of the Hydra:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -841,7 +803,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -1416,20 +1378,11 @@
     {
       "variant": "crewVehicle",
       "mechanic": "cost or announcement action",
-      "currentRegistrations": [
-        "Hedge Shredder:effects[2].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/registry.test.ts:60 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/rules/triggers.test.ts:25 — test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {",
-          "rules-engine/src/rules/triggers.test.ts:58 — test('Hedge Shredder does not trigger when a land is discarded to the graveyard', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1440,7 +1393,7 @@
         "06",
         "07"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3129,26 +3082,17 @@
     {
       "variant": "optionalMill",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Hedge Shredder:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/registry.test.ts:60 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/rules/triggers.test.ts:25 — test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {",
-          "rules-engine/src/rules/triggers.test.ts:58 — test('Hedge Shredder does not trigger when a land is discarded to the graveyard', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3609,26 +3553,17 @@
     {
       "variant": "putMilledLandTapped",
       "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Hedge Shredder:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/registry.test.ts:60 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/rules/triggers.test.ts:25 — test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {",
-          "rules-engine/src/rules/triggers.test.ts:58 — test('Hedge Shredder does not trigger when a land is discarded to the graveyard', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4971,46 +4906,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Firdoch Core",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Firdoch Core"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:150 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:443 — test('changeling counts a noncreature permanent as a Crab', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [addChosenColorMana, animateUntilEot]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "static"
-      ],
-      "instructionVariants": [
-        "addChosenColorMana",
-        "animateUntilEot"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Forgotten Cellar",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -5110,86 +5005,6 @@
       "handlerIds": [
         "choiceEffects",
         "linkedExile"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hall of Storm Giants",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hall of Storm Giants"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:391 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, replacement] and instructions [animateUntilEot]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08",
-        "11",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "replacement"
-      ],
-      "instructionVariants": [
-        "animateUntilEot"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hedge Shredder",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hedge Shredder"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/registry.test.ts:60 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/rules/triggers.test.ts:25 — test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {",
-          "rules-engine/src/rules/triggers.test.ts:58 — test('Hedge Shredder does not trigger when a land is discarded to the graveyard', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, trigger] and instructions [crewVehicle, optionalMill, putMilledLandTapped]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "crewVehicle",
-        "optionalMill",
-        "putMilledLandTapped"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -5444,44 +5259,6 @@
       "handlerIds": [
         "choiceEffects",
         "stealCast"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Lair of the Hydra",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Lair of the Hydra"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:135 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:420 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, replacement] and instructions [animateUntilEot]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08",
-        "11",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "replacement"
-      ],
-      "instructionVariants": [
-        "animateUntilEot"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -6466,17 +6243,13 @@
       "currentRegistrations": [
         "Angel of Sanctions",
         "Belonging",
-        "Firdoch Core",
-        "Hall of Storm Giants",
-        "Hedge Shredder",
         "Kederekt Leviathan",
-        "Lair of the Hydra",
         "Soul of Eternity",
         "Thespian's Stage"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 103,
+        "matches": 90,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
@@ -6484,8 +6257,8 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:341 — test('entering returns every other nonland permanent to its owner', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:374 — test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:403 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
-          "rules-engine/src/cardPlugins/crew.test.ts:12",
-          "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:125 — test('Angel of Sanctions optional ETB may exile zero permanents', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:151 — test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6662,8 +6435,8 @@
           "rules-engine/src/cardPlugins/permanentControl.test.ts:177 — test('rest-of-game control survives the source leaving the game', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:219 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:93 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:105 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:133 — test('conditional control ends when its source untaps', () => {"
+          "rules-engine/src/cardPlugins/untilEot.test.ts:100 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:128 — test('conditional control ends when its source untaps', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -7102,7 +6875,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 80,
+        "matches": 83,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:293 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -7555,9 +7328,9 @@
         "matches": 16,
         "samples": [
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:226 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:211 — test('an earlier duration ending does not overwrite a later control effect', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:34 — test('cleanup reverts a land animation while retaining its original type', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:63 — test('cleanup reverts a temporary pump', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:206 — test('an earlier duration ending does not overwrite a later control effect', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:29 — test('cleanup reverts a land animation while retaining its original type', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:58 — test('cleanup reverts a temporary pump', () => {",
           "rules-engine/src/plugins/combat.test.ts:119 — test('a combat nobody joined skips blockers and damage', () => {",
           "rules-engine/src/plugins/combat.test.ts:133 — test('a first striker keeps its own damage step', () => {",
           "rules-engine/src/plugins/combat.test.ts:88 — test('entering the combat damage step assigns damage without being asked', () => {",
@@ -8218,7 +7991,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:3642 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:131 — test('Roaming Throne stamps Ward {2}', () => {",
-          "rules-engine/src/cardPlugins/dsl/ward.test.ts:61 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
+          "rules-engine/src/cardPlugins/dsl/ward.test.ts:65 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -8268,8 +8041,8 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:315",
-        "rules-engine/src/cardPlugins/cardRules.ts:6",
+        "rules-engine/src/cardPlugins/cardRules.ts:269",
+        "rules-engine/src/cardPlugins/cardRules.ts:5",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:198",
         "rules-engine/src/cardPlugins/effectRuntime.ts:437",
@@ -8293,7 +8066,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1423"
+        "rules-engine/src/types.ts:1424"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -8326,9 +8099,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1435",
-        "rules-engine/src/actions.ts:1604",
-        "rules-engine/src/actions.ts:889",
+        "rules-engine/src/actions.ts:1453",
+        "rules-engine/src/actions.ts:1622",
+        "rules-engine/src/actions.ts:890",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:245",
@@ -8392,9 +8165,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1532",
-        "rules-engine/src/types.ts:332",
-        "rules-engine/src/types.ts:334",
-        "rules-engine/src/types.ts:338"
+        "rules-engine/src/types.ts:333",
+        "rules-engine/src/types.ts:335",
+        "rules-engine/src/types.ts:339"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -8453,9 +8226,9 @@
         "rules-engine/src/formats.ts:133",
         "rules-engine/src/formats.ts:42",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:522",
-        "rules-engine/src/kernel.ts:524",
-        "rules-engine/src/kernel.ts:811",
+        "rules-engine/src/kernel.ts:530",
+        "rules-engine/src/kernel.ts:532",
+        "rules-engine/src/kernel.ts:822",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -8473,10 +8246,10 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:11",
-        "rules-engine/src/types.ts:115",
-        "rules-engine/src/types.ts:159",
-        "rules-engine/src/types.ts:295",
-        "rules-engine/src/types.ts:357",
+        "rules-engine/src/types.ts:116",
+        "rules-engine/src/types.ts:160",
+        "rules-engine/src/types.ts:296",
+        "rules-engine/src/types.ts:358",
         "rules-engine/src/types.ts:74",
         "rules-engine/src/types.ts:91"
       ],
@@ -8559,12 +8332,12 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1867,
-          2778
+          1885,
+          2797
         ],
         "samples": [
-          "1867: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2778: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
+          "1885: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
+          "2797: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -8693,10 +8466,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          475
+          489
         ],
         "samples": [
-          "475: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "489: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -9299,15 +9072,15 @@
       {
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
-          226,
-          285,
-          301,
-          311
+          243,
+          276,
+          292,
+          302
         ],
         "samples": [
-          "226: const allowed = event.type === 'custom'",
-          "285: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
-          "301: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
+          "243: const allowed = event.type === 'custom'",
+          "276: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
+          "292: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -9434,10 +9207,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1616
+          1627
         ],
         "samples": [
-          "1616: event.name === SEARCH_CHOSEN"
+          "1627: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -10832,17 +10605,17 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          349,
-          352,
-          365,
-          556,
-          588,
-          608
+          350,
+          353,
+          366,
+          560,
+          593,
+          613
         ],
         "samples": [
-          "349: const source = draft.object(event.objectId)",
-          "352: draft.enqueue({",
-          "365: const source = draft.object(event.objectId)"
+          "350: const source = draft.object(event.objectId)",
+          "353: draft.enqueue({",
+          "366: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -11333,20 +11106,20 @@
       {
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
-          187,
-          198,
-          263,
-          264,
-          319,
-          326,
+          91,
+          92,
+          204,
+          215,
+          310,
+          317,
+          336,
           345,
-          354,
-          374
+          365
         ],
         "samples": [
-          "187: const object = draft.object(pending.event.objectId)",
-          "198: draft.enqueue({",
-          "263: const spellObject = draft.object(event.objectId)"
+          "91: const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined",
+          "92: draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {",
+          "204: const object = draft.object(pending.event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -11829,31 +11602,31 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          508,
-          515,
-          615,
-          617,
-          621,
-          629,
-          644,
-          653,
-          656,
-          666,
-          707,
-          710,
-          719,
-          754,
-          769,
-          826,
-          833,
-          839,
-          856,
-          864
+          516,
+          523,
+          626,
+          628,
+          632,
+          640,
+          655,
+          664,
+          667,
+          677,
+          718,
+          721,
+          730,
+          765,
+          780,
+          837,
+          844,
+          850,
+          867,
+          875
         ],
         "samples": [
-          "508: const object = draft.object(event.objectRef.objectId)",
-          "515: const object = draft.object(event.objectId)",
-          "615: const object = draft.object(event.objectId)"
+          "516: const object = draft.object(event.objectRef.objectId)",
+          "523: const object = draft.object(event.objectId)",
+          "626: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

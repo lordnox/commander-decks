@@ -7,6 +7,10 @@ import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok } from '../../testHelpers'
 import {
+  activated,
+  animate,
+  ref,
+  tapCost,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
@@ -112,4 +116,43 @@ test('canonical sacrifice ward requires the full nonland set', () => {
 test('the compiler rejects an empty ward cost', () => {
   expect(() => compileCardRuleDefinition(card([staticAbility(ward({ kind: 'mana', generic: 0 }))]))).toThrow()
   expect(() => compileCardRuleDefinition(card([staticAbility(ward({ kind: 'life', amount: 0 }))]))).toThrow()
+})
+
+test('temporary ward instances stack independently, survive restore, and expire at cleanup', () => {
+  const server = game({ kind: 'mana', generic: 1 })
+  const fixture = Object.values(server.state.objects).find(object => object.name === 'Warded fixture')!
+  fixture.ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [], instructions: [animate({ targets: ref('source'), ward: { kind: 'mana', generic: 3 } })] })])))
+  let state = server.state
+  for (let index = 0; index < 2; index += 1) {
+    state = ok(server.rules({ ...state, priority: 'p2' }, { type: 'activateAbility', seat: 'p2', objectId: fixture.id, abilityId: '$.abilities[0]' }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+  }
+  state = { ...state, priority: 'p1' }
+  const cast = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'castSpell', seat: 'p1', objectId: Object.values(state.objects).find(object => object.name === 'Canonical Target Spell')!.id, targets: [{ kind: 'object', objectId: fixture.id }] }))
+  expect(cast.stack.filter(item => item.payload?.canonicalWard)).toHaveLength(2)
+  const expired = ok(server.rules({ ...state, step: 'end' }, { type: 'advanceStep' }))
+  const after = ok(server.rules(expired, { type: 'castSpell', seat: 'p1', objectId: Object.values(state.objects).find(object => object.name === 'Canonical Target Spell')!.id, targets: [{ kind: 'object', objectId: fixture.id }] }))
+  expect(after.stack.filter(item => item.payload?.canonicalWard)).toHaveLength(0)
+})
+
+test.each([false, true])('ward targets canonical activations after costs commit (tap=%s)', tapped => {
+  const server = game({ kind: 'mana', generic: 3 }, { battlefield: { p1: [cardTemplate('Ability fixture', {
+    types: ['Artifact'], ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: tapped ? [tapCost()] : [], decisions: { targets: [select({ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, count: 1 })] }, instructions: [] })]))),
+  })] } })
+  const source = Object.values(server.state.objects).find(object => object.name === 'Ability fixture')!
+  const target = Object.values(server.state.objects).find(object => object.name === 'Warded fixture')!
+  const state = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]', targets: [{ kind: 'object', objectId: target.id }] }))
+  expect(state.objects[source.id]!.tapped).toBe(tapped)
+  expect(state.stack).toHaveLength(2)
+  expect(state.stack[0]!.payload?.canonicalWard).toBe(true)
+  const waiting = ok(server.rules(state, { type: 'resolveTop' }))
+  const declined = ok(server.rules(waiting, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: false } }))
+  expect(declined.stack).toHaveLength(0)
+  expect(declined.objects[source.id]!.zone).toBe('battlefield')
+})
+
+test('ward uses format-defined opponents rather than every other controller', () => {
+  const server = game({ kind: 'mana', generic: 3 })
+  server.state.opponents.p2 = []
+  expect(castAt(server).stack.filter(item => item.payload?.canonicalWard)).toHaveLength(0)
 })
