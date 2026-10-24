@@ -52,6 +52,7 @@ import { canonicalRandom } from '../cardPlugins/dsl/canonicalRandom'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
 import { activated as canonicalActivated } from '../cardPlugins/activated'
+import { alternateCosts } from '../cardPlugins/alternateCosts'
 
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
@@ -74,6 +75,7 @@ export const builtInPlugins = [
   foretell,
   rebound,
   warp,
+  alternateCosts,
   saga,
   rooms,
   stateBased,

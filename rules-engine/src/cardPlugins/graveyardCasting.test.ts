@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
-import { effectsOf } from './cardRules'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
@@ -153,81 +152,4 @@ describe('graveyard casting keywords', () => {
     expect(countered.objects[dread.id].zone).toBe('exile')
   })
 
-  test('Six grants retrace only to eligible cards during its controller turn', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [
-            cardTemplate('Forest', { types: ['Land'] }),
-            creature('Grizzly Bears', '{1}{G}'),
-            cardTemplate('Graveyard Sorcery', { types: ['Sorcery'], manaCost: '{1}{G}' }),
-          ],
-          p2: [cardTemplate('Island', { types: ['Land'] })],
-        },
-        battlefield: {
-          p1: [creature('Six', '{2}{G}')],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [alternateCosts] },
-    )
-    const ready = structuredClone(server.state)
-    moveToGraveyard(ready, 'Grizzly Bears', 'Graveyard Sorcery')
-    ready.players.p1.mana.G = 1
-    ready.players.p1.mana.C = 1
-    const bear = named(ready, 'Grizzly Bears')
-    const forest = named(ready, 'Forest')
-    const retrace = legalActsFor(ready, 'p1').find((action) =>
-      action.kind === 'castSpell'
-      && action.objectId === bear.id
-      && action.castOption === 'retrace')
-    expect(retrace).toMatchObject({
-      kind: 'castSpell',
-      castLabel: 'Retrace—Discard a land card.',
-      targetGroups: [{
-        label: 'Land card to discard',
-        purpose: 'cost',
-        targets: [{ objectId: forest.id, name: 'Forest' }],
-      }],
-    })
-    expect(legalActsFor(ready, 'p1').some((action) =>
-      action.kind === 'castSpell'
-      && action.name === 'Graveyard Sorcery'
-      && action.castOption === 'retrace')).toBe(false)
-
-    const opponentView = server.project(ready, 'p2')
-    expect(opponentView.objects[forest.id]).toBeUndefined()
-    expect(JSON.stringify(legalActsFor(opponentView, 'p2'))).not.toContain('Forest')
-    expect(JSON.stringify(retrace)).not.toContain('Island')
-
-    expect(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: bear.id,
-      castOption: 'retrace',
-    }).ok).toBe(false)
-
-    const wrongTurn = structuredClone(ready)
-    wrongTurn.active = 'p2'
-    expect(server.rules(wrongTurn, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: bear.id,
-      castOption: 'retrace',
-      discard: [forest.id],
-    }).ok).toBe(false)
-
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: bear.id,
-      castOption: 'retrace',
-      discard: [forest.id],
-    }))
-    expect(cast.objects[forest.id].zone).toBe('graveyard')
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[bear.id].zone).toBe('battlefield')
-    expect(effectsOf(named(resolved, 'Six')).some((effect) =>
-      effect.op === 'trigger' && effect.on === 'attacks')).toBe(true)
-  })
 })

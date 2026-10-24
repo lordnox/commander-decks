@@ -1,5 +1,6 @@
 import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
-import { canonicalLandPermission } from './cardPlugins/dsl/playPermissions'
+import { canonicalLandPermission, canonicalSpellPermission } from './cardPlugins/dsl/playPermissions'
+import { matchingSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { effectiveActivatedDefinition, canonicalActivationIsActive } from './cardPlugins/dsl/activatedGrants'
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
@@ -636,11 +637,18 @@ const canCastAtTiming = (
     && spellFace
     && !spellFace.subtypes.includes('Adventure'),
   )
+  const permission = matchingSpellCast(state, seat, object.id)
+  const staticPermission = canonicalSpellPermission(state, seat, object)
+  const fromPermissionZone = Boolean(
+    (permission && (permission.zone === object.zone || permission.objectId === object.id))
+    || staticPermission,
+  )
   if (
     !state.castableZones.includes(object.zone)
     && !(withoutPayingMana && object.zone === 'exile')
     && !fromAlternateZone
     && !fromAdventureExile
+    && !fromPermissionZone
   ) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
@@ -662,6 +670,8 @@ const canCastAtTiming = (
   if (enchantTargets(state, spell)?.length === 0) return false
   if (
     !withoutPayingMana
+    && !permission?.asThoughFlash
+    && !staticPermission?.asThoughFlash
     && !spell.types.includes('Instant')
     && !hasKeyword(spell, KEYWORDS.flash, state)
     && !mayCastAsThoughFlash(state, seat)
@@ -1111,9 +1121,18 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       })
     }).flatMap((action) => action.kind === 'castSpell' ? withGift(action) : [action]),
   )
+  const staticPermission = canonicalSpellPermission(state, seat, object)
+  const printedPermission = matchingSpellCast(state, seat, object.id)
+  const authorizedZone = state.castableZones.includes(object.zone)
+    || (
+      staticPermission
+      && !staticPermission.discardLand
+      && staticPermission.cost !== 'lifeEqualManaValue'
+    )
+    || printedPermission?.cost === 'printed'
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const adventure = alternatives.some((effect) => effect.id === 'adventure')
-    const actions: AvailableAction[] = state.castableZones.includes(object.zone) && !adventure
+    const actions: AvailableAction[] = authorizedZone && !adventure
       ? fundedVariants({
           kind: 'castSpell',
           objectId: object.id,
@@ -1163,7 +1182,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     : paysLifeX
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
-  if (!state.castableZones.includes(object.zone)) return []
+  if (!authorizedZone) return []
   const variable = canonicalSpellProgram(object)?.decisions.variables?.[0]
   const min = variable?.min ?? 0
   const max = Math.min(upper, variable?.max ?? upper)

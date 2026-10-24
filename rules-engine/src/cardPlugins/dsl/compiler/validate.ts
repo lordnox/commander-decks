@@ -7,7 +7,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS } from '../schema/v1'
+import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -1058,7 +1058,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'offerCast':
-        exactKeys(node, path, ['kind', 'chooser', 'from', 'zone', 'cost', 'maxManaValue', 'notLand', 'takeControl', 'inspect'], ['kind', 'chooser', 'from', 'zone', 'cost'])
+        exactKeys(node, path, ['kind', 'chooser', 'from', 'zone', 'cost', 'maxManaValue', 'notLand', 'takeControl', 'inspect', 'laterTurn', 'timing', 'object'], ['kind', 'chooser', 'from', 'zone', 'cost'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
         validateReference(node.from, childPath(path, 'from'), env, ['player'])
         enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
@@ -1067,6 +1067,9 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.notLand !== undefined && node.notLand !== true) issue(childPath(path, 'notLand'), 'constant', 'notLand must be true when present')
         if (node.takeControl !== undefined && node.takeControl !== true) issue(childPath(path, 'takeControl'), 'constant', 'takeControl must be true when present')
         if (node.inspect !== undefined && node.inspect !== true) issue(childPath(path, 'inspect'), 'constant', 'inspect must be true when present')
+        if (node.laterTurn !== undefined && node.laterTurn !== true) issue(childPath(path, 'laterTurn'), 'constant', 'laterTurn must be true when present')
+        if (node.timing !== undefined) enumeration(node.timing, childPath(path, 'timing'), new Set(Object.values(SPELL_CAST_TIMING)), 'spell-cast timing')
+        if (node.object !== undefined) validateReference(node.object, childPath(path, 'object'), env, ['object'])
         return
       case 'discardHands':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
@@ -2259,6 +2262,18 @@ export const validateDefinitionV1 = (root: unknown): {
               if (validateSelector(node.cards, childPath(effectPath, 'cards'), baseEnvironment()) !== 'object') issue(effectPath, 'domain', 'land permissions require an object selector')
               if (node.topOnly !== undefined && node.topOnly !== true) issue(effectPath, 'type', 'topOnly must be true')
               return
+            case 'castSpells':
+              exactKeys(node, effectPath, ['kind', 'players', 'cards', 'cost', 'asThoughFlash', 'laterTurn', 'discardLand', 'when', 'optionId', 'label'], ['kind', 'players', 'cards', 'cost'])
+              if (validateSelector(node.players, childPath(effectPath, 'players'), baseEnvironment()) !== 'player') issue(effectPath, 'domain', 'spell permissions require a player selector')
+              if (validateSelector(node.cards, childPath(effectPath, 'cards'), baseEnvironment()) !== 'object') issue(effectPath, 'domain', 'spell permissions require an object selector')
+              enumeration(node.cost, childPath(effectPath, 'cost'), new Set(Object.values(SPELL_CAST_COSTS)), 'spell-cast cost')
+              if (node.asThoughFlash !== undefined && node.asThoughFlash !== true) issue(childPath(effectPath, 'asThoughFlash'), 'constant', 'asThoughFlash must be true when present')
+              if (node.laterTurn !== undefined && node.laterTurn !== true) issue(childPath(effectPath, 'laterTurn'), 'constant', 'laterTurn must be true when present')
+              if (node.discardLand !== undefined && node.discardLand !== true) issue(childPath(effectPath, 'discardLand'), 'constant', 'discardLand must be true when present')
+              if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+              if (node.optionId !== undefined) nonemptyString(node.optionId, childPath(effectPath, 'optionId'))
+              if (node.label !== undefined) nonemptyString(node.label, childPath(effectPath, 'label'))
+              return
             case 'enchant':
               exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
               if (!['object', 'player'].includes(validateSelector(node.filter, childPath(effectPath, 'filter'), baseEnvironment()) ?? '')) issue(effectPath, 'type', 'enchant requires an object or player selector')
@@ -2420,6 +2435,16 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             case 'replacement': {
               exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
+              if (isData(node.transform) && node.transform.kind === 'redirect') {
+                exactKeys(node.transform, `${effectPath}.transform`, ['kind', 'to', 'link'], ['kind', 'to'])
+                enumeration(node.transform.to, `${effectPath}.transform.to`, ZONES, 'zone')
+                if (node.transform.link !== undefined && node.transform.link !== true) {
+                  issue(`${effectPath}.transform.link`, 'constant', 'link must be true when present')
+                }
+                if (node.transform.link && node.transform.to !== 'exile') {
+                  issue(`${effectPath}.transform`, 'domain', 'linked redirect requires exile')
+                }
+              }
               if (isData(node.transform) && node.transform.kind === 'modifyEvent' && isData(node.transform.changes) && node.transform.changes.enterCounters !== undefined) validateEventFieldChanges(node.transform.changes, `${effectPath}.transform.changes`, baseEnvironment())
               if (isData(node.event) && node.event.kind === 'gainLife') {
                 exactKeys(node.event, `${effectPath}.event`, ['kind', 'filter'], ['kind', 'filter'])

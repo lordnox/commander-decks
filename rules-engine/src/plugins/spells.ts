@@ -36,7 +36,8 @@ import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { PENDING_STEAL_CAST } from '../rules/selectCards'
-import { matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
+import { consumeSpellCast, matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
+import { canonicalSpellPermission } from '../cardPlugins/dsl/playPermissions'
 import { SPELLS_CAST_THIS_TURN, spellsCastThisTurn } from '../rules/spellsCast'
 import { ceaseToExist } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
@@ -743,6 +744,7 @@ export const spells: Plugin = {
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
       const steal = state.players[event.seat]?.data[PENDING_STEAL_CAST]
       const permission = matchingSpellCast(state, event.seat, object.id)
+      const staticPermission = canonicalSpellPermission(state, event.seat, object)
       const stealCast = Boolean(
         permission?.takeControl
         || (
@@ -767,6 +769,7 @@ export const spells: Plugin = {
         && !(object.adventured && object.zone === 'exile' && !event.adventureCast)
         && !(stealCast && object.zone === 'hand')
         && !(permission && (permission.zone === object.zone || permission.objectId === object.id))
+        && !staticPermission
       ) {
         return 'spell is not in a castable zone'
       }
@@ -808,6 +811,8 @@ export const spells: Plugin = {
         && !hasKeyword(spell, KEYWORDS.flash, state)
         && !mayCastAsThoughFlash(state, event.seat)
         && !(freeCast && (permission?.asThoughFlash || !stealCast))
+        && !permission?.asThoughFlash
+        && !staticPermission?.asThoughFlash
         && event.castOption !== 'exiledWithLife'
       ) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
@@ -1062,9 +1067,11 @@ export const spells: Plugin = {
         selectedIndex += count
       }
       const castFrom = object.zone
-      if (matchingSpellCast(state, event.seat, object.id)?.takeControl) {
+      const permission = matchingSpellCast(state, event.seat, object.id)
+      if (permission?.takeControl) {
         object.controller = event.seat
       }
+      if (permission) consumeSpellCast(draft, event.seat, object.id)
       draft.move(object.id, 'stack')
       const stacked = draft.addToStack({
         id: draft.allocId('s'),
@@ -1162,17 +1169,6 @@ export const spells: Plugin = {
                 payment: canonicalTransaction.payment,
               }
             : undefined
-        }
-      }
-      if (event.castOption === 'exiledWithLife') {
-        const life = manaValueOf(object)
-        if (life > 0) {
-          draft.enqueue({
-            type: 'loseLife',
-            seat: event.seat,
-            amount: life,
-            source: object.id,
-          })
         }
       }
       if (canonicalNonManaCosts.length === 0 && !event.canonicalTransaction) {

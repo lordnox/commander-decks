@@ -165,12 +165,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "dbe59ed945e6b9b831bc91a8d500bcd7e4c6cdffec2aa94a741870bbf944ff53",
-    "card": "Six"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "6d08bebdb4eb2ad78947def2935e745331144db830390611afd5ad65093d7198",
     "card": "Spark Double"
   },
@@ -239,12 +233,6 @@
     "code": "legacy-card-registration",
     "digest": "b9efc282489397318794ca87153b262ed7cf60f2dafdb48e975ae66e67db467a",
     "card": "Snuff Out"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "f49c4cbcc6e54803ff9e019842c6cae5337e50f4e647ab536db8a1bb4ce7bb47",
-    "card": "Valgavoth, Terror Eater"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

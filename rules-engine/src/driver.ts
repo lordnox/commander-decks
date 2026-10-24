@@ -9,7 +9,7 @@ import { CONTROL_CHOICE_ACTION, CONTROL_EVENT } from './cardPlugins/dsl/controlC
 import { pickRandomChoices, RANDOM_CHOICE as HIDDEN_RANDOM } from './plugins/hiddenInformation'
 import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
-import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
+import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v1'
 import { openSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { completeAdventureSpell } from './plugins/adventure'
@@ -793,16 +793,23 @@ const actionEvents = (
       const maxManaValue = instruction.maxManaValue === undefined
         ? undefined
         : availableAmount(instruction.maxManaValue, context)
+      const objectId = instruction.object
+        ? evaluateObjectReference(instruction.object, context)[0]?.id
+        : undefined
       openSpellCast(draft, {
         sourceId: frame.source.ref.objectId,
         sourceName: frame.source.snapshot.name,
         seat: chooser,
         zone: instruction.zone,
         fromSeat: from,
+        cost: instruction.cost,
         ...(maxManaValue !== undefined ? { maxManaValue } : {}),
         ...(instruction.notLand ? { notLand: true } : {}),
         ...(instruction.takeControl ? { takeControl: true } : {}),
         ...(instruction.inspect ? { inspect: true } : {}),
+        ...(instruction.laterTurn ? { availableFromTurn: draft.turn + 1 } : {}),
+        ...(instruction.timing !== SPELL_CAST_TIMING.sorcery ? { asThoughFlash: true } : {}),
+        ...(objectId ? { objectId } : {}),
       })
       return []
     }

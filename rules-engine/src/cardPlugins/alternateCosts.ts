@@ -4,6 +4,8 @@ import { isSwamp } from '../plugins/swampOverlay'
 import { FORETELL_CAST_ID, foretellCastOptions } from '../plugins/foretell'
 import { effectsOf } from './cardRules'
 import type { CardEffect } from './effects'
+import { canonicalSpellPermission } from './dsl/playPermissions'
+import { manaValueOf } from './effectRuntime'
 
 export type AlternateCastEffect = Extract<CardEffect, { op: 'alternateCast' }>
 
@@ -46,6 +48,24 @@ export const availableAlternateCastEffects = (
       )) continue
       effects.push(retraceEffect(object))
     }
+  }
+  const permission = canonicalSpellPermission(state, seat, object)
+  if (permission?.discardLand) {
+    effects.push({
+      ...retraceEffect(object),
+      ...(permission.optionId ? { id: permission.optionId } : {}),
+      ...(permission.label ? { label: permission.label } : {}),
+    })
+  }
+  if (permission?.cost === 'lifeEqualManaValue') {
+    effects.push({
+      op: 'alternateCast',
+      id: permission.optionId ?? 'exiledWithLife',
+      label: permission.label ?? `Cast for ${manaValueOf(object)} life`,
+      manaCost: '',
+      fromZone: object.zone,
+      life: manaValueOf(object),
+    })
   }
   return effects.filter(
     (effect, index) => effects.findIndex((candidate) => candidate.id === effect.id) === index,
@@ -153,7 +173,7 @@ export const alternateCosts: Plugin = {
     if (!object) return
     if (!event.castOption) return
     const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
-    if (!selected) return `${object.name} has no casting option ${event.castOption}`
+    if (!selected) return
     if (!canChooseAlternateCast(state, event.seat, selected, object)) {
       return `${event.castOption} cannot be paid for ${object.name}`
     }

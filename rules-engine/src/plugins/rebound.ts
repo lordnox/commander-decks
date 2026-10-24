@@ -57,6 +57,7 @@ export const openFreeCast = (
     sourceId: source.id,
     sourceName: source.name,
     seat: source.controller,
+    asThoughFlash: true,
     ...(fromHand
       ? { zone: 'hand', fromSeat: source.controller, maxManaValue: fromHand.maxManaValue, notLand: true }
       : { objectId: source.id }),

@@ -170,11 +170,9 @@ describe('card plugin registry', () => {
     expect(handlerIdsForNames(['Finale of Devastation'])).toEqual([])
     expect(cardPluginEntry('Finale of Devastation')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')).toBeDefined()
-    expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([
-      'exiledWith',
-      'ward',
-    ])
-    expect(cardPluginEntry('Valgavoth, Terror Eater')?.pluginIds).toEqual(['exiledWith'])
+    expect(handlerIdsForNames(['Valgavoth, Terror Eater'])).toEqual([])
+    expect(cardPluginEntry('Valgavoth, Terror Eater')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Valgavoth, Terror Eater')).toBeDefined()
   })
 
   test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {

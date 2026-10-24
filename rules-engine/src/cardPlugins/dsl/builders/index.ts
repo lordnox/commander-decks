@@ -47,6 +47,7 @@ import type {
   NumericCharacteristic,
   ObjectNumericCharacteristic,
   SpellCastCost,
+  SpellCastTiming,
   ObjectFilter,
   ObjectOccurrenceFilter,
   ObjectReference,
@@ -465,7 +466,8 @@ export const replaceWith = (...instructions: Instruction[]) =>
 
 export const suppressEvent = () => immutableData({ kind: 'suppress' as const })
 
-export const redirectEvent = (to: Zone) => immutableData({ kind: 'redirect' as const, to })
+export const redirectEvent = (to: Zone, options: { link?: true } = {}) =>
+  immutableData({ kind: 'redirect' as const, to, ...(options.link ? { link: true as const } : {}) })
 
 export const preventDamage = () => immutableData({ kind: 'preventDamage' as const })
 
@@ -1437,6 +1439,33 @@ export const grantActivatedAbilityEffect = (ability: ActivatedAbilityDefinition)
 export const playLands = (players: PlayerSelector, cards: ObjectSelector, options: { topOnly?: true } = {}): ContinuousEffectDefinition =>
   immutableData({ kind: 'playLands', players, cards, ...options })
 
+/** Live spell announcement from a selected zone, keeping printed/alternate/additional costs. */
+export const castSpells = (
+  players: PlayerSelector,
+  cards: ObjectSelector,
+  options: {
+    cost?: SpellCastCost
+    asThoughFlash?: true
+    laterTurn?: true
+    discardLand?: true
+    when?: Condition
+    optionId?: string
+    label?: string
+  } = {},
+): ContinuousEffectDefinition =>
+  immutableData({
+    kind: 'castSpells',
+    players,
+    cards,
+    cost: options.cost ?? SPELL_CAST_COSTS.printed,
+    ...(options.asThoughFlash ? { asThoughFlash: true as const } : {}),
+    ...(options.laterTurn ? { laterTurn: true as const } : {}),
+    ...(options.discardLand ? { discardLand: true as const } : {}),
+    ...(options.when ? { when: options.when } : {}),
+    ...(options.optionId ? { optionId: options.optionId } : {}),
+    ...(options.label ? { label: options.label } : {}),
+  })
+
 /** One-shot cast from a private zone; announcement uses the stored cost policy. */
 export const offerCast = (input: {
   chooser?: PlayerReference
@@ -1447,6 +1476,9 @@ export const offerCast = (input: {
   notLand?: true
   takeControl?: true
   inspect?: true
+  laterTurn?: true
+  timing?: SpellCastTiming
+  object?: ObjectReference
 }) => immutableData({
   kind: 'offerCast' as const,
   chooser: input.chooser ?? ref('controller'),
@@ -1457,6 +1489,9 @@ export const offerCast = (input: {
   ...(input.notLand ? { notLand: true as const } : {}),
   ...(input.takeControl ? { takeControl: true as const } : {}),
   ...(input.inspect ? { inspect: true as const } : {}),
+  ...(input.laterTurn ? { laterTurn: true as const } : {}),
+  ...(input.timing ? { timing: input.timing } : {}),
+  ...(input.object ? { object: input.object } : {}),
 })
 
 export const revealLibraryTop = (players: PlayerSelector): ContinuousEffectDefinition =>

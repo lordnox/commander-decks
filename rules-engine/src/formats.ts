@@ -46,6 +46,7 @@ import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { targetingRequirements } from './cardPlugins/targetingRequirements'
 import { ward } from './cardPlugins/ward'
+import { alternateCosts } from './cardPlugins/alternateCosts'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
@@ -103,6 +104,7 @@ export const corePlugins = [
   foretell,
   rebound,
   warp,
+  alternateCosts,
   saga,
   rooms,
   stateBased,

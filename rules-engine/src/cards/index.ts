@@ -312,6 +312,7 @@ import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
 import sireOfSevenDeaths from './sire-of-seven-deaths'
 import sinkIntoStupor from './sink-into-stupor'
+import six from './six'
 import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
 import sokratesAthenianTeacher from './sokrates-athenian-teacher'
@@ -357,6 +358,7 @@ import unmarkedGrave from './unmarked-grave'
 import urborgTombOfYawgmoth from './urborg-tomb-of-yawgmoth'
 import urzasCave from './urzas-cave'
 import vampireHounds from './vampire-hounds'
+import valgavothTerrorEater from './valgavoth-terror-eater'
 import vaultOfChampions from './vault-of-champions'
 import verdantCatacombs from './verdant-catacombs'
 import voyagerStaff from './voyager-staff'
@@ -702,6 +704,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sire of Seven Deaths": sireOfSevenDeaths,
   "Sink into Stupor": sinkIntoStupor,
   "Sink into Stupor // Soporific Springs": sinkIntoStupor,
+  "Six": six,
   "Skull Prophet": skullProphet,
   "Sky Diamond": skyDiamond,
   "Sokrates, Athenian Teacher": sokratesAthenianTeacher,
@@ -749,6 +752,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Urborg, Tomb of Yawgmoth": urborgTombOfYawgmoth,
   "Urza's Cave": urzasCave,
   "Vampire Hounds": vampireHounds,
+  "Valgavoth, Terror Eater": valgavothTerrorEater,
   "Vault of Champions": vaultOfChampions,
   "Verdant Catacombs": verdantCatacombs,
   "Wall of Blood": wallOfBlood,

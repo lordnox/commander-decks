@@ -887,18 +887,20 @@ export type SpellCastPermission = {
   sourceId: string
   sourceName: string
   seat: PlayerId
-  cost: 'withoutPayingMana'
-  asThoughFlash: true
+  cost: 'withoutPayingMana' | 'printed' | 'lifeEqualManaValue'
+  asThoughFlash?: true
   remainingUses: number
-  /** Cast this specific object (rebound exile). */
+  /** Cast this specific object (rebound exile / later-turn exile). */
   objectId?: string
-  /** Live zone query (offered hand or similar). */
+  /** Live zone query (offered hand, exile, or graveyard). */
   zone?: ZoneId
   fromSeat?: PlayerId
   maxManaValue?: number
   notLand?: true
   takeControl?: true
   inspect?: true
+  /** First turn the permission may be used (later-turn exile play). */
+  availableFromTurn?: number
 }
 
 export type GameState = {

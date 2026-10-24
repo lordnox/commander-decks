@@ -20,9 +20,17 @@ export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 
 export const LINKED_EXILE_RETURN = ['battlefield', 'hand'] as const
 export type LinkedExileReturn = typeof LINKED_EXILE_RETURN[number]
 
-/** Cost policy for a temporary spell-cast permission (26-permission). */
-export const SPELL_CAST_COSTS = { withoutPayingMana: 'withoutPayingMana' } as const
+/** Cost policy for a temporary or static spell-cast permission (26-permission / 26-exile-play). */
+export const SPELL_CAST_COSTS = {
+  withoutPayingMana: 'withoutPayingMana',
+  printed: 'printed',
+  lifeEqualManaValue: 'lifeEqualManaValue',
+} as const
 export type SpellCastCost = typeof SPELL_CAST_COSTS[keyof typeof SPELL_CAST_COSTS]
+
+/** Timing for a one-shot offerCast; omitted means as-though-flash (26-permission). */
+export const SPELL_CAST_TIMING = { flash: 'flash', sorcery: 'sorcery' } as const
+export type SpellCastTiming = typeof SPELL_CAST_TIMING[keyof typeof SPELL_CAST_TIMING]
 
 export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
 export type CardColor = typeof CARD_COLORS[number]
@@ -577,6 +585,9 @@ export type Instruction =
       notLand?: true
       takeControl?: true
       inspect?: true
+      laterTurn?: true
+      timing?: SpellCastTiming
+      object?: ObjectReference
     }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient; bindChoice?: string }
@@ -789,7 +800,7 @@ export type EventFieldChanges = {
 export type ReplacementTransform =
   | { kind: 'replaceWith'; instructions: readonly Instruction[] }
   | { kind: 'modifyEvent'; changes: EventFieldChanges }
-  | { kind: 'redirect'; to: Zone }
+  | { kind: 'redirect'; to: Zone; link?: true }
   | { kind: 'suppress' }
 
 export type ReplacementProgramInstruction =
@@ -813,6 +824,18 @@ export type ReplacementEffectDefinition = {
 export type ContinuousEffectDefinition =
   | { kind: 'multiplyTriggers'; sources: ObjectSelector; additional: Amount; cause?: { enters: ObjectFilter } }
   | { kind: 'playLands'; players: PlayerSelector; cards: ObjectSelector; topOnly?: true }
+  | {
+      kind: 'castSpells'
+      players: PlayerSelector
+      cards: ObjectSelector
+      cost: SpellCastCost
+      asThoughFlash?: true
+      laterTurn?: true
+      discardLand?: true
+      when?: Condition
+      optionId?: string
+      label?: string
+    }
   | { kind: 'grantActivatedAbility'; targets: ObjectSelector; ability: ActivatedAbilityDefinition }
   | ({ kind: 'addTypes'; targets: ObjectSelector; when?: Condition } & TypeAdditions)
   | { kind: 'prohibitActivation'; filter: ActivationFilter }

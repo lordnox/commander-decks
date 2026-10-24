@@ -57,7 +57,13 @@ export const applyReplacementTransform = (
       }
       return {
         kind: 'continue',
-        event: withLineage({ ...proposal, to: transform.to }, descendantLineage(lineage)),
+        event: withLineage({
+          ...proposal,
+          to: transform.to,
+          ...(transform.link && transform.to === 'exile' && context
+            ? { exileLink: { source: { ...context.source.ref } } }
+            : {}),
+        }, descendantLineage(lineage)),
       }
     }
     case 'replaceWith':

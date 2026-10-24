@@ -15,6 +15,7 @@ import {
   createDefinitionSnapshot,
   draw,
   offerCast,
+  SPELL_CAST_TIMING,
   spell,
 } from './v1'
 
@@ -272,5 +273,44 @@ describe('canonical offerCast from a private hand', () => {
     expect(named(state, 'Drawn Bear').zone).toBe('hand')
     expect(castable(state)).toEqual(['Drawn Bear'])
     expect(legalActsFor(state, 'p1').some(action => action.kind === 'declineFreeCast')).toBe(true)
+  })
+})
+
+describe('later-turn exile offerCast', () => {
+  test('the offered exile card is unavailable this turn and free next turn', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({ instructions: [offerCast({ zone: 'exile', laterTurn: true, notLand: true, timing: SPELL_CAST_TIMING.sorcery })] }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [
+          testCard('Later Caster', ['Sorcery'], '{0}', 0, { ruleDefinition: definition }),
+          testCard('Exile Bear', ['Creature'], '{2}{G}', 3),
+        ],
+      },
+    }, { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] })
+    const bear = named(server.state, 'Exile Bear')
+    const exiled = ok(server.rules(server.state, { type: 'move', objectId: bear.id, to: 'exile' }))
+    const caster = named(exiled, 'Later Caster')
+    const cast = ok(server.rules(exiled, { type: 'castSpell', seat: 'p1', objectId: caster.id }))
+    const offered = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(legalActsFor(offered, 'p1').some(action => action.kind === 'declineFreeCast')).toBe(false)
+    expect(server.rules(offered, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: bear.id,
+      alternativeCost: 'withoutPayingMana',
+    }).ok).toBe(false)
+    const later = { ...offered, turn: offered.turn + 1 }
+    expect(legalActsFor(later, 'p1').some(action =>
+      action.kind === 'castSpell' && action.objectId === bear.id)).toBe(true)
+    const free = ok(server.rules(later, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: bear.id,
+      alternativeCost: 'withoutPayingMana',
+    }))
+    expect(free.objects[bear.id].zone).toBe('stack')
   })
 })

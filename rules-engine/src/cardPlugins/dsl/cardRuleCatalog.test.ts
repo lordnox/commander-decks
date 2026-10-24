@@ -2695,6 +2695,42 @@ test('Cavern of Souls and Delighted Halfling compose restricted any-color mana',
   ])
 })
 
+test('family 26 catalog cards compose retrace, linked exile, and life-equal-mana-value casts', () => {
+  const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(effectsFor('Six')).toEqual([])
+  expect(effectsFor('Valgavoth, Terror Eater')).toEqual([])
+  expect(definitions('Six')).toMatchObject([
+    { kind: 'keyword', keyword: 'reach' },
+    { kind: 'triggered', instructions: [
+      { kind: 'mill', count: { kind: 'constant', value: 3 }, bindChoice: 'milled' },
+      { kind: 'chooseCards', bindChoice: 'land', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', to: 'hand' },
+    ] },
+    { kind: 'static', effects: [{
+      kind: 'castSpells',
+      discardLand: true,
+      optionId: 'retrace',
+      cards: { filter: { zone: 'graveyard', owner: 'you' } },
+    }] },
+  ])
+  expect(definitions('Valgavoth, Terror Eater')).toMatchObject([
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'keyword', keyword: 'lifelink' },
+    { kind: 'static', effects: [{ kind: 'ward', cost: { kind: 'sacrifice', count: 3, nonland: true } }] },
+    { kind: 'static', effects: [{
+      kind: 'replacement',
+      transform: { kind: 'redirect', to: 'exile', link: true },
+    }] },
+    { kind: 'static', effects: [{ kind: 'playLands', cards: { filter: { zone: 'exile', type: 'Land' } } }] },
+    { kind: 'static', effects: [{
+      kind: 'castSpells',
+      cost: 'lifeEqualManaValue',
+      optionId: 'exiledWithLife',
+      cards: { filter: { zone: 'exile' } },
+    }] },
+  ])
+})
+
 test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {
   const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
   expect(definitions('Courser of Kruphix')).toMatchObject([
