@@ -70,7 +70,6 @@ import { evidencePaymentEvents, validateEvidencePayment, evaluateAnnouncementCos
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
-import { playerCannotWinGame } from './plugins/playerEffects'
 import { regenerate, regenerateInsteadOfDestroy } from './cardPlugins/dsl/regeneration'
 import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
@@ -1046,8 +1045,7 @@ const collectSba = (
 
 const checkEnded = (draft: ReturnType<typeof makeDraft>) => {
   const alive = Object.values(draft.players).filter((player) => !player.lost)
-  // CR 104.2a: a sole survivor wins, unless an effect says that player can't win the game.
-  if (alive.length === 1 && playerCannotWinGame(draft, alive[0].id)) return
+  // CR 104.2a: natural victory overrides effects that preclude winning.
   if (alive.length <= 1) draft.ended = true
 }
 
