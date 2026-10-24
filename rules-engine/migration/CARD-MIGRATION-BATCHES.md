@@ -4,7 +4,7 @@ Snapshot: PR #432 after family 26-exile-play, 26-graveyard-spells, 26-retrace, a
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**173 mechanic entries:** 140 available, 0 awaiting correctness follow-up, and 33 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**173 mechanic entries:** 145 available, 0 awaiting correctness follow-up, and 28 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 

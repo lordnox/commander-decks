@@ -41,7 +41,6 @@ import {
   targetOnResolve,
   chooseVotesThisTurn,
   exchangeControlUntilEot,
-  ward,
   type CardEffect,
   type CardInstruction,
   yourEndTargetingOpponent,
