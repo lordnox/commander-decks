@@ -3,10 +3,13 @@ import type { PlayerEffect, PlayerEffectDuration } from '../../plugins/playerEff
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
+import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
 import {
+  anyTarget,
+  damage,
   createPlayerEffect,
   loseLife,
   PLAYER_EFFECT_DURATIONS,
@@ -22,9 +25,11 @@ const withEffect = (
   playerEffect: PlayerEffect,
   duration: PlayerEffectDuration = PLAYER_EFFECT_DURATIONS.untilCleanup,
   later: ReturnType<typeof instructionSpell>[] = [],
+  battlefield: Partial<Record<PlayerId, ReturnType<typeof cardTemplate>[]>> = {},
 ) => {
   const server = createServerGame(commanderRules, {
     players: 2,
+    battlefield,
     hands: {
       p1: [instructionSpell({ instructions: [createPlayerEffect({ targets: players({ relation: 'any' }), playerEffect, duration })] }), ...later],
     },
@@ -111,4 +116,26 @@ test("a sole survivor wins immediately even when an effect prevents winning", ()
   expect(won.players.p1.lost).toBe(false)
   expect(won.players.p2.lost).toBe(true)
   expect(won.ended).toBe(true)
+})
+
+
+test('player protection prevents player targeting and damage without shielding controlled permanents', () => {
+  const targetedDamage = instructionSpell({
+    decisions: { targets: [select({ filter: anyTarget(), count: 1 })] },
+    instructions: [damage({ targets: target(0), source: ref('source'), amount: 1 })],
+  })
+  const { server, state } = withEffect(PLAYER_EFFECTS.protectionFromEverything, PLAYER_EFFECT_DURATIONS.untilCleanup, [targetedDamage], {
+    p1: [cardTemplate('Unprotected permanent fixture', { types: ['Creature'], power: 2, toughness: 2 })],
+  })
+  const restored: GameState = JSON.parse(JSON.stringify(state))
+  const objectId = restored.zoneOrder.p1.hand[0]
+  const creatureId = restored.zoneOrder.p1.battlefield[0]
+  expect(server.rules(restored, { type: 'castSpell', seat: 'p1', objectId, targets: [{ kind: 'player', player: 'p1' }] }).ok).toBe(false)
+  const cast = ok(server.rules(restored, { type: 'castSpell', seat: 'p1', objectId, targets: [{ kind: 'object', objectId: creatureId }] }))
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.objects[creatureId].damageMarked).toBe(1)
+  const damaged = ok(server.rules(restored, {
+    type: 'dealDamage', sourceId: creatureId, target: { kind: 'player', player: 'p1' }, amount: 1,
+  }))
+  expect(damaged.players.p1.life).toBe(40)
 })
