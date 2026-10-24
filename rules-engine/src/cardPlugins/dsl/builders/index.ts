@@ -1510,6 +1510,35 @@ export const paidCostCount = (cost: 'optional' | 'alternative', index: number): 
 export const bestowEffect = (cost: string): ContinuousEffectDefinition =>
   immutableData({ kind: 'bestow', cost })
 
+export const flashbackEffect = (input: {
+  label: string
+  manaCost?: string
+  sacrifice?: { type: string; count: number }
+}): ContinuousEffectDefinition =>
+  immutableData({
+    kind: 'flashback',
+    manaCost: input.manaCost ?? '',
+    label: input.label,
+    ...(input.sacrifice ? { sacrifice: input.sacrifice } : {}),
+  })
+
+export const escapeEffect = (manaCost: string, exileCount: number): ContinuousEffectDefinition =>
+  immutableData({ kind: 'escape', manaCost, exileCount })
+
+export const flashback = (input: {
+  label: string
+  manaCost?: string
+  sacrifice?: { type: string; count: number }
+}) => ({
+  ...staticAbility(flashbackEffect(input)),
+  activeIn: ['graveyard'] as const,
+})
+
+export const escape = (manaCost: string, exileCount: number) => ({
+  ...staticAbility(escapeEffect(manaCost, exileCount)),
+  activeIn: ['graveyard'] as const,
+})
+
 export const countDistinctCardTypes = (of: ObjectSelector): Amount => immutableData({ kind: 'countDistinctCardTypes', of })
 
 export const hasGreatestCharacteristic = (of: ObjectReference, among: ObjectSelector, characteristic: ObjectNumericCharacteristic): Condition =>

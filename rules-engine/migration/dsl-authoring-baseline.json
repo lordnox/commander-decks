@@ -57,12 +57,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "9286108d4f17bbc0a28d12482c5c570e0d6052c41fd3ef01eb509a920f26ba4c",
-    "card": "Cling to Dust"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4dd391f5d52eac75038ee9fa09ef5bb57893d13c05fde40b820e993c4310d3ea",
     "card": "Pitiless Carnage"
   },
@@ -107,12 +101,6 @@
     "code": "legacy-card-registration",
     "digest": "999ebce2f25deba11af6e4656e76b2a3673d804b795a6a37f387dc21bcbff89b",
     "card": "Thespian's Stage"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "4f0f3773f2fd563695bcb0611ff44eed613f49dbb2de05ac74a4adfb38ef9ae5",
-    "card": "Dread Return"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

@@ -98,9 +98,11 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     ? []
     : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
   if (!groupedTargets) return { ok: false as const, error: 'targets are required for the spell' }
+  const selected = availableAlternateCastEffect(state, event.seat, source, event.castOption)
+  const announced = announcementSource(source, selected)
   const locked = beginSpellAnnouncement(
     state,
-    source,
+    announced,
     event.seat,
     ability,
     groupedTargets,
@@ -121,8 +123,9 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
+        selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-      }), event.x),
+      }), event.x, announced.manaCost),
     },
   )
   if (!locked.ok) return locked
@@ -216,10 +219,17 @@ const targetInputsAgree = (state: GameState, event: Extract<GameEvent, { type: '
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0) => {
-  const base = object.manaCost.replaceAll('{X}', x > 0 ? `{${x}}` : '')
+const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0, baseMana = object.manaCost) => {
+  const base = baseMana.replaceAll('{X}', x > 0 ? `{${x}}` : '')
   return genericCost(adjustedMana) - genericCost(base)
 }
+
+const announcementSource = (
+  object: GameObject,
+  selected: AlternateCastEffect | undefined,
+) => selected
+  ? { ...object, manaCost: printedAlternateManaCost(selected, object) }
+  : object
 
 const xManaKind = (object: GameObject) =>
   effectsOf(object).flatMap((effect) =>
@@ -519,9 +529,11 @@ export const spells: Plugin = {
       ? []
       : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
     if (!groupedTargets) return
+    const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
+    const announced = announcementSource(object, selected)
     const announcement = beginSpellAnnouncement(
       state,
-      object,
+      announced,
       event.seat,
       ability,
       groupedTargets,
@@ -541,8 +553,9 @@ export const spells: Plugin = {
           timesKicked: event.timesKicked,
           targets: event.targets,
           seat: event.seat,
+          selected,
           withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-        }), event.x),
+        }), event.x, announced.manaCost),
       },
     )
     if (!announcement.ok) return
@@ -692,9 +705,11 @@ export const spells: Plugin = {
           }
           if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana ?? ''
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
+            const selected = availableAlternateCastEffect(state, event.seat, spell, event.castOption)
+            const announced = announcementSource(spell, selected)
             const announcement = beginSpellAnnouncement(
               state,
-              object,
+              announced,
               event.seat,
               ability,
               groupedTargets,
@@ -715,8 +730,9 @@ export const spells: Plugin = {
                   timesKicked: event.timesKicked,
                   targets: event.targets,
                   seat: event.seat,
+                  selected,
                   withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-                }), event.x),
+                }), event.x, announced.manaCost),
               },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
@@ -963,7 +979,8 @@ export const spells: Plugin = {
             ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
-          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
+          const announced = announcementSource(object, selected)
+          const announcement = beginSpellAnnouncement(state, announced, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
             selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
@@ -980,7 +997,7 @@ export const spells: Plugin = {
               seat: event.seat,
               selected,
               withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-            }), event.x),
+            }), event.x, announced.manaCost),
           })
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)

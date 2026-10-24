@@ -178,11 +178,19 @@ describe('card plugin registry', () => {
   test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {
     expect(missingCardPlugins([
       'Cling to Dust',
+      'Dread Return',
       'Hostile Negotiations',
     ])).toEqual([])
     expect(handlerIdsForNames(['Abundance'])).toEqual([])
-    expect(handlerIdsForNames(['Cling to Dust']).toSorted())
-      .toEqual(['alternateCosts', 'targetedResolve'])
+    expect(handlerIdsForNames(['Cling to Dust'])).toEqual([])
+    expect(cardPluginEntry('Cling to Dust')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Cling to Dust')).toBeDefined()
+    expect(handlerIdsForNames(['Dread Return'])).toEqual([])
+    expect(cardPluginEntry('Dread Return')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Dread Return')).toBeDefined()
+    expect(handlerIdsForNames(['Hostile Negotiations'])).toEqual([])
+    expect(cardPluginEntry('Hostile Negotiations')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Hostile Negotiations')).toBeDefined()
   })
 
   test('Courser of Kruphix is registered', () => {

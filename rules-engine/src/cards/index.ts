@@ -155,6 +155,7 @@ import cavernOfSouls from './cavern-of-souls'
 import cephalidColiseum from './cephalid-coliseum'
 import charcoalDiamond from './charcoal-diamond'
 import childrenOfKorlis from './children-of-korlis'
+import clingToDust from './cling-to-dust'
 import cloudshift from './cloudshift'
 import collectorsVault from './collectors-vault'
 import comeuppance from './comeuppance'
@@ -178,6 +179,7 @@ import delightedHalfling from './delighted-halfling'
 import desertedTemple from './deserted-temple'
 import desertion from './desertion'
 import dovinsVeto from './dovins-veto'
+import dreadReturn from './dread-return'
 import diabolicTutor from './diabolic-tutor'
 import digThroughTime from './dig-through-time'
 import dimirAqueduct from './dimir-aqueduct'
@@ -531,6 +533,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cephalid Coliseum": cephalidColiseum,
   "Charcoal Diamond": charcoalDiamond,
   "Children of Korlis": childrenOfKorlis,
+  "Cling to Dust": clingToDust,
   "Cloudshift": cloudshift,
   "Collector's Vault": collectorsVault,
   "Comeuppance": comeuppance,
@@ -562,6 +565,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Dimir Signet": dimirSignet,
   "Dismember": dismember,
   "Dovin's Veto": dovinsVeto,
+  "Dread Return": dreadReturn,
   "Dreamscape Artist": dreamscapeArtist,
   "Drowned Catacomb": drownedCatacomb,
   "Duskdale Wurm": duskdaleWurm,

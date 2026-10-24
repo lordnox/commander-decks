@@ -2344,6 +2344,28 @@ export const validateDefinitionV1 = (root: unknown): {
               exactKeys(node, effectPath, ['kind', 'cost'], ['kind', 'cost'])
               validateCost({ kind: 'mana', amount: node.cost }, childPath(effectPath, 'cost'), baseEnvironment())
               return
+            case 'flashback': {
+              exactKeys(node, effectPath, ['kind', 'manaCost', 'label', 'sacrifice'], ['kind', 'label'])
+              if (node.manaCost !== undefined) {
+                if (typeof node.manaCost !== 'string') issue(childPath(effectPath, 'manaCost'), 'type', 'flashback manaCost must be a string')
+                else if (node.manaCost !== '') validateCost({ kind: 'mana', amount: node.manaCost }, childPath(effectPath, 'manaCost'), baseEnvironment())
+              }
+              nonemptyString(node.label, childPath(effectPath, 'label'))
+              if (node.sacrifice !== undefined) {
+                const sacrifice = object(node.sacrifice, childPath(effectPath, 'sacrifice'))
+                if (sacrifice) {
+                  exactKeys(sacrifice, childPath(effectPath, 'sacrifice'), ['type', 'count'], ['type', 'count'])
+                  nonemptyString(sacrifice.type, childPath(childPath(effectPath, 'sacrifice'), 'type'))
+                  integer(sacrifice.count, childPath(childPath(effectPath, 'sacrifice'), 'count'), { min: 1 })
+                }
+              }
+              return
+            }
+            case 'escape':
+              exactKeys(node, effectPath, ['kind', 'manaCost', 'exileCount'], ['kind', 'manaCost', 'exileCount'])
+              validateCost({ kind: 'mana', amount: node.manaCost }, childPath(effectPath, 'manaCost'), baseEnvironment())
+              integer(node.exileCount, childPath(effectPath, 'exileCount'), { min: 1 })
+              return
             case 'loseLifeOnManaLoss':
             case 'noMaximumHandSize':
             case 'cannotBeCountered': {

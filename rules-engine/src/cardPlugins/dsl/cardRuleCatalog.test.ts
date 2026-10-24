@@ -2695,6 +2695,26 @@ test('Cavern of Souls and Delighted Halfling compose restricted any-color mana',
   ])
 })
 
+test('family 25 catalog cards compose flashback and escape alternate graveyard casts', () => {
+  expect(effectsFor('Dread Return')).toEqual([])
+  expect(effectsFor('Cling to Dust')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Dread Return')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{ kind: 'move', to: 'battlefield' }] },
+    { kind: 'static', activeIn: ['graveyard'], effects: [{
+      kind: 'flashback',
+      label: 'Flashback—Sacrifice three creatures.',
+      sacrifice: { type: 'Creature', count: 3 },
+    }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Cling to Dust')!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'if', then: [{ kind: 'gainLife' }], otherwise: [{ kind: 'draw' }] },
+      { kind: 'move', to: 'exile' },
+    ] },
+    { kind: 'static', activeIn: ['graveyard'], effects: [{ kind: 'escape', manaCost: '{3}{B}', exileCount: 5 }] },
+  ])
+})
+
 test('family 26 catalog cards compose retrace, linked exile, and life-equal-mana-value casts', () => {
   const definitions = (name: string) => cardRuleDefinitionSnapshotFor(name)!.definition.abilities
   expect(effectsFor('Six')).toEqual([])

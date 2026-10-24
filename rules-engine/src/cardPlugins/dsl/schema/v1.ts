@@ -870,6 +870,15 @@ export type ContinuousEffectDefinition =
   | { kind: 'loseLifeOnManaLoss' }
   | { kind: 'enchant'; filter: ObjectSelector | PlayerSelector }
   | { kind: 'bestow'; cost: string }
+  /** CR 702.34: alternative graveyard casting; the spell is exiled if it would leave the stack. */
+  | {
+      kind: 'flashback'
+      manaCost: string
+      label: string
+      sacrifice?: { type: string; count: number }
+    }
+  /** CR 702.138: alternative graveyard casting that exiles other graveyard cards. */
+  | { kind: 'escape'; manaCost: string; exileCount: number }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector

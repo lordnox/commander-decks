@@ -1879,7 +1879,9 @@ const targetVariants = (
         }) }
       }
       if (groups.some(group => group.targets.length < group.min)) return []
-      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...costGroups, ...groups.filter(group => group.max > 0)] }]
+      const alternateCostGroups = (action.targetGroups ?? []).filter(group =>
+        group.purpose === 'cost' && !group.delve)
+      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...alternateCostGroups, ...costGroups, ...groups.filter(group => group.max > 0)] }]
     })
   }
   if (source && action.castOption === 'bestow' && bestowEffect(source)) {
@@ -2293,7 +2295,12 @@ export const sameLegalAct = (
       && samePickedTargets
   }
   if (left.kind === 'castSpell') {
-    return left.targetObjectId === right.targetObjectId
+    const samePickedTargets = left.targetObjectId === right.targetObjectId
+      || (
+        left.targetObjectId === undefined
+        && (left.targetGroups?.length ?? 0) > 0
+      )
+    return samePickedTargets
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
       && left.kicked === right.kicked

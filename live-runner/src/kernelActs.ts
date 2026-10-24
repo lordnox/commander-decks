@@ -180,8 +180,15 @@ export const applyKernelAct = (
             ? availableAlternateCastEffect(state, seat, castObject, action.castOption)
             : undefined
           const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
+          const fromGroups = groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets, state)
           const spellTargets = hasTargetGroup
-            ? groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets, state)
+            ? fromGroups.length > 0
+              ? fromGroups
+              : message.targetObjectId
+                ? [{ kind: 'object' as const, objectId: message.targetObjectId }]
+                : message.targetPlayerId
+                  ? [{ kind: 'player' as const, player: message.targetPlayerId }]
+                  : []
             : action.targetObjectId
               ? [{ kind: 'object' as const, objectId: action.targetObjectId }]
               : action.targetPlayerId

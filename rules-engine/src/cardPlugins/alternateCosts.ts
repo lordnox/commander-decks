@@ -5,6 +5,7 @@ import { FORETELL_CAST_ID, foretellCastOptions } from '../plugins/foretell'
 import { effectsOf } from './cardRules'
 import type { CardEffect } from './effects'
 import { canonicalSpellPermission } from './dsl/playPermissions'
+import { activePrintedStaticModifiers, isActiveKeywordStatic } from './dsl/staticModifierCore'
 import { manaValueOf } from './effectRuntime'
 
 export type AlternateCastEffect = Extract<CardEffect, { op: 'alternateCast' }>
@@ -47,6 +48,32 @@ export const availableAlternateCastEffects = (
         || !isPermanentType(object.types)
       )) continue
       effects.push(retraceEffect(object))
+    }
+  }
+  if (object.zone === 'graveyard') {
+    for (const entry of activePrintedStaticModifiers(state, object)) {
+      if (isActiveKeywordStatic(entry)) continue
+      if (entry.effect.kind === 'flashback') {
+        effects.push({
+          op: 'alternateCast',
+          id: 'flashback',
+          label: entry.effect.label,
+          manaCost: entry.effect.manaCost,
+          fromZone: 'graveyard',
+          exileAfterUse: true,
+          ...(entry.effect.sacrifice ? { sacrifice: entry.effect.sacrifice } : {}),
+        })
+      }
+      if (entry.effect.kind === 'escape') {
+        effects.push({
+          op: 'alternateCast',
+          id: 'escape',
+          label: `Escape—${entry.effect.manaCost}, Exile ${entry.effect.exileCount} other cards from your graveyard.`,
+          manaCost: entry.effect.manaCost,
+          fromZone: 'graveyard',
+          exileGraveyard: { count: entry.effect.exileCount, other: true },
+        })
+      }
     }
   }
   if (object.zone === 'graveyard' || object.zone === 'exile') {
