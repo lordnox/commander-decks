@@ -703,7 +703,7 @@ describe('wallOfOmens — integration', () => {
       }, { random: () => 0 })
       const wall = named(server.state, 'Wall of Omens')
       let state = reduce(server, server.state, { type: 'move', objectId: wall.id, to: 'battlefield' })
-      expect(hasKeyword(named(state, 'Wall of Omens'), 'defender', state)).toBe(true)
+      expect(hasKeyword(named(state, 'Wall of Omens'), 'defender')).toBe(true)
       const order = pendingSelectionFor(state, 'p1')
       if (order?.triggerOrder) {
         state = reduce(server, state, {

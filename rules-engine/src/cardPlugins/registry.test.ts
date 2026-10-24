@@ -21,7 +21,7 @@ describe('card plugin registry', () => {
   test('a forest table does not load the whole handler catalog', () => {
     expect(handlerIdsForNames(['Forest'])).toEqual([])
     expect(handlerIdsForNames(['Field of the Dead'])).toEqual([])
-    expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)
+    expect(allHandlerIds()).toEqual([])
   })
   test('the Sin Fall cards this pass covers stay registered', () => {
     const covered = [

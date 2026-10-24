@@ -469,13 +469,14 @@ const matchesObjectFilter = (
     const type = evaluateCreatureType(filter.creatureType, context)
     if (typeof type !== 'string' || !isCreatureType(type) || (!object.subtypes.includes(type) && !hasKeyword(object, 'changeling'))) return false
   }
-  if (filter.keyword && !hasKeyword(object, filter.keyword, context.state)) return false
+  if (filter.keyword && !hasKeyword(object, filter.keyword)) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (mismatchesController(object, filter, context)) return false
   if (mismatchesOwner(object, filter, context)) return false
   if (filter.card !== undefined && (!object.token && !object.spellCopy) !== filter.card) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.colored !== undefined && (object.colors.length > 0) !== filter.colored) return false
+  if (filter.color !== undefined && !object.colors.includes(filter.color)) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < filter.powerAtLeast)) return false
   if (filter.compareCharacteristic) {

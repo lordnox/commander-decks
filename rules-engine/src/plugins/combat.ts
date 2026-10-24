@@ -25,14 +25,14 @@ const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
 /** Why `blocker` can't block `attacker` on its own, ignoring what other blockers do (CR 509.1b). */
 export const blockRestriction = (state: GameState, blocker: GameObject, attacker: GameObject) => {
   if (
-    hasKeyword(attacker, 'flying', state)
-    && !hasKeyword(blocker, 'flying', state)
-    && !hasKeyword(blocker, 'reach', state)
+    hasKeyword(attacker, 'flying')
+    && !hasKeyword(blocker, 'flying')
+    && !hasKeyword(blocker, 'reach')
   ) {
     return 'a creature with flying can only be blocked by creatures with flying or reach'
   }
   // CR 702.36b: fear allows artifact creatures or black creatures to block.
-  if (hasKeyword(attacker, KEYWORDS.fear, state)
+  if (hasKeyword(attacker, KEYWORDS.fear)
     && !blocker.types.includes('Artifact')
     && !blocker.colors.includes('B')) {
     return 'a creature with fear can only be blocked by artifact creatures or black creatures'
@@ -44,7 +44,7 @@ export const blockRestriction = (state: GameState, blocker: GameObject, attacker
 
 /** CR 510.4: the first step's eligibility is fixed even if keywords change afterward. */
 const dealsDamageIn = (object: GameObject, step: StepId, state: GameState) => {
-  const doubleStrike = hasKeyword(object, 'double strike', state)
+  const doubleStrike = hasKeyword(object, 'double strike')
   const firstStep = state.firstStrikeCombatants
   if (firstStep) {
     const struckFirst = firstStep.some(identity => isSameObject(object, identity))
@@ -52,8 +52,8 @@ const dealsDamageIn = (object: GameObject, step: StepId, state: GameState) => {
   }
   // Preserve older saved states without a recorded first-step snapshot.
   return step === 'firstStrikeDamage'
-    ? hasKeyword(object, KEYWORDS.firstStrike, state) || doubleStrike
-    : !hasKeyword(object, KEYWORDS.firstStrike, state) || doubleStrike
+    ? hasKeyword(object, KEYWORDS.firstStrike) || doubleStrike
+    : !hasKeyword(object, KEYWORDS.firstStrike) || doubleStrike
 }
 
 const enqueueDamage = (draft: Draft, source: GameObject, target: TargetRef, amount: number) => {
@@ -68,7 +68,7 @@ const enqueueDamage = (draft: Draft, source: GameObject, target: TargetRef, amou
 const assignAttackerDamage = (draft: Draft, attacker: GameObject, blockers: GameObject[]) => {
   let remaining = Math.max(0, attacker.power ?? 0)
   const defender = attacker.attacking ? targetRef(attacker.attacking) : undefined
-  const tramples = hasKeyword(attacker, 'trample', draft)
+  const tramples = hasKeyword(attacker, 'trample')
   if (!attacker.blocked && blockers.length === 0) {
     if (defender) enqueueDamage(draft, attacker, defender, remaining)
     return
@@ -109,7 +109,7 @@ export const combat: Plugin = {
         }
         if (object.controller !== event.seat) return 'attacker is not controlled by that seat'
         if (object.tapped) return 'tapped creatures cannot attack'
-        if (object.summoningSickness && !hasKeyword(object, 'haste', state)) {
+        if (object.summoningSickness && !hasKeyword(object, 'haste')) {
           return 'creatures with summoning sickness cannot attack'
         }
         const defender = defendingPlayer(state, declaration.defender)
@@ -186,7 +186,7 @@ export const combat: Plugin = {
       }
       for (const [attackerId, count] of blockersOf) {
         // CR 702.111b: a creature with menace can't be blocked except by two or more creatures.
-        if (count < 2 && hasKeyword(state.objects[attackerId], 'menace', state)) {
+        if (count < 2 && hasKeyword(state.objects[attackerId], 'menace')) {
           return 'a creature with menace must be blocked by two or more creatures'
         }
       }
@@ -200,13 +200,13 @@ export const combat: Plugin = {
       return 'combat damage can only be assigned in a combat damage step'
     }
   },
-  apply: ({ state, event, draft }) => {
+  apply: ({ event, draft }) => {
     if (event.type === 'declareAttackers') {
       for (const declaration of event.attackers) {
         const attacker = draft.object(declaration.objectId)
         if (!attacker) continue
         attacker.attacking = targetRef(declaration.defender)
-        if (!hasKeyword(attacker, 'vigilance', state)) attacker.tapped = true
+        if (!hasKeyword(attacker, 'vigilance')) attacker.tapped = true
       }
       draft.passedInRow = []
       return

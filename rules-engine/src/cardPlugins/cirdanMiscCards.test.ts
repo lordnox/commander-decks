@@ -605,7 +605,7 @@ describe('Kiora Bests the Sea God', () => {
       types: ['Creature'],
       subtypes: ['Kraken'],
     })
-    expect(hasKeyword(kraken, 'hexproof', current)).toBe(true)
+    expect(hasKeyword(kraken, 'hexproof')).toBe(true)
 
     // Chapter II on p1's next turn: choose an opponent, then they are tapped down.
     const tapDown = advanceUntil(server, current, (next) =>
@@ -1060,7 +1060,7 @@ describe('Spearbreaker Behemoth', () => {
   })
 
   const indestructible = (state: GameState, name: string) =>
-    hasKeyword(named(state, name), 'indestructible', state)
+    hasKeyword(named(state, name), 'indestructible')
 
   const lethalDamage = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
     ok(server.rules(state, {

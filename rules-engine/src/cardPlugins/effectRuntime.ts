@@ -101,6 +101,7 @@ export const createToken = (
     zone: 'battlefield',
     token: true,
     effects: template.effects ?? [],
+    battlefieldTimestamp: draft.allocTs(),
   }
   draft.objects[id] = token
   draft.zoneOrder[controller].battlefield.push(id)

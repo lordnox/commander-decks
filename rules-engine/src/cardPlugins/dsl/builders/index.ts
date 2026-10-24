@@ -103,6 +103,7 @@ import {
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
 import type { RoomDoorId, StepId } from '../../../types'
+import type { PlayerEffect, PlayerEffectDuration } from '../../../plugins/playerEffectConstants'
 
 export const amount = (value: number): Amount => immutableData({ kind: 'constant', value })
 
@@ -947,6 +948,12 @@ export const grantNoMaximumHandSize = (input: { targets: PlayerRecipient }) =>
 export const grantFlash = (input: { targets: PlayerRecipient; duration: EffectDuration }) =>
   immutableData({ kind: 'grantFlash' as const, targets: input.targets, duration: input.duration })
 
+export const createPlayerEffect = (input: { targets: PlayerRecipient; playerEffect: PlayerEffect; duration: PlayerEffectDuration }) =>
+  immutableData({ kind: 'createPlayerEffect' as const, targets: input.targets, playerEffect: input.playerEffect, duration: input.duration })
+
+export const takeExtraTurn = (targets: PlayerRecipient) =>
+  immutableData({ kind: 'takeExtraTurn' as const, targets })
+
 export const becomeMonarch = (targets: PlayerRecipient = ref('controller')) =>
   immutableData({ kind: 'becomeMonarch' as const, targets })
 
@@ -979,11 +986,14 @@ export const destroy = (input: {
   targets: Extract<Instruction, { kind: 'destroy' }>['targets']
   bindResult?: string
   bindChoice?: string
+  /** "It can't be regenerated" (CR 701.19c). */
+  noRegeneration?: true
 }): Instruction => immutableData({
   kind: 'destroy',
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
+  ...(input.noRegeneration ? { noRegeneration: true as const } : {}),
 })
 
 export const sacrifice = (input: {

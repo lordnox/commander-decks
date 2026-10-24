@@ -590,7 +590,7 @@ describe('creature control swap until cleanup', () => {
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[find(resolved, 'Pathbreaker Ibex').id].controller).toBe('p1')
     expect(resolved.objects[find(resolved, 'Llanowar Elves').id].controller).toBe('p2')
-    expect(hasKeyword(resolved.objects[find(resolved, 'Pathbreaker Ibex').id], KEYWORDS.haste, resolved)).toBe(true)
+    expect(hasKeyword(resolved.objects[find(resolved, 'Pathbreaker Ibex').id], KEYWORDS.haste)).toBe(true)
 
     let state = resolved
     while (state.step !== 'cleanup') {
@@ -598,7 +598,7 @@ describe('creature control swap until cleanup', () => {
     }
     expect(state.objects[find(state, 'Pathbreaker Ibex').id].controller).toBe('p2')
     expect(state.objects[find(state, 'Llanowar Elves').id].controller).toBe('p1')
-    expect(hasKeyword(state.objects[find(state, 'Pathbreaker Ibex').id], KEYWORDS.haste, state)).toBe(false)
-    expect(hasKeyword(state.objects[find(state, 'Raging Goblin').id], KEYWORDS.haste, state)).toBe(true)
+    expect(hasKeyword(state.objects[find(state, 'Pathbreaker Ibex').id], KEYWORDS.haste)).toBe(false)
+    expect(hasKeyword(state.objects[find(state, 'Raging Goblin').id], KEYWORDS.haste)).toBe(true)
   })
 })

@@ -35,7 +35,7 @@ const removeTarget: InstructionHandler<'removeTarget'> = (
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!object || object.phasedOut) return
-  if (instruction.action === 'destroy' && hasKeyword(object, 'indestructible', draft)) return
+  if (instruction.action === 'destroy' && hasKeyword(object, 'indestructible')) return
   if (item) {
     item.payload = {
       ...item.payload,
@@ -339,7 +339,7 @@ const destroyTargetPermanent: InstructionHandler<'destroyTargetPermanent'> = (
       if (!object || object.zone !== 'battlefield') continue
       if (instruction.types.length > 0
         && !instruction.types.some((type) => object.types.includes(type))) continue
-      if (hasKeyword(object, 'indestructible', draft)) {
+      if (hasKeyword(object, 'indestructible')) {
         draft.note(`${source.name} cannot destroy indestructible ${object.name}`)
         continue
       }

@@ -45,30 +45,6 @@
     "digest": "4fb325ca0f0d66d62fe676f81ead562598067e3d7837581d169c2116d30fad24"
   },
   {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "163954689e281c315c7b878b1cbe019cc25eea460fdda6175a103ac4c1a6a82e",
-    "card": "Concordant Crossroads"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "ab5fd1c106f1d72d0cbf263f55f3678dadb782775569c50f4171f91759e1b6c6",
-    "card": "Perch Protection"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "256b3d1db82fa34965f144f05b223dbfe2b4abeb989df38f3d5529c9e44d8a07",
-    "card": "Everybody Lives!"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "b9efc282489397318794ca87153b262ed7cf60f2dafdb48e975ae66e67db467a",
-    "card": "Snuff Out"
-  },
-  {
     "path": "rules-engine/src/cardPlugins/combatPreventionCards.ts",
     "code": "literal-name-dispatch",
     "digest": "3422807e2393fda10d69f1cb39b35251c9c43f8a450ccb63c4f1b0c352d24e6a"

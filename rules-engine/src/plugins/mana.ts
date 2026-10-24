@@ -265,7 +265,7 @@ export const tapForManaError = (
     requiresTap
     && object.types.includes('Creature')
     && object.summoningSickness
-    && !hasKeyword(object, 'haste', state)
+    && !hasKeyword(object, 'haste')
   ) {
     return `${object.name} has summoning sickness`
   }

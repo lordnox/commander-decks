@@ -53,8 +53,8 @@ test('an explicit snapshot overrides catalog abilities', () => {
   }, { random: () => 0 })
   const object = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]!
   expect(object.ruleDefinition).toEqual(override)
-  expect(hasKeyword(object, 'trample', server.state)).toBe(true)
-  expect(hasKeyword(object, 'defender', server.state)).toBe(false)
+  expect(hasKeyword(object, 'trample')).toBe(true)
+  expect(hasKeyword(object, 'defender')).toBe(false)
 })
 
 test('journal restore preserves the stamped snapshot revision', () => {
@@ -69,15 +69,12 @@ test('journal restore preserves the stamped snapshot revision', () => {
 
 // Temporary compatibility contracts disappear with the legacy registry. Choose
 // an actual remaining key rather than making a particular card stay unmigrated.
-test('newGame falls back to remaining CARD_RULES when there is no catalog snapshot', () => {
-  const name = Object.keys(CARD_RULES).find(name => !cardRuleDefinitionSnapshotFor(name) && effectsFor(name).length > 0)!
-  expect(name).toBeDefined()
-  const template = cardTemplate(name)
-  delete template.effects
-  const server = createServerGame(commanderRules, { hands: { p1: [template] } }, { random: () => 0 })
-  const object = server.state.objects[server.state.zoneOrder.p1.hand[0]]!
-  expect(object.ruleDefinition).toBeUndefined()
-  expect(object.effects).toEqual(effectsFor(name))
+test('every former CARD_RULES registration is authored in the canonical catalog', () => {
+  expect(Object.keys(CARD_RULES)).toEqual([])
+  for (const name of ['Concordant Crossroads', 'Everybody Lives!', 'Kuroki, Thief of Talents', 'Perch Protection', 'Snuff Out']) {
+    expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
+    expect(effectsFor(name)).toEqual([])
+  }
 })
 
 test('catalog programs and legacy compatibility effects execute together without duplicate triggers', () => {

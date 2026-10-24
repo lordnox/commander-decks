@@ -23,6 +23,6 @@ describe('shared haste', () => {
       { random: () => 0.5, cardPlugins: [sharedHaste] },
     )
     const creature = named(server.state, 'Shared haste fixture')
-    expect(hasKeyword(creature, 'haste', server.state)).toBe(true)
+    expect(hasKeyword(creature, 'haste')).toBe(true)
   })
 })

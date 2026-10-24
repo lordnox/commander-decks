@@ -27,7 +27,7 @@ const setup = (conditional = false) => createServerGame(commanderRules, {
 }, { random: () => 0 })
 
 const named = (state: ReturnType<typeof setup>['state'], name: string) => Object.values(state.objects).find(object => object.name === name)!
-const haste = (state: ReturnType<typeof setup>['state'], name: string) => hasKeyword(named(state, name), KEYWORDS.haste, state)
+const haste = (state: ReturnType<typeof setup>['state'], name: string) => hasKeyword(named(state, name), KEYWORDS.haste)
 
 test('filtered keyword grants follow new entrants and source departure without changing timestamps', () => {
   const server = setup()
@@ -106,7 +106,7 @@ test.each([[false], [true]] as const)('cannot-gain suppression overrides printed
     },
     hands: { p1: [instructionSpell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield', type: 'Creature' }), effect: grantKeywordEffect(KEYWORDS.hexproof), duration: untilCleanup() })] })] },
   }, { random: () => 0 })
-  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof, state)
+  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof)
   expect(has(server.state, 'Printed recipient')).toBe(false)
   expect(has(server.state, 'Granted recipient')).toBe(false)
   expect(has(server.state, 'Unaffected relic')).toBe(true)
@@ -129,7 +129,7 @@ test('conditional suppression follows source control, phasing, and state changes
       p2: [cardTemplate('Opponent', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: printedHexproof })],
     },
   }, { random: () => 0 })
-  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof, state)
+  const has = (state: typeof server.state, name: string) => hasKeyword(named(state, name), KEYWORDS.hexproof)
   const source = named(server.state, 'Suppressor')
   expect(has(server.state, 'Ally')).toBe(true)
   expect(has(server.state, 'Opponent')).toBe(false)
@@ -160,7 +160,7 @@ test('opposing grant-and-suppression sources each prevent the other side from ha
       p2: [cardTemplate('Second source', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: both })],
     },
   }, { random: () => 0 })
-  for (const object of Object.values(server.state.objects)) expect(hasKeyword(object, KEYWORDS.hexproof, server.state)).toBe(false)
+  for (const object of Object.values(server.state.objects)) expect(hasKeyword(object, KEYWORDS.hexproof)).toBe(false)
   const removed = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Second source').id, to: 'graveyard' }))
-  expect(hasKeyword(named(removed, 'First source'), KEYWORDS.hexproof, removed)).toBe(true)
+  expect(hasKeyword(named(removed, 'First source'), KEYWORDS.hexproof)).toBe(true)
 })

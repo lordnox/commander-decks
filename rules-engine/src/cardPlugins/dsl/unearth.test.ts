@@ -49,7 +49,7 @@ test('the delayed end-step exile survives losing the permanent’s abilities and
   const server = game(true), id = server.state.zoneOrder.p1.graveyard[0]!
   let state = resolveStack(server.rules, activate(server))
   state = resolveStack(server.rules, ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: state.zoneOrder.p1.hand[0]! })))
-  expect(hasKeyword(state.objects[id]!, 'haste', state)).toBe(false)
+  expect(hasKeyword(state.objects[id]!, 'haste')).toBe(false)
   expect(ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' })).objects[id]!.zone).toBe('exile')
   state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'postcombatMain' }, { type: 'advanceStep' }))
   expect(state.stack).toHaveLength(1)

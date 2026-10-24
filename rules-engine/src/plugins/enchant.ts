@@ -34,7 +34,7 @@ const matchesEnchant = (state: GameState, target: GameObject, restriction: strin
 export const enchantTargets = (state: GameState, aura: GameObject, targeting = true) => {
   const canonical = aura.ruleDefinition?.definition.abilities.flatMap(ability => ability.kind === 'static' ? ability.effects : []).find(effect => effect.kind === 'enchant')
   if (canonical?.kind === 'enchant' && canonical.filter.kind === 'players') return undefined
-  if (canonical?.kind === 'enchant' && canonical.filter.kind === 'objects') return evaluateObjectSelector(canonical.filter, { state, source: captureObject(aura), controller: aura.controller }).filter(object => !hasProtectionFromEverything(state, object) && (!targeting || (!hasKeyword(object, 'shroud') && (object.controller === aura.controller || !hasKeyword(object, 'hexproof', state)))))
+  if (canonical?.kind === 'enchant' && canonical.filter.kind === 'objects') return evaluateObjectSelector(canonical.filter, { state, source: captureObject(aura), controller: aura.controller }).filter(object => !hasProtectionFromEverything(state, object) && (!targeting || (!hasKeyword(object, 'shroud') && (object.controller === aura.controller || !hasKeyword(object, 'hexproof')))))
   const restriction = enchantRestriction(aura)
   return restriction
     ? Object.values(state.objects).filter((target) => matchesEnchant(state, target, restriction))
@@ -58,7 +58,7 @@ export const enchantTargetError = (
     const offered = enchantTargets(state, aura, targeting) ?? []
     const target = targets?.[0]
     const object = target?.kind === 'object' ? targetObject(state, target) : undefined
-    if (object && (hasProtectionFromEverything(state, object) || (targeting && (hasKeyword(object, 'shroud') || (object.controller !== aura.controller && hasKeyword(object, 'hexproof', state)))))) return `${aura.name} has no legal enchant target`
+    if (object && (hasProtectionFromEverything(state, object) || (targeting && (hasKeyword(object, 'shroud') || (object.controller !== aura.controller && hasKeyword(object, 'hexproof')))))) return `${aura.name} has no legal enchant target`
     return targets?.length === 1 && object && offered.some(candidate => candidate.id === object.id) ? undefined : `${aura.name} has no legal enchant target`
   }
   const restriction = enchantRestriction(aura)

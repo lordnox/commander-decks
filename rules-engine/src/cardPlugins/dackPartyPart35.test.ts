@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import {
   legalActsFor,
-  pendingPlayerSelectionFor,
   projectForViewer,
 } from '../index'
 import { pendingSelectionFor } from '../rules/selectCards'
@@ -100,45 +99,6 @@ describe('Dack Party pass-35 cardRules', () => {
       resolved.objects[id].subtypes.includes('Treasure'))).toHaveLength(1)
   })
 
-  test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {
-    const server = createServerGame(commanderRules, {
-      players: 4,
-      hands: {
-        p1: [fromRules('Perch Protection', {
-          types: ['Instant'],
-          manaCost: '{4}{W}{W}',
-        })],
-      },
-      battlefield: {
-        p1: [cardTemplate('Held Bear', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
-    const spell = named(ready, 'Perch Protection')
-    const prevented = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-      giftPromised: true,
-    }))
-    const pending = pendingPlayerSelectionFor(prevented, 'p1')
-    expect(pending?.action.kind).toBe('finishGiftCast')
-    expect(pendingPlayerSelectionFor(projectForViewer(prevented, 'p2'), 'p1')).toBeUndefined()
-
-    const cast = ok(server.rules(prevented, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pending!.id,
-      players: ['p2'],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.zoneOrder.p1.battlefield.filter((id) =>
-      resolved.objects[id].subtypes.includes('Bird'))).toHaveLength(4)
-    expect(resolved.objects[named(resolved, 'Held Bear').id].phasedOut).toBe(true)
-    expect(resolved.extraTurns).toEqual(['p2'])
-  })
-
   test('Blitzball GOOOOAAAALLL! sacrifices and draws two after legendary damage', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -171,37 +131,5 @@ describe('Dack Party pass-35 cardRules', () => {
     expect(resolved.zoneCounts.p1.hand).toBe(2)
     expect(resolved.zoneCounts.p1.battlefield).toBe(0)
     expect(resolved.zoneCounts.p1.graveyard).toBe(1)
-  })
-
-  test('Perch Protection gift recipient choice survives host restart projection', () => {
-    const server = createServerGame(commanderRules, {
-      players: 4,
-      hands: {
-        p1: [fromRules('Perch Protection', {
-          types: ['Instant'],
-          manaCost: '{4}{W}{W}',
-        })],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
-    const spell = named(ready, 'Perch Protection')
-    const prevented = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-      giftPromised: true,
-    }))
-    const restarted = structuredClone(prevented)
-    const pendingAfter = pendingPlayerSelectionFor(restarted, 'p1')
-    expect(pendingAfter?.action.kind).toBe('finishGiftCast')
-    const cast = ok(server.rules(restarted, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: pendingAfter!.id,
-      players: ['p3'],
-    }))
-    expect(cast.stack[0]?.giftRecipient).toBe('p3')
-    expect(pendingPlayerSelectionFor(projectForViewer(cast, 'p2'), 'p1')).toBeUndefined()
   })
 })

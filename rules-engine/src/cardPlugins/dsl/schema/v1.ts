@@ -1,4 +1,7 @@
 import type { RoomDoorId, StepId } from '../../../types'
+import type { PlayerEffect, PlayerEffectDuration } from '../../../plugins/playerEffectConstants'
+
+export { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
 
 export const ROOM_DOORS = ['left', 'right'] as const
 
@@ -126,6 +129,8 @@ export type ObjectFilter = {
   manaAbility?: boolean
   /** True matches permanents with one or more colors; false matches colorless. */
   colored?: boolean
+  /** Matches objects that currently have this color; wrap in `not` for "nonblack". */
+  color?: CardColor
   enchantedBy?: ObjectReference
   /** Current cards exiled by the referenced source incarnation. */
   exiledWith?: ObjectReference
@@ -627,6 +632,10 @@ export type Instruction =
   | { kind: 'createRuleEffect'; effect: ResolvedRuleEffect; duration: { kind: 'untilCleanup' } }
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
+  /** Give each resolved player a player-level effect such as hexproof or "can't lose the game". */
+  | { kind: 'createPlayerEffect'; targets: PlayerRecipient; playerEffect: PlayerEffect; duration: PlayerEffectDuration }
+  /** CR 500.7: each resolved player takes an extra turn after this one; the newest extra turn is taken first. */
+  | { kind: 'takeExtraTurn'; targets: PlayerRecipient }
   /** One-shot permission to cast from a private zone without ordinary priority. */
   | {
       kind: 'offerCast'
@@ -648,7 +657,7 @@ export type Instruction =
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
   | { kind: 'shuffle'; targets: PlayerRecipient }
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */
-  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string }
+  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string; noRegeneration?: true }
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string; bindCount?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */

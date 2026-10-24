@@ -24,6 +24,7 @@ import { lands } from './lands'
 import { energy } from './energy'
 import { life } from './life'
 import { lifeTotalLock } from './lifeTotalLock'
+import { playerEffects } from './playerEffects'
 import { phasing } from './phasing'
 import { protectionFromEverything } from './protectionFromEverything'
 import { untilNextTurn } from './untilNextTurn'
@@ -64,6 +65,7 @@ export const builtInPlugins = [
   phasing,
   protectionFromEverything,
   lifeTotalLock,
+  playerEffects,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,

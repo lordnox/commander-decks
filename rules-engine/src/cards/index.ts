@@ -1,4 +1,8 @@
 import belonging from './belonging'
+import snuffOut from './snuff-out'
+import perchProtection from './perch-protection'
+import everybodyLives from './everybody-lives'
+import concordantCrossroads from './concordant-crossroads'
 import kurokiThiefOfTalents from './kuroki-thief-of-talents'
 import soulOfEternity from './soul-of-eternity'
 import walkInCloset from './walk-in-closet'
@@ -412,6 +416,10 @@ import zimoneAndDina from './zimone-and-dina'
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
   Belonging: belonging,
+  'Snuff Out': snuffOut,
+  'Perch Protection': perchProtection,
+  'Everybody Lives!': everybodyLives,
+  'Concordant Crossroads': concordantCrossroads,
   'Kuroki, Thief of Talents': kurokiThiefOfTalents,
   'Soul of Eternity': soulOfEternity,
   'All-Fates Stalker': allFatesStalker,

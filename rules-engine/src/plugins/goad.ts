@@ -40,7 +40,7 @@ export const canAttackThisCombat = (
   && object.controller === seat
   && object.types.includes('Creature')
   && !object.tapped
-  && (!object.summoningSickness || hasKeyword(object, 'haste', state))
+  && (!object.summoningSickness || hasKeyword(object, 'haste'))
 
 const opposingPlayers = (state: GameState, controller: PlayerId) =>
   state.playerOrder.filter(

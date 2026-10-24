@@ -170,8 +170,16 @@ export const advanceTurnStep = (draft: Draft) => {
   const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
   draft.step = step
   if (wraps) {
-    const queued = draft.extraTurns?.shift()
-    draft.active = queued ?? nextLivingPlayer(draft, draft.active)
+    let queued = draft.extraTurns?.shift()
+    while (queued && draft.players[queued]?.lost) queued = draft.extraTurns?.shift()
+    if (queued) {
+      // CR 500.7: an extra turn is inserted after the current one without changing the normal turn order.
+      draft.extraTurnsResumeAfter ??= draft.active
+      draft.active = queued
+    } else {
+      draft.active = nextLivingPlayer(draft, draft.extraTurnsResumeAfter ?? draft.active)
+      delete draft.extraTurnsResumeAfter
+    }
     draft.turn += 1
   }
   enterStep(draft, step)
@@ -205,6 +213,11 @@ const apply = ({ event, draft }: HookCtx) => {
     if (!player) return
     player.data[NO_MAXIMUM_HAND_SIZE] = true
     draft.note(`${event.seat} has no maximum hand size for the rest of the game`)
+  }
+  if (event.type === 'takeExtraTurn' && draft.players[event.seat] && !draft.players[event.seat].lost) {
+    // CR 500.7: the most recently created extra turn is taken first.
+    draft.extraTurns = [event.seat, ...(draft.extraTurns ?? [])]
+    draft.note(`${event.seat} will take an extra turn after this turn${event.source ? ` (${event.source})` : ''}`)
   }
 }
 

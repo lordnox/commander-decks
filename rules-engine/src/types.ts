@@ -417,6 +417,8 @@ export type GameObject = {
   enteredWithTimesKicked?: number
   /** Turn this object most recently entered the battlefield. */
   enteredBattlefieldTurn?: number
+  /** CR 613.7d timestamp of this permanent's latest battlefield entry; absent for setup permanents. */
+  battlefieldTimestamp?: number
   /** Per-ability trigger and resolve counts for generic trigger frequency flags. */
   triggerFrequency?: Record<
     string,
@@ -962,8 +964,10 @@ export type GameState = {
   /** Combatants with first/double strike as the first damage step began (CR 510.4). */
   firstStrikeCombatants?: ObjectIdentity[]
   passedInRow: PlayerId[]
-  /** Extra turns queued to begin after the current turn ends (FIFO). */
+  /** Extra turns queued to begin after the current turn ends; the next one taken is first (CR 500.7). */
   extraTurns?: PlayerId[]
+  /** Player whose ordinary turn preceded the running extra-turn chain; normal order resumes after them. */
+  extraTurnsResumeAfter?: PlayerId
   rules: RuleInstance[]
   /** Active prevention shields with remaining capacity. */
   preventionInstances?: PreventionInstance[]
@@ -1134,7 +1138,8 @@ export type GameEvent =
   /** A resolved control-changing effect, guarded against a replacement incarnation. */
   | { type: typeof CONTROL_EVENT.change; objectRef: ObjectIdentity; controller: PlayerId }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
-  | { type: 'destroy'; objectId: string; sourceId?: string }
+  /** `noRegeneration` records CR 701.19c "can't be regenerated" for any regeneration replacement. */
+  | { type: 'destroy'; objectId: string; sourceId?: string; noRegeneration?: true }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
   /** Canonical stack-copy action; creates no cast or activation occurrence. */
@@ -1529,6 +1534,8 @@ export type GameEvent =
     }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }
+  /** CR 500.7: schedule an extra turn after this one; the newest is taken first. */
+  | { type: 'takeExtraTurn'; seat: PlayerId; source?: string }
   | {
       type: 'addRule'
       pluginId: string

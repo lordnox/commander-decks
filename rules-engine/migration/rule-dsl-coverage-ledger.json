@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 4,
+    "cardRegistrations": 0,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
-    "builtInPlugins": 61,
+    "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 26,
     "customEventDispatchSites": 82,
     "directMutationSites": 569,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 142,
+    "instructionUnobservedGaps": 145,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 43,
-    "candidateOnlyCardRows": 4
+    "candidateOnlyInstructionRows": 40,
+    "candidateOnlyCardRows": 0
   },
   "cardEffects": [
     {
@@ -65,17 +65,11 @@
     {
       "variant": "alternateCast",
       "mechanic": "alternative casting permission",
-      "currentRegistrations": [
-        "Snuff Out:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed casting permission and alternative cost",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -84,7 +78,7 @@
         "05",
         "07"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "bestow",
@@ -107,17 +101,12 @@
     {
       "variant": "castCost",
       "mechanic": "casting cost modifier",
-      "currentRegistrations": [
-        "Perch Protection:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
       },
@@ -185,25 +174,17 @@
     {
       "variant": "handler",
       "mechanic": "specialized plugin hook",
-      "currentRegistrations": [
-        "Concordant Crossroads:effects[1]",
-        "Everybody Lives!:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:214 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:404 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:13 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "mana",
@@ -370,16 +351,12 @@
     {
       "variant": "static",
       "mechanic": "static/granted rule",
-      "currentRegistrations": [
-        "Concordant Crossroads:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3564 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:214 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:13 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
+          "live-runner/src/kernelHost.test.ts:3564 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -395,16 +372,11 @@
     {
       "variant": "targetedResolve",
       "mechanic": "legacy positional targets",
-      "currentRegistrations": [
-        "Snuff Out:effects[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "rules-engine/src/objectIdentity.test.ts:169 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
         ]
       },
@@ -434,23 +406,21 @@
     {
       "variant": "trigger",
       "mechanic": "triggered ability",
-      "currentRegistrations": [
-        "Perch Protection:effects[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 22,
+        "matches": 19,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:269 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:46 — test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:122 — test('trigger if gates ETB on opponent life lead', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:52 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {"
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
+          "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1157,21 +1127,19 @@
     {
       "variant": "createToken",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Perch Protection:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:64 — test('Thragtusk catalog watches leaves rather than dies', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1135 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1192 — test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1673 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1927 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1927 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2316 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2355 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1847,9 +1815,10 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2525 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2525 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3088 — test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2184,17 +2153,11 @@
     {
       "variant": "grantProtectionFromEverything",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Perch Protection:effects[1].do[4].whenTrue[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2204,7 +2167,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2246,21 +2209,19 @@
     {
       "variant": "if",
       "mechanic": "structured control flow",
-      "currentRegistrations": [
-        "Perch Protection:effects[1].do[4]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 31,
+        "matches": 29,
         "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:285 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1132 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1377 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1518 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1558 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1639 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1673 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1693 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -2333,17 +2294,11 @@
     {
       "variant": "lifeTotalCannotChange",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Perch Protection:effects[1].do[4].whenTrue[2]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2353,7 +2308,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2938,17 +2893,11 @@
     {
       "variant": "phaseOutControlled",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Perch Protection:effects[1].do[4].whenTrue[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2957,7 +2906,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4165,150 +4114,7 @@
       "handlerDiscovered": true
     }
   ],
-  "cardRegistrations": [
-    {
-      "card": "Concordant Crossroads",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Concordant Crossroads"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:214 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:13 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler, static] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler",
-        "static"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [
-        "sharedHaste"
-      ],
-      "handlerIds": [
-        "sharedHaste"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Everybody Lives!",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Everybody Lives!"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:178 — test('Everybody Lives stops life loss, lethal destruction, targeting, losing, and winning', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:404 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "combatPreventionCards"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Perch Protection",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Perch Protection"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:107 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:180 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:681 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "createToken",
-        "grantProtectionFromEverything",
-        "if",
-        "lifeTotalCannotChange",
-        "phaseOutControlled"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "giftCast",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Snuff Out",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Snuff Out"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "alternateCast",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "alternateCosts",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    }
-  ],
+  "cardRegistrations": [],
   "handlerDiscovery": {
     "discoveredKinds": [
       "addChosenColorMana",
@@ -4580,23 +4386,17 @@
     {
       "variant": "alternateCosts",
       "mechanic": "runtime plugin hook",
-      "currentRegistrations": [
-        "Snuff Out"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:19 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:156 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:423 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "attackSubtypeDraw",
@@ -5161,7 +4961,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 56,
+        "matches": 57,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
@@ -5323,6 +5123,23 @@
         "07"
       ],
       "status": "unobserved"
+    },
+    {
+      "variant": "playerEffects",
+      "mechanic": "runtime plugin hook",
+      "currentRegistrations": [],
+      "executableCoverageEvidence": [
+        "rules-engine/src/cardPlugins/playerEffects.test.ts — dedicated plugin/mechanic suite"
+      ],
+      "candidateEvidence": {
+        "matches": 0,
+        "samples": []
+      },
+      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
+      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
+      "ownerPart": "16",
+      "dependencyParts": [],
+      "status": "confirmed-executable-evidence"
     },
     {
       "variant": "priority",
@@ -5510,16 +5327,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 67,
+        "matches": 65,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3326 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4343 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
           "live-runner/src/kernelHost.test.ts:784 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:130 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:618 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:130 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:199 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {"
+          "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5603,9 +5420,9 @@
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
           "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:105 — test('a permanent the dying player only controlled goes back to its owner', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:122 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:147 — test('continuous recomputation settles before ordinary SBA collection', () => {"
+          "rules-engine/src/plugins/stateBased.test.ts:109 — test('a permanent the dying player only controlled goes back to its owner', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:126 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:151 — test('continuous recomputation settles before ordinary SBA collection', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5641,16 +5458,14 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:61 — test('Snuff Out validates the Swamp and four-life alternate cost', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "triggers",
@@ -5660,7 +5475,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/plugins/stateBased.test.ts:170 — test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {"
+          "rules-engine/src/plugins/stateBased.test.ts:174 — test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6382,10 +6197,10 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:275",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:490",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:675",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:814",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:276",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:491",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:676",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:815",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -6404,7 +6219,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1479"
+        "rules-engine/src/types.ts:1484"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6442,9 +6257,9 @@
         "rules-engine/src/actions.ts:909",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:303",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:434",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:438",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:304",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:435",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:439",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:238",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:322",
         "rules-engine/src/cardPlugins/librarySearch.ts:191",
@@ -6477,7 +6292,7 @@
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1583",
+        "rules-engine/src/driver.ts:1611",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -6552,11 +6367,11 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:674",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:858",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:108",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:265",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:571",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:758",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:109",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:266",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:572",
         "rules-engine/src/cardPlugins/effectRuntime.ts:759",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:760",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
@@ -6565,12 +6380,12 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
         "rules-engine/src/definitions.ts:74",
-        "rules-engine/src/formats.ts:141",
-        "rules-engine/src/formats.ts:45",
+        "rules-engine/src/formats.ts:143",
+        "rules-engine/src/formats.ts:46",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:559",
-        "rules-engine/src/kernel.ts:561",
-        "rules-engine/src/kernel.ts:897",
+        "rules-engine/src/kernel.ts:560",
+        "rules-engine/src/kernel.ts:562",
+        "rules-engine/src/kernel.ts:898",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -6578,8 +6393,8 @@
         "rules-engine/src/newGame.ts:132",
         "rules-engine/src/newGame.ts:183",
         "rules-engine/src/newGame.ts:288",
-        "rules-engine/src/plugins/index.ts:116",
-        "rules-engine/src/plugins/index.ts:46",
+        "rules-engine/src/plugins/index.ts:118",
+        "rules-engine/src/plugins/index.ts:47",
         "rules-engine/src/plugins/rooms.ts:52",
         "rules-engine/src/plugins/rooms.ts:71",
         "rules-engine/src/plugins/rooms.ts:88",
@@ -6706,10 +6521,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          554
+          555
         ],
         "samples": [
-          "554: if (!extra.keepName && object.name !== copied.name) {"
+          "555: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6792,10 +6607,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          741
+          742
         ],
         "samples": [
-          "741: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "742: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6822,14 +6637,14 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          479,
-          577,
-          808
+          480,
+          578,
+          809
         ],
         "samples": [
-          "479: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "577: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "808: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "480: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "578: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "809: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6950,10 +6765,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          184
+          192
         ],
         "samples": [
-          "184: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "192: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6984,10 +6799,10 @@
       {
         "path": "rules-engine/src/plugins/untilNextTurn.ts",
         "lines": [
-          49
+          53
         ],
         "samples": [
-          "49: if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== 'untap') return"
+          "53: if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== 'untap') return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7546,10 +7361,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1703
+          1701
         ],
         "samples": [
-          "1703: event.name === SEARCH_CHOSEN"
+          "1701: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7565,12 +7380,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          187,
-          220
+          189,
+          222
         ],
         "samples": [
-          "187: const source = draft.object(cloned.objectId)",
-          "220: return draft.addToStack({"
+          "189: const source = draft.object(cloned.objectId)",
+          "222: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7584,16 +7399,16 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          361,
-          366,
-          854,
-          2310,
-          2358
+          365,
+          370,
+          877,
+          2338,
+          2386
         ],
         "samples": [
-          "361: const liveSource = draft.object(source.ref.objectId)",
-          "366: const resolving = draft.object(item.objectId)",
-          "854: const source = draft.object(sourceId)"
+          "365: const liveSource = draft.object(source.ref.objectId)",
+          "370: const resolving = draft.object(item.objectId)",
+          "877: const source = draft.object(sourceId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7690,17 +7505,17 @@
       {
         "path": "rules-engine/src/plugins/life.ts",
         "lines": [
-          72,
-          83,
-          90,
-          102,
-          108,
-          119
+          73,
+          84,
+          91,
+          103,
+          109,
+          120
         ],
         "samples": [
-          "72: draft.enqueue({",
-          "83: draft.enqueue({",
-          "90: draft.enqueue({"
+          "73: draft.enqueue({",
+          "84: draft.enqueue({",
+          "91: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8490,16 +8305,16 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          118,
-          120,
-          456,
-          465,
-          466
+          119,
+          121,
+          457,
+          466,
+          467
         ],
         "samples": [
-          "118: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
-          "120: draft.enqueue({",
-          "456: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
+          "119: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
+          "121: draft.enqueue({",
+          "457: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9955,33 +9770,33 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          532,
-          537,
-          544,
-          629,
-          675,
-          677,
-          681,
-          689,
-          704,
-          713,
-          716,
-          769,
-          772,
-          781,
-          824,
-          839,
-          873,
-          912,
-          919,
-          925,
-          942,
-          950
+          533,
+          538,
+          545,
+          630,
+          676,
+          678,
+          682,
+          690,
+          705,
+          714,
+          717,
+          770,
+          773,
+          782,
+          825,
+          840,
+          874,
+          913,
+          920,
+          926,
+          943,
+          951
         ],
         "samples": [
-          "532: const object = draft.object(event.objectId)",
-          "537: const object = draft.object(event.objectRef.objectId)",
-          "544: const object = draft.object(event.objectId)"
+          "533: const object = draft.object(event.objectId)",
+          "538: const object = draft.object(event.objectRef.objectId)",
+          "545: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

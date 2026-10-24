@@ -830,7 +830,7 @@ export const spells: Plugin = {
 
       if (
         !spell.types.includes('Instant')
-        && !hasKeyword(spell, KEYWORDS.flash, state)
+        && !hasKeyword(spell, KEYWORDS.flash)
         && !mayCastAsThoughFlash(state, event.seat)
         && !(freeCast && (permission?.asThoughFlash || !stealCast))
         && !permission?.asThoughFlash

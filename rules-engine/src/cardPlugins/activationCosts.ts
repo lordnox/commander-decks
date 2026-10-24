@@ -178,7 +178,7 @@ export const activationCostError = (
     if (
       source.types.includes('Creature')
       && source.summoningSickness
-      && !hasKeyword(source, 'haste', state)
+      && !hasKeyword(source, 'haste')
     ) {
       return `${source.name} has summoning sickness`
     }

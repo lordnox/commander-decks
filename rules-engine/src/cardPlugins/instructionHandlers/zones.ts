@@ -915,7 +915,7 @@ const battlefieldMatching = (
 
 const destroyAll: InstructionHandler<'destroyAll'> = (ctx, instruction) => {
   for (const object of battlefieldMatching(ctx, instruction.filter)) {
-    if (hasKeyword(object, 'indestructible', ctx.draft)) continue
+    if (hasKeyword(object, 'indestructible')) continue
     ctx.draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
   }
 }

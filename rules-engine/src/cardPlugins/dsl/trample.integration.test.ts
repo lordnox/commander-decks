@@ -30,7 +30,7 @@ describe('trample — integration', () => {
       }, { random: () => 0 })
       const wurm = named(server.state, 'Duskdale Wurm')
       const blocker = named(server.state, 'Blocker')
-      expect(hasKeyword(wurm, 'trample', server.state)).toBe(true)
+      expect(hasKeyword(wurm, 'trample')).toBe(true)
       let state: GameState = structuredClone(server.state)
       state.step = 'declareAttackers'
       state.active = 'p1'

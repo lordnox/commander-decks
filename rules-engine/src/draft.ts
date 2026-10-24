@@ -153,6 +153,8 @@ export const makeDraft = (state: GameState): Draft => {
       }
       // CR 613.7d: a new zone entry receives a new timestamp.
       delete object.staticRulesTimestamp
+      if (to === 'battlefield') object.battlefieldTimestamp = draft.allocTs()
+      else delete object.battlefieldTimestamp
     }
     if (from === 'battlefield' && to !== 'battlefield') {
       delete object.attachedToRef

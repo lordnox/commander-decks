@@ -39,9 +39,9 @@ test.each([KEYWORDS.deathtouch, KEYWORDS.haste, KEYWORDS.vigilance, KEYWORDS.hex
     hands: { p1: [instructionSpell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield', type: 'Creature' }), effect: grantKeywordEffect(granted), duration: untilCleanup() })] })] },
   }, { random: () => 0 })
   const id = server.state.zoneOrder.p1.battlefield[0]
-  expect(hasKeyword(server.state.objects[id], granted, server.state)).toBe(false)
+  expect(hasKeyword(server.state.objects[id], granted)).toBe(false)
   const resolved = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
-  expect(hasKeyword(resolved.objects[id], granted, resolved)).toBe(true)
+  expect(hasKeyword(resolved.objects[id], granted)).toBe(true)
   const cleanup = ok(server.rules({ ...resolved, step: 'end', priority: null }, { type: 'advanceStep' }))
-  expect(hasKeyword(cleanup.objects[id], granted, cleanup)).toBe(false)
+  expect(hasKeyword(cleanup.objects[id], granted)).toBe(false)
 })

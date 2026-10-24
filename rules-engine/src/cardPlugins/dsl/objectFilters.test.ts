@@ -91,3 +91,16 @@ test('among filter validation requires an object reference', () => {
     }],
   })).toThrow()
 })
+
+test('color matches current colors, and not: { color } expresses "nonblack"', () => {
+  const state = newGame(commanderRules, { players: ['p1', 'p2'], battlefield: { p1: [
+    cardTemplate('Black fixture', { types: ['Creature'], colors: ['B'] }),
+    cardTemplate('Black-green fixture', { types: ['Creature'], colors: ['B', 'G'] }),
+    cardTemplate('White fixture', { types: ['Creature'], colors: ['W'] }),
+    cardTemplate('Colorless fixture', { types: ['Creature'], colors: [] }),
+  ] } })
+  const context = { state, source: captureObject(named(state, 'White fixture')), controller: 'p1' }
+  expect(evaluateObjectSelector(objects({ color: 'B' }), context).map(object => object.name).sort()).toEqual(['Black fixture', 'Black-green fixture'])
+  expect(evaluateObjectSelector(objects({ not: { color: 'B' } }), context).map(object => object.name).sort()).toEqual(['Colorless fixture', 'White fixture'])
+  expect(() => compileCardRuleDefinition(card([whenever(enters({ filter: { color: 'P' as never } }), { instructions: [] })]))).toThrow()
+})

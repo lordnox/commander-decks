@@ -71,6 +71,7 @@ import { evidencePaymentEvents, validateEvidencePayment, evaluateAnnouncementCos
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
+import { playerCannotWinGame } from './plugins/playerEffects'
 import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
 const CHECKPOINT_CAP = 32
@@ -673,7 +674,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'destroy': {
       const object = draft.object(event.objectId)
-      if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible', draft)) return
+      if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible')) return
       draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       return
     }
@@ -1035,12 +1036,9 @@ const collectSba = (
 }
 
 const checkEnded = (draft: ReturnType<typeof makeDraft>) => {
-  if (draft.rules.some((rule) =>
-    rule.pluginId === 'advancedCombatPrevention'
-    && rule.params.mode === 'everybodyLives')) {
-    return
-  }
   const alive = Object.values(draft.players).filter((player) => !player.lost)
+  // CR 104.2a: a sole survivor wins, unless an effect says that player can't win the game.
+  if (alive.length === 1 && playerCannotWinGame(draft, alive[0].id)) return
   if (alive.length <= 1) draft.ended = true
 }
 

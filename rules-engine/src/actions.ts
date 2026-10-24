@@ -462,7 +462,7 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
       && (
         !object.types.includes('Creature')
         || !object.summoningSickness
-        || hasKeyword(object, 'haste', state)
+        || hasKeyword(object, 'haste')
       )
     )
   )
@@ -526,7 +526,7 @@ const manaPlays = (
 
 /** Sorcery-speed spells (and special actions) cannot be cast or taken while anything waits on the stack. */
 const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
-  !spell.types.includes('Instant') && !hasKeyword(spell, KEYWORDS.flash, state) && !mayCastAsThoughFlash(state, seat)
+  !spell.types.includes('Instant') && !hasKeyword(spell, KEYWORDS.flash) && !mayCastAsThoughFlash(state, seat)
 
 /**
  * Tapping this source for mana puts a "becomes tapped" trigger on the stack
@@ -680,7 +680,7 @@ const canCastAtTiming = (
     && !permission?.asThoughFlash
     && !staticPermission?.asThoughFlash
     && !spell.types.includes('Instant')
-    && !hasKeyword(spell, KEYWORDS.flash, state)
+    && !hasKeyword(spell, KEYWORDS.flash)
     && !mayCastAsThoughFlash(state, seat)
     && (
       state.active !== seat
@@ -1742,7 +1742,7 @@ export const availableActions = (
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped
-        && (!object.summoningSickness || hasKeyword(object, 'haste', state)))
+        && (!object.summoningSickness || hasKeyword(object, 'haste')))
       .map((object) => object.id)
     if (objectIds.length > 0) {
       const taxByDefender = attackTaxByDefender(state)
@@ -2487,7 +2487,7 @@ export const eventsForCombatDeclaration = (
   const excluded = event.type === 'declareAttackers'
     ? new Set(event.attackers.flatMap((attacker) => {
         const object = state.objects[attacker.objectId]
-        return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
+        return object && !hasKeyword(object, 'vigilance') ? [object.id] : []
       }))
     : new Set(event.blockers.map((blocker) => blocker.blockerId))
   const funding = fundingEvents(state, event.seat, `{${tax}}`, excluded)

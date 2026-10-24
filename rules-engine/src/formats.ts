@@ -21,6 +21,7 @@ import { energy } from './plugins/energy'
 import { life } from './plugins/life'
 import { monarch } from './plugins/monarch'
 import { lifeTotalLock } from './plugins/lifeTotalLock'
+import { playerEffects } from './plugins/playerEffects'
 import { phasing } from './plugins/phasing'
 import { protectionFromEverything } from './plugins/protectionFromEverything'
 import { untilNextTurn } from './plugins/untilNextTurn'
@@ -89,6 +90,7 @@ export const corePlugins = [
   phasing,
   protectionFromEverything,
   lifeTotalLock,
+  playerEffects,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,

@@ -62,11 +62,11 @@ test('suspend upkeep removal and last-counter casting are separately counterable
   current = ok(server.rules(current, { type: 'castSpell', seat: 'p1', objectId: id, alternativeCost: 'withoutPayingMana' }))
   current = resolveStack(server.rules, current)
   expect(current.objects[id]!.zone).toBe('battlefield')
-  expect(hasKeyword(current.objects[id]!, 'haste', current)).toBe(true)
+  expect(hasKeyword(current.objects[id]!, 'haste')).toBe(true)
   current = ok(server.rules(current, { type: CONTROL_EVENT.change, objectRef: objectIdentity(current.objects[id]!), controller: 'p2' }))
-  expect(hasKeyword(current.objects[id]!, 'haste', current)).toBe(false)
+  expect(hasKeyword(current.objects[id]!, 'haste')).toBe(false)
   current = ok(server.rules(current, { type: CONTROL_EVENT.change, objectRef: objectIdentity(current.objects[id]!), controller: 'p1' }))
-  expect(hasKeyword(current.objects[id]!, 'haste', current)).toBe(false)
+  expect(hasKeyword(current.objects[id]!, 'haste')).toBe(false)
 })
 
 

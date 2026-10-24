@@ -61,20 +61,20 @@ describe('static pump with a controlsCommander condition', () => {
     const { start } = commanderGame()
     expect(stats(start, 'Lieutenant Beast')).toEqual([4, 4])
     expect(stats(start, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(start, 'Ally Bear'), 'trample', start)).toBe(false)
+    expect(hasKeyword(named(start, 'Ally Bear'), 'trample')).toBe(false)
   })
 
   test('the commander arriving pumps the source and others, with trample only on others', () => {
     const { run, start } = commanderGame()
     const state = run(start, move(start, 'Our General', 'battlefield'))
     expect(stats(state, 'Lieutenant Beast')).toEqual([6, 6])
-    expect(hasKeyword(named(state, 'Lieutenant Beast'), 'trample', state)).toBe(false)
+    expect(hasKeyword(named(state, 'Lieutenant Beast'), 'trample')).toBe(false)
     expect(stats(state, 'Ally Bear')).toEqual([4, 4])
-    expect(hasKeyword(named(state, 'Ally Bear'), 'trample', state)).toBe(true)
+    expect(hasKeyword(named(state, 'Ally Bear'), 'trample')).toBe(true)
     expect(stats(state, 'Our General')).toEqual([5, 5])
-    expect(hasKeyword(named(state, 'Our General'), 'trample', state)).toBe(true)
+    expect(hasKeyword(named(state, 'Our General'), 'trample')).toBe(true)
     expect(stats(state, 'Enemy Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(state, 'Enemy Bear'), 'trample', state)).toBe(false)
+    expect(hasKeyword(named(state, 'Enemy Bear'), 'trample')).toBe(false)
   })
 
   test('the commander leaving, then returning, toggles the pump without drift', () => {
@@ -84,7 +84,7 @@ describe('static pump with a controlsCommander condition', () => {
     expect(named(left, 'Our General').zone).toBe('command')
     expect(stats(left, 'Lieutenant Beast')).toEqual([4, 4])
     expect(stats(left, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(left, 'Ally Bear'), 'trample', left)).toBe(false)
+    expect(hasKeyword(named(left, 'Ally Bear'), 'trample')).toBe(false)
     expect(named(left, 'Ally Bear').continuousEffects).toBeUndefined()
     const again = run(left, move(left, 'Our General', 'battlefield'))
     expect(stats(again, 'Lieutenant Beast')).toEqual([6, 6])
@@ -103,7 +103,7 @@ describe('static pump with a controlsCommander condition', () => {
     const arrived = run(start, move(start, 'Our General', 'battlefield'))
     const gone = run(arrived, move(arrived, 'Lieutenant Beast', 'exile'))
     expect(stats(gone, 'Ally Bear')).toEqual([2, 2])
-    expect(hasKeyword(named(gone, 'Ally Bear'), 'trample', gone)).toBe(false)
+    expect(hasKeyword(named(gone, 'Ally Bear'), 'trample')).toBe(false)
   })
 })
 
@@ -156,10 +156,10 @@ describe('static hexproof layer', () => {
 
   test('your creatures have hexproof and opposing creatures lose a printed hexproof', () => {
     const { state } = hexproofGame()
-    expect(hasKeyword(named(state, 'Ally Bear'), 'hexproof', state)).toBe(true)
-    expect(hasKeyword(named(state, 'Hexproof Boar'), 'hexproof', state)).toBe(true)
-    expect(hasKeyword(named(state, 'Shrouded Elf'), 'hexproof', state)).toBe(false)
-    expect(hasKeyword(named(state, 'Enemy Bear'), 'hexproof', state)).toBe(false)
+    expect(hasKeyword(named(state, 'Ally Bear'), 'hexproof')).toBe(true)
+    expect(hasKeyword(named(state, 'Hexproof Boar'), 'hexproof')).toBe(true)
+    expect(hasKeyword(named(state, 'Shrouded Elf'), 'hexproof')).toBe(false)
+    expect(hasKeyword(named(state, 'Enemy Bear'), 'hexproof')).toBe(false)
   })
 
   test('targeting honors the granted and suppressed hexproof', () => {
@@ -178,8 +178,8 @@ describe('static hexproof layer', () => {
       objectId: named(state, 'Hexproof Boar').id,
       to: 'graveyard',
     }))
-    expect(hasKeyword(named(after, 'Shrouded Elf'), 'hexproof', after)).toBe(true)
-    expect(hasKeyword(named(after, 'Ally Bear'), 'hexproof', after)).toBe(false)
+    expect(hasKeyword(named(after, 'Shrouded Elf'), 'hexproof')).toBe(true)
+    expect(hasKeyword(named(after, 'Ally Bear'), 'hexproof')).toBe(false)
     expect(casts('p1', 'Probe One', 'Shrouded Elf', after)).toBe(false)
     expect(casts('p2', 'Probe Two', 'Ally Bear', after)).toBe(true)
   })
@@ -197,8 +197,8 @@ describe('static hexproof layer', () => {
     withHand.objects.late = { ...template, id: 'late', zone: 'hand' }
     withHand.zoneOrder.p1.hand.push('late')
     withHand.zoneCounts.p1.hand += 1
-    expect(hasKeyword(lateBear(withHand), 'hexproof', withHand)).toBe(false)
+    expect(hasKeyword(lateBear(withHand), 'hexproof')).toBe(false)
     const entered = ok(server.rules(withHand, { type: 'move', objectId: 'late', to: 'battlefield' }))
-    expect(hasKeyword(lateBear(entered), 'hexproof', entered)).toBe(true)
+    expect(hasKeyword(lateBear(entered), 'hexproof')).toBe(true)
   })
 })

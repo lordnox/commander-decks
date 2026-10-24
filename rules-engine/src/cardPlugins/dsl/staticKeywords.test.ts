@@ -22,9 +22,9 @@ describe('staticKeywords', () => {
     }, { random: () => 0 })
     const wurmObject = Object.values(server.state.objects).find((object) => object.name === 'Duskdale Wurm')!
     const wallObject = Object.values(server.state.objects).find((object) => object.name === 'Wall of Omens')!
-    expect(hasKeyword(wurmObject, 'trample', server.state)).toBe(true)
-    expect(hasKeyword(wallObject, 'defender', server.state)).toBe(true)
-    expect(hasKeyword(wallObject, 'trample', server.state)).toBe(false)
+    expect(hasKeyword(wurmObject, 'trample')).toBe(true)
+    expect(hasKeyword(wallObject, 'defender')).toBe(true)
+    expect(hasKeyword(wallObject, 'trample')).toBe(false)
   })
 
   test('keyword when conditions grant hexproof only while the source is untapped', () => {
@@ -40,10 +40,10 @@ describe('staticKeywords', () => {
       },
     }, { random: () => 0 })
     const teacher = Object.values(server.state.objects).find((object) => object.name === 'Teacher')!
-    expect(hasKeyword(teacher, 'hexproof', server.state)).toBe(true)
+    expect(hasKeyword(teacher, 'hexproof')).toBe(true)
     const tapped = ok(server.rules(server.state, { type: 'tap', objectId: teacher.id }))
-    expect(hasKeyword(tapped.objects[teacher.id]!, 'hexproof', tapped)).toBe(false)
+    expect(hasKeyword(tapped.objects[teacher.id]!, 'hexproof')).toBe(false)
     const untapped = ok(server.rules(tapped, { type: 'untap', objectId: teacher.id }))
-    expect(hasKeyword(untapped.objects[teacher.id]!, 'hexproof', untapped)).toBe(true)
+    expect(hasKeyword(untapped.objects[teacher.id]!, 'hexproof')).toBe(true)
   })
 })

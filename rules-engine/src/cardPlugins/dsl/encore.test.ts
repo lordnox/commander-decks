@@ -32,7 +32,7 @@ test('encore copies captured source values once per current opponent, then binds
   const [token] = state.zoneOrder.p1.battlefield.map(id => state.objects[id])
   expect(state.zoneOrder.p1.battlefield).toHaveLength(1)
   expect(token).toMatchObject({ token: true, power: 4, toughness: 4, manaCost: '{3}{G}', subtypes: ['Beast'], colors: ['G'] })
-  expect(hasKeyword(token, 'haste', state)).toBe(true)
+  expect(hasKeyword(token, 'haste')).toBe(true)
   expect(playerAttackRequirements(token)).toEqual(['p2'])
   expect(state.delayedTriggers).toHaveLength(1)
   state = ok(server.rules({ ...state, step: 'postcombatMain', priority: 'p1' }, { type: 'advanceStep' }))
@@ -57,7 +57,7 @@ test('one counterable end-step trigger covers every copy; attack requirements ex
   expect(state.zoneOrder.p1.battlefield).toEqual(ids)
   for (const id of ids) {
     expect(playerAttackRequirements(state.objects[id])).toEqual([])
-    expect(hasKeyword(state.objects[id], 'haste', state)).toBe(true)
+    expect(hasKeyword(state.objects[id], 'haste')).toBe(true)
   }
   expect(state.delayedTriggers).toHaveLength(0)
 })
@@ -85,10 +85,10 @@ test('catalog encore copies keep entry programs and characteristic definitions',
   state.players.p1.mana = { W: 4, U: 0, B: 0, R: 0, G: 0, C: 13 }
   state = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: belonging, abilityId: '$.abilities[1]' })))
   const belongingCopy = state.zoneOrder.p1.battlefield.map(id => state.objects[id]).find(object => object.name === 'Belonging')!
-  expect(hasKeyword(belongingCopy, 'changeling', state)).toBe(false)
+  expect(hasKeyword(belongingCopy, 'changeling')).toBe(false)
   const shapeshifters = state.zoneOrder.p1.battlefield.map(id => state.objects[id]).filter(object => object.name === 'Shapeshifter')
   expect(shapeshifters).toHaveLength(3)
-  expect(shapeshifters.every(object => hasKeyword(object, 'changeling', state) && object.subtypes.includes('Dragon'))).toBe(true)
+  expect(shapeshifters.every(object => hasKeyword(object, 'changeling') && object.subtypes.includes('Dragon'))).toBe(true)
   state = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: soul, abilityId: '$.abilities[1]' })))
   const soulCopy = state.zoneOrder.p1.battlefield.map(id => state.objects[id]).find(object => object.name === 'Soul of Eternity')!
   expect(soulCopy.power).toBe(40)

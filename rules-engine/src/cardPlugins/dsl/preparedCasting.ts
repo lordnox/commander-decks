@@ -10,7 +10,7 @@ export const canPrepareCast = (state: GameState, seat: PlayerId, object: GameObj
   if (cost === undefined || object.zone !== 'hand' || object.owner !== seat || state.priority !== seat) return false
   const spell = object.ruleDefinition?.definition.abilities.find(ability => ability.kind === 'spell')
   if (spell?.kind === 'spell' && spellCastPermission(state, object, spell, seat)) return false
-  const instant = object.types.includes('Instant') || hasKeyword(object, 'flash', state)
+  const instant = object.types.includes('Instant') || hasKeyword(object, 'flash')
   const main = state.active === seat && (state.step === 'precombatMain' || state.step === 'postcombatMain') && state.stack.length === 0
   if (kind === 'plot' ? !main : !instant && !main) return false
   return Boolean(payCost(state.players[seat].mana, cost))

@@ -71,7 +71,7 @@ describe('unearth', () => {
     const live = named(returned, 'Rubble Scrapper')
     expect(live.zone).toBe('battlefield')
     expect(live.summoningSickness).toBe(true)
-    expect(hasKeyword(live, 'haste', returned)).toBe(true)
+    expect(hasKeyword(live, 'haste')).toBe(true)
     expect(returned.rules.some((rule) =>
       rule.pluginId === 'unearth' && rule.sourceId === live.id)).toBe(true)
     expect(returned.delayedTriggers).toHaveLength(1)

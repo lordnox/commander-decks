@@ -453,7 +453,7 @@ const validateNonManaCosts = (
         }
         if (source.tapped || sourceTapped) throw new TypeError('tap cost source is already tapped')
         if (source.types.includes('Creature') && source.summoningSickness
-          && !hasKeyword(source, 'haste', state.rules ? { rules: state.rules } : undefined)) {
+          && !hasKeyword(source, 'haste')) {
           throw new TypeError('tap cost source has summoning sickness')
         }
         sourceTapped = true

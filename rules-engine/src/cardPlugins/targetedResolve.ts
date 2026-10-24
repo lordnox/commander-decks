@@ -135,7 +135,7 @@ export const validTarget = (
     return false
   }
   if (hasProtectionFromEverything(state, object)) return false
-  if (object && object.controller !== controller && hasKeyword(object, 'hexproof', state)) {
+  if (object && object.controller !== controller && hasKeyword(object, 'hexproof')) {
     return false
   }
   return true
@@ -291,7 +291,7 @@ const applyTargetedAction = (
       optional: false,
     })
   } else {
-    if (effect.action === 'destroy' && hasKeyword(object, 'indestructible', state)) {
+    if (effect.action === 'destroy' && hasKeyword(object, 'indestructible')) {
       draft.note(`${source.name} cannot destroy indestructible ${object.name}`)
       return
     }

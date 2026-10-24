@@ -26,7 +26,7 @@ describe('cardRuleCatalog — drawAndKeywords', () => {
     const wurm = named(server.state, 'Duskdale Wurm')
     expect(wurm.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Duskdale Wurm'))
     expect(wurm.oracleText).toBe('')
-    expect(hasKeyword(wurm, 'trample', server.state)).toBe(true)
+    expect(hasKeyword(wurm, 'trample')).toBe(true)
   })
 
   test('Wall of Omens draws once on entry and does not double-fire', () => {

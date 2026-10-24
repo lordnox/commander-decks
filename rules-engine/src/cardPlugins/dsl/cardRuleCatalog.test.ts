@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { CARD_COLORS, CHOICE_RELATIONS, KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
+import { CARD_COLORS, CHOICE_RELATIONS, KEYWORDS, PLAYER_EFFECT_DURATIONS, PLAYER_EFFECTS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -3056,4 +3056,43 @@ test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters 
       }],
     },
   ])
+})
+
+test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {
+  for (const name of ['Concordant Crossroads', 'Everybody Lives!', 'Perch Protection', 'Snuff Out']) expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor('Concordant Crossroads')).toMatchObject({ supertypes: ['World'], types: ['Enchantment'] })
+  expect(cardRuleDefinitionSnapshotFor('Concordant Crossroads')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'grantKeyword', keyword: KEYWORDS.haste, targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+  ])
+  const allPlayers = { kind: 'players', filter: { relation: 'any' } }
+  expect(cardRuleDefinitionSnapshotFor('Everybody Lives!')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.hexproof }, duration: { kind: 'untilCleanup' } },
+      { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } },
+      ...[PLAYER_EFFECTS.hexproof, PLAYER_EFFECTS.cannotLoseLife, PLAYER_EFFECTS.cannotLoseGame, PLAYER_EFFECTS.cannotWinGame]
+        .map(playerEffect => ({ kind: 'createPlayerEffect', targets: allPlayers, playerEffect, duration: PLAYER_EFFECT_DURATIONS.untilCleanup })),
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Perch Protection')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    optionalCosts: [{ kind: 'choosePlayer', players: { kind: 'players', filter: { relation: 'opponent' } } }],
+    instructions: [
+      { kind: 'if', then: [{ kind: 'takeExtraTurn' }] },
+      { kind: 'createToken', count: { kind: 'constant', value: 4 } },
+      { kind: 'if', then: [
+        { kind: 'phase', out: true, targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } },
+        { kind: 'createPlayerEffect', playerEffect: PLAYER_EFFECTS.lifeTotalCannotChange, duration: PLAYER_EFFECT_DURATIONS.untilYourNextTurn },
+        { kind: 'createPlayerEffect', playerEffect: PLAYER_EFFECTS.protectionFromEverything, duration: PLAYER_EFFECT_DURATIONS.untilYourNextTurn },
+      ] },
+      { kind: 'exileThisSpell' },
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Snuff Out')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    alternativeCosts: [[{ kind: 'life', amount: { kind: 'constant', value: 4 } }]],
+    costConditions: [{ cost: 'alternative', index: 0 }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', not: { color: 'B' } } } }] },
+    instructions: [{ kind: 'destroy', noRegeneration: true }],
+  }])
 })

@@ -1,6 +1,7 @@
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
+import { playerHasHexproof } from '../../../plugins/playerEffects'
 import { effectsOf } from '../../cardRules'
 import { printedStaticEffectsOfKind } from '../staticModifierCore'
 import type { CardRuleDefinitionV1, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v1'
@@ -55,6 +56,7 @@ const canonicalCandidate = (
     case 'players': {
       if (target.kind !== 'player') return false
       if (!evaluatePlayerSelector(filter, context).includes(target.player)) return false
+      if (target.player !== context.controller && playerHasHexproof(state, target.player)) return false
       return !hasProtectionFromEverything(state, undefined, target.player)
     }
     case 'objects': {
@@ -62,8 +64,8 @@ const canonicalCandidate = (
       const object = targetObject(state, target)
       if (!object || !evaluateObjectSelector(filter, context).some((candidate) => candidate.id === object.id)) return false
       if (hasProtectionFromEverything(state, object)) return false
-      if (hasKeyword(object, 'shroud', state)) return false
-      if (object.controller !== context.controller && hasKeyword(object, 'hexproof', state)) return false
+      if (hasKeyword(object, 'shroud')) return false
+      if (object.controller !== context.controller && hasKeyword(object, 'hexproof')) return false
       if (object.controller !== context.controller && !object.tapped && effectsOf(object).some((effect) =>
         effect.op === 'targetingRequirement' && effect.kind === 'hexproof-while-untapped')) return false
       return true

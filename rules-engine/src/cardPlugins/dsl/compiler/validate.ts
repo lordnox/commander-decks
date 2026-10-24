@@ -9,6 +9,7 @@ import type {
 } from '../schema/v1'
 import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
+import { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
@@ -281,7 +282,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['when', 'enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'card', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['when', 'enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'card', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'color', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
     if (node.when !== undefined) validateCondition(node.when, childPath(path, 'when'), env)
     if (node.enchantableBy !== undefined) validateReference(node.enchantableBy, childPath(path, 'enchantableBy'), env, ['object'])
     if (node.creatureType !== undefined) validateCreatureType(node.creatureType, childPath(path, 'creatureType'), env)
@@ -296,6 +297,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.card !== undefined && typeof node.card !== 'boolean') issue(childPath(path, 'card'), 'type', 'expected a boolean')
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
     if (node.colored !== undefined && typeof node.colored !== 'boolean') issue(childPath(path, 'colored'), 'type', 'expected a boolean')
+    if (node.color !== undefined) enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.powerAtLeast !== undefined) integer(node.powerAtLeast, childPath(path, 'powerAtLeast'), { min: -MAX_LITERAL_AMOUNT })
     if (node.compareCharacteristic !== undefined) {
@@ -1141,6 +1143,16 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
+      case 'createPlayerEffect':
+        exactKeys(node, path, ['kind', 'targets', 'playerEffect', 'duration'], ['kind', 'targets', 'playerEffect', 'duration'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        enumeration(node.playerEffect, childPath(path, 'playerEffect'), new Set(Object.values(PLAYER_EFFECTS)), 'player effect')
+        enumeration(node.duration, childPath(path, 'duration'), new Set(Object.values(PLAYER_EFFECT_DURATIONS)), 'player effect duration')
+        return
+      case 'takeExtraTurn':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'grantFlash': {
         exactKeys(node, path, ['kind', 'targets', 'duration'], ['kind', 'targets', 'duration'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
@@ -1242,8 +1254,9 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       case 'destroy':
-        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice'], ['kind', 'targets'])
+        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice', 'noRegeneration'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.noRegeneration !== undefined && node.noRegeneration !== true) issue(childPath(path, 'noRegeneration'), 'constant', 'noRegeneration must be true when present')
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['destroyed']) }, childPath(path, 'bindResult'))

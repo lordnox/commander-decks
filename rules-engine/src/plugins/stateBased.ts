@@ -4,7 +4,7 @@ import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
 import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { everybodyLives } from './advancedCombatPrevention'
+import { playerCannotLoseGame } from './playerEffects'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
 import { ceaseToExist } from '../rules/spellCopies'
@@ -76,17 +76,16 @@ export const stateBased: Plugin = {
 
     const events: GameEvent[] = []
 
-    if (!everybodyLives(draft)) {
-      for (const player of Object.values(draft.players)) {
-        if (
-          !player.lost
-          && (
-            player.life <= 0
-            || player.poison >= 10
-            || player.data[FAILED_DRAW_SINCE_SBA] === true
-          )
-        ) events.push({ type: 'concede', seat: player.id })
-      }
+    for (const player of Object.values(draft.players)) {
+      if (
+        !player.lost
+        && !playerCannotLoseGame(draft, player.id)
+        && (
+          player.life <= 0
+          || player.poison >= 10
+          || player.data[FAILED_DRAW_SINCE_SBA] === true
+        )
+      ) events.push({ type: 'concede', seat: player.id })
     }
 
     for (const object of Object.values(draft.objects)) {
@@ -179,13 +178,13 @@ export const stateBased: Plugin = {
           object.toughness <= 0
           || (
             object.damageMarked >= object.toughness
-            && !hasKeyword(object, 'indestructible', draft)
+            && !hasKeyword(object, 'indestructible')
           )
           // Any damage from a deathtouch source destroys it (CR 704.5h).
           || (
             object.deathtouched === true
             && object.damageMarked > 0
-            && !hasKeyword(object, 'indestructible', draft)
+            && !hasKeyword(object, 'indestructible')
           )
         )
       ) {
@@ -221,6 +220,17 @@ export const stateBased: Plugin = {
       if (duplicates.length < 2) continue
       const [, ...toMove] = [...duplicates].sort((a, b) => a.id.localeCompare(b.id))
       for (const object of toMove) events.push(moveToGraveyard(object.id))
+    }
+
+    // CR 704.5k: only the permanent that has had the world supertype for the shortest time survives; a tie loses all.
+    const worlds = Object.values(draft.objects).filter(object =>
+      object.zone === 'battlefield' && !object.phasedOut && object.supertypes.includes('World'))
+    if (worlds.length > 1) {
+      const newest = Math.max(...worlds.map(object => object.battlefieldTimestamp ?? 0))
+      const survivors = worlds.filter(object => (object.battlefieldTimestamp ?? 0) === newest)
+      for (const object of worlds) {
+        if (survivors.length > 1 || object !== survivors[0]) events.push(moveToGraveyard(object.id))
+      }
     }
 
     const seen = new Set<string>()

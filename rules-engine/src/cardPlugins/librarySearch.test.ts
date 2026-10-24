@@ -497,7 +497,7 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
       expect(named(done, 'Library Pet').zone).toBe('battlefield')
       expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
       expect(done.objects[mate.id]).toMatchObject({ power: 12, toughness: 12 })
-      expect(hasKeyword(done.objects[mate.id], 'haste', done)).toBe(true)
+      expect(hasKeyword(done.objects[mate.id], 'haste')).toBe(true)
     })
 
 })

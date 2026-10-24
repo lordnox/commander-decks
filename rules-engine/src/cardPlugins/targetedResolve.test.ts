@@ -614,7 +614,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
 
     test('Oracle trample comes from the printed text', () => {
       const { start } = primusGame()
-      expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample', start)).toBe(true)
+      expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample')).toBe(true)
       expect([named(start, 'Woodfall Primus').power, named(start, 'Woodfall Primus').toughness]).toEqual([6, 6])
     })
 

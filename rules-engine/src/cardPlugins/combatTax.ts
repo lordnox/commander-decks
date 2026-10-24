@@ -128,7 +128,7 @@ const paymentMana = (
     if (
       object.types.includes('Creature')
       && object.summoningSickness
-      && !hasKeyword(object, 'haste', state)
+      && !hasKeyword(object, 'haste')
     ) {
       return 'combat tax payment uses a creature with summoning sickness'
     }
@@ -152,7 +152,7 @@ export const combatTax: Plugin = {
     const excluded = event.type === 'declareAttackers'
       ? new Set(event.attackers.flatMap((attacker) => {
           const object = state.objects[attacker.objectId]
-          return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
+          return object && !hasKeyword(object, 'vigilance') ? [object.id] : []
         }))
       : new Set<string>()
     const available = paymentMana(state, event.seat, payment, excluded)

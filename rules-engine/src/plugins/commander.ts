@@ -1,6 +1,6 @@
 import { payCost } from './spells'
 import type { Plugin } from '../types'
-import { everybodyLives } from './advancedCombatPrevention'
+import { playerCannotLoseGame } from './playerEffects'
 
 const taxedCost = (manaCost: string, tax: number) => `${manaCost}${tax > 0 ? `{${tax}}` : ''}`
 
@@ -66,10 +66,10 @@ export const commander: Plugin = {
     }
   },
   sba: ({ draft }) => {
-    if (everybodyLives(draft)) return []
     return Object.values(draft.players)
       .filter((player) =>
         !player.lost
+        && !playerCannotLoseGame(draft, player.id)
         && Object.values(commanderDamage(player.data)).some((amount) => amount >= 21))
       .map((player) => ({ type: 'concede' as const, seat: player.id }))
   },

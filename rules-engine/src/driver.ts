@@ -72,6 +72,8 @@ import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/reve
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLabel, resolutionManaCost } from './cardPlugins/dsl/resolutionPayment'
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
+import { PLAYER_EFFECT_DURATIONS, PLAYER_EFFECT_RULE_PLUGINS, PLAYER_EFFECTS_PLUGIN_ID } from './plugins/playerEffectConstants'
+import { stampUntilControllerNextTurn } from './plugins/untilNextTurn'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'discardHands',
@@ -166,6 +168,8 @@ const preflightInstructions = (
       case 'grantNoMaximumHandSize':
       case 'createRuleEffect':
       case 'grantFlash':
+      case 'createPlayerEffect':
+      case 'takeExtraTurn':
       case 'offerCast':
       case 'addManaChosenColor':
       case 'addManaFrom':
@@ -819,6 +823,25 @@ const actionEvents = (
         },
       }))
     }
+    case 'createPlayerEffect': {
+      const pluginId = PLAYER_EFFECT_RULE_PLUGINS[instruction.playerEffect]
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'addRule' as const,
+        pluginId,
+        params: {
+          ...(pluginId === PLAYER_EFFECTS_PLUGIN_ID ? { effect: instruction.playerEffect } : {}),
+          ...(instruction.duration === PLAYER_EFFECT_DURATIONS.untilCleanup
+            ? { seat, untilCleanup: true }
+            : stampUntilControllerNextTurn(seat, draft.turn, frame.controller)),
+        },
+      }))
+    }
+    case 'takeExtraTurn':
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'takeExtraTurn' as const,
+        seat,
+        source: frame.source.snapshot.name,
+      }))
     case 'offerCast': {
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       const from = evaluatePlayerReference(instruction.from, context)[0]
@@ -1093,7 +1116,7 @@ const actionEvents = (
     }
     case 'destroy': {
       const targets = objectActions(instruction.targets, context)
-      const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible', context.state))
+      const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible'))
       if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'destroy' }
       if (instruction.bindChoice) frame.pendingDestroyedChoice = {
         binding: instruction.bindChoice,
@@ -1103,7 +1126,12 @@ const actionEvents = (
           snapshot: snapshotObject(object),
         })),
       }
-      return legal.map((object) => ({ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
+      return legal.map((object) => ({
+        type: 'destroy' as const,
+        objectId: object.id,
+        sourceId: frame.source.ref.objectId,
+        ...(instruction.noRegeneration ? { noRegeneration: true as const } : {}),
+      }))
     }
     case 'sacrifice': {
       const targets = objectActions(instruction.targets, context)

@@ -487,11 +487,11 @@ describe('relocated from cirdanColossi.test.ts → combatKeywords.test.ts', () =
       const blightsteel = named(server.state, 'Blightsteel Colossus')
       const darksteel = named(server.state, 'Darksteel Colossus')
       for (const keyword of ['trample', 'infect', 'indestructible']) {
-        expect(hasKeyword(blightsteel, keyword, server.state)).toBe(true)
+        expect(hasKeyword(blightsteel, keyword)).toBe(true)
       }
-      expect(hasKeyword(darksteel, 'trample', server.state)).toBe(true)
-      expect(hasKeyword(darksteel, 'indestructible', server.state)).toBe(true)
-      expect(hasKeyword(darksteel, 'infect', server.state)).toBe(false)
+      expect(hasKeyword(darksteel, 'trample')).toBe(true)
+      expect(hasKeyword(darksteel, 'indestructible')).toBe(true)
+      expect(hasKeyword(darksteel, 'infect')).toBe(false)
       expect([blightsteel.power, blightsteel.toughness]).toEqual([11, 11])
       expect([darksteel.power, darksteel.toughness]).toEqual([11, 11])
     })
@@ -590,10 +590,10 @@ describe('relocated from cirdanEldrazi.test.ts → combatKeywords.test.ts', () =
       })
       const sire = named(server.state, 'Sire of Seven Deaths')
       for (const keyword of ['reach', 'first strike', 'vigilance', 'menace', 'trample', 'lifelink']) {
-        expect(hasKeyword(sire, keyword, server.state)).toBe(true)
+        expect(hasKeyword(sire, keyword)).toBe(true)
       }
       for (const keyword of ['flying', 'deathtouch', 'indestructible', 'hexproof']) {
-        expect(hasKeyword(sire, keyword, server.state)).toBe(false)
+        expect(hasKeyword(sire, keyword)).toBe(false)
       }
       expect([sire.power, sire.toughness]).toEqual([7, 7])
     })

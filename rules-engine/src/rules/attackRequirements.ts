@@ -11,8 +11,8 @@ export const playerAttackRequirements = (object: GameObject) =>
 const eligible = (state: GameState, object: GameObject, seat: PlayerId) =>
   object.zone === 'battlefield' && !object.phasedOut && object.controller === seat
   && object.types.includes('Creature') && !object.tapped
-  && !hasKeyword(object, 'defender', state)
-  && (!object.summoningSickness || hasKeyword(object, 'haste', state))
+  && !hasKeyword(object, 'defender')
+  && (!object.summoningSickness || hasKeyword(object, 'haste'))
 
 /** CR 508.1c–d: maximize requirements within restrictions; paying attack costs is optional. */
 export const playerAttackDeclarationError = (state: GameState, seat: PlayerId, attackers: readonly AttackerDecl[]) => {

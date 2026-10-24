@@ -159,7 +159,7 @@ describe('entryTriggers — integration', () => {
       const token = Object.values(resolved.objects).find((object) => object.token && object.name === 'Wall')
       expect(token).toMatchObject({ zone: 'battlefield', token: true, power: 0, toughness: 4 })
       expect(token?.spellCopy).toBeUndefined()
-      expect(hasKeyword(token!, 'defender', resolved)).toBe(true)
+      expect(hasKeyword(token!, 'defender')).toBe(true)
       expect(resolved.objects[wall.id].zone).toBe('stack')
       expect(resolved.stack).toHaveLength(1)
       expect(resolved.stack[0].id).toBe(original.id)
@@ -297,13 +297,13 @@ test.each([0, 1])('modal land-entry triggers announce mode %s before resolution'
   expect(state.players.p1.life).toBe(40)
   state = resolveStack(server.rules, state)
   if (mode === 0) {
-    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(true)
+    expect(hasKeyword(state.objects[creature], 'deathtouch')).toBe(true)
     expect(state.players.p2.life).toBe(40)
   } else {
     expect(state.players.p1.life).toBe(41)
     expect(state.players.p2.life).toBe(39)
     expect(state.players.p3.life).toBe(39)
-    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(false)
+    expect(hasKeyword(state.objects[creature], 'deathtouch')).toBe(false)
   }
 })
 
