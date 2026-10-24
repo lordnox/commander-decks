@@ -103,3 +103,12 @@ test('createPlayerEffect rejects unknown effects and durations', () => {
   expect(() => instructionSpell({ instructions: [createPlayerEffect({ targets: ref('controller'), playerEffect: 'flying' as PlayerEffect, duration: PLAYER_EFFECT_DURATIONS.untilCleanup })] })).toThrow()
   expect(() => instructionSpell({ instructions: [createPlayerEffect({ targets: ref('controller'), playerEffect: PLAYER_EFFECTS.hexproof, duration: 'forever' as PlayerEffectDuration })] })).toThrow()
 })
+
+
+test("a sole survivor wins immediately even when an effect prevents winning", () => {
+  const { server, state } = withEffect(PLAYER_EFFECTS.cannotWinGame)
+  const won = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'concede', seat: 'p2' }))
+  expect(won.players.p1.lost).toBe(false)
+  expect(won.players.p2.lost).toBe(true)
+  expect(won.ended).toBe(true)
+})
