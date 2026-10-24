@@ -60,10 +60,10 @@ test.each([false, true])('canonical native and granted indestructible survive de
   expect(resolved.state.objects[id].zone).toBe('battlefield')
 })
 
-test("noRegeneration marks each destroy event as can't-be-regenerated and still destroys", () => {
+test("cannotRegenerate marks each destroy event as can't-be-regenerated and still destroys", () => {
   const seen: unknown[] = []
   const watch = { id: 'test.destroyWatch', apply: ({ event }: { event: { type: string } }) => { if (event.type === 'destroy') seen.push(event) } }
-  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [destroy({ targets: objects({ zone: 'battlefield', type: 'Creature' }), noRegeneration: true })] }])))
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [destroy({ targets: objects({ zone: 'battlefield', type: 'Creature' }), cannotRegenerate: true })] }])))
   const server = createServerGame(commanderRules, { players: 2, battlefield: { p2: [cardTemplate('Doomed', { types: ['Creature'], power: 1, toughness: 1 })] }, hands: { p1: [cardTemplate('No regen', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })] } }, { random: () => 0, cardPlugins: [watch] })
   const armed = server.rules(server.state, { type: 'addRule', pluginId: watch.id, sourceId: server.state.zoneOrder.p1.hand[0] })
   if (!armed.ok) throw Error(armed.error)
@@ -72,7 +72,7 @@ test("noRegeneration marks each destroy event as can't-be-regenerated and still 
   const resolved = server.rules(cast.state, { type: 'resolveTop' })
   if (!resolved.ok) throw Error(resolved.error)
   expect(seen.length).toBeGreaterThan(0)
-  expect(seen.every(event => (event as { noRegeneration?: true }).noRegeneration === true)).toBe(true)
+  expect(seen.every(event => (event as { cannotRegenerate?: true }).cannotRegenerate === true)).toBe(true)
   expect(Object.values(resolved.state.objects).find(object => object.name === 'Doomed')!.zone).toBe('graveyard')
-  expect(() => compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'destroy', targets: ref('source'), noRegeneration: false } as never] }]))).toThrow()
+  expect(() => compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'destroy', targets: ref('source'), cannotRegenerate: false } as never] }]))).toThrow()
 })

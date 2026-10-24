@@ -9,7 +9,7 @@ export const numericInstructionResult = (value: InstructionResult | undefined) =
 /** Record the amount actually performed, after replacement and target checks. */
 export const recordInstructionAmount = (
   draft: Draft,
-  eventType: 'loseLife' | 'dealDamage' | 'move' | 'sacrifice' | 'discard',
+  eventType: 'loseLife' | 'dealDamage' | 'move' | 'sacrifice' | 'discard' | 'destroy',
   amount: number,
   object?: GameObject,
   seat?: PlayerId,

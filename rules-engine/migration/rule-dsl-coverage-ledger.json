@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 25,
     "customEventDispatchSites": 81,
-    "directMutationSites": 559,
+    "directMutationSites": 561,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 141,
     "cardRegistrationOnlyGaps": 0,
@@ -6140,7 +6140,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1484"
+        "rules-engine/src/types.ts:1488"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6213,7 +6213,7 @@
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1611",
+        "rules-engine/src/driver.ts:1615",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -6243,9 +6243,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1553",
-        "rules-engine/src/types.ts:340",
         "rules-engine/src/types.ts:342",
-        "rules-engine/src/types.ts:346"
+        "rules-engine/src/types.ts:344",
+        "rules-engine/src/types.ts:348"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -6304,9 +6304,9 @@
         "rules-engine/src/formats.ts:143",
         "rules-engine/src/formats.ts:46",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:558",
-        "rules-engine/src/kernel.ts:560",
-        "rules-engine/src/kernel.ts:896",
+        "rules-engine/src/kernel.ts:567",
+        "rules-engine/src/kernel.ts:569",
+        "rules-engine/src/kernel.ts:907",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -6325,9 +6325,9 @@
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:118",
-        "rules-engine/src/types.ts:164",
-        "rules-engine/src/types.ts:301",
-        "rules-engine/src/types.ts:365",
+        "rules-engine/src/types.ts:166",
+        "rules-engine/src/types.ts:303",
+        "rules-engine/src/types.ts:367",
         "rules-engine/src/types.ts:74",
         "rules-engine/src/types.ts:91"
       ],
@@ -6513,10 +6513,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          742
+          750
         ],
         "samples": [
-          "742: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "750: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7250,10 +7250,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1699
+          1710
         ],
         "samples": [
-          "1699: event.name === SEARCH_CHOSEN"
+          "1710: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7291,8 +7291,8 @@
           365,
           370,
           877,
-          2338,
-          2386
+          2342,
+          2390
         ],
         "samples": [
           "365: const liveSource = draft.object(source.ref.objectId)",
@@ -7489,12 +7489,12 @@
       {
         "path": "rules-engine/src/plugins/stateBased.ts",
         "lines": [
-          47,
-          52
+          48,
+          53
         ],
         "samples": [
-          "47: const token = draft.object(event.objectId)",
-          "52: const object = draft.object(event.objectId)"
+          "48: const token = draft.object(event.objectId)",
+          "53: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9475,6 +9475,23 @@
         "status": "legacy-route"
       },
       {
+        "path": "rules-engine/src/cardPlugins/dsl/regeneration.ts",
+        "lines": [
+          37
+        ],
+        "samples": [
+          "37: draft.enqueue({ type: 'tap', objectId: object.id })"
+        ],
+        "mechanic": "direct draft mutation or low-level event scheduling",
+        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
+        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
+        "ownerPart": "07",
+        "dependencyParts": [
+          "16"
+        ],
+        "status": "legacy-route"
+      },
+      {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
           126,
@@ -9597,33 +9614,34 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          531,
-          536,
-          543,
-          628,
-          674,
-          676,
-          680,
-          688,
-          703,
-          712,
-          715,
-          768,
-          771,
-          780,
-          823,
-          838,
-          872,
-          911,
-          918,
-          924,
-          941,
-          949
+          532,
+          537,
+          544,
+          549,
+          637,
+          683,
+          687,
+          691,
+          699,
+          714,
+          723,
+          726,
+          779,
+          782,
+          791,
+          834,
+          849,
+          883,
+          922,
+          929,
+          935,
+          952,
+          960
         ],
         "samples": [
-          "531: const object = draft.object(event.objectId)",
-          "536: const object = draft.object(event.objectRef.objectId)",
-          "543: const object = draft.object(event.objectId)"
+          "532: const object = draft.object(event.objectId)",
+          "537: const object = draft.object(event.objectRef.objectId)",
+          "544: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

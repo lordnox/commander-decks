@@ -444,6 +444,8 @@ export type CreatedEffect =
   | { kind: 'setStats'; power: StatDelta; toughness: StatDelta }
   | ({ kind: 'addTypes' } & TypeAdditions)
   | { kind: 'goad' }
+  /** CR 701.19a: the next time this permanent would be destroyed this turn, regenerate it instead. */
+  | { kind: 'regenerationShield' }
   | { kind: 'setColors'; colors: readonly CardColor[] }
   | { kind: 'pump'; power: StatDelta; toughness: StatDelta }
   | { kind: 'grantKeyword'; keyword: Keyword }
@@ -657,7 +659,7 @@ export type Instruction =
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
   | { kind: 'shuffle'; targets: PlayerRecipient }
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */
-  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string; noRegeneration?: true }
+  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string; bindChoice?: string; cannotRegenerate?: true }
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string; bindCount?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
@@ -935,6 +937,8 @@ export type ContinuousEffectDefinition =
   /** CR 702.21: counter an opponent’s targeted spell or ability unless its controller pays. */
   | { kind: 'ward'; cost: WardCost }
   | { kind: 'untapDuringOthers'; targets: ObjectSelector }
+  /** CR 701.19b: each time a matching permanent would be destroyed, regenerate it instead. */
+  | { kind: 'regenerate'; targets: ObjectSelector }
   /** Controller draws during each other player's draw step. */
   | { kind: 'drawDuringOthers'; targets: PlayerSelector }
   | { kind: 'loseLifeOnManaLoss' }

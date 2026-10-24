@@ -130,6 +130,8 @@ export type ReversibleEffect =
   | { kind: 'encoreAttack'; defender: PlayerId }
   /** An attack requirement, not a restriction; competing requirements use CR 508.1d. */
   | { kind: 'mustAttackPlayer'; defender: PlayerId }
+  /** CR 701.19a one-use regeneration shield; the destroy handler spends it. */
+  | { kind: 'regenerationShield' }
   /**
    * Layer 7a CDA: base power and toughness each equal a computed value
    * (life total, counted permanents, …). `after` is the 7a set; +1/+1
@@ -1138,8 +1140,10 @@ export type GameEvent =
   /** A resolved control-changing effect, guarded against a replacement incarnation. */
   | { type: typeof CONTROL_EVENT.change; objectRef: ObjectIdentity; controller: PlayerId }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
-  /** `noRegeneration` records CR 701.19c "can't be regenerated" for any regeneration replacement. */
-  | { type: 'destroy'; objectId: string; sourceId?: string; noRegeneration?: true }
+  /** State-based lethal damage replaced by an available regeneration (CR 701.19, 704.5g). */
+  | { type: 'regenerate'; objectId: string }
+  /** `cannotRegenerate` stops regeneration shields from applying (CR 701.19c). */
+  | { type: 'destroy'; objectId: string; sourceId?: string; cannotRegenerate?: true }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
   /** Canonical stack-copy action; creates no cast or activation occurrence. */
