@@ -2284,6 +2284,57 @@ test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counte
   ])
 })
 
+test('Blightsteel Colossus composes trample, infect, indestructible, and owner-library shuffle', () => {
+  expect(effectsFor('Blightsteel Colossus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Blightsteel Colossus')).toMatchObject({
+    types: ['Artifact', 'Creature'],
+    subtypes: ['Phyrexian', 'Golem'],
+    colors: [],
+    manaCost: '{12}',
+    manaValue: 12,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Blightsteel Colossus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'infect' },
+    { kind: 'keyword', keyword: 'indestructible' },
+    {
+      kind: 'static',
+      activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'],
+      effects: [{
+        kind: 'replacement',
+        event: { kind: 'move', filter: { to: 'graveyard' } },
+        transform: { kind: 'redirect', to: 'library' },
+        program: [{ kind: 'reveal' }, { kind: 'shuffle' }],
+      }],
+    },
+  ])
+})
+
+test('Darksteel Colossus composes trample, indestructible, and owner-library shuffle', () => {
+  expect(effectsFor('Darksteel Colossus')).toEqual([])
+  expect(cardTemplateDefaultsFor('Darksteel Colossus')).toMatchObject({
+    types: ['Artifact', 'Creature'],
+    subtypes: ['Golem'],
+    colors: [],
+    manaCost: '{11}',
+    manaValue: 11,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Darksteel Colossus')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'trample' },
+    { kind: 'keyword', keyword: 'indestructible' },
+    {
+      kind: 'static',
+      activeIn: ['battlefield', 'stack', 'hand', 'library', 'graveyard', 'exile', 'command'],
+      effects: [{
+        kind: 'replacement',
+        event: { kind: 'move', filter: { to: 'graveyard' } },
+        transform: { kind: 'redirect', to: 'library' },
+        program: [{ kind: 'reveal' }, { kind: 'shuffle' }],
+      }],
+    },
+  ])
+})
+
 test('Woodfall Primus composes trample, a mandatory noncreature destroy, and persist', () => {
   expect(effectsFor('Woodfall Primus')).toEqual([])
   expect(cardTemplateDefaultsFor('Woodfall Primus')).toMatchObject({

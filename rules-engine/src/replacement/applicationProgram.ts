@@ -306,7 +306,24 @@ export const advanceApplicationProgram = (
         const context = runtime()
         const targets = context ? instruction.targets.kind === 'objects' ? evaluateObjectSelector(instruction.targets, context) : evaluateObjectReference(instruction.targets, context) : []
         const owners = new Set(targets.map(object => object.owner))
-        for (const seat of owners) followUp.push({ type: 'reveal', seat, objectIds: targets.filter(object => object.owner === seat).map(object => object.id) })
+        const sourceName = draft.objects[program.sourceId]?.name
+        for (const seat of owners) followUp.push({
+          type: 'reveal',
+          seat,
+          objectIds: targets.filter(object => object.owner === seat).map(object => object.id),
+          ...(sourceName ? { source: sourceName } : {}),
+        })
+        program.index += 1
+        continue
+      }
+      case 'shuffle': {
+        const context = runtime()
+        const seats = !context
+          ? []
+          : instruction.targets.kind === 'players'
+            ? evaluatePlayerSelector(instruction.targets, context)
+            : evaluatePlayerReference(instruction.targets, context)
+        for (const seat of seats) followUp.push({ type: 'shuffleLibrary', seat })
         program.index += 1
         continue
       }

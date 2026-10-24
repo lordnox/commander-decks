@@ -868,8 +868,6 @@ export type CardEffect =
         do: CardInstruction[]
       }
       pumpPerLinkedExile?: LinkedExilePump
-      /** If this card would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library. */
-      shuffleIntoLibraryInstead?: true
       /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */
       enchantedManaBoost?: { mana: Exclude<ManaId, 'C'> } | { chosenColor: true }
       exileOpponentGraveyard?: boolean

@@ -1213,6 +1213,19 @@ export const persist = () => whenever(dies({ filter: ref('self') }), {
   ],
 })
 
+/** If this would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library instead (CR 614.6). Tokens and cards already in a graveyard are skipped. Reveal and shuffle run after the redirected library move. */
+export const shuffleIntoOwnerLibrary = () => ({
+  ...staticAbility(replacement(
+    wouldMove({
+      object: { among: ref('source'), token: false, not: { zone: 'graveyard' } },
+      to: 'graveyard',
+    }),
+    redirectEvent('library'),
+    { program: [reveal(ref('source')), shuffle({ targets: ownerOf(ref('source')) })] },
+  )),
+  activeIn: ZONE_IDS,
+})
+
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>
   immutableData({ kind: 'sequence', instructions })
 

@@ -771,7 +771,7 @@ export type ReplacementTransform =
   | { kind: 'suppress' }
 
 export type ReplacementProgramInstruction =
-  | Extract<Instruction, { kind: 'chooseCards' | 'choosePlayer' | 'reveal' | 'captureAmount' }>
+  | Extract<Instruction, { kind: 'chooseCards' | 'choosePlayer' | 'reveal' | 'captureAmount' | 'shuffle' }>
   | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[]; prompt?: string }
   | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
   | { kind: 'modifyEvent'; changes: EventFieldChanges }

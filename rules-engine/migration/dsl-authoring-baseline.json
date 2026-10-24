@@ -355,18 +355,6 @@
     "card": "Kederekt Leviathan"
   },
   {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "42b8c5a7acba94794e729b8f93a5d5ba4db57ba1da184553fd7f8d8d9e87ea1c",
-    "card": "Blightsteel Colossus"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "b93cd4ce7e7e0587cf79fa5661d71cab1b7da6ec7468322662b148f003c6f8c9",
-    "card": "Darksteel Colossus"
-  },
-  {
     "path": "rules-engine/src/cardPlugins/combatPreventionCards.ts",
     "code": "literal-name-dispatch",
     "digest": "3422807e2393fda10d69f1cb39b35251c9c43f8a450ccb63c4f1b0c352d24e6a"

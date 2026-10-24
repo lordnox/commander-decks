@@ -12,7 +12,7 @@ import {
   prospectiveBattlefieldStaticReplacements,
 } from '../cardPlugins/dsl/staticModifierCore'
 import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
-import { captureObject, isSameObject } from '../objectIdentity'
+import { captureObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
 import { isProtectedFirstDrawInOwnDrawStep } from '../rules/drawStepHistory'
 import type { GameEvent, GameState } from '../types'
@@ -241,28 +241,26 @@ export const discoverCanonicalModifiers = (
   for (const source of Object.values(state.objects)) {
     for (const modifier of source.printedStaticModifiers ?? []) {
       if (modifier.kind !== 'replacement') continue
-      const host = state.objects[modifier.sourceRef.objectId]
-      if (!host || !isSameObject(host, modifier.sourceRef)) continue
-      if (!printedStaticAbilityActive(state, host, modifier.abilityIndex)) continue
-      const instanceId = printedStaticEffectKey(host.id, modifier.abilityIndex, modifier.effectIndex)
+      if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
+      const instanceId = printedStaticEffectKey(source.id, modifier.abilityIndex, modifier.effectIndex)
       if (usedInstanceIds.includes(instanceId)) continue
       if (settledOptionalDeclines.includes(instanceId)) continue
-      const runtime = runtimeFor(state, host.id, host.controller)
+      const runtime = runtimeFor(state, source.id, source.controller)
       const effect = modifier.effect
       if (effect.when && !evaluateCondition(effect.when, runtime)) continue
-      if (!eventMatchesPattern(event, effect, runtime, state, host.id, host.controller)) continue
+      if (!eventMatchesPattern(event, effect, runtime, state, source.id, source.controller)) continue
       pushCandidate(candidates, seen, {
         kind: 'canonical',
-        category: categoryFor(effect, event, host.id),
+        category: categoryFor(effect, event, source.id),
         instanceId,
-        sourceId: host.id,
-        sourceName: host.name,
+        sourceId: source.id,
+        sourceName: source.name,
         abilityIndex: modifier.abilityIndex,
         effectIndex: modifier.effectIndex,
         effect,
-        label: host.name,
+        label: source.name,
         optional: effect.optional ?? false,
-        chooser: chooserFor(state, event, host.controller),
+        chooser: chooserFor(state, event, source.controller),
         rulesTimestamp: modifier.timestamp,
       })
     }

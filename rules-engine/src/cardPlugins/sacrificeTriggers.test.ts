@@ -45,12 +45,11 @@ import {
   annihilator,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
-  shuffleIntoLibraryInstead as shuffleEffect,
 } from './effects'
 import { alternateCosts } from './alternateCosts'
 import { librarySearch } from './librarySearch'
-import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 import { targetedResolve } from './targetedResolve'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, shuffleIntoOwnerLibrary } from './dsl/v1'
 
 const eldrazi = (name = 'Test Betrayer') => cardTemplate(name, {
   types: ['Creature'],
@@ -74,7 +73,7 @@ const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
   createServerGame(
     commanderRules,
     { players: 3, ...zones },
-    { random: () => 0.5, cardPlugins: [shuffleIntoLibraryInstead] },
+    { random: () => 0.5 },
   )
 
 const named = (state: GameState, name: string) =>
@@ -261,7 +260,7 @@ describe('annihilator', () => {
         p1: [eldrazi()],
         p2: [cardTemplate('P2 Colossus', {
           types: ['Artifact', 'Creature'],
-          effects: [shuffleEffect()],
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([shuffleIntoOwnerLibrary()]))),
         })],
       },
     })
@@ -691,7 +690,7 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
     createServerGame(
       commanderRules,
       { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-      { random: () => 0.5, cardPlugins: plugins },
+      { random: () => 0.5 },
     )
 
   const attack = (server: ReturnType<typeof game>, state: GameState) => {
@@ -706,8 +705,6 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
   }
 
   const betrayer = () => deckCard('It That Betrays')
-
-  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
 
   const filler = (count = 3) =>
     Array.from({ length: count }, (_, index) =>

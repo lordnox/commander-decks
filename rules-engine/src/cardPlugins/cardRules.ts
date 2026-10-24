@@ -80,7 +80,6 @@ import {
   onUnlock,
   unearth,
   bounceAll,
-  shuffleIntoLibraryInstead,
 } from './effects'
 
 const bird = createTokenInstruction({
@@ -148,7 +147,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     allCreatureTypes(),
     encore('{6}{W}{W}'),
   ],
-  'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
   'Cling to Dust': [
     escape('{3}{B}', 5),
     targetOnResolve(
@@ -159,7 +157,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
-  'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Dread Return': [
     flashback('Flashback—Sacrifice three creatures.', '', {
       sacrifice: { type: 'Creature', count: 3 },

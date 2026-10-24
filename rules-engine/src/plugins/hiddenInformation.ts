@@ -235,6 +235,7 @@ export const createAuthoritativeHiddenInformation = (
         library[swap] = held
       }
       draft.zoneOrder[event.seat].library = library
+      for (const objectId of library) delete draft.objects[objectId]?.knownTo
       draft.note(`${event.seat} shuffles`)
       return
     }

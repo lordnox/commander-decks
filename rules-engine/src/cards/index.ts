@@ -75,6 +75,7 @@ import arcaneDenial from './arcane-denial'
 import braidsConjurerAdept from './braids-conjurer-adept'
 import darkConfidant from './dark-confidant'
 import darkTutelage from './dark-tutelage'
+import darksteelColossus from './darksteel-colossus'
 import reprocess from './reprocess'
 import scapeshift from './scapeshift'
 import victimize from './victimize'
@@ -115,6 +116,7 @@ import beastWhisperer from './beast-whisperer'
 import blackSunsTwilight from './black-suns-twilight'
 import blanketOfNight from './blanket-of-night'
 import blightedWoodland from './blighted-woodland'
+import blightsteelColossus from './blightsteel-colossus'
 import blitzball from './blitzball'
 import blossomingTortoise from './blossoming-tortoise'
 import breenaTheDemagogue from './breena-the-demagogue'
@@ -466,6 +468,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Black Sun's Twilight": blackSunsTwilight,
   "Blanket of Night": blanketOfNight,
   "Blighted Woodland": blightedWoodland,
+  "Blightsteel Colossus": blightsteelColossus,
   "Blitzball": blitzball,
   "Blossoming Tortoise": blossomingTortoise,
   "Blood Celebrant": bloodCelebrant,
@@ -509,6 +512,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Dark Confidant": darkConfidant,
   "Dark Tutelage": darkTutelage,
   "Darkness": darkness,
+  "Darksteel Colossus": darksteelColossus,
   "Debt to the Deathless": debtToTheDeathless,
   "Drain Life": drainLife,
   "Exsanguinate": exsanguinate,

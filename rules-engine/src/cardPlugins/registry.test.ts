@@ -265,7 +265,8 @@ describe('card plugin registry', () => {
       'Woodfall Primus',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])
+    expect(cardPluginEntry('Blightsteel Colossus')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Blightsteel Colossus')).toBeDefined()
     expect(cardPluginEntry('Sire of Seven Deaths')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')).toBeDefined()
     expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
@@ -490,13 +491,11 @@ describe('card plugin registry', () => {
     expect(effectsFor('Reverberate')).toEqual([])
   })
 
-  test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {
+  test('Blightsteel and Darksteel Colossus use canonical owner-library shuffle', () => {
     for (const name of ['Blightsteel Colossus', 'Darksteel Colossus']) {
-      expect(effectsFor(name)).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
-      expect(cardPluginEntry(name)).toMatchObject({
-        pluginIds: [],
-        handlerIds: ['shuffleIntoLibraryInstead'],
-      })
+      expect(effectsFor(name)).toEqual([])
+      expect(cardPluginEntry(name)).toBeUndefined()
+      expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
     }
   })
 
@@ -741,7 +740,7 @@ describe('card plugin registry', () => {
       if (slot === 'registered') expect(effects.length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
       else expect(effects).toEqual([])
     }
-    expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
+    expect(effectsFor('Darksteel Colossus')).toEqual([])
     expect(effectsFor('Salvation Colossus')).toEqual([])
   })
 

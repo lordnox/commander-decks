@@ -14,8 +14,6 @@ import { instructionSpell } from './instructionTestSupport'
 import { compareAmount, manaCost, paidCostCount, activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup } from './v1'
 
 import { deckCard } from '../cirdanCreatureCards'
-import { shuffleIntoLibraryInstead } from '../shuffleIntoLibraryInstead'
-import { targetedResolve } from '../targetedResolve'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -266,10 +264,8 @@ describe('relocated from cirdanColossi.test.ts → counter.test.ts', () => {
     createServerGame(
       commanderRules,
       { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-      { random: () => 0.5, cardPlugins: plugins },
+      { random: () => 0.5 },
     )
-
-  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
 
   const filler = (count = 3) =>
     Array.from({ length: count }, (_, index) =>

@@ -1870,6 +1870,7 @@ export const validateDefinitionV1 = (root: unknown): {
           case 'chooseCards':
           case 'reveal':
           case 'captureAmount':
+          case 'shuffle':
             validateInstruction(node, entryPath, programEnv, nested)
             return
 

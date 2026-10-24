@@ -7,7 +7,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { conditionHolds, draw, gainLife, permanentEnters, triggeringCreatureNameUnique } from './effects'
 import { allNamed, artifact, choose, deckCard, fixtureCreature, libraries } from './cirdanCreatureCards'
-import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 const guardian = () => cardTemplate('Test Guardian Project', {
   types: ['Enchantment'],
   effects: [permanentEnters(
@@ -294,7 +293,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → watchedEnters.test.t
         hands: zones.hands,
         libraries: libraries(['p1', 'p2', 'p3']),
       },
-      { random: () => 0.5, cardPlugins: [shuffleIntoLibraryInstead] },
+      { random: () => 0.5 },
     )
     return { server, start: server.state }
   }

@@ -1073,9 +1073,7 @@ export const reduceOnce = (
     return { ok: true, state: current, trace: entries }
   }
 
-  const afterFollowUp = applyFollowUp(mergePreventionState(state))
-  if (!afterFollowUp.ok) return afterFollowUp
-  const draft = makeDraft(afterFollowUp.state)
+  const draft = makeDraft(mergePreventionState(state))
   const error = legalError(state, replaced, draft, catalog)
   if (error) {
     return {
@@ -1090,19 +1088,22 @@ export const reduceOnce = (
   pluginApply(state, replaced, draft, catalog, options)
   if (!options.deferEndCheck) checkEnded(draft)
   const queued = [...draft.pending]
+  const applied = freezeDraft(draft)
+  const afterFollowUp = applyFollowUp(applied)
+  if (!afterFollowUp.ok) return afterFollowUp
   const wasReplaced = replacement.pluginId !== undefined
   return {
     ok: true,
-    state: freezeDraft(draft),
+    state: afterFollowUp.state,
     queued,
     queuedDepth: wasReplaced ? 2 : 1,
     trace: wasReplaced
       ? [
           trace(event, 'replaced', { pluginId: replacement.pluginId }),
-          ...afterFollowUp.trace,
           trace(replaced, 'applied', { depth: 1 }),
+          ...afterFollowUp.trace,
         ]
-      : [...afterFollowUp.trace, trace(event, 'applied')],
+      : [trace(event, 'applied'), ...afterFollowUp.trace],
   }
 }
 

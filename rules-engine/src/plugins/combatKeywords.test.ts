@@ -8,8 +8,6 @@ import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 
 import { allNamed, combatGame as cirdanCombatGame, deckCard, fixtureCreature, named } from '../cardPlugins/cirdanCreatureCards'
-import { shuffleIntoLibraryInstead } from '../cardPlugins/shuffleIntoLibraryInstead'
-import { targetedResolve } from '../cardPlugins/targetedResolve'
 import { hasKeyword } from '../keywords'
 const creature = (
   name: string,
@@ -459,10 +457,8 @@ describe('relocated from cirdanColossi.test.ts → combatKeywords.test.ts', () =
     createServerGame(
       commanderRules,
       { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-      { random: () => 0.5, cardPlugins: plugins },
+      { random: () => 0.5 },
     )
-
-  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
 
   const filler = (count = 3) =>
     Array.from({ length: count }, (_, index) =>
