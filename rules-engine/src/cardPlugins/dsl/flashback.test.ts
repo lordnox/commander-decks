@@ -110,7 +110,8 @@ describe('canonical flashback', () => {
       kind: 'castSpell',
       castLabel: 'Flashback—Sacrifice three creatures.',
     })
-    expect(action?.targetGroups?.find(group => group.purpose === 'cost')).toMatchObject({
+    if (action?.kind !== 'castSpell') throw new Error('expected flashback cast')
+    expect(action.targetGroups?.find(group => group.purpose === 'cost')).toMatchObject({
       min: 3,
       max: 3,
     })

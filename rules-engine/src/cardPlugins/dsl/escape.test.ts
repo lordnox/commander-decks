@@ -75,7 +75,8 @@ describe('canonical escape', () => {
     expect(action).toMatchObject({
       castLabel: 'Escape—{3}{B}, Exile 5 other cards from your graveyard.',
     })
-    expect(action?.targetGroups?.find(group => group.purpose === 'cost')).toMatchObject({
+    if (action?.kind !== 'castSpell') throw new Error('expected escape cast')
+    expect(action.targetGroups?.find(group => group.purpose === 'cost')).toMatchObject({
       min: 5,
       max: 5,
     })
