@@ -1166,6 +1166,8 @@ export type GameEvent =
       x?: number
       sacrifice?: string[]
       exile?: string[]
+      /** Separate graveyard selection for each collect-evidence payment. */
+      evidence?: string[][]
       convoke?: string[]
       /** Graveyard cards exiled to pay generic mana (delve). */
       delve?: string[]
@@ -1508,6 +1510,7 @@ export type GameEvent =
       distributionBindings?: DistributionAllocation[]
       x?: number
       choices?: string[]
+      evidence?: string[][]
       door?: RoomDoorId
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean

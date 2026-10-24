@@ -128,7 +128,9 @@ export type ActionTargetGroup = {
   /** The cost group whose picks are exiled from the graveyard to pay generic mana. */
   delve?: true
   minTotalPower?: number
-  targets: Array<{ objectId: string; name: string; controller: PlayerId }>
+  collectEvidence?: true
+  minTotalManaValue?: number
+  targets: Array<{ objectId: string; name: string; controller: PlayerId; manaValue?: number }>
 }
 
 export type AvailableAction =
@@ -161,6 +163,7 @@ export type AvailableAction =
       castLabel?: string
       convoke?: string[]
       delve?: string[]
+      evidence?: string[][]
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
       door?: RoomDoorId
@@ -184,6 +187,7 @@ export type AvailableAction =
       name: string
       text: string
       abilityId?: string
+      evidence?: string[][]
       targetObjectIds?: string[]
       targetGroups?: ActionTargetGroup[]
       modeIndices?: number[]
@@ -868,12 +872,14 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat)
     const choices = canonicalCostPreviewChoices(entries)
     if (!choices) return undefined
-    const costCount = entries.reduce((total, entry) => total + entry.group.min, 0)
+    const evidence = canonicalEvidencePreview(entries)
+    if (!evidence) return undefined
+    const costCount = entries.filter(entry => entry.costKind !== 'collectEvidence').reduce((total, entry) => total + entry.group.min, 0)
     const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
     const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
     const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
     const result = beginSpellAnnouncement(state, object, seat, previewAbility, grouped, action.x, choices, {
-      targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
+      evidence, targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
       selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
     })
     return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
@@ -1288,7 +1294,14 @@ const canonicalActionTargetGroups = (
 
 const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId, options: { includeSourceCosts?: boolean; excludeSource?: boolean } = {}) => {
   const context = { state, controller: seat, source: captureObject(object) }
-  return costs.map(cost => {
+  return costs.map((cost, costIndex) => {
+    if (cost.kind === 'collectEvidence') {
+      const candidates = Object.values(state.objects).filter(candidate => (options.excludeSource === false || candidate.id !== object.id) && candidate.zone === 'graveyard' && candidate.owner === seat && !candidate.token)
+      const amount = evaluateRuntimeAmount(cost.amount, context)
+      return { costKind: cost.kind, sourceCost: false, group: { label: `Collect evidence ${amount} (payment ${costIndex + 1})`, purpose: 'cost' as const, collectEvidence: true as const, min: amount > 0 ? 1 : 0, max: candidates.length, minTotalManaValue: amount,
+        targets: candidates.map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller, manaValue: candidate.manaValue })),
+      } }
+    }
     if (cost.kind === 'crew') {
       const candidates = crewCandidates(state, seat, object.id)
       const power = evaluateRuntimeAmount(cost.power, context)
@@ -1311,7 +1324,8 @@ const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: 
 }
 
 /** Find a disjoint assignment to object-cost slots without requiring the user to have chosen yet. */
-const canonicalCostPreviewChoices = (entries: ReturnType<typeof canonicalActionCostGroups>) => {
+const canonicalCostPreviewChoices = (allEntries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const entries = allEntries.filter(entry => entry.costKind !== 'collectEvidence')
   const crew = entries.find(entry => entry.costKind === 'crew')
   if (crew) {
     const candidates = crew.group.targets.filter(candidate => 'power' in candidate && Number(candidate.power) > 0)
@@ -1334,6 +1348,29 @@ const canonicalCostPreviewChoices = (entries: ReturnType<typeof canonicalActionC
     return false
   }
   return slots.every((_, slot) => assign(slot, new Set())) ? assigned : undefined
+}
+
+/** Find independent payments without spending the same graveyard card twice. */
+const canonicalEvidencePreview = (entries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const groups = entries.filter(entry => entry.costKind === 'collectEvidence').map(entry => entry.group)
+  // Explicit return types support recursive inference. Backtracking prevents a greedy first payment from consuming the only valid second payment.
+  const pay = (index: number, used: Set<string>): string[][] | undefined => {
+    if (index === groups.length) return []
+    const group = groups[index]!
+    const candidates = group.targets.filter(candidate => !used.has(candidate.objectId) && (candidate.manaValue ?? 0) > 0)
+    const choose = (cursor: number, amount: number, selected: string[]): string[][] | undefined => {
+      if (amount >= (group.minTotalManaValue ?? 0)) {
+        const later = pay(index + 1, new Set([...used, ...selected]))
+        if (later) return [selected, ...later]
+        return undefined
+      }
+      if (cursor === candidates.length || amount + candidates.slice(cursor).reduce((total, candidate) => total + (candidate.manaValue ?? 0), 0) < (group.minTotalManaValue ?? 0)) return undefined
+      const candidate = candidates[cursor]!
+      return choose(cursor + 1, amount + (candidate.manaValue ?? 0), [...selected, candidate.objectId]) ?? choose(cursor + 1, amount, selected)
+    }
+    return choose(0, 0, [])
+  }
+  return pay(0, new Set())
 }
 
 const canonicalTargetRef = (state: GameState, id: string) => {
@@ -1391,9 +1428,11 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
     const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
     const costChoices = canonicalCostPreviewChoices(costEntries)
     if (!costChoices) return []
+    const evidence = canonicalEvidencePreview(costEntries)
+    if (!evidence) return []
     return (xs ?? [undefined]).flatMap((x): AvailableAction[] => {
       const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], x, costChoices,
-        { targetClauses: [], deferPayment: true })
+        { evidence, targetClauses: [], deferPayment: true })
       if (!announcement.ok) return []
       const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
         || isSourceObjectCost(cost))
@@ -2548,7 +2587,10 @@ export const eventsForAvailableAction = (
       if (ability?.kind !== 'activated' || ability.modes) return null
       if (ability.decisions.variables?.length && action.x === undefined) return null
       try {
-        const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+        const allCostEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+        const evidence = action.evidence ?? (allCostEntries.some(entry => entry.costKind === 'collectEvidence') ? undefined : [])
+        if (!evidence) return null
+        const costEntries = allCostEntries.filter(entry => entry.costKind !== 'collectEvidence')
         const chosen = action.targetObjectIds ?? []
         const costCount = ability.costs.some(cost => cost.kind === 'crew') ? chosen.length : costEntries.filter(entry => !entry.sourceCost).reduce((total, entry) => total + entry.group.min, 0)
         if (chosen.length < costCount) return null
@@ -2563,7 +2605,7 @@ export const eventsForAvailableAction = (
         const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))
         const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat, action.x)
           .map(binding => binding.recipients)
-        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, action.x, choices, { deferPayment: true })
+        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, action.x, choices, { evidence, deferPayment: true })
         if (!announcement.ok) return null
         const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
           || isSourceObjectCost(cost))
@@ -2579,6 +2621,7 @@ export const eventsForAvailableAction = (
           ...(targets.length ? { targets } : {}),
           ...(action.door ? { door: action.door } : {}),
           ...(choices.length ? { choices } : {}),
+          ...(evidence.length ? { evidence: evidence.map(ids => [...ids]) } : {}),
           ...(action.x !== undefined ? { x: action.x } : {}),
         }]
       } catch {
@@ -2671,7 +2714,10 @@ export const eventsForAvailableAction = (
     const ability = definition.abilities[abilityIndex]
     try {
       const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, chosenAbilityCosts(ability, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat) : []
-      const costGroups = costEntries.map(entry => entry.group)
+      const evidence = action.evidence ?? (costEntries.some(entry => entry.costKind === 'collectEvidence') ? undefined : [])
+      if (!evidence) return null
+      const ordinaryCostEntries = costEntries.filter(entry => entry.costKind !== 'collectEvidence')
+      const costGroups = ordinaryCostEntries.map(entry => entry.group)
       const chosen = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
       const costCount = costGroups.reduce((count, group) => count + group.min, 0)
       if (chosen.length < costCount) return null
@@ -2679,7 +2725,7 @@ export const eventsForAvailableAction = (
       const discard: string[] = []
       const sacrifice: string[] = []
       let offset = 0
-      for (const { costKind, group } of costEntries) {
+      for (const { costKind, group } of ordinaryCostEntries) {
         const selected = costChoices.slice(offset, offset + group.min)
         if (costKind === 'discard') discard.push(...selected)
         else sacrifice.push(...selected)
@@ -2694,7 +2740,7 @@ export const eventsForAvailableAction = (
         : []
       const tax = taxFor(state, seat, canonicalSource)
       const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
-        { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
+        { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
       if (announcement && !announcement.ok) return null
       const cost = reduceGenericManaCost(
         announcement?.ok ? announcement.transaction.lockedCost.mana ?? ''
@@ -2707,6 +2753,7 @@ export const eventsForAvailableAction = (
       return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
         ...(tax > 0 ? { additionalGeneric: tax } : {}),
         ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
+        ...(evidence.length ? { evidence: evidence.map(ids => [...ids]) } : {}),
         ...(action.delve?.length ? { delve: action.delve } : {}),
         ...(action.convoke?.length ? { convoke: action.convoke } : {}),
         ...(action.selectedOptionalCosts ? { selectedOptionalCosts: action.selectedOptionalCosts } : {}),

@@ -4,7 +4,6 @@ import {
   alternateCast,
   becomeCopyOfTarget,
   allCreatureTypes,
-  basicLand,
   embalm,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
@@ -28,7 +27,6 @@ import {
   ptEqualsLife,
   putFromHand,
   reanimateCreatureFromGraveyards,
-  searchSpell,
   sacrificePermanentsThenDraw,
   selfMill,
   staticGrant,
@@ -77,19 +75,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         { optional: true, max: 1 },
       )],
     },
-  ],
-  'Analyze the Pollen': [
-    searchSpell({
-      prompt: 'Choose one basic land card for Analyze the Pollen.',
-      kickedPrompt: 'Choose one creature or land card for Analyze the Pollen.',
-      match: basicLand,
-      kickedMatch: (object) =>
-        object.types.includes('Creature') || object.types.includes('Land'),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }),
   ],
   'Angel of Sanctions': [
     handler('linkedExile'),

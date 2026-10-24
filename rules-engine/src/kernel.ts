@@ -66,7 +66,7 @@ import { recordInstructionAmount } from './cardPlugins/dsl/instructionResults'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
-import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
+import { evidencePaymentEvents, validateEvidencePayment, evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
@@ -75,7 +75,7 @@ import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalProgra
 const CHECKPOINT_CAP = 32
 
 const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction, state: GameState) => {
-  const paymentEvents: GameEvent[] = []
+  const paymentEvents: GameEvent[] = evidencePaymentEvents(transaction.proposal)
   let costIndex = 0
   let millIndex = 0
   for (const cost of transaction.lockedCost.nonMana) {
@@ -129,7 +129,13 @@ const applyCostSequence = (
   startCursor: number,
   writeCursor: (draft: Draft, cursor: number) => void,
   baseline: GameState,
+  transaction: AnnouncementTransaction,
 ) => {
+  if (startCursor === 0) {
+    try { validateEvidencePayment(state, transaction) } catch (error) {
+      return { ok: false as const, error: error instanceof Error ? error.message : String(error), state: baseline, trace: [] }
+    }
+  }
   let current = state
   const entries: EventTrace[] = []
   let cursor = startCursor
@@ -171,6 +177,7 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
       }
     },
     baseline,
+    nested.transaction,
   )
   if (!paid.ok) return paid
   if (hasOpenChoice(paid.state) || paid.state.eventProcessing || paid.state.resolution) {
@@ -261,6 +268,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = nextCursor
     },
     frame.baseline,
+    parent.transaction,
   )
   entries.push(...paid.trace)
   if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }

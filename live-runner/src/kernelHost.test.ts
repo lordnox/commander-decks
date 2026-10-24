@@ -1715,49 +1715,6 @@ describe('kernel host journal', () => {
     expect(restartedKernel.history.current().players.p1.life).toBe(commanderRules.startingLife - 2)
   })
 
-  test('restores an interrupted Analyze the Pollen library search', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-search-restart-'))
-    mkdirGames(root)
-    seedKernel(root, 'pod', (state) => {
-      const spellId = 'analyze'
-      state.objects[spellId] = {
-        ...forest(),
-        id: spellId,
-        name: 'Analyze the Pollen',
-        types: ['Sorcery'],
-        zone: 'stack',
-        owner: 'p1',
-        controller: 'p1',
-      }
-      state.stack = [{
-        id: 'stack-analyze',
-        kind: 'spell',
-        objectId: spellId,
-        controller: 'p1',
-        name: 'Analyze the Pollen',
-        targets: [],
-        kicked: true,
-      }]
-      state.players.p1.data['librarySearch.pending'] = {
-        source: 'Analyze the Pollen',
-        sourceId: spellId,
-        via: 'spell',
-        kicked: true,
-      }
-    }, true)
-    const lobby = createLobby()
-    const kernel = await openKernel('pod', root, lobby)
-
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1',
-      kind: 'search',
-      destinations: ['library', 'hand'],
-      requirements: { hand: { min: 1, max: 1 } },
-    })
-    expect(lobby.topdeck?.cards).toHaveLength(40)
-  })
-
   test('a hold releases when the held seat becomes active', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-hold-release-'))
     mkdirGames(root)
@@ -1858,8 +1815,9 @@ describe('kernel host journal', () => {
     expect(historyForViewer(kernel, lobby, 'p1')).toHaveLength(32)
   })
 
-  test('a canonical library search opens one private choice and finishes the spell', () => {
-    const { kernel, lobby, spellId } = searchGame()
+  test('a restored canonical library search opens one private choice and finishes the spell', () => {
+    const { kernel: original, lobby, spellId } = searchGame()
+    const kernel = handleFor(original.rules, restoreJournal(original.journal, original.rules).current())
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
@@ -2537,13 +2495,14 @@ describe('kernel host journal', () => {
     lobby.phase = 'play'
     const plusOne = legalActsFor(initial, 'p1').find((action) =>
       action.kind === 'activateAbility' && action.abilityId === '$.abilities[0]')!
+    if (plusOne.kind !== 'activateAbility') throw new Error('missing loyalty activation')
 
     applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: teferi.id,
       abilityId: plusOne.abilityId,
-      text: plusOne.kind === 'activateAbility' ? plusOne.text : '',
+      text: plusOne.text,
       targetObjectIds: [rock.id, creature.id, land.id],
     })
 

@@ -19,7 +19,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { announcementCostChoices, activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { evidencePaymentEvents, announcementCostChoices, activatedPermissionFields, activationPermission, beginActivatedAnnouncement, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -223,7 +223,7 @@ export const activated: Plugin = {
         if (canonicalManaClassification(activatedCanonical).isManaAbility && programChoice?.kind === 'chooseInstructions' && activatedCanonical.costs.every(cost => cost.kind !== 'discard' && cost.kind !== 'sacrifice') && event.choices?.[0]
           && !programChoice.options.some(option => option.label === event.choices![0])) return `${source.name} cannot add ${event.choices[0]}`
         const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
-            selectedOptional: event.selectedOptionalCosts,
+            evidence: event.evidence, selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             targetClauses,
           })
@@ -388,7 +388,7 @@ export const activated: Plugin = {
         })
         if (groupedTargets === undefined) return
         const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices, {
-          selectedOptional: event.selectedOptionalCosts,
+          evidence: event.evidence, selectedOptional: event.selectedOptionalCosts,
           selectedAlternative: event.selectedAlternativeCost,
           targetClauses,
         })
@@ -399,7 +399,7 @@ export const activated: Plugin = {
           if (!paid) return
           draft.players[event.seat].mana = paid
         }
-        const costEvents: GameEvent[] = []
+        const costEvents: GameEvent[] = evidencePaymentEvents(committed.proposal)
         for (const costPart of committed.lockedCost.nonMana) {
           switch (costPart.kind) {
             case 'crew':

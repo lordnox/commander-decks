@@ -1562,3 +1562,6 @@ export const modifyVotes = (input: Omit<Extract<Instruction, { kind: 'modifyVote
 
 export const lookAt = (input: Omit<Extract<Instruction, { kind: 'lookAt' }>, 'kind'>) => immutableData({ kind: 'lookAt' as const, ...input })
 export const choosePile = (input: Omit<Extract<Instruction, { kind: 'choosePile' }>, 'kind'>) => immutableData({ kind: 'choosePile' as const, ...input })
+
+/** CR 701.59: exile graveyard cards with at least the stated total mana value. */
+export const collectEvidence = (amount: AmountInput): Cost => immutableData({ kind: 'collectEvidence', amount: toAmount(amount) })

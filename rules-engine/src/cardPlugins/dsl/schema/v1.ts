@@ -361,6 +361,7 @@ export type ManaCost = string
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
+  | { kind: 'collectEvidence'; amount: Amount }
   | { kind: 'crew'; power: Amount }
   | { kind: 'choosePlayer'; players: PlayerSelector }
   | { kind: 'tapSource' }

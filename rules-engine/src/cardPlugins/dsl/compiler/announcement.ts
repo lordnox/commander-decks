@@ -52,6 +52,10 @@ export type AnnouncementProposal = {
   costs: CostPlan
   payment?: readonly AnnouncementManaPayment[]
   nonManaChoices?: readonly string[]
+  /** One separately paid selection per collect-evidence cost, in cost order. */
+  evidence?: readonly (readonly string[])[]
+  /** Cast sources are already on the stack during payment; graveyard activations may spend their source. */
+  excludeSourceFromEvidence?: boolean
   /** Optional client answer; the server still rechecks all candidates. */
   selectedOptional?: readonly number[]
   selectedAlternative?: number
@@ -274,6 +278,7 @@ const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeCont
       return { ...cost, count: lockAmount(cost.count, x, runtime) }
     case 'crew':
       return { ...cost, power: lockAmount(cost.power, x, runtime) }
+    case 'collectEvidence':
     case 'life':
     case 'loyalty':
       return { ...cost, amount: lockAmount(cost.amount, x, runtime) }
@@ -354,6 +359,43 @@ export const resolveNonManaCostObjectChoices = (
 
 export const crewCandidates = (state: Pick<GameState, 'objects'>, payer: PlayerId, sourceId: string) => Object.values(state.objects).filter(object => object.id !== sourceId && object.zone === 'battlefield' && object.controller === payer && object.types.includes('Creature') && !object.tapped && !object.phasedOut)
 
+/** Validate each evidence payment independently; one card cannot pay two costs. */
+const evidenceCostChoices = (
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
+  payer: PlayerId,
+  sourceId: string,
+  costs: readonly Cost[],
+  x: number | undefined,
+  evidence: readonly (readonly string[])[] = [],
+  excludeSource = true,
+) => {
+  const required = costs.filter(cost => cost.kind === 'collectEvidence')
+  if (evidence.length !== required.length) throw new TypeError('one card selection is required for each collect-evidence cost')
+  const runtime = announcementRuntime(state, payer, sourceId, x)
+  const used = new Set<string>()
+  return required.map((cost, index) => {
+    const selected = [...evidence[index]!]
+    let total = 0
+    for (const id of selected) {
+      const object = state.objects[id]
+      if (used.has(id)) throw new TypeError('an evidence card cannot pay more than once')
+      if (!object || object.zone !== 'graveyard' || object.owner !== payer || object.token || (excludeSource && id === sourceId)) throw new TypeError('evidence requires cards in your graveyard')
+      used.add(id)
+      total += object.manaValue
+    }
+    if (total < costAmount(cost.amount, x, runtime)) throw new TypeError('insufficient total mana value to collect evidence')
+    return selected
+  })
+}
+
+/** Planned mana abilities can change the graveyard before costs are actually paid. */
+export const validateEvidencePayment = (state: GameState, transaction: AnnouncementTransaction) => {
+  evidenceCostChoices(state, transaction.proposal.payer, transaction.proposal.sourceId, transaction.lockedCost.nonMana, transaction.lockedCost.x, transaction.proposal.evidence, transaction.proposal.excludeSourceFromEvidence)
+}
+
+export const evidencePaymentEvents = (proposal: Pick<AnnouncementProposal, 'evidence'>) =>
+  (proposal.evidence ?? []).flatMap(ids => ids.map(objectId => ({ type: 'move' as const, objectId, to: 'exile' as const })))
+
 const validateNonManaCosts = (
   state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules' | 'turn'>>,
   payer: PlayerId,
@@ -362,6 +404,8 @@ const validateNonManaCosts = (
   x: number | undefined,
   choices: readonly string[] | undefined,
   runtimeSourceId: string,
+  evidence?: readonly (readonly string[])[],
+  excludeSourceFromEvidence = true,
 ) => {
   const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
   let millTotal = 0
@@ -429,6 +473,10 @@ const validateNonManaCosts = (
       0,
     )
     if (choices && choices.length !== explicitChoiceCount) throw new TypeError('unused nonmana cost selection')
+  }
+  for (const id of evidenceCostChoices(state, payer, runtimeSourceId, costs, x, evidence, excludeSourceFromEvidence).flat()) {
+    if (selectedObjects.has(id)) throw new TypeError(`cost object ${id} is selected more than once`)
+    selectedObjects.add(id)
   }
   if (Object.values(state.objects).filter(object => object.zone === 'library' && object.owner === payer).length < millTotal) throw new TypeError('payer cannot mill enough cards for the cost')
   if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
@@ -538,6 +586,8 @@ export const beginAnnouncement = (
       proposal.variables?.X,
       proposal.nonManaChoices,
       proposal.sourceId,
+      proposal.evidence,
+      proposal.excludeSourceFromEvidence,
     )
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0, proposal.genericAdjustment)
     const payment = proposal.payment ?? []
@@ -590,6 +640,7 @@ export const beginSpellAnnouncement = (
   x: number | undefined,
   nonManaChoices?: readonly string[],
   options: {
+    evidence?: readonly (readonly string[])[]
     selectedOptional?: readonly number[]
     selectedAlternative?: number
     selectedPlayers?: Readonly<Record<number, PlayerId>>
@@ -632,6 +683,7 @@ export const beginSpellAnnouncement = (
     payment,
     nonManaChoices,
     ...options,
+    ...(options.evidence ? { evidence: options.evidence.map(ids => [...ids]) } : {}),
     ...(options.deferPayment ? { deferPayment: true } : {}),
   }, `spell:${source.id}`)
 }
@@ -644,7 +696,7 @@ export const beginActivatedAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
+  options: { evidence?: readonly (readonly string[])[]; selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
 ) => {
   for (const variable of ability.decisions.variables ?? []) {
     if (x === undefined || !Number.isSafeInteger(x) || x < variable.min || x > variable.max) return { ok: false as const, error: `${variable.name} must be a safe integer from ${variable.min} to ${variable.max}` }
@@ -671,9 +723,11 @@ export const beginActivatedAnnouncement = (
       reductions: planReductions(state, source.id, payer, ability, x, targets),
     },
     excludeSourceFromCosts: true,
+    excludeSourceFromEvidence: false,
     payment,
     nonManaChoices,
     ...options,
+    ...(options.evidence ? { evidence: options.evidence.map(ids => [...ids]) } : {}),
   }, `activation:${source.id}`)
 }
 

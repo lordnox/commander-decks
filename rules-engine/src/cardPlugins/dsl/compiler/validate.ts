@@ -836,6 +836,11 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         validateAmount(node.count, childPath(path, 'count'), env)
         return
+      case 'collectEvidence':
+        if (!/\.(?:costs|additionalCosts|optionalCosts)\[\d+\]$|\.alternativeCosts\[\d+\]\[\d+\]$/.test(path)) issue(path, 'domain', 'collect evidence is an announcement cost')
+        exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        return
       case 'life':
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         validateAmount(node.amount, childPath(path, 'amount'), env)

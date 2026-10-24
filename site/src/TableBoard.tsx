@@ -1238,9 +1238,10 @@ export const CardPreview = ({
                         type="button"
                         onClick={() => onAct({
                           ...action,
-                          targetObjectIds: action.targetGroups.flatMap(
+                          targetObjectIds: action.targetGroups.filter(group => !group.collectEvidence).flatMap(
                             (group) => activationTargets[group.label] ?? [],
                           ),
+                          ...(action.targetGroups.some(group => group.collectEvidence) ? { evidence: action.targetGroups.filter(group => group.collectEvidence).map(group => [...(activationTargets[group.label] ?? [])]) } : {}),
                         })}
                         className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                       >

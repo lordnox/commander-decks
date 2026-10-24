@@ -71,12 +71,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "6c1c43a625aac384fc46dd378d3408d10276f96ecf7c50003cd0e18373173c6a",
-    "card": "Analyze the Pollen"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "0ec0dc713408f1e296b74b000261264f0aceeb7f9b59b8a0e088350c8680160e",
     "card": "All-Fates Stalker"
   },

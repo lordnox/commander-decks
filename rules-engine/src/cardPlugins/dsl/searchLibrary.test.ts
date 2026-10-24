@@ -511,3 +511,23 @@ test.each(['mana artifact', 'basic land', 'fail to find'])('a canonical artifact
   expect(state.zoneOrder.p1.hand).toEqual(chosen)
   expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id]!.name)).toContain('Moonsilver Key')
 })
+
+
+test.each([false, true])('a catalog search uses its paid additional-cost receipt after restore (evidence=%s)', evidence => {
+  const server = createServerGame(commanderRules, { hands: { p1: [
+    cardTemplate('Analyze the Pollen', { manaCost: '{0}' }),
+    cardTemplate('Evidence fixture', { zone: 'graveyard', manaValue: 8 }),
+  ] }, libraries: { p1: [
+    cardTemplate('Basic fixture', { types: ['Land'], supertypes: ['Basic'] }),
+    cardTemplate('Nonbasic fixture', { types: ['Land'] }),
+    cardTemplate('Creature fixture', { types: ['Creature'] }),
+    cardTemplate('Ineligible fixture', { types: ['Artifact'] }),
+  ] } }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: id,
+    ...(evidence ? { selectedOptionalCosts: [0], evidence: [[server.state.zoneOrder.p1.graveyard[0]!]] } : {}),
+  }))
+  const state = resolveStack(server.rules, JSON.parse(JSON.stringify(cast)))
+  const pick = pendingSelectionFor(state, 'p1')!
+  expect(pick.candidates.map(candidate => state.objects[candidate]!.name).toSorted()).toEqual((evidence ? ['Basic fixture', 'Nonbasic fixture', 'Creature fixture'] : ['Basic fixture']).toSorted())
+})

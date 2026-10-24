@@ -2948,3 +2948,12 @@ test('alternative returns compose graveyard activation and success-dependent del
     ] },
   ] }])
 })
+
+
+test('Analyze the Pollen composes collect evidence with two structural search branches', () => {
+  expect(cardRuleDefinitionSnapshotFor('Analyze the Pollen')!.definition.abilities).toMatchObject([
+    { kind: 'spell', optionalCosts: [{ kind: 'collectEvidence', amount: { kind: 'constant', value: 8 } }], instructions: [
+      { kind: 'if', then: [{ kind: 'sequence' }], otherwise: [{ kind: 'sequence' }] },
+    ] },
+  ])
+})

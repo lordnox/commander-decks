@@ -50,7 +50,7 @@ import { syncCanonicalStaticModifiers } from '../cardPlugins/dsl/staticModifiers
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { proposedCostSource, announcementCostChoices, activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
+import { proposedCostSource, evidencePaymentEvents, announcementCostChoices, activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/dsl/manaPrograms'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
@@ -109,7 +109,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     event.x,
     [...(event.discard ?? []), ...(event.sacrifice ?? [])],
     {
-      selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
+      evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
       selectedAlternative: event.selectedAlternativeCost,
       phyrexianLife: event.phyrexianLife,
       deferPayment: true,
@@ -540,7 +540,7 @@ export const spells: Plugin = {
       event.x,
       [...(event.discard ?? []), ...(event.sacrifice ?? [])],
       {
-        selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
+        evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
         selectedAlternative: event.selectedAlternativeCost,
         phyrexianLife: event.phyrexianLife,
         targetClauses,
@@ -583,7 +583,7 @@ export const spells: Plugin = {
     const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
     let choiceIndex = 0
     let millIndex = 0
-    const costs: GameEvent[] = []
+    const costs: GameEvent[] = evidencePaymentEvents(committed.proposal)
     for (const cost of committed.lockedCost.nonMana) {
       switch (cost.kind) {
         case 'tapSource':
@@ -625,6 +625,7 @@ export const spells: Plugin = {
   },
   legal: ({ state, event }) => {
     if (event.type === 'castSpell') {
+      if (event.evidence?.flat().some(id => (event.delve ?? []).includes(id) || (event.exile ?? []).includes(id))) return 'a card cannot pay multiple exile costs'
       if (Object.hasOwn(event, 'canonicalCostsPaid')) return 'canonical transaction state is server-private'
       if (event.canonicalTransaction !== undefined
         && (typeof event.canonicalTransaction !== 'object' || event.canonicalTransaction === null
@@ -716,7 +717,7 @@ export const spells: Plugin = {
               event.x,
               [...(event.discard ?? []), ...(event.sacrifice ?? [])],
               {
-                selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
+                evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
                 selectedAlternative: event.selectedAlternativeCost,
                 phyrexianLife: event.phyrexianLife,
                 deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
@@ -981,7 +982,7 @@ export const spells: Plugin = {
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
           const announced = announcementSource(object, selected)
           const announcement = beginSpellAnnouncement(state, announced, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
-            selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
+            evidence: event.evidence, selectedOptional: event.selectedOptionalCosts, selectedPlayers: event.costPlayers,
             selectedAlternative: event.selectedAlternativeCost,
             phyrexianLife: event.phyrexianLife,
             deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
