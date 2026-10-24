@@ -2,7 +2,7 @@ import { snapshotObject } from '../objectIdentity'
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
-import { hasKeyword } from '../keywords'
+import { abilityTokens, hasKeyword } from '../keywords'
 import { legendaryCombatDamageFrom } from '../plugins/combatLegendaryDamage'
 import { lifeLostThisTurn } from '../plugins/life'
 import type {
@@ -168,59 +168,92 @@ export const manaValueOf = (object: GameObject) => {
   }, 0)
 }
 
+export type CopyModifiers = {
+  notLegendary?: boolean
+  flying?: boolean
+  keywords?: readonly string[]
+  colors?: readonly string[]
+  extraTypes?: readonly string[]
+  extraSubtypes?: readonly string[]
+  noManaCost?: boolean
+  tapped?: boolean
+}
+
+const keywordOracleLine = (keyword: string) =>
+  `${keyword.charAt(0).toUpperCase()}${keyword.slice(1)}`
+
+const requestedKeywords = (extra: CopyModifiers) =>
+  [...new Set([...(extra.keywords ?? []), ...(extra.flying ? ['flying'] : [])])]
+
+type CopyCharacteristicFields = {
+  types: string[]
+  subtypes?: string[]
+  supertypes?: string[]
+  colors?: string[]
+  manaCost?: string
+  manaValue?: number
+  oracleText?: string
+}
+
+export const applyCopyModifiers = <T extends CopyCharacteristicFields>(
+  characteristics: T,
+  extra: CopyModifiers = {},
+): T => {
+  const keywords = requestedKeywords(extra)
+    .filter(keyword => !abilityTokens(characteristics.oracleText ?? '').includes(keyword))
+  const oracleAdditions = keywords.map(keywordOracleLine)
+  return {
+    ...characteristics,
+    types: extra.extraTypes
+      ? [...new Set([...characteristics.types, ...extra.extraTypes])]
+      : [...characteristics.types],
+    ...(extra.extraSubtypes
+      ? { subtypes: [...new Set([...extra.extraSubtypes, ...(characteristics.subtypes ?? [])])] }
+      : {}),
+    ...(extra.notLegendary
+      ? { supertypes: (characteristics.supertypes ?? []).filter(entry => entry !== 'Legendary') }
+      : {}),
+    ...(extra.colors ? { colors: [...extra.colors] } : {}),
+    ...(extra.noManaCost ? { manaCost: '', manaValue: 0 } : {}),
+    ...(oracleAdditions.length > 0
+      ? { oracleText: [characteristics.oracleText, ...oracleAdditions].filter(Boolean).join('\n') }
+      : {}),
+    ...(extra.tapped ? { tapped: true as const } : {}),
+  } as T
+}
+
 export const copyCharacteristics = (
   copied: GameObject,
-  extra: { notLegendary?: boolean; flying?: boolean } = {},
-) => ({
+  extra: CopyModifiers = {},
+) => applyCopyModifiers({
   name: copied.name,
   types: [...copied.types],
   subtypes: [...copied.subtypes],
-  supertypes: extra.notLegendary
-    ? copied.supertypes.filter((entry) => entry !== 'Legendary')
-    : [...copied.supertypes],
+  supertypes: [...copied.supertypes],
   manaCost: copied.manaCost,
   manaValue: manaValueOf(copied),
   colors: copiableColors(copied),
   power: copied.power,
   toughness: copied.toughness,
   printedLoyalty: copied.printedLoyalty,
-  oracleText: extra.flying && !hasKeyword(copied, 'flying')
-    ? copied.oracleText
-      ? `${copied.oracleText}\nFlying`
-      : 'Flying'
-    : copied.oracleText,
+  oracleText: copied.oracleText,
   grantedRules: [...copied.grantedRules],
   tapProduces: copied.tapProduces ? { ...copied.tapProduces } : undefined,
   effects: copied.effects ? [...copied.effects] : [],
   ...(copied.ruleDefinition ? { ruleDefinition: structuredClone(copied.ruleDefinition) } : {}),
+}, {
+  ...extra,
+  keywords: requestedKeywords(extra).filter(keyword => !hasKeyword(copied, keyword)),
+  flying: undefined,
 })
 
 export const copyTokenTemplate = (
   card: GameObject,
-  extra: {
-    notLegendary?: boolean
-    flying?: boolean
-    tapped?: boolean
-    colors?: string[]
-    extraSubtypes?: string[]
-    noManaCost?: boolean
-  } = {},
+  extra: CopyModifiers = {},
 ): Partial<GameObject> & { name: string } => {
   const characteristics = copyCharacteristics(card, extra)
-  const subtypes = extra.extraSubtypes
-    ? [...new Set([...extra.extraSubtypes, ...characteristics.subtypes])]
-    : characteristics.subtypes
-  const colors = extra.colors ?? characteristics.colors
-  const manaCost = extra.noManaCost ? '' : characteristics.manaCost
-  const manaValue = extra.noManaCost ? 0 : characteristics.manaValue
   return {
     ...characteristics,
-    subtypes,
-    colors,
-    manaCost,
-    manaValue,
-    // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
-    ...(extra.tapped ? { tapped: true } : {}),
     summoningSickness: true,
     counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
     tags: [],

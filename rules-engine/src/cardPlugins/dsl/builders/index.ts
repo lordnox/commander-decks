@@ -22,6 +22,7 @@ import type {
   Cost,
   CostReduction,
   ChoiceRelation,
+  CopyExcept,
   DecisionsInput,
   DecisionsSpec,
   DelayedPattern,
@@ -1034,6 +1035,7 @@ export const copy = (input: {
   snapshot?: string
   controller?: Extract<Instruction, { kind: 'copy' }>['controller']
   tapped?: boolean
+  except?: CopyExcept
   bindResult?: string
   bindChoice?: string
 }): Instruction => immutableData({
@@ -1042,6 +1044,7 @@ export const copy = (input: {
   ...(input.snapshot !== undefined ? { snapshot: input.snapshot } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
+  ...(input.except !== undefined ? { except: input.except } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
 })

@@ -2894,6 +2894,16 @@ test('Parting Gust composes a promised tapped blue Fish before conditional nonto
 })
 
 
+test('family 28 catalog cards compose copy exceptions after copiable values', () => {
+  expect(effectsFor("Irenicus's Vile Duplication")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor("Irenicus's Vile Duplication")!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [{
+      kind: 'copy',
+      except: { notLegendary: true, keywords: ['flying'] },
+    }] },
+  ])
+})
+
 test('family 24 composes animation, mana, ward, nonzero X, and crew in the canonical catalog', () => {
   expect(cardRuleDefinitionSnapshotFor('Firdoch Core')!.definition.abilities).toMatchObject([
     { kind: 'keyword', keyword: 'changeling' }, { kind: 'activated', costs: [{ kind: 'tapSource' }] },

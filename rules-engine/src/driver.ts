@@ -61,7 +61,7 @@ import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
 import { openControlAssignment } from './cardPlugins/dsl/controlAssignment'
 import { openPlayerSelection } from './rules/selectPlayers'
-import { copyCharacteristics } from './cardPlugins/effectRuntime'
+import { applyCopyModifiers, copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
@@ -1191,15 +1191,24 @@ const actionEvents = (
       }))
     }
     case 'copy': {
+      const modifiers = {
+        ...(instruction.except?.notLegendary ? { notLegendary: true } : {}),
+        ...(instruction.except?.noManaCost ? { noManaCost: true } : {}),
+        ...(instruction.except?.colors ? { colors: [...instruction.except.colors] } : {}),
+        ...(instruction.except?.types ? { extraTypes: [...instruction.except.types] } : {}),
+        ...(instruction.except?.subtypes ? { extraSubtypes: [...instruction.except.subtypes] } : {}),
+        ...(instruction.except?.keywords ? { keywords: [...instruction.except.keywords] } : {}),
+        ...(instruction.tapped ? { tapped: true as const } : {}),
+      }
       const sources = instruction.snapshot
         ? (() => {
           const snapshot = frame.capturedCopies?.[instruction.snapshot]
           if (!snapshot) throw new RuleDslEvaluationError(`copy snapshot ${instruction.snapshot} is not bound`)
-          return [{ objectId: frame.source.ref.objectId, token: { ...snapshot, ...(instruction.tapped ? { tapped: true as const } : {}) } }]
+          return [{ objectId: frame.source.ref.objectId, token: applyCopyModifiers({ ...snapshot }, modifiers) }]
         })()
         : objectActions(instruction.targets!, context).map(object => ({
           objectId: object.id,
-          token: { ...copyCharacteristics(object), ...(instruction.tapped ? { tapped: true as const } : {}) },
+          token: copyCharacteristics(object, modifiers),
         }))
       const controllers = instruction.controller
         ? (instruction.controller.kind === 'players'

@@ -243,6 +243,7 @@ import hinterlandHarbor from './hinterland-harbor'
 import homerTheHermit from './homer-the-hermit'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
+import irenicussVileDuplication from './irenicuss-vile-duplication'
 import itThatBetrays from './it-that-betrays'
 import inundatedArchive from './inundated-archive'
 import jaceMultiverseArchitect from './jace-multiverse-architect'
@@ -627,6 +628,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Homer, the Hermit": homerTheHermit,
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
+  "Irenicus's Vile Duplication": irenicussVileDuplication,
   "It That Betrays": itThatBetrays,
   "Inundated Archive": inundatedArchive,
   "Jace, Multiverse Architect": jaceMultiverseArchitect,

@@ -95,12 +95,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "bf7c777b5d32088d81b8ac1fc5efa7936146ac6210d2df24f90ad28fc784268b",
-    "card": "Irenicus's Vile Duplication"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "4e8ada68176b3de606ea431adb066b568bf3f3d34a31f86cf7e93e83c3417e47",
     "card": "Nanogene Conversion"
   },

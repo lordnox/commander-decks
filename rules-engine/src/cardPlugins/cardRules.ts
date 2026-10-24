@@ -126,13 +126,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
     handler('demonstrate'),
   ],
-  "Irenicus's Vile Duplication": [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature', controller: 'you' },
-      copyTargetCreature({ notLegendary: true, flying: true }),
-    ),
-  ],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
   ],

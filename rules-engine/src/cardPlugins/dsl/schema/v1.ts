@@ -472,6 +472,16 @@ export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL
 export const LIBRARY_VISIBILITY = { private: 'private', public: 'public' } as const
 export type LibraryVisibility = typeof LIBRARY_VISIBILITY[keyof typeof LIBRARY_VISIBILITY]
 
+/** Exceptions applied after copiable values when creating a copy (CR 707.9). */
+export type CopyExcept = {
+  notLegendary?: true
+  noManaCost?: true
+  colors?: readonly CardColor[]
+  types?: readonly string[]
+  subtypes?: readonly string[]
+  keywords?: readonly Keyword[]
+}
+
 export type TokenDefinition = {
   name: string
   types: string[]
@@ -626,7 +636,7 @@ export type Instruction =
   /** Creatures the chosen attackers control cannot attack matching defenders this turn. */
   | { kind: 'banAttacks'; attackers: PlayerRecipient; defenders: ObjectSelector }
   /** Copy each resolved object or a captured snapshot, optionally choosing a controller for the copy. */
-  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; bindResult?: string; bindChoice?: string }
+  | { kind: 'copy'; targets?: ObjectRecipient; snapshot?: string; controller?: PlayerRecipient; tapped?: boolean; except?: CopyExcept; bindResult?: string; bindChoice?: string }
   /** Copy a spell already on the stack without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   /** Copy an activated or triggered ability without activating or triggering it again. */

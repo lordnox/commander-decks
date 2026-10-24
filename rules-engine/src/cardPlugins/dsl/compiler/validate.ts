@@ -1309,7 +1309,7 @@ export const validateDefinitionV1 = (root: unknown): {
         const hasTargets = node.targets !== undefined
         const hasSnapshot = node.snapshot !== undefined
         if (hasTargets === hasSnapshot) issue(path, 'instruction-shape', 'copy requires exactly one of targets or snapshot')
-        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'tapped', 'bindResult', 'bindChoice'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
+        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'tapped', 'except', 'bindResult', 'bindChoice'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
         if (hasTargets) validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (hasSnapshot) {
           const name = bindingName(node.snapshot, childPath(path, 'snapshot'))
@@ -1319,6 +1319,43 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
         if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
+        if (node.except !== undefined) {
+          const except = object(node.except, childPath(path, 'except'))
+          if (except) {
+            exactKeys(except, childPath(path, 'except'), ['notLegendary', 'noManaCost', 'colors', 'types', 'subtypes', 'keywords'])
+            if (Object.keys(except).length === 0) {
+              issue(childPath(path, 'except'), 'instruction-shape', 'copy except must name at least one exception')
+            }
+            if (except.notLegendary !== undefined && except.notLegendary !== true) {
+              issue(childPath(childPath(path, 'except'), 'notLegendary'), 'enum', 'copy except notLegendary must be true')
+            }
+            if (except.noManaCost !== undefined && except.noManaCost !== true) {
+              issue(childPath(childPath(path, 'except'), 'noManaCost'), 'enum', 'copy except noManaCost must be true')
+            }
+            if (except.colors !== undefined) {
+              array(except.colors, childPath(childPath(path, 'except'), 'colors')).forEach((color, index) =>
+                enumeration(color, childPath(childPath(childPath(path, 'except'), 'colors'), index), new Set(CARD_COLORS), 'card color'))
+            }
+            if (except.types !== undefined) {
+              array(except.types, childPath(childPath(path, 'except'), 'types'), { nonempty: true }).forEach((type, index) => {
+                if (typeof type !== 'string' || type.length === 0) {
+                  issue(childPath(childPath(childPath(path, 'except'), 'types'), index), 'type', 'copy except types must be nonempty strings')
+                }
+              })
+            }
+            if (except.subtypes !== undefined) {
+              array(except.subtypes, childPath(childPath(path, 'except'), 'subtypes'), { nonempty: true }).forEach((subtype, index) => {
+                if (typeof subtype !== 'string' || subtype.length === 0) {
+                  issue(childPath(childPath(childPath(path, 'except'), 'subtypes'), index), 'type', 'copy except subtypes must be nonempty strings')
+                }
+              })
+            }
+            if (except.keywords !== undefined) {
+              array(except.keywords, childPath(childPath(path, 'except'), 'keywords'), { nonempty: true }).forEach((keyword, index) =>
+                enumeration(keyword, childPath(childPath(childPath(path, 'except'), 'keywords'), index), new Set(Object.values(KEYWORDS)), 'keyword'))
+            }
+          }
+        }
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))

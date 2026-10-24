@@ -82,6 +82,9 @@ describe('card plugin registry', () => {
       'Mole Man, Moloid Master',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
+    expect(handlerIdsForNames(["Irenicus's Vile Duplication"])).toEqual([])
+    expect(cardPluginEntry("Irenicus's Vile Duplication")).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor("Irenicus's Vile Duplication")).toBeDefined()
   })
 
   test('every surveil land carries its enter trigger, not just its tap', () => {
