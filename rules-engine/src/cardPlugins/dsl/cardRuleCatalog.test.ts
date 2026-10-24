@@ -46,6 +46,8 @@ test.each([
   ['Sea Gate Restoration', ['draw', 'grantNoMaximumHandSize']],
   ['Sink into Stupor', ['move']],
   ['Windfall', ['forEachPlayer', 'draw']],
+  ['Show and Tell', ['chooseCardsForEachPlayer', 'move']],
+  ['Eureka', ['captureAmount', 'repeatWhile']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -1784,6 +1786,56 @@ test('Braids offers an eligible hand permanent to the active upkeep player', () 
     instructions: [
       { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'triggering.player' }, filter: { filter: { zone: 'hand', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } }, min: { value: 0 }, max: { value: 1 } },
       { kind: 'move', to: 'battlefield', controller: { kind: 'contextRef', name: 'triggering.player' } },
+    ],
+  }])
+})
+
+test('Show and Tell collects one optional ACE/L card from each hand before they enter together', () => {
+  expect(effectsFor('Show and Tell')).toEqual([])
+  expect(cardTemplateDefaultsFor('Show and Tell')).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['U'],
+    manaCost: '{2}{U}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Show and Tell')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      {
+        kind: 'chooseCardsForEachPlayer',
+        filter: { filter: { zone: 'hand', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Enchantment' }, { type: 'Land' }] } },
+        min: { value: 0 },
+        max: { value: 1 },
+      },
+      { kind: 'move', to: 'battlefield' },
+    ],
+  }])
+})
+
+test('Eureka repeats sequential permanent puts until a full round declines', () => {
+  expect(effectsFor('Eureka')).toEqual([])
+  expect(cardTemplateDefaultsFor('Eureka')).toMatchObject({
+    types: ['Sorcery'],
+    colors: ['G'],
+    manaCost: '{2}{G}{G}',
+    manaValue: 4,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Eureka')!.definition.abilities).toMatchObject([{
+    kind: 'spell',
+    instructions: [
+      { kind: 'captureAmount', bindResult: 'roundPuts' },
+      {
+        kind: 'repeatWhile',
+        condition: { kind: 'compareAmount', operator: 'gte' },
+        instructions: [{
+          kind: 'forEachPlayer',
+          bindMax: { from: 'placed', field: 'amount', as: 'roundPuts' },
+          instructions: [
+            { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'event.player' }, min: { value: 0 }, max: { value: 1 } },
+            { kind: 'move', to: 'battlefield', bindResult: 'placed' },
+          ],
+        }],
+      },
     ],
   }])
 })

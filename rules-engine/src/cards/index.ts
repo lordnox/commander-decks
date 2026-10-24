@@ -183,6 +183,7 @@ import entomb from './entomb'
 import esperCharm from './esper-charm'
 import esperPanorama from './esper-panorama'
 import eternalWitness from './eternal-witness'
+import eureka from './eureka'
 import evolvingWilds from './evolving-wilds'
 import expeditionMap from './expedition-map'
 import explore from './explore'
@@ -300,6 +301,7 @@ import seleniaDarkAngel from './selenia-dark-angel'
 import selvalasStampede from './selvalas-stampede'
 import settleTheWreckage from './settle-the-wreckage'
 import shadowyBackstreet from './shadowy-backstreet'
+import showAndTell from './show-and-tell'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
@@ -546,6 +548,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Esper Charm": esperCharm,
   "Esper Panorama": esperPanorama,
   "Eternal Witness": eternalWitness,
+  "Eureka": eureka,
   "Evolving Wilds": evolvingWilds,
   "Expedition Map": expeditionMap,
   "Explore": explore,
@@ -680,6 +683,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Selvala's Stampede": selvalasStampede,
   "Settle the Wreckage": settleTheWreckage,
   "Shadowy Backstreet": shadowyBackstreet,
+  "Show and Tell": showAndTell,
   "Sign in Blood": signInBlood,
   "Sin, Spira's Punishment": sinSpirasPunishment,
   "Simic Growth Chamber": simicGrowthChamber,

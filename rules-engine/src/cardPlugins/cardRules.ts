@@ -157,7 +157,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     scry({ voters: 'opponentsDisagreeing' }),
     draw(1),
   )],
-  'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Forgotten Cellar': [onUnlock()],
   "Fortune's Favor": [
@@ -243,9 +242,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
   ],
-  'Show and Tell': [onResolve(putFromHand('each', {
-    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
-  }))],
   Six: [
     attacks(selfMill(3), revealPick(3, { type: 'Land' })),
     grantRetrace(),

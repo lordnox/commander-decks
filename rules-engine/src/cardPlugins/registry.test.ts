@@ -223,6 +223,11 @@ describe('card plugin registry', () => {
       'Twincast',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
+    expect(effectsFor('Show and Tell')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Show and Tell')).toBeDefined()
+    expect(effectsFor('Eureka')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Eureka')).toBeDefined()
+    expect(handlerIdsForNames(['Show and Tell', 'Eureka'])).toEqual([])
     expect(cardPluginEntry('Cultivate')).toBeUndefined()
     expect(cardPluginEntry("Kodama's Reach")).toBeUndefined()
     expect(cardPluginEntry('Astral Drift')).toBeUndefined()
