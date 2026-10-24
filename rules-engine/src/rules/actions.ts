@@ -15,7 +15,6 @@ import type Draft from '../draft'
 import type { GameObject, GameState, StackItem } from '../types'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import type { TargetFilter } from '../cardPlugins/effects'
-import { emitCyclingResolved } from '../cardPlugins/cycling'
 import { resolveDiscardAction } from './discard'
 import { resolveDrawAction } from './draw'
 
@@ -106,14 +105,6 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
     resolving = { ...item, targets: legal }
   }
   runInstructions(draft, source, instructions, resolving)
-  if (!item.abilityId) return
-  const effect = capturedAbility ?? activateEffect(effectsOf(source), item.abilityId)
-  if (
-    effect?.cycling
-    && !effect.do.some((instruction) => instruction.kind === 'searchLibrary')
-  ) {
-    emitCyclingResolved(draft, item)
-  }
 }
 
 /**

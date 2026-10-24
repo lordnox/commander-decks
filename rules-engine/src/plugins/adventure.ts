@@ -5,6 +5,7 @@ import {
   applyFace,
   castFaceOf,
   isAdventureCard,
+  landFaceOf,
   permanentFaceOf,
 } from './doubleFaced'
 import { roomDoor } from './rooms'
@@ -34,6 +35,19 @@ export const applyCastFace = (
   if (face) applyFace(object, face)
 }
 
+/** CR 715.3 / 715.3d: the card is exiled adventured, then the permanent face may be cast or played. */
+export const completeAdventureSpell = (object: GameObject) => {
+  object.adventured = true
+  const permanent = permanentFaceOf(object)
+  if (permanent) applyFace(object, permanent)
+  if (permanent?.types.includes('Land')) object.adventureReady = true
+}
+
+export const mayPlayAdventuredLand = (object: GameObject) =>
+  object.zone === 'exile'
+  && Boolean(landFaceOf(object))
+  && (object.adventured === true || object.adventureReady === true)
+
 export const adventure: Plugin = {
   id: 'adventure',
   legal: ({ state, event }) => {
@@ -49,11 +63,17 @@ export const adventure: Plugin = {
       if (object.zone !== 'hand') return 'an Adventure spell can only be cast from hand'
       return
     }
+    if (object.zone === 'hand' && !castFaceOf(object)) {
+      return 'this card has no castable permanent face'
+    }
     if (object.zone === 'exile' && !object.adventured) {
       return 'this card cannot be cast from exile'
     }
     if (object.zone === 'exile' && object.adventured && !permanentFaceOf(object)) {
       return 'permanent face does not exist'
+    }
+    if (object.zone === 'exile' && object.adventured && !castFaceOf(object)) {
+      return 'the land face is played, not cast'
     }
   },
   apply: ({ state, event, draft }) => {
@@ -63,9 +83,7 @@ export const adventure: Plugin = {
       const object = draft.object(item.objectId)
       if (!object) return
       if (item.adventureCast) {
-        object.adventured = true
-        const permanent = permanentFaceOf(object)
-        if (permanent) applyFace(object, permanent)
+        completeAdventureSpell(object)
         return
       }
       if (object.adventured) delete object.adventured
@@ -74,7 +92,9 @@ export const adventure: Plugin = {
 
     if (event.type !== 'move') return
     const object = draft.object(event.objectId)
-    if (!object?.adventured) return
-    if (event.to !== 'exile') delete object.adventured
+    if (!object) return
+    if (event.to === 'exile') return
+    delete object.adventured
+    delete object.adventureReady
   },
 }

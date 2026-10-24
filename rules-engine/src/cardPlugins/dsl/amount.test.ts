@@ -1,13 +1,16 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { choice, choosePlayer, players, addAmount, difference, minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
+import { evaluateStatDelta } from './compiler/evaluate'
 import { instructionSpell } from './instructionTestSupport'
 
-const context = { variables: { X: 7 }, eventAmount: 5, count: () => 9, characteristic: () => 15 }
+const context = { variables: { X: 7 }, eventAmount: 5, count: () => 9, greatest: () => 4, characteristic: () => 15 }
 const halfLife = divide({ value: characteristic(ref('controller'), 'life', { information: 'current' }), by: 2, rounding: ROUNDING_MODES.up })
 
 test.each([
@@ -56,4 +59,121 @@ test('a draw and fractional life-loss program evaluates after preceding instruct
   expect(resolved.players.p1.life).toBe(9)
   expect(resolved.zoneOrder.p1.hand).toHaveLength(4)
   expect(resolved.players.p2.life).toBe(40)
+})
+
+
+test.each([0, 1, 7])('negated stat expressions retain signed values and normalize zero (%s)', value => {
+  expect(evaluateStatDelta(negate(variable('X')), { ...context, variables: { X: value } })).toBe(value === 0 ? 0 : -value)
+})
+
+test('negation is restricted to stat deltas and validates its operand bindings', () => {
+  expect(() => compileCardRuleDefinition(card([spell({ decisions: { variables: [chooseX()] }, instructions: [createEffect({ targets: objects({ zone: 'battlefield' }), effect: pumpEffect(negate(variable('X')), 0), duration: untilCleanup() })] })]))).not.toThrow()
+  for (const value of [negate(variable('X')), negate(-1)]) {
+    expect(() => compileCardRuleDefinition(card([spell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield' }), effect: pumpEffect(value, 0), duration: untilCleanup() })] })]))).toThrow()
+  }
+  expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'draw', count: negate(2), targets: ref('controller') }] }] })).toThrow()
+})
+
+
+test('captured amounts survive object departure, later changes, optional choices, and restore', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p2: [cardTemplate('Amount fixture', { types: ['Creature'], power: 5, toughness: 5 })] },
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [
+        captureAmount({ bindResult: 'power', amount: characteristic(target(0), 'power', { information: 'current' }) }),
+        move({ targets: target(0), to: 'exile' }),
+        may(gainLife({ targets: ref('controller'), amount: resultAmount('power') })),
+      ],
+    })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p2.battlefield[0]
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: id }] }))
+  const waiting = resolveStack(server.rules, cast)
+  expect(waiting.players.p1.life).toBe(40)
+  expect(waiting.objects[id].zone).toBe('exile')
+  const restored = JSON.parse(JSON.stringify(waiting))
+  restored.objects[id].power = 99
+  const pending = pendingOptionSelection(restored, 'p1')!
+  const resolved = ok(server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options[0].id }))
+  expect(resolved.players.p1.life).toBe(45)
+})
+
+test('amount result bindings require an earlier numeric producer and the correct result field', () => {
+  for (const instructions of [
+    [gainLife({ targets: ref('controller'), amount: resultAmount('missing') })],
+    [captureAmount({ bindResult: 'saved', amount: 3 }), gainLife({ targets: ref('controller'), amount: resultAmount('saved', 'created') })],
+    [captureAmount({ bindResult: 'saved', amount: resultAmount('saved') })],
+    [captureAmount({ bindResult: 'saved', amount: 3 }), captureAmount({ bindResult: 'saved', amount: 4 })],
+  ]) expect(() => compileCardRuleDefinition(card([spell({ instructions })]))).toThrow()
+  for (const value of [-1, 1.5, 2_147_483_648]) expect(() => evaluateAmount(resultAmount('saved'), { ...context, result: () => value })).toThrow()
+  expect(() => evaluateAmount(resultAmount('saved'), context)).toThrow()
+})
+
+
+test('multiplication, addition and minimum compose, validate bindings and enforce numeric limits', () => {
+  expect(evaluateAmount(minimum(multiply(variable('X'), 3), 20), context)).toBe(20)
+  expect(evaluateAmount(addAmount(count(objects()), 1), context)).toBe(10)
+  expect(evaluateAmount(multiply(0, 9), context)).toBe(0)
+  for (const expression of [multiply(variable('X'), 2), minimum(variable('X'), 2), addAmount(variable('X'), 2)]) {
+    expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: expression, targets: ref('controller') })] })]))).toThrow()
+  }
+  expect(() => evaluateAmount(multiply(1_000_000, 1_000_000), context)).toThrow()
+  expect(() => evaluateAmount(addAmount(2_147_483_647, 1), context)).toThrow()
+  expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: multiply(-1, 2), targets: ref('controller') })] })]))).toThrow()
+  let deep: Amount = variable('X')
+  for (let index = 0; index < 34; index++) deep = minimum(deep, 2)
+  expect(() => evaluateAmount(deep, context)).toThrow()
+})
+
+test('addition draws hand size plus one from current objects', () => {
+  const extras = [cardTemplate('Keep'), cardTemplate('Also keep')]
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [
+      instructionSpell({ instructions: [draw({
+        count: addAmount(count(objects({ zone: 'hand', controller: 'you' })), 1),
+        targets: ref('controller'),
+      })] }),
+      ...extras,
+    ] },
+    libraries: { p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Draw fixture ${index}`)) },
+  }, { random: () => 0 })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(5)
+})
+
+
+test.each([[7, 3, 4], [3, 7, 0], [3, 3, 0], [0, 0, 0]])('difference floors %s minus %s at zero (%s)', (left, right, expected) => {
+  expect(evaluateAmount(difference(left, right), context)).toBe(expected)
+})
+
+test('difference composes with dynamic amounts and preserves operand validation', () => {
+  expect(evaluateAmount(difference(count(objects()), variable('X')), context)).toBe(2)
+  expect(() => evaluateAmount(difference(1, variable('X')), { ...context, variables: {} })).toThrow()
+  expect(() => evaluateAmount(difference(-1, 0), context)).toThrow()
+  expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: difference(variable('X'), 1), targets: ref('controller') })] })]))).toThrow()
+})
+
+
+test.each([[3, 1, 2], [1, 3, 0], [2, 2, 0]])('a chosen player hand difference (%s versus %s) draws %s cards', (otherHand, ownHand, drawn) => {
+  const fixtures = (count: number) => Array.from({ length: count }, (_, index) => cardTemplate(`Card fixture ${index}`))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [instructionSpell({ instructions: [
+        choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'other' }),
+        draw({ targets: ref('controller'), count: difference(count(objects({ zone: 'hand', owner: choice('other') })), count(objects({ zone: 'hand', owner: ref('controller') }))) }),
+      ] }), ...fixtures(ownHand)],
+      p2: fixtures(otherHand),
+    },
+    libraries: { p1: fixtures(5) },
+  }, { random: () => 0 })
+  const waiting = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  const pick = pendingPlayerSelectionFor(waiting, 'p1')!
+  const resolved = ok(server.rules(structuredClone(waiting), { type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p2'] }))
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(ownHand + drawn)
+  expect(resolved.zoneOrder.p2.hand).toHaveLength(otherHand)
 })

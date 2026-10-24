@@ -1,3 +1,5 @@
+import { isSameObject } from '../objectIdentity'
+import { enchantTargetError } from './enchant'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
 import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
@@ -103,6 +105,8 @@ export const stateBased: Plugin = {
             && draft.objects[object.attachedTo]?.zone !== 'battlefield'
           )
           || draft.players[object.attachedTo]?.lost
+          || (object.attachedToRef && !isSameObject(draft.objects[object.attachedToRef.objectId], object.attachedToRef))
+          || (object.ruleDefinition && object.attachedTo && Boolean(enchantTargetError(draft, object, [draft.players[object.attachedTo] ? { kind: 'player', player: object.attachedTo } : { kind: 'object', objectId: object.attachedTo }], false)))
         )
       ) {
         events.push(moveToGraveyard(object.id))

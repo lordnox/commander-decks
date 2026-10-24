@@ -7,7 +7,7 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, tapCost } from './v1'
+import { activated, card, CHOICE_RELATIONS, chooseX, compileCardRuleDefinition, compareCharacteristic, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, splitSearchLibrary, tapCost, variable } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const singleSearchSetup = (library = ['Prize', 'Filler A', 'Filler B']) => createServerGame(commanderRules, {
@@ -207,4 +207,327 @@ test('searchLibrary reveals the chosen card before moving it into a publicly kno
   const projected = server.project(resolved, 'p2')
   expect(Object.values(projected.objects).find(object => object.name === 'Chosen')?.zone).toBe('hand')
   expect(Object.values(projected.objects).some(object => object.name === 'Still secret')).toBe(false)
+})
+
+
+test.each([2, 3, 4])('a searched land is counted before conditional untap with %s other lands', others => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Fabled Passage'), ...Array.from({ length: others }, (_, index) => cardTemplate(`Existing land ${index}`, { types: ['Land'], tapped: true }))] },
+    libraries: { p1: [cardTemplate('Basic prize', { types: ['Land'], supertypes: ['Basic'] }), cardTemplate('Nonbasic decoy', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Fabled Passage').id
+  const activated = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(activated.objects[source].zone).toBe('graveyard')
+  const searching = resolveStack(server.rules, activated)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const prize = named(searching, 'Basic prize').id
+  expect(pick.candidates).toEqual([prize])
+  const finished = ok(server.rules(JSON.parse(JSON.stringify(searching)), { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [prize] }))
+  expect(finished.objects[prize]).toMatchObject({ zone: 'battlefield', tapped: others < 3 })
+  expect(named(finished, 'Existing land 0').tapped).toBe(true)
+  expect(finished.players.p1.landsPlayed).toBe(0)
+  expect(finished.stack).toHaveLength(0)
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('an optional basic search can find no card without untapping an existing land', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Fabled Passage'), ...Array.from({ length: 4 }, (_, index) => cardTemplate(`Existing land ${index}`, { types: ['Land'], tapped: true }))] },
+    libraries: { p1: [cardTemplate('Basic prize', { types: ['Land'], supertypes: ['Basic'] })] },
+  }, { random: () => 0 })
+  const activated = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: named(server.state, 'Fabled Passage').id, abilityId: '$.abilities[0]' }))
+  const searching = resolveStack(server.rules, activated)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const finished = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [] }))
+  expect(named(finished, 'Basic prize').zone).toBe('library')
+  expect(finished.zoneOrder.p1.battlefield.every(id => finished.objects[id].tapped)).toBe(true)
+  expect(finished.resolution).toBeUndefined()
+})
+
+const splitSearchSetup = (library: string[]) => createServerGame(commanderRules, {
+  players: 2,
+  hands: { p1: [instructionSpell({ instructions: [splitSearchLibrary({
+    bindChoice: 'found',
+    subsetBindChoice: 'battlefieldLand',
+    chooser: ref('controller'),
+    filter: objects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
+    min: 0,
+    max: 2,
+    subset: { min: 1, max: 1, to: 'battlefield', tapped: true },
+    remainderTo: 'hand',
+  })] })] },
+  libraries: {
+    p1: library.map(name => name === 'Filler'
+      ? cardTemplate(name, { types: ['Instant'] })
+      : cardTemplate(name, { types: ['Land'], supertypes: ['Basic'], subtypes: ['Forest'] })),
+    p2: [cardTemplate('Their Secret')],
+  },
+}, { random: () => 0 })
+const splitSearchBegin = (server: ReturnType<typeof splitSearchSetup>) => {
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id }))
+  return resolveStack(server.rules, cast)
+}
+const selectNamed = (server: ReturnType<typeof splitSearchSetup>, state: GameState, names: string[]) => {
+  const pick = pendingSelectionFor(state, 'p1')!
+  return ok(server.rules(state, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count,
+    objectIds: names.map(name => named(state, name).id),
+  }))
+}
+
+test('splitSearchLibrary puts one of two basics onto the battlefield tapped and the other into hand', () => {
+  const server = splitSearchSetup(['Alpha Forest', 'Beta Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  expect(pick.viewLibrary).toBe(true)
+  expect(pick.min).toBe(0)
+  expect(pick.count).toBe(2)
+  expect(pendingSelectionFor(projectForViewer(searching, 'p2'), 'p1')).toBeUndefined()
+  expect(Object.values(projectForViewer(searching, 'p2').objects).some(object => object.name === 'Alpha Forest')).toBe(false)
+  expect(server.rules(searching, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2,
+    objectIds: [named(searching, 'Alpha Forest').id, named(searching, 'Alpha Forest').id],
+  }).ok).toBe(false)
+
+  const choosingSubset = selectNamed(server, searching, ['Alpha Forest', 'Beta Forest'])
+  expect(server.project(choosingSubset, 'p2').players.p1.data.revealed_library).toEqual(['Alpha Forest', 'Beta Forest'])
+  expect(Object.values(server.project(choosingSubset, 'p2').objects).some(object => object.name === 'Filler')).toBe(false)
+  const subset = pendingSelectionFor(choosingSubset, 'p1')!
+  expect(subset.candidates).toEqual([named(choosingSubset, 'Alpha Forest').id, named(choosingSubset, 'Beta Forest').id])
+  expect(subset.min).toBe(1)
+  expect(subset.count).toBe(1)
+  expect(server.rules(choosingSubset, {
+    type: 'selectCards', seat: 'p1', selectionId: subset.id, kind: 'choose', count: 1, objectIds: [],
+  }).ok).toBe(false)
+  expect(server.rules(choosingSubset, {
+    type: 'selectCards', seat: 'p1', selectionId: subset.id, kind: 'choose', count: 1,
+    objectIds: [named(choosingSubset, 'Alpha Forest').id, named(choosingSubset, 'Beta Forest').id],
+  }).ok).toBe(false)
+
+  const restored = restoreJournal(createJournal(choosingSubset), server.rules).current()
+  const finished = selectNamed(server, restored, ['Alpha Forest'])
+  expect(named(finished, 'Alpha Forest')).toMatchObject({ zone: 'battlefield', tapped: true, controller: 'p1' })
+  expect(named(finished, 'Beta Forest').zone).toBe('hand')
+  expect(named(finished, 'Filler').zone).toBe('library')
+  expect(named(finished, 'Instruction fixture').zone).toBe('graveyard')
+  expect(finished.players.p1.landsPlayed).toBe(0)
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('splitSearchLibrary puts a single found basic onto the battlefield tapped', () => {
+  const server = splitSearchSetup(['Lone Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const choosingSubset = selectNamed(server, searching, ['Lone Forest'])
+  const finished = selectNamed(server, choosingSubset, ['Lone Forest'])
+  expect(named(finished, 'Lone Forest')).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(finished, 'Filler').zone).toBe('library')
+  expect(finished.zoneOrder.p1.hand).toEqual([])
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('splitSearchLibrary shuffles after finding no card', () => {
+  const server = splitSearchSetup(['Lone Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const finished = selectNamed(server, searching, [])
+  expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+  expect(named(finished, 'Lone Forest').zone).toBe('library')
+  expect(finished.zoneOrder.p1.library).not.toEqual(searching.zoneOrder.p1.library)
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('catalog sacrifice-count search allows nonbasic lands up to actual sacrifices after restore', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Scapeshift', { manaCost: '{0}' })] },
+    battlefield: { p1: ['Sacrificed', 'Prevented', 'Kept'].map(name => cardTemplate(name, { types: ['Land'] })) },
+    libraries: { p1: [cardTemplate('Nonbasic prize', { types: ['Land'] }), cardTemplate('Basic prize', { types: ['Land'], supertypes: ['Basic'] }), cardTemplate('Nonland', { types: ['Instant'] })] },
+  }, { random: () => 0, cardPlugins: [{ id: 'fixture.preventLandSacrifice', replace: ({ event, state }) => event.type === 'sacrifice' && state.objects[event.objectId]?.name === 'Prevented' ? null : undefined }] })
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  const offering = pendingSelectionFor(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: offering.id, kind: 'choose', count: offering.count, objectIds: ['Sacrificed', 'Prevented'].map(name => named(state, name).id) }))
+  const search = pendingSelectionFor(state, 'p1')!
+  expect(search.min).toBe(0)
+  expect(search.count).toBe(1)
+  expect(search.candidates.map(id => state.objects[id].name)).toEqual(['Nonbasic prize', 'Basic prize'])
+  const restored = restoreJournal(createJournal(state), server.rules).current()
+  const done = ok(server.rules(restored, { type: 'selectCards', seat: 'p1', selectionId: search.id, kind: 'choose', count: search.count, objectIds: [named(restored, 'Nonbasic prize').id] }))
+  expect(named(done, 'Nonbasic prize')).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(done, 'Sacrificed').zone).toBe('graveyard')
+  expect(named(done, 'Prevented').zone).toBe('battlefield')
+  expect(named(done, 'Kept').zone).toBe('battlefield')
+  expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
+})
+
+test('a zero-sacrifice catalog search still shuffles and opens no card choice', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Scapeshift', { manaCost: '{0}' })] },
+    libraries: { p1: [cardTemplate('Land fixture', { types: ['Land'] }), cardTemplate('Nonland fixture')] },
+  }, { random: () => 0 })
+  const done = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+  expect(done.zoneOrder.p1.library).toHaveLength(2)
+  expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
+})
+
+test('land search ignores a modal card whose front face is a sorcery', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [searchLibrary({ chooser: ref('controller'), bindChoice: 'land', filter: objects({ zone: 'library', owner: 'you', type: 'Land' }), min: 0, max: 1, to: 'battlefield' })] })] },
+    libraries: { p1: [cardTemplate('Basic land fixture', { types: ['Land'] }), cardTemplate('Bala Ged Recovery')] },
+  }, { random: () => 0 })
+  const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(pendingSelectionFor(state, 'p1')!.candidates.map(id => state.objects[id].name)).toEqual(['Basic land fixture'])
+})
+
+test.each(['Riveteers Overlook', 'Undercity Sewers'])('a fetched catalog land retains its entry program (%s)', name => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [searchLibrary({ chooser: ref('controller'), bindChoice: 'land', filter: objects({ zone: 'library', owner: 'you', type: 'Land' }), count: 1, to: 'battlefield', tapped: true })] })] },
+    libraries: { p1: [cardTemplate(name), cardTemplate('Mountain', { types: ['Land'], subtypes: ['Mountain'], supertypes: ['Basic'] })] },
+  }, { random: () => 0 })
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  const search = pendingSelectionFor(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: search.id, kind: 'choose', count: search.count, objectIds: [named(state, name).id] }))
+  state = resolveStack(server.rules, state)
+  const entry = pendingSelectionFor(state, 'p1')!
+  expect(entry).toBeDefined()
+  if (name === 'Undercity Sewers') expect(entry).toMatchObject({ kind: 'surveil', source: name })
+  else {
+    const mountain = named(state, 'Mountain').id
+    expect(entry.candidates).toEqual([mountain])
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: entry.id, kind: 'choose', count: entry.count, objectIds: [mountain] }))
+    expect(state.objects[mountain]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(state.players.p1.life).toBe(41)
+  }
+})
+
+test('related shareLandType rejects mixed basic types and accepts a shared pair', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [searchLibrary({
+      bindChoice: 'found',
+      chooser: ref('controller'),
+      filter: objects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
+      min: 0,
+      max: 2,
+      related: CHOICE_RELATIONS.shareLandType,
+      to: 'battlefield',
+      tapped: true,
+    })] })] },
+    libraries: { p1: [
+      cardTemplate('Forest A', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+      cardTemplate('Forest B', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+      cardTemplate('Island A', { types: ['Land'], subtypes: ['Island'], supertypes: ['Basic'] }),
+    ] },
+  }, { random: () => 0 })
+  const searching = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
+  })))
+  const pick = pendingSelectionFor(searching, 'p1')!
+  expect(pick.related).toBe(CHOICE_RELATIONS.shareLandType)
+  expect(server.rules(searching, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2,
+    objectIds: [named(searching, 'Forest A').id, named(searching, 'Island A').id],
+  }).ok).toBe(false)
+  const found = ok(server.rules(searching, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2,
+    objectIds: [named(searching, 'Forest A').id, named(searching, 'Forest B').id],
+  }))
+  expect(named(found, 'Forest A')).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(found, 'Forest B')).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(found, 'Island A').zone).toBe('library')
+})
+
+test('multi-zone search shuffles only when a library card is chosen', () => {
+  const program = () => instructionSpell({
+    decisions: { variables: [chooseX()] },
+    instructions: [searchLibrary({
+      bindChoice: 'found',
+      chooser: ref('controller'),
+      filter: objects({
+        owner: 'you',
+        type: 'Creature',
+        any: [{ zone: 'library' }, { zone: 'graveyard' }],
+        compareCharacteristic: compareCharacteristic('manaValue', 'lte', variable('X')),
+      }),
+      min: 0,
+      max: 1,
+      to: 'battlefield',
+      shuffle: 'ifLibraryChosen',
+    })],
+  })
+  const pet = (zone?: 'graveyard') =>
+    cardTemplate('Pet', { types: ['Creature'], manaCost: '{1}{G}', manaValue: 2, power: 1, toughness: 1, ...(zone ? { zone } : {}) })
+  const fromLibrary = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [program()] },
+    libraries: { p1: [pet(), cardTemplate('Filler A')] },
+  }, { random: () => 0 })
+  const librarySearch = resolveStack(fromLibrary.rules, ok(fromLibrary.rules(fromLibrary.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(fromLibrary.state, 'Instruction fixture').id, x: 2,
+  })))
+  const libraryPick = pendingSelectionFor(librarySearch, 'p1')!
+  expect(libraryPick.viewLibrary).toBe(true)
+  const afterLibrary = ok(fromLibrary.rules(librarySearch, {
+    type: 'selectCards', seat: 'p1', selectionId: libraryPick.id, kind: 'choose', count: 1,
+    objectIds: [named(librarySearch, 'Pet').id],
+  }))
+  expect(named(afterLibrary, 'Pet').zone).toBe('battlefield')
+  expect(afterLibrary.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
+
+  const fromGraveyard = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [program(), pet('graveyard')] },
+    libraries: { p1: [cardTemplate('Filler A'), cardTemplate('Filler B')] },
+  }, { random: () => 0 })
+  const gySearch = resolveStack(fromGraveyard.rules, ok(fromGraveyard.rules(fromGraveyard.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(fromGraveyard.state, 'Instruction fixture').id, x: 2,
+  })))
+  const gyPick = pendingSelectionFor(gySearch, 'p1')!
+  const libraryBefore = [...gySearch.zoneOrder.p1.library]
+  const afterGy = ok(fromGraveyard.rules(gySearch, {
+    type: 'selectCards', seat: 'p1', selectionId: gyPick.id, kind: 'choose', count: 1,
+    objectIds: [named(gySearch, 'Pet').id],
+  }))
+  expect(named(afterGy, 'Pet').zone).toBe('battlefield')
+  expect(afterGy.zoneOrder.p1.library).toEqual(libraryBefore)
+  expect(afterGy.log.filter(line => line === 'p1 shuffles')).toHaveLength(0)
+})
+
+test.each(['mana artifact', 'basic land', 'fail to find'])('a canonical artifact search accepts %s through the typed picker', selected => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Moonsilver Key')] },
+    libraries: { p1: [
+      cardTemplate('Gilded Lotus'), cardTemplate('Basic fixture', { types: ['Land'], supertypes: ['Basic'] }),
+      cardTemplate('Mana text fixture', { types: ['Artifact'], oracleText: '{T}: Add {U}.' }), cardTemplate('Nonbasic fixture', { types: ['Land'] }),
+    ] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 1
+  let state = resolveStack(server.rules, ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: ready.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' })))
+  const pick = pendingSelectionFor(state, 'p1')!
+  expect(pick.candidates.map(id => state.objects[id]!.name).sort()).toEqual(['Basic fixture', 'Gilded Lotus'])
+  const chosen = selected === 'fail to find' ? [] : [named(state, selected === 'mana artifact' ? 'Gilded Lotus' : 'Basic fixture').id]
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count, objectIds: chosen }))
+  expect(state.zoneOrder.p1.hand).toEqual(chosen)
+  expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id]!.name)).toContain('Moonsilver Key')
+})
+
+
+test.each([false, true])('a catalog search uses its paid additional-cost receipt after restore (evidence=%s)', evidence => {
+  const server = createServerGame(commanderRules, { hands: { p1: [
+    cardTemplate('Analyze the Pollen', { manaCost: '{0}' }),
+    cardTemplate('Evidence fixture', { zone: 'graveyard', manaValue: 8 }),
+  ] }, libraries: { p1: [
+    cardTemplate('Basic fixture', { types: ['Land'], supertypes: ['Basic'] }),
+    cardTemplate('Nonbasic fixture', { types: ['Land'] }),
+    cardTemplate('Creature fixture', { types: ['Creature'] }),
+    cardTemplate('Ineligible fixture', { types: ['Artifact'] }),
+  ] } }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: id,
+    ...(evidence ? { selectedOptionalCosts: [0], evidence: [[server.state.zoneOrder.p1.graveyard[0]!]] } : {}),
+  }))
+  const state = resolveStack(server.rules, JSON.parse(JSON.stringify(cast)))
+  const pick = pendingSelectionFor(state, 'p1')!
+  expect(pick.candidates.map(candidate => state.objects[candidate]!.name).toSorted()).toEqual((evidence ? ['Basic fixture', 'Nonbasic fixture', 'Creature fixture'] : ['Basic fixture']).toSorted())
 })

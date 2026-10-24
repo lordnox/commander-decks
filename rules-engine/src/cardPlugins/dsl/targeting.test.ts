@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { blink, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
+import { keyword, blink, flagbearer, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, staticAbility, target, counter, stackItems, variable, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -191,6 +191,34 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
       targets: [{ kind: 'object', objectId: own.id }],
     })
     expect(result.ok).toBe(true)
+  })
+
+  test('a canonical Flagbearer imposes the same if-able obligation', () => {
+    const flag = createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(flagbearer())])))
+    const snapshot = snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [targetCreature()])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Flagbearer Test Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: {
+        p1: [cardTemplate('Own Creature', { types: ['Creature'], power: 1, toughness: 1 })],
+        p2: [cardTemplate('Opposing Flagbearer', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: flag })],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'Flagbearer Test Spell')
+    const own = named(server.state, 'Own Creature')
+    const missed = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: own.id }],
+    })
+    expect(missed.ok).toBe(false)
+    if (!missed.ok) expect(missed.error).toContain('Flagbearer')
+    const flagbearerId = named(server.state, 'Opposing Flagbearer').id
+    expect(ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: flagbearerId }],
+    })).stack).toHaveLength(1)
   })
 
   test('canonical player targets are retained by clause and drive player instructions', () => {
@@ -638,4 +666,49 @@ test.each(['valid', 'control', 'leave', 'return', 'allInvalid'] as const)('two-r
   expect(resolved.objects[ids[0]!]!.incarnation).toBe(before[0]! + (change === 'allInvalid' ? 0 : 2))
   expect(resolved.objects[ids[1]!]!.incarnation).toBe(before[1]! + (change === 'valid' ? 2 : 0))
   expect(resolved.players.p1.life).toBe(change === 'allInvalid' ? 40 : 41)
+})
+
+
+test.each([-3, -2, -1, 4, 5, 6])('minimum power filters gate announcement and resolution (power=%s)', power => {
+  const minimum = power < 0 ? -2 : 5
+  const server = canonicalServer(snapshotFor([gainLife({ amount: 1, targets: ref('controller') })], [select({
+    filter: objects({ zone: 'battlefield', type: 'Creature', powerAtLeast: minimum }), count: 1,
+  })]), { power })
+  const source = named(server.state, 'Canonical Target Spell')
+  const subject = named(server.state, 'Target Bear')
+  const result = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id, targets: [{ kind: 'object', objectId: subject.id }] })
+  expect(result.ok).toBe(power >= minimum)
+  if (!result.ok) return
+  expect(resolveStack(server.rules, result.state).players.p1.life).toBe(41)
+  const changed = structuredClone(result.state)
+  changed.objects[subject.id].power = minimum - 1
+  expect(resolveStack(server.rules, JSON.parse(JSON.stringify(changed))).players.p1.life).toBe(40)
+})
+
+test.each([1.5, Infinity, '5', null])('minimum power filters reject malformed thresholds (%j)', powerAtLeast => {
+  expect(() => compileCardRuleDefinition(card([spell({
+    decisions: { targets: [select({ filter: objects({ powerAtLeast: powerAtLeast as number }), count: 1 })] }, instructions: [],
+  })]))).toThrow()
+})
+
+test('canonical native hexproof rejects opposing targets without relying on printed text', () => {
+  const server = canonicalServer(snapshotFor([gainLife({ amount: 1, targets: ref('controller') })], [targetCreature()]), {
+    oracleText: '', ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.hexproof]))),
+  })
+  const result = server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Canonical Target Spell').id,
+    targets: [{ kind: 'object', objectId: named(server.state, 'Target Bear').id }],
+  })
+  expect(result.ok).toBe(false)
+})
+
+
+test('minimum power filters exclude objects without a power characteristic even for negative thresholds', () => {
+  const server = canonicalServer(snapshotFor([], [select({ filter: objects({ powerAtLeast: -2 }), count: 1 })]), {
+    types: ['Artifact'], power: null, toughness: null,
+  })
+  expect(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Canonical Target Spell').id,
+    targets: [{ kind: 'object', objectId: named(server.state, 'Target Bear').id }],
+  }).ok).toBe(false)
 })

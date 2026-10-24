@@ -156,6 +156,14 @@ export const discardOffer = (state: GameState, waiting: WaitingDiscard): Offer =
   return waiting.chooser === waiting.discardSeat ? offer : sortedByName(offer)
 }
 
+/** Private inspection context is separate from the eligible card slots. */
+export const selectCardsLibraryView = (state: Pick<GameState, 'objects' | 'zoneOrder'>, selection: WaitingSelectCards['selection']) => {
+  const ids = selection.visibleCards ?? (selection.viewLibrary ? state.zoneOrder[selection.fromSeat ?? selection.seat]?.library : undefined)
+  if (ids === undefined) return undefined
+  const names = ids.map(id => state.objects[id]?.name ?? '').filter(Boolean)
+  return selection.visibleCards ? names : names.sort((left, right) => left.localeCompare(right))
+}
+
 export const selectCardsOffer = (waiting: WaitingSelectCards): Offer => {
   const { selection } = waiting
   const zone = selection.fromZone ?? (selection.kind === 'choose' ? undefined : 'hand')

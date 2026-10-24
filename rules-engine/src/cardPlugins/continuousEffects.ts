@@ -472,10 +472,14 @@ const durationHolds = (
 const canonicalGrantHolds = (
   state: GameState,
   object: GameObject,
-  grant: NonNullable<GameObject['canonicalGrantedAbilities']>[number],
+  grant: Omit<NonNullable<GameObject['canonicalGrantedAbilities']>[number], 'ability'>,
   endTurnEffects: boolean,
 ) => {
   if (object.zone !== 'battlefield') return false
+  if (grant.printedStatic) {
+    const source = state.objects[grant.sourceId]
+    if (!source || !printedStaticAbilityActive(state, source, grant.printedStatic.abilityIndex)) return false
+  }
   switch (grant.duration.kind) {
     case 'permanent': return true
     case 'untilCleanup': return !endTurnEffects
@@ -506,6 +510,7 @@ const expireCanonicalGrants = (
   object: GameObject,
   endTurnEffects: boolean,
 ) => {
+  if (object.canonicalGrantedActivations) object.canonicalGrantedActivations = object.canonicalGrantedActivations.filter(grant => canonicalGrantHolds(state, object, grant, endTurnEffects))
   const grants = object.canonicalGrantedAbilities
   if (!grants) return false
   const remaining = grants.filter((grant) => canonicalGrantHolds(state, object, grant, endTurnEffects))
@@ -521,7 +526,7 @@ const effectHolds = (
   entry: NonNullable<GameObject['continuousEffects']>[number],
   endTurnEffects: boolean,
 ) =>
-  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange'
+  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange' || ((entry.effect.kind === 'addTypes' || entry.effect.kind === 'bestowAura') && entry.duration.kind === 'printedStatic') || (entry.effect.kind === 'setPt' && entry.effect.cda === true)
     || (entry.effect.kind === 'staticKeywords' && entry.effect.grant.includes(KEYWORDS.flash)))
   && (entry.effect.kind !== 'colorChange' || entry.effect.incarnation === object.incarnation)
   && (entry.effect.kind !== 'staticKeywords' || entry.effect.incarnation === undefined || entry.effect.incarnation === object.incarnation)
@@ -540,7 +545,14 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
       return
     default: break
   }
-  if (effect.kind === 'pump') {
+  if (effect.kind === 'removeAbilities') {
+    object.oracleText = effect.before.oracleText
+    object.grantedRules = [...effect.before.grantedRules]
+    object.effects = effect.before.effects ? structuredClone(effect.before.effects) : undefined
+  } else if (effect.kind === 'addTypes') {
+    object.types = [...effect.before.types]
+    object.subtypes = [...effect.before.subtypes]
+  } else if (effect.kind === 'pump') {
     if (object.power !== null) object.power -= effect.power
     if (object.toughness !== null) object.toughness -= effect.toughness
   } else if (effect.kind === 'animation') {
@@ -557,6 +569,11 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.before]
+  } else if (effect.kind === 'bestowAura') {
+    object.types = [...effect.before.types]
+    object.subtypes = [...effect.before.subtypes]
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'loseAbilitiesBecome') {
     object.oracleText = effect.before.oracleText
     object.grantedRules = [...effect.before.grantedRules]
@@ -572,6 +589,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     // Status only; combat reads continuousEffects directly.
   } else if (effect.kind === 'encoreAttack') {
     // combat restriction metadata only
+  } else if (effect.kind === 'subtypeGrant') {
+    // Status only; land-type readers inspect continuousEffects.
   } else if (effect.kind === 'triggerGrant') {
     const effects = object.effects ?? []
     const index = effects.findIndex((entry) => triggersMatch(entry, effect.trigger))
@@ -592,7 +611,16 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
       return
     default: break
   }
-  if (effect.kind === 'pump') {
+  if (effect.kind === 'removeAbilities') {
+    effect.before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules], ...(object.effects ? { effects: structuredClone(object.effects) } : {}) }
+    object.oracleText = ''
+    object.grantedRules = []
+    object.effects = []
+  } else if (effect.kind === 'addTypes') {
+    effect.before = { types: [...object.types], subtypes: [...object.subtypes] }
+    object.types = [...new Set([...object.types, ...effect.types])]
+    object.subtypes = [...new Set([...object.subtypes, ...effect.subtypes])]
+  } else if (effect.kind === 'pump') {
     if (object.power !== null) object.power += effect.power
     if (object.toughness !== null) object.toughness += effect.toughness
   } else if (effect.kind === 'animation') {
@@ -613,6 +641,17 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     }
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.after]
+  } else if (effect.kind === 'bestowAura') {
+    effect.before = {
+      types: [...object.types],
+      subtypes: [...object.subtypes],
+      power: withoutCounters(object, object.power),
+      toughness: withoutCounters(object, object.toughness),
+    }
+    object.types = [...new Set([...object.types.filter(type => type !== 'Creature'), 'Enchantment'])]
+    object.subtypes = ['Aura']
+    object.power = null
+    object.toughness = null
   } else if (effect.kind === 'loseAbilitiesBecome') {
     object.oracleText = ''
     object.grantedRules = []
@@ -626,6 +665,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     // Status only; combat reads continuousEffects directly.
   } else if (effect.kind === 'encoreAttack') {
     // combat restriction metadata only
+  } else if (effect.kind === 'subtypeGrant') {
+    // Status only; land-type readers inspect continuousEffects.
   } else if (effect.kind === 'triggerGrant') {
     const effects = baseEffects(object)
     if (!effects.some((entry) => triggersMatch(entry, effect.trigger))) {
@@ -991,7 +1032,7 @@ export const continuousEffects: Plugin = {
   recompute: ({ draft }) =>
     hasExpiredEffects(draft)
       || Object.values(draft.objects).some((object) =>
-        (object.canonicalGrantedAbilities ?? []).some((grant) => !canonicalGrantHolds(draft, object, grant, false)))
+        [...(object.canonicalGrantedAbilities ?? []), ...(object.canonicalGrantedActivations ?? [])].some((grant) => !canonicalGrantHolds(draft, object, grant, false)))
       ? [{ type: 'custom', name: EXPIRE_EFFECTS }]
       : [],
 }

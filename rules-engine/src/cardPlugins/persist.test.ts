@@ -6,7 +6,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { persist } from './effects'
-import { choiceEffects } from './choiceEffects'
 import { artifact, choose, deckCard, enter, fixtureCreature, libraries, named } from './cirdanCreatureCards'
 const persister = (power = 3, toughness = 3, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate('Fixture Persister', {
@@ -132,7 +131,7 @@ describe('relocated from cirdanTriggers.test.ts → persist.test.ts', () => {
         battlefield,
         libraries: libraries(['p1', 'p2', 'p3']),
       },
-      { random: () => 0.5, cardPlugins: [choiceEffects] },
+      { random: () => 0.5 },
     )
     return { server, start: server.state }
   }

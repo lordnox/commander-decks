@@ -5,6 +5,7 @@ import { createServerGame } from '../../runtime'
 import { ok } from '../../testHelpers'
 import { card, compileCardRuleDefinition, createDefinitionSnapshot, KEYWORDS, keyword } from './v1'
 
+const reach = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.reach])))
 const flying = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.flying])))
 test.each([
   [true, 'ground', false],
@@ -16,7 +17,7 @@ test.each([
     players: 2,
     battlefield: {
       p1: [cardTemplate('Attacker fixture', { types: ['Creature'], power: 2, toughness: 2, ...(attackerFlies ? { ruleDefinition: flying } : {}) })],
-      p2: [cardTemplate('Blocker fixture', { types: ['Creature'], power: 2, toughness: 2, ...(blocker === KEYWORDS.flying ? { ruleDefinition: flying } : {}), ...(blocker === 'reach' ? { oracleText: 'Reach' } : {}) })],
+      p2: [cardTemplate('Blocker fixture', { types: ['Creature'], power: 2, toughness: 2, ...(blocker === KEYWORDS.flying ? { ruleDefinition: flying } : {}), ...(blocker === KEYWORDS.reach ? { ruleDefinition: reach } : {}) })],
     },
   }, { random: () => 0 })
   const state = structuredClone(server.state)

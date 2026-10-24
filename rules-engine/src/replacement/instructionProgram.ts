@@ -177,7 +177,7 @@ export const advanceReplacementProgram = (
     scope.cursor += 1
     const context = runtimeForProgram(freezeDraft(draft), program)
 
-    if (instruction.kind === 'sequence') {
+    if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
       program.scopes.push({
         path: `${scope.path}[${index}].instructions`,
         instructions: [...instruction.instructions],

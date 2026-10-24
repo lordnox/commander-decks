@@ -1,22 +1,19 @@
+import { captureObject } from '../objectIdentity'
+import { evaluateRuntimeAmount } from '../cardPlugins/dsl/compiler/runtime'
+import { manaLossConsequences } from '../cardPlugins/dsl/manaLoss'
+import { manaFromPools } from '../cardPlugins/dsl/manaTypes'
+import { canonicalManaAbilityForTap } from '../cardPlugins/dsl/manaPrograms'
 import { addPools, emptyMana } from '../draft'
 import { hasKeyword } from '../keywords'
 import type { CardEffect } from '../cardPlugins/effects'
 import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
-import { hasForestOverlay } from './forestOverlay'
-import { hasSwampOverlay } from './swampOverlay'
+import { BASIC_LAND_MANA, BASIC_LAND_TYPES, hasBasicLandType } from './landTypes'
 import { effectsOf } from '../cardPlugins/cardRules'
 import { romanNumber } from './saga'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
-const BASIC_LAND_MANA: Record<string, ManaId> = {
-  Plains: 'W',
-  Island: 'U',
-  Swamp: 'B',
-  Mountain: 'R',
-  Forest: 'G',
-}
 
 type ManaSource = {
   id?: string
@@ -26,8 +23,10 @@ type ManaSource = {
   controller?: PlayerId
   types?: string[]
   subtypes?: string[]
+  continuousEffects?: GameObject['continuousEffects']
   effects?: CardEffect[]
   chosenType?: string
+  ruleDefinition?: GameObject['ruleDefinition']
   counters?: Record<string, number>
 }
 
@@ -108,6 +107,21 @@ export const manaModes = (
   state?: Pick<GameState, 'objects' | 'rules'>,
   visited = new Set<string>(),
 ): Partial<Record<ManaId, number>>[] => {
+  if (state && object.id && object.ruleDefinition) {
+    const source = state.objects[object.id]
+    const abilities = object.ruleDefinition.definition.abilities.filter(candidate => candidate.kind === 'activated'
+      && candidate.costs.every(cost => cost.kind === 'tapSource' || cost.kind === 'life')
+      && candidate.instructions?.length === 1)
+    if (source && abilities.some(ability => ability.kind === 'activated' && ability.instructions?.[0]?.kind === 'addManaFrom')) {
+      return abilities.flatMap(ability => {
+        const instruction = ability.kind === 'activated' ? ability.instructions?.[0] : undefined
+        if (instruction?.kind === 'addManaFrom') return manaFromPools(state as GameState, source, instruction)
+        if (instruction?.kind !== 'addMana') return []
+        const context = { state: state as GameState, controller: source.controller, source: captureObject(source) }
+        return [Object.fromEntries(MANA_IDS.flatMap(type => instruction.amount[type] ? [[type, evaluateRuntimeAmount(instruction.amount[type]!, context)]] : []))]
+      })
+    }
+  }
   const nextVisited = new Set(visited)
   if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []
@@ -180,29 +194,16 @@ export const manaModes = (
       }
     }
   }
-  if (
-    state
-    && hasSwampOverlay(state)
-    && object.types?.includes('Land')
-    && !object.subtypes?.includes('Swamp')
-    && !modes.some((mode) => mode.B === 1 && Object.keys(mode).length === 1)
-  ) {
-    modes.push({ B: 1 })
-  }
-  if (
-    state
-    && hasForestOverlay(state)
-    && object.types?.includes('Land')
-    && !object.subtypes?.includes('Forest')
-    && !modes.some((mode) => mode.G === 1 && Object.keys(mode).length === 1)
-  ) {
-    modes.push({ G: 1 })
-  }
-  // CR 305.6: a land with a basic land type has that type's mana ability even
-  // when its text does not print it (Dryad Arbor).
-  if (modes.length === 0 && object.types?.includes('Land')) {
-    for (const subtype of object.subtypes ?? []) {
-      if (BASIC_LAND_MANA[subtype]) modes.push({ [BASIC_LAND_MANA[subtype]]: 1 })
+  // CR 305.6: a land with a basic land type has that type's intrinsic mana
+  // ability in addition to its other abilities (Urborg on a Forest, Dryad Arbor).
+  if (object.types?.includes('Land')) {
+    for (const subtype of BASIC_LAND_TYPES) {
+      const mana = BASIC_LAND_MANA[subtype]
+      const hasType = object.subtypes?.includes(subtype)
+        || (state ? hasBasicLandType(object, subtype, state) : false)
+      if (!hasType) continue
+      if (modes.some((mode) => mode[mana] === 1 && Object.keys(mode).length === 1)) continue
+      modes.push({ [mana]: 1 })
     }
   }
   if (modes.length === 0 && object.tapProduces) modes.push(object.tapProduces)
@@ -237,15 +238,28 @@ export const tapForManaError = (
   const requiresTap = manaRequiresTap(object)
   if (requiresTap && object.tapped) return `${object.name} is already tapped`
   if (!poolForChoice(object, mana, state)) {
-    if (mana && MANA_IDS.includes(mana)) {
-      return `${object.name} cannot produce ${mana}`
+    const canonical = canonicalManaAbilityForTap(object, mana)
+    const printedAdd = canonical?.ability.instructions?.some((instruction) => {
+      switch (instruction.kind) {
+        case 'addMana':
+          return mana === undefined || instruction.amount[mana] !== undefined
+        case 'chooseInstructions':
+          return mana !== undefined && instruction.options.some((option) => option.label === mana)
+        default:
+          return false
+      }
+    })
+    if (!printedAdd) {
+      if (mana && MANA_IDS.includes(mana)) {
+        return `${object.name} cannot produce ${mana}`
+      }
+      if (/commander's color identity/i.test(object.oracleText)) {
+        return `${object.name} needs a mana color in your commander's identity`
+      }
+      return /one mana of any color/i.test(object.oracleText)
+        ? `${object.name} needs a mana color`
+        : `${object.name} has no mana ability`
     }
-    if (/commander's color identity/i.test(object.oracleText)) {
-      return `${object.name} needs a mana color in your commander's identity`
-    }
-    return /one mana of any color/i.test(object.oracleText)
-      ? `${object.name} needs a mana color`
-      : `${object.name} has no mana ability`
   }
   if (
     requiresTap
@@ -267,6 +281,7 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
   if (event.type === 'tapForMana') {
     const object = draft.object(event.objectId)
     if (!object) return
+    if (canonicalManaAbilityForTap(object, event.mana)) return
     const pool = poolForChoice(object, event.mana, state)
     if (!pool) return
     object.tapped = true
@@ -315,6 +330,17 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
   }
   if (event.type === 'addMana') {
     const player = draft.players[event.seat]
+    if (event.restriction) {
+      const added = MANA_IDS.flatMap((symbol) =>
+        Array.from({ length: event.mana[symbol] ?? 0 }, () => ({
+          mana: symbol,
+          sourceId: event.sourceId ?? '',
+          ...event.restriction,
+        })))
+      if (added.length > 0) player.restrictedMana = [...(player.restrictedMana ?? []), ...added]
+      draft.note(`${event.seat} adds restricted mana`)
+      return
+    }
     player.mana = addPools(player.mana, event.mana)
     draft.note(`${event.seat} adds mana`)
     return
@@ -327,7 +353,8 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
     return
   }
   if (event.type === 'emptyManaPools') {
-    for (const player of Object.values(draft.players)) player.mana = emptyMana()
+    for (const consequence of manaLossConsequences(state)) draft.enqueue(consequence)
+    for (const player of Object.values(draft.players)) { player.mana = emptyMana(); player.restrictedMana = [] }
     draft.note('mana pools empty')
   }
 }

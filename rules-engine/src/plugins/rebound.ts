@@ -1,10 +1,16 @@
-import { manaValueOf, type CardInstruction } from '../cardPlugins/effects'
+import { type CardInstruction } from '../cardPlugins/effects'
+import {
+  consumeSpellCast,
+  matchingSpellCast,
+  openSpellCast,
+  pendingSpellCast,
+  pendingSpellCastFor,
+  spellCastCandidates,
+} from '../cardPlugins/dsl/spellPermissions'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
 import { registerDelayedTrigger } from '../rules/delayedTriggers'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
-
-const PENDING_FREE_CAST = 'rebound.pendingFreeCast'
 
 /**
  * A one-shot "you may cast it without paying its mana cost" offer. Without
@@ -23,38 +29,23 @@ export const pendingFreeCastFor = (
   state: GameState | Draft,
   seat: PlayerId,
 ): PendingFreeCast | undefined => {
-  const pending = state.players[seat]?.data[PENDING_FREE_CAST]
-  if (
-    pending
-    && typeof pending === 'object'
-    && typeof (pending as PendingFreeCast).objectId === 'string'
-    && (pending as PendingFreeCast).seat === seat
-  ) {
-    return pending as PendingFreeCast
+  const permission = pendingSpellCastFor(state, seat)
+  if (!permission) return
+  return {
+    objectId: permission.sourceId,
+    seat: permission.seat,
+    ...(permission.zone === 'hand'
+      ? { fromZone: 'hand' as const, ...(permission.maxManaValue !== undefined ? { maxManaValue: permission.maxManaValue } : {}) }
+      : {}),
   }
 }
 
-const pendingFreeCast = (state: GameState | Draft) => {
-  for (const seat of state.playerOrder) {
-    const pending = pendingFreeCastFor(state, seat)
-    if (pending) return pending
-  }
-}
-
-/** The objects the offer lets `pending.seat` cast right now. */
 export const freeCastCandidates = (
   state: GameState | Draft,
   pending: PendingFreeCast,
 ): GameObject[] => {
-  if (pending.fromZone === 'hand') {
-    return state.zoneOrder[pending.seat].hand
-      .map((objectId) => state.objects[objectId])
-      .filter((object) =>
-        !object.types.includes('Land')
-        && manaValueOf(object) <= (pending.maxManaValue ?? Infinity))
-  }
-  const object = state.objects[pending.objectId]
-  return object?.zone === 'exile' ? [object] : []
+  const permission = pendingSpellCastFor(state, pending.seat)
+  return permission ? spellCastCandidates(state, permission) : []
 }
 
 export const openFreeCast = (
@@ -62,18 +53,15 @@ export const openFreeCast = (
   source: GameObject,
   fromHand?: { maxManaValue: number },
 ) => {
-  const pending: PendingFreeCast = {
-    objectId: source.id,
+  openSpellCast(draft, {
+    sourceId: source.id,
+    sourceName: source.name,
     seat: source.controller,
-    ...(fromHand ? { fromZone: 'hand', maxManaValue: fromHand.maxManaValue } : {}),
-  }
-  if (freeCastCandidates(draft, pending).length === 0) return
-  draft.players[source.controller].data[PENDING_FREE_CAST] = pending
-  draft.priority = source.controller
-}
-
-const clearFreeCast = (draft: Draft, seat: PlayerId) => {
-  delete draft.players[seat].data[PENDING_FREE_CAST]
+    asThoughFlash: true,
+    ...(fromHand
+      ? { zone: 'hand', fromSeat: source.controller, maxManaValue: fromHand.maxManaValue, notLand: true }
+      : { objectId: source.id }),
+  })
 }
 
 export const reboundsOnResolution = (object: GameObject, item: StackItem) =>
@@ -107,7 +95,7 @@ const WAITS_FOR_FREE_CAST = new Set([
 export const rebound: Plugin = {
   id: 'rebound',
   legal: ({ state, event }) => {
-    const pending = pendingFreeCast(state)
+    const pending = pendingSpellCast(state)
     if (pending) {
       const waits = WAITS_FOR_FREE_CAST.has(event.type)
         || (event.type === 'activateAbility' && event.manaAbility !== true)
@@ -119,22 +107,22 @@ export const rebound: Plugin = {
       && !(event.type === 'castSpell' && event.alternativeCost === 'withoutPayingMana')
     ) return
 
-    const choice = pendingFreeCastFor(state, event.seat)
+    const choice = pendingSpellCastFor(state, event.seat)
     if (event.type === 'declineFreeCast') {
-      if (choice?.objectId !== event.objectId) return 'card is not awaiting a free cast'
+      if (choice?.sourceId !== event.objectId) return 'card is not awaiting a free cast'
       return
     }
-    if (!choice || !freeCastCandidates(state, choice).some(({ id }) => id === event.objectId)) {
+    if (!choice || !matchingSpellCast(state, event.seat, event.objectId)) {
       return 'card is not awaiting a free cast'
     }
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'declineFreeCast') {
-      clearFreeCast(draft, event.seat)
+      consumeSpellCast(draft, event.seat, event.objectId)
       return
     }
     if (event.type === 'castSpell' && event.alternativeCost === 'withoutPayingMana') {
-      clearFreeCast(draft, event.seat)
+      consumeSpellCast(draft, event.seat, event.objectId)
       return
     }
     if (event.type !== 'resolveTop') return

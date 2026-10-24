@@ -1,16 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
-import type { FaceCharacteristics, GameState } from '../types'
+import type { GameState } from '../types'
 import { activated } from './activated'
-import { alternateCosts } from './alternateCosts'
-import { creatureTypeChoice } from './creatureTypeChoice'
-import { entersTapped } from './entersTapped'
-import { onResolve } from './onResolve'
 import { phasing } from './phasing'
 
 const named = (state: GameState, name: string) =>
@@ -23,30 +19,11 @@ const card = (
 ) => cardTemplate(name, { types, ...extra })
 
 describe('Sin-fall lands and alternate casting', () => {
-  test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {
+  test('Cavern chooses privately as it enters and its restricted mana only protects the matching creature', () => {
     const server = createServerGame(
       commanderRules,
-      {
-        battlefield: {
-          p1: [card('Wizard', ['Creature'], { subtypes: ['Wizard'] })],
-        },
-        hands: {
-          p1: [
-            card('Cavern of Souls', ['Land'], {
-              oracleText: 'As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can\'t be countered.',
-            }),
-            card('Matching Wizard', ['Creature'], {
-              subtypes: ['Wizard'],
-              manaCost: '{U}',
-            }),
-            card('Wrong Bear', ['Creature'], {
-              subtypes: ['Bear'],
-              manaCost: '{U}',
-            }),
-          ],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [creatureTypeChoice, onResolve] },
+      { hands: { p1: [card('Cavern of Souls', ['Land'])] } },
+      { random: () => 0.5 },
     )
     const cavern = named(server.state, 'Cavern of Souls')
     let state = ok(server.rules(server.state, {
@@ -54,24 +31,38 @@ describe('Sin-fall lands and alternate casting', () => {
       seat: 'p1',
       objectId: cavern.id,
     }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(pendingDialog(state)).toMatchObject({
-      kind: 'choose-creature-type',
-      seat: 'p1',
-    })
-    expect(server.project(state, 'p2').players.p1.data['kernel.pendingDialog'])
-      .toBeUndefined()
+    const pick = pendingOptionSelection(state, 'p1')!
+    expect(pick.options.some(option => option.id === 'Wizard')).toBe(true)
+    expect(pendingOptionSelection(server.project(state, 'p2'), 'p1')).toBeUndefined()
 
     state = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p1',
-      payload: { modes: ['Wizard'] },
+      selectionId: pick.id,
+      optionId: 'Wizard',
     }))
-    state = ok(server.rules(state, {
+    expect(named(state, 'Cavern of Souls')).toMatchObject({ zone: 'battlefield', chosenType: 'Wizard' })
+
+    const table = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [card('Cavern of Souls', ['Land'], { chosenType: 'Wizard' })],
+        },
+        hands: {
+          p1: [
+            card('Matching Wizard', ['Creature'], { subtypes: ['Wizard'], manaCost: '{U}' }),
+            card('Wrong Bear', ['Creature'], { subtypes: ['Bear'], manaCost: '{U}' }),
+          ],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const source = named(table.state, 'Cavern of Souls')
+    state = ok(table.rules(table.state, {
       type: 'tapForMana',
       seat: 'p1',
-      objectId: cavern.id,
+      objectId: source.id,
       mana: 'U',
     }))
     expect(state.players.p1.mana.U).toBe(0)
@@ -79,14 +70,14 @@ describe('Sin-fall lands and alternate casting', () => {
       { mana: 'U', creatureType: 'Wizard', uncounterable: true },
     ])
 
-    const illegal = server.rules(state, {
+    const illegal = table.rules(state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Wrong Bear').id,
     })
     expect(illegal.ok).toBe(false)
 
-    const cast = ok(server.rules(state, {
+    const cast = ok(table.rules(state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Matching Wizard').id,
@@ -121,7 +112,7 @@ describe('Sin-fall lands and alternate casting', () => {
         },
         libraries: {
           p2: [
-            card('Breeding Pool', ['Land'], { subtypes: ['Forest', 'Island'] }),
+            card('Found Island', ['Land'], { supertypes: ['Basic'], subtypes: ['Island'] }),
             card('No Type Land', ['Land']),
           ],
         },
@@ -134,7 +125,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const basic = named(state, 'Basic Forest')
     expect(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.boseiju',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: boseiju.id,
       targets: [{ kind: 'object', objectId: basic.id }],
@@ -143,7 +134,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const utility = named(state, 'Utility Land')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.boseiju',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: boseiju.id,
       targets: [{ kind: 'object', objectId: utility.id }],
@@ -152,25 +143,24 @@ describe('Sin-fall lands and alternate casting', () => {
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[utility.id].zone).toBe('graveyard')
     const search = pendingSelectionFor(state, 'p2')!
-    expect(search).toMatchObject({ min: 0, after: ['shuffleLibrary'] })
+    const found = named(state, 'Found Island')
+    expect(search).toMatchObject({ kind: 'choose', min: 0, viewLibrary: true, candidates: [found.id] })
     expect(server.project(state, 'p1').players.p2.data['kernel.pendingSelection'])
       .toBeUndefined()
-    const breedingPool = named(state, 'Breeding Pool')
-    expect(search.candidates).toEqual([breedingPool.id])
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p2',
       kind: 'choose',
       count: 1,
-      objectIds: [breedingPool.id],
+      objectIds: [found.id],
     }))
-    expect(state.objects[breedingPool.id].zone).toBe('battlefield')
+    expect(state.objects[found.id].zone).toBe('battlefield')
 
     const otawara = named(state, 'Otawara, Soaring City')
     const creature = named(state, 'Bounce Me')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'channel.otawara',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: otawara.id,
       targets: [{ kind: 'object', objectId: creature.id }],
@@ -193,7 +183,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const talon = named(state, 'Talon Gates of Madara')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'talon.put',
+      abilityId: '$.abilities[3]',
       seat: 'p1',
       objectId: talon.id,
     }))
@@ -220,39 +210,13 @@ describe('Sin-fall lands and alternate casting', () => {
   })
 
   test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {
-    const landFace: FaceCharacteristics = {
-      types: ['Land'],
-      subtypes: ['Town'],
-      supertypes: [],
-      manaCost: '',
-      manaValue: 0,
-      colors: [],
-      oracleText: 'This land enters tapped.\n{T}: Add {G}.',
-    }
-    const adventureFace: FaceCharacteristics = {
-      types: ['Sorcery'],
-      subtypes: ['Adventure'],
-      supertypes: [],
-      manaCost: '{4}{G}{G}',
-      manaValue: 6,
-      colors: ['G'],
-      oracleText: 'Create a 1/1 colorless Hero creature token.',
-    }
     const server = createServerGame(
       commanderRules,
       {
         battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
-        hands: {
-          p1: [card('Zanarkand, Ancient Metropolis // Lasting Fayth', ['Land'], {
-            frontFace: landFace,
-            backFace: adventureFace,
-          })],
-        },
+        hands: { p1: [cardTemplate('Zanarkand, Ancient Metropolis // Lasting Fayth')] },
       },
-      {
-        random: () => 0.5,
-        cardPlugins: [alternateCosts, entersTapped, onResolve],
-      },
+      { random: () => 0.5 },
     )
     let state = structuredClone(server.state)
     state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 4 }
@@ -266,14 +230,16 @@ describe('Sin-fall lands and alternate casting', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: zanarkand.id,
-      castOption: 'adventure',
+      adventureCast: true,
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     const hero = named(state, 'Hero')
     expect(hero.counters['+1/+1']).toBe(2)
     expect(state.objects[zanarkand.id]).toMatchObject({
       zone: 'exile',
+      adventured: true,
       adventureReady: true,
+      types: ['Land'],
     })
     state = ok(server.rules(state, {
       type: 'playLand',

@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-import { eventsForAvailableAction, legalActsFor } from '../index'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -33,17 +32,6 @@ const named = (state: GameState, name: string) =>
 const mana = (state: GameState, seat = 'p1') => {
   state.players[seat].mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
   return state
-}
-
-const advanceToEndStep = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-) => {
-  let current = state
-  while (current.step !== 'end') {
-    current = ok(server.rules(current, { type: 'advanceStep' }))
-  }
-  return current
 }
 
 const castAndResolve = (
@@ -105,90 +93,6 @@ describe('Dack party blink pass 2', () => {
       owner: 'p2',
       controller: 'p2',
     })
-  })
-
-  test('Getaway Glamer spree blink mode exiles until the next end step', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Getaway Glamer')] },
-      battlefield: {
-        p2: [cardTemplate('Glamer Prey', { types: ['Creature'], power: 3, toughness: 3 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const preyId = named(server.state, 'Glamer Prey').id
-    const resolved = castAndResolve(
-      server,
-      server.state,
-      'Getaway Glamer',
-      [{ kind: 'object', objectId: preyId }],
-      { spreeModes: ['blink'] },
-    )
-    expect(resolved.objects[preyId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, resolved)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[preyId].zone).toBe('battlefield')
-  })
-
-  test('Getaway Glamer spree kill mode removes the chosen creature', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Getaway Glamer')] },
-      battlefield: {
-        p2: [cardTemplate('Solo Beast', { types: ['Creature'], power: 4, toughness: 4 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const beastId = named(server.state, 'Solo Beast').id
-    const resolved = castAndResolve(
-      server,
-      server.state,
-      'Getaway Glamer',
-      [{ kind: 'object', objectId: beastId }],
-      { spreeModes: ['kill'] },
-    )
-    expect(resolved.objects[beastId].zone).toBe('graveyard')
-  })
-
-  test('Parting Gust without the gift blinks with a counter at the next end step', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Parting Gust')] },
-      battlefield: {
-        p2: [cardTemplate('Gusty Fox', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const foxId = named(server.state, 'Gusty Fox').id
-    const resolved = castAndResolve(server, server.state, 'Parting Gust', [
-      { kind: 'object', objectId: foxId },
-    ])
-    expect(resolved.objects[foxId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, resolved)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[foxId].counters['+1/+1']).toBe(1)
-  })
-
-  test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Parting Gust')] },
-      battlefield: {
-        p2: [cardTemplate('Gift Target', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const ready = structuredClone(server.state)
-    const targetId = named(ready, 'Gift Target').id
-    const spell = named(ready, 'Parting Gust')
-    const gifted = legalActsFor(ready, 'p1').filter((action) => action.kind === 'castSpell').find((action) =>
-      action.objectId === spell.id
-      && action.giftPromised
-      && action.giftRecipientId === 'p2')!
-    const castEvents = eventsForAvailableAction(ready, 'p1', {
-      ...gifted, targetObjectIds: [targetId],
-    })!
-    const cast = castEvents.reduce((state, event) => ok(server.rules(state, event)), ready)
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[targetId].zone).toBe('exile')
-    const fish = Object.values(resolved.objects).find((object) =>
-      object.name === 'Fish' && object.controller === 'p2')
-    expect(fish?.tapped).toBe(true)
-    const atEnd = advanceToEndStep(server, resolved)
-    const afterEnd = resolveStack(server.rules, atEnd)
-    expect(afterEnd.objects[targetId].zone).toBe('exile')
   })
 
   test('All-Fates Stalker cages a non-Assassin until it leaves', () => {

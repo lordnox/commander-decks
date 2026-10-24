@@ -4,11 +4,12 @@ import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { hasKeyword } from '../../keywords'
 import { cardTemplate } from '../../newGame'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, grantKeywordEffect, KEYWORDS, keyword, objects, untilCleanup } from './v1'
+import { card, chooseCards, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, grantKeywordEffect, KEYWORDS, keyword, objects, ref, untilCleanup } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find(object => object.name === name)!
 const setup = (printed = false) => createServerGame(commanderRules, {
@@ -81,6 +82,36 @@ test('a flash grant made to a permanent spell follows resolution but not a later
   const exiled = ok(server.rules(permanent, { type: 'move', objectId: id, to: 'exile' }))
   const returned = ok(server.rules(exiled, { type: 'move', objectId: id, to: 'battlefield' }))
   expect(hasKeyword(returned.objects[id]!, KEYWORDS.flash, returned)).toBe(false)
+})
+
+test('object filters match printed and granted flash, not oracle-text mentions', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [
+        cardTemplate('Printed flash', { types: ['Creature'], oracleText: 'Flash', power: 1, toughness: 1 }),
+        cardTemplate('Mention', { types: ['Creature'], oracleText: 'Target creature gains flash until end of turn.', power: 1, toughness: 1 }),
+        cardTemplate('Granted fixture', { types: ['Creature'], power: 1, toughness: 1 }),
+      ],
+    },
+    hands: { p1: [instructionSpell({
+      instructions: [
+        createEffect({ targets: objects({ zone: 'battlefield', name: 'Granted fixture' }), effect: grantKeywordEffect(KEYWORDS.flash), duration: untilCleanup() }),
+        chooseCards({
+          bindChoice: 'found',
+          chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', keyword: KEYWORDS.flash }),
+          min: 0,
+          max: 2,
+        }),
+      ],
+    })] },
+  }, { random: () => 0 })
+  const choosing = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
+  })))
+  expect(pendingSelectionFor(choosing, 'p1')!.candidates.map(id => choosing.objects[id]!.name).sort())
+    .toEqual(['Granted fixture', 'Printed flash'])
 })
 
 test('the shared keyword validator still rejects unsupported printed and granted abilities', () => {

@@ -1,3 +1,4 @@
+import { pendingSelectionFor } from '../rules/selectCards'
 import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction } from '../actions'
 import { commanderRules } from '../formats'
@@ -9,7 +10,6 @@ import { activated } from './activated'
 import { activate, createTreasures, effectsFromTokenSpec } from './effects'
 
 import {createServerGame as createRuntimeGame} from '../runtime'
-import {DIALOG_CHOSEN, dialogCandidates, pendingDialog} from '../pendingDialog'
 
 import { choiceEffects } from './choiceEffects'
 import {entersTapped} from './entersTapped'
@@ -251,7 +251,7 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Malevolent Rumble', { types: ['Sorcery'] })] },
+          hands: { p1: [cardTemplate('Malevolent Rumble', { types: ['Sorcery'], manaCost: '{0}' })] },
           libraries: {
             p1: [
               cardTemplate('Permanent', { types: ['Artifact'] }),
@@ -269,21 +269,15 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
       }))
       const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
       expect(named(choosing, 'Eldrazi Spawn')).toBeUndefined()
-      const dialog = pendingDialog(choosing)!
+      const selection = pendingSelectionFor(choosing, 'p1')!
       const permanent = named(choosing, 'Permanent')
-      const otherIds = dialogCandidates(choosing, dialog)
-        .map((object) => object.id)
-        .filter((objectId) => objectId !== permanent.id)
-      let resolved = ok(server.rules(choosing, {
-        type: 'move', objectId: permanent.id, to: 'hand',
-      }))
-      for (const objectId of otherIds) {
-        resolved = ok(server.rules(resolved, { type: 'move', objectId, to: 'graveyard' }))
-      }
-      resolved = ok(server.rules(resolved, {
-        type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [permanent.id] },
+      expect(selection.candidates).toEqual([permanent.id])
+      const resolved = ok(server.rules(JSON.parse(JSON.stringify(choosing)), {
+        type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: selection.count, objectIds: [permanent.id],
       }))
       const spawn = named(resolved, 'Eldrazi Spawn')
+      expect(spawn.effects).toEqual([])
+      expect(spawn.ruleDefinition).toBeDefined()
       expect(spawn).toMatchObject({
         types: ['Creature'],
         subtypes: ['Eldrazi', 'Spawn'],
@@ -292,7 +286,7 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
       })
       const sacrificed = ok(server.rules(resolved, {
         type: 'activateAbility',
-        abilityId: 'token.sacrifice-for-mana',
+        abilityId: '$.abilities[0]',
         seat: 'p1',
         objectId: spawn.id,
         manaAbility: true,

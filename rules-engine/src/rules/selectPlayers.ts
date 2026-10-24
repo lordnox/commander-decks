@@ -1,3 +1,10 @@
+import { REPLACEMENT_APPLICATION_PLAYER_CHOICE } from '../replacement/constants'
+import { freezeDraft } from '../draft'
+import { resumeReplacementProgramChoice, enqueueReplacementSettlement } from '../replacement/processor'
+import { PLAYER_PROGRAM_CHOICE_ACTION } from '../cardPlugins/dsl/playerProgramConstants'
+import { CONTROL_CHOICE_ACTION } from '../cardPlugins/dsl/controlConstants'
+import { continueControlAssignment } from '../cardPlugins/dsl/controlAssignment'
+import type { ControlAssignment } from '../cardPlugins/dsl/controlAssignment'
 import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
@@ -6,7 +13,7 @@ import { openOpponentPilePartition } from './selectCards'
 import { advanceCopySlot } from './selectOptions'
 import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { CanonicalChoicePayload } from './canonicalAnnouncement'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
+import { canonicalCopySource, copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -20,6 +27,9 @@ export type PendingPlayerSelection = {
   max: number
   candidates: PlayerId[]
   action:
+    | { kind: typeof REPLACEMENT_APPLICATION_PLAYER_CHOICE; frameId: string; binding: string }
+    | { kind: typeof PLAYER_PROGRAM_CHOICE_ACTION.choose; stackId: string; binding: string }
+    | ControlAssignment
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
     | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; slotIndex?: number }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
@@ -133,7 +143,7 @@ export const selectPlayers: Plugin = {
         ? state.resolution
         : undefined
       const original = state.stack.find((item) => item.id === action.copyStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (frame && job && original && source) {
         const error = validateCanonicalCopyTarget(state, original, source, action.slotIndex ?? 0, { kind: 'player', player: event.players[0]! }, job.answers, action.controller)
@@ -141,12 +151,28 @@ export const selectPlayers: Plugin = {
       }
     }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ event, draft, catalog }) => {
     if (event.type !== 'selectPlayers') return
     const selection = pendingPlayerSelectionFor(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
     clearSelection(draft, event.seat)
     const target = event.players[0]
+    if (selection.action.kind === REPLACEMENT_APPLICATION_PLAYER_CHOICE) {
+      const settled = resumeReplacementProgramChoice(freezeDraft(draft), selection.action.frameId, selection.action.binding, event.players, catalog)
+      if (settled.kind !== 'invalid') enqueueReplacementSettlement(draft, settled)
+      return
+    }
+    if (selection.action.kind === PLAYER_PROGRAM_CHOICE_ACTION.choose) {
+      const frame = draft.resolution
+      if (frame?.kind === 'canonicalSpell' && frame.stackId === selection.action.stackId) {
+        frame.choices = { ...frame.choices, [selection.action.binding]: event.players.map(playerId => ({ kind: 'player' as const, playerId })) }
+      }
+      return
+    }
+    if (selection.action.kind === CONTROL_CHOICE_ACTION.assign && target) {
+      continueControlAssignment(draft, selection.action, target)
+      return
+    }
     if (selection.action.kind === 'canonicalProliferatePlayers') {
       const events: GameEvent[] = []
       const pending = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution.pendingProliferate : undefined

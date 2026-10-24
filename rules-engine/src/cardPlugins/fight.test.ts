@@ -5,6 +5,7 @@ import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { activated } from './activated'
+import { enters, fightUpToOne } from './effects'
 import { fight } from './fight'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
@@ -12,10 +13,11 @@ const named = (state: ReturnType<typeof createServerGame>['state'], name: string
 
 describe('fight', () => {
   test('Apex Altisaur asks to fight an opposing creature', () => {
-    const apex = cardTemplate('Apex Altisaur', {
+    const apex = cardTemplate('Fight fixture', {
       types: ['Creature'],
       power: 10,
       toughness: 10,
+      effects: [enters(fightUpToOne())],
     })
     const prey = cardTemplate('Grizzly Bears', {
       types: ['Creature'],
@@ -29,7 +31,7 @@ describe('fight', () => {
     )
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
-      objectId: named(server.state, 'Apex Altisaur').id,
+      objectId: named(server.state, 'Fight fixture').id,
       to: 'battlefield',
     })))
     const dialog = pendingDialog(entered)
@@ -41,7 +43,7 @@ describe('fight', () => {
       payload: { objectIds: [named(entered, 'Grizzly Bears').id] },
     }))
     expect(fought.objects[named(fought, 'Grizzly Bears').id].zone).toBe('graveyard')
-    expect(fought.objects[named(fought, 'Apex Altisaur').id].damageMarked).toBe(2)
+    expect(fought.objects[named(fought, 'Fight fixture').id].damageMarked).toBe(2)
   })
 
   test('Triangle of War fights two targeted creatures', () => {

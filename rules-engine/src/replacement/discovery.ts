@@ -73,7 +73,10 @@ export const discoverReplacementCandidates = (
 ): ReplacementCandidate[] => {
   const legacy: LegacyReplacementCandidate[] = []
   for (const rule of sortedRules(state)) {
-    if (usedInstanceIds.includes(rule.instanceId)) continue
+    // Splitting a batch into individual draws is structural, not a once-per-event
+    // replacement. A later replacement may introduce a fresh multi-draw batch.
+    const splitDraw = rule.pluginId === 'draw' && event.type === 'draw' && (event.count ?? 1) > 1
+    if (usedInstanceIds.includes(rule.instanceId) && !splitDraw) continue
     if (settledOptionalDeclines.includes(rule.instanceId)) continue
     const plugin = catalog.get(rule.pluginId)
     if (!plugin?.replace) continue

@@ -3,8 +3,9 @@ import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
-import { DIALOG_CHOSEN, pendingDialogLock } from '../pendingDialog'
+import { pendingDialogLock } from '../pendingDialog'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
@@ -15,7 +16,6 @@ import {
 
 import { createTreasures, enters } from './effects'
 import {type CardTemplate} from '../newGame'
-import {pendingDialog} from '../pendingDialog'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
@@ -45,12 +45,11 @@ import {
   annihilator,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
-  shuffleIntoLibraryInstead as shuffleEffect,
 } from './effects'
 import { alternateCosts } from './alternateCosts'
-import { librarySearch, SEARCH_CHOSEN } from './librarySearch'
-import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
+import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, shuffleIntoOwnerLibrary } from './dsl/v1'
 
 const eldrazi = (name = 'Test Betrayer') => cardTemplate(name, {
   types: ['Creature'],
@@ -74,7 +73,7 @@ const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
   createServerGame(
     commanderRules,
     { players: 3, ...zones },
-    { random: () => 0.5, cardPlugins: [shuffleIntoLibraryInstead] },
+    { random: () => 0.5 },
   )
 
 const named = (state: GameState, name: string) =>
@@ -261,7 +260,7 @@ describe('annihilator', () => {
         p1: [eldrazi()],
         p2: [cardTemplate('P2 Colossus', {
           types: ['Artifact', 'Creature'],
-          effects: [shuffleEffect()],
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([shuffleIntoOwnerLibrary()]))),
         })],
       },
     })
@@ -456,19 +455,11 @@ describe('permanentSacrificed from other sacrifice paths', () => {
       objectId: named(ready, 'Scapeshift').id,
     }))
     const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-    let sacrificed = ok(server.rules(choosing, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p2',
-      payload: { objectIds: [named(choosing, 'First Forest').id] },
-    }))
-    expect(sacrificed.pendingTriggers?.[0]).toMatchObject({
-      source: { name: 'Test Betrayer' },
-    })
-    sacrificed = ok(server.rules(sacrificed, {
-      type: 'custom',
-      name: SEARCH_CHOSEN,
-      seat: 'p2',
+    const selection = pendingSelectionFor(choosing, 'p2')!
+    const sacrificed = ok(server.rules(choosing, {
+      type: 'selectCards', seat: 'p2', selectionId: selection.id,
+      kind: 'choose', count: selection.count,
+      objectIds: [named(choosing, 'First Forest').id],
     }))
     expect(sacrificed.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(1)
   })
@@ -614,11 +605,13 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
         objectId: spell.id,
       }))
       const opened = run(server, cast, [{ type: 'resolveTop' }])
+      const devour = pendingSelectionFor(opened, 'p1')!
       const resolved = run(server, opened, [
         {
           type: 'selectCards',
           seat: 'p1',
-          kind: 'sacrifice',
+          selectionId: devour.id,
+          kind: devour.kind,
           count: 2,
           objectIds: [landA.id, landB.id],
         },
@@ -629,20 +622,24 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
       expect(worldsire.counters['+1/+1']).toBe(6)
       expect(worldsire.power).toBe(6)
 
-      const dialog = pendingDialog(resolved)
-      expect(dialog?.kind).toBe('look-top-land')
-      expect(dialog?.count).toBe(6)
-
-      const topLand = named(resolved, 'Top Land 1')
-      const finished = run(server, resolved, [{
-        type: 'custom',
-        name: DIALOG_CHOSEN,
+      const inspecting = run(server, resolved, [{ type: 'resolveTop' }])
+      const pick = pendingSelectionFor(inspecting, 'p1')!
+      expect(pick.candidates).toEqual([
+        named(inspecting, 'Top Land 1').id,
+        named(inspecting, 'Top Land 2').id,
+      ])
+      const topLand = named(inspecting, 'Top Land 1')
+      const finished = run(server, inspecting, [{
+        type: 'selectCards',
         seat: 'p1',
-        payload: { objectIds: [topLand.id] },
+        selectionId: pick.id,
+        kind: pick.kind,
+        count: pick.count,
+        objectIds: [topLand.id],
       }])
 
       expect(named(finished, 'Top Land 1')).toMatchObject({ zone: 'battlefield', tapped: true })
-      expect(pendingDialog(finished)).toBeUndefined()
+      expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
     })
 
 })
@@ -654,11 +651,11 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
   const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  test('Lotus Field asks to sacrifice two lands on entry', () => {
+  test.each([0, 1, 2])('Lotus Field sacrifices as many lands as possible, including itself (other lands=%s)', otherLands => {
       const server = createServerGame(
         commanderRules,
         {
-          battlefield: { p1: [forest('Forest'), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
+          battlefield: { p1: [forest('Forest'), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })].slice(0, otherLands) },
           hands: { p1: [card('Lotus Field', ['Land'])] },
         },
       )
@@ -670,15 +667,20 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
       }))
       const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
       const selection = pendingSelectionFor(choosing, 'p1')!
-      expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+      expect(selection).toMatchObject({ kind: 'choose', count: Math.min(2, otherLands + 1) })
+      expect(selection.candidates).toHaveLength(otherLands + 1)
+      if (otherLands === 0) {
+        expect(selection.candidates).toEqual([lotus])
+        expect(server.rules(choosing, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 0, objectIds: [] }).ok).toBe(false)
+      }
       const resolved = ok(server.rules(choosing, {
         type: 'selectCards',
         seat: 'p1',
-        kind: 'sacrifice',
-        count: 2,
+        kind: 'choose',
+        count: Math.min(2, otherLands + 1),
         objectIds: selection.candidates.slice(0, 2),
       }))
-      expect(resolved.zoneOrder.p1.battlefield).toHaveLength(1)
+      expect(resolved.zoneOrder.p1.battlefield).toHaveLength(Math.max(0, otherLands - 1))
     })
 
 })
@@ -688,7 +690,7 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
     createServerGame(
       commanderRules,
       { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-      { random: () => 0.5, cardPlugins: plugins },
+      { random: () => 0.5 },
     )
 
   const attack = (server: ReturnType<typeof game>, state: GameState) => {
@@ -704,8 +706,6 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
 
   const betrayer = () => deckCard('It That Betrays')
 
-  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
-
   const filler = (count = 3) =>
     Array.from({ length: count }, (_, index) =>
       cardTemplate(`Library Card ${index + 1}`, { types: ['Instant'] }))
@@ -714,12 +714,12 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
       const server = game({
         battlefield: { p1: [betrayer()], p2: [deckCard('Darksteel Colossus')] },
       })
-      const choosing = ok(server.rules(attack(server, server.state), { type: 'resolveTop' }))
+      const choosing = resolveStack(server.rules, attack(server, server.state))
       expect(pendingSelectionFor(choosing, 'p2')).toMatchObject({ count: 1 })
       const sacrificed = ok(server.rules(choosing, {
         type: 'selectCards',
         seat: 'p2',
-        kind: 'sacrifice',
+        kind: 'choose',
         count: 1,
         objectIds: [named(choosing, 'Darksteel Colossus').id],
       }))
@@ -728,4 +728,57 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
         .toEqual(['It That Betrays'])
       expect(named(settled, 'Darksteel Colossus').zone).toBe('library')
     })
+})
+
+
+const lotusWithFloatingBlue = () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Amulet of Vigor')] },
+    hands: { p1: [cardTemplate('Lotus Field'), cardTemplate('Stifle')] },
+  }, { random: () => 0 })
+  const lotus = server.state.zoneOrder.p1.hand[0]
+  let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: lotus }))
+  expect(state.objects[lotus].tapped).toBe(true)
+  const order = pendingSelectionFor(state, 'p1')!
+  expect(order?.triggerOrder?.entries).toHaveLength(2)
+  const entries = order.triggerOrder!.entries!
+  const sacrifice = entries.find(entry => entry.label.startsWith('Lotus Field'))!
+  const untap = entries.find(entry => entry.label.startsWith('Amulet of Vigor'))!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: 2, objectIds: [sacrifice.id, untap.id] }))
+  expect(state.stack.map(item => item.name)).toEqual(['Amulet of Vigor', 'Lotus Field'])
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[lotus].tapped).toBe(false)
+  expect(state.stack.map(item => item.name)).toEqual(['Lotus Field'])
+  state = ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: lotus, abilityId: '$.abilities[3]' }))
+  const color = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: color.id, optionId: color.options.find(option => option.label === 'U')!.id }))
+  expect(state.objects[lotus].tapped).toBe(true)
+  expect(state.players.p1.mana.U).toBe(3)
+  expect(state.stack.map(item => item.name)).toEqual(['Lotus Field'])
+  return { server, state, lotus }
+}
+
+test('Amulet untaps a lone Lotus Field so its three blue mana survive sacrificing the only available land', () => {
+  const { server, state, lotus } = lotusWithFloatingBlue()
+  const choosing = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  const selection = pendingSelectionFor(choosing, 'p1')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 1, candidates: [lotus] })
+  const resolved = ok(server.rules(choosing, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [lotus] }))
+  expect(resolved.objects[lotus].zone).toBe('graveyard')
+  expect(Object.values(resolved.objects).filter(object => object.zone === 'battlefield' && object.types.includes('Land'))).toHaveLength(0)
+  expect(resolved.players.p1.mana.U).toBe(3)
+  expect(resolved.stack).toHaveLength(0)
+})
+
+test('Stifle spends one floating blue to counter Lotus Field’s sacrifice trigger after Amulet untaps it', () => {
+  const { server, state, lotus } = lotusWithFloatingBlue()
+  const stifle = state.zoneOrder.p1.hand[0]
+  const cast = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: stifle, targets: [{ kind: 'stackItem', stackId: state.stack[0].id }] }))
+  expect(cast.players.p1.mana.U).toBe(2)
+  const resolved = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  expect(resolved.objects[lotus]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(resolved.players.p1.mana.U).toBe(2)
+  expect(resolved.stack).toHaveLength(0)
+  expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
 })

@@ -1,6 +1,6 @@
 import { definitionRevisionFor } from './builders/revision'
 import { RULE_DSL_SCHEMA_VERSION } from './schema/v1'
-import type { GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
+import type { InstructionResult, GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
 import type { ZoneId } from '../../types'
 
 /**
@@ -17,13 +17,31 @@ export const generatedAbilitySnapshot = (
 ) => {
   let on: TriggeredAbilityDefinition['on']
   switch (ability.on.kind) {
+    case 'votesFinished':
+    case 'abilityActivated':
+    case 'becomesTapped':
+    case 'tappedForMana':
+    case 'attacks':
+    case 'dealtDamage':
+    case 'playerAttacks':
+    case 'stepBegins':
+    case 'playLand':
+    case 'discard':
+    case 'cycle':
+    case 'cast':
     case 'enters':
     case 'dies':
     case 'leaves':
     case 'draw':
+    case 'gainedLife':
+    case 'moved':
+    case 'tokenCreated':
+    case 'sacrificed':
     case 'manaAdded':
     case 'manaAbilityActivated':
     case 'manaAbilityResolved':
+    case 'unlockDoor':
+    case 'fullyUnlock':
       on = ability.on
       break
     default:
@@ -58,20 +76,37 @@ export const generatedAbilitySnapshot = (
   }
 }
 
-type CapturedChoice = readonly ({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: ZoneId })[]
+type CapturedChoice = readonly (({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: ZoneId }) | { kind: 'player'; playerId: string })[]
 
 type RewrittenInstructions = {
   instructions: Instruction[]
   shadowed: Set<string>
 }
 
-type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after'
+type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after' | 'source'
 
 export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: unknown }): CapturedOccurrenceBinding[] => {
   switch (pattern.kind) {
-    case 'draw': return ['player']
+    case 'becomesTapped':
+    case 'tappedForMana':
+    case 'attacks':
+    case 'cast': return ['player', 'object.after']
+    case 'dealtDamage': return ['player', 'object.after', 'source']
+    case 'abilityActivated':
+    case 'playerAttacks': return ['player']
+    case 'stepBegins':
+    case 'playLand':
+    case 'discard': return ['player']
+    case 'cycle': return ['player', 'object.after']
+    case 'draw':
+    case 'gainedLife': return ['player']
+    case 'moved': return ['object.before', 'object.after']
+    case 'tokenCreated':
     case 'enters': return ['object.after']
-    case 'dies':
+    case 'sacrificed': return ['object.before', 'object.after']
+    case 'unlockDoor':
+    case 'fullyUnlock': return ['player', 'object.after']
+    case 'dies': return ['object.before', 'object.after']
     case 'leaves': return ['object.before']
     case 'step': return pattern.active === undefined ? [] : ['player']
     default: return []
@@ -115,10 +150,12 @@ const inspectBindings = (
       if (node.name === 'triggering.player') occurrences.add('player')
       if (node.name === 'triggering.object.before') occurrences.add('object.before')
       if (node.name === 'triggering.object.after') occurrences.add('object.after')
+      if (node.name === 'triggering.source') occurrences.add('source')
       break
   }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)
   if (typeof node.bindResult === 'string') used.add(node.bindResult)
+  if (typeof node.bindCount === 'string') used.add(node.bindCount)
   Object.values(node).forEach((part) => inspectBindings(part, choices, results, occurrences, used))
 }
 
@@ -150,6 +187,30 @@ const rewriteInstructions = (
         nested.shadowed.forEach((name) => shadowed.add(name))
         return { ...instruction, instructions: nested.instructions }
       }
+      case 'forEachPlayer': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        const bindMax = instruction.bindMax
+          ? {
+              ...instruction.bindMax,
+              as: resultAliases[instruction.bindMax.as] ?? instruction.bindMax.as,
+            }
+          : undefined
+        return {
+          ...instruction,
+          of: rewriteValue(instruction.of) as typeof instruction.of,
+          instructions: nested.instructions,
+          ...(bindMax ? { bindMax } : {}),
+        }
+      }
+      case 'forEach': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        nested.shadowed.forEach((name) => shadowed.add(name))
+        return {
+          ...instruction,
+          of: rewriteValue(instruction.of) as typeof instruction.of,
+          instructions: nested.instructions,
+        }
+      }
       case 'if':
         return {
           ...instruction,
@@ -157,6 +218,19 @@ const rewriteInstructions = (
           then: rewriteInstructions(instruction.then, choiceAliases, resultAliases, new Set(shadowed)).instructions,
           otherwise: rewriteInstructions(instruction.otherwise, choiceAliases, resultAliases, new Set(shadowed)).instructions,
         }
+      case 'repeat': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        return { ...instruction, count: rewriteValue(instruction.count) as typeof instruction.count, instructions: nested.instructions }
+      }
+      case 'repeatWhile': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        nested.shadowed.forEach((name) => shadowed.add(name))
+        return {
+          ...instruction,
+          condition: rewriteValue(instruction.condition) as typeof instruction.condition,
+          instructions: nested.instructions,
+        }
+      }
       case 'chooseInstructions':
         return {
           ...instruction,
@@ -172,6 +246,7 @@ const rewriteInstructions = (
     const rewrittenInstruction = rewriteValue(instruction) as Instruction
     if ('bindChoice' in instruction && typeof instruction.bindChoice === 'string') shadowed.add(instruction.bindChoice)
     if ('bindResult' in instruction && typeof instruction.bindResult === 'string') shadowed.add(instruction.bindResult)
+    if ('bindCount' in instruction && typeof instruction.bindCount === 'string') shadowed.add(instruction.bindCount)
     return rewrittenInstruction
   })
   return { instructions: rewritten, shadowed }
@@ -207,9 +282,10 @@ export const rewriteCapturedReferences = (
 export const captureLexicalBindings = (
   instructions: readonly Instruction[],
   choices: Readonly<Record<string, CapturedChoice>> = {},
-  results: Readonly<Record<string, boolean | number>> = {},
+  results: Readonly<Record<string, InstructionResult>> = {},
   additionalValues: readonly unknown[] = [],
   localOccurrenceBindings: readonly CapturedOccurrenceBinding[] = [],
+  playerChoiceBindings: readonly string[] = [],
 ) => {
   const referencedChoices = new Set<string>()
   const referencedResults = new Map<string, Set<string>>()
@@ -226,6 +302,7 @@ export const captureLexicalBindings = (
   referencedResults.forEach((_fields, binding) => {
     if (results[binding] !== undefined) resultAliases[binding] = bindingAlias('result', binding, usedBindings)
   })
+  const playerAliases = Object.entries(choiceAliases).filter(([binding]) => playerChoiceBindings.includes(binding) || choices[binding]?.[0]?.kind === 'player').map(([, alias]) => alias)
   const rewritten = rewriteInstructions(instructions, choiceAliases, resultAliases)
   const rewrittenAdditionalValues = additionalValues.map((value) => rewriteCapturedReferences(value, choiceAliases, resultAliases))
   return {
@@ -234,6 +311,7 @@ export const captureLexicalBindings = (
     resultAliases,
     rewrittenAdditionalValues,
     capturedBindings: {
+      ...(playerAliases.length ? { playerChoices: playerAliases } : {}),
       ...(Object.keys(choiceAliases).length > 0 ? { choices: Object.values(choiceAliases) } : {}),
       ...(Object.keys(resultAliases).length > 0
         ? {

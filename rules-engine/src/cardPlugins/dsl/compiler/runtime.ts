@@ -1,7 +1,14 @@
-import { isSwamp } from '../../../plugins/swampOverlay'
-import { isForest } from '../../../plugins/forestOverlay'
-import { isSameObject } from '../../../objectIdentity'
+import { CARD_TYPES } from '../../../definitions'
+import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
+import { isCreatureType } from '../../../creatureTypes'
+import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
+import { hasManaAbility } from '../manaPrograms'
+import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
+import { hasKeyword } from '../../../keywords'
+import { BASIC_LAND_TYPES, hasBasicLandType } from '../../../plugins/landTypes'
+import { isSameObject, targetObject } from '../../../objectIdentity'
 import type {
+  PaidCostChoices,
   CapturedObject,
   GameObject,
   GameState,
@@ -9,19 +16,27 @@ import type {
   OccurrenceSnapshot,
   PlayerId,
   StackItem,
+  VoteResult,
 } from '../../../types'
 import type {
+  InstructionResult,
+  CreatureTypeReference,
   Amount,
+  AmountCompareOperator,
+  StatDelta,
   AmountEvaluationContext,
   ChoiceReference,
   Condition,
   ContextReference,
+  LifeLostCombine,
   NumericCharacteristic,
   ObjectFilter,
+  ObjectNumericCharacteristic,
   ObjectReference,
   ObjectSelector,
   PlayerFilter,
   PlayerMatch,
+  PlayerRecipient,
   PlayerReference,
   PlayerSelector,
   Reference,
@@ -31,7 +46,9 @@ import type {
   StackItemSelector,
   TargetReference,
 } from '../schema/v1'
-import { PLAYER_RELATIONS } from '../schema/v1'
+import { AMOUNT_COMPARE_OPERATORS, LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
+import { lifeLostThisTurn as recordedLifeLostThisTurn } from '../../../plugins/life'
+import { legendaryCombatDamageFrom } from '../../../plugins/combatLegendaryDamage'
 import type { DistributionAllocation } from './modes'
 import { evaluateAmount, evaluateStatDelta } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
@@ -42,23 +59,30 @@ export type BoundRecipient =
   | { kind: 'stackItem'; stackId: string }
 
 export type RuntimeBindings = {
+  paidCosts?: PaidCostChoices
   targets?: Readonly<Record<number, readonly BoundRecipient[]>>
   targetLegality?: Readonly<Record<number, readonly boolean[]>>
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
   variables?: Readonly<Partial<Record<'X', number>>>
-  results?: Readonly<Record<string, boolean | number>>
+  results?: Readonly<Record<string, InstructionResult>>
   distributions?: readonly DistributionAllocation[]
   scopeId?: string
   capturedOccurrence?: OccurrenceSnapshot
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[]
+  grantSource?: { objectId: string; incarnation: number }
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
+  subject?: GameObject
+  sourceLess?: true
+  referencedObjects?: readonly CapturedObject[]
   state: GameState
   controller: PlayerId
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
   stackItemId?: string
+  optionChoices?: Readonly<Record<string, string>>
+  voteResults?: Readonly<Record<string, VoteResult>>
 }
 
 const targetRecipients = (reference: TargetReference, context: RuleDslRuntimeContext) => {
@@ -117,7 +141,11 @@ const playerContextReference = (
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
       return [context.occurrence.player]
-    case 'triggering.player':
+    case 'enchanted.player': {
+      const player = context.source.snapshot.attachedTo
+      return player && context.state.players[player] && !context.state.players[player].lost ? [player] : []
+    }
+    case 'triggering.player': {
       const occurrence = context.capturedOccurrenceBindings?.includes('player')
         ? context.capturedOccurrence
         : context.occurrence
@@ -125,30 +153,75 @@ const playerContextReference = (
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
       return [occurrence.player]
+    }
+    case 'triggering.object.controller': {
+      const captured = capturedOccurrenceObject({ kind: 'contextRef', name: 'triggering.object.after' }, context)
+      if (!captured) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [captured.controller]
+    }
+    case 'triggering.defender': {
+      if (!context.occurrence?.defender) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [context.occurrence.defender]
+    }
     default: throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
   }
+}
+
+const paidCostChoices = (context: RuleDslRuntimeContext) => {
+  const item = context.stackItemId ? context.state.stack.find(candidate => candidate.id === context.stackItemId) : undefined
+  return context.paidCosts ?? item?.execution?.announcement?.costChoices
+    ?? context.source.snapshot.castCostChoices ?? currentSource(context)?.castCostChoices
 }
 
 export const evaluatePlayerReference = (
   reference: PlayerReference,
   context: RuleDslRuntimeContext,
 ) => {
-  if (reference.kind === 'contextRef') return playerContextReference(reference, context)
-  return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map((recipient) =>
-    recipient.playerId))
+  switch (reference.kind) {
+    case 'paidCostPlayer': {
+      const player = paidCostChoices(context)?.players?.[reference.index]
+      return player && context.state.players[player] && !context.state.players[player].lost ? [player] : []
+    }
+    case 'resultRef': {
+      const value = context.results?.[reference.binding]
+      if (typeof value !== 'string' || !context.state.players[value]) throw new RuleDslEvaluationError(`player result ${reference.binding} is not bound`)
+      return [value]
+    }
+    case 'relatedPlayer': {
+      const referenced = reference.of
+      if (referenced.kind === 'eventStackItem') return evaluateStackItemReference(referenced, context).map(item => item.controller)
+      if (referenced.kind !== 'contextRef') {
+        const bound = recipients(referenced, context)
+        if (bound.every(recipient => recipient.kind === 'stackItem')) {
+          if (reference.relation !== 'controller') throw new RuleDslEvaluationError('stack items have a controller, not an owner')
+          return unique(evaluateStackItemReference(referenced, context).map(item => item.controller))
+        }
+      }
+      return unique(evaluateObjectReference(referenced, context, reference.information ?? 'current').map(object => object[reference.relation]))
+    }
+    case 'contextRef': return playerContextReference(reference, context)
+    case 'targetRef':
+    case 'choiceRef':
+      return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map(recipient => recipient.playerId))
+  }
 }
 
 const capturedOccurrenceObject = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
-  const binding = reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
+  const binding = reference.name === 'triggering.source' ? 'source' : reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
   const occurrence = context.capturedOccurrenceBindings?.includes(binding)
     ? context.capturedOccurrence
     : context.occurrence
   switch (reference.name) {
     case 'triggering.object.before': return occurrence?.object?.before
     case 'triggering.object.after': return occurrence?.object?.after
+    case 'triggering.source': return occurrence?.source?.snapshot
     default: return undefined
   }
 }
@@ -164,34 +237,116 @@ export const evaluateObjectReference = (
   information: 'current' | 'currentOrLastKnown' = 'current',
 ) => {
   if (reference.kind === 'contextRef') {
+    if (reference.name === 'subject') return context.subject ? [context.subject] : []
     if (reference.name === 'source') {
+      if (context.sourceLess) return []
       const current = currentSource(context)
       return current ? [current] : information === 'currentOrLastKnown' ? [context.source.snapshot] : []
     }
+    if (reference.name === 'grant.source') {
+      const item = context.stackItemId
+        ? context.state.stack.find(candidate => candidate.id === context.stackItemId)
+        : undefined
+      const sourceId = context.grantSource?.objectId
+        ?? (typeof item?.payload?.sourceId === 'string' ? item.payload.sourceId : undefined)
+      const incarnation = context.grantSource?.incarnation
+        ?? (typeof item?.payload?.sourceIncarnation === 'number' ? item.payload.sourceIncarnation : undefined)
+      const object = sourceId ? context.state.objects[sourceId] : undefined
+      if (object && (incarnation === undefined || object.incarnation === incarnation)) return [object]
+      return []
+    }
+    if (reference.name === 'triggering.object.after' || reference.name === 'triggering.object.before') {
+      const binding = reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
+      const occurrence = context.capturedOccurrenceBindings?.includes(binding)
+        ? context.capturedOccurrence
+        : context.occurrence
+      const grouped = occurrence?.objects
+      if (grouped && grouped.length > 0) {
+        return grouped.flatMap(entry => {
+          const captured = reference.name === 'triggering.object.before' ? entry.before : entry.after
+          if (!captured) return []
+          if (information === 'currentOrLastKnown') {
+            const current = context.state.objects[captured.id]
+            if (isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })) {
+              return [current]
+            }
+            const watched = context.referencedObjects?.find(candidate => isSameObject(captured, candidate.ref))
+            return [watched?.snapshot ?? captured]
+          }
+          const current = context.state.objects[captured.id]
+          return current && isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })
+            ? [current]
+            : []
+        })
+      }
+    }
     const captured = capturedOccurrenceObject(reference, context)
-    if (captured) return [captured]
-    if (reference.name === 'triggering.object.before' || reference.name === 'triggering.object.after') {
+    if (captured) {
+      if (information === 'currentOrLastKnown') {
+        const current = context.state.objects[captured.id]
+        if (isSameObject(current, { objectId: captured.id, incarnation: captured.incarnation, zone: captured.zone })) return [current]
+        const watched = context.referencedObjects?.find(entry => isSameObject(captured, entry.ref))
+        return [watched?.snapshot ?? captured]
+      }
+      return [captured]
+    }
+    if (reference.name === 'triggering.object.before' || reference.name === 'triggering.object.after' || reference.name === 'triggering.source') {
       throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
     }
     throw new RuleDslEvaluationError(`${reference.name} is not an object reference`)
   }
   return recipientsInDomain(reference, context, 'object', (recipient) => recipient.kind === 'object').flatMap((recipient) => {
     const object = context.state.objects[recipient.objectId]
-    return isSameObject(object, recipient) ? [object] : []
+    if (isSameObject(object, recipient)) return [object]
+    if (information !== 'currentOrLastKnown') return []
+    if (object) return [object]
+    const watched = context.referencedObjects?.find(entry => entry.ref.objectId === recipient.objectId && entry.ref.incarnation === recipient.incarnation && entry.ref.zone === recipient.zone)
+    return watched ? [watched.snapshot] : []
   })
 }
 
 export const evaluateStackItemReference = (
   reference: StackItemReference,
   context: RuleDslRuntimeContext,
-) => recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
+) => reference.kind === 'eventStackItem'
+  ? context.state.stack.filter(item => item.id === context.occurrence?.stackItemId)
+  : recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
   const item = context.state.stack.find((candidate) => candidate.id === recipient.stackId)
   return item ? [item] : []
 })
 
-export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) => {
+const objectFromStackItem = (stackId: string, context: RuleDslRuntimeContext) => {
+  const item = context.state.stack.find(candidate => candidate.id === stackId)
+  return item ? context.state.objects[item.objectId] : undefined
+}
+
+const characteristicObjects = (
+  reference: Reference,
+  context: RuleDslRuntimeContext,
+  information: 'current' | 'currentOrLastKnown',
+) => {
+  if (reference.kind === 'paidCostPlayer' || reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') return []
+  if (reference.kind === 'targetRef' || reference.kind === 'choiceRef') {
+    const bound = recipients(reference, context)
+    if (bound.every(recipient => recipient.kind === 'stackItem')) {
+      return bound.flatMap(recipient => {
+        const object = objectFromStackItem(recipient.stackId, context)
+        return object ? [object] : []
+      })
+    }
+  }
+  return evaluateObjectReference(reference, context, information)
+}
+
+export const matchesPlayer = (
+  player: PlayerId,
+  match: PlayerMatch | undefined,
+  context: RuleDslRuntimeContext,
+  includeLost?: true,
+) => {
   if (match === undefined) return false
-  if (!context.state.players[player] || context.state.players[player].lost) return false
+  const seat = context.state.players[player]
+  if (!seat || (!includeLost && seat.lost)) return false
   switch (match) {
     case PLAYER_RELATIONS.you: return player === context.controller
     case PLAYER_RELATIONS.opponent: return context.state.opponents[context.controller].includes(player)
@@ -207,8 +362,12 @@ export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, 
 }
 
 /** Absence is neither a match nor a mismatch; these helpers are not complements. */
-export const mismatchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) =>
-  match !== undefined && !matchesPlayer(player, match, context)
+export const mismatchesPlayer = (
+  player: PlayerId,
+  match: PlayerMatch | undefined,
+  context: RuleDslRuntimeContext,
+  includeLost?: true,
+) => match !== undefined && !matchesPlayer(player, match, context, includeLost)
 
 export const matchesController = (object: { controller: PlayerId }, filter: Pick<ObjectFilter, 'controller'>, context: RuleDslRuntimeContext) =>
   matchesPlayer(object.controller, filter.controller, context)
@@ -227,19 +386,57 @@ const matchesPlayerFilter = (
   player: PlayerId,
   filter: PlayerFilter,
   context: RuleDslRuntimeContext,
+  includeLost?: true,
 ): boolean => {
-  if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context))) return false
-  if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context))) return false
-  if (filter.not && matchesPlayerFilter(player, filter.not, context)) return false
-  if (mismatchesPlayer(player, filter.relation, context)) return false
+  const controlledFilter = filter.controls
+  if (controlledFilter && !Object.values(context.state.objects).some(object => object.zone === 'battlefield' && !object.phasedOut && object.controller === player && matchesObjectFilter(object, controlledFilter, context))) return false
+  if (filter.enchantableBy && (evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, undefined, player))) return false
+  if (filter.voted) {
+    const result = context.voteResults?.[filter.voted.binding]
+    const other = evaluatePlayerReference(filter.voted.with, context)[0]
+    const own = result?.ballots?.[player] ?? (result?.votes[player] ? [result.votes[player]!] : [])
+    const compared = other ? result?.ballots?.[other] ?? (result?.votes[other] ? [result.votes[other]!] : []) : []
+    const matches = filter.voted.agreement === 'same' ? own.some(option => compared.includes(option)) : own.some(option => !compared.includes(option))
+    if (!matches) return false
+  }
+  if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
+  if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context, includeLost))) return false
+  if (filter.not && matchesPlayerFilter(player, filter.not, context, includeLost)) return false
+  if (mismatchesPlayer(player, filter.relation, context, includeLost)) return false
   return true
 }
 
 export const evaluatePlayerSelector = (
   selector: PlayerSelector,
   context: RuleDslRuntimeContext,
+  includeLost?: true,
 ) => context.state.playerOrder.filter((player) =>
-  !context.state.players[player].lost && matchesPlayerFilter(player, selector.filter, context))
+  (includeLost || !context.state.players[player].lost)
+  && matchesPlayerFilter(player, selector.filter, context, includeLost))
+
+const compareAmounts = (left: number, operator: AmountCompareOperator, right: number) => {
+  switch (operator) {
+    case AMOUNT_COMPARE_OPERATORS.eq: return left === right
+    case AMOUNT_COMPARE_OPERATORS.gte: return left >= right
+    case AMOUNT_COMPARE_OPERATORS.lte: return left <= right
+  }
+}
+
+const objectNumericCharacteristic = (
+  object: GameObject,
+  characteristic: ObjectNumericCharacteristic,
+) => {
+  if (characteristic === 'loyalty') {
+    return object.types.includes('Planeswalker') ? object.counters.loyalty ?? 0 : undefined
+  }
+  const value = object[characteristic]
+  return typeof value === 'number' ? value : undefined
+}
+
+export const evaluateCreatureType = (reference: CreatureTypeReference, context: RuleDslRuntimeContext) => {
+  const type = typeof reference === 'string' ? reference : reference.kind === 'typeChoice' ? context.results?.[reference.binding] : evaluateObjectReference(reference.of, context)[0]?.chosenType
+  return typeof type === 'string' && isCreatureType(type) ? type : undefined
+}
 
 // Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
@@ -247,27 +444,52 @@ const matchesObjectFilter = (
   filter: ObjectFilter,
   context: RuleDslRuntimeContext,
 ): boolean => {
+  if (filter.when && !evaluateCondition(filter.when, context)) return false
+  if (filter.enchantableBy && (object.phasedOut || evaluateObjectReference(filter.enchantableBy, context).length === 0 || hasProtectionFromEverything(context.state, object))) return false
   if (filter.all && !filter.all.every((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.not && matchesObjectFilter(object, filter.not, context)) return false
   if (filter.other && isSameObject(object, context.source.ref)) return false
+  if (filter.commander !== undefined && object.tags.includes('commander') !== filter.commander) return false
+  if (filter.manaAbility !== undefined && hasManaAbility(object) !== filter.manaAbility) return false
+  if (filter.exiledWith && !evaluateObjectReference(filter.exiledWith, context, 'currentOrLastKnown').some(source => linkedExileCards(context.state, source).some(card => card.id === object.id))) return false
+  if (filter.enchantedBy && !evaluateObjectReference(filter.enchantedBy, context).some(aura => aura.attachedTo === object.id && (!aura.attachedToRef || isSameObject(object, aura.attachedToRef)))) return false
+  if (filter.sameNameAs && !evaluateObjectReference(filter.sameNameAs, context, 'currentOrLastKnown').some(other => other.name === object.name)) return false
+  if (filter.among && !evaluateObjectReference(filter.among, context).some(candidate => candidate.id === object.id)) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every(subtype => {
     if (object.subtypes.includes(subtype)) return true
+    if (isCreatureType(subtype) && hasKeyword(object, 'changeling')) return true
     if (object.zone !== 'battlefield') return false
-    switch (subtype) {
-      case 'Swamp': return isSwamp(object, context.state)
-      case 'Forest': return isForest(object, context.state)
-      default: return false
-    }
+    return (BASIC_LAND_TYPES as readonly string[]).includes(subtype)
+      && hasBasicLandType(object, subtype as typeof BASIC_LAND_TYPES[number], context.state)
   })) return false
+  if (filter.creatureType !== undefined) {
+    const type = evaluateCreatureType(filter.creatureType, context)
+    if (typeof type !== 'string' || !isCreatureType(type) || (!object.subtypes.includes(type) && !hasKeyword(object, 'changeling'))) return false
+  }
+  if (filter.keyword && !hasKeyword(object, filter.keyword, context.state)) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (mismatchesController(object, filter, context)) return false
   if (mismatchesOwner(object, filter, context)) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
+  if (filter.colored !== undefined && (object.colors.length > 0) !== filter.colored) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
+  if (filter.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < filter.powerAtLeast)) return false
+  if (filter.compareCharacteristic) {
+    const left = objectNumericCharacteristic(object, filter.compareCharacteristic.characteristic)
+    if (left === undefined) return false
+    if (!compareAmounts(left, filter.compareCharacteristic.operator, evaluateRuntimeAmount(filter.compareCharacteristic.than, context))) {
+      return false
+    }
+  }
+  if (filter.tapped !== undefined && object.tapped !== filter.tapped) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
+  if (filter.castFrom !== undefined) {
+    const item = context.state.stack.find((candidate) => candidate.objectId === object.id)
+    if (!item || item.castFrom !== filter.castFrom) return false
+  }
   return true
 }
 
@@ -283,6 +505,7 @@ const matchesStackItemFilter = (
   filter: StackItemFilter,
   context: RuleDslRuntimeContext,
 ): boolean => {
+  if (filter.when && !evaluateCondition(filter.when, context)) return false
   if (filter.all && !filter.all.every((part) => matchesStackItemFilter(item, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesStackItemFilter(item, part, context))) return false
   if (filter.not && matchesStackItemFilter(item, filter.not, context)) return false
@@ -294,6 +517,25 @@ const matchesStackItemFilter = (
   if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
   if (mismatchesController(item, filter, context)) return false
+  const source = context.state.objects[item.objectId]
+  if (filter.owner !== undefined && (!source || mismatchesOwner(source, filter, context))) return false
+  if (filter.castFrom !== undefined && item.castFrom !== filter.castFrom) return false
+  if (filter.targets) {
+    switch (filter.targets.kind) {
+      case 'objects': {
+        const candidates = new Set(evaluateObjectSelector(filter.targets, context).map(object => object.id))
+        if (!item.targets.some(target => target.kind === 'object'
+          && targetObject(context.state, target)
+          && candidates.has(target.objectId))) return false
+        break
+      }
+      case 'players': {
+        const candidates = new Set(evaluatePlayerSelector(filter.targets, context))
+        if (!item.targets.some(target => target.kind === 'player' && candidates.has(target.player))) return false
+        break
+      }
+    }
+  }
   return true
 }
 
@@ -306,8 +548,10 @@ export const evaluateStackItemSelector = (
 export function evaluateSelector(selector: PlayerSelector, context: RuleDslRuntimeContext): PlayerId[]
 export function evaluateSelector(selector: ObjectSelector, context: RuleDslRuntimeContext): GameObject[]
 export function evaluateSelector(selector: StackItemSelector, context: RuleDslRuntimeContext): StackItem[]
+export function evaluateSelector(selector: Extract<Selector, { kind: 'anyTarget' }>, context: RuleDslRuntimeContext): (PlayerId | GameObject)[]
 export function evaluateSelector(selector: Selector, context: RuleDslRuntimeContext) {
   switch (selector.kind) {
+    case 'anyTarget': return [...evaluatePlayerSelector({ kind: 'players', filter: {} }, context), ...evaluateObjectSelector({ kind: 'objects', filter: { zone: 'battlefield', any: DAMAGEABLE_PERMANENT_TYPES.map(type => ({ type })) } }, context)]
     case 'players': return evaluatePlayerSelector(selector, context)
     case 'objects': return evaluateObjectSelector(selector, context)
     case 'stackItems': return evaluateStackItemSelector(selector, context)
@@ -319,41 +563,150 @@ const oneReferenceValue = (
   context: RuleDslRuntimeContext,
   characteristic: NumericCharacteristic,
   information: 'current' | 'currentOrLastKnown',
+  fallback?: number,
 ) => {
+  // A default allows reading an optional characteristic from a mixed-domain target.
+  if (fallback !== undefined && (reference.kind === 'targetRef' || reference.kind === 'choiceRef')) {
+    const bound = recipients(reference, context)
+    if (bound.length !== 1) throw new RuleDslEvaluationError('characteristic reference must resolve to exactly one recipient')
+    const recipient = bound[0]!
+    if ((characteristic === 'life') !== (recipient.kind === 'player')) return fallback
+  }
+  if (fallback !== undefined && reference.kind === 'contextRef') {
+    const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)
+    if ((characteristic === 'life') !== playerReference) return fallback
+  }
   if (characteristic === 'life') {
     const players = reference.kind === 'resultRef'
-      ? []
+      ? reference.field === 'player' ? evaluatePlayerReference({ ...reference, field: 'player' }, context) : []
       : evaluatePlayerReference(reference, context)
     if (players.length !== 1) throw new RuleDslEvaluationError('life reference must resolve to exactly one player')
     return context.state.players[players[0]].life
   }
-  if (reference.kind === 'resultRef') {
+  if (reference.kind === 'paidCostPlayer' || reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') {
     throw new RuleDslEvaluationError(`${characteristic} cannot read an instruction result`)
   }
-  const objects = evaluateObjectReference(reference, context, information)
+  const objects = characteristicObjects(reference, context, information)
   if (objects.length !== 1) {
     throw new RuleDslEvaluationError(`${characteristic} reference must resolve to exactly one object`)
   }
-  const value = objects[0][characteristic]
+  const value = characteristic === 'loyalty'
+    ? (objects[0].types.includes('Planeswalker') ? objects[0].counters.loyalty ?? 0 : undefined)
+    : objects[0][characteristic]
+  if (typeof value !== 'number' && fallback !== undefined) return fallback
   if (typeof value !== 'number') throw new RuleDslEvaluationError(`${characteristic} is not numeric on the referenced object`)
   return value
 }
 
+export const withOccurrencePlayer = (
+  context: RuleDslRuntimeContext,
+  player: PlayerId,
+): RuleDslRuntimeContext => ({
+  ...context,
+  occurrence: {
+    ...context.occurrence,
+    kind: 'event',
+    eventType: context.occurrence?.eventType ?? 'playerAction',
+    player,
+  },
+})
+
 export const amountEvaluationContext = (
   context: RuleDslRuntimeContext,
 ) => ({
+  result: (reference) => {
+    const value = context.results?.[reference.binding]
+    return typeof value === 'number' ? value : undefined
+  },
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
-  count: (selector) => {
+  paidCostCount: (cost, index) => {
+    const choices = paidCostChoices(context)
+    return cost === 'optional'
+      ? choices?.optional.filter(selected => selected === index).length ?? 0
+      : Number(choices?.alternative === index)
+  },
+  manaSpent: (color) => {
+    const item = context.stackItemId
+      ? context.state.stack.find((candidate) => candidate.id === context.stackItemId)
+      : undefined
+    return item?.manaSpent?.[color] ?? 0
+  },
+  countDistinctCardTypes: (selector) => new Set(evaluateObjectSelector(selector, context).flatMap(object => object.types.filter(type => (CARD_TYPES as readonly string[]).includes(type)))).size,
+  count: (selector: Selector, distinctNames?: true) => {
     switch (selector.kind) {
+      case 'anyTarget': return evaluateSelector(selector, context).length
       case 'players': return evaluatePlayerSelector(selector, context).length
-      case 'objects': return evaluateObjectSelector(selector, context).length
+      case 'objects': {
+        const objects = evaluateObjectSelector(selector, context)
+        return distinctNames ? new Set(objects.map(object => object.name)).size : objects.length
+      }
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
-  characteristic: (reference, characteristic, information) =>
-    oneReferenceValue(reference, context, characteristic, information),
+  lowestLife: selector => {
+    const totals = evaluatePlayerSelector(selector, context).map(seat => context.state.players[seat].life)
+    return totals.length === 0 ? 0 : Math.min(...totals)
+  },
+  counterCount: (reference, counter) => {
+    const objects = evaluateObjectReference(reference, context)
+    if (objects.length > 1) throw new RuleDslEvaluationError('counterCount requires at most one current object')
+    return objects[0]?.counters[counter] ?? 0
+  },
+  greatest: (selector, characteristic, _information) => {
+    const values = evaluateObjectSelector(selector, context).map(object => {
+      if (characteristic === 'life') return 0
+      if (characteristic === 'loyalty') {
+        return object.types.includes('Planeswalker') ? object.counters.loyalty ?? 0 : 0
+      }
+      const value = object[characteristic]
+      return typeof value === 'number' ? value : 0
+    })
+    return values.length === 0 ? 0 : Math.max(0, ...values)
+  },
+  sumCharacteristics: (of, characteristic) => evaluateObjectSelector(of, context).reduce((sum, object) => sum + (object[characteristic] ?? 0), 0),
+  characteristic: (reference, characteristic, information, fallback) =>
+    oneReferenceValue(reference, context, characteristic, information, fallback),
+  lifeLostThisTurn: (of, combine) => lifeLostThisTurnAmong(of, combine, context),
+  damageDealtThisTurn: (to, by) => damageDealtThisTurnAmong(to, by, context),
+  voteTally: (binding, option) => {
+    const ids = typeof option === 'string' ? [option] : 'player' in option
+      ? evaluatePlayerReference(option.player, context)
+      : evaluateObjectReference(option.object, context, 'currentOrLastKnown').map(object => object.id)
+    return ids.reduce((sum, id) => sum + (context.voteResults?.[binding]?.tallies[id] ?? 0), 0)
+  },
 } satisfies AmountEvaluationContext)
+
+const lifeLostThisTurnAmong = (
+  of: PlayerRecipient,
+  combine: LifeLostCombine | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  const seats = of.kind === 'players'
+    ? evaluatePlayerSelector(of, context, true)
+    : evaluatePlayerReference(of, context)
+  const amounts = seats.map((seat) => recordedLifeLostThisTurn(context.state.players[seat] ?? { data: {} }))
+  if (amounts.length === 0) return 0
+  if (combine === LIFE_LOST_COMBINE.greatest) return Math.max(0, ...amounts)
+  return amounts.reduce((sum, value) => sum + value, 0)
+}
+
+const damageDealtThisTurnAmong = (
+  to: ObjectReference,
+  by: PlayerRecipient | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  const recipients = evaluateObjectReference(to, context, 'currentOrLastKnown')
+  if (recipients.length !== 1) return 0
+  const ledger = recipients[0]?.damageDealtBy ?? {}
+  if (!by) {
+    return Object.values(ledger).reduce((sum, value) => sum + value, 0)
+  }
+  const seats = by.kind === 'players'
+    ? evaluatePlayerSelector(by, context, true)
+    : evaluatePlayerReference(by, context)
+  return seats.reduce((sum, seat) => sum + (ledger[seat] ?? 0), 0)
+}
 
 export const evaluateRuntimeAmount = (
   expression: Amount,
@@ -361,7 +714,7 @@ export const evaluateRuntimeAmount = (
 ) => evaluateAmount(expression, amountEvaluationContext(context))
 
 export const evaluateRuntimeStatDelta = (
-  expression: Amount,
+  expression: StatDelta,
   context: RuleDslRuntimeContext,
 ) => evaluateStatDelta(expression, amountEvaluationContext(context))
 
@@ -370,24 +723,72 @@ export const evaluateCondition = (
   context: RuleDslRuntimeContext,
 ): boolean => {
   switch (condition.kind) {
+    case 'somePlayerHasMore':
+    case 'somePlayerHasLess': {
+      const reference = evaluatePlayerReference(condition.than, context)
+      if (reference.length !== 1) throw new RuleDslEvaluationError('player comparison requires exactly one reference player')
+      const metric = (player: PlayerId) => {
+        switch (condition.metric) {
+          case 'life': return context.state.players[player].life
+          case 'hand': return context.state.zoneOrder[player].hand.length
+          case 'lands':
+          case 'creatures': return evaluateObjectSelector({ kind: 'objects', filter: { zone: 'battlefield', controller: { kind: 'contextRef', name: 'event.player' }, type: condition.metric === 'lands' ? 'Land' : 'Creature' } }, withOccurrencePlayer(context, player)).length
+        }
+      }
+      const baseline = metric(reference[0]!)
+      const compare = condition.kind === 'somePlayerHasMore'
+        ? (value: number) => value > baseline
+        : (value: number) => value < baseline
+      return evaluatePlayerSelector(condition.players, context).some(player => compare(metric(player)))
+    }
+
+    case 'combatDamageThisTurn': {
+      return context.state.playerOrder.some(seat => {
+        if (!matchesPlayer(seat, condition.recipient, context)) return false
+        const from = legendaryCombatDamageFrom(context.state.players[seat] ?? { data: {} })
+        return condition.legendary === true
+          ? Object.keys(from).length > 0
+          : Object.keys(from).length > 0
+      })
+    }
+
     case 'resultIsTrue': {
       if (condition.value.kind !== 'resultRef') {
         throw new RuleDslEvaluationError('resultIsTrue requires a result reference')
       }
-      return context.results?.[condition.value.binding] === true
+      const value = context.results?.[condition.value.binding]
+      return value === true || (typeof value === 'number' && value > 0)
     }
-    case 'compareAmount': {
-      const left = evaluateRuntimeAmount(condition.left, context)
-      const right = evaluateRuntimeAmount(condition.right, context)
-      switch (condition.operator) {
-        case 'eq': return left === right
-        case 'gte': return left >= right
-        case 'lte': return left <= right
-      }
+    case 'hasGreatestCharacteristic': {
+      const subjects = evaluateObjectReference(condition.of, context)
+      if (subjects.length !== 1) return false
+      const value = (object: GameObject) => condition.characteristic === 'loyalty'
+        ? object.counters.loyalty ?? 0 : object[condition.characteristic] ?? 0
+      return evaluateObjectSelector(condition.among, context).every(object => value(object) <= value(subjects[0]))
+    }
+    case 'compareAmount':
+      return compareAmounts(
+        evaluateRuntimeAmount(condition.left, context),
+        condition.operator,
+        evaluateRuntimeAmount(condition.right, context),
+      )
+    case 'choiceIs': return context.optionChoices?.[condition.binding] === condition.option
+    case 'activePlayer': {
+      const seats = evaluatePlayerReference(condition.of, context)
+      if (seats.length !== 1) throw new RuleDslEvaluationError('activePlayer requires exactly one player')
+      return context.state.active === seats[0]
+    }
+    case 'currentStep': {
+      const steps = Array.isArray(condition.step) ? condition.step : [condition.step]
+      return steps.includes(context.state.step)
     }
     case 'all': return condition.conditions.every((part) => evaluateCondition(part, context))
     case 'any': return condition.conditions.some((part) => evaluateCondition(part, context))
     case 'not': return !evaluateCondition(condition.condition, context)
+    case 'voteLeads': {
+      const result = context.voteResults?.[condition.binding]
+      return Boolean(result && result.winners.length === 1 && result.winners[0] === condition.option)
+    }
   }
 }
 
@@ -396,3 +797,15 @@ export const objectMatchesSelector = (
   selector: ObjectSelector,
   context: RuleDslRuntimeContext,
 ) => !object.phasedOut && matchesObjectFilter(object, selector.filter, context)
+
+/** Disambiguate references whose serialized shape can bind either player or object identities. */
+export const referenceIsPlayer = (reference: PlayerReference | ObjectReference, context: RuleDslRuntimeContext) => {
+  switch (reference.kind) {
+    case 'paidCostPlayer':
+    case 'relatedPlayer':
+    case 'resultRef': return true
+    case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)
+    case 'choiceRef':
+    case 'targetRef': return evaluateBoundRecipients(reference, context).some(value => value.kind === 'player')
+  }
+}

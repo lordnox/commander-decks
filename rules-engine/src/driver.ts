@@ -1,6 +1,21 @@
+import { markKnownTo } from './knowledge'
+import { canonicalCopySource } from './cardPlugins/dsl/copies'
+import { evaluateCreatureType } from './cardPlugins/dsl/compiler/runtime'
+import { CREATURE_TYPES, CREATURE_TYPE_CHOICE_ACTION } from './creatureTypes'
+import { advanceCollectedChoices } from './cardPlugins/dsl/collectedChoices'
+import { evaluateLifeTotalAmount } from './cardPlugins/dsl/compiler/evaluate'
+import { availableManaTypes } from './cardPlugins/dsl/manaTypes'
+import { PLAYER_PROGRAM_CHOICE_ACTION } from './cardPlugins/dsl/playerProgramConstants'
+import { CONTROL_CHOICE_ACTION, CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
+import { pickRandomChoices, RANDOM_CHOICE as HIDDEN_RANDOM } from './plugins/hiddenInformation'
+import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
+import { cardRuleDefinition } from './cardPlugins/dsl/builders'
+import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v1'
+import { openSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
+import { completeAdventureSpell } from './plugins/adventure'
 import { isPermanentType } from './definitions'
-import { isSameObject, objectIdentity } from './objectIdentity'
+import { captureObject, isSameObject, objectIdentity, snapshotObject } from './objectIdentity'
 import {
   evaluateObjectReference,
   evaluateObjectSelector,
@@ -12,19 +27,25 @@ import {
   amountEvaluationContext,
   evaluateCondition,
   evaluateStackItemSelector,
+  evaluateStackItemReference,
+  withOccurrencePlayer,
   type BoundRecipient,
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
+import { canonicalBestowEffect, markBestowCeased, paidBestowAlternative } from './cardPlugins/dsl/bestowRuntime'
+import { syncCanonicalStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
-import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
+import { compileCardRuleDefinition, createDefinitionSnapshot, loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
   DecisionsSpec,
   EffectDuration,
   Instruction,
+  ObjectRecipient,
   PlayerRecipient,
 } from './cardPlugins/dsl/schema/v1'
+import { numericInstructionResult } from './cardPlugins/dsl/instructionResults'
 import type Draft from './draft'
 import type {
   GameEvent,
@@ -38,16 +59,30 @@ import type {
 import { hasKeyword } from './keywords'
 import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
+import { openControlAssignment } from './cardPlugins/dsl/controlAssignment'
 import { openPlayerSelection } from './rules/selectPlayers'
-import { copyCharacteristics } from './cardPlugins/effectRuntime'
+import { applyCopyModifiers, copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
 import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/revealUntilExecution'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
-import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLabel, resolutionManaCost } from './cardPlugins/dsl/resolutionPayment'
+import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'discardHands',
+  'chooseParticipants',
+  'chooseCardsForEachPlayer',
+  'exileThisSpell',
+  'becomeMonarch',
+  'choosePlayer',
+  'forEachPlayer',
+  'lookAt',
+  'modifyVotes',
+  'inspectTop',
+  'distributeControl',
+  'captureAmount',
   'counter',
   'damage',
   'destroy',
@@ -56,8 +91,11 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'phase',
   'proliferate',
   'createToken',
+  'createEmblem',
+  'banAttacks',
   'copy',
   'copySpell',
+  'copyAbility',
   'putCounters',
   'draw',
   'mill',
@@ -114,29 +152,58 @@ const preflightInstructions = (
 ) => {
   instructions.forEach((instruction, index) => {
     const instructionPath = `${path}[${index}]`
-    if (instruction.kind === 'sequence') {
+    if (instruction.kind === 'sequence' || instruction.kind === 'forEach' || instruction.kind === 'forEachPlayer') {
       preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
       return
     }
     switch (instruction.kind) {
       case 'draw':
+      case 'modifyVotes':
       case 'grantLandPlays':
+      case 'grantNoMaximumHandSize':
+      case 'grantFlash':
+      case 'offerCast':
+      case 'addManaChosenColor':
+      case 'addManaFrom':
+      case 'becomeMonarch':
+      case 'linkExile':
+      case 'returnLinkedExile':
       case 'addMana':
+      case 'lookAt':
+      case 'choosePile':
+      case 'inspectTop':
+      case 'partitionPiles':
+      case 'vote':
+      case 'chooseRandom':
+      case 'changeControl':
+      case 'chooseParticipants':
+      case 'chooseCardsForEachPlayer':
+      case 'choosePlayer':
+      case 'capturePlayer':
+      case 'captureAmount':
+      case 'captureCopy':
       case 'gainLife':
       case 'loseLife':
+      case 'setLife':
+      case 'exchangeLife':
+      case 'winGame':
       case 'blink':
       case 'fight':
       case 'damage':
       case 'destroy':
       case 'sacrifice':
       case 'move':
+      case 'exileThisSpell':
       case 'reveal':
       case 'tap':
       case 'untap':
       case 'phase':
       case 'proliferate':
       case 'createToken':
+      case 'createEmblem':
+      case 'banAttacks':
       case 'copy':
+      case 'copyAbility':
       case 'copySpell':
       case 'putCounters':
       case 'counter':
@@ -144,14 +211,23 @@ const preflightInstructions = (
       case 'payOptional':
       case 'createDelayed':
       case 'mill':
+      case 'discardHands':
       case 'discard':
       case 'shuffle':
+      case 'chooseCreatureType':
+      case 'lockOrUnlockDoor':
         return
       case 'if':
         preflightInstructions(instruction.then, `${instructionPath}.then`)
         preflightInstructions(instruction.otherwise, `${instructionPath}.otherwise`)
         return
+      case 'repeat':
+      case 'repeatWhile':
+      case 'repeatOnceIf':
+        preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
+        return
       case 'chooseInstructions':
+      case 'distributeControl':
       case 'chooseCards':
       case 'revealUntil':
       case 'scry':
@@ -194,9 +270,6 @@ export const startCanonicalResolution = (
   const selectedInstructions = 'modes' in ability
     ? selectedModes.flatMap((index) => ability.modes?.[index]?.instructions ?? [])
     : ability.instructions
-  if ('modes' in ability && selectedInstructions.length === 0) {
-    throw new Error(`${declarationPath}.modes: a mode must be selected before resolution`)
-  }
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
@@ -217,7 +290,7 @@ export const startCanonicalResolution = (
   }
   const capturedOccurrence = item.execution?.capturedOccurrence
   for (const binding of capturedBindings?.occurrence ?? []) {
-    const available = binding === 'player'
+    const available = binding === 'source' ? capturedOccurrence?.source !== undefined : binding === 'player'
       ? capturedOccurrence?.player !== undefined
       : binding === 'object.before'
         ? capturedOccurrence?.object?.before !== undefined
@@ -283,7 +356,19 @@ export const startCanonicalResolution = (
   const sourceObject = liveSource && isSameObject(liveSource, source.ref)
     ? liveSource
     : source.snapshot
-  const gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
+  let gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
+  const resolving = draft.object(item.objectId)
+  if (
+    gate.outcome === 'didNotResolve:allTargetsIllegal'
+    && resolving
+    && canonicalBestowEffect(resolving)
+    && paidBestowAlternative(resolving)
+    && !resolving.bestowedCeased
+  ) {
+    markBestowCeased(resolving)
+    syncCanonicalStaticModifiers(draft)
+    gate = { ...gate, outcome: 'resolved' }
+  }
   const capturedChoices = item.execution?.choices
     ? {
         ...structuredClone(item.execution.choices),
@@ -316,13 +401,17 @@ export const startCanonicalResolution = (
     definitionSnapshot: structuredClone(definitionSnapshot),
     declarationPath,
     source: structuredClone(source),
+    ...(item.execution?.referencedObjects ? { referencedObjects: structuredClone(item.execution.referencedObjects) } : {}),    ...(item.execution?.sourceLess ? { sourceLess: true as const } : {}),
+    monarchRevision: item.execution?.monarchRevision ?? 0,
     scopeId: item.execution?.scopeId ?? resolutionDeclarationPath(abilityIndex),
     targetBindings: structuredClone(targetBindings),
     ...(item.x !== undefined || item.execution?.variables
       ? { variables: { ...item.execution?.variables, ...(item.x !== undefined ? { X: item.x } : {}) } }
       : {}),
     ...(capturedChoices ? { choices: capturedChoices } : {}),
+    ...(capturedBindings?.playerChoices ? { playerChoiceBindings: [...capturedBindings.playerChoices] } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
+    ...(ability.kind === 'triggered' && ability.on.kind === 'votesFinished' && item.execution?.occurrence?.vote ? { voteResults: { [ability.on.bindResult]: structuredClone(item.execution.occurrence.vote) } } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
@@ -359,6 +448,12 @@ export const startCanonicalResolution = (
   return frame
 }
 
+const capturedExecutionSource = (frame: CanonicalResolutionFrame) => ({
+  source: structuredClone(frame.source),
+  ...(frame.referencedObjects ? { referencedObjects: structuredClone(frame.referencedObjects) } : {}),  ...(frame.sourceLess ? { sourceLess: true as const } : {}),
+  ...(frame.monarchRevision !== undefined ? { monarchRevision: frame.monarchRevision } : {}),
+})
+
 const runtimeContext = (
   state: GameState,
   frame: CanonicalResolutionFrame,
@@ -368,10 +463,15 @@ const runtimeContext = (
   state,
   controller: frame.controller,
   source: frame.source,
+  ...(frame.referencedObjects ? { referencedObjects: frame.referencedObjects } : {}),  ...(item.execution?.sourceLess ? { sourceLess: true as const } : {}),
   stackItemId: item.id,
-  ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
+  ...(item.execution?.announcement?.costChoices ? { paidCosts: item.execution.announcement.costChoices } : {}),
+  ...((frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence)
+    ? { occurrence: frame.scopes.findLast(scope => scope.occurrence)?.occurrence ?? item.execution?.occurrence }
+    : {}),
   ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
   ...(item.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: item.execution.capturedOccurrenceBindings } : {}),
+  ...(item.execution?.grantSource ? { grantSource: item.execution.grantSource } : {}),
   targets: (() => {
     const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
       .filter((binding) => binding.scopeId === scopeId)
@@ -397,6 +497,7 @@ const runtimeContext = (
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
+  ...(frame.voteResults ? { voteResults: frame.voteResults } : {}),
   variables: item.x === undefined ? frame.variables : { ...frame.variables, X: item.x },
 })
 
@@ -434,7 +535,7 @@ const objectRecipients = (objects: readonly GameObject[]) => objects.map((object
 })) as DamageRecipient[]
 
 const objectActions = (
-  recipient: Extract<Instruction, { kind: 'destroy' | 'sacrifice' | 'move' | 'phase' | 'copy' | 'putCounters' }>['targets'],
+  recipient: ObjectRecipient,
   context: RuleDslRuntimeContext,
 ) => recipient.kind === 'objects'
   ? evaluateObjectSelector(recipient, context)
@@ -458,6 +559,10 @@ const mixedRecipients = (recipient: Extract<Instruction, { kind: 'damage' }>['ta
     case 'targetRef':
     case 'choiceRef':
       damageTargets.push(...evaluateBoundRecipients(recipient, context).flatMap(boundDamageRecipients)); break
+    case 'relatedPlayer':
+    case 'resultRef':
+      damageTargets.push(...evaluatePlayerReference(recipient, context).map(player => ({ kind: 'player' as const, player })))
+      break
     case 'contextRef':
       if (recipient.name === 'source') damageTargets.push(...objectRecipients(evaluateObjectReference(recipient, context, 'currentOrLastKnown')))
       else damageTargets.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
@@ -514,8 +619,10 @@ const registerCanonicalDelayed = (
   frame: CanonicalResolutionFrame,
   context: RuleDslRuntimeContext,
   inheritTargets = true,
+  notThisTurn = false,
+  repeatUntilCleanup = false,
 ) => {
-  const eventCondition = condition.kind === 'event'
+  const eventCondition = condition.kind === 'tappedForMana' ? structuredClone(condition) : condition.kind === 'event'
     ? (() => {
         const referenced = condition.objectId
           ? evaluateObjectReference(condition.objectId, context, 'currentOrLastKnown')[0]
@@ -531,7 +638,7 @@ const registerCanonicalDelayed = (
       })()
     : {
         kind: 'step' as const,
-        step: condition.step as StepId,
+        step: (Array.isArray(condition.step) ? [...condition.step] : condition.step) as StepId | StepId[],
         ...(condition.active
           ? { active: evaluatePlayerReference(condition.active, context)[0] }
           : {}),
@@ -555,7 +662,7 @@ const registerCanonicalDelayed = (
     generated.instructions,
     frame.choices,
     frame.results,
-    [eventCondition],
+    [eventCondition], condition.kind === 'tappedForMana' ? ['player', 'object.after'] : [], frame.playerChoiceBindings,
   )
   const loweredDecisions = inheritTargets ? inheritedDecisions : {
     targets: [],
@@ -571,12 +678,14 @@ const registerCanonicalDelayed = (
     sourceIncarnation: frame.source.ref.incarnation,
     sourceDefinitionRevision: frame.definitionSnapshot.definitionRevision,
     condition: eventCondition,
+    ...(notThisTurn ? { notBeforeTurn: draft.turn + 1 } : {}),
+    ...(repeatUntilCleanup ? { recurring: true, untilCleanup: true } : {}),
     instructions: [],
     timestamp: draft.allocTs(),
     objectRef: eventCondition.kind === 'event' ? eventCondition.objectRef : undefined,
     execution: {
       controller: frame.controller,
-      source: structuredClone(frame.source),
+      ...capturedExecutionSource(frame),
       ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
       ...(captured.capturedBindings.occurrence ? { capturedOccurrenceBindings: captured.capturedBindings.occurrence } : {}),
       ...(inheritTargets && frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
@@ -633,41 +742,248 @@ const actionEvents = (
   path: string,
 ) => {
   switch (instruction.kind) {
+    case 'exileThisSpell': {
+      const item = draft.stack.find(candidate => candidate.id === frame.stackId) ?? frame.inlineItem
+      const object = item ? draft.objects[item.objectId] : undefined
+      if (item?.kind !== 'spell' || object?.zone !== 'stack' || !isSameObject(object, frame.source.ref)) return []
+      return [{ type: 'move' as const, objectId: object.id, to: 'exile' as const }]
+    }
+    case 'addManaChosenColor': {
+      const source = evaluateObjectReference(instruction.of, context, 'currentOrLastKnown')[0]
+      const color = source?.chosenColor
+      const amount = availableAmount(instruction.amount, context) ?? 0
+      return color && color !== 'C' && amount > 0 ? recipients(instruction.targets, context).map(seat => ({ type: 'addMana' as const, seat, mana: { [color]: amount }, sourceId: frame.source.ref.objectId })) : []
+    }
     case 'addMana': {
       const targets = recipients(instruction.targets, context)
       const mana = Object.fromEntries(Object.entries(instruction.amount).flatMap(([symbol, amount]) => {
         const value = availableAmount(amount, context)
         return typeof value === 'number' && value > 0 ? [[symbol, value]] : []
       }))
-      return targets.map((seat) => ({ type: 'addMana' as const, seat, mana, sourceId: frame.source.ref.objectId }))
+      const spec = instruction.restriction
+      const creatureType = spec?.creatureType ? evaluateCreatureType(spec.creatureType, context) : undefined
+      const restriction = spec ? {
+        ...(spec.legendary ? { legendary: true as const } : {}),
+        ...(spec.uncounterable ? { uncounterable: true as const } : {}),
+        ...(creatureType ? { creatureType } : {}),
+      } : undefined
+      return targets.map((seat) => ({
+        type: 'addMana' as const,
+        seat,
+        mana,
+        sourceId: frame.source.ref.objectId,
+        ...(restriction && Object.keys(restriction).length > 0 ? { restriction } : {}),
+      }))
+    }
+    case 'modifyVotes': {
+      const controller = instruction.controller ? evaluatePlayerReference(instruction.controller, context)[0] : undefined
+      const affected = [...recipients(instruction.players, context)]
+      if (affected.length === 0 || (instruction.controller && !controller)) return []
+      draft.voteModifiers = [...(draft.voteModifiers ?? []), {
+        players: affected,
+        ...(controller ? { controller } : {}),
+        ...(instruction.additional ? { additional: availableAmount(instruction.additional, context) ?? 0 } : {}),
+        ...(instruction.duration === 'untilEndOfTurn' ? { expiresTurn: draft.turn } : {}),
+      }]
+      return []
     }
     case 'grantLandPlays': {
       const count = availableAmount(instruction.count, context)
       if (count === undefined || count === 0) return []
       return recipients(instruction.targets, context).map((seat) => ({ type: 'grantLandPlays' as const, seat, count }))
     }
+    case 'grantNoMaximumHandSize': {
+      return recipients(instruction.targets, context).map((seat) => ({ type: 'grantNoMaximumHandSize' as const, seat }))
+    }
+    case 'grantFlash': {
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'addRule' as const,
+        pluginId: 'flashGrant',
+        params: {
+          ...(instruction.duration.kind === 'untilCleanup' ? { untilCleanup: true } : { duration: structuredClone(instruction.duration) }),
+          controller: seat,
+        },
+      }))
+    }
+    case 'offerCast': {
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const from = evaluatePlayerReference(instruction.from, context)[0]
+      if (!chooser || !from) return []
+      const maxManaValue = instruction.maxManaValue === undefined
+        ? undefined
+        : availableAmount(instruction.maxManaValue, context)
+      const objectId = instruction.object
+        ? evaluateObjectReference(instruction.object, context)[0]?.id
+        : undefined
+      openSpellCast(draft, {
+        sourceId: frame.source.ref.objectId,
+        sourceName: frame.source.snapshot.name,
+        seat: chooser,
+        zone: instruction.zone,
+        fromSeat: from,
+        cost: instruction.cost,
+        ...(maxManaValue !== undefined ? { maxManaValue } : {}),
+        ...(instruction.notLand ? { notLand: true } : {}),
+        ...(instruction.takeControl ? { takeControl: true } : {}),
+        ...(instruction.inspect ? { inspect: true } : {}),
+        ...(instruction.laterTurn ? { availableFromTurn: draft.turn + 1 } : {}),
+        ...(instruction.timing !== SPELL_CAST_TIMING.sorcery ? { asThoughFlash: true } : {}),
+        ...(objectId ? { objectId } : {}),
+      })
+      return []
+    }
+    case 'becomeMonarch': return recipients(instruction.targets, context).map(seat => ({ type: 'becomeMonarch' as const, seat }))
+    case 'linkExile': {
+      const sourceId = frame.source.ref.objectId
+      const source = draft.object(sourceId)
+      if (instruction.untilSourceLeaves && (!source || source.zone !== 'battlefield' || !isSameObject(source, frame.source.ref))) return []
+      const objectIds = objectActions(instruction.targets, context)
+        .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => object.id)
+      if (objectIds.length === 0) return []
+      return [{
+        type: 'linkExile' as const,
+        sourceId,
+        sourceRef: { ...frame.source.ref },
+        ...(instruction.untilOpponentMonarch ? { untilOpponentMonarch: { player: frame.controller, since: frame.monarchRevision ?? draft.monarchRevision ?? 0 } } : {}),
+        targetRefs: objectIds.map(id => objectIdentity(context.state.objects[id])),
+        objectIds,
+        ...(instruction.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
+        ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
+      }]
+    }
+    case 'returnLinkedExile': {
+      return [{
+        type: 'returnLinkedExile' as const,
+        sourceId: frame.source.ref.objectId,
+        sourceRef: { ...frame.source.ref },
+        ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
+      }]
+    }
     case 'draw': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.count, context)
-      if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
+      return targets.flatMap((seat) => {
+        const amount = availableAmount(instruction.count, withOccurrencePlayer(context, seat))
+        if (amount === undefined || amount === 0) return []
+        const assigned = distributedAmount(instruction.targets, seat, context, amount)
+        if (assigned === 0) return []
+        return [{ type: 'draw' as const, seat, count: assigned }]
+      })
+    }
+    case 'lookAt': {
+      markKnownTo(draft, objectActions(instruction.cards, context).map(object => object.id), [...recipients(instruction.viewers, context)])
+      return []
+    }
+    case 'inspectTop': {
+      const players = evaluatePlayerReference(instruction.player, context)
+      if (players.length !== 1) throw new RuleDslEvaluationError('inspectTop requires exactly one library')
+      const count = availableAmount(instruction.count, context) ?? 0
+      const player = players[0]!
+      const ids = (draft.zoneOrder[player]?.library ?? []).slice(0, count)
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: ids.map(id => ({ kind: 'object' as const, ...objectIdentity(draft.objects[id]!) })) }
+      if (ids.length === 0) return []
+      if (instruction.visibility === LIBRARY_VISIBILITY.public) return [{ type: 'reveal' as const, seat: player, objectIds: ids, source: frame.source.snapshot.name }]
+      draft.note(`${player} looks at the top ${ids.length} cards.`)
+      return []
+    }
+    case 'capturePlayer': {
+      const players = evaluatePlayerReference(instruction.player, context)
+      if (players.length !== 1) throw new RuleDslEvaluationError('capturePlayer requires exactly one player')
+      frame.results = { ...frame.results, [instruction.bindResult]: players[0]! }
+      return []
+    }
+    case 'captureAmount':
+      frame.results = { ...frame.results, [instruction.bindResult]: evaluateRuntimeAmount(instruction.amount, context) }
+      return []
+    case 'captureCopy': {
+      const targets = objectActions(instruction.targets, context)
+      if (targets.length !== 1) throw new RuleDslEvaluationError('captureCopy requires exactly one object')
+      frame.capturedCopies = { ...frame.capturedCopies, [instruction.bindResult]: copyCharacteristics(targets[0]!) }
+      return []
     }
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.amount, context)
-      if (amount === undefined || amount === 0) return []
-      return targets.flatMap((seat) => {
+      if (instruction.kind === 'loseLife' && instruction.bindResult) {
+        frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      }
+      const events = targets.flatMap((seat) => {
+        const amount = availableAmount(instruction.amount, withOccurrencePlayer(context, seat))
+        if (amount === undefined || amount === 0) return []
         const assigned = distributedAmount(instruction.targets, seat, context, amount)
         if (assigned === 0) return []
         return [{
-        type: instruction.kind,
-        seat,
-        amount: assigned,
-        source: frame.source.ref.objectId,
+          type: instruction.kind,
+          seat,
+          amount: assigned,
+          source: frame.source.ref.objectId,
         }]
       })
+      if (instruction.kind === 'loseLife' && instruction.bindResult && events.length > 0) {
+        frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'loseLife', value: 0 }
+      }
+      return events
     }
+    case 'setLife': {
+      const targets = recipients(instruction.targets, context)
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      const expression = instruction.amount
+      const lowest = expression.kind === 'lowestLife'
+        ? evaluateLifeTotalAmount(expression, amountEvaluationContext(context))
+        : undefined
+      const events = targets.flatMap((seat) => {
+        const amount = expression.kind === 'lowestLife' ? lowest : availableAmount(expression, withOccurrencePlayer(context, seat))
+        if (amount === undefined) return []
+        return [{
+          type: 'setLifeTotal' as const,
+          seat,
+          total: amount,
+          source: frame.source.ref.objectId,
+        }]
+      })
+      if (instruction.bindResult && events.length > 0) {
+        frame.pendingResult = {
+          binding: instruction.bindResult,
+          kind: 'amount',
+          eventType: 'loseLife',
+          value: 0,
+          expectedSeats: [...targets],
+        }
+      }
+      return events
+    }
+    case 'exchangeLife': {
+      const first = recipients(instruction.first, context)
+      const second = recipients(instruction.second, context)
+      if (first.length !== 1 || second.length !== 1) {
+        throw new RuleDslEvaluationError('exchangeLife requires exactly one player on each side')
+      }
+      const left = first[0]!
+      const right = second[0]!
+      if (left === right) return []
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+      if (instruction.bindResult) {
+        frame.pendingResult = {
+          binding: instruction.bindResult,
+          kind: 'amount',
+          eventType: 'loseLife',
+          value: 0,
+          expectedSeats: [left],
+        }
+      }
+      return [{
+        type: 'exchangeLifeTotals' as const,
+        first: left,
+        second: right,
+        source: frame.source.ref.objectId,
+      }]
+    }
+    case 'winGame':
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'winGame' as const,
+        seat,
+        source: frame.source.ref.objectId,
+      }))
     case 'blink': {
       const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')
       const controllers = instruction.returnController && instruction.returnController !== 'owner'
@@ -695,11 +1011,13 @@ const actionEvents = (
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
       const sources = evaluateObjectReference(instruction.source, context, 'currentOrLastKnown')
       if (sources.length !== 1) return []
       const source = sources[0]
+      if (instruction.bindResult && damageRecipients.length > 0) frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'dealDamage', value: 0 }
       return damageRecipients.map((target) => ({
         type: 'dealDamage' as const,
         sourceId: source.id,
@@ -716,32 +1034,71 @@ const actionEvents = (
       const targets = objectActions(instruction.targets, context)
       const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible', context.state))
       if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'destroy' }
+      if (instruction.bindChoice) frame.pendingDestroyedChoice = {
+        binding: instruction.bindChoice,
+        entries: legal.map(object => ({
+          objectId: object.id,
+          incarnation: object.incarnation,
+          snapshot: snapshotObject(object),
+        })),
+      }
       return legal.map((object) => ({ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'sacrifice': {
       const targets = objectActions(instruction.targets, context)
-      const legal = targets.filter((object) => object.zone === 'battlefield')
-      if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'sacrifice' }
+      const legal = targets.filter((object) => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+      if (instruction.bindResult || instruction.bindCount) frame.pendingResult = {
+        binding: instruction.bindCount ?? instruction.bindResult!,
+        kind: 'amount', value: 0, eventType: 'sacrifice',
+        ...(instruction.bindResult ? { booleanBinding: instruction.bindResult } : {}),
+        expectedObjects: legal.map(objectIdentity),
+      }
       return legal.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'move': {
-      const targets = objectActions(instruction.targets, context)
+      let targets = objectActions(instruction.targets, context).filter(object =>
+        isSameObject(context.state.objects[object.id], objectIdentity(object)))
+      if (instruction.order === 'random') {
+        const ordered = pickRandomChoices(draft, targets.map(object => object.id), targets.length)
+        const byId = new Map(targets.map(object => [object.id, object]))
+        targets = ordered.map(id => byId.get(id)!)
+        for (const object of targets) draft.objects[object.id]!.knownTo = []
+      }
+      const controllers = instruction.controller ? evaluatePlayerReference(instruction.controller, context) : undefined
+      if (targets.length > 0 && controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
       if (instruction.bindChoice) frame.pendingMovedChoice = {
         binding: instruction.bindChoice,
         objects: targets.map(object => ({ objectId: object.id, zone: instruction.to,
           incarnation: object.incarnation + (object.zone !== instruction.to || instruction.to === 'exile' || instruction.to === 'command' ? 1 : 0) })),
       }
-      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'move' }
-      return targets.map((object) => ({
-        type: 'move' as const,
-        objectId: object.id,
-        to: instruction.to,
-        ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
-        ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
-          const amount = availableAmount(count, context)
-          return amount === undefined || amount === 0 ? [] : [[counter, amount]]
-        })) } : {}),
-      }))
+      if (instruction.bindResult) {
+        frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+        frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'move', value: 0, destination: instruction.to }
+      }
+      return targets.map((object) => {
+        const stackItem = object.zone === 'stack'
+          ? context.state.stack.find((item) => item.objectId === object.id)
+          : undefined
+        const dropStackItem = Boolean(
+          stackItem
+          && instruction.to !== 'stack'
+          && stackItem.id !== frame.stackId
+        )
+        return {
+          type: 'move' as const,
+          objectId: object.id,
+          to: instruction.to,
+          ...(instruction.faceDown !== undefined ? { faceDown: instruction.faceDown } : {}),
+          ...(dropStackItem ? { dropStackItem: true } : {}),
+          ...(instruction.position !== undefined ? { position: instruction.position } : {}),
+          ...(controllers ? { controller: controllers[0] } : {}),
+          ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+          ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
+            const amount = availableAmount(count, context)
+            return amount === undefined || amount === 0 ? [] : [[counter, amount]]
+          })) } : {}),
+        }
+      })
     }
     case 'reveal': {
       const owners = new Map<string, string[]>()
@@ -750,11 +1107,27 @@ const actionEvents = (
         ids.push(object.id)
         owners.set(object.owner, ids)
       }
-      return [...owners].map(([seat, objectIds]) => ({ type: 'reveal' as const, seat, objectIds }))
+      return [...owners].map(([seat, objectIds]) => ({ type: 'reveal' as const, seat, objectIds, ...(instruction.turnFaceUp ? { turnFaceUp: true as const } : {}) }))
     }
     case 'tap':
+      return objectActions(instruction.targets, context)
+        .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => ({
+          type: 'tap' as const,
+          objectId: object.id,
+          ...(instruction.skipNextUntap ? { skipNextUntap: true as const } : {}),
+        }))
     case 'untap':
-      return objectActions(instruction.targets, context).map(object => ({ type: instruction.kind, objectId: object.id }))
+      return objectActions(instruction.targets, context)
+        .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => ({ type: 'untap' as const, objectId: object.id }))
+    case 'changeControl': {
+      const controller = evaluatePlayerReference(instruction.controller, context)[0]
+      if (!controller) return []
+      return objectActions(instruction.targets, context)
+        .filter(object => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => ({ type: CONTROL_EVENT.change, objectRef: objectIdentity(object), controller }))
+    }
     case 'phase': {
       const targets = objectActions(instruction.targets, context)
       return targets.map((object) => ({ type: instruction.out ? 'phaseOut' as const : 'phaseIn' as const, objectId: object.id }))
@@ -765,13 +1138,24 @@ const actionEvents = (
     case 'createToken': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)
-      if (!amount || !targets.length) return []
+      if (!amount || !targets.length) {
+        if (instruction.bindChoice) frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+        return []
+      }
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: amount, eventType: 'createToken' }
+      if (instruction.bindChoice) frame.pendingCreatedChoice = {
+        binding: instruction.bindChoice,
+        beforeIds: Object.values(draft.objects).filter(object => object.zone === 'battlefield').map(object => object.id),
+      }
+      const { abilities, ...token } = instruction.token
+      const ruleDefinition = abilities ? createDefinitionSnapshot(compileCardRuleDefinition(cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, { abilities }))) : undefined
       return targets.flatMap((seat) => Array.from({ length: amount }, () => ({
         type: 'createToken' as const,
         controller: seat,
         token: {
-          ...instruction.token,
+          ...token,
+          ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+          ...(ruleDefinition ? { ruleDefinition } : {}),
           types: [...instruction.token.types],
           ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),
           ...(instruction.token.colors ? { colors: [...instruction.token.colors] } : {}),
@@ -779,33 +1163,89 @@ const actionEvents = (
         },
       })))
     }
+    case 'createEmblem': {
+      const targets = recipients(instruction.targets, context)
+      const { abilities, ...emblem } = instruction.emblem
+      const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, { abilities })))
+      return targets.map((seat) => ({
+        type: 'createEmblem' as const,
+        controller: seat,
+        emblem: {
+          name: emblem.name,
+          ...(emblem.subtypes ? { subtypes: [...emblem.subtypes] } : {}),
+          ...(emblem.oracleText !== undefined ? { oracleText: emblem.oracleText } : {}),
+          ruleDefinition,
+        },
+      }))
+    }
+    case 'banAttacks': {
+      const attackers = instruction.attackers.kind === 'players'
+        ? evaluatePlayerSelector(instruction.attackers, context)
+        : evaluatePlayerReference(instruction.attackers, context)
+      return attackers.map((seat) => ({
+        type: 'banAttacks' as const,
+        attackerController: seat,
+        protectorController: frame.controller,
+        source: structuredClone(frame.source),
+        defenders: structuredClone(instruction.defenders),
+      }))
+    }
     case 'copy': {
-      const targets = objectActions(instruction.targets, context)
+      const modifiers = {
+        ...(instruction.except?.notLegendary ? { notLegendary: true } : {}),
+        ...(instruction.except?.noManaCost ? { noManaCost: true } : {}),
+        ...(instruction.except?.colors ? { colors: [...instruction.except.colors] } : {}),
+        ...(instruction.except?.types ? { extraTypes: [...instruction.except.types] } : {}),
+        ...(instruction.except?.subtypes ? { extraSubtypes: [...instruction.except.subtypes] } : {}),
+        ...(instruction.except?.keywords ? { keywords: [...instruction.except.keywords] } : {}),
+        ...(instruction.tapped ? { tapped: true as const } : {}),
+      }
+      const sources = instruction.snapshot
+        ? (() => {
+          const snapshot = frame.capturedCopies?.[instruction.snapshot]
+          if (!snapshot) throw new RuleDslEvaluationError(`copy snapshot ${instruction.snapshot} is not bound`)
+          return [{ objectId: frame.source.ref.objectId, token: applyCopyModifiers({ ...snapshot }, modifiers) }]
+        })()
+        : objectActions(instruction.targets!, context).map(object => ({
+          objectId: object.id,
+          token: copyCharacteristics(object, modifiers),
+        }))
       const controllers = instruction.controller
         ? (instruction.controller.kind === 'players'
           ? evaluatePlayerSelector(instruction.controller, context)
           : evaluatePlayerReference(instruction.controller, context))
         : [context.controller]
-      if (instruction.bindResult && targets.length > 0 && controllers.length > 0) {
+      if (instruction.bindResult) {
         frame.pendingResult = {
           binding: instruction.bindResult,
           kind: 'action',
-          value: targets.length * controllers.length,
+          value: sources.length * controllers.length,
           eventType: 'copyPermanent',
         }
       }
-      return targets.flatMap((object) => controllers.map((controller) => ({
+      if (instruction.bindChoice) {
+        if (sources.length === 0 || controllers.length === 0) {
+          frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+        } else {
+          frame.pendingCreatedChoice = {
+            binding: instruction.bindChoice,
+            beforeIds: Object.values(draft.objects).filter(object => object.zone === 'battlefield').map(object => object.id),
+          }
+        }
+      }
+      return sources.flatMap((source) => controllers.map((controller) => ({
         type: 'copyPermanent' as const,
-        objectId: object.id,
+        objectId: source.objectId,
         controller,
-        token: copyCharacteristics(object),
+        token: source.token,
         sourceId: frame.source.ref.objectId,
       })))
     }
+    case 'copyAbility':
     case 'copySpell': {
       const targets = instruction.targets.kind === 'stackItems'
         ? evaluateStackItemSelector(instruction.targets, context).map((candidate) => ({ kind: 'stackItem' as const, stackId: candidate.id }))
-        : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
+        : evaluateStackItemReference(instruction.targets, context).map(candidate => ({ kind: 'stackItem' as const, stackId: candidate.id }))
       const controllers = instruction.controller
         ? (instruction.controller.kind === 'players'
           ? evaluatePlayerSelector(instruction.controller, context)
@@ -815,22 +1255,22 @@ const actionEvents = (
       for (const target of targets) {
         const original = context.state.stack.find((candidate) => candidate.id === target.stackId)
         if (!original) continue
-        const source = context.state.objects[original.objectId]
-        if (!source || original.kind !== 'spell') continue
+        const source = canonicalCopySource(context.state, original)
+        if (!source || original.kind !== (instruction.kind === 'copyAbility' ? 'ability' : 'spell')) continue
         // `keep` preserves the original target pins. Explicit retargeting is
         // answered through the durable typed offer API, never by refreshing
         // incarnations as a side effect of copying.
         if (instruction.retarget?.kind === 'chooseNewTargets') {
           const jobs = targets.flatMap((candidate) => controllers.map((controller) => {
             const item = context.state.stack.find((entry) => entry.id === candidate.stackId)
-            return item ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
+            return item && item.kind === (instruction.kind === 'copyAbility' ? 'ability' : 'spell') ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
           })).filter((job): job is NonNullable<typeof job> => Boolean(job))
           frame.pendingCopyTargets = jobs
           if (instruction.bindResult) frame.pendingResult = {
             binding: instruction.bindResult,
             kind: 'action',
             value: jobs.length,
-            eventType: 'copySpell',
+            eventType: instruction.kind,
           }
           if (jobs.length > 0) {
             openNextCopySlot(draft, frame)
@@ -840,14 +1280,14 @@ const actionEvents = (
           }
         }
         for (const controller of controllers) {
-          copies.push({ type: 'copySpell', stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
+          copies.push({ type: instruction.kind, stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
         }
       }
       if (instruction.bindResult) frame.pendingResult = {
         binding: instruction.bindResult,
         kind: 'action',
         value: copies.length,
-        eventType: 'copySpell',
+        eventType: instruction.kind,
       }
       // Copy placement is itself the committed action; the stack mutation is
       // complete before the next written instruction is considered.
@@ -862,10 +1302,14 @@ const actionEvents = (
     }
     case 'mill': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.count, context)
-      if (amount === undefined || amount === 0) return []
-      return targets.flatMap((seat) => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
-        .map((objectId) => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
+      const amount = availableAmount(instruction.count, context) ?? 0
+      const ids = targets.flatMap(seat => (context.state.zoneOrder[seat].library ?? []).slice(0, amount))
+      if (instruction.bindChoice) frame.pendingMilledChoice = {
+        binding: instruction.bindChoice,
+        objects: ids.map(id => objectIdentity(context.state.objects[id]!)),
+      }
+      return targets.flatMap(seat => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
+        .map(objectId => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
     }
     case 'shuffle': {
       return recipients(instruction.targets, context).map((seat) => ({
@@ -873,15 +1317,18 @@ const actionEvents = (
         seat,
       }))
     }
+    case 'discardHands':
+      return recipients(instruction.targets, context).flatMap(seat => (context.state.zoneOrder[seat].hand ?? []).map(objectId => ({ type: 'discard' as const, seat, objectId })))
     case 'discard': {
       if (instruction.by !== undefined) {
         const by = evaluatePlayerReference(instruction.by, context)[0]
         const targets = instruction.targets.kind === 'objects'
           ? evaluateObjectSelector(instruction.targets, context)
           : evaluateObjectReference(instruction.targets, context)
-        if (instruction.bindResult && targets.length === 1) {
-          frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'discard' }
+        if (instruction.bindResult) {
+          frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'discard', value: 0 }
         }
+        if (!by) return []
         return targets.map((object) => ({ type: 'discard' as const, seat: by, objectId: object.id }))
       }
       const targets = recipients(instruction.targets, context)
@@ -895,7 +1342,7 @@ const actionEvents = (
         ? evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
         : instruction.targets.kind === 'stackItems'
           ? evaluateStackItemSelector(instruction.targets, context).map((item) => ({ kind: 'stackItem' as const, stackId: item.id }))
-          : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
+          : evaluateStackItemReference(instruction.targets, context).map(item => ({ kind: 'stackItem' as const, stackId: item.id }))
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = {
         binding: instruction.bindResult,
         kind: 'counter',
@@ -904,11 +1351,21 @@ const actionEvents = (
       const counterEvent = (stackId: string) => {
         const item = context.state.stack.find((candidate) => candidate.id === stackId)
         const object = item ? context.state.objects[item.objectId] : undefined
+        const destination = instruction.destination
+        const redirect = Boolean(
+          destination
+          && (!destination.types || destination.types.some((type) => object?.types.includes(type))),
+        )
+        const controller = redirect && destination?.controller
+          ? evaluatePlayerReference(destination.controller, context)[0]
+          : undefined
         return {
           type: 'counterStackItem' as const,
           stackId,
           sourceId: frame.source.ref.objectId,
           ...(object ? { objectRef: objectIdentity(object) } : {}),
+          ...(redirect && destination ? { destination: destination.to } : {}),
+          ...(controller ? { controller } : {}),
         }
       }
       return targets.flatMap((target) => target.kind === 'stackItem'
@@ -916,25 +1373,59 @@ const actionEvents = (
         : [])
     }
     case 'createEffect': {
-      const targets = objectActions(instruction.targets, context)
+      const targets = instruction.targets.kind === 'objects'
+        ? evaluateObjectSelector(instruction.targets, context)
+        : evaluateObjectReference(instruction.targets, context, instruction.effect.kind !== 'prevention' && instruction.targets.kind === 'contextRef' && instruction.targets.name === 'source' ? 'current' : 'currentOrLastKnown')
       if (instruction.effect.kind === 'prevention') {
         const preventionEffect = instruction.effect
-        const capacity = availableAmount(preventionEffect.capacity, context) ?? 0
-        if (capacity <= 0 || targets.length === 0) return []
-        return targets.map((object) => ({
-          type: 'registerPrevention' as const,
-          hostObjectId: object.id,
-          filter: structuredClone(preventionEffect.filter),
-          capacity,
-          duration: structuredClone(instruction.duration),
-          sourceId: frame.source.ref.objectId,
-          sourceRef: structuredClone(frame.source.ref),
-          sourceRevision: frame.definitionSnapshot.definitionRevision,
-          ...(preventionEffect.additionalEffects
-            ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
-            : {}),
-          createdTurn: draft.turn,
-          ...durationMetadata(instruction.duration, context, draft),
+        const capacity = preventionEffect.capacity.kind === 'unlimited'
+          ? 'unlimited' as const
+          : availableAmount(preventionEffect.capacity, context) ?? 0
+        if ((capacity !== 'unlimited' && capacity <= 0) || targets.length === 0) return []
+        const capturedBindings = {
+          ...(context.results && Object.keys(context.results).length > 0 ? { results: structuredClone(context.results) } : {}),
+          ...(context.targets && Object.keys(context.targets).length > 0
+            ? { targets: structuredClone(context.targets) } : {}),
+          ...(context.targetLegality ? { targetLegality: structuredClone(context.targetLegality) } : {}),
+          ...(context.choices && Object.keys(context.choices).length > 0
+            ? { choices: structuredClone(context.choices) } : {}),
+        }
+        return targets.map((object) => {
+          const live = context.state.objects[object.id]
+          return {
+            type: 'registerPrevention' as const,
+            hostObjectId: object.id,
+            filter: structuredClone(preventionEffect.filter),
+            capacity,
+            duration: structuredClone(instruction.duration),
+            sourceId: frame.source.ref.objectId,
+            sourceRef: structuredClone(frame.source.ref),
+            sourceRevision: frame.definitionSnapshot.definitionRevision,
+            capturedSource: captureObject(
+              object,
+              live && isSameObject(live, objectIdentity(object)) ? 'current' : 'lastKnown',
+            ),
+            ...(preventionEffect.additionalEffects
+              ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
+              : {}),
+            ...(Object.keys(capturedBindings).length > 0 ? { capturedBindings } : {}),
+            createdTurn: draft.turn,
+            ...durationMetadata(instruction.duration, context, draft),
+          }
+        })
+      }
+      if (instruction.effect.kind === 'grantActivatedAbility') {
+        const ability = instruction.effect.ability
+        if (ability.modes) throw new Error('granted activated programs require instructions')
+        const captured = captureLexicalBindings(ability.instructions ?? [], frame.choices, frame.results, [ability.decisions], [], frame.playerChoiceBindings)
+        return targets.map(object => ({
+          type: 'canonicalEffect' as const, objectId: object.id,
+          effect: { kind: 'grantActivatedAbility' as const, ability: { ...ability, generated: true as const, capturedBindings: captured.capturedBindings, decisions: captured.rewrittenAdditionalValues[0] as typeof ability.decisions, instructions: captured.instructions } },
+          duration: structuredClone(instruction.duration), sourceId: frame.source.ref.objectId, sourceRef: frame.source.ref, sourceRevision: frame.definitionSnapshot.definitionRevision,
+          execution: { controller: frame.controller, ...capturedExecutionSource(frame),
+            ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}), ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+            ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}), capturedChoiceAliases: captured.choiceAliases, capturedResultAliases: captured.resultAliases,
+          },
         }))
       }
       const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
@@ -944,7 +1435,7 @@ const actionEvents = (
           frame.choices,
           frame.results,
           [grant.on],
-          occurrenceBindingsForPattern(grant.on),
+          occurrenceBindingsForPattern(grant.on), frame.playerChoiceBindings,
         )
         : undefined
       const grantDecisions = grant && grantChoices
@@ -974,13 +1465,14 @@ const actionEvents = (
             },
           }
         : undefined
-      const effect = instruction.effect.kind === 'pump'
+      const selectedType = instruction.effect.kind === 'addTypes' && instruction.effect.creatureType ? evaluateCreatureType(instruction.effect.creatureType, context) : undefined
+      const effect = instruction.effect.kind === 'pump' || instruction.effect.kind === 'setStats'
         ? {
-            kind: 'pump' as const,
+            kind: instruction.effect.kind,
             power: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.power, context) },
             toughness: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.toughness, context) },
           }
-        : structuredClone(grantEffect ?? instruction.effect)
+        : structuredClone(instruction.effect.kind === 'addTypes' && selectedType ? { ...instruction.effect, creatureType: undefined, subtypes: [...(instruction.effect.subtypes ?? []), selectedType] } : grantEffect ?? instruction.effect)
       const grantExecution = grant && grantChoices && (
         frame.choices !== undefined
         || frame.results !== undefined
@@ -992,7 +1484,7 @@ const actionEvents = (
       )
         ? {
             controller: frame.controller,
-            source: structuredClone(frame.source),
+            ...capturedExecutionSource(frame),
             ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
             ...(grantChoices.capturedBindings.occurrence ? { capturedOccurrenceBindings: grantChoices.capturedBindings.occurrence } : {}),
             ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
@@ -1007,6 +1499,7 @@ const actionEvents = (
         type: 'canonicalEffect' as const,
         objectId: object.id,
         effect,
+        ...(effect.kind === 'goad' ? { effectPlayer: frame.controller } : {}),
         duration: structuredClone(instruction.duration),
         sourceId: frame.source.ref.objectId,
         sourceRef: structuredClone(frame.source.ref),
@@ -1017,8 +1510,28 @@ const actionEvents = (
       }))
     }
     case 'createDelayed': {
-      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets)
+      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets, instruction.notThisTurn, instruction.repeatUntilCleanup)
       return []
+    }
+    case 'lockOrUnlockDoor': {
+      const item = frame.inlineItem
+        ?? draft.stack.find(candidate => candidate.id === frame.stackId)
+        ?? context.state.stack.find(candidate => candidate.id === frame.stackId)
+      const door = item?.door
+      if (door !== 'left' && door !== 'right') return []
+      return objectActions(instruction.targets, context).flatMap((object): GameEvent[] => {
+        if (!object.roomDoors || object.controller !== frame.controller) return []
+        if (object.unlockedDoors?.includes(door)) {
+          return [{ type: 'lockDoor', seat: frame.controller, objectId: object.id, door }]
+        }
+        return [{
+          type: 'unlockDoor',
+          seat: frame.controller,
+          objectId: object.id,
+          door,
+          withoutCost: true,
+        }]
+      })
     }
     default:
       throw pathError(frame, path, `${instruction.kind} is not executable in Part 04`)
@@ -1039,12 +1552,51 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (advanceCollectedChoices(draft)) return { kind: 'events' as const, events: [] }
+  if (frame.pendingMilledChoice) {
+    const pending = frame.pendingMilledChoice
+    frame.choices = { ...frame.choices, [pending.binding]: pending.objects.flatMap(ref => {
+      const object = draft.objects[ref.objectId]
+      if (!object || object.incarnation !== ref.incarnation + 1 || object.faceDown
+        || object.zone === 'library' || object.zone === 'hand') return []
+      return [{ kind: 'object' as const, ...objectIdentity(object) }]
+    }) }
+    delete frame.pendingMilledChoice
+  }
   if (frame.pendingMovedChoice) {
     const pending = frame.pendingMovedChoice
     frame.choices = { ...frame.choices, [pending.binding]: pending.objects
       .filter(ref => isSameObject(draft.objects[ref.objectId], ref))
       .map(ref => ({ kind: 'object' as const, ...ref })) }
     delete frame.pendingMovedChoice
+  }
+  if (frame.pendingCreatedChoice) {
+    const pending = frame.pendingCreatedChoice
+    const created = Object.values(draft.objects).filter(object =>
+      object.zone === 'battlefield' && object.token && !pending.beforeIds.includes(object.id))
+    frame.choices = {
+      ...frame.choices,
+      [pending.binding]: created.map(object => ({ kind: 'object' as const, ...objectIdentity(object) })),
+    }
+    delete frame.pendingCreatedChoice
+  }
+  if (frame.pendingDestroyedChoice) {
+    const pending = frame.pendingDestroyedChoice
+    const kept = pending.entries.filter(entry => {
+      const current = draft.objects[entry.objectId]
+      return !current || current.zone === 'graveyard'
+    })
+    frame.choices = {
+      ...frame.choices,
+      [pending.binding]: kept.map(entry => {
+        const current = draft.objects[entry.objectId]
+        return current
+          ? { kind: 'object' as const, ...objectIdentity(current) }
+          : { kind: 'object' as const, objectId: entry.objectId, incarnation: entry.incarnation, zone: 'graveyard' as const }
+      }),
+    }
+    frame.choiceSnapshots = { ...frame.choiceSnapshots, [pending.binding]: kept.map(entry => structuredClone(entry.snapshot)) }
+    delete frame.pendingDestroyedChoice
   }
   if (frame.pendingBlink) {
     const returns = frame.pendingBlink
@@ -1087,13 +1639,35 @@ export const prepareResolutionStep = (draft: Draft) => {
       }
       pending.index += 1
     }
-    if (pending.binding) frame.results = { ...frame.results, [pending.binding]: pending.selected.length > 0 }
+    if (pending.binding) frame.results = { ...frame.results, [pending.binding]: pending.selected.length }
     delete frame.pendingDiscard
   }
   while (frame.scopes.length > 0) {
     const scope = frame.scopes.at(-1)!
-    if (scope.cursor >= scope.instructions.length) {
+    if (scope.cursor >= scope.instructions.length && (scope.repeatRemaining ?? 0) > 0) {
+      scope.repeatRemaining! -= 1
+      scope.cursor = 0
+    }
+    if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
+      if (scope.restoreBindings) {
+        const collected = scope.collectMax
+          ? Math.max(
+            frame.resultMaxima?.[scope.collectMax.as] ?? 0,
+            numericInstructionResult(frame.results?.[scope.collectMax.from]),
+          )
+          : undefined
+        if (scope.collectMax && collected !== undefined) {
+          frame.resultMaxima = { ...frame.resultMaxima, [scope.collectMax.as]: collected }
+        }
+        for (const key of ['choices', 'results', 'choiceSnapshots', 'capturedCopies', 'playerChoiceBindings'] as const) {
+          delete frame[key]
+        }
+        Object.assign(frame, structuredClone(scope.restoreBindings))
+        if (scope.collectMax && collected !== undefined) {
+          frame.results = { ...frame.results, [scope.collectMax.as]: collected }
+        }
+      }
       continue
     }
     const index = scope.cursor
@@ -1106,6 +1680,255 @@ export const prepareResolutionStep = (draft: Draft) => {
         scopeId: scope.scopeId,
         instructions: structuredClone(instruction.instructions),
         cursor: 0,
+      })
+      continue
+    }
+    if (instruction.kind === 'chooseParticipants' || instruction.kind === 'chooseCardsForEachPlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const selected = new Set(recipients(instruction.of, context))
+      const seats = apnapSeats(draft).filter(seat => selected.has(seat))
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      if (instruction.kind === 'chooseParticipants') frame.playerChoiceBindings = [...(frame.playerChoiceBindings ?? []), instruction.bindChoice]
+      frame.collectedPlayerChoices = {
+        kind: instruction.kind === 'chooseParticipants' ? 'participants' : 'cards', binding: instruction.bindChoice,
+        ...(instruction.kind === 'chooseParticipants' && instruction.prompt ? { prompt: instruction.prompt } : {}),
+        participants: [], cards: [], requests: seats.map(seat => {
+          const runtime = withOccurrencePlayer(context, seat)
+          const min = instruction.kind === 'chooseCardsForEachPlayer' ? evaluateRuntimeAmount(instruction.min, runtime) : 0
+          const max = instruction.kind === 'chooseCardsForEachPlayer' ? evaluateRuntimeAmount(instruction.max, runtime) : 0
+          if (min > max) throw pathError(frame, path, 'choice minimum exceeds maximum')
+          return { seat, candidates: instruction.kind === 'chooseCardsForEachPlayer' ? evaluateObjectSelector(instruction.filter, runtime).map(objectIdentity) : [], min, max }
+        }),
+      }
+      if (advanceCollectedChoices(draft)) return { kind: 'events', events: [] }
+      continue
+    }
+    if (instruction.kind === 'forEachPlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const selected = new Set(recipients(instruction.of, context))
+      const players = apnapSeats(draft).filter(player => selected.has(player))
+      if (instruction.bindMax) {
+        frame.resultMaxima = { ...frame.resultMaxima, [instruction.bindMax.as]: 0 }
+        frame.results = { ...frame.results, [instruction.bindMax.as]: 0 }
+      }
+      const restoreBindings = {
+        ...(frame.playerChoiceBindings ? { playerChoiceBindings: [...frame.playerChoiceBindings] } : {}),
+        ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
+        ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+        ...(frame.voteResults ? { voteResults: structuredClone(frame.voteResults) } : {}),
+        ...(frame.choiceSnapshots ? { choiceSnapshots: structuredClone(frame.choiceSnapshots) } : {}),
+        ...(frame.capturedCopies ? { capturedCopies: structuredClone(frame.capturedCopies) } : {}),
+      }
+      for (const player of players.toReversed()) frame.scopes.push({
+        path: `${path}.instructions`, scopeId: scope.scopeId,
+        instructions: structuredClone(instruction.instructions), cursor: 0,
+        occurrence: { kind: 'event', eventType: 'forEachPlayer', player }, iterationPlayer: player,
+        restoreBindings: structuredClone(restoreBindings),
+        ...(instruction.bindMax ? { collectMax: instruction.bindMax } : {}),
+      })
+      continue
+    }
+    if (instruction.kind === 'chooseRandom') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const candidates = evaluateObjectSelector(instruction.filter, context)
+      if (candidates.length === 0) {
+        frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+        continue
+      }
+      const events: GameEvent[] = [{
+        type: 'custom',
+        name: HIDDEN_RANDOM,
+        seat: frame.controller,
+        payload: {
+          choices: candidates.map(object => object.id),
+          resultName: CANONICAL_RANDOM_RESULT,
+          context: { binding: instruction.bindChoice, stackId: frame.stackId },
+        },
+      }]
+      frame.phase = 'committing'
+      frame.pendingEvents = events
+      return { kind: 'events', events }
+    }
+    if (instruction.kind === 'vote') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const options = instruction.options.kind === 'named'
+        ? [...instruction.options.options]
+        : instruction.options.kind === 'players'
+          ? evaluatePlayerSelector(
+            { kind: 'players', filter: instruction.options.filter ?? {} },
+            context,
+          ).map((seat) => ({ id: seat, label: seat }))
+          : disambiguateVoteOptions(evaluateObjectSelector(instruction.options.filter, context).map((object) => ({
+            id: object.id,
+            label: object.name,
+          })))
+      beginVote(draft, {
+        source: {
+          id: frame.source.ref.objectId,
+          name: frame.source.snapshot.name,
+          controller: frame.controller,
+        },
+        item,
+        prompt: instruction.prompt,
+        options,
+        secret: instruction.secret,
+        ...(instruction.options.kind === 'objects' ? { optionObjects: evaluateObjectSelector(instruction.options.filter, context).map(objectIdentity) } : {}),
+        canonical: {
+          stackId: frame.stackId,
+          bindResult: instruction.bindResult,
+          ...(instruction.bindWinners ? { bindWinners: instruction.bindWinners } : {}),
+          ...(instruction.bindObjects ? { bindObjects: instruction.bindObjects } : {}),
+        },
+      })
+      if (pendingVote(draft)) {
+        frame.phase = 'committing'
+        frame.pendingEvents = []
+        return { kind: 'events', events: [] }
+      }
+      continue
+    }
+    if (instruction.kind === 'choosePile') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const first = objectActions(instruction.piles[0], context).map(object => object.id)
+      const second = objectActions(instruction.piles[1], context).map(object => object.id)
+      if (new Set([...first, ...second]).size !== first.length + second.length) throw new RuleDslEvaluationError('pile choices require disjoint card identities')
+      if (!chooser) {
+        frame.choices = { ...frame.choices, [instruction.bindChosen]: [], [instruction.bindOther]: [] }
+        continue
+      }
+      openCardSelection(draft, {
+        seat: chooser, kind: 'choosePile', count: 1, min: 0,
+        candidates: [...first, ...second],
+        targetIdentities: Object.fromEntries([...first, ...second].map(id => [id, objectIdentity(draft.objects[id]!)])),
+        piles: { 'face-up': first, 'face-down': second },
+        pileController: chooser, pileVisibility: 'facedown-faceup',
+        pileLabels: { 'face-up': 'Pile 1', 'face-down': 'Pile 2' },
+        sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: instruction.prompt ?? 'Choose a pile.', destinations: ['target'],
+        canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChosen, bindOther: instruction.bindOther, action: 'choosePile' },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'partitionPiles') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const partitioner = evaluatePlayerReference(instruction.partitioner, context)[0]
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const cards = objectActions(instruction.cards, context)
+      if (!partitioner || !chooser || cards.length === 0) {
+        frame.choices = { ...frame.choices, [instruction.bindChosen]: [], [instruction.bindOther]: [] }
+        continue
+      }
+      openCardSelection(draft, {
+        seat: partitioner,
+        kind: 'partition',
+        count: cards.length,
+        candidates: cards.map((object) => object.id),
+        targetIdentities: Object.fromEntries(cards.map(object => [object.id, objectIdentity(object)])),
+        sourceId: frame.source.ref.objectId,
+        source: frame.source.snapshot.name,
+        prompt: 'Separate these cards into two piles.',
+        destinations: ['face-up', 'face-down'],
+        fromSeat: cards[0]?.owner ?? chooser,
+        fromZone: cards[0]?.zone ?? 'library',
+        pileController: chooser,
+        pileReveal: instruction.visibility === 'facedown-faceup' ? 'look' : 'public',
+        pileVisibility: instruction.visibility ?? 'public',
+        canonicalChoice: {
+          stackId: frame.stackId,
+          scopeId: scope.scopeId,
+          binding: instruction.bindChosen,
+          bindOther: instruction.bindOther,
+          action: 'partitionPiles',
+        },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'choosePlayer') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const candidates = evaluatePlayerSelector(instruction.filter, context)
+      frame.playerChoiceBindings = [...(frame.playerChoiceBindings ?? []), instruction.bindChoice]
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      if (chooser && candidates.length > 0) openPlayerSelection(draft, {
+        seat: chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: 'Choose a player.', min: 1, max: 1, candidates,
+        action: { kind: PLAYER_PROGRAM_CHOICE_ACTION.choose, stackId: frame.stackId, binding: instruction.bindChoice },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'forEach') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const snapshots = instruction.of.kind === 'choiceRef' && frame.choiceSnapshots?.[instruction.of.binding]
+        ? frame.choiceSnapshots[instruction.of.binding]!
+        : objectActions(instruction.of, context).map(snapshotObject)
+      for (let index = snapshots.length - 1; index >= 0; index -= 1) {
+        const snapshot = snapshots[index]!
+        frame.scopes.push({
+          path: `${path}.instructions`,
+          scopeId: scope.scopeId,
+          instructions: structuredClone(instruction.instructions),
+          cursor: 0,
+          occurrence: {
+            kind: 'event',
+            eventType: 'forEach',
+            player: snapshot.controller,
+            object: { after: snapshot },
+          },
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'repeat') {
+      const count = availableAmount(instruction.count, runtimeContext(draft, frame, item, scope.scopeId)) ?? 0
+      if (count === 0 || instruction.instructions.length === 0) continue
+      frame.scopes.push({
+        path: `${path}.instructions`, scopeId: scope.scopeId,
+        instructions: structuredClone(instruction.instructions), cursor: 0,
+        repeatRemaining: count - 1,
+      })
+      continue
+    }
+    if (instruction.kind === 'repeatWhile') {
+      const looping = scope.continueWhile === true
+      if (looping) {
+        const context = runtimeContext(draft, frame, item, scope.scopeId)
+        if (!evaluateCondition(instruction.condition, context)) continue
+      }
+      frame.scopes.push({
+        path: `${path}.instructions`,
+        scopeId: scope.scopeId,
+        instructions: [...instruction.instructions, instruction],
+        cursor: 0,
+        continueWhile: true,
+      })
+      continue
+    }
+    if (instruction.kind === 'repeatOnceIf') {
+      const extraPass = scope.repeatOncePending === true
+      if (extraPass) {
+        const context = runtimeContext(draft, frame, item, scope.scopeId)
+        if (!evaluateCondition(instruction.condition, context)) continue
+        frame.scopes.push({
+          path: `${path}.instructions`,
+          scopeId: scope.scopeId,
+          instructions: structuredClone(instruction.instructions),
+          cursor: 0,
+        })
+        continue
+      }
+      frame.scopes.push({
+        path: `${path}.instructions`,
+        scopeId: scope.scopeId,
+        instructions: [...instruction.instructions, instruction],
+        cursor: 0,
+        repeatOncePending: true,
       })
       continue
     }
@@ -1123,8 +1946,37 @@ export const prepareResolutionStep = (draft: Draft) => {
       }
       continue
     }
+    if (instruction.kind === 'addManaFrom') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      if (availableAmount(instruction.amount, context) === 0) continue
+      const types = availableManaTypes(context.state, frame.source.snapshot, instruction.of, instruction.colorsOnly, context, instruction.basis)
+      const selected = item.choices?.[0]
+      const options = types.map(type => ({ label: type, instructions: [{ kind: 'addMana' as const, targets: instruction.targets, amount: { [type]: instruction.amount } }] }))
+      const chosen = options.find(option => option.label === selected)
+      const next: Instruction[] = chosen ? chosen.instructions : options.length === 0 ? [] : [{ kind: 'chooseInstructions', chooser: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 1 }, options, whenInsufficient: 'chooseAvailable' }]
+      frame.scopes.push({ path, scopeId: scope.scopeId, instructions: next, cursor: 0 })
+      continue
+    }
+    if (instruction.kind === 'chooseCreatureType') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      if (chooser) openOptionSelection(draft, {
+        seat: chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: 'Choose a creature type.', options: CREATURE_TYPES.map(type => ({ id: type, label: type })),
+        action: { kind: CREATURE_TYPE_CHOICE_ACTION, stackId: frame.stackId, binding: instruction.bindResult },
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
     if (instruction.kind === 'chooseInstructions') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const announced = frame.inlineItem && item.choices?.[0]
+      const selected = announced ? instruction.options.find(option => option.label === announced) : undefined
+      if (selected) {
+        frame.scopes.push({ path, scopeId: scope.scopeId, instructions: [...selected.instructions], cursor: 0 })
+        continue
+      }
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       if (chooser && instruction.options.length > 0) {
         openOptionSelection(draft, {
@@ -1152,6 +2004,20 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
     }
+    if (instruction.kind === 'distributeControl') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const candidates = recipients(instruction.recipients, context)
+      const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')
+      if (chooser && targets.length && candidates.length) openControlAssignment(draft, {
+        kind: CONTROL_CHOICE_ACTION.assign, stackId: frame.stackId,
+        objects: targets.map(objectIdentity), candidates, distinct: instruction.distinct, assignments: [],
+        chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+      })
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
     if (instruction.kind === 'chooseCards') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
@@ -1163,22 +2029,26 @@ export const prepareResolutionStep = (draft: Draft) => {
         : requestedMin
       const max = Math.min(requestedMax, candidates.length)
       const fromZone = instruction.filter.filter.zone
-      if (chooser && candidates.length > 0 && max > 0) {
+      const visibleCards = instruction.viewCards ? evaluateObjectReference(instruction.viewCards, context).map(object => object.id) : undefined
+      // An empty eligible set still needs a private read-and-continue view.
+      if (chooser && ((candidates.length > 0 && max > 0) || (visibleCards?.length ?? 0) > 0)) {
         openCardSelection(draft, {
           seat: chooser,
           kind: 'choose',
           count: max,
           min,
           candidates: candidates.map((object) => object.id),
+          ...(visibleCards ? { visibleCards } : {}),
           targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
-          prompt: fromZone === 'library'
+          prompt: instruction.viewCards ? 'Choose from the inspected cards.' : fromZone === 'library'
             ? 'Search your library.'
             : 'Choose cards for the Rule DSL program.',
           destinations: ['target', 'skip'],
           canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice },
           ...(instruction.viewLibrary ? { viewLibrary: true as const } : {}),
+          ...(instruction.related ? { related: instruction.related } : {}),
           ...(fromZone ? {
             fromZone,
             fromSeat: candidates[0]?.owner ?? chooser,
@@ -1240,6 +2110,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       let paymentAmount: number | undefined
       switch (instruction.cost.kind) {
         case 'mana': paymentAmount = 0; break
+        case 'manaAndLife': paymentAmount = availableAmount(instruction.cost.life, context); break
         case 'life': paymentAmount = availableAmount(instruction.cost.amount, context); break
         case 'discard':
         case 'sacrifice': paymentAmount = availableAmount(instruction.cost.count, context); break
@@ -1256,7 +2127,8 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(context.capturedOccurrenceBindings ? { capturedOccurrenceBindings: [...context.capturedOccurrenceBindings] } : {}),
         ...(scope.scopeId ? { scopeId: scope.scopeId } : {}),
       }
-      const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source, bindings)
+      const manaPayment = resolutionManaCost(instruction.cost)
+      const manaActivations = manaPayment && !canPayResolutionMana(draft, payer, manaPayment, frame.source, bindings)
         ? eligibleResolutionManaAbilities(draft, payer)
         : []
       const options = [
@@ -1273,14 +2145,14 @@ export const prepareResolutionStep = (draft: Draft) => {
         seat: payer,
         sourceId: frame.source.ref.objectId,
         source: frame.source.snapshot.name,
-        prompt: `Pay ${instruction.cost.kind === 'mana' ? instruction.cost.amount : instruction.cost.kind}.`,
+        prompt: `Pay ${resolutionCostLabel(instruction.cost, paymentAmount)}.`,
         options,
         action: {
           kind: 'canonicalResolutionPayment',
           stackId: frame.stackId,
           scopeId: scope.scopeId,
           cost: instruction.cost,
-          source: structuredClone(frame.source),
+          ...capturedExecutionSource(frame),
           controller: frame.controller,
           bindResult: instruction.bindResult,
           ...(instruction.whenPaidDecisions ? { whenPaidDecisions: structuredClone(instruction.whenPaidDecisions) } : {}),
@@ -1359,6 +2231,7 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
   }
   const object = draft.object(item.objectId)
+  if (object && item.adventureCast) completeAdventureSpell(object)
   const destination = object ? resolvedSpellDestination(item, object) : undefined
   const event = item.kind === 'spell'
     && object?.zone === 'stack'
@@ -1369,6 +2242,8 @@ export const prepareResolutionStep = (draft: Draft) => {
         type: 'move' as const,
         objectId: object.id,
         to: destination,
+        ...(object.subtypes.includes('Aura') && item.targets[0]?.kind === 'player' ? { attachPlayer: item.targets[0].player } : {}),
+        ...(object.subtypes.includes('Aura') && item.targets[0]?.kind === 'object' ? { attachTo: { objectId: item.targets[0].objectId, incarnation: item.targets[0].incarnation ?? draft.objects[item.targets[0].objectId]?.incarnation, zone: 'battlefield' as const } } : {}),
       }
     : undefined
   return { kind: 'complete', event }

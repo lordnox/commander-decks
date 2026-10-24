@@ -1,9 +1,11 @@
+import type { CollectedPlayerChoices } from './cardPlugins/dsl/collectedChoices'
+import type { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import type PluginCatalog from './catalog'
 import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
+import type { ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -29,20 +31,12 @@ export type ZoneId = (typeof ZONE_IDS)[number]
  * Empty-stack priority passes enqueue `advanceStep`; combat steps are skipped
  * unless attackers are declared.
  */
-export type StepId =
-  | 'untap'
-  | 'upkeep'
-  | 'draw'
-  | 'precombatMain'
-  | 'beginCombat'
-  | 'declareAttackers'
-  | 'declareBlockers'
-  | 'firstStrikeDamage'
-  | 'combatDamage'
-  | 'endCombat'
-  | 'postcombatMain'
-  | 'end'
-  | 'cleanup'
+export const STEP_IDS = [
+  'untap', 'upkeep', 'draw', 'precombatMain', 'beginCombat', 'declareAttackers',
+  'declareBlockers', 'firstStrikeDamage', 'combatDamage', 'endCombat',
+  'postcombatMain', 'end', 'cleanup',
+] as const
+export type StepId = typeof STEP_IDS[number]
 
 /** WUBRG plus colorless `{C}`. Generic `{N}` is paid from leftover pool, not stored as `C`. */
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
@@ -100,6 +94,8 @@ export type CopySnapshot = {
 }
 
 export type ReversibleEffect =
+  | { kind: 'redirectDeparture'; to: ZoneId; incarnation: number; timestamp: number }
+  | { kind: 'ward'; cost: WardCost }
   | { kind: 'colorChange'; before: string[]; after: string[]; incarnation: number }
   | { kind: 'pump'; power: number; toughness: number }
   /**
@@ -114,6 +110,12 @@ export type ReversibleEffect =
     }
   | { kind: 'oracleLine'; line: string }
   | { kind: 'typeChange'; before: string[]; after: string[] }
+  | {
+      kind: 'bestowAura'
+      before: { types: string[]; subtypes: string[]; power: number | null; toughness: number | null }
+    }
+  | { kind: 'removeAbilities'; timestamp?: number; before: { oracleText: string; grantedRules: string[]; effects?: CardEffect[] } }
+  | { kind: 'addTypes'; before: { types: string[]; subtypes: string[] }; types: string[]; subtypes: string[] }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
   /** CR 701.38: attacks each combat if able; prefers non-goading players. */
@@ -121,6 +123,8 @@ export type ReversibleEffect =
   | { kind: 'protectionFromEverything' }
   /** Static-layer keywords: `suppress` ("can't have or gain") beats `grant`; read by `hasKeyword`. */
   | { kind: 'staticKeywords'; grant: string[]; suppress: string[]; incarnation?: number }
+  /** Layer 4: this object has the named basic land type in addition to its other types. */
+  | { kind: 'subtypeGrant'; subtype: string }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
   /**
@@ -140,6 +144,7 @@ export type ReversibleEffect =
    */
   | {
       kind: 'setPt'
+      cda?: true
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
     }
@@ -222,13 +227,30 @@ export type PrintedStaticModifier =
 /** Consumable damage-prevention shield tracked outside replacement lineage. */
 export type PreventionInstance = {
   id: string
-  remaining: number
-  capacity: number
+  remaining: number | 'unlimited'
+  capacity: number | 'unlimited'
   duration: EffectDuration
   hostSourceId: string
   hostSourceIncarnation: number
   controller: PlayerId
   filter: PreventionFilter
+  /** Announcement-time targets/choices used when the filter names `targetRef` or `choiceRef`. */
+  capturedBindings?: {
+    results?: Readonly<Record<string, InstructionResult>>
+    targets?: Readonly<Record<number, readonly (
+      | { kind: 'player'; playerId: PlayerId }
+      | ({ kind: 'object' } & ObjectIdentity)
+      | { kind: 'stackItem'; stackId: string }
+    )[]>>
+    targetLegality?: Readonly<Record<number, readonly boolean[]>>
+    choices?: Readonly<Record<string, readonly (
+      | { kind: 'player'; playerId: PlayerId }
+      | ({ kind: 'object' } & ObjectIdentity)
+      | { kind: 'stackItem'; stackId: string }
+    )[]>>
+  }
+  /** Host snapshot used when the live object has left `state.objects`. */
+  capturedSource?: CapturedObject
   /** Stable key for static abilities: `${sourceId}:${abilityIndex}:${effectIndex}`. */
   staticKey?: string
   additionalEffects?: readonly Instruction[]
@@ -326,6 +348,7 @@ export type GameObject = {
   protector?: PlayerId
   loyaltyActivatedTurn: number | null
   oracleText: string
+  attachedToRef?: ObjectIdentity
   attachedTo: string | null
   /** Phased-out permanents are treated as though they do not exist (CR 702.26). */
   phasedOut?: boolean
@@ -349,6 +372,8 @@ export type GameObject = {
   exiledCards?: string[]
   /** Object id of the permanent whose ability exiled this card. */
   exiledWith?: string
+  /** Immediate return destination when this source leaves the battlefield. */
+  returnLinkedExile?: 'battlefield' | 'hand'
   /** Exiled until an opponent becomes the monarch (Palace Jailer shape). */
   exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
@@ -362,12 +387,15 @@ export type GameObject = {
     definitionRevision: string
     duration: DslEffectDuration
     createdTurn: number
+    timestamp?: number
     execution?: StackExecutionContext
     untilTurn?: number
     untilStepTurn?: number
     untilStepNotBeforeTurn?: number
     untilStepActive?: PlayerId
+    printedStatic?: { abilityIndex: number; effectIndex: number }
   }>
+  canonicalGrantedActivations?: Array<Omit<NonNullable<GameObject['canonicalGrantedAbilities']>[number], 'ability'> & { ability: ActivatedAbilityDefinition }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
   /** CR 613.7a rules timestamp for printed static abilities on this object. */
@@ -376,6 +404,9 @@ export type GameObject = {
   printedStaticModifiers?: PrintedStaticModifier[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
+  /** CR 702.103e–g: a bestowed Aura that has already ceased to be bestowed. */
+  bestowedCeased?: true
+  castCostChoices?: PaidCostChoices
   /** Multikicker count stamped when this permanent entered from a resolving spell. */
   enteredWithTimesKicked?: number
   /** Turn this object most recently entered the battlefield. */
@@ -411,10 +442,14 @@ export type GameObject = {
  * `id` is allocated once via `draft.allocId('stack')` and never regenerated —
  * stable for `continueAction`, replay, and client round-trips.
  */
+export type PaidCostChoices = { optional: readonly number[]; alternative?: number; players?: Readonly<Record<number, PlayerId>> }
+
 export type StackItem = {
   id: string
   kind: 'spell' | 'ability' | 'action'
   objectId: string
+  /** An inherent game ability has no card/permanent source. */
+  sourceLess?: true
   controller: PlayerId
   name: string
   targets: TargetRef[]
@@ -467,36 +502,53 @@ export type CapturedObject = {
 export type OccurrenceSnapshot = {
   kind: 'event'
   eventType: string
+  stackItemId?: string
+  vote?: VoteResult
   player?: PlayerId
+  defender?: PlayerId
   amount?: number
   object?: {
     before?: ObjectSnapshot
     after?: ObjectSnapshot
   }
+  /** Simultaneous one-or-more zone changes captured as a single occurrence. */
+  objects?: {
+    before?: ObjectSnapshot
+    after?: ObjectSnapshot
+  }[]
   source?: CapturedObject
 }
 
 export type StackExecutionContext = {
+  /** Internal execution anchor is never a game object or legal source reference. */
+  sourceLess?: true
+  monarchRevision?: number
+  /** Independent LKI watches for referenced objects, never the source of this ability. */
+  referencedObjects?: CapturedObject[]
   controller: PlayerId
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
   /** Parent occurrence context captured by a generated callback. */
   capturedOccurrence?: OccurrenceSnapshot
   /** Which occurrence fields belong to the captured parent lexical scope. */
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[]
   /** Captured bindings inherited by a delayed/reflexive program. */
   variables?: Readonly<Partial<Record<'X', number>>>
-  results?: Record<string, boolean | number>
+  results?: Record<string, InstructionResult>
   scopeId?: string
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
-  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  choices?: Record<string, CanonicalChoiceRecipient[]>
   /** Generated-program aliases for parent lexical choice bindings. */
   capturedChoiceAliases?: Record<string, string>
   /** Generated-program aliases for parent lexical result bindings. */
   capturedResultAliases?: Record<string, string>
+  /** Granter identity for a stamped canonical grant (`grant.source`). */
+  grantSource?: { objectId: string; incarnation: number }
+  /** Chapter number for a Saga ability waiting on the stack or a targeting choice. */
+  sagaChapter?: number
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
@@ -514,6 +566,7 @@ export type StackExecutionContext = {
     id: string
     sourceId: string
     phase: 'committed'
+    costChoices?: PaidCostChoices
     lockedCost: {
       mana?: string
       nonMana: readonly Cost[]
@@ -528,18 +581,33 @@ export type StackExecutionContext = {
  * scope 0; sequence instructions push a child scope instead of recursing on the
  * JavaScript stack, so a saved game can resume at the exact instruction.
  */
+export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | { kind: 'player'; playerId: PlayerId }
+
 export type ProgramScopeFrame = {
+  iterationPlayer?: PlayerId
+  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'voteResults' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
+  collectMax?: ResultMaxBinding
   path: string
   /** Target binding scope used by instructions in this frame. */
   scopeId?: string
   instructions: readonly Instruction[]
   cursor: number
+  /** Overlay for nested iteration, such as forEach over destroyed permanents. */
+  occurrence?: OccurrenceSnapshot
+  /** Trailing repeatWhile re-entry checks the condition before running the body again. */
+  repeatRemaining?: number
+  continueWhile?: true
+  /** Trailing repeatOnceIf re-entry checks the condition before a single extra pass. */
+  repeatOncePending?: true
 }
 
 /** Authoritative, private state for the one resolution currently in progress. */
 export type CanonicalResolutionFrame = {
   version: 1
   kind: 'canonicalSpell'
+  sourceLess?: true
+  referencedObjects?: CapturedObject[]
+  monarchRevision?: number
   stackId: string
   /** A canonical ability resolving inline (for example a mana ability) has no public stack item. */
   inlineItem?: StackItem
@@ -560,15 +628,29 @@ export type CanonicalResolutionFrame = {
   targetLegalityByScope?: Record<string, Record<number, boolean[]>>
   /** Validated announcement-time allocations retained across resolution suspension. */
   distributionBindings?: DistributionAllocation[]
-  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
-  results?: Record<string, boolean | number>
+  playerChoiceBindings?: string[]
+  choices?: Record<string, CanonicalChoiceRecipient[]>
+  results?: Record<string, InstructionResult>
+  /** Finished public votes keyed by the instruction bindResult. */
+  voteResults?: Record<string, VoteResult>
+  /** Maxima collected across forEachPlayer iterations; restore does not rewind them. */
+  resultMaxima?: Record<string, number>
   pendingResult?: {
     binding: string
-    kind: 'counter' | 'action'
+    kind: 'counter' | 'action' | 'amount'
     stackId?: string
     value?: boolean | number
     eventType?: GameEvent['type']
+    destination?: ZoneId
+    /** Sacrifice outcomes retain both the numeric total and optional success result. */
+    booleanBinding?: string
+    expectedObjects?: ObjectIdentity[]
+    expectedSeats?: PlayerId[]
   }
+  /** Copiable characteristics captured before a source left its zone. */
+  capturedCopies?: Record<string, NonNullable<Extract<GameEvent, { type: 'copyPermanent' }>['token']>>
+  /** Last-known objects aligned with a bound choice, including tokens that later ceased. */
+  choiceSnapshots?: Record<string, ObjectSnapshot[]>
   outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
@@ -578,7 +660,17 @@ export type CanonicalResolutionFrame = {
   /** Simultaneous top-library choices wait for every player before moving cards. */
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   /** New identities to bind after the current move instruction commits. */
+  collectedPlayerChoices?: CollectedPlayerChoices
   pendingMovedChoice?: { binding: string; objects: ObjectIdentity[] }
+  /** Token identities created by the current createToken or copy instruction. */
+  pendingCreatedChoice?: { binding: string; beforeIds: string[] }
+  /** Library identities whose first public destinations belong to this mill action (CR 701.17c). */
+  pendingMilledChoice?: { binding: string; objects: ObjectIdentity[] }
+  /** Last-known objects to bind after destroy events commit and tokens cease. */
+  pendingDestroyedChoice?: {
+    binding: string
+    entries: Array<{ objectId: string; incarnation: number; snapshot: ObjectSnapshot }>
+  }
   /** Cards expected in exile after the first half of an immediate blink. */
   pendingBlink?: Array<{ ref: ObjectIdentity; controller: PlayerId; tapped?: boolean }>
   pendingProliferate?: { objectIds: string[]; binding?: string }
@@ -599,7 +691,10 @@ export type CanonicalResolutionFrame = {
     scopeId?: string
     payer: PlayerId
     amount: number
-    cost: Cost
+    cost: ResolutionCost
+    manaSpent?: ManaPool
+    lifePaymentApplied?: true
+    lifeLossApplied?: true
     resultBinding: string
     source: CapturedObject
     controller: PlayerId
@@ -681,6 +776,7 @@ export type PreventionFollowUpProgram = {
   hostSourceId: string
   controller: PlayerId
   instructions: readonly Instruction[]
+  occurrence?: OccurrenceSnapshot
 }
 
 /** Private durable replacement cursor; removed from client projections. */
@@ -696,24 +792,34 @@ export type EventProcessingFrame = {
   followUp?: GameEvent[]
   followUpPrograms?: PreventionFollowUpProgram[]
   program?: ReplacementInstructionProgramState
-  /** Choose/branch application procedure for a canonical replacement (not replaceWith). */
+  /** Choose/branch/pay application procedure for a canonical replacement (not replaceWith). */
   applicationProgram?: ReplacementProgramCursor
 }
 
-/** Durable cursor for a replacement's application procedure (`choose` / later branch). */
+/** Durable choices and results for a replacement's application procedure. */
 export type ReplacementProgramCursor = {
+  choices?: Record<string, (({ kind: 'object' } & ObjectIdentity) | { kind: 'player'; playerId: PlayerId })[]>
+  results?: Record<string, InstructionResult>
   instructions: readonly ReplacementProgramInstruction[]
   index: number
   bindings: Record<string, string>
   transform: ReplacementTransform
   sourceId: string
   controller: PlayerId
+  /** In-flight emit sacrifices waiting on nested replacements. */
+  pendingEmit?: {
+    remaining: GameEvent[]
+    counted: number
+    pendingIdentity?: ObjectIdentity
+    bindCount?: string
+    bindResult?: string
+  }
 }
 
 export type ReplacementInstructionProgramState = {
   instructions: readonly Instruction[]
   scopes: Array<{ path: string; instructions: readonly Instruction[]; cursor: number }>
-  results?: Record<string, boolean | number>
+  results?: Record<string, InstructionResult>
   choices?: Record<string, readonly { kind: 'object'; objectId: string }[]>
   pendingDiscard?: {
     seats: PlayerId[]
@@ -769,6 +875,36 @@ export type PlayerState = {
  * `zoneCounts` stay public even when `zoneOrder.library` is emptied for a client.
  * `rules` is the active plugin list. `log` is a human-readable apply trace.
  */
+export type LinkedExileSet = {
+  untilOpponentMonarch?: { player: PlayerId; since: number }
+  source: ObjectIdentity
+  cards: ObjectIdentity[]
+  untilSourceLeaves?: true
+  returnTo?: 'battlefield' | 'hand'
+}
+
+/** Identity, cost, and remaining uses for a temporary spell-cast permission. */
+export type SpellCastPermission = {
+  id: string
+  sourceId: string
+  sourceName: string
+  seat: PlayerId
+  cost: 'withoutPayingMana' | 'printed' | 'lifeEqualManaValue'
+  asThoughFlash?: true
+  remainingUses: number
+  /** Cast this specific object (rebound exile / later-turn exile). */
+  objectId?: string
+  /** Live zone query (offered hand, exile, or graveyard). */
+  zone?: ZoneId
+  fromSeat?: PlayerId
+  maxManaValue?: number
+  notLand?: true
+  takeControl?: true
+  inspect?: true
+  /** First turn the permission may be used (later-turn exile play). */
+  availableFromTurn?: number
+}
+
 export type GameState = {
   format: string
   /** Opponent relationships are defined by the format, then stored for deterministic replay. */
@@ -801,6 +937,8 @@ export type GameState = {
   priority: PlayerId | null
   turn: number
   step: StepId
+  /** Combatants with first/double strike as the first damage step began (CR 510.4). */
+  firstStrikeCombatants?: ObjectIdentity[]
   passedInRow: PlayerId[]
   /** Extra turns queued to begin after the current turn ends (FIFO). */
   extraTurns?: PlayerId[]
@@ -819,6 +957,14 @@ export type GameState = {
   prevented?: boolean
   /** At most one monarch; `null` when the crown is vacant. */
   monarch: PlayerId | null
+  /** Canonical exiled-card identities, keyed by the original source incarnation. */
+  linkedExileSets?: LinkedExileSet[]
+  /** Temporary one-shot or uses-limited spell-cast permissions (26-permission). */
+  spellPermissions?: SpellCastPermission[]
+  voteModifiers?: { players: PlayerId[]; controller?: PlayerId; additional?: number; expiresTurn?: number }[]
+  monarchRevision?: number
+  /** Latest actual crown acquisition for each seat; retained through elimination. */
+  monarchAcquiredAt?: Record<PlayerId, number>
   log: string[]
 }
 
@@ -856,6 +1002,8 @@ export type ManaPayment = { objectId: string; mana?: ManaId }
  * highest nonzero tally; `tied` says several do.
  */
 export type VoteResult = {
+  /** Full ballots when an effect grants additional votes; votes retains each first ballot. */
+  ballots?: Record<PlayerId, string[]>
   votes: Record<PlayerId, string>
   tallies: Record<string, number>
   winners: string[]
@@ -890,6 +1038,7 @@ export type TriggerBinding = {
  * `recurring` represents an explicit "for the rest of the game" duration.
  */
 export type DelayedTriggerCondition =
+  | { kind: 'tappedForMana'; filter: ObjectOccurrenceFilter }
   | {
       kind: 'event'
       type: GameEvent['type']
@@ -916,6 +1065,8 @@ export type DelayedTrigger = {
     inheritedTargets?: boolean
   }
   condition: DelayedTriggerCondition
+  /** Earliest player-turn in which this delayed ability can trigger. */
+  notBeforeTurn?: number
   instructions: CardInstruction[]
   timestamp: number
   recurring?: boolean
@@ -933,26 +1084,43 @@ export type DelayedTrigger = {
  * `loseLife`. Fog prevents at `combatDamage`; "prevent damage" at `dealDamage`.
  */
 export type GameEvent =
+  | { type: 'abilityActivated'; objectId: string; stackId: string; seat: PlayerId; sourceSnapshot: CapturedObject }
   /** Internal canonical player allowance; expires at cleanup. */
   | { type: 'grantLandPlays'; seat: PlayerId; count: number }
+  /** Internal canonical player grant; lasts for the rest of the game. */
+  | { type: 'grantNoMaximumHandSize'; seat: PlayerId }
+  /** Exile chosen permanents and stamp them as linked to the source. */
+  | { type: 'linkExile'; sourceId: string; objectIds: string[]; sourceRef?: ObjectIdentity; targetRefs?: ObjectIdentity[]; untilOpponentMonarch?: { player: PlayerId; since: number }; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
+  /** Return cards currently linked to the named source. */
+  | { type: 'returnLinkedExile'; sourceId: string; sourceRef?: ObjectIdentity; returnTo?: 'battlefield' | 'hand' }
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
   /** Internal canonical instruction event; never offered as a player action. */
-  | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
+  | {
+      type: 'counterStackItem'
+      stackId: string
+      sourceId?: string
+      objectRef?: ObjectIdentity
+      destination?: ZoneId
+      controller?: PlayerId
+    }
   /** Internal canonical instruction group; all members share one before-state. */
   | { type: 'actionGroup'; events: GameEvent[]; atomic?: boolean }
+  /** A resolved control-changing effect, guarded against a replacement incarnation. */
+  | { type: typeof CONTROL_EVENT.change; objectRef: ObjectIdentity; controller: PlayerId }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
-  /** Canonical spell-copy action; unlike castSpell it creates no cast occurrence. */
-  | { type: 'copySpell'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
+  /** Canonical stack-copy action; creates no cast or activation occurrence. */
+  | { type: 'copySpell' | 'copyAbility'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
   /** Canonical temporary effect; the event carries evaluated recipients and pinned source data. */
   | {
       type: 'canonicalEffect'
       objectId: string
       effect: CreatedEffect
+      effectPlayer?: PlayerId
       duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity
@@ -998,6 +1166,8 @@ export type GameEvent =
       x?: number
       sacrifice?: string[]
       exile?: string[]
+      /** Separate graveyard selection for each collect-evidence payment. */
+      evidence?: string[][]
       convoke?: string[]
       /** Graveyard cards exiled to pay generic mana (delve). */
       delve?: string[]
@@ -1010,6 +1180,7 @@ export type GameEvent =
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       wardPaid?: boolean
       selectedOptionalCosts?: number[]
+      costPlayers?: Readonly<Record<number, PlayerId>>
       selectedAlternativeCost?: number
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
@@ -1047,16 +1218,33 @@ export type GameEvent =
         ruleDefinition?: GameObject['ruleDefinition']
         effects?: GameObject['effects']
         dsl?: true
+        tapped?: boolean
       }
     }
   | {
-      type: 'searchBasicsForExiledAttackers'
-      seat: PlayerId
-      sourceId: string
-      objectIds: string[]
+      type: 'createEmblem'
+      controller: PlayerId
+      emblem: {
+        name: string
+        subtypes?: string[]
+        oracleText?: string
+        ruleDefinition?: GameObject['ruleDefinition']
+      }
+    }
+  | {
+      type: 'banAttacks'
+      attackerController: PlayerId
+      protectorController: PlayerId
+      source: CapturedObject
+      defenders: ObjectSelector
     }
   | {
       type: 'move'
+      faceDown?: boolean
+      /** This move completes a sacrifice action; replacements retain its provenance. */
+      sacrifice?: true
+      /** Record only the final exile identity, after replacement has applied. */
+      exileLink?: Omit<LinkedExileSet, 'cards'>
       objectId: string
       to: ZoneId
       position?: 'top' | 'bottom'
@@ -1070,11 +1258,16 @@ export type GameEvent =
       replacementLineage?: ReplacementLineage
       tapped?: boolean
       /** Counters supplied by the effect putting this permanent onto the battlefield. */
+      attachPlayer?: PlayerId
+      attachTo?: ObjectIdentity
       enterCounters?: Readonly<Record<string, number>>
       /** Color chosen as this object enters (CR 614.12). */
+      chosenType?: string
       chosenColor?: ManaId
+      /** Take a non-resolving spell off the stack when this card leaves it (bounce, not counter). */
+      dropStackItem?: boolean
     }
-  | { type: 'tap'; objectId: string }
+  | { type: 'tap'; objectId: string; skipNextUntap?: true }
   | { type: 'untap'; objectId: string }
   | { type: 'phaseOut'; objectId: string }
   | { type: 'phaseIn'; objectId: string }
@@ -1107,10 +1300,10 @@ export type GameEvent =
   | { type: 'scry' | 'surveil'; seat: PlayerId; count: number }
   | { type: 'cycle'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
-  | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
+  | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string; turnFaceUp?: true }
   // — Mana —
   | { type: 'tapForMana'; seat: PlayerId; objectId: string; mana?: ManaId }
-  | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool>; sourceId?: string }
+  | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool>; sourceId?: string; restriction?: Pick<RestrictedMana, 'creatureType' | 'legendary' | 'uncounterable'> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
   | {
       type: 'payExtort'
@@ -1178,12 +1371,14 @@ export type GameEvent =
       type: 'registerPrevention'
       hostObjectId: string
       filter: PreventionFilter
-      capacity: number
+      capacity: number | 'unlimited'
       duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity
       sourceRevision?: string
       additionalEffects?: readonly Instruction[]
+      capturedBindings?: PreventionInstance['capturedBindings']
+      capturedSource?: CapturedObject
       createdTurn?: number
       durationUntilTurn?: number
       durationUntilStepTurn?: number
@@ -1213,6 +1408,7 @@ export type GameEvent =
       source?: string
     }
   | { type: 'winGame'; seat: PlayerId; source?: string }
+  | { type: 'tokenCreated'; object: ObjectSnapshot }
   | { type: 'sacrifice'; objectId: string; sourceId?: string }
   | { type: 'proliferate'; seat: PlayerId; sourceId?: string }
   | { type: 'fight'; leftId: string; rightId: string }
@@ -1281,13 +1477,6 @@ export type GameEvent =
       optionId: string
     }
   | {
-      type: 'completeDelayedReturn'
-      objectId: string
-      seat: PlayerId
-      sourceId: string
-      discardCount: number
-    }
-  | {
       type: 'payCumulativeUpkeep'
       seat: PlayerId
       choiceId: string
@@ -1321,6 +1510,7 @@ export type GameEvent =
       distributionBindings?: DistributionAllocation[]
       x?: number
       choices?: string[]
+      evidence?: string[][]
       door?: RoomDoorId
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean

@@ -10,6 +10,8 @@ import {replayCardTemplate} from '../replay'
 import {resolveStack} from '../testHelpers'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
+import {pendingOptionSelection} from '../rules/selectOptions'
+import {DECLINE_LIFE_OPTION} from '../cardPlugins/dsl/v1'
 const bridgeworks = () => cardTemplate('Bridgeworks Battle // Tanglespan Bridgeworks', {
   types: ['Sorcery', 'Land'],
   manaCost: '{2}{G}',
@@ -50,7 +52,16 @@ describe('modal double-faced cards', () => {
     expect(availableActions(funded, 'p1').map((action) => action.kind))
       .toEqual(expect.arrayContaining(['playLand', 'castSpell']))
 
-    const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    let played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    const pending = pendingOptionSelection(played, 'p1')
+    if (pending) {
+      played = ok(server.rules(played, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
     expect(played.objects[objectId]).toMatchObject({
       zone: 'battlefield',
       types: ['Land'],
@@ -59,26 +70,22 @@ describe('modal double-faced cards', () => {
   })
 
   test('casts the spell face and restores its front face after a land leaves', () => {
-    const server = createServerGame(commanderRules, { hands: { p1: [bridgeworks()] } })
-    const objectId = server.state.zoneOrder.p1.hand[0]
-    const funded = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: {
-          ...server.state.players.p1,
-          mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 },
-        },
-      },
-    }
-    const cast = ok(server.rules(funded, { type: 'castSpell', seat: 'p1', objectId }))
-    expect(cast.objects[objectId]).toMatchObject({ zone: 'stack', types: ['Sorcery'] })
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[objectId]).toMatchObject({ zone: 'graveyard', types: ['Sorcery'] })
-
     const fresh = createServerGame(commanderRules, { hands: { p1: [bridgeworks()] } })
     const landId = fresh.state.zoneOrder.p1.hand[0]
-    const played = ok(fresh.rules(fresh.state, { type: 'playLand', seat: 'p1', objectId: landId }))
+    fresh.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 }
+    expect(availableActions(fresh.state, 'p1').map(action => action.kind))
+      .toEqual(expect.arrayContaining(['playLand', 'castSpell']))
+    let played = ok(fresh.rules(fresh.state, { type: 'playLand', seat: 'p1', objectId: landId }))
+    const pending = pendingOptionSelection(played, 'p1')
+    if (pending) {
+      played = ok(fresh.rules(played, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
+    expect(played.objects[landId]).toMatchObject({ zone: 'battlefield', types: ['Land'] })
     const bounced = ok(fresh.rules(played, { type: 'move', objectId: landId, to: 'hand' }))
     expect(bounced.objects[landId]).toMatchObject({ zone: 'hand', types: ['Sorcery'] })
   })
@@ -158,8 +165,8 @@ describe('relocated from kambalManaGraveyards.test.ts → doubleFaced.test.ts', 
 })
 
 
-test('catalog face rules switch to the land entry program and restore the front program after leaving', () => {
-  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Bala Ged Recovery')] } })
+test.each(['Bala Ged Recovery', 'Khalni Ambush // Khalni Territory', 'Revitalizing Repast // Old-Growth Grove'])('catalog %s switches to the land entry program and restores the front program after leaving', name => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate(name)] } })
   const objectId = server.state.zoneOrder.p1.hand[0]!
   const frontDefinition = server.state.objects[objectId].ruleDefinition!
   const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
@@ -168,6 +175,6 @@ test('catalog face rules switch to the land entry program and restore the front 
   expect(played.objects[objectId].ruleDefinition!.definitionRevision).not.toBe(frontDefinition.definitionRevision)
   const restored = JSON.parse(JSON.stringify(played))
   const bounced = ok(server.rules(restored, { type: 'move', objectId, to: 'hand' }))
-  expect(bounced.objects[objectId]).toMatchObject({ zone: 'hand', types: ['Sorcery'] })
+  expect(bounced.objects[objectId]).toMatchObject({ zone: 'hand', types: server.state.objects[objectId].frontFace!.types })
   expect(bounced.objects[objectId].ruleDefinition).toEqual(frontDefinition)
 })

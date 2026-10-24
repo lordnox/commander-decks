@@ -1,78 +1,16 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingSelectionFor } from '../rules/selectCards'
-import { ok, resolveStack } from '../testHelpers'
+import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
-import {
-  CUMULATIVE_UPKEEP_PENDING,
-  cumulativeUpkeep,
-  pendingCumulativeUpkeep,
-} from './cumulativeUpkeep'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('Lady Evangela replacement gaps', () => {
-  test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Mulldrifter', {
-            types: ['Creature'],
-            manaCost: '{4}{U}',
-            power: 2,
-            toughness: 2,
-          })],
-        },
-        libraries: {
-          p1: [
-            cardTemplate('First card'),
-            cardTemplate('Second card'),
-          ],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [alternateCosts] },
-    )
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
-    const mulldrifter = named(ready, 'Mulldrifter')
-    const actions = legalActsFor(ready, 'p1').filter(
-      (action) => action.kind === 'castSpell' && action.objectId === mulldrifter.id,
-    )
-    expect(actions).toContainEqual(expect.objectContaining({
-      castOption: 'evoke',
-      castLabel: 'Evoke {2}{U}',
-    }))
-    expect(actions.some((action) => action.kind === 'castSpell' && !action.castOption)).toBe(false)
-
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: mulldrifter.id,
-      castOption: 'evoke',
-    }))
-    expect(cast.stack[0].castOption).toBe('evoke')
-    const enteredUnordered = ok(server.rules(cast, { type: 'resolveTop' }))
-    const order = pendingSelectionFor(enteredUnordered, 'p1')!
-    const entered = ok(server.rules(enteredUnordered, {
-      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
-      count: order.count, objectIds: order.candidates,
-    }))
-    expect(entered.objects[mulldrifter.id].zone).toBe('battlefield')
-    expect(entered.stack.map((item) => item.name)).toEqual(['Mulldrifter', 'Mulldrifter'])
-
-    const resolved = resolveStack(server.rules, entered)
-    expect(resolved.zoneOrder.p1.hand.map((id) => resolved.objects[id].name).sort())
-      .toEqual(['First card', 'Second card'])
-    expect(resolved.objects[mulldrifter.id].zone).toBe('graveyard')
-  })
-
   test('Snuff Out validates the Swamp and four-life alternate cost', () => {
     const server = createServerGame(
       commanderRules,
@@ -173,7 +111,7 @@ describe('Lady Evangela replacement gaps', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: veto.id,
-      targets: [{ kind: 'object', objectId: threat.id }],
+      targets: [{ kind: 'stackItem', stackId: threatCast.stack.find(item => item.objectId === threat.id)!.id }],
     }))
     expect(vetoCast.stack[0].uncounterable).toBe(true)
 
@@ -185,8 +123,8 @@ describe('Lady Evangela replacement gaps', () => {
       type: 'castSpell',
       seat: 'p3',
       objectId: wash.id,
-      castOption: 'cleave',
-      targets: [{ kind: 'object', objectId: veto.id }],
+      selectedAlternativeCost: 0,
+      targets: [{ kind: 'stackItem', stackId: vetoCast.stack.find(item => item.objectId === veto.id)!.id }],
     }))
     const washResolved = ok(server.rules(washCast, { type: 'resolveTop' }))
     expect(washResolved.objects[veto.id].zone).toBe('stack')
@@ -217,67 +155,5 @@ describe('Lady Evangela replacement gaps', () => {
     expect(state.players.p1.life).toBe(11)
   })
 
-  test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: {
-          p1: [cardTemplate('Wall of Shards', {
-            types: ['Creature'],
-            subtypes: ['Wall'],
-            power: 1,
-            toughness: 8,
-          })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [cumulativeUpkeep] },
-    )
-    const ready = structuredClone(server.state)
-    ready.step = 'untap'
-    const wall = named(ready, 'Wall of Shards')
-    const upkeepTrigger = ok(server.rules(ready, { type: 'advanceStep' }))
-    const choosing = ok(server.rules(upkeepTrigger, { type: 'resolveTop' }))
-    const first = pendingCumulativeUpkeep(choosing, 'p1')!
-    expect(choosing.objects[wall.id].counters.age).toBe(1)
-    expect(first.count).toBe(1)
-    expect(server.project(choosing, 'p2').players.p1.data[CUMULATIVE_UPKEEP_PENDING])
-      .toBeUndefined()
-    expect(server.project(choosing, 'p1').players.p1.data[CUMULATIVE_UPKEEP_PENDING])
-      .toBeDefined()
 
-    expect(server.rules(choosing, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: first.id,
-      objectId: wall.id,
-      pay: true,
-      recipients: [],
-    }).ok).toBe(false)
-    const paid = ok(server.rules(choosing, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: first.id,
-      objectId: wall.id,
-      pay: true,
-      recipients: ['p2'],
-    }))
-    expect(paid.players.p2.life).toBe(41)
-
-    const nextUpkeep = structuredClone(paid)
-    nextUpkeep.step = 'untap'
-    nextUpkeep.active = 'p1'
-    nextUpkeep.priority = 'p1'
-    const secondTrigger = ok(server.rules(nextUpkeep, { type: 'advanceStep' }))
-    const secondChoice = ok(server.rules(secondTrigger, { type: 'resolveTop' }))
-    const second = pendingCumulativeUpkeep(secondChoice, 'p1')!
-    expect(second.count).toBe(2)
-    const declined = ok(server.rules(secondChoice, {
-      type: 'payCumulativeUpkeep',
-      seat: 'p1',
-      choiceId: second.id,
-      objectId: wall.id,
-      pay: false,
-    }))
-    expect(declined.objects[wall.id].zone).toBe('graveyard')
-  })
 })

@@ -11,7 +11,6 @@ import { doubleFaced } from './plugins/doubleFaced'
 import { enchantedManaBoost } from './plugins/enchantedManaBoost'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { attackSubtypeDraw } from './plugins/attackSubtypeDraw'
-import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
 import { forestOverlay } from './plugins/forestOverlay'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
@@ -43,12 +42,18 @@ import { rooms } from './plugins/rooms'
 import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from './cardPlugins/staticBoardPump'
 import { additionalLandPlay } from './cardPlugins/additionalLandPlay'
+import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
+import { targetingRequirements } from './cardPlugins/targetingRequirements'
+import { ward } from './cardPlugins/ward'
+import { alternateCosts } from './cardPlugins/alternateCosts'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
+import { vote } from './cardPlugins/vote'
+import { canonicalRandom } from './cardPlugins/dsl/canonicalRandom'
 import type { PlayerId, Plugin, ZoneId } from './types'
 
 export type GameFormat = {
@@ -92,10 +97,14 @@ export const corePlugins = [
   mana,
   lands,
   spells,
+  combatTax,
+  targetingRequirements,
+  ward,
   adventure,
   foretell,
   rebound,
   warp,
+  alternateCosts,
   saga,
   rooms,
   stateBased,
@@ -108,6 +117,8 @@ export const corePlugins = [
   battle,
   doubleFaced,
   ...gameRules,
+  vote,
+  canonicalRandom,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,
@@ -124,7 +135,6 @@ export const optionalPlugins = [
   grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
-  extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

@@ -4,7 +4,7 @@ import { freezeDraft, makeDraft } from '../draft'
 import { startCanonicalResolution } from '../driver'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { captureObject } from '../objectIdentity'
-import { PENDING_SELECTION } from '../rules/selectCards'
+import { pendingSelectionFor, PENDING_SELECTION } from '../rules/selectCards'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
 import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
@@ -18,6 +18,7 @@ import type {
   EventProcessingFrame,
   GameEvent,
   GameState,
+  OccurrenceSnapshot,
   PreventionFollowUpProgram,
   ReplacementLineage,
 } from '../types'
@@ -34,6 +35,7 @@ import {
   eventsFromPreventionAdditional,
   isImmediatePreventionAdditional,
   preventionAdditionalEffects,
+  preventionFollowUpOccurrence,
   syncStaticPreventionInstances,
 } from './prevention'
 import {
@@ -75,7 +77,35 @@ const processingStore = (frames: readonly EventProcessingFrame[]) => ({
   deferredEventProcessing: frames.length > 1 ? frames.slice(1) : undefined,
 })
 
+const adoptSettlementWorld = (draft: Draft, source: GameState) => {
+  draft.objects = structuredClone(source.objects)
+  draft.zoneOrder = structuredClone(source.zoneOrder)
+  draft.log = [...source.log]
+  draft.rules = structuredClone(source.rules)
+  draft.stack = structuredClone(source.stack)
+  draft.players = structuredClone(source.players)
+  draft.nextId = source.nextId
+  draft.nextTimestamp = source.nextTimestamp
+  draft.turn = source.turn
+  draft.step = source.step
+  draft.active = source.active
+  if (source.preventionInstances) draft.preventionInstances = source.preventionInstances
+}
+
 const applyProcessingStore = (draft: Draft, source: GameState) => {
+  const active = source.eventProcessing
+  const choice = active?.chooser ? pendingOptionSelection(source, active.chooser) : undefined
+  const cards = active?.chooser ? pendingSelectionFor(source, active.chooser) : undefined
+  if (active?.chooser) {
+    const ownOption = choice && 'frameId' in choice.action && choice.action.frameId === active.id
+    const ownCards = cards?.canonicalChoice?.replacementFrameId === active.id
+    if (ownOption) draft.players[active.chooser]!.data[PENDING_OPTION_SELECTION] = structuredClone(choice)
+    if (ownCards) draft.players[active.chooser]!.data[PENDING_SELECTION] = structuredClone(cards)
+    if (ownOption || ownCards) {
+      draft.nextId = Math.max(draft.nextId, source.nextId)
+      draft.priority = active.chooser
+    }
+  }
   if (source.eventProcessing) draft.eventProcessing = source.eventProcessing
   else delete draft.eventProcessing
   if (source.deferredEventProcessing?.length) {
@@ -90,20 +120,19 @@ const deferWaiting = (current: GameState, incoming: GameState) => {
   if (!incomingFrame) return incoming
   const chooser = incomingFrame.chooser
   const existingChoice = chooser ? pendingOptionSelection(current, chooser) : undefined
-  const keepExistingChoice = existingChoice?.action.kind === 'replacementModifier'
-    && existingChoice.action.frameId !== incomingFrame.id
-  const players = keepExistingChoice && chooser
-    ? {
-        ...incoming.players,
-        [chooser]: {
-          ...incoming.players[chooser]!,
-          data: {
-            ...incoming.players[chooser]!.data,
-            [PENDING_OPTION_SELECTION]: structuredClone(current.players[chooser]!.data[PENDING_OPTION_SELECTION]),
-          },
-        },
-      }
-    : incoming.players
+  const existingCards = chooser ? pendingSelectionFor(current, chooser) : undefined
+  const keepExistingChoice = (existingChoice && 'frameId' in existingChoice.action && existingChoice.action.frameId !== incomingFrame.id)
+    || (existingCards?.canonicalChoice?.replacementFrameId && existingCards.canonicalChoice.replacementFrameId !== incomingFrame.id)
+  const players = { ...incoming.players }
+  if (keepExistingChoice && chooser) {
+    const data = { ...incoming.players[chooser]!.data }
+    for (const key of [PENDING_OPTION_SELECTION, PENDING_SELECTION]) {
+      const value = current.players[chooser]!.data[key]
+      if (value !== undefined) data[key] = structuredClone(value)
+      else delete data[key]
+    }
+    players[chooser] = { ...incoming.players[chooser]!, data }
+  }
   return {
     ...incoming,
     players,
@@ -116,6 +145,7 @@ const reattachProcessing = (
   original: GameState,
   completedId: string,
   fallback: GameState,
+  catalog: PluginCatalog,
 ): ReplacementSettlement => {
   const completedWasPrimary = original.eventProcessing?.id === completedId
   const remaining = processingFrames(original).filter((frame) => frame.id !== completedId)
@@ -127,7 +157,46 @@ const reattachProcessing = (
     return { ...settlement, state: { ...settlement.state, ...processingStore(frames) } }
   }
   const base = settlement.state ?? fallback
-  return { ...settlement, state: { ...base, ...processingStore(remaining) } }
+  const next = makeDraft({ ...base, ...processingStore(remaining) })
+  const active = next.eventProcessing
+  const openChoice = Boolean(
+    active?.chooser
+    && (pendingOptionSelection(next, active.chooser) || pendingSelectionFor(next, active.chooser)),
+  )
+  if (active?.applicationProgram && !openChoice) {
+    const instruction = active.applicationProgram.instructions[active.applicationProgram.index]
+    const shouldResume = Boolean(
+      active.applicationProgram.pendingEmit
+      || instruction?.kind === 'chooseCards'
+      || instruction?.kind === 'choose'
+      || instruction?.kind === 'emit',
+    )
+    if (shouldResume) {
+      const reopen = instruction?.kind === 'chooseCards' || instruction?.kind === 'choose'
+      const reopened = advanceApplicationProgram(freezeDraft(next), active, reopen, catalog)
+      if (reopened.kind === 'waiting') return { ...settlement, state: reopened.state }
+      return settleApplicationStep(
+        reopened,
+        active.pendingEvent,
+        active.lineage,
+        active.applicationProgram.sourceId,
+        active.applicationProgram.controller,
+        active.chooser,
+        catalog,
+        announcementOptions(active.announcementTransactionId),
+        [...(active.followUp ?? [])],
+        [...(active.followUpPrograms ?? [])],
+      )
+    }
+  }
+  if (active?.chooser && active.awaitingCandidateIds.length > 0 && !pendingOptionSelection(next, active.chooser)) {
+    const candidates = discoverReplacementCandidates(
+      freezeDraft(next), active.pendingEvent, catalog,
+      active.lineage.usedInstanceIds, active.lineage.settledOptionalDeclines ?? [],
+    ).filter(candidate => active.awaitingCandidateIds.includes(candidate.instanceId))
+    if (candidates.length > 0) openModifierChoice(next, active, candidates, active.chooser)
+  }
+  return { ...settlement, state: freezeDraft(next) }
 }
 
 const lineageForProposal = (state: GameState, event: GameEvent) =>
@@ -171,12 +240,14 @@ type FollowUpExtras = {
 const sideEffectsForPrevention = (
   state: GameState,
   candidate: Extract<ReplacementCandidate, { kind: 'prevention' }>,
+  occurrence: OccurrenceSnapshot,
 ): FollowUpExtras => {
-  const host = state.objects[(state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)?.hostSourceId ?? '']
+  const instance = (state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)
+  const host = state.objects[instance?.hostSourceId ?? '']
   const extra = preventionAdditionalEffects(state, candidate.preventionId)
   if (!extra?.length || !host) return {}
   if (extra.length === 1 && extra.every(isImmediatePreventionAdditional)) {
-    const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra)
+    const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra, occurrence)
     return followUp.length > 0 ? { followUp } : {}
   }
   return {
@@ -184,6 +255,7 @@ const sideEffectsForPrevention = (
       hostSourceId: host.id,
       controller: host.controller,
       instructions: structuredClone(extra),
+      occurrence: structuredClone(occurrence),
     }],
   }
 }
@@ -263,6 +335,7 @@ export const startPreventionAdditionalPrograms = (
         source: captureObject(host),
         definitionSnapshot,
         abilityIndex: 0,
+        ...(program.occurrence ? { occurrence: structuredClone(program.occurrence) } : {}),
       },
     }, { inline: true })
   }
@@ -276,11 +349,17 @@ const applyCandidate = (
 ): { result: ApplyResult; state: GameState } => {
   if (candidate.kind === 'prevention') {
     markInstanceUsed(lineage, candidate.instanceId)
-    const extras = sideEffectsForPrevention(state, candidate)
     if (proposal.type !== 'dealDamage') {
-      return { result: { kind: 'continue', event: proposal, ...extras }, state }
+      return { result: { kind: 'continue', event: proposal }, state }
     }
     const applied = applyPreventionToDamage(state, proposal, candidate.preventionId)
+    const extras = applied.preventedAmount > 0
+      ? sideEffectsForPrevention(
+        applied.state,
+        candidate,
+        preventionFollowUpOccurrence(proposal, applied.preventedAmount, applied.state),
+      )
+      : {}
     if (applied.event.amount <= 0) {
       return { result: { kind: 'prevented', ...extras }, state: applied.state }
     }
@@ -329,7 +408,7 @@ const applyCandidate = (
       state,
     }
   }
-  const transformed = applyCanonicalTransform(proposal, candidate, lineage)
+  const transformed = applyCanonicalTransform(proposal, candidate, lineage, state)
   if (transformed.kind === 'prevented') return { result: { kind: 'prevented' }, state }
   if (transformed.kind === 'program') {
     const source = state.objects[candidate.sourceId]
@@ -473,11 +552,15 @@ const settleApplicationStep = (
         followUpPrograms,
       )
     case 'complete':
-      return settleReplaceableEvent(
-        { ...stepped.state, eventProcessing: undefined },
-        stepped.event,
-        catalog,
-        options,
+      return attachFollowUps(
+        settleReplaceableEvent(
+          { ...stepped.state, eventProcessing: undefined },
+          stepped.event,
+          catalog,
+          options,
+        ),
+        [...followUp, ...stepped.followUp],
+        followUpPrograms,
       )
   }
 }
@@ -513,6 +596,8 @@ const settleApplicationProgram = (
     advanceApplicationProgram(
       { ...workingState, nextId: workingState.nextId + 1, eventProcessing: frame },
       frame,
+      false,
+      catalog,
     ),
     proposal,
     lineage,
@@ -721,7 +806,7 @@ export const resumeReplacementChoice = (
     deferredEventProcessing: isolated.deferredEventProcessing,
   }))
   const finish = (settlement: ReplacementSettlement) =>
-    reattachProcessing(settlement, state, frameId, resumeState)
+    reattachProcessing(settlement, state, frameId, resumeState, catalog)
   if (decline) {
     for (const id of frame.awaitingCandidateIds) markOptionalDeclined(lineage, id)
     return finish(attachFollowUps(
@@ -814,7 +899,7 @@ export const resumeReplacementProgramChoice = (
   state: GameState,
   frameId: string,
   bindChoice: string,
-  optionId: string,
+  optionId: string | readonly string[],
   catalog: PluginCatalog,
 ): ReplacementSettlement | { kind: 'invalid'; error: string } => {
   const frame = processingFrames(state).find((entry) => entry.id === frameId)
@@ -827,12 +912,12 @@ export const resumeReplacementProgramChoice = (
     eventProcessing: isolated.eventProcessing,
     deferredEventProcessing: isolated.deferredEventProcessing,
   }))
-  const advanced = rememberApplicationChoice(resumeState, frameId, bindChoice, optionId)
+  const advanced = rememberApplicationChoice(resumeState, frameId, bindChoice, optionId, catalog)
   const finish = (settlement: ReplacementSettlement) =>
-    reattachProcessing(settlement, state, frameId, resumeState)
+    reattachProcessing(settlement, state, frameId, resumeState, catalog)
   if (advanced.kind === 'invalid') return advanced
   const program = frame.applicationProgram
-  const settled = settleApplicationStep(
+  return finish(settleApplicationStep(
     advanced,
     frame.pendingEvent,
     frame.lineage,
@@ -843,15 +928,16 @@ export const resumeReplacementProgramChoice = (
     announcementOptions(frame.announcementTransactionId),
     pendingEvents,
     pendingPrograms,
-  )
-  if (settled.kind === 'waiting') return finish(settled)
-  return finish(attachFollowUps(settled, pendingEvents, pendingPrograms))
+  ))
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {
   switch (settlement.kind) {
     case 'prevented':
-      if (settlement.state) applyProcessingStore(draft, settlement.state)
+      if (settlement.state) {
+        adoptSettlementWorld(draft, settlement.state)
+        applyProcessingStore(draft, settlement.state)
+      }
       if (settlement.state?.preventionInstances !== undefined) {
         draft.preventionInstances = settlement.state.preventionInstances
       }
@@ -859,13 +945,19 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
       startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       return
     case 'fork':
-      if (settlement.state) applyProcessingStore(draft, settlement.state)
+      if (settlement.state) {
+        adoptSettlementWorld(draft, settlement.state)
+        applyProcessingStore(draft, settlement.state)
+      }
       settlement.followUp?.forEach((entry) => draft.enqueue(entry))
       startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       settlement.events.forEach((entry) => draft.enqueue(entry))
       return
     case 'settled':
-      if (settlement.state) applyProcessingStore(draft, settlement.state)
+      if (settlement.state) {
+        adoptSettlementWorld(draft, settlement.state)
+        applyProcessingStore(draft, settlement.state)
+      }
       if (settlement.state?.preventionInstances !== undefined) {
         draft.preventionInstances = settlement.state.preventionInstances
       }
@@ -875,6 +967,7 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
       return
     case 'waiting': {
       const waiting = settlement.state
+      adoptSettlementWorld(draft, waiting)
       applyProcessingStore(draft, waiting)
       if (waiting.preventionInstances) draft.preventionInstances = waiting.preventionInstances
       draft.nextId = waiting.nextId

@@ -1,7 +1,8 @@
+import { snapshotObject } from '../objectIdentity'
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
-import { hasKeyword } from '../keywords'
+import { abilityTokens, hasKeyword } from '../keywords'
 import { legendaryCombatDamageFrom } from '../plugins/combatLegendaryDamage'
 import { lifeLostThisTurn } from '../plugins/life'
 import type {
@@ -111,6 +112,7 @@ export const createToken = (
     })
   }
   draft.note(`${controller} creates ${token.name}`)
+  draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })
   if (emitEntry) {
     draft.enqueue({
       type: 'custom',
@@ -120,6 +122,39 @@ export const createToken = (
     })
   }
   return token
+}
+
+/** Emblems are command-zone objects, not tokens, and do not enter the battlefield. */
+export const createEmblem = (
+  draft: Draft,
+  controller: PlayerId,
+  emblem: {
+    name: string
+    subtypes?: string[]
+    oracleText?: string
+    ruleDefinition?: GameObject['ruleDefinition']
+  },
+) => {
+  const id = draft.allocId('emblem')
+  const object: GameObject = {
+    ...gameObjectFieldDefaults(),
+    name: emblem.name,
+    types: ['Emblem'],
+    subtypes: emblem.subtypes ? [...emblem.subtypes] : [],
+    oracleText: emblem.oracleText ?? '',
+    ...(emblem.ruleDefinition ? { ruleDefinition: emblem.ruleDefinition } : {}),
+    id,
+    owner: controller,
+    controller,
+    zone: 'command',
+    token: false,
+    effects: [],
+  }
+  draft.objects[id] = object
+  draft.zoneOrder[controller].command.push(id)
+  draft.zoneCounts[controller].command += 1
+  draft.note(`${controller} gets ${object.name}`)
+  return object
 }
 
 export const manaValueOf = (object: GameObject) => {
@@ -133,59 +168,92 @@ export const manaValueOf = (object: GameObject) => {
   }, 0)
 }
 
+export type CopyModifiers = {
+  notLegendary?: boolean
+  flying?: boolean
+  keywords?: readonly string[]
+  colors?: readonly string[]
+  extraTypes?: readonly string[]
+  extraSubtypes?: readonly string[]
+  noManaCost?: boolean
+  tapped?: boolean
+}
+
+const keywordOracleLine = (keyword: string) =>
+  `${keyword.charAt(0).toUpperCase()}${keyword.slice(1)}`
+
+const requestedKeywords = (extra: CopyModifiers) =>
+  [...new Set([...(extra.keywords ?? []), ...(extra.flying ? ['flying'] : [])])]
+
+type CopyCharacteristicFields = {
+  types: string[]
+  subtypes?: string[]
+  supertypes?: string[]
+  colors?: string[]
+  manaCost?: string
+  manaValue?: number
+  oracleText?: string
+}
+
+export const applyCopyModifiers = <T extends CopyCharacteristicFields>(
+  characteristics: T,
+  extra: CopyModifiers = {},
+): T => {
+  const keywords = requestedKeywords(extra)
+    .filter(keyword => !abilityTokens(characteristics.oracleText ?? '').includes(keyword))
+  const oracleAdditions = keywords.map(keywordOracleLine)
+  return {
+    ...characteristics,
+    types: extra.extraTypes
+      ? [...new Set([...characteristics.types, ...extra.extraTypes])]
+      : [...characteristics.types],
+    ...(extra.extraSubtypes
+      ? { subtypes: [...new Set([...extra.extraSubtypes, ...(characteristics.subtypes ?? [])])] }
+      : {}),
+    ...(extra.notLegendary
+      ? { supertypes: (characteristics.supertypes ?? []).filter(entry => entry !== 'Legendary') }
+      : {}),
+    ...(extra.colors ? { colors: [...extra.colors] } : {}),
+    ...(extra.noManaCost ? { manaCost: '', manaValue: 0 } : {}),
+    ...(oracleAdditions.length > 0
+      ? { oracleText: [characteristics.oracleText, ...oracleAdditions].filter(Boolean).join('\n') }
+      : {}),
+    ...(extra.tapped ? { tapped: true as const } : {}),
+  } as T
+}
+
 export const copyCharacteristics = (
   copied: GameObject,
-  extra: { notLegendary?: boolean; flying?: boolean } = {},
-) => ({
+  extra: CopyModifiers = {},
+) => applyCopyModifiers({
   name: copied.name,
   types: [...copied.types],
   subtypes: [...copied.subtypes],
-  supertypes: extra.notLegendary
-    ? copied.supertypes.filter((entry) => entry !== 'Legendary')
-    : [...copied.supertypes],
+  supertypes: [...copied.supertypes],
   manaCost: copied.manaCost,
   manaValue: manaValueOf(copied),
   colors: copiableColors(copied),
   power: copied.power,
   toughness: copied.toughness,
   printedLoyalty: copied.printedLoyalty,
-  oracleText: extra.flying && !hasKeyword(copied, 'flying')
-    ? copied.oracleText
-      ? `${copied.oracleText}\nFlying`
-      : 'Flying'
-    : copied.oracleText,
+  oracleText: copied.oracleText,
   grantedRules: [...copied.grantedRules],
   tapProduces: copied.tapProduces ? { ...copied.tapProduces } : undefined,
   effects: copied.effects ? [...copied.effects] : [],
   ...(copied.ruleDefinition ? { ruleDefinition: structuredClone(copied.ruleDefinition) } : {}),
+}, {
+  ...extra,
+  keywords: requestedKeywords(extra).filter(keyword => !hasKeyword(copied, keyword)),
+  flying: undefined,
 })
 
 export const copyTokenTemplate = (
   card: GameObject,
-  extra: {
-    notLegendary?: boolean
-    flying?: boolean
-    tapped?: boolean
-    colors?: string[]
-    extraSubtypes?: string[]
-    noManaCost?: boolean
-  } = {},
+  extra: CopyModifiers = {},
 ): Partial<GameObject> & { name: string } => {
   const characteristics = copyCharacteristics(card, extra)
-  const subtypes = extra.extraSubtypes
-    ? [...new Set([...extra.extraSubtypes, ...characteristics.subtypes])]
-    : characteristics.subtypes
-  const colors = extra.colors ?? characteristics.colors
-  const manaCost = extra.noManaCost ? '' : characteristics.manaCost
-  const manaValue = extra.noManaCost ? 0 : characteristics.manaValue
   return {
     ...characteristics,
-    subtypes,
-    colors,
-    manaCost,
-    manaValue,
-    // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
-    ...(extra.tapped ? { tapped: true } : {}),
     summoningSickness: true,
     counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
     tags: [],
@@ -378,7 +446,7 @@ export const extraTriggerCount = (
   state: GameState,
   seat: PlayerId,
   kind: 'landfall' | 'enters',
-  source?: GameObject,
+  _source?: GameObject,
 ) =>
   Object.values(state.objects).reduce((total, object) => {
     if (object.zone !== 'battlefield' || object.controller !== seat) return total
@@ -387,12 +455,7 @@ export const extraTriggerCount = (
       if (kind === 'landfall') return sum + (effect.extraLandfall ?? 0)
       return sum + (effect.extraEnters ?? 0)
     }, 0)
-    const throne = object.chosenType
-      && source?.types.includes('Creature')
-      && source.subtypes.includes(object.chosenType)
-      ? 1
-      : 0
-    return total + staticCount + (kind === 'landfall' || kind === 'enters' ? throne : 0)
+    return total + staticCount
   }, 0)
 
 
@@ -576,9 +639,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('combatTax')
     }
     if (effect.op === 'static' && effect.ward) ids.add('ward')
-    if (effect.op === 'static' && effect.shuffleIntoLibraryInstead) {
-      ids.add('shuffleIntoLibraryInstead')
-    }
     if (effect.op === 'static' && (effect.exileOpponentGraveyard || effect.playExiledWithLife)) {
       ids.add('exiledWith')
     }

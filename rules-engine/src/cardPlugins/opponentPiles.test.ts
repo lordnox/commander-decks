@@ -437,7 +437,7 @@ describe('relocated from homerPass2.test.ts → opponentPiles.test.ts', () => {
       const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
       expect(pendingPlayerSelectionFor(resolved, 'p1')).toMatchObject({
         candidates: ['p2', 'p3', 'p4'],
-        action: { kind: 'opponentPiles', count: 5 },
+        action: { kind: 'canonicalChoosePlayer' },
       })
     })
 

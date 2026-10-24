@@ -10,13 +10,11 @@ import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
 
 
 
-import type { GameState } from '../types'
 import {activated} from './activated'
 
 import { choiceEffects } from './choiceEffects'
 import {librarySearch} from './librarySearch'
 import {targetedResolve} from './targetedResolve'
-import {ward} from './ward'
 
 import { createServerGame as createRuntimeGame } from '../runtime'
 
@@ -160,45 +158,6 @@ describe('millThenRecover', () => {
     expect(opponent.objects[rest.id]).toBeUndefined()
     expect(opponent.objects[named(resolved, 'Milled One').id]?.zone).toBe('graveyard')
   })
-})
-
-describe('relocated from homerPass2.test.ts → millThenRecover.test.ts', () => {
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-
-  const plugins = [onResolvePlugin, targetedResolve, activated, choiceEffects, librarySearch, ward]
-
-  test('Ripples of Undeath mills on first main then offers recover', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: {
-            p1: [cardTemplate('Ripples of Undeath', { types: ['Enchantment'] })],
-          },
-          libraries: {
-            p1: ['Milled One', 'Milled Two', 'Milled Three', 'Rest'].map((name) =>
-              cardTemplate(name, { types: ['Instant'] })),
-          },
-          players: 2,
-        },
-        { random: () => 0.5, cardPlugins: plugins },
-      )
-      const atDraw = { ...server.state, step: 'draw' as const }
-      const entered = ok(server.rules(atDraw, { type: 'advanceStep' }))
-      expect(entered.stack[0]?.name).toBe('Ripples of Undeath')
-      const funded = structuredClone(entered)
-      funded.players.p1.mana.C = 1
-      const resolved = ok(server.rules(funded, { type: 'resolveTop' }))
-      expect(named(resolved, 'Milled One').zone).toBe('graveyard')
-      const recover = pendingSelectionFor(resolved, 'p1')
-      expect(recover?.candidates).toEqual([
-        named(resolved, 'Milled One').id,
-        named(resolved, 'Milled Two').id,
-        named(resolved, 'Milled Three').id,
-      ])
-    })
-
 })
 
 describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {

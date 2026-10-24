@@ -1,14 +1,18 @@
 import { matchesTargetFilter } from './targetedResolve'
 import type { TargetFilter } from './effectDefinitions'
 import type Draft from '../draft'
-import type { AttackerDecl, GameState, PlayerId, TargetRef } from '../types'
+import type { AttackerDecl, CapturedObject, GameState, PlayerId, TargetRef } from '../types'
+import type { ObjectSelector } from './dsl/schema/v1'
+import { objectMatchesSelector } from './dsl/compiler/runtime'
 
 export const ATTACK_BANS = 'combat.attackBansUntilEot'
 
 export type AttackBanEntry = {
   turn: number
-  defenderFilter: TargetFilter
+  defenderFilter?: TargetFilter
+  defenderSelector?: ObjectSelector
   protectorController: PlayerId
+  source?: CapturedObject
 }
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
@@ -49,8 +53,19 @@ export const attackDeclarationBanned = (
   if (!defender) return null
   for (const ban of bansFor(state, seat)) {
     if (ban.turn !== state.turn) continue
+    if (ban.defenderSelector && ban.source) {
+      if (objectMatchesSelector(defender, ban.defenderSelector, {
+        state,
+        controller: ban.protectorController,
+        source: ban.source,
+      })) {
+        return 'creatures you control cannot attack that permanent this turn'
+      }
+      continue
+    }
     if (
-      matchesTargetFilter(
+      ban.defenderFilter
+      && matchesTargetFilter(
         state,
         defender,
         ban.defenderFilter,

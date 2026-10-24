@@ -38,6 +38,12 @@ The explicit fingerprint baseline in `rules-engine/migration/dsl-authoring-basel
 
 Generic engine infrastructure, internal events, and runtime plugins are not card authoring exceptions: they may evolve without adding card-specific behavior outside the DSL. Card registrations and card-name dispatch are ratcheted; generic compatibility helpers, imports, and runtime payload plumbing remain editable. Implement new card semantics in the canonical subsystem. See [the enforcement notes](scripts/dsl-authoring/README.md) for scope and limitations. Once #383 removes the legacy paths, delete the baseline and this temporary exception, retaining DSL-only authoring and its checks.
 
+## Embedded Scryfall reference data
+
+When creating or migrating a canonical card definition in `rules-engine/src/cards/`, embed the full Scryfall card entry as a typed `scryfall` object alongside its DSL rules. Follow `black-suns-twilight.ts` and the shared `ScryfallCardData` type. Prefer copying the existing entry from `cards/<oracle-id>.json`, resolving its ID through `cards/index.json`, rather than fetching data already available in the shared cache. Fetch from Scryfall when the entry is missing or a refresh is needed. Record the source retrieval date when known; do not label cached data as freshly verified without checking it.
+
+Derive applicable engine fields (such as colors, mana cost, mana value, and card types) and DSL costs from the embedded data instead of maintaining duplicate literals. Parse type lines and card faces as appropriate for the card; do not treat a complete type line as a single card type for cards with supertypes or subtypes. Keep the Oracle text and source identifiers intact for review. Refresh the embedded snapshot explicitly when updating the card. The shared cache remains available for deck resolution and cards without engine definitions; this rule does not require retrofitting unrelated existing definitions.
+
 ## Card registration order
 
 When adding cards to `CARD_RULES` in `rules-engine/src/cardPlugins/cardRules.ts`, insert each registration in alphabetical order by its exact Unicode card-name key. Keep card-specific comments with their registration. Preserve this order until the object is removed; this rule does not apply to `cardRuleCatalog.ts`, whose entries stay grouped with their inlined templates.

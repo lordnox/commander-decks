@@ -351,6 +351,28 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
   const withGrant = (server: ReturnType<typeof createServerGame>, state: GameState) =>
     ok(server.rules(state, { type: 'custom', name: 'grantCreatureTrigger.sync' }))
 
+  const placeGrantedTriggers = (
+    server: ReturnType<typeof createServerGame>,
+    start: GameState,
+  ) => {
+    let state = start
+    for (let guard = 0; guard < 8; guard += 1) {
+      const order = ['p1', 'p2', 'p3', 'p4']
+        .map((seat) => pendingSelectionFor(state, seat))
+        .find((selection) => selection?.triggerOrder)
+      if (!order?.triggerOrder) break
+      state = ok(server.rules(state, {
+        type: 'selectCards',
+        seat: order.seat,
+        selectionId: order.id,
+        kind: 'choose',
+        count: order.count,
+        objectIds: order.candidates,
+      }))
+    }
+    return state
+  }
+
   const grothamaGame = (
     battlefield: Record<string, CardTemplate[]>,
     options: { first?: PlayerId } = {},
@@ -404,8 +426,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
         p2: [brute('P2 Bear', 2)],
       })
       const state = withGrant(server, ready)
-      const granted = (name: string) =>
-        (named(state, name).effects ?? []).filter((effect) => effect.op === 'trigger' && effect.on === 'attacks')
+      const granted = (name: string) => named(state, name).canonicalGrantedAbilities ?? []
       expect(granted('P1 Bear')).toHaveLength(1)
       expect(granted('P2 Bear')).toHaveLength(1)
       expect(granted('Grothama, All-Devouring')).toHaveLength(0)
@@ -423,7 +444,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
         p1: [deckCard('Grothama, All-Devouring')],
         p2: [brute('Raider', 3), brute('Ogre', 4)],
       })
-      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre'])))
+      const attacked = placeGrantedTriggers(server, ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre']))))
       const { state, offered } = resolveFights(server, attacked, [false, true])
       expect(offered).toBe(2)
       const survivor = ['Raider', 'Ogre'].filter((name) => named(state, name).zone === 'battlefield')
@@ -438,7 +459,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
         p2: [brute('Raider', 3), brute('Ogre', 2)],
         p3: [brute('P3 Bear', 3)],
       })
-      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre'])))
+      const attacked = placeGrantedTriggers(server, ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre']))))
       let { state } = resolveFights(server, attacked)
       expect(named(state, 'Grothama, All-Devouring').damageDealtBy).toEqual({ p2: 5 })
       const before = Object.fromEntries(['p1', 'p2', 'p3', 'p4'].map((seat) => [seat, handSize(state, seat)]))
@@ -462,7 +483,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
         p1: [deckCard('Grothama, All-Devouring')],
         p2: [brute('A', 4), brute('B', 4), brute('C', 4), brute('D', 4)],
       })
-      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['A', 'B', 'C', 'D'])))
+      const attacked = placeGrantedTriggers(server, ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['A', 'B', 'C', 'D']))))
       const { state, offered } = resolveFights(server, attacked)
       expect(named(state, 'Grothama, All-Devouring').zone).toBe('graveyard')
       expect(offered).toBe(2)

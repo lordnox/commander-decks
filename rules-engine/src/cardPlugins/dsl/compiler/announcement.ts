@@ -1,12 +1,13 @@
+import { expandVariableMana, variableManaColor } from '../variableMana'
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
-import type { ActivatedAbilityDefinition, Amount, Cost, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
-import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
+import type { ActivatedAbilityDefinition, Amount, Condition, Cost, CostOptionCondition, CostReduction, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
+import type { CanonicalTargetBinding, GameObject, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
-import { activationRestrictionMessage } from '../staticModifierCore'
-import { evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
-import type { RuleDslRuntimeContext } from './runtime'
+import { activationRestrictionMessage, activePrintedStaticModifiers } from '../staticModifierCore'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluateObjectSelector, evaluatePlayerSelector, evaluateRuntimeAmount } from './runtime'
+import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
 
@@ -18,12 +19,22 @@ export type AnnouncementManaPayment = {
   restricted?: boolean
 }
 
+export const isSourceObjectCost = (cost: Cost) =>
+  (cost.kind === 'sacrifice' || cost.kind === 'discard')
+  && cost.filter.kind === 'contextRef'
+  && cost.filter.name === 'source'
+
 export const isSourceSacrificeCost = (cost: Cost) =>
-  cost.kind === 'sacrifice' && cost.filter.kind === 'contextRef' && cost.filter.name === 'source'
+  cost.kind === 'sacrifice' && isSourceObjectCost(cost)
 
 export type CostPlan = {
+  xManaColor?: ManaId
   mandatory: readonly Cost[]
+  additional?: readonly Cost[]
+  conditions?: readonly CostOptionCondition[]
+  optionalBounds?: { min: number; max?: number }
   optional?: readonly Cost[]
+  repeatableOptional?: readonly number[]
   alternative?: readonly (readonly Cost[])[]
   increases?: readonly ManaCostIncrease[]
   reductions?: readonly ManaCostReduction[]
@@ -41,9 +52,14 @@ export type AnnouncementProposal = {
   costs: CostPlan
   payment?: readonly AnnouncementManaPayment[]
   nonManaChoices?: readonly string[]
+  /** One separately paid selection per collect-evidence cost, in cost order. */
+  evidence?: readonly (readonly string[])[]
+  /** Cast sources are already on the stack during payment; graveyard activations may spend their source. */
+  excludeSourceFromEvidence?: boolean
   /** Optional client answer; the server still rechecks all candidates. */
   selectedOptional?: readonly number[]
   selectedAlternative?: number
+  selectedPlayers?: Readonly<Record<number, PlayerId>>
   excludeSourceFromCosts?: boolean
   /** Server-computed generic adjustment from format and legacy cost modifiers. */
   genericAdjustment?: number
@@ -149,24 +165,38 @@ const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
   .reduce((total, match) => total + Number(match[1]), 0)
 
 export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => {
-  const mana = [
+  const printed = [
     ...(plan.mandatory.filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount)),
     ...(plan.optional ?? []).filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount),
     ...(plan.increases ?? []).map((increase) => increase.amount),
-  ].join('').replaceAll('{X}', `{${x}}`)
+  ].join('')
+  const mana = expandVariableMana(printed, x)
   const genericReduction = (plan.reductions ?? []).reduce((total, reduction) => {
     integer(reduction.generic, 'generic reduction')
     return total + reduction.generic
   }, 0)
   const generic = Math.max(0, genericMana(mana) + genericAdjustment - genericReduction)
+  if (plan.xManaColor) {
+    // A spending restriction does not turn X into a colored cost: reductions
+    // still reduce its generic portion before the remaining payment is restricted.
+    const variableAmount = [...printed.matchAll(/\{X\}/g)].length * x
+    const restricted = Math.max(0, Math.min(generic, variableAmount + Math.min(0, genericAdjustment - genericReduction)))
+    const otherGeneric = generic - restricted
+    return `${otherGeneric > 0 ? `{${otherGeneric}}` : ''}${mana.replaceAll(/\{\d+\}/g, '')}${`{${plan.xManaColor}}`.repeat(restricted)}`
+  }
   if (generic === genericMana(mana) && genericReduction === 0) return mana
   const nonGeneric = mana.replaceAll(/\{\d+\}/g, '')
   return `${generic > 0 ? `{${generic}}` : ''}${nonGeneric}`
 }
 
-const selectedCosts = (proposal: AnnouncementProposal) => {
-  if ((proposal.selectedOptional ?? []).length !== new Set(proposal.selectedOptional ?? []).size) {
-    throw new TypeError('optional cost selection contains a duplicate')
+const selectedCosts = (proposal: Pick<AnnouncementProposal, 'costs' | 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => {
+  const selections = proposal.selectedOptional ?? []
+  if (selections.length < (proposal.costs.optionalBounds?.min ?? 0) || selections.length > (proposal.costs.optionalBounds?.max ?? Infinity)) throw new TypeError('optional cost selection does not satisfy its bounds')
+  const seen = new Set<number>()
+  for (const index of selections) {
+    if (!Number.isSafeInteger(index) || index < 0) throw new TypeError('optional cost selection is out of range')
+    if (seen.has(index) && !proposal.costs.repeatableOptional?.includes(index)) throw new TypeError('optional cost selection contains a duplicate')
+    seen.add(index)
   }
   const optional = (proposal.selectedOptional ?? []).map((index) => proposal.costs.optional?.[index])
   if (optional.some((cost) => !cost)) throw new TypeError('optional cost selection is out of range')
@@ -176,8 +206,14 @@ const selectedCosts = (proposal: AnnouncementProposal) => {
       ? proposal.costs.alternative[proposal.selectedAlternative]
       : undefined
   if (!alternative) throw new TypeError('alternative cost selection is unavailable')
-  return [...alternative, ...(optional as Cost[])]
+  return [...alternative, ...(proposal.costs.additional ?? []), ...(optional as Cost[])]
 }
+
+/** One selection routine for legality, previews, and final payment. */
+export const chosenAbilityCosts = (
+  ability: Pick<SpellAbilityDefinition, 'costs' | 'additionalCosts' | 'optionalCostBounds' | 'optionalCosts' | 'repeatableOptionalCosts' | 'alternativeCosts'>,
+  choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'> = {},
+) => selectedCosts({ costs: { mandatory: ability.costs, additional: ability.additionalCosts, optionalBounds: ability.optionalCostBounds, optional: ability.optionalCosts, repeatableOptional: ability.repeatableOptionalCosts, alternative: ability.alternativeCosts }, ...choices })
 
 const validateVariables = (variables: AnnouncementProposal['variables']) => {
   const x = variables?.X
@@ -213,26 +249,38 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
       if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
       return { kind: 'constant' as const, value: x }
     }
+    case 'multiply':
+    case 'minimum':
+    case 'add': {
+      if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, left: lockAmount(amount.left, x, runtime, depth + 1), right: lockAmount(amount.right, x, runtime, depth + 1) }, { count: () => 0, greatest: () => 0, characteristic: () => 0 }) }
+    }
     case 'divide': {
       if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
-      return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, greatest: () => 0, characteristic: () => 0 }) }
     }
-    case 'count': {
+    case 'count':
+    case 'greatest': {
       if (!runtime) throw new TypeError('cost amount count requires an announcement source')
       return { kind: 'constant' as const, value: evaluateRuntimeAmount(amount, runtime) }
     }
     default:
-      throw new TypeError('cost amount must be a constant, X variable, count, or rounded division')
+      throw new TypeError('cost amount must be a constant, X variable, count, or arithmetic expression')
   }
 }
 
 const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeContext | undefined) => {
   switch (cost.kind) {
+    case 'mill':
     case 'draw':
     case 'discard':
     case 'sacrifice':
       return { ...cost, count: lockAmount(cost.count, x, runtime) }
+    case 'crew':
+      return { ...cost, power: lockAmount(cost.power, x, runtime) }
+    case 'collectEvidence':
     case 'life':
+    case 'loyalty':
       return { ...cost, amount: lockAmount(cost.amount, x, runtime) }
     default:
       return cost
@@ -244,20 +292,11 @@ const costAmount = (amount: Amount, x: number | undefined, runtime?: RuleDslRunt
 
 export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undefined) => costAmount(amount, x)
 
-const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' }>['filter']['filter']) => {
-  if (filter.zone && object.zone !== filter.zone) return false
-  if (filter.type && !object.types.includes(filter.type)) return false
-  if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
-  if (filter.name && object.name !== filter.name) return false
-  if (filter.token !== undefined && object.token !== filter.token) return false
-  return true
-}
-
 const isSourceCostRecipient = (filter: ObjectRecipient) =>
   filter.kind === 'contextRef' && filter.name === 'source'
 
-const sacrificeCostCandidates = (
-  cost: Extract<Cost, { kind: 'sacrifice' }>,
+const objectCostCandidates = (
+  cost: Extract<Cost, { kind: 'discard' | 'sacrifice' }>,
   runtime: RuleDslRuntimeContext,
   payer: PlayerId,
   excludedSourceId: string,
@@ -267,7 +306,7 @@ const sacrificeCostCandidates = (
     : evaluateObjectReference(cost.filter, runtime)
   return resolved.filter((object) =>
     object.controller === payer
-    && object.zone === 'battlefield'
+    && object.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield')
     && (!excludedSourceId || object.id !== excludedSourceId || isSourceCostRecipient(cost.filter)))
 }
 
@@ -284,23 +323,23 @@ export const resolveNonManaCostObjectChoices = (
   const resolved: string[] = []
   let choiceIndex = 0
   for (const cost of costs) {
+    if (cost.kind === 'crew') {
+      if (!runtime) throw new TypeError('crew requires an announcement source')
+      const selected = choices ?? []
+      const candidates = crewCandidates(state, payer, runtimeSourceId)
+      if (new Set(selected).size !== selected.length || selected.some(id => !candidates.some(candidate => candidate.id === id))) throw new TypeError('crew requires distinct other untapped creatures you control')
+      const power = selected.reduce((sum, id) => sum + (state.objects[id]!.power ?? 0), 0)
+      if (power < costAmount(cost.power, x, runtime)) throw new TypeError('insufficient creature power to crew')
+      resolved.push(...selected)
+      continue
+    }
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
-    const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
-    const candidates = cost.kind === 'discard'
-      ? Object.values(state.objects).filter((object) =>
-        (excludedSourceId === '' || object.id !== excludedSourceId)
-        && object.controller === payer
-        && object.zone === requiredZone
-        && matchesCostFilter(object, cost.filter.filter))
-      : (() => {
-        if (!runtime) throw new TypeError('sacrifice costs require an announcement source')
-        return sacrificeCostCandidates(cost, runtime, payer, excludedSourceId)
-      })()
+    if (!runtime) throw new TypeError(`${cost.kind} costs require an announcement source`)
+    const candidates = objectCostCandidates(cost, runtime, payer, excludedSourceId)
     const count = costAmount(cost.count, x, runtime)
     if (candidates.length < count) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
     let selected = choices?.slice(choiceIndex, choiceIndex + count)
     if ((!selected || selected.length !== count)
-      && cost.kind === 'sacrifice'
       && isSourceCostRecipient(cost.filter)
       && count === 1
       && candidates.length === 1) {
@@ -318,24 +357,84 @@ export const resolveNonManaCostObjectChoices = (
   return resolved
 }
 
-const validateNonManaCosts = (
+export const crewCandidates = (state: Pick<GameState, 'objects'>, payer: PlayerId, sourceId: string) => Object.values(state.objects).filter(object => object.id !== sourceId && object.zone === 'battlefield' && object.controller === payer && object.types.includes('Creature') && !object.tapped && !object.phasedOut)
+
+/** Validate each evidence payment independently; one card cannot pay two costs. */
+const evidenceCostChoices = (
   state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
+  payer: PlayerId,
+  sourceId: string,
+  costs: readonly Cost[],
+  x: number | undefined,
+  evidence: readonly (readonly string[])[] = [],
+  excludeSource = true,
+) => {
+  const required = costs.filter(cost => cost.kind === 'collectEvidence')
+  if (evidence.length !== required.length) throw new TypeError('one card selection is required for each collect-evidence cost')
+  const runtime = announcementRuntime(state, payer, sourceId, x)
+  const used = new Set<string>()
+  return required.map((cost, index) => {
+    const selected = [...evidence[index]!]
+    let total = 0
+    for (const id of selected) {
+      const object = state.objects[id]
+      if (used.has(id)) throw new TypeError('an evidence card cannot pay more than once')
+      if (!object || object.zone !== 'graveyard' || object.owner !== payer || object.token || (excludeSource && id === sourceId)) throw new TypeError('evidence requires cards in your graveyard')
+      used.add(id)
+      total += object.manaValue
+    }
+    if (total < costAmount(cost.amount, x, runtime)) throw new TypeError('insufficient total mana value to collect evidence')
+    return selected
+  })
+}
+
+/** Planned mana abilities can change the graveyard before costs are actually paid. */
+export const validateEvidencePayment = (state: GameState, transaction: AnnouncementTransaction) => {
+  evidenceCostChoices(state, transaction.proposal.payer, transaction.proposal.sourceId, transaction.lockedCost.nonMana, transaction.lockedCost.x, transaction.proposal.evidence, transaction.proposal.excludeSourceFromEvidence)
+}
+
+export const evidencePaymentEvents = (proposal: Pick<AnnouncementProposal, 'evidence'>) =>
+  (proposal.evidence ?? []).flatMap(ids => ids.map(objectId => ({ type: 'move' as const, objectId, to: 'exile' as const })))
+
+const validateNonManaCosts = (
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules' | 'turn'>>,
   payer: PlayerId,
   sourceId: string,
   costs: readonly Cost[],
   x: number | undefined,
   choices: readonly string[] | undefined,
   runtimeSourceId: string,
+  evidence?: readonly (readonly string[])[],
+  excludeSourceFromEvidence = true,
 ) => {
   const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
+  let millTotal = 0
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
   let sourceTapped = false
   for (const cost of costs) {
     switch (cost.kind) {
+      case 'mill':
+        millTotal += costAmount(cost.count, x, runtime)
+        break
       case 'life':
         lifeTotal += costAmount(cost.amount, x, runtime)
         break
+      case 'loyalty': {
+        const source = state.objects[runtimeSourceId]
+        if (!source || source.zone !== 'battlefield' || source.phasedOut || source.controller !== payer) {
+          throw new TypeError('loyalty cost requires a controlled planeswalker on the battlefield')
+        }
+        if (!source.types.includes('Planeswalker')) throw new TypeError('loyalty cost requires a planeswalker')
+        if (state.turn !== undefined && source.loyaltyActivatedTurn === state.turn) {
+          throw new TypeError(`${source.name} already activated a loyalty ability this turn`)
+        }
+        const amount = costAmount(cost.amount, x, runtime)
+        if (cost.minus && (source.counters.loyalty ?? 0) < amount) {
+          throw new TypeError(`${source.name} does not have enough loyalty`)
+        }
+        break
+      }
       case 'draw':
         costAmount(cost.count, x, runtime)
         break
@@ -354,7 +453,7 @@ const validateNonManaCosts = (
       }
     }
   }
-  const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice')
+  const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice' || cost.kind === 'crew')
   if (explicitObjectCosts.length > 0) {
     const objectChoices = resolveNonManaCostObjectChoices(
       state,
@@ -370,11 +469,16 @@ const validateNonManaCosts = (
       selectedObjects.add(id)
     }
     const explicitChoiceCount = explicitObjectCosts.reduce(
-      (total, cost) => total + costAmount(cost.count, x, runtime),
+      (total, cost) => total + (cost.kind === 'crew' ? objectChoices.length : costAmount(cost.count, x, runtime)),
       0,
     )
     if (choices && choices.length !== explicitChoiceCount) throw new TypeError('unused nonmana cost selection')
   }
+  for (const id of evidenceCostChoices(state, payer, runtimeSourceId, costs, x, evidence, excludeSourceFromEvidence).flat()) {
+    if (selectedObjects.has(id)) throw new TypeError(`cost object ${id} is selected more than once`)
+    selectedObjects.add(id)
+  }
+  if (Object.values(state.objects).filter(object => object.zone === 'library' && object.owner === payer).length < millTotal) throw new TypeError('payer cannot mill enough cards for the cost')
   if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
 }
 
@@ -392,10 +496,22 @@ const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>
   if (targets.length !== proposal.targetClauses.length) throw new TypeError('target clauses must be supplied in declaration order')
   targets.forEach((clauseTargets, index) => {
     const clause = proposal.targetClauses![index]
+    const source = state.objects[proposal.sourceId]
     const bound = (amount: TargetClause['min']) => {
       if (amount.kind === 'constant') return amount.value
       if (amount.kind === 'variable') return proposal.variables?.[amount.name]
-      return undefined
+      if (!source) return undefined
+      try {
+        return evaluateAmount(amount, amountEvaluationContext({
+          state: state as GameState,
+          controller: proposal.payer,
+          source: captureObject(source),
+          variables: proposal.variables,
+          paidCosts: proposalCostChoices(proposal),
+        }))
+      } catch {
+        return undefined
+      }
     }
     const min = bound(clause.min)
     const max = bound(clause.max)
@@ -439,8 +555,29 @@ export const beginAnnouncement = (
     validateVariables(proposal.variables)
     validateTargets(state, proposal)
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
+    for (const condition of proposal.costs.conditions ?? []) {
+      const selected = condition.cost === 'optional'
+        ? proposal.selectedOptional?.includes(condition.index)
+        : proposal.selectedAlternative === condition.index
+      if (!selected) continue
+      const context = announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X)
+      if (!context || !evaluateCondition(condition.when, { ...context, paidCosts: proposalCostChoices(proposal) })) return { ok: false, error: 'selected cost option is not permitted' }
+    }
     const costs = selectedCosts(proposal)
-    const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
+    const playerChoices = proposal.selectedPlayers ?? {}
+    for (const key of Object.keys(playerChoices)) {
+      const index = Number(key)
+      if (!Number.isInteger(index) || String(index) !== key || !proposal.selectedOptional?.includes(index)
+        || proposal.costs.optional?.[index]?.kind !== 'choosePlayer') return { ok: false, error: 'unexpected cost player choice' }
+    }
+    for (const index of proposal.selectedOptional ?? []) {
+      const cost = proposal.costs.optional?.[index]
+      if (cost?.kind !== 'choosePlayer') continue
+      const context = announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X)
+      const player = playerChoices[index]
+      if (!context || !player || !evaluatePlayerSelector(cost.players, context).includes(player)) return { ok: false, error: 'illegal cost player choice' }
+    }
+    const plan: CostPlan = { xManaColor: proposal.costs.xManaColor, mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
     validateNonManaCosts(
       state,
       proposal.payer,
@@ -449,6 +586,8 @@ export const beginAnnouncement = (
       proposal.variables?.X,
       proposal.nonManaChoices,
       proposal.sourceId,
+      proposal.evidence,
+      proposal.excludeSourceFromEvidence,
     )
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0, proposal.genericAdjustment)
     const payment = proposal.payment ?? []
@@ -501,8 +640,10 @@ export const beginSpellAnnouncement = (
   x: number | undefined,
   nonManaChoices?: readonly string[],
   options: {
+    evidence?: readonly (readonly string[])[]
     selectedOptional?: readonly number[]
     selectedAlternative?: number
+    selectedPlayers?: Readonly<Record<number, PlayerId>>
     genericAdjustment?: number
     deferPayment?: boolean
     targetClauses?: readonly TargetClause[]
@@ -525,18 +666,24 @@ export const beginSpellAnnouncement = (
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
+      xManaColor: variableManaColor(ability.decisions.variables),
       mandatory: ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
         ? ability.costs
         : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
+      additional: ability.additionalCosts,
+      conditions: ability.costConditions,
+      optionalBounds: ability.optionalCostBounds,
       optional: ability.optionalCosts,
+      repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: ability.costReductions,
+      reductions: planReductions(state, source.id, payer, ability, x, targets),
     },
     excludeSourceFromCosts: true,
     payment,
     nonManaChoices,
     ...options,
+    ...(options.evidence ? { evidence: options.evidence.map(ids => [...ids]) } : {}),
     ...(options.deferPayment ? { deferPayment: true } : {}),
   }, `spell:${source.id}`)
 }
@@ -549,8 +696,11 @@ export const beginActivatedAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
+  options: { evidence?: readonly (readonly string[])[]; selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
 ) => {
+  for (const variable of ability.decisions.variables ?? []) {
+    if (x === undefined || !Number.isSafeInteger(x) || x < variable.min || x > variable.max) return { ok: false as const, error: `${variable.name} must be a safe integer from ${variable.min} to ${variable.max}` }
+  }
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
@@ -561,18 +711,38 @@ export const beginActivatedAnnouncement = (
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
+      xManaColor: variableManaColor(ability.decisions.variables),
       mandatory: ability.costs,
+      additional: ability.additionalCosts,
+      conditions: ability.costConditions,
+      optionalBounds: ability.optionalCostBounds,
       optional: ability.optionalCosts,
+      repeatableOptional: ability.repeatableOptionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
-      reductions: ability.costReductions,
+      reductions: planReductions(state, source.id, payer, ability, x, targets),
     },
     excludeSourceFromCosts: true,
+    excludeSourceFromEvidence: false,
     payment,
     nonManaChoices,
     ...options,
+    ...(options.evidence ? { evidence: options.evidence.map(ids => [...ids]) } : {}),
   }, `activation:${source.id}`)
 }
+
+const proposalCostChoices = (choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => ({
+  optional: [...(choices.selectedOptional ?? [])],
+  ...(choices.selectedPlayers ? { players: { ...choices.selectedPlayers } } : {}),
+  ...(choices.selectedAlternative !== undefined ? { alternative: choices.selectedAlternative } : {}),
+})
+
+/** A private proposal view lets targeting inspect announced choices before payment. */
+export const proposedCostSource = (source: GameObject, choices: Pick<AnnouncementProposal, 'selectedOptional' | 'selectedAlternative' | 'selectedPlayers'>) => ({
+  ...source, castCostChoices: proposalCostChoices(choices),
+})
+
+export const announcementCostChoices = (transaction: AnnouncementTransaction) => proposalCostChoices(transaction.proposal)
 
 export const commitAnnouncement = (transaction: AnnouncementTransaction): AnnouncementTransaction => {
   if (transaction.status !== 'provisional') throw new Error('announcement transaction is no longer provisional')
@@ -611,29 +781,147 @@ export const prepareAction = (
 })
 
 export type ActivationPermissionInput = {
-  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players'>
+  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players' | 'zoneOrder'> & Partial<Pick<GameState, 'priority' | 'resolution' | 'provisionalAnnouncement'>>
   sourceId: string
   payer: PlayerId
   action: 'activate' | 'tapForMana' | 'nestedPayment' | 'manaPlanning'
+  instantSpeed?: boolean
   sorcerySpeed?: boolean
   availableFrom?: readonly GameState['objects'][string]['zone'][]
+  when?: Condition
+}
+
+export const activatedPermissionFields = (ability: ActivatedAbilityDefinition) => ({
+  instantSpeed: ability.timing === 'instant',
+  sorcerySpeed: ability.timing === 'sorcery',
+  availableFrom: ability.availableFrom,
+  ...(ability.when ? { when: ability.when } : {}),
+})
+
+const announcementContext = (
+  state: GameState,
+  sourceId: string,
+  payer: PlayerId,
+  x?: number,
+): RuleDslRuntimeContext | undefined => {
+  const source = state.objects[sourceId]
+  if (!source) return
+  return {
+    state,
+    controller: payer,
+    source: captureObject(source),
+    ...(x === undefined ? {} : { variables: { X: x } }),
+  }
+}
+
+const evaluatedReductions = (
+  reductions: readonly CostReduction[] | undefined,
+  context: RuleDslRuntimeContext,
+): ManaCostReduction[] =>
+  (reductions ?? []).filter(reduction => !reduction.when || evaluateCondition(reduction.when, context)).map((reduction) => ({
+    generic: evaluateRuntimeAmount(reduction.generic, context),
+    ...(reduction.reason ? { reason: reduction.reason } : {}),
+  }))
+
+export const printedActivationCostReductions = (
+  state: GameState,
+  source: GameObject,
+): ManaCostReduction[] => {
+  const reductions: ManaCostReduction[] = []
+  for (const watcher of Object.values(state.objects)) {
+    for (const entry of activePrintedStaticModifiers(state, watcher)) {
+      if (!('effect' in entry) || entry.effect.kind !== 'reduceActivationCost') continue
+      const runtime = { state, controller: watcher.controller, source: captureObject(watcher) }
+      if (!evaluateObjectSelector(entry.effect.targets, runtime).some((object) => object.id === source.id)) continue
+      reductions.push({ generic: evaluateRuntimeAmount(entry.effect.generic, runtime) })
+    }
+  }
+  return reductions
+}
+
+// Recursive traversal requires an explicit return type. Input is validated DSL data.
+export const costsDependOnTargets = (value: unknown): boolean => {
+  if (!value || typeof value !== 'object') return false
+  if ('kind' in value && value.kind === 'targetRef') return true
+  return Object.values(value).some(costsDependOnTargets)
+}
+
+const planReductions = (
+  state: GameState,
+  sourceId: string,
+  payer: PlayerId,
+  ability: SpellAbilityDefinition | ActivatedAbilityDefinition,
+  x?: number,
+  targets?: readonly (readonly TargetRef[])[],
+): ManaCostReduction[] => {
+  const context = announcementContext(state, sourceId, payer, x)
+  if (!context) return []
+  context.targets = Object.fromEntries((targets ?? []).map((entries, index) => [index, entries.flatMap<BoundRecipient>(target => {
+    switch (target.kind) {
+      case 'player': return [{ kind: 'player' as const, playerId: target.player }]
+      case 'stackItem': return [{ kind: 'stackItem' as const, stackId: target.stackId }]
+      case 'object': {
+        const object = state.objects[target.objectId]
+        return object ? [{ kind: 'object' as const, objectId: object.id, incarnation: object.incarnation, zone: object.zone }] : []
+      }
+    }
+  })]))
+  const reductions = ability.costReductions?.filter(reduction => targets?.length || !costsDependOnTargets(reduction))
+  const printed = evaluatedReductions(reductions, context)
+  if (ability.kind !== 'activated') return printed
+  const source = state.objects[sourceId]
+  return source ? [...printed, ...printedActivationCostReductions(state, source)] : printed
 }
 
 /** Shared gate used before ordinary, mana, nested-payment, and planning activations. */
 export const activationPermission = (input: ActivationPermissionInput): string | undefined => {
   const source = input.state.objects[input.sourceId]
   if (!source) return 'activation source does not exist'
-  if (input.availableFrom && !input.availableFrom.includes(source.zone)) return `${source.name} is not in an available zone`
+  if (input.availableFrom && !input.availableFrom.includes(source.zone)) {
+    return input.availableFrom.length === 1 && input.availableFrom[0] === 'hand'
+      ? `${source.name} is not in hand`
+      : `${source.name} is not in an available zone`
+  }
   if (!input.availableFrom && source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
   const prohibited = activationRestrictionMessage(input)
   if (prohibited) return prohibited
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
+  if (input.instantSpeed && (input.state.priority !== input.payer || input.state.resolution || input.state.provisionalAnnouncement)) return `${source.name} can be activated only as an instant`
   if (input.sorcerySpeed && (
     input.state.active !== input.payer
     || !['precombatMain', 'postcombatMain'].includes(input.state.step)
     || input.state.stack.length > 0
   )) return `${source.name} can be activated only as a sorcery`
+  if (input.when) {
+    try {
+      if (!evaluateCondition(input.when, {
+        state: input.state as GameState,
+        controller: input.payer,
+        source: captureObject(source),
+      })) return `${source.name} cannot be activated now`
+    } catch {
+      return `${source.name} cannot be activated now`
+    }
+  }
   return undefined
+}
+
+export const spellCastPermission = (
+  state: GameState,
+  source: GameObject,
+  ability: SpellAbilityDefinition,
+  seat: PlayerId,
+): string | undefined => {
+  if (!ability.when) return
+  try {
+    if (!evaluateCondition(ability.when, {
+      state,
+      controller: seat,
+      source: captureObject(source),
+    })) return `${source.name} cannot be cast now`
+  } catch {
+    return `${source.name} cannot be cast now`
+  }
 }

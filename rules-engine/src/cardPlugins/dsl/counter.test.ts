@@ -1,19 +1,19 @@
 import { describe, expect, test } from 'bun:test'
+import { hasKeyword } from '../../keywords'
 import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
-import type { GameState } from '../../types'
+import type { GameEvent, GameState } from '../../types'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
-import { card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, target, untilCleanup } from './v1'
+import { compareAmount, manaCost, paidCostCount, activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup } from './v1'
 
 import { deckCard } from '../cirdanCreatureCards'
-import { shuffleIntoLibraryInstead } from '../shuffleIntoLibraryInstead'
-import { targetedResolve } from '../targetedResolve'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -264,10 +264,8 @@ describe('relocated from cirdanColossi.test.ts → counter.test.ts', () => {
     createServerGame(
       commanderRules,
       { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
-      { random: () => 0.5, cardPlugins: plugins },
+      { random: () => 0.5 },
     )
-
-  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
 
   const filler = (count = 3) =>
     Array.from({ length: count }, (_, index) =>
@@ -310,4 +308,215 @@ describe('relocated from cirdanColossi.test.ts → counter.test.ts', () => {
           expect(named(state, 'Counterspell').zone).toBe('graveyard')
         })
   }
+})
+
+
+test('Stifle counters an activated ability without refunding its tap cost', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [tapCost()], instructions: [gainLife({ targets: ref('controller'), amount: 3 })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Activated fixture', { types: ['Artifact'], ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Stifle')] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.U = 1
+  const abilityOnStack = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  const cast = ok(server.rules(abilityOnStack, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: abilityOnStack.stack[0].id }] }))
+  const resolved = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  expect(resolved.stack).toHaveLength(0)
+  expect(resolved.objects[source].tapped).toBe(true)
+  expect(resolved.players.p1.life).toBe(40)
+  expect(resolved.players.p1.mana.U).toBe(0)
+})
+
+test('Stifle rejects a spell target', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Stifle'), cardTemplate('Spell fixture', { types: ['Instant'], manaCost: '{0}' })] } }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.U = 1
+  const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[1] }))
+  expect(server.rules(stacked, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0].id }] }).ok).toBe(false)
+  expect(stacked.players.p1.mana.U).toBe(1)
+})
+
+// Follow-ups refer to the spell's controller even after the stack item disappears.
+test.each([false, true])('counter follow-up retains controller even if the spell cannot be countered (%s)', uncounterable => {
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate('Swan Song', { manaCost: '{0}' })],
+      p2: [cardTemplate('Spell fixture', { types: ['Instant'], manaCost: '{0}' })],
+    },
+  }, { random: () => 0, ...(uncounterable ? { cardPlugins: [{ id: 'fixture.suppressCounter', replace: ({ event }: { event: GameEvent }) => event.type === 'counterStackItem' ? null : undefined }] } : {}) })
+  const ready = structuredClone(server.state)
+  ready.priority = 'p2'
+  const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: ready.zoneOrder.p2.hand[0] }))
+  const responding = structuredClone(stacked)
+  responding.priority = 'p1'
+  const cast = ok(server.rules(responding, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0]!.id }] }))
+  const state = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  const bird = Object.values(state.objects).find(object => object.token)!
+  expect(bird).toMatchObject({ controller: 'p2', types: ['Creature'], subtypes: ['Bird'], colors: ['U'], power: 2, toughness: 2 })
+  expect(hasKeyword(bird, 'flying')).toBe(true)
+  expect(state.objects[ready.zoneOrder.p2.hand[0]!].zone).toBe(uncounterable ? 'stack' : 'graveyard')
+})
+
+test.each([
+  { draws: 0, uncounterable: false },
+  { draws: 1, uncounterable: false },
+  { draws: 2, uncounterable: false },
+  { draws: 2, uncounterable: true },
+])('counter follow-ups independently draw at the next turn upkeep for captured players (%j)', ({ draws, uncounterable }) => {
+  const server = createServerGame(commanderRules, {
+    players: 3, first: 'p2',
+    hands: {
+      p1: [cardTemplate('Arcane Denial', { manaCost: '{0}' })],
+      p2: [cardTemplate('Target spell fixture', { types: ['Instant'], manaCost: '{0}' })],
+    },
+    libraries: {
+      p1: [cardTemplate('First draw'), cardTemplate('Second draw')],
+      p2: [cardTemplate('Opponent first'), cardTemplate('Opponent second'), cardTemplate('Opponent third')],
+    },
+  }, { random: () => 0, ...(uncounterable ? { cardPlugins: [{ id: 'test.uncounterable', replace: ({ event }: { event: GameEvent }) => event.type === 'counterStackItem' ? null : undefined }] } : {}) })
+  const source = server.state.zoneOrder.p1.hand[0]!
+  const targetSpell = server.state.zoneOrder.p2.hand[0]!
+  let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p2', objectId: targetSpell }))
+  state = ok(server.rules({ ...state, priority: 'p1' }, { type: 'castSpell', seat: 'p1', objectId: source, targets: [{ kind: 'stackItem', stackId: state.stack[0]!.id }] }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  expect(state.objects[targetSpell]?.zone).toBe(uncounterable ? 'stack' : 'graveyard')
+  expect(state.delayedTriggers).toHaveLength(2)
+  expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  expect(state.zoneOrder.p2.hand).toHaveLength(0)
+  if (state.stack.length) state = ok(server.rules(state, { type: 'resolveTop' }))
+  state = ok(server.rules(state, { type: 'move', objectId: source, to: 'exile' }))
+  state = ok(server.rules({ ...state, step: 'cleanup' }, { type: 'advanceStep' }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'advanceStep' }))
+  expect(state.active).toBe('p3')
+  const order = pendingSelectionFor(state, 'p1')
+  if (order?.triggerOrder) state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates }))
+  expect(state.stack).toHaveLength(2)
+  while (state.stack.length) {
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const pick = pendingOptionSelection(state, 'p2')
+    if (pick) {
+      const option = pick.options.find(option => option.label === `Draw ${draws} cards`)!
+      state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p2', selectionId: pick.id, optionId: option.id }))
+    }
+  }
+  expect(state.zoneOrder.p1.hand).toHaveLength(1)
+  expect(state.zoneOrder.p2.hand).toHaveLength(draws)
+  expect(state.delayedTriggers).toHaveLength(0)
+})
+
+test('a canonical uncounterable spell stays on the stack and later instructions still run', () => {
+  const veto = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    uncounterable: true,
+    instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [cardTemplate('Uncounterable fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: veto })],
+      p2: [cardTemplate('Counterspell', { manaCost: '{0}' })],
+    },
+  }, { random: () => 0 })
+  const victim = named(server.state, 'Uncounterable fixture')
+  let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: victim.id })
+  expect(state.stack[0]).toMatchObject({ uncounterable: true, castFrom: 'hand' })
+  state.priority = 'p2'
+  const counterspell = named(state, 'Counterspell')
+  state = reduce(server, state, {
+    type: 'castSpell', seat: 'p2', objectId: counterspell.id,
+    targets: [{ kind: 'stackItem', stackId: state.stack.find((item) => item.objectId === victim.id)!.id }],
+  })
+  state = reduce(server, state, { type: 'resolveTop' })
+  expect(state.objects[victim.id].zone).toBe('stack')
+  expect(state.objects[counterspell.id].zone).toBe('graveyard')
+  state = reduce(server, state, { type: 'resolveTop' })
+  expect(state.objects[victim.id].zone).toBe('graveyard')
+  expect(state.players.p1.life).toBe(41)
+})
+
+test('a printed cannot-be-countered creature still enters after a counter resolves', () => {
+  const creature = createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(cannotBeCountered())])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [cardTemplate('Uncounterable bear', {
+        types: ['Creature'], manaCost: '{0}', power: 2, toughness: 2, ruleDefinition: creature,
+      })],
+      p2: [cardTemplate('Counterspell', { manaCost: '{0}' })],
+    },
+  }, { random: () => 0 })
+  const bear = named(server.state, 'Uncounterable bear')
+  let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: bear.id })
+  expect(state.stack[0].uncounterable).toBe(true)
+  state.priority = 'p2'
+  state = reduce(server, state, {
+    type: 'castSpell', seat: 'p2', objectId: named(state, 'Counterspell').id,
+    targets: [{ kind: 'stackItem', stackId: state.stack.find((item) => item.objectId === bear.id)!.id }],
+  })
+  state = reduce(server, state, { type: 'resolveTop' })
+  expect(state.objects[bear.id]).toMatchObject({ zone: 'stack', controller: 'p1' })
+  state = reduce(server, state, { type: 'resolveTop' })
+  expect(state.objects[bear.id]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+})
+
+test('a successful counter can put an artifact or creature onto the battlefield under the countering player', () => {
+  const desertion = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    decisions: { targets: [select({ filter: stackItems({ kind: 'spell', other: true }), count: 1 })] },
+    instructions: [counter({
+      targets: target(0),
+      destination: { to: 'battlefield', controller: ref('controller'), types: ['Artifact', 'Creature'] },
+    })],
+  })])))
+  const setup = (types: string[]) => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Steal counter', { types: ['Instant'], manaCost: '{0}', ruleDefinition: desertion })],
+        p2: [cardTemplate('Stolen spell', { types, manaCost: '{0}', ...(types.includes('Creature') ? { power: 2, toughness: 2 } : {}) })],
+      },
+    }, { random: () => 0 })
+    const victim = named(server.state, 'Stolen spell')
+    let state = structuredClone(server.state)
+    state.active = 'p2'
+    state.priority = 'p2'
+    state = reduce(server, state, { type: 'castSpell', seat: 'p2', objectId: victim.id })
+    state.priority = 'p1'
+    state = reduce(server, state, {
+      type: 'castSpell', seat: 'p1', objectId: named(state, 'Steal counter').id,
+      targets: [{ kind: 'stackItem', stackId: state.stack.find((item) => item.objectId === victim.id)!.id }],
+    })
+    return { server, victim, state: reduce(server, state, { type: 'resolveTop' }) }
+  }
+  const stolen = setup(['Creature'])
+  expect(stolen.state.objects[stolen.victim.id]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+  const instant = setup(['Instant'])
+  expect(instant.state.objects[instant.victim.id]).toMatchObject({ zone: 'graveyard', controller: 'p2' })
+})
+
+
+test.each(['hand', 'graveyard'] as const)('an alternative cost can remove a cast-origin target restriction (%s)', origin => {
+  const server = createServerGame(commanderRules, { players: 2, hands: {
+    p1: [instructionSpell({ alternativeCosts: [[manaCost('{1}')]], decisions: { targets: [select({ filter: stackItems({ kind: 'spell', any: [
+      { not: { castFrom: 'hand' } }, { when: compareAmount(paidCostCount('alternative', 0), 'gte', 1) },
+    ] }), count: 1 })] }, instructions: [counter({ targets: target(0) })] })],
+    p2: [cardTemplate('Target origin fixture', { types: ['Instant'], manaCost: '{0}' })],
+  } }, { random: () => 0 })
+  let state = server.state
+  const counterId = state.zoneOrder.p1.hand[0]
+  const targetId = state.zoneOrder.p2.hand[0]
+  if (origin === 'graveyard') state = ok(server.rules(state, { type: 'move', objectId: targetId, to: 'graveyard' }))
+  state.castableZones = ['hand', 'graveyard']
+  state.priority = 'p2'
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p2', objectId: targetId }))
+  state = ok(server.rules(state, { type: 'passPriority', seat: 'p2' }))
+  state.players.p1.mana.C = 1
+  const targets = [{ kind: 'stackItem' as const, stackId: state.stack[0].id }]
+  const normal = server.rules(state, { type: 'castSpell', seat: 'p1', objectId: counterId, targets })
+  expect(normal.ok).toBe(origin !== 'hand')
+  const paid = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: counterId, targets, selectedAlternativeCost: 0 }))
+  expect(ok(server.rules(paid, { type: 'resolveTop' })).objects[targetId].zone).toBe('graveyard')
 })

@@ -1,5 +1,10 @@
+import { legalActsFor } from '../../actions'
 import { describe, expect, test } from 'bun:test'
 import {
+  addAmount,
+  count,
+  gainLife,
+  minimum,
   amount,
   activated,
   card,
@@ -25,7 +30,8 @@ import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
+import { createJournal, restoreJournal } from '../../journal'
 import type { GameState } from '../../types'
 
 const named = (state: GameState, name: string) =>
@@ -579,4 +585,121 @@ test.each(['spell', 'activated'] as const)('%s rejects malformed mode selections
     expect(JSON.stringify(server.state)).toBe(before)
     expect(rejected.state.stack).toEqual([])
   }
+})
+
+test.each([0, 1, 2])('cast-triggered modes preserve targeting and bounded inspection scopes (mode=%s)', mode => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Silverback Elder')], p2: [cardTemplate('Artifact fixture', { types: ['Artifact'] })] },
+    hands: { p1: [cardTemplate('Creature spell', { types: ['Creature'], manaCost: '{0}', power: 2, toughness: 2 })] },
+    libraries: { p1: [cardTemplate('Land fixture', { types: ['Land'] }), ...Array.from({ length: 5 }, (_, i) => cardTemplate(`Remainder ${i}`, { types: ['Instant'] }))] },
+  }, { random: () => 0 })
+  const original = server.state.zoneOrder.p1.library
+  let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }))
+  const choice = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: `mode:${mode}` }))
+  if (mode === 0) {
+    const targetSelection = pendingSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: targetSelection.id, kind: 'choose', count: targetSelection.count, objectIds: [server.state.zoneOrder.p2.battlefield[0]!] }))
+  }
+  expect(state.stack[0]!.kind).toBe('ability')
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  if (mode === 1) {
+    const landSelection = pendingSelectionFor(state, 'p1')!
+    expect(landSelection.candidates).toEqual([original[0]!])
+    expect(landSelection.visibleCards).toEqual(original.slice(0, 5))
+    state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: landSelection.id, kind: 'choose', count: landSelection.count, objectIds: [original[0]!] }))
+    expect(state.objects[original[0]!]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(state.zoneOrder.p1.library[0]).toBe(original[5]!)
+    expect(new Set(state.zoneOrder.p1.library.slice(1))).toEqual(new Set(original.slice(1, 5)))
+  }
+  expect(state.objects[server.state.zoneOrder.p2.battlefield[0]!].zone).toBe(mode === 0 ? 'graveyard' : 'battlefield')
+  expect(state.players.p1.life).toBe(mode === 2 ? 44 : 40)
+  expect(state.resolution).toBeUndefined()
+})
+
+
+test.each([0, 1, 2])('conditional spell mode bounds permit one or both and pin the announcement choice (commanders=%s)', commanders => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    decisions: { modes: chooseModes({ min: 1, count: addAmount(1, minimum(1, count(objects({ zone: 'battlefield', controller: 'you', commander: true })))) }) },
+    modes: [
+      { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] },
+      { instructions: [gainLife({ targets: ref('controller'), amount: 2 })] },
+    ],
+  })])))
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Conditional modes fixture', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] }, battlefield: { p1: Array.from({ length: commanders }, (_, index) => cardTemplate(`Commander fixture ${index}`, { types: ['Creature'], tags: ['commander'], power: 2, toughness: 2 })) } }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const offered = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(offered.map(action => action.kind === 'castSpell' ? action.modeIndices?.join(',') : '').sort()).toEqual(commanders ? ['0', '0,1', '1'] : ['0', '1'])
+  const single = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, modeIndices: [0] }))
+  expect(resolveStack(server.rules, single).players.p1.life).toBe(41)
+  const both = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, modeIndices: [0, 1] })
+  expect(both.ok).toBe(commanders > 0)
+  if (!both.ok) return
+  let restored = restoreJournal(createJournal(both.state), server.rules).current()
+  for (const id of restored.zoneOrder.p1.battlefield) restored = ok(server.rules(restored, { type: 'move', objectId: id, to: 'graveyard' }))
+  expect(resolveStack(server.rules, restored).players.p1.life).toBe(43)
+})
+
+const anyNumberTrigger = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever({ kind: 'draw', filter: {} }, {
+    decisions: { modes: chooseModes({ min: 0, count: 3 }) },
+    modes: [
+      { instructions: [gainLife({ amount: 1, targets: ref('controller') })] },
+      { instructions: [gainLife({ amount: 2, targets: ref('controller') })] },
+      { instructions: [gainLife({ amount: 4, targets: ref('controller') })] },
+    ],
+  }),
+])))
+
+const pickTriggeredModes = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  indices: number[],
+) => {
+  let current = state
+  for (const index of indices) {
+    const pending = pendingOptionSelection(current, 'p1')!
+    current = ok(server.rules(current, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `mode:${index}`,
+    }))
+  }
+  const pending = pendingOptionSelection(current, 'p1')
+  if (pending?.options.some(option => option.id === 'done')) {
+    current = ok(server.rules(current, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'done',
+    }))
+  }
+  return current
+}
+
+test.each([
+  [[], 40],
+  [[0], 41],
+  [[0, 1, 2], 47],
+] as const)('triggered any-number modes pin the selected count including zero (%j)', (indices, life) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Any-number watcher', { types: ['Creature'], ruleDefinition: anyNumberTrigger() })] },
+    libraries: { p1: [cardTemplate('Drawn')] },
+  }, { random: () => 0 })
+  const waiting = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+  expect(waiting.stack).toHaveLength(0)
+  const first = pendingOptionSelection(waiting, 'p1')!
+  expect(first.options.map(option => option.id)).toEqual(['mode:0', 'mode:1', 'mode:2', 'done'])
+  const restored = restoreJournal(createJournal(waiting), server.rules).current()
+  expect(pendingOptionSelection(restored, 'p1')?.options.map(option => option.id)).toEqual(first.options.map(option => option.id))
+  const stacked = pickTriggeredModes(server, restored, [...indices])
+  expect(stacked.stack[0]?.execution?.modeIndices).toEqual([...indices])
+  expect(stacked.stack[0]?.execution?.modeCount).toBe(indices.length)
+  expect(resolveStack(server.rules, stacked).players.p1.life).toBe(life)
+})
+
+test('activated abilities still reject bounded mode minima', () => {
+  expect(() => compileCardRuleDefinition(card([
+    activated({
+      decisions: { modes: chooseModes({ min: 0, count: 2 }) },
+      modes: [{ instructions: [] }, { instructions: [] }],
+    }),
+  ]))).toThrow('bounded mode counts currently require a spell or triggered announcement')
 })

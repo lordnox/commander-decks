@@ -17,6 +17,7 @@ import {
   chooseModes,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  delve,
   discard,
   draw,
   draws,
@@ -271,6 +272,17 @@ describe('Rule DSL v1 structural and domain validation', () => {
     })])
     expect(compileCardRuleDefinition(fullLibraryChoice).definition).toEqual(fullLibraryChoice)
 
+    const multiZone = card([spell({
+      instructions: [chooseCards({
+        bindChoice: 'found',
+        chooser: ref('controller'),
+        filter: objects({ owner: 'you', any: [{ zone: 'library' }, { zone: 'graveyard' }] }),
+        count: 1,
+        viewLibrary: true,
+      })],
+    })])
+    expect(compileCardRuleDefinition(multiZone).definition).toEqual(multiZone)
+
     const wrongZone = structuredClone(fullLibraryChoice) as unknown as Record<string, unknown>
     const firstInstruction = (definition: Record<string, unknown>) =>
       ((definition.abilities as Array<Record<string, unknown>>)[0].instructions as Array<Record<string, unknown>>)[0]
@@ -326,6 +338,24 @@ describe('Rule DSL v1 structural and domain validation', () => {
       instructions: [{ kind: 'destroy', targets: ref('triggering.object.before') }],
     })])
     expect(diagnosticCodes(() => compileCardRuleDefinition(wrongTriggerObject))).toContain('unresolved-binding')
+  })
+
+  test('generated programs may read grant.source while printed triggers may not', () => {
+    const fightGrant = chooseCards({
+      chooser: ref('controller'),
+      bindChoice: 'granter',
+      filter: objects({ among: ref('grant.source') }),
+      min: 0,
+      max: 1,
+    })
+    const generated = {
+      ...whenever(self.attacks, { instructions: [fightGrant] }),
+      generated: true as const,
+    }
+    expect(compileCardRuleDefinition(card([generated])).definition.abilities[0]).toMatchObject({ generated: true })
+
+    const printed = whenever(self.attacks, { instructions: [fightGrant] })
+    expect(diagnosticCodes(() => compileCardRuleDefinition(card([printed])))).toContain('unresolved-binding')
   })
 
   test('rejects nonboolean modifyStats.set on a revisioned definition', () => {
@@ -433,12 +463,13 @@ describe('Rule DSL v1 structural and domain validation', () => {
       instructions: [],
     })])
     expect(() => compileCardRuleDefinition(phyrexianMana)).not.toThrow()
+    expect(() => compileCardRuleDefinition(card([spell({ costs: [delve()], instructions: [] })]))).not.toThrow()
 
     const hybridMana = card([spell({
       costs: [{ kind: 'mana', amount: '{W/U}' }],
       instructions: [],
     })])
-    expect(diagnosticCodes(() => compileCardRuleDefinition(hybridMana))).toContain('mana-cost')
+    expect(() => compileCardRuleDefinition(hybridMana)).not.toThrow()
 
     const unresolvedManaX = card([spell({
       costs: [{ kind: 'mana', amount: '{X}{U}' }],
@@ -685,6 +716,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
     expect(() => evaluateAmount(variable('X'), {
       variables: { X: 2_147_483_648 },
       count: () => 0,
+      greatest: () => 0,
       characteristic: () => 0,
     })).toThrow(RuleDslEvaluationError)
 
@@ -695,6 +727,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
       distinct: true,
     }, {
       count: () => 0,
+      greatest: () => 0,
       characteristic: () => 0,
     })).toThrow('minimum 2 exceeds maximum 1')
   })

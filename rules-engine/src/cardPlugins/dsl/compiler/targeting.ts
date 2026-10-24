@@ -1,13 +1,22 @@
+import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { effectsOf } from '../../cardRules'
-import type { CardRuleDefinitionV1, TargetClause, TargetConstraint } from '../schema/v1'
+import { printedStaticEffectsOfKind } from '../staticModifierCore'
+import type { CardRuleDefinitionV1, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
 import { evaluateTargetBounds } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
+
+const objectFilterMentionsZone = (filter: ObjectFilter, zone: Zone): boolean => {
+  if (filter.zone === zone) return true
+  if (filter.any?.some((part) => objectFilterMentionsZone(part, zone))) return true
+  if (filter.all?.some((part) => objectFilterMentionsZone(part, zone))) return true
+  return false
+}
 
 export const canonicalScopeId = (abilityIndex: number) => `$.abilities[${abilityIndex}]`
 
@@ -37,16 +46,21 @@ const canonicalCandidate = (
   // illegal.  Those pins are exempt from the live candidate checks; any
   // replacement still has to pass the printed clause below.
   if (preservedPin) return true
-  switch (clause.filter.kind) {
+  const filter = clause.filter.kind === 'anyTarget'
+    ? target.kind === 'player'
+      ? { kind: 'players' as const, filter: {} }
+      : { kind: 'objects' as const, filter: { zone: 'battlefield' as const, any: DAMAGEABLE_PERMANENT_TYPES.map(type => ({ type })) } }
+    : clause.filter
+  switch (filter.kind) {
     case 'players': {
       if (target.kind !== 'player') return false
-      if (!evaluatePlayerSelector(clause.filter, context).includes(target.player)) return false
+      if (!evaluatePlayerSelector(filter, context).includes(target.player)) return false
       return !hasProtectionFromEverything(state, undefined, target.player)
     }
     case 'objects': {
       if (target.kind !== 'object' || (sourceId !== undefined && target.objectId === sourceId)) return false
       const object = targetObject(state, target)
-      if (!object || !evaluateObjectSelector(clause.filter, context).some((candidate) => candidate.id === object.id)) return false
+      if (!object || !evaluateObjectSelector(filter, context).some((candidate) => candidate.id === object.id)) return false
       if (hasProtectionFromEverything(state, object)) return false
       if (hasKeyword(object, 'shroud', state)) return false
       if (object.controller !== context.controller && hasKeyword(object, 'hexproof', state)) return false
@@ -56,7 +70,7 @@ const canonicalCandidate = (
     }
     case 'stackItems': {
       if (target.kind !== 'stackItem') return false
-      return evaluateStackItemSelector(clause.filter, context).some((candidate) => candidate.id === target.stackId)
+      return evaluateStackItemSelector(filter, context).some((candidate) => candidate.id === target.stackId)
     }
   }
 }
@@ -91,13 +105,16 @@ const contextFor = (
         },
       }
     : {}),
+  ...((execution?.announcement?.costChoices ?? item?.execution?.announcement?.costChoices) ? { paidCosts: execution?.announcement?.costChoices ?? item?.execution?.announcement?.costChoices } : {}),
   state,
   controller,
   source: captureObject(source),
-  ...(item ? { stackItemId: item.id } : {}),
+  ...((execution?.sourceLess ?? item?.execution?.sourceLess) ? { sourceLess: true as const } : {}),
+  ...((execution?.referencedObjects ?? item?.execution?.referencedObjects) ? { referencedObjects: execution?.referencedObjects ?? item?.execution?.referencedObjects } : {}),  ...(item ? { stackItemId: item.id } : {}),
   ...((execution?.occurrence ?? item?.execution?.occurrence) ? { occurrence: execution?.occurrence ?? item?.execution?.occurrence } : {}),
   ...((execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence) ? { capturedOccurrence: execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence } : {}),
   ...((execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings) ? { capturedOccurrenceBindings: execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings } : {}),
+  ...((execution?.grantSource ?? item?.execution?.grantSource) ? { grantSource: execution?.grantSource ?? item?.execution?.grantSource } : {}),
   variables: item?.x !== undefined
     ? { X: item.x }
     : x !== undefined
@@ -319,7 +336,7 @@ export const canonicalTargetCandidates = (
   clausesOverride?: readonly TargetClause[],
   x?: number,
   capturedOccurrence?: OccurrenceSnapshot,
-  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[],
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after' | 'source')[],
 ) => {
   const context = {
     ...contextFor(state, controller, source, undefined, x),
@@ -329,6 +346,11 @@ export const canonicalTargetCandidates = (
   }
   return (clausesOverride ?? ability.decisions.targets).map((clause) => {
     switch (clause.filter.kind) {
+      case 'anyTarget':
+        return [
+          ...state.playerOrder.map(player => ({ kind: 'player' as const, player })),
+          ...Object.values(state.objects).map(object => ({ kind: 'object' as const, ...objectIdentity(object) })),
+        ].filter(target => canonicalCandidate(state, target, clause, context))
       case 'players':
         return state.playerOrder
           .filter((player) => !state.players[player]?.lost && canonicalCandidate(
@@ -339,9 +361,10 @@ export const canonicalTargetCandidates = (
             undefined,
           ))
           .map((player) => ({ kind: 'player' as const, player }))
-      case 'objects':
+      case 'objects': {
+        const includeStack = objectFilterMentionsZone(clause.filter.filter, 'stack')
         return Object.values(state.objects)
-          .filter((object) => object.zone !== 'stack' && canonicalCandidate(
+          .filter((object) => (object.zone !== 'stack' || includeStack) && canonicalCandidate(
             state,
             { kind: 'object', ...objectIdentity(object) },
             clause,
@@ -349,6 +372,7 @@ export const canonicalTargetCandidates = (
             undefined,
           ))
           .map((object) => ({ kind: 'object' as const, ...objectIdentity(object) }))
+      }
       case 'stackItems':
         return state.stack
           .filter((item) => canonicalCandidate(
@@ -523,9 +547,12 @@ export const canonicalFlagbearerError = (
   x?: number,
 ) => {
   const targetingController = controller ?? source.controller
+  const isFlagbearer = (object: GameObject) =>
+    effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer')
+    || printedStaticEffectsOfKind(state, object, 'targetingRequirement')
+      .some((effect) => effect.requirement === 'flagbearer')
   const flagbearers = Object.values(state.objects).filter((object) =>
-    object.zone === 'battlefield'
-    && effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer'))
+    object.zone === 'battlefield' && isFlagbearer(object))
   const opposingFlagbearers = flagbearers.filter((object) => object.controller !== targetingController)
   if (opposingFlagbearers.length === 0) return
   const ability = definition.abilities[abilityIndex]

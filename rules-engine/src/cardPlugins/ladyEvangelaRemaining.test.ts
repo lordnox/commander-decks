@@ -242,7 +242,7 @@ describe('Lady Evangela remaining coverage', () => {
       {
         hands: {
           p1: [cardTemplate('Mana Drain', { types: ['Instant'], manaCost: '{U}{U}' })],
-          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}' })],
+          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}', manaValue: 5 })],
         },
         libraries: { p1: [cardTemplate('Keep Alive')] },
       },
@@ -256,13 +256,14 @@ describe('Lady Evangela remaining coverage', () => {
       seat: 'p2',
       objectId: named(state, 'Fat Spell').id,
     }))
+    const stackId = state.stack[0]!.id
     state.priority = 'p1'
     state.players.p1.mana.U = 2
     state = ok(server.rules(state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Mana Drain').id,
-      targets: [{ kind: 'object', objectId: named(state, 'Fat Spell').id }],
+      targets: [{ kind: 'stackItem', stackId }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(named(state, 'Fat Spell').zone).toBe('graveyard')
@@ -306,7 +307,7 @@ describe('Lady Evangela remaining coverage', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Desertion').id,
-      targets: [{ kind: 'object', objectId: bears }],
+      targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === bears)!.id }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[bears].zone).toBe('battlefield')
@@ -414,9 +415,8 @@ describe('Lady Evangela remaining coverage', () => {
       attackers: [{ objectId: attacker, defender: 'p3' }],
     }))
     state = passToEmpty(server.rules, state)
-    expect(state.zoneOrder.p2.hand.length + (state.stack.length > 0 ? 0 : 0)).toBeGreaterThanOrEqual(0)
     const choice = pendingSelectionFor(state, 'p1')
-    expect(choice?.plusCounters).toBe(2)
+    expect(choice).toMatchObject({ kind: 'choose', seat: 'p1' })
     const bear = named(state, 'Small Bear').id
     state = ok(server.rules(state, {
       type: 'selectCards',
@@ -424,8 +424,10 @@ describe('Lady Evangela remaining coverage', () => {
       kind: 'choose',
       count: 1,
       objectIds: [bear],
+      ...(choice?.id ? { selectionId: choice.id } : {}),
     }))
     expect(state.objects[bear].counters['+1/+1']).toBe(2)
+    expect(state.zoneOrder.p2.hand).toHaveLength(1)
   })
 
   test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {
@@ -440,7 +442,7 @@ describe('Lady Evangela remaining coverage', () => {
           })],
         },
         hands: {
-          p2: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })],
+          p2: [cardTemplate('Stolen instant fixture', { types: ['Instant'], manaCost: '{R}' })],
         },
         libraries: {
           p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`Extra ${index}`)),
@@ -480,11 +482,11 @@ describe('Lady Evangela remaining coverage', () => {
     expect(accepted.zoneOrder.p2.hand.length).toBeGreaterThan(1)
     const steal = pendingSelectionFor(accepted, 'p1')
     expect(steal?.castWithoutPaying).toBe(true)
-    const bolt = named(accepted, 'Lightning Bolt').id
+    const bolt = named(accepted, 'Stolen instant fixture').id
     const p3 = projectForViewer(accepted, 'p3')
     expect(p3.objects[bolt]).toBeUndefined()
     const p1 = projectForViewer(accepted, 'p1')
-    expect(p1.objects[bolt]?.name).toBe('Lightning Bolt')
+    expect(p1.objects[bolt]?.name).toBe('Stolen instant fixture')
     accepted = ok(server.rules(accepted, {
       type: 'selectCards',
       seat: 'p1',

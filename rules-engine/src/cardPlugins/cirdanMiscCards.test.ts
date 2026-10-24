@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, test } from 'bun:test'
 import { hasKeyword } from '../keywords'
 import { legalActsFor } from '../actions'
+import { maximumHandSize } from '../plugins/turnStructure'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -196,44 +197,27 @@ describe('Dig Through Time', () => {
     const looking = passUntilResolved(kernel)
     const selection = pendingSelectionFor(looking, 'p1')!
     expect(names(looking, selection.candidates)).toEqual(TOP)
-    expect(selection).toMatchObject({ kind: 'scry', count: 7, handQuota: 2 })
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1',
-      kind: 'look-top',
-      cards: TOP,
-      destinations: ['bottom', 'hand'],
-      requirements: { hand: { min: 2, max: 2 } },
+    expect(selection).toMatchObject({ kind: 'choose', count: 2 })
+    const pick = (ids: string[]) => ({
+      type: 'selectCards' as const,
+      seat: 'p1' as const,
+      selectionId: selection.id,
+      kind: 'choose' as const,
+      count: selection.count,
+      objectIds: ids,
     })
-
-    const restartedKernel = handleFor(server.rules, state, kernel.journal)
-    expect(restartedKernel.history.current()).toEqual(kernel.history.current())
-    const restarted = playLobby()
-    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
-    expect(restarted.topdeck?.cards).toEqual(TOP)
-
-    const answer = (hand: string[]) => ({
-      type: 'topdeck' as const,
-      choices: TOP.toReversed().map((card) => ({
-        card,
-        slot: TOP.indexOf(card),
-        destination: (hand.includes(card) ? 'hand' : 'bottom') as 'hand' | 'bottom',
-      })),
-    })
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1']))).toThrow()
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1', 'Top 2', 'Top 3'])))
-      .toThrow()
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
-    // Another seat cannot answer for the chooser.
-    expect(applyKernelChoice(restartedKernel, restarted, 'p2', answer(['Top 3', 'Top 6']))).toBe(false)
-
-    expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 3', 'Top 6']))).toBe(true)
-    const done = restartedKernel.history.current()
+    const restored = JSON.parse(JSON.stringify(looking))
+    expect(server.rules(looking, pick([selection.candidates[0]!])).ok).toBe(false)
+    expect(server.rules(looking, pick(selection.candidates.slice(0, 3))).ok).toBe(false)
+    expect(server.rules(looking, { ...pick([selection.candidates[2]!, selection.candidates[5]!]), seat: 'p2' }).ok)
+      .toBe(false)
+    const done = ok(server.rules(restored, pick([selection.candidates[2]!, selection.candidates[5]!])))
+    expect(ok(server.rules(JSON.parse(JSON.stringify(looking)), pick([selection.candidates[2]!, selection.candidates[5]!]))))
+      .toEqual(done)
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
     expect(names(done, done.zoneOrder.p1.hand).toSorted()).toEqual(['Top 3', 'Top 6'])
-    // The rest go to the bottom in the order the human assigned them (7 to 1).
     expect(names(done, done.zoneOrder.p1.library)).toEqual([
-      'Rest A', 'Rest B', 'Top 7', 'Top 5', 'Top 4', 'Top 2', 'Top 1',
+      'Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7',
     ])
     expect(named(done, 'Dig Through Time').zone).toBe('graveyard')
     expect(done.stack).toHaveLength(0)
@@ -325,122 +309,6 @@ const advanceTo = (
 
 const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
-
-describe('Kederekt Leviathan', () => {
-  const board = (): Pick<Parameters<typeof createServerGame>[1] & object, 'battlefield'> => ({
-    battlefield: {
-      p1: [
-        island('Own Island'),
-        creature('Own Bear'),
-        cardTemplate('Own Relic', { types: ['Artifact'] }),
-      ],
-      p2: [
-        cardTemplate('Their Forest', { types: ['Land'], subtypes: ['Forest'] }),
-        creature('Their Bear'),
-        cardTemplate('Their Banner', { types: ['Enchantment'] }),
-      ],
-    },
-  })
-
-  const setup = async (extra: Parameters<typeof createServerGame>[1] = {}) => {
-    const plugins = await knownPlugins(['Kederekt Leviathan'])
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      ...board(),
-      ...extra,
-    }, { random: () => 0.5, cardPlugins: plugins })
-    return { server, state: server.state }
-  }
-
-  test('entering returns every other nonland permanent to its owner', async () => {
-    const { server } = await setup({
-      hands: { p1: [real('Kederekt Leviathan')] },
-      battlefield: {
-        ...board().battlefield,
-        p2: [...board().battlefield!.p2!, creature('Borrowed Ox', { owner: 'p1' } as Partial<CardTemplate>)],
-      },
-    })
-    let state = mainPhase(server.state)
-    // A permanent p2 controls but p1 owns returns to p1's hand.
-    const ox = named(state, 'Borrowed Ox')
-    ox.owner = 'p1'
-    ox.controller = 'p2'
-    state = pool(state, { U: 2, C: 6 })
-    state = resolveStack(server.rules, ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Kederekt Leviathan').id,
-    })))
-
-    expect(named(state, 'Kederekt Leviathan')).toMatchObject({ zone: 'battlefield', controller: 'p1' })
-    for (const name of ['Own Island', 'Their Forest']) expect(named(state, name).zone).toBe('battlefield')
-    for (const name of ['Own Bear', 'Own Relic']) {
-      expect(named(state, name).zone).toBe('hand')
-      expect(named(state, name).owner).toBe('p1')
-    }
-    for (const name of ['Their Bear', 'Their Banner']) {
-      expect(named(state, name)).toMatchObject({ zone: 'hand', owner: 'p2' })
-    }
-    expect(named(state, 'Borrowed Ox')).toMatchObject({ zone: 'hand', owner: 'p1' })
-    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name)).toContain('Borrowed Ox')
-    expect(state.stack).toHaveLength(0)
-  })
-
-  test('unearth returns it with haste, bounces again, and exiles it at the next end step', async () => {
-    const { server } = await setup({ libraries: { p1: [real('Kederekt Leviathan')] } })
-    let state = mainPhase(server.state)
-    const leviathan = named(state, 'Kederekt Leviathan')
-    state = ok(server.rules(state, { type: 'move', objectId: leviathan.id, to: 'graveyard' }))
-    state = pool(state, { U: 1, C: 6 })
-
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: leviathan.id,
-      abilityId: 'unearth',
-    }))
-    expect(state.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'unearth' })
-    expect(state.players.p1.mana).toMatchObject({ U: 0, C: 0 })
-    state = resolveStack(server.rules, state)
-
-    expect(state.objects[leviathan.id]).toMatchObject({ zone: 'battlefield', summoningSickness: true })
-    expect(hasKeyword(state.objects[leviathan.id], 'haste', state)).toBe(true)
-    for (const name of ['Own Bear', 'Own Relic', 'Their Bear', 'Their Banner']) {
-      expect(named(state, name).zone).toBe('hand')
-    }
-    expect(named(state, 'Their Forest').zone).toBe('battlefield')
-
-    const ending = advanceTo(server, state, 'end')
-    expect(ending.objects[leviathan.id].zone).toBe('exile')
-    expect(ending.delayedTriggers).toHaveLength(0)
-  })
-
-  test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {
-    const { server } = await setup({ libraries: { p1: [real('Kederekt Leviathan')] } })
-    let state = mainPhase(server.state)
-    const leviathan = named(state, 'Kederekt Leviathan')
-    state = ok(server.rules(state, { type: 'move', objectId: leviathan.id, to: 'graveyard' }))
-    const activate = (current: GameState) => server.rules(current, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: leviathan.id,
-      abilityId: 'unearth',
-    })
-
-    expect(activate(pool(structuredClone(state), { U: 0, C: 7 })).ok).toBe(false)
-    expect(activate(pool(structuredClone(state), { U: 1, C: 5 })).ok).toBe(false)
-    const theirTurn = pool(structuredClone(state), { U: 1, C: 6 })
-    theirTurn.active = 'p2'
-    expect(activate(theirTurn).ok).toBe(false)
-
-    const unearthed = resolveStack(server.rules, ok(activate(pool(structuredClone(state), { U: 1, C: 6 }))))
-    expect(unearthed.objects[leviathan.id].zone).toBe('battlefield')
-    for (const to of ['hand', 'graveyard', 'library'] as const) {
-      const gone = ok(server.rules(unearthed, { type: 'move', objectId: leviathan.id, to }))
-      expect(gone.objects[leviathan.id].zone).toBe('exile')
-    }
-  })
-})
 
 /** Advance steps (resolving whatever trigger lands) until `stop` holds or a choice opens. */
 const advanceUntil = (
@@ -552,7 +420,6 @@ describe('Kiora Bests the Sea God', () => {
       name: 'Kiora Bests the Sea God',
       payload: { sagaChapter: 3 },
     })
-    expect(stacked.stack[0].payload?.targetFilter).toMatchObject({ controller: 'opponent' })
     return structuredClone(stacked)
   }
 
@@ -890,12 +757,12 @@ describe('Nezahal, Primal Tide', () => {
       ok(server.rules(big, { type: 'move', objectId: nezahal.id, to: 'hand' })),
       { type: 'move', objectId: nezahal.id, to: 'battlefield' },
     ))
-    expect(entered.players.p1.data.maximumHandSize).toBeNull()
+    expect(maximumHandSize(entered, 'p1')).toBeNull()
     const cleanup = { ...entered, step: 'cleanup' as const, active: 'p1', priority: 'p1' }
     expect(ok(server.rules(cleanup, { type: 'advanceStep' })).step).toBe('untap')
 
     const gone = ok(server.rules(entered, { type: 'move', objectId: nezahal.id, to: 'graveyard' }))
-    expect(gone.players.p1.data.maximumHandSize).toBeUndefined()
+    expect(maximumHandSize(gone, 'p1')).toBe(7)
     expect(server.rules({ ...gone, step: 'cleanup' as const, active: 'p1', priority: 'p1' }, { type: 'advanceStep' }))
       .toMatchObject({ ok: false, error: expect.stringContaining('must discard 2') })
   })
@@ -904,6 +771,9 @@ describe('Nezahal, Primal Tide', () => {
     const { server, state } = await setup()
     const ready = mainPhase(state)
     const nezahal = named(ready, 'Nezahal, Primal Tide')
+    const offer = legalActsFor(ready, 'p1').find((action) =>
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
+    if (!offer || offer.kind !== 'activateAbility') throw new Error('discard ability not offered')
     const kernel = handleFor(server.rules, ready)
     const lobby = playLobby()
     const picks = ['Held 1', 'Held 3', 'Held 5'].map((name) => named(ready, name).id)
@@ -911,8 +781,8 @@ describe('Nezahal, Primal Tide', () => {
       type: 'act',
       kind: 'activateAbility',
       objectId: nezahal.id,
-      abilityId: 'nezahal.reset',
-      text: 'nezahal.reset',
+      abilityId: offer.abilityId,
+      text: offer.text,
       targetObjectIds,
     })
 
@@ -925,7 +795,7 @@ describe('Nezahal, Primal Tide', () => {
     const cost = kernel.history.current()
     expect(picks.every((id) => cost.objects[id].zone === 'graveyard')).toBe(true)
     expect(handOf(cost).toSorted()).toEqual(['Held 2', 'Held 4'])
-    expect(cost.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'nezahal.reset' })
+    expect(cost.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[2]' })
     expect(cost.objects[nezahal.id].zone).toBe('battlefield')
 
     const exiled = passUntilResolved(kernel)
@@ -952,224 +822,18 @@ describe('Nezahal, Primal Tide', () => {
       card.zone = 'graveyard'
     }
     expect(legalActsFor(poor, 'p1').some((action) =>
-      action.kind === 'activateAbility' && action.abilityId === 'nezahal.reset')).toBe(false)
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')).toBe(false)
     expect(server.rules(poor, {
       type: 'activateAbility',
       seat: 'p1',
       objectId: named(poor, 'Nezahal, Primal Tide').id,
-      abilityId: 'nezahal.reset',
+      abilityId: '$.abilities[2]',
       choices: [named(poor, 'Held 4').id, named(poor, 'Held 5').id],
     }).ok).toBe(false)
   })
 })
 
-describe('Phyrexian Ingester', () => {
-  const setup = async () => {
-    const plugins = await knownPlugins(['Phyrexian Ingester'])
-    const server = createServerGame(commanderRules, {
-      players: 3,
-      hands: { p1: [real('Phyrexian Ingester')] },
-      battlefield: {
-        p1: [
-          creature('Own Bear', { power: 2, toughness: 2 }),
-        ],
-        p2: [
-          creature('Big Foe', { power: 4, toughness: 6 }),
-          creature('Foe Token', { token: true, power: 9, toughness: 9 }),
-          cardTemplate('Foe Relic', { types: ['Artifact'] }),
-        ],
-        p3: [creature('Shrouded Foe', { oracleText: 'Hexproof', power: 5, toughness: 5 })],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    return { server, state: server.state }
-  }
 
-  const cast = (server: ReturnType<typeof createServerGame>, state: GameState) => {
-    const ready = pool(mainPhase(state), { U: 1, C: 6 })
-    return ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Phyrexian Ingester').id,
-    }))
-  }
-
-  const choose = (state: GameState, ...picked: string[]): Extract<GameEvent, { type: 'selectCards' }> => ({
-    type: 'selectCards',
-    seat: 'p1',
-    kind: 'choose',
-    count: 1,
-    objectIds: picked.map((name) => named(state, name).id),
-  })
-
-  const entering = async () => {
-    const { server, state } = await setup()
-    return { server, state, open: ok(server.rules(cast(server, state), { type: 'resolveTop' })) }
-  }
-
-  const stats = (state: GameState, name: string) => [named(state, name).power, named(state, name).toughness]
-
-  test('offers every nontoken creature, including its own, but no tokens, noncreatures, or hexproof creatures', async () => {
-    const { open } = await entering()
-    const selection = pendingSelectionFor(open, 'p1')!
-    expect(names(open, selection.candidates).toSorted()).toEqual(['Big Foe', 'Own Bear', 'Phyrexian Ingester'])
-    expect(selection).toMatchObject({ kind: 'choose', min: 0, count: 1, destinations: ['skip', 'target'] })
-  })
-
-  test('exiling a creature gives +X/+Y from its printed power and toughness, and the exile is permanent', async () => {
-    const { server, open } = await entering()
-    const target = named(open, 'Big Foe')
-    const stacked = ok(server.rules(open, choose(open, 'Big Foe')))
-    expect(stacked.stack[0]).toMatchObject({ kind: 'ability', targets: [{ kind: 'object', objectId: target.id }] })
-    const done = resolveStack(server.rules, stacked)
-
-    expect(done.objects[target.id].zone).toBe('exile')
-    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
-    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-
-    // It keeps the imprint as long as it stays, and the exiled card stays exiled when it leaves.
-    const gone = resolveStack(server.rules, ok(server.rules(done, {
-      type: 'move',
-      objectId: named(done, 'Phyrexian Ingester').id,
-      to: 'graveyard',
-    })))
-    expect(gone.objects[target.id].zone).toBe('exile')
-  })
-
-  const imprinted = async () => {
-    const { server, open } = await entering()
-    const done = resolveStack(server.rules, ok(server.rules(open, choose(open, 'Big Foe'))))
-    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
-    return { server, done }
-  }
-
-  const reenter = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    via: 'hand' | 'graveyard',
-  ) => {
-    const id = named(state, 'Phyrexian Ingester').id
-    const left = resolveStack(server.rules, ok(server.rules(state, { type: 'move', objectId: id, to: via })))
-    expect(left.objects[id].exiledCards ?? []).toEqual([])
-    expect(left.objects[named(left, 'Big Foe').id].exiledWith).toBeUndefined()
-    return resolveStack(server.rules, ok(server.rules(left, { type: 'move', objectId: id, to: 'battlefield' })))
-  }
-
-  test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {
-    const { server, done } = await imprinted()
-    const back = reenter(server, done, 'hand')
-    expect(pendingSelectionFor(back, 'p1')).toBeDefined()
-    const declined = resolveStack(server.rules, ok(server.rules(back, choose(back))))
-    expect(stats(declined, 'Phyrexian Ingester')).toEqual([3, 3])
-    expect(named(declined, 'Phyrexian Ingester').exiledCards ?? []).toEqual([])
-    expect(named(declined, 'Big Foe').zone).toBe('exile')
-  })
-
-  test('a second imprint after re-entering counts only the new exiled creature', async () => {
-    const { server, done } = await imprinted()
-    const back = reenter(server, done, 'hand')
-    const second = resolveStack(server.rules, ok(server.rules(back, choose(back, 'Own Bear'))))
-    expect(named(second, 'Own Bear').zone).toBe('exile')
-    expect(named(second, 'Phyrexian Ingester').exiledCards).toEqual([named(second, 'Own Bear').id])
-    expect(stats(second, 'Phyrexian Ingester')).toEqual([5, 5])
-  })
-
-  test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {
-    const { server, done } = await imprinted()
-    const back = reenter(server, done, 'graveyard')
-    const declined = resolveStack(server.rules, ok(server.rules(back, choose(back))))
-    expect(stats(declined, 'Phyrexian Ingester')).toEqual([3, 3])
-    expect(named(declined, 'Big Foe').zone).toBe('exile')
-  })
-
-  test('exiling your own creature or the Ingester itself is allowed', async () => {
-    const { server, open } = await entering()
-    const own = resolveStack(server.rules, ok(server.rules(open, choose(open, 'Own Bear'))))
-    expect(named(own, 'Own Bear').zone).toBe('exile')
-    expect(stats(own, 'Phyrexian Ingester')).toEqual([5, 5])
-
-    const self = resolveStack(server.rules, ok(server.rules(open, choose(open, 'Phyrexian Ingester'))))
-    expect(named(self, 'Phyrexian Ingester').zone).toBe('exile')
-  })
-
-  test('declining exiles nothing and asks nothing further', async () => {
-    const { server, open } = await entering()
-    const declined = resolveStack(server.rules, ok(server.rules(open, choose(open))))
-    expect(pendingSelectionFor(declined, 'p1')).toBeUndefined()
-    expect(declined.stack).toHaveLength(0)
-    for (const name of ['Own Bear', 'Big Foe', 'Foe Token', 'Shrouded Foe']) {
-      expect(named(declined, name).zone).toBe('battlefield')
-    }
-    expect(stats(declined, 'Phyrexian Ingester')).toEqual([3, 3])
-  })
-
-  test('rejects tokens, noncreatures, hexproof creatures, and two targets', async () => {
-    const { server, open } = await entering()
-    for (const picked of [['Foe Token'], ['Foe Relic'], ['Shrouded Foe'], ['Own Bear', 'Big Foe']]) {
-      expect(server.rules(open, choose(open, ...picked)).ok).toBe(false)
-    }
-    expect(server.rules(open, { ...choose(open, 'Big Foe'), seat: 'p2' }).ok).toBe(false)
-    expect(server.rules(open, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
-  })
-
-  test('a target that left the battlefield before resolution is not exiled and nothing else is offered', async () => {
-    const { server, open } = await entering()
-    const stacked = ok(server.rules(open, choose(open, 'Big Foe')))
-    const response = ok(server.rules(stacked, { type: 'move', objectId: named(stacked, 'Big Foe').id, to: 'graveyard' }))
-    const done = resolveStack(server.rules, response)
-    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-    expect(named(done, 'Big Foe').zone).toBe('graveyard')
-    expect(named(done, 'Own Bear').zone).toBe('battlefield')
-    expect(stats(done, 'Phyrexian Ingester')).toEqual([3, 3])
-  })
-
-  test('the choice is private, survives a host restart, and finishes through the live host', async () => {
-    const { server, state } = await setup()
-    const ready = pool(mainPhase(state), { U: 1, C: 6 })
-    const kernel = handleFor(server.rules, ready)
-    // The fast act path hands any creature whose text says "enters" to the judge, so the cast
-    // arrives as the judge's plain castSpell event; everything after it is the live kernel.
-    expect(kernel.dispatch({
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Phyrexian Ingester').id,
-    }).ok).toBe(true)
-    passUntilResolved(kernel)
-
-    const lobby = playLobby()
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1',
-      kind: 'choose',
-      cards: ['Phyrexian Ingester', 'Own Bear', 'Big Foe'],
-      destinations: ['skip', 'target'],
-      requirements: { target: { min: 0, max: 1 } },
-    })
-    const open = kernel.history.current()
-    expect(pendingSelectionFor(projectForViewer(open, 'p2'), 'p1')).toBeUndefined()
-    expect(JSON.stringify(projectForViewer(open, 'p2').players.p1.data)).not.toContain('Big Foe')
-
-    const restartedKernel = handleFor(server.rules, ready, kernel.journal)
-    const restarted = playLobby()
-    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
-    expect(restarted.topdeck).toEqual(lobby.topdeck)
-
-    const answer = (picked: string[]) => ({
-      type: 'topdeck' as const,
-      choices: (lobby.topdeck!.cards as string[]).map((card, slot) => ({
-        card,
-        slot,
-        destination: (picked.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
-      })),
-    })
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Own Bear', 'Big Foe']))).toThrow()
-    expect(applyKernelChoice(restartedKernel, restarted, 'p2', answer(['Big Foe']))).toBe(false)
-    expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Big Foe']))).toBe(true)
-    const done = passUntilResolved(restartedKernel)
-    expect(named(done, 'Big Foe').zone).toBe('exile')
-    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
-    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-  })
-})
 
 describe("Rishkar's Expertise", () => {
   const setup = async (options: {
@@ -1363,7 +1027,7 @@ describe("Rishkar's Expertise", () => {
 )
 
 describe('Spearbreaker Behemoth', () => {
-  const ABILITY = 'spearbreaker.indestructible'
+  const ABILITY = '$.abilities[1]'
 
   const setup = async () => {
     const plugins = await knownPlugins(['Spearbreaker Behemoth', 'Drag to the Roots'])

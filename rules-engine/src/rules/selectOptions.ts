@@ -1,19 +1,22 @@
+import { CREATURE_TYPE_CHOICE_ACTION } from '../creatureTypes'
+import { COLLECTED_CHOICE_ACTION, PARTICIPATION_OPTION } from '../cardPlugins/dsl/collectedChoices'
+import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
+import { ANY_TARGET_KINDS, canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
 import type { CanonicalAnnouncement, CanonicalChoicePayload } from './canonicalAnnouncement'
 import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
 import type { DistributionAllocation } from '../cardPlugins/dsl/compiler/modes'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
+import { canonicalCopySource, copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, EventTrace, GameEvent, GameState, ManaPool, ObjectIdentity, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
-import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, ResolutionCost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
 import { captureLexicalBindings, generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
-import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates, resolutionManaCost } from '../cardPlugins/dsl/resolutionPayment'
 import type { ResolutionManaActivation, ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
@@ -33,7 +36,7 @@ export const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame):
   const slot = job.slotCursor ?? 0
   if (slot >= job.targets.length) {
     frame.afterChoiceEvents = [...(frame.afterChoiceEvents ?? []), {
-      type: 'copySpell', stackId: original.id, controller: job.controller,
+      type: original.kind === 'ability' ? 'copyAbility' : 'copySpell', stackId: original.id, controller: job.controller,
       targets: structuredClone(job.answers ?? job.targets), retarget: (job.changedIndices?.length ?? 0) > 0,
       sourceId: frame.source.ref.objectId,
     }]
@@ -114,6 +117,10 @@ export type PendingOptionSelection = {
     recipients: Array<{ id: string; kind: 'object' | 'player'; objectId?: string; seat?: PlayerId; counter: string }>
   } | {
     /** A canonical resolution program choice; the frame remains private. */
+    kind: typeof CREATURE_TYPE_CHOICE_ACTION
+    stackId: string
+    binding: string
+  } | {
     kind: 'canonicalInstructionChoice'
     stackId: string
     scopeId?: string
@@ -148,7 +155,7 @@ export type PendingOptionSelection = {
     kind: 'canonicalResolutionPayment'
     stackId: string
     scopeId?: string
-    cost: Cost
+    cost: ResolutionCost
     source: CapturedObject
     controller: PlayerId
     bindResult: string
@@ -160,6 +167,9 @@ export type PendingOptionSelection = {
     bindings?: ResolutionPaymentBindings
     manaActivations?: readonly ResolutionManaActivation[]
   } | {
+    kind: typeof COLLECTED_CHOICE_ACTION.participants
+    stackId: string
+  } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
     abilityIndex: number
@@ -168,6 +178,8 @@ export type PendingOptionSelection = {
     targets: TargetRef[]
     targetBindings: CanonicalTargetBinding[]
     modeCount: number
+    modeMin?: number
+    modeMax?: number
     repeatable: boolean
     selectedModes: number[]
     modeClauses?: TargetClause[]
@@ -177,7 +189,7 @@ export type PendingOptionSelection = {
     baseTargetModeIndices?: Array<number | undefined>
     modeScopeIds?: string[]
     distributionBounds?: Array<{ total: number; minEach: number }>
-  } | ({
+  } | ({ kind: 'putCanonicalTargetKind' } & CanonicalChoicePayload) | ({
     kind: 'putCanonicalStackTarget'
     selectedStackTargets: string[]
   } & CanonicalChoicePayload) | {
@@ -280,6 +292,7 @@ export const queuePaidReflexive = (
     parentFrame?.choices,
     parentFrame?.results,
     action.whenPaidDecisions ? [action.whenPaidDecisions] : [],
+    [], parentFrame?.playerChoiceBindings,
   )
   const whenPaidDecisions = action.whenPaidDecisions
     ? captured.rewrittenAdditionalValues[0] as typeof action.whenPaidDecisions
@@ -357,16 +370,19 @@ export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace
   const cardsHaveOutcome = pending.paymentEvents.every((event, index) =>
     eventWasApplied(event)
     || (eventWasReplaced(event) && pending.selected?.[index] !== undefined && objectSettled(pending.selected[index]!)))
-  const lifeEvent = pending.cost.kind === 'life' ? pending.paymentEvents[0] : undefined
-  const lifeSettled = lifeEvent
-    ? eventWasApplied(lifeEvent)
-      && trace.some((entry) => entry.event.type === 'loseLife'
-        && entry.event.seat === pending.payer
-        && entry.event.amount === pending.amount
-        && entry.event.source === pending.source.ref.objectId
-        && entry.outcome === 'applied')
-    : false
-  const paid = pending.cost.kind === 'life'
+  const hasLifeCost = pending.cost.kind === 'life' || pending.cost.kind === 'manaAndLife'
+  const lifeEvent = hasLifeCost ? pending.paymentEvents[0] : undefined
+  if (lifeEvent && eventWasApplied(lifeEvent)) pending.lifePaymentApplied = true
+  if (hasLifeCost && trace.some((entry) => entry.event.type === 'loseLife'
+    && entry.event.seat === pending.payer
+    && entry.event.amount === pending.amount
+    && entry.event.source === pending.source.ref.objectId
+    && entry.outcome === 'applied')) pending.lifeLossApplied = true
+  // Replacement choices can suspend the payment after payLife commits but
+  // before its loseLife continuation. Keep both outcomes across that boundary.
+  if (draft.eventProcessing) return
+  const lifeSettled = pending.lifePaymentApplied && pending.lifeLossApplied
+  const paid = hasLifeCost
     ? lifeSettled
     : cardsSettled && cardsHaveOutcome
   delete frame.pendingResolutionPayment
@@ -376,6 +392,10 @@ export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace
     frame.phase = 'running'
     draft.note('resolution payment did not settle; reopening the payment choice')
     return
+  }
+  if (pending.manaSpent) {
+    const pool = draft.players[pending.payer].mana
+    for (const color of Object.keys(pending.manaSpent) as (keyof ManaPool)[]) pool[color] -= pending.manaSpent[color]
   }
   frame.results = { ...frame.results, [pending.resultBinding]: true }
   if (pending.ifPaid.length > 0) {
@@ -410,6 +430,7 @@ const resolutionPaymentPayable = (
   action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
 ) => {
   switch (action.cost.kind) {
+    case 'manaAndLife': return state.players[seat].life >= action.paymentAmount && canPayResolutionMana(state, seat, { kind: 'mana', amount: action.cost.mana }, action.source, action.bindings)
     case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source, action.bindings)
     case 'life': return state.players[seat].life >= action.paymentAmount
     case 'discard':
@@ -442,17 +463,22 @@ export const selectOptions: Plugin = {
       return 'option was not offered for this selection'
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
-      const modeIndex = Number(event.optionId.replace('mode:', ''))
-      if (!Number.isInteger(modeIndex) || modeIndex < 0) return 'invalid mode choice'
-      if (!selection.action.repeatable && selection.action.selectedModes.includes(modeIndex)) {
-        return 'that mode cannot be selected again'
+      if (event.optionId === 'done') {
+        const modeMin = selection.action.modeMin ?? selection.action.modeCount
+        if (selection.action.selectedModes.length < modeMin) return 'not enough modes selected'
+      } else {
+        const modeIndex = Number(event.optionId.replace('mode:', ''))
+        if (!Number.isInteger(modeIndex) || modeIndex < 0) return 'invalid mode choice'
+        if (!selection.action.repeatable && selection.action.selectedModes.includes(modeIndex)) {
+          return 'that mode cannot be selected again'
+        }
       }
     }
     if (selection.action.kind === 'canonical-copy-retarget' && event.optionId === 'keep') {
       const action = selection.action
       const frame = state.resolution?.kind === 'canonicalSpell' && state.resolution.stackId === action.stackId ? state.resolution : undefined
       const original = state.stack.find((item) => item.id === action.copyStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (!frame || !original || !source || !job || action.slotIndex === undefined) return 'copy target choice is no longer valid'
       return validateCanonicalCopyTarget(state, original, source, action.slotIndex, original.targets[action.slotIndex]!, job.answers, action.controller)
@@ -465,7 +491,7 @@ export const selectOptions: Plugin = {
         ? state.resolution
         : undefined
       const original = state.stack.find((item) => item.id === action.copyStackId)
-      const source = original ? state.objects[original.objectId] : undefined
+      const source = original ? canonicalCopySource(state, original) : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (!targetId || !frame || !original || !source || !job) return 'stack target choice is no longer valid'
       const error = validateCanonicalCopyTarget(
@@ -532,6 +558,13 @@ export const selectOptions: Plugin = {
         action: { ...selection.action, recipients: remaining },
       }
       draft.priority = event.seat
+      return
+    }
+    if (selection.action.kind === CREATURE_TYPE_CHOICE_ACTION) {
+      const frame = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution : undefined
+      if (frame?.stackId !== selection.action.stackId) return
+      frame.results = { ...frame.results, [selection.action.binding]: event.optionId }
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       return
     }
     if (selection.action.kind === 'canonicalInstructionChoice') {
@@ -613,7 +646,7 @@ export const selectOptions: Plugin = {
       if (event.optionId === 'keep') {
         const job = frame.pendingCopyTargets?.[0]
         if (job && selection.action.slotIndex !== undefined) {
-          const source = draft.object(original.objectId)
+          const source = canonicalCopySource(draft, original)
           if (!source || validateCanonicalCopyTarget(draft, original, source, selection.action.slotIndex, original.targets[selection.action.slotIndex]!, job.answers, action.controller)) return
           delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
           advanceCopySlot(draft, frame)
@@ -622,7 +655,7 @@ export const selectOptions: Plugin = {
         delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
         return
       }
-      const source = draft.object(original.objectId)
+      const source = canonicalCopySource(draft, original)
       const snapshot = original.execution?.definitionSnapshot
       const abilityIndex = original.execution?.abilityIndex
       const definition = snapshot ? loadDefinitionSnapshot(snapshot).definition : undefined
@@ -720,7 +753,7 @@ export const selectOptions: Plugin = {
       const targetId = event.optionId.startsWith('stack:') ? event.optionId.slice('stack:'.length) : undefined
       if (targetId && frame?.pendingCopyTargets?.length) {
         const job = frame.pendingCopyTargets[0]
-        const source = original ? draft.object(original.objectId) : undefined
+        const source = original ? canonicalCopySource(draft, original) : undefined
         const slotIndex = action.slotIndex ?? 0
         if (!original || !source || validateCanonicalCopyTarget(draft, original, source, slotIndex, { kind: 'stackItem', stackId: targetId }, job.answers, action.controller)) return
         delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
@@ -734,6 +767,18 @@ export const selectOptions: Plugin = {
         }
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      return
+    }
+    if (selection.action.kind === COLLECTED_CHOICE_ACTION.participants) {
+      const frame = draft.resolution
+      const pending = frame?.kind === 'canonicalSpell' && frame.stackId === selection.action.stackId ? frame.collectedPlayerChoices : undefined
+      if (!frame || frame.kind !== 'canonicalSpell' || !pending || pending.awaiting !== event.seat) return
+      if (event.optionId !== PARTICIPATION_OPTION.accept && event.optionId !== PARTICIPATION_OPTION.decline) return
+      if (event.optionId === PARTICIPATION_OPTION.accept) pending.participants.push(event.seat)
+      delete pending.awaiting
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      frame.phase = 'running'
+      draft.priority = null
       return
     }
     if (selection.action.kind === 'canonicalResolutionPayment') {
@@ -802,7 +847,13 @@ export const selectOptions: Plugin = {
             draft.players[event.seat].restrictedMana = nextMana.restrictedMana
             break
           }
+          case 'manaAndLife':
           case 'life': {
+            const manaCost = resolutionManaCost(cost)
+            const nextMana = manaCost ? payResolutionMana(draft, event.seat, manaCost, selection.action.source, selection.action.bindings) : undefined
+            if (cost.kind === 'manaAndLife' && !nextMana) return
+            const manaSpent = nextMana ? Object.fromEntries(Object.entries(draft.players[event.seat].mana)
+              .map(([color, value]) => [color, value - nextMana.pool[color as keyof ManaPool]])) as ManaPool : undefined
             const paymentEvent: GameEvent = {
               type: 'payLife',
               seat: event.seat,
@@ -821,6 +872,7 @@ export const selectOptions: Plugin = {
               ifDeclined: structuredClone(selection.action.ifDeclined),
               whenPaid: structuredClone(selection.action.whenPaid),
               paymentEvents: [paymentEvent],
+              ...(manaSpent ? { manaSpent } : {}),
               ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
               ...(selection.action.bindings ? { bindings: structuredClone(selection.action.bindings) } : {}),
             }
@@ -890,14 +942,20 @@ export const selectOptions: Plugin = {
       return
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
-      const modeIndex = Number(event.optionId.replace('mode:', ''))
-      const selectedModes = [...selection.action.selectedModes, modeIndex]
-      if (selectedModes.length < selection.action.modeCount) {
+      const modeMax = selection.action.modeMax ?? selection.action.modeCount
+      const modeMin = selection.action.modeMin ?? selection.action.modeCount
+      const selectedModes = event.optionId === 'done'
+        ? selection.action.selectedModes
+        : [...selection.action.selectedModes, Number(event.optionId.replace('mode:', ''))]
+      if (event.optionId !== 'done' && selectedModes.length < modeMax) {
+        const remaining = selection.action.repeatable
+          ? selection.options.filter((option) => option.id !== 'done')
+          : selection.options.filter((option) => option.id !== event.optionId && option.id !== 'done')
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
           ...selection,
-          options: selection.action.repeatable
-            ? selection.options
-            : selection.options.filter((option) => option.id !== event.optionId),
+          options: selectedModes.length >= modeMin
+            ? [...remaining, { id: 'done', label: 'Done' }]
+            : remaining,
           action: { ...selection.action, selectedModes },
         }
         draft.priority = event.seat
@@ -905,9 +963,13 @@ export const selectOptions: Plugin = {
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       validateModeSelection(
-        { count: { kind: 'constant', value: selection.action.modeCount }, repeatable: selection.action.repeatable },
-        selection.action.modeClausesByMode?.length ?? selection.options.length,
-        selection.action.modeCount,
+        {
+          count: { kind: 'constant', value: modeMax },
+          ...(modeMin !== modeMax ? { min: { kind: 'constant' as const, value: modeMin } } : {}),
+          repeatable: selection.action.repeatable,
+        },
+        selection.action.modeClausesByMode?.length ?? selection.options.filter((option) => option.id !== 'done').length,
+        selectedModes.length,
         selectedModes,
       )
       const modeClausesByMode = selection.action.modeClausesByMode
@@ -919,7 +981,7 @@ export const selectOptions: Plugin = {
         continueCanonicalModeTargets(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
-          execution: selection.action.execution,
+          execution: { ...selection.action.execution, modeIndices: selectedModes, modeCount: selectedModes.length },
           source: selection.action.execution.source.snapshot,
           sourceId: selection.action.sourceId,
           targets: selection.action.targets,
@@ -949,7 +1011,7 @@ export const selectOptions: Plugin = {
         stackCanonical(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
-          execution: selection.action.execution,
+          execution: { ...selection.action.execution, modeIndices: selectedModes, modeCount: selectedModes.length },
           source,
           sourceId: source.id,
           targets: selection.action.targets,
@@ -977,12 +1039,28 @@ export const selectOptions: Plugin = {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
           modeIndices: selectedModes,
+          modeCount: selectedModes.length,
           ...(selection.action.modeScopeIds ? { modeScopeIds: [...selection.action.modeScopeIds] } : {}),
           targetBindings: selection.action.targetBindings,
         },
       })
       draft.passedInRow = []
       draft.priority = null
+      return
+    }
+    if (selection.action.kind === 'putCanonicalTargetKind') {
+      const payload = selection.action
+      const targetClauses = payload.targetClauseDefinitions.map((clause, index) => index === payload.targetIndex
+        ? { ...clause, filter: event.optionId === ANY_TARGET_KINDS.player
+          ? { kind: 'players' as const, filter: {} }
+          : { kind: 'objects' as const, filter: { zone: 'battlefield' as const, any: DAMAGEABLE_PERMANENT_TYPES.map(type => ({ type })) } } }
+        : clause)
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      continueCanonicalTargetSelection(draft, canonicalChoiceAnnouncement(payload, {
+        source: payload.execution.source.snapshot, sourceId: payload.sourceId,
+        targets: payload.selectedTargets, targetClauses,
+        clauseBounds: payload.targetClauses, clauseIndex: payload.targetIndex,
+      }))
       return
     }
     if (selection.action.kind === 'putCanonicalStackTarget') {

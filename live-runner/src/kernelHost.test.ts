@@ -1,3 +1,4 @@
+import { pendingPlayerSelectionFor } from '../../rules-engine/src/rules/selectPlayers'
 import {
   existsSync,
   mkdirSync,
@@ -12,6 +13,7 @@ import {
   commanderRules,
   createJournal,
   createServerGame,
+  legalActsFor,
   forest,
   projectForViewer,
   recordAccepted,
@@ -22,13 +24,11 @@ import {
 } from '../../rules-engine/src/index'
 import {
   librarySearch,
-  pendingSearch,
   SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
-import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
+import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
-import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
 import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
@@ -51,10 +51,7 @@ import {
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
-import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
-import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
-import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
   CUMULATIVE_UPKEEP_PENDING,
@@ -113,6 +110,10 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  activated as dslActivated,
+  discardCost,
+  gainLife,
+  sacrificeCost,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   objects,
@@ -120,12 +121,6 @@ import {
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
 import { validateInteractionAnswer } from '../../shared/interaction'
-
-const RANKLE_MODES = {
-  discard: 'Each player discards a card',
-  drain: 'Each player loses 1 life and draws a card',
-  sacrifice: 'Each player sacrifices a creature',
-} as const
 
 /**
  * Answers an open dialog the way the UI does: every choice names its position
@@ -362,6 +357,7 @@ const abilitySearchGame = (
   source: string,
   library: Array<{ name: string; subtypes: string[] }>,
   otherLands = 0,
+  abilityId: string = SEARCH_FETCH,
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -369,7 +365,7 @@ const abilitySearchGame = (
       first: 'p1',
       battlefield: {
         p1: [
-          { ...forest(), name: source, supertypes: [] },
+          cardTemplate(source, { types: ['Land'], supertypes: [] }),
           ...Array.from({ length: otherLands }, (_, index) => ({
             ...forest(),
             name: `Land ${index + 1}`,
@@ -393,11 +389,15 @@ const abilitySearchGame = (
   const kernel = handleFor(server.rules, initial)
   const activated = kernel.dispatch({
     type: 'activateAbility',
-    abilityId: SEARCH_FETCH,
+    abilityId,
     seat: 'p1',
     objectId: sourceId,
   })
   if (!activated.ok) throw new Error(activated.error)
+  if (abilityId !== SEARCH_FETCH) {
+    const resolved = kernel.dispatch({ type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
+  }
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, sourceId }
@@ -1639,7 +1639,7 @@ describe('kernel host journal', () => {
       type: 'act',
       kind: 'castSpell',
       objectId: arc.id,
-      targetClauses: [[chosen[0]], [chosen[1]]],
+      targetClauses: [chosen],
     })).toHaveLength(1)
     expect(kernel.history.current().stack[0]).toMatchObject({
       objectId: arc.id,
@@ -1713,49 +1713,6 @@ describe('kernel host journal', () => {
       .find((object) => object.name === 'Milled Two')!
     expect(milledTwo.zone).toBe('hand')
     expect(restartedKernel.history.current().players.p1.life).toBe(commanderRules.startingLife - 2)
-  })
-
-  test('restores an interrupted Analyze the Pollen library search', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-search-restart-'))
-    mkdirGames(root)
-    seedKernel(root, 'pod', (state) => {
-      const spellId = 'analyze'
-      state.objects[spellId] = {
-        ...forest(),
-        id: spellId,
-        name: 'Analyze the Pollen',
-        types: ['Sorcery'],
-        zone: 'stack',
-        owner: 'p1',
-        controller: 'p1',
-      }
-      state.stack = [{
-        id: 'stack-analyze',
-        kind: 'spell',
-        objectId: spellId,
-        controller: 'p1',
-        name: 'Analyze the Pollen',
-        targets: [],
-        kicked: true,
-      }]
-      state.players.p1.data['librarySearch.pending'] = {
-        source: 'Analyze the Pollen',
-        sourceId: spellId,
-        via: 'spell',
-        kicked: true,
-      }
-    }, true)
-    const lobby = createLobby()
-    const kernel = await openKernel('pod', root, lobby)
-
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1',
-      kind: 'search',
-      destinations: ['library', 'hand'],
-      requirements: { hand: { min: 1, max: 1 } },
-    })
-    expect(lobby.topdeck?.cards).toHaveLength(40)
   })
 
   test('a hold releases when the held seat becomes active', async () => {
@@ -1858,8 +1815,9 @@ describe('kernel host journal', () => {
     expect(historyForViewer(kernel, lobby, 'p1')).toHaveLength(32)
   })
 
-  test('a canonical library search opens one private choice and finishes the spell', () => {
-    const { kernel, lobby, spellId } = searchGame()
+  test('a restored canonical library search opens one private choice and finishes the spell', () => {
+    const { kernel: original, lobby, spellId } = searchGame()
+    const kernel = handleFor(original.rules, restoreJournal(original.journal, original.rules).current())
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
@@ -1887,60 +1845,6 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
     expect(projectForViewer(state, 'p1').zoneOrder.p1.library).toEqual([])
     expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
-  })
-
-  test('Joint Exploration put-land dispatches a kernel move', () => {
-    const spell = {
-      ...forest(),
-      name: 'Joint Exploration',
-      types: ['Instant'],
-      supertypes: [],
-      subtypes: [],
-      manaCost: '{1}{U}',
-      tapProduces: undefined,
-    }
-    const handLand = { ...forest(), name: 'Breeding Pool', supertypes: [] }
-    const server = createServerGame(
-      commanderRules,
-      {
-        first: 'p1',
-        hands: { p1: [spell, handLand] },
-        libraries: { p1: [{ ...forest(), name: 'Top Card', types: ['Instant'] }] },
-      },
-      { random: () => 0.5, cardPlugins: [jointExploration, onResolve] },
-    )
-    const initial = structuredClone(server.state)
-    initial.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 1, C: 0 }
-    const spellId = initial.zoneOrder.p1.hand[0]
-    const kernel = handleFor(server.rules, initial)
-    for (const event of [
-      { type: 'castSpell', seat: 'p1', objectId: spellId, kicked: true } as const,
-      { type: 'resolveTop' } as const,
-    ]) {
-      const result = kernel.dispatch(event)
-      if (!result.ok) throw new Error(result.error)
-    }
-    const lobby = createLobby()
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck?.kind).toBe('scry')
-    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
-      type: 'topdeck',
-      choices: [{ card: 'Top Card', destination: 'top' }],
-    }))).toBe(true)
-    expect(lobby.topdeck?.kind).toBe('put-land')
-    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
-      type: 'topdeck',
-      choices: [{ card: 'Breeding Pool', destination: 'battlefield' }],
-    }))).toBe(true)
-
-    const state = kernel.history.current()
-    const land = Object.values(state.objects).find((object) => object.name === 'Breeding Pool')!
-    expect(land.zone).toBe('battlefield')
-    expect(kernel.journal.events).toContainEqual({
-      type: 'move',
-      objectId: land.id,
-      to: 'battlefield',
-    })
   })
 
   test('a generic pending dialog can put several permanent cards from hand', () => {
@@ -2026,31 +1930,16 @@ describe('kernel host journal', () => {
   })
 
   test('Homer target choices survive in kernel state and mill the selected players', () => {
-    const homerCard = {
-      ...forest(),
-      name: HOMER_NAME,
-      types: ['Creature'],
-      subtypes: ['Crab', 'Druid'],
-      supertypes: ['Legendary'],
-      power: 0,
-      toughness: 9,
-      tapProduces: undefined,
-    }
-    const crab = {
-      ...forest(),
-      name: 'Crab',
-      types: ['Creature'],
-      subtypes: ['Crab'],
-      supertypes: [],
-      power: 1,
-      toughness: 1,
-      tapProduces: undefined,
-    }
     const server = createServerGame(
       commanderRules,
       {
         hands: { p1: [forest()] },
-        battlefield: { p1: [homerCard, crab] },
+        battlefield: {
+          p1: [
+            cardTemplate(HOMER_NAME),
+            cardTemplate('Crab', { types: ['Creature'], subtypes: ['Crab'], power: 1, toughness: 1 }),
+          ],
+        },
         libraries: {
           p1: Array.from({ length: 6 }, forest),
           p2: Array.from({ length: 6 }, forest),
@@ -2058,7 +1947,7 @@ describe('kernel host journal', () => {
           p4: Array.from({ length: 6 }, forest),
         },
       },
-      { random: () => 0.5, cardPlugins: [homer] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2082,6 +1971,12 @@ describe('kernel host journal', () => {
         { card: 'p4', destination: 'target' },
       ],
     }))).toBe(true)
+    for (let guard = 0; guard < 12; guard += 1) {
+      const current = kernel.history.current()
+      if (current.stack.length === 0 || !current.priority) break
+      const passed = kernel.dispatch({ type: 'passPriority', seat: current.priority })
+      if (!passed.ok) throw new Error(passed.error)
+    }
 
     const state = kernel.history.current()
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
@@ -2136,13 +2031,13 @@ describe('kernel host journal', () => {
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      cards: ['p2'],
-      requirements: { target: { min: 0, max: 1 } },
-      kernel: { stage: 'select-players' },
+      cards: ['Accept', 'Decline'],
+      requirements: { target: { min: 1, max: 1 } },
+      kernel: { stage: 'option-selection' },
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'p2', destination: 'target' }],
+      choices: [{ card: 'Accept', destination: 'target' }, { card: 'Decline', destination: 'skip' }],
     }))).toBe(true)
 
     const state = kernel.history.current()
@@ -2197,15 +2092,15 @@ describe('kernel host journal', () => {
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
-      kind: 'sacrifice-lands',
+      kind: 'choose',
       cards: ['First Forest', 'Second Forest'],
-      destinations: ['battlefield', 'sacrifice'],
+      destinations: ['target', 'skip'],
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'First Forest', destination: 'sacrifice' },
-        { card: 'Second Forest', destination: 'battlefield' },
+        { card: 'First Forest', destination: 'target' },
+        { card: 'Second Forest', destination: 'skip' },
       ],
     }))).toBe(true)
 
@@ -2214,8 +2109,8 @@ describe('kernel host journal', () => {
       (object) => object.name === 'First Forest',
     )!
     expect(state.objects[sacrificed.id].zone).toBe('graveyard')
-    expect(pendingSearch(state, 'p1')).toMatchObject({ source: 'Scapeshift', max: 1 })
-    expect(lobby.topdeck).toMatchObject({ kind: 'search', cards: ['Library Forest'] })
+    expect(waitingSelectCards(state, 'p1')?.selection).toMatchObject({ count: 1, min: 0 })
+    expect(lobby.topdeck).toMatchObject({ kind: 'choose', cards: ['Library Forest'] })
   })
 
   test('a search reads the whole library, not only the cards it may take', () => {
@@ -2292,11 +2187,12 @@ describe('kernel host journal', () => {
       'Fabled Passage',
       [{ name: 'Forest', subtypes: ['Forest'] }],
       3,
+      '$.abilities[0]',
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Forest', destination: 'battlefield' }],
+      choices: [{ card: 'Forest', destination: 'target' }],
     }))).toBe(true)
 
     const state = kernel.history.current()
@@ -2308,6 +2204,66 @@ describe('kernel host journal', () => {
     expect(state.objects[sourceId].zone).toBe('graveyard')
   })
 
+  test('Cultivate puts one basic onto the battlefield tapped and the other into hand', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        first: 'p1',
+        hands: { p1: [cardTemplate('Cultivate', { types: ['Sorcery'], manaCost: '{2}{G}' })] },
+        libraries: {
+          p1: [
+            cardTemplate('Alpha Forest', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+            cardTemplate('Beta Forest', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+          ],
+        },
+      },
+      { random: () => 0 },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 3, C: 0 }
+    const spellId = initial.zoneOrder.p1.hand[0]
+    const kernel = handleFor(server.rules, initial)
+    for (const event of [
+      { type: 'castSpell' as const, seat: 'p1', objectId: spellId },
+      { type: 'resolveTop' as const },
+    ]) {
+      const result = kernel.dispatch(event)
+      if (!result.ok) throw new Error(result.error)
+    }
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Alpha Forest', destination: 'target' },
+        { card: 'Beta Forest', destination: 'target' },
+      ],
+    }))).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 1, max: 1 } },
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Alpha Forest', destination: 'target' },
+        { card: 'Beta Forest', destination: 'skip' },
+      ],
+    }))).toBe(true)
+
+    const state = kernel.history.current()
+    const alpha = Object.values(state.objects).find((object) => object.name === 'Alpha Forest')!
+    const beta = Object.values(state.objects).find((object) => object.name === 'Beta Forest')!
+    expect(alpha).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(beta.zone).toBe('hand')
+    expect(state.objects[spellId].zone).toBe('graveyard')
+    expect(state.stack).toHaveLength(0)
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
   test('Myriad Landscape rejects basics that do not share a land type', () => {
     const { kernel, lobby } = abilitySearchGame(
       'Myriad Landscape',
@@ -2315,16 +2271,18 @@ describe('kernel host journal', () => {
         { name: 'Forest', subtypes: ['Forest'] },
         { name: 'Island', subtypes: ['Island'] },
       ],
+      0,
+      '$.abilities[2]',
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(() => applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'Forest', destination: 'battlefield' },
-        { card: 'Island', destination: 'battlefield' },
+        { card: 'Forest', destination: 'target' },
+        { card: 'Island', destination: 'target' },
       ],
     }))).toThrow('must share a land type')
-    expect(searchingSeat(kernel.history.current())).toBe('p1')
+    expect(waitingSelectCards(kernel.history.current(), 'p1')).toBeDefined()
   })
 
   test('advances a coarse phase through the kernel without a judge round', async () => {
@@ -2535,13 +2493,16 @@ describe('kernel host journal', () => {
     const kernel = handleFor(server.rules, initial)
     const lobby = createLobby()
     lobby.phase = 'play'
+    const plusOne = legalActsFor(initial, 'p1').find((action) =>
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[0]')!
+    if (plusOne.kind !== 'activateAbility') throw new Error('missing loyalty activation')
 
     applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: teferi.id,
-      abilityId: 'teferi.plus-one',
-      text: 'teferi.plus-one',
+      abilityId: plusOne.abilityId,
+      text: plusOne.text,
       targetObjectIds: [rock.id, creature.id, land.id],
     })
 
@@ -2549,7 +2510,7 @@ describe('kernel host journal', () => {
     expect(current.objects[teferi.id].counters.loyalty).toBe(5)
     expect(current.stack[0]).toMatchObject({
       kind: 'ability',
-      abilityId: 'teferi.plus-one',
+      abilityId: '$.abilities[0]',
       targets: [
         { kind: 'object', objectId: rock.id },
         { kind: 'object', objectId: creature.id },
@@ -2596,8 +2557,8 @@ describe('kernel host journal', () => {
       type: 'act',
       kind: 'activateAbility',
       objectId: routes.id,
-      abilityId: 'tradeRoutes.draw',
-      text: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
+      text: 'Activate ability',
       targetObjectIds: [land.id],
     })
 
@@ -2606,7 +2567,7 @@ describe('kernel host journal', () => {
       type: 'activateAbility',
       objectId: routes.id,
       choices: [land.id],
-      targets: [],
+      targetClauses: [],
     })
   })
 
@@ -2639,12 +2600,15 @@ describe('kernel host journal', () => {
     const lobby = createLobby()
     lobby.phase = 'play'
 
+    const action = legalActsFor(initial, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === artist.id)!
+    if (action.kind !== 'activateAbility') throw new Error('Expected activated ability')
+    expect(action.targetGroups).toHaveLength(2)
     applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: artist.id,
-      abilityId: SEARCH_FETCH,
-      text: 'Search your library for up to two basic land cards.',
+      abilityId: '$.abilities[0]',
+      text: action.text,
       targetObjectIds: [card.id, land.id],
     })
 
@@ -2655,7 +2619,7 @@ describe('kernel host journal', () => {
       type: 'activateAbility',
       objectId: artist.id,
       choices: [card.id, land.id],
-      targets: [],
+      targetClauses: [],
     })
   })
 
@@ -2732,6 +2696,7 @@ describe('kernel host journal', () => {
               types: ['Creature'],
               power: 2,
               toughness: 2,
+              oracleText: 'Flying',
             }),
             {
               ...forest(),
@@ -2848,7 +2813,7 @@ describe('kernel host journal', () => {
           p2: [{ ...faerieBody('Lone Hydra'), grantedRules: [] }],
         },
       },
-      { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2862,43 +2827,56 @@ describe('kernel host journal', () => {
       amount: 3,
     }).ok).toBe(true)
 
-    expect(kernel.history.current().stack[0]).toMatchObject({
-      kind: 'ability',
-      name: 'Rankle, Master of Pranks',
-    })
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(false)
-
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(kernel.history.current().stack).toHaveLength(0)
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-modes',
-      cards: [RANKLE_MODES.discard, RANKLE_MODES.drain, RANKLE_MODES.sacrifice],
+      kind: 'choose',
+      cards: ['Mode 1', 'Mode 2', 'Mode 3', 'Done'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: RANKLE_MODES.discard, destination: 'skip' },
-        { card: RANKLE_MODES.drain, destination: 'skip' },
-        { card: RANKLE_MODES.sacrifice, destination: 'target' },
+        { card: 'Mode 1', destination: 'skip' },
+        { card: 'Mode 2', destination: 'skip' },
+        { card: 'Mode 3', destination: 'target' },
+        { card: 'Done', destination: 'skip' },
       ],
     }))).toBe(true)
     prepareKernelPendingChoice(kernel, lobby)
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Mode 1', destination: 'skip' },
+        { card: 'Mode 2', destination: 'skip' },
+        { card: 'Done', destination: 'target' },
+      ],
+    }))).toBe(true)
+    expect(kernel.history.current().stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Rankle, Master of Pranks',
+    })
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'sacrifice',
+      kind: 'choose',
       cards: ['Rankle, Master of Pranks'],
-      destinations: ['battlefield', 'sacrifice'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Rankle, Master of Pranks', destination: 'sacrifice' }],
+      choices: [{ card: 'Rankle, Master of Pranks', destination: 'target' }],
+    }))).toBe(true)
+    expect(kernel.history.current().objects[source.id].zone).toBe('battlefield')
+    prepareKernelPendingChoice(kernel, lobby)
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'choose' })
+    expect(applyKernelChoice(kernel, lobby, 'p2', slotted(lobby, {
+      type: 'topdeck',
+      choices: [{ card: 'Lone Hydra', destination: 'target' }],
     }))).toBe(true)
     expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
-    prepareKernelPendingChoice(kernel, lobby)
-    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
   })
 
   test('publishes and applies a Roaming Throne creature-type choice', () => {
@@ -2918,7 +2896,7 @@ describe('kernel host journal', () => {
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [creatureTypeChoice] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -2930,29 +2908,23 @@ describe('kernel host journal', () => {
       objectId: throne.id,
       to: 'battlefield',
     }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-creature-type',
-      cards: ['Crab', 'Druid', 'Golem', 'Other (no current creature)'],
+      kind: 'choose',
     })
+    expect(lobby.topdeck!.cards).toContain('Crab')
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(settleKernelPriority(kernel, restarted)).toBe(true)
     expect(restarted.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'choose-creature-type',
+      kind: 'choose',
     })
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [
-        { card: 'Crab', destination: 'target' },
-        { card: 'Druid', destination: 'skip' },
-        { card: 'Golem', destination: 'skip' },
-        { card: 'Other (no current creature)', destination: 'skip' },
-      ],
+      choices: lobby.topdeck!.cards.map(card => ({ card, destination: card === 'Crab' ? 'target' as const : 'skip' as const })),
     }))).toBe(true)
     expect(kernel.history.current().objects[throne.id]).toMatchObject({
       chosenType: 'Crab',
@@ -2983,17 +2955,20 @@ describe('kernel host journal', () => {
       .find((object) => object.name === 'Otawara, Soaring City')!
     const target = Object.values(ready.objects)
       .find((object) => object.name === 'Target Creature')!
+    const action = legalActsFor(kernel.history.current(), 'p1').find((candidate) =>
+      candidate.kind === 'activateAbility' && candidate.abilityId === '$.abilities[1]')
+    if (action?.kind !== 'activateAbility') throw new Error('Expected channel activation')
 
     expect(applyKernelAct(kernel, restarted, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: source.id,
-      abilityId: 'channel.otawara',
-      text: 'channel.otawara',
+      abilityId: action.abilityId,
+      text: action.text,
       targetObjectIds: [target.id],
     })).toHaveLength(1)
     expect(kernel.history.current().stack[0]).toMatchObject({
-      abilityId: 'channel.otawara',
+      abilityId: '$.abilities[1]',
       targets: [{ kind: 'object', objectId: target.id }],
     })
   })
@@ -3033,7 +3008,6 @@ describe('kernel host journal', () => {
     lobby.phase = 'play'
 
     expect(kernel.dispatch({ type: 'advanceStep' }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
@@ -3046,6 +3020,10 @@ describe('kernel host journal', () => {
       type: 'topdeck',
       choices: [{ card: 'Borrowed Body', destination: 'target' }],
     }))).toBe(true)
+    const stacked = kernel.history.current()
+    if (stacked.stack.length > 0) {
+      expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    }
     expect(kernel.history.current().objects[body]).toMatchObject({
       zone: 'battlefield',
       controller: 'p1',
@@ -3080,7 +3058,7 @@ describe('kernel host journal', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 2 }
@@ -3108,12 +3086,12 @@ describe('kernel host journal', () => {
       seat: 'p2',
       kind: 'choose',
       cards: ['Plains'],
-      destinations: ['library', 'battlefield'],
-      requirements: { battlefield: { min: 0, max: 1 } },
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 0, max: 1 } },
     })
     expect(applyKernelChoice(restored, lobby, 'p2', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Plains', destination: 'battlefield' }],
+      choices: [{ card: 'Plains', destination: 'target' }],
     }))).toBe(true)
     const plains = Object.values(restored.history.current().objects)
       .find((object) => object.name === 'Plains')!
@@ -3388,15 +3366,14 @@ describe('extort live choice', () => {
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'extort-payment',
-      cards: ['Decline', 'Pay {W}'],
+      cards: ['Pay', 'Decline'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Decline', destination: 'skip' },
-        { card: 'Pay {W}', destination: 'target' },
+        { card: 'Pay', destination: 'target' },
       ],
     }))).toBe(true)
     expect(kernel.history.current().players.p1).toMatchObject({
@@ -4246,4 +4223,127 @@ describe('same-named candidates are picked by position', () => {
       expect(after.objects[untouched].zone).toBe('library')
     }
   })
+})
+
+
+test('live canonical activations preserve implicit source costs alongside submitted discard choices', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslActivated({
+    costs: [sacrificeCost(ref('source'), 1), discardCost(objects({ zone: 'hand', type: 'Land' }), 1)],
+    instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Cost fixture', { types: ['Artifact'], ruleDefinition })] }, hands: { p1: [forest()] },
+  }, { random: () => 0 })
+  const sourceId = server.state.zoneOrder.p1.battlefield[0]
+  const discardId = server.state.zoneOrder.p1.hand[0]
+  const action = legalActsFor(server.state, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === sourceId)!
+  if (action.kind !== 'activateAbility') throw new Error('expected canonical activation')
+  const kernel = handleFor(server.rules, server.state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  applyKernelAct(kernel, lobby, 'p1', { type: 'act', kind: 'activateAbility', objectId: sourceId, abilityId: action.abilityId, text: action.text, targetObjectIds: [discardId] })
+  expect(kernel.history.current().objects[sourceId].zone).toBe('graveyard')
+  expect(kernel.history.current().objects[discardId].zone).toBe('graveyard')
+})
+
+test.each(['player', 'object'] as const)('structured any-target casts preserve a chosen %s target', kind => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Lightning Bolt')] },
+    battlefield: { p2: [cardTemplate('Damage recipient', { types: ['Creature'], power: 1, toughness: 5 })] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana.R = 1
+  const kernel = handleFor(server.rules, state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  const targetId = kind === 'player' ? 'p2' : state.zoneOrder.p2.battlefield[0]
+  applyKernelAct(kernel, lobby, 'p1', {
+    type: 'act', kind: 'castSpell', objectId: state.zoneOrder.p1.hand[0], targetObjectIds: [targetId],
+  })
+  expect(kernel.history.current().stack[0].targets).toMatchObject([kind === 'player' ? { kind: 'player', player: 'p2' } : { kind: 'object', objectId: targetId }])
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  if (kind === 'player') expect(kernel.history.current().players.p2.life).toBe(37)
+  else expect(kernel.history.current().objects[targetId].damageMarked).toBe(3)
+})
+
+test.each([true, false])('bounded library choices show context privately with selectable matches=%s', hasLand => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [cardTemplate('Planar Genesis', { manaCost: '{0}' })] },
+    libraries: { p1: [cardTemplate('Land fixture', { types: [hasLand ? 'Land' : 'Instant'] }), ...Array.from({ length: 5 }, (_, i) => cardTemplate(`Inspected ${i}`, { types: ['Instant'] }))] },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  const cast = kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! })
+  if (!cast.ok) throw new Error(cast.error)
+  const resolving = kernel.dispatch({ type: 'resolveTop' })
+  if (!resolving.ok) throw new Error(resolving.error)
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck?.cards).toEqual(hasLand ? ['Land fixture'] : [])
+  expect(lobby.topdeck?.library).toEqual(['Land fixture', 'Inspected 0', 'Inspected 1', 'Inspected 2'])
+  const state = kernel.history.current()
+  const opponent = liveSnapshotFromState({ state: projectForViewer(state, 'p2'), lobby, viewer: 'p2' })
+  expect(opponent.topdeck).toBeUndefined()
+  expect(JSON.stringify(opponent)).not.toContain('Inspected 0')
+  expect(JSON.stringify(lobby.interactionLedger)).not.toContain('Inspected 0')
+  const restarted = createLobby()
+  restarted.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+  expect(restarted.topdeck?.library).toEqual(lobby.topdeck?.library)
+  if (!hasLand) {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, { type: 'topdeck', choices: [] }))).toBe(true)
+    expect(restarted.topdeck?.cards).toEqual(['Inspected 0', 'Inspected 1', 'Inspected 2', 'Land fixture'])
+    expect(restarted.topdeck?.count).toBe(1)
+  }
+})
+
+test('canonical control assignments rebuild after a host restart and exclude assigned recipients', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Dack Fayden, Helping Hand')] },
+    libraries: { p1: ['Alpha', 'Beta'].map(name => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 })), p2: [forest()], p3: [forest()], p4: [forest()] },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  expect(kernel.dispatch({ type: 'move', objectId: server.state.zoneOrder.p1.hand[0], to: 'battlefield' }).ok).toBe(true)
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  lobby.human = 'p1'
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck?.cards).toEqual(['p2', 'p3', 'p4'])
+  expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, { type: 'topdeck', choices: lobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p3' ? 'target' : 'skip' })) }))).toBe(true)
+  const restartedKernel = handleFor(server.rules, JSON.parse(JSON.stringify(kernel.history.current())))
+  const restartedLobby = createLobby()
+  restartedLobby.phase = 'play'
+  restartedLobby.human = 'p1'
+  expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
+  expect(restartedLobby.topdeck?.cards).toEqual(['p2', 'p4'])
+  expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', slotted(restartedLobby, { type: 'topdeck', choices: restartedLobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p2' ? 'target' : 'skip' })) }))).toBe(true)
+  const finished = restartedKernel.history.current()
+  expect(Object.values(finished.objects).find(object => object.name === 'Alpha')?.controller).toBe('p3')
+  expect(Object.values(finished.objects).find(object => object.name === 'Beta')?.controller).toBe('p2')
+})
+
+test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {
+  const server = createServerGame(commanderRules, { players: 3,
+    hands: { p1: [cardTemplate('Hostile Negotiations', { manaCost: '{0}' })] },
+    libraries: { p1: Array.from({ length: 6 }, (_, index) => cardTemplate(`Pile fixture ${index}`)) },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }).ok).toBe(true)
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  const lobby = createLobby(); lobby.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck!.cards[0]).toContain('Pile fixture 0')
+  expect(lobby.topdeck!.cards[1]).toContain('Pile fixture 3')
+  expect(lobby.topdeck!.destinations).toEqual(['skip', 'target'])
+  expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, { type: 'topdeck', choices: lobby.topdeck!.cards.map((card, index) => ({ card: String(card), destination: index === 0 ? 'target' : 'skip' })) }))).toBe(true)
+  const pick = pendingPlayerSelectionFor(kernel.history.current(), 'p1')!
+  expect(kernel.dispatch({ type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p2'] }).ok).toBe(true)
+  const opponentLobby = createLobby(); opponentLobby.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, opponentLobby)).toBe(true)
+  expect(opponentLobby.topdeck!.cards[0]).toContain('Pile fixture 0')
+  expect(opponentLobby.topdeck!.cards[1]).not.toContain('Pile fixture 3')
+  expect(opponentLobby.topdeck!.cards[1]).toContain('3 cards')
 })

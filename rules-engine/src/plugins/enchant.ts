@@ -1,3 +1,7 @@
+import { hasKeyword } from '../keywords'
+import { hasProtectionFromEverything } from './protectionFromEverything'
+import { captureObject } from '../objectIdentity'
+import { evaluateObjectSelector, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
 import type { GameObject, GameState, TargetRef } from '../types'
 import { isForest } from './forestOverlay'
 import { isSwamp } from './swampOverlay'
@@ -27,7 +31,10 @@ const matchesEnchant = (state: GameState, target: GameObject, restriction: strin
 }
 
 /** Battlefield objects an Aura spell may be cast on; undefined when its Enchant line is not checked. */
-export const enchantTargets = (state: GameState, aura: GameObject) => {
+export const enchantTargets = (state: GameState, aura: GameObject, targeting = true) => {
+  const canonical = aura.ruleDefinition?.definition.abilities.flatMap(ability => ability.kind === 'static' ? ability.effects : []).find(effect => effect.kind === 'enchant')
+  if (canonical?.kind === 'enchant' && canonical.filter.kind === 'players') return undefined
+  if (canonical?.kind === 'enchant' && canonical.filter.kind === 'objects') return evaluateObjectSelector(canonical.filter, { state, source: captureObject(aura), controller: aura.controller }).filter(object => !hasProtectionFromEverything(state, object) && (!targeting || (!hasKeyword(object, 'shroud') && (object.controller === aura.controller || !hasKeyword(object, 'hexproof', state)))))
   const restriction = enchantRestriction(aura)
   return restriction
     ? Object.values(state.objects).filter((target) => matchesEnchant(state, target, restriction))
@@ -39,7 +46,21 @@ export const enchantTargetError = (
   state: GameState,
   aura: GameObject,
   targets: TargetRef[] | undefined,
+  targeting = true,
 ) => {
+  const canonical = aura.ruleDefinition?.definition.abilities.some(ability => ability.kind === 'static' && ability.effects.some(effect => effect.kind === 'enchant'))
+  if (canonical) {
+    const players = enchantPlayerTargets(state, aura)
+    if (players) {
+      const target = targets?.[0]
+      return targets?.length === 1 && target?.kind === 'player' && players.includes(target.player) && !hasProtectionFromEverything(state, undefined, target.player) ? undefined : `${aura.name} has no legal enchant target`
+    }
+    const offered = enchantTargets(state, aura, targeting) ?? []
+    const target = targets?.[0]
+    const object = target?.kind === 'object' ? targetObject(state, target) : undefined
+    if (object && (hasProtectionFromEverything(state, object) || (targeting && (hasKeyword(object, 'shroud') || (object.controller !== aura.controller && hasKeyword(object, 'hexproof', state)))))) return `${aura.name} has no legal enchant target`
+    return targets?.length === 1 && object && offered.some(candidate => candidate.id === object.id) ? undefined : `${aura.name} has no legal enchant target`
+  }
   const restriction = enchantRestriction(aura)
   if (!restriction) return
   const [target] = targets ?? []
@@ -47,4 +68,11 @@ export const enchantTargetError = (
   if (targets?.length !== 1 || !object || !matchesEnchant(state, object, restriction)) {
     return `${aura.name} must enchant a ${restriction}`
   }
+}
+
+export const enchantPlayerTargets = (state: GameState, aura: GameObject) => {
+  const effect = aura.ruleDefinition?.definition.abilities.flatMap(ability => ability.kind === 'static' ? ability.effects : []).find(effect => effect.kind === 'enchant')
+  return effect?.kind === 'enchant' && effect.filter.kind === 'players'
+    ? evaluatePlayerSelector(effect.filter, { state, source: captureObject(aura), controller: aura.controller })
+    : undefined
 }

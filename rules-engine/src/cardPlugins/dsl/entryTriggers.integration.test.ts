@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -21,7 +22,6 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import type { GameState } from '../../types'
 import { hasKeyword } from '../../keywords'
-import { mossbornHydra } from '../mossborn-hydra'
 
 
 
@@ -237,46 +237,6 @@ describe('entryTriggers — integration', () => {
   })
 })
 
-describe('legacy enters-with-counter plugin', () => {
-  test('enters with a +1/+1 counter when its spell resolves', () => {
-    const forest = () => cardTemplate('Forest', {
-      types: ['Land'],
-      subtypes: ['Forest'],
-      tapProduces: { G: 1 },
-    })
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Mossborn Hydra', {
-            types: ['Creature'],
-            subtypes: ['Elemental', 'Hydra'],
-            power: 0,
-            toughness: 0,
-            manaCost: '{2}{G}',
-          })],
-        },
-        battlefield: { p1: [forest(), forest(), forest()] },
-      },
-      { random: () => 0.5, cardPlugins: [mossbornHydra] },
-    )
-    const [forestA, forestB, forestC] = server.state.zoneOrder.p1.battlefield
-    const hydraId = server.state.zoneOrder.p1.hand[0]
-    let state = server.state
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestA }))
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestB }))
-    state = ok(server.rules(state, { type: 'tapForMana', seat: 'p1', objectId: forestC }))
-    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: hydraId }))
-    state = ok(server.rules(state, { type: 'passPriority', seat: 'p1' }))
-    state = ok(server.rules(state, { type: 'passPriority', seat: 'p2' }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const resolved = state.objects[hydraId]
-    expect(resolved.zone).toBe('battlefield')
-    expect(resolved.counters['+1/+1']).toBe(1)
-    expect([resolved.power, resolved.toughness]).toEqual([1, 1])
-  })
-})
-
 describe('relocated from homerPass2.test.ts → entryTriggers.integration.test.ts', () => {
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
@@ -313,4 +273,66 @@ describe('relocated from homerPass2.test.ts → entryTriggers.integration.test.t
       expect(named(entered, 'Three').zone).toBe('graveyard')
     })
 
+})
+
+
+test.each([0, 1])('modal land-entry triggers announce mode %s before resolution', mode => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: { p1: [cardTemplate('Retreat to Hagra')], p2: [cardTemplate('Recipient', { types: ['Creature'], power: 2, toughness: 3 })] },
+    hands: { p1: [cardTemplate('Land fixture', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const creature = named(server.state, 'Recipient').id
+  let state = reduce(server, server.state, { type: 'playLand', seat: 'p1', objectId: named(server.state, 'Land fixture').id })
+  expect(state.stack).toHaveLength(0)
+  const choice = pendingOptionSelection(state, 'p1')!
+  expect(choice).toBeDefined()
+  state = reduce(server, JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: `mode:${mode}` })
+  if (mode === 0) {
+    const targets = pendingSelectionFor(state, 'p1')!
+    expect(targets.candidates).toContain(creature)
+    state = reduce(server, state, { type: 'selectCards', seat: 'p1', selectionId: targets.id, kind: 'choose', count: 1, objectIds: [creature] })
+  }
+  expect(state.stack).toHaveLength(1)
+  expect(state.players.p1.life).toBe(40)
+  state = resolveStack(server.rules, state)
+  if (mode === 0) {
+    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(true)
+    expect(state.players.p2.life).toBe(40)
+  } else {
+    expect(state.players.p1.life).toBe(41)
+    expect(state.players.p2.life).toBe(39)
+    expect(state.players.p3.life).toBe(39)
+    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(false)
+  }
+})
+
+test.each([
+  { forcedTapped: true, accept: true },
+  { forcedTapped: false, accept: true },
+  { forcedTapped: false, accept: false },
+])('untapped-entry occurrences use the actual entry state and make the return optional (%j)', ({ forcedTapped, accept }) => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: Array.from({ length: 3 }, (_, i) => cardTemplate(`Island ${i}`, { types: ['Land'], subtypes: ['Island'] })) },
+    hands: { p1: [cardTemplate('Mystic Sanctuary')] },
+    libraries: { p1: [cardTemplate('Return fixture', { types: ['Instant'], zone: 'graveyard' })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const returning = server.state.zoneOrder.p1.graveyard[0]!
+  let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield', tapped: forcedTapped }))
+  if (forcedTapped) {
+    expect(state.stack).toHaveLength(0)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    return
+  }
+  const targetPick = pendingSelectionFor(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: targetPick.id, kind: 'choose', count: targetPick.count, objectIds: [returning] }))
+  // Tapping the Sanctuary or losing an Island later cannot undo its actual entry occurrence.
+  state = ok(server.rules(state, { type: 'tap', objectId: id }))
+  state = ok(server.rules(state, { type: 'move', objectId: server.state.zoneOrder.p1.battlefield[0]!, to: 'hand' }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  const optional = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: optional.id, optionId: accept ? 'instruction:0' : 'instruction:1' }))
+  expect(state.objects[returning]?.zone).toBe(accept ? 'library' : 'graveyard')
+  if (accept) expect(state.zoneOrder.p1.library[0]).toBe(returning)
 })

@@ -4,6 +4,9 @@ import { isSwamp } from '../plugins/swampOverlay'
 import { FORETELL_CAST_ID, foretellCastOptions } from '../plugins/foretell'
 import { effectsOf } from './cardRules'
 import type { CardEffect } from './effects'
+import { canonicalSpellPermission } from './dsl/playPermissions'
+import { activePrintedStaticModifiers, isActiveKeywordStatic } from './dsl/staticModifierCore'
+import { manaValueOf } from './effectRuntime'
 
 export type AlternateCastEffect = Extract<CardEffect, { op: 'alternateCast' }>
 
@@ -45,6 +48,52 @@ export const availableAlternateCastEffects = (
         || !isPermanentType(object.types)
       )) continue
       effects.push(retraceEffect(object))
+    }
+  }
+  if (object.zone === 'graveyard') {
+    for (const entry of activePrintedStaticModifiers(state, object)) {
+      if (isActiveKeywordStatic(entry)) continue
+      if (entry.effect.kind === 'flashback') {
+        effects.push({
+          op: 'alternateCast',
+          id: 'flashback',
+          label: entry.effect.label,
+          manaCost: entry.effect.manaCost,
+          fromZone: 'graveyard',
+          exileAfterUse: true,
+          ...(entry.effect.sacrifice ? { sacrifice: entry.effect.sacrifice } : {}),
+        })
+      }
+      if (entry.effect.kind === 'escape') {
+        effects.push({
+          op: 'alternateCast',
+          id: 'escape',
+          label: `Escape—${entry.effect.manaCost}, Exile ${entry.effect.exileCount} other cards from your graveyard.`,
+          manaCost: entry.effect.manaCost,
+          fromZone: 'graveyard',
+          exileGraveyard: { count: entry.effect.exileCount, other: true },
+        })
+      }
+    }
+  }
+  if (object.zone === 'graveyard' || object.zone === 'exile') {
+    const permission = canonicalSpellPermission(state, seat, object)
+    if (permission?.discardLand) {
+      effects.push({
+        ...retraceEffect(object),
+        ...(permission.optionId ? { id: permission.optionId } : {}),
+        ...(permission.label ? { label: permission.label } : {}),
+      })
+    }
+    if (permission?.cost === 'lifeEqualManaValue') {
+      effects.push({
+        op: 'alternateCast',
+        id: permission.optionId ?? 'exiledWithLife',
+        label: permission.label ?? `Cast for ${manaValueOf(object)} life`,
+        manaCost: '',
+        fromZone: object.zone,
+        life: manaValueOf(object),
+      })
     }
   }
   return effects.filter(
@@ -137,11 +186,13 @@ export const finishedSpellZone = (
 export const resolvedSpellDestination = (
   item: StackItem,
   object: { types: readonly string[] },
-) => (
-  isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure'
-    ? 'battlefield'
-    : finishedSpellZone(item, item.adventureCast ? 'exile' : 'graveyard')
-)
+) => {
+  if (item.adventureCast) return finishedSpellZone(item, 'exile')
+  if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {
+    return 'battlefield'
+  }
+  return finishedSpellZone(item, 'graveyard')
+}
 
 export const alternateCosts: Plugin = {
   id: 'alternateCosts',
@@ -151,7 +202,7 @@ export const alternateCosts: Plugin = {
     if (!object) return
     if (!event.castOption) return
     const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
-    if (!selected) return `${object.name} has no casting option ${event.castOption}`
+    if (!selected) return
     if (!canChooseAlternateCast(state, event.seat, selected, object)) {
       return `${event.castOption} cannot be paid for ${object.name}`
     }

@@ -12,7 +12,7 @@ import {
   prospectiveBattlefieldStaticReplacements,
 } from '../cardPlugins/dsl/staticModifierCore'
 import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
-import { captureObject, isSameObject } from '../objectIdentity'
+import { captureObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
 import { isProtectedFirstDrawInOwnDrawStep } from '../rules/drawStepHistory'
 import type { GameEvent, GameState } from '../types'
@@ -87,6 +87,12 @@ const eventMatchesPattern = (
       }
       return true
     }
+    case 'gainLife': {
+      if (event.type !== 'gainLife') return false
+      const player = effect.event.filter.player
+      const seats = player.kind === 'players' ? evaluatePlayerSelector(player, runtime) : evaluatePlayerReference(player, runtime)
+      return seats.includes(event.seat)
+    }
     case 'enterBattlefield': {
       if (event.type !== 'move' || event.to !== 'battlefield') return false
       const object = runtime.state.objects[event.objectId]
@@ -137,6 +143,7 @@ const categoryFor = (effect: ReplacementEffectDefinition, event: GameEvent, sour
 const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
   switch (event.type) {
     case 'draw':
+    case 'gainLife':
       return event.seat
     case 'dealDamage':
       if (event.target.kind === 'player') return event.target.player
@@ -180,6 +187,24 @@ const discoverProspectiveSelfEntry = (
   if (event.type !== 'move' || event.to !== 'battlefield') return
   const host = state.objects[event.objectId]
   if (!host) return
+  if (host.subtypes.includes('Aura') && !event.attachTo && !event.attachPlayer) {
+    host.ruleDefinition?.definition.abilities.forEach((ability, abilityIndex) => {
+      if (ability.kind !== 'static') return
+      ability.effects.forEach((effect, effectIndex) => {
+        if (effect.kind !== 'enchant') return
+        const instanceId = `${printedStaticEffectKey(host.id, abilityIndex, effectIndex)}:attachment`
+        if (usedInstanceIds.includes(instanceId)) return
+        const choice = effect.filter.kind === 'players'
+          ? { kind: 'choosePlayer' as const, chooser: { kind: 'contextRef' as const, name: 'controller' as const }, filter: { kind: 'players' as const, filter: { all: [effect.filter.filter, { enchantableBy: { kind: 'contextRef' as const, name: 'source' as const } }] } }, bindChoice: 'attachment' }
+          : { kind: 'chooseCards' as const, chooser: { kind: 'contextRef' as const, name: 'controller' as const }, filter: { kind: 'objects' as const, filter: { all: [effect.filter.filter, { enchantableBy: { kind: 'contextRef' as const, name: 'source' as const } }] } }, min: { kind: 'constant' as const, value: 1 }, max: { kind: 'constant' as const, value: 1 }, bindChoice: 'attachment', distinct: true as const, whenInsufficient: 'chooseAvailable' as const }
+        pushCandidate(candidates, seen, {
+          kind: 'canonical', category: 'self', instanceId, sourceId: host.id, sourceName: host.name, abilityIndex, effectIndex,
+          effect: { kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: {} }, program: [choice, { kind: 'modifyEvent', changes: { attachTo: { kind: 'choiceRef', binding: 'attachment' } } }] },
+          label: host.name, optional: false, chooser: event.controller ?? host.controller, rulesTimestamp: host.staticRulesTimestamp ?? 0,
+        })
+      })
+    })
+  }
   const prospectiveController = event.controller ?? host.controller
   const runtime = runtimeFor(state, host.id, prospectiveController)
   for (const entry of prospectiveBattlefieldStaticReplacements(host)) {
@@ -214,30 +239,44 @@ export const discoverCanonicalModifiers = (
   const candidates: CanonicalReplacementCandidate[] = []
   const seen = new Set<string>()
   for (const source of Object.values(state.objects)) {
+    // A resolved departure replacement survives ability loss, but belongs only
+    // to this battlefield incarnation. An exile-and-return effect is unchanged.
+    for (const entry of source.continuousEffects ?? []) {
+      const effect = entry.effect
+      if (effect.kind !== 'redirectDeparture' || source.zone !== 'battlefield' || source.phasedOut
+        || source.incarnation !== effect.incarnation || event.type !== 'move'
+        || event.objectId !== source.id || event.to === 'battlefield' || event.to === effect.to) continue
+      const instanceId = `departure:${source.id}:${effect.incarnation}:${effect.timestamp}`
+      if (usedInstanceIds.includes(instanceId) || settledOptionalDeclines.includes(instanceId)) continue
+      pushCandidate(candidates, seen, {
+        kind: 'canonical', category: 'general', instanceId, sourceId: source.id, sourceName: source.name,
+        abilityIndex: -1, effectIndex: effect.timestamp,
+        effect: { kind: 'replacement', event: { kind: 'move', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'redirect', to: effect.to } },
+        label: source.name, optional: false, chooser: source.controller, rulesTimestamp: effect.timestamp,
+      })
+    }
     for (const modifier of source.printedStaticModifiers ?? []) {
       if (modifier.kind !== 'replacement') continue
-      const host = state.objects[modifier.sourceRef.objectId]
-      if (!host || !isSameObject(host, modifier.sourceRef)) continue
-      if (!printedStaticAbilityActive(state, host, modifier.abilityIndex)) continue
-      const instanceId = printedStaticEffectKey(host.id, modifier.abilityIndex, modifier.effectIndex)
+      if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
+      const instanceId = printedStaticEffectKey(source.id, modifier.abilityIndex, modifier.effectIndex)
       if (usedInstanceIds.includes(instanceId)) continue
       if (settledOptionalDeclines.includes(instanceId)) continue
-      const runtime = runtimeFor(state, host.id, host.controller)
+      const runtime = runtimeFor(state, source.id, source.controller)
       const effect = modifier.effect
       if (effect.when && !evaluateCondition(effect.when, runtime)) continue
-      if (!eventMatchesPattern(event, effect, runtime, state, host.id, host.controller)) continue
+      if (!eventMatchesPattern(event, effect, runtime, state, source.id, source.controller)) continue
       pushCandidate(candidates, seen, {
         kind: 'canonical',
-        category: categoryFor(effect, event, host.id),
+        category: categoryFor(effect, event, source.id),
         instanceId,
-        sourceId: host.id,
-        sourceName: host.name,
+        sourceId: source.id,
+        sourceName: source.name,
         abilityIndex: modifier.abilityIndex,
         effectIndex: modifier.effectIndex,
         effect,
-        label: host.name,
+        label: source.name,
         optional: effect.optional ?? false,
-        chooser: chooserFor(state, event, host.controller),
+        chooser: chooserFor(state, event, source.controller),
         rulesTimestamp: modifier.timestamp,
       })
     }

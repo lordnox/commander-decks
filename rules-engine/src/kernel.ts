@@ -1,3 +1,12 @@
+import { captureCanonicalWardTriggers } from './cardPlugins/ward'
+import { effectiveActivatedDefinition } from './cardPlugins/dsl/activatedGrants'
+import { setStats } from './cardPlugins/continuousEffects'
+import { CREATURE_TYPES } from './creatureTypes'
+import { MANA_ABILITY_RESOLVED } from './cardPlugins/dsl/manaConstants'
+import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
+import { commitExileLink, opponentBecameMonarchSince, releaseCanonicalLinkedExile } from './rules/canonicalLinkedExile'
+import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
+import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
 import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
@@ -25,7 +34,7 @@ import {
   prepareResolutionStep,
   startCanonicalResolution,
 } from './driver'
-import { captureEventTriggers, placePendingManaTriggers, placePendingTriggers } from './rules/triggers'
+import { captureAbilityActivation, captureEventTriggers, placePendingManaTriggers, placePendingTriggers } from './rules/triggers'
 import {
   INSTRUCTIONS_RESUME,
   PENDING_SELECTION,
@@ -38,6 +47,7 @@ import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/select
 import { PENDING_OPTION_SELECTION, pendingOptionSelection, settleResolutionPayment } from './rules/selectOptions'
 import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
+import { canonicalCyclingEvent } from './cardPlugins/cycling'
 import {
   SEARCH_CHOSEN,
   SEARCH_PENDING,
@@ -47,26 +57,32 @@ import {
   searchingSeat,
 } from './cardPlugins/librarySearch'
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
-import { isSameObject } from './objectIdentity'
+import { isSameObject, refreshExecutionReferences } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
 import { hasKeyword } from './keywords'
-import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
+import { copyCharacteristics, createEmblem, createToken } from './cardPlugins/effectRuntime'
+import { addAttackBan } from './cardPlugins/attackBan'
+import { recordInstructionAmount } from './cardPlugins/dsl/instructionResults'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
-import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
+import { evidencePaymentEvents, validateEvidencePayment, evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
-import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
+import { putCanonicalAbilityCopyOnStack, canonicalCopySource, putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
-import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms } from './replacement'
+import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms, registerNestedApply } from './replacement'
 
 const CHECKPOINT_CAP = 32
 
-const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction) => {
-  const paymentEvents: GameEvent[] = []
+const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction, state: GameState) => {
+  const paymentEvents: GameEvent[] = evidencePaymentEvents(transaction.proposal)
   let costIndex = 0
+  let millIndex = 0
   for (const cost of transaction.lockedCost.nonMana) {
     switch (cost.kind) {
+      case 'crew':
+        paymentEvents.push({ type: 'actionGroup', events: (transaction.proposal.nonManaChoices ?? []).map(objectId => ({ type: 'tap' as const, objectId })) })
+        break
       case 'tapSource':
         paymentEvents.push({ type: 'tap', objectId: transaction.proposal.sourceId })
         break
@@ -86,12 +102,20 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
         costIndex += amount
         break
       }
+      case 'mill': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, transaction.lockedCost.x)
+        for (const objectId of state.zoneOrder[payer]!.library.slice(millIndex, millIndex + amount)) paymentEvents.push({ type: 'mill', seat: payer, objectId })
+        millIndex += amount
+        break
+      }
       case 'draw': {
         const amount = evaluateAnnouncementCostAmount(cost.count, transaction.lockedCost.x)
         paymentEvents.push(...Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: payer, count: 1 })))
         break
       }
       case 'mana':
+      case 'convoke':
+      case 'delve':
         break
     }
   }
@@ -105,7 +129,13 @@ const applyCostSequence = (
   startCursor: number,
   writeCursor: (draft: Draft, cursor: number) => void,
   baseline: GameState,
+  transaction: AnnouncementTransaction,
 ) => {
+  if (startCursor === 0) {
+    try { validateEvidencePayment(state, transaction) } catch (error) {
+      return { ok: false as const, error: error instanceof Error ? error.message : String(error), state: baseline, trace: [] }
+    }
+  }
   let current = state
   const entries: EventTrace[] = []
   let cursor = startCursor
@@ -139,7 +169,7 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
   const paid = applyCostSequence(
     state,
     catalog,
-    announcementCostEvents(payer, nested.transaction),
+    announcementCostEvents(payer, nested.transaction, state),
     nested.plannedPaymentCursor,
     (draft, cursor) => {
       if (draft.provisionalAnnouncement?.nestedManaPayment) {
@@ -147,6 +177,7 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
       }
     },
     baseline,
+    nested.transaction,
   )
   if (!paid.ok) return paid
   if (hasOpenChoice(paid.state) || paid.state.eventProcessing || paid.state.resolution) {
@@ -223,7 +254,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   if (parent.source && parent.definitionSnapshot) {
     const liveSource = current.objects[parent.source.ref.objectId]
     if (!liveSource || !isSameObject(liveSource, parent.source.ref)
-      || JSON.stringify(liveSource.ruleDefinition?.definition) !== JSON.stringify(parent.definitionSnapshot.definition)) {
+      || JSON.stringify(effectiveActivatedDefinition(liveSource).definition) !== JSON.stringify(parent.definitionSnapshot.definition)) {
       const error = 'planned announcement source or definition changed before payment completed'
       return { ok: false, error, state: frame.baseline, trace: entries }
     }
@@ -231,12 +262,13 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   const paid = applyCostSequence(
     current,
     catalog,
-    announcementCostEvents(parent.payer, parent.transaction),
+    announcementCostEvents(parent.payer, parent.transaction, current),
     parent.plannedPaymentCursor ?? 0,
     (draft, nextCursor) => {
       if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = nextCursor
     },
     frame.baseline,
+    parent.transaction,
   )
   entries.push(...paid.trace)
   if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
@@ -259,11 +291,22 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       completed.priority = null
     } else {
       completed.addToStack(frame.pendingActivation)
+      captureAbilityActivation(frame.baseline, completed, completed.stack[0]!)
+      captureCanonicalWardTriggers(frame.baseline, completed, {
+        type: 'activateAbility', seat: frame.payer, objectId: frame.pendingActivation.objectId,
+        abilityId: frame.pendingActivation.abilityId ?? '', targets: structuredClone(frame.pendingActivation.targets),
+      }, completed.stack[0]!)
       completed.passedInRow = []
       completed.priority = frame.payer
       completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
     }
     delete completed.provisionalAnnouncement
+    const cycle = canonicalCyclingEvent(frame.pendingActivation)
+    if (cycle) {
+      const cycled = applyEventTree(freezeDraft(completed), cycle, catalog)
+      entries.push(...nested(cycled.trace, 1))
+      return { ...cycled, trace: entries }
+    }
     return { ok: true, state: freezeDraft(completed), trace: entries }
   }
   if (!frame.continuation) {
@@ -367,6 +410,7 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
   }
   for (const object of Object.values(draft.objects)) {
     if (object.owner === seat) {
+      refreshExecutionReferences(draft, object)
       delete draft.objects[object.id]
       continue
     }
@@ -477,6 +521,13 @@ const canonicalEffectDuration = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case CONTROL_EVENT.change: {
+      const object = draft.object(event.objectRef.objectId)
+      if (object?.zone === 'battlefield' && isSameObject(object, event.objectRef) && !draft.players[event.controller]?.lost) {
+        changeControllerPermanent(object, event.controller)
+      }
+      return
+    }
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
       const anyZone = event.effect.kind === 'setColors'
@@ -484,6 +535,37 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'redirectDeparture':
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'redirectDeparture', to: event.effect.to, incarnation: object.incarnation, timestamp: draft.allocTs() }, duration }]
+          break
+        case 'removeAbilities': {
+          const before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules], ...(object.effects ? { effects: structuredClone(object.effects) } : {}) }
+          object.oracleText = ''
+          object.grantedRules = []
+          object.effects = []
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'removeAbilities', timestamp: draft.allocTs(), before }, duration }]
+          break
+        }
+        case 'setStats': {
+          const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
+          const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: setStats(object, power, toughness), duration }]
+          break
+        }
+        case 'addTypes': {
+          const before = { types: [...object.types], subtypes: [...object.subtypes] }
+          object.types = [...new Set([...object.types, ...(event.effect.types ?? [])])]
+          object.subtypes = [...new Set([...object.subtypes, ...(event.effect.allCreatureTypes ? CREATURE_TYPES : event.effect.subtypes ?? [])])]
+          object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'addTypes', before, types: [...(event.effect.types ?? [])], subtypes: [...(event.effect.allCreatureTypes ? CREATURE_TYPES : event.effect.subtypes ?? [])] }, duration,
+          }]
+          break
+        }
+        case 'goad':
+          if (event.effectPlayer) object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'goad', sourceController: event.effectPlayer }, duration,
+          }]
+          break
         case 'setColors': {
           const before = [...object.colors]
           object.colors = [...new Set(event.effect.colors)]
@@ -502,9 +584,28 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           }]
           break
         }
+        case 'grantWard':
+          object.continuousEffects = [...(object.continuousEffects ?? []), { effect: { kind: 'ward', cost: structuredClone(event.effect.cost) }, duration }]
+          break
         case 'grantKeyword':
           object.continuousEffects = [...(object.continuousEffects ?? []), {
             effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [], incarnation: object.incarnation }, duration,
+          }]
+          break
+        case 'grantActivatedAbility':
+          object.canonicalGrantedActivations = [...(object.canonicalGrantedActivations ?? []), {
+            ability: structuredClone(event.effect.ability),
+            sourceId: event.sourceId ?? object.id,
+            sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
+            definitionRevision: event.sourceRevision ?? 'unknown',
+            duration: structuredClone(event.duration),
+            createdTurn: event.createdTurn ?? draft.turn,
+            timestamp: draft.allocTs(),
+            ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
+            ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
+            ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
+            ...(event.durationUntilStepNotBeforeTurn !== undefined ? { untilStepNotBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
+            ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
           }]
           break
         case 'grantAbility':
@@ -515,6 +616,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
             definitionRevision: event.sourceRevision ?? 'unknown',
             duration: structuredClone(event.duration),
             createdTurn: event.createdTurn ?? draft.turn,
+            timestamp: draft.allocTs(),
             ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
             ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
             ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
@@ -538,34 +640,83 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       return
     }
+    case 'linkExile': {
+      const source = draft.object(event.sourceId)
+      if (event.untilSourceLeaves && source?.zone !== 'battlefield') return
+      if (event.sourceRef) {
+        if (event.untilOpponentMonarch && opponentBecameMonarchSince(draft, event.untilOpponentMonarch)) return
+        if (event.untilSourceLeaves && !isSameObject(source, event.sourceRef)) return
+        for (const ref of event.targetRefs ?? []) {
+          const target = draft.objects[ref.objectId]
+          if (!isSameObject(target, ref)) continue
+          draft.enqueue({ type: 'move', objectId: target.id, to: 'exile', exileLink: {
+            source: { ...event.sourceRef },
+            ...(event.untilOpponentMonarch ? { untilOpponentMonarch: { ...event.untilOpponentMonarch } } : {}),
+            ...(event.untilSourceLeaves ? { untilSourceLeaves: true } : {}),
+            ...(event.returnTo ? { returnTo: event.returnTo } : {}),
+          } })
+        }
+        return
+      }
+      if (!source) return
+      linkExileSelected(draft, source, event.objectIds)
+      if (event.untilSourceLeaves) source.returnLinkedExile = event.returnTo ?? 'battlefield'
+      return
+    }
+    case 'returnLinkedExile': {
+      const source = draft.object(event.sourceId)
+      if (event.sourceRef) {
+        releaseCanonicalLinkedExile(draft, event.sourceRef, event.returnTo ?? 'battlefield')
+        return
+      }
+      if (source) releaseLinkedExile(draft, source, event.returnTo ?? 'battlefield')
+      return
+    }
     case 'copyPermanent': {
       const source = draft.object(event.objectId)
-      if (!source || source.zone !== 'battlefield') return
+      const token = event.token ?? (source?.zone === 'battlefield' ? copyCharacteristics(source) : undefined)
+      if (!token) return
       draft.enqueue({
         type: 'createToken',
         controller: event.controller,
-        token: { ...(event.token ?? copyCharacteristics(source)), dsl: true },
+        token: { ...token, dsl: true },
       })
       return
     }
+    case 'copyAbility':
     case 'copySpell': {
       const original = draft.stack.find((item) => item.id === event.stackId)
-      if (!original || original.kind !== 'spell') return
-      const source = draft.object(original.objectId)
+      if (!original || original.kind !== (event.type === 'copyAbility' ? 'ability' : 'spell')) return
+      const source = canonicalCopySource(draft, original)
       if (!source) return
       const resolved = resolveCanonicalCopyTargets(draft, original, source, event.retarget === false
         ? { kind: 'keep' }
         : { kind: 'chooseNewTargets', targets: event.targets }, event.controller)
       if (!resolved.ok) {
-        draft.note(`copySpell rejected: ${resolved.error}`)
+        draft.note(`${event.type} rejected: ${resolved.error}`)
         return
       }
-      putCanonicalSpellCopyOnStack(draft, original, source, event.controller, resolved.targets)
+      if (event.type === 'copyAbility') putCanonicalAbilityCopyOnStack(draft, original, event.controller, resolved.targets)
+      else putCanonicalSpellCopyOnStack(draft, original, source, event.controller, resolved.targets)
       return
     }
     case 'createToken': {
       if (!event.token.dsl) return
       createToken(draft, event.controller, event.token)
+      return
+    }
+    case 'createEmblem': {
+      createEmblem(draft, event.controller, event.emblem)
+      return
+    }
+    case 'banAttacks': {
+      addAttackBan(draft, {
+        turn: draft.turn,
+        attackerController: event.attackerController,
+        protectorController: event.protectorController,
+        defenderSelector: event.defenders,
+        source: event.source,
+      })
       return
     }
     case 'counterStackItem': {
@@ -593,7 +744,8 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         draft.enqueue({
           type: 'move',
           objectId: object.id,
-          to: finishedSpellZone(item, 'graveyard'),
+          to: event.destination ?? finishedSpellZone(item, 'graveyard'),
+          ...(event.controller ? { controller: event.controller } : {}),
         })
       }
       draft.note(`${item.name} was countered`)
@@ -626,22 +778,52 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'move': {
       const object = draft.object(event.objectId)
       if (!object) return
+      if (event.exileLink?.untilOpponentMonarch && opponentBecameMonarchSince(draft, event.exileLink.untilOpponentMonarch)) return
+      if (event.exileLink?.untilSourceLeaves && !isSameObject(draft.objects[event.exileLink.source.objectId], event.exileLink.source)) return
+      const frame = draft.resolution
+      if (frame?.kind === 'canonicalSpell'
+        && frame.pendingResult?.kind === 'amount'
+        && frame.pendingResult.eventType === 'move'
+        && frame.pendingResult.destination === event.to) {
+        recordInstructionAmount(draft, 'move', 1)
+      }
+      const previousRef = { objectId: object.id, incarnation: object.incarnation, zone: object.zone }
       const previous = object.zone
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position, event.sameZone)
+      if (event.faceDown !== undefined) {
+        object.faceDown = event.faceDown
+        object.knownTo = []
+      }
+      else if (previous !== event.to && previous === 'exile') delete object.faceDown
+      if (event.dropStackItem && previous === 'stack' && event.to !== 'stack') {
+        const resolvingId = draft.resolution?.stackId
+        draft.stack = draft.stack.filter((item) =>
+          item.objectId !== event.objectId || item.id === resolvingId)
+      }
       object.controller = event.to === 'battlefield'
         ? event.controller ?? object.controller
         : object.owner
+      if (event.to === 'exile' && event.exileLink) commitExileLink(draft, event.exileLink, object)
       if (leftBattlefield) {
+        releaseCanonicalLinkedExile(draft, previousRef, undefined, true)
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
         if (previous === 'battlefield' && event.to === 'graveyard') {
           markPutIntoGraveyardFromBattlefieldThisTurn(object)
         }
+        if (object.returnLinkedExile === 'battlefield' || object.returnLinkedExile === 'hand') {
+          const returnTo = object.returnLinkedExile
+          delete object.returnLinkedExile
+          releaseLinkedExile(draft, object, returnTo)
+        }
         draft.note(`${object.name} leaves battlefield`)
       }
+      if (event.chosenType) object.chosenType = event.chosenType
       if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
+        if (event.attachPlayer && draft.players[event.attachPlayer] && !draft.players[event.attachPlayer].lost) object.attachedTo = event.attachPlayer
+        if (event.attachTo && isSameObject(draft.objects[event.attachTo.objectId], event.attachTo)) { object.attachedTo = event.attachTo.objectId; object.attachedToRef = { ...event.attachTo } }
         if (event.enterCounters) {
           const before = counterPtBonus(object)
           for (const [counter, count] of Object.entries(event.enterCounters)) {
@@ -673,6 +855,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'mill': {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'library') return
+      const pending = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution.pendingMilledChoice : undefined
+      // A replacement can mill additional cards (CR 701.17d).
+      if (pending && !pending.objects.some(ref => ref.objectId === object.id && ref.incarnation === object.incarnation)) {
+        pending.objects.push({ objectId: object.id, incarnation: object.incarnation, zone: object.zone })
+      }
       draft.move(object.id, 'graveyard')
       draft.note(`${object.name} is milled`)
       return
@@ -697,7 +884,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'tap': {
       const object = draft.object(event.objectId)
-      if (object) object.tapped = true
+      if (object) {
+        object.tapped = true
+        if (event.skipNextUntap) object.skipNextUntap = true
+      }
       return
     }
     case 'untap': {
@@ -851,11 +1041,7 @@ export const reduceOnce = (
     : {})
   const mergePreventionState = (base: GameState) => (
     replacement.state
-      ? {
-          ...base,
-          preventionInstances: replacement.state.preventionInstances,
-          nextId: replacement.state.nextId,
-        }
+      ? { ...replacement.state, prevented: base.prevented }
       : base
   )
   const applyFollowUp = (base: GameState) => {
@@ -917,9 +1103,7 @@ export const reduceOnce = (
     return { ok: true, state: current, trace: entries }
   }
 
-  const afterFollowUp = applyFollowUp(mergePreventionState(state))
-  if (!afterFollowUp.ok) return afterFollowUp
-  const draft = makeDraft(afterFollowUp.state)
+  const draft = makeDraft(mergePreventionState(state))
   const error = legalError(state, replaced, draft, catalog)
   if (error) {
     return {
@@ -934,19 +1118,22 @@ export const reduceOnce = (
   pluginApply(state, replaced, draft, catalog, options)
   if (!options.deferEndCheck) checkEnded(draft)
   const queued = [...draft.pending]
+  const applied = freezeDraft(draft)
+  const afterFollowUp = applyFollowUp(applied)
+  if (!afterFollowUp.ok) return afterFollowUp
   const wasReplaced = replacement.pluginId !== undefined
   return {
     ok: true,
-    state: freezeDraft(draft),
+    state: afterFollowUp.state,
     queued,
     queuedDepth: wasReplaced ? 2 : 1,
     trace: wasReplaced
       ? [
           trace(event, 'replaced', { pluginId: replacement.pluginId }),
-          ...afterFollowUp.trace,
           trace(replaced, 'applied', { depth: 1 }),
+          ...afterFollowUp.trace,
         ]
-      : [...afterFollowUp.trace, trace(event, 'applied')],
+      : [trace(event, 'applied'), ...afterFollowUp.trace],
   }
 }
 
@@ -1169,7 +1356,7 @@ const applySimultaneousSba = (
   return { ok: true, state: current, trace: entries }
 }
 
-const recordPendingCounterResult = (
+const recordPendingInstructionResult = (
   state: ReturnType<typeof freezeDraft>,
   trace: EventTrace[] = [],
 ) => {
@@ -1180,27 +1367,36 @@ const recordPendingCounterResult = (
   const draft = makeDraft(state)
   if (draft.resolution?.kind === 'canonicalSpell') {
     let result: boolean | number
-    if (pending.kind === 'action') {
-      if (!pending.eventType) {
-        result = pending.value ?? true
-      } else {
-        switch (pending.eventType) {
-          case 'createToken':
-          case 'copyPermanent':
-          case 'copySpell':
-            result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
-            break
-          default:
-            result = trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType)
-            break
+    switch (pending.kind) {
+      case 'amount':
+        result = typeof pending.value === 'number' ? pending.value : 0
+        if ((draft.resolution.pendingEvents?.length ?? 0) > 0 || draft.eventProcessing || hasOpenChoice(draft)) return state
+        break
+      case 'action':
+        if (!pending.eventType) {
+          result = pending.value ?? true
+        } else {
+          switch (pending.eventType) {
+            case 'createToken':
+            case 'copyPermanent':
+            case 'copyAbility':
+            case 'copySpell':
+              result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
+              break
+            default:
+              result = trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType)
+              break
+          }
         }
-      }
-    } else {
-      result = !draft.stack.some((item) => item.id === pending.stackId)
+        break
+      case 'counter':
+        result = !draft.stack.some((item) => item.id === pending.stackId)
+        break
     }
     draft.resolution.results = {
       ...draft.resolution.results,
       [pending.binding]: result,
+      ...(pending.booleanBinding ? { [pending.booleanBinding]: typeof result === 'number' && result > 0 } : {}),
     }
     delete draft.resolution.pendingResult
   }
@@ -1257,7 +1453,7 @@ const driveResolution = (
         const next = applyEventTree(current, event, catalog)
         entries.push(...nested(next.trace, 1))
         if (next.ok) {
-          current = recordPendingCounterResult(next.state, next.trace)
+          current = recordPendingInstructionResult(next.state, next.trace)
           if (event.type === 'addMana' && (frame.kind !== 'canonicalSpell' || !frame.inlineItem)) {
             const manaFrame = makeDraft(current)
             if (placePendingManaTriggers(manaFrame)) {
@@ -1276,7 +1472,7 @@ const driveResolution = (
         }
         if ((committed.resolution.pendingEvents?.length ?? 0) > 0) {
           committed.resolution.phase = 'committing'
-        } else if (hasOpenChoice(committed)) {
+        } else if (hasOpenChoice(committed) || committed.eventProcessing) {
           committed.resolution.phase = 'waiting'
         } else if ((committed.resolution.afterChoiceEvents?.length ?? 0) > 0) {
           committed.resolution.pendingEvents = committed.resolution.afterChoiceEvents ?? []
@@ -1319,13 +1515,13 @@ const driveResolution = (
     }
     current = freezeDraft(draft)
     if (step.kind === 'events') {
-      if ((step.events?.length ?? 0) === 0) current = recordPendingCounterResult(current, [])
+      if ((step.events?.length ?? 0) === 0) current = recordPendingInstructionResult(current, [])
       continue
     }
     if (step.event) {
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))
-      if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
+      if (next.ok) current = recordPendingInstructionResult(next.state, next.trace)
       if (next.ok && (hasOpenChoice(current) || current.eventProcessing)) {
         const paused = makeDraft(current)
         if (paused.resolution?.kind === 'canonicalSpell') paused.resolution.phase = 'waiting'
@@ -1333,18 +1529,16 @@ const driveResolution = (
       }
     }
     const completed = makeDraft(current)
-    const completedInline = completed.resolution?.kind === 'canonicalSpell'
-      && Boolean(completed.resolution.inlineItem)
-    const completedInlineItem = completedInline && completed.resolution?.kind === 'canonicalSpell'
-      ? completed.resolution.inlineItem
-      : undefined
+    const completedSpell = completed.resolution?.kind === 'canonicalSpell' ? completed.resolution : undefined
+    const completedInline = Boolean(completedSpell?.inlineItem)
+    const completedInlineItem = completedSpell?.inlineItem
     finishResolution(completed)
     let completedState = freezeDraft(completed)
     if (completedInline) {
       if (completedInlineItem?.execution?.abilityIndex !== undefined) {
         const completion = applyEventTree(completedState, {
           type: 'custom',
-          name: 'cardPlugins.manaAbilityResolved',
+          name: MANA_ABILITY_RESOLVED,
           seat: completedInlineItem.controller,
           payload: {
             sourceId: completedInlineItem.objectId,
@@ -1390,11 +1584,14 @@ const resumeCanonicalResolution = (
   }
   const answered = applyEventTree(state, event, catalog)
   if (!answered.ok) return answered
-  const draft = makeDraft(answered.state)
+  const resultState = answered.state.resolution?.kind === 'canonicalSpell'
+    && answered.state.resolution.pendingResult?.kind === 'amount'
+    ? recordPendingInstructionResult(answered.state, answered.trace) : answered.state
+  const draft = makeDraft(resultState)
   if (draft.resolution?.kind === 'canonicalSpell') {
     draft.resolution.phase = (draft.resolution.pendingEvents?.length ?? 0) > 0
         ? 'committing'
-        : hasOpenChoice(draft)
+        : hasOpenChoice(draft) || draft.eventProcessing
           ? 'waiting'
           : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
             ? 'committing'
@@ -1530,7 +1727,7 @@ const resumeLegacyResolution = (
   if (draft.resolution?.kind === 'legacy') {
     draft.resolution.phase = draft.resolution.pendingEvents.length > 0
         ? 'committing'
-        : hasOpenChoice(draft)
+        : hasOpenChoice(draft) || draft.eventProcessing
           ? 'waiting'
           : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
             ? 'committing'
@@ -1726,3 +1923,5 @@ export const rules = (
 }
 
 export const isBattlefield = (zone: ZoneId) => zone === 'battlefield'
+
+registerNestedApply(applyEventTree)

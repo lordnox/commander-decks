@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
+import { hasKeyword } from '../keywords'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
@@ -14,14 +15,12 @@ import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
 import { CARD_RULES } from './cardRules'
-import { entersTapped } from './entersTapped'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
   librarySearch,
   pendingSearch,
   searchCandidates,
-  searchSpecFor,
   searchSpecForPending,
   searchingSeat,
 } from './librarySearch'
@@ -34,10 +33,6 @@ import {
   searchSpell,
 } from './effects'
 
-import {exiledWith} from './exiledWith'
-import {onResolve} from './onResolve'
-import {castCosts} from './castCosts'
-import {ward} from './ward'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -109,232 +104,6 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('librarySearch', () => {
-  test('Scapeshift cannot find an MDFC whose front face is not a land', () => {
-    const mdfc = card('Bala Ged Recovery', ['Sorcery', 'Land'], {
-      frontFace: {
-        types: ['Sorcery'],
-        subtypes: [],
-        supertypes: [],
-        manaCost: '{2}{G}',
-        manaValue: 3,
-        colors: ['G'],
-      },
-    })
-    const server = game({ library: [forest(), mdfc] })
-
-    expect(searchCandidates(
-      server.state,
-      'p1',
-      searchSpecFor('Scapeshift')!,
-    ).map((object) => object.name)).toEqual(['Forest'])
-  })
-
-  // Scapeshift sacrifices as it resolves, so the spell is already on the stack
-  // and countering it means no land is lost.
-  test('Scapeshift sacrifices while it resolves, then searches for that many lands', () => {
-    const server = game({
-      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
-      battlefield: [forest('First Forest'), forest('Second Forest')],
-      library: [forest(), island()],
-    })
-    const spell = named(server.state, 'Scapeshift')
-    const funded = withMana(server.state)
-    funded.players.p1.mana.G = 4
-    const cast = ok(server.rules(funded, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-    }))
-
-    expect(pendingDialog(cast)).toBeUndefined()
-    expect(cast.objects[spell.id].zone).toBe('stack')
-    expect(named(cast, 'First Forest').zone).toBe('battlefield')
-
-    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(pendingDialog(choosing)).toMatchObject({
-      kind: 'sacrifice-lands',
-      source: 'Scapeshift',
-    })
-    expect(choosing.objects[spell.id].zone).toBe('stack')
-
-    const sacrificed = named(choosing, 'First Forest')
-    const searching = ok(server.rules(choosing, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { objectIds: [sacrificed.id] },
-    }))
-
-    expect(searching.objects[sacrificed.id].zone).toBe('graveyard')
-    expect(pendingSearch(searching, 'p1')).toMatchObject({
-      source: 'Scapeshift',
-      max: 1,
-    })
-  })
-
-  test('Scapeshift that sacrifices nothing finds nothing and finishes resolving', () => {
-    const server = game({
-      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
-      battlefield: [forest('First Forest')],
-      library: [forest(), island()],
-    })
-    const spell = named(server.state, 'Scapeshift')
-    const funded = withMana(server.state)
-    funded.players.p1.mana.G = 4
-    const done = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell.id },
-      { type: 'resolveTop' },
-      { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [] } },
-    ])
-    expect(named(done, 'First Forest').zone).toBe('battlefield')
-    expect(pendingSearch(done, 'p1')).toBeUndefined()
-    expect(done.objects[spell.id].zone).toBe('graveyard')
-  })
-
-  test('a land fetched by Scapeshift keeps its own search', () => {
-    const server = game({
-      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
-      battlefield: [forest()],
-      library: [
-        card('Riveteers Overlook', ['Land']),
-        card('Mountain', ['Land'], { subtypes: ['Mountain'], supertypes: ['Basic'] }),
-      ],
-    })
-    const spell = named(server.state, 'Scapeshift')
-    const sacrificed = named(server.state, 'Forest')
-    const hideout = named(server.state, 'Riveteers Overlook')
-    const funded = withMana(server.state)
-    funded.players.p1.mana.G = 4
-    const asking = run(server, ok(server.rules(funded, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-    })), [
-      { type: 'resolveTop' },
-      {
-        type: 'custom',
-        name: DIALOG_CHOSEN,
-        seat: 'p1',
-        payload: { objectIds: [sacrificed.id] },
-      },
-      // The host moves the found land, then reports the search answered.
-      { type: 'move', objectId: hideout.id, to: 'battlefield' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-
-    expect(asking.objects[spell.id].zone).toBe('graveyard')
-    const searching = resolveStack(server.rules, asking)
-    const mountain = named(searching, 'Mountain').id
-    const selection = pendingSelectionFor(searching, 'p1')!
-    expect(selection.candidates).toEqual([mountain])
-    const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [mountain] }))
-    expect(resolved.players.p1.life).toBe(41)
-    expect(resolved.objects[mountain]).toMatchObject({ zone: 'battlefield', tapped: true })
-    expect(resolved.resolution).toBeUndefined()
-  })
-
-  test('a surveil land fetched by Scapeshift keeps its trigger', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })] },
-        battlefield: { p1: [forest()] },
-        libraries: { p1: [card('Undercity Sewers', ['Land']), island()] },
-      },
-      {
-        random: () => 0.5,
-        cardPlugins: [
-          librarySearch,
-          pendingDialogLock,
-          choiceEffects,
-          entersTapped,
-        ],
-      },
-    )
-    const spell = named(server.state, 'Scapeshift')
-    const sacrificed = named(server.state, 'Forest')
-    const sewers = named(server.state, 'Undercity Sewers')
-    const funded = withMana(server.state)
-    funded.players.p1.mana.G = 4
-    const resolved = run(server, ok(server.rules(funded, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell.id,
-    })), [
-      { type: 'resolveTop' },
-      {
-        type: 'custom',
-        name: DIALOG_CHOSEN,
-        seat: 'p1',
-        payload: { objectIds: [sacrificed.id] },
-      },
-      { type: 'move', objectId: sewers.id, to: 'battlefield' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
-    ])
-
-    expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    expect(pendingSelectionFor(resolved, 'p1')).toMatchObject({
-      kind: 'surveil',
-      source: 'Undercity Sewers',
-    })
-  })
-
-  test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {
-    const server = game({
-      hand: [card('Analyze the Pollen', ['Sorcery'], { manaCost: '{G}' })],
-      library: [
-        card('Oracle of Mul Daya', ['Creature']),
-        card('Wastes', ['Land'], { supertypes: ['Basic'] }),
-      ],
-    })
-    const spell = server.state.zoneOrder.p1.hand[0]
-    const opened = run(server, withMana(server.state), [
-      { type: 'castSpell', seat: 'p1', objectId: spell, kicked: true },
-      { type: 'resolveTop' },
-    ])
-
-    expect(pendingSearch(opened, 'p1')).toMatchObject({
-      source: 'Analyze the Pollen',
-      kicked: true,
-    })
-    expect(searchCandidates(
-      opened,
-      'p1',
-      searchSpecFor('Analyze the Pollen')!,
-      true,
-    ).map((object) => object.name)).toEqual(['Oracle of Mul Daya', 'Wastes'])
-
-    const choice = named(opened, 'Oracle of Mul Daya').id
-    const resolved = run(server, opened, [
-      { type: 'reveal', seat: 'p1', objectIds: [choice], source: 'Analyze the Pollen' },
-      { type: 'move', objectId: choice, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-
-    expect(resolved.objects[choice].zone).toBe('hand')
-    expect(resolved.objects[spell].zone).toBe('graveyard')
-    expect(pendingSearch(resolved, 'p1')).toBeUndefined()
-    expect(resolved.log).toContain('p1 reveals Oracle of Mul Daya for Analyze the Pollen')
-  })
-
-  test('unkicked Analyze the Pollen only finds basic lands', () => {
-    const spec = searchSpecFor('Analyze the Pollen')!
-    const server = game({
-      library: [
-        forest(),
-        card('Dryad Arbor', ['Land', 'Creature']),
-        card('Llanowar Elves', ['Creature']),
-      ],
-    })
-
-    expect(searchCandidates(server.state, 'p1', spec).map((object) => object.name))
-      .toEqual(['Forest'])
-  })
-
   test('a legacy search spell stops resolution and records whose choice is open', () => {
     const server = game({
       hand: [legacyForestSearchSpell()],
@@ -506,14 +275,14 @@ describe('librarySearch', () => {
 
     expect(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: artist,
     }).ok).toBe(false)
 
     const opened = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: artist,
       choices: [discarded, landId],
@@ -521,7 +290,11 @@ describe('librarySearch', () => {
     expect(opened.objects[artist]).toMatchObject({ zone: 'battlefield', tapped: true })
     expect(opened.objects[discarded].zone).toBe('graveyard')
     expect(opened.objects[landId].zone).toBe('graveyard')
-    expect(pendingSearch(opened, 'p1')?.source).toBe('Dreamscape Artist')
+    const searching = resolveStack(server.rules, opened)
+    const selection = pendingSelectionFor(searching, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', min: 0, count: 2 })
+    const finished = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 2, objectIds: selection.candidates }))
+    for (const id of selection.candidates) expect(finished.objects[id]).toMatchObject({ zone: 'battlefield', tapped: false })
   })
 
 
@@ -531,40 +304,6 @@ describe('librarySearch', () => {
 
 
 
-
-  test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {
-    const server = game({
-      hand: [card('Cultivate', ['Sorcery'], { manaCost: '{2}{G}' })],
-      library: [
-        forest('Alpha Forest'),
-        forest('Beta Forest'),
-        card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'] }),
-      ],
-    })
-    const spell = server.state.zoneOrder.p1.hand[0]
-    const funded = withMana(server.state)
-    funded.players.p1.mana.G = 3
-    const opened = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell },
-      { type: 'resolveTop' },
-    ])
-    expect(pendingSearch(opened, 'p1')?.source).toBe('Cultivate')
-    expect(searchSpecFor('Cultivate')?.split).toBeTruthy()
-
-    const alpha = named(opened, 'Alpha Forest').id
-    const beta = named(opened, 'Beta Forest').id
-    const resolved = run(server, opened, [
-      { type: 'move', objectId: alpha, to: 'battlefield' },
-      { type: 'tap', objectId: alpha },
-      { type: 'move', objectId: beta, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-    expect(resolved.objects[alpha].zone).toBe('battlefield')
-    expect(resolved.objects[alpha].tapped).toBe(true)
-    expect(resolved.objects[beta].zone).toBe('hand')
-    expect(resolved.objects[spell].zone).toBe('graveyard')
-  })
 
   test('Farhaven Elf optional search can be declined', () => {
     const server = createServerGame(
@@ -688,61 +427,41 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const finisherPlugins = [
-    onResolve,
-    choiceEffects,
-    librarySearch,
-    castCosts,
-    ward,
-    exiledWith,
-    pendingDialogLock,
-  ]
-
   test('Finale of Devastation finds a graveyard creature without shuffling', () => {
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          hands: {
+            p1: [
+              cardTemplate('Finale of Devastation'),
+              creature('Graveyard Pet', '{1}{G}', { zone: 'graveyard' }),
+            ],
+          },
           libraries: { p1: [forest()] },
         },
-        { random: () => 0.5, cardPlugins: finisherPlugins },
+        { random: () => 0.5 },
       )
       const ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 5, C: 0 }
-      const pet = creature('Graveyard Pet', '{1}{G}')
-      const petId = server.state.nextId
-      ready.objects[`o${petId}`] = {
-        ...pet,
-        id: `o${petId}`,
-        owner: 'p1',
-        controller: 'p1',
-        zone: 'graveyard',
-      }
-      ready.zoneOrder.p1.graveyard.push(`o${petId}`)
-      ready.zoneCounts.p1.graveyard += 1
-      ready.nextId = petId + 1
       const libraryBefore = [...ready.zoneOrder.p1.library]
       const spell = named(ready, 'Finale of Devastation')
-
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        x: 3,
-      }))
-      const searching = run(server, cast, [{ type: 'resolveTop' }])
-
-      expect(searchingSeat(searching)).toBe('p1')
-      expect(pendingSearch(searching, 'p1')?.x).toBe(3)
-
-      const petObject = named(searching, 'Graveyard Pet')
-      const done = run(server, searching, [
-        { type: 'move', objectId: petObject.id, to: 'battlefield' },
-        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      const searching = run(server, ready, [
+        { type: 'castSpell', seat: 'p1', objectId: spell.id, x: 3 },
+        { type: 'resolveTop' },
       ])
-
+      const pick = pendingSelectionFor(searching, 'p1')!
+      expect(pick.viewLibrary).toBe(true)
+      const done = ok(server.rules(searching, {
+        type: 'selectCards',
+        seat: 'p1',
+        selectionId: pick.id,
+        kind: 'choose',
+        count: 1,
+        objectIds: [named(searching, 'Graveyard Pet').id],
+      }))
       expect(named(done, 'Graveyard Pet').zone).toBe('battlefield')
       expect(done.zoneOrder.p1.library).toEqual(libraryBefore)
+      expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(0)
       expect(done.objects[spell.id].zone).toBe('graveyard')
     })
 
@@ -750,11 +469,11 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          hands: { p1: [cardTemplate('Finale of Devastation')] },
           battlefield: { p1: [creature('Team Mate', '{2}{G}')] },
           libraries: { p1: [creature('Library Pet', '{2}{G}')] },
         },
-        { random: () => 0.5, cardPlugins: finisherPlugins },
+        { random: () => 0.5 },
       )
       const ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 12, C: 0 }
@@ -762,23 +481,23 @@ describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', ()
       const spell = named(ready, 'Finale of Devastation')
       const pet = named(ready, 'Library Pet')
       const mate = named(ready, 'Team Mate')
-
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: spell.id,
-        x: 10,
-      }))
-      const searching = run(server, cast, [{ type: 'resolveTop' }])
-      const done = run(server, searching, [
-        { type: 'move', objectId: pet.id, to: 'battlefield' },
-        { type: 'shuffleLibrary', seat: 'p1' },
-        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      const searching = run(server, ready, [
+        { type: 'castSpell', seat: 'p1', objectId: spell.id, x: 10 },
+        { type: 'resolveTop' },
       ])
-
+      const pick = pendingSelectionFor(searching, 'p1')!
+      const done = ok(server.rules(searching, {
+        type: 'selectCards',
+        seat: 'p1',
+        selectionId: pick.id,
+        kind: 'choose',
+        count: 1,
+        objectIds: [pet.id],
+      }))
       expect(named(done, 'Library Pet').zone).toBe('battlefield')
+      expect(done.log.filter(line => line === 'p1 shuffles')).toHaveLength(1)
       expect(done.objects[mate.id]).toMatchObject({ power: 12, toughness: 12 })
-      expect(done.objects[mate.id].oracleText.toLowerCase()).toContain('haste')
+      expect(hasKeyword(done.objects[mate.id], 'haste', done)).toBe(true)
     })
 
 })

@@ -5,8 +5,10 @@ import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
+  withOccurrencePlayer,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
+import { RuleDslEvaluationError } from '../cardPlugins/dsl/compiler/errors'
 import type {
   EffectDuration as DslEffectDuration,
   Instruction,
@@ -17,10 +19,12 @@ import type {
 } from '../cardPlugins/dsl/schema/v1'
 import { captureObject } from '../objectIdentity'
 import type {
+  CapturedObject,
   EffectDuration,
   GameEvent,
   GameObject,
   GameState,
+  OccurrenceSnapshot,
   PlayerId,
   PreventionInstance,
   StepId,
@@ -39,10 +43,29 @@ export type PreventionCandidate = {
   chooser: string
 }
 
-const runtimeFor = (state: GameState, sourceId: string, controller: string): RuleDslRuntimeContext => {
-  const source = state.objects[sourceId]
-  if (!source) throw new Error('prevention source is missing')
-  return { state, controller, source: captureObject(source) }
+const runtimeFor = (
+  state: GameState,
+  sourceId: string,
+  controller: string,
+  bindings?: PreventionInstance['capturedBindings'],
+  capturedSource?: CapturedObject,
+): RuleDslRuntimeContext => {
+  const live = state.objects[sourceId]
+  const source = live
+    ? captureObject(live)
+    : capturedSource
+      ? { ...capturedSource, snapshot: structuredClone(capturedSource.snapshot), information: 'lastKnown' as const }
+      : undefined
+  if (!source) throw new RuleDslEvaluationError('prevention source is missing')
+  return {
+    state,
+    controller,
+    source,
+    ...(bindings?.results ? { results: bindings.results } : {}),
+    ...(bindings?.targets ? { targets: bindings.targets } : {}),
+    ...(bindings?.targetLegality ? { targetLegality: bindings.targetLegality } : {}),
+    ...(bindings?.choices ? { choices: bindings.choices } : {}),
+  }
 }
 
 const staticPreventionAbilityIndex = (instance: PreventionInstance) => {
@@ -96,7 +119,7 @@ const matchesObjectRecipient = (
       return evaluateObjectSelector(recipient, runtime)
         .some((object) => object.id === target.objectId)
     }
-    if (recipient.kind === 'players') return false
+    if (recipient.kind === 'players' || recipient.kind === 'paidCostPlayer' || recipient.kind === 'relatedPlayer' || recipient.kind === 'resultRef') return false
     return evaluateObjectReference(recipient, runtime)
       .some((object) => object.id === target.objectId)
   }
@@ -109,26 +132,35 @@ export const damageMatchesPreventionFilter = (
   filter: PreventionFilter,
   hostSourceId: string,
   controller: PlayerId,
+  bindings?: PreventionInstance['capturedBindings'],
+  capturedSource?: CapturedObject,
 ) => {
-  const runtime = runtimeFor(state, hostSourceId, controller)
-  if (event.target.kind === 'player') {
-    if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
-  } else if (event.target.kind === 'object') {
-    if (!matchesObjectRecipient(filter, runtime, event.target)) return false
-  } else return false
+  if (filter.combat === true && event.combat !== true) return false
+  if (filter.combat === false && event.combat === true) return false
+  try {
+    const runtime = runtimeFor(state, hostSourceId, controller, bindings, capturedSource)
+    if (event.target.kind === 'player') {
+      if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
+    } else if (event.target.kind === 'object') {
+      if (!matchesObjectRecipient(filter, runtime, event.target)) return false
+    } else return false
 
-  if (filter.source) {
-    const source = state.objects[event.sourceId]
-    if (!source) return false
-    const sourceFilter = filter.source
-    if (typeof sourceFilter === 'object' && 'kind' in sourceFilter) {
-      if (sourceFilter.kind === 'objects') {
-        return evaluateObjectSelector(sourceFilter, runtime).some((object) => object.id === source.id)
+    if (filter.source) {
+      const source = state.objects[event.sourceId]
+      if (!source) return false
+      const sourceFilter = filter.source
+      if (typeof sourceFilter === 'object' && 'kind' in sourceFilter) {
+        if (sourceFilter.kind === 'objects') {
+          return evaluateObjectSelector(sourceFilter, runtime).some((object) => object.id === source.id)
+        }
+        return evaluateObjectReference(sourceFilter, runtime).some((object) => object.id === source.id)
       }
-      return evaluateObjectReference(sourceFilter, runtime).some((object) => object.id === source.id)
     }
+    return true
+  } catch (error) {
+    if (error instanceof RuleDslEvaluationError) return false
+    throw error
   }
-  return true
 }
 
 const untilStepHolds = (
@@ -152,8 +184,10 @@ const preventionDurationFromDsl = (
   state: GameState,
   host: GameObject,
   event: Extract<GameEvent, { type: 'registerPrevention' }>,
+  capturedSource?: CapturedObject,
 ): EffectDuration => {
   const createdTurn = event.createdTurn ?? state.turn
+  const runtime = () => runtimeFor(state, host.id, host.controller, undefined, capturedSource)
   switch (duration.kind) {
     case 'untilCleanup':
       return { kind: 'untilCleanup' }
@@ -161,7 +195,7 @@ const preventionDurationFromDsl = (
       return { kind: 'permanent' }
     case 'untilStep': {
       const active = duration.active
-        ? evaluatePlayerReference(duration.active, runtimeFor(state, host.id, host.controller))[0]
+        ? evaluatePlayerReference(duration.active, runtime())[0]
         : event.durationUntilStepActive
       return {
         kind: 'untilStep',
@@ -175,7 +209,7 @@ const preventionDurationFromDsl = (
     }
     case 'forTurns': {
       const untilTurn = event.durationUntilTurn
-        ?? createdTurn + evaluateRuntimeAmount(duration.count, runtimeFor(state, host.id, host.controller))
+        ?? createdTurn + evaluateRuntimeAmount(duration.count, runtime())
       return { kind: 'forTurns', untilTurn }
     }
     case 'whileSourceOnBattlefield':
@@ -240,10 +274,20 @@ const registerInstance = (
 }
 
 export const applyRegisterPrevention = (state: GameState, event: Extract<GameEvent, { type: 'registerPrevention' }>) => {
-  const host = state.objects[event.hostObjectId]
+  const live = state.objects[event.hostObjectId]
+  const capturedSource = live
+    ? captureObject(live)
+    : event.capturedSource
+      ? {
+          ...event.capturedSource,
+          snapshot: structuredClone(event.capturedSource.snapshot),
+          information: 'lastKnown' as const,
+        }
+      : undefined
+  const host = live ?? capturedSource?.snapshot
   if (!host) return state
   const createdTurn = event.createdTurn ?? state.turn
-  const duration = preventionDurationFromDsl(event.duration, state, host, event)
+  const duration = preventionDurationFromDsl(event.duration, state, host, event, capturedSource)
   return registerInstance(state, {
     remaining: event.capacity,
     capacity: event.capacity,
@@ -252,6 +296,8 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
     hostSourceIncarnation: host.incarnation,
     controller: host.controller,
     filter: structuredClone(event.filter),
+    capturedSource,
+    ...(event.capturedBindings ? { capturedBindings: structuredClone(event.capturedBindings) } : {}),
     ...(event.staticKey ? { staticKey: event.staticKey } : {}),
     ...(event.additionalEffects ? { additionalEffects: structuredClone(event.additionalEffects) } : {}),
     createdTurn,
@@ -272,16 +318,26 @@ const staticPreventionFromPrintedModifiers = (state: GameState, sourceId: string
     if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
     const key = printedStaticEffectKey(sourceId, modifier.abilityIndex, modifier.effectIndex)
     const effect = modifier.effect
-    const capacity = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
-    if (capacity <= 0) continue
+    let remaining: number | 'unlimited'
+    let capacity: number | 'unlimited'
+    if (effect.capacity.kind === 'unlimited') {
+      remaining = 'unlimited'
+      capacity = 'unlimited'
+    } else {
+      const value = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
+      if (value <= 0) continue
+      remaining = value
+      capacity = value
+    }
     next = registerInstance(next, {
-      remaining: capacity,
+      remaining,
       capacity,
       duration: { kind: 'whileSourceOnBattlefield', sourceId, sourceIncarnation: source.incarnation },
       hostSourceId: sourceId,
       hostSourceIncarnation: source.incarnation,
       controller: source.controller,
       filter: structuredClone(effect.filter),
+      capturedSource: captureObject(source),
       staticKey: key,
       ...(effect.additionalEffects ? { additionalEffects: structuredClone(effect.additionalEffects) } : {}),
       createdTurn: state.turn,
@@ -334,13 +390,17 @@ export const discoverPreventionCandidates = (
   if (event.type !== 'dealDamage') return []
   const candidates: PreventionCandidate[] = []
   for (const instance of state.preventionInstances ?? []) {
-    if (instance.remaining <= 0) continue
+    if (instance.remaining !== 'unlimited' && instance.remaining <= 0) continue
     if (usedInstanceIds.includes(instance.id)) continue
     if (!preventionInstanceHolds(state, instance, false)) continue
     const host = state.objects[instance.hostSourceId]
-    if (!host || host.phasedOut) continue
+    // Printed static prevention is tied to the host; a resolved createEffect is not.
+    if (instance.staticKey && (!host || host.phasedOut)) continue
     if (!staticPreventionActive(state, instance)) continue
-    if (!damageMatchesPreventionFilter(state, event, instance.filter, instance.hostSourceId, instance.controller)) {
+    if (!damageMatchesPreventionFilter(
+      state, event, instance.filter, instance.hostSourceId, instance.controller,
+      instance.capturedBindings, instance.capturedSource,
+    )) {
       continue
     }
     candidates.push({
@@ -348,7 +408,7 @@ export const discoverPreventionCandidates = (
       category: 'general',
       instanceId: instance.id,
       preventionId: instance.id,
-      label: host?.name ?? 'Prevention',
+      label: host?.name ?? instance.capturedSource?.snapshot.name ?? 'Prevention',
       optional: false,
       chooser: event.target.kind === 'player'
         ? event.target.player
@@ -369,6 +429,7 @@ export const consumePrevention = (
   const index = instances.findIndex((instance) => instance.id === preventionId)
   if (index < 0) return state
   const instance = instances[index]!
+  if (instance.remaining === 'unlimited') return state
   const prevented = Math.min(instance.remaining, amount)
   const remaining = Math.max(0, instance.remaining - prevented)
   const nextInstances = [...instances]
@@ -389,7 +450,9 @@ export const applyPreventionToDamage = (
   if (event.unpreventable) {
     return { state, event, preventedAmount: 0 }
   }
-  const preventedAmount = Math.min(instance.remaining, event.amount)
+  const preventedAmount = instance.remaining === 'unlimited'
+    ? event.amount
+    : Math.min(instance.remaining, event.amount)
   const nextEvent = { ...event, amount: event.amount - preventedAmount }
   const nextState = preventedAmount > 0 ? consumePrevention(state, preventionId, preventedAmount) : state
   return { state: nextState, event: nextEvent, preventedAmount }
@@ -415,25 +478,49 @@ const seatsFor = (
   return evaluatePlayerReference(targets as PlayerReference, runtime)
 }
 
+export const preventionFollowUpOccurrence = (
+  event: Extract<GameEvent, { type: 'dealDamage' }>,
+  preventedAmount: number,
+  state: GameState,
+): OccurrenceSnapshot => {
+  const sourceObject = event.sourceSnapshot?.snapshot ?? state.objects[event.sourceId]
+  return {
+    kind: 'event',
+    eventType: 'dealDamage',
+    amount: preventedAmount,
+    ...(event.target.kind === 'player' ? { player: event.target.player } : {}),
+    ...(sourceObject ? { object: { after: structuredClone(sourceObject) } } : {}),
+    ...(event.sourceSnapshot
+      ? { source: structuredClone(event.sourceSnapshot) }
+      : sourceObject
+        ? { source: captureObject(sourceObject) }
+        : {}),
+  }
+}
+
 /** Minimal CR 615.12 follow-ups for prevention side effects in tests and DSL shields. */
 export const eventsFromPreventionAdditional = (
   state: GameState,
   hostSourceId: string,
   controller: PlayerId,
   instructions: readonly Instruction[],
+  occurrence?: OccurrenceSnapshot,
 ): GameEvent[] => {
   const events: GameEvent[] = []
-  const runtime = runtimeFor(state, hostSourceId, controller)
+  const runtime = {
+    ...runtimeFor(state, hostSourceId, controller),
+    ...(occurrence ? { occurrence } : {}),
+  }
   const walk = (nodes: readonly Instruction[]) => {
     for (const instruction of nodes) {
-      if (instruction.kind === 'sequence') {
+      if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
         walk(instruction.instructions)
         continue
       }
       if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
-        const amount = evaluateRuntimeAmount(instruction.amount, runtime)
-        if (amount <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
+          const amount = evaluateRuntimeAmount(instruction.amount, withOccurrencePlayer(runtime, seat))
+          if (amount <= 0) continue
           events.push({
             type: instruction.kind,
             seat,
@@ -444,9 +531,9 @@ export const eventsFromPreventionAdditional = (
         continue
       }
       if (instruction.kind === 'draw') {
-        const count = evaluateRuntimeAmount(instruction.count, runtime)
-        if (count <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
+          const count = evaluateRuntimeAmount(instruction.count, withOccurrencePlayer(runtime, seat))
+          if (count <= 0) continue
           events.push({ type: 'draw', seat, count })
         }
       }

@@ -1,11 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { activated } from './activated'
-import { choiceEffects } from './choiceEffects'
+import { pendingOptionSelection } from '../rules/selectOptions'
 
 const niv = () => cardTemplate('Niv-Mizzet, Ghost Counsel', {
   types: ['Creature'],
@@ -14,12 +12,7 @@ const niv = () => cardTemplate('Niv-Mizzet, Ghost Counsel', {
   colors: ['W', 'B'],
   power: 4,
   toughness: 4,
-  oracleText:
-    'Flying\nWhenever you gain life, you may pay that much life. If you do, draw that many cards.\n'
-    + '{T}: Each opponent loses 1 life and you gain 1 life.',
 })
-
-const plugins = [activated, choiceEffects]
 
 const game = () => createServerGame(
   commanderRules,
@@ -34,7 +27,7 @@ const game = () => createServerGame(
       ],
     },
   },
-  { random: () => 0.5, cardPlugins: plugins },
+  { random: () => 0.5 },
 )
 
 const nivId = (state: ReturnType<typeof game>['state']) =>
@@ -49,15 +42,15 @@ const gainAndResolve = (
   return resolveStack(server.rules, gained)
 }
 
-const chooseDialog = (
+const choosePay = (
   server: ReturnType<typeof game>,
   state: ReturnType<typeof game>['state'],
-  accepted: boolean,
+  optionId: 'pay' | 'decline',
 ) => ok(server.rules(state, {
-  type: 'custom',
-  name: DIALOG_CHOSEN,
+  type: 'selectOption',
   seat: 'p1',
-  payload: { accepted },
+  selectionId: pendingOptionSelection(state, 'p1')!.id,
+  optionId,
 }))
 
 describe('Niv-Mizzet, Ghost Counsel', () => {
@@ -71,30 +64,28 @@ describe('Niv-Mizzet, Ghost Counsel', () => {
       kind: 'ability',
       name: 'Niv-Mizzet, Ghost Counsel',
       controller: 'p1',
-      payload: { triggerAmount: 2 },
     })
   })
 
   test('accepting pays life and draws using the captured gain amount', () => {
     const server = game()
     const offered = gainAndResolve(server, server.state, 3)
-    expect(pendingDialog(offered)).toMatchObject({
-      kind: 'may-pay-life-draw',
+    expect(pendingOptionSelection(offered, 'p1')).toMatchObject({
       seat: 'p1',
-      count: 3,
+      source: 'Niv-Mizzet, Ghost Counsel',
     })
     const beforeHand = offered.zoneCounts.p1.hand
-    const accepted = chooseDialog(server, offered, true)
+    const accepted = choosePay(server, offered, 'pay')
     expect(accepted.players.p1.life).toBe(40)
     expect(accepted.zoneCounts.p1.hand).toBe(beforeHand + 3)
-    expect(pendingDialog(accepted)).toBeUndefined()
+    expect(pendingOptionSelection(accepted, 'p1')).toBeUndefined()
   })
 
   test('declining leaves life and hand unchanged', () => {
     const server = game()
     const offered = gainAndResolve(server, server.state, 2)
     const beforeHand = offered.zoneCounts.p1.hand
-    const declined = chooseDialog(server, offered, false)
+    const declined = choosePay(server, offered, 'decline')
     expect(declined.players.p1.life).toBe(42)
     expect(declined.zoneCounts.p1.hand).toBe(beforeHand)
   })
@@ -105,10 +96,10 @@ describe('Niv-Mizzet, Ghost Counsel', () => {
     state = resolveStack(server.rules, state)
     state.players.p1.life = 3
     expect(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p1',
-      payload: { accepted: true },
+      selectionId: pendingOptionSelection(state, 'p1')!.id,
+      optionId: 'pay',
     }).ok).toBe(false)
   })
 
@@ -119,37 +110,32 @@ describe('Niv-Mizzet, Ghost Counsel', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId,
-      abilityId: 'nivMizzetGhostCounsel.drain',
+      abilityId: '$.abilities[2]',
     }))
     const drained = resolveStack(server.rules, tapped)
     expect(drained.players.p2.life).toBe(39)
     expect(drained.players.p1.life).toBe(41)
-    expect(pendingDialog(drained)).toMatchObject({
-      kind: 'may-pay-life-draw',
-      count: 1,
-    })
+    expect(pendingOptionSelection(drained, 'p1')).toBeDefined()
 
-    const paid = chooseDialog(server, drained, true)
+    const paid = choosePay(server, drained, 'pay')
     expect(paid.players.p1.life).toBe(40)
     expect(paid.stack).toHaveLength(0)
-    expect(pendingDialog(paid)).toBeUndefined()
+    expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
   })
 
-  test('opponents do not see the pending dialog in projection', () => {
+  test('opponents do not see the pending payment in projection', () => {
     const server = game()
     const offered = gainAndResolve(server, server.state, 1)
-    expect(pendingDialog(offered)).toBeDefined()
-    expect(server.project(offered, 'p2').players.p1.data['kernel.pendingDialog']).toBeUndefined()
+    expect(pendingOptionSelection(offered, 'p1')).toBeDefined()
+    expect(server.project(offered, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
   })
 
-  test('host restart keeps the open may-pay-life-draw choice', () => {
+  test('host restart keeps the open optional life payment', () => {
     const server = game()
     const offered = gainAndResolve(server, server.state, 2)
     const restarted = structuredClone(offered)
-    expect(pendingDialog(restarted)).toMatchObject({
-      kind: 'may-pay-life-draw',
+    expect(pendingOptionSelection(restarted, 'p1')).toMatchObject({
       seat: 'p1',
-      count: 2,
       source: 'Niv-Mizzet, Ghost Counsel',
     })
   })
