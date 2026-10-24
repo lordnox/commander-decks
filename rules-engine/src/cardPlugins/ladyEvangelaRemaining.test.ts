@@ -11,7 +11,6 @@ import { castCosts } from './castCosts'
 import { choiceEffects } from './choiceEffects'
 import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
-import { stealCast } from './stealCast'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
@@ -40,7 +39,6 @@ const plugins: Plugin[] = [
   targetedResolve,
   modalSpell,
   choiceEffects,
-  stealCast,
 ]
 
 const ready = (state: GameState, seat = 'p1') => {

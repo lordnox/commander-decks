@@ -56,7 +56,6 @@ export type CardCondition =
 export type GiftSpec = {
   label?: string
   draw?: number
-  extraTurn?: true
   token?: TokenSpec & { tapped?: boolean }
 }
 
@@ -296,9 +295,6 @@ export type CardInstruction =
   | { kind: 'grantUntilEot'; keywords: string[]; maxFromX?: boolean }
   | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
   | { kind: 'goadObjectIds'; objectIds: string[]; objectIdsFromRevealUntil?: boolean }
-  | { kind: 'phaseOutControlled' }
-  | { kind: 'grantProtectionFromEverything' }
-  | { kind: 'lifeTotalCannotChange' }
   | { kind: 'crewVehicle' }
   | { kind: 'monstrosity'; count: number }
   | { kind: 'createXTokens'; token: TokenSpec }
@@ -515,7 +511,6 @@ export type CardInstruction =
   | { kind: 'counterTargetSpell'; chosen?: true }
   | { kind: 'bounceTargetPermanent' }
   | { kind: 'addPlusCountersToControlled'; count: number }
-  | { kind: 'opponentMayDrawThenStealCast'; count: number }
   | { kind: 'hiddenPileNegotiation'; pileSize: number; pileCount: 2; lifeLoss: number }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }

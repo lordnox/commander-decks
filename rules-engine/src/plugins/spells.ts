@@ -35,7 +35,6 @@ import { canPlayExiledWithLife } from '../cardPlugins/exiledWith'
 import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
-import { PENDING_STEAL_CAST } from '../rules/selectCards'
 import { consumeSpellCast, matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
 import { canonicalSpellPermission } from '../cardPlugins/dsl/playPermissions'
 import { SPELLS_CAST_THIS_TURN, spellsCastThisTurn } from '../rules/spellsCast'
@@ -764,18 +763,9 @@ export const spells: Plugin = {
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
       if (freeCast && (selected || event.selectedAlternativeCost !== undefined)) return 'a free cast cannot also use another alternative cost'
       if (spell.manaCostAbsent && !freeCast && !selected && event.selectedAlternativeCost === undefined && !event.copy) return 'a spell with no mana cost requires an alternative cost'
-      const steal = state.players[event.seat]?.data[PENDING_STEAL_CAST]
       const permission = matchingSpellCast(state, event.seat, object.id)
       const staticPermission = canonicalSpellPermission(state, event.seat, object)
-      const stealCast = Boolean(
-        permission?.takeControl
-        || (
-          steal
-          && typeof steal === 'object'
-          && (steal as { objectId?: string }).objectId === object.id
-          && (steal as { seat?: string }).seat === event.seat
-        ),
-      )
+      const stealCast = Boolean(permission?.takeControl)
       if (event.castOption === 'exiledWithLife') {
         if (!canPlayExiledWithLife(state, event.seat, object)) {
           return 'card cannot be played from exile this way'
@@ -1209,7 +1199,6 @@ export const spells: Plugin = {
       }
       draft.passedInRow = []
       draft.priority = event.seat
-      delete draft.players[event.seat].data[PENDING_STEAL_CAST]
       return
     }
 

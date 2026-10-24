@@ -170,16 +170,6 @@ export const goadTargetUntilEot = (): CardInstruction => ({
   untilEndOfTurn: true,
 })
 
-export const phaseOutControlled = (): CardInstruction => ({ kind: 'phaseOutControlled' })
-
-export const grantProtectionFromEverything = (): CardInstruction => ({
-  kind: 'grantProtectionFromEverything',
-})
-
-export const lifeTotalCannotChange = (): CardInstruction => ({
-  kind: 'lifeTotalCannotChange',
-})
-
 export const preventCombatDamage = (
   extra: { from?: 'target' | 'all'; toController?: boolean } = {},
 ): CardInstruction => ({
@@ -971,10 +961,5 @@ export const bounceTargetPermanent = (): CardInstruction => ({ kind: 'bounceTarg
 
 export const addPlusCountersToControlled = (count: number): CardInstruction => ({
   kind: 'addPlusCountersToControlled',
-  count,
-})
-
-export const opponentMayDrawThenStealCast = (count: number): CardInstruction => ({
-  kind: 'opponentMayDrawThenStealCast',
   count,
 })

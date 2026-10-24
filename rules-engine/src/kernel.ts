@@ -39,7 +39,6 @@ import { captureAbilityActivation, captureEventTriggers, placePendingManaTrigger
 import {
   INSTRUCTIONS_RESUME,
   PENDING_SELECTION,
-  PENDING_STEAL_CAST,
   pendingSelection,
   pendingSelectionsFor,
   finishCanonicalTopDeckChoices,
@@ -409,7 +408,6 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
     PENDING_OPTION_SELECTION,
     PENDING_DIALOG,
     SEARCH_PENDING,
-    PENDING_STEAL_CAST,
   ]) {
     delete draft.players[seat].data[key]
   }
@@ -1756,10 +1754,7 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
       return manaPaymentSeat === event.seat
     case 'castSpell':
     case 'declineFreeCast':
-      return Boolean(
-        state.players[event.seat]?.data[PENDING_STEAL_CAST]
-        || pendingFreeCastFor(state, event.seat),
-      )
+      return Boolean(pendingFreeCastFor(state, event.seat))
     default:
       return false
   }

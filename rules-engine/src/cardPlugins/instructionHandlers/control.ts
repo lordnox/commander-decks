@@ -1,5 +1,4 @@
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pendingDialog'
-import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
 import { instructionAmount } from './helpers'
@@ -200,31 +199,6 @@ const mayDraw: InstructionHandler<'mayDraw'> = ({ draft, source }, instruction) 
   })
 }
 
-const opponentMayDrawThenStealCast: InstructionHandler<'opponentMayDrawThenStealCast'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  const opponent = item?.targets[0]?.kind === 'player' ? item.targets[0].player : undefined
-  if (!opponent) return
-  draft.players[source.controller].data[STEAL_CAST_DRAW] = {
-    sourceId: source.id,
-    opponent,
-    count: instruction.count,
-  }
-  setPendingDialog(draft, {
-    sourceId: source.id,
-    source: source.name,
-    seat: opponent,
-    kind: 'may-draw',
-    prompt: `You may draw ${instruction.count} cards.`,
-    waiting: 'is deciding whether to draw.',
-    judge: `Waiting for ${source.name}'s optional draw.`,
-    chosenEvent: DIALOG_CHOSEN,
-    destinations: ['skip', 'target'],
-    count: instruction.count,
-  })
-}
-
 const counterTargetSpell: InstructionHandler<'counterTargetSpell'> = (
   { draft, source, item },
   instruction,
@@ -409,7 +383,6 @@ export const controlHandlers = {
   optionalMill,
   mayPayLifeDraw,
   mayDraw,
-  opponentMayDrawThenStealCast,
   counterTargetSpell,
   bounceTargetPermanent,
   chooseModes,

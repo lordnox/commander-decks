@@ -43,7 +43,6 @@ import {
 import type { PluginCatalog } from '../catalog'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
-export const PENDING_STEAL_CAST = 'stealCast.pending'
 export const INSTRUCTIONS_RESUME = 'instructions.resume'
 
 export type InstructionResume = {
@@ -117,7 +116,6 @@ export type PendingCardSelection = {
   tapSelected?: boolean
   untapSelected?: boolean
   plusCounters?: number
-  castWithoutPaying?: boolean
   action?: {
     kind: 'dredge'
     replacedBy: string[]
@@ -1119,23 +1117,6 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
         for (const keyword of selection.grantKeywordsUntilEot) {
           grantOracleLineUntilEndOfTurn(object, keyword)
         }
-      }
-    }
-    if (selection.castWithoutPaying) {
-      const objectId = event.objectIds?.[0]
-      const stolen = objectId ? draft.object(objectId) : undefined
-      if (stolen) {
-        stolen.controller = event.seat
-        draft.players[event.seat].data[PENDING_STEAL_CAST] = {
-          objectId: stolen.id,
-          seat: event.seat,
-        }
-        draft.enqueue({
-          type: 'castSpell',
-          seat: event.seat,
-          objectId: stolen.id,
-          withoutPayingMana: true,
-        })
       }
     }
   }

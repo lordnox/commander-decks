@@ -21,7 +21,6 @@ export const deliverGift = (
   draft: Draft,
   spec: GiftSpec,
   recipient: PlayerId,
-  sourceName: string,
 ) => {
   if (spec.draw) {
     draft.enqueue({ type: 'draw', seat: recipient, count: spec.draw })
@@ -37,11 +36,6 @@ export const deliverGift = (
       oracleText: token.oracleText,
       ...(token.tapped ? { tapped: true } : {}),
     })
-  }
-  if (spec.extraTurn) {
-    if (!draft.extraTurns) draft.extraTurns = []
-    draft.extraTurns.push(recipient)
-    draft.note(`${recipient} will take an extra turn after this turn (${sourceName})`)
   }
 }
 
@@ -117,7 +111,7 @@ export const giftCast: Plugin = {
     const object = state.objects[item.objectId]
     const spec = object ? giftSpecOf(object) : undefined
     if (!spec) return
-    deliverGift(draft, spec, item.giftRecipient, object?.name ?? item.name)
+    deliverGift(draft, spec, item.giftRecipient)
   },
 }
 

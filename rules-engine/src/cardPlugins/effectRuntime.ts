@@ -689,7 +689,6 @@ const CHOICE_KINDS = new Set([
   'eachPlayerDiscard', 'eachPlayerSacrifice',
   'linkExile',
   'counterTargetSpell', 'bounceTargetPermanent', 'addPlusCountersToControlled',
-  'opponentMayDrawThenStealCast',
 ])
 
 const hasKind = (instructions: CardInstruction[], ...kinds: string[]) =>
@@ -800,7 +799,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(allListed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
       if (hasKind(allListed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(allListed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
-      if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
     }
     if (hasKind(allListed, 'gainControlPermanent', 'pairDonateToOpponents')) {
       ids.add('permanentControl')

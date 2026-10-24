@@ -141,39 +141,6 @@ describe('gift cast and extra turns', () => {
     expect(giftedResolved.players.p1.life).toBe(45)
   })
 
-  test('gift extra turn queues before normal turn order', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [card('Fable of Borrowed Moments', ['Sorcery'], {
-            manaCost: '{1}',
-            effects: [
-              gift({ label: 'Gift an extra turn', extraTurn: true }),
-              onResolve(gainLife(1)),
-            ],
-          })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 }
-    const gifted = legalActsFor(ready, 'p1').find((action) =>
-      action.kind === 'castSpell'
-      && action.giftPromised
-      && action.giftRecipientId === 'p3')!
-    const cast = run(server, ready, eventsForAvailableAction(ready, 'p1', gifted)!)
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.extraTurns).toEqual(['p3'])
-
-    let state = { ...resolved, step: 'cleanup' as const, active: 'p1' }
-    const afterP1 = ok(server.rules(state, { type: 'advanceStep' }))
-    expect(afterP1.active).toBe('p3')
-    expect(afterP1.step).toBe('untap')
-    expect(afterP1.extraTurns).toEqual([])
-  })
-
   test('opens selectPlayers when gift is promised without a recipient', () => {
     const server = createServerGame(
       commanderRules,

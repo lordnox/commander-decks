@@ -2796,10 +2796,6 @@ export const eventsForAvailableAction = (
         (effect.op === 'trigger' && effect.on === 'resolve')
         || (effect.op === 'castCost' && effect.spree)
         || (effect.op === 'search' && effect.via === 'spell')
-        || (
-          effect.op === 'handler'
-          && effect.pluginId === 'combatPreventionCards'
-        )
         || effect.op === 'playerAuraDeal')
       : false)
   const playerAura = object

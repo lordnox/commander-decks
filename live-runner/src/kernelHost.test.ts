@@ -59,7 +59,6 @@ import {
 } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
-import { combatPreventionCards } from '../../rules-engine/src/cardPlugins/combatPreventionCards'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
@@ -1623,7 +1622,7 @@ describe('kernel host journal', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const state = structuredClone(server.state)
     state.players.p1.mana.W = 1
