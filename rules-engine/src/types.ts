@@ -5,7 +5,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
+import type { ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -940,6 +940,14 @@ export type GameState = {
   eventProcessing?: EventProcessingFrame
   /** Additional suspended replacement frames; independent of the active cursor. */
   deferredEventProcessing?: EventProcessingFrame[]
+  /** Authoritative resolved rule changes; captured source contexts never enter replicas. */
+  resolvedRuleEffects?: {
+    id: string
+    timestamp: number
+    controller: PlayerId
+    source: CapturedObject
+    effect: ResolvedRuleEffect
+  }[]
   delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null
@@ -1093,6 +1101,8 @@ export type DelayedTrigger = {
  */
 export type GameEvent =
   | { type: 'abilityActivated'; objectId: string; stackId: string; seat: PlayerId; sourceSnapshot: CapturedObject }
+  /** Internal canonical rule change; expires at cleanup independently of its source. */
+  | { type: 'createRuleEffect'; controller: PlayerId; source: CapturedObject; effect: ResolvedRuleEffect }
   /** Internal canonical player allowance; expires at cleanup. */
   | { type: 'grantLandPlays'; seat: PlayerId; count: number }
   /** Internal canonical player grant; lasts for the rest of the game. */

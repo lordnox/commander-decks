@@ -8,7 +8,7 @@ import { copyUntilEndOfTurn } from '../continuousEffects'
 import { copyCharacteristics } from '../effectRuntime'
 import { instructionSpell } from './instructionTestSupport'
 import { card, compileCardRuleDefinition, createEffect, objects, permanentEffect, setColorsEffect, spell, stackItems, select, counter, target, untilCleanup, untilStep } from './v1'
-import type { CardColor } from './v1'
+import type { CardColor, EffectDuration } from './v1'
 
 const compileColorFilter = (color: unknown) => compileCardRuleDefinition(card([spell({
   decisions: { targets: [select({ filter: stackItems({ kind: 'spell', color: color as CardColor }), count: 1 })] },
@@ -16,7 +16,7 @@ const compileColorFilter = (color: unknown) => compileCardRuleDefinition(card([s
 })]))
 
 const recipientName = 'Color recipient fixture'
-const colorResponse = (colors: readonly CardColor[], duration = untilCleanup()) => instructionSpell({
+const colorResponse = (colors: readonly CardColor[], duration: EffectDuration = untilCleanup()) => instructionSpell({
   instructions: [createEffect({ targets: objects({ name: recipientName }), effect: setColorsEffect(colors), duration })],
 })
 

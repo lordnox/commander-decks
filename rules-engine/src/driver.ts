@@ -163,6 +163,7 @@ const preflightInstructions = (
       case 'modifyVotes':
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
+      case 'createRuleEffect':
       case 'grantFlash':
       case 'offerCast':
       case 'addManaChosenColor':
@@ -797,6 +798,14 @@ const actionEvents = (
     }
     case 'grantNoMaximumHandSize': {
       return recipients(instruction.targets, context).map((seat) => ({ type: 'grantNoMaximumHandSize' as const, seat }))
+    }
+    case 'createRuleEffect': {
+      return [{
+        type: 'createRuleEffect' as const,
+        controller: context.controller,
+        source: structuredClone(frame.source),
+        effect: structuredClone(instruction.effect),
+      }]
     }
     case 'grantFlash': {
       return recipients(instruction.targets, context).map((seat) => ({

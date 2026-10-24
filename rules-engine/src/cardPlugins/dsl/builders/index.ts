@@ -1,6 +1,7 @@
 import { CREATURE_TYPES } from '../../../creatureTypes'
 import { ZONE_IDS } from '../../../types'
 import type {
+  ResolvedRuleEffect,
   ActivatedAbilityDefinition,
   CreatureTypeReference,
   Amount,
@@ -340,7 +341,7 @@ export const convoke = (): Cost => immutableData({ kind: 'convoke' as const })
 export const delve = (): Cost =>
   immutableData({ kind: 'delve' as const }) satisfies Cost
 
-export const untilCleanup = (): EffectDuration => immutableData({ kind: 'untilCleanup' })
+export const untilCleanup = () => immutableData({ kind: 'untilCleanup' as const })
 export const permanentEffect = (): EffectDuration => immutableData({ kind: 'permanent' })
 export const untilStep = (step: string, active?: PlayerReference): EffectDuration => immutableData({
   kind: 'untilStep', step, ...(active ? { active } : {}),
@@ -1464,9 +1465,9 @@ export const castSpells = (
     optionId?: string
     label?: string
   } = {},
-): ContinuousEffectDefinition =>
+) =>
   immutableData({
-    kind: 'castSpells',
+    kind: 'castSpells' as const,
     players,
     cards,
     cost: options.cost ?? SPELL_CAST_COSTS.printed,
@@ -1579,3 +1580,7 @@ export const suspendEffect = (counters: number, manaCost: string) => immutableDa
 
 export const removeCounters = (input: { targets: ObjectRecipient; counter: string; count: AmountInput }) => immutableData({ ...input, kind: 'removeCounters' as const, count: toAmount(input.count) })
 export const countersRemoved = (input: Omit<Extract<OccurrencePattern, { kind: 'countersRemoved' }>, 'kind'>) => immutableData({ kind: 'countersRemoved' as const, ...input })
+
+/** A rule change created by resolution, independent of its source until cleanup. */
+export const createRuleEffect = (input: { effect: ResolvedRuleEffect; duration: { kind: 'untilCleanup' } }) =>
+  immutableData({ kind: 'createRuleEffect' as const, ...input })

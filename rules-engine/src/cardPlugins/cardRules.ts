@@ -19,7 +19,6 @@ import {
   handlerIdsFromEffects,
   legendRuleOff,
   onResolve,
-  playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
   reanimateCreatureFromGraveyards,
@@ -31,7 +30,6 @@ import {
   type CardInstruction,
   yourEndTargetingOpponent,
   opponentMayDrawThenStealCast,
-  onUnlock,
 } from './effects'
 
 const bird = createTokenInstruction({
@@ -68,7 +66,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   Ephemerate: [handler('blinkValue')],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Forgotten Cellar': [onUnlock()],
   'Incarnation Technique': [
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
     handler('demonstrate'),
@@ -135,7 +132,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Walk-In Closet': [playLandsFromGraveyard()],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

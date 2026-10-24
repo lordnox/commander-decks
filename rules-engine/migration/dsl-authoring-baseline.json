@@ -95,18 +95,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "ac9b9477c1b0b35cc58b44757b2522b3207705f38c364264f219f9752e13e965",
-    "card": "Walk-In Closet"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "816db21a3c3c16b6433c06449a24894fda18005a81f5b5d83e39412d62584701",
-    "card": "Forgotten Cellar"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "a13f3951794ca58676ce88259b1b8eeb79f14033e10e8eb7264a5366cb56fe1f",
     "card": "Incarnation Technique"
   },

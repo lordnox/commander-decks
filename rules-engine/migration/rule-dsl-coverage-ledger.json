@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 18,
+    "cardRegistrations": 16,
     "cardEffects": 21,
     "cardInstructions": 187,
     "instructionHandlersDiscovered": 187,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 134,
     "cardRegistrationOnlyGaps": 2,
     "candidateOnlyInstructionRows": 50,
-    "candidateOnlyCardRows": 16
+    "candidateOnlyCardRows": 14
   },
   "cardEffects": [
     {
@@ -54,8 +54,8 @@
           "rules-engine/src/cardPlugins/encore.test.ts:54 — test('encore builder clones safely', () => {",
           "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:322 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:613 — test(\"Thespian's Stage lists its handlers\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:617 — test(\"Thespian's Stage lists its handlers\", () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:749 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -123,7 +123,7 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:678 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
         ]
       },
@@ -387,21 +387,19 @@
         "Belonging:effects[1]",
         "Concordant Crossroads:effects[0]",
         "Sakashima of a Thousand Faces:effects[0]",
-        "Soul of Eternity:effects[0]",
-        "Walk-In Closet:effects[0]"
+        "Soul of Eternity:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 7,
         "samples": [
-          "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:3564 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:215 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:53 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:604 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:749 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {",
+          "rules-engine/src/cardPlugins/sharedHaste.test.ts:13 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -463,7 +461,6 @@
       "mechanic": "triggered ability",
       "currentRegistrations": [
         "Belonging:effects[0]",
-        "Forgotten Cellar:effects[0]",
         "Incarnation Technique:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
         "Perch Protection:effects[1]",
@@ -475,16 +472,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 41,
+        "matches": 37,
         "samples": [
-          "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:288 — test('Sakashima copies another creature and turns off the legend rule', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:325 — test('an opponent-owned clone entering under your control copies your creature', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {"
+          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:438 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
+          "rules-engine/src/cardPlugins/linkedExile.test.ts:269 — test('open link-exile selection survives projection for the choosing seat', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -792,7 +789,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:129 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:322 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:613 — test(\"Thespian's Stage lists its handlers\", () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:617 — test(\"Thespian's Stage lists its handlers\", () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1804,7 +1801,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:191 — test('Belonging makes changelings and exposes encore from the graveyard', () => {",
           "rules-engine/src/cardPlugins/encore.test.ts:59 — test('encore builder clones safely', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:749 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "typed copy/token action",
@@ -2264,7 +2261,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:678 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2413,7 +2410,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:678 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3024,7 +3021,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:678 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -4339,7 +4336,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/blinkValue.test.ts:26 — test('Ephemerate returns a stolen creature under its owner’s control', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:441 — test('Lady Evangela blink-value cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:648 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:652 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -4384,37 +4381,6 @@
       "handlerIds": [
         "combatPreventionCards"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Forgotten Cellar",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Forgotten Cellar"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:607 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/plugins/rooms.test.ts:180 — test('a door without inline effects takes its rules text from the card table', () => {",
-          "site/src/TableBoard.test.tsx:65 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -4569,7 +4535,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:120 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:217 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:674 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:678 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [createToken, grantProtectionFromEverything, if, lifeTotalCannotChange, phaseOutControlled]",
@@ -4750,7 +4716,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:745 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:749 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, static] and instructions [encoreTokens]",
@@ -4827,7 +4793,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:129 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:322 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:613 — test(\"Thespian's Stage lists its handlers\", () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:617 — test(\"Thespian's Stage lists its handlers\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [becomeCopyOfTarget]",
@@ -4850,37 +4816,6 @@
         "becomeCopyOfTarget",
         "choiceEffects"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Walk-In Closet",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Walk-In Closet"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:604 — test('Homer remaining cards keep their resolve composition', () => {",
-          "rules-engine/src/plugins/rooms.test.ts:179 — test('a door without inline effects takes its rules text from the card table', () => {",
-          "site/src/TableBoard.test.tsx:63 — test('unlocking a door is labelled with the door, not as a blocker declaration', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "static"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     }
   ],
@@ -6923,7 +6858,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:132",
+        "rules-engine/src/cardPlugins/cardRules.ts:129",
         "rules-engine/src/cardPlugins/cardRules.ts:5",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:497",
         "rules-engine/src/cardPlugins/effectRuntime.ts:250",
@@ -6948,7 +6883,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1447"
+        "rules-engine/src/types.ts:1457"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -7013,13 +6948,15 @@
         "rules-engine/src/cards/sink-into-stupor.ts:30",
         "rules-engine/src/cards/sink-into-stupor.ts:40",
         "rules-engine/src/cards/types.ts:4",
+        "rules-engine/src/cards/types.ts:5",
         "rules-engine/src/cards/virtue-of-knowledge.ts:189",
         "rules-engine/src/cards/virtue-of-knowledge.ts:190",
+        "rules-engine/src/cards/walk-in-closet.ts:185",
         "rules-engine/src/cards/waterlogged-teachings.ts:29",
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1530",
+        "rules-engine/src/driver.ts:1539",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
         "rules-engine/src/newGame.ts:143",
@@ -7110,9 +7047,9 @@
         "rules-engine/src/formats.ts:137",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:552",
-        "rules-engine/src/kernel.ts:554",
-        "rules-engine/src/kernel.ts:851",
+        "rules-engine/src/kernel.ts:553",
+        "rules-engine/src/kernel.ts:555",
+        "rules-engine/src/kernel.ts:860",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -7334,10 +7271,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "lines": [
-          705
+          706
         ],
         "samples": [
-          "705: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
+          "706: activeIn: configuration.activeIn ?? (on.kind === 'cycle' && on.filter.object && 'kind' in on.filter.object && on.filter.object.kind === 'contextRef' && on.filter.object.name === 'source' ? ZONE_IDS : ['battlefield']),"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7364,14 +7301,14 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          478,
-          576,
-          807
+          479,
+          577,
+          808
         ],
         "samples": [
-          "478: if (filter.name !== undefined && object.name !== filter.name) return false",
-          "576: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
-          "807: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
+          "479: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "577: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)",
+          "808: case 'contextRef': return ['controller', 'event.player', 'enchanted.player', 'triggering.player', 'triggering.defender', 'triggering.object.controller'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7492,10 +7429,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          183
+          184
         ],
         "samples": [
-          "183: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "184: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8088,10 +8025,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1657
+          1666
         ],
         "samples": [
-          "1657: event.name === SEARCH_CHOSEN"
+          "1666: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8126,16 +8063,16 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          358,
-          363,
-          843,
-          2242,
-          2287
+          359,
+          364,
+          852,
+          2251,
+          2296
         ],
         "samples": [
-          "358: const liveSource = draft.object(source.ref.objectId)",
-          "363: const resolving = draft.object(item.objectId)",
-          "843: const source = draft.object(sourceId)"
+          "359: const liveSource = draft.object(source.ref.objectId)",
+          "364: const resolving = draft.object(item.objectId)",
+          "852: const source = draft.object(sourceId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -10497,31 +10434,31 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          530,
-          535,
-          542,
-          648,
-          650,
-          654,
-          662,
-          677,
-          686,
-          689,
-          742,
-          745,
-          754,
-          789,
-          804,
-          866,
-          873,
-          879,
-          896,
-          904
+          531,
+          536,
+          543,
+          649,
+          651,
+          655,
+          663,
+          678,
+          687,
+          690,
+          743,
+          746,
+          755,
+          798,
+          813,
+          875,
+          882,
+          888,
+          905,
+          913
         ],
         "samples": [
-          "530: const object = draft.object(event.objectId)",
-          "535: const object = draft.object(event.objectRef.objectId)",
-          "542: const object = draft.object(event.objectId)"
+          "531: const object = draft.object(event.objectId)",
+          "536: const object = draft.object(event.objectRef.objectId)",
+          "543: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

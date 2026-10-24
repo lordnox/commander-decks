@@ -37,6 +37,14 @@ export const canonicalSpellPermission = (
   player: PlayerId,
   card: GameObject,
 ): CastSpellsEffect | undefined => {
+  for (const entry of state.resolvedRuleEffects ?? []) {
+    if (entry.effect.kind !== 'castSpells') continue
+    const permission = entry.effect
+    const context = { state, controller: entry.controller, source: entry.source }
+    if (permission.when && !evaluateCondition(permission.when, context)) continue
+    if (!evaluatePlayerSelector(permission.players, context).includes(player)) continue
+    if (evaluateObjectSelector(permission.cards, context).some(candidate => candidate.id === card.id)) return permission
+  }
   for (const source of Object.values(state.objects)) {
     if (!source.ruleDefinition) continue
     for (const entry of activePrintedStaticModifiers(state, source)) {

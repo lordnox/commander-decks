@@ -5,7 +5,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame } from '../../runtime'
-import { ok, roomDoor } from '../../testHelpers'
+import { ok, resolveStack, roomDoor } from '../../testHelpers'
 import type { GameState, ManaPool, RoomDoorId } from '../../types'
 import {
   fullyUnlock,
@@ -145,4 +145,28 @@ describe('canonical Room door programs', () => {
       expect.objectContaining({ type: 'activateAbility', door: 'left', objectId: marinaId }),
     ])
   })
+})
+
+
+test('a catalog Room unlock grants source-independent rules after the Room leaves', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Walk-In Closet // Forgotten Cellar', { unlockedDoors: ['left'] })] },
+    hands: { p1: [cardTemplate('Spell fixture', { types: ['Instant'], manaCost: '{0}' }),
+      cardTemplate('Land fixture', { types: ['Land'] })] },
+  })
+  const roomId = server.state.zoneOrder.p1.battlefield[0]
+  const [spellId, landId] = server.state.zoneOrder.p1.hand
+  let state = ok(server.rules(server.state, { type: 'move', objectId: spellId, to: 'graveyard' }))
+  state = ok(server.rules(state, { type: 'move', objectId: landId, to: 'graveyard' }))
+  expect(legalActsFor(state, 'p1')).toContainEqual(expect.objectContaining({ kind: 'playLand', objectId: landId }))
+  state = ok(server.rules(funded(state, { G: 2, C: 3 }), { type: 'unlockDoor', seat: 'p1', objectId: roomId, door: 'right' }))
+  expect(state.stack).toHaveLength(1)
+  state = ok(server.rules(state, { type: 'move', objectId: roomId, to: 'hand' }))
+  state = resolveStack(server.rules, state)
+  expect(legalActsFor(state, 'p1')).not.toContainEqual(expect.objectContaining({ kind: 'playLand', objectId: landId }))
+  state = resolveStack(server.rules, ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spellId })))
+  expect(state.objects[spellId].zone).toBe('exile')
+  state = ok(server.rules(state, { type: 'move', objectId: landId, to: 'hand' }))
+  state = ok(server.rules(state, { type: 'move', objectId: landId, to: 'graveyard' }))
+  expect(state.objects[landId].zone).toBe('exile')
 })

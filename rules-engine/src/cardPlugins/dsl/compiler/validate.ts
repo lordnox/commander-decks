@@ -281,7 +281,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['when', 'enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['when', 'enchantableBy', 'creatureType', 'zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'card', 'name', 'keyword', 'tapped', 'attacking', 'castFrom', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'colored', 'sameNameAs', 'enchantedBy', 'exiledWith', 'among', 'all', 'any', 'not'])
     if (node.when !== undefined) validateCondition(node.when, childPath(path, 'when'), env)
     if (node.enchantableBy !== undefined) validateReference(node.enchantableBy, childPath(path, 'enchantableBy'), env, ['object'])
     if (node.creatureType !== undefined) validateCreatureType(node.creatureType, childPath(path, 'creatureType'), env)
@@ -293,6 +293,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.exiledWith !== undefined) validateReference(node.exiledWith, childPath(path, 'exiledWith'), env, ['object'])
     if (node.enchantedBy !== undefined) validateReference(node.enchantedBy, childPath(path, 'enchantedBy'), env, ['object'])
     if (node.sameNameAs !== undefined) validateReference(node.sameNameAs, childPath(path, 'sameNameAs'), env, ['object'])
+    if (node.card !== undefined && typeof node.card !== 'boolean') issue(childPath(path, 'card'), 'type', 'expected a boolean')
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
     if (node.colored !== undefined && typeof node.colored !== 'boolean') issue(childPath(path, 'colored'), 'type', 'expected a boolean')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
@@ -1099,6 +1100,31 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
+      case 'createRuleEffect': {
+        exactKeys(node, path, ['kind', 'effect', 'duration'], ['kind', 'effect', 'duration'])
+        const duration = object(node.duration, `${path}.duration`)
+        if (duration) {
+          exactKeys(duration, `${path}.duration`, ['kind'], ['kind'])
+          enumeration(duration.kind, `${path}.duration.kind`, new Set(['untilCleanup']), 'rule-effect duration')
+        }
+        const effect = object(node.effect, `${path}.effect`)
+        if (effect) {
+          enumeration(effect.kind, `${path}.effect.kind`, new Set(['castSpells', 'replacement']), 'resolved rule effect')
+          if (effect.kind === 'replacement') {
+            exactKeys(effect, `${path}.effect`, ['kind', 'event', 'transform'], ['kind', 'event', 'transform'])
+            const event = object(effect.event, `${path}.effect.event`)
+            if (event) enumeration(event.kind, `${path}.effect.event.kind`, new Set(['move']), 'resolved replacement event')
+            const transform = object(effect.transform, `${path}.effect.transform`)
+            if (transform) {
+              exactKeys(transform, `${path}.effect.transform`, ['kind', 'to'], ['kind', 'to'])
+              enumeration(transform.kind, `${path}.effect.transform.kind`, new Set(['redirect']), 'resolved replacement transform')
+            }
+          }
+          // Static validation intentionally starts with no announcement/local bindings.
+          validateAbility({ kind: 'static', activeIn: ['battlefield'], effects: [effect] }, `${path}.rule`)
+        }
+        return
+      }
       case 'grantFlash': {
         exactKeys(node, path, ['kind', 'targets', 'duration'], ['kind', 'targets', 'duration'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])

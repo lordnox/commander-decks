@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
-import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
+import { cardTemplateDefaultsFor, cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { catalogEntry, deckCards } from '../deckCardFixtures'
 import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
 import { ptEqualsLife } from './effects'
@@ -601,11 +601,15 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')).toBeDefined()
     expect(effectsFor('Life from the Loam')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Life from the Loam')).toBeDefined()
-    expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([
-      { op: 'static', playLandsFromGraveyard: true },
+    const room = cardTemplateDefaultsFor('Walk-In Closet // Forgotten Cellar')!
+    expect(room.roomDoors?.[0].ruleDefinition?.definition.abilities).toMatchObject([
+      { kind: 'static', effects: [{ kind: 'playLands', cards: { filter: { zone: 'graveyard', owner: 'you', type: 'Land' } } }] },
     ])
-    expect(cardDefinition('Forgotten Cellar')?.effects).toMatchObject([
-      { op: 'trigger', on: 'unlock' },
+    expect(room.roomDoors?.[1].ruleDefinition?.definition.abilities).toMatchObject([
+      { kind: 'triggered', on: { kind: 'unlockDoor' }, instructions: [
+        { kind: 'createRuleEffect', effect: { kind: 'castSpells' }, duration: { kind: 'untilCleanup' } },
+        { kind: 'createRuleEffect', effect: { kind: 'replacement', event: { kind: 'move', filter: { to: 'graveyard', object: { owner: 'you', card: true } } }, transform: { kind: 'redirect', to: 'exile' } } },
+      ] },
     ])
   })
 

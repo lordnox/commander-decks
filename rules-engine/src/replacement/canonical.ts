@@ -15,11 +15,12 @@ import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
 import { captureObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
 import { isProtectedFirstDrawInOwnDrawStep } from '../rules/drawStepHistory'
-import type { GameEvent, GameState } from '../types'
+import type { CapturedObject, GameEvent, GameState } from '../types'
 import type { ReplacementCategory } from './types'
 
 export type CanonicalReplacementCandidate = {
   kind: 'canonical'
+  resolvedContext?: { controller: string; source: CapturedObject }
   category: ReplacementCategory
   instanceId: string
   sourceId: string
@@ -238,6 +239,19 @@ export const discoverCanonicalModifiers = (
 ): CanonicalReplacementCandidate[] => {
   const candidates: CanonicalReplacementCandidate[] = []
   const seen = new Set<string>()
+  for (const entry of state.resolvedRuleEffects ?? []) {
+    if (entry.effect.kind !== 'replacement') continue
+    if (usedInstanceIds.includes(entry.id) || settledOptionalDeclines.includes(entry.id)) continue
+    const runtime = { state, controller: entry.controller, source: entry.source }
+    if (!eventMatchesPattern(event, entry.effect, runtime, state, entry.source.ref.objectId, entry.controller)) continue
+    pushCandidate(candidates, seen, {
+      kind: 'canonical', category: 'general', instanceId: entry.id,
+      sourceId: entry.source.ref.objectId, sourceName: entry.source.snapshot.name,
+      abilityIndex: -1, effectIndex: entry.timestamp, effect: entry.effect,
+      label: entry.source.snapshot.name, optional: false, chooser: chooserFor(state, event, entry.controller),
+      rulesTimestamp: entry.timestamp, resolvedContext: { controller: entry.controller, source: entry.source },
+    })
+  }
   for (const source of Object.values(state.objects)) {
     // A resolved departure replacement survives ability loss, but belongs only
     // to this battlefield incarnation. An exile-and-return effect is unchanged.

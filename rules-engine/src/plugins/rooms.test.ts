@@ -173,28 +173,6 @@ describe('Room doors', () => {
     ])
   })
 
-  test('a door without inline effects takes its rules text from the card table', () => {
-    const closet = cardTemplate('Walk-In Closet // Forgotten Cellar', {
-      roomDoors: [
-        roomFace('Walk-In Closet', '{2}{G}', 'You may play lands from your graveyard.'),
-        roomFace('Forgotten Cellar', '{3}{G}{G}', 'When you unlock this door, cast from your graveyard.'),
-      ],
-    })
-    const server = createServerGame(commanderRules, { battlefield: { p1: [closet] } })
-    const objectId = server.state.zoneOrder.p1.battlefield[0]
-    const state = funded(server.state, { G: 2, C: 3 })
-
-    const unlocked = ok(server.rules(state, {
-      type: 'unlockDoor',
-      seat: 'p1',
-      objectId,
-      door: 'right',
-    }))
-    expect(unlocked.objects[objectId].effects).toEqual([
-      { op: 'trigger', on: 'unlock', do: [] },
-    ])
-  })
-
   test('the cast door produces both its enter and unlock triggers', () => {
     const server = createServerGame(commanderRules, { hands: { p1: [room()] } })
     const objectId = server.state.zoneOrder.p1.hand[0]

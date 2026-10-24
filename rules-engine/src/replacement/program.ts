@@ -80,8 +80,11 @@ export const applyCanonicalTransform = (
   state: GameState,
 ) => {
   const source = state.objects[candidate.sourceId]!
-  return applyReplacementTransform(proposal, candidate.effect.transform, lineage, {
-    state, controller: candidate.category === 'self' && proposal.type === 'move' ? proposal.controller ?? source.controller : source.controller,
+  const context = candidate.resolvedContext ?? {
+    controller: candidate.category === 'self' && proposal.type === 'move'
+      ? proposal.controller ?? source.controller
+      : source.controller,
     source: captureObject(source),
-  })
+  }
+  return applyReplacementTransform(proposal, candidate.effect.transform, lineage, { state, ...context })
 }

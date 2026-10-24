@@ -439,6 +439,7 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
   draft.pendingTriggers = draft.pendingTriggers?.filter(
     (trigger) => !draft.players[trigger.execution.controller]?.lost,
   )
+  draft.resolvedRuleEffects = draft.resolvedRuleEffects?.filter(effect => effect.controller !== seat)
   draft.delayedTriggers = draft.delayedTriggers.filter((trigger) => trigger.controller !== seat)
   draft.rules = draft.rules.filter((rule) => !rule.sourceId || draft.objects[rule.sourceId])
   draft.passedInRow = draft.passedInRow.filter((player) => player !== seat)
@@ -759,6 +760,14 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         })
       }
       draft.note(`${item.name} was countered`)
+      return
+    }
+    case 'createRuleEffect': {
+      const effects = draft.resolvedRuleEffects ??= []
+      effects.push({
+        id: draft.allocId('ruleEffect'), timestamp: draft.allocTs(),
+        controller: event.controller, source: structuredClone(event.source), effect: structuredClone(event.effect),
+      })
       return
     }
     case 'addRule': {

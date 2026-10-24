@@ -83,6 +83,7 @@ export const projectForViewer = (
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
   delete projected.resolution
+  delete projected.resolvedRuleEffects
   delete projected.pendingTriggers
   delete projected.triggerPlacement
   delete projected.eventProcessing

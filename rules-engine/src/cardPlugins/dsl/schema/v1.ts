@@ -136,6 +136,8 @@ export type ObjectFilter = {
   controller?: PlayerMatch
   owner?: PlayerMatch
   token?: boolean
+  /** A physical card, excluding tokens and spell copies (CR 108.2). */
+  card?: boolean
   name?: string
   keyword?: Keyword
   tapped?: boolean
@@ -595,6 +597,8 @@ export type Instruction =
   | { kind: 'becomeMonarch'; targets: PlayerRecipient }
   /** Exile this resolving spell, preserving the resolution cursor for remaining instructions. */
   | { kind: 'exileThisSpell' }
+  /** Create a source-independent rule change until cleanup (CR 611.2). */
+  | { kind: 'createRuleEffect'; effect: ResolvedRuleEffect; duration: { kind: 'untilCleanup' } }
   /** Grant as-though-flash to each resolved player until the duration ends. */
   | { kind: 'grantFlash'; targets: PlayerRecipient; duration: EffectDuration }
   /** One-shot permission to cast from a private zone without ordinary priority. */
@@ -845,6 +849,15 @@ export type ReplacementEffectDefinition = {
   transform: ReplacementTransform
   program?: readonly ReplacementProgramInstruction[]
 }
+
+/** Resolved rule changes use live selectors but retain their resolution's controller/source. */
+export type ResolvedRuleEffect =
+  | Extract<ContinuousEffectDefinition, { kind: 'castSpells' }>
+  | {
+      kind: 'replacement'
+      event: Extract<ReplacementEventPattern, { kind: 'move' }>
+      transform: { kind: 'redirect'; to: Zone }
+    }
 
 export type ContinuousEffectDefinition =
   | { kind: 'multiplyTriggers'; sources: ObjectSelector; additional: Amount; cause?: { enters: ObjectFilter } }

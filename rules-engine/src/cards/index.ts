@@ -1,3 +1,4 @@
+import walkInCloset from './walk-in-closet'
 import allFatesStalker from './all-fates-stalker'
 import hypergenesis from './hypergenesis'
 import pitilessCarnage from './pitiless-carnage'
@@ -789,6 +790,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Valgavoth, Terror Eater": valgavothTerrorEater,
   "Vault of Champions": vaultOfChampions,
   "Verdant Catacombs": verdantCatacombs,
+  "Walk-In Closet": walkInCloset,
+  "Forgotten Cellar": walkInCloset,
+  "Walk-In Closet // Forgotten Cellar": walkInCloset,
   "Wall of Blood": wallOfBlood,
   "Voyager Staff": voyagerStaff,
   "Wall of Omens": wallOfOmens,
