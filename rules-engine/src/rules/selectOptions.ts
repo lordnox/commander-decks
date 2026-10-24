@@ -1,3 +1,4 @@
+import { canPayLife } from './lifePayments'
 import { CREATURE_TYPE_CHOICE_ACTION } from '../creatureTypes'
 import { COLLECTED_CHOICE_ACTION, PARTICIPATION_OPTION } from '../cardPlugins/dsl/collectedChoices'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
@@ -430,9 +431,9 @@ const resolutionPaymentPayable = (
   action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
 ) => {
   switch (action.cost.kind) {
-    case 'manaAndLife': return state.players[seat].life >= action.paymentAmount && canPayResolutionMana(state, seat, { kind: 'mana', amount: action.cost.mana }, action.source, action.bindings)
+    case 'manaAndLife': return canPayLife(state, seat, action.paymentAmount) && canPayResolutionMana(state, seat, { kind: 'mana', amount: action.cost.mana }, action.source, action.bindings)
     case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source, action.bindings)
-    case 'life': return state.players[seat].life >= action.paymentAmount
+    case 'life': return canPayLife(state, seat, action.paymentAmount)
     case 'discard':
     case 'sacrifice': return resolutionPaymentCandidates(state, seat, action.cost, action.source, action.bindings).length >= action.paymentAmount
   }

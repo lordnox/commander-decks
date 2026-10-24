@@ -1,6 +1,10 @@
 import type { Plugin } from '../../types'
 import { describe, expect, test } from 'bun:test'
 import {
+  createPlayerEffect,
+  PLAYER_EFFECTS,
+  PLAYER_EFFECT_DURATIONS,
+  lifeCost,
   card,
   counterUnlessPay,
   stackItems,
@@ -653,4 +657,21 @@ test('combined payment survives restore while a life-loss replacement choice is 
   expect(completed.players.p1.life).toBe(initial.players.p1.life - 3)
   expect(completed.players.p1.mana.C).toBe(0)
   expect(completed.resolution).toBeUndefined()
+})
+
+
+test.each([PLAYER_EFFECTS.lifeTotalCannotChange, PLAYER_EFFECTS.cannotLoseLife].flatMap(effect => [0, 4].map(payment => ({ effect, payment }))))('optional resolution life payments respect player restrictions (%j)', ({ effect, payment }) => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [instructionSpell({ instructions: [
+      createPlayerEffect({ targets: ref('controller'), playerEffect: effect, duration: PLAYER_EFFECT_DURATIONS.untilCleanup }),
+      payOptional({ payer: ref('controller'), cost: lifeCost(payment), bindResult: 'paid', ifPaid: [], ifDeclined: [] }),
+    ] })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  const started = ok(server.rules(cast, { type: 'resolveTop' }))
+  const offer = pendingOptionSelection(started, 'p1')!
+  const restored = JSON.parse(JSON.stringify(started))
+  const result = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+  expect(result.ok).toBe(payment === 0)
+  expect(result.state.players.p1.life).toBe(40)
 })

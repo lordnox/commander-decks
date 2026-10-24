@@ -1,3 +1,4 @@
+import { canPayLife } from './rules/lifePayments'
 import { canPrepareCast, preparationCost } from './cardPlugins/dsl/preparedCasting'
 import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
 import { canonicalLandPermission, canonicalSpellPermission } from './cardPlugins/dsl/playPermissions'
@@ -775,7 +776,7 @@ const fundedCasts = (
   object: GameObject,
   cost: string,
 ) => {
-  const payments = phyrexianPayments(cost, state.players[seat].life)
+  const payments = phyrexianPayments(cost, state.players[seat].life).filter(payment => canPayLife(state, seat, payment.length * 2))
   return payments.flatMap((phyrexianLife): Array<{
     phyrexianLife: number[]
     labeled: boolean
@@ -870,7 +871,7 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const definition = object.ruleDefinition ? loadDefinitionSnapshot(object.ruleDefinition).definition : undefined
     const abilityIndex = definition?.abilities.findIndex(entry => entry.kind === 'spell') ?? -1
     const ability = definition?.abilities[abilityIndex]
-    if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length)) return undefined
+    if (!ability || ability.kind !== 'spell' || (!ability.optionalCosts?.length && !ability.alternativeCosts?.length && !ability.additionalCosts?.length && !ability.costReductions?.length && !ability.costs.some(cost => cost.kind === 'life'))) return undefined
     const previewAbility = partial && ability.optionalCostBounds ? { ...ability, optionalCostBounds: { ...ability.optionalCostBounds, min: 0 } } : ability
     const entries = canonicalActionCostGroups(state, object, chosenAbilityCosts(previewAbility, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), seat)
     const choices = canonicalCostPreviewChoices(entries)
@@ -894,7 +895,7 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (canPlayExiledWithLife(state, seat, object)) {
     const life = manaValueOf(object)
-    if (state.players[seat].life >= life) {
+    if (canPayLife(state, seat, life)) {
       return [{
         kind: 'castSpell',
         objectId: object.id,
@@ -1065,7 +1066,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const canonicalAbility = object.ruleDefinition
     ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
     : undefined
-  const hasCanonicalCostOptions = canonicalAbility?.kind === 'spell' && Boolean(canonicalAbility.optionalCosts?.length || canonicalAbility.alternativeCosts?.length)
+  const hasCanonicalCostOptions = canonicalAbility?.kind === 'spell' && Boolean(canonicalAbility.optionalCosts?.length || canonicalAbility.alternativeCosts?.length || canonicalAbility.costs.some(cost => cost.kind === 'life'))
   const preview = (action: Extract<AvailableAction, { kind: 'castSpell' }>) =>
     canonicalActionManaCost(state, seat, object, action)
   const withCostOptions = (base: Extract<AvailableAction, { kind: 'castSpell' }>) => {
