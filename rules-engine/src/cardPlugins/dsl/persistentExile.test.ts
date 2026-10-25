@@ -234,3 +234,36 @@ describe('optional targeted linked exile and independent stat bonuses', () => {
     expect(named(done, sourceName)).toMatchObject({ power: 3, toughness: 3 })
   })
 })
+
+test('catalog Bishop of Binding pumps a target Vampire at attack time by its linked exile power', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Bishop of Binding')] },
+    battlefield: {
+      p1: [cardTemplate('Vampire Recruit', { types: ['Creature'], subtypes: ['Vampire'], power: 2, toughness: 2 })],
+      p2: [cardTemplate('Tall Foe', { types: ['Creature'], power: 6, toughness: 6 })],
+    },
+  }, { random: () => 0.5 })
+  const bishopId = named(server.state, 'Bishop of Binding').id
+  const foeId = named(server.state, 'Tall Foe').id
+  const vampireId = named(server.state, 'Vampire Recruit').id
+
+  const entered = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: bishopId, to: 'battlefield' })))
+  const cage = pendingSelectionFor(entered, 'p1')!
+  let state = resolveStack(server.rules, ok(server.rules(entered, {
+    type: 'selectCards', seat: 'p1', selectionId: cage.id, kind: 'choose', count: cage.count, objectIds: [foeId],
+  })))
+  expect(state.objects[foeId]).toMatchObject({ zone: 'exile', exiledWith: bishopId })
+  state.objects[bishopId].summoningSickness = false
+  state.active = 'p1'
+  state.priority = 'p1'
+  state.step = 'declareAttackers'
+
+  state = ok(server.rules(state, { type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: bishopId, defender: 'p2' }] }))
+  const pump = pendingSelectionFor(state, 'p1')
+  expect(pump).toBeDefined()
+  state = resolveStack(server.rules, ok(server.rules(state, {
+    type: 'selectCards', seat: 'p1', selectionId: pump!.id, kind: 'choose', count: 1, objectIds: [vampireId],
+  })))
+  expect(state.objects[vampireId]).toMatchObject({ power: 8, toughness: 8 })
+})

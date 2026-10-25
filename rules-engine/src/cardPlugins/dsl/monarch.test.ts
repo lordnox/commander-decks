@@ -209,3 +209,34 @@ test('a delayed monarch duration starts at its own trigger rather than its paren
   state = crown(server, state, 'p3')
   expect(named(state, 'Recipient fixture').zone).toBe('battlefield')
 })
+
+test('catalog Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    hands: { p1: [cardTemplate('Palace Jailer')] },
+    battlefield: { p2: [cardTemplate('Jail Hostage', { types: ['Creature'] })] },
+  }, { random: () => 0.5 })
+  const jailerId = named(server.state, 'Palace Jailer').id
+  const hostageId = named(server.state, 'Jail Hostage').id
+  let state = ok(server.rules(server.state, { type: 'move', objectId: jailerId, to: 'battlefield' }))
+  // Both entry triggers are ordered by their controller, then the exile trigger takes its typed target.
+  for (let pick = pendingSelectionFor(state, 'p1'); pick; pick = pendingSelectionFor(state, 'p1')) {
+    state = ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count,
+      objectIds: pick.triggerOrder ? pick.candidates : [hostageId],
+    }))
+    if (!pendingSelectionFor(state, 'p1')) state = resolveStack(server.rules, state)
+  }
+  expect(state.monarch).toBe('p1')
+  expect(state.objects[hostageId]).toMatchObject({ zone: 'exile', exiledWith: jailerId })
+  // The canonical runtime records the opponent-monarch duration on the linked set
+  // (the audited legacy runtime stamped `exiledUntilOpponentMonarch` on the card).
+  const links = (state.linkedExileSets ?? []).filter(set => set.source.objectId === jailerId)
+  expect(links).toHaveLength(1)
+  expect(links[0]).toMatchObject({ untilOpponentMonarch: { player: 'p1' } })
+  expect(links[0].cards.map(card => card.objectId)).toEqual([hostageId])
+  expect(links[0].untilSourceLeaves).toBeUndefined()
+
+  state = ok(server.rules(state, { type: 'becomeMonarch', seat: 'p2' }))
+  expect(state.objects[hostageId].zone).toBe('battlefield')
+})
