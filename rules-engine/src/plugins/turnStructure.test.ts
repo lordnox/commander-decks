@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
+import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { bears, forest, newGame } from '../testGame'
-import type { GameState, ReduceResult, StackItem } from '../types'
+import type { GameEvent, GameState, ReduceResult, StackItem } from '../types'
 import { draw } from '../rules/draw'
 import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { priority } from './priority'
@@ -98,6 +99,51 @@ describe('turnStructure', () => {
     expect(next.step).toBe('draw')
     expect(next.players.p1.lost).toBe(true)
   })
+
+  test.each(['advanceStep', 'passPriority'] as const)(
+    '%s removes combat participation only after endCombat, including journal restore',
+    action => {
+      const base = newGame({
+        builtinRules,
+        battlefield: {
+          p1: [{ ...bears(), attacking: 'p2', blocked: true, damageMarked: 1 }],
+          p2: [bears()],
+        },
+      })
+      const attacker = base.zoneOrder.p1.battlefield[0]
+      const blocker = base.zoneOrder.p2.battlefield[0]
+      base.objects[blocker].blocking = attacker
+      const endCombat = step({ ...base, step: 'combatDamage' })
+      expect(endCombat.step).toBe('endCombat')
+      expect(endCombat.objects[attacker]).toMatchObject({ attacking: 'p2', blocked: true })
+      expect(endCombat.objects[blocker].blocking).toBe(attacker)
+
+      let journal = createJournal(endCombat)
+      switch (action) {
+        case 'advanceStep':
+          journal = recordAccepted(journal, { type: 'advanceStep' })
+          break
+        case 'passPriority':
+          for (const seat of endCombat.playerOrder) {
+            journal = recordAccepted(journal, { type: 'passPriority', seat })
+          }
+          break
+      }
+      const reduce = (state: GameState, event: GameEvent) => rules(state, event, catalog)
+      const expected = journal.events.reduce((state, event) => ok(reduce(state, event)), endCombat)
+      const restored = restoreJournal(JSON.parse(JSON.stringify(journal)), reduce).current()
+      expect(restored).toEqual(expected)
+      expect(restored.step).toBe('postcombatMain')
+      for (const id of [attacker, blocker]) {
+        expect(restored.objects[id].attacking).toBeNull()
+        expect(restored.objects[id].blocking).toBeNull()
+        expect(restored.objects[id].blocked).toBeUndefined()
+      }
+      expect(restored.objects[attacker].damageMarked).toBe(1)
+      expect(endCombat.objects[attacker].blocked).toBe(true)
+      expect(endCombat.objects[blocker].blocking).toBe(attacker)
+    },
+  )
 
   test('cleanup clears damage, combat flags, and mana pools', () => {
     const base = newGame({
