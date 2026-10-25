@@ -122,3 +122,18 @@ test('another-creature sacrifice is paid before the life gain resolves', () => {
   expect(resolved.players.p1.life).toBe(41)
   expect(resolved.objects[creature!].zone).toBe('graveyard')
 })
+
+test('catalog Arcanis the Omnipotent taps to draw three and pays mana to return itself to hand', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Arcanis the Omnipotent', { summoningSickness: false })] },
+    libraries: { p1: [cardTemplate('A'), cardTemplate('B'), cardTemplate('C')] },
+  }, { random: () => 0.5 })
+  const arcanis = server.state.zoneOrder.p1.battlefield[0]
+  let state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 0, U: 2, B: 0, R: 0, G: 0, C: 2 }
+  state = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: arcanis, abilityId: '$.abilities[0]' })))
+  expect(state.zoneOrder.p1.hand).toHaveLength(3)
+  state = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: arcanis, abilityId: '$.abilities[1]' })))
+  expect(state.objects[arcanis].zone).toBe('hand')
+})

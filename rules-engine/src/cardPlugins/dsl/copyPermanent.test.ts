@@ -10,6 +10,9 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
+import { ok, resolveStack } from '../../testHelpers'
+import type { GameState } from '../../types'
 
 test('copy retains the source canonical rule definition',()=>{
  const watcher=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'triggered',activeIn:['battlefield'],on:{kind:'dies',filter:{type:'Creature'}},decisions:{targets:[]},instructions:[{kind:'gainLife',amount:amount(1),targets:ref('controller')}]}])))
@@ -21,4 +24,34 @@ test('copy retains the source canonical rule definition',()=>{
  const copy=Object.values(answer.state.objects).find(o=>o.token&&o.name==='DSL original')!
  expect(copy).toBeDefined()
  expect(copy.ruleDefinition).toEqual(watcher)
+})
+
+test('catalog Wedding Ring copies for the targeted opponent and mirrors their draws', () => {
+  const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    hands: { p1: [cardTemplate('Wedding Ring')] },
+    libraries: { p1: [cardTemplate('Our Draw')], p2: [cardTemplate('Their Draw')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 2 }
+  const ring = named(state, 'Wedding Ring').id
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: ring }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  const pick = pendingPlayerSelectionFor(state, 'p1')
+  expect(pick).toBeDefined()
+  expect(pick!.candidates).toEqual(['p2', 'p3'])
+  state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: pick!.id, players: ['p2'] }))
+  state = resolveStack(server.rules, state)
+  const token = Object.values(state.objects).find((object) => object.name === 'Wedding Ring' && object.id !== ring)!
+  expect(token.controller).toBe('p2')
+  expect(token.token).toBe(true)
+
+  state.active = 'p2'
+  state.priority = 'p2'
+  state = ok(server.rules(state, { type: 'draw', seat: 'p2', count: 1 }))
+  state = resolveStack(server.rules, state)
+  expect(named(state, 'Their Draw').zone).toBe('hand')
+  expect(named(state, 'Our Draw').zone).toBe('hand')
 })

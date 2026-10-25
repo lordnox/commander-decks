@@ -99,3 +99,22 @@ test('an untap instruction cannot affect an entering permanent that left and ret
   const resolved = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
   expect(resolved.objects[id].tapped).toBe(true)
 })
+
+test('catalog Minamo, School at Water\'s Edge untaps a legendary permanent', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [
+      cardTemplate("Minamo, School at Water's Edge"),
+      cardTemplate('Legendary fixture', { types: ['Creature'], supertypes: ['Legendary'], power: 1, toughness: 1, tapped: true }),
+    ] },
+  }, { random: () => 0.5 })
+  const minamo = named(server.state, "Minamo, School at Water's Edge").id
+  const legend = named(server.state, 'Legendary fixture').id
+  const state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.players.p1.mana.U = 1
+  const resolved = resolveStack(server.rules, ok(server.rules(state, {
+    type: 'activateAbility', seat: 'p1', objectId: minamo, abilityId: '$.abilities[0]',
+    targets: [{ kind: 'object', objectId: legend }],
+  })))
+  expect(resolved.objects[legend].tapped).toBe(false)
+})

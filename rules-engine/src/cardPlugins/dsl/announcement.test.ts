@@ -46,6 +46,7 @@ import { beginActivatedAnnouncement } from './compiler/announcement'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
 import type { GameEvent, GameState } from '../../types'
@@ -1083,4 +1084,87 @@ describe('catalog spree and gift announcements', () => {
     const afterEnd = resolveStack(server.rules, advanceToEndStep(server, resolved))
     expect(afterEnd.objects[creatureId].zone).toBe('exile')
   })
+})
+
+// Characterization of current runtime behavior (not a rules-conformance claim); it currently matches the Oracle text.
+test('catalog Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Mulldrifter')] },
+    libraries: { p1: [cardTemplate('First card'), cardTemplate('Second card')] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
+  const mulldrifter = named(ready, 'Mulldrifter')
+  const actions = legalActsFor(ready, 'p1').filter(
+    (action) => action.kind === 'castSpell' && action.objectId === mulldrifter.id,
+  )
+  expect(actions).toContainEqual(expect.objectContaining({
+    selectedAlternativeCost: 0,
+    castLabel: 'Evoke {2}{U}',
+  }))
+  // Three mana cannot pay the printed {4}{U}, so only the evoke payment is offered.
+  expect(actions.some((action) => action.kind === 'castSpell' && action.selectedAlternativeCost === undefined)).toBe(false)
+
+  const cast = reduce(server, ready, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: mulldrifter.id,
+    selectedAlternativeCost: 0,
+  })
+  expect(cast.objects[mulldrifter.id].castCostChoices).toMatchObject({ alternative: 0 })
+  const enteredUnordered = reduce(server, cast, { type: 'resolveTop' })
+  const order = pendingSelectionFor(enteredUnordered, 'p1')!
+  const entered = reduce(server, enteredUnordered, {
+    type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+    count: order.count, objectIds: order.candidates,
+  })
+  expect(entered.objects[mulldrifter.id].zone).toBe('battlefield')
+  expect(entered.stack.map((item) => item.name)).toEqual(['Mulldrifter', 'Mulldrifter'])
+
+  const resolved = resolveStack(server.rules, entered)
+  expect(resolved.zoneOrder.p1.hand.map((id) => resolved.objects[id].name).sort())
+    .toEqual(['First card', 'Second card'])
+  expect(resolved.objects[mulldrifter.id].zone).toBe('graveyard')
+})
+
+// Characterization of current runtime behavior (not a rules-conformance claim); it currently matches the Oracle text.
+test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Snuff Out')] },
+    battlefield: {
+      p1: [cardTemplate('Swamp', { types: ['Land'], subtypes: ['Swamp'] })],
+      p2: [cardTemplate('White Bear', { types: ['Creature'], colors: ['W'], power: 2, toughness: 2 })],
+    },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.life = 5
+  const spell = named(ready, 'Snuff Out')
+  const bear = named(ready, 'White Bear')
+  const payLife: GameEvent = {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: spell.id,
+    selectedAlternativeCost: 0,
+    targets: [{ kind: 'object', objectId: bear.id }],
+  }
+  const cast = reduce(server, ready, payLife)
+  expect(cast.players.p1.life).toBe(1)
+  expect(reduce(server, cast, { type: 'resolveTop' }).objects[bear.id].zone).toBe('graveyard')
+
+  const noSwamp = structuredClone(ready)
+  noSwamp.objects[named(noSwamp, 'Swamp').id].subtypes = []
+  expect(server.rules(noSwamp, payLife).ok).toBe(false)
+
+  noSwamp.rules.push({
+    instanceId: 'urborg-overlay',
+    pluginId: 'swampOverlay',
+    sourceId: null,
+    timestamp: noSwamp.nextTimestamp++,
+    params: {},
+  })
+  expect(server.rules(noSwamp, payLife).ok).toBe(true)
+
+  const lowLife = structuredClone(ready)
+  lowLife.players.p1.life = 3
+  expect(server.rules(lowLife, payLife).ok).toBe(false)
 })

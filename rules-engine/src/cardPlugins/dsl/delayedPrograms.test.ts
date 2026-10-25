@@ -488,3 +488,37 @@ test.each(['creature', 'token', 'noncreature', 'prevented', 'reentered'] as cons
     }
   }
 })
+
+test('catalog Mana Drain counters a spell and pays its mana value as colorless at the next main', () => {
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate('Mana Drain')],
+      p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}', manaValue: 5 })],
+    },
+    libraries: { p1: [cardTemplate('Keep Alive')] },
+  }, { random: () => 0.5 })
+  const named = (state: typeof server.state, name: string) => Object.values(state.objects).find((object) => object.name === name)!
+  let state = structuredClone(server.state)
+  state.active = 'p2'
+  state.priority = 'p2'
+  state.step = 'precombatMain'
+  state.players.p2.mana.G = 1
+  state.players.p2.mana.C = 4
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p2', objectId: named(state, 'Fat Spell').id }))
+  const stackId = state.stack[0]!.id
+  state.priority = 'p1'
+  state.players.p1.mana.U = 2
+  state = ok(server.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Mana Drain').id,
+    targets: [{ kind: 'stackItem', stackId }],
+  }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(named(state, 'Fat Spell').zone).toBe('graveyard')
+  state.active = 'p1'
+  state.priority = 'p1'
+  state.step = 'draw'
+  state = ok(server.rules(state, { type: 'advanceStep' }))
+  state = resolveStack(server.rules, state)
+  expect(state.step).toBe('precombatMain')
+  expect(state.players.p1.mana.C).toBe(5)
+})

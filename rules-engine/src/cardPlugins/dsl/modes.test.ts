@@ -703,3 +703,20 @@ test('activated abilities still reject bounded mode minima', () => {
     }),
   ]))).toThrow('bounded mode counts currently require a spell or triggered announcement')
 })
+
+test('catalog Cryptic Command requires exactly two modes and taps then draws', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Cryptic Command')] },
+    battlefield: { p2: [cardTemplate('Grizzly Bears', { types: ['Creature'], power: 2, toughness: 2 })] },
+    libraries: { p1: [cardTemplate('Bonus')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 0, U: 3, B: 0, R: 0, G: 0, C: 1 }
+  const command = named(state, 'Cryptic Command').id
+  expect(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: command, modeIndices: [3] }).ok).toBe(false)
+  state = reduce(server, state, { type: 'castSpell', seat: 'p1', objectId: command, modeIndices: [2, 3] })
+  state = resolveStack(server.rules, state)
+  expect(named(state, 'Grizzly Bears').tapped).toBe(true)
+  expect(named(state, 'Bonus').zone).toBe('hand')
+})
