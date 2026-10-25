@@ -1,5 +1,3 @@
-import { grantedRulesFor } from './cardPlugins'
-import { effectsFor } from './cardPlugins/cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardPlugins/dsl/cardRuleCatalog'
 import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults } from './definitions'
@@ -117,9 +115,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     const id = `o${nextId}`
     nextId += 1
     const ruleDefinition = template.ruleDefinition ?? cardRuleDefinitionSnapshotFor(template.name)
-    const effects = serializableEffects(
-      template.effects ?? (ruleDefinition ? [] : effectsFor(template.name)),
-    )
+    const effects = serializableEffects(template.effects ?? [])
     objects[id] = {
       ...defaultObject(),
       ...template,
@@ -130,7 +126,6 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       grantedRules: [...new Set([
         ...defaultObject().grantedRules,
         ...(template.grantedRules ?? []),
-        ...grantedRulesFor(template.name),
         ...pluginIdsFromEffects(effects),
       ])],
       effects,

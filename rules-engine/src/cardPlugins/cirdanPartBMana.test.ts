@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
-import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
@@ -17,19 +17,6 @@ import type { GameEvent, GameState } from '../types'
  * Waterlogged Grove, Simic Signet, Wild Growth, Utopia Sprawl and
  * Sea Gate Restoration // Sea Gate, Reborn, built from the deck's Oracle text.
  */
-
-const NAMES = [
-  "Alchemist's Refuge",
-  'Arbor Elf',
-  'Flooded Grove',
-  'Waterlogged Grove',
-  'Simic Signet',
-  'Wild Growth',
-  'Utopia Sprawl',
-  'Sea Gate Restoration // Sea Gate, Reborn',
-]
-
-const PLUGINS = await loadCardPlugins([...NAMES, 'Forest', 'Island', 'Breeding Pool'])
 
 const SEA_GATE = 'Sea Gate Restoration // Sea Gate, Reborn'
 
@@ -49,7 +36,7 @@ const game = (options: {
         p1: Array.from({ length: options.library ?? 12 }, (_, index) => cardTemplate(`Library ${index}`)),
       },
     },
-    { random: () => 0.5, cardPlugins: PLUGINS },
+    { random: () => 0.5 },
   )
 
 type Server = ReturnType<typeof game>

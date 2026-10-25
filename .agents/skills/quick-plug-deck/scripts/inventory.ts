@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { cardDefinition } from '../../../../rules-engine/src/cardPlugins/cardRules'
+import { cardRuleDefinitionSnapshotFor } from '../../../../rules-engine/src/cardPlugins/dsl/cardRuleCatalog'
 
 const [deckArg, outputArg] = process.argv.slice(2)
 if (!deckArg || !outputArg) {
@@ -31,8 +31,8 @@ const rows = manifest.cards
     }))
     const names = [...new Set<string>([entry.name, ...faces.map((face: any) => face.name)])]
     const registrations = names.flatMap((name) => {
-      const definition = cardDefinition(name)
-      return definition ? [{ name, handlers: definition.handlerIds, effect_kinds: definition.effects.map((effect) => effect.op) }] : []
+      const snapshot = cardRuleDefinitionSnapshotFor(name)
+      return snapshot ? [{ name, ability_kinds: snapshot.definition.abilities.map((ability) => ability.kind) }] : []
     })
     return { oracle_id: entry.oracle_id, name: entry.name, quantity: entry.quantity,
       oracle_sha256: digest(JSON.stringify(faces)), faces, registrations, status: 'unknown' }

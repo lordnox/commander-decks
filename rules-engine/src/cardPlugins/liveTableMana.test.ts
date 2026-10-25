@@ -5,7 +5,6 @@ import {
   deckCards,
   deckCardTemplate,
   DECK_DIRECTORIES,
-  loadCardPlugins,
 } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
@@ -368,16 +367,6 @@ const commanderCard = (colors: ManaId[]) => cardTemplate('Test Commander', {
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).filter((object) => object.name === name)
 
-const PLUGINS = await loadCardPlugins([
-  ...Object.keys(SCENARIOS),
-  ...Object.keys(ACT_CASES),
-  'City of Brass',
-  ...[...Object.values(SCENARIOS), ...Object.values(ACT_CASES)].flatMap((scenario) => [
-    ...(scenario.helpers ?? []),
-    ...('opponent' in scenario ? scenario.opponent ?? [] : []),
-  ]),
-])
-
 const build = (
   card: string,
   options: {
@@ -419,7 +408,7 @@ const build = (
       },
       ...(options.commander ? { command: { p1: [commanderCard(options.commander)] } } : {}),
     },
-    { random: () => 0.5, cardPlugins: PLUGINS },
+    { random: () => 0.5 },
   )
   return { server, state: structuredClone(server.state), sourceId: named(server.state, card)[0].id }
 }

@@ -5,8 +5,7 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameState, Plugin } from '../types'
-import { handlerIdsForNames } from './cardRules'
+import type { GameState } from '../types'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 
 /**
@@ -14,20 +13,6 @@ import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
  * has to say where the target must be. A target that moved to another zone in response (exile,
  * graveyard) is then no longer legal and the ability fizzles instead of acting on the card.
  */
-
-const KNOWN = [
-  'Voyager Staff',
-  'Endless Sands',
-]
-
-const plugins = async (): Promise<Plugin[]> =>
-  Promise.all(handlerIdsForNames(KNOWN).map(async (id) => {
-    const module = await import(`./${id}`) as Record<string, unknown>
-    const plugin = Object.values(module).find((value): value is Plugin =>
-      typeof value === 'object' && value !== null && (value as Plugin).id === id)
-    if (!plugin) throw new Error(`no plugin ${id}`)
-    return plugin
-  }))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -101,7 +86,7 @@ describe('Voyager Staff', () => {
           card('Own Plains', ['Land'], { subtypes: ['Plains'] })],
         p2: [creature('Foe Bear')],
       },
-    }, { random: () => 0.5, cardPlugins: await plugins() })
+    }, { random: () => 0.5 })
     return { server, state: ready(server.state) }
   }
   const BLINK = canonicalScopeId(0)
@@ -147,7 +132,7 @@ describe('Otawara, Soaring City', () => {
       players: 2,
       hands: { p1: [card('Otawara, Soaring City', ['Land'], { supertypes: ['Legendary'] })] },
       battlefield: { p2: [creature('Foe Bear')] },
-    }, { random: () => 0.5, cardPlugins: await plugins() })
+    }, { random: () => 0.5 })
     return { server, state: ready(server.state) }
   }
 
@@ -167,7 +152,7 @@ describe('Boseiju, Who Endures', () => {
       hands: { p1: [card('Boseiju, Who Endures', ['Land'], { supertypes: ['Legendary'] })] },
       battlefield: { p2: [card('Utility Land', ['Land'])] },
       libraries: { p2: [card('Basic Swamp', ['Land'], { supertypes: ['Basic'], subtypes: ['Swamp'] })] },
-    }, { random: () => 0.5, cardPlugins: await plugins() })
+    }, { random: () => 0.5 })
     return { server, state: ready(server.state) }
   }
 

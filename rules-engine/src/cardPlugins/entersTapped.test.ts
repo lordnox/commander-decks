@@ -8,7 +8,7 @@ import type { GameState, ReduceResult } from '../types'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 
-import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {catalogEntry, deckCards} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import {pendingOptionSelection} from '../rules/selectOptions'
@@ -279,8 +279,6 @@ describe('entersTapped', () => {
   })
 })
 
-const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
-const kambalPlugins = await loadCardPlugins(kambalNames)
 const kambalFixture = (name: string) => {
   const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
   const catalog = catalogEntry(entry)
@@ -292,7 +290,7 @@ const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRu
   hands: { p1: [kambalFixture(name)] },
   battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
   libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
-}, { random: () => 0.5, cardPlugins: kambalPlugins })
+}, { random: () => 0.5 })
 
 describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts', () => {
   test.each([0, 1, 2, 3, 4])('Courtyard checks other lands at %i', (count) => {

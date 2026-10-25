@@ -1,5 +1,4 @@
 import type { FaceCharacteristics, GameObject, Plugin, RoomDoorId } from '../types'
-import { effectsOf } from '../cardPlugins/cardRules'
 import {
   adventureFaceOf,
   applyFace,
@@ -14,7 +13,7 @@ import { roomDoor } from './rooms'
 export const asAdventureSpell = (object: GameObject) => {
   const face = adventureFaceOf(object)
   if (!face) return undefined
-  return { ...object, ...face, effects: effectsOf({ name: object.name, ...face }) }
+  return { ...object, ...face, effects: [] }
 }
 
 export const resolveCastFace = (

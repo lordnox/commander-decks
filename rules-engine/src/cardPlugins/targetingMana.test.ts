@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
-import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
@@ -575,8 +575,6 @@ describe('saga chapter builders', () => {
   })
 })
 
-const RESTRICTED_MANA_PLUGINS = await loadCardPlugins(['Delighted Halfling'])
-
 const restrictedManaGame = () =>
   createServerGame(
     commanderRules,
@@ -596,7 +594,7 @@ const restrictedManaGame = () =>
         ],
       },
     },
-    { random: () => 0.5, cardPlugins: RESTRICTED_MANA_PLUGINS },
+    { random: () => 0.5 },
   )
 
 const tapRestricted = (state: GameState, mana?: 'C' | 'G') => {

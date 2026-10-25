@@ -15,7 +15,7 @@ Resolve the requested deck and run its existing validator. Reuse the session wor
 bun .agents/skills/quick-plug-deck/scripts/inventory.ts decks/<deck> /private/tmp/<deck>-engine-inventory.json
 ```
 
-The file contains every included unique card, quantities, Oracle text for each face, candidate registrations, effect kinds, handler IDs, and input fingerprints. Console output is counts only. A registration is a search lead, never a supported verdict. No registration can be correct for behavior handled entirely by built-in rules. Tokens and alternate faces still require coverage.
+The file contains every included unique card, quantities, Oracle text for each face, candidate canonical catalog registrations with their ability kinds, and input fingerprints. Console output is counts only. A registration is a search lead, never a supported verdict. No registration can be correct for behavior handled entirely by built-in rules. Tokens and alternate faces still require coverage.
 
 Read rules-engine/DESIGN.md once. Keep a compact coverage file beside the inventory: one row per Oracle ID with `covered`, `gap`, or `unknown`, exact behavior gap, source/test evidence, and dependency. Include basic lands. Do not dump all cache objects, source modules, or passing test output into context. Read inventory in batches, then use `rg` and narrow line ranges to inspect relevant registrations, builders, and tests. Follow only imports needed to establish behavior.
 

@@ -44,10 +44,6 @@ When creating or migrating a canonical card definition in `rules-engine/src/card
 
 Derive applicable engine fields (such as colors, mana cost, mana value, and card types) and DSL costs from the embedded data instead of maintaining duplicate literals. Parse type lines and card faces as appropriate for the card; do not treat a complete type line as a single card type for cards with supertypes or subtypes. Keep the Oracle text and source identifiers intact for review. Refresh the embedded snapshot explicitly when updating the card. The shared cache remains available for deck resolution and cards without engine definitions; this rule does not require retrofitting unrelated existing definitions.
 
-## Card registration order
-
-When adding cards to `CARD_RULES` in `rules-engine/src/cardPlugins/cardRules.ts`, insert each registration in alphabetical order by its exact Unicode card-name key. Keep card-specific comments with their registration. Preserve this order until the object is removed; this rule does not apply to `cardRuleCatalog.ts`, whose entries stay grouped with their inlined templates.
-
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:

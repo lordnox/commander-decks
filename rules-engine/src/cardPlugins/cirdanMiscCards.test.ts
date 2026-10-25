@@ -9,7 +9,7 @@ import { ward as wardPlugin } from './ward'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameState, Plugin } from '../types'
+import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
   applyKernelAct,
@@ -32,7 +32,6 @@ const applyKernelChoice = (
     : {}),
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import { handlerIdsForNames } from './cardRules'
 
 const ROOT = new URL('../../../', import.meta.url).pathname
 const NAMES = JSON.parse(readFileSync(`${ROOT}cards/index.json`, 'utf8')).names as Record<string, string>
@@ -129,21 +128,11 @@ const passUntilResolved = (kernel: KernelHandle) => {
   throw new Error('stack did not resolve')
 }
 
-const knownPlugins = async (cardNames: string[]) =>
-  Promise.all(handlerIdsForNames(cardNames).map(async (id) => {
-    const module = await import(`./${id}`) as Record<string, unknown>
-    const plugin = Object.values(module).find((value): value is Plugin =>
-      typeof value === 'object' && value !== null && (value as Plugin).id === id)
-    if (!plugin) throw new Error(`no plugin ${id}`)
-    return plugin
-  }))
-
 describe('Dig Through Time', () => {
   const TOP = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
   const GRAVE = ['Grave 1', 'Grave 2', 'Grave 3', 'Grave 4', 'Grave 5', 'Grave 6', 'Grave 7']
 
   const setup = async () => {
-    const plugins = await knownPlugins(['Dig Through Time'])
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: {
@@ -154,12 +143,12 @@ describe('Dig Through Time', () => {
         p1: [...TOP, 'Rest A', 'Rest B'].map((name) => cardTemplate(name, { types: ['Sorcery'] })),
         p2: [cardTemplate('Opposing Secret', { types: ['Sorcery'] })],
       },
-    }, { random: () => 0.5, cardPlugins: plugins })
+    }, { random: () => 0.5 })
     let state = server.state
     for (const name of GRAVE) {
       state = ok(server.rules(state, { type: 'move', objectId: named(state, name).id, to: 'graveyard' }))
     }
-    return { server, state, plugins }
+    return { server, state }
   }
 
   test('a human delves six cards, taps two Islands, and picks two cards through a restart', async () => {
@@ -321,14 +310,13 @@ describe('Kiora Bests the Sea God', () => {
   })
 
   const setup = async (lore?: number) => {
-    const plugins = await knownPlugins(['Kiora Bests the Sea God'])
     const kiora = real('Kiora Bests the Sea God', lore === undefined ? {} : { counters: { lore } })
     const server = createServerGame(commanderRules, {
       players: 3,
       hands: lore === undefined ? { p1: [kiora] } : {},
       battlefield: { ...permanents(), ...(lore === undefined ? {} : { p1: [island('Own Island'), kiora] }) },
       libraries: { p1: filler('A', 12), p2: filler('B', 12), p3: filler('C', 12) },
-    }, { random: () => 0.5, cardPlugins: plugins })
+    }, { random: () => 0.5 })
     return { server, state: server.state }
   }
 
@@ -526,7 +514,7 @@ describe('Kiora Bests the Sea God', () => {
         p2: [creature('Warded Foe', { oracleText: 'Ward {5}' })],
       },
       libraries: { p1: filler('A', 12), p2: filler('B', 12), p3: filler('C', 12) },
-    }, { random: () => 0.5, cardPlugins: [...await knownPlugins(['Kiora Bests the Sea God']), wardPlugin] })
+    }, { random: () => 0.5, cardPlugins: [wardPlugin] })
     const kernel = handleFor(wardedGame.rules, wardedGame.state)
     intoNextChapter(kernel, wardedGame.state)
     const stacked = chooseSteal(wardedGame, kernel.history.current(), 'Warded Foe')
@@ -539,7 +527,6 @@ describe('Kiora Bests the Sea God', () => {
 describe('Nezahal, Primal Tide', () => {
   const HELD = ['Held 1', 'Held 2', 'Held 3', 'Held 4', 'Held 5']
   const setup = async (onBattlefield = true) => {
-    const plugins = await knownPlugins(['Nezahal, Primal Tide', 'Counterspell'])
     const server = createServerGame(commanderRules, {
       players: 3,
       hands: {
@@ -556,7 +543,7 @@ describe('Nezahal, Primal Tide', () => {
       },
       battlefield: { p1: onBattlefield ? [real('Nezahal, Primal Tide')] : [] },
       libraries: { p1: filler('Lib', 6), p2: filler('Opp Lib', 3), p3: filler('P3 Lib', 3) },
-    }, { random: () => 0.5, cardPlugins: plugins })
+    }, { random: () => 0.5 })
     return { server, state: server.state }
   }
 
@@ -612,7 +599,6 @@ describe("Rishkar's Expertise", () => {
     libraryCount?: number
     library?: CardTemplate[]
   } = {}) => {
-    const plugins = await knownPlugins(["Rishkar's Expertise"])
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [real("Rishkar's Expertise"), ...(options.hand ?? [])] },
@@ -624,7 +610,7 @@ describe("Rishkar's Expertise", () => {
         p2: [creature('Huge Foe', { power: 9, toughness: 9 })],
       },
       libraries: { p1: options.library ?? filler('Lib', options.libraryCount ?? 12, ['Creature'], 2) },
-    }, { random: () => 0.5, cardPlugins: plugins })
+    }, { random: () => 0.5 })
     return { server, state: server.state }
   }
 

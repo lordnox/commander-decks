@@ -7,7 +7,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
-import { effectsFor } from './cardRules'
 import { cycling } from './cycling'
 import { entersTapped } from './entersTapped'
 import { librarySearch } from './librarySearch'
@@ -41,7 +40,6 @@ describe('land-search privacy integrations (#403)', () => {
   test('Expedition Map sacrifices itself and opens a hidden library search', () => {
     const map = cardTemplate('Expedition Map', {
       types: ['Artifact'],
-      effects: effectsFor('Expedition Map'),
     })
     const found = plains()
     const server = createServerGame(
@@ -70,7 +68,6 @@ describe('land-search privacy integrations (#403)', () => {
     const map = cardTemplate("Archaeomancer's Map", {
       types: ['Artifact'],
       manaCost: '{2}{W}',
-      effects: effectsFor("Archaeomancer's Map"),
     })
     const p1 = plains()
     const p2 = cardTemplate('Plains Two', {

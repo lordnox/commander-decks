@@ -5,7 +5,7 @@ import { hasKeyword } from '../../keywords'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import { CARD_RULES, effectsFor, effectsOf } from '../cardRules'
+import { effectsOf } from '../cardRules'
 import { draw as legacyDraw, enters } from '../effects'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 import { card, compileCardRuleDefinition, createDefinitionSnapshot, keyword, loadDefinitionSnapshot } from './v1'
@@ -67,13 +67,9 @@ test('journal restore preserves the stamped snapshot revision', () => {
   expect(loadDefinitionSnapshot(restored.objects[id]!.ruleDefinition!).definitionRevision).toBe(snapshot.definitionRevision)
 })
 
-// Temporary compatibility contracts disappear with the legacy registry. Choose
-// an actual remaining key rather than making a particular card stay unmigrated.
-test('every former CARD_RULES registration is authored in the canonical catalog', () => {
-  expect(Object.keys(CARD_RULES)).toEqual([])
+test('former legacy registrations are authored in the canonical catalog', () => {
   for (const name of ['Concordant Crossroads', 'Everybody Lives!', 'Kuroki, Thief of Talents', 'Perch Protection', 'Snuff Out']) {
     expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
-    expect(effectsFor(name)).toEqual([])
   }
 })
 
