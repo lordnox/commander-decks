@@ -33,7 +33,49 @@ const clone = (except?: Parameters<typeof copyAsEntry>[0]['except']) =>
     }))]),
   })
 
+const walkerCopyingCreature = () => cardTemplate('Walker copy fixture', {
+  types: ['Planeswalker'],
+  printedLoyalty: 3,
+  ruleDefinition: snapshot([staticAbility(copyAsEntry({
+    filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'you', other: true }),
+  }))]),
+})
+
+const copyWalkerAsCreature = (enterCounters?: Readonly<Record<string, number>>) => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [walkerCopyingCreature()] },
+    battlefield: { p1: [cardTemplate('Creature original', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const paused = ok(server.rules(server.state, {
+    type: 'move', objectId: id, to: 'battlefield', ...(enterCounters ? { enterCounters } : {}),
+  }))
+  const original = named(paused, 'Creature original')
+  return ok(server.rules(paused, {
+    type: 'selectCards',
+    seat: 'p1',
+    selectionId: pendingSelectionFor(paused, 'p1')!.id,
+    kind: 'choose',
+    count: 1,
+    objectIds: [original.id],
+  })).objects[id]
+}
+
 describe('copy as entry', () => {
+  test('a planeswalker copied into a creature does not keep printed loyalty counters', () => {
+    const copied = copyWalkerAsCreature()
+
+    expect(copied.types).toEqual(['Creature'])
+    expect(copied.counters).not.toHaveProperty('loyalty')
+  })
+
+  test('explicit entry loyalty counters survive a copy that becomes a creature', () => {
+    const copied = copyWalkerAsCreature({ loyalty: 2 })
+
+    expect(copied.types).toEqual(['Creature'])
+    expect(copied.counters.loyalty).toBe(2)
+  })
+
   test('an optional clone copies another creature you control with extra counters', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [clone({ notLegendary: true })] },

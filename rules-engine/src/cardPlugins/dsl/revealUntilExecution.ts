@@ -1,4 +1,5 @@
 import type Draft from '../../draft'
+import { setEntryLoyalty } from '../../definitions'
 import { objectIdentity } from '../../objectIdentity'
 import { markKnownToAll } from '../../knowledge'
 import { openCardSelection } from '../../rules/selectCards'
@@ -120,7 +121,10 @@ export const runRevealUntil = (
 
   if (applyImmediately) {
     for (const event of events) {
-      if (event.type === 'move') draft.move(event.objectId, event.to)
+      if (event.type === 'move') {
+        const moved = draft.move(event.objectId, event.to)
+        if (event.to === 'battlefield' && moved) setEntryLoyalty(moved)
+      }
       else draft.enqueue(event)
     }
   }

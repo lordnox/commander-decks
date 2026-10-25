@@ -2,7 +2,7 @@ import { withReferencedObjects } from './rules/canonicalReferences'
 import { STUN_COUNTER } from './rules/untap'
 import { hasWorldSupertype } from './rules/worldSupertype'
 import type { CardInstruction } from './cardPlugins/effects'
-import { counterPtBonus, setEntryLoyalty } from './definitions'
+import { counterPtBonus } from './definitions'
 import { captureObject, pinTarget, refreshExecutionReferences, snapshotObject } from './objectIdentity'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
@@ -160,7 +160,6 @@ export const makeDraft = (state: GameState): Draft => {
       if (to === 'battlefield' && hasWorldSupertype(object)) object.worldTimestamp = object.battlefieldTimestamp
       else delete object.worldTimestamp
     }
-    if (from !== to && to === 'battlefield') setEntryLoyalty(object)
     if (from === 'battlefield' && to !== 'battlefield') {
       delete object.attachedToRef
       // CR 400.7: the object that arrives is new, so counters do not follow it.
