@@ -58,6 +58,7 @@ const enterAndChoose = (
   server: ReturnType<typeof createServerGame>,
   sourceId: string,
   targetIds: string[],
+  count = 1,
 ) => {
   const entered = ok(server.rules(server.state, { type: 'move', objectId: sourceId, to: 'battlefield' }))
   expect(pendingSelectionFor(entered, 'p1')).toBeDefined()
@@ -65,7 +66,7 @@ const enterAndChoose = (
     type: 'selectCards',
     seat: 'p1',
     kind: 'choose',
-    count: 1,
+    count,
     objectIds: targetIds,
   }))
 }
@@ -194,4 +195,33 @@ test('a sacrificed activated source returns its linked creature after leaving', 
   const returned = resolveStack(server.rules, announced)
   expect(returned.objects[creature]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
   expect(returned.objects[source].zone).toBe('graveyard')
+})
+
+
+test.each([0, 1, 2, 3])('linked exile accepts up to three graveyard targets across owners (%s chosen)', count => {
+  const source = cardTemplate('Graveyard linker', {
+    types: ['Land'],
+    ruleDefinition: compileCreature([
+      whenever(self.enters, {
+        decisions: { targets: [select({ filter: objects({ zone: 'graveyard' }), min: 0, max: 3 })] },
+        instructions: [linkExile({ targets: target(0) })],
+      }),
+    ]),
+  })
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [source] },
+    libraries: {
+      p1: [cardTemplate('Owned graveyard card', { zone: 'graveyard' })],
+      p2: [cardTemplate('Other graveyard card', { zone: 'graveyard' }), cardTemplate('Third graveyard card', { zone: 'graveyard' })],
+    },
+  }, { random: () => 0.5 })
+  const sourceId = named(server.state, 'Graveyard linker').id
+  const candidates = [...server.state.zoneOrder.p1.graveyard, ...server.state.zoneOrder.p2.graveyard]
+  const targets = candidates.slice(0, count)
+  const resolved = resolveStack(server.rules, enterAndChoose(server, sourceId, targets, 3))
+  expect(resolved.objects[sourceId].exiledCards ?? []).toEqual(targets)
+  for (const id of candidates) {
+    expect(resolved.objects[id].zone).toBe(targets.includes(id) ? 'exile' : 'graveyard')
+    expect(resolved.objects[id].exiledWith).toBe(targets.includes(id) ? sourceId : undefined)
+  }
 })

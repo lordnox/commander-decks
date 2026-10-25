@@ -55,26 +55,6 @@
     "digest": "760fb01a65dc31db7471afb298b4d35dde7d3ff69a3ecaec9e897a7c6f4689c9"
   },
   {
-    "path": "rules-engine/src/cardPlugins/pit-of-offerings.ts",
-    "code": "literal-name-dispatch",
-    "digest": "5dd0fd9d35c0e0b8a2b5f870bcd93d611703a95e713a53fb4b0baa5fa04cfe8b"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/pit-of-offerings.ts",
-    "code": "literal-name-dispatch",
-    "digest": "7e33707d15cc9153a07150498e990eb80dd5b9ba8372907dd9558e4da0b708b1"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/pit-of-offerings.ts",
-    "code": "literal-name-dispatch",
-    "digest": "facf7b17e5f626be9bc9b7beebb09d01d810254db3da4d9a9824778634009bf0"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/pit-of-offerings.ts",
-    "code": "literal-name-dispatch",
-    "digest": "fb854dc1d744cdab93e95eacc24bc4a6a61021b0999960511609ed8583002972"
-  },
-  {
     "path": "rules-engine/src/cardPlugins/randomExileCopy.ts",
     "code": "custom-picker-event",
     "digest": "7052646c09b8064893f1778a7f11f1d22c46feae8e49f79bb20a4630f0d67505"
