@@ -1,10 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
+import { makeDraft } from '../../draft'
 import { cardTemplate, forest } from '../../newGame'
+import { captureObject } from '../../objectIdentity'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
+import { runRevealUntil, type RevealUntilInstruction } from './revealUntilExecution'
 import { instructionSpell } from './instructionTestSupport'
 import { choice, move, objects, ref, revealUntil, REVEAL_UNTIL_REST } from './v1'
 
@@ -14,6 +17,29 @@ const named = (state: GameState, name: string) =>
 const card = (name: string, types: string[]) => cardTemplate(name, { types })
 
 describe('revealUntil', () => {
+  test('immediate replacement moves initialize printed loyalty on a planeswalker entering the battlefield', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Replacement source', { types: ['Enchantment'] })] },
+      libraries: { p1: [cardTemplate('Library Walker', { types: ['Planeswalker'], printedLoyalty: 3 })] },
+    }, { random: () => 0 })
+    const draft = makeDraft(server.state)
+    const source = draft.objects[draft.zoneOrder.p1.battlefield[0]!]!
+    const instruction = revealUntil({
+      targets: ref('controller'),
+      match: objects({ zone: 'library', type: 'Planeswalker' }),
+      foundTo: 'battlefield',
+      rest: REVEAL_UNTIL_REST.keep,
+    })
+    runRevealUntil(draft, {
+      state: draft,
+      controller: 'p1',
+      source: captureObject(source),
+      occurrence: { kind: 'event', eventType: 'draw', player: 'p1' },
+    }, instruction as RevealUntilInstruction, { id: source.id, name: source.name }, { applyImmediately: true })
+    expect(named(draft, 'Library Walker').zone).toBe('battlefield')
+    expect(named(draft, 'Library Walker').counters.loyalty).toBe(3)
+  })
+
   test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

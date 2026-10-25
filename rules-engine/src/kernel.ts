@@ -883,8 +883,8 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         if (event.copyOf) {
           const copied = draft.object(event.copyOf.objectId)
           if (copied && isSameObject(copied, event.copyOf)) applyCopy(object, copied, event.copyExcept ?? {})
-          setEntryLoyalty(object)
         }
+        setEntryLoyalty(object)
         if (event.enterCounters) {
           const before = counterPtBonus(object)
           for (const [counter, count] of Object.entries(event.enterCounters)) {

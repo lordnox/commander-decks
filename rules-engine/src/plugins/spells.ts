@@ -1,5 +1,5 @@
 import { canPayLife } from '../rules/lifePayments'
-import { isPermanentType } from '../definitions'
+import { isPermanentType, setEntryLoyalty } from '../definitions'
 import { hasKeyword } from '../keywords'
 import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
 import { captureObject } from '../objectIdentity'
@@ -1252,6 +1252,7 @@ export const spells: Plugin = {
           object.enteredWithTimesKicked = resolvedTimesKicked
         }
         draft.move(object.id, 'battlefield')
+        setEntryLoyalty(object)
         object.enteredBattlefieldTurn = draft.turn
         object.summoningSickness = true
         const auraTarget = item.targets[0]
