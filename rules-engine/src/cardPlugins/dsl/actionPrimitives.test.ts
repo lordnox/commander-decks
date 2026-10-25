@@ -145,6 +145,10 @@ test('targeted draw and life loss resolve once for the chosen player', () => {
     libraries: { p2: ['Draw One', 'Draw Two', 'Draw Three'].map(name => cardTemplate(name)) },
   }, { random: () => 0 })
   const spell = server.state.objects[server.state.zoneOrder.p1.hand[0]!]!
+  expect(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: spell.id,
+    targets: [{ kind: 'object', objectId: spell.id }],
+  }).ok).toBe(false)
   const cast = ok(server.rules(server.state, {
     type: 'castSpell', seat: 'p1', objectId: spell.id,
     targets: [{ kind: 'player', player: 'p2' }],
