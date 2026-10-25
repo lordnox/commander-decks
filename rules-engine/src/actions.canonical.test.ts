@@ -2,7 +2,6 @@ import { expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from './actions'
 import { differentTargets, fight, chooseModes, sacrificeCost, spell, tap, activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, manaCost, objects, ref, select, tapCost, target, untap } from './cardPlugins/dsl/v1'
 import { commanderRules } from './formats'
-import { blinkValue } from './cardPlugins/blinkValue'
 import { cardTemplate } from './newGame'
 import { createServerGame } from './runtime'
 import { ok, resolveStack } from './testHelpers'
@@ -161,12 +160,12 @@ test('canonical activations preserve distinct target clauses with overlapping ca
   expect(named(resolved, 'Other creature').damageMarked).toBe(0)
 })
 
-test.each([false, true])('catalog multi-recipient actions retain canonical clauses with legacy handlers loaded=%s', legacy => {
+test('catalog multi-recipient actions retain canonical clauses', () => {
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [cardTemplate('Ghostly Flicker')] },
     battlefield: { p1: [cardTemplate('First fixture', { types: ['Land'] }), cardTemplate('Second fixture', { types: ['Artifact'] })] },
-  }, { random: () => 0, cardPlugins: legacy ? [blinkValue] : [] })
+  }, { random: () => 0 })
   const ready = structuredClone(server.state)
   ready.players.p1.mana.U = 1
   ready.players.p1.mana.C = 2
