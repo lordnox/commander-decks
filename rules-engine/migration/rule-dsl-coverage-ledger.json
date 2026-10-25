@@ -762,7 +762,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
+          "rules-engine/src/cardPlugins/dsl/blink.test.ts:105 — test('blink rejects player recipients, object controller references and malformed options', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2975 — test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:810 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:824 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {",
@@ -5206,7 +5206,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 267,
+        "matches": 268,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2123 — test('a search reads the whole library, not only the cards it may take', () => {",
