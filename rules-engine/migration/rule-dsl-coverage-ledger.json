@@ -336,7 +336,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3563 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {"
+          "live-runner/src/kernelHost.test.ts:3523 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {"
         ]
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
@@ -1195,7 +1195,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:517 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:507 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1644 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1986 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
@@ -1417,7 +1417,7 @@
         "matches": 81,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:493 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:483 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:74 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
@@ -1996,7 +1996,7 @@
       "candidateEvidence": {
         "matches": 92,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3295 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3255 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:68 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
@@ -2426,7 +2426,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3296 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3256 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/rules/selectPlayers.test.ts:28 — test('selectPlayers rejects stale and duplicate typed target submissions', () => {"
         ]
       },
@@ -3633,13 +3633,13 @@
         "matches": 21,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
-          "live-runner/src/kernelHost.test.ts:1046 — test('a restored private choice survives a host restart', async () => {",
-          "live-runner/src/kernelHost.test.ts:3871 — test('a top-of-library choice preserves its revealed order', () => {",
+          "live-runner/src/kernelHost.test.ts:1006 — test('a restored private choice survives a host restart', async () => {",
+          "live-runner/src/kernelHost.test.ts:3831 — test('a top-of-library choice preserves its revealed order', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2812 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
-          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:50 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
+          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:59 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3943,7 +3943,7 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1301 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:67 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:285 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2179 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
@@ -4419,7 +4419,7 @@
       "candidateEvidence": {
         "matches": 41,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:517 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:507 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:164 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1644 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
@@ -4470,9 +4470,9 @@
           "live-runner/src/decisions.test.ts:304 — test('catches a turn that ended over the limit', () => {",
           "live-runner/src/decisions.test.ts:324 — test('discarding records the card and ends the turn', () => {",
           "live-runner/src/host.test.ts:175 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "live-runner/src/kernelHost.test.ts:3119 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
-          "live-runner/src/kernelHost.test.ts:3243 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3984 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
+          "live-runner/src/kernelHost.test.ts:3079 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
+          "live-runner/src/kernelHost.test.ts:3203 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3944 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4508,9 +4508,9 @@
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1079 — test('a host restart rebuilds an open dredge replacement choice', () => {",
-          "live-runner/src/kernelHost.test.ts:1121 — test('a host restart rebuilds and resumes an Abundance draw choice', () => {",
-          "live-runner/src/kernelHost.test.ts:493 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:1039 — test('a host restart rebuilds an open dredge replacement choice', () => {",
+          "live-runner/src/kernelHost.test.ts:1081 — test('a host restart rebuilds and resumes an Abundance draw choice', () => {",
+          "live-runner/src/kernelHost.test.ts:483 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/opening.test.ts:151 — test('keeps seven for free, then bottoms after a second mulligan', () => {",
           "live-runner/src/opening.test.ts:169 — test('requires selected bottoms after the free mulligan is used', () => {",
           "live-runner/src/opening.test.ts:182 — test('cheat keeps all seven without bottoming', () => {"
@@ -4779,7 +4779,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/brain.test.ts:154 — test('smart mode omits a human with no plausible game action', () => {",
-          "live-runner/src/kernelHost.test.ts:2745 — test('declares and pays for taxed blocks without judge fallback', async () => {",
+          "live-runner/src/kernelHost.test.ts:2705 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:28 — test('rejects administrative, nested, and unexplained fallbacks', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:49 — test('keeps committed primitive effects when a later fallback continuation is illegal', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:9 — test('runs primitive effects through the normal reducer and traces the fallback', () => {"
@@ -5150,8 +5150,8 @@
         "matches": 268,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
-          "live-runner/src/kernelHost.test.ts:2123 — test('a search reads the whole library, not only the cards it may take', () => {",
-          "live-runner/src/kernelHost.test.ts:3435 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
+          "live-runner/src/kernelHost.test.ts:3395 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:120 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:163 — test('stamped creature filter copies power and toughness', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:194 — test('rejects targets outside the stamped filter', () => {",
@@ -5174,7 +5174,7 @@
         "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:332 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
-          "live-runner/src/kernelHost.test.ts:452 — test('publishes the server option bounds and actual source label', () => {"
+          "live-runner/src/kernelHost.test.ts:442 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5191,9 +5191,9 @@
       "candidateEvidence": {
         "matches": 66,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3325 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
-          "live-runner/src/kernelHost.test.ts:4342 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
-          "live-runner/src/kernelHost.test.ts:783 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
+          "live-runner/src/kernelHost.test.ts:3285 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:4302 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
+          "live-runner/src/kernelHost.test.ts:773 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:129 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
@@ -5397,7 +5397,7 @@
       "candidateEvidence": {
         "matches": 22,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1301 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:67 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2179 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
@@ -5510,7 +5510,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:442 — test('publishes the server option bounds and actual source label', () => {",
+          "live-runner/src/kernelHost.test.ts:432 — test('publishes the server option bounds and actual source label', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {",
           "rules-engine/src/cardPlugins/spreeCast.test.ts:85 — test('opens Spree mode choice before paying mana, then casts with selected modes', () => {"
         ]
@@ -5534,7 +5534,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1906 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
+          "live-runner/src/kernelHost.test.ts:1866 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5612,7 +5612,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3138 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
+          "live-runner/src/kernelHost.test.ts:3098 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5631,7 +5631,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:4075 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
+          "live-runner/src/kernelHost.test.ts:4035 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5713,7 +5713,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3212 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3172 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:167 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:90 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
         ]
@@ -5855,7 +5855,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1863 — test('a generic pending dialog can put several permanent cards from hand', () => {",
+          "live-runner/src/kernelHost.test.ts:1823 — test('a generic pending dialog can put several permanent cards from hand', () => {",
           "rules-engine/src/cardPlugins/vote.test.ts:356 — test('counts read from the vote parameterize later instructions', () => {"
         ]
       },
@@ -5977,7 +5977,7 @@
         "samples": [
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "live-runner/src/host.test.ts:130 — test('a restored private choice keeps its dialog action', async () => {",
-          "live-runner/src/kernelHost.test.ts:1051 — test('a restored private choice survives a host restart', async () => {",
+          "live-runner/src/kernelHost.test.ts:1011 — test('a restored private choice survives a host restart', async () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2824 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2857 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
           "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:394 — test('land search ignores a modal card whose front face is a sorcery', () => {",
@@ -6003,7 +6003,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3594 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:3554 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/dsl/ward.test.ts:65 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
         ]
       },
@@ -6190,9 +6190,9 @@
         "matches": 31,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "live-runner/src/kernelHost.test.ts:2358 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
-          "live-runner/src/kernelHost.test.ts:2407 — test('casts one Room half and later unlocks the other from structured acts', () => {",
-          "live-runner/src/kernelHost.test.ts:3165 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2318 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
+          "live-runner/src/kernelHost.test.ts:2367 — test('casts one Room half and later unlocks the other from structured acts', () => {",
+          "live-runner/src/kernelHost.test.ts:3125 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/dsl/adventure.test.ts:58",
           "rules-engine/src/cardPlugins/dsl/adventure.test.ts:68",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts:10 — test('ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces', () => {",
@@ -6273,7 +6273,7 @@
       "candidateEvidence": {
         "matches": 17,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2812 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2772 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:26",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:105 — test('leaving the lord removes the grant before another sliver enters', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:12",
@@ -9180,12 +9180,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          126,
-          127
+          123,
+          124
         ],
         "samples": [
-          "126: if (event.type === 'move') draft.move(event.objectId, event.to)",
-          "127: else draft.enqueue(event)"
+          "123: if (event.type === 'move') draft.move(event.objectId, event.to)",
+          "124: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

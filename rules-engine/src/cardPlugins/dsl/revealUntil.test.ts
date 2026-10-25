@@ -40,7 +40,16 @@ describe('revealUntil', () => {
       seat: 'p1',
       objectId: named(server.state, 'Instruction fixture').id,
     }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const result = server.rules(state, { type: 'resolveTop' })
+    state = ok(result)
+    expect(result.trace.filter(entry => entry.outcome === 'applied' && entry.event.type === 'reveal').map(entry => entry.event)).toEqual([{
+      type: 'reveal', seat: 'p1',
+      objectIds: [named(state, 'First Spell').id, named(state, 'Wanted Land').id],
+      source: 'Instruction fixture',
+    }])
+    expect(state.log.filter(line => line.includes('reveals'))).toEqual([
+      'p1 reveals First Spell, Wanted Land for Instruction fixture',
+    ])
     expect(named(state, 'Wanted Land').zone).toBe('hand')
     const order = pendingSelectionFor(state, 'p1')!
     expect(order.candidates.map((id) => state.objects[id].name)).toEqual(['First Spell'])
@@ -54,6 +63,9 @@ describe('revealUntil', () => {
     state = resolveStack(server.rules, state)
     expect(named(state, 'First Spell').zone).toBe('library')
     expect(named(state, 'Next Spell').zone).toBe('library')
+    expect(state.log.filter(line => line.includes('reveals'))).toEqual([
+      'p1 reveals First Spell, Wanted Land for Instruction fixture',
+    ])
   })
 })
 

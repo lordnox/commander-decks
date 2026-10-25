@@ -66,9 +66,6 @@ export const runRevealUntil = (
     if (revealed.length === 0) continue
 
     markKnownToAll(draft, revealed)
-    draft.note(`${seat} reveals ${
-      revealed.map((id) => draft.objects[id]?.name).filter(Boolean).join(', ')
-    } for ${source.name}`)
     events.push({
       type: 'reveal',
       seat,
