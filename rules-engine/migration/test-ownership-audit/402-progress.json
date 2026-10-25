@@ -25,12 +25,12 @@
     "cardRuleCatalog.damageAndLeaves:97",
     "cardRuleCatalog.damageAndLeaves:helper:expectBeast:23",
     "cardRuleCatalog.damageAndLeaves:helper:leaveThragtusk:32",
+    "cardRuleCatalog.drawAndKeywords:107",
+    "cardRuleCatalog.drawAndKeywords:86",
     "cardRuleCatalog.staticsAndAlternativeCosts:101",
     "cardRuleCatalog.staticsAndAlternativeCosts:137",
     "cardRuleCatalog.staticsAndAlternativeCosts:156",
     "cardRuleCatalog.staticsAndAlternativeCosts:76",
-    "cardRuleCatalog.drawAndKeywords:107",
-    "cardRuleCatalog.drawAndKeywords:86",
     "chainsOfMephistopheles.integration:105",
     "chainsOfMephistopheles.integration:122",
     "chainsOfMephistopheles.integration:138",
@@ -245,6 +245,18 @@
     "dackFaydenPart32LandsRocks:666",
     "dackFaydenPart32LandsRocks:70",
     "dackFaydenPart32LandsRocks:710",
+    "dackFaydenPart34LinkedExile:127",
+    "dackFaydenPart34LinkedExile:148",
+    "dackFaydenPart34LinkedExile:164",
+    "dackFaydenPart34LinkedExile:182",
+    "dackFaydenPart34LinkedExile:208",
+    "dackFaydenPart34LinkedExile:224",
+    "dackFaydenPart34LinkedExile:251",
+    "dackFaydenPart34LinkedExile:292",
+    "dackFaydenPart34LinkedExile:314",
+    "dackFaydenPart34LinkedExile:363",
+    "dackFaydenPart34LinkedExile:381",
+    "dackFaydenPart34LinkedExile:99",
     "delightedHalfling:53",
     "delightedHalfling:63",
     "delightedHalfling:75",
@@ -339,7 +351,9 @@
     "plugDackPart33Blink:263",
     "plugDackPart33Blink:349",
     "plugDackPart33Blink:380",
+    "plugDackPart33Blink:402",
     "plugDackPart33Blink:436",
+    "plugDackPart36Creatures:112",
     "plugDackPart37:158",
     "plugDackPart37:196",
     "rankle:106",
@@ -1440,6 +1454,118 @@
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "catalog Parting Gust with the gift exiles permanently and creates a tapped Fish",
       "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. The legal cast action promising the gift to p2 (selected optional cost 0, cost player p2) is expanded through eventsForAvailableAction; the creature is exiled, a tapped Fish is controlled by p2, and the creature stays in exile after the next end step."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:99"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Lumbering Battlement offers only nontoken creatures as link-exile candidates (former GAP closed)",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Characterization-gap row: the audited legacy filter offered a token (expect(candidates).toContain(tokenId)). The catalog definition filters token: false since cadbdb5a, so the GAP is closed; the test now asserts the token is absent from the typed candidates and rejected when chosen, while a nontoken ally is offered."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:127"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Fiend Hunter exiles on entry and its leave trigger returns the hostage under its owner after it dies",
+      "evidence": "Moved from the source (as adapted by cadbdb5a to the catalog leave trigger). Hostage exiled with exiledWith the Hunter; after the Hunter dies the leave trigger is on the stack with the hostage still exiled; on resolution the hostage is on the battlefield under its owner."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:148"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Fiend Hunter returns the hostage when it is bounced off the battlefield",
+      "evidence": "Moved from the source. Bouncing the Hunter to hand puts its leave trigger on the stack with the hostage still exiled; resolution returns the hostage to the battlefield."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:164"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Banisher Priest cages on entry and the creature returns when the Priest is sacrificed",
+      "evidence": "Moved from the source. Exile on entry, immediate return on sacrifice (until-leaves duration)."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:182"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Angel of Sanctions optional entry may exile zero permanents",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. The catalog announces one required target and asks \"you may\" at resolution, so the zero-exile branch is the declined may: an empty target pick is rejected, and declining leaves the relic on the battlefield with no exiledWith link."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:208"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Angel of Sanctions cages a nonland permanent on entry and returns it when the Angel dies",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Accepting the may exiles the relic with exiledWith the Angel; moving the Angel to the graveyard returns the relic."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:224"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/embalm.test.ts",
+      "suite": "catalog Angel of Sanctions embalms from the graveyard into a white Zombie token copy",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Embalm ($.abilities[2]) is a legal activateAbility from the graveyard with 6 W; one resolveTop leaves exactly one p1 battlefield object, a token named Angel of Sanctions. Subtypes are asserted as [Zombie, Angel]: the audited fixture overrode the card without its Angel subtype, so its [Zombie] reflected the fixture, not the card."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:251"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Glorious Protector exiles only your non-Angel creatures and returns them when it is bounced",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Typed candidates contain the ally and exclude the Angel; choosing the ally exiles it while the Angel stays; bouncing the Protector returns the ally."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:292"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/monarch.test.ts",
+      "suite": "catalog Palace Jailer becomes monarch and exiles until an opponent takes the crown",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. p1 becomes monarch; the hostage is exiled with exiledWith the Jailer. The legacy exiledUntilOpponentMonarch card stamp is replaced by its canonical record: exactly one linked set for the Jailer, untilOpponentMonarch.player p1, cards = [hostage], no until-leaves. p2 becoming monarch returns the hostage."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:314"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "catalog Bishop of Binding pumps a target Vampire at attack time by its linked exile power",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Owner is the canonical linked-characteristic suite (sumCharacteristics over exiledWith source) rather than the legacy imprintPumpFromLinked suite. Declaring the Bishop as attacker opens a typed pick; targeting the 2/2 Vampire makes it 8/8 from the exiled 6/6. Adds the exiledWith check on the cage."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:363"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Lumbering Battlement grows +2/+2 per linked exile and releases it when sacrificed",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. With the source fixture stats 4/5, one linked exile makes it 6/7; sacrifice returns the ally."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:381"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Werefox Bodyguard may exile zero non-Fox creatures",
+      "evidence": "Moved from the source. An empty pick is accepted (min 0) and the non-Fox creature stays on the battlefield."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:402"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog All-Fates Stalker cages a non-Assassin until it is sacrificed",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Hostage exiled with exiledWith the Stalker; sacrifice returns it to the battlefield."
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:112"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "catalog Alabaster Host Intercessor exiles an opponent creature until it leaves",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Behavior assertions only (the :composition Plainscycling Oracle check belongs to #401): a typed pick is pending after entry and the chosen hostage is exiled with exiledWith the Intercessor."
     }
   ]
 }

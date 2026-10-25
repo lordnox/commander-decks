@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
@@ -224,4 +225,227 @@ test.each([0, 1, 2, 3])('linked exile accepts up to three graveyard targets acro
     expect(resolved.objects[id].zone).toBe(targets.includes(id) ? 'exile' : 'graveyard')
     expect(resolved.objects[id].exiledWith).toBe(targets.includes(id) ? sourceId : undefined)
   }
+})
+
+/**
+ * Catalog integrations: each card resolves its canonical catalog definition by
+ * name, while hostages and bystanders stay exchangeable fixtures.
+ */
+describe('catalog linked-exile integrations', () => {
+  const hostage = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], ...extra })
+
+  const catalogGame = (setup: Parameters<typeof createServerGame>[1]) =>
+    createServerGame(commanderRules, setup, { random: () => 0.5 })
+
+  const choose = (server: ReturnType<typeof createServerGame>, state: GameState, objectIds: string[]) => {
+    const pick = pendingSelectionFor(state, 'p1')!
+    return ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count, objectIds,
+    }))
+  }
+
+  /** Moves the catalog source onto the battlefield and answers its typed pick, if any. */
+  const enterCatalog = (server: ReturnType<typeof createServerGame>, sourceId: string, targetIds: string[]) => {
+    const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: sourceId, to: 'battlefield' })))
+    return pendingSelectionFor(state, 'p1') ? resolveStack(server.rules, choose(server, state, targetIds)) : state
+  }
+
+  test('catalog Fiend Hunter exiles on entry and its leave trigger returns the hostage under its owner after it dies', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Fiend Hunter')] },
+      battlefield: { p2: [hostage('Caged Prey', { power: 3, toughness: 3 })] },
+    })
+    const hunterId = named(server.state, 'Fiend Hunter').id
+    const preyId = named(server.state, 'Caged Prey').id
+
+    let state = enterCatalog(server, hunterId, [preyId])
+    expect(state.objects[preyId]).toMatchObject({ zone: 'exile', exiledWith: hunterId })
+
+    state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'graveyard' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
+    expect(state.objects[preyId]).toMatchObject({
+      zone: 'battlefield',
+      controller: state.objects[preyId].owner,
+    })
+  })
+
+  test('catalog Fiend Hunter returns the hostage when it is bounced off the battlefield', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Fiend Hunter')] },
+      battlefield: { p2: [hostage('Blink Prey')] },
+    })
+    const hunterId = named(server.state, 'Fiend Hunter').id
+    const preyId = named(server.state, 'Blink Prey').id
+
+    let state = enterCatalog(server, hunterId, [preyId])
+    state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'hand' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
+    expect(state.objects[preyId].zone).toBe('battlefield')
+  })
+
+  test('catalog Banisher Priest cages on entry and the creature returns when the Priest is sacrificed', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Banisher Priest')] },
+      battlefield: { p2: [hostage('Opponent Bear')] },
+    })
+    const priestId = named(server.state, 'Banisher Priest').id
+    const foeId = named(server.state, 'Opponent Bear').id
+
+    let state = enterCatalog(server, priestId, [foeId])
+    expect(state.objects[foeId].zone).toBe('exile')
+
+    state = ok(server.rules(state, { type: 'sacrifice', objectId: priestId }))
+    expect(state.objects[foeId].zone).toBe('battlefield')
+  })
+
+  /** Angel of Sanctions targets on announcement; "you may" is answered at resolution. */
+  const sanctionsEntry = (server: ReturnType<typeof createServerGame>, angelId: string, relicId: string, accept: boolean) => {
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: angelId, to: 'battlefield' })))
+    const targeted = resolveStack(server.rules, choose(server, entered, [relicId]))
+    const option = pendingOptionSelection(targeted, 'p1')!
+    expect(option).toBeDefined()
+    return resolveStack(server.rules, ok(server.rules(targeted, {
+      type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options[accept ? 0 : 1].id,
+    })))
+  }
+
+  test('catalog Angel of Sanctions optional entry may exile zero permanents', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Angel of Sanctions')] },
+      battlefield: { p2: [cardTemplate('Opponent Relic', { types: ['Artifact'] })] },
+    })
+    const angelId = named(server.state, 'Angel of Sanctions').id
+    const relicId = named(server.state, 'Opponent Relic').id
+    // The target is chosen when the trigger is put on the stack; declining "you may" exiles nothing.
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: angelId, to: 'battlefield' })))
+    expect(server.rules(entered, {
+      type: 'selectCards', seat: 'p1', selectionId: pendingSelectionFor(entered, 'p1')!.id, kind: 'choose', count: 1, objectIds: [],
+    }).ok).toBe(false)
+    const state = sanctionsEntry(server, angelId, relicId, false)
+    expect(state.objects[relicId].zone).toBe('battlefield')
+    expect(state.objects[relicId].exiledWith).toBeUndefined()
+  })
+
+  test('catalog Angel of Sanctions cages a nonland permanent on entry and returns it when the Angel dies', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Angel of Sanctions')] },
+      battlefield: { p2: [cardTemplate('Sanctions Relic', { types: ['Artifact'] })] },
+    })
+    const angelId = named(server.state, 'Angel of Sanctions').id
+    const relicId = named(server.state, 'Sanctions Relic').id
+    let state = sanctionsEntry(server, angelId, relicId, true)
+    expect(state.objects[relicId]).toMatchObject({ zone: 'exile', exiledWith: angelId })
+    state = ok(server.rules(state, { type: 'move', objectId: angelId, to: 'graveyard' }))
+    expect(state.objects[relicId].zone).toBe('battlefield')
+  })
+
+  test('catalog Glorious Protector exiles only your non-Angel creatures and returns them when it is bounced', () => {
+    const server = catalogGame({
+      hands: { p1: [cardTemplate('Glorious Protector')] },
+      battlefield: { p1: [hostage('Protector Ally'), hostage('Protector Angel Buddy', { subtypes: ['Angel'] })] },
+    })
+    const protectorId = named(server.state, 'Glorious Protector').id
+    const allyId = named(server.state, 'Protector Ally').id
+    const angelId = named(server.state, 'Protector Angel Buddy').id
+
+    let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: protectorId, to: 'battlefield' })))
+    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
+    expect(candidates).toContain(allyId)
+    expect(candidates).not.toContain(angelId)
+    state = resolveStack(server.rules, choose(server, state, [allyId]))
+    expect(state.objects[allyId].zone).toBe('exile')
+    expect(state.objects[angelId].zone).toBe('battlefield')
+
+    state = ok(server.rules(state, { type: 'move', objectId: protectorId, to: 'hand' }))
+    expect(state.objects[allyId].zone).toBe('battlefield')
+  })
+
+  // Formerly a GAP characterization (the legacy TargetFilter had no nontoken, so
+  // the audited source asserted the token WAS a candidate). The canonical catalog
+  // definition filters `token: false` since cadbdb5a, so the gap is closed and this
+  // asserts the Oracle behavior instead.
+  test('catalog Lumbering Battlement offers only nontoken creatures as link-exile candidates (former GAP closed)', () => {
+    const server = catalogGame({
+      hands: { p1: [cardTemplate('Lumbering Battlement')] },
+      battlefield: { p1: [hostage('Battlement Token', { token: true }), hostage('Battlement Ally')] },
+    })
+    const battlementId = named(server.state, 'Lumbering Battlement').id
+    const tokenId = named(server.state, 'Battlement Token').id
+    const allyId = named(server.state, 'Battlement Ally').id
+    const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: battlementId, to: 'battlefield' })))
+    const candidates = pendingSelectionFor(state, 'p1')?.candidates ?? []
+    expect(candidates).toContain(allyId)
+    expect(candidates).not.toContain(tokenId)
+    expect(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: pendingSelectionFor(state, 'p1')!.id, kind: 'choose', count: 1, objectIds: [tokenId],
+    }).ok).toBe(false)
+  })
+
+  test('catalog Lumbering Battlement grows +2/+2 per linked exile and releases it when sacrificed', () => {
+    const server = catalogGame({
+      hands: { p1: [cardTemplate('Lumbering Battlement', { power: 4, toughness: 5 })] },
+      battlefield: { p1: [hostage('Battlement Ally')] },
+    })
+    const battlementId = named(server.state, 'Lumbering Battlement').id
+    const allyId = named(server.state, 'Battlement Ally').id
+
+    let state = enterCatalog(server, battlementId, [allyId])
+    expect(state.objects[battlementId]).toMatchObject({ power: 6, toughness: 7 })
+
+    state = ok(server.rules(state, { type: 'sacrifice', objectId: battlementId }))
+    expect(state.objects[allyId].zone).toBe('battlefield')
+  })
+
+  test('catalog Werefox Bodyguard may exile zero non-Fox creatures', () => {
+    const server = catalogGame({
+      players: 2,
+      hands: { p1: [cardTemplate('Werefox Bodyguard')] },
+      battlefield: { p2: [hostage('Werefox Mark')] },
+    })
+    const foxId = named(server.state, 'Werefox Bodyguard').id
+    const markId = named(server.state, 'Werefox Mark').id
+    const state = choose(server, resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move', objectId: foxId, to: 'battlefield',
+    }))), [])
+    expect(state.objects[markId].zone).toBe('battlefield')
+  })
+
+  test('catalog All-Fates Stalker cages a non-Assassin until it is sacrificed', () => {
+    const server = catalogGame({
+      players: 3,
+      hands: { p1: [cardTemplate('All-Fates Stalker')] },
+      battlefield: { p2: [hostage('Caged Bear', { power: 3, toughness: 3 })] },
+    })
+    const stalkerId = named(server.state, 'All-Fates Stalker').id
+    const bearId = named(server.state, 'Caged Bear').id
+    const entered = ok(server.rules(server.state, { type: 'move', objectId: stalkerId, to: 'battlefield' }))
+    const resolved = resolveStack(server.rules, choose(server, entered, [bearId]))
+    expect(resolved.objects[bearId]).toMatchObject({ zone: 'exile', exiledWith: stalkerId })
+    const sacrificed = resolveStack(server.rules, ok(server.rules(resolved, { type: 'sacrifice', objectId: stalkerId })))
+    expect(sacrificed.objects[bearId].zone).toBe('battlefield')
+  })
+
+  test('catalog Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {
+    const server = catalogGame({
+      players: 3,
+      hands: { p1: [cardTemplate('Alabaster Host Intercessor')] },
+      battlefield: { p2: [hostage('Fixture Hostage', { power: 2, toughness: 2 })] },
+    })
+    const intercessorId = named(server.state, 'Alabaster Host Intercessor').id
+    const foeId = named(server.state, 'Fixture Hostage').id
+    let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: intercessorId, to: 'battlefield' })))
+    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
+    state = resolveStack(server.rules, choose(server, state, [foeId]))
+    expect(state.objects[foeId]).toMatchObject({ zone: 'exile', exiledWith: intercessorId })
+  })
 })
