@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 70,
-    "directMutationSites": 534,
+    "directMutationSites": 533,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 140,
     "cardRegistrationOnlyGaps": 0,
@@ -3640,7 +3640,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2707 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
-          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:59 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
+          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:85 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4505,7 +4505,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 219,
+        "matches": 220,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -5148,7 +5148,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 277,
+        "matches": 278,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -6058,10 +6058,10 @@
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:488",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:276",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:491",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:673",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:799",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:277",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:492",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:674",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:800",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -6116,9 +6116,9 @@
         "rules-engine/src/actions.ts:910",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:304",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:435",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:439",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:305",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:436",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:440",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
         "rules-engine/src/cardPlugins/librarySearch.ts:175",
@@ -6226,28 +6226,28 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:664",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:842",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:109",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:266",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:572",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:754",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:110",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:267",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:573",
         "rules-engine/src/cardPlugins/effectRuntime.ts:755",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:756",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:94",
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
-        "rules-engine/src/definitions.ts:74",
+        "rules-engine/src/definitions.ts:81",
         "rules-engine/src/formats.ts:143",
         "rules-engine/src/formats.ts:46",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
-        "rules-engine/src/kernel.ts:908",
+        "rules-engine/src/kernel.ts:902",
         "rules-engine/src/newGame.ts:126",
         "rules-engine/src/newGame.ts:127",
         "rules-engine/src/newGame.ts:128",
-        "rules-engine/src/newGame.ts:181",
-        "rules-engine/src/newGame.ts:278",
+        "rules-engine/src/newGame.ts:176",
+        "rules-engine/src/newGame.ts:273",
         "rules-engine/src/plugins/index.ts:118",
         "rules-engine/src/plugins/index.ts:47",
         "rules-engine/src/plugins/rooms.ts:52",
@@ -6342,10 +6342,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          555
+          556
         ],
         "samples": [
-          "555: if (!extra.keepName && object.name !== copied.name) {"
+          "556: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7032,10 +7032,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1712
+          1706
         ],
         "samples": [
-          "1712: event.name === SEARCH_CHOSEN"
+          "1706: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7051,12 +7051,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          193,
-          226
+          194,
+          227
         ],
         "samples": [
-          "193: const source = draft.object(cloned.objectId)",
-          "226: return draft.addToStack({"
+          "194: const source = draft.object(cloned.objectId)",
+          "227: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7372,7 +7372,7 @@
           1223,
           1242,
           1254,
-          1275
+          1270
         ],
         "samples": [
           "940: const moved = draft.object(event.objectId)",
@@ -7972,16 +7972,16 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          119,
-          121,
-          457,
-          466,
-          467
+          120,
+          122,
+          458,
+          467,
+          468
         ],
         "samples": [
-          "119: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
-          "121: draft.enqueue({",
-          "457: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
+          "120: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
+          "122: draft.enqueue({",
+          "458: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8625,14 +8625,12 @@
       {
         "path": "rules-engine/src/cardPlugins/planeswalker.ts",
         "lines": [
-          136,
-          150,
-          157
+          135,
+          142
         ],
         "samples": [
-          "136: const object = draft.object(event.objectId)",
-          "150: const source = draft.object(event.objectId)",
-          "157: draft.addToStack({"
+          "135: const source = draft.object(event.objectId)",
+          "142: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9177,12 +9175,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          123,
-          124
+          125,
+          128
         ],
         "samples": [
-          "123: if (event.type === 'move') draft.move(event.objectId, event.to)",
-          "124: else draft.enqueue(event)"
+          "125: const moved = draft.move(event.objectId, event.to)",
+          "128: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9315,11 +9313,11 @@
           835,
           850,
           884,
-          923,
+          917,
+          924,
           930,
-          936,
-          953,
-          961
+          947,
+          955
         ],
         "samples": [
           "533: const object = draft.object(event.objectId)",
