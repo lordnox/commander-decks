@@ -925,7 +925,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
       "suite": "Kiora Bests the Sea God / chooseSteal helper",
-      "evidence": "Retained unchanged with its explicit stacked ability/name/sagaChapter=3 assertion. Live source chapter III consumers :654/:685/:697/:729 remain for #403; neither helper nor lifecycle consumers are deleted or marked migrated by this work."
+      "evidence": "Current helper retained unchanged with its stacked ability/name/sagaChapter=3 assertion and live response/ward consumers :685/:697/:729 for #403. The pinned helper also asserted legacy payload.targetFilter.controller=opponent, removed by #432; dsl/cardRuleCatalog.test.ts / Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals now explicitly pins chapter III's canonical battlefield/opponent selector and exact target cardinality. dsl/saga.test.ts / catalog saga chapter sequencing and token lifetime preserves the exact opposing-only candidate set. No lifecycle consumer is removed or marked migrated here."
     }
   ]
 }
