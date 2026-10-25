@@ -73,3 +73,23 @@ test('a captured token snapshot still copies after the token ceases', () => {
   expect(copies).toHaveLength(1)
   expect(copies[0]?.controller).toBe('p1')
 })
+
+test('catalog Fractured Identity exiles first and gives every other player a token copy', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Fractured Identity')] },
+    battlefield: { p2: [cardTemplate('Borrowed Titan', { types: ['Creature'], power: 6, toughness: 6 })] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.step = 'precombatMain'
+  ready.players.p1.mana = { W: 1, U: 1, B: 0, R: 0, G: 0, C: 3 }
+  const targetId = named(ready, 'Borrowed Titan').id
+  const resolved = ok(server.rules(ok(server.rules(ready, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(ready, 'Fractured Identity').id,
+    targets: [{ kind: 'object', objectId: targetId }],
+  })), { type: 'resolveTop' }))
+  expect(resolved.objects[targetId].zone).toBe('exile')
+  expect(copiesOf(resolved, 'Borrowed Titan').map((copy) => copy.controller).sort()).toEqual(['p1', 'p3', 'p4'])
+})

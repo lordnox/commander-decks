@@ -226,6 +226,19 @@
     "cirdanTriggers:379",
     "cirdanTriggers:386",
     "cirdanTriggers:97",
+    "combatPreventionCards:127",
+    "combatPreventionCards:173",
+    "combatPreventionCards:222",
+    "combatPreventionCards:334",
+    "combatPreventionCards:58",
+    "combatPreventionCards:85",
+    "copyPolitics:100",
+    "copyPolitics:120",
+    "copyPolitics:156",
+    "copyPolitics:184",
+    "copyPolitics:281",
+    "copyPolitics:329",
+    "copyPolitics:374",
     "councilCards:325",
     "councilCards:335",
     "councilCards:395",
@@ -1872,6 +1885,110 @@
       "destination": "rules-engine/src/cardPlugins/dsl/amount.test.ts",
       "suite": "catalog Infernal Contract draws four and loses half life rounded up",
       "evidence": "Uses the canonical catalog definition. From 15 life: hand holds 4 cards and life is 7."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:58"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "catalog Batwing Brume independently uses every color actually spent",
+      "evidence": "Uses the canonical catalog definition. W+B spent: p2 loses 2 for its two attackers, an unlimited prevention instance exists, and later combat damage to p1 is prevented. The legacy 'fog' rule-plugin assertion had already been replaced by the prevention-instance check before this move."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:85"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "catalog Comeuppance reflects creature and noncreature damage without reflecting controlled sources",
+      "evidence": "Owner changed from plugins/damage.test.ts: catalog Comeuppance runs through canonical preventionCreatedEffect follow-ups. Hostile creature damage prevented and reflected (creature dies), noncreature damage reflected to its controller (p2 38), and p1's own source still damages p1 (38)."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:127"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "catalog Energy Arc validates, untaps, and prevents combat damage dealt by and to its targets",
+      "evidence": "Uses the canonical catalog definition. Duplicate target rejected; target untapped; combat damage by and to the target prevented (life 40, damageMarked 0)."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:173"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/playerEffects.test.ts",
+      "suite": "catalog Everybody Lives stops life loss, lethal destruction, and targeting",
+      "evidence": "Owner changed from plugins/phasingProtection.test.ts: catalog Everybody Lives! uses canonical createPlayerEffect/grantKeywordEffect. Lethal damage leaves the creature on the battlefield, loseLife 40 leaves life 40, and an opposing player-targeted spell is rejected. The source cast was rejected only because p2 lacked priority; the destination gives p2 priority, uses a real player-target fixture, and adds a passing control cast before the effect, so the rejection is now hexproof. The 'losing and winning' sole-survivor assertion was retired deliberately by 4f471f39 (CR 104.2a natural victory) before this move; dsl/playerEffects.test.ts 'a sole survivor wins immediately even when an effect prevents winning' owns that rule."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:222"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "catalog Inkshield prevents only combat damage to its controller and creates exact Inklings",
+      "evidence": "Uses the canonical catalog definition. Three exact 2/1 WB flying Inklings, combat damage prevented (40), noncombat damage applies (39)."
+    },
+    {
+      "groups": [
+        "combatPreventionCards:334"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "live action enumeration exposes catalog Settle the Wreckage player targets and Energy Arc multi-targets",
+      "evidence": "Owner changed from dsl/preventDamage.test.ts: the group asserts live target enumeration, not prevention. One Settle action with a player target group min/max 1 and four players; Energy Arc target group max 1 with one creature."
+    },
+    {
+      "groups": [
+        "copyPolitics:100"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copySnapshot.test.ts",
+      "suite": "catalog Fractured Identity exiles first and gives every other player a token copy",
+      "evidence": "Owner changed from cardPlugins/copyTokenTemplate.test.ts: catalog Fractured Identity uses canonical captureCopy/copy. Target exiled; token copies controlled by p1, p3, p4."
+    },
+    {
+      "groups": [
+        "copyPolitics:120"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copyOnto.test.ts",
+      "suite": "catalog Mirrorweave rejects legendary targets and restores copied creatures at cleanup",
+      "evidence": "Owner changed from cardPlugins/becomeCopyOfTarget.test.ts: catalog Mirrorweave uses canonical copyEffect. Legendary target rejected; Small Bear becomes Large Bear 7 power; cleanup restores Small Bear 2 power."
+    },
+    {
+      "groups": [
+        "copyPolitics:156"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "catalog Standard Bearer requires supported opposing targeted spells to choose a Flagbearer",
+      "evidence": "Uses catalog Standard Bearer and Swords to Plowshares without legacy plugins. Targeting the non-Flagbearer is rejected; targeting Standard Bearer succeeds."
+    },
+    {
+      "groups": [
+        "copyPolitics:184"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "catalog Sokrates prevents player combat damage and both players draw half rounded down",
+      "evidence": "Uses the catalog definition without legacy plugins. Untapped Sokrates rejects opposing targeting, activation $.abilities[2] taps it and then targeting succeeds, 5 combat damage prevented (40), hands 2 and 3."
+    },
+    {
+      "groups": [
+        "copyPolitics:281"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copySpell.test.ts",
+      "suite": "catalog Twincast copies a spell through the stack-copy path without moving the original card",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; restored from 486f7377 on catalog Twincast. The legacy copyStackItem offer (optional false, cost {0}, decline rejected) maps to the canonical copySpell path: the copy is already on the stack, no further mana is paid, only keep/retarget is offered, decline and priority pass are rejected. Original Swords stays on the stack before and after the p1-controlled copy exiles the target."
+    },
+    {
+      "groups": [
+        "copyPolitics:329"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/attachments.test.ts",
+      "suite": "catalog Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks",
+      "evidence": "Owner changed from cardPlugins/generalizedTriggers.test.ts: catalog Tenuous Truce is a canonical player Aura with stepBegins/playerAttacks triggers. Attached to p2; end-step trigger abilityIndex 1 draws one card each; attack trigger abilityIndex 2 sacrifices it to the graveyard."
+    },
+    {
+      "groups": [
+        "copyPolitics:374"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "live action enumeration exposes catalog Tenuous Truce opponents and Sokrates creature targets",
+      "evidence": "Uses catalog definitions without legacy plugins. Truce cast actions target exactly p2, p3, p4; Sokrates $.abilities[2] target group is Target 1 with min/max 1."
     }
   ]
 }

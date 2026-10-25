@@ -61,3 +61,45 @@ test('a noncast Aura with no legal attachment remains in its original zone', () 
   expect(state.objects[aura]!.zone).toBe('hand')
   expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
 })
+
+test('catalog Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Tenuous Truce')] },
+    battlefield: { p1: [cardTemplate('Diplomat', { types: ['Creature'], power: 2, toughness: 2 })] },
+    libraries: { p1: [cardTemplate('P1 Draw')], p2: [cardTemplate('P2 Draw')] },
+  }, { random: () => 0.5 })
+  const named = (current: typeof server.state, name: string) =>
+    Object.values(current.objects).find((object) => object.name === name)!
+  let state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 1, U: 0, B: 0, R: 0, G: 0, C: 1 }
+  const truce = named(state, 'Tenuous Truce')
+  state = ok(server.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: truce.id, targets: [{ kind: 'player', player: 'p2' }],
+  }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[truce.id].attachedTo).toBe('p2')
+
+  const ending = structuredClone(state)
+  ending.active = 'p2'
+  ending.step = 'postcombatMain'
+  state = ok(server.rules(ending, { type: 'custom', name: 'advanceStep' }))
+  expect(state.stack[0]?.execution?.abilityIndex).toBe(1)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.zoneOrder.p1.hand).toHaveLength(1)
+  expect(state.zoneOrder.p2.hand).toHaveLength(1)
+
+  const attacking = structuredClone(state)
+  attacking.active = 'p1'
+  attacking.priority = 'p1'
+  attacking.step = 'declareAttackers'
+  const diplomat = named(attacking, 'Diplomat')
+  diplomat.summoningSickness = false
+  state = ok(server.rules(attacking, {
+    type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: diplomat.id, defender: 'p2' }],
+  }))
+  expect(state.stack[0]?.execution?.abilityIndex).toBe(2)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[truce.id].zone).toBe('graveyard')
+})
