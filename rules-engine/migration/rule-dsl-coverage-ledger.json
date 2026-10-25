@@ -3944,13 +3944,13 @@
         "matches": 11,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:62 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2123 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2134 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2428 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2428 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/vote.test.ts:103 — test('voters answer in APNAP order from the controller and each ballot is validated', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -5147,7 +5147,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 277,
+        "matches": 276,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5241,7 +5241,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/voteStackSpell.test.ts:199 — test('copying the targeted spell loads the stack-copy handler', () => {"
+          "rules-engine/src/cardPlugins/voteStackSpell.test.ts:233 — test('copying the targeted spell loads the stack-copy handler', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5400,13 +5400,13 @@
         "matches": 22,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:62 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:281 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2123 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2134 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2428 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2428 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/vote.test.ts:134 — test('the leading option continues the then branch and a tie takes otherwise', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5858,7 +5858,7 @@
         "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1823 — test('a generic pending dialog can put several permanent cards from hand', () => {",
-          "rules-engine/src/cardPlugins/vote.test.ts:356 — test('counts read from the vote parameterize later instructions', () => {"
+          "rules-engine/src/cardPlugins/vote.test.ts:377 — test('counts read from the vote parameterize later instructions', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",

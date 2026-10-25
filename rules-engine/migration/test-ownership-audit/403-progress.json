@@ -17,7 +17,12 @@
     "courserOfKruphix:77",
     "courserOfKruphix:99",
     "plugDackPart33Blink:300",
-    "plugDackPart33Blink:327"
+    "plugDackPart33Blink:327",
+    "copyPolitics:47",
+    "splitTrapVotes:146",
+    "splitTrapVotes:250",
+    "splitTrapVotes:314",
+    "splitTrapVotes:399"
   ],
   "relocations": [
     {
@@ -94,6 +99,46 @@
       "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
       "suite": "catalog Coercive Portal keeps an open vote through restore and a tie still draws",
       "evidence": "Journal restore replaces structuredClone. p1's carnage ballot survives; the tie (tied=true) draws one card for p1 and clears the pending vote."
+    },
+    {
+      "groups": [
+        "copyPolitics:47"
+      ],
+      "destination": "rules-engine/src/cardPlugins/vote.test.ts",
+      "suite": "Council's Judgment style outcome exiles every tied winner",
+      "evidence": "Retains the public chooser action, hides an opponent hand card in another voter projection, rejects the caster-owned permanent from both the caster and another voter, exiles each of two tied opposing permanents, leaves the caster permanent on the battlefield, clears the pending vote, and verifies votesFinished in the minimal generic legacy vote fixture."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:146"
+      ],
+      "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
+      "suite": "public ballots stay visible while a targeted spell vote advances in order",
+      "evidence": "Minimal generic legacy targeted-spell/vote fixture preserves caster-first APNAP order, public ballot and option ids, current chooser ownership, rejection of an out-of-turn/invalid ballot and priority pass, public votes for another viewer and server projection, and the next voter-only choice projection."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:250"
+      ],
+      "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
+      "suite": "an open copy choice survives a host restart",
+      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3\u2019s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:314"
+      ],
+      "destination": "rules-engine/src/cardPlugins/vote.test.ts",
+      "suite": "each voted creature gets one stun counter per vote and taps; unvoted ones are left alone",
+      "evidence": "Generic legacy secret object ballots verify p1 sees only its own selected object id, p2 sees only its own, p3 and the server see masked values, and no stun effect occurs before voting completes."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:399"
+      ],
+      "destination": "rules-engine/src/cardPlugins/vote.test.ts",
+      "suite": "an open secret object vote survives a host restart and stays private",
+      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat\u2019s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
     }
   ]
 }
