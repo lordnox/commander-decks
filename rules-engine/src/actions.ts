@@ -1946,15 +1946,6 @@ const targetVariants = (
       targetName: target.name,
     }))
   }
-  if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
-    return Object.values(state.objects)
-      .filter((object) => validBlinkSpellTarget(source.name, object, seat))
-      .map((target) => ({
-        ...action,
-        targetObjectId: target.id,
-        targetName: target.name,
-      }))
-  }
   const targeted = source
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
@@ -2052,14 +2043,6 @@ const targetVariants = (
     }, spell)
   })
 }
-
-const validBlinkSpellTarget = (
-  name: string,
-  object: GameObject,
-  seat: PlayerId,
-) => object.zone === 'battlefield'
-  && object.types.includes('Creature')
-  && (name !== 'Ephemerate' || object.controller === seat)
 
 const activationCostTargetGroups = (
   state: GameState,
@@ -2872,17 +2855,13 @@ export const eventsForAvailableAction = (
     && !action.targetGroups
     && !optionalTarget
   ) return null
-  const blinkTargets = action.targetObjectIds
-    ?? (action.targetObjectId ? [action.targetObjectId] : [])
-  if (
-    ['Ephemerate', 'Vanish into Memory'].includes(object.name)
-    && blinkTargets.length !== 1
-  ) return null
   const tax = taxFor(state, seat, object)
   const casting = face ? { ...object, ...face } : object
   const alternative = action.castOption
     ? availableAlternateCastEffect(state, seat, object, action.castOption)
     : undefined
+  const objectTargets = action.targetObjectIds
+    ?? (action.targetObjectId ? [action.targetObjectId] : [])
   const targets = action.targetObjectIds?.length
     ? action.targetObjectIds.map((objectId) => (
         playerAura || action.targetGroups?.some((group) => group.kind === 'player' || (group.kind === 'anyTarget' && Boolean(state.players[objectId])))
@@ -2893,7 +2872,7 @@ export const eventsForAvailableAction = (
     ? (
         playerAura
           ? [{ kind: 'player' as const, player: action.targetObjectId! }]
-          : blinkTargets.map((objectId) => ({
+          : objectTargets.map((objectId) => ({
               kind: 'object' as const,
               objectId,
             }))

@@ -26,9 +26,9 @@
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 22,
+    "cardNameDispatchSites": 16,
     "customEventDispatchSites": 76,
-    "directMutationSites": 549,
+    "directMutationSites": 545,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 141,
     "cardRegistrationOnlyGaps": 0,
@@ -465,7 +465,7 @@
         "matches": 55,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
-          "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
+          "rules-engine/src/actions.canonical.test.ts:110 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:19",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:29",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:38",
@@ -5253,7 +5253,7 @@
           "live-runner/src/kernelHost.test.ts:3325 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4342 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
           "live-runner/src/kernelHost.test.ts:783 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
-          "rules-engine/src/cardPlugins/blinkValue.test.ts:130 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
+          "rules-engine/src/cardPlugins/blinkValue.test.ts:129 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
@@ -6391,23 +6391,6 @@
         "status": "legacy-route"
       },
       {
-        "path": "rules-engine/src/actions.ts",
-        "lines": [
-          1949,
-          2878
-        ],
-        "samples": [
-          "1949: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {",
-          "2878: ['Ephemerate', 'Vanish into Memory'].includes(object.name)"
-        ],
-        "mechanic": "card-name execution dispatch",
-        "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
-        "compatibilityRoute": "Retain this explicit legacy handler until its registrations have canonical conformance tests; do not copy the name check into the DSL driver.",
-        "ownerPart": "16",
-        "dependencyParts": [],
-        "status": "legacy-route"
-      },
-      {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
           264
@@ -6448,26 +6431,6 @@
           "32: const entry = deckCards.find((card) => card.name === name)",
           "61: Object.values(state.objects).find((object) => object.name === name)!",
           "64: Object.values(state.objects).filter((object) => object.name === name)"
-        ],
-        "mechanic": "card-name execution dispatch",
-        "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
-        "compatibilityRoute": "Retain this explicit legacy handler until its registrations have canonical conformance tests; do not copy the name check into the DSL driver.",
-        "ownerPart": "16",
-        "dependencyParts": [],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/blinkValue.ts",
-        "lines": [
-          22,
-          26,
-          57,
-          68
-        ],
-        "samples": [
-          "22: if (!source || !['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(source.name)) {",
-          "26: const required = source.name === 'Ghostly Flicker' ? [2, 2] : [1, 1]",
-          "57: controller: source.name === 'Ghostly Flicker' ? item.controller : target.owner,"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -8660,28 +8623,6 @@
         "samples": [
           "23: const object = draft.object(enteringId)",
           "42: const chosen = draft.object(pending?.sourceId ?? '')"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/blinkValue.ts",
-        "lines": [
-          43,
-          46,
-          50,
-          53
-        ],
-        "samples": [
-          "43: const source = draft.object(item.objectId)",
-          "46: .map((id) => draft.object(id))",
-          "50: draft.enqueue({ type: 'move', objectId: target.id, to: 'exile' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

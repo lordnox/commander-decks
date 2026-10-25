@@ -6,7 +6,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { pendingPlayerSelection } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { blinkValue } from './blinkValue'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -28,7 +27,7 @@ describe('Lady Evangela blink and value cards', () => {
       battlefield: {
         p2: [cardTemplate('Borrowed Bear', { types: ['Creature'], power: 2, toughness: 2 })],
       },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
+    }, { random: () => 0.5 })
     const ready = mana(structuredClone(server.state))
     const bear = named(ready, 'Borrowed Bear')
     bear.controller = 'p1'
@@ -58,7 +57,7 @@ describe('Lady Evangela blink and value cards', () => {
       battlefield: {
         p2: [cardTemplate('Target Relic', { types: ['Artifact'] })],
       },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
+    }, { random: () => 0.5 })
     const ready = mana(structuredClone(server.state))
     let state = ok(server.rules(ready, {
       type: 'castSpell',
@@ -99,7 +98,7 @@ describe('Lady Evangela blink and value cards', () => {
       battlefield: {
         p1: [cardTemplate('Lotho, Corrupt Shirriff', { types: ['Creature'] })],
       },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
+    }, { random: () => 0.5 })
     let state = mana(structuredClone(server.state), 'p2')
     state.priority = 'p2'
     for (const name of ['One', 'Two', 'Three']) {
@@ -122,7 +121,7 @@ describe('Lady Evangela blink and value cards', () => {
       battlefield: {
         p1: [cardTemplate('Queza, Augur of Agonies', { types: ['Creature'] })],
       },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
+    }, { random: () => 0.5 })
     let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
     const pending = pendingPlayerSelection(state, 'p1')!
     expect(pending.candidates).toEqual(['p2', 'p3', 'p4'])
