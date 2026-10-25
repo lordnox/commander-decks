@@ -39,3 +39,25 @@ test('createEffect copy applies until cleanup and restores copiable values', () 
   const cleanup = ok(server.rules({ ...resolved, step: 'end', priority: 'p1' }, { type: 'advanceStep' }))
   expect(named(cleanup, 'Small Bear')).toMatchObject({ name: 'Small Bear', power: 2, toughness: 2 })
 })
+
+
+test('permanent land copies retain a usable copy activation', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate("Thespian's Stage"), cardTemplate('Quarry', { types: ['Land'], tapProduces: { G: 1 } })] },
+  }, { random: () => 0 })
+  const source = named(server.state, "Thespian's Stage").id
+  const quarry = named(server.state, 'Quarry').id
+  let state = structuredClone(server.state)
+  for (const abilityId of ['$.abilities[1]', '$.abilities[0]']) {
+    state.players.p1.mana.C = 2
+    state.objects[source].tapped = false
+    state = resolveStack(server.rules, ok(server.rules(state, {
+      type: 'activateAbility', seat: 'p1', objectId: source, abilityId,
+      targets: [{ kind: 'object', objectId: quarry }],
+    })))
+    expect(state.objects[source]).toMatchObject({ name: 'Quarry', tapProduces: { G: 1 } })
+    expect(state.objects[source].ruleDefinition?.definition.abilities.some(ability =>
+      ability.kind === 'activated' && ability.instructions?.some(instruction =>
+        instruction.kind === 'createEffect' && instruction.effect.kind === 'copy'))).toBe(true)
+  }
+})

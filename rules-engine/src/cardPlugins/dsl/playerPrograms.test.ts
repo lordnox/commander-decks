@@ -6,7 +6,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { instructionSpell } from './instructionTestSupport'
-import { amount, chooseCards, move, objects, captureAmount, choice, choosePlayer, compareAmount, forEachPlayer, createDelayed, stepDelayed, gainLife, ifThen, players, ref, resultAmount, sequence } from './v1'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, discard, draw, manaCost, tapCost, amount, chooseCards, move, objects, captureAmount, choice, choosePlayer, compareAmount, forEachPlayer, createDelayed, stepDelayed, gainLife, ifThen, players, ref, resultAmount, sequence } from './v1'
 
 test('player iteration keeps nested player context, private continuation, and independent local results through restore', () => {
   const server = createServerGame(commanderRules, {
@@ -147,4 +147,36 @@ test('empty player collections bind an empty object set; unresolved collection s
   const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
   expect(state.stack).toHaveLength(0)
   expect(() => instructionSpell({ instructions: [forEachPlayer({ of: players(), collectObjects: { from: 'missing', as: 'all' }, instructions: [] })] })).toThrow()
+})
+
+
+test('multiplayer draw completes for every seat before sequential discards begin', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+    costs: [manaCost('{2}'), tapCost()],
+    instructions: [draw({ targets: players({ relation: 'any' }), count: 1 }), discard({ targets: players({ relation: 'any' }), count: 1 })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Shared draw source', { types: ['Land'], ruleDefinition })] },
+    libraries: {
+      p1: [cardTemplate('Draw one')], p2: [cardTemplate('Draw two')],
+      p3: [cardTemplate('Draw three')], p4: [cardTemplate('Draw four')],
+    },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 2
+  const announced = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: ready.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' }))
+  for (const seat of ready.playerOrder) expect(announced.zoneOrder[seat].hand).toHaveLength(0)
+  let resolving = ok(server.rules(announced, { type: 'resolveTop' }))
+  for (const seat of ready.playerOrder) expect(resolving.zoneOrder[seat].hand).toHaveLength(1)
+  for (const seat of ready.playerOrder) {
+    const pick = pendingSelectionFor(resolving, seat)!
+    expect(pick).toMatchObject({ kind: 'discard', count: 1 })
+    resolving = ok(server.rules(resolving, { type: 'selectCards', seat, selectionId: pick.id, kind: 'discard', count: 1, objectIds: [...resolving.zoneOrder[seat].hand] }))
+  }
+  for (const seat of ready.playerOrder) {
+    expect(resolving.zoneOrder[seat].hand).toHaveLength(0)
+    expect(resolving.zoneOrder[seat].graveyard).toHaveLength(1)
+  }
+  expect(resolving.stack).toHaveLength(0)
 })

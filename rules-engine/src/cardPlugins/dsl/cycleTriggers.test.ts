@@ -111,6 +111,7 @@ test.each([false, true])('typecycling triggers survive countering and precede se
   const restored = restoreJournal(createJournal(opened), server.rules).current()
   const finished = ok(server.rules(restored, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [named(restored, 'Plains').id] }))
   expect(named(finished, 'Plains').zone).toBe('hand')
+  expect(named(finished, 'Plains cycler').zone).toBe('graveyard')
   expect(finished.stack).toHaveLength(0)
   expect(named(finished, 'Bonus card').zone).toBe('library')
 })

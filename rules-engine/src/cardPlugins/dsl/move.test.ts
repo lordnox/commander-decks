@@ -424,3 +424,28 @@ describe('entry movement to owner hands', () => {
     expect(state.stack).toHaveLength(0)
   })
 })
+
+test.each([false, true])('conditional entry placement offers a hand land without spending a land play (ahead=%s)', ahead => {
+  const server = createServerGame(commanderRules, {
+    first: 'p2',
+    battlefield: {
+      p1: [cardTemplate("Archaeomancer's Map"), cardTemplate('Own land', { types: ['Land'] })],
+      p2: ahead ? [cardTemplate('Other land', { types: ['Land'] })] : [],
+    },
+    hands: { p1: [cardTemplate('Hand land', { types: ['Land'] })], p2: [cardTemplate('Played land', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p2', objectId: named(server.state, 'Played land').id }))
+  expect(played.stack[0]?.name).toBe("Archaeomancer's Map")
+  const resolving = resolveStack(server.rules, played)
+  const pick = pendingSelectionFor(resolving, 'p1')
+  if (!ahead) {
+    expect(pick).toBeUndefined()
+    expect(named(resolving, 'Hand land').zone).toBe('hand')
+    return
+  }
+  expect(pick).toMatchObject({ kind: 'choose', count: 1, min: 0 })
+  const land = named(resolving, 'Hand land').id
+  const resolved = ok(server.rules(resolving, { type: 'selectCards', seat: 'p1', selectionId: pick!.id, kind: 'choose', count: 1, objectIds: [land] }))
+  expect(resolved.objects[land].zone).toBe('battlefield')
+  expect(resolved.players.p1.landsPlayed).toBe(0)
+})
