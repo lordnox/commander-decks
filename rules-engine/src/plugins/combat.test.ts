@@ -11,6 +11,7 @@ import { damage } from './damage'
 import { life } from './life'
 import { stateBased } from './stateBased'
 import { turnStructure } from './turnStructure'
+import type { GameState } from '../types'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
   const catalog = createCatalog([combat, damage, life])
@@ -156,6 +157,65 @@ test('a first striker keeps its own damage step', () => {
   const striking = rules(blockers.state, { type: 'advanceStep' }, catalog)
   if (!striking.ok) throw new Error(striking.error)
   expect(striking.state.step).toBe('firstStrikeDamage')
+})
+
+const damageStepGame = (oracleText: string) => {
+  const catalog = createCatalog([combat, damage, life, turnStructure])
+  const state = newGame({
+    battlefield: { p1: [{ ...bears(), oracleText }] },
+    builtinRules: ['combat', 'damage', 'life', 'turnStructure'],
+  })
+  const attackerId = Object.values(state.objects)[0].id
+  const advance = (current: GameState) => {
+    const advanced = rules(current, { type: 'advanceStep' }, catalog)
+    if (!advanced.ok) throw new Error(advanced.error)
+    return advanced.state
+  }
+  const attack = (current: GameState) => {
+    const declared = rules(
+      { ...current, step: 'declareAttackers' },
+      { type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: attackerId, defender: 'p2' }] },
+      catalog,
+    )
+    if (!declared.ok) throw new Error(declared.error)
+    return declared.state
+  }
+  const assignAgain = (current: GameState) => rules(current, { type: 'assignCombatDamage' }, catalog)
+  return { state, advance, attack, assignAgain }
+}
+
+test('combat damage cannot be dealt twice in one damage step, even after a state restore', () => {
+  const { state, advance, attack, assignAgain } = damageStepGame('')
+  const damaged = advance(advance(attack(state)))
+  expect(damaged.step).toBe('combatDamage')
+  expect(damaged.players.p2.life).toBe(38)
+
+  expect(assignAgain(damaged).ok).toBe(false)
+  expect(assignAgain(JSON.parse(JSON.stringify(damaged))).ok).toBe(false)
+})
+
+test('double strike deals damage once in each of its two damage steps', () => {
+  const { state, advance, attack, assignAgain } = damageStepGame('Double strike')
+  const first = advance(advance(attack(state)))
+  expect(first.step).toBe('firstStrikeDamage')
+  expect(first.players.p2.life).toBe(38)
+  expect(assignAgain(first).ok).toBe(false)
+
+  const second = advance(first)
+  expect(second.step).toBe('combatDamage')
+  expect(second.players.p2.life).toBe(36)
+  expect(assignAgain(second).ok).toBe(false)
+})
+
+test('a later combat deals damage again after an earlier damage step', () => {
+  const { state, advance, attack } = damageStepGame('Vigilance')
+  const damaged = advance(advance(attack(state)))
+  const postcombat = advance(advance(damaged))
+  expect(postcombat.step).toBe('postcombatMain')
+
+  const again = advance(advance(attack(postcombat)))
+  expect(again.step).toBe('combatDamage')
+  expect(again.players.p2.life).toBe(36)
 })
 
 test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {

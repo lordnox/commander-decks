@@ -194,12 +194,12 @@ export const combat: Plugin = {
       }
     }
 
-    if (
-      event.type === 'assignCombatDamage'
-      && state.step !== 'firstStrikeDamage'
-      && state.step !== 'combatDamage'
-    ) {
-      return 'combat damage can only be assigned in a combat damage step'
+    if (event.type === 'assignCombatDamage') {
+      if (state.step !== 'firstStrikeDamage' && state.step !== 'combatDamage') {
+        return 'combat damage can only be assigned in a combat damage step'
+      }
+      // CR 510.1-510.2: each damage step deals combat damage once; double strike gets a second step, not a replay.
+      if (state.combatDamageAssignedIn === state.step) return 'combat damage was already dealt this step'
     }
   },
   apply: ({ event, draft }) => {
@@ -226,6 +226,7 @@ export const combat: Plugin = {
     }
 
     if (event.type === 'assignCombatDamage') {
+      draft.combatDamageAssignedIn = draft.step
       // Every amount is fixed from the board as it stands now; damage is simultaneous.
       const onBattlefield = Object.values(draft.objects).filter(existsOnBattlefield)
       for (const attacker of onBattlefield.filter((object) => object.attacking !== null)) {

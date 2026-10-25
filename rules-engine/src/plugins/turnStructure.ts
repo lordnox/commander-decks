@@ -173,6 +173,7 @@ const skipEmptyStep = (draft: Draft, step: StepId) => {
 export const advanceTurnStep = (draft: Draft) => {
   // CR 511.3: participation lasts through endCombat, then ends with the phase.
   if (draft.step === 'endCombat') clearCombatParticipation(draft)
+  delete draft.combatDamageAssignedIn
   const index = STEPS.indexOf(draft.step)
   const wraps = index === STEPS.length - 1
   const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
