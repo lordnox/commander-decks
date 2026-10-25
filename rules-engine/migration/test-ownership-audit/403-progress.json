@@ -3,6 +3,15 @@
   "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved.",
   "implemented": [
     "cardRuleCatalog.damageAndLeaves:164",
+    "councilCards:173",
+    "councilCards:193",
+    "councilCards:248",
+    "councilCards:282",
+    "councilCards:294",
+    "councilCards:355",
+    "councilCards:411",
+    "councilCards:426",
+    "councilCards:511",
     "courserOfKruphix:26",
     "courserOfKruphix:42",
     "courserOfKruphix:77",
@@ -27,6 +36,64 @@
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "pending self-leave token trigger restores its captured controller %s",
       "evidence": "Catalog-backed leave trigger is pending with no Beast before and after JSON journal restore. Resolves to exactly one 3/3 battlefield Beast controlled by the captured controller, with source still exiled and stack/resolution empty. Both seats are exercised."
+    },
+    {
+      "groups": [
+        "councilCards:173"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Sail into the West opens a public return/embark vote in turn order from the caster",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Source/owner/secret=false/APNAP voters/ordered options, p1 option ids, rejection of an out-of-turn voter, an unknown option, and passPriority, and public projection of p1's ballot to p3 preserved in four-player play."
+    },
+    {
+      "groups": [
+        "councilCards:193"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Sail into the West return lets each player privately return up to two graveyard cards, then exiles it",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Exact finished tallies/winners/tied; no p1 pick; p2 choose count 2/min 0 over exactly its three graveyard cards; chooser-only projection hidden from p1/p3; too many, another seat's, and the spell's own cards refused. Canonical picks are sequential in APNAP order, so p3's single-candidate pick is asserted after p2 answers; each pick resumes after a journal restore. Final hands, remaining graveyard card, Sail in p1 exile, unchanged p1 hand, and no pending pick preserved."
+    },
+    {
+      "groups": [
+        "councilCards:248"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Sail into the West embarks on a tie: each player privately chooses, then the chosen discard and draw seven",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Tied tallies, no card picks, accept/decline asked of p1 only and hidden from p2, and p2 rejected out of turn. Canonical chooseParticipants collects every APNAP answer before discarding/drawing (asserted: p1 hand unchanged until the last answer); final hands 7/0/7/7, p1's original hand in the graveyard, Sail in the graveyard."
+    },
+    {
+      "groups": [
+        "councilCards:282",
+        "councilCards:294"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Sail into the West keeps an outright embark question and an open vote through restore",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Journal restore (createJournal/restoreJournal) replaces structuredClone. Embark question id is stable across restore; declining moves the question to p2 with Sail still on the stack. A mid-vote restore keeps p1's ballot and p2's turn, then return wins and opens p2's pick."
+    },
+    {
+      "groups": [
+        "councilCards:355"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Selvala's Stampede lets the caster privately put one permanent card from hand per free vote",
+      "evidence": "Uses the canonical catalog definition. One wild vote resolves before the free placement; placement choose/p1/min 0/count 3 over exactly the three permanent cards, hidden from p2; choosing two puts them onto the battlefield, the land and instant stay in hand, and the spell reaches the graveyard."
+    },
+    {
+      "groups": [
+        "councilCards:411",
+        "councilCards:426"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Selvala's Stampede keeps an open vote and an all-free placement through restore",
+      "evidence": "Journal restore replaces structuredClone. All-free reveals nothing and offers count 4/min 0; the restored placement keeps seat, kind, and selection id. A mid-vote restore after p1's wild ballot completes with all three creatures on the battlefield."
+    },
+    {
+      "groups": [
+        "councilCards:511"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Coercive Portal keeps an open vote through restore and a tie still draws",
+      "evidence": "Journal restore replaces structuredClone. p1's carnage ballot survives; the tie (tied=true) draws one card for p1 and clears the pending vote."
     }
   ]
 }
