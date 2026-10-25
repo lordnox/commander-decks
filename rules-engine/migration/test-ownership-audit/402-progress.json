@@ -1,6 +1,6 @@
 {
   "issue": 402,
-  "note": "Working-tree implementation record for #402. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic owners with unique assertions preserved.",
+  "note": "Working-tree implementation record for #402. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic owners with unique assertions preserved. #507 removed the name-keyed CARD_RULES registry; mixed catalog/registry source assertions are reconciled to surviving canonical behavior and no legacy authoring is restored.",
   "implemented": [
     "aetherTide.integration:66",
     "aetherTide.integration:85",
@@ -24,15 +24,25 @@
     "cardRuleCatalog.damageAndLeaves:152",
     "cardRuleCatalog.damageAndLeaves:158",
     "cardRuleCatalog.damageAndLeaves:183",
+    "cardRuleCatalog.damageAndLeaves:222",
     "cardRuleCatalog.damageAndLeaves:97",
     "cardRuleCatalog.damageAndLeaves:helper:expectBeast:23",
     "cardRuleCatalog.damageAndLeaves:helper:leaveThragtusk:32",
     "cardRuleCatalog.drawAndKeywords:107",
+    "cardRuleCatalog.drawAndKeywords:126",
     "cardRuleCatalog.drawAndKeywords:86",
+    "cardRuleCatalog.modesCopiesAndSearch:169",
+    "cardRuleCatalog.modesCopiesAndSearch:283",
+    "cardRuleCatalog.modesCopiesAndSearch:92",
     "cardRuleCatalog.staticsAndAlternativeCosts:101",
     "cardRuleCatalog.staticsAndAlternativeCosts:137",
     "cardRuleCatalog.staticsAndAlternativeCosts:156",
+    "cardRuleCatalog.staticsAndAlternativeCosts:206",
     "cardRuleCatalog.staticsAndAlternativeCosts:76",
+    "cardRuleCatalog.targetedActions:101",
+    "cardRuleCatalog.targetedActions:135",
+    "cardRuleCatalog.targetedActions:181",
+    "cardRuleCatalog.targetedActions:70",
     "chainsOfMephistopheles.integration:105",
     "chainsOfMephistopheles.integration:122",
     "chainsOfMephistopheles.integration:138",
@@ -254,6 +264,9 @@
     "councilCards:helper:atUpkeep:109",
     "counterspellAndWard.integration:37",
     "counterspellAndWard.integration:73",
+    "dackFaydenHelpingHand:129",
+    "dackFaydenHelpingHand:168",
+    "dackFaydenHelpingHand:186",
     "dackFaydenPart32LandsRocks:112",
     "dackFaydenPart32LandsRocks:139",
     "dackFaydenPart32LandsRocks:165",
@@ -464,6 +477,7 @@
     "sinFallModals:184",
     "sinFallModals:28",
     "sinFallModals:83",
+    "sinFallReplacements:21",
     "soulsOfTheFaultless:39",
     "soulsOfTheFaultless:67",
     "soulsOfTheFaultless:83",
@@ -2236,6 +2250,104 @@
       "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
       "suite": "catalog Jace, Multiverse Architect \u22123 exiles another target you control then reveals onto the battlefield",
       "evidence": "Uses the catalog card definition without legacy plugins. Activates $.abilities[2] targeting another controlled permanent, then asserts the target is exiled and the revealed Jace planeswalker enters the battlefield."
+    },
+    {
+      "groups": [
+        "dackFaydenHelpingHand:129",
+        "dackFaydenHelpingHand:168",
+        "dackFaydenHelpingHand:186"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/controlAssignment.test.ts",
+      "suite": "catalog reveal-to-battlefield integration and minimal control-assignment mechanics",
+      "evidence": "The source suite was removed during Dack\u2019s canonical DSL migration. Current integration coverage in controlAssignment.test.ts exercises two- and four-player pods, reveals and moves the eligible creatures, shuffles, assigns each creature to a distinct opponent, preserves permanent goad, and checks the entering creature\u2019s draw trigger. The zero/one-match cases prove the short-library branch skips donation when no creature enters."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:222"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/triggerMultiplication.test.ts",
+      "suite": "a self-entry trigger resolves its gain-life instruction once for its controller",
+      "evidence": "The mixed test depended on name-keyed CARD_RULES for Mulldrifter, removed with the registry in #507. Its Thragtusk entry life assertion is retained by the minimal self-entry trigger integration here; Thragtusk\u2019s catalog composition remains structural in cardRuleCatalog.damageAndLeaves.test.ts and its self-leave behavior remains in programPersistence.test.ts. Canonical Mulldrifter draw resolution is exercised by the catalog evoke test in announcement.test.ts."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:126"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore of Wall of Omens ETB draw matches live zones, life, and stack",
+      "evidence": "The mixed test\u2019s CARD_RULES/Mulldrifter half became obsolete when #507 removed the name-keyed registry; catalog Wall of Omens behavior remains tested in the restored ETB draw integration and its defender keyword mechanic test in staticKeywords.test.ts. Mulldrifter\u2019s canonical draw is exercised in announcement.test.ts."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:283"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger",
+      "evidence": "The source suite was removed with the obsolete mixed CARD_RULES assertion in #507. Diabolic Tutor\u2019s typed library choice and shuffle integration is retained under its #403 lifecycle owner; Mulldrifter now uses the canonical catalog and its gameplay integration proves its two-card draw."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:206"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/staticModifierLifecycle.test.ts",
+      "suite": "catalog Glorious Anthem modifier integration",
+      "evidence": "The legacy registry half of the source case was invalidated by #507. Glorious Anthem\u2019s canonical static modifier is executed by this mechanic integration; canonical Mulldrifter draw and entry resolution are exercised by announcement.test.ts."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:181"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/destroy.test.ts",
+      "suite": "catalog Murder destroys its chosen creature and rejects a player target",
+      "evidence": "The mixed source test\u2019s CARD_RULES assertions were superseded by #507. The retained canonical gameplay assertions are split across the Murder destroy integration here and the catalog Mulldrifter entry/draw integration in announcement.test.ts."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:92"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "modal spells resolve the selected destroy, draw, or discard program",
+      "evidence": "Moved the gameplay assertions into the modes mechanic suite with one minimal exchangeable modal instruction fixture. It checks target legality, each selected mode, the two-card draw, and the two-card discard while preserving the unchosen card."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:169"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copySpell.test.ts",
+      "suite": "catalog Reverberate copies an instant once, keeps its target, and rejects a creature spell",
+      "evidence": "Moved the catalog integration into copySpell.test.ts. It confirms the catalog snapshot, rejects copying a creature spell, keeps the original player target, creates one copy, and resolves both instances."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:70"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/destroy.test.ts",
+      "suite": "catalog Murder destroys its chosen creature and rejects a player target",
+      "evidence": "Moved from cardRuleCatalog.targetedActions.test.ts after the replacement passed. The mechanic-owned integration keeps the catalog template, rejects a player target, resolves the chosen creature destruction once, and checks both cards\u2019 final zones."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:101"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts",
+      "suite": "targeted draw and life loss resolve once for the chosen player",
+      "evidence": "Moved behavior to a minimal targeted spell program. It proves exactly two cards are drawn and two life lost by the chosen player, the caster is unchanged, and the spell finishes."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:135"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog discard-cost activation pays one creature card before pumping its source",
+      "evidence": "Moved the activation to the announcement mechanic suite using the canonical Vampire Hounds catalog template. It rejects a missing/noncreature cost, commits the creature discard before resolution, then applies one +2/+2 pump."
+    },
+    {
+      "groups": [
+        "sinFallReplacements:21"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/escape.test.ts",
+      "suite": "catalog Cling to Dust pays five other graveyard cards before resolving its target",
+      "evidence": "The historical source file is already absent on current main. Restored its surviving behavior as a canonical catalog integration in escape.test.ts, including exact cost cardinality, rejecting the spell itself as a cost, exiling the five costs and target, returning Cling to Dust to the graveyard, and gaining three life."
     }
   ]
 }

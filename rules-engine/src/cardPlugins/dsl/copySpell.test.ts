@@ -1,4 +1,5 @@
 import { pendingOptionSelection } from '../../rules/selectOptions'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { instructionSpell } from './instructionTestSupport'
 import { ok, resolveStack } from '../../testHelpers'
 import { describe, expect, test } from 'bun:test'
@@ -405,4 +406,56 @@ test('catalog Twincast copies a spell through the stack-copy path without moving
   state = ok(server.rules(state, { type: 'resolveTop' }))
   expect(state.objects[targetId].zone).toBe('exile')
   expect(state.objects[swordsId].zone).toBe('stack')
+})
+
+test('catalog Reverberate copies an instant once, keeps its target, and rejects a creature spell', () => {
+  const boltDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    decisions: { targets: [select({ filter: { kind: 'players', filter: {} }, count: 1 })] },
+    instructions: [{ kind: 'damage', amount: amount(3), targets: { kind: 'targetRef', clauseIndex: 0 }, source: ref('source') }],
+  })])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Reverberate', { types: ['Instant'], manaCost: '{0}' }), cardTemplate('Boltlet', { types: ['Instant'], manaCost: '{0}', ruleDefinition: boltDefinition }), cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  server.state.players.p1.mana.U = 10
+  server.state.players.p1.mana.C = 10
+  const named = (state: typeof server.state, name: string) => Object.values(state.objects).find(object => object.name === name)!
+  const reverberate = named(server.state, 'Reverberate')
+  const boltlet = named(server.state, 'Boltlet')
+  expect(reverberate.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Reverberate'))
+  expect(reverberate.effects).toEqual([])
+  const invalidServer = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Reverberate', { types: ['Instant'], manaCost: '{0}' }), cardTemplate('Creature spell', { types: ['Creature'], manaCost: '{0}' })] },
+  }, { random: () => 0 })
+  invalidServer.state.players.p1.mana.U = 10
+  invalidServer.state.players.p1.mana.C = 10
+  const invalidReverberate = Object.values(invalidServer.state.objects).find(object => object.name === 'Reverberate')!
+  const invalidCreature = Object.values(invalidServer.state.objects).find(object => object.name === 'Creature spell')!
+  const creatureCast = ok(invalidServer.rules(invalidServer.state, { type: 'castSpell', seat: 'p1', objectId: invalidCreature.id }))
+  expect(invalidServer.rules(creatureCast, {
+    type: 'castSpell', seat: 'p1', objectId: invalidReverberate.id,
+    targets: [{ kind: 'stackItem', stackId: creatureCast.stack[0]!.id }],
+  }).ok).toBe(false)
+
+  const original = ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: boltlet.id,
+    targets: [{ kind: 'player', player: 'p2' }],
+  }))
+  original.players.p1.mana.U = 10
+  original.players.p1.mana.C = 10
+  const copied = ok(server.rules(original, {
+    type: 'castSpell', seat: 'p1', objectId: reverberate.id,
+    targets: [{ kind: 'stackItem', stackId: original.stack[0]!.id }],
+  }))
+  expect(copied.stack).toHaveLength(2)
+  let resolving = resolveStack(server.rules, copied)
+  const offer = pendingOptionSelection(resolving, 'p1')!
+  expect(offer.options.some(option => option.id === 'keep')).toBe(true)
+  resolving = ok(server.rules(resolving, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'keep' }))
+  expect(resolving.stack.filter(item => item.copy)).toHaveLength(1)
+  const finished = resolveStack(server.rules, resolving)
+  expect(finished.players.p2.life).toBe(34)
+  expect(finished.stack).toHaveLength(0)
+  expect(finished.objects[reverberate.id].zone).toBe('graveyard')
 })

@@ -1094,7 +1094,7 @@
         "matches": 14,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:22 — test('Thragtusk composes self-entry life gain and self-leave token creation rather than dies', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1098 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1155 — test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1627 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
@@ -1193,16 +1193,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
           "live-runner/src/kernelHost.test.ts:508 — test('publishes and validates a large typed allocation by entry identity', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:133 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1598 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1920 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2693 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:78 — test('copied lifelink damage uses the copied source and controller', () => {",
-          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:228 — test('modal resolution gates untargeted modes only when every target is illegal', () => {"
+          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:414 — test('catalog Reverberate copies an instant once, keeps its target, and rejects a creature spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:79 — test('copied lifelink damage uses the copied source and controller', () => {",
+          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1414,16 +1414,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 82,
+        "matches": 84,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:484 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:138 — test('targeted draw and life loss resolve once for the chosen player', () => {",
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:91 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:233 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:138 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1040 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:53 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:12 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2156,7 +2156,7 @@
       "candidateEvidence": {
         "matches": 29,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:236 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:56 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1095 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1338 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1475 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
@@ -2358,16 +2358,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 19,
+        "matches": 20,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:139 — test('targeted draw and life loss resolve once for the chosen player', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:70 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:239 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:144 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:59 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:18 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1030 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1280 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1353 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1377 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1650 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1377 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3051,7 +3051,7 @@
       "candidateEvidence": {
         "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:237 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:57 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1051 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1311 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1597 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
@@ -3514,7 +3514,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:221 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:41 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1176 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2705 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {",
@@ -3636,7 +3636,7 @@
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1007 — test('a restored private choice survives a host restart', async () => {",
           "live-runner/src/kernelHost.test.ts:3832 — test('a top-of-library choice preserves its revealed order', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2717 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
@@ -3777,7 +3777,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:237 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:57 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2245 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2599 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:602 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
@@ -3945,7 +3945,7 @@
         "matches": 11,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1262 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:236 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:56 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2110 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2122 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2133 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
@@ -4202,9 +4202,9 @@
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:63 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:364 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:204 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:24 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:17 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:138 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:12 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1036 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1057 — test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {"
         ]
@@ -4418,11 +4418,11 @@
         "rules-engine/src/plugins/damage.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 41,
+        "matches": 42,
         "samples": [
           "live-runner/src/kernelHost.test.ts:508 — test('publishes and validates a large typed allocation by entry identity', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:133 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:162 — test('drain catalog entries compose numeric action results with life gain', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:36 — test('drain catalog entries compose numeric action results with life gain', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1598 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1920 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2693 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
@@ -4505,7 +4505,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 220,
+        "matches": 222,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4803,7 +4803,7 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:208 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:28 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1326 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1861 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:610 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
@@ -5149,7 +5149,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 281,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2084 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5324,7 +5324,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1212 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1248 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5402,7 +5402,7 @@
         "matches": 22,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1262 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2110 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2122 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2133 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
