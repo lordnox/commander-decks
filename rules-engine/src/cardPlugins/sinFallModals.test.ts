@@ -5,7 +5,6 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
-import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
 
 const card = (
@@ -20,7 +19,7 @@ const card = (
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const plugins = [onResolve, modalSpell, choiceEffects]
+const plugins = [onResolve, choiceEffects]
 
 describe('Sin-fall modal and saga behavior', () => {
   test('Frantic Search untaps up to three tapped lands after looting', () => {

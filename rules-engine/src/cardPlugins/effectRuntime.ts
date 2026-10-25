@@ -626,9 +626,6 @@ export const triggerEffects = (
 
 const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[] =>
   instructions.flatMap((instruction) => {
-    if (instruction.kind === 'chooseModes') {
-      return [instruction, ...flattenInstructions(instruction.modes.flatMap((mode) => mode.do))]
-    }
     if (instruction.kind === 'if') {
       return [
         instruction,
@@ -712,7 +709,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('castTriggers')
       if (effect.modal) ids.add('choiceEffects')
     }
-    if (effect.op === 'modal') ids.add('modalSpell')
     if (effect.op === 'trigger' && effect.on === 'resolve') ids.add('onResolve')
     if (effect.op === 'activate') {
       ids.add(effect.costs.loyalty !== undefined || effect.costs.loyaltyX
@@ -767,12 +763,8 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (effect.op === 'targetingRequirement') ids.add('targetingRequirements')
     if (effect.op === 'playerAuraDeal') ids.add('attackDeal')
-    const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'
-      ? flattenInstructions(
-        effect.op === 'modal'
-          ? effect.modes.flatMap((mode) => mode.do)
-          : effect.do,
-      )
+    const listed = effect.op === 'trigger' || effect.op === 'activate'
+      ? flattenInstructions(effect.do)
       : effect.op === 'search' && effect.spec.after
         ? flattenInstructions(effect.spec.after)
         : effect.op === 'targetedResolve' && effect.do
@@ -781,16 +773,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     const fromTokens = listed.flatMap((instruction) => {
       if (instruction.kind !== 'createToken' && instruction.kind !== 'createXTokens') return []
       return (instruction.token.effects ?? []).flatMap((tokenEffect) =>
-        tokenEffect.op === 'trigger' || tokenEffect.op === 'activate' || tokenEffect.op === 'modal'
-          ? flattenInstructions(
-            tokenEffect.op === 'modal'
-              ? tokenEffect.modes.flatMap((mode) => mode.do)
-              : tokenEffect.do,
-          )
+        tokenEffect.op === 'trigger' || tokenEffect.op === 'activate'
+          ? flattenInstructions(tokenEffect.do)
           : [])
     })
     const allListed = [...listed, ...fromTokens]
-    if (hasKind(allListed, 'chooseModes')) ids.add('modalSpell')
     if (hasKind(allListed, 'cumulativeUpkeepOpponentLife')) ids.add('cumulativeUpkeep')
     if (allListed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
       ids.add('choiceEffects')

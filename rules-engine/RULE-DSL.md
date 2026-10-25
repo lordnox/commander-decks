@@ -2058,8 +2058,6 @@ audit against this contract, not the desired CR 616 ordering or permission to
 insert SBAs inside spell resolution. Existing per-effect target handlers must
 not stand in for the proposed whole-item legality gate. Existing internal
 `custom` continuation plumbing does not authorize a `custom` card-picker event.
-The legacy `modalSpell` resolution fallback and its label-based mode selection
-also need auditing against announcement-time decisions and repeated occurrences.
 
 Use focused integration tests at each implementation slice, then run the full
 rules-engine suite and relevant live-runner checks for runtime changes. This

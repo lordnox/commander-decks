@@ -305,7 +305,6 @@ export type CardInstruction =
   | { kind: 'optionalMill'; count: number }
   | { kind: 'mayDraw'; count: number; seat?: PlayerId }
   | { kind: 'mayPayLifeDraw' }
-  | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
   /** Each player draws cards equal to the damage dealt to this by sources they controlled this turn. */
@@ -749,12 +748,6 @@ export type CardEffect =
       onceEachTurn?: boolean
       /** On the nth resolution this turn, run `do` instead of the base `do`. */
       whenResolvedNth?: { nth: number; do: CardInstruction[] }
-    }
-  | {
-      op: 'modal'
-      choose: 'one' | 'any' | 'two'
-      commanderChooseBoth?: boolean
-      modes: ModalMode[]
     }
   | {
       op: 'activate'

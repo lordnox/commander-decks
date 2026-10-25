@@ -20,17 +20,17 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 21,
-    "cardInstructions": 183,
-    "instructionHandlersDiscovered": 183,
+    "cardEffects": 20,
+    "cardInstructions": 182,
+    "instructionHandlersDiscovered": 182,
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 16,
-    "customEventDispatchSites": 76,
-    "directMutationSites": 545,
+    "customEventDispatchSites": 73,
+    "directMutationSites": 541,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 141,
+    "instructionUnobservedGaps": 140,
     "cardRegistrationOnlyGaps": 0,
     "candidateOnlyInstructionRows": 40,
     "candidateOnlyCardRows": 0
@@ -219,26 +219,6 @@
         "07"
       ],
       "status": "unobserved"
-    },
-    {
-      "variant": "modal",
-      "mechanic": "modal spell program",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
-      ],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "scoped announcement modes",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "09",
-      "dependencyParts": [
-        "05",
-        "08"
-      ],
-      "status": "confirmed-executable-evidence"
     },
     {
       "variant": "playerAuraDeal",
@@ -907,25 +887,6 @@
         "05"
       ],
       "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "chooseModes",
-      "mechanic": "scoped announcement modes",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "mode decision plus scoped program",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "09",
-      "dependencyParts": [
-        "05",
-        "08"
-      ],
-      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4067,7 +4028,6 @@
       "bounceSelf",
       "bounceTargetPermanent",
       "chooseCreatureType",
-      "chooseModes",
       "chooseVotesThisTurn",
       "combatDialogueUntilEot",
       "copyAllCreaturesUntilEot",
@@ -5561,8 +5521,6 @@
       "mechanic": "specialized legacy dialog",
       "currentRegistrations": [
         "rules-engine/src/cardPlugins/castTriggers.ts",
-        "rules-engine/src/cardPlugins/instructionHandlers/control.ts",
-        "rules-engine/src/cardPlugins/modalSpell.ts",
         "rules-engine/src/cardPlugins/spreeCast.ts"
       ],
       "executableCoverageEvidence": [
@@ -6115,11 +6073,11 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:493",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:492",
         "rules-engine/src/cardPlugins/effectRuntime.ts:276",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:676",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:813",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:673",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:800",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -6284,13 +6242,13 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:669",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:853",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:668",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:846",
         "rules-engine/src/cardPlugins/effectRuntime.ts:109",
         "rules-engine/src/cardPlugins/effectRuntime.ts:266",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:758",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:759",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:754",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:755",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
@@ -6946,27 +6904,6 @@
         "status": "legacy-route"
       },
       {
-        "path": "rules-engine/src/cardPlugins/modalSpell.ts",
-        "lines": [
-          63,
-          84,
-          118
-        ],
-        "samples": [
-          "63: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return",
-          "84: if (event.type === 'custom' && event.name === MODAL_CHOOSE && event.seat) {",
-          "118: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
         "path": "rules-engine/src/cardPlugins/attackDeal.ts",
         "lines": [
           103
@@ -7490,12 +7427,12 @@
           1089,
           1092,
           1094,
-          1194,
-          1218,
-          1233,
-          1252,
-          1264,
-          1285
+          1184,
+          1208,
+          1223,
+          1242,
+          1254,
+          1275
         ],
         "samples": [
           "940: const moved = draft.object(event.objectId)",
@@ -8784,28 +8721,6 @@
         "status": "legacy-route"
       },
       {
-        "path": "rules-engine/src/cardPlugins/modalSpell.ts",
-        "lines": [
-          86,
-          121,
-          132,
-          149
-        ],
-        "samples": [
-          "86: const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined",
-          "121: const source = draft.object(dialog.sourceId)",
-          "132: draft.enqueue({ type: 'resolveTop' })"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
         "path": "rules-engine/src/cardPlugins/attackDeal.ts",
         "lines": [
           77,
@@ -9227,9 +9142,9 @@
           50,
           65,
           77,
-          271,
-          312,
-          320
+          247,
+          288,
+          296
         ],
         "samples": [
           "11: const live = draft.object(source.id) ?? source",

@@ -1,18 +1,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { choiceEffects } from '../src/cardPlugins/choiceEffects'
-import { librarySearch } from '../src/cardPlugins/librarySearch'
-import { modalSpell } from '../src/cardPlugins/modalSpell'
-import { onResolve } from '../src/cardPlugins/onResolve'
 import { freezeDraft, makeDraft } from '../src/draft'
 import { commanderRules } from '../src/formats'
-import { createJournal, recordAccepted } from '../src/journal'
 import { cardTemplate } from '../src/newGame'
-import { pendingDialog, pendingDialogLock } from '../src/pendingDialog'
 import { createServerGame } from '../src/runtime'
 import { openCardSelection, pendingSelectionFor } from '../src/rules/selectCards'
 import { openPlayerSelection } from '../src/rules/selectPlayers'
-import type { GameEvent, GameState } from '../src/types'
+import type { GameEvent } from '../src/types'
 
 const repositoryRoot = resolve(import.meta.dir, '../..')
 const outputDirectory = resolve(repositoryRoot, 'rules-engine/migration/compatibility-fixtures')
@@ -87,70 +81,8 @@ const openPlayerChoice = () => {
   }
 }
 
-const legacyModeChoice = () => {
-  const plugins = [modalSpell, onResolve, choiceEffects, pendingDialogLock, librarySearch]
-  const server = createServerGame(
-    commanderRules,
-    {
-      hands: { p1: [cardTemplate('Bushwhack', { types: ['Sorcery'], manaCost: '{G}' })] },
-      libraries: {
-        p1: [cardTemplate('Fixture Forest', {
-          types: ['Land'],
-          subtypes: ['Forest'],
-          supertypes: ['Basic'],
-          tapProduces: { G: 1 },
-        })],
-      },
-    },
-    { random: () => 0.5, cardPlugins: plugins },
-  )
-  const spellId = server.state.zoneOrder.p1.hand[0]
-  const initial: GameState = structuredClone(server.state)
-  initial.players.p1.mana.G = 1
-  let state = initial
-  let journal = createJournal(initial)
-  const events: GameEvent[] = [
-    { type: 'castSpell', seat: 'p1', objectId: spellId },
-    { type: 'resolveTop' },
-  ]
-  for (const event of events) {
-    const result = server.rules(state, event)
-    if (!result.ok) throw new Error(result.error)
-    state = result.state
-    journal = recordAccepted(journal, event)
-  }
-  const dialog = pendingDialog(state)
-  if (dialog?.kind !== 'choose-modes' || !dialog.options?.[1]) {
-    throw new Error('legacy mode fixture did not open')
-  }
-  const answer: GameEvent = {
-    type: 'custom',
-    name: dialog.chosenEvent,
-    seat: dialog.seat,
-    payload: { modes: [dialog.options[1]] },
-  }
-  return {
-    plugins: plugins.map((plugin) => plugin.id),
-    state,
-    journal,
-    dialog: {
-      kind: dialog.kind,
-      sourceId: dialog.sourceId,
-      labels: dialog.options,
-      chosenEvent: dialog.chosenEvent,
-    },
-    answer,
-    expected: {
-      nextChoiceKind: 'fight-own',
-      source: 'Bushwhack',
-      duplicateGenericAnswer: 'accepted-as-answer-to-next-dialog',
-    },
-  }
-}
-
 const cardChoice = openCardChoice()
 const playerChoice = openPlayerChoice()
-const modeChoice = legacyModeChoice()
 
 const fixture = {
   schema: 'rule-dsl-compatibility-fixtures/v1',
@@ -159,22 +91,10 @@ const fixture = {
   commands: {
     openCardChoiceAnswer: cardChoice.answer,
     openPlayerChoiceAnswer: playerChoice.answer,
-    legacyModeAnswer: modeChoice.answer,
-    legacyModeJournalEvents: modeChoice.journal.events,
   },
   savedStates: {
     openCardChoice: cardChoice,
     openPlayerChoice: playerChoice,
-    openLegacyModeChoice: {
-      plugins: modeChoice.plugins,
-      state: modeChoice.state,
-      dialog: modeChoice.dialog,
-      answer: modeChoice.answer,
-      expected: modeChoice.expected,
-    },
-  },
-  journals: {
-    openLegacyModeChoice: modeChoice.journal,
   },
 }
 

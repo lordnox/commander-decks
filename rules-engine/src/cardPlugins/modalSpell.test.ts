@@ -5,7 +5,6 @@ import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import { pendingDialog, pendingDialogLock } from '../pendingDialog'
 import { choiceEffects } from './choiceEffects'
-import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
 import { librarySearch } from './librarySearch'
 
@@ -35,7 +34,7 @@ const game = (options: {
     },
     {
       random: () => 0.5,
-      cardPlugins: [modalSpell, onResolve, choiceEffects, pendingDialogLock, librarySearch],
+      cardPlugins: [onResolve, choiceEffects, pendingDialogLock, librarySearch],
     },
   )
 

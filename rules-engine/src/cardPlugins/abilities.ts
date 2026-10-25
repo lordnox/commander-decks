@@ -1,5 +1,5 @@
 import type { ZoneId } from '../types'
-import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, ModalMode, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -341,25 +341,6 @@ export const optionalBasicLandEnters = (): SearchSpec => ({
   max: 1,
   sacrificeSource: false,
   optionalEnter: true,
-})
-
-export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
-  op: 'modal',
-  choose: 'one',
-  modes,
-})
-
-export const modalChooseTwo = (...modes: ModalMode[]): CardEffect => ({
-  op: 'modal',
-  choose: 'two',
-  modes,
-})
-
-export const modalCommanderChooseBoth = (...modes: ModalMode[]): CardEffect => ({
-  op: 'modal',
-  choose: 'one',
-  commanderChooseBoth: true,
-  modes,
 })
 
 export const sagaChapters = (...chapters: SagaChapter[]): CardEffect => ({
