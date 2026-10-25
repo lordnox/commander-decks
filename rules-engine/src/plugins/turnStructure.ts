@@ -176,6 +176,8 @@ export const advanceTurnStep = (draft: Draft) => {
   const index = STEPS.indexOf(draft.step)
   const wraps = index === STEPS.length - 1
   const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
+  // Turn-based declarations belong to a step instance, including repeated combats.
+  delete draft.attackersDeclared
   draft.step = step
   if (wraps) {
     let queued = draft.extraTurns?.shift()

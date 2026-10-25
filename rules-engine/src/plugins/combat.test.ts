@@ -2,7 +2,11 @@ import { expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, newGame, planeswalker } from '../testGame'
+import { commanderRules } from '../formats'
+import { createServerGame } from '../runtime'
+import type { GameEvent, GameState } from '../types'
 import { combat } from './combat'
+import { COMBAT_ERRORS } from './combatConstants'
 import { damage } from './damage'
 import { life } from './life'
 import { stateBased } from './stateBased'
@@ -345,4 +349,61 @@ test('an unblocked creature can attack and damage an opponent planeswalker', () 
 
   expect(damaged.state.objects[walker.id].counters.loyalty).toBe(3)
   expect(damaged.state.players.p2.life).toBe(40)
+})
+
+test('attacker declarations complete once per step, including empty declarations', () => {
+  for (const empty of [false, true]) {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      battlefield: { p1: [{ ...bears(), oracleText: 'Vigilance' }] },
+    }, { random: () => 0 })
+    const initial: GameState = { ...server.state, step: 'declareAttackers' }
+    const attackerId = initial.zoneOrder.p1.battlefield[0]!
+    const declaration: GameEvent = {
+      type: 'declareAttackers', seat: 'p1',
+      attackers: empty ? [] : [{ objectId: attackerId, defender: 'p2' }],
+    }
+    const first = server.rules(initial, declaration)
+    expect(first.ok).toBe(true)
+    if (!first.ok) throw new Error(first.error)
+    expect(initial.objects[attackerId].attacking).toBeNull()
+    expect(first.state.objects[attackerId].tapped).toBe(false)
+    // The completion marker survives snapshot persistence, even without attackers.
+    const saved: GameState = JSON.parse(JSON.stringify(first.state))
+    for (const attackers of [[], [{ objectId: attackerId, defender: 'p3' }]]) {
+      const repeated = server.rules(saved, { type: 'declareAttackers', seat: 'p1', attackers })
+      expect(repeated.ok).toBe(false)
+      if (!repeated.ok) expect(repeated.error).toBe(COMBAT_ERRORS.attackersAlreadyDeclared)
+    }
+    expect(saved.objects[attackerId].attacking).toEqual(
+      empty ? null : { kind: 'player', player: 'p2' },
+    )
+
+    // Re-entering through the step machinery models another combat in this turn.
+    const entering = server.rules({ ...saved, step: 'beginCombat' }, { type: 'advanceStep' })
+    expect(entering.ok).toBe(true)
+    if (!entering.ok) throw new Error(entering.error)
+    expect(entering.state.turn).toBe(initial.turn)
+    expect(entering.state.step).toBe('declareAttackers')
+    const next = server.rules(entering.state, {
+      type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: attackerId, defender: 'p3' }],
+    })
+    expect(next.ok).toBe(true)
+    if (!next.ok) throw new Error(next.error)
+    expect(next.state.objects[attackerId].attacking).toEqual({ kind: 'player', player: 'p3' })
+  }
+})
+
+test('an illegal attacker declaration can be corrected in the same step', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [bears()] },
+  }, { random: () => 0 })
+  const initial: GameState = { ...server.state, step: 'declareAttackers' }
+  const objectId = initial.zoneOrder.p1.battlefield[0]!
+  expect(server.rules(initial, {
+    type: 'declareAttackers', seat: 'p1', attackers: [{ objectId, defender: 'p1' }],
+  }).ok).toBe(false)
+  expect(server.rules(initial, {
+    type: 'declareAttackers', seat: 'p1', attackers: [{ objectId, defender: 'p2' }],
+  }).ok).toBe(true)
 })

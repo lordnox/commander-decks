@@ -965,6 +965,8 @@ export type GameState = {
   priority: PlayerId | null
   turn: number
   step: StepId
+  /** CR 508.1: the declare-attackers action completed in the current step, even if empty. */
+  attackersDeclared?: boolean
   /** Combatants with first/double strike as the first damage step began (CR 510.4). */
   firstStrikeCombatants?: ObjectIdentity[]
   passedInRow: PlayerId[]
