@@ -34,6 +34,20 @@ The foundation does not change serialized programs, revisions, or gameplay.
 Paths in the table are relative to `rules-engine/` unless they begin with
 `shared/`, `site/`, `live-runner/`, or `.agents/`.
 
+## Delivered external-input prerequisite (#505)
+
+Replay catalogs now carry optional Scryfall `colors` and `color_indicator` arrays,
+including explicit empty arrays. Table-deal producers preserve them for objects
+and individual faces, and deck integration fixtures read the authoritative cache.
+Replay import normalizes explicit arrays with the shared primitive, preferring
+`colors` over `color_indicator`. Without either, it recognizes devoid before
+falling back to mana symbols. Double-faced objects use their front face's colors;
+Room catalogs retain the combined object colors and each door's own colors.
+
+This input correction retains internal arrays and the existing persisted schema
+versions. The atomic `ColorSet` runtime conversion, strict old-format rejection,
+and gameplay/persistence validation remain #490 work.
+
 ## Persistence policy for adoption
 
 Adopt strings in one coherent runtime/schema change after the primitives land.
