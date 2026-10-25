@@ -459,6 +459,7 @@ test('a printed cannot-be-countered creature still enters after a counter resolv
   })
   state = reduce(server, state, { type: 'resolveTop' })
   expect(state.objects[bear.id]).toMatchObject({ zone: 'stack', controller: 'p1' })
+  expect(named(state, 'Counterspell').zone).toBe('graveyard')
   state = reduce(server, state, { type: 'resolveTop' })
   expect(state.objects[bear.id]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
 })

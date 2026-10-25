@@ -1,4 +1,4 @@
-import { expect, test } from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 import { freezeDraft, makeDraft } from '../../draft'
 import { prepareResolutionStep, startCanonicalResolution } from '../../driver'
 import { commanderRules } from '../../formats'
@@ -380,4 +380,47 @@ test('move bindResult counts actual exile after commander replacement', () => {
   }))
   expect(found.objects[chosen]).toMatchObject({ zone: 'battlefield', tapped: true })
   expect(named(found, 'Island').zone).toBe('library')
+})
+
+describe('entry movement to owner hands', () => {
+  const creature = (name: string) => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 })
+  const board = () => ({ battlefield: {
+    p1: [cardTemplate('Own Island', { types: ['Land'] }), creature('Own Bear'), cardTemplate('Own Relic', { types: ['Artifact'] })],
+    p2: [cardTemplate('Their Forest', { types: ['Land'] }), creature('Their Bear'), cardTemplate('Their Banner', { types: ['Enchantment'] })],
+  } })
+  test('entering returns every other nonland permanent to its owner', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Return fixture', { types: ['Creature'], power: 2, toughness: 2, manaCost: '{0}', ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(self.enters, { instructions: [move({ targets: objects({ zone: 'battlefield', other: true, not: { type: 'Land' } }), to: 'hand' })] }),
+      ]))) })] },
+      battlefield: {
+        ...board().battlefield,
+        p2: [...board().battlefield!.p2!, creature('Borrowed Ox')],
+      },
+    }, { random: () => 0.5 })
+    let state = structuredClone(server.state)
+    // A permanent p2 controls but p1 owns returns to p1's hand.
+    const ox = named(state, 'Borrowed Ox')
+    ox.owner = 'p1'
+    ox.controller = 'p2'
+    state = resolveStack(server.rules, ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(state, 'Return fixture').id,
+    })))
+
+    expect(named(state, 'Return fixture')).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+    for (const name of ['Own Island', 'Their Forest']) expect(named(state, name).zone).toBe('battlefield')
+    for (const name of ['Own Bear', 'Own Relic']) {
+      expect(named(state, name).zone).toBe('hand')
+      expect(named(state, name).owner).toBe('p1')
+    }
+    for (const name of ['Their Bear', 'Their Banner']) {
+      expect(named(state, name)).toMatchObject({ zone: 'hand', owner: 'p2' })
+    }
+    expect(named(state, 'Borrowed Ox')).toMatchObject({ zone: 'hand', owner: 'p1' })
+    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name)).toContain('Borrowed Ox')
+    expect(state.stack).toHaveLength(0)
+  })
 })

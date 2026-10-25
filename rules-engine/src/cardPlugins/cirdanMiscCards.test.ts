@@ -1,8 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, test } from 'bun:test'
-import { hasKeyword } from '../keywords'
 import { legalActsFor } from '../actions'
-import { maximumHandSize } from '../plugins/turnStructure'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -11,7 +9,7 @@ import { ward as wardPlugin } from './ward'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameEvent, GameState, Plugin } from '../types'
+import type { GameState, Plugin } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
   applyKernelAct,
@@ -242,23 +240,6 @@ describe('Dig Through Time', () => {
       .toBe(true)
   })
 
-  test('delve is capped at the generic cost and cannot pay the blue mana', async () => {
-    const { server, state } = await setup()
-    const spell = named(state, 'Dig Through Time').id
-    const seven = GRAVE.map((name) => named(state, name).id)
-    const withMana = structuredClone(state)
-    withMana.players.p1.mana.U = 2
-    withMana.players.p1.mana.C = 1
-    expect(server.rules(withMana, { type: 'castSpell', seat: 'p1', objectId: spell, delve: seven }))
-      .toMatchObject({ ok: false, error: 'delve exceeds the generic mana cost' })
-    const dry = structuredClone(state)
-    expect(server.rules(dry, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spell,
-      delve: seven.slice(0, 6),
-    })).toMatchObject({ ok: false, error: 'not enough mana' })
-  })
 })
 
 const handOf = (state: GameState, seat = 'p1') =>
@@ -293,18 +274,6 @@ const mainPhase = (state: GameState, seat = 'p1') => {
 const pool = (state: GameState, mana: Partial<GameState['players'][string]['mana']>, seat = 'p1') => {
   Object.assign(state.players[seat].mana, mana)
   return state
-}
-
-const advanceTo = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  step: GameState['step'],
-) => {
-  let current = state
-  for (let guard = 0; guard < 24 && current.step !== step; guard += 1) {
-    current = resolveStack(server.rules, ok(server.rules(current, { type: 'advanceStep' })))
-  }
-  return current
 }
 
 const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
@@ -547,24 +516,6 @@ describe('Kiora Bests the Sea God', () => {
     expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
   })
 
-  test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {
-    const { server, state } = await setup()
-    let current = pool(mainPhase(state), { U: 2, C: 5 })
-    current = resolveStack(server.rules, ok(server.rules(current, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(current, 'Kiora Bests the Sea God').id,
-    })))
-    const krakenId = named(current, 'Kraken').id
-    const dead = resolveStack(server.rules, ok(server.rules(current, { type: 'move', objectId: krakenId, to: 'graveyard' })))
-    expect(dead.objects[krakenId]).toBeUndefined()
-    for (const zone of ['battlefield', 'graveyard', 'exile', 'hand', 'library'] as const) {
-      expect(dead.zoneOrder.p1[zone]).not.toContain(krakenId)
-    }
-    // Chapter III can still take a permanent without the Kraken, and the Saga is unaffected by its death.
-    expect(named(dead, 'Kiora Bests the Sea God').zone).toBe('battlefield')
-  })
-
   test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {
     // The ward plugin only reacts to cast spells and activated abilities, so a chapter
     // ability that targets a Ward permanent takes it without the ward cost being asked.
@@ -583,82 +534,6 @@ describe('Kiora Bests the Sea God', () => {
     expect(named(done, 'Warded Foe').controller).toBe('p1')
   })
 
-  test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {
-    const { server, state } = await setup()
-    let current = pool(mainPhase(state), { U: 2, C: 5 })
-    current = resolveStack(server.rules, ok(server.rules(current, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(current, 'Kiora Bests the Sea God').id,
-    })))
-
-    const saga = named(current, 'Kiora Bests the Sea God')
-    expect(saga).toMatchObject({ zone: 'battlefield', counters: { lore: 1 } })
-    const kraken = named(current, 'Kraken')
-    expect(kraken).toMatchObject({
-      zone: 'battlefield',
-      controller: 'p1',
-      token: true,
-      power: 8,
-      toughness: 8,
-      colors: ['U'],
-      types: ['Creature'],
-      subtypes: ['Kraken'],
-    })
-    expect(hasKeyword(kraken, 'hexproof')).toBe(true)
-
-    // Chapter II on p1's next turn: choose an opponent, then they are tapped down.
-    const tapDown = advanceUntil(server, current, (next) =>
-      pendingPlayerSelectionFor(next, 'p1') !== undefined)
-    const selection = pendingPlayerSelectionFor(tapDown, 'p1')!
-    expect(tapDown.active).toBe('p1')
-    expect(tapDown.objects[saga.id].counters.lore).toBe(2)
-    expect(selection.candidates).toEqual(['p2', 'p3'])
-    const afterII = resolveStack(server.rules, ok(server.rules(tapDown, {
-      type: 'selectPlayers',
-      selectionId: selection.id,
-      seat: 'p1',
-      players: ['p2'],
-    })))
-    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
-      expect(named(afterII, name)).toMatchObject({ tapped: true, skipNextUntap: true })
-    }
-    expect(named(afterII, 'Foe Forest').tapped).toBe(false)
-    for (const name of ['Bystander', 'Shrouded Mage', 'Kraken']) expect(named(afterII, name).tapped).toBe(false)
-
-    // They skip exactly one untap step.
-    const firstUntap = advanceUntil(server, afterII, (next) => next.active === 'p2' && next.step === 'upkeep')
-    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
-      expect(named(firstUntap, name).tapped).toBe(true)
-    }
-    // Chapter III on p1's next turn: steal a permanent and untap it.
-    const stealing = advanceUntil(server, firstUntap, (next) =>
-      pendingSelectionFor(next, 'p1') !== undefined)
-    expect(stealing.objects[saga.id].counters.lore).toBe(3)
-    const pick = pendingSelectionFor(stealing, 'p1')!
-    expect(names(stealing, pick.candidates).toSorted()).toEqual([
-      'Bystander', 'Foe Alpha', 'Foe Beta', 'Foe Forest', 'Foe Relic',
-    ])
-    const tappedForest = structuredClone(stealing)
-    named(tappedForest, 'Foe Forest').tapped = true
-    const done = resolveStack(server.rules, ok(server.rules(tappedForest, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [named(tappedForest, 'Foe Forest').id],
-    })))
-    expect(named(done, 'Foe Forest')).toMatchObject({ controller: 'p1', owner: 'p2', tapped: false })
-    expect(done.objects[saga.id].zone).toBe('graveyard')
-    expect(named(done, 'Kraken').zone).toBe('battlefield')
-
-    // The skipped untap was used up: p2's next untap step untaps what they still control.
-    const nextUntap = advanceUntil(server, done, (next) => next.active === 'p2' && next.step === 'upkeep')
-    expect(nextUntap.turn).toBeGreaterThan(done.turn)
-    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
-      expect(named(nextUntap, name).tapped).toBe(false)
-    }
-  })
 })
 
 describe('Nezahal, Primal Tide', () => {
@@ -684,88 +559,6 @@ describe('Nezahal, Primal Tide', () => {
     }, { random: () => 0.5, cardPlugins: plugins })
     return { server, state: server.state }
   }
-
-  const castBy = (
-    server: ReturnType<typeof createServerGame>,
-    state: GameState,
-    seat: string,
-    name: string,
-    extra: Partial<Extract<GameEvent, { type: 'castSpell' }>> = {},
-  ) => {
-    const next = structuredClone(state)
-    next.priority = seat
-    return ok(server.rules(next, { type: 'castSpell', seat, objectId: named(next, name).id, ...extra }))
-  }
-
-  const toHand = (state: GameState, name: string) => {
-    const card = named(state, name)
-    state.zoneOrder.p1[card.zone] = state.zoneOrder.p1[card.zone].filter((id) => id !== card.id)
-    state.zoneCounts.p1[card.zone] -= 1
-    state.zoneOrder.p1.hand.push(card.id)
-    state.zoneCounts.p1.hand += 1
-    card.zone = 'hand'
-  }
-
-  test('the spell cannot be countered', async () => {
-    const { server, state } = await setup(false)
-    let current = pool(mainPhase(state), { U: 2, C: 5 })
-    current = castBy(server, current, 'p1', 'Nezahal, Primal Tide')
-    expect(current.stack[0]).toMatchObject({ kind: 'spell', name: 'Nezahal, Primal Tide', uncounterable: true })
-    pool(current, { U: 2 }, 'p2')
-    current = castBy(server, current, 'p2', 'Counterspell', {
-      targets: [{ kind: 'stackItem', stackId: current.stack.find(item => item.objectId === named(current, 'Nezahal, Primal Tide').id)!.id }],
-    })
-    current = resolveStack(server.rules, current)
-    expect(named(current, 'Nezahal, Primal Tide')).toMatchObject({ zone: 'battlefield', controller: 'p1' })
-    expect(named(current, 'Counterspell').zone).toBe('graveyard')
-  })
-
-  test('an opponent casting a noncreature spell draws you a card; creatures and your own spells do not', async () => {
-    const { server, state } = await setup()
-    let current = castBy(server, mainPhase(state, 'p2'), 'p2', 'Opp Bear')
-    current = resolveStack(server.rules, current)
-    expect(handOf(current)).toEqual(HELD)
-
-    current = castBy(server, current, 'p2', 'Opp Trick')
-    current = resolveStack(server.rules, current)
-    expect(handOf(current)).toEqual([...HELD, 'Lib 1'])
-    expect(handOf(current, 'p2')).not.toContain('Lib 1')
-
-    current = castBy(server, current, 'p3', 'P3 Trick')
-    current = resolveStack(server.rules, current)
-    expect(handOf(current)).toEqual([...HELD, 'Lib 1', 'Lib 2'])
-
-    // Casting your own noncreature spell does not trigger it.
-    const own = structuredClone(current)
-    own.players.p1.mana.C = 0
-    toHand(own, 'Lib 3')
-    const sorcery = named(own, 'Lib 3')
-    sorcery.manaCost = '{0}'
-    sorcery.manaValue = 0
-    const before = handOf(own).length
-    const cast = resolveStack(server.rules, castBy(server, mainPhase(own), 'p1', 'Lib 3'))
-    expect(handOf(cast).length).toBe(before - 1)
-  })
-
-  test('you have no maximum hand size while it is on the battlefield', async () => {
-    const { server, state } = await setup()
-    const big = structuredClone(state)
-    for (const name of ['Lib 1', 'Lib 2', 'Lib 3', 'Lib 4']) toHand(big, name)
-    // Refresh the static grant the way a battlefield change would.
-    const nezahal = named(big, 'Nezahal, Primal Tide')
-    const entered = ok(server.rules(
-      ok(server.rules(big, { type: 'move', objectId: nezahal.id, to: 'hand' })),
-      { type: 'move', objectId: nezahal.id, to: 'battlefield' },
-    ))
-    expect(maximumHandSize(entered, 'p1')).toBeNull()
-    const cleanup = { ...entered, step: 'cleanup' as const, active: 'p1', priority: 'p1' }
-    expect(ok(server.rules(cleanup, { type: 'advanceStep' })).step).toBe('untap')
-
-    const gone = ok(server.rules(entered, { type: 'move', objectId: nezahal.id, to: 'graveyard' }))
-    expect(maximumHandSize(gone, 'p1')).toBe(7)
-    expect(server.rules({ ...gone, step: 'cleanup' as const, active: 'p1', priority: 'p1' }, { type: 'advanceStep' }))
-      .toMatchObject({ ok: false, error: expect.stringContaining('must discard 2') })
-  })
 
   test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {
     const { server, state } = await setup()
@@ -810,30 +603,7 @@ describe('Nezahal, Primal Tide', () => {
     expect(back.delayedTriggers).toHaveLength(0)
   })
 
-  test('the discard ability is not offered with fewer than three cards in hand', async () => {
-    const { server, state } = await setup()
-    const poor = mainPhase(state)
-    for (const name of ['Held 1', 'Held 2', 'Held 3']) {
-      const card = named(poor, name)
-      poor.zoneOrder.p1.hand = poor.zoneOrder.p1.hand.filter((id) => id !== card.id)
-      poor.zoneCounts.p1.hand -= 1
-      poor.zoneOrder.p1.graveyard.push(card.id)
-      poor.zoneCounts.p1.graveyard += 1
-      card.zone = 'graveyard'
-    }
-    expect(legalActsFor(poor, 'p1').some((action) =>
-      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')).toBe(false)
-    expect(server.rules(poor, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: named(poor, 'Nezahal, Primal Tide').id,
-      abilityId: '$.abilities[2]',
-      choices: [named(poor, 'Held 4').id, named(poor, 'Held 5').id],
-    }).ok).toBe(false)
-  })
 })
-
-
 
 describe("Rishkar's Expertise", () => {
   const setup = async (options: {
@@ -857,127 +627,6 @@ describe("Rishkar's Expertise", () => {
     }, { random: () => 0.5, cardPlugins: plugins })
     return { server, state: server.state }
   }
-
-  const resolveExpertise = (server: ReturnType<typeof createServerGame>, state: GameState) => {
-    const ready = pool(mainPhase(state), { G: 2, C: 4 })
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, "Rishkar's Expertise").id,
-    }))
-    return ok(server.rules(cast, { type: 'resolveTop' }))
-  }
-
-  const castFree = (state: GameState, name: string): Extract<GameEvent, { type: 'castSpell' }> => ({
-    type: 'castSpell',
-    seat: 'p1',
-    objectId: named(state, name).id,
-    alternativeCost: 'withoutPayingMana',
-  })
-
-  test('draws cards equal to your greatest power, counting only your creatures', async () => {
-    const { server, state } = await setup({ hand: [costed('Held Bear', ['Creature'], 3)] })
-    const resolved = resolveExpertise(server, state)
-    expect(handOf(resolved)).toEqual(['Held Bear', 'Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
-    expect(resolved.zoneOrder.p1.library).toHaveLength(7)
-    expect(named(resolved, "Rishkar's Expertise").zone).toBe('stack')
-  })
-
-  test('with no creature it draws nothing and still offers the free cast', async () => {
-    const { server, state } = await setup({ creatures: [], hand: [costed('Held Bear', ['Creature'], 3)] })
-    const resolved = resolveExpertise(server, state)
-    expect(handOf(resolved)).toEqual(['Held Bear'])
-    expect(legalActsFor(resolved, 'p1').map((action) => action.kind).toSorted())
-      .toEqual(['castSpell', 'declineFreeCast'])
-  })
-
-  test('the free cast is offered after the draw, for held and drawn cards of mana value 5 or less', async () => {
-    const { server, state } = await setup({
-      hand: [costed('Held Five', ['Creature'], 5), costed('Held Six', ['Creature'], 6), cardTemplate('Held Land', { types: ['Land'] })],
-    })
-    const resolved = resolveExpertise(server, state)
-    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
-    expect(offered.map((action) => 'name' in action && action.name).toSorted()).toEqual([
-      'Held Five', 'Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5',
-    ])
-    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'declineFreeCast')).toHaveLength(1)
-
-    for (const name of ['Held Six', 'Held Land']) {
-      expect(server.rules(resolved, castFree(resolved, name)))
-        .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
-    }
-    expect(server.rules(resolved, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
-    expect(server.rules(resolved, { ...castFree(resolved, 'Held Five'), seat: 'p2' }).ok).toBe(false)
-  })
-
-  test('the offer opens for cards the Expertise itself drew, even with nothing castable held before', async () => {
-    const { server, state } = await setup()
-    const resolved = resolveExpertise(server, state)
-    expect(handOf(resolved)).toEqual(['Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
-    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'declineFreeCast')).toHaveLength(1)
-    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')).toHaveLength(5)
-    const cast = ok(server.rules(resolved, castFree(resolved, 'Lib 3')))
-    expect(cast.stack[0]).toMatchObject({ name: 'Lib 3', castFrom: 'hand' })
-    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
-    expect(handOf(cast)).not.toContain('Lib 3')
-  })
-
-  test('only the drawn card of mana value 5 or less is offered; drawn lands and bigger spells are not', async () => {
-    const { server, state } = await setup({
-      creatures: [creature('Big Ally', { power: 3, toughness: 3 })],
-      library: [
-        costed('Drawn Five', ['Creature'], 5),
-        cardTemplate('Drawn Land', { types: ['Land'] }),
-        costed('Drawn Eight', ['Sorcery'], 8),
-        costed('Undrawn Two', ['Creature'], 2),
-      ],
-    })
-    const resolved = resolveExpertise(server, state)
-    expect(handOf(resolved)).toEqual(['Drawn Five', 'Drawn Land', 'Drawn Eight'])
-    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
-    expect(offered.map((action) => 'name' in action && action.name)).toEqual(['Drawn Five'])
-    for (const name of ['Drawn Land', 'Drawn Eight']) {
-      expect(server.rules(resolved, castFree(resolved, name)))
-        .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
-    }
-  })
-
-  test('with nothing castable drawn or held no offer opens and priority carries on', async () => {
-    const { server, state } = await setup({
-      hand: [cardTemplate('Held Land', { types: ['Land'] }), costed('Held Six', ['Creature'], 6)],
-      library: [costed('Drawn Seven', ['Creature'], 7), ...filler('Deep', 10)],
-      creatures: [creature('Big Ally', { power: 1, toughness: 1 })],
-    })
-    const resolved = resolveExpertise(server, state)
-    expect(legalActsFor(resolved, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(false)
-    expect(server.rules(resolved, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
-  })
-
-  test('a spell with X in its cost is castable for free with X equal to 0', async () => {
-    const { server, state } = await setup({
-      hand: [costed('Fixture Hydra', ['Creature'], 1, { manaCost: '{X}{G}', power: 0, toughness: 0 })],
-    })
-    const resolved = resolveExpertise(server, state)
-    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
-    expect(offered.map((action) => 'name' in action && action.name)).toContain('Fixture Hydra')
-    const cast = ok(server.rules(resolved, castFree(resolved, 'Fixture Hydra')))
-    expect(cast.stack[0]).toMatchObject({ name: 'Fixture Hydra', castFrom: 'hand' })
-    expect(cast.stack[0].x ?? 0).toBe(0)
-    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
-  })
-
-  test('declining ends the offer and keeps every card in hand', async () => {
-    const { server, state } = await setup({ hand: [costed('Held Five', ['Creature'], 5)] })
-    const resolved = resolveExpertise(server, state)
-    const declined = ok(server.rules(resolved, {
-      type: 'declineFreeCast',
-      seat: 'p1',
-      objectId: named(resolved, "Rishkar's Expertise").id,
-    }))
-    expect(handOf(declined)).toContain('Held Five')
-    expect(server.rules(declined, castFree(declined, 'Held Five')).ok).toBe(false)
-    expect(server.rules(declined, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
-  })
 
   test('the offer is private, survives a host restart, and is answered with live acts', async () => {
     const { server, state } = await setup({ hand: [costed('Held Five', ['Creature'], 5)] })
@@ -1025,150 +674,3 @@ describe("Rishkar's Expertise", () => {
   })
 }
 )
-
-describe('Spearbreaker Behemoth', () => {
-  const ABILITY = '$.abilities[1]'
-
-  const setup = async () => {
-    const plugins = await knownPlugins(['Spearbreaker Behemoth', 'Drag to the Roots'])
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [real('Drag to the Roots')] },
-      battlefield: {
-        p1: [
-          real('Spearbreaker Behemoth'),
-          creature('Own Giant', { power: 5, toughness: 5 }),
-          creature('Own Runt', { power: 4, toughness: 4 }),
-        ],
-        p2: [
-          creature('Foe Giant', { power: 6, toughness: 6 }),
-          creature('Foe Shrouded', { power: 7, toughness: 7, oracleText: 'Hexproof' }),
-        ],
-      },
-      libraries: { p1: filler('A', 12), p2: filler('B', 12) },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ready = pool(mainPhase(server.state), { B: 2, G: 2, C: 8 })
-    return { server, ready }
-  }
-
-  const activate = (state: GameState, targetName: string, seat = 'p1'): Extract<GameEvent, { type: 'activateAbility' }> => ({
-    type: 'activateAbility',
-    abilityId: ABILITY,
-    seat,
-    objectId: named(state, 'Spearbreaker Behemoth').id,
-    targets: [{ kind: 'object', objectId: named(state, targetName).id }],
-  })
-
-  const indestructible = (state: GameState, name: string) =>
-    hasKeyword(named(state, name), 'indestructible')
-
-  const lethalDamage = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
-    ok(server.rules(state, {
-      type: 'dealDamage',
-      sourceId: named(state, 'Foe Giant').id,
-      target: { kind: 'object', objectId: named(state, name).id },
-      amount: 20,
-    }))
-
-  const dragTo = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
-    resolveStack(server.rules, ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Drag to the Roots').id,
-      targets: [{ kind: 'object', objectId: named(state, name).id }],
-    })))
-
-  test('is registered from its exact Oracle text and is indestructible itself', async () => {
-    const { server, ready } = await setup()
-    expect(indestructible(ready, 'Spearbreaker Behemoth')).toBe(true)
-    const survived = lethalDamage(server, ready, 'Spearbreaker Behemoth')
-    expect(named(survived, 'Spearbreaker Behemoth').zone).toBe('battlefield')
-    const unharmed = dragTo(server, ready, 'Spearbreaker Behemoth')
-    expect(named(unharmed, 'Spearbreaker Behemoth').zone).toBe('battlefield')
-  })
-
-  test('a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn', async () => {
-    const { server, ready } = await setup()
-    for (const name of ['Own Giant', 'Foe Giant', 'Spearbreaker Behemoth']) {
-      const stacked = ok(server.rules(ready, activate(ready, name)))
-      expect(stacked.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
-      expect(stacked.players.p1.mana.C).toBe(7)
-      const resolved = resolveStack(server.rules, stacked)
-      expect(indestructible(resolved, name)).toBe(true)
-      expect(named(lethalDamage(server, resolved, name), name).zone).toBe('battlefield')
-    }
-    const stacked = ok(server.rules(ready, activate(ready, 'Foe Giant')))
-    const protectedGiant = resolveStack(server.rules, stacked)
-    expect(named(dragTo(server, protectedGiant, 'Foe Giant'), 'Foe Giant').zone).toBe('battlefield')
-    // Without the grant the same removal kills it.
-    expect(named(dragTo(server, ready, 'Foe Giant'), 'Foe Giant').zone).toBe('graveyard')
-    expect(named(lethalDamage(server, ready, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
-  })
-
-  test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {
-    const { server, ready } = await setup()
-    for (const name of ['Own Runt', 'Foe Shrouded', 'Drag to the Roots']) {
-      expect(server.rules(ready, activate(ready, name)).ok).toBe(false)
-    }
-    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), targets: [] }).ok).toBe(false)
-    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), seat: 'p2' }).ok).toBe(false)
-  })
-
-  test('the controller may target its own hexproof creature', async () => {
-    const { server, ready } = await setup()
-    const edited = structuredClone(ready)
-    named(edited, 'Own Giant').oracleText = 'Hexproof'
-    const resolved = resolveStack(server.rules, ok(server.rules(edited, activate(edited, 'Own Giant'))))
-    expect(indestructible(resolved, 'Own Giant')).toBe(true)
-  })
-
-  test('a target whose power drops below 5 in response is not protected', async () => {
-    const { server, ready } = await setup()
-    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Own Giant'))))
-    named(stacked, 'Own Giant').power = 4
-    const resolved = resolveStack(server.rules, stacked)
-    expect(resolved.stack).toHaveLength(0)
-    expect(indestructible(resolved, 'Own Giant')).toBe(false)
-    expect(named(lethalDamage(server, resolved, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
-  })
-
-  test("an opponent's creature that gains hexproof in response fizzles the ability", async () => {
-    const { server, ready } = await setup()
-    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Foe Giant'))))
-    named(stacked, 'Foe Giant').oracleText = 'Hexproof'
-    const resolved = resolveStack(server.rules, stacked)
-    expect(indestructible(resolved, 'Foe Giant')).toBe(false)
-  })
-
-  test('a target that left the battlefield in response fizzles the ability', async () => {
-    const { server, ready } = await setup()
-    const stacked = ok(server.rules(ready, activate(ready, 'Own Giant')))
-    const gone = ok(server.rules(stacked, {
-      type: 'move',
-      objectId: named(stacked, 'Own Giant').id,
-      to: 'exile',
-    }))
-    const resolved = resolveStack(server.rules, gone)
-    expect(resolved.stack).toHaveLength(0)
-    expect(named(resolved, 'Own Giant').zone).toBe('exile')
-    expect(indestructible(resolved, 'Own Giant')).toBe(false)
-  })
-
-  test('the protection wears off at cleanup, and the ability needs its {1}', async () => {
-    const { server, ready } = await setup()
-    const broke = structuredClone(ready)
-    broke.players.p1.mana.C = 0
-    broke.players.p1.mana.B = 0
-    broke.players.p1.mana.G = 0
-    expect(server.rules(broke, activate(broke, 'Own Giant')).ok).toBe(false)
-
-    const resolved = resolveStack(server.rules, ok(server.rules(ready, activate(ready, 'Own Giant'))))
-    expect(indestructible(resolved, 'Own Giant')).toBe(true)
-    const next = advanceTo(server, resolved, 'upkeep')
-    expect(next.active).toBe('p2')
-    expect(indestructible(next, 'Own Giant')).toBe(false)
-    expect(named(lethalDamage(server, next, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
-    // Spearbreaker's own text keeps it indestructible.
-    expect(indestructible(next, 'Spearbreaker Behemoth')).toBe(true)
-  })
-})

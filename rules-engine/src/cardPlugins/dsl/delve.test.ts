@@ -109,3 +109,14 @@ test('delve cannot pay colored mana or exile illegal cards', () => {
     delve: graveIds(without.state).slice(0, 1),
   })).toMatchObject({ ok: false, error: 'Instruction fixture does not have delve' })
 })
+
+test('the unreduced delve cap rejects seven cards even with spare generic and sufficient blue mana', () => {
+  const { server, state, spellId } = setup({ extraPool: { U: 2, C: 1 } })
+  expect(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spellId, delve: graveIds(state) }))
+    .toMatchObject({ ok: false, error: 'delve exceeds the generic mana cost' })
+  const dry = structuredClone(state)
+  dry.players.p1.mana.U = 0
+  dry.players.p1.mana.C = 0
+  expect(server.rules(dry, { type: 'castSpell', seat: 'p1', objectId: spellId, delve: graveIds(dry).slice(0, 6) }))
+    .toMatchObject({ ok: false, error: 'not enough mana' })
+})

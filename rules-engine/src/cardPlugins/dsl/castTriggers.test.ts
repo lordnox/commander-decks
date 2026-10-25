@@ -3,7 +3,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import { activated, createEffect, grantAbilityEffect, untilCleanup, card, characteristic, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, ref, spellCast, whenever } from './v1'
+import { draw, activated, createEffect, grantAbilityEffect, untilCleanup, card, characteristic, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, ref, spellCast, whenever } from './v1'
 
 test.each([
   { type: 'Creature', caster: 'p1', change: 'none', matches: true },
@@ -53,4 +53,31 @@ test.each([
   state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
   expect(state.players.p1.life).toBe(matches ? 43 : 40)
   expect(state.players.p2.life).toBe(40)
+})
+
+test.each(['p1', 'p2', 'p3'])('noncreature opponent casts draw only for the watcher controller (caster %s)', caster => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(spellCast({ filter: { controller: 'opponent', not: { type: 'Creature' } } }), {
+      instructions: [draw({ count: 1, targets: ref('controller') })],
+    }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: { p1: [cardTemplate('Watcher fixture', { types: ['Artifact'], ruleDefinition: definition })] },
+    hands: { [caster]: [
+      cardTemplate('Creature fixture', { types: ['Creature'], manaCost: '{0}', power: 2, toughness: 2 }),
+      cardTemplate('Noncreature fixture', { types: ['Instant'], manaCost: '{0}' }),
+    ] },
+    libraries: { p1: [cardTemplate('Reward fixture')] },
+  }, { random: () => 0 })
+  let state: typeof server.state = { ...server.state, active: caster, priority: caster }
+  for (const name of ['Creature fixture', 'Noncreature fixture']) {
+    const id = Object.values(state.objects).find(object => object.name === name)!.id
+    state = resolveStack(server.rules, ok(server.rules({ ...state, priority: caster }, { type: 'castSpell', seat: caster, objectId: id })))
+    const triggered = name === 'Noncreature fixture' && caster !== 'p1'
+    const reward = Object.values(state.objects).find(object => object.name === 'Reward fixture')!
+    expect(reward.zone).toBe(triggered ? 'hand' : 'library')
+    expect(state.zoneOrder.p1.hand.includes(reward.id)).toBe(triggered)
+    for (const opponent of ['p2', 'p3']) expect(state.zoneOrder[opponent].hand).not.toContain(reward.id)
+  }
 })
