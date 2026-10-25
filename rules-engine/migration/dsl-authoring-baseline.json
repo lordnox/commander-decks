@@ -3,15 +3,5 @@
     "path": ".agents/skills/simulate-table/scripts/fetch-deck-tokens.ts",
     "code": "literal-name-dispatch",
     "digest": "dd63b094d00cab9155256c0647738d63afdaef91ec9c6e883e46a26a139419a4"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/instructionHandlers/zones.ts",
-    "code": "custom-picker-event",
-    "digest": "a962c313f176b58b8027588e67d457bd9e0e5177af9d335498822ea256165846"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/randomExileCopy.ts",
-    "code": "custom-picker-event",
-    "digest": "7052646c09b8064893f1778a7f11f1d22c46feae8e49f79bb20a4630f0d67505"
   }
 ]

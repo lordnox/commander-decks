@@ -21,18 +21,18 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 20,
-    "cardInstructions": 182,
-    "instructionHandlersDiscovered": 182,
+    "cardInstructions": 181,
+    "instructionHandlersDiscovered": 181,
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 73,
-    "directMutationSites": 541,
+    "customEventDispatchSites": 70,
+    "directMutationSites": 534,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 140,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 40,
+    "candidateOnlyInstructionRows": 39,
     "candidateOnlyCardRows": 0
   },
   "cardEffects": [
@@ -3240,24 +3240,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "randomExileCopyWhile",
-      "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/randomExileCopy.test.ts:11"
-        ]
-      },
-      "neededCanonicalNode": "new reusable canonical node required before migration",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "reanimateCreatureFromGraveyards",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [],
@@ -4147,7 +4129,6 @@
       "putSelfOntoBattlefield",
       "putTargetOnLibraryTop",
       "putTriggeringCardOntoBattlefield",
-      "randomExileCopyWhile",
       "reanimateCreatureFromGraveyards",
       "removeTarget",
       "repeatIf",
@@ -4365,7 +4346,7 @@
           "rules-engine/src/cardPlugins/combatTax.test.ts:31 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:66 — test('Baird does not tax a creature attacking another opponent', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:84 — test('a tapped Archangel does not impose its attack tax', () => {",
-          "rules-engine/src/plugins/combat.test.ts:119 — test('a combat nobody joined skips blockers and damage', () => {"
+          "rules-engine/src/plugins/combat.test.ts:124 — test('a combat nobody joined skips blockers and damage', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5296,7 +5277,7 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/plugins/combat.test.ts:199 — test('a deathtouch trampler only owes its blocker one damage', () => {",
+          "rules-engine/src/plugins/combat.test.ts:263 — test('a deathtouch trampler only owes its blocker one damage', () => {",
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
@@ -5379,9 +5360,9 @@
           "rules-engine/src/cardPlugins/untilEot.test.ts:206 — test('an earlier duration ending does not overwrite a later control effect', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:29 — test('cleanup reverts a land animation while retaining its original type', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:58 — test('cleanup reverts a temporary pump', () => {",
-          "rules-engine/src/plugins/combat.test.ts:119 — test('a combat nobody joined skips blockers and damage', () => {",
-          "rules-engine/src/plugins/combat.test.ts:133 — test('a first striker keeps its own damage step', () => {",
-          "rules-engine/src/plugins/combat.test.ts:88 — test('entering the combat damage step assigns damage without being asked', () => {",
+          "rules-engine/src/plugins/combat.test.ts:124 — test('a combat nobody joined skips blockers and damage', () => {",
+          "rules-engine/src/plugins/combat.test.ts:138 — test('a first striker keeps its own damage step', () => {",
+          "rules-engine/src/plugins/combat.test.ts:93 — test('entering the combat damage step assigns damage without being asked', () => {",
           "rules-engine/src/plugins/combatLegendaryDamage.test.ts:38"
         ]
       },
@@ -6073,7 +6054,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:492",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:489",
         "rules-engine/src/cardPlugins/effectRuntime.ts:276",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
         "rules-engine/src/cardPlugins/effectRuntime.ts:673",
@@ -6094,9 +6075,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:105",
         "rules-engine/src/cardPlugins/instructions.ts:108",
-        "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
-        "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1490"
+        "rules-engine/src/types.ts:1494"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6137,8 +6116,8 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:304",
         "rules-engine/src/cardPlugins/effectRuntime.ts:435",
         "rules-engine/src/cardPlugins/effectRuntime.ts:439",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:238",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:322",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
         "rules-engine/src/cardPlugins/librarySearch.ts:191",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
@@ -6242,8 +6221,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:668",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:846",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:665",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:843",
         "rules-engine/src/cardPlugins/effectRuntime.ts:109",
         "rules-engine/src/cardPlugins/effectRuntime.ts:266",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -6543,10 +6522,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          200
+          203
         ],
         "samples": [
-          "200: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "203: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6951,27 +6930,6 @@
           "243: const allowed = event.type === 'custom'",
           "276: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
           "292: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/randomExileCopy.ts",
-        "lines": [
-          38,
-          40,
-          97
-        ],
-        "samples": [
-          "38: if (event.type !== 'custom' || !event.seat) return",
-          "40: if (event.name === RANDOM_EXILE_COPY_CARD_CHOSEN) {",
-          "97: if (event.name !== RANDOM_EXILE_COPY_FINISH) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7455,15 +7413,15 @@
       {
         "path": "rules-engine/src/plugins/combat.ts",
         "lines": [
-          60,
-          206,
-          217,
-          219
+          61,
+          209,
+          220,
+          222
         ],
         "samples": [
-          "60: if (amount > 0) draft.enqueue({ type: 'combatDamage', sourceId: source.id, target, amount })",
-          "206: const attacker = draft.object(declaration.objectId)",
-          "217: const blocker = draft.object(declaration.blockerId)"
+          "61: if (amount > 0) draft.enqueue({ type: 'combatDamage', sourceId: source.id, target, amount })",
+          "209: const attacker = draft.object(declaration.objectId)",
+          "220: const blocker = draft.object(declaration.blockerId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8923,30 +8881,6 @@
         "status": "legacy-route"
       },
       {
-        "path": "rules-engine/src/cardPlugins/randomExileCopy.ts",
-        "lines": [
-          46,
-          58,
-          69,
-          88,
-          103,
-          115
-        ],
-        "samples": [
-          "46: const card = selected ? draft.object(selected) : undefined",
-          "58: draft.enqueue({ type: 'move', objectId: card.id, to: 'exile' })",
-          "69: draft.enqueue({"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
         "path": "rules-engine/src/cardPlugins/instructionHandlers/helpers.ts",
         "lines": [
           37
@@ -9024,60 +8958,59 @@
       {
         "path": "rules-engine/src/cardPlugins/instructionHandlers/zones.ts",
         "lines": [
-          30,
-          73,
-          111,
-          125,
-          150,
+          28,
+          71,
+          109,
+          123,
+          148,
+          156,
           158,
-          160,
-          169,
-          172,
-          177,
-          186,
-          203,
-          209,
-          220,
-          237,
-          260,
-          270,
-          296,
-          303,
-          310,
-          313,
-          324,
-          332,
-          430,
-          431,
-          472,
-          489,
-          492,
-          505,
-          506,
-          512,
-          635,
-          681,
-          732,
-          739,
-          746,
+          167,
+          170,
+          175,
+          184,
+          201,
+          207,
+          218,
+          235,
+          258,
+          268,
+          294,
+          301,
+          308,
+          311,
+          322,
+          330,
+          428,
+          429,
+          470,
+          487,
+          490,
+          503,
+          504,
+          510,
+          633,
+          679,
+          730,
+          737,
+          744,
+          751,
           753,
-          755,
-          761,
-          764,
-          787,
-          812,
-          814,
-          815,
-          832,
-          900,
-          919,
-          937,
-          948
+          759,
+          762,
+          779,
+          781,
+          782,
+          799,
+          867,
+          886,
+          904,
+          915
         ],
         "samples": [
-          "30: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
-          "73: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
-          "111: draft.enqueue({"
+          "28: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
+          "71: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
+          "109: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -8,8 +8,6 @@ import type {
   ZoneId,
 } from '../types'
 
-export const RANDOM_EXILE_COPY_CARD_CHOSEN = 'randomExileCopy.cardChosen'
-export const RANDOM_EXILE_COPY_FINISH = 'randomExileCopy.finish'
 
 /**
  * Static P/T from cards exiled with the source: a fixed bonus per card, or
@@ -445,7 +443,6 @@ export type CardInstruction =
   | { kind: 'finishWarpExile' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
-  | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
   | { kind: 'copyTargetForEachOtherPlayer' }
   | { kind: 'combatDialogueUntilEot' }
   | {

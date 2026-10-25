@@ -91,7 +91,10 @@ test('chooseRandom persists the journaled pick across restore', () => {
   expect(named(direct, 'Second').zone).toBe('graveyard')
 })
 
-test('repeatWhile copies sequential lands then stops on a nonland or empty graveyard', () => {
+test.each([
+  { types: ['Land', 'Land', 'Creature', 'Artifact'], copied: 3 },
+  { types: ['Land', 'Land'], copied: 2 },
+])('repeatWhile stops at a nonland or exhausted pool: $types', ({ types, copied }) => {
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [instructionSpell({ instructions: [
@@ -101,20 +104,25 @@ test('repeatWhile copies sequential lands then stops on a nonland or empty grave
         instructions: exileCopy,
       }),
     ] }),
-    cardTemplate('Buried Forest', { types: ['Land'], zone: 'graveyard' }),
-    cardTemplate('Buried Island', { types: ['Land'], zone: 'graveyard' }),
-    cardTemplate('Buried Bear', { types: ['Creature'], zone: 'graveyard' }),
-    ] },
+    ...types.map((type, index) => cardTemplate(`Buried ${index}`, {
+      types: [type], zone: 'graveyard',
+    })),
+    cardTemplate('Excluded instant', { types: ['Instant'], zone: 'graveyard' }),
+    ], p2: [cardTemplate('Other owner', { types: ['Land'], zone: 'graveyard' })] },
   }, { random: () => 0 })
   const state = resolveStack(server.rules, ok(server.rules(server.state, {
     type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
   })))
   const copies = Object.values(state.objects).filter(object => object.token)
-  expect(copies.map(object => object.name).toSorted()).toEqual(['Buried Bear', 'Buried Forest', 'Buried Island'])
-  expect(copies.every(object => object.tapped)).toBe(true)
-  expect(named(state, 'Buried Forest').zone).toBe('exile')
-  expect(named(state, 'Buried Island').zone).toBe('exile')
-  expect(named(state, 'Buried Bear').zone).toBe('exile')
+  const exiled = Object.values(state.objects).filter(object => !object.token && object.zone === 'exile')
+  expect(copies).toHaveLength(copied)
+  expect(copies.map(object => object.name).toSorted()).toEqual(exiled.map(object => object.name).toSorted())
+  expect(copies.filter(object => !object.types.includes('Land'))).toHaveLength(types.every(type => type === 'Land') ? 0 : 1)
+  expect(copies.every(object => object.tapped && object.controller === 'p1')).toBe(true)
+  expect(types.map((_, index) => named(state, `Buried ${index}`)).filter(object => object.zone === 'graveyard')).toHaveLength(types.length - copied)
+  expect(named(state, 'Excluded instant').zone).toBe('graveyard')
+  expect(named(state, 'Other owner').zone).toBe('graveyard')
+  expect(state.resolution).toBeUndefined()
 })
 
 test('a tapped copy is already tapped when entry observers see it', () => {
