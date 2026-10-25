@@ -19,32 +19,6 @@ const instant = (name: string) =>
   cardTemplate(name, { types: ['Instant'], manaCost: '{W}' })
 
 describe('Lady Evangela blink and value cards', () => {
-  test('Ephemerate returns a stolen creature under its owner’s control', () => {
-    const server = createServerGame(commanderRules, {
-      hands: {
-        p1: [cardTemplate('Ephemerate', { types: ['Instant'], manaCost: '{W}' })],
-      },
-      battlefield: {
-        p2: [cardTemplate('Borrowed Bear', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5 })
-    const ready = mana(structuredClone(server.state))
-    const bear = named(ready, 'Borrowed Bear')
-    bear.controller = 'p1'
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Ephemerate').id,
-      targets: [{ kind: 'object', objectId: bear.id }],
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[bear.id]).toMatchObject({
-      zone: 'battlefield',
-      owner: 'p2',
-      controller: 'p2',
-    })
-  })
-
   test('Loran chooses a typed ETB target and her activation draws for both players', () => {
     const server = createServerGame(commanderRules, {
       hands: {

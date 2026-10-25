@@ -10,6 +10,8 @@
     "ashlingsCommand.integration:105",
     "ashlingsCommand.integration:145",
     "ashlingsCommand.integration:164",
+    "blinkValue:127",
+    "blinkValue:37",
     "blinkValue:63",
     "blinkValue:99",
     "bloodArtist.integration:34",
@@ -328,6 +330,12 @@
     "mossborn-hydra:20",
     "pit-of-offerings:100",
     "pit-of-offerings:50",
+    "plugDackPart33Blink:105",
+    "plugDackPart33Blink:125",
+    "plugDackPart33Blink:179",
+    "plugDackPart33Blink:200",
+    "plugDackPart33Blink:218",
+    "plugDackPart33Blink:235",
     "plugDackPart33Blink:263",
     "plugDackPart33Blink:349",
     "plugDackPart33Blink:380",
@@ -1368,6 +1376,70 @@
       "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
       "suite": "catalog Trap the Trespassers has nothing to vote on without a creature the caster does not control",
       "evidence": "Restored from 486f7377. No vote or option selection for any seat, Ally untouched, spell in graveyard, empty stack."
+    },
+    {
+      "groups": [
+        "blinkValue:37"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/blink.test.ts",
+      "suite": "catalog Ephemerate returns a stolen creature under its owner\u2019s control",
+      "evidence": "Uses the canonical catalog definition. A p2-owned creature controlled by p1 is blinked and returns to the battlefield with owner p2 and controller p2."
+    },
+    {
+      "groups": [
+        "blinkValue:127"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts",
+      "suite": "catalog Vanish into Memory draws by last-known power, returns at the next upkeep, then discards by toughness",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. After resolution the 3/2 is in exile and p1 has drawn 3; advancing into p1's next upkeep puts exactly one stack item on the stack, the Vanish into Memory ability controlled by p1 (replacing the legacy abilityId 'vanish.return' check, which the canonical runtime does not assign), while the card stays in exile; after resolution it is on the battlefield under p2 and a typed discard of 2 sourced by Vanish into Memory is pending."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:105"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/blink.test.ts",
+      "suite": "catalog Cloudshift returns a stolen creature under its caster\u2019s control",
+      "evidence": "Uses the canonical catalog definition. A p2-owned creature controlled by p1 returns to the battlefield with owner p2 and controller p1."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:125"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/blink.test.ts",
+      "suite": "catalog Flicker of Fate blinks a borrowed enchantment immediately under its owner",
+      "evidence": "Uses the canonical catalog definition. A p2-owned enchantment controlled by p1 returns at once with owner p2 and controller p2."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:179"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Getaway Glamer spree blink mode exiles until the next end step",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. Spree is the catalog optional-cost mode selection: choosing only the first mode with its target clause exiles the creature on resolution and returns it to the battlefield after the next end step."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:200"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Getaway Glamer spree kill mode removes the chosen creature",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. Choosing only the second spree mode with its target clause puts the lone (greatest-power) creature into the graveyard."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:218"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Parting Gust without the gift blinks with a counter at the next end step",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. Casting without the optional gift cost exiles the creature and returns it after the next end step with exactly one +1/+1 counter."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:235"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Parting Gust with the gift exiles permanently and creates a tapped Fish",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from audited revision 486f7377 on the canonical catalog definition. The legal cast action promising the gift to p2 (selected optional cost 0, cost player p2) is expanded through eventsForAvailableAction; the creature is exiled, a tapped Fish is controlled by p2, and the creature stays in exile after the next end step."
     }
   ]
 }
