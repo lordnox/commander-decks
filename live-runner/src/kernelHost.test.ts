@@ -19,9 +19,8 @@ import {
   recordAccepted,
   restoreJournal,
   waitingSelectCards,
-  type GameEvent,
-  type GameState,
 } from '../../rules-engine/src/index'
+import type { GameEvent, GameState, TableReplay } from '../../rules-engine/src/index'
 import {
   librarySearch,
   SEARCH_FETCH,
@@ -92,7 +91,6 @@ import {
   kernelPath,
   kernelPriority,
   historyForViewer,
-  loadHostCardPlugins,
   openKernel,
   prepareKernelPendingChoice,
   rollbackState,
@@ -163,14 +161,6 @@ const applyKernelChoice = (
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')
   mkdirSync(join(root, 'table-games'), { recursive: true })
-}
-
-/** A stand-in card table: the host reads handler ids from cardRules.ts, not from JSON. */
-const writeCardRules = (root: string, handlerIds: string[]) => {
-  writeFileSync(
-    join(root, 'rules-engine', 'src', 'cardPlugins', 'cardRules.ts'),
-    `export const allHandlerIds = () => ${JSON.stringify(handlerIds)}\n`,
-  )
 }
 
 const seedKernel = (
@@ -925,95 +915,65 @@ describe('kernel host journal', () => {
     expect(existsSync(kernelPath('pod', root))).toBe(false)
   })
 
-  test('loads generated card handlers from the current worktree', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-plugins-'))
-    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeCardRules(root, ['testHandler'])
-    const handlerPath = join(
-      root,
-      'rules-engine',
-      'src',
-      'cardPlugins',
-      'testHandler.ts',
-    )
-    writeFileSync(handlerPath, "export const testHandler = { id: 'testHandler', version: 1 }\n")
-
-    const first = await loadHostCardPlugins(root)
-    expect(first.map((plugin) => plugin.id)).toEqual(['testHandler'])
-    expect((first[0] as typeof first[0] & { version: number }).version).toBe(1)
-
-    writeFileSync(handlerPath, "export const testHandler = { id: 'testHandler', version: 2 }\n")
-    const reloaded = await loadHostCardPlugins(root)
-    expect((reloaded[0] as typeof reloaded[0] & { version: number }).version).toBe(2)
-  })
-
-  test('loads only handlers the table cards need', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-plugins-filter-'))
-    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeFileSync(
-      join(root, 'rules-engine', 'src', 'cardPlugins', 'cardRules.ts'),
-      [
-        'export const allHandlerIds = () => ["testHandler"]',
-        'export const handlerIdsForNames = (names) => names.includes("Test Card") ? ["testHandler"] : []',
-        '',
-      ].join('\n'),
-    )
-    writeFileSync(
-      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
-      "export const testHandler = { id: 'testHandler' }\n",
-    )
-
-    expect(await loadHostCardPlugins(root, ['Forest'])).toEqual([])
-    expect((await loadHostCardPlugins(root, ['Test Card'])).map((plugin) => plugin.id))
-      .toEqual(['testHandler'])
-  })
-
-  test('installs dynamically loaded handlers into an existing journal', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-active-plugin-'))
+  test('canonical spells persist across reopen without loading session-root modules', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-canonical-'))
     mkdirGames(root)
-    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeCardRules(root, ['testHandler'])
-    writeFileSync(
-      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
-      "export const testHandler = { id: 'testHandler' }\n",
-    )
-    seedKernel(root)
+    // Session storage must not supply executable card handlers to the host.
+    const pluginDir = join(root, 'rules-engine', 'src', 'cardPlugins')
+    mkdirSync(pluginDir, { recursive: true })
+    writeFileSync(join(pluginDir, 'cardRules.ts'), "throw new Error('session module executed')\n")
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Lightning Bolt')] },
+    }, { random: () => 0.5 })
+    server.state.players.p1.mana.R = 1
+    writeFileSync(kernelPath('pod', root), JSON.stringify(createJournal(server.state)))
+    const lobby = createLobby()
+    const first = await openKernel('pod', root, lobby)
+    const spellId = first.history.current().zoneOrder.p1.hand[0]
+    expect(first.history.current().objects[spellId].ruleDefinition).toBeDefined()
+    expect(first.dispatch({
+      type: 'castSpell', seat: 'p1', objectId: spellId,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }).ok).toBe(true)
 
-    const kernel = await openKernel('pod', root, createLobby())
-    expect(kernel.journal.initial.rules.some(
-      (rule) => rule.pluginId === 'testHandler',
-    )).toBe(true)
+    const reopened = await openKernel('pod', root, lobby)
+    expect(reopened.history.current()).toEqual(first.history.current())
+    expect(reopened.journal.initial).toEqual(first.journal.initial)
+    expect(reopened.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(reopened.history.current().players.p2.life).toBe(37)
+    expect(reopened.history.current().objects[spellId].zone).toBe('graveyard')
+
+    const finished = await openKernel('pod', root, lobby)
+    expect(finished.history.current()).toEqual(reopened.history.current())
+    expect(JSON.parse(readFileSync(kernelPath('pod', root), 'utf8'))).toEqual(finished.journal)
+    expect(reopened.journal.initial.rules).toEqual(server.state.rules)
   })
 
-  test('does not install a handler twice when the journal already adds it', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'kernel-recorded-plugin-'))
+  test.each([false, true])('replay setup retains canonical definitions and reopens with private libraries=%s', async (privateLibraries) => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-canonical-replay-'))
     mkdirGames(root)
-    mkdirSync(join(root, 'rules-engine', 'src', 'cardPlugins'), { recursive: true })
-    writeCardRules(root, ['testHandler'])
-    writeFileSync(
-      join(root, 'rules-engine', 'src', 'cardPlugins', 'testHandler.ts'),
-      "export const testHandler = { id: 'testHandler' }\n",
-    )
-    seedKernel(root)
-    const path = kernelPath('pod', root)
-    const journal = JSON.parse(readFileSync(path, 'utf8'))
-    journal.events.push({
-      type: 'addRule',
-      pluginId: 'testHandler',
-      sourceId: null,
-    })
-    writeFileSync(path, JSON.stringify(journal))
-
-    const kernel = await openKernel('pod', root, createLobby())
-    const installed = [
-      ...kernel.journal.initial.rules,
-      ...kernel.history.current().rules,
-    ].filter((rule) => rule.pluginId === 'testHandler')
-
-    expect(kernel.journal.initial.rules.some(
-      (rule) => rule.pluginId === 'testHandler',
-    )).toBe(false)
-    expect(installed).toHaveLength(1)
+    const replay = await Bun.file(
+      join(import.meta.dir, '../../table-games/seed1729-sygg-doctor-osgir-bartolome.json'),
+    ).json() as TableReplay
+    // The first round exercises setup and card resolution without replaying the entire game.
+    replay.events = replay.events.filter(event => event.turn <= 1)
+    if (privateLibraries) {
+      const latest = replay.events.at(-1)!
+      replay._libraries = Object.fromEntries(replay.seats.map(({ id }) => [
+        id, Array.from({ length: latest.state.players[id].library_count }, () => 'Forest'),
+      ]))
+    }
+    writeFileSync(join(root, 'table-games', 'pod.json'), JSON.stringify(replay))
+    const lobby = createLobby()
+    const first = await openKernel('pod', root, lobby)
+    const canonicalObjects = Object.values(first.history.current().objects)
+      .filter(object => object.ruleDefinition !== undefined)
+    expect(canonicalObjects.length).toBeGreaterThan(0)
+    expect(Object.keys(first.history.current().objects).length).toBeGreaterThan(0)
+    const restored = await openKernel('pod', root, lobby)
+    expect(restored.history.current()).toEqual(first.history.current())
+    expect(restored.journal).toEqual(first.journal)
+    expect(existsSync(join(root, 'rules-engine'))).toBe(false)
   })
 
   test('a held seat is passed for until its own turn', async () => {
