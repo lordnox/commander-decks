@@ -112,3 +112,14 @@ test('distinct-name land thresholds are rechecked before a token reward resolves
   state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
   expect(Object.values(state.objects).filter(object => object.name === 'Zombie')).toHaveLength(0)
 })
+
+test('catalog Beza, the Bounding Spring draws when an opponent has more cards in hand', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Beza, the Bounding Spring')], p2: [cardTemplate('Extra', { types: ['Instant'] }), cardTemplate('Spare', { types: ['Instant'] })] },
+    libraries: { p1: [cardTemplate('Top Draw', { types: ['Instant'] })] },
+  }, { random: () => 0.5 })
+  const beza = server.state.zoneOrder.p1.hand[0]!
+  const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: beza, to: 'battlefield' })))
+  expect(Object.values(state.objects).find(object => object.name === 'Top Draw')!.zone).toBe('hand')
+})

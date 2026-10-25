@@ -336,3 +336,47 @@ test.each([
   expect(state.objects[returning]?.zone).toBe(accept ? 'library' : 'graveyard')
   if (accept) expect(state.zoneOrder.p1.library[0]).toBe(returning)
 })
+
+test('catalog Loran of the Third Path offers a typed entry target, then her activation draws for her controller and the target player', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Loran of the Third Path')] },
+    libraries: { p1: [cardTemplate('Forest')], p2: [cardTemplate('Forest')] },
+    battlefield: { p2: [cardTemplate('Target Relic', { types: ['Artifact'] })] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  let state = reduce(server, ready, { type: 'castSpell', seat: 'p1', objectId: named(ready, 'Loran of the Third Path').id })
+  state = reduce(server, state, { type: 'resolveTop' })
+  const relic = named(state, 'Target Relic').id
+  expect(pendingSelectionFor(state, 'p1')?.candidates).toContain(relic)
+  state = reduce(server, state, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [relic] })
+  state = resolveStack(server.rules, state)
+  expect(state.objects[relic].zone).toBe('graveyard')
+
+  const loran = named(state, 'Loran of the Third Path')
+  state.objects[loran.id].summoningSickness = false
+  state.priority = 'p1'
+  state = reduce(server, state, {
+    type: 'activateAbility', abilityId: '$.abilities[2]', seat: 'p1', objectId: loran.id,
+    targets: [{ kind: 'player', player: 'p2' }],
+  })
+  state = resolveStack(server.rules, state)
+  expect(state.zoneOrder.p1.hand).toHaveLength(1)
+  expect(state.zoneOrder.p2.hand).toHaveLength(1)
+})
+
+test('catalog Meteor Golem destroys the chosen opponent nonland permanent when it enters', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Meteor Golem')] },
+    battlefield: { p2: [cardTemplate('Fixture Rock', { types: ['Artifact'] })] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p1.mana.C = 8
+  const rockId = named(state, 'Fixture Rock').id
+  state = reduce(server, state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Meteor Golem').id })
+  state = resolveStack(server.rules, state)
+  const selection = pendingSelectionFor(state, 'p1')!
+  state = reduce(server, state, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [rockId] })
+  state = resolveStack(server.rules, state)
+  expect(state.objects[rockId].zone).toBe('graveyard')
+})

@@ -5,6 +5,7 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { hasKeyword } from '../../keywords'
+import { legalActsFor } from '../../actions'
 import { playerAttackRequirements } from '../../rules/attackRequirements'
 import { snapshotFor } from '../../cards/snapshot'
 import { CONTROL_EVENT } from './controlConstants'
@@ -95,4 +96,21 @@ test('catalog encore copies keep entry programs and characteristic definitions',
   state = ok(server.rules(state, { type: 'loseLife', seat: 'p1', amount: 7 }))
   expect(state.objects[soulCopy.id].power).toBe(33)
   expect(state.objects[soulCopy.id].toughness).toBe(33)
+})
+
+test('catalog Belonging makes changeling Shapeshifters on entry and offers encore once it is in the graveyard', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Belonging')] } }, { random: () => 0.5 })
+  const belongingId = server.state.zoneOrder.p1.hand[0]!
+  const entered = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: belongingId, to: 'battlefield' })))
+  const tokens = entered.zoneOrder.p1.battlefield.filter(id => entered.objects[id].name === 'Shapeshifter')
+  expect(tokens.length).toBeGreaterThanOrEqual(3)
+
+  const died = resolveStack(server.rules, ok(server.rules(entered, { type: 'move', objectId: belongingId, to: 'graveyard' })))
+  const ready = structuredClone(died)
+  ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 6 }
+  const encoreLegal = legalActsFor(ready, 'p1').some(action =>
+    action.kind === 'activateAbility'
+    && action.objectId === belongingId
+    && action.abilityId === '$.abilities[1]')
+  expect(encoreLegal).toBe(true)
 })

@@ -165,3 +165,20 @@ test('an adventured land with no controlled lands still makes a 1/1 Hero', () =>
   expect(named(resolved, 'Hero').counters['+1/+1'] ?? 0).toBe(0)
   expect(resolved.objects[objectId]).toMatchObject({ zone: 'exile', adventured: true })
 })
+
+test('catalog Lasting Fayth creates the scaled Hero, exiles Zanarkand on an adventure, then permits its tapped land play', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
+    hands: { p1: [cardTemplate('Zanarkand, Ancient Metropolis // Lasting Fayth')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 4 }
+  const zanarkand = named(state, 'Zanarkand, Ancient Metropolis // Lasting Fayth')
+  expect(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: zanarkand.id }).ok).toBe(false)
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: zanarkand.id, adventureCast: true }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(named(state, 'Hero').counters['+1/+1']).toBe(2)
+  expect(state.objects[zanarkand.id]).toMatchObject({ zone: 'exile', adventured: true, adventureReady: true, types: ['Land'] })
+  state = ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: zanarkand.id }))
+  expect(state.objects[zanarkand.id]).toMatchObject({ zone: 'battlefield', tapped: true, types: ['Land'] })
+})

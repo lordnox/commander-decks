@@ -95,3 +95,32 @@ test('activated draw then player discard keeps the newly drawn card after discar
   expect(resolved.zoneOrder.p1.hand).toEqual([named(resolved, 'New card').id])
   expect(resolved.stack).toHaveLength(0)
 })
+
+test('catalog Daily Bugle Newspaper loots through a typed discard, then finishes with a Treasure', () => {
+  const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Daily Bugle Newspaper')] },
+    hands: { p1: [instant('Hand Fodder')] },
+    libraries: { p1: [instant('Library Card')] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 2 }
+  let current = reduce(server, ready, {
+    type: 'activateAbility', seat: 'p1', objectId: named(ready, 'Daily Bugle Newspaper').id, abilityId: '$.abilities[0]',
+  })
+  const fodderId = named(current, 'Hand Fodder').id
+  for (let step = 0; step < 8; step += 1) {
+    const discardPending = pendingSelectionFor(current, 'p1')
+    if (discardPending) {
+      current = reduce(server, current, {
+        type: 'selectCards', seat: 'p1', kind: discardPending.kind, count: discardPending.count, objectIds: [fodderId],
+      })
+      continue
+    }
+    if (current.stack.length === 0 || current.stack[0]?.waiting) break
+    current = reduce(server, current, { type: 'resolveTop' })
+  }
+  expect(named(current, 'Library Card').zone).toBe('hand')
+  expect(current.zoneOrder.p1.battlefield.filter((id) =>
+    current.objects[id].subtypes.includes('Treasure'))).toHaveLength(1)
+})

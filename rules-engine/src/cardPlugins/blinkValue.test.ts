@@ -3,92 +3,9 @@ import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameState } from '../types'
 import { pendingPlayerSelection } from '../rules/selectPlayers'
-import { pendingSelectionFor } from '../rules/selectCards'
-
-const named = (state: GameState, name: string) =>
-  Object.values(state.objects).find((object) => object.name === name)!
-
-const mana = (state: GameState, seat = 'p1') => {
-  state.players[seat].mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
-  return state
-}
-
-const instant = (name: string) =>
-  cardTemplate(name, { types: ['Instant'], manaCost: '{W}' })
 
 describe('Lady Evangela blink and value cards', () => {
-  test('Loran chooses a typed ETB target and her activation draws for both players', () => {
-    const server = createServerGame(commanderRules, {
-      hands: {
-        p1: [cardTemplate('Loran of the Third Path', {
-          types: ['Creature'],
-          manaCost: '{2}{W}',
-        })],
-      },
-      libraries: { p1: [forest()], p2: [forest()] },
-      battlefield: {
-        p2: [cardTemplate('Target Relic', { types: ['Artifact'] })],
-      },
-    }, { random: () => 0.5 })
-    const ready = mana(structuredClone(server.state))
-    let state = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Loran of the Third Path').id,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const relic = named(state, 'Target Relic').id
-    expect(pendingSelectionFor(state, 'p1')?.candidates).toContain(relic)
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [relic],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.objects[relic].zone).toBe('graveyard')
-
-    const loran = named(state, 'Loran of the Third Path')
-    state.objects[loran.id].summoningSickness = false
-    state.priority = 'p1'
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: '$.abilities[2]',
-      seat: 'p1',
-      objectId: loran.id,
-      targets: [{ kind: 'player', player: 'p2' }],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.zoneOrder.p1.hand).toHaveLength(1)
-    expect(state.zoneOrder.p2.hand).toHaveLength(1)
-  })
-
-  test('Lotho triggers only for each player’s second spell in a turn', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p2: [instant('One'), instant('Two'), instant('Three')] },
-      battlefield: {
-        p1: [cardTemplate('Lotho, Corrupt Shirriff', { types: ['Creature'] })],
-      },
-    }, { random: () => 0.5 })
-    let state = mana(structuredClone(server.state), 'p2')
-    state.priority = 'p2'
-    for (const name of ['One', 'Two', 'Three']) {
-      state = ok(server.rules(state, {
-        type: 'castSpell',
-        seat: 'p2',
-        objectId: named(state, name).id,
-      }))
-      state = resolveStack(server.rules, state)
-      state.priority = 'p2'
-    }
-    expect(state.players.p1.life).toBe(39)
-    expect(Object.values(state.objects).filter((object) =>
-      object.name === 'Treasure' && object.zone === 'battlefield')).toHaveLength(1)
-  })
-
   test('Queza queues a typed opponent choice and drains only the chosen player', () => {
     const server = createServerGame(commanderRules, {
       libraries: { p1: [forest()] },

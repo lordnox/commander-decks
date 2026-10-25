@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { cardTemplate } from '../../newGame'
+import { cardTemplate, forest } from '../../newGame'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, gainLife, grantAbilityEffect, landPlayed, move, players, ref, untilCleanup, whenever } from './v1'
@@ -35,4 +36,22 @@ test.each([false, true])('land-play occurrences match actual plays and capture t
 
 test('land-play occurrences expose a player without promising a post-move object binding', () => {
   expect(() => compileCardRuleDefinition(card([whenever(landPlayed(), { instructions: [move({ targets: ref('triggering.object.after'), to: 'hand' })] })]))).toThrow()
+})
+
+test('catalog Burgeoning offers a private typed land choice after an opponent land play', () => {
+  const server = createServerGame(commanderRules, {
+    first: 'p2',
+    battlefield: { p1: [cardTemplate('Burgeoning')] },
+    hands: { p1: [forest()], p2: [cardTemplate('Opponent Land', { types: ['Land'] })] },
+  })
+  let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p2', objectId: server.state.zoneOrder.p2.hand[0]! }))
+  expect(state.stack[0]?.name).toBe('Burgeoning')
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  const selection = pendingSelectionFor(state, 'p1')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 1, min: 0 })
+  expect(pendingSelectionFor(server.project(state, 'p2'), 'p1')).toBeUndefined()
+  const land = state.zoneOrder.p1.hand[0]!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [land] }))
+  expect(state.objects[land].zone).toBe('battlefield')
+  expect(state.players.p1.landsPlayed).toBe(0)
 })

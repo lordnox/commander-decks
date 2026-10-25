@@ -318,8 +318,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:283 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:526 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:282 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:525 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
         ]
       },
       "neededCanonicalNode": "new canonical ability/effect node",
@@ -4853,7 +4853,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:119 — test('a life-total lock replaces the whole exchange', () => {",
           "rules-engine/src/cardPlugins/dsl/exchangeLife.test.ts:218 — test('lowest-life selection excludes eliminated players and leaves locked totals unchanged', () => {",
-          "rules-engine/src/plugins/phasingProtection.test.ts:145 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
+          "rules-engine/src/plugins/phasingProtection.test.ts:147 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5037,7 +5037,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/plugins/phasingProtection.test.ts:146 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
+          "rules-engine/src/plugins/phasingProtection.test.ts:148 — test('full perch-shaped resolution blocks life changes and damage until next turn', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5147,7 +5147,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 275,
+        "matches": 277,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5194,7 +5194,7 @@
           "live-runner/src/kernelHost.test.ts:3285 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4302 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
           "live-runner/src/kernelHost.test.ts:773 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
-          "rules-engine/src/cardPlugins/blinkValue.test.ts:103 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
+          "rules-engine/src/cardPlugins/blinkValue.test.ts:20 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
