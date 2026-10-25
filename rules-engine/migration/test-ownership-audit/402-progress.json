@@ -1815,7 +1815,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
       "suite": "catalog Niv-Mizzet accepting pays life and draws using the captured gain amount",
-      "evidence": "Uses the canonical catalog definition. The typed option selection for p1 is a canonical life resolution payment whose waiting trigger captured amount 3 (restoring the count: 3 evidence cadbdb5a dropped); paying leaves life 40, draws exactly 3, and clears the selection."
+      "evidence": "Uses the canonical catalog definition. After JSON serialization and restore, the typed option selection for p1 remains a canonical life resolution payment whose waiting trigger captured amount 3 (restoring the count: 3 evidence cadbdb5a dropped); paying leaves life 40, draws exactly 3, and clears the selection."
     },
     {
       "groups": [

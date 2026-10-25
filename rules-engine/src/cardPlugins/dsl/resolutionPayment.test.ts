@@ -705,15 +705,16 @@ const nivOffer = (state: GameState) => {
 test('catalog Niv-Mizzet accepting pays life and draws using the captured gain amount', () => {
   const server = nivGame()
   const offered = gainAndOffer(server, 3)
-  const { pending, captured } = nivOffer(offered)
+  const restored = JSON.parse(JSON.stringify(offered)) as GameState
+  const { pending, captured } = nivOffer(restored)
   expect(pending).toMatchObject({
     seat: 'p1',
     source: 'Niv-Mizzet, Ghost Counsel',
     action: { kind: 'canonicalResolutionPayment', cost: { kind: 'life' } },
   })
   expect(captured).toMatchObject({ eventType: 'gainLife', player: 'p1', amount: 3 })
-  const beforeHand = offered.zoneCounts.p1.hand
-  const accepted = answerNiv(server, offered, 'pay')
+  const beforeHand = restored.zoneCounts.p1.hand
+  const accepted = answerNiv(server, restored, 'pay')
   expect(accepted.players.p1.life).toBe(40)
   expect(accepted.zoneCounts.p1.hand).toBe(beforeHand + 3)
   expect(pendingOptionSelection(accepted, 'p1')).toBeUndefined()
