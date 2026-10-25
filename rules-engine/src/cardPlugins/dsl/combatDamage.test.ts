@@ -159,9 +159,9 @@ test('player-attack occurrences fire once per defender and compare that defender
   state = resolveStack(server.rules, state)
   expect(state.zoneOrder.p2.hand).toHaveLength(1)
 
-  state.active = 'p2'
-  state.priority = 'p2'
-  state.step = 'declareAttackers'
+  // A second attack declaration needs a new combat, not another request in the same step.
+  state = ok(server.rules({ ...state, step: 'endCombat' }, { type: 'advanceStep' }))
+  state = ok(server.rules({ ...state, step: 'beginCombat' }, { type: 'advanceStep' }))
   state = ok(server.rules(state, {
     type: 'declareAttackers',
     seat: 'p2',
