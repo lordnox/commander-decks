@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { effectsFor } from './cardRules'
 import { exilePayoffs } from './exilePayoffs'
 import { linkedExile } from './linkedExile'
 
@@ -16,7 +15,7 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 const fromPool = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-  cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra, effects: effectsFor(name) })
+  cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
 const enterAndLinkExile = (
   server: ReturnType<typeof createServerGame>,

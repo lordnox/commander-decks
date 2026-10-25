@@ -4,17 +4,15 @@ Status: canonical schema, compiler, durable driver, typed choices, triggers,
 action primitives, announcement/costs, modes, copies, temporary effects,
 resolution payments, replacement, prevention, static layers, draw history, and
 combined conformance are on `main`. A name-keyed catalog stamps `ruleDefinition`
-for a representative set of cards. Unmigrated names still use `CARD_RULES`; do
-not delete `CARD_RULES` or the `effectsFor` executor. Remaining work is those
-names (Mulldrifter, Lightning Bolt, votes, linked exile, Rooms, Sagas, and other
-specialized handlers that still need nodes). Examples marked **current API**
-retain their implemented shapes.
+for every supported card; the name-keyed `CARD_RULES` registry is gone. The
+legacy `CardEffect` executor still runs explicit object effects until #487
+removes it. Examples marked **current API** retain their implemented shapes.
 
 Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definition-structure).
 The [worked examples](#10-worked-examples) show card behavior; the
 [authoring catalogue](#14-authoring-sugar-and-canonical-data) shows shorter syntax.
 [Implementation milestones](#implementation-milestones) 1–6 are on `main`;
-milestone 7 is the remaining CARD_RULES migration.
+milestone 7, the CARD_RULES migration, has moved every card to the catalog.
 
 ## 1. Purpose and boundaries
 
@@ -822,9 +820,9 @@ counter({ targets: target(0) })
 Proposed instruction recipients consistently use `targets`, including bound
 targets, untargeted choices, and group selectors. The presence of this property
 does not apply targeting rules; `decisions.targets` is the declaration that does.
-Canonical catalog cards use those `targets`. Unmigrated `CARD_RULES` instructions
-keep their existing `to` / `who` fields on the legacy executor; there is no
-adapter translating those into canonical nodes.
+Canonical catalog cards use those `targets`. Legacy instructions in explicit
+object effects keep their existing `to` / `who` fields on the legacy executor;
+there is no adapter translating those into canonical nodes.
 
 Instructions propose semantic actions, not direct state edits. Handlers enforce
 rules, expand actions into appropriate events, apply modifiers, commit state, and
@@ -2341,8 +2339,7 @@ Instruction handlers consume canonical nodes rather than importing fluent
 catalogues. Share genuinely common count/recipient construction when adding
 other action families; do not create a separate implementation file for every
 property path or duplicate game semantics in this tree. Canonical authoring
-sugar remains. Unmigrated names still register through `CARD_RULES`; there is
-no legacy-to-canonical adapter layer.
+sugar remains. There is no legacy-to-canonical adapter layer.
 
 During implementation, verify equivalent lowering for Wall of Omens' explicit
 and compact forms, controller/target recipient domains, X bindings, sequence

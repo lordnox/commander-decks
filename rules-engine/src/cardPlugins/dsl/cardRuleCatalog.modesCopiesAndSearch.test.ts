@@ -6,7 +6,7 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { effectsFor, effectsOf } from '../cardRules'
+import { effectsOf } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import {
   amount,
@@ -232,7 +232,6 @@ test('bounded-library catalog programs compose typed choices, remainder routing,
   for (const name of ["Animist's Awakening", 'Malevolent Rumble', 'Planar Genesis', 'Satyr Wayfinder', 'Silverback Elder']) {
     const snapshot = cardRuleDefinitionSnapshotFor(name)!
     expect(snapshot).toBeDefined()
-    expect(effectsFor(name)).toEqual([])
     const ability = snapshot.definition.abilities[0]!
     switch (name) {
       case 'Silverback Elder':
@@ -263,7 +262,6 @@ test('bounded-library catalog programs compose typed choices, remainder routing,
 
 test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {
   const snapshot = cardRuleDefinitionSnapshotFor('Dack Fayden, Helping Hand')!
-  expect(effectsFor('Dack Fayden, Helping Hand')).toEqual([])
   expect(snapshot.definition.abilities).toMatchObject([{
     kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
     instructions: [

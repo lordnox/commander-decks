@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
 import { addUntilCleanupRule, onResolve as onResolveEffect } from '../cardPlugins/effects'
 import { onResolve } from '../cardPlugins/onResolve'
-import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
@@ -10,8 +10,6 @@ import type { CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { resolveStack, ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-
-const legacyFlashPlugins = await loadCardPlugins(["Alchemist's Refuge"])
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -146,7 +144,7 @@ describe('registered legacy cost and mana integration', () => {
           p1: Array.from({ length: options.library ?? 12 }, (_, index) => cardTemplate(`Library ${index}`)),
         },
       },
-      { random: () => 0.5, cardPlugins: legacyFlashPlugins },
+      { random: () => 0.5 },
     )
 
   type Server = ReturnType<typeof game>

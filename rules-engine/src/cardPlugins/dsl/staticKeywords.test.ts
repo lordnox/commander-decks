@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { card, compileCardRuleDefinition, compareAmount, count, createDefinitionSnapshot, keyword, keywordAbility, KEYWORDS, objects, ref } from './v1'
 import { cardTemplate } from '../../newGame'
@@ -51,7 +50,6 @@ describe('staticKeywords', () => {
 })
 
 test('catalog keyword binding works without Oracle text or legacy effects', () => {
-  expect(effectsFor('Duskdale Wurm')).toEqual([])
   const server = createServerGame(commanderRules, {
     players: 2,
     battlefield: {

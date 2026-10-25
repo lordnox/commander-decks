@@ -17,11 +17,10 @@ import {
   hasSubtype,
   manaValueOf,
   searchEffect,
-  triggerEffects,
   type SearchDestination,
   type SearchSpec,
 } from './effects'
-import { effectsFor, effectsOf } from './cardRules'
+import { effectsOf } from './cardRules'
 import { enteringObjectId } from './entersTapped'
 import { runInstructions } from './runInstructions'
 import {
@@ -60,9 +59,6 @@ export type PendingSearch = {
 
 const inlineSpecKey = (sourceId: string) => `librarySearch.inlineSpec.${sourceId}`
 
-export const searchSpecFor = (name: string): SearchSpec | undefined =>
-  searchEffect(effectsFor(name))?.spec
-
 export const typecycleSearchSpec = (subtype: string): SearchSpec => ({
   prompt: `Search your library for a ${subtype} card, reveal it, put it into your hand, then shuffle.`,
   match: hasSubtype(subtype),
@@ -96,24 +92,11 @@ const inlineSpec = (state: GameState | Draft, sourceId: string): SearchSpec | un
   return stored as SearchSpec
 }
 
-const resolveSearchSpec = (name: string): SearchSpec | undefined => {
-  for (const effect of triggerEffects(effectsFor(name), 'resolve')) {
-    for (const instruction of effect.do) {
-      if (instruction.kind === 'searchLibrary') return instruction.spec
-    }
-  }
-}
-
 export const searchSpecForPending = (
   state: GameState | Draft,
   pending: PendingSearch,
 ): SearchSpec | undefined => {
-  const inline = inlineSpec(state, pending.sourceId)
-  const resolved = pending.via === 'resolve' ? resolveSearchSpec(pending.source) : undefined
-  const named = searchSpecFor(pending.source)
-  const live = state.objects[pending.sourceId]
-  const stamped = live ? searchEffect(effectsOf(live))?.spec : undefined
-  const spec = inline ?? resolved ?? named ?? (stamped ? withSearchMatch(stamped) : undefined)
+  const spec = inlineSpec(state, pending.sourceId) ?? stampedSearchSpec(state, pending.sourceId)
   if (!spec) return
   return pending.max === undefined ? spec : { ...spec, max: pending.max }
 }
@@ -147,24 +130,25 @@ export const validateSplitSearchSelection = (
 const withSearchMatch = (spec: SearchSpec): SearchSpec =>
   typeof spec.match === 'function' ? spec : { ...spec, match: basicLand }
 
+/** The search spec carried by the source object's explicit effects. */
+const stampedSearchSpec = (state: GameState | Draft, sourceId: string) => {
+  const live = state.objects[sourceId]
+  const stamped = live ? searchEffect(effectsOf(live))?.spec : undefined
+  return stamped ? withSearchMatch(stamped) : undefined
+}
+
 const abilityEffect = (object: GameObject) => {
-  const named = searchEffect(effectsFor(object.name))
-  if (named?.via === 'ability') return named
   const stamped = searchEffect(effectsOf(object))
   if (stamped?.via !== 'ability') return
   return { ...stamped, spec: withSearchMatch(stamped.spec) }
 }
 
 const spellSpec = (object: GameObject) => {
-  const named = searchEffect(effectsFor(object.name))
-  if (named?.via === 'spell') return named.spec
   const stamped = searchEffect(effectsOf(object))
   return stamped?.via === 'spell' ? withSearchMatch(stamped.spec) : undefined
 }
 
 const entersSpec = (object: GameObject) => {
-  const named = searchEffect(effectsFor(object.name))
-  if (named?.via === 'enters') return named.spec
   const stamped = searchEffect(effectsOf(object))
   return stamped?.via === 'enters' ? withSearchMatch(stamped.spec) : undefined
 }
@@ -455,8 +439,7 @@ export const librarySearch: Plugin = {
             ? 'resolve'
             : 'spell'
       const payloadSpec = resolvePayloadSpec(event.payload?.spec)
-      const namedSpec = searchSpecFor(source)
-      const resolvedSpec = via === 'resolve' ? resolveSearchSpec(source) : undefined
+      const objectSpec = via === 'resolve' ? undefined : stampedSearchSpec(state, sourceId)
       if (via === 'resolve') {
         const subtype = typeof event.payload?.subtype === 'string'
           ? event.payload.subtype
@@ -465,11 +448,11 @@ export const librarySearch: Plugin = {
           storeInlineSpec(draft, event.seat, sourceId, { subtype })
         } else if (payloadSpec) {
           storeInlineSpec(draft, event.seat, sourceId, payloadSpec)
-        } else if (!resolvedSpec) return
-      } else if (!namedSpec) {
+        } else return
+      } else if (!objectSpec) {
         return
       }
-      const spec = via === 'resolve' ? (resolvedSpec ?? payloadSpec) : namedSpec
+      const spec = via === 'resolve' ? payloadSpec : objectSpec
       openSearch(draft, event.seat, {
         source,
         sourceId,

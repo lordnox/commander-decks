@@ -1,28 +1,9 @@
-import { existsSync } from 'node:fs'
-import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
 import { cardTemplateDefaultsFor, cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { catalogEntry, deckCards } from '../deckCardFixtures'
-import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
-import {
-  cardPluginEntry,
-  grantedRulesFor,
-  missingCardPlugins,
-} from './index'
+import { missingCardPlugins } from './index'
 
 describe('card plugin registry', () => {
-  test('every registered handler is a module the live host can load', () => {
-    for (const handlerId of allHandlerIds()) {
-      expect(handlerId).toMatch(/^[a-z][a-zA-Z0-9-]*$/)
-      expect(existsSync(join(import.meta.dir, `${handlerId}.ts`))).toBe(true)
-    }
-  })
-
-  test('a forest table does not load the whole handler catalog', () => {
-    expect(handlerIdsForNames(['Forest'])).toEqual([])
-    expect(handlerIdsForNames(['Field of the Dead'])).toEqual([])
-    expect(allHandlerIds()).toEqual([])
-  })
   test('the Sin Fall cards this pass covers stay registered', () => {
     const covered = [
       'Aesi, Tyrant of Gyre Strait',
@@ -37,13 +18,11 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Field of the Dead')).toBeDefined()
-    expect(cardPluginEntry("Sin, Spira's Punishment")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Sin, Spira's Punishment")).toBeDefined()
   })
 
   test('the Homer commander is registered', () => {
     expect(missingCardPlugins(['Deathsprout', 'Homer, the Hermit', 'Keep Safe'])).toEqual([])
-    expect(cardPluginEntry('Homer, the Hermit')).toBeUndefined()
   })
 
   test('the Homer dumpster cards this pass covers stay registered', () => {
@@ -81,8 +60,6 @@ describe('card plugin registry', () => {
       'Mole Man, Moloid Master',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(handlerIdsForNames(["Irenicus's Vile Duplication"])).toEqual([])
-    expect(cardPluginEntry("Irenicus's Vile Duplication")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Irenicus's Vile Duplication")).toBeDefined()
   })
 
@@ -95,7 +72,6 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(surveilLands)).toEqual([])
     for (const land of surveilLands) {
-      expect(effectsFor(land)).toEqual([])
       expect(cardRuleDefinitionSnapshotFor(land)?.definition.abilities).toMatchObject([
         { kind: 'static' },
         { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'surveil' }] },
@@ -123,19 +99,6 @@ describe('card plugin registry', () => {
     ])).toEqual([])
   })
 
-  test('Lady Evangela damage and mana cards only register card-specific rules', () => {
-    for (const generic of [
-      'Adarkar Wastes',
-      'Arcane Signet',
-      'Caves of Koilos',
-      'Command Tower',
-      'Underground River',
-    ]) {
-      expect(cardPluginEntry(generic)).toBeUndefined()
-    }
-
-    expect(cardPluginEntry('Souls of the Faultless')).toBeUndefined()
-  })
 
   test('the Lady Evangela mana and extort cards stay registered', () => {
     expect(missingCardPlugins([
@@ -144,8 +107,6 @@ describe('card plugin registry', () => {
       'Nirkana Revenant',
       'Reflecting Pool',
     ])).toEqual([])
-    expect(effectsFor('Crypt Ghast')).toEqual([])
-    expect(effectsFor('Nirkana Revenant')).toEqual([])
   })
 
   test('the Lady Evangela alternate and replacement cards stay registered', () => {
@@ -156,8 +117,6 @@ describe('card plugin registry', () => {
       'Snuff Out',
       'Wall of Shards',
     ])).toEqual([])
-    expect(cardPluginEntry('Mulldrifter')).toBeUndefined()
-    expect(cardPluginEntry('Wall of Shards')?.handlerIds ?? []).toEqual([])
   })
 
   test('the Sin Fall finisher cards load their handlers', () => {
@@ -166,14 +125,8 @@ describe('card plugin registry', () => {
       'Finale of Devastation',
       'Valgavoth, Terror Eater',
     ])).toEqual([])
-    expect(handlerIdsForNames(['Famished Worldsire'])).toEqual([])
-    expect(cardPluginEntry('Famished Worldsire')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Famished Worldsire')).toBeDefined()
-    expect(handlerIdsForNames(['Finale of Devastation'])).toEqual([])
-    expect(cardPluginEntry('Finale of Devastation')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Finale of Devastation')).toBeDefined()
-    expect(handlerIdsForNames(['Valgavoth, Terror Eater'])).toEqual([])
-    expect(cardPluginEntry('Valgavoth, Terror Eater')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Valgavoth, Terror Eater')).toBeDefined()
   })
 
@@ -183,21 +136,13 @@ describe('card plugin registry', () => {
       'Dread Return',
       'Hostile Negotiations',
     ])).toEqual([])
-    expect(handlerIdsForNames(['Abundance'])).toEqual([])
-    expect(handlerIdsForNames(['Cling to Dust'])).toEqual([])
-    expect(cardPluginEntry('Cling to Dust')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Cling to Dust')).toBeDefined()
-    expect(handlerIdsForNames(['Dread Return'])).toEqual([])
-    expect(cardPluginEntry('Dread Return')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Dread Return')).toBeDefined()
-    expect(handlerIdsForNames(['Hostile Negotiations'])).toEqual([])
-    expect(cardPluginEntry('Hostile Negotiations')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Hostile Negotiations')).toBeDefined()
   })
 
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
-    expect(cardPluginEntry('Courser of Kruphix')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Courser of Kruphix')).toBeDefined()
   })
 
@@ -229,31 +174,8 @@ describe('card plugin registry', () => {
       'Twincast',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(effectsFor('Show and Tell')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Show and Tell')).toBeDefined()
-    expect(effectsFor('Eureka')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Eureka')).toBeDefined()
-    expect(handlerIdsForNames(['Show and Tell', 'Eureka'])).toEqual([])
-    expect(cardPluginEntry('Cultivate')).toBeUndefined()
-    expect(cardPluginEntry("Kodama's Reach")).toBeUndefined()
-    expect(cardPluginEntry('Astral Drift')).toBeUndefined()
-    expect(cardPluginEntry("Raffine's Tower")).toBeUndefined()
-    expect(cardPluginEntry('Secluded Steppe')).toBeUndefined()
-    expect(cardPluginEntry('Zagoth Triome')).toBeUndefined()
-    expect(cardPluginEntry('Breeding Pool')).toBeUndefined()
-    expect(cardPluginEntry('Godless Shrine')).toBeUndefined()
-    expect(cardPluginEntry('Hallowed Fountain')).toBeUndefined()
-    expect(cardPluginEntry('Overgrown Tomb')).toBeUndefined()
-    expect(cardPluginEntry('Watery Grave')).toBeUndefined()
-    expect(cardPluginEntry('Bushwhack')).toBeUndefined()
-    expect(cardPluginEntry('Beast Whisperer')).toBeUndefined()
-    expect(cardPluginEntry('Twincast')).toBeUndefined()
-    expect(cardPluginEntry('Overwhelming Stampede')).toBeUndefined()
-    expect(cardPluginEntry('Pathbreaker Ibex')).toBeUndefined()
-    expect(cardPluginEntry('Return of the Wildspeaker')).toBeUndefined()
-    expect(handlerIdsForNames(['Overwhelming Stampede', 'Pathbreaker Ibex', 'Return of the Wildspeaker'])).toEqual([])
-    expect(cardPluginEntry('Rankle, Master of Pranks')).toBeUndefined()
-    expect(cardPluginEntry('Springheart Nantuko')).toBeUndefined()
   })
 
   test('the Círdan creature group stays registered', () => {
@@ -271,11 +193,8 @@ describe('card plugin registry', () => {
       'Woodfall Primus',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Blightsteel Colossus')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Blightsteel Colossus')).toBeDefined()
-    expect(cardPluginEntry('Sire of Seven Deaths')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')).toBeDefined()
-    expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
   })
 
   test('the Lady Evangela copy-politics group stays registered', () => {
@@ -289,17 +208,12 @@ describe('card plugin registry', () => {
       'Tenuous Truce',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry("Council's Judgment")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Council's Judgment")).toBeDefined()
-    expect(cardPluginEntry('Standard Bearer')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Standard Bearer')).toBeDefined()
-    expect(cardPluginEntry('Sokrates, Athenian Teacher')).toBeUndefined()
-    expect(cardPluginEntry('Tenuous Truce')?.handlerIds ?? []).toEqual([])
   })
 
   test('Dack Fayden, Helping Hand is registered', () => {
     expect(missingCardPlugins(['Dack Fayden, Helping Hand'])).toEqual([])
-    expect(cardPluginEntry('Dack Fayden, Helping Hand')?.handlerIds ?? []).not.toContain('permanentControl')
   })
 
   test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {
@@ -325,9 +239,6 @@ describe('card plugin registry', () => {
       'Worn Powerstone',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    for (const generic of ['Plains', 'Sol Ring', 'Thran Dynamo', 'Emergence Zone', 'Northampton Farm']) {
-      expect(cardPluginEntry(generic)).toBeUndefined()
-    }
   })
 
   test('Dack Fayden part 34 linked-exile cages stay registered', () => {
@@ -342,9 +253,6 @@ describe('card plugin registry', () => {
       'Werefox Bodyguard',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Banisher Priest')).toBeUndefined()
-    expect(cardPluginEntry('Fiend Hunter')).toBeUndefined()
-    expect(cardPluginEntry('Werefox Bodyguard')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Banisher Priest')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Fiend Hunter')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Werefox Bodyguard')).toBeDefined()
@@ -352,13 +260,11 @@ describe('card plugin registry', () => {
 
   test('Niv-Mizzet, Ghost Counsel stays registered', () => {
     expect(missingCardPlugins(['Niv-Mizzet, Ghost Counsel'])).toEqual([])
-    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Niv-Mizzet, Ghost Counsel')).toBeDefined()
   })
 
   test('Jace, Multiverse Architect is registered with optional mana pay', () => {
     expect(missingCardPlugins(['Jace, Multiverse Architect'])).toEqual([])
-    expect(cardPluginEntry('Jace, Multiverse Architect')).toBeUndefined()
   })
 
   test('the Lady Evangela remaining group stays registered', () => {
@@ -377,7 +283,6 @@ describe('card plugin registry', () => {
       'Breena, the Demagogue',
       'Kuroki, Thief of Talents',
     ])).toEqual([])
-    expect(cardPluginEntry('Cryptic Command')).toBeUndefined()
   })
 
   test('the Lady Evangela foggy-blood pass stays registered', () => {
@@ -470,59 +375,42 @@ describe('card plugin registry', () => {
   })
 
   test('Archangel and Baird use canonical combat-tax definitions', () => {
-    expect(handlerIdsForNames([
-      'Archangel of Tithes',
-      'Baird, Steward of Argive',
-    ])).toEqual([])
-    expect(cardPluginEntry('Archangel of Tithes')).toBeUndefined()
-    expect(cardPluginEntry('Baird, Steward of Argive')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Archangel of Tithes')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Baird, Steward of Argive')).toBeDefined()
   })
 
   test('Marina Vendrell uses a canonical definition without legacy effects', () => {
-    expect(effectsFor('Marina Vendrell')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Marina Vendrell')).toBeDefined()
   })
 
   test('Yurlok uses a canonical static consequence', () => {
-    expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual([])
     expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])
   })
 
-  test('copy spells use canonical definitions without legacy effects', () => {
-    expect(effectsFor('Twincast')).toEqual([])
-    expect(effectsFor('Reverberate')).toEqual([])
+  test('copy spells use canonical definitions', () => {
+    expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeDefined()
+    expect(cardRuleDefinitionSnapshotFor('Reverberate')).toBeDefined()
   })
 
   test('Blightsteel and Darksteel Colossus use canonical owner-library shuffle', () => {
     for (const name of ['Blightsteel Colossus', 'Darksteel Colossus']) {
-      expect(effectsFor(name)).toEqual([])
-      expect(cardPluginEntry(name)).toBeUndefined()
       expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
     }
   })
 
   test('Sire of Seven Deaths uses a canonical Ward-pay-7-life definition', () => {
-    expect(effectsFor('Sire of Seven Deaths')).toEqual([])
-    expect(cardPluginEntry('Sire of Seven Deaths')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Sire of Seven Deaths')).toBeDefined()
   })
 
   test('Void Winnower uses canonical even-parity restrictions', () => {
-    expect(effectsFor('Void Winnower')).toEqual([])
-    expect(cardPluginEntry('Void Winnower')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Void Winnower')).toBeDefined()
   })
 
-  test('Grothama registers an attack grant and a leaves-draw trigger', () => {
-    expect(effectsFor('Grothama, All-Devouring')).toEqual([])
-    expect(cardPluginEntry('Grothama, All-Devouring')).toBeUndefined()
+  test('Grothama uses a canonical definition', () => {
+    expect(cardRuleDefinitionSnapshotFor('Grothama, All-Devouring')).toBeDefined()
   })
 
   test('Woodfall Primus registers persist and a mandatory noncreature destroy', () => {
-    expect(effectsFor('Woodfall Primus')).toEqual([])
-    expect(cardPluginEntry('Woodfall Primus')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Woodfall Primus')!.definition.abilities).toMatchObject([
       { kind: 'keyword', keyword: 'trample' },
       {
@@ -541,7 +429,6 @@ describe('card plugin registry', () => {
   })
 
   test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {
-    expect(effectsFor('Terastodon')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Terastodon')!.definition.abilities[0]).toMatchObject({
       kind: 'triggered',
       decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } } }] },
@@ -550,25 +437,15 @@ describe('card plugin registry', () => {
   })
 
   test('council cards register the vote engine handlers they need', () => {
-    expect(handlerIdsForNames(['Sail into the West']).toSorted())
-      .toEqual([])
-    expect(handlerIdsForNames(["Selvala's Stampede"])).toEqual([])
-    expect(cardPluginEntry("Selvala's Stampede")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Selvala's Stampede")).toBeDefined()
-    expect(handlerIdsForNames(['Coercive Portal'])).toEqual([])
-    expect(cardPluginEntry('Coercive Portal')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Coercive Portal')).toBeDefined()
   })
 
   test('Split Decision and Trap the Trespassers register vote handlers', () => {
-    expect(handlerIdsForNames(['Split Decision'])).toEqual([])
-    expect(cardPluginEntry('Split Decision')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Split Decision')).toBeDefined()
   })
 
   test('Incarnation Technique is a catalog card with demonstrate', () => {
-    expect(effectsFor('Incarnation Technique')).toEqual([])
-    expect(cardPluginEntry('Incarnation Technique')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Incarnation Technique')!.definition.abilities).toMatchObject([
       { kind: 'keyword', keyword: 'demonstrate' },
       { kind: 'spell' },
@@ -576,30 +453,13 @@ describe('card plugin registry', () => {
   })
 
   test('Círdan misc cards keep their handler composition', () => {
-    expect(handlerIdsForNames(['Dig Through Time'])).toEqual([])
-    expect(cardPluginEntry('Dig Through Time')).toBeUndefined()
-    expect(handlerIdsForNames(['Mana Drain'])).toEqual([])
-    expect(cardPluginEntry('Mana Drain')).toBeUndefined()
-    expect(handlerIdsForNames([
-      'Sea Gate Restoration // Sea Gate, Reborn',
-      'Sink into Stupor // Soporific Springs',
-    ])).toEqual([])
-    expect(cardPluginEntry('Sea Gate Restoration // Sea Gate, Reborn')).toBeUndefined()
-    expect(cardPluginEntry('Sink into Stupor // Soporific Springs')).toBeUndefined()
-    expect(handlerIdsForNames(['Nezahal, Primal Tide'])).toEqual([])
-    expect(effectsFor('Nezahal, Primal Tide')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Nezahal, Primal Tide')).toBeDefined()
-    expect(effectsFor('Kiora Bests the Sea God')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Kiora Bests the Sea God')).toBeDefined()
-    expect(effectsFor("Rishkar's Expertise")).toEqual([])
     expect(cardRuleDefinitionSnapshotFor("Rishkar's Expertise")).toBeDefined()
-    expect(cardPluginEntry('Spearbreaker Behemoth')).toBeUndefined()
   })
 
   test('Homer remaining cards keep their resolve composition', () => {
-    expect(effectsFor('Fact or Fiction')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Fact or Fiction')).toBeDefined()
-    expect(effectsFor('Life from the Loam')).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Life from the Loam')).toBeDefined()
     const room = cardTemplateDefaultsFor('Walk-In Closet // Forgotten Cellar')!
     expect(room.roomDoors?.[0].ruleDefinition?.definition.abilities).toMatchObject([
@@ -614,8 +474,6 @@ describe('card plugin registry', () => {
   })
 
   test("Thespian's Stage is a catalog land with a kept copy activation", () => {
-    expect(effectsFor("Thespian's Stage")).toEqual([])
-    expect(cardDefinition("Thespian's Stage")).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor("Thespian's Stage")!.definition.abilities).toMatchObject([
       { kind: 'activated' },
       { kind: 'activated', instructions: [{ kind: 'createEffect', effect: { kind: 'copy' } }] },
@@ -639,16 +497,6 @@ describe('card plugin registry', () => {
     expect(note.length).toBeGreaterThan(20)
   })
 
-  test.each([
-    "Abdel Adrian, Gorion's Ward",
-    'Angel of Serenity',
-    'Constricting Sliver',
-    'Driftgloom Coyote',
-  ] as const)('%s is not registered until Pass 1 adds missing builders', (name) => {
-    expect(effectsFor(name)).toEqual([])
-    expect(cardDefinition(name)).toBeUndefined()
-  })
-
   test('Dack party blink cards expose plugin definitions and handler ids', () => {
     const names = [
       'Cloudshift',
@@ -666,7 +514,6 @@ describe('card plugin registry', () => {
       'All-Fates Stalker',
     ]
     expect(missingCardPlugins(names)).toEqual([])
-    expect(handlerIdsForNames(names)).toEqual([])
   })
 
   test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {
@@ -697,12 +544,7 @@ describe('card plugin registry', () => {
         'Pass 1 lacks static juggernaut combat restrictions and mass P/T/subtype rewrite.',
     }
     for (const [name, status] of Object.entries(inventory)) {
-      const effects = effectsFor(name)
-      if (status === 'registered') {
-        expect(effects.length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
-        continue
-      }
-      expect(effects).toEqual([])
+      if (status === 'registered') expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
       if (status === 'GAP') expect(gapReason[name]).toBeTruthy()
     }
   })
@@ -732,12 +574,8 @@ describe('card plugin registry', () => {
     } as const
     expect(Object.keys(inventory)).toHaveLength(20)
     for (const [name, slot] of Object.entries(inventory)) {
-      const effects = effectsFor(name)
-      if (slot === 'registered') expect(effects.length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
-      else expect(effects).toEqual([])
+      if (slot === 'registered') expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
     }
-    expect(effectsFor('Darksteel Colossus')).toEqual([])
-    expect(effectsFor('Salvation Colossus')).toEqual([])
   })
 
   test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {
@@ -841,13 +679,10 @@ describe('card plugin registry', () => {
     for (const name of assigned) {
       const slot = status[name]
       if (slot === 'registered') {
-        expect(effectsFor(name).length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
         expect(gapReasons[name]).toBeUndefined()
       } else if (slot === 'kernel-only') {
-        expect(effectsFor(name)).toEqual([])
         expect(gapReasons[name]).toBeUndefined()
       } else {
-        expect(effectsFor(name)).toEqual([])
         expect(gapReasons[name]).toMatch(/./)
       }
     }
@@ -856,7 +691,6 @@ describe('card plugin registry', () => {
     expect(gapReasons['The Restoration of Eiganjo // Architect of Restoration']).toContain('Saga')
     expect(gapReasons['Realm-Cloaked Giant // Cast Off']).toContain('Adventure')
     expect(gapReasons['Ondu Inversion // Ondu Skyruins']).toContain('nonland')
-    expect(cardDefinition('Astral Drift')).toBeUndefined()
   })
 
   test('catalog entries keep the deck Oracle text of a double-faced land', () => {

@@ -1,6 +1,5 @@
 import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
-import { CARD_RULES, cardDefinition } from '../src/cardPlugins/cardRules'
 import { builtInPlugins } from '../src/plugins'
 
 type EvidenceStatus =
@@ -51,11 +50,6 @@ type RegistrationUse = {
   effects: Map<string, Set<string>>
   instructions: Map<string, Set<string>>
   embedded: Map<string, Set<string>>
-  perCard: Map<string, {
-    effectVariants: Set<string>
-    instructionVariants: Set<string>
-    embeddedRulePaths: Set<string>
-  }>
 }
 
 const repositoryRoot = resolve(import.meta.dir, '../..')
@@ -140,60 +134,10 @@ const emptyUses = (): RegistrationUse => ({
   effects: new Map(),
   instructions: new Map(),
   embedded: new Map(),
-  perCard: new Map(),
 })
+// Every card is canonical; legacy registrations no longer contribute uses.
 const uses = emptyUses()
-const effectSet = new Set(effectVariants)
 const instructionSet = new Set(instructionVariants)
-
-const addUse = (map: Map<string, Set<string>>, key: string, value: string) => {
-  const values = map.get(key) ?? new Set<string>()
-  values.add(value)
-  map.set(key, values)
-}
-
-const visitRegistration = (
-  card: string,
-  value: unknown,
-  path: string,
-  seen: Set<object>,
-) => {
-  if (!value || typeof value !== 'object' || seen.has(value)) return
-  seen.add(value)
-  const record = value as Record<string, unknown>
-  const perCard = uses.perCard.get(card) ?? {
-    effectVariants: new Set<string>(),
-    instructionVariants: new Set<string>(),
-    embeddedRulePaths: new Set<string>(),
-  }
-  uses.perCard.set(card, perCard)
-  if (typeof record.op === 'string' && effectSet.has(record.op)) {
-    addUse(uses.effects, record.op, `${card}:${path}`)
-    perCard.effectVariants.add(record.op)
-  }
-  if (typeof record.kind === 'string' && instructionSet.has(record.kind)) {
-    addUse(uses.instructions, record.kind, `${card}:${path}`)
-    perCard.instructionVariants.add(record.kind)
-  }
-  if (path.includes('.token.effects') || path.includes('.effects')) {
-    const embedded = `${card}:${path}`
-    addUse(uses.embedded, 'embedded-effects', embedded)
-    perCard.embeddedRulePaths.add(path)
-  }
-  for (const [key, child] of Object.entries(record)) {
-    if (typeof child === 'function') continue
-    if (Array.isArray(child)) {
-      child.forEach((entry, index) => visitRegistration(card, entry, `${path}.${key}[${index}]`, seen))
-    } else {
-      visitRegistration(card, child, `${path}.${key}`, seen)
-    }
-  }
-}
-
-for (const [card, effects] of Object.entries(CARD_RULES)) {
-  effects.forEach((effect, index) =>
-    visitRegistration(card, effect, `effects[${index}]`, new Set<object>()))
-}
 
 const testReferences = (needles: string[]) => {
   const references = new Map<string, string>()
@@ -345,16 +289,10 @@ const pluginTestAliases: Record<string, string[]> = {
 }
 
 const pluginRows: VariantDisposition[] = sorted(builtInPlugins.map((plugin) => plugin.id)).map((variant) => {
-  const currentRegistrations = sorted(Object.keys(CARD_RULES).flatMap((card) => {
-    const definition = cardDefinition(card)
-    return definition?.pluginIds.includes(variant) || definition?.handlerIds.includes(variant)
-      ? [card]
-      : []
-  }))
+  const currentRegistrations: string[] = []
   const candidateEvidence = candidateSummary(testReferences([
     `id: '${variant}'`,
     `'${variant}'`,
-    ...currentRegistrations.map((card) => `'${card}'`),
   ]))
   const directPluginTests = testFiles
     .filter((path) => {
@@ -408,40 +346,7 @@ const dialogRows: VariantDisposition[] = dialogVariants.map((variant) => {
   }
 })
 
-const cardRows: RegistrationDisposition[] = Object.keys(CARD_RULES).sort().map((card) => {
-  const definition = cardDefinition(card)
-  const perCard = uses.perCard.get(card) ?? {
-    effectVariants: new Set<string>(),
-    instructionVariants: new Set<string>(),
-    embeddedRulePaths: new Set<string>(),
-  }
-  const candidateEvidence = candidateSummary(testReferences([`'${card}'`, `"${card}"`]))
-  const executableCoverageEvidence: string[] = []
-  const effectKinds = sorted(perCard.effectVariants)
-  const instructionKinds = sorted(perCard.instructionVariants)
-  const ownerParts = sorted([
-    ...effectKinds.map((variant) => effectDisposition(variant)[2]),
-    ...instructionKinds.map((variant) => instructionDisposition(variant)[2]),
-    '16',
-  ])
-  return {
-    card,
-    mechanic: 'CARD_RULES registration',
-    currentRegistrations: [`CARD_RULES.${card}`],
-    executableCoverageEvidence,
-    candidateEvidence,
-    neededCanonicalNode: `canonical definition covering effects [${effectKinds.join(', ')}] and instructions [${instructionKinds.join(', ')}]`,
-    compatibilityRoute: 'Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.',
-    ownerPart: '16',
-    dependencyParts: ownerParts.filter((part) => part !== '16'),
-    status: statusFor([`CARD_RULES.${card}`], executableCoverageEvidence, candidateEvidence),
-    effectVariants: effectKinds,
-    instructionVariants: instructionKinds,
-    pluginIds: sorted(definition?.pluginIds ?? []),
-    handlerIds: sorted(definition?.handlerIds ?? []),
-    embeddedRulePaths: sorted(perCard.embeddedRulePaths),
-  }
-})
+const cardRows: RegistrationDisposition[] = []
 
 const scanSites = (
   matcher: (line: string) => boolean,

@@ -68,7 +68,7 @@ export {
   restoreJournal,
   type KernelJournal,
 } from './journal'
-export { grantedRulesFor, missingCardPlugins } from './cardPlugins'
+export { missingCardPlugins } from './cardPlugins'
 export {
   dialogCandidates,
   pendingDialog,

@@ -5,7 +5,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 
-import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {catalogEntry, deckCards} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {resolveStack} from '../testHelpers'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
@@ -128,8 +128,6 @@ describe('modal double-faced cards', () => {
   })
 })
 
-const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
-const kambalPlugins = await loadCardPlugins(kambalNames)
 const kambalFixture = (name: string) => {
   const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
   const catalog = catalogEntry(entry)
@@ -141,7 +139,7 @@ const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRu
   hands: { p1: [kambalFixture(name)] },
   battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
   libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
-}, { random: () => 0.5, cardPlugins: kambalPlugins })
+}, { random: () => 0.5 })
 
 describe('relocated from kambalManaGraveyards.test.ts → doubleFaced.test.ts', () => {
   test('Trawler casts its front face, triggers, and resets after the land face leaves', () => {

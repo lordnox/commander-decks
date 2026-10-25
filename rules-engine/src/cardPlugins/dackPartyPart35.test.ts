@@ -9,7 +9,6 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { effectsFor } from './cardRules'
 import { encore as encorePlugin } from './encore'
 import { giftCast } from './giftCast'
 import { onResolve as onResolvePlugin } from './onResolve'
@@ -23,7 +22,7 @@ import {
 const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
 
 const fromRules = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-  cardTemplate(name, { effects: effectsFor(name), ...extra })
+  cardTemplate(name, extra)
 
 const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
 const named = (state: GameState, name: string) =>

@@ -1,5 +1,4 @@
 import { normalizeColorSet } from '../../shared/cardColors'
-import { grantedRulesFor } from './cardPlugins'
 import { CARD_TYPES, SUPERTYPES } from './definitions'
 import { commanderRules } from './formats'
 import { cardTemplate as templateFor, type CardTemplate } from './newGame'
@@ -181,7 +180,6 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
       ? Number(card?.stats)
       : null,
     oracleText: card?.oracle_text ?? '',
-    grantedRules: grantedRulesFor(name),
     ...(tapProduces ? { tapProduces } : {}),
   })
 }

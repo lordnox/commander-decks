@@ -16,7 +16,7 @@ import { HOMER_NAME } from './homer'
 import { instructionSpell } from './dsl/instructionTestSupport'
 import { createToken, ref } from './dsl/v1'
 
-import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {catalogEntry, deckCards} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import { pendingDialogFor } from '../pendingDialog'
@@ -514,8 +514,6 @@ describe('landfall player-target mill', () => {
   })
 })
 
-const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
-const kambalPlugins = await loadCardPlugins(kambalNames)
 const kambalFixture = (name: string) => {
   const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
   const catalog = catalogEntry(entry)
@@ -527,7 +525,7 @@ const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRu
   hands: { p1: [kambalFixture(name)] },
   battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
   libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
-}, { random: () => 0.5, cardPlugins: kambalPlugins })
+}, { random: () => 0.5 })
 
 describe('relocated from kambalManaGraveyards.test.ts → multiTargetTriggers.test.ts', () => {
   test('Bojuka Bog triggers on a land drop and can exile its controller graveyard', () => {

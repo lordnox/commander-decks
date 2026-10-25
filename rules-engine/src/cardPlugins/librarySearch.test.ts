@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, test } from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { hasKeyword } from '../keywords'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -14,7 +14,6 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
-import { CARD_RULES } from './cardRules'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -42,11 +41,8 @@ const forest = (name = 'Forest') =>
 const island = () =>
   card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'], tapProduces: { U: 1 } })
 
-const legacyForestSearchSpell = () => card('Legacy search fixture', ['Sorcery'], {
-  manaCost: '{1}{G}',
-})
-
 const LEGACY_SEARCH_FIXTURE = 'Legacy search fixture'
+// Game state drops function matchers from explicit effects; the stamped search falls back to basic lands.
 const LEGACY_SEARCH_SPEC = {
   prompt: 'Search your library for a Forest card and put it onto the battlefield.',
   match: hasSubtype('Forest'),
@@ -54,16 +50,10 @@ const LEGACY_SEARCH_SPEC = {
   min: 1,
   max: 1,
 }
-let previousLegacyFixtureRules: typeof CARD_RULES[string] | undefined
 
-beforeAll(() => {
-  previousLegacyFixtureRules = CARD_RULES[LEGACY_SEARCH_FIXTURE]
-  CARD_RULES[LEGACY_SEARCH_FIXTURE] = [searchSpell(LEGACY_SEARCH_SPEC)]
-})
-
-afterAll(() => {
-  if (previousLegacyFixtureRules) CARD_RULES[LEGACY_SEARCH_FIXTURE] = previousLegacyFixtureRules
-  else delete CARD_RULES[LEGACY_SEARCH_FIXTURE]
+const legacyForestSearchSpell = () => card(LEGACY_SEARCH_FIXTURE, ['Sorcery'], {
+  manaCost: '{1}{G}',
+  effects: [searchSpell(LEGACY_SEARCH_SPEC)],
 })
 
 const ok = (result: ReduceResult) => {

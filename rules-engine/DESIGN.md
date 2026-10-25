@@ -64,13 +64,12 @@ part of this projection.
 
 ## Card plugins
 
-Special Oracle is not compiled. Cards with odd rules are listed in
-`rules-engine/src/cardPlugins/cardRules.ts` (Oracle name → composed effects),
-which is also where `pluginIds` and `handlerIds` come from. That file is the
-readable table of record; later it should split into one lazy module per card
-so a game only loads the names it contains. `grantedRulesFor(name)`
-attaches **static** plugin ids (for example `manaBurn`) when the object is
-created; those RuleInstances exist only while the source is on the battlefield.
+Special Oracle is not compiled. Cards with odd rules are authored as canonical
+Rule DSL definitions in `rules-engine/src/cardPlugins/dsl/cardRuleCatalog.ts`;
+creating an object stamps its pinned `ruleDefinition` from that catalog. A
+template's `grantedRules` attaches **static** plugin ids (for example
+`manaBurn`) when the object is created; those RuleInstances exist only while
+the source is on the battlefield.
 
 Activated abilities use `{ type: 'activateAbility', abilityId, seat, objectId }`.
 The ability type does not change the event. Mana vs stack is timing: the host

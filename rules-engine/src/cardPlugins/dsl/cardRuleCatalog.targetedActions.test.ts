@@ -4,7 +4,6 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { KEYWORDS } from './v1'
 
@@ -152,7 +151,6 @@ test('drain catalog entries compose numeric action results with life gain', () =
   for (const name of ['Exsanguinate', 'Debt to the Deathless', 'Drain Life']) {
     const entry = cardRuleDefinitionSnapshotFor(name)!
     expect(entry).toBeDefined()
-    expect(effectsFor(name)).toEqual([])
     const ability = entry.definition.abilities[0]!
     expect(ability.kind).toBe('spell')
     if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
@@ -177,7 +175,6 @@ test('controller follow-up catalog programs capture their recipient before remov
   for (const name of ["An Offer You Can't Refuse", 'Swan Song', 'Swords to Plowshares', 'Condemn']) {
     const entry = cardRuleDefinitionSnapshotFor(name)!
     expect(entry).toBeDefined()
-    expect(effectsFor(name)).toEqual([])
     const ability = entry.definition.abilities[0]!
     if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
     expect(ability.instructions[0]).toEqual({ kind: 'capturePlayer', player: { kind: 'relatedPlayer', relation: 'controller', of: { kind: 'targetRef', clauseIndex: 0 } }, bindResult: 'targetController' })
@@ -206,7 +203,6 @@ test('controller follow-up catalog programs capture their recipient before remov
 })
 
 test('catalog Fractured Identity captures a copy snapshot before exile', () => {
-  expect(effectsFor('Fractured Identity')).toEqual([])
   const ability = cardRuleDefinitionSnapshotFor('Fractured Identity')!.definition.abilities[0]!
   if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
   expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Land' } } })
@@ -216,7 +212,6 @@ test('catalog Fractured Identity captures a copy snapshot before exile', () => {
 })
 
 test('catalog Settle the Wreckage searches basics for the actual exile count', () => {
-  expect(effectsFor('Settle the Wreckage')).toEqual([])
   const ability = cardRuleDefinitionSnapshotFor('Settle the Wreckage')!.definition.abilities[0]!
   if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
   expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'players', filter: { relation: 'any' } })
@@ -225,7 +220,6 @@ test('catalog Settle the Wreckage searches basics for the actual exile count', (
 })
 
 test('catalog Terastodon destroys up to three noncreatures then tokens their controllers', () => {
-  expect(effectsFor('Terastodon')).toEqual([])
   const ability = cardRuleDefinitionSnapshotFor('Terastodon')!.definition.abilities[0]!
   if (ability.kind !== 'triggered' || !ability.instructions) throw new Error('expected triggered instructions')
   expect(ability.decisions.targets[0]).toEqual(expect.objectContaining({

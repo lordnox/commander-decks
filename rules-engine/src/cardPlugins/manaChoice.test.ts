@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor, availableActions, eventsForAvailableAction } from '../actions'
-import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
@@ -13,8 +13,6 @@ import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import { activate, addManaChoice } from './effects'
 import { activatedManaOptions, manaChoice } from './manaChoice'
-
-const legacyManaPlugins = await loadCardPlugins(['Flooded Grove', 'Waterlogged Grove', 'Simic Signet', 'Island'])
 
 const GROVE_TEXT = '{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}.'
 
@@ -361,7 +359,7 @@ describe('registered legacy cost and mana integration', () => {
           p1: Array.from({ length: options.library ?? 12 }, (_, index) => cardTemplate(`Library ${index}`)),
         },
       },
-      { random: () => 0.5, cardPlugins: legacyManaPlugins },
+      { random: () => 0.5 },
     )
 
   type Server = ReturnType<typeof game>

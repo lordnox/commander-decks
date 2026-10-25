@@ -1,9 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { handlerIdsForNames } from './cardPlugins/cardRules'
 import type { CardTemplate } from './newGame'
 import { replayCardTemplate, type ReplayCard } from './replay'
-import type { Plugin } from './types'
 
 /** Decks whose `cards.json` Oracle text card tests treat as authoritative. */
 export const DECK_DIRECTORIES = [
@@ -94,16 +92,3 @@ export const deckCardTemplate = (
   }
   throw new Error(`no deck card named ${name}`)
 }
-
-/** The plugins a host loads for these cards: one module per handler id, as `loadHostCardPlugins` does. */
-export const loadCardPlugins = (names: string[]) => Promise.all(
-  handlerIdsForNames(names).map(async (handlerId) => {
-    const module = await import(`./cardPlugins/${handlerId}`) as Record<string, unknown>
-    const plugin = Object.values(module).find(
-      (value): value is Plugin =>
-        typeof value === 'object' && value !== null && 'id' in value && value.id === handlerId,
-    )
-    if (!plugin) throw new Error(`card plugin ${handlerId} does not export id ${handlerId}`)
-    return plugin
-  }),
-)
