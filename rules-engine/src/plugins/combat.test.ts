@@ -11,7 +11,6 @@ import { damage } from './damage'
 import { life } from './life'
 import { stateBased } from './stateBased'
 import { turnStructure } from './turnStructure'
-import type { GameState } from '../types'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
   const catalog = createCatalog([combat, damage, life])
