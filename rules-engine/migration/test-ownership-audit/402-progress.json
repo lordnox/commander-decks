@@ -999,7 +999,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/move.test.ts",
       "suite": "conditional entry placement offers a hand land without spending a land play (ahead=%s)",
-      "evidence": "Canonical Archaeomancer\u2019s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger."
+      "evidence": "Canonical Archaeomancer\u2019s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger. Lifecycle groups dackFaydenPart32LandsRocks:295 and :331 retain their original test bodies and shared setup in the source for #403; only forest/solRing helpers with no remaining consumers are removed."
     },
     {
       "groups": [

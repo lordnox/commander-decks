@@ -404,7 +404,11 @@ test.each(['Riveteers Overlook', 'Undercity Sewers'])('a fetched catalog land re
 test('related shareLandType rejects mixed basic types and accepts a shared pair', () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    battlefield: { p1: [cardTemplate('Grouped search source', { types: ['Land'], ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [manaCost('{2}'), tapCost(), sacrificeCost(ref('source'), 1)], instructions: [searchLibrary({
+    battlefield: { p1: [cardTemplate('Grouped search source', {
+      types: ['Land'],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+        costs: [manaCost('{2}'), tapCost(), sacrificeCost(ref('source'), 1)],
+        instructions: [searchLibrary({
       bindChoice: 'found',
       chooser: ref('controller'),
       filter: objects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
@@ -413,7 +417,9 @@ test('related shareLandType rejects mixed basic types and accepts a shared pair'
       related: CHOICE_RELATIONS.shareLandType,
       to: 'battlefield',
       tapped: true,
-    })] })]))) })] },
+        })],
+      })]))),
+    })] },
     libraries: { p1: [
       cardTemplate('Forest A', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
       cardTemplate('Forest B', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
