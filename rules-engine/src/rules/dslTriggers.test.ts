@@ -776,3 +776,24 @@ test('opponent draw triggers damage the drawing player and ignore controller dra
   expect(state.players.p2.life).toBe(39)
   expect(state.players.p3.life).toBe(39)
 })
+
+test('catalog entry draw creates one trigger and draws exactly once', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Wall of Omens', { types: ['Creature'], power: 0, toughness: 4 })] },
+    libraries: {
+      p1: ['Draw One', 'Draw Two', 'Draw Three'].map((name) => cardTemplate(name)),
+    },
+  }, { random: () => 0 })
+  const wall = named(server.state, 'Wall of Omens')
+  expect(wall.ruleDefinition?.definitionRevision).toBe(
+    cardRuleDefinitionSnapshotFor('Wall of Omens')!.definitionRevision,
+  )
+  expect(wall.effects).toEqual([])
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: wall.id, to: 'battlefield' }))
+  expect(entered.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, entered)
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(1)
+  expect(resolved.zoneOrder.p1.library).toHaveLength(2)
+  expect(named(resolved, 'Draw One').zone).toBe('hand')
+})

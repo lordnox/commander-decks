@@ -131,5 +131,15 @@
     "splitTrapVotes:110",
     "splitTrapVotes:296",
     "yurlok:24"
+  ],
+  "relocations": [
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:72"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/staticKeywords.test.ts",
+      "suite": "catalog keyword binding works without Oracle text or legacy effects",
+      "evidence": "Preserves catalog snapshot stamping, empty Oracle text, no legacy effects, and effective trample in a mechanic-owned catalog-binding integration. Exact trample-only composition remains in cardRuleCatalog.test.ts."
+    }
   ]
 }
