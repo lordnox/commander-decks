@@ -61,6 +61,23 @@ test('a draw and fractional life-loss program evaluates after preceding instruct
   expect(resolved.players.p2.life).toBe(40)
 })
 
+test('catalog Infernal Contract draws four and loses half life rounded up', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Infernal Contract')] },
+    libraries: { p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Draw ${index}`)) },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.active = 'p1'
+  ready.priority = 'p1'
+  ready.step = 'precombatMain'
+  ready.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  ready.players.p1.life = 15
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0] }))
+  const state = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(state.zoneOrder.p1.hand).toHaveLength(4)
+  expect(state.players.p1.life).toBe(7)
+})
+
 
 test.each([0, 1, 7])('negated stat expressions retain signed values and normalize zero (%s)', value => {
   expect(evaluateStatDelta(negate(variable('X')), { ...context, variables: { X: value } })).toBe(value === 0 ? 0 : -value)
