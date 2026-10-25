@@ -4,6 +4,7 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { availableActions } from '../../actions'
+import type { GameState } from '../../types'
 import {
   activated,
   anyTarget,
@@ -163,4 +164,21 @@ test('minus X loyalty is offered for each payable X', () => {
     .filter(action => action.kind === 'activateAbility' && action.abilityId === '$.abilities[0]')
     .map(action => action.kind === 'activateAbility' ? action.x : undefined)
   expect(xs).toEqual([0, 1, 2])
+})
+
+test('catalog Jace, Multiverse Architect cannot target itself with its −3', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Jace, Multiverse Architect', { counters: { loyalty: 4 } })] },
+  }, { random: () => 0 })
+  const id = Object.values(server.state.objects).find((object) => object.name === 'Jace, Multiverse Architect')!.id
+  const state: GameState = { ...server.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+  const activated = server.rules(state, {
+    type: 'activateAbility',
+    abilityId: '$.abilities[2]',
+    seat: 'p1',
+    objectId: id,
+    targets: [{ kind: 'object', objectId: id }],
+  })
+  expect(activated.ok).toBe(false)
 })

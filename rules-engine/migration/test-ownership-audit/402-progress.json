@@ -329,6 +329,12 @@
     "homerRest:347",
     "homerRest:53",
     "homerRest:96",
+    "jaceMultiverseArchitect:106",
+    "jaceMultiverseArchitect:185",
+    "jaceMultiverseArchitect:45",
+    "jaceMultiverseArchitect:50",
+    "jaceMultiverseArchitect:79",
+    "jaceMultiverseArchitect:helper:atOpponentBeginCombat:34",
     "jointExploration:15",
     "kambalManaGraveyards:105",
     "kambalManaGraveyards:117",
@@ -2178,6 +2184,40 @@
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "catalog Will of the Sultai mills the chosen player and returns your lands tapped on the first mode",
       "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). Mode 0 announced with p2 as target player; p2 graveyard has 3 cards and Yard Land returns to the battlefield tapped. Mana fixture follows the catalog cost {4}{G}."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:45",
+        "jaceMultiverseArchitect:50",
+        "jaceMultiverseArchitect:helper:atOpponentBeginCombat:34"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/combatTaxes.test.ts",
+      "suite": "catalog Jace, Multiverse Architect lets an opponent who pays {2} at begin combat attack its Jace planeswalkers",
+      "evidence": "Uses the canonical catalog definition without legacy card plugins. The registry row's only assertion (the battlefield object is named Jace, Multiverse Architect) is kept here; the legacy optionalManaPay/planeswalker handler ids no longer exist, and the catalog trigger composition (stepBegins beginCombat for an opponent -> payOptional {2} -> ifDeclined banAttacks) is pinned by dsl/cardRuleCatalog.test.ts / family 32 catalog walkers compose loyalty costs, emblems, and attack bans. The pending {2} offer to p2 is asserted defined (restoring the line-62 assertion that cadbdb5a reduced to a non-null assertion), paying spends p2's {C}{C}, and the attack on Jace succeeds. The shared atOpponentBeginCombat helper, including its step === beginCombat assertion, moves to the destination suite with its #402 consumers; the source keeps its own copy only for the #403 consumer jaceMultiverseArchitect:199."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:79"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/combatTaxes.test.ts",
+      "suite": "catalog Jace, Multiverse Architect declining the {2} tax bans attacks on its Jaces but not on its controller",
+      "evidence": "Declining the typed pay/decline offer makes p2's attack on Jace illegal while an attack on p1 stays legal; atOpponentBeginCombat asserts beginCombat."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:106"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/combatTaxes.test.ts",
+      "suite": "catalog Jace, Multiverse Architect attack ban clears after the turn",
+      "evidence": "After declining, advancing from cleanup clears the ban and p2 may attack Jace again; atOpponentBeginCombat asserts beginCombat."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:185"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
+      "suite": "catalog Jace, Multiverse Architect cannot target itself with its \u22123",
+      "evidence": "Uses the canonical catalog definition without legacy card plugins; activating $.abilities[2] targeting Jace itself is rejected at announcement by its other: true target clause."
     }
   ]
 }
