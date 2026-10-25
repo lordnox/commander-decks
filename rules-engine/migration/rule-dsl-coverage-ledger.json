@@ -3630,7 +3630,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 25,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1006 — test('a restored private choice survives a host restart', async () => {",
@@ -4872,7 +4872,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 90,
+        "matches": 89,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:274 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -5147,7 +5147,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 268,
+        "matches": 271,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",

@@ -212,6 +212,17 @@
     "cirdanTriggers:379",
     "cirdanTriggers:386",
     "cirdanTriggers:97",
+    "councilCards:325",
+    "councilCards:335",
+    "councilCards:395",
+    "councilCards:456",
+    "councilCards:473",
+    "councilCards:494",
+    "councilCards:531",
+    "councilCards:573",
+    "councilCards:626",
+    "councilCards:651",
+    "councilCards:helper:atUpkeep:109",
     "counterspellAndWard.integration:37",
     "counterspellAndWard.integration:73",
     "dackFaydenPart32LandsRocks:112",
@@ -1177,6 +1188,87 @@
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "a catalog alternative cost validates ordered discards before countering the target spell",
       "evidence": "Retains canonical Foil binding and empty effects; rejects reversed typed discard order, pays Island plus another card to graveyard, has two stack items, then counters the target and moves both spells to graveyard with an empty stack."
+    },
+    {
+      "groups": [
+        "councilCards:325"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Selvala's Stampede opens a public wild/free vote starting with the caster",
+      "evidence": "Exact owner p1, secret=false, APNAP voters p1-p4, and ordered wild/free option ids and labels preserved on the canonical catalog definition without legacy card plugins."
+    },
+    {
+      "groups": [
+        "councilCards:335"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Selvala's Stampede reveals the caster's library to one creature per wild vote and returns the rest",
+      "evidence": "Two wild votes put First/Second Creature onto the battlefield under p1 while Third Creature stays in the library; revealed Plains/Island/Bottom Land return to the library (length 4); p2 library and hand untouched; public log names Selvala. Canonical revealUntil returns the rest to the bottom in random order rather than shuffling, which the audited zone/length assertions still pin."
+    },
+    {
+      "groups": [
+        "councilCards:395"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Selvala's Stampede stops at the library end and skips an empty free placement",
+      "evidence": "Four wild votes against a one-creature library put Only Creature onto the battlefield, leave two cards in the library, open no placement, and keep Hand Creature in hand."
+    },
+    {
+      "groups": [
+        "councilCards:456",
+        "councilCards:helper:atUpkeep:109"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Coercive Portal triggers only at its controller upkeep and asks a public carnage/homage vote",
+      "evidence": "Uses the canonical catalog definition. Stack top source/controller, public vote source/owner/voters/ordered options, and an empty stack on p2's upkeep preserved. The shared atUpkeep helper, including its step === upkeep assertion, moves to the destination suite."
+    },
+    {
+      "groups": [
+        "councilCards:473"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Coercive Portal draws for its controller on homage or a tie and keeps every permanent",
+      "evidence": "Tied result (tied=true) draws one card for p1 and keeps Portal and Theirs; a clear homage win draws only for p1 and keeps Portal and Mine."
+    },
+    {
+      "groups": [
+        "councilCards:494"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Coercive Portal carnage sacrifices itself and destroys every nonland permanent",
+      "evidence": "Portal, Mine, Theirs, Their Relic, and Their Aura reach the graveyard; indestructible Eternal and both lands remain; nobody draws."
+    },
+    {
+      "groups": [
+        "councilCards:531"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Erestor hears a Sail vote only after the spell finishes, then Treasures, scry, and draw follow",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Pending Erestor trigger (source name/controller p2, tallies return=1/embark=3) waits while Sail asks embark questions, with only Sail on the stack; after all decline, Erestor is stack top and Sail is in the graveyard; Treasures for p1 and p4 only; scry 1 before the draw; hand +1 after scry. Canonical embark uses typed accept/decline participation options instead of legacy wheel/keep."
+    },
+    {
+      "groups": [
+        "councilCards:573"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Erestor hears C\u00edrdan's secret player vote after C\u00edrdan's draws and placements",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Secret player ballots through typed selectOption replace the legacy secret-vote custom dialog. Pending Erestor trigger carries the exact votes; C\u00edrdan's optional placements for p1 and p2 (given one permanent each so the step is exercised) precede Erestor on the stack; Treasures for p1/p4 only; scry 1 then draw."
+    },
+    {
+      "groups": [
+        "councilCards:626"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Erestor gives every agreeing opponent a Treasure and skips scry after a unanimous Council's Judgment",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Unanimous object ballot exiles Target; Treasures for p1, p3, p4 and none for p2; no scry; p2 hand has exactly the drawn card. dsl/vote.test.ts / object ballots tally identities, disambiguate duplicate names, and bind every tied winner separately owns opposing-only candidate validation."
+    },
+    {
+      "groups": [
+        "councilCards:651"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Erestor scries once per disagreeing opponent and makes no Treasure when every opponent disagrees",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Return wins with no graveyard candidates, so Sail finishes with only Erestor on the stack; no Treasure exists; scry count is 3."
     }
   ]
 }
