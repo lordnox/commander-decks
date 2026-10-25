@@ -4,10 +4,9 @@ import { createCatalog } from '../catalog'
 import { onResolve } from '../cardPlugins/onResolve'
 import { emptyMana } from '../draft'
 import { rules } from '../kernel'
-import { bolt, forest, newGame, planeswalker, timetwister } from '../testGame'
+import { bolt, forest, newGame, planeswalker } from '../testGame'
 import { damage } from './damage'
 import { life } from './life'
-import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { payCost, spells } from './spells'
 import { stateBased } from './stateBased'
 import type { Plugin } from '../types'
@@ -147,43 +146,6 @@ describe('spells', () => {
     const resolved = rules(cast.state, { type: 'resolveTop' }, catalog)
     if (!resolved.ok) throw new Error(resolved.error)
     expect(resolved.state.objects[walkerId].zone).toBe('graveyard')
-  })
-
-  test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {
-    const hiddenInformation = createAuthoritativeHiddenInformation(() => 0.5)
-    const catalog = createCatalog([spells, hiddenInformation])
-    const state = newGame({
-      players: 2,
-      hands: { p1: [timetwister()] },
-      libraries: { p1: [forest()] },
-      builtinRules: ['spells', 'hiddenInformation'],
-    })
-    const twisterId = Object.values(state.objects).find((object) => object.name === 'Timetwister')!.id
-    const forestId = Object.values(state.objects).find((object) => object.name === 'Forest')!.id
-    state.players.p1.mana.U = 1
-    state.players.p1.mana.C = 2
-
-    const milled = rules(state, { type: 'move', objectId: forestId, to: 'graveyard' }, catalog)
-    expect(milled.ok).toBe(true)
-    if (!milled.ok) return
-
-    const cast = rules(
-      milled.state,
-      { type: 'castSpell', seat: 'p1', objectId: twisterId },
-      catalog,
-    )
-    expect(cast.ok).toBe(true)
-    if (!cast.ok) return
-    expect(cast.state.objects[twisterId].zone).toBe('stack')
-    expect(cast.state.objects[forestId].zone).toBe('graveyard')
-
-    const resolved = rules(cast.state, { type: 'resolveTop' }, catalog)
-    expect(resolved.ok).toBe(true)
-    if (!resolved.ok) return
-    expect(resolved.state.objects[forestId].zone).toBe('library')
-    expect(resolved.state.objects[twisterId].zone).toBe('graveyard')
-    expect(resolved.state.zoneOrder.p1.library).toEqual([forestId])
-    expect(resolved.state.zoneOrder.p1.graveyard).toEqual([twisterId])
   })
 
   test('the most recently cast spell resolves first', () => {

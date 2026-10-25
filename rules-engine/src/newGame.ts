@@ -266,14 +266,6 @@ export const yurlokFixture = (): CardTemplate => cardTemplate('Yurlok of Scorch 
     'Vigilance\nA player losing unspent mana causes that player to lose that much life.\n{1}, {T}: Each player adds {B}{R}{G}.',
 })
 
-/** Fixture: shuffles each player's graveyard and hand into their library. Omits the draw-seven. */
-export const timetwister = (): CardTemplate => cardTemplate('Timetwister', {
-  types: ['Sorcery'],
-  manaCost: '{2}{U}',
-  oracleText:
-    'Fixture: each player shuffles their hand and graveyard into their library (no draw).',
-})
-
 export const bolt = (): CardTemplate => cardTemplate('Lightning Bolt', {
   types: ['Instant'],
   manaCost: '{R}',
