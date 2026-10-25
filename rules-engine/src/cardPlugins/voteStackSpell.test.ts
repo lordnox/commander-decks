@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState, PlayerId } from '../types'
@@ -83,15 +83,18 @@ const voting = () => {
 
 type Ballot = Record<PlayerId, 'denial' | 'duplication'>
 
+const answerVote = (game: ReturnType<typeof server>, state: GameState, seat: PlayerId, optionId: string) =>
+  game.rules(state, {
+    type: 'selectOption',
+    seat,
+    selectionId: pendingOptionSelection(state, seat)?.id ?? 'none',
+    optionId,
+  })
+
 const castVotes = (game: ReturnType<typeof server>, state: GameState, votes: Ballot) => {
   let current = state
   for (const seat of ['p1', 'p2', 'p3', 'p4']) {
-    current = ok(game.rules(current, {
-      type: 'selectOption',
-      seat,
-      selectionId: pendingOptionSelection(current, seat)!.id,
-      optionId: votes[seat],
-    }))
+    current = ok(answerVote(game, current, seat, votes[seat]))
   }
   return current
 }
@@ -101,6 +104,29 @@ const TIE: Ballot = { p1: 'denial', p2: 'denial', p3: 'duplication', p4: 'duplic
 const COPY: Ballot = { p1: 'duplication', p2: 'duplication', p3: 'duplication', p4: 'denial' }
 
 describe('acting on the spell a vote spell targeted', () => {
+  test('public ballots stay visible while a targeted spell vote advances in order', () => {
+    const { game, state } = voting()
+    expect(pendingVote(state)).toMatchObject({
+      owner: 'p1',
+      secret: false,
+      voters: ['p1', 'p2', 'p3', 'p4'],
+      options: [{ id: 'denial' }, { id: 'duplication' }],
+    })
+    expect(pendingOptionSelection(state, 'p1')).toBeDefined()
+    expect(pendingOptionSelection(state, 'p2')).toBeUndefined()
+    expect(answerVote(game, state, 'p2', 'denial').ok).toBe(false)
+    expect(answerVote(game, state, 'p1', 'invalid').ok).toBe(false)
+    expect(game.rules(state, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+
+    const afterTwo = ok(answerVote(game, state, 'p1', 'denial'))
+    const afterThree = ok(answerVote(game, afterTwo, 'p2', 'duplication'))
+    const publicVotes = { p1: 'denial', p2: 'duplication' }
+    expect(pendingVote(projectForViewer(afterThree, 'p4'))?.votes).toEqual(publicVotes)
+    expect(pendingVote(projectForViewer(afterThree, null))?.votes).toEqual(publicVotes)
+    expect(pendingOptionSelection(projectForViewer(afterThree, 'p4'), 'p3')).toBeUndefined()
+    expect(pendingOptionSelection(projectForViewer(afterThree, 'p3'), 'p3')).toBeDefined()
+  })
+
   test('denial with more votes counters the targeted spell, which never resolves', () => {
     const { game, state } = voting()
     expect(pendingVote(state)).toBeDefined()
@@ -177,18 +203,26 @@ describe('acting on the spell a vote spell targeted', () => {
   })
 
   test('an open copy choice survives a host restart', () => {
-    const { state } = voting()
-    const done = castVotes(server(), state, TIE)
-    const reloaded = structuredClone(done)
-    const pending = stackCopyPending(reloaded)!
+    const { game, state } = voting()
+    const afterP1 = ok(answerVote(game, state, 'p1', 'duplication'))
+    const afterP2 = ok(answerVote(game, afterP1, 'p2', 'denial'))
+    const reloadedVote = structuredClone(afterP2)
+    expect(pendingVote(reloadedVote)?.votes).toEqual({ p1: 'duplication', p2: 'denial' })
+    expect(pendingOptionSelection(reloadedVote, 'p3')).toBeDefined()
+
+    const restarted = server()
+    const afterP3 = ok(answerVote(restarted, reloadedVote, 'p3', 'duplication'))
+    const done = ok(answerVote(restarted, afterP3, 'p4', 'duplication'))
+    const reloadedCopy = structuredClone(done)
+    const pending = stackCopyPending(reloadedCopy)!
     expect(pending).toMatchObject({ seat: 'p1' })
-    const next = ok(server().rules(reloaded, {
+    const next = ok(server().rules(reloadedCopy, {
       type: 'copyStackItem',
       seat: 'p1',
       sourceId: pending.sourceId,
       stackId: pending.stackId,
       accept: true,
-      targets: [{ kind: 'object', objectId: named(reloaded, 'Boar').id }],
+      targets: [{ kind: 'object', objectId: named(reloadedCopy, 'Boar').id }],
     }))
     expect(next.stack[0]).toMatchObject({ copy: true })
     expect(stackCopyPending(next)).toBeUndefined()
