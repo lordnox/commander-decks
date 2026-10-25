@@ -64,7 +64,7 @@ const placementRound = forEachPlayer({
 
 const eureka = {
   instructions: [
-    captureAmount({ amount: 0, bindResult: 'roundPuts' }),
+    captureAmount({ amount: 1, bindResult: 'roundPuts' }),
     repeatWhile({
       condition: compareAmount(resultAmount('roundPuts'), 'gte', 1),
       instructions: [placementRound],

@@ -49,7 +49,7 @@ export default {
   ruleDefinition: snapshotFor([
     spell({
       instructions: [
-        captureAmount({ amount: 0, bindResult: 'roundPuts' }), // compiler seed; each round overwrites it
+        captureAmount({ amount: 1, bindResult: 'roundPuts' }), // seed so the first round runs; each round overwrites it
         repeatWhile({
           condition: compareAmount(resultAmount('roundPuts'), 'gte', 1),
           instructions: [placementRound],
