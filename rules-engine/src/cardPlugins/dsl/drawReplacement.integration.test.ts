@@ -300,7 +300,7 @@ describe('Chains discard-then-draw replacement', () => {
     expect(state.zoneOrder.p1.library).toHaveLength(0)
   })
 
-  test('empty library on the draw branch sets failed-draw SBA', () => {
+  test('empty library on the draw branch loses the player at the SBA check', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
@@ -311,7 +311,8 @@ describe('Chains discard-then-draw replacement', () => {
     state.drawStepTracking!.actualDraws = { p1: 1 }
     state = reduce(server, state, { type: 'draw', seat: 'p1' })
     state = answerDiscard(server, state)
-    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
+    expect(state.players.p1.lost).toBe(true)
+    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
   })
 })

@@ -1,3 +1,7 @@
+import { createJournal, restoreJournal } from '../journal'
+import { instructionSpell } from '../cardPlugins/dsl/instructionTestSupport'
+import { chooseCards, createPlayerEffect, draw as drawInstruction, objects, PLAYER_EFFECT_DURATIONS, PLAYER_EFFECTS, ref } from '../cardPlugins/dsl/v1'
+import { resolveStack } from '../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import { freezeDraft, makeDraft } from '../draft'
 import { onResolve } from '../cardPlugins/onResolve'
@@ -12,9 +16,9 @@ import {
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import type { GameState, ReduceResult } from '../types'
+import type { GameState, Plugin, ReduceResult } from '../types'
 import { initiateDiscard } from './discard'
-import { cardsDrawnThisTurn, draw as drawPlugin, initiateDraw } from './draw'
+import { FAILED_DRAW_SINCE_SBA, cardsDrawnThisTurn, draw as drawPlugin, initiateDraw } from './draw'
 import { pendingSelectionFor } from './selectCards'
 
 const card = (name: string, types: string[] = ['Instant']) =>
@@ -295,4 +299,66 @@ describe('draw game rule', () => {
     expect(nextTurn.step).toBe('untap')
     expect(cardsDrawnThisTurn(nextTurn.players.p1)).toBe(0)
   })
+})
+
+
+const lossProtectionFixture = (cardPlugins: Plugin[] = []) => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [instructionSpell({ instructions: [createPlayerEffect({
+      targets: ref('controller'), playerEffect: PLAYER_EFFECTS.cannotLoseGame,
+      duration: PLAYER_EFFECT_DURATIONS.untilCleanup,
+    })] })] },
+  }, { random: () => 0, cardPlugins })
+  const state = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  return { server, state }
+}
+
+test('a protected failed draw is consumed at its checkpoint, not deferred until protection expires', () => {
+  const { server, state } = lossProtectionFixture()
+  const protectedDraw = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+  expect(protectedDraw.players.p1.lost).toBe(false)
+  expect(protectedDraw.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
+  const restored = restoreJournal(createJournal(protectedDraw), server.rules).current()
+  const cleanup = ok(server.rules({ ...restored, step: 'end', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' }))
+  expect(cleanup.players.p1.lost).toBe(false)
+  const nextDraw = ok(server.rules(cleanup, { type: 'draw', seat: 'p1' }))
+  expect(nextDraw.players.p1.lost).toBe(true)
+  expect(nextDraw.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
+})
+
+test('failed draws survive a suspended resolution and restore until the first actual SBA check', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [instructionSpell({ instructions: [
+      drawInstruction({ targets: ref('controller'), count: 1 }),
+      chooseCards({ chooser: ref('controller'), filter: objects({ zone: 'hand', owner: 'you' }), count: 1, bindChoice: 'chosen' }),
+    ] }), card('Selection fixture')] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  const paused = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(paused.players.p1.lost).toBe(false)
+  expect(paused.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
+  const restored = restoreJournal(createJournal(paused), server.rules).current()
+  const pick = pendingSelectionFor(restored, 'p1')!
+  const completed = ok(server.rules(restored, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1,
+    objectIds: [restored.zoneOrder.p1.hand[0]],
+  }))
+  expect(completed.players.p1.lost).toBe(true)
+  expect(completed.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
+})
+
+test('a fresh failed draw during an SBA wave is evaluated by the next check', () => {
+  const drawDuringSba: Plugin = {
+    id: 'fixture.drawDuringSba',
+    sba: ({ state }) => state.players.p1.data[FAILED_DRAW_SINCE_SBA] === true
+      ? [{ type: 'draw', seat: 'p2' }]
+      : [],
+  }
+  const { server, state } = lossProtectionFixture([drawDuringSba])
+  const checked = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+  expect(checked.players.p1.lost).toBe(false)
+  expect(checked.players.p2.lost).toBe(true)
+  expect(checked.players.p2.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
 })
