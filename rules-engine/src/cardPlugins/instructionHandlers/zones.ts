@@ -1,6 +1,5 @@
-import { isPermanentType } from '../../definitions'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
-import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformation'
+import { pickRandomChoices } from '../../plugins/hiddenInformation'
 import { isPhasedOut } from '../../plugins/phasing'
 import { payCost } from '../../plugins/spells'
 import { INSTRUCTIONS_RESUME, openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
@@ -9,7 +8,6 @@ import { apnapSeats } from '../../turnOrder'
 import {
   addPlusCounters,
   millLibrary,
-  RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
 } from '../effects'
 import { resolveRevealUntilThen, runRevealUntil } from '../revealUntil'
@@ -770,37 +768,6 @@ const revealDrawLoseLife: InstructionHandler<'revealDrawLoseLife'> = ({ draft, s
   }
 }
 
-const randomExileCopyWhile: InstructionHandler<'randomExileCopyWhile'> = (
-  { draft, source },
-  instruction,
-) => {
-  const choices = Object.values(draft.objects)
-    .filter((object) =>
-      object.owner === source.controller
-      && object.zone === 'graveyard'
-      && isPermanentType(object.types))
-    .map((object) => object.id)
-  if (choices.length === 0) {
-    draft.note(`${source.name} finds no matching card in ${source.controller}'s graveyard`)
-    return
-  }
-  draft.enqueue({
-    type: 'custom',
-    name: RANDOM_CHOICE,
-    seat: source.controller,
-    payload: {
-      choices,
-      resultName: RANDOM_EXILE_COPY_CARD_CHOSEN,
-      context: {
-        sourceName: source.name,
-        repeatWhileType: instruction.repeatWhileType,
-        tapped: instruction.tapped === true,
-        selectedIds: [],
-      },
-    },
-  })
-}
-
 const putMilledLandTapped: InstructionHandler<'putMilledLandTapped'> = (
   { draft, item },
 ) => {
@@ -1005,7 +972,6 @@ export const zoneHandlers = {
   returnTargetFromGraveyard,
   bounceAttacking,
   revealDrawLoseLife,
-  randomExileCopyWhile,
   putMilledLandTapped,
   returnChosenLandFromGraveyard,
   sacrificeControlled,
