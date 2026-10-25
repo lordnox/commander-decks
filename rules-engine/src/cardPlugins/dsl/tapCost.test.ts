@@ -1,8 +1,9 @@
-import { expect, test } from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
+import type { GameState } from '../../types'
 import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, gainLife, lifeCost, manaCost, objects, ref, sacrificeCost, tapCost } from './v1'
 
 const definition = (mana = false, life = false) => createDefinitionSnapshot(compileCardRuleDefinition(card([
@@ -136,4 +137,39 @@ test('catalog Arcanis the Omnipotent taps to draw three and pays mana to return 
   expect(state.zoneOrder.p1.hand).toHaveLength(3)
   state = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: arcanis, abilityId: '$.abilities[1]' })))
   expect(state.objects[arcanis].zone).toBe('hand')
+})
+
+describe('catalog Arbor Elf tap cost on a non-mana activated ability', () => {
+  const setup = (sick = false) => createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [
+        { ...cardTemplate('Arbor Elf'), summoningSickness: sick },
+        cardTemplate('Basic Forest', { types: ['Land'], supertypes: ['Basic'], subtypes: ['Forest'], tapped: true }),
+      ],
+    },
+  }, { random: () => 0.5 })
+  const elf = (state: GameState) => Object.values(state.objects).find((object) => object.name === 'Arbor Elf')!
+  const untapForest = (state: GameState) => ({
+    ...activate(elf(state).id),
+    targets: [{
+      kind: 'object' as const,
+      objectId: Object.values(state.objects).find((object) => object.name === 'Basic Forest')!.id,
+    }],
+  })
+
+  test('it cannot activate while summoning sick, and it is not a mana ability', () => {
+    const sick = setup(true)
+    expect(sick.rules(sick.state, untapForest(sick.state)).ok).toBe(false)
+    expect(sick.rules(sick.state, { type: 'tapForMana', seat: 'p1', objectId: elf(sick.state).id }).ok).toBe(false)
+    const ready = setup()
+    expect(ready.rules(ready.state, { type: 'tapForMana', seat: 'p1', objectId: elf(ready.state).id }).ok).toBe(false)
+  })
+
+  test('a tapped Elf cannot untap a Forest', () => {
+    const server = setup()
+    const tapped = structuredClone(server.state)
+    tapped.objects[elf(tapped).id].tapped = true
+    expect(server.rules(tapped, untapForest(tapped)).ok).toBe(false)
+  })
 })

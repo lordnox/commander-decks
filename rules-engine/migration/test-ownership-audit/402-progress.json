@@ -80,6 +80,7 @@
     "cirdanColossi:61",
     "cirdanColossi:89",
     "cirdanColossi:98",
+    "cirdanColossi:helper:expectInLibrary:79",
     "cirdanEldrazi:116",
     "cirdanEldrazi:125",
     "cirdanEldrazi:133",
@@ -161,6 +162,11 @@
     "cirdanPartBMana:142",
     "cirdanPartBMana:164",
     "cirdanPartBMana:182",
+    "cirdanPartBMana:224",
+    "cirdanPartBMana:235",
+    "cirdanPartBMana:241",
+    "cirdanPartBMana:252",
+    "cirdanPartBMana:268",
     "cirdanPartBMana:286",
     "cirdanPartBMana:296",
     "cirdanPartBMana:310",
@@ -180,6 +186,12 @@
     "cirdanPartBMana:553",
     "cirdanPartBMana:602",
     "cirdanPartBMana:625",
+    "cirdanPartBMana:639",
+    "cirdanPartBMana:659",
+    "cirdanPartBMana:677",
+    "cirdanPartBMana:701",
+    "cirdanPartBMana:713",
+    "cirdanPartBMana:732",
     "cirdanStatics:129",
     "cirdanStatics:137",
     "cirdanStatics:153",
@@ -1683,6 +1695,102 @@
       "destination": "rules-engine/src/cardPlugins/dsl/attackTriggers.test.ts",
       "suite": "catalog Breena draws for the attacker and pumps only when the defender is not the poorest opponent",
       "evidence": "Counter assertions preserved: the typed choose selection for p1 from Breena, and the chosen creature gets exactly two +1/+1 counters (replacing the legacy plusCounters field). The vacuous hand.length >= 0 bound is replaced by real draw evidence: p2 hand is empty before attacking and contains exactly the Attack Draw card after the trigger, and a control case where the defender is not richer than any opponent draws nothing and adds no counters."
+    },
+    {
+      "groups": [
+        "cirdanColossi:helper:expectInLibrary:79"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "relocated from cirdanColossi.test.ts / expectInLibrary helper with its consumers",
+      "evidence": "Commit d23a68df already moved the helper with all five consumers and no consumer remains in cirdanColossi.test.ts. Its five checks (library zone, owner library order, graveyard exclusion, reveal log, shuffle log) are intact at shuffleIntoLibraryInstead.test.ts:107 for consumers cirdanColossi:98, :107, :116, and :180, and at dsl/counter.test.ts:275 for cirdanColossi:153."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:224"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "catalog Arbor Elf subtype-filtered activated target / taps to untap a Forest, a nonbasic Forest included, and nothing else",
+      "evidence": "Catalog Arbor Elf with exchangeable tapped basic Forest, basic Island, and nonbasic Forest (Forest Island) fixtures replacing the deck Forest/Island/Breeding Pool templates. For each Forest: Elf tapped at announcement, target untapped on resolution, Island stays tapped."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:235"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "catalog Arbor Elf subtype-filtered activated target / an Island or the Elf itself is not a legal target",
+      "evidence": "Catalog Arbor Elf with exchangeable tapped basic Forest, basic Island, and nonbasic Forest (Forest Island) fixtures replacing the deck Forest/Island/Breeding Pool templates. Island and the Elf itself are each rejected at announcement."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:241"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "catalog Arbor Elf subtype-filtered activated target / the action layer offers one activation per Forest",
+      "evidence": "Catalog Arbor Elf with exchangeable tapped basic Forest, basic Island, and nonbasic Forest (Forest Island) fixtures replacing the deck Forest/Island/Breeding Pool templates. legalActsFor target names are exactly the basic and nonbasic Forest."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:252"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "catalog Arbor Elf tap cost on a non-mana activated ability / it cannot activate while summoning sick, and it is not a mana ability",
+      "evidence": "Catalog Arbor Elf with a tapped basic Forest fixture. Summoning-sick activation and tapForMana are rejected; tapForMana is also rejected when not sick."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:268"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "catalog Arbor Elf tap cost on a non-mana activated ability / a tapped Elf cannot untap a Forest",
+      "evidence": "Catalog Arbor Elf already tapped cannot pay {T} to untap the Forest fixture."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:639"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/grantNoMaximumHandSize.test.ts",
+      "suite": "grantNoMaximumHandSize / catalog Sea Gate Restoration front face / the spell draws your hand plus one and lifts the hand size limit for good",
+      "evidence": "Catalog Sea Gate Restoration MDFC. No cast act without mana, one with U3 C4; resolving with five held cards yields 11 in hand, the card in graveyard, p1 maximum null, p2 7, and cleanup advances to untap."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:659"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/grantNoMaximumHandSize.test.ts",
+      "suite": "grantNoMaximumHandSize / catalog Sea Gate Restoration front face / without enough mana the spell is neither offered nor castable",
+      "evidence": "Catalog Sea Gate Restoration with U2 C4: no cast act and castSpell rejected."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:677"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
+      "suite": "catalog Sea Gate, Reborn pay-life-or-tap back face / as a land you may pay exactly 3 life to have it untapped, and it taps for {U}",
+      "evidence": "Catalog MDFC played as its land face. The 486f7377 pendingDialog assertions (source, may-pay-life count 3, prompt 'pay 3 life', Land untapped before the answer) were replaced in cadbdb5a by the typed option selection that asks before the land enters; preserved as option selection source Sea Gate, prompt containing 'pay 3 life', pay/decline option ids, then 3 life paid, Land untapped, and tapForMana adds exactly {U}."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:701"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
+      "suite": "catalog Sea Gate, Reborn pay-life-or-tap back face / declining the payment enters it tapped and costs no life",
+      "evidence": "Decline option: land tapped, life unchanged."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:713"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
+      "suite": "catalog Sea Gate, Reborn pay-life-or-tap back face / at 2 life the 3-life payment is not possible, so the land enters tapped",
+      "evidence": "At 2 life choosing pay leaves life at 2 and the land tapped."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:732"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
+      "suite": "catalog Sea Gate, Reborn pay-life-or-tap back face / at exactly 3 life the 3-life payment is allowed, and it costs the game",
+      "evidence": "At 3 life choosing pay sets life to 0 and p1 has lost."
     }
   ]
 }
