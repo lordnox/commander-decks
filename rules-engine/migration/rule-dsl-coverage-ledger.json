@@ -26,7 +26,7 @@
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 16,
+    "cardNameDispatchSites": 15,
     "customEventDispatchSites": 73,
     "directMutationSites": 541,
     "instructionRegistrationOnlyGaps": 0,
@@ -318,8 +318,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:261 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:504 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:281 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:524 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
         ]
       },
       "neededCanonicalNode": "new canonical ability/effect node",
@@ -1779,7 +1779,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2528 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3091 — test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3092 — test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3057,7 +3057,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2070 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2358 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2882 — test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3057 — test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3058 — test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3990,7 +3990,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1782 — test('catalog life-history and win cards compose canonical instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3110 — test('catalog Laboratory Maniac replaces its controller’s empty-library draw with a win', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3111 — test('catalog Laboratory Maniac replaces its controller’s empty-library draw with a win', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4719,7 +4719,7 @@
       "candidateEvidence": {
         "matches": 13,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3033 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3034 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:12",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:13",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:20",
@@ -6077,7 +6077,7 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:276",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
         "rules-engine/src/cardPlugins/effectRuntime.ts:673",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:800",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:799",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -6455,21 +6455,6 @@
         "samples": [
           "78: if (event.type !== 'resolveTop' || item?.name !== HOMER_STACK_NAME) return",
           "97: if (source.name !== HOMER_NAME) continue"
-        ],
-        "mechanic": "card-name execution dispatch",
-        "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
-        "compatibilityRoute": "Retain this explicit legacy handler until its registrations have canonical conformance tests; do not copy the name check into the DSL driver.",
-        "ownerPart": "16",
-        "dependencyParts": [],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/reinsOfPower.ts",
-        "lines": [
-          8
-        ],
-        "samples": [
-          "8: if (object?.name !== 'Reins of Power') return"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

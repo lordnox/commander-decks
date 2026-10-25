@@ -785,7 +785,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(allListed, 'secretCouncil', 'chooseVotesThisTurn')) ids.add('secretCouncil')
       if (hasKind(allListed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
       if (hasKind(allListed, 'searchLibrary')) ids.add('librarySearch')
-      if (hasKind(allListed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
     if (hasKind(allListed, 'gainControlPermanent', 'pairDonateToOpponents')) {
       ids.add('permanentControl')

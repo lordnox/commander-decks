@@ -234,6 +234,26 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(resolved.players.p2.life).toBe(41)
   })
 
+  test('opponent player targets reject missing, self, object, unknown, and eliminated recipients', () => {
+    const server = canonicalServer(snapshotFor([
+      gainLife({ amount: 1, targets: target(0) }),
+    ], [select({ filter: players({ relation: 'opponent' }), count: 1 })]))
+    const objectId = named(server.state, 'Canonical Target Spell').id
+    for (const targets of [
+      [],
+      [{ kind: 'player' as const, player: 'p1' }],
+      [{ kind: 'object' as const, objectId: named(server.state, 'Target Bear').id }],
+      [{ kind: 'player' as const, player: 'p99' }],
+    ]) {
+      expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, targets }).ok).toBe(false)
+    }
+    const eliminated = structuredClone(server.state)
+    eliminated.players.p2.lost = true
+    expect(server.rules(eliminated, {
+      type: 'castSpell', seat: 'p1', objectId, targets: [{ kind: 'player', player: 'p2' }],
+    }).ok).toBe(false)
+  })
+
   test('later target filters can reference the legal recipient from an earlier clause', () => {
     const server = canonicalServer(snapshotFor([
       damage({ amount: amount(1), targets: target(1), source: ref('self') }),
