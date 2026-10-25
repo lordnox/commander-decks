@@ -104,6 +104,44 @@
     "cirdanGrothamaGuardian:398",
     "cirdanGrothamaGuardian:426",
     "cirdanGrothamaGuardian:455",
+    "cirdanMiscCards:1058",
+    "cirdanMiscCards:1065",
+    "cirdanMiscCards:1104",
+    "cirdanMiscCards:1114",
+    "cirdanMiscCards:1123",
+    "cirdanMiscCards:1131",
+    "cirdanMiscCards:1141",
+    "cirdanMiscCards:1152",
+    "cirdanMiscCards:1161",
+    "cirdanMiscCards:1272",
+    "cirdanMiscCards:1280",
+    "cirdanMiscCards:1288",
+    "cirdanMiscCards:1307",
+    "cirdanMiscCards:1319",
+    "cirdanMiscCards:1339",
+    "cirdanMiscCards:1350",
+    "cirdanMiscCards:1363",
+    "cirdanMiscCards:1475",
+    "cirdanMiscCards:1493",
+    "cirdanMiscCards:1511",
+    "cirdanMiscCards:1520",
+    "cirdanMiscCards:1528",
+    "cirdanMiscCards:1538",
+    "cirdanMiscCards:1546",
+    "cirdanMiscCards:1560",
+    "cirdanMiscCards:271",
+    "cirdanMiscCards:370",
+    "cirdanMiscCards:404",
+    "cirdanMiscCards:433",
+    "cirdanMiscCards:711",
+    "cirdanMiscCards:747",
+    "cirdanMiscCards:883",
+    "cirdanMiscCards:897",
+    "cirdanMiscCards:924",
+    "cirdanMiscCards:984",
+    "cirdanMiscCards:helper:chooseSteal:566",
+    "cirdanMiscCards:helper:imprinted:1085",
+    "cirdanMiscCards:helper:reenter:1092",
     "cirdanPartBMana:131",
     "cirdanPartBMana:142",
     "cirdanPartBMana:164",
@@ -584,6 +622,310 @@
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "extra draw step starts a fresh exemption",
       "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.hand).toHaveLength(2) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:271"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/delve.test.ts",
+      "suite": "the unreduced delve cap rejects seven cards even with spare generic and sufficient blue mana",
+      "evidence": "Rejects seven graveyard cards with U=2/C=1 as exceeding generic cost; six with U=C=0 fail not enough mana. Minimal delve/draw fixture; existing reduction and colored-payment tests retained."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:370"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/move.test.ts",
+      "suite": "entry movement to owner hands / entering returns every other nonland permanent to its owner",
+      "evidence": "Minimal entry move(objects(other, nonland), hand) instruction fixture preserves source staying, both lands staying, own creature/artifact and opposing creature/enchantment returning, borrowed owner p1 hand routing, and empty stack."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:404"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/unearth.test.ts",
+      "suite": "catalog entry mass return combined with graveyard activation / unearth returns it with haste, bounces again, and exiles it at the next end step",
+      "evidence": "Recover #432-deleted source assertions: canonical catalog activation $.abilities[1] pays U=1/C=6 to zero, stacks an ability, returns summoning-sick with haste, reexecutes mass bounce, retains the land, then exiles at end step with no delayed triggers."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:433"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/unearth.test.ts",
+      "suite": "catalog entry mass return combined with graveyard activation / unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile",
+      "evidence": "Rejects U=0/C=7, U=1/C=5, and opposing active player; successful U=1/C=6 return replaces each hand/graveyard/library departure to exile. Existing canonical timing test also rejects upkeep and nonempty stack."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:711"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/saga.test.ts",
+      "suite": "catalog saga chapter sequencing and token lifetime / the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)",
+      "evidence": "Catalog template reuses real chapters: killed token removed from objects and all five owner zones; Saga remains on battlefield."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:747"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/saga.test.ts",
+      "suite": "catalog saga chapter sequencing and token lifetime / casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns",
+      "evidence": "Preserves complete sequential assertion body: lore 1/2/3; 8/8 U Creature Kraken token with hexproof; p1 active target selection p2/p3; nonlands tap and skip exactly one untap, lands/other players/token untouched; legal chapter III candidates, stolen land retains owner and untaps; Saga sacrificed, token retained; later opposing untap works."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:883"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+      "suite": "a printed cannot-be-countered creature still enters after a counter resolves",
+      "evidence": "Existing #432 replacement uses staticAbility(cannotBeCountered()) on a minimal creature: spell uncounterable flag, opposing catalog Counterspell resolves to graveyard, creature still resolves onto battlefield under p1. No active legacy registration remains."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:897"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/castTriggers.test.ts",
+      "suite": "noncreature opponent casts draw only for the watcher controller (caster %s)",
+      "evidence": "Minimal noncreature/opponent cast pattern with draw to controller; parameterized p1/p2/p3 casts, creature excluded for each, own noncreature excluded, both opponents reward p1 only. Explicit reward hand membership and exclusion from both opposing hands."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:924"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/maximumHandSize.test.ts",
+      "suite": "a canonical static removes only its controller cleanup limit and survives restore",
+      "evidence": "Existing #432 replacement: nine held cards, p1 null maximum, p2 seven, cleanup advances without discard; source death restores seven and exact must-discard-2 rejection. Additional owner tests preserve multiple sources, control/phasing, configured limits."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:984"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "a fixed discard cost requires all three cards before offering or committing an activation (%s held)",
+      "evidence": "Minimal fixed-three discard activation, held=0/1/2/3: legalActsFor offer and submitted cost both require three; successful costs leave hand empty, three graveyard cards, ability stacked. Original live discard/return/restart combination :944 remains unchanged in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1058"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / entry targeting includes self and allies but excludes tokens, noncreatures, and opposing hexproof",
+      "evidence": "Exact sorted self/ally/prey candidate set and choose/count=1; opposing token, artifact and hexproof excluded. #432 changed optional zero-target legacy entry to mandatory target followed by may; catalog structural test linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses pins that composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1065"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / exile contributes printed power and toughness permanently without returning on source death",
+      "evidence": "Target remains battlefield until selected ability resolves; exiled 4/6 printed prey loses two counters, independent 3/3 source becomes 7/9; no pending choices, empty stack; source death leaves prey exiled. Canonical links queried via linkedExileCards."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1104"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a fresh source returned through %s forgets the old link on decline or a second exile",
+      "evidence": "via=hand retains inclusion-helper 7/9 assertion, then empty current-source links, source incarnation +2, fresh target choice, optional decline leaves 3/3 with no links and old prey still exiled."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1114"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a fresh source returned through %s forgets the old link on decline or a second exile",
+      "evidence": "via=hand accepting second ally exile yields exactly that ally in current-source linkedExileCards and 5/5 stats; old prey remains exiled. Covers typed targets and optional operation separately per canonical #432 migration."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1123"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a fresh source returned through %s forgets the old link on decline or a second exile",
+      "evidence": "via=graveyard repeats fresh source identity, link reset, optional decline 3/3, permanent old exile; additionally exercises new second link."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1131"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a controlled creature can be exiled, including the source (%s)",
+      "evidence": "Parameterizes own ally and source: each exiled successfully; ally contributes 2/2 for 5/5 source. finish helper asserts no further choices or stack."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1141"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / declining the optional operation exiles nothing and opens no further choice",
+      "evidence": "Canonical mandatory entry target followed by optional may decline: all five creatures retain battlefield, source remains 3/3, both card and option selections absent and stack empty. Legacy zero-target decline no longer executes after #432."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1152"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / entry targeting includes self and allies but excludes tokens, noncreatures, and opposing hexproof",
+      "evidence": "Each token/artifact/opposing hexproof/two-target submission rejected, wrong p2 seat rejected, passPriority blocked during targeting. Preserves exact original invalid branches."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1161"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a departed target fizzles before the optional operation without retargeting or changing stats",
+      "evidence": "Choose prey, move it to graveyard before ability resolves; no card or option offer, empty stack, prey stays graveyard, ally battlefield, source 3/3."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:helper:imprinted:1085"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / exile contributes printed power and toughness permanently without returning on source death",
+      "evidence": "New imprinted helper explicitly asserts 7/9 and feeds permanent-exile and hand/graveyard fresh-source tests. All three #402 original consumer rows are accounted for here; former live #403 :1172 lifecycle scenario was removed by #432 and remains #403 reconciliation scope."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:helper:reenter:1092"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/persistentExile.test.ts",
+      "suite": "optional targeted linked exile and independent stat bonuses / a fresh source returned through %s forgets the old link on decline or a second exile",
+      "evidence": "Both hand and graveyard consumers preserved. #432 canonicalLinkedExile.commitExileLink deliberately retains legacy inspector fields; authoritative linkedExileCards and pinned old/current source incarnations replace obsolete ID-only field-clearing assertions, proving no current-source link and no old bonus, then exactly the new bonus. No runtime or baseline change."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1272"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / draws cards equal to your greatest power, counting only your creatures",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1280"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / with no creature it draws nothing and still offers the free cast",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1288"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / the free cast is offered after the draw, for held and drawn cards of mana value 5 or less",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1307"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / the offer opens for cards the program itself drew, even with nothing castable held before",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1319"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / only the drawn card of mana value 5 or less is offered; drawn lands and bigger spells are not",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1339"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / with nothing castable drawn or held no offer opens and priority carries on",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1350"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / a spell with X in its cost is castable for free with X equal to 0",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1363"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "greatest-power draw followed by a capped hand cast / declining ends the offer and keeps every card in hand",
+      "evidence": "Original assertion body retained using only draw(greatest controlled Creature power), then offerCast(maxManaValue=5, notLand=true). Preserves held/drawn filtering, counts/order, mana/stack/hand outcomes and all invalid seat/priority/eligibility branches present in this row. Lifecycle/private/restart :1376 remains in source for #403."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1475"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / an intrinsic keyword survives lethal damage and destruction independently of grants",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1493"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1511"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1520"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / the controller may target its own hexproof creature",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1528"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / a target whose power drops below 5 in response is not protected",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1538"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / an opponent's creature that gains hexproof in response fizzles the ability",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1546"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / a target that left the battlefield in response fizzles the ability",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1560"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "paid temporary indestructibility grants / the protection wears off at cleanup, and the ability needs its {1}",
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:helper:chooseSteal:566"
+      ],
+      "destination": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+      "suite": "Kiora Bests the Sea God / chooseSteal helper",
+      "evidence": "Retained unchanged with its explicit stacked ability/name/sagaChapter=3 assertion. Live source chapter III consumers :654/:685/:697/:729 remain for #403; neither helper nor lifecycle consumers are deleted or marked migrated by this work."
     }
   ]
 }

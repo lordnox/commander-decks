@@ -1,4 +1,6 @@
-import { expect, test } from 'bun:test'
+import type { CardTemplate } from '../../newGame'
+import type { GameState } from '../../types'
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
@@ -7,7 +9,7 @@ import { captureObject } from '../../objectIdentity'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
 import { CONTROL_EVENT } from './controlConstants'
-import { amount, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, createEffect, grantKeywordEffect, grantKeyword, KEYWORDS, keyword, modifyStats, objects, players, ref, staticAbility, suppressKeyword, untilCleanup } from './v1'
+import { activated, destroy, manaCost, select, target, amount, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, createEffect, grantKeywordEffect, grantKeyword, KEYWORDS, keyword, modifyStats, objects, players, ref, staticAbility, suppressKeyword, untilCleanup } from './v1'
 
 const definition = (conditional = false) => {
   const when = conditional ? compareAmount(count(objects({ among: ref('source'), tapped: false })), 'eq', 1) : undefined
@@ -163,4 +165,186 @@ test('opposing grant-and-suppression sources each prevent the other side from ha
   for (const object of Object.values(server.state.objects)) expect(hasKeyword(object, KEYWORDS.hexproof)).toBe(false)
   const removed = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Second source').id, to: 'graveyard' }))
   expect(hasKeyword(named(removed, 'First source'), KEYWORDS.hexproof)).toBe(true)
+})
+
+describe('paid temporary indestructibility grants', () => {
+  const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+  const filler = (prefix: string, count: number) => Array.from({ length: count }, (_, i) => cardTemplate(`${prefix} ${i}`, { types: ['Sorcery'] }))
+  const mainPhase = (state: GameState) => {
+    const ready = structuredClone(state)
+    ready.active = 'p1'
+    ready.priority = 'p1'
+    ready.step = 'precombatMain'
+    return ready
+  }
+  const pool = (state: GameState, mana: Partial<GameState['players'][string]['mana']>) => {
+    Object.assign(state.players.p1.mana, mana)
+    return state
+  }
+  const advanceTo = (server: ReturnType<typeof createServerGame>, state: GameState, step: GameState['step']) => {
+    let current = state
+    for (let guard = 0; guard < 24 && current.step !== step; guard += 1) {
+      current = resolveStack(server.rules, ok(server.rules(current, { type: 'advanceStep' })))
+    }
+    expect(current.step).toBe(step)
+    return current
+  }
+
+  const ABILITY = '$.abilities[1]'
+
+  const setup = () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [{ ...instructionSpell({
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield' }), count: 1 })] },
+        instructions: [destroy({ targets: target(0) })],
+      }), name: 'Destroy fixture' }] },
+      battlefield: {
+        p1: [
+          creature('Grant fixture', {
+            power: 5, toughness: 5,
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              keyword.indestructible,
+              activated({
+                costs: [manaCost('{1}')],
+                decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', powerAtLeast: 5 }), count: 1 })] },
+                instructions: [createEffect({ targets: target(0), effect: grantKeywordEffect(KEYWORDS.indestructible), duration: untilCleanup() })],
+              }),
+            ]))),
+          }),
+          creature('Own Giant', { power: 5, toughness: 5 }),
+          creature('Own Runt', { power: 4, toughness: 4 }),
+        ],
+        p2: [
+          creature('Foe Giant', { power: 6, toughness: 6 }),
+          creature('Foe Shrouded', { power: 7, toughness: 7, oracleText: 'Hexproof' }),
+        ],
+      },
+      libraries: { p1: filler('A', 12), p2: filler('B', 12) },
+    }, { random: () => 0.5 })
+    const ready = pool(mainPhase(server.state), { B: 2, G: 2, C: 8 })
+    return { server, ready }
+  }
+
+  const activate = (state: GameState, targetName: string, seat = 'p1') => ({
+    type: 'activateAbility' as const,
+    abilityId: ABILITY,
+    seat,
+    objectId: named(state, 'Grant fixture').id,
+    targets: [{ kind: 'object' as const, objectId: named(state, targetName).id }],
+  })
+
+  const indestructible = (state: GameState, name: string) =>
+    hasKeyword(named(state, name), 'indestructible')
+
+  const lethalDamage = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
+    ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Foe Giant').id,
+      target: { kind: 'object', objectId: named(state, name).id },
+      amount: 20,
+    }))
+
+  const destroyTarget = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
+    resolveStack(server.rules, ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(state, 'Destroy fixture').id,
+      targets: [{ kind: 'object', objectId: named(state, name).id }],
+    })))
+
+  test('an intrinsic keyword survives lethal damage and destruction independently of grants', () => {
+    const { server, ready } = setup()
+    expect(indestructible(ready, 'Grant fixture')).toBe(true)
+    const survived = lethalDamage(server, ready, 'Grant fixture')
+    expect(named(survived, 'Grant fixture').zone).toBe('battlefield')
+    const unharmed = destroyTarget(server, ready, 'Grant fixture')
+    expect(named(unharmed, 'Grant fixture').zone).toBe('battlefield')
+  })
+
+  test('a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn', () => {
+    const { server, ready } = setup()
+    for (const name of ['Own Giant', 'Foe Giant', 'Grant fixture']) {
+      const stacked = ok(server.rules(ready, activate(ready, name)))
+      expect(stacked.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
+      expect(stacked.players.p1.mana.C).toBe(7)
+      const resolved = resolveStack(server.rules, stacked)
+      expect(indestructible(resolved, name)).toBe(true)
+      expect(named(lethalDamage(server, resolved, name), name).zone).toBe('battlefield')
+    }
+    const stacked = ok(server.rules(ready, activate(ready, 'Foe Giant')))
+    const protectedGiant = resolveStack(server.rules, stacked)
+    expect(named(destroyTarget(server, protectedGiant, 'Foe Giant'), 'Foe Giant').zone).toBe('battlefield')
+    // Without the grant the same removal kills it.
+    expect(named(destroyTarget(server, ready, 'Foe Giant'), 'Foe Giant').zone).toBe('graveyard')
+    expect(named(lethalDamage(server, ready, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+  })
+
+  test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', () => {
+    const { server, ready } = setup()
+    for (const name of ['Own Runt', 'Foe Shrouded', 'Destroy fixture']) {
+      expect(server.rules(ready, activate(ready, name)).ok).toBe(false)
+    }
+    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), targets: [] }).ok).toBe(false)
+    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), seat: 'p2' }).ok).toBe(false)
+  })
+
+  test('the controller may target its own hexproof creature', () => {
+    const { server, ready } = setup()
+    const edited = structuredClone(ready)
+    named(edited, 'Own Giant').oracleText = 'Hexproof'
+    const resolved = resolveStack(server.rules, ok(server.rules(edited, activate(edited, 'Own Giant'))))
+    expect(indestructible(resolved, 'Own Giant')).toBe(true)
+  })
+
+  test('a target whose power drops below 5 in response is not protected', () => {
+    const { server, ready } = setup()
+    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Own Giant'))))
+    named(stacked, 'Own Giant').power = 4
+    const resolved = resolveStack(server.rules, stacked)
+    expect(resolved.stack).toHaveLength(0)
+    expect(indestructible(resolved, 'Own Giant')).toBe(false)
+    expect(named(lethalDamage(server, resolved, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+  })
+
+  test("an opponent's creature that gains hexproof in response fizzles the ability", () => {
+    const { server, ready } = setup()
+    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Foe Giant'))))
+    named(stacked, 'Foe Giant').oracleText = 'Hexproof'
+    const resolved = resolveStack(server.rules, stacked)
+    expect(indestructible(resolved, 'Foe Giant')).toBe(false)
+  })
+
+  test('a target that left the battlefield in response fizzles the ability', () => {
+    const { server, ready } = setup()
+    const stacked = ok(server.rules(ready, activate(ready, 'Own Giant')))
+    const gone = ok(server.rules(stacked, {
+      type: 'move',
+      objectId: named(stacked, 'Own Giant').id,
+      to: 'exile',
+    }))
+    const resolved = resolveStack(server.rules, gone)
+    expect(resolved.stack).toHaveLength(0)
+    expect(named(resolved, 'Own Giant').zone).toBe('exile')
+    expect(indestructible(resolved, 'Own Giant')).toBe(false)
+  })
+
+  test('the protection wears off at cleanup, and the ability needs its {1}', () => {
+    const { server, ready } = setup()
+    const broke = structuredClone(ready)
+    broke.players.p1.mana.C = 0
+    broke.players.p1.mana.B = 0
+    broke.players.p1.mana.G = 0
+    expect(server.rules(broke, activate(broke, 'Own Giant')).ok).toBe(false)
+
+    const resolved = resolveStack(server.rules, ok(server.rules(ready, activate(ready, 'Own Giant'))))
+    expect(indestructible(resolved, 'Own Giant')).toBe(true)
+    const next = advanceTo(server, resolved, 'upkeep')
+    expect(next.active).toBe('p2')
+    expect(indestructible(next, 'Own Giant')).toBe(false)
+    expect(named(lethalDamage(server, next, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+    // The intrinsic keyword remains after temporary grants expire.
+    expect(indestructible(next, 'Grant fixture')).toBe(true)
+  })
 })

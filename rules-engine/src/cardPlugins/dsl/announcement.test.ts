@@ -924,3 +924,25 @@ test('a zero life cost is payable even with a negative life total', () => {
     payer: 'p1', sourceId: 'spell', costs: { mandatory: [lifeCost(0)] },
   }).ok).toBe(true)
 })
+
+test.each([0, 1, 2, 3])('a fixed discard cost requires all three cards before offering or committing an activation (%s held)', held => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [discardCost(objects({ zone: 'hand', owner: 'you' }), 3)], instructions: [] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Discard fixture', { types: ['Artifact'], ruleDefinition: definition })] },
+    hands: { p1: Array.from({ length: held }, (_, index) => cardTemplate(`Held ${index}`)) },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.battlefield[0]
+  expect(legalActsFor(server.state, 'p1').some(action => action.kind === 'activateAbility' && action.objectId === objectId)).toBe(held === 3)
+  const result = server.rules(server.state, {
+    type: 'activateAbility', seat: 'p1', objectId, abilityId: '$.abilities[0]', choices: server.state.zoneOrder.p1.hand,
+  })
+  expect(result.ok).toBe(held === 3)
+  if (result.ok) {
+    expect(result.state.zoneOrder.p1.hand).toHaveLength(0)
+    expect(result.state.zoneOrder.p1.graveyard).toHaveLength(3)
+    expect(result.state.stack).toHaveLength(1)
+  }
+})

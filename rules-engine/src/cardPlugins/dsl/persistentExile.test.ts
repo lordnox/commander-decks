@@ -1,4 +1,7 @@
-import { expect, test } from 'bun:test'
+import { linkedExileCards } from '../../rules/canonicalLinkedExile'
+import { pendingSelectionFor } from '../../rules/selectCards'
+import { pendingOptionSelection } from '../../rules/selectOptions'
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { captureObject } from '../../objectIdentity'
@@ -8,7 +11,7 @@ import type { GameState, Plugin } from '../../types'
 import { CONTROL_EVENT } from './controlConstants'
 import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runtime'
 import { evaluateStatDelta } from './compiler/evaluate'
-import { activated, card, compileCardRuleDefinition, count, createDefinitionSnapshot, forEach, linkExile, modifyStats, move, multiply, objects, ownerOf, ref, sacrificeCost, select, staticAbility, sumCharacteristics, target } from './v1'
+import { may, self, whenever, activated, card, compileCardRuleDefinition, count, createDefinitionSnapshot, forEach, linkExile, modifyStats, move, multiply, objects, ownerOf, ref, sacrificeCost, select, staticAbility, sumCharacteristics, target } from './v1'
 
 const linked = objects({ zone: 'exile', exiledWith: ref('source') })
 const definition = (signed = false) => createDefinitionSnapshot(compileCardRuleDefinition(card([
@@ -96,4 +99,138 @@ test('linked characteristic modifiers independently preserve signed power and to
   expect(named(state, 'Holder fixture')).toMatchObject({ power: 3, toughness: 11 })
   state = ok(server.rules(state, { type: 'move', objectId: named(state, 'Card A').id, to: 'hand' }))
   expect(named(state, 'Holder fixture')).toMatchObject({ power: 5, toughness: 6 })
+})
+
+describe('optional targeted linked exile and independent stat bonuses', () => {
+  const sourceName = 'Entry holder fixture'
+  const source = () => cardTemplate(sourceName, {
+    types: ['Creature'], power: 3, toughness: 3,
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(self.enters, {
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', token: false }), count: 1 })] },
+        instructions: [may(linkExile({ targets: target(0) }))],
+      }),
+      staticAbility(modifyStats({
+        targets: objects({ among: ref('source') }),
+        power: sumCharacteristics(linked, 'power'),
+        toughness: sumCharacteristics(linked, 'toughness'),
+      })),
+    ]))),
+  })
+  const enter = () => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [source()] },
+      battlefield: {
+        p1: [cardTemplate('Ally fixture', { types: ['Creature'], power: 2, toughness: 2 })],
+        p2: [
+          cardTemplate('Prey fixture', { types: ['Creature'], power: 6, toughness: 8, counters: { '+1/+1': 2 } }),
+          cardTemplate('Token fixture', { types: ['Creature'], token: true, power: 9, toughness: 9 }),
+          cardTemplate('Relic fixture', { types: ['Artifact'] }),
+        ],
+        p3: [cardTemplate('Hexproof fixture', { types: ['Creature'], power: 5, toughness: 5, oracleText: 'Hexproof' })],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, sourceName).id, to: 'battlefield' }))
+    return { server, state }
+  }
+  const pick = (state: GameState, names: string[], seat = 'p1') => ({
+    type: 'selectCards' as const, seat, kind: 'choose' as const, count: 1,
+    objectIds: names.map(name => named(state, name).id),
+  })
+  const finish = (server: ReturnType<typeof createServerGame>, state: GameState, accept = true) => {
+    const choosing = resolveStack(server.rules, state)
+    const option = pendingOptionSelection(choosing, 'p1')!
+    expect(option).toBeDefined()
+    const done = resolveStack(server.rules, ok(server.rules(choosing, {
+      type: 'selectOption', seat: 'p1', selectionId: option.id, optionId: option.options[accept ? 0 : 1].id,
+    })))
+    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+    expect(pendingOptionSelection(done, 'p1')).toBeUndefined()
+    expect(done.stack).toHaveLength(0)
+    return done
+  }
+  const imprinted = () => {
+    const { server, state } = enter()
+    const done = finish(server, ok(server.rules(state, pick(state, ['Prey fixture']))))
+    // Counters vanish in exile: independent printed 4/6 characteristics contribute.
+    expect(named(done, sourceName)).toMatchObject({ power: 7, toughness: 9 })
+    return { server, done }
+  }
+
+  test('entry targeting includes self and allies but excludes tokens, noncreatures, and opposing hexproof', () => {
+    const { server, state } = enter()
+    const selection = pendingSelectionFor(state, 'p1')!
+    expect(selection.candidates.map(id => state.objects[id].name).sort()).toEqual(['Ally fixture', sourceName, 'Prey fixture'].sort())
+    expect(selection).toMatchObject({ kind: 'choose', count: 1 })
+    for (const names of [['Token fixture'], ['Relic fixture'], ['Hexproof fixture'], ['Ally fixture', 'Prey fixture']]) {
+      expect(server.rules(state, pick(state, names)).ok).toBe(false)
+    }
+    expect(server.rules(state, pick(state, ['Prey fixture'], 'p2')).ok).toBe(false)
+    expect(server.rules(state, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    const stacked = ok(server.rules(state, pick(state, ['Prey fixture'])))
+    expect(stacked.stack[0]).toMatchObject({ kind: 'ability', targets: [{ kind: 'object', objectId: named(state, 'Prey fixture').id }] })
+    expect(named(stacked, 'Prey fixture').zone).toBe('battlefield')
+  })
+
+  test('exile contributes printed power and toughness permanently without returning on source death', () => {
+    const { server, done } = imprinted()
+    expect(named(done, 'Prey fixture').zone).toBe('exile')
+    const gone = ok(server.rules(done, { type: 'move', objectId: named(done, sourceName).id, to: 'graveyard' }))
+    expect(named(gone, 'Prey fixture').zone).toBe('exile')
+    expect(linkedExileCards(gone, named(gone, sourceName))).toEqual([])
+    expect(gone.linkedExileSets?.[0].source.incarnation).not.toBe(named(gone, sourceName).incarnation)
+  })
+
+  test.each(['hand', 'graveyard'] as const)('a fresh source returned through %s forgets the old link on decline or a second exile', via => {
+    const { server, done } = imprinted()
+    const id = named(done, sourceName).id
+    const incarnation = done.objects[id].incarnation
+    const left = ok(server.rules(done, { type: 'move', objectId: id, to: via }))
+    expect(linkedExileCards(left, left.objects[id])).toEqual([])
+    expect(left.linkedExileSets?.[0].source.incarnation).toBe(incarnation)
+    const back = ok(server.rules(left, { type: 'move', objectId: id, to: 'battlefield' }))
+    expect(back.objects[id].incarnation).toBe(incarnation + 2)
+    expect(pendingSelectionFor(back, 'p1')).toBeDefined()
+    expect(back.objects[id]).toMatchObject({ power: 3, toughness: 3 })
+    const stacked = ok(server.rules(back, pick(back, ['Ally fixture'])))
+    const declined = finish(server, stacked, false)
+    expect(declined.objects[id]).toMatchObject({ power: 3, toughness: 3 })
+    expect(linkedExileCards(declined, declined.objects[id])).toEqual([])
+    expect(named(declined, 'Prey fixture').zone).toBe('exile')
+    const second = finish(server, stacked)
+    expect(named(second, 'Ally fixture').zone).toBe('exile')
+    expect(linkedExileCards(second, second.objects[id]).map(object => object.id)).toEqual([named(second, 'Ally fixture').id])
+    expect(second.objects[id]).toMatchObject({ power: 5, toughness: 5 })
+    expect(named(second, 'Prey fixture').zone).toBe('exile')
+  })
+
+  test.each(['Ally fixture', sourceName])('a controlled creature can be exiled, including the source (%s)', name => {
+    const { server, state } = enter()
+    const done = finish(server, ok(server.rules(state, pick(state, [name]))))
+    expect(named(done, name).zone).toBe('exile')
+    if (name === 'Ally fixture') expect(named(done, sourceName)).toMatchObject({ power: 5, toughness: 5 })
+  })
+
+  test('declining the optional operation exiles nothing and opens no further choice', () => {
+    const { server, state } = enter()
+    const done = finish(server, ok(server.rules(state, pick(state, ['Prey fixture']))), false)
+    for (const name of [sourceName, 'Ally fixture', 'Prey fixture', 'Token fixture', 'Hexproof fixture']) {
+      expect(named(done, name).zone).toBe('battlefield')
+    }
+    expect(named(done, sourceName)).toMatchObject({ power: 3, toughness: 3 })
+  })
+
+  test('a departed target fizzles before the optional operation without retargeting or changing stats', () => {
+    const { server, state } = enter()
+    const stacked = ok(server.rules(state, pick(state, ['Prey fixture'])))
+    const gone = ok(server.rules(stacked, { type: 'move', objectId: named(stacked, 'Prey fixture').id, to: 'graveyard' }))
+    const done = resolveStack(server.rules, gone)
+    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+    expect(pendingOptionSelection(done, 'p1')).toBeUndefined()
+    expect(done.stack).toHaveLength(0)
+    expect(named(done, 'Prey fixture').zone).toBe('graveyard')
+    expect(named(done, 'Ally fixture').zone).toBe('battlefield')
+    expect(named(done, sourceName)).toMatchObject({ power: 3, toughness: 3 })
+  })
 })

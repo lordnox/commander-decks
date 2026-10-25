@@ -1,4 +1,6 @@
-import { expect, test } from 'bun:test'
+import type { CardTemplate } from '../../newGame'
+import { hasKeyword } from '../../keywords'
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
@@ -126,4 +128,160 @@ test('a canonical chapter keeps the saga on the battlefield while its object tar
   state = resolveStack(server.rules, state)
   expect(named(state, 'Relic').tapped).toBe(true)
   expect(state.objects[id].zone).toBe('graveyard')
+})
+
+describe('catalog saga chapter sequencing and token lifetime', () => {
+  const permanents = () => ({
+    p1: [island('Own Island')],
+    p2: [
+      creature('Foe Alpha'),
+      creature('Foe Beta'),
+      cardTemplate('Foe Relic', { types: ['Artifact'] }),
+      cardTemplate('Foe Forest', { types: ['Land'], subtypes: ['Forest'], tapProduces: { G: 1 } }),
+    ],
+    p3: [
+      creature('Bystander'),
+      creature('Shrouded Mage', { oracleText: 'Hexproof' }),
+    ],
+  })
+
+  const setup = () => {
+    const kiora = cardTemplate('Kiora Bests the Sea God')
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [kiora] },
+      battlefield: permanents(),
+      libraries: { p1: filler('A', 12), p2: filler('B', 12), p3: filler('C', 12) },
+    }, { random: () => 0.5 })
+    return { server, state: server.state }
+  }
+
+  const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+  const filler = (prefix: string, count: number) => Array.from({ length: count }, (_, i) => cardTemplate(`${prefix} ${i}`, { types: ['Sorcery'] }))
+  const mainPhase = (state: GameState) => {
+    const ready = structuredClone(state)
+    ready.active = 'p1'
+    ready.priority = 'p1'
+    ready.step = 'precombatMain'
+    return ready
+  }
+  const pool = (state: GameState, mana: Partial<GameState['players'][string]['mana']>) => {
+    Object.assign(state.players.p1.mana, mana)
+    return state
+  }
+
+  const island = (name: string) => cardTemplate(name, { types: ['Land'] })
+  const names = (state: GameState, ids: string[]) => ids.map(id => state.objects[id].name)
+
+  /** Advance steps (resolving whatever trigger lands) until `stop` holds or a choice opens. */
+  const advanceUntil = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    stop: (state: GameState) => boolean,
+  ) => {
+    let current = state
+    for (let guard = 0; guard < 80 && !stop(current); guard += 1) {
+      const choosing = current.playerOrder.some((seat) =>
+        pendingSelectionFor(current, seat) || pendingPlayerSelectionFor(current, seat))
+      if (choosing) break
+      current = resolveStack(server.rules, ok(server.rules(current, { type: 'advanceStep' })))
+    }
+    return current
+  }
+
+  test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', () => {
+    const { server, state } = setup()
+    let current = pool(mainPhase(state), { U: 2, C: 5 })
+    current = resolveStack(server.rules, ok(server.rules(current, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(current, 'Kiora Bests the Sea God').id,
+    })))
+    const krakenId = named(current, 'Kraken').id
+    const dead = resolveStack(server.rules, ok(server.rules(current, { type: 'move', objectId: krakenId, to: 'graveyard' })))
+    expect(dead.objects[krakenId]).toBeUndefined()
+    for (const zone of ['battlefield', 'graveyard', 'exile', 'hand', 'library'] as const) {
+      expect(dead.zoneOrder.p1[zone]).not.toContain(krakenId)
+    }
+    // Chapter III can still take a permanent without the Kraken, and the Saga is unaffected by its death.
+    expect(named(dead, 'Kiora Bests the Sea God').zone).toBe('battlefield')
+  })
+
+  test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', () => {
+    const { server, state } = setup()
+    let current = pool(mainPhase(state), { U: 2, C: 5 })
+    current = resolveStack(server.rules, ok(server.rules(current, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(current, 'Kiora Bests the Sea God').id,
+    })))
+
+    const saga = named(current, 'Kiora Bests the Sea God')
+    expect(saga).toMatchObject({ zone: 'battlefield', counters: { lore: 1 } })
+    const kraken = named(current, 'Kraken')
+    expect(kraken).toMatchObject({
+      zone: 'battlefield',
+      controller: 'p1',
+      token: true,
+      power: 8,
+      toughness: 8,
+      colors: ['U'],
+      types: ['Creature'],
+      subtypes: ['Kraken'],
+    })
+    expect(hasKeyword(kraken, 'hexproof')).toBe(true)
+
+    // Chapter II on p1's next turn: choose an opponent, then they are tapped down.
+    const tapDown = advanceUntil(server, current, (next) =>
+      pendingPlayerSelectionFor(next, 'p1') !== undefined)
+    const selection = pendingPlayerSelectionFor(tapDown, 'p1')!
+    expect(tapDown.active).toBe('p1')
+    expect(tapDown.objects[saga.id].counters.lore).toBe(2)
+    expect(selection.candidates).toEqual(['p2', 'p3'])
+    const afterII = resolveStack(server.rules, ok(server.rules(tapDown, {
+      type: 'selectPlayers',
+      selectionId: selection.id,
+      seat: 'p1',
+      players: ['p2'],
+    })))
+    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
+      expect(named(afterII, name)).toMatchObject({ tapped: true, skipNextUntap: true })
+    }
+    expect(named(afterII, 'Foe Forest').tapped).toBe(false)
+    for (const name of ['Bystander', 'Shrouded Mage', 'Kraken']) expect(named(afterII, name).tapped).toBe(false)
+
+    // They skip exactly one untap step.
+    const firstUntap = advanceUntil(server, afterII, (next) => next.active === 'p2' && next.step === 'upkeep')
+    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
+      expect(named(firstUntap, name).tapped).toBe(true)
+    }
+    // Chapter III on p1's next turn: steal a permanent and untap it.
+    const stealing = advanceUntil(server, firstUntap, (next) =>
+      pendingSelectionFor(next, 'p1') !== undefined)
+    expect(stealing.objects[saga.id].counters.lore).toBe(3)
+    const pick = pendingSelectionFor(stealing, 'p1')!
+    expect(names(stealing, pick.candidates).toSorted()).toEqual([
+      'Bystander', 'Foe Alpha', 'Foe Beta', 'Foe Forest', 'Foe Relic',
+    ])
+    const tappedForest = structuredClone(stealing)
+    named(tappedForest, 'Foe Forest').tapped = true
+    const done = resolveStack(server.rules, ok(server.rules(tappedForest, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(tappedForest, 'Foe Forest').id],
+    })))
+    expect(named(done, 'Foe Forest')).toMatchObject({ controller: 'p1', owner: 'p2', tapped: false })
+    expect(done.objects[saga.id].zone).toBe('graveyard')
+    expect(named(done, 'Kraken').zone).toBe('battlefield')
+
+    // The skipped untap was used up: p2's next untap step untaps what they still control.
+    const nextUntap = advanceUntil(server, done, (next) => next.active === 'p2' && next.step === 'upkeep')
+    expect(nextUntap.turn).toBeGreaterThan(done.turn)
+    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Relic']) {
+      expect(named(nextUntap, name).tapped).toBe(false)
+    }
+  })
 })

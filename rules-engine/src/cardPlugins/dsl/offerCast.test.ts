@@ -1,3 +1,5 @@
+import type { CardTemplate } from '../../newGame'
+import { instructionSpell } from './instructionTestSupport'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../../actions'
 import { commanderRules } from '../../formats'
@@ -11,6 +13,8 @@ import { onResolve as onResolveEffect, targetOnResolve } from '../effects'
 import { onResolve } from '../onResolve'
 import { targetedResolve } from '../targetedResolve'
 import {
+  greatest,
+  objects,
   card,
   chooseInstructions,
   compileCardRuleDefinition,
@@ -379,4 +383,173 @@ describe('offerCast from a chosen opponent hand', () => {
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(named(resolved, 'Drawn Rival Bear')).toMatchObject({ zone: 'battlefield', controller: 'p1', owner: 'p2' })
   })
+})
+
+describe('greatest-power draw followed by a capped hand cast', () => {
+  const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+  const filler = (prefix: string, count: number, types = ['Sorcery'], manaValue?: number) => Array.from({ length: count }, (_, i) => cardTemplate(`${prefix} ${i + 1}`, { types, ...(manaValue === undefined ? {} : { manaCost: `{${manaValue}}`, manaValue }) }))
+  const mainPhase = (state: GameState) => {
+    const ready = structuredClone(state)
+    ready.active = 'p1'
+    ready.priority = 'p1'
+    ready.step = 'precombatMain'
+    return ready
+  }
+  const pool = (state: GameState, mana: Partial<GameState['players'][string]['mana']>) => {
+    Object.assign(state.players.p1.mana, mana)
+    return state
+  }
+
+  const handOf = (state: GameState) => state.zoneOrder.p1.hand.map(id => state.objects[id].name)
+  const costed = (name: string, types: string[], manaValue: number, extra: Partial<CardTemplate> = {}) => cardTemplate(name, { types, manaCost: `{${manaValue}}`, manaValue, ...extra })
+  const setup = (options: {
+    hand?: CardTemplate[]
+    creatures?: CardTemplate[]
+    libraryCount?: number
+    library?: CardTemplate[]
+  } = {}) => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [instructionSpell({ instructions: [
+        draw({
+          count: greatest({ of: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }), characteristic: 'power', information: 'current' }),
+          targets: ref('controller'),
+        }),
+        offerCast({ maxManaValue: 5, notLand: true }),
+      ] }, '{4}{G}{G}'), ...(options.hand ?? [])] },
+      battlefield: {
+        p1: options.creatures ?? [
+          creature('Big Ally', { power: 5, toughness: 5 }),
+          creature('Small Ally', { power: 1, toughness: 1 }),
+        ],
+        p2: [creature('Huge Foe', { power: 9, toughness: 9 })],
+      },
+      libraries: { p1: options.library ?? filler('Lib', options.libraryCount ?? 12, ['Creature'], 2) },
+    }, { random: () => 0.5 })
+    return { server, state: server.state }
+  }
+
+  const resolveDrawOffer = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+    const ready = pool(mainPhase(state), { G: 2, C: 4 })
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(ready, 'Instruction fixture').id,
+    }))
+    return ok(server.rules(cast, { type: 'resolveTop' }))
+  }
+
+  const castFree = (state: GameState, name: string) => ({
+    type: 'castSpell' as const,
+    seat: 'p1',
+    objectId: named(state, name).id,
+    alternativeCost: 'withoutPayingMana' as const,
+  })
+
+  test('draws cards equal to your greatest power, counting only your creatures', () => {
+    const { server, state } = setup({ hand: [costed('Held Bear', ['Creature'], 3)] })
+    const resolved = resolveDrawOffer(server, state)
+    expect(handOf(resolved)).toEqual(['Held Bear', 'Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
+    expect(resolved.zoneOrder.p1.library).toHaveLength(7)
+    expect(named(resolved, 'Instruction fixture').zone).toBe('stack')
+  })
+
+  test('with no creature it draws nothing and still offers the free cast', () => {
+    const { server, state } = setup({ creatures: [], hand: [costed('Held Bear', ['Creature'], 3)] })
+    const resolved = resolveDrawOffer(server, state)
+    expect(handOf(resolved)).toEqual(['Held Bear'])
+    expect(legalActsFor(resolved, 'p1').map((action) => action.kind).toSorted())
+      .toEqual(['castSpell', 'declineFreeCast'])
+  })
+
+  test('the free cast is offered after the draw, for held and drawn cards of mana value 5 or less', () => {
+    const { server, state } = setup({
+      hand: [costed('Held Five', ['Creature'], 5), costed('Held Six', ['Creature'], 6), cardTemplate('Held Land', { types: ['Land'] })],
+    })
+    const resolved = resolveDrawOffer(server, state)
+    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
+    expect(offered.map((action) => 'name' in action && action.name).toSorted()).toEqual([
+      'Held Five', 'Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5',
+    ])
+    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'declineFreeCast')).toHaveLength(1)
+
+    for (const name of ['Held Six', 'Held Land']) {
+      expect(server.rules(resolved, castFree(resolved, name)))
+        .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
+    }
+    expect(server.rules(resolved, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    expect(server.rules(resolved, { ...castFree(resolved, 'Held Five'), seat: 'p2' }).ok).toBe(false)
+  })
+
+  test('the offer opens for cards the program itself drew, even with nothing castable held before', () => {
+    const { server, state } = setup()
+    const resolved = resolveDrawOffer(server, state)
+    expect(handOf(resolved)).toEqual(['Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
+    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'declineFreeCast')).toHaveLength(1)
+    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')).toHaveLength(5)
+    const cast = ok(server.rules(resolved, castFree(resolved, 'Lib 3')))
+    expect(cast.stack[0]).toMatchObject({ name: 'Lib 3', castFrom: 'hand' })
+    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
+    expect(handOf(cast)).not.toContain('Lib 3')
+  })
+
+  test('only the drawn card of mana value 5 or less is offered; drawn lands and bigger spells are not', () => {
+    const { server, state } = setup({
+      creatures: [creature('Big Ally', { power: 3, toughness: 3 })],
+      library: [
+        costed('Drawn Five', ['Creature'], 5),
+        cardTemplate('Drawn Land', { types: ['Land'] }),
+        costed('Drawn Eight', ['Sorcery'], 8),
+        costed('Undrawn Two', ['Creature'], 2),
+      ],
+    })
+    const resolved = resolveDrawOffer(server, state)
+    expect(handOf(resolved)).toEqual(['Drawn Five', 'Drawn Land', 'Drawn Eight'])
+    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
+    expect(offered.map((action) => 'name' in action && action.name)).toEqual(['Drawn Five'])
+    for (const name of ['Drawn Land', 'Drawn Eight']) {
+      expect(server.rules(resolved, castFree(resolved, name)))
+        .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
+    }
+  })
+
+  test('with nothing castable drawn or held no offer opens and priority carries on', () => {
+    const { server, state } = setup({
+      hand: [cardTemplate('Held Land', { types: ['Land'] }), costed('Held Six', ['Creature'], 6)],
+      library: [costed('Drawn Seven', ['Creature'], 7), ...filler('Deep', 10)],
+      creatures: [creature('Big Ally', { power: 1, toughness: 1 })],
+    })
+    const resolved = resolveDrawOffer(server, state)
+    expect(legalActsFor(resolved, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(false)
+    expect(server.rules(resolved, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
+  })
+
+  test('a spell with X in its cost is castable for free with X equal to 0', () => {
+    const { server, state } = setup({
+      hand: [costed('Fixture Hydra', ['Creature'], 1, { manaCost: '{X}{G}', power: 0, toughness: 0 })],
+    })
+    const resolved = resolveDrawOffer(server, state)
+    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
+    expect(offered.map((action) => 'name' in action && action.name)).toContain('Fixture Hydra')
+    const cast = ok(server.rules(resolved, castFree(resolved, 'Fixture Hydra')))
+    expect(cast.stack[0]).toMatchObject({ name: 'Fixture Hydra', castFrom: 'hand' })
+    expect(cast.stack[0].x ?? 0).toBe(0)
+    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
+  })
+
+  test('declining ends the offer and keeps every card in hand', () => {
+    const { server, state } = setup({ hand: [costed('Held Five', ['Creature'], 5)] })
+    const resolved = resolveDrawOffer(server, state)
+    const declined = ok(server.rules(resolved, {
+      type: 'declineFreeCast',
+      seat: 'p1',
+      objectId: named(resolved, 'Instruction fixture').id,
+    }))
+    expect(handOf(declined)).toContain('Held Five')
+    expect(handOf(declined)).toEqual(handOf(resolved))
+    expect(server.rules(declined, castFree(declined, 'Held Five')).ok).toBe(false)
+    expect(server.rules(declined, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
+  })
+
 })
