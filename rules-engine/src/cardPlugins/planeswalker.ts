@@ -131,21 +131,6 @@ export const planeswalker: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
-    if (event.type === 'move') {
-      const before = state.objects[event.objectId]
-      const object = draft.object(event.objectId)
-      if (!before || !object || !object.types.includes('Planeswalker')) return
-      if (before.zone !== 'battlefield' && event.to === 'battlefield') {
-        if (object.printedLoyalty !== null) {
-          object.counters.loyalty = (object.counters.loyalty ?? 0) + object.printedLoyalty
-        }
-      }
-      if (before.zone === 'battlefield' && event.to !== 'battlefield') {
-        delete object.counters.loyalty
-        object.loyaltyActivatedTurn = null
-      }
-      return
-    }
     if (event.type === 'activateAbility') {
       const source = draft.object(event.objectId)
       const effect = loyaltyEffect(source, event.abilityId)

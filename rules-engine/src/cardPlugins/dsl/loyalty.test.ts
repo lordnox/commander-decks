@@ -109,6 +109,26 @@ test('minus X loyalty exiles colored permanents at the chosen mana value or less
   expect(Object.values(resolved.objects).find(object => object.name === 'Expensive Permanent')?.zone).toBe('battlefield')
 })
 
+test('a planeswalker put onto the battlefield by an effect enters with printed loyalty and resets on reentry', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Returned Walker', {
+      types: ['Planeswalker'],
+      printedLoyalty: 3,
+      counters: { loyalty: 5 },
+      loyaltyActivatedTurn: 1,
+    })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.battlefield[0]!
+  const graveyard = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'graveyard' }))
+  expect(graveyard.objects[id]).toMatchObject({ counters: {}, loyaltyActivatedTurn: null })
+
+  const returned = ok(server.rules(graveyard, { type: 'move', objectId: id, to: 'battlefield' }))
+  expect(returned.objects[id]).toMatchObject({
+    zone: 'battlefield',
+    counters: { loyalty: 3 },
+  })
+})
+
 test('a walker activates a loyalty ability once per turn and cannot overpay', () => {
   const server = game([
     activated({
@@ -221,7 +241,6 @@ test('catalog Jace, Multiverse Architect −3 exiles another target you control 
     types: ['Planeswalker'],
     subtypes: ['Jace'],
     printedLoyalty: 3,
-    counters: { loyalty: 3 },
   })
   const server = createServerGame(commanderRules, {
     players: 2,
@@ -245,4 +264,5 @@ test('catalog Jace, Multiverse Architect −3 exiles another target you control 
   expect(resolved.zoneOrder.p1.battlefield).toContain(
     Object.values(resolved.objects).find((object) => object.name === 'Revealed Walker')!.id,
   )
+  expect(Object.values(resolved.objects).find((object) => object.name === 'Revealed Walker')!.counters.loyalty).toBe(3)
 })

@@ -1,6 +1,6 @@
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardPlugins/dsl/cardRuleCatalog'
 import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
-import { gameObjectFieldDefaults } from './definitions'
+import { gameObjectFieldDefaults, setEntryLoyalty } from './definitions'
 import { emptyMana } from './draft'
 import { applyFace } from './plugins/doubleFaced'
 import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
@@ -144,13 +144,8 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
         applyRoomCard(objects[id])
       }
     }
-    if (
-      objects[id].zone === 'battlefield'
-      && objects[id].types.includes('Planeswalker')
-      && objects[id].counters.loyalty === undefined
-      && objects[id].printedLoyalty !== null
-    ) {
-      objects[id].counters.loyalty = objects[id].printedLoyalty
+    if (objects[id].zone === 'battlefield' && objects[id].counters.loyalty === undefined) {
+      setEntryLoyalty(objects[id])
     }
     // CR 704.5k: setup permanents have had the world supertype since the game began.
     if (objects[id].zone === 'battlefield' && hasWorldSupertype(objects[id])) objects[id].worldTimestamp = 0
