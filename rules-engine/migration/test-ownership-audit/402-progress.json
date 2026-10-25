@@ -314,6 +314,19 @@
     "ladyEvangela:263",
     "ladyEvangela:289",
     "ladyEvangela:86",
+    "ladyEvangelaGaps:147",
+    "ladyEvangelaGaps:199",
+    "ladyEvangelaGaps:21",
+    "ladyEvangelaGaps:76",
+    "ladyEvangelaRemaining:106",
+    "ladyEvangelaRemaining:132",
+    "ladyEvangelaRemaining:170",
+    "ladyEvangelaRemaining:202",
+    "ladyEvangelaRemaining:288",
+    "ladyEvangelaRemaining:327",
+    "ladyEvangelaRemaining:365",
+    "ladyEvangelaRemaining:415",
+    "ladyEvangelaRemaining:459",
     "lilianasCaress:113",
     "lilianasCaress:132",
     "lilianasCaress:144",
@@ -1566,6 +1579,110 @@
       "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
       "suite": "catalog Alabaster Host Intercessor exiles an opponent creature until it leaves",
       "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions from 486f7377 on the canonical catalog definition. Behavior assertions only (the :composition Plainscycling Oracle check belongs to #401): a typed pick is pending after entry and the chosen hostage is exiled with exiledWith the Intercessor."
+    },
+    {
+      "groups": [
+        "ladyEvangelaGaps:21"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger",
+      "evidence": "Restored from 486f7377 (cadbdb5a dropped it without a progress record). Legacy castOption evoke is now the canonical selectedAlternativeCost 0: offered with castLabel Evoke {2}{U}, no full-cost cast offered at three mana, the paid choice recorded as castCostChoices.alternative 0 (replacing stack castOption), trigger-order selection, both enters triggers on the stack, two cards drawn, Mulldrifter sacrificed to the graveyard."
+    },
+    {
+      "groups": [
+        "ladyEvangelaGaps:76"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Snuff Out validates the Swamp and four-life alternative cost",
+      "evidence": "Restored from 486f7377 (cadbdb5a dropped it without a progress record). Legacy castOption pay-4-life is now selectedAlternativeCost 0: life 5 -> 1 and the nonblack target is destroyed; illegal without a Swamp, legal again under the swampOverlay rule, illegal at 3 life."
+    },
+    {
+      "groups": [
+        "ladyEvangelaGaps:147"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+      "suite": "catalog Dovin's Veto remains a legal counter target but cannot be countered",
+      "evidence": "Catalog Dovin's Veto and Wash Away (cleave as selectedAlternativeCost 0, stackItem targets as already updated in source): Veto is uncounterable on the stack, stays on the stack after Wash Away resolves, then counters Threat to the graveyard."
+    },
+    {
+      "groups": [
+        "ladyEvangelaGaps:199"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/conditionalReplacement.test.ts",
+      "suite": "catalog Phial of Galadriel doubles draws from an empty hand and life gains at five or less",
+      "evidence": "Catalog Phial: empty-hand draw yields 2 cards, next draw yields 3 total; gain 2 at 5 life -> 9, gain 2 at 9 life -> 11. Characterization label from the inventory row retained; matches Oracle behavior on current runtime."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:106"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapOccurrences.test.ts",
+      "suite": "catalog City of Brass damages its controller when it becomes tapped for mana",
+      "evidence": "Catalog City of Brass: tapForMana adds U 1; after its becomes-tapped trigger resolves the controller is at 39."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:132"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "catalog Arcanis the Omnipotent taps to draw three and pays mana to return itself to hand",
+      "evidence": "Catalog Arcanis: tap ability draws three (hand length 3); {2}{U}{U} ability returns it to hand. Ability ids are the canonical $.abilities[0]/[1] already used in source."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:170"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tap.test.ts",
+      "suite": "catalog Minamo, School at Water's Edge untaps a legendary permanent",
+      "evidence": "Catalog Minamo untaps a tapped legendary target (tapped false). The legendary target is an exchangeable Legendary fixture creature; the source applied a Legendary override to Arcanis for the same purpose."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:202"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/lifeResults.test.ts",
+      "suite": "catalog Condemn puts an attacker on the bottom and its controller gains its toughness",
+      "evidence": "Catalog Condemn paid with {W} on an attacking 3/4: target in library, at the bottom (library.at(-1)), controller p2 at 44."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:288"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts",
+      "suite": "catalog Mana Drain counters a spell and pays its mana value as colorless at the next main",
+      "evidence": "Catalog Mana Drain counters the mana-value-5 Fat Spell into the graveyard; advancing from p1 draw reaches precombatMain with C 5. Legacy object target replaced by the stackItem target already used in source."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:327"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+      "suite": "catalog Desertion puts a countered creature spell onto the battlefield under its controller",
+      "evidence": "Catalog Desertion counters Grizzly Bears; the creature is on the battlefield controlled by p1."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:365"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "catalog Cryptic Command requires exactly two modes and taps then draws",
+      "evidence": "Legacy choose-modes dialog (removed in 929cc223) is now the canonical chooseModes announcement: one mode is rejected, modes [2,3] are accepted, opposing creature tapped and Bonus drawn."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:415"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copyPermanent.test.ts",
+      "suite": "catalog Wedding Ring copies for the targeted opponent and mirrors their draws",
+      "evidence": "Catalog Wedding Ring: typed player pick offers p2 and p3; the copy is a p2-controlled token; p2 drawing on its turn makes p1 draw Our Draw. Adds that p2 drew Their Draw."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:459"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/attackTriggers.test.ts",
+      "suite": "catalog Breena draws for the attacker and pumps only when the defender is not the poorest opponent",
+      "evidence": "Counter assertions preserved: the typed choose selection for p1 from Breena, and the chosen creature gets exactly two +1/+1 counters (replacing the legacy plusCounters field). The vacuous hand.length >= 0 bound is replaced by real draw evidence: p2 hand is empty before attacking and contains exactly the Attack Draw card after the trigger, and a control case where the defender is not richer than any opponent draws nothing and adds no counters."
     }
   ]
 }

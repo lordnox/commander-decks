@@ -95,3 +95,19 @@ test.each([-2, 0, 4])('captured power produces nonnegative life gain even for an
   expect(state.players.p2.life).toBe(40 + Math.max(0, power))
   expect(state.objects[creature]).toBeUndefined()
 })
+
+test('catalog Condemn puts an attacker on the bottom and its controller gains its toughness', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Condemn')] },
+    battlefield: { p2: [cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 4 })] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  const bear = ready.zoneOrder.p2.battlefield[0]
+  ready.objects[bear].attacking = 'p1'
+  ready.players.p1.mana.W = 1
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: bear }] }))
+  const state = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(state.objects[bear].zone).toBe('library')
+  expect(state.zoneOrder.p2.library.at(-1)).toBe(bear)
+  expect(state.players.p2.life).toBe(44)
+})

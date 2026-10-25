@@ -521,3 +521,70 @@ test.each(['hand', 'graveyard'] as const)('an alternative cost can remove a cast
   const paid = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: counterId, targets, selectedAlternativeCost: 0 }))
   expect(ok(server.rules(paid, { type: 'resolveTop' })).objects[targetId].zone).toBe('graveyard')
 })
+
+// Characterization of current runtime behavior (not a rules-conformance claim); it currently matches the Oracle text.
+test("catalog Dovin's Veto remains a legal counter target but cannot be countered", () => {
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate("Dovin's Veto")],
+      p2: [cardTemplate('Threat', { types: ['Instant'], manaCost: '{1}' })],
+      p3: [cardTemplate('Wash Away')],
+    },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.priority = 'p2'
+  ready.players.p2.mana.C = 1
+  const threat = named(ready, 'Threat')
+  const threatCast = reduce(server, ready, { type: 'castSpell', seat: 'p2', objectId: threat.id })
+  threatCast.priority = 'p1'
+  threatCast.players.p1.mana.W = 1
+  threatCast.players.p1.mana.U = 1
+  const veto = named(threatCast, "Dovin's Veto")
+  const vetoCast = reduce(server, threatCast, {
+    type: 'castSpell', seat: 'p1', objectId: veto.id,
+    targets: [{ kind: 'stackItem', stackId: threatCast.stack.find((item) => item.objectId === threat.id)!.id }],
+  })
+  expect(vetoCast.stack[0].uncounterable).toBe(true)
+
+  vetoCast.priority = 'p3'
+  vetoCast.players.p3.mana.U = 2
+  vetoCast.players.p3.mana.C = 1
+  const wash = named(vetoCast, 'Wash Away')
+  // Paying cleave lifts Wash Away's cast-origin restriction, so the Veto is a legal target.
+  const washCast = reduce(server, vetoCast, {
+    type: 'castSpell', seat: 'p3', objectId: wash.id, selectedAlternativeCost: 0,
+    targets: [{ kind: 'stackItem', stackId: vetoCast.stack.find((item) => item.objectId === veto.id)!.id }],
+  })
+  const washResolved = reduce(server, washCast, { type: 'resolveTop' })
+  expect(washResolved.objects[veto.id].zone).toBe('stack')
+  expect(washResolved.stack.some((item) => item.objectId === veto.id)).toBe(true)
+
+  const vetoResolved = reduce(server, washResolved, { type: 'resolveTop' })
+  expect(vetoResolved.objects[threat.id].zone).toBe('graveyard')
+})
+
+test('catalog Desertion puts a countered creature spell onto the battlefield under its controller', () => {
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate('Desertion')],
+      p2: [cardTemplate('Grizzly Bears', { types: ['Creature'], manaCost: '{1}{G}', power: 2, toughness: 2 })],
+    },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.active = 'p2'
+  state.priority = 'p2'
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  state.players.p2.mana.G = 1
+  state.players.p2.mana.C = 1
+  const bears = named(state, 'Grizzly Bears').id
+  state = reduce(server, state, { type: 'castSpell', seat: 'p2', objectId: bears })
+  state.priority = 'p1'
+  state = reduce(server, state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Desertion').id,
+    targets: [{ kind: 'stackItem', stackId: state.stack.find((item) => item.objectId === bears)!.id }],
+  })
+  state = reduce(server, state, { type: 'resolveTop' })
+  expect(state.objects[bears].zone).toBe('battlefield')
+  expect(state.objects[bears].controller).toBe('p1')
+})

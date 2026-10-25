@@ -69,3 +69,12 @@ test('a tap-for-mana occurrence is captured before a later sacrifice cost remove
   expect(state.players.p1.mana).toMatchObject({ U: 1, B: 1 })
   expect(state.stack).toEqual([])
 })
+
+test('catalog City of Brass damages its controller when it becomes tapped for mana', () => {
+  const server = createServerGame(commanderRules, { battlefield: { p1: [cardTemplate('City of Brass')] } }, { random: () => 0.5 })
+  const city = server.state.zoneOrder.p1.battlefield[0]
+  let state = ok(server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: city, mana: 'U' }))
+  expect(state.players.p1.mana.U).toBe(1)
+  state = resolveStack(server.rules, state)
+  expect(state.players.p1.life).toBe(39)
+})

@@ -581,7 +581,11 @@ test('catalog Wall of Blood pays one life for a temporary source pump', () => {
 
 
 test.each(['Arbor Elf', 'Deserted Temple', "Minamo, School at Water's Edge"])('catalog %s composes a targeted untap with its tap-symbol cost', name => {
-  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: expect.arrayContaining([{ kind: 'tapSource' }]), instructions: [{ kind: 'untap', targets: { kind: 'targetRef', clauseIndex: 0 } }] })
+  const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
+  // Bun's toMatchObject writes an asymmetric arrayContaining matcher into the received
+  // object, which would corrupt the shared catalog entry; check the cost list separately.
+  expect(ability).toMatchObject({ kind: 'activated', instructions: [{ kind: 'untap', targets: { kind: 'targetRef', clauseIndex: 0 } }] })
+  expect(ability.kind === 'activated' ? ability.costs : []).toContainEqual({ kind: 'tapSource' })
 })
 
 test.each(['Subjugator Angel', 'Githzerai Monk'])('catalog %s taps only other controllers creatures on entry', name => {

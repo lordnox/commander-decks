@@ -109,3 +109,23 @@ test.each([0, 1].flatMap(library => ['p1', 'p2'].map(seat => ({ library, seat })
   expect(state.ended).toBe(replaced)
   expect(state.zoneOrder[seat].hand).toHaveLength(replaced ? 0 : 1)
 })
+
+// Characterization of current runtime behavior (not a rules-conformance claim); it currently matches the Oracle text.
+test('catalog Phial of Galadriel doubles draws from an empty hand and life gains at five or less', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Phial of Galadriel')] },
+    libraries: { p1: [cardTemplate('A'), cardTemplate('B'), cardTemplate('C')] },
+  }, { random: () => 0.5 })
+  // Empty hand: the draw is doubled; holding two cards, the next draw is not.
+  let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+  expect(state.zoneOrder.p1.hand).toHaveLength(2)
+  state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+  expect(state.zoneOrder.p1.hand).toHaveLength(3)
+
+  // At five life the gain is doubled; at nine it is not.
+  state.players.p1.life = 5
+  state = ok(server.rules(state, { type: 'gainLife', seat: 'p1', amount: 2 }))
+  expect(state.players.p1.life).toBe(9)
+  state = ok(server.rules(state, { type: 'gainLife', seat: 'p1', amount: 2 }))
+  expect(state.players.p1.life).toBe(11)
+})

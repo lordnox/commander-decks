@@ -47,3 +47,48 @@ test.each([false, true].flatMap(granted => [
   expect(state.players.p1.life).toBe(40 + expected)
   expect(state.players.p2.life).toBe(40)
 })
+
+test.each([
+  { defenderLife: 50, rewarded: true },
+  { defenderLife: 40, rewarded: false },
+])('catalog Breena draws for the attacker and pumps only when the defender is not the poorest opponent (%j)', ({ defenderLife, rewarded }) => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: {
+      p1: [cardTemplate('Breena, the Demagogue'), cardTemplate('Small Bear', { types: ['Creature'], power: 1, toughness: 1 })],
+      p2: [cardTemplate('Attacker', { types: ['Creature'], power: 2, toughness: 2, summoningSickness: false })],
+    },
+    libraries: { p2: [cardTemplate('Attack Draw')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p3.life = defenderLife
+  state.active = 'p2'
+  state.priority = 'p2'
+  state.step = 'declareAttackers'
+  const [breena, bear] = state.zoneOrder.p1.battlefield
+  const draw = state.zoneOrder.p2.library[0]
+  expect(state.zoneOrder.p2.hand).toEqual([])
+  state = ok(server.rules(state, {
+    type: 'declareAttackers', seat: 'p2',
+    attackers: [{ objectId: state.zoneOrder.p2.battlefield[0], defender: 'p3' }],
+  }))
+  state = resolveStack(server.rules, state)
+  const choice = pendingSelectionFor(state, 'p1')
+  if (!rewarded) {
+    // p2 has the same life as the defender, so the intervening-if fails: no draw and no counters.
+    expect(choice).toBeUndefined()
+    expect(state.zoneOrder.p2.hand).toEqual([])
+    expect(state.objects[bear].counters['+1/+1']).toBeUndefined()
+    return
+  }
+  // The attacking player has already drawn before Breena's controller chooses a creature.
+  expect(state.zoneOrder.p2.hand).toEqual([draw])
+  expect(choice).toMatchObject({ kind: 'choose', seat: 'p1', count: 1, source: 'Breena, the Demagogue' })
+  expect([...choice!.candidates].sort()).toEqual([breena, bear].sort())
+  state = ok(server.rules(state, {
+    type: 'selectCards', seat: 'p1', selectionId: choice!.id, kind: 'choose', count: 1, objectIds: [bear],
+  }))
+  expect(state.objects[bear].counters['+1/+1']).toBe(2)
+  expect(state.objects[breena].counters['+1/+1']).toBeUndefined()
+  expect(state.zoneOrder.p2.hand).toEqual([draw])
+})
