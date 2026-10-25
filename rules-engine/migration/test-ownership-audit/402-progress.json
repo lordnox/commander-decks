@@ -369,6 +369,17 @@
     "soulsOfTheFaultless:39",
     "soulsOfTheFaultless:67",
     "soulsOfTheFaultless:83",
+    "splitTrapVotes:116",
+    "splitTrapVotes:170",
+    "splitTrapVotes:181",
+    "splitTrapVotes:216",
+    "splitTrapVotes:237",
+    "splitTrapVotes:303",
+    "splitTrapVotes:326",
+    "splitTrapVotes:343",
+    "splitTrapVotes:356",
+    "splitTrapVotes:373",
+    "splitTrapVotes:388",
     "starfieldOfNyx:113",
     "starfieldOfNyx:153",
     "starfieldOfNyx:193",
@@ -1269,6 +1280,94 @@
       "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
       "suite": "catalog Erestor scries once per disagreeing opponent and makes no Treasure when every opponent disagrees",
       "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Return wins with no graveyard candidates, so Sail finishes with only Erestor on the stack; no Treasure exists; scry count is 3."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:116"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Split Decision targets only an instant or sorcery spell",
+      "evidence": "Uses the canonical catalog definition. A battlefield permanent, a creature spell on the stack, and Split Decision itself are each rejected as cast targets."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:170"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Split Decision denial with more votes counters the targeted spell, which never resolves",
+      "evidence": "Three denial votes on the canonical catalog definition: vote cleared, empty stack, Smite and Split Decision in graveyard, Bear still on battlefield, no stack-copy pending."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:181"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Split Decision copies on a tie, and only the caster may choose new targets for the copy",
+      "evidence": "Tie offers p1 ordered keep/retarget only; p2 answer and p1 priority pass rejected; typed retarget candidates are exactly Bear/Boar and Split Decision is refused; copy controlled by p1 above the p2 original; both creatures die and the stack empties."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:216"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Split Decision duplication with more votes copies the spell, and the copy may keep its targets",
+      "evidence": "Keep produces a p1-controlled copy targeting Bear; after resolution Bear is in graveyard and Boar remains."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:237"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Split Decision neither counters nor copies a spell that left the stack during the vote",
+      "evidence": "For both denial and tie ballots, the exiled Smite stays in exile with an empty stack and no stack-copy pending."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:303"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers offers only creatures the caster does not control, starting with the caster",
+      "evidence": "Restored from audited revision 486f7377 after cadbdb5a dropped it without a progress record. Secret vote owned by p1 with APNAP voters, options exactly Bear/Boar/Elk, own creature absent and rejected, out-of-turn and unknown ballots rejected."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:326"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers stuns and taps each voted creature by its votes; unvoted creatures are untouched",
+      "evidence": "Restored from 486f7377. Stun 3/1 plus tapped on Bear/Boar, Elk and Ally untouched, vote cleared, spell in graveyard, and the revealed public log names p4 for Boar."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:343"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers still stuns an already tapped creature, and votes may all differ",
+      "evidence": "Restored from 486f7377. Pre-tapped Bear gains stun 2; Boar and Elk each gain stun 1 and tap."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:356"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers stun counters replace the next untaps one at a time",
+      "evidence": "Restored from 486f7377. Four stun counters; each of four untaps keeps Bear tapped and removes exactly one counter; the fifth untap untaps it."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:373"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers skips a voted creature that left the battlefield",
+      "evidence": "Restored from 486f7377. Bear moved to graveyard mid-vote keeps no counters and stays untapped; Boar gets stun 2 and taps."
+    },
+    {
+      "groups": [
+        "splitTrapVotes:388"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
+      "suite": "catalog Trap the Trespassers has nothing to vote on without a creature the caster does not control",
+      "evidence": "Restored from 486f7377. No vote or option selection for any seat, Ally untouched, spell in graveyard, empty stack."
     }
   ]
 }

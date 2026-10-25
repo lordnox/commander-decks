@@ -8,6 +8,9 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState, PlayerId } from '../../types'
+import { freezeDraft, makeDraft } from '../../draft'
+import { snapshotFor } from '../../cards/snapshot'
+import { stackCopyPending } from '../stackCopy'
 import { pendingVote } from '../vote'
 import { instructionSpell } from './instructionTestSupport'
 import type { Instruction } from './schema/v1'
@@ -32,7 +35,9 @@ import {
   move,
   objects,
   ref,
+  select,
   spell,
+  target,
   vote,
   voteLeads,
   voteTally,
@@ -775,4 +780,230 @@ test('catalog Coercive Portal keeps an open vote through restore and a tie still
   expect(finishedVote(done.result).tied).toBe(true)
   expect(done.state.zoneOrder.p1.hand).toHaveLength(1)
   expect(pendingVote(done.state)).toBeUndefined()
+})
+
+/** Hands every seat enough mana for Split Decision, Smite, and Trap the Trespassers. */
+const withMana = (state: GameState, seats: PlayerId[]) => {
+  const ready = structuredClone(state)
+  for (const seat of seats) ready.players[seat].mana = { W: 0, U: 3, B: 0, R: 3, G: 0, C: 3 }
+  return ready
+}
+
+/** An exchangeable targeted instant for Split Decision to counter or copy. */
+const smite = () => cardTemplate('Smite', {
+  types: ['Instant'],
+  manaCost: '{R}',
+  manaValue: 1,
+  ruleDefinition: snapshotFor([
+    spell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [destroy({ targets: target(0) })],
+    }),
+  ]),
+})
+
+type SplitBallot = Record<PlayerId, 'denial' | 'duplication'>
+const splitBallot = (votes: SplitBallot): Array<[PlayerId, string]> =>
+  (['p1', 'p2', 'p3', 'p4'] as const).map((seat) => [seat, votes[seat]])
+
+const DENY: SplitBallot = { p1: 'denial', p2: 'duplication', p3: 'denial', p4: 'denial' }
+const TIE: SplitBallot = { p1: 'denial', p2: 'denial', p3: 'duplication', p4: 'duplication' }
+const COPY: SplitBallot = { p1: 'duplication', p2: 'duplication', p3: 'duplication', p4: 'denial' }
+
+/** p2 smites the Bear; p1 answers with catalog Split Decision and it resolves into the open vote. */
+const splitVote = () => {
+  const game = catalogGame({
+    hands: { p1: [cardTemplate('Split Decision')], p2: [smite()] },
+    battlefield: { p3: [creature('Bear'), creature('Boar')] },
+  })
+  let state = withMana(game.state, ['p1', 'p2'])
+  state.step = 'precombatMain'
+  state.active = 'p2'
+  state.priority = 'p2'
+  state = ok(game.rules(state, {
+    type: 'castSpell', seat: 'p2', objectId: named(state, 'Smite').id,
+    targets: [{ kind: 'object', objectId: named(state, 'Bear').id }],
+  }))
+  state.priority = 'p1'
+  state = ok(game.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Split Decision').id,
+    targets: [{ kind: 'stackItem', stackId: state.stack[0].id }],
+  }))
+  return { game, state: ok(game.rules(state, { type: 'resolveTop' })) }
+}
+
+test('catalog Split Decision targets only an instant or sorcery spell', () => {
+  const game = catalogGame({
+    hands: {
+      p1: [cardTemplate('Split Decision')],
+      p3: [cardTemplate('Grizzly', { types: ['Creature'], manaCost: '{R}', manaValue: 1 })],
+    },
+    battlefield: { p3: [creature('Bear')] },
+  })
+  let state = withMana(game.state, ['p1', 'p3'])
+  state.step = 'precombatMain'
+  state.active = 'p3'
+  state.priority = 'p3'
+  state = ok(game.rules(state, { type: 'castSpell', seat: 'p3', objectId: named(state, 'Grizzly').id }))
+  state.priority = 'p1'
+  const castSplit = (targets: GameState['stack'][number]['targets']) => game.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Split Decision').id, targets,
+  })
+  // A permanent on the battlefield, a creature spell, and the spell itself are all illegal.
+  expect(castSplit([{ kind: 'object', objectId: named(state, 'Bear').id }]).ok).toBe(false)
+  expect(castSplit([{ kind: 'stackItem', stackId: state.stack[0].id }]).ok).toBe(false)
+  expect(castSplit([{ kind: 'object', objectId: named(state, 'Split Decision').id }]).ok).toBe(false)
+})
+
+test('catalog Split Decision denial with more votes counters the targeted spell, which never resolves', () => {
+  const { game, state } = splitVote()
+  const done = castAll(game, state, splitBallot(DENY)).state
+  expect(pendingVote(done)).toBeUndefined()
+  expect(done.stack).toHaveLength(0)
+  expect(zoneOf(done, 'Smite')).toBe('graveyard')
+  expect(zoneOf(done, 'Bear')).toBe('battlefield')
+  expect(zoneOf(done, 'Split Decision')).toBe('graveyard')
+  expect(stackCopyPending(done)).toBeUndefined()
+})
+
+test('catalog Split Decision copies on a tie, and only the caster may choose new targets for the copy', () => {
+  const { game, state } = splitVote()
+  const done = castAll(game, state, splitBallot(TIE)).state
+  const offer = pendingOptionSelection(done, 'p1')!
+  expect(offer.options.map((option) => option.id)).toEqual(['keep', 'retarget'])
+  expect(pendingOptionSelection(done, 'p2')).toBeUndefined()
+  expect(answer(game, done, 'p2', 'keep').ok).toBe(false)
+  expect(game.rules(done, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+
+  let next = ok(answer(game, done, 'p1', 'retarget'))
+  const pick = pendingSelectionFor(next, 'p1')!
+  expect(pick.candidates.map((id) => next.objects[id].name).toSorted()).toEqual(['Bear', 'Boar'])
+  const choose = (current: GameState, name: string) => game.rules(current, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1,
+    objectIds: [named(current, name).id],
+  })
+  expect(choose(next, 'Split Decision').ok).toBe(false)
+
+  next = ok(choose(next, 'Boar'))
+  expect(stackCopyPending(next)).toBeUndefined()
+  expect(next.stack.map((item) => [item.name, item.copy ?? false, item.controller])).toEqual([
+    ['Smite', true, 'p1'],
+    ['Smite', false, 'p2'],
+  ])
+  next = resolveStack(game.rules, next)
+  expect(zoneOf(next, 'Boar')).toBe('graveyard')
+  expect(zoneOf(next, 'Bear')).toBe('graveyard')
+  expect(next.stack).toHaveLength(0)
+})
+
+test('catalog Split Decision duplication with more votes copies the spell, and the copy may keep its targets', () => {
+  const { game, state } = splitVote()
+  const done = castAll(game, state, splitBallot(COPY)).state
+  const next = ok(answer(game, done, 'p1', 'keep'))
+  expect(next.stack[0]).toMatchObject({
+    copy: true,
+    controller: 'p1',
+    targets: [{ kind: 'object', objectId: named(next, 'Bear').id }],
+  })
+  const resolved = resolveStack(game.rules, next)
+  expect(zoneOf(resolved, 'Bear')).toBe('graveyard')
+  expect(zoneOf(resolved, 'Boar')).toBe('battlefield')
+})
+
+test('catalog Split Decision neither counters nor copies a spell that left the stack during the vote', () => {
+  for (const votes of [DENY, TIE]) {
+    const { game, state } = splitVote()
+    const gone = structuredClone(state)
+    gone.stack = gone.stack.filter((item) => item.name !== 'Smite')
+    gone.objects[named(gone, 'Smite').id].zone = 'exile'
+    const done = castAll(game, gone, splitBallot(votes)).state
+    expect(zoneOf(done, 'Smite')).toBe('exile')
+    expect(done.stack).toHaveLength(0)
+    expect(stackCopyPending(done)).toBeUndefined()
+  }
+})
+
+const trapBoard = { p1: [creature('Ally')], p2: [creature('Bear')], p3: [creature('Boar')], p4: [creature('Elk')] }
+
+/** p1 resolves catalog Trap the Trespassers into its open secret vote. */
+const trapVote = (battlefield: Record<PlayerId, ReturnType<typeof creature>[]> = trapBoard) => {
+  const game = catalogGame({ battlefield, hands: { p1: [cardTemplate('Trap the Trespassers')] } })
+  const ready = withMana(game.state, ['p1'])
+  ready.step = 'precombatMain'
+  return { game, state: castCatalog(game, ready, 'Trap the Trespassers') }
+}
+
+const ids = (state: GameState, ...names: string[]) => names.map((name) => named(state, name).id)
+
+test('catalog Trap the Trespassers offers only creatures the caster does not control, starting with the caster', () => {
+  const { game, state } = trapVote()
+  const pending = pendingVote(state)!
+  expect(pending).toMatchObject({ owner: 'p1', secret: true, voters: ['p1', 'p2', 'p3', 'p4'] })
+  expect(pending.options.map((option) => option.label).sort()).toEqual(['Bear', 'Boar', 'Elk'])
+  expect(pending.options.some((option) => option.id === named(state, 'Ally').id)).toBe(false)
+  expect(answer(game, state, 'p1', named(state, 'Ally').id).ok).toBe(false)
+  expect(answer(game, state, 'p2', named(state, 'Bear').id).ok).toBe(false)
+  expect(answer(game, state, 'p1', 'nonsense').ok).toBe(false)
+})
+
+test('catalog Trap the Trespassers stuns and taps each voted creature by its votes; unvoted creatures are untouched', () => {
+  const { game, state } = trapVote()
+  const [bearId, boarId] = ids(state, 'Bear', 'Boar')
+  // The caster votes too, and every vote is for an opponent's creature.
+  const done = castAll(game, state, [['p1', bearId], ['p2', bearId], ['p3', bearId], ['p4', boarId]]).state
+  expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 3 }, tapped: true })
+  expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
+  expect(named(done, 'Elk')).toMatchObject({ counters: {}, tapped: false })
+  expect(named(done, 'Ally')).toMatchObject({ counters: {}, tapped: false })
+  expect(pendingVote(done)).toBeUndefined()
+  expect(zoneOf(done, 'Trap the Trespassers')).toBe('graveyard')
+  // The votes are revealed once they are all in.
+  expect(done.log.some((line) => line.includes('p4 for Boar'))).toBe(true)
+})
+
+test('catalog Trap the Trespassers still stuns an already tapped creature, and votes may all differ', () => {
+  const { game, state } = trapVote()
+  const [bearId, boarId, elkId] = ids(state, 'Bear', 'Boar', 'Elk')
+  const tapped = structuredClone(state)
+  tapped.objects[bearId].tapped = true
+  const done = castAll(game, tapped, [['p1', bearId], ['p2', boarId], ['p3', elkId], ['p4', bearId]]).state
+  expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 2 }, tapped: true })
+  expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
+  expect(named(done, 'Elk')).toMatchObject({ counters: { stun: 1 }, tapped: true })
+})
+
+test('catalog Trap the Trespassers stun counters replace the next untaps one at a time', () => {
+  const { game, state } = trapVote()
+  const [bearId] = ids(state, 'Bear')
+  const stunned = castAll(game, state, [['p1', bearId], ['p2', bearId], ['p3', bearId], ['p4', bearId]]).state
+  expect(named(stunned, 'Bear').counters.stun).toBe(4)
+  let next = stunned
+  for (let remaining = 3; remaining >= 0; remaining -= 1) {
+    next = ok(game.rules(next, { type: 'untap', objectId: bearId }))
+    expect(named(next, 'Bear').tapped).toBe(true)
+    expect(named(next, 'Bear').counters.stun ?? 0).toBe(remaining)
+  }
+  expect(named(ok(game.rules(next, { type: 'untap', objectId: bearId })), 'Bear').tapped).toBe(false)
+})
+
+test('catalog Trap the Trespassers skips a voted creature that left the battlefield', () => {
+  const { game, state } = trapVote()
+  const [bearId, boarId] = ids(state, 'Bear', 'Boar')
+  const voted = castAll(game, state, [['p1', bearId], ['p2', boarId], ['p3', bearId]]).state
+  // Model an external effect removing the voted object. Ordinary game actions
+  // cannot interleave with the resolution's open vote.
+  const draft = makeDraft(voted)
+  draft.move(bearId, 'graveyard')
+  const done = castAll(game, freezeDraft(draft), [['p4', boarId]]).state
+  expect(named(done, 'Bear')).toMatchObject({ zone: 'graveyard', counters: {}, tapped: false })
+  expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 2 }, tapped: true })
+})
+
+test('catalog Trap the Trespassers has nothing to vote on without a creature the caster does not control', () => {
+  const { state } = trapVote({ p1: [creature('Ally')] })
+  expect(pendingVote(state)).toBeUndefined()
+  for (const seat of ['p1', 'p2', 'p3', 'p4']) expect(pendingOptionSelection(state, seat)).toBeUndefined()
+  expect(named(state, 'Ally')).toMatchObject({ counters: {}, tapped: false })
+  expect(zoneOf(state, 'Trap the Trespassers')).toBe('graveyard')
+  expect(state.stack).toHaveLength(0)
 })
