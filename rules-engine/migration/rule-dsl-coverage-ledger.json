@@ -6173,10 +6173,10 @@
         "rules-engine/src/plugins/rooms.ts:97",
         "rules-engine/src/replacement/discovery.ts:103",
         "rules-engine/src/replacement/types.ts:5",
-        "rules-engine/src/replay.ts:161",
-        "rules-engine/src/replay.ts:164",
-        "rules-engine/src/replay.ts:167",
-        "rules-engine/src/replay.ts:168",
+        "rules-engine/src/replay.ts:169",
+        "rules-engine/src/replay.ts:172",
+        "rules-engine/src/replay.ts:175",
+        "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:1553",
         "rules-engine/src/types.ts:342",
         "rules-engine/src/types.ts:344",
@@ -6187,7 +6187,7 @@
         "rules-engine/src/plugins/rooms.test.ts — Room doors > casts either half and unlocks only the cast door as it enters"
       ],
       "candidateEvidence": {
-        "matches": 31,
+        "matches": 33,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2318 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
@@ -6256,8 +6256,8 @@
         "rules-engine/src/plugins/rooms.ts:88",
         "rules-engine/src/plugins/rooms.ts:92",
         "rules-engine/src/plugins/spells.ts:501",
-        "rules-engine/src/replay.ts:1",
-        "rules-engine/src/replay.ts:176",
+        "rules-engine/src/replay.ts:184",
+        "rules-engine/src/replay.ts:2",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:118",
         "rules-engine/src/types.ts:166",
@@ -6313,12 +6313,12 @@
       {
         "path": "rules-engine/src/replay.ts",
         "lines": [
-          187,
-          431
+          195,
+          439
         ],
         "samples": [
-          "187: .find((object) => object.name === name)",
-          "431: (object) => object.name === name,"
+          "195: .find((object) => object.name === name)",
+          "439: (object) => object.name === name,"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
