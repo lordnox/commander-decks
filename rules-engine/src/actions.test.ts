@@ -13,6 +13,8 @@ import { activated, chooseX, discardCost, gainLife, lifeCost, move, objects, ref
 import { snapshotFor } from './cards/snapshot'
 import { createServerGame } from './runtime'
 import { ok, resolveStack } from './testHelpers'
+import { freezeDraft, makeDraft } from './draft'
+import { openPlayerSelection } from './rules/selectPlayers'
 
 const empty = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 } satisfies ManaPool
 
@@ -115,6 +117,62 @@ describe('available actions', () => {
     expect(availableActions(state, 'p1')).toEqual([])
     state.step = 'cleanup'
     expect(availableActions(state, 'p1')).toEqual([])
+  })
+
+  test('does not expose ordinary actions without priority', () => {
+    const state = newGame(commanderRules, {
+      hands: { p1: [bolt()] },
+      battlefield: { p1: [forest()] },
+    })
+    state.priority = null
+
+    expect(availableActions(state, 'p1')).toEqual([])
+  })
+
+  test('exposes pending player and continue actions during resolution', () => {
+    const state = newGame(commanderRules, { hands: { p1: [bolt()] } })
+    const draft = makeDraft(state)
+    const selection = openPlayerSelection(draft, {
+      seat: 'p2',
+      sourceId: 'source',
+      source: 'Resolving effect',
+      prompt: 'Choose a player',
+      min: 1,
+      max: 1,
+      candidates: ['p1'],
+      action: { kind: 'drawHandDifference' },
+    })
+    draft.priority = null
+    draft.step = 'cleanup'
+    const waitingForPlayer = freezeDraft(draft)
+
+    expect(availableActions(waitingForPlayer, 'p2')).toContainEqual(expect.objectContaining({
+      kind: 'selectPlayers',
+      selectionId: selection.id,
+    }))
+    expect(availableActions(waitingForPlayer, 'p1')).toEqual([])
+
+    const waitingForDiscard = {
+      ...state,
+      priority: null,
+      step: 'cleanup' as const,
+      stack: [{
+        id: 'pending-discard',
+        kind: 'action' as const,
+        objectId: 'discard',
+        controller: 'p2' as const,
+        name: 'Discard',
+        actionId: 'discard',
+        waiting: 'choice' as const,
+        payload: { seat: 'p1', count: 1 },
+        targets: [],
+      }],
+    }
+    expect(availableActions(waitingForDiscard, 'p1')).toContainEqual(expect.objectContaining({
+      kind: 'continueAction',
+      stackId: 'pending-discard',
+    }))
+    expect(availableActions(waitingForDiscard, 'p2')).toEqual([])
   })
 
   test('offers a land only during its controller main phase', () => {
