@@ -419,6 +419,36 @@ test('delayed current-turn exclusion rejects values other than the explicit true
   }] })).toThrow('notThisTurn')
 })
 
+test('catalog Vanish into Memory draws by last-known power, returns at the next upkeep, then discards by toughness', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Vanish into Memory')] },
+    libraries: { p1: Array.from({ length: 4 }, (_, i) => cardTemplate(`Draw fixture ${i}`)) },
+    battlefield: { p2: [cardTemplate('Uneven Body', { types: ['Creature'], power: 3, toughness: 2 })] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  const body = ready.zoneOrder.p2.battlefield[0]!
+  const vanish = ready.zoneOrder.p1.hand[0]!
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: vanish, targets: [{ kind: 'object', objectId: body }] }))
+  let state = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(state.objects[body]!.zone).toBe('exile')
+  expect(state.zoneOrder.p1.hand).toHaveLength(3)
+
+  state = structuredClone(state)
+  state.active = 'p1'
+  state.priority = 'p1'
+  state.step = 'untap'
+  state.turn += 1
+  state = ok(server.rules(state, { type: 'advanceStep' }))
+  // The upkeep trigger is Vanish's delayed return; the exiled card waits for it to resolve.
+  expect(state.stack).toHaveLength(1)
+  expect(state.stack[0]).toMatchObject({ kind: 'ability', objectId: vanish, name: 'Vanish into Memory', controller: 'p1' })
+  expect(state.objects[body]!.zone).toBe('exile')
+  state = resolveStack(server.rules, state)
+  expect(state.objects[body]).toMatchObject({ zone: 'battlefield', controller: 'p2' })
+  expect(pendingSelectionFor(state, 'p1')).toMatchObject({ kind: 'discard', count: 2, source: 'Vanish into Memory' })
+})
+
 
 test.each(['creature', 'token', 'noncreature', 'prevented', 'reentered'] as const)('a catalog delayed return discards only for the actual returned incarnation (%s)', change => {
   const redirect = snapshotFor([staticAbility(replacement(wouldEnter(), redirectEvent('graveyard')))])

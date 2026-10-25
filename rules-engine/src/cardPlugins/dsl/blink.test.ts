@@ -209,3 +209,35 @@ test('a blinked attacker returns removed from combat', () => {
   const returned = named(resolveStack(server.rules, state), 'Permanent fixture')
   expect(returned).toMatchObject({ zone: 'battlefield', attacking: null, blocking: null })
 })
+
+/** p1 casts a catalog blink spell at a p2-owned permanent that p1 currently controls. */
+const blinkBorrowed = (spellName: string, permanentName: string, extra: Parameters<typeof cardTemplate>[1]) => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate(spellName)] },
+    battlefield: { p2: [cardTemplate(permanentName, extra)] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  const borrowed = named(ready, permanentName)
+  borrowed.controller = 'p1'
+  const cast = ok(server.rules(ready, {
+    type: 'castSpell', seat: 'p1', objectId: named(ready, spellName).id,
+    targets: [{ kind: 'object', objectId: borrowed.id }],
+  }))
+  return ok(server.rules(cast, { type: 'resolveTop' })).objects[borrowed.id]
+}
+
+test('catalog Ephemerate returns a stolen creature under its owner’s control', () => {
+  expect(blinkBorrowed('Ephemerate', 'Borrowed Bear', { types: ['Creature'], power: 2, toughness: 2 }))
+    .toMatchObject({ zone: 'battlefield', owner: 'p2', controller: 'p2' })
+})
+
+test('catalog Cloudshift returns a stolen creature under its caster’s control', () => {
+  expect(blinkBorrowed('Cloudshift', 'Stolen Cat', { types: ['Creature'], power: 1, toughness: 1 }))
+    .toMatchObject({ zone: 'battlefield', owner: 'p2', controller: 'p1' })
+})
+
+test('catalog Flicker of Fate blinks a borrowed enchantment immediately under its owner', () => {
+  expect(blinkBorrowed('Flicker of Fate', 'Borrowed Aura', { types: ['Enchantment'] }))
+    .toMatchObject({ zone: 'battlefield', owner: 'p2', controller: 'p2' })
+})

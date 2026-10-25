@@ -1015,3 +1015,72 @@ test('a catalog alternative cost validates ordered discards before countering th
   expect(resolved.objects[foil.id].zone).toBe('graveyard')
   expect(resolved.stack).toHaveLength(0)
 })
+
+describe('catalog spree and gift announcements', () => {
+  /** p1 holds a catalog spell with ample mana against p2's creature. */
+  const catalogSpell = (spellName: string, creatureName: string, size: number) => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate(spellName)] },
+      battlefield: { p2: [cardTemplate(creatureName, { types: ['Creature'], power: size, toughness: size })] },
+    }, { random: () => 0.5 })
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+    return { server, ready, spellId: named(ready, spellName).id, creatureId: named(ready, creatureName).id }
+  }
+
+  const advanceToEndStep = (server: ReturnType<typeof createServerGame>, gameState: GameState) => {
+    let current = gameState
+    while (current.step !== 'end') current = reduce(server, current, { type: 'advanceStep' })
+    return current
+  }
+
+  test('catalog Getaway Glamer spree blink mode exiles until the next end step', () => {
+    const { server, ready, spellId, creatureId } = catalogSpell('Getaway Glamer', 'Glamer Prey', 3)
+    const cast = reduce(server, ready, {
+      type: 'castSpell', seat: 'p1', objectId: spellId,
+      selectedOptionalCosts: [0], targetClauses: [[{ kind: 'object', objectId: creatureId }], []],
+    })
+    const resolved = reduce(server, cast, { type: 'resolveTop' })
+    expect(resolved.objects[creatureId].zone).toBe('exile')
+    const returned = resolveStack(server.rules, advanceToEndStep(server, resolved))
+    expect(returned.objects[creatureId].zone).toBe('battlefield')
+  })
+
+  test('catalog Getaway Glamer spree kill mode removes the chosen creature', () => {
+    const { server, ready, spellId, creatureId } = catalogSpell('Getaway Glamer', 'Solo Beast', 4)
+    const cast = reduce(server, ready, {
+      type: 'castSpell', seat: 'p1', objectId: spellId,
+      selectedOptionalCosts: [1], targetClauses: [[], [{ kind: 'object', objectId: creatureId }]],
+    })
+    const resolved = reduce(server, cast, { type: 'resolveTop' })
+    expect(resolved.objects[creatureId].zone).toBe('graveyard')
+  })
+
+  test('catalog Parting Gust without the gift blinks with a counter at the next end step', () => {
+    const { server, ready, spellId, creatureId } = catalogSpell('Parting Gust', 'Gusty Fox', 2)
+    const cast = reduce(server, ready, {
+      type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: creatureId }],
+    })
+    const resolved = reduce(server, cast, { type: 'resolveTop' })
+    expect(resolved.objects[creatureId].zone).toBe('exile')
+    const returned = resolveStack(server.rules, advanceToEndStep(server, resolved))
+    expect(returned.objects[creatureId].counters['+1/+1']).toBe(1)
+  })
+
+  test('catalog Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {
+    const { server, ready, spellId, creatureId } = catalogSpell('Parting Gust', 'Gift Target', 2)
+    const gifted = legalActsFor(ready, 'p1').filter((action) => action.kind === 'castSpell').find((action) =>
+      action.objectId === spellId
+      && action.selectedOptionalCosts?.includes(0)
+      && action.costPlayers?.[0] === 'p2')!
+    const castEvents = eventsForAvailableAction(ready, 'p1', { ...gifted, targetObjectIds: [creatureId] })!
+    const cast = castEvents.reduce((current, event) => reduce(server, current, event), ready)
+    const resolved = reduce(server, cast, { type: 'resolveTop' })
+    expect(resolved.objects[creatureId].zone).toBe('exile')
+    const fish = Object.values(resolved.objects).find((object) =>
+      object.name === 'Fish' && object.controller === 'p2')
+    expect(fish?.tapped).toBe(true)
+    const afterEnd = resolveStack(server.rules, advanceToEndStep(server, resolved))
+    expect(afterEnd.objects[creatureId].zone).toBe('exile')
+  })
+})
