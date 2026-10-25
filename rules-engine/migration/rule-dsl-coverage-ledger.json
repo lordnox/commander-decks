@@ -1093,7 +1093,7 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:64 — test('Thragtusk catalog watches leaves rather than dies', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:22 — test('Thragtusk composes self-entry life gain and self-leave token creation rather than dies', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1135 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1192 — test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {",
@@ -1193,16 +1193,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:517 — test('publishes and validates a large typed allocation by entry identity', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:133 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1644 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1986 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2788 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:78 — test('copied lifelink damage uses the copied source and controller', () => {",
-          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
+          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:228 — test('modal resolution gates untargeted modes only when every target is illegal', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1998,7 +1998,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:3295 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
-          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:66 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:68 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1273 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1416 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
@@ -2359,7 +2359,7 @@
       "candidateEvidence": {
         "matches": 18,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:288 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:145 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
@@ -4417,16 +4417,16 @@
         "rules-engine/src/plugins/damage.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 42,
+        "matches": 41,
         "samples": [
           "live-runner/src/kernelHost.test.ts:517 — test('publishes and validates a large typed allocation by entry identity', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:133 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:134 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:164 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1644 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1986 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2788 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:32"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:32",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:346 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",

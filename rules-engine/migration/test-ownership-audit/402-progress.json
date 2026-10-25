@@ -886,7 +886,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / an intrinsic keyword survives lethal damage and destruction independently of grants",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -894,7 +894,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -902,7 +902,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -910,7 +910,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / the controller may target its own hexproof creature",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -918,7 +918,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a target whose power drops below 5 in response is not protected",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -926,7 +926,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / an opponent's creature that gains hexproof in response fizzles the ability",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -934,7 +934,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a target that left the battlefield in response fizzles the ability",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -942,7 +942,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / the protection wears off at cleanup, and the ability needs its {1}",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -982,7 +982,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/copyOnto.test.ts",
       "suite": "permanent land copies retain a usable copy activation",
-      "evidence": "Canonical Thespian’s Stage catalog integration copies Quarry name and G production, verifies a retained canonical copy instruction, then successfully activates that retained ability with the same land target. #432 replaced legacy resolution-time picker assertions with announcement targets; no removed legacy handler is resurrected."
+      "evidence": "Canonical Thespian\u2019s Stage catalog integration copies Quarry name and G production, verifies a retained canonical copy instruction, then successfully activates that retained ability with the same land target. #432 replaced legacy resolution-time picker assertions with announcement targets; no removed legacy handler is resurrected."
     },
     {
       "groups": [
@@ -1006,7 +1006,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/move.test.ts",
       "suite": "conditional entry placement offers a hand land without spending a land play (ahead=%s)",
-      "evidence": "Canonical Archaeomancer’s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger. Lifecycle groups dackFaydenPart32LandsRocks:295 and :331 retain their original test bodies and shared setup in the source for #403; only forest/solRing helpers with no remaining consumers are removed."
+      "evidence": "Canonical Archaeomancer\u2019s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger. Lifecycle groups dackFaydenPart32LandsRocks:295 and :331 retain their original test bodies and shared setup in the source for #403; only forest/solRing helpers with no remaining consumers are removed."
     },
     {
       "groups": [
@@ -1030,7 +1030,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "an activated search pays life and source costs before its stack resolution opens a typed choice",
-      "evidence": "Existing minimal canonical search activation now also pays {3}; source is asserted graveyard before resolution, candidates restrict to Land, selected land is battlefield/tapped=true. Retains stack timing, restore, and no reactivation. Equivalent to Urza’s Cave combination after #432."
+      "evidence": "Existing minimal canonical search activation now also pays {3}; source is asserted graveyard before resolution, candidates restrict to Land, selected land is battlefield/tapped=true. Retains stack timing, restore, and no reactivation. Equivalent to Urza\u2019s Cave combination after #432."
     },
     {
       "groups": [
@@ -1078,7 +1078,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "a catalog entry search puts a basic land into hand after the typed choice",
-      "evidence": "Canonical Thrór’s Map catalog integration casts and resolves entry, opens typed selection with only a basic land candidate, then asserts the chosen land in hand. Adds a nonbasic exclusion while preserving audited ETB-search-to-hand combination."
+      "evidence": "Canonical Thr\u00f3r\u2019s Map catalog integration casts and resolves entry, opens typed selection with only a basic land candidate, then asserts the chosen land in hand. Adds a nonbasic exclusion while preserving audited ETB-search-to-hand combination."
     },
     {
       "groups": [
@@ -1086,7 +1086,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawThenDiscard.integration.test.ts",
       "suite": "activated draw then player discard keeps the newly drawn card after discarding an old card",
-      "evidence": "Canonical Thrór’s Map integration preserves drawn card already in hand before typed discard count=1, old card in graveyard after choice, exactly one card in hand, empty stack. Existing draws update hand candidates, hide them from opponents, and resume discard after restore retains privacy/restore ownership separately; no lifecycle assertion is dropped."
+      "evidence": "Canonical Thr\u00f3r\u2019s Map integration preserves drawn card already in hand before typed discard count=1, old card in graveyard after choice, exactly one card in hand, empty stack. Existing draws update hand candidates, hide them from opponents, and resume discard after restore retains privacy/restore ownership separately; no lifecycle assertion is dropped."
     },
     {
       "groups": [
