@@ -9,7 +9,6 @@ import type { GameState, Plugin, ReduceResult } from '../types'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
 import { choiceEffects } from './choiceEffects'
-import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 
@@ -37,7 +36,6 @@ const plugins: Plugin[] = [
   castCosts,
   onResolve,
   targetedResolve,
-  modalSpell,
   choiceEffects,
 ]
 

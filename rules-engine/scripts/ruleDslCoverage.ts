@@ -246,7 +246,6 @@ const statusFor = (
 type OwnerDisposition = [mechanic: string, node: string, owner: string, dependencies: string[]]
 
 const instructionDisposition = (variant: string): OwnerDisposition => {
-  if (/chooseModes/.test(variant)) return ['scoped announcement modes', 'mode decision plus scoped program', '09', ['05', '08']]
   if (/copy|embalm|encore/.test(variant)) return ['copy and token action', 'typed copy/token action', '07', ['02', '05', '09']]
   if (/delay|nextUpkeep/.test(variant)) return ['delayed program', 'durable delayed/reflexive program', '10', ['03', '05', '06', '07']]
   if (/prevent/.test(variant)) return ['damage prevention', 'prevention instruction/effect', '12', ['07', '11']]
@@ -279,7 +278,6 @@ const effectDisposition = (variant: string): OwnerDisposition => {
     handler: ['specialized plugin hook', 'canonical capability-derived plugin requirement', '16', []],
     mana: ['mana condition', 'typed mana ability/cost condition', '08', ['07']],
     manaCapability: ['mana capability', 'typed mana production capability', '08', ['07']],
-    modal: ['modal spell program', 'scoped announcement modes', '09', ['05', '08']],
     opponentCastRestriction: ['static casting restriction', 'typed rule restriction', '13', ['08', '10']],
     replacement: ['replacement effect', 'canonical replacement definition', '11', ['05', '07', '10']],
     restrictedMana: ['restricted mana', 'typed mana production and spending restriction', '08', ['07']],
@@ -299,9 +297,6 @@ const confirmedVariantEvidence: Record<string, string[]> = {
   ],
   'instruction:drawAtNextUpkeep': [
     'rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > drawAtNextUpkeep draws on the next upkeep',
-  ],
-  'effect:modal': [
-    'rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run',
   ],
   'effect:trigger': [
     'rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics',

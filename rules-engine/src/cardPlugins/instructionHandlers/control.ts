@@ -1,4 +1,4 @@
-import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pendingDialog'
+import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
 import { instructionAmount } from './helpers'
@@ -239,30 +239,6 @@ const bounceTargetPermanent: InstructionHandler<'bounceTargetPermanent'> = ({ dr
   })
 }
 
-const chooseModes: InstructionHandler<'chooseModes'> = (
-  { draft, source },
-  instruction,
-) => {
-  openSourceDialog(draft, source, {
-    seat: source.controller,
-    kind: 'choose-modes',
-    options: instruction.modes.map((mode) => mode.label),
-    prompt: instruction.choose === 'any'
-      ? `${source.name}: choose any number of modes.`
-      : instruction.choose === 'two'
-        ? `Choose two — ${source.name}.`
-        : `Choose one — ${source.name}.`,
-    waiting: 'is choosing modes.',
-    judge: `Waiting for ${source.name} mode choice.`,
-    destinations: ['skip', 'target'],
-    ...(instruction.choose === 'one'
-      ? { requirements: { target: { min: 1, max: 1 } } }
-      : instruction.choose === 'two'
-        ? { requirements: { target: { min: 2, max: 2 } } }
-        : {}),
-  })
-}
-
 const searchLibrary: InstructionHandler<'searchLibrary'> = (
   { draft, source, item },
   instruction,
@@ -385,7 +361,6 @@ export const controlHandlers = {
   mayDraw,
   counterTargetSpell,
   bounceTargetPermanent,
-  chooseModes,
   searchLibrary,
   counterUnlessPay,
   destroyTargetPermanent,

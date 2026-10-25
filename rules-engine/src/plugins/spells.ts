@@ -1125,16 +1125,6 @@ export const spells: Plugin = {
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
         ...(event.copy ? { copy: true } : {}),
-        ...(
-          effectsOf(object).some((effect) =>
-            effect.op === 'modal' && effect.commanderChooseBoth)
-          && Object.values(draft.objects).some((candidate) =>
-            candidate.zone === 'battlefield'
-            && candidate.controller === event.seat
-            && candidate.tags.includes('commander'))
-            ? { payload: { commanderCast: true } }
-            : {}
-        ),
         castFrom,
       })
       if (object.ruleDefinition) {

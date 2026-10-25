@@ -1,5 +1,5 @@
 import type { DelayedTriggerCondition, ManaId, ManaPool } from '../types'
-import type { CardCondition, CardInstruction, InstructionCount, ModalMode, PlayerSelector, RevealUntilNonMatch, SearchSpec, TargetFilter, TokenSpec, VoteOptions, VoterGroup } from './effectDefinitions'
+import type { CardCondition, CardInstruction, InstructionCount, PlayerSelector, RevealUntilNonMatch, SearchSpec, TargetFilter, TokenSpec, VoteOptions, VoterGroup } from './effectDefinitions'
 import { players } from './selectors'
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -264,11 +264,6 @@ export const optionalMill = (count: number): CardInstruction => ({ kind: 'option
 export const mayDraw = (count: number): CardInstruction => ({ kind: 'mayDraw', count })
 
 export const mayPayLifeDraw = (): CardInstruction => ({ kind: 'mayPayLifeDraw' })
-
-export const chooseModes = (
-  choose: 'one' | 'any' | 'two',
-  modes: ModalMode[],
-): CardInstruction => ({ kind: 'chooseModes', choose, modes })
 
 export const eachPlayerDiscard = (count = 1): CardInstruction => ({
   kind: 'eachPlayerDiscard',
