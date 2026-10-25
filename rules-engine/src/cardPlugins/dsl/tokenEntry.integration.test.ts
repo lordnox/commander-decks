@@ -123,3 +123,20 @@ test('token ability programs compile in their own lexical scope', () => {
   } })] })])
   expect(() => compileCardRuleDefinition(definition)).toThrow('X is not declared')
 })
+
+test('catalog Beza, the Bounding Spring creates blue Fish tokens when an opponent controls more creatures', () => {
+  const creature = (name: string, power: number) => cardTemplate(name, { types: ['Creature'], power, toughness: power })
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Beza, the Bounding Spring')] },
+    battlefield: { p2: [creature('Opponent One', 3), creature('Opponent Two', 2)] },
+  }, { random: () => 0.5 })
+  const resolved = resolveStack(server.rules, reduce(server, server.state, {
+    type: 'move', objectId: named(server.state, 'Beza, the Bounding Spring').id, to: 'battlefield',
+  }))
+  const fishTokens = resolved.zoneOrder.p1.battlefield
+    .map((id) => resolved.objects[id])
+    .filter((object) => object.subtypes.includes('Fish'))
+  expect(fishTokens.length).toBeGreaterThanOrEqual(2)
+  for (const token of fishTokens) expect(token.colors).toEqual(['U'])
+})

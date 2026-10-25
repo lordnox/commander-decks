@@ -6,7 +6,7 @@ import { legalActsFor } from '../../actions'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { LEGENDARY_COMBAT_DAMAGE_FROM } from '../../plugins/combatLegendaryDamage'
+import { LEGENDARY_COMBAT_DAMAGE_FROM, legendaryCombatDamageFrom } from '../../plugins/combatLegendaryDamage'
 import {
   activated,
   card,
@@ -236,6 +236,35 @@ test('legendary combat damage this turn gates an activated sacrifice', () => {
   })))
   expect(resolved.zoneOrder.p1.hand).toHaveLength(2)
   expect(resolved.objects[ball]?.zone).toBe('graveyard')
+})
+
+test('catalog Blitzball GOOOOAAAALLL! sacrifices and draws two only after legendary combat damage to an opponent', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Blitzball')] },
+    libraries: { p1: [cardTemplate('Goal Draw One', { types: ['Instant'] }), cardTemplate('Goal Draw Two', { types: ['Instant'] })] },
+  }, { random: () => 0.5 })
+  const ballId = server.state.zoneOrder.p1.battlefield[0]!
+  expect(legalActsFor(server.state, 'p1').some((action) =>
+    action.kind === 'activateAbility'
+    && action.objectId === ballId
+    && action.abilityId === '$.abilities[1]')).toBe(false)
+
+  const ready = structuredClone(server.state)
+  ready.step = 'precombatMain'
+  ready.active = 'p1'
+  ready.priority = 'p1'
+  ready.players.p2.data[LEGENDARY_COMBAT_DAMAGE_FROM] = { p1: true }
+  expect(legendaryCombatDamageFrom(ready.players.p2)).toEqual({ p1: true })
+
+  const afterActivate = ok(server.rules(ready, {
+    type: 'activateAbility', seat: 'p1', objectId: ballId, abilityId: '$.abilities[1]',
+  }))
+  expect(afterActivate.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, afterActivate)
+  expect(resolved.zoneCounts.p1.hand).toBe(2)
+  expect(resolved.zoneCounts.p1.battlefield).toBe(0)
+  expect(resolved.zoneCounts.p1.graveyard).toBe(1)
 })
 
 test('a static grant gives other creatures an optional fight against the granter while it remains', () => {

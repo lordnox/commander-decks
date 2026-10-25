@@ -205,3 +205,19 @@ test('sacrifice count bindings reject invalid names, collisions, and boolean use
     [sacrifice({ targets: eligible, bindCount: 'total' }), ifThen(result('total', 'sacrificed'), { then: [] })],
   ]) expect(() => compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions }]))).toThrow()
 })
+
+test('catalog Portal to Phyrexia makes each opponent choose up to three creatures to sacrifice when it enters', () => {
+  const victim = (name: string) => cardTemplate(name, { types: ['Creature'] })
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Portal to Phyrexia')] },
+    battlefield: { p2: [victim('First Victim'), victim('Second Victim')] },
+  }, { random: () => 0.5 })
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Portal to Phyrexia').id, to: 'battlefield' }))
+  const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
+  const selection = pendingSelectionFor(choosing, 'p2')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 2 })
+  const resolved = ok(server.rules(choosing, {
+    type: 'selectCards', seat: 'p2', kind: 'choose', count: 2, objectIds: [...selection.candidates],
+  }))
+  expect(resolved.zoneOrder.p2.battlefield).toHaveLength(0)
+})

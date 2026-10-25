@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { cardTemplate } from '../../newGame'
+import { legalActsFor } from '../../actions'
+import { cardTemplate, forest } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { activated, removeAbilitiesEffect, captureAmount, gainLife, resultAmount, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, grantActivatedAbilityEffect, objects, ref, sacrificeCost, spell, untilCleanup } from './v1'
@@ -45,4 +46,24 @@ test('later grants survive ability loss while earlier grants stop functioning', 
   expect(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: subject, abilityId: '$.abilities[0]' }).ok).toBe(false)
   const accepted = resolveStack(server.rules, ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: subject, abilityId: '$.abilities[1]' })))
   expect(accepted.players.p1.life).toBe(42)
+})
+
+test('catalog Rain of Filth grants each controlled land an actionable sacrifice-for-black mana ability', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Rain of Filth')] },
+    battlefield: { p1: [forest()] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.B = 1
+  let state = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0]! }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  const land = state.zoneOrder.p1.battlefield[0]!
+  expect(legalActsFor(state, 'p1')).toContainEqual(expect.objectContaining({
+    kind: 'activateAbility', objectId: land, abilityId: '$.abilities[0]',
+  }))
+  state = ok(server.rules(state, {
+    type: 'activateAbility', abilityId: '$.abilities[0]', seat: 'p1', objectId: land, manaAbility: true,
+  }))
+  expect(state.objects[land].zone).toBe('graveyard')
+  expect(state.players.p1.mana.B).toBe(1)
 })

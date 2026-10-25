@@ -56,3 +56,14 @@ test('land-type grants follow new lands and reject unknown types', () => {
     ] }],
   })).toThrow()
 })
+
+test('catalog Yavimaya, Cradle of Growth gives every land a green mana mode', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [
+      cardTemplate('Yavimaya, Cradle of Growth'),
+      cardTemplate('Wastes', { types: ['Land'], oracleText: '{T}: Add {C}.', tapProduces: { C: 1 } }),
+    ] },
+  })
+  const tapped = ok(server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: named(server.state, 'Wastes').id, mana: 'G' }))
+  expect(tapped.players.p1.mana.G).toBe(1)
+})

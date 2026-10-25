@@ -720,3 +720,45 @@ test('catalog Cryptic Command requires exactly two modes and taps then draws', (
   expect(named(state, 'Grizzly Bears').tapped).toBe(true)
   expect(named(state, 'Bonus').zone).toBe('hand')
 })
+
+test('catalog Profane Command rejects a single mode and drains the chosen player while shrinking the chosen creature by X', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Profane Command')] },
+    battlefield: { p2: [cardTemplate('Bear', { types: ['Creature'], power: 3, toughness: 3 })] },
+  }, { random: () => 0.5 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
+  const spell = named(state, 'Profane Command').id
+  const bear = named(state, 'Bear').id
+  expect(server.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: spell, x: 2, modeIndices: [0], targetClauses: [[{ kind: 'player', player: 'p2' }]],
+  }).ok).toBe(false)
+  const cast = reduce(server, state, {
+    type: 'castSpell', seat: 'p1', objectId: spell, x: 2, modeIndices: [0, 2],
+    targetClauses: [[{ kind: 'player', player: 'p2' }], [{ kind: 'object', objectId: bear }]],
+  })
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.players.p2.life).toBe(38)
+  expect(resolved.objects[bear]).toMatchObject({ power: 1, toughness: 1 })
+})
+
+test('catalog Will of the Sultai mills the chosen player and returns your lands tapped on the first mode', () => {
+  const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Will of the Sultai')] },
+    libraries: {
+      p2: [instant('Milled A'), instant('Milled B'), instant('Milled C')],
+      p1: [cardTemplate('Yard Land', { types: ['Land'], zone: 'graveyard' })],
+    },
+  }, { random: () => 0.5 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 4 }
+  const cast = reduce(server, state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Will of the Sultai').id, modeIndices: [0],
+    targetClauses: [[{ kind: 'player', player: 'p2' }]],
+  })
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.zoneOrder.p2.graveyard).toHaveLength(3)
+  expect(named(resolved, 'Yard Land').zone).toBe('battlefield')
+  expect(named(resolved, 'Yard Land').tapped).toBe(true)
+})

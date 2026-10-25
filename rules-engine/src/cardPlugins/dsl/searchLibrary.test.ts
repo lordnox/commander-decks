@@ -561,3 +561,24 @@ test('a catalog entry search puts a basic land into hand after the typed choice'
   const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [found] }))
   expect(resolved.objects[found].zone).toBe('hand')
 })
+
+test('catalog Alabaster Host Intercessor plainscycles from hand through a typed library search', () => {
+  const plains = cardTemplate('Plains', { types: ['Land'], subtypes: ['Plains'], supertypes: ['Basic'], tapProduces: { W: 1 } })
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Alabaster Host Intercessor')] },
+    libraries: { p1: [plains] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 2
+  const cycled = ok(server.rules(ready, {
+    type: 'activateAbility', abilityId: '$.abilities[1]', seat: 'p1', objectId: named(ready, 'Alabaster Host Intercessor').id,
+  }))
+  const opened = ok(server.rules(cycled, { type: 'resolveTop' }))
+  const search = pendingSelectionFor(opened, 'p1')!
+  const found = named(opened, 'Plains').id
+  expect(search.candidates).toEqual([found])
+  const state = resolveStack(server.rules, ok(server.rules(opened, {
+    type: 'selectCards', seat: 'p1', selectionId: search.id, kind: search.kind, count: 1, objectIds: [found],
+  })))
+  expect(named(state, 'Plains').zone).toBe('hand')
+})

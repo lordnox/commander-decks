@@ -81,3 +81,22 @@ test.each(['p1', 'p2', 'p3'])('noncreature opponent casts draw only for the watc
     for (const opponent of ['p2', 'p3']) expect(state.zoneOrder[opponent].hand).not.toContain(reward.id)
   }
 })
+
+test('catalog Lotho, Corrupt Shirriff triggers only for each player’s second spell in a turn', () => {
+  const instant = (name: string) => cardTemplate(name, { types: ['Instant'], manaCost: '{W}' })
+  const server = createServerGame(commanderRules, {
+    hands: { p2: [instant('One'), instant('Two'), instant('Three')] },
+    battlefield: { p1: [cardTemplate('Lotho, Corrupt Shirriff')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p2.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  state.priority = 'p2'
+  for (const name of ['One', 'Two', 'Three']) {
+    const spell = Object.values(state.objects).find((object) => object.name === name)!
+    state = resolveStack(server.rules, ok(server.rules(state, { type: 'castSpell', seat: 'p2', objectId: spell.id })))
+    state.priority = 'p2'
+  }
+  expect(state.players.p1.life).toBe(39)
+  expect(Object.values(state.objects).filter((object) =>
+    object.name === 'Treasure' && object.zone === 'battlefield')).toHaveLength(1)
+})

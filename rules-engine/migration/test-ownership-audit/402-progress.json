@@ -11,6 +11,8 @@
     "ashlingsCommand.integration:145",
     "ashlingsCommand.integration:164",
     "blinkValue:127",
+    "blinkValue:167",
+    "blinkValue:214",
     "blinkValue:37",
     "blinkValue:63",
     "blinkValue:99",
@@ -282,6 +284,11 @@
     "dackFaydenPart34LinkedExile:363",
     "dackFaydenPart34LinkedExile:381",
     "dackFaydenPart34LinkedExile:99",
+    "dackPartyPart35:131",
+    "dackPartyPart35:144",
+    "dackPartyPart35:183",
+    "dackPartyPart35:239",
+    "dackPartyPart35:273",
     "delightedHalfling:53",
     "delightedHalfling:63",
     "delightedHalfling:75",
@@ -399,6 +406,9 @@
     "plugDackPart33Blink:402",
     "plugDackPart33Blink:436",
     "plugDackPart36Creatures:112",
+    "plugDackPart36Creatures:148",
+    "plugDackPart36Creatures:222",
+    "plugDackPart36Creatures:248",
     "plugDackPart37:158",
     "plugDackPart37:196",
     "rankle:106",
@@ -416,8 +426,13 @@
     "sin:181",
     "sin:35",
     "sin:74",
+    "sinFall:116",
     "sinFall:16",
+    "sinFall:185",
+    "sinFall:251",
+    "sinFall:286",
     "sinFall:38",
+    "sinFall:83",
     "sinFallFinishers:133",
     "sinFallFinishers:181",
     "sinFallFinishers:216",
@@ -435,6 +450,12 @@
     "sinFallGaps:341",
     "sinFallGaps:64",
     "sinFallGaps:91",
+    "sinFallLands:182",
+    "sinFallLands:222",
+    "sinFallModals:127",
+    "sinFallModals:184",
+    "sinFallModals:28",
+    "sinFallModals:83",
     "soulsOfTheFaultless:39",
     "soulsOfTheFaultless:67",
     "soulsOfTheFaultless:83",
@@ -1989,6 +2010,174 @@
       "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
       "suite": "live action enumeration exposes catalog Tenuous Truce opponents and Sokrates creature targets",
       "evidence": "Uses catalog definitions without legacy plugins. Truce cast actions target exactly p2, p3, p4; Sokrates $.abilities[2] target group is Target 1 with min/max 1."
+    },
+    {
+      "groups": [
+        "blinkValue:167"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "catalog Loran of the Third Path offers a typed entry target, then her activation draws for her controller and the target player",
+      "evidence": "Uses the canonical catalog definition. Typed entry selection offers Target Relic, which is destroyed to the graveyard; the $.abilities[2] activation targeting p2 leaves one drawn card in each of p1 and p2 hands."
+    },
+    {
+      "groups": [
+        "blinkValue:214"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/castTriggers.test.ts",
+      "suite": "catalog Lotho, Corrupt Shirriff triggers only for each player\u2019s second spell in a turn",
+      "evidence": "Uses the canonical catalog definition. p2 casts three spells; p1 loses exactly 1 life (39) and exactly one Treasure is on the battlefield."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:131"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts",
+      "suite": "catalog Beza, the Bounding Spring draws when an opponent has more cards in hand",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). Beza enters with p2 holding two cards; Top Draw moves to p1 hand."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:144"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenEntry.integration.test.ts",
+      "suite": "catalog Beza, the Bounding Spring creates blue Fish tokens when an opponent controls more creatures",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). At least two Fish tokens are created and every one has colors [U]."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:183"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawThenDiscard.integration.test.ts",
+      "suite": "catalog Daily Bugle Newspaper loots through a typed discard, then finishes with a Treasure",
+      "evidence": "Uses the canonical catalog definition and the source loot driver (typed discard of Hand Fodder). Library Card ends in hand and exactly one Treasure is on p1 battlefield."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:239"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/combatDamage.test.ts",
+      "suite": "catalog Blitzball GOOOOAAAALLL! sacrifices and draws two only after legendary combat damage to an opponent",
+      "evidence": "Placed beside the reusable legendary-combat-damage activation conformance test, on the catalog definition. $.abilities[1] is not a legal action without the ledger; ledger reads {p1:true}; activation stacks one item; resolution leaves hand 2, battlefield 0, graveyard 1."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:273"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/encore.test.ts",
+      "suite": "catalog Belonging makes changeling Shapeshifters on entry and offers encore once it is in the graveyard",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). At least three Shapeshifter tokens on entry; after Belonging dies its encore activation ($.abilities[1], the canonical encore ability id replacing the legacy encore id) is a legal action for the same object id."
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:148"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "catalog Alabaster Host Intercessor plainscycles from hand through a typed library search",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). Plainscycling ($.abilities[1]) is activated from hand; the canonical typed selectCards search (replacing the removed legacy SEARCH_CHOSEN custom event) offers exactly the Plains, which ends in hand. Source file deleted once empty."
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:222"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tap.test.ts",
+      "suite": "catalog Githzerai Monk taps every creature its controller does not control when it enters",
+      "evidence": "Uses the canonical catalog definition instead of deck-file Oracle text. Fixture Ally and the Monk stay untapped; Fixture Foe is tapped. Configuration assertions remain the #401 composition row."
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:248"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "catalog Meteor Golem destroys the chosen opponent nonland permanent when it enters",
+      "evidence": "Uses the canonical catalog definition; the typed entry-trigger selection of Fixture Rock destroys it to the graveyard. Source file deleted once empty."
+    },
+    {
+      "groups": [
+        "sinFall:83"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts",
+      "suite": "catalog Hermit Druid reveals through the first basic land, keeping it and milling the rest",
+      "evidence": "Exact graveyard [Nonbasic, Spell], hand [Forest], and library [After] orders on the catalog definition."
+    },
+    {
+      "groups": [
+        "sinFall:116"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/landTypes.test.ts",
+      "suite": "catalog Yavimaya, Cradle of Growth gives every land a green mana mode",
+      "evidence": "A Wastes tapped for G adds exactly one green mana under catalog Yavimaya."
+    },
+    {
+      "groups": [
+        "sinFall:185"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts",
+      "suite": "catalog Portal to Phyrexia makes each opponent choose up to three creatures to sacrifice when it enters",
+      "evidence": "p2 receives a typed choose selection of count 2 (the selection kind is choose since cadbdb5a, previously sacrifice); choosing both empties p2 battlefield."
+    },
+    {
+      "groups": [
+        "sinFall:251"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/landPlayTriggers.test.ts",
+      "suite": "catalog Burgeoning offers a private typed land choice after an opponent land play",
+      "evidence": "Burgeoning is on the stack after the p2 land play; p1 gets an optional choose (count 1, min 0) hidden from the p2 projection; the chosen hand land enters without using a land play (landsPlayed 0)."
+    },
+    {
+      "groups": [
+        "sinFall:286"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/grantedActivations.test.ts",
+      "suite": "catalog Rain of Filth grants each controlled land an actionable sacrifice-for-black mana ability",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). The granted ability is a legal activateAbility action on the Forest under its canonical id $.abilities[0] (replacing legacy sacrificeLandMana.black); activating it as a mana ability sacrifices the land and adds exactly B=1."
+    },
+    {
+      "groups": [
+        "sinFallLands:182"
+      ],
+      "destination": "rules-engine/src/plugins/phasingProtection.test.ts",
+      "suite": "catalog Talon Gates of Madara enters from hand, phases out an optional target, and it phases in before its controller untaps",
+      "evidence": "Canonical phasing owner, on the catalog definition. The hand activation ($.abilities[3]) and typed choice phase Target Creature out; advancing from p1 cleanup makes p2 active with the creature phased in."
+    },
+    {
+      "groups": [
+        "sinFallLands:222"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/adventure.test.ts",
+      "suite": "catalog Lasting Fayth creates the scaled Hero, exiles Zanarkand on an adventure, then permits its tapped land play",
+      "evidence": "A non-adventure cast is rejected; the Hero has two +1/+1 counters; Zanarkand is exiled adventured/adventureReady as a Land; the land play puts it onto the battlefield tapped."
+    },
+    {
+      "groups": [
+        "sinFallModals:28"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tap.test.ts",
+      "suite": "catalog Frantic Search untaps up to three chosen tapped lands after looting",
+      "evidence": "After the typed discard, the bounded choose selection has count 3 / min 0; the chosen lands untap and the untapped Island 4 stays untapped. The former untapSelected flag was replaced by the DSL untap instruction in e045526f."
+    },
+    {
+      "groups": [
+        "sinFallModals:83"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/saga.test.ts",
+      "suite": "catalog Summon: Leviathan chapter II draws when a sea creature attacks",
+      "evidence": "Lore 1 on entry and 2 after the draw step; chapter II leaves one delayed trigger (canonical replacement since cadbdb5a for the attackSubtypeDraw rule); a Leviathan attack draws Top Card. Source file deleted once empty."
+    },
+    {
+      "groups": [
+        "sinFallModals:127"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "catalog Profane Command rejects a single mode and drains the chosen player while shrinking the chosen creature by X",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). Modes are now announced at cast (the legacy choose-modes dialog was removed in #471), so the single-mode rejection is asserted on the castSpell announcement; X=2 leaves p2 at 38 life and Bear at 1/1."
+    },
+    {
+      "groups": [
+        "sinFallModals:184"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "catalog Will of the Sultai mills the chosen player and returns your lands tapped on the first mode",
+      "evidence": "Restored from 486f7377 (deleted by cadbdb5a without a progress record). Mode 0 announced with p2 as target player; p2 graveyard has 3 cards and Yard Land returns to the battlefield tapped. Mana fixture follows the catalog cost {4}{G}."
     }
   ]
 }

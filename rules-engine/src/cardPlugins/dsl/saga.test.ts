@@ -285,3 +285,28 @@ describe('catalog saga chapter sequencing and token lifetime', () => {
     }
   })
 })
+
+test('catalog Summon: Leviathan chapter II draws when a sea creature attacks', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Summon: Leviathan')] },
+    battlefield: { p1: [cardTemplate('Sin', { types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Avatar', 'Leviathan'], power: 7, toughness: 7 })] },
+    libraries: { p1: [cardTemplate('Top Card', { types: ['Instant'] })] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 2, B: 0, R: 0, G: 0, C: 4 }
+  const leviathan = named(state, 'Summon: Leviathan').id
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: leviathan }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[leviathan].counters.lore).toBe(1)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  state = { ...state, step: 'draw', active: 'p1', priority: 'p1' }
+  state = ok(server.rules(state, { type: 'advanceStep' }))
+  expect(state.objects[leviathan].counters.lore).toBe(2)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.delayedTriggers).toHaveLength(1)
+  state.step = 'declareAttackers'
+  state.priority = 'p1'
+  state = ok(server.rules(state, { type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: named(state, 'Sin').id, defender: 'p2' }] }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(named(state, 'Top Card').zone).toBe('hand')
+})

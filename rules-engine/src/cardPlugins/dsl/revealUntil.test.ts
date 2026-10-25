@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { cardTemplate } from '../../newGame'
+import { cardTemplate, forest } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
@@ -106,4 +106,20 @@ test('a zero-count reveal binds an empty set without revealing or moving cards',
   const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
   expect(named(state, 'Untouched').zone).toBe('library')
   expect(state.log.some(line => line.includes('reveals'))).toBe(false)
+})
+
+test('catalog Hermit Druid reveals through the first basic land, keeping it and milling the rest', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Hermit Druid')] },
+    libraries: { p1: [card('Nonbasic', ['Land']), card('Spell', ['Instant']), forest(), card('After', ['Creature'])] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.G = 1
+  const activated = ok(server.rules(ready, {
+    type: 'activateAbility', abilityId: '$.abilities[0]', seat: 'p1', objectId: ready.zoneOrder.p1.battlefield[0]!,
+  }))
+  const resolved = ok(server.rules(activated, { type: 'resolveTop' }))
+  expect(resolved.zoneOrder.p1.graveyard.map((id) => resolved.objects[id].name)).toEqual(['Nonbasic', 'Spell'])
+  expect(resolved.zoneOrder.p1.hand.map((id) => resolved.objects[id].name)).toEqual(['Forest'])
+  expect(resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name)).toEqual(['After'])
 })

@@ -9,7 +9,9 @@ import {
   PLAYER_EFFECTS,
   ref,
 } from '../cardPlugins/dsl/v1'
+import { commanderRules } from '../formats'
 import { rules } from '../kernel'
+import { createServerGame } from '../runtime'
 import { catalog } from '../index'
 import { cardTemplate } from '../newGame'
 import { bears, bolt, newGame } from '../testGame'
@@ -187,4 +189,29 @@ describe('phasing, protection from everything, and life lock', () => {
     expect(blocked.ok).toBe(false)
     expect(restarted.rules.length).toBe(state.rules.length)
   })
+})
+
+test('catalog Talon Gates of Madara enters from hand, phases out an optional target, and it phases in before its controller untaps', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p2: [cardTemplate('Target Creature', { types: ['Creature'] })] },
+    hands: { p1: [cardTemplate('Talon Gates of Madara')] },
+  }, { random: () => 0.5 })
+  const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
+  let state = structuredClone(server.state)
+  state.players.p1.mana.C = 4
+  state = ok(server.rules(state, { type: 'activateAbility', abilityId: '$.abilities[3]', seat: 'p1', objectId: named(state, 'Talon Gates of Madara').id }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  const target = named(state, 'Target Creature')
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [target.id] }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[target.id].phasedOut).toBe(true)
+
+  const nextTurn = structuredClone(state)
+  nextTurn.active = 'p1'
+  nextTurn.step = 'cleanup'
+  nextTurn.priority = 'p1'
+  nextTurn.stack = []
+  const p2Turn = ok(server.rules(nextTurn, { type: 'advanceStep' }))
+  expect(p2Turn.active).toBe('p2')
+  expect(p2Turn.objects[target.id].phasedOut).toBe(false)
 })

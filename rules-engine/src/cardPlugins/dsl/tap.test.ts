@@ -118,3 +118,45 @@ test('catalog Minamo, School at Water\'s Edge untaps a legendary permanent', () 
   })))
   expect(resolved.objects[legend].tapped).toBe(false)
 })
+
+test('catalog Githzerai Monk taps every creature its controller does not control when it enters', () => {
+  const creature = (name: string) => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 })
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Githzerai Monk')] },
+    battlefield: { p1: [creature('Fixture Ally')], p2: [creature('Fixture Foe')] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 2, U: 1, B: 0, R: 0, G: 0, C: 0 }
+  const state = resolveStack(server.rules, ok(server.rules(ready, {
+    type: 'move', objectId: named(ready, 'Githzerai Monk').id, to: 'battlefield',
+  })))
+  expect(named(state, 'Fixture Ally').tapped).toBe(false)
+  expect(named(state, 'Githzerai Monk').tapped).toBe(false)
+  expect(named(state, 'Fixture Foe').tapped).toBe(true)
+})
+
+test('catalog Frantic Search untaps up to three chosen tapped lands after looting', () => {
+  const island = (name: string) => cardTemplate(name, { types: ['Land'], subtypes: ['Island'] })
+  const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [island('Island 1'), island('Island 2'), island('Island 3'), island('Island 4')] },
+    hands: { p1: [cardTemplate('Frantic Search'), instant('Keep'), instant('Dump')] },
+    libraries: { p1: [instant('Drawn One'), instant('Drawn Two')] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
+  for (const name of ['Island 1', 'Island 2', 'Island 3']) named(state, name).tapped = true
+  named(state, 'Island 4').tapped = false
+  state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Frantic Search').id }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  const discard = pendingSelectionFor(state, 'p1')!
+  state = ok(server.rules(state, {
+    type: 'selectCards', seat: 'p1', kind: 'discard', count: 2, objectIds: discard.candidates.slice(0, 2),
+  }))
+  const selection = pendingSelectionFor(state, 'p1')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0 })
+  const toUntap = selection.candidates.slice(0, 2)
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 3, objectIds: toUntap }))
+  expect(toUntap.every((id) => !state.objects[id].tapped)).toBe(true)
+  expect(named(state, 'Island 4').tapped).toBe(false)
+})

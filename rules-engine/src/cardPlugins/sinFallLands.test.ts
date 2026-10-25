@@ -1,13 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { phasing } from './phasing'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -169,87 +168,4 @@ describe('Sin-fall lands and alternate casting', () => {
     expect(state.objects[creature.id].zone).toBe('hand')
   })
 
-  test('Talon enters from hand, phases an optional target, and it phases in before untap', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: { p2: [card('Target Creature', ['Creature'])] },
-        hands: { p1: [card('Talon Gates of Madara', ['Land'])] },
-      },
-      { random: () => 0.5, cardPlugins: [activated, phasing] },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana.C = 4
-    const talon = named(state, 'Talon Gates of Madara')
-    state = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: '$.abilities[3]',
-      seat: 'p1',
-      objectId: talon.id,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const target = named(state, 'Target Creature')
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [target.id],
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.objects[target.id].phasedOut).toBe(true)
-
-    const nextTurn = structuredClone(state)
-    nextTurn.active = 'p1'
-    nextTurn.step = 'cleanup'
-    nextTurn.priority = 'p1'
-    nextTurn.stack = []
-    const p2Turn = ok(server.rules(nextTurn, { type: 'advanceStep' }))
-    expect(p2Turn.active).toBe('p2')
-    expect(p2Turn.objects[target.id].phasedOut).toBe(false)
-  })
-
-  test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
-        hands: { p1: [cardTemplate('Zanarkand, Ancient Metropolis // Lasting Fayth')] },
-      },
-      { random: () => 0.5 },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 4 }
-    const zanarkand = named(state, 'Zanarkand, Ancient Metropolis // Lasting Fayth')
-    expect(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: zanarkand.id,
-    }).ok).toBe(false)
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: zanarkand.id,
-      adventureCast: true,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const hero = named(state, 'Hero')
-    expect(hero.counters['+1/+1']).toBe(2)
-    expect(state.objects[zanarkand.id]).toMatchObject({
-      zone: 'exile',
-      adventured: true,
-      adventureReady: true,
-      types: ['Land'],
-    })
-    state = ok(server.rules(state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: zanarkand.id,
-    }))
-    expect(state.objects[zanarkand.id]).toMatchObject({
-      zone: 'battlefield',
-      tapped: true,
-      types: ['Land'],
-    })
-  })
 })

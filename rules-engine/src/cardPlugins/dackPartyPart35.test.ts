@@ -1,8 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import {
-  legalActsFor,
-  projectForViewer,
-} from '../index'
+import { projectForViewer } from '../index'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
@@ -12,11 +9,7 @@ import { activated } from './activated'
 import { encore as encorePlugin } from './encore'
 import { giftCast } from './giftCast'
 import { onResolve as onResolvePlugin } from './onResolve'
-import { ok, resolveStack } from '../testHelpers'
-import {
-  LEGENDARY_COMBAT_DAMAGE_FROM,
-  legendaryCombatDamageFrom,
-} from '../plugins/combatLegendaryDamage'
+import { ok } from '../testHelpers'
 
 /** Card-only plugins; `gameRules` (draw, discard, triggers, selectCards) already ship in `commanderRules`. */
 const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
@@ -81,54 +74,4 @@ describe('Dack Party pass-35 cardRules', () => {
     expect(projectForViewer(resolved, 'p2').zoneOrder.p1.library).toHaveLength(0)
   })
 
-  test('Daily Bugle Newspaper loot matches Vault pattern', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: { p1: [fromRules('Daily Bugle Newspaper', { types: ['Artifact'] })] },
-      hands: { p1: [instant('Hand Fodder')] },
-      libraries: { p1: [instant('Library Card')] },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const resolved = resolveLootAbility(
-      server,
-      server.state,
-      '$.abilities[0]',
-      'Daily Bugle Newspaper',
-    )
-    expect(named(resolved, 'Library Card').zone).toBe('hand')
-    expect(resolved.zoneOrder.p1.battlefield.filter((id) =>
-      resolved.objects[id].subtypes.includes('Treasure'))).toHaveLength(1)
-  })
-
-  test('Blitzball GOOOOAAAALLL! sacrifices and draws two after legendary damage', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: {
-        p1: [fromRules('Blitzball', { types: ['Artifact'] })],
-      },
-      libraries: { p1: [instant('Goal Draw One'), instant('Goal Draw Two')] },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ballId = server.state.zoneOrder.p1.battlefield[0]
-    expect(legalActsFor(server.state, 'p1').some((action) =>
-      action.kind === 'activateAbility'
-      && action.objectId === ballId
-      && action.abilityId === '$.abilities[1]')).toBe(false)
-
-    const ready = structuredClone(server.state)
-    ready.step = 'precombatMain'
-    ready.active = 'p1'
-    ready.priority = 'p1'
-    ready.players.p2.data[LEGENDARY_COMBAT_DAMAGE_FROM] = { p1: true }
-    expect(legendaryCombatDamageFrom(ready.players.p2)).toEqual({ p1: true })
-
-    const afterActivate = ok(server.rules(ready, {
-      type: 'activateAbility',
-      seat: 'p1',
-      objectId: ballId,
-      abilityId: '$.abilities[1]',
-    }))
-    expect(afterActivate.stack).toHaveLength(1)
-    const resolved = resolveStack(server.rules, afterActivate)
-    expect(resolved.zoneCounts.p1.hand).toBe(2)
-    expect(resolved.zoneCounts.p1.battlefield).toBe(0)
-    expect(resolved.zoneCounts.p1.graveyard).toBe(1)
-  })
 })
