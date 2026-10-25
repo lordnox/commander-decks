@@ -1,3 +1,4 @@
+import { FAILED_DRAW_SINCE_SBA } from './rules/draw'
 import { captureCanonicalWardTriggers } from './cardPlugins/ward'
 import { effectiveActivatedDefinition } from './cardPlugins/dsl/activatedGrants'
 import { setStats } from './cardPlugins/continuousEffects'
@@ -1825,6 +1826,10 @@ const checkpoint = (
 
     const sbaDraft = makeDraft(current)
     const pending = collectSba(current, sbaDraft, catalog)
+    // CR 704.5b: consume the history after checking it, before applying this
+    // wave. Any new failed draw during the wave belongs to the next check.
+    for (const player of Object.values(sbaDraft.players)) delete player.data[FAILED_DRAW_SINCE_SBA]
+    current = freezeDraft(sbaDraft)
     if (pending.length > 0) {
       const next = applySimultaneousSba(current, pending, catalog)
       entries.push(...nested(next.trace, 1))

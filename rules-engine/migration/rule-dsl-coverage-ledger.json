@@ -4562,7 +4562,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 223,
+        "matches": 225,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -5206,7 +5206,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 266,
+        "matches": 267,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2123 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -6304,9 +6304,9 @@
         "rules-engine/src/formats.ts:143",
         "rules-engine/src/formats.ts:46",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:566",
-        "rules-engine/src/kernel.ts:568",
-        "rules-engine/src/kernel.ts:906",
+        "rules-engine/src/kernel.ts:567",
+        "rules-engine/src/kernel.ts:569",
+        "rules-engine/src/kernel.ts:907",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -7250,10 +7250,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1708
+          1709
         ],
         "samples": [
-          "1708: event.name === SEARCH_CHOSEN"
+          "1709: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -9614,34 +9614,34 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          531,
-          536,
-          543,
-          548,
-          636,
-          682,
-          686,
-          690,
-          698,
-          713,
-          722,
-          725,
-          778,
-          781,
-          790,
-          833,
-          848,
-          882,
-          921,
-          928,
-          934,
-          951,
-          959
+          532,
+          537,
+          544,
+          549,
+          637,
+          683,
+          687,
+          691,
+          699,
+          714,
+          723,
+          726,
+          779,
+          782,
+          791,
+          834,
+          849,
+          883,
+          922,
+          929,
+          935,
+          952,
+          960
         ],
         "samples": [
-          "531: const object = draft.object(event.objectId)",
-          "536: const object = draft.object(event.objectRef.objectId)",
-          "543: const object = draft.object(event.objectId)"
+          "532: const object = draft.object(event.objectId)",
+          "537: const object = draft.object(event.objectRef.objectId)",
+          "544: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

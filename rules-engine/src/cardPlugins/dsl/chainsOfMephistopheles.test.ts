@@ -449,7 +449,7 @@ describe('chainsOfMephistopheles', () => {
     expect(state.objects[state.zoneOrder.p1.library[0]!].name).toBe('Stay')
   })
 
-  test('empty library on the draw branch sets failed-draw SBA after a successful discard', () => {
+  test('empty library on the draw branch loses the player after a successful discard', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() })] },
@@ -460,7 +460,8 @@ describe('chainsOfMephistopheles', () => {
     state.drawStepTracking!.actualDraws = { p1: 1 }
     state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
     state = answerDiscard(server, state)
-    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
+    expect(state.players.p1.lost).toBe(true)
+    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
   })
 
