@@ -112,14 +112,20 @@ const onCombatDamage = (draft: Draft) => {
   if (attacking) draft.enqueue({ type: 'assignCombatDamage' })
 }
 
-const onCleanup = (draft: Draft) => {
-  delete draft.firstStrikeCombatants
+const clearCombatParticipation = (draft: Draft) => {
   for (const object of draft.zoneOf('battlefield')) {
-    object.damageMarked = 0
-    delete object.deathtouched
     object.attacking = null
     delete object.blocked
     object.blocking = null
+  }
+}
+
+const onCleanup = (draft: Draft) => {
+  delete draft.firstStrikeCombatants
+  clearCombatParticipation(draft)
+  for (const object of draft.zoneOf('battlefield')) {
+    object.damageMarked = 0
+    delete object.deathtouched
   }
   clearDamageDealt(draft)
   delete draft.resolvedRuleEffects
@@ -165,6 +171,8 @@ const skipEmptyStep = (draft: Draft, step: StepId) => {
  * living players pass on an empty stack; `turnStructure` never imports back.
  */
 export const advanceTurnStep = (draft: Draft) => {
+  // CR 511.3: participation lasts through endCombat, then ends with the phase.
+  if (draft.step === 'endCombat') clearCombatParticipation(draft)
   const index = STEPS.indexOf(draft.step)
   const wraps = index === STEPS.length - 1
   const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
