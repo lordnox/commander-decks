@@ -201,6 +201,24 @@
     "cirdanTriggers:97",
     "counterspellAndWard.integration:37",
     "counterspellAndWard.integration:73",
+    "dackFaydenPart32LandsRocks:112",
+    "dackFaydenPart32LandsRocks:139",
+    "dackFaydenPart32LandsRocks:165",
+    "dackFaydenPart32LandsRocks:219",
+    "dackFaydenPart32LandsRocks:259",
+    "dackFaydenPart32LandsRocks:375",
+    "dackFaydenPart32LandsRocks:415",
+    "dackFaydenPart32LandsRocks:442",
+    "dackFaydenPart32LandsRocks:474",
+    "dackFaydenPart32LandsRocks:507",
+    "dackFaydenPart32LandsRocks:529",
+    "dackFaydenPart32LandsRocks:555",
+    "dackFaydenPart32LandsRocks:582",
+    "dackFaydenPart32LandsRocks:608",
+    "dackFaydenPart32LandsRocks:638",
+    "dackFaydenPart32LandsRocks:666",
+    "dackFaydenPart32LandsRocks:70",
+    "dackFaydenPart32LandsRocks:710",
     "delightedHalfling:53",
     "delightedHalfling:63",
     "delightedHalfling:75",
@@ -926,6 +944,150 @@
       "destination": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
       "suite": "Kiora Bests the Sea God / chooseSteal helper",
       "evidence": "Current helper retained unchanged with its stacked ability/name/sagaChapter=3 assertion and live response/ward consumers :685/:697/:729 for #403. The pinned helper also asserted legacy payload.targetFilter.controller=opponent, removed by #432; dsl/cardRuleCatalog.test.ts / Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals now explicitly pins chapter III's canonical battlefield/opponent selector and exact target cardinality. dsl/saga.test.ts / catalog saga chapter sequencing and token lifetime preserves the exact opposing-only candidate set. No lifecycle consumer is removed or marked migrated here."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:70"
+      ],
+      "destination": "rules-engine/src/plugins/mana.test.ts",
+      "suite": "built-in tap production needs no card plugin (%s)",
+      "evidence": "Minimal exchangeable Land and Artifact tapProduces fixtures assert W=1 and C=2 plus tapped state through createServerGame without card plugins. Preserves the audited Sol Ring C=2 assertion; Plains setup now also executes."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:112"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "source sacrifice commits before drawing on resolution (%j)",
+      "evidence": "Parameter mana=1/tap=true/count=1 preserves Mind Stone: source reaches graveyard at announcement; drawn card reaches hand only on resolution. Uses a minimal canonical activation, not copied card definitions."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:139"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/manaAbilities.test.ts",
+      "suite": "chosen monochromatic production adds three %s immediately",
+      "evidence": "Canonical Gilded Lotus catalog integration covers W=3 and expands to all five colors, asserting the exact pool, paid tap, and empty stack. Reconciles #432 migration from legacy choiceEffects to typed selectOption."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:165"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/copyOnto.test.ts",
+      "suite": "permanent land copies retain a usable copy activation",
+      "evidence": "Canonical Thespian\u2019s Stage catalog integration copies Quarry name and G production, verifies a retained canonical copy instruction, then successfully activates that retained ability with the same land target. #432 replaced legacy resolution-time picker assertions with announcement targets; no removed legacy handler is resurrected."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:219"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/linkExile.test.ts",
+      "suite": "a sacrificed activated source returns its linked creature after leaving",
+      "evidence": "Restores the combination removed by #432 using canonical Endless Sands: creature is in exile with exiledWith=source; source sacrifice commits before return, creature returns to battlefield under owner, source stays in graveyard. Existing duration/leave-trigger tests in this owner cover distinct linked-exile lifecycles."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:259"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/playerPrograms.test.ts",
+      "suite": "multiplayer draw completes for every seat before sequential discards begin",
+      "evidence": "Minimal canonical activation preserves both audited p1/p2 hand-length=1 assertions and checks p3/p4 too, after resolution begins and before any discard choice. Completes every typed player discard and verifies final hands/graveyards and empty stack."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:375"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/move.test.ts",
+      "suite": "conditional entry placement offers a hand land without spending a land play (ahead=%s)",
+      "evidence": "Canonical Archaeomancer\u2019s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:415"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacement.integration.test.ts",
+      "suite": "repeatable additional payments remain available to an as-enters replacement, then clear on departure (%s)",
+      "evidence": "Canonical mechanic fixture now parameterizes 2 and 3 payments of {2}; exact audited charge=2 is asserted. Retains payment receipts and clearing on departure/reentry. #432 migrated Everflowing Chalice from legacy timesKicked to repeatable optional costs; no legacy multikicker runtime change."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:442"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cycleTriggers.test.ts",
+      "suite": "typecycling triggers survive countering and precede search (countered=%s)",
+      "evidence": "Existing minimal cycleFromHand plus Plains search asserts Plains moves to hand and stack empties after the typed choice; now also explicitly asserts cycler remains in graveyard. This replaces the pinned pre-#432 plainscycling case. Current source instead contains ordinary W cycling: existing cycle occurrences stack above the draw and capture the cycling player (granted=%s) asserts graveyard payment, successful opponent draw to hand, and countered own draw remaining in library; cycling.test.ts / Cycle Meadow cycles for {W} and draws from hand retains exact W payment and empty-stack assertions on the still-active legacy path."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:474"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "an activated search pays life and source costs before its stack resolution opens a typed choice",
+      "evidence": "Existing minimal canonical search activation now also pays {3}; source is asserted graveyard before resolution, candidates restrict to Land, selected land is battlefield/tapped=true. Retains stack timing, restore, and no reactivation. Equivalent to Urza\u2019s Cave combination after #432."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:507"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
+      "suite": "%s applies a self-entry replacement before entry",
+      "evidence": "Expanded existing exchangeable modifyEvent(tapped=true) replacement fixture with castSpell Artifact branch. Resolves the cast and asserts battlefield/tapped=true, preserving the Worn Powerstone cast-entry assertion alongside existing land-play and kernel move paths."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:529"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "source sacrifice commits before drawing on resolution (%j)",
+      "evidence": "Parameter mana=0/tap=false/count=1 starts the source tapped, preserving Commanders Sphere activation while tapped, graveyard sacrifice, and one card reaching hand on resolution."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:555"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "source sacrifice commits before drawing on resolution (%j)",
+      "evidence": "Parameter mana=2/tap=true/count=2 preserves Hedron Archive sacrifice, two drawn cards in hand, and mana/tap payment before resolution."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:582"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tapCost.test.ts",
+      "suite": "another-creature sacrifice is paid before the life gain resolves",
+      "evidence": "Minimal canonical tap/sacrifice creature/gainLife activation asserts payment creature graveyard and controller life=41; also verifies life stays 40 until resolution and source tap commits at announcement. Replaces migrated High Market regression without a copied catalog definition."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:608"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "a canonical artifact search accepts %s through the typed picker",
+      "evidence": "Existing catalog Moonsilver Key integration selects the mana artifact into hand and asserts Key in graveyard; now explicitly checks sacrifice at announcement. Exact current candidates distinguish canonical mana abilities from mere Oracle mana text; also covers basic land and fail-to-find. #432 removed the old source case."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:638"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "a catalog entry search puts a basic land into hand after the typed choice",
+      "evidence": "Canonical Thr\u00f3r\u2019s Map catalog integration casts and resolves entry, opens typed selection with only a basic land candidate, then asserts the chosen land in hand. Adds a nonbasic exclusion while preserving audited ETB-search-to-hand combination."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:666"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawThenDiscard.integration.test.ts",
+      "suite": "activated draw then player discard keeps the newly drawn card after discarding an old card",
+      "evidence": "Canonical Thr\u00f3r\u2019s Map integration preserves drawn card already in hand before typed discard count=1, old card in graveyard after choice, exactly one card in hand, empty stack. Existing draws update hand candidates, hide them from opponents, and resume discard after restore retains privacy/restore ownership separately; no lifecycle assertion is dropped."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:710"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "related shareLandType rejects mixed basic types and accepts a shared pair",
+      "evidence": "Existing minimal grouped basic search now uses a paid tap/source-sacrifice activation. Asserts source graveyard before search, shareLandType relation and exact Forest A/Forest B/Island A candidates; rejects a mixed pair and moves both shared Forests tapped. Preserves original two-Forest candidate assertions with an extra negative candidate. #432 already replaced the legacy registration; catalog structural checks pin Myriad Landscape composition."
     }
   ]
 }
