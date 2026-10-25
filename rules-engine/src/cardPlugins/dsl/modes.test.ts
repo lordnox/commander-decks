@@ -788,9 +788,15 @@ test('modal spells resolve the selected destroy, draw, or discard program', () =
     type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [0],
     targets: [{ kind: 'object', objectId: enchantment.id }],
   })
+  expect(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [0],
+    targets: [{ kind: 'player', player: 'p2' }],
+  }).ok).toBe(false)
   expect(destroyedCast.ok).toBe(true)
   if (!destroyedCast.ok) return
-  expect(resolveStack(server.rules, destroyedCast.state).objects[enchantment.id]?.zone).toBe('graveyard')
+  const destroyed = resolveStack(server.rules, destroyedCast.state)
+  expect(destroyed.objects[enchantment.id]?.zone).toBe('graveyard')
+  expect(destroyed.objects[modal.id]?.zone).toBe('graveyard')
 
   const drawCast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [1] })
   expect(drawCast.ok).toBe(true)
@@ -798,6 +804,8 @@ test('modal spells resolve the selected destroy, draw, or discard program', () =
   const drawn = resolveStack(server.rules, drawCast.state)
   expect(named(drawn, 'Draw One').zone).toBe('hand')
   expect(named(drawn, 'Draw Two').zone).toBe('hand')
+  expect(drawn.zoneOrder.p1.hand).toHaveLength(2)
+  expect(named(drawn, 'Draw Three').zone).toBe('library')
 
   const discardCast = server.rules(server.state, {
     type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [2],
@@ -817,4 +825,5 @@ test('modal spells resolve the selected destroy, draw, or discard program', () =
   expect(named(discarded.state, 'Discard One').zone).toBe('graveyard')
   expect(named(discarded.state, 'Discard Two').zone).toBe('graveyard')
   expect(named(discarded.state, 'Keep').zone).toBe('hand')
+  expect(discarded.state.resolution).toBeUndefined()
 })
