@@ -5,11 +5,27 @@ import { createServerGame } from '../../runtime'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
-import { activated, chosenCreatureType, createDelayed, dies, draws, eventDelayed, amount, card, compileCardRuleDefinition, createDefinitionSnapshot, enters, gainLife, multiplyTriggers, objects, players, ref, select, target, staticAbility, whenever } from './v1'
+import { activated, chosenCreatureType, createDelayed, dies, draws, eventDelayed, amount, card, compileCardRuleDefinition, createDefinitionSnapshot, enters, gainLife, multiplyTriggers, objects, players, ref, select, self, target, staticAbility, whenever } from './v1'
 
 const snapshot = (abilities: Parameters<typeof card>[0]) => createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 const watcher = snapshot([whenever(enters({ filter: { zone: 'battlefield' } }), { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] })])
 const multiplier = (landOnly: boolean) => snapshot([staticAbility(multiplyTriggers({ sources: objects({ zone: 'battlefield', controller: 'you' }), additional: amount(1), ...(landOnly ? { cause: { enters: { type: 'Land' } } } : {}) }))])
+
+test('a self-entry trigger resolves its gain-life instruction once for its controller', () => {
+  const entry = snapshot([whenever(self.enters, { instructions: [gainLife({ targets: ref('controller'), amount: 5 })] })])
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Entry trigger fixture', { types: ['Creature'], ruleDefinition: entry })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const entered = ok(server.rules(server.state, { type: 'move', objectId, to: 'battlefield' }))
+  expect(entered.stack).toHaveLength(1)
+  const finished = resolveStack(server.rules, entered)
+  expect(finished.players.p1.life).toBe(45)
+  expect(finished.players.p2.life).toBe(40)
+  expect(finished.objects[objectId].zone).toBe('battlefield')
+  expect(finished.stack).toHaveLength(0)
+})
 
 test.each(['Land', 'Creature'] as const)('entry multipliers add trigger instances without repeating the %s entry', type => {
   const server = createServerGame(commanderRules, { battlefield: { p1: [

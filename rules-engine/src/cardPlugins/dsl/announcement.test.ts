@@ -1179,6 +1179,42 @@ test('catalog Mulldrifter offers and pays evoke, draws two, then sacrifices from
   expect(resolved.objects[mulldrifter.id].zone).toBe('graveyard')
 })
 
+test('catalog discard-cost activation pays one creature card before pumping its source', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Vampire Hounds', { types: ['Creature'], power: 2, toughness: 2 })] },
+    hands: {
+      p1: [
+        cardTemplate('Fodder', { types: ['Creature'], power: 1, toughness: 1 }),
+        cardTemplate('Not a Creature', { types: ['Instant'] }),
+      ],
+    },
+  }, { random: () => 0 })
+  const hounds = named(server.state, 'Vampire Hounds')
+  const fodder = named(server.state, 'Fodder')
+  const instant = named(server.state, 'Not a Creature')
+  expect(hounds.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Vampire Hounds'))
+  expect(hounds.effects).toEqual([])
+  expect(server.rules(server.state, {
+    type: 'activateAbility', seat: 'p1', objectId: hounds.id, abilityId: '$.abilities[0]',
+  }).ok).toBe(false)
+  expect(server.rules(server.state, {
+    type: 'activateAbility', seat: 'p1', objectId: hounds.id,
+    abilityId: '$.abilities[0]', choices: [instant.id],
+  }).ok).toBe(false)
+  const activated = reduce(server, server.state, {
+    type: 'activateAbility', seat: 'p1', objectId: hounds.id,
+    abilityId: '$.abilities[0]', choices: [fodder.id],
+  })
+  expect(activated.objects[fodder.id].zone).toBe('graveyard')
+  expect(activated.stack).toHaveLength(1)
+  expect(activated.objects[hounds.id].power).toBe(2)
+  const resolved = resolveStack(server.rules, activated)
+  expect(resolved.objects[hounds.id].power).toBe(4)
+  expect(resolved.objects[hounds.id].toughness).toBe(4)
+  expect(resolved.stack).toHaveLength(0)
+})
+
 // Characterization of current runtime behavior (not a rules-conformance claim); it currently matches the Oracle text.
 test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {
   const server = createServerGame(commanderRules, {

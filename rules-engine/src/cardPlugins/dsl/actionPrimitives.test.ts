@@ -128,3 +128,33 @@ test('catalog spell composes draw and life loss exactly once', () => {
   expect(resolved.zoneOrder.p1.hand).toHaveLength(2)
   expect(resolved.objects[whisper.id].zone).toBe('graveyard')
 })
+
+test('targeted draw and life loss resolve once for the chosen player', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+    kind: 'spell',
+    costs: [],
+    decisions: { targets: [{ filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true }] },
+    instructions: [
+      { kind: 'draw', count: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } },
+      { kind: 'loseLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } },
+    ],
+  }])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Targeted action fixture', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+    libraries: { p2: ['Draw One', 'Draw Two', 'Draw Three'].map(name => cardTemplate(name)) },
+  }, { random: () => 0 })
+  const spell = server.state.objects[server.state.zoneOrder.p1.hand[0]!]!
+  const cast = ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: spell.id,
+    targets: [{ kind: 'player', player: 'p2' }],
+  }))
+  expect(cast.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.players.p1.life).toBe(40)
+  expect(resolved.players.p2.life).toBe(38)
+  expect(resolved.zoneOrder.p2.hand).toHaveLength(2)
+  expect(Object.values(resolved.objects).find(object => object.name === 'Draw One')?.zone).toBe('hand')
+  expect(Object.values(resolved.objects).find(object => object.name === 'Draw Two')?.zone).toBe('hand')
+  expect(resolved.objects[spell.id].zone).toBe('graveyard')
+})

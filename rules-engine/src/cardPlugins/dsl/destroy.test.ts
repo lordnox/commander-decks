@@ -16,6 +16,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { ok, resolveStack } from '../../testHelpers'
 
 const run=(instructions:any[])=>{
  const snapshot=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'spell',costs:[],decisions:{targets:[]},instructions}])))
@@ -75,4 +76,28 @@ test("cannotRegenerate marks each destroy event as can't-be-regenerated and stil
   expect(seen.every(event => (event as { cannotRegenerate?: true }).cannotRegenerate === true)).toBe(true)
   expect(Object.values(resolved.state.objects).find(object => object.name === 'Doomed')!.zone).toBe('graveyard')
   expect(() => compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'destroy', targets: ref('source'), cannotRegenerate: false } as never] }]))).toThrow()
+})
+
+test('catalog Murder destroys its chosen creature and rejects a player target', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Murder', { types: ['Instant'], manaCost: '{0}' })] },
+    battlefield: { p2: [cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  const murder = Object.values(server.state.objects).find(object => object.name === 'Murder')!
+  const bear = Object.values(server.state.objects).find(object => object.name === 'Target Bear')!
+  expect(murder.ruleDefinition).toBeDefined()
+  expect(murder.effects).toEqual([])
+  expect(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: murder.id,
+    targets: [{ kind: 'player', player: 'p2' }],
+  }).ok).toBe(false)
+  const cast = ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: murder.id,
+    targets: [{ kind: 'object', objectId: bear.id }],
+  }))
+  expect(cast.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.objects[bear.id].zone).toBe('graveyard')
+  expect(resolved.objects[murder.id].zone).toBe('graveyard')
 })

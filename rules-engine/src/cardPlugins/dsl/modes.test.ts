@@ -762,3 +762,59 @@ test('catalog Will of the Sultai mills the chosen player and returns your lands 
   expect(named(resolved, 'Yard Land').zone).toBe('battlefield')
   expect(named(resolved, 'Yard Land').tapped).toBe(true)
 })
+
+test('modal spells resolve the selected destroy, draw, or discard program', () => {
+  const modes = [
+    { decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Enchantment' }), count: 1 })] }, instructions: [{ kind: 'destroy', targets: target(0) }] },
+    { decisions: { targets: [] }, instructions: [{ kind: 'draw', count: amount(2), targets: ref('controller') }] },
+    { decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] }, instructions: [{ kind: 'discard', count: amount(2), targets: target(0) }] },
+  ] as const
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    decisions: { targets: [], modes: { count: amount(1), repeatable: false } },
+    modes,
+  })])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [cardTemplate('Modal instruction fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })],
+      p2: [cardTemplate('Discard One'), cardTemplate('Discard Two'), cardTemplate('Keep')],
+    },
+    libraries: { p1: [cardTemplate('Draw One'), cardTemplate('Draw Two'), cardTemplate('Draw Three')] },
+    battlefield: { p2: [cardTemplate('Target Enchantment', { types: ['Enchantment'] })] },
+  }, { random: () => 0 })
+  const modal = server.state.objects[server.state.zoneOrder.p1.hand[0]!]!
+  const enchantment = named(server.state, 'Target Enchantment')
+  const destroyedCast = server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [0],
+    targets: [{ kind: 'object', objectId: enchantment.id }],
+  })
+  expect(destroyedCast.ok).toBe(true)
+  if (!destroyedCast.ok) return
+  expect(resolveStack(server.rules, destroyedCast.state).objects[enchantment.id]?.zone).toBe('graveyard')
+
+  const drawCast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [1] })
+  expect(drawCast.ok).toBe(true)
+  if (!drawCast.ok) return
+  const drawn = resolveStack(server.rules, drawCast.state)
+  expect(named(drawn, 'Draw One').zone).toBe('hand')
+  expect(named(drawn, 'Draw Two').zone).toBe('hand')
+
+  const discardCast = server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: modal.id, modeIndices: [2],
+    targets: [{ kind: 'player', player: 'p2' }],
+  })
+  expect(discardCast.ok).toBe(true)
+  if (!discardCast.ok) return
+  const discardState = resolveStack(server.rules, discardCast.state)
+  const choice = pendingSelectionFor(discardState, 'p2')!
+  expect(choice.kind).toBe('discard')
+  const discarded = server.rules(discardState, {
+    type: 'selectCards', seat: 'p2', selectionId: choice.id, kind: 'discard', count: 2,
+    objectIds: [named(discardState, 'Discard One').id, named(discardState, 'Discard Two').id],
+  })
+  expect(discarded.ok).toBe(true)
+  if (!discarded.ok) return
+  expect(named(discarded.state, 'Discard One').zone).toBe('graveyard')
+  expect(named(discarded.state, 'Discard Two').zone).toBe('graveyard')
+  expect(named(discarded.state, 'Keep').zone).toBe('hand')
+})
