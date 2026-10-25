@@ -5,7 +5,7 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok } from '../../testHelpers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { card, characteristic, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, draw, modifyEvent, objects, ref, replacement, replaceWith, staticAbility, wouldDraw, wouldGainLife } from './v1'
+import { card, characteristic, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, draw, modifyEvent, objects, ref, replacement, replaceWith, staticAbility, winGame, wouldDraw, wouldGainLife } from './v1'
 
 const definition = (effects: ContinuousEffectDefinition[]) => createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(...effects)])))
 const conditionalDraw = replacement(wouldDraw({ player: ref('controller') }), replaceWith(draw(2)), {
@@ -85,4 +85,27 @@ test('life replacement amount expressions evaluate against the current world', (
 
 test('life replacement patterns reject object recipients', () => {
   expect(() => definition([replacement(wouldGainLife(ref('source')), modifyEvent({ amount: { kind: 'multiply', factor: { kind: 'constant', value: 2 } } }))])).toThrow()
+})
+
+
+test.each([0, 1].flatMap(library => ['p1', 'p2'].map(seat => ({ library, seat }))))('a conditional replacement can win instead of drawing only for its controller’s empty library (%j)', ({ library, seat }) => {
+  const effect = replacement(wouldDraw({ player: ref('controller') }), replaceWith(winGame({ targets: ref('controller') })), {
+    when: compareAmount(count(objects({ zone: 'library', owner: 'you' })), 'eq', 0),
+  })
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Conditional victory fixture', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: definition([effect]) })] },
+    libraries: {
+      p1: Array.from({ length: library }, () => cardTemplate('Controller library fixture')),
+      p2: [cardTemplate('Opponent library fixture')],
+    },
+  }, { random: () => 0 })
+  const result = server.rules(JSON.parse(JSON.stringify(server.state)), { type: 'draw', seat })
+  const state = ok(result)
+  const replaced = library === 0 && seat === 'p1'
+  expect(result.trace.some(entry => entry.event.type === 'winGame' && entry.outcome === 'applied')).toBe(replaced)
+  expect(state.players.p1.lost).toBe(false)
+  expect(state.players.p2.lost).toBe(replaced)
+  expect(state.ended).toBe(replaced)
+  expect(state.zoneOrder[seat].hand).toHaveLength(replaced ? 0 : 1)
 })
