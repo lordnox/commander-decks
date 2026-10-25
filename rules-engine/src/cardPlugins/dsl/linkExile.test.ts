@@ -173,3 +173,25 @@ describe('returnLinkedExile as a separate leave trigger', () => {
     expect(skipped.objects[markId].zone).toBe('battlefield')
   })
 })
+
+
+test('a sacrificed activated source returns its linked creature after leaving', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Endless Sands'), cardTemplate('Stored creature', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Endless Sands').id
+  const creature = named(server.state, 'Stored creature').id
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 6
+  const exiled = resolveStack(server.rules, ok(server.rules(ready, {
+    type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[1]', targets: [{ kind: 'object', objectId: creature }],
+  })))
+  expect(exiled.objects[creature]).toMatchObject({ zone: 'exile', exiledWith: source })
+  exiled.objects[source].tapped = false
+  const announced = ok(server.rules(exiled, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[2]' }))
+  expect(announced.objects[source].zone).toBe('graveyard')
+  expect(announced.objects[creature].zone).toBe('exile')
+  const returned = resolveStack(server.rules, announced)
+  expect(returned.objects[creature]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+  expect(returned.objects[source].zone).toBe('graveyard')
+})

@@ -3,7 +3,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, lifeCost, ref, tapCost } from './v1'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, gainLife, lifeCost, manaCost, objects, ref, sacrificeCost, tapCost } from './v1'
 
 const definition = (mana = false, life = false) => createDefinitionSnapshot(compileCardRuleDefinition(card([
   activated({
@@ -75,4 +75,50 @@ test('a life cost may spend the controllers entire remaining life total', () => 
   expect(paid.players.p1.life).toBe(0)
   expect(paid.players.p1.lost).toBe(true)
   expect(paid.objects[objectId]).toBeUndefined()
+})
+
+
+test.each([
+  { mana: 1, tap: true, count: 1 },
+  { mana: 0, tap: false, count: 1 },
+  { mana: 2, tap: true, count: 2 },
+])('source sacrifice commits before drawing on resolution (%j)', ({ mana, tap, count }) => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+    costs: [...(mana ? [manaCost(`{${mana}}`)] : []), ...(tap ? [tapCost()] : []), sacrificeCost(ref('source'), 1)],
+    instructions: [draw({ count, targets: ref('controller') })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Draw source', { types: ['Artifact'], ruleDefinition, tapped: !tap })] },
+    libraries: { p1: [cardTemplate('First draw'), cardTemplate('Second draw')] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = mana
+  const source = ready.zoneOrder.p1.battlefield[0]!
+  const announced = ok(server.rules(ready, activate(source)))
+  expect(announced.objects[source].zone).toBe('graveyard')
+  expect(announced.players.p1.mana.C).toBe(0)
+  expect(announced.zoneOrder.p1.hand).toHaveLength(0)
+  expect(announced.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, announced)
+  expect(resolved.objects[source].zone).toBe('graveyard')
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(count)
+  expect(resolved.zoneOrder.p1.hand.every(id => resolved.objects[id].name.endsWith('draw'))).toBe(true)
+})
+
+test('another-creature sacrifice is paid before the life gain resolves', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+    costs: [tapCost(), sacrificeCost(objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }), 1)],
+    instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Life source', { types: ['Land'], ruleDefinition }), cardTemplate('Payment creature', { types: ['Creature'], power: 1, toughness: 1 })] },
+  }, { random: () => 0 })
+  const [source, creature] = server.state.zoneOrder.p1.battlefield
+  const announced = ok(server.rules(server.state, { ...activate(source!), choices: [creature!] }))
+  expect(announced.objects[creature!].zone).toBe('graveyard')
+  expect(announced.objects[source!].tapped).toBe(true)
+  expect(announced.players.p1.life).toBe(40)
+  const resolved = resolveStack(server.rules, announced)
+  expect(resolved.players.p1.life).toBe(41)
+  expect(resolved.objects[creature!].zone).toBe('graveyard')
 })

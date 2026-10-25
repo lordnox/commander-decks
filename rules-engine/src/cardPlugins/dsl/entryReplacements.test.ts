@@ -155,16 +155,18 @@ describe('entryReplacements', () => {
 })
 
 
-test.each(['playLand', 'move'] as const)('%s applies a land self-entry replacement before entry', (eventType) => {
+test.each(['playLand', 'move', 'castSpell'] as const)('%s applies a self-entry replacement before entry', (eventType) => {
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
     staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }))),
   ])))
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [cardTemplate('Entry fixture', { types: ['Land'], ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Entry fixture', { types: [eventType === 'castSpell' ? 'Artifact' : 'Land'], manaCost: '{0}', ruleDefinition: definition })] },
   }, { random: () => 0 })
   const objectId = server.state.zoneOrder.p1.hand[0]!
-  const entered = ok(server.rules(server.state, eventType === 'playLand'
+  const entered = eventType === 'castSpell'
+    ? resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId })))
+    : ok(server.rules(server.state, eventType === 'playLand'
     ? { type: 'playLand', seat: 'p1', objectId }
     : { type: 'move', objectId, to: 'battlefield' }))
   expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true })

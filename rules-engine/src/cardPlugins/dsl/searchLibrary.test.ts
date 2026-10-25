@@ -7,7 +7,7 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { activated, card, CHOICE_RELATIONS, chooseX, compileCardRuleDefinition, compareCharacteristic, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, splitSearchLibrary, tapCost, variable } from './v1'
+import { activated, card, CHOICE_RELATIONS, chooseX, compileCardRuleDefinition, compareCharacteristic, createDefinitionSnapshot, lifeCost, manaCost, objects, ref, sacrificeCost, searchLibrary, splitSearchLibrary, tapCost, variable } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const singleSearchSetup = (library = ['Prize', 'Filler A', 'Filler B']) => createServerGame(commanderRules, {
@@ -170,13 +170,14 @@ test('searchLibrary restores a private pending choice before moving two cards', 
 
 test('an activated search pays life and source costs before its stack resolution opens a typed choice', () => {
   const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
-    activated({ costs: [lifeCost(1), tapCost(), sacrificeCost(ref('source'), 1)], instructions: [searchLibrary({ bindChoice: 'found', chooser: ref('controller'), filter: objects({ zone: 'library', owner: 'you', type: 'Land' }), min: 0, max: 1, to: 'battlefield', tapped: true })] }),
+    activated({ costs: [manaCost('{3}'), lifeCost(1), tapCost(), sacrificeCost(ref('source'), 1)], instructions: [searchLibrary({ bindChoice: 'found', chooser: ref('controller'), filter: objects({ zone: 'library', owner: 'you', type: 'Land' }), min: 0, max: 1, to: 'battlefield', tapped: true })] }),
   ])))
   const server = createServerGame(commanderRules, {
     players: 2,
     battlefield: { p1: [cardTemplate('Search source', { types: ['Land'], ruleDefinition })] },
     libraries: { p1: [cardTemplate('Found land', { types: ['Land'] }), cardTemplate('Other card', { types: ['Artifact'] })] },
   }, { random: () => 0 })
+  server.state.players.p1.mana.C = 3
   const source = named(server.state, 'Search source').id
   const activatedState = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
   expect(activatedState.players.p1.life).toBe(39)
@@ -403,7 +404,7 @@ test.each(['Riveteers Overlook', 'Undercity Sewers'])('a fetched catalog land re
 test('related shareLandType rejects mixed basic types and accepts a shared pair', () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [instructionSpell({ instructions: [searchLibrary({
+    battlefield: { p1: [cardTemplate('Grouped search source', { types: ['Land'], ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [manaCost('{2}'), tapCost(), sacrificeCost(ref('source'), 1)], instructions: [searchLibrary({
       bindChoice: 'found',
       chooser: ref('controller'),
       filter: objects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
@@ -412,18 +413,22 @@ test('related shareLandType rejects mixed basic types and accepts a shared pair'
       related: CHOICE_RELATIONS.shareLandType,
       to: 'battlefield',
       tapped: true,
-    })] })] },
+    })] })]))) })] },
     libraries: { p1: [
       cardTemplate('Forest A', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
       cardTemplate('Forest B', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
       cardTemplate('Island A', { types: ['Land'], subtypes: ['Island'], supertypes: ['Basic'] }),
     ] },
   }, { random: () => 0 })
-  const searching = resolveStack(server.rules, ok(server.rules(server.state, {
-    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
-  })))
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 2
+  const source = named(ready, 'Grouped search source').id
+  const announced = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(announced.objects[source].zone).toBe('graveyard')
+  const searching = resolveStack(server.rules, announced)
   const pick = pendingSelectionFor(searching, 'p1')!
   expect(pick.related).toBe(CHOICE_RELATIONS.shareLandType)
+  expect(pick.candidates.map(id => searching.objects[id].name)).toEqual(['Forest A', 'Forest B', 'Island A'])
   expect(server.rules(searching, {
     type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2,
     objectIds: [named(searching, 'Forest A').id, named(searching, 'Island A').id],
@@ -503,7 +508,10 @@ test.each(['mana artifact', 'basic land', 'fail to find'])('a canonical artifact
   }, { random: () => 0 })
   const ready = structuredClone(server.state)
   ready.players.p1.mana.C = 1
-  let state = resolveStack(server.rules, ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: ready.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' })))
+  const source = ready.zoneOrder.p1.battlefield[0]!
+  const announced = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(announced.objects[source].zone).toBe('graveyard')
+  let state = resolveStack(server.rules, announced)
   const pick = pendingSelectionFor(state, 'p1')!
   expect(pick.candidates.map(id => state.objects[id]!.name).sort()).toEqual(['Basic fixture', 'Gilded Lotus'])
   const chosen = selected === 'fail to find' ? [] : [named(state, selected === 'mana artifact' ? 'Gilded Lotus' : 'Basic fixture').id]
@@ -530,4 +538,20 @@ test.each([false, true])('a catalog search uses its paid additional-cost receipt
   const state = resolveStack(server.rules, JSON.parse(JSON.stringify(cast)))
   const pick = pendingSelectionFor(state, 'p1')!
   expect(pick.candidates.map(candidate => state.objects[candidate]!.name).toSorted()).toEqual((evidence ? ['Basic fixture', 'Nonbasic fixture', 'Creature fixture'] : ['Basic fixture']).toSorted())
+})
+
+
+test('a catalog entry search puts a basic land into hand after the typed choice', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate("Thrór's Map")] },
+    libraries: { p1: [cardTemplate('Basic land', { types: ['Land'], supertypes: ['Basic'] }), cardTemplate('Nonbasic land', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 2
+  const searching = resolveStack(server.rules, ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0]! })))
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const found = named(searching, 'Basic land').id
+  expect(pick.candidates).toEqual([found])
+  const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [found] }))
+  expect(resolved.objects[found].zone).toBe('hand')
 })

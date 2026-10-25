@@ -1,4 +1,7 @@
 import { describe, expect, test } from 'bun:test'
+import { cardTemplate } from '../newGame'
+import { commanderRules } from '../formats'
+import { createServerGame } from '../runtime'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, forest, newGame } from '../testGame'
@@ -362,4 +365,18 @@ describe('mana', () => {
     const emptied = ok(rules(added, { type: 'emptyManaPools' }, catalog))
     expect(emptied.players.p1.life).toBe(40)
   })
+})
+
+
+test.each([
+  ['Land source', ['Land'], { W: 1 }, 'W', 1],
+  ['Artifact source', ['Artifact'], { C: 2 }, 'C', 2],
+] as const)('built-in tap production needs no card plugin (%s)', (name, types, tapProduces, color, quantity) => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate(name, { types: [...types], tapProduces })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.battlefield[0]!
+  const tapped = ok(server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId }))
+  expect(tapped.players.p1.mana[color]).toBe(quantity)
+  expect(tapped.objects[objectId].tapped).toBe(true)
 })

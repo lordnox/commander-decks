@@ -190,7 +190,7 @@ describe('entryReplacement — integration', () => {
 })
 
 
-test('repeatable additional payments remain available to an as-enters replacement, then clear on departure', () => {
+test.each([2, 3])('repeatable additional payments remain available to an as-enters replacement, then clear on departure (%s)', payments => {
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
     spell({ optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0], instructions: [] }),
     staticAbility(replacement(wouldEnter(), modifyEvent({ enterCounters: { charge: paidCostCount('optional', 0) } }))),
@@ -198,10 +198,10 @@ test('repeatable additional payments remain available to an as-enters replacemen
   const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Payment entry fixture', { types: ['Artifact'], manaCost: '{0}', ruleDefinition: definition })] } }, { random: () => 0 })
   server.state.players.p1.mana.C = 6
   const objectId = server.state.zoneOrder.p1.hand[0]
-  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: [0, 0, 0] }))
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: Array.from({ length: payments }, () => 0) }))
   const entered = resolveStack(server.rules, cast)
-  expect(entered.objects[objectId].counters.charge).toBe(3)
-  expect(entered.objects[objectId].castCostChoices?.optional).toEqual([0, 0, 0])
+  expect(entered.objects[objectId].counters.charge).toBe(payments)
+  expect(entered.objects[objectId].castCostChoices?.optional).toEqual(Array.from({ length: payments }, () => 0))
   const gone = ok(server.rules(entered, { type: 'move', objectId, to: 'graveyard' }))
   expect(gone.objects[objectId].castCostChoices).toBeUndefined()
   const returned = ok(server.rules(gone, { type: 'move', objectId, to: 'battlefield' }))

@@ -73,3 +73,25 @@ describe('drawThenDiscard — integration', () => {
     })
   })
 })
+
+
+test('activated draw then player discard keeps the newly drawn card after discarding an old card', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate("Thrór's Map")] },
+    hands: { p1: [cardTemplate('Old card')] },
+    libraries: { p1: [cardTemplate('New card')] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 2
+  const source = ready.zoneOrder.p1.battlefield[0]!
+  const announced = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[1]' }))
+  const resolving = ok(server.rules(announced, { type: 'resolveTop' }))
+  expect(named(resolving, 'New card').zone).toBe('hand')
+  const pick = pendingSelectionFor(resolving, 'p1')!
+  expect(pick).toMatchObject({ kind: 'discard', count: 1 })
+  const old = named(resolving, 'Old card').id
+  const resolved = ok(server.rules(resolving, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'discard', count: 1, objectIds: [old] }))
+  expect(resolved.objects[old].zone).toBe('graveyard')
+  expect(resolved.zoneOrder.p1.hand).toEqual([named(resolved, 'New card').id])
+  expect(resolved.stack).toHaveLength(0)
+})

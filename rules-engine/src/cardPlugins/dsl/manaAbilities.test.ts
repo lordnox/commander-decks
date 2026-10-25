@@ -16,6 +16,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { ok } from '../../testHelpers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 
 describe('announcement transactions', () => {
@@ -129,4 +130,18 @@ test.each([['C', 'C'], ['B', 'B'], ['G', 'G'], [undefined, 'B']] as const)('raw 
   expect(Object.values(result.state.players.p1.mana).reduce((sum, value) => sum + value, 0)).toBe(1)
   expect(result.state.stack).toHaveLength(0)
   expect(pendingOptionSelection(result.state, 'p1')).toBeUndefined()
+})
+
+
+test.each(['W', 'U', 'B', 'R', 'G'] as const)('chosen monochromatic production adds three %s immediately', color => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Gilded Lotus')] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]!
+  const announced = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]', manaAbility: true }))
+  const pending = pendingOptionSelection(announced, 'p1')!
+  const selected = ok(server.rules(announced, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: `instruction:${['W', 'U', 'B', 'R', 'G'].indexOf(color)}` }))
+  expect(selected.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, [color]: 3 })
+  expect(selected.objects[source].tapped).toBe(true)
+  expect(selected.stack).toHaveLength(0)
 })
