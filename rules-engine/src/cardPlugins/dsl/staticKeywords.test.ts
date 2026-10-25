@@ -1,4 +1,6 @@
 import { describe, expect, test } from 'bun:test'
+import { effectsFor } from '../cardRules'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { card, compileCardRuleDefinition, compareAmount, count, createDefinitionSnapshot, keyword, keywordAbility, KEYWORDS, objects, ref } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -46,4 +48,18 @@ describe('staticKeywords', () => {
     const untapped = ok(server.rules(tapped, { type: 'untap', objectId: teacher.id }))
     expect(hasKeyword(untapped.objects[teacher.id]!, 'hexproof')).toBe(true)
   })
+})
+
+test('catalog keyword binding works without Oracle text or legacy effects', () => {
+  expect(effectsFor('Duskdale Wurm')).toEqual([])
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('Duskdale Wurm', { types: ['Creature'], power: 7, toughness: 7 })],
+    },
+  }, { random: () => 0 })
+  const wurm = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]!
+  expect(wurm.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Duskdale Wurm'))
+  expect(wurm.oracleText).toBe('')
+  expect(hasKeyword(wurm, 'trample')).toBe(true)
 })

@@ -23,6 +23,8 @@
     "cardRuleCatalog.damageAndLeaves:97",
     "cardRuleCatalog.damageAndLeaves:helper:expectBeast:23",
     "cardRuleCatalog.damageAndLeaves:helper:leaveThragtusk:32",
+    "cardRuleCatalog.drawAndKeywords:107",
+    "cardRuleCatalog.drawAndKeywords:86",
     "chainsOfMephistopheles.integration:105",
     "chainsOfMephistopheles.integration:122",
     "chainsOfMephistopheles.integration:138",
@@ -1123,6 +1125,22 @@
       "destination": "rules-engine/src/rules/dslTriggers.test.ts",
       "suite": "opponent draw triggers damage the drawing player and ignore controller draws",
       "evidence": "Catalog-backed Fate Unraveler integration preserves snapshot stamping/empty effects, no trigger or damage for controller draw, one opponent trigger, opponent life loss, unchanged controller life, drawn card in hand. A third seat distinguishes triggering-player binding from a fixed opponent."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:86"
+      ],
+      "destination": "rules-engine/src/rules/dslTriggers.test.ts",
+      "suite": "catalog entry draw creates one trigger and draws exactly once",
+      "evidence": "Retains the canonical Wall of Omens catalog fixture to verify pinned revision and empty legacy effects before entry. Checks exactly one pending trigger, one card in hand, two remaining library cards, and Draw One in hand after resolution."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:107"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts",
+      "suite": "catalog spell composes draw and life loss exactly once",
+      "evidence": "Retains the canonical Night\u2019s Whisper template and exact pinned snapshot/empty-effects checks. Casting and resolving leaves its controller at 38 life with exactly two cards in hand and the spell in the graveyard; no copied definition or runtime change."
     }
   ]
 }

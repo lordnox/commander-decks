@@ -109,3 +109,21 @@ test('damage instruction applies once to every selected player and finishes the 
   expect(state.stack).toHaveLength(0)
   expect(state.resolution).toBeUndefined()
 })
+
+test('catalog spell composes draw and life loss exactly once', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate("Night's Whisper", { types: ['Sorcery'], manaCost: '{0}' })] },
+    libraries: {
+      p1: ['Whisper One', 'Whisper Two', 'Whisper Three'].map((name) => cardTemplate(name)),
+    },
+  }, { random: () => 0 })
+  const whisper = server.state.objects[server.state.zoneOrder.p1.hand[0]]!
+  expect(whisper.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor("Night's Whisper"))
+  expect(whisper.effects).toEqual([])
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: whisper.id }))
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.players.p1.life).toBe(38)
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(2)
+  expect(resolved.objects[whisper.id].zone).toBe('graveyard')
+})

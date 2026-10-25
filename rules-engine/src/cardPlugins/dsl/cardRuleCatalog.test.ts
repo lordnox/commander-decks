@@ -1530,7 +1530,7 @@ test('Rest in Peace combines an entry trigger with a static replacement', () => 
 test('Wall of Omens declares defender beside its entry draw', () => {
   expect(cardRuleDefinitionSnapshotFor('Wall of Omens')!.definition.abilities).toMatchObject([
     { kind: 'keyword', keyword: KEYWORDS.defender },
-    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 }, targets: { kind: 'contextRef', name: 'controller' } }] },
   ])
 })
 
@@ -3110,5 +3110,21 @@ test('catalog Laboratory Maniac replaces its controller’s empty-library draw w
       when: { kind: 'compareAmount', operator: 'eq', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'library', owner: 'you' } } }, right: { kind: 'constant', value: 0 } },
       transform: { kind: 'replaceWith', instructions: [{ kind: 'winGame', targets: { kind: 'contextRef', name: 'controller' } }] },
     }] },
+  ])
+})
+
+test('Duskdale Wurm declares only trample', () => {
+  expect(effectsFor('Duskdale Wurm')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Duskdale Wurm')!.definition.abilities).toEqual([
+    { kind: 'keyword', keyword: KEYWORDS.trample },
+  ])
+})
+
+test("Night's Whisper draws two before its controller loses two life", () => {
+  expect(cardRuleDefinitionSnapshotFor("Night's Whisper")!.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } },
+      { kind: 'loseLife', amount: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } },
+    ] },
   ])
 })
