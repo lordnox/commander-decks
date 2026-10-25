@@ -1,3 +1,5 @@
+import { resolveStack } from '../../testHelpers'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -290,4 +292,43 @@ test('deferred replacement choices for the same player reopen after the first an
   }
   expect(state.eventProcessing).toBeUndefined()
   expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+})
+
+const named = (state: GameState, name: string) =>
+  Object.values(state.objects).find((object) => object.name === name)!
+
+test('an entry exile program composes with a static graveyard destination replacement', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('Doomed Bear', { types: ['Creature'], power: 2, toughness: 2 })],
+    },
+    hands: {
+      p1: [cardTemplate('Rest in Peace', { types: ['Enchantment'] }), cardTemplate('Your Gy Card'), cardTemplate('Discarded Thought')],
+      p2: [cardTemplate('Their Gy Card')],
+    },
+  }, { random: () => 0 })
+  const rest = named(server.state, 'Rest in Peace')
+  const yours = named(server.state, 'Your Gy Card')
+  const theirs = named(server.state, 'Their Gy Card')
+  const bear = named(server.state, 'Doomed Bear')
+  const thought = named(server.state, 'Discarded Thought')
+  expect(rest.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Rest in Peace'))
+  expect(rest.effects).toEqual([])
+  const yoursBuried = ok(server.rules(server.state, { type: 'move', objectId: yours.id, to: 'graveyard' }))
+  const theirsBuried = ok(server.rules(yoursBuried, { type: 'move', objectId: theirs.id, to: 'graveyard' }))
+  expect(theirsBuried.objects[yours.id].zone).toBe('graveyard')
+  expect(theirsBuried.objects[theirs.id].zone).toBe('graveyard')
+  const entered = ok(server.rules(theirsBuried, { type: 'move', objectId: rest.id, to: 'battlefield' }))
+  expect(entered.stack).toHaveLength(1)
+  const afterEtb = resolveStack(server.rules, entered)
+  expect(afterEtb.objects[yours.id].zone).toBe('exile')
+  expect(afterEtb.objects[theirs.id].zone).toBe('exile')
+  expect(afterEtb.zoneOrder.p1.graveyard).toHaveLength(0)
+  expect(afterEtb.zoneOrder.p2.graveyard).toHaveLength(0)
+  const destroyed = ok(server.rules(afterEtb, { type: 'destroy', objectId: bear.id }))
+  expect(destroyed.objects[bear.id].zone).toBe('exile')
+  const discarded = ok(server.rules(destroyed, { type: 'move', objectId: thought.id, to: 'graveyard' }))
+  expect(discarded.objects[thought.id].zone).toBe('exile')
+  expect(discarded.zoneOrder.p1.graveyard).toHaveLength(0)
 })

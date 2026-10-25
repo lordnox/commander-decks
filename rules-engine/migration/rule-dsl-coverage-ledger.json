@@ -4200,9 +4200,9 @@
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:362 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:363 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:252 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:162 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:17 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:139 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1009 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1072 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {"
@@ -4828,9 +4828,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:231 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:290 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:527 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:232 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:291 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:528 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1086 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1125 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]

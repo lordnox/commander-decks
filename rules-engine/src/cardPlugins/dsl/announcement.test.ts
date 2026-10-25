@@ -1,3 +1,4 @@
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { availableActions, legalActsFor, eventsForAvailableAction } from '../../actions'
 import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
@@ -945,4 +946,72 @@ test.each([0, 1, 2, 3])('a fixed discard cost requires all three cards before of
     expect(result.state.zoneOrder.p1.graveyard).toHaveLength(3)
     expect(result.state.stack).toHaveLength(1)
   }
+})
+
+test('catalog spell announcements require both colored and generic printed mana', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate("Night's Whisper", { types: ['Sorcery'], manaCost: '{1}{B}' })] },
+    libraries: {
+      p1: ['Whisper One', 'Whisper Two'].map((name) => cardTemplate(name)),
+    },
+  }, { random: () => 0 })
+  const whisper = named(server.state, "Night's Whisper")
+  expect(whisper.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor("Night's Whisper"))
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: whisper.id }).ok).toBe(false)
+  server.state.players.p1.mana.B = 1
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: whisper.id }).ok).toBe(false)
+  server.state.players.p1.mana.C = 1
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: whisper.id }))
+  expect(cast.players.p1.mana.B).toBe(0)
+  expect(cast.players.p1.mana.C).toBe(0)
+})
+
+test('a catalog alternative cost validates ordered discards before countering the target spell', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: {
+      p1: [
+        cardTemplate('Foil', { types: ['Instant'], manaCost: '{2}{U}{U}' }),
+        cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] }),
+        cardTemplate('Extra Card'),
+        cardTemplate('Target Spell', { types: ['Sorcery'], manaCost: '{0}' }),
+      ],
+    },
+  }, { random: () => 0 })
+  const foil = named(server.state, 'Foil')
+  const island = named(server.state, 'Island')
+  const extra = named(server.state, 'Extra Card')
+  const targetSpell = named(server.state, 'Target Spell')
+  expect(foil.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Foil'))
+  expect(foil.effects).toEqual([])
+  const stacked = ok(server.rules(server.state, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: targetSpell.id,
+  }))
+  const stackId = stacked.stack.find((item) => item.objectId === targetSpell.id)!.id
+  expect(server.rules(stacked, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: foil.id,
+    selectedAlternativeCost: 0,
+    discard: [extra.id, island.id],
+    targets: [{ kind: 'stackItem', stackId }],
+  }).ok).toBe(false)
+  const cast = ok(server.rules(stacked, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: foil.id,
+    selectedAlternativeCost: 0,
+    discard: [island.id, extra.id],
+    targets: [{ kind: 'stackItem', stackId }],
+  }))
+  expect(cast.objects[island.id].zone).toBe('graveyard')
+  expect(cast.objects[extra.id].zone).toBe('graveyard')
+  expect(cast.stack).toHaveLength(2)
+  const resolved = resolveStack(server.rules, cast)
+  expect(resolved.objects[targetSpell.id].zone).toBe('graveyard')
+  expect(resolved.objects[foil.id].zone).toBe('graveyard')
+  expect(resolved.stack).toHaveLength(0)
 })
