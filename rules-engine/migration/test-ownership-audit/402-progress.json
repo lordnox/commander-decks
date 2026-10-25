@@ -24,6 +24,29 @@
     "chainsOfMephistopheles.integration:44",
     "chainsOfMephistopheles.integration:69",
     "chainsOfMephistopheles.integration:82",
+    "chainsOfMephistopheles:121",
+    "chainsOfMephistopheles:134",
+    "chainsOfMephistopheles:146",
+    "chainsOfMephistopheles:195",
+    "chainsOfMephistopheles:212",
+    "chainsOfMephistopheles:239",
+    "chainsOfMephistopheles:265",
+    "chainsOfMephistopheles:284",
+    "chainsOfMephistopheles:304",
+    "chainsOfMephistopheles:357",
+    "chainsOfMephistopheles:407",
+    "chainsOfMephistopheles:430",
+    "chainsOfMephistopheles:452",
+    "chainsOfMephistopheles:467",
+    "chainsOfMephistopheles:480",
+    "chainsOfMephistopheles:520",
+    "chainsOfMephistopheles:548",
+    "chainsOfMephistopheles:577",
+    "chainsOfMephistopheles:620",
+    "chainsOfMephistopheles:665",
+    "chainsOfMephistopheles:725",
+    "chainsOfMephistopheles:84",
+    "chainsOfMephistopheles:95",
     "cirdanColossi:107",
     "cirdanColossi:116",
     "cirdanColossi:133",
@@ -377,6 +400,190 @@
       "destination": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
       "suite": "Voyager Staff / cannot target a noncreature permanent; exiles any creature, yours or an opponent's, and returns it under its owner at the next end step",
       "evidence": "Voyager Staff migrates to its canonical catalog definition. Existing mechanic-owned integration rejects artifact/land/self targets and verifies successful creature targeting, paid mana, source sacrifice, delayed owner return, and a target leaving in response. Update the activation id to the canonical declaration path; catalog checks own the typed selector and costs."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:84"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "first actual draw in own draw step is exempt from the replacement",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.graveyard).toHaveLength(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:95"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "the replacement affects the second draw in the same draw step",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pending?.kind).toBe('discard')     expect(state.zoneOrder.p1.graveyard).toContain(handId)     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.hand[0]).not.toBe(handId) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:121"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "empty hand mills instead of drawing",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.graveyard).toHaveLength(1)     expect(state.zoneOrder.p1.hand).toHaveLength(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:134"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "draw in another player draw step is affected even as first draw that turn",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard') JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:146"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "one replacement source does not apply twice to the follow-up draw",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.hand).toHaveLength(2)     expect(pendingSelectionFor(state, 'p1')).toBeUndefined() JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:195"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "competing replacements let the player choose",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingOptionSelection(state, 'p1')?.options.length).toBeGreaterThanOrEqual(2) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:212"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "non-draw replacement does not consume the first-draw exemption",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.graveyard).toHaveLength(1)     expect(state.drawStepTracking?.actualDraws?.p1 ?? 0).toBe(0)     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(pendingSelectionFor(state, 'p1')).toBeUndefined() JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:239"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "draw three completes three independent discard-then-draw procedures through restore",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.eventProcessing?.pendingEvent).toMatchObject({ type: 'draw', count: 1, remainingAfter: 2 })     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.eventProcessing).toBeUndefined()     expect(state.zoneOrder.p1.hand).toHaveLength(3)     expect(state.zoneOrder.p1.graveyard).toHaveLength(3)     expect(state.zoneOrder.p1.library).toHaveLength(0)     expect(state.zoneOrder.p1.hand.every((id) => state.objects[id].name.startsWith('L'))).toBe(true)     expect(state.zoneOrder.p1.graveyard.every((id) => state.objects[id].name.startsWith('H'))).toBe(true) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:265"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a prevented discard binds failure and mills instead of drawing",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(namedZone(state, 'Keep')).toBe('hand')     expect(namedZone(state, 'Mill Me')).toBe('graveyard')     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.library).toHaveLength(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:284"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a discard replaced with another action binds failure and mills instead of drawing",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(namedZone(state, 'H')).toBe('hand')     expect(namedZone(state, 'L')).toBe('graveyard')     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.players.p1.life).toBe(life + 1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:304"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a prevented discard destination binds failure and mills instead of drawing",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(namedZone(state, 'Keep')).toBe('hand')     expect(namedZone(state, 'Mill Me')).toBe('graveyard')     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.library).toHaveLength(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:357"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a redirected discard destination still counts as discarded and draws",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(namedZone(state, 'Exiled')).toBe('exile')     expect(namedZone(state, 'Drawn')).toBe('hand')     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)     expect(state.zoneOrder.p1.hand).toHaveLength(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:407"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "two replacement sources with two cards in hand discard twice then draw once",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('L1')     expect(state.zoneOrder.p1.graveyard).toHaveLength(2)     expect(state.zoneOrder.p1.library).toHaveLength(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:430"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "two replacement sources with one card in hand mills the follow-up draw",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.zoneOrder.p1.hand).toHaveLength(0)     expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name)).toEqual(['Only Hand', 'Mill Me'])     expect(state.zoneOrder.p1.library).toHaveLength(1)     expect(state.objects[state.zoneOrder.p1.library[0]!].name).toBe('Stay') JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:452"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "empty library on the draw branch loses unless replaced by a win (Laboratory Maniac=%s)",
+      "evidence": "The false branch of the existing false/true Laboratory Maniac integration asserts p1.lost=true, cleared FAILED_DRAW_SINCE_SBA, and empty hand after successful discard, exactly covering the current source callback; retain both parameter values and JSON restore. Commit 8e6cc0e9ae6309a15258f33880dda5ad1a9d8a02 already replaced the pinned transient failed-draw=true assertion with loss plus a cleared flag after SBA. Reuse that current equivalent rather than duplicating it. Standalone lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:467"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "milling an empty library is not an attempted draw",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()     expect(state.zoneOrder.p1.graveyard).toHaveLength(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:480"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "draw performed as a cost is still replaced",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('Would Draw')     expect(state.stack).toHaveLength(1)     expect(state.players.p1.life).toBe(41) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:520"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "a dynamic draw cost locks the player count and draws that many cards",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.hand).toHaveLength(2)     expect(state.stack).toHaveLength(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:548"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "an unbound X draw cost is rejected",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(result.ok).toBe(false)     expect(state.zoneOrder.p1.hand).toHaveLength(0)     expect(state.stack).toHaveLength(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:577"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "a two-draw cost with discard-then-draw replacement finishes both replacement procedures through restore",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.zoneOrder.p1.graveyard).toHaveLength(2)     expect(state.zoneOrder.p1.library).toHaveLength(0)     expect(state.zoneOrder.p1.hand).toHaveLength(2)     expect(state.stack).toHaveLength(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:620"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "a two-draw mana-ability cost with discard-then-draw replacement finishes both procedures through restore",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.eventProcessing).toBeUndefined()     expect(state.zoneOrder.p1.graveyard).toHaveLength(2)     expect(state.zoneOrder.p1.library).toHaveLength(0)     expect(state.zoneOrder.p1.hand).toHaveLength(2)     expect(state.stack).toHaveLength(0)     expect(state.players.p1.mana.G).toBe(1) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:665"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawCost.test.ts",
+      "suite": "a two-draw mana-ability cost during a planned cast finishes both procedures through restore",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')     expect(state.stack).toHaveLength(0)     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()     expect(state.eventProcessing).toBeUndefined()     expect(state.provisionalAnnouncement).toBeUndefined()     expect(state.zoneOrder.p1.graveyard).toHaveLength(2)     expect(state.zoneOrder.p1.library).toHaveLength(0)     expect(state.zoneOrder.p1.hand).toHaveLength(2)     expect(state.stack).toHaveLength(1)     expect(state.stack[0]?.name).toBe('Green Spell')     expect(state.players.p1.mana.G).toBe(0) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:725"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "extra draw step starts a fresh exemption",
+      "evidence": "Preserves the original callback assertions on the canonical runtime with an exchangeable discard-result conditional replacement fixture.     expect(state.zoneOrder.p1.hand).toHaveLength(1)     expect(state.zoneOrder.p1.hand).toHaveLength(2) JSON restore remains in this mechanic combination where present; standalone reconnect, trigger capture, and suspended-destination lifecycle groups remain in dsl/chainsOfMephistopheles.test.ts for #403. The pinned source already used the canonical inline fixture; #432 did not leave an active legacy route to retain. Reconciles existing #432 mechanic coverage before consolidating the stronger original assertions."
     }
   ]
 }

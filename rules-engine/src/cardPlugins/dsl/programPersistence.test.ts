@@ -38,7 +38,7 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
 import type { EventTrace, GameEvent, GameState, Plugin } from '../../types'
-import { answerDiscard, chainsDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
+import { answerDiscard, discardThenDrawDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -269,7 +269,7 @@ describe('programPersistence', () => {
   test('JSON reconnect of a Chains discard resumes the same request without leaking private continuation', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: discardThenDrawDefinition() })] },
       hands: { p1: [cardTemplate('Secret Hand')] },
       libraries: { p1: [cardTemplate('Lib A'), cardTemplate('Lib B')] },
     }, { random: () => 0 })
@@ -324,7 +324,7 @@ describe('programPersistence', () => {
     }
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: discardThenDrawDefinition() })] },
       hands: { p1: [cardTemplate('H')] },
       libraries: { p1: [cardTemplate('L')] },
     }, { random: () => 0, cardPlugins: [preventDraw] })

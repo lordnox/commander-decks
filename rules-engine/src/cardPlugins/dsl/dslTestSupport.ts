@@ -34,7 +34,7 @@ export const ownDrawStep = (state: GameState, seat: 'p1' | 'p2') => {
   return freezeDraft(draft)
 }
 
-export const chainsDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+export const discardThenDrawDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
   staticAbility(replacement(
     wouldDraw({
       player: players({ relation: 'any' }),
