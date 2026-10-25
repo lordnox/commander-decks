@@ -26,9 +26,9 @@
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 25,
+    "cardNameDispatchSites": 24,
     "customEventDispatchSites": 81,
-    "directMutationSites": 561,
+    "directMutationSites": 559,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 141,
     "cardRegistrationOnlyGaps": 0,
@@ -4801,9 +4801,8 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/plugins/spells.test.ts:159 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {",
           "rules-engine/src/plugins/turnStructure.test.ts:16"
         ]
       },
@@ -5275,16 +5274,16 @@
         "rules-engine/src/plugins/spells.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 10,
         "samples": [
           "rules-engine/src/plugins/commander.test.ts:100 — test('partner commanders track tax separately', () => {",
           "rules-engine/src/plugins/commander.test.ts:70 — test('casting from the command zone pays that commander\\'s tax', () => {",
           "rules-engine/src/plugins/priority.test.ts:18",
           "rules-engine/src/plugins/saga.test.ts:27",
-          "rules-engine/src/plugins/spells.test.ts:115 — test('a planeswalker spell enters with its printed loyalty', () => {",
-          "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/spells.test.ts:15",
-          "rules-engine/src/plugins/spells.test.ts:159 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {"
+          "rules-engine/src/plugins/spells.test.ts:114 — test('a planeswalker spell enters with its printed loyalty', () => {",
+          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:14",
+          "rules-engine/src/plugins/spells.test.ts:155 — test('the most recently cast spell resolves first', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5341,7 +5340,7 @@
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
-          "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:105 — test('a permanent the dying player only controlled goes back to its owner', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:122 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:147 — test('continuous recomputation settles before ordinary SBA collection', () => {"
@@ -6314,7 +6313,7 @@
         "rules-engine/src/newGame.ts:132",
         "rules-engine/src/newGame.ts:133",
         "rules-engine/src/newGame.ts:186",
-        "rules-engine/src/newGame.ts:291",
+        "rules-engine/src/newGame.ts:283",
         "rules-engine/src/plugins/index.ts:118",
         "rules-engine/src/plugins/index.ts:47",
         "rules-engine/src/plugins/rooms.ts:52",
@@ -6368,21 +6367,6 @@
         ],
         "samples": [
           "41: if (!source || source.name !== name) return `that is not ${name}`"
-        ],
-        "mechanic": "card-name execution dispatch",
-        "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
-        "compatibilityRoute": "Retain this explicit legacy handler until its registrations have canonical conformance tests; do not copy the name check into the DSL driver.",
-        "ownerPart": "16",
-        "dependencyParts": [],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/plugins/spells.ts",
-        "lines": [
-          1242
-        ],
-        "samples": [
-          "1242: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7589,11 +7573,9 @@
           1194,
           1218,
           1233,
-          1249,
-          1251,
-          1265,
-          1277,
-          1298
+          1252,
+          1264,
+          1285
         ],
         "samples": [
           "940: const moved = draft.object(event.objectId)",

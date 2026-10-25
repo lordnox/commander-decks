@@ -60,7 +60,7 @@ export {
   standardRules,
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
-export { bears, bolt, forest, newGame, timetwister, yarokFixture, yurlokFixture } from './newGame'
+export { bears, bolt, forest, newGame, yarokFixture, yurlokFixture } from './newGame'
 export { createHistory, lastAuthoritativeState } from './history'
 export {
   createJournal,

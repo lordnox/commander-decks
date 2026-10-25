@@ -1239,19 +1239,6 @@ export const spells: Plugin = {
         return
       }
 
-      if (object.name === 'Timetwister') {
-        for (const player of draft.playerOrder) {
-          const pile = [
-            ...draft.zoneOrder[player].graveyard,
-            ...draft.zoneOrder[player].hand,
-          ]
-          for (const objectId of pile) {
-            draft.enqueue({ type: 'move', objectId, to: 'library' })
-          }
-          draft.enqueue({ type: 'shuffleLibrary', seat: player })
-        }
-      }
-
       if (
         canonicalBestowEffect(object)
         && paidBestowAlternative(object)
