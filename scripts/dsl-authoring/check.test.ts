@@ -50,6 +50,18 @@ describe('canonical DSL authoring ratchet', () => {
       "enqueue({ type: 'custom', name: 'pickNewCard', cards: ids })",
     ]) rejects(source)
   })
+  test('direct name-keyed data writes pass while dispatch reads still fail', () => {
+    expect(scan("const producedBy = {}; producedBy[entry.name] = [...new Set(ids)]")).toEqual([])
+    expect(scan("const producedBy = {}; producedBy[entry.name] = ids;", '.agents/skills/simulate-table/scripts/fetch-deck-tokens.ts')).toEqual([])
+    for (const source of [
+      "const handlers = {}; handlers[object.name]()",
+      "const handlers = {}; const selected = handlers[object.name]",
+      "const handlers = {}; handlers[object.name] ||= fallback",
+      "const handlers = {}; handlers[object.name]++",
+      "const producedBy = {}; const handlers = {}; producedBy[entry.name] = handlers[object.name]()",
+      "const producedBy = {}; producedBy[entry.name] = object.name === 'New Card' ? ids : []",
+    ]) rejects(source)
+  })
   test('shared engine infrastructure and type imports pass', () => {
     expect(scan("import type { CardEffect } from '../../rules-engine/src/cardPlugins/effects'; export const tick = (event: Event) => enqueue({ type: 'custom', name: 'advanceStep' })")).toEqual([])
     expect(scan("if (event.type === 'custom' && event.name === 'advanceStep') advance()")).toEqual([])
