@@ -2984,6 +2984,7 @@ test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and
   ])
   expect(cardRuleDefinitionSnapshotFor('Reins of Power')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
+    decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] },
     instructions: [{ kind: 'exchangeControl', haste: true, untap: true }],
   })
   expect(cardRuleDefinitionSnapshotFor('Sakashima of a Thousand Faces')!.definition.abilities).toMatchObject([
