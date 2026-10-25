@@ -1,4 +1,5 @@
 import type { RoomDoorId, StepId } from '../../../types'
+import type { CardColor } from '../../../../../shared/cardColors'
 import type { PlayerEffect, PlayerEffectDuration } from '../../../plugins/playerEffectConstants'
 
 export { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
@@ -35,8 +36,8 @@ export type SpellCastCost = typeof SPELL_CAST_COSTS[keyof typeof SPELL_CAST_COST
 export const SPELL_CAST_TIMING = { flash: 'flash', sorcery: 'sorcery' } as const
 export type SpellCastTiming = typeof SPELL_CAST_TIMING[keyof typeof SPELL_CAST_TIMING]
 
-export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
-export type CardColor = typeof CARD_COLORS[number]
+export { CARD_COLORS } from '../../../../../shared/cardColors'
+export type { CardColor } from '../../../../../shared/cardColors'
 
 export const PLAYER_RELATIONS = {
   you: 'you', opponent: 'opponent', anyone: 'any', teammate: 'teammate',
