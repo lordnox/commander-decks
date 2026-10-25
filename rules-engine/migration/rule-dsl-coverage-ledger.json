@@ -3639,7 +3639,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2812 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
-          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:50 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
+          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:59 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -9180,12 +9180,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          126,
-          127
+          123,
+          124
         ],
         "samples": [
-          "126: if (event.type === 'move') draft.move(event.objectId, event.to)",
-          "127: else draft.enqueue(event)"
+          "123: if (event.type === 'move') draft.move(event.objectId, event.to)",
+          "124: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
