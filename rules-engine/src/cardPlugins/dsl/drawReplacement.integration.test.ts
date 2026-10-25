@@ -300,18 +300,24 @@ describe('Chains discard-then-draw replacement', () => {
     expect(state.zoneOrder.p1.library).toHaveLength(0)
   })
 
-  test('empty library on the draw branch loses the player at the SBA check', () => {
+  test.each([false, true])('empty library on the draw branch loses unless replaced by a win (Laboratory Maniac=%s)', withManiac => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [
+        cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
+        ...(withManiac ? [cardTemplate('Laboratory Maniac')] : []),
+      ] },
       hands: { p1: [cardTemplate('Pay')] },
       libraries: { p1: [] },
     }, { random: () => 0 })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
     state = reduce(server, state, { type: 'draw', seat: 'p1' })
-    state = answerDiscard(server, state)
-    expect(state.players.p1.lost).toBe(true)
+    state = pickReplacement(server, state, 'Chains')
+    state = answerDiscard(server, state, true)
+    expect(state.players.p1.lost).toBe(!withManiac)
+    expect(state.players.p2.lost).toBe(withManiac)
+    expect(state.ended).toBe(true)
     expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
   })
