@@ -125,6 +125,7 @@ test.each([0, 1])('reveal/bind/move programs handle a library with %s matching c
   if (number) state = resolveStack(server.rules, assign(server, state, 'p3'))
   expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
   expect(state.zoneOrder.p1.library.map(id => state.objects[id].name)).toEqual(['Noise'])
+  expect(Object.values(state.objects).filter(object => object.name === 'Found' && object.zone === 'battlefield')).toHaveLength(number)
   if (number) expect(named(state, 'Found').controller).toBe('p3')
 })
 
