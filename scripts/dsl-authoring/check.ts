@@ -54,6 +54,7 @@ export const inspectSource = (path: string, source: string) => {
   const constructors = new Set<string>()
   const constructorNamespaces = new Set<string>()
   const literalObjects = new Map<string, Ast>()
+  const directWriteTargets = new Set<Ast>()
   const registryProperties = new Set<Ast>()
   const topLevelProperties = new Set<Ast>()
   for (const statement of ast.program.body) {
@@ -105,6 +106,11 @@ export const inspectSource = (path: string, source: string) => {
   }
   const program = ast.program as unknown as Ast
   walk(program, (node) => {
+    // A simple assignment writes a data-map entry; compound assignments also
+    // read it. Keep inspecting the right-hand side for actual dispatch.
+    if (node.type === 'AssignmentExpression' && node.operator === '=' && isAst(node.left)) {
+      directWriteTargets.add(node.left)
+    }
     if (node.type !== 'VariableDeclarator' || !isAst(node.init)) return
     if (isRegistry(node.init)) registries.add(String(keyName(node.id)))
     if (node.init.type === 'ObjectExpression') {
@@ -137,7 +143,7 @@ export const inspectSource = (path: string, source: string) => {
     }
     if (node.type === 'SwitchStatement' && isName(node.discriminant)
       && children(node).some((child) => child.type === 'SwitchCase' && isString(child.test))) add(FINDING_CODE.LITERAL_NAME_DISPATCH, node)
-    if (member(node) && isName(node.property) && isAst(node.object)) {
+    if (member(node) && !directWriteTargets.has(node) && isName(node.property) && isAst(node.object)) {
       const table = node.object.type === 'ObjectExpression' ? node.object : literalObjects.get(String(keyName(node.object)))
       if (table) add(FINDING_CODE.LITERAL_NAME_DISPATCH, table)
     }
