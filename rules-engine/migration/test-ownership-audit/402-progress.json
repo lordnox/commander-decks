@@ -330,6 +330,8 @@
     "homerRest:53",
     "homerRest:96",
     "jaceMultiverseArchitect:106",
+    "jaceMultiverseArchitect:129",
+    "jaceMultiverseArchitect:156",
     "jaceMultiverseArchitect:185",
     "jaceMultiverseArchitect:45",
     "jaceMultiverseArchitect:50",
@@ -2218,6 +2220,22 @@
       "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
       "suite": "catalog Jace, Multiverse Architect cannot target itself with its \u22123",
       "evidence": "Uses the canonical catalog definition without legacy card plugins; activating $.abilities[2] targeting Jace itself is rejected at announcement by its other: true target clause."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:129"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
+      "suite": "catalog Jace, Multiverse Architect +1 draws two then prompts to put a hand card on the bottom",
+      "evidence": "Uses the catalog card definition without legacy plugins. After resolving $.abilities[1], asserts at least two cards in hand and that a typed selectCards choice is pending for the player; after selecting a hand card, asserts it is placed on the bottom of the library."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:156"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
+      "suite": "catalog Jace, Multiverse Architect \u22123 exiles another target you control then reveals onto the battlefield",
+      "evidence": "Uses the catalog card definition without legacy plugins. Activates $.abilities[2] targeting another controlled permanent, then asserts the target is exiled and the revealed Jace planeswalker enters the battlefield."
     }
   ]
 }

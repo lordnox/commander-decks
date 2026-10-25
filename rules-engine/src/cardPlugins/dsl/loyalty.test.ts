@@ -5,6 +5,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { availableActions } from '../../actions'
 import type { GameState } from '../../types'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import {
   activated,
   anyTarget,
@@ -173,12 +174,75 @@ test('catalog Jace, Multiverse Architect cannot target itself with its −3', ()
   }, { random: () => 0 })
   const id = Object.values(server.state.objects).find((object) => object.name === 'Jace, Multiverse Architect')!.id
   const state: GameState = { ...server.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
-  const activated = server.rules(state, {
+  const result = server.rules(state, {
     type: 'activateAbility',
     abilityId: '$.abilities[2]',
     seat: 'p1',
     objectId: id,
     targets: [{ kind: 'object', objectId: id }],
   })
-  expect(activated.ok).toBe(false)
+  expect(result.ok).toBe(false)
+})
+
+test('catalog Jace, Multiverse Architect +1 draws two then prompts to put a hand card on the bottom', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Jace, Multiverse Architect', { counters: { loyalty: 4 } })] },
+    libraries: { p1: ['A', 'B', 'C'].map((name) => cardTemplate(name)) },
+  }, { random: () => 0 })
+  const id = Object.values(server.state.objects).find((object) => object.name === 'Jace, Multiverse Architect')!.id
+  const state: GameState = { ...server.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+  let resolved = ok(server.rules(state, {
+    type: 'activateAbility',
+    abilityId: '$.abilities[1]',
+    seat: 'p1',
+    objectId: id,
+  }))
+  resolved = resolveStack(server.rules, resolved)
+  expect(resolved.zoneOrder.p1.hand.length).toBeGreaterThanOrEqual(2)
+  const selection = pendingSelectionFor(resolved, 'p1')
+  expect(selection).toBeDefined()
+  if (!selection) throw new Error('Jace must offer a hand card choice')
+  const handCard = resolved.zoneOrder.p1.hand[0]
+  resolved = ok(server.rules(resolved, {
+    type: 'selectCards',
+    seat: 'p1',
+    selectionId: selection.id,
+    kind: 'choose',
+    count: 1,
+    objectIds: [handCard],
+  }))
+  expect(resolved.zoneOrder.p1.library.at(-1)).toBe(handCard)
+})
+
+test('catalog Jace, Multiverse Architect −3 exiles another target you control then reveals onto the battlefield', () => {
+  const sacrifice = cardTemplate('Sacrifice Me', { types: ['Creature'], power: 1, toughness: 1 })
+  const revealed = cardTemplate('Revealed Walker', {
+    types: ['Planeswalker'],
+    subtypes: ['Jace'],
+    printedLoyalty: 3,
+    counters: { loyalty: 3 },
+  })
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('Jace, Multiverse Architect', { counters: { loyalty: 4 } }), sacrifice],
+    },
+    libraries: { p1: [cardTemplate('Noise', { types: ['Land'] }), revealed] },
+  }, { random: () => 0 })
+  const id = Object.values(server.state.objects).find((object) => object.name === 'Jace, Multiverse Architect')!.id
+  const sacrificeId = Object.values(server.state.objects).find((object) => object.name === 'Sacrifice Me')!.id
+  const state: GameState = { ...server.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+  let resolved = ok(server.rules(state, {
+    type: 'activateAbility',
+    abilityId: '$.abilities[2]',
+    seat: 'p1',
+    objectId: id,
+    targets: [{ kind: 'object', objectId: sacrificeId }],
+  }))
+  resolved = resolveStack(server.rules, resolved)
+  expect(resolved.objects[sacrificeId].zone).toBe('exile')
+  expect(resolved.zoneOrder.p1.battlefield).toContain(
+    Object.values(resolved.objects).find((object) => object.name === 'Revealed Walker')!.id,
+  )
 })
