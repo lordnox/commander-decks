@@ -2,6 +2,7 @@
   "issue": 403,
   "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved.",
   "implemented": [
+    "cardRuleCatalog.damageAndLeaves:164",
     "courserOfKruphix:26",
     "courserOfKruphix:42",
     "courserOfKruphix:77",
@@ -18,6 +19,14 @@
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "catalog targeted optional blink restores both choices for %s with accept=%s",
       "evidence": "Felidar Guardian migrates to its canonical catalog definition in this change. Reuse that definition for a noncreature permanent target, persist/restart the mandatory target choice and the subsequent optional resolution choice, and check both chooser-only projections. Verify accept versus decline through incarnation changes, preserve source independence, reject self/opponent targets, and reject duplicate option answers. Replaces source tests that only checked the final battlefield zone."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:164"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "pending self-leave token trigger restores its captured controller %s",
+      "evidence": "Catalog-backed leave trigger is pending with no Beast before and after JSON journal restore. Resolves to exactly one 3/3 battlefield Beast controlled by the captured controller, with source still exiled and stack/resolution empty. Both seats are exercised."
     }
   ]
 }

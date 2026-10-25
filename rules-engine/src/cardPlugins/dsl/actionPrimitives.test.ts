@@ -8,6 +8,8 @@ import {
   compareAmount,
   createToken,
   destroy,
+  damage,
+  players,
   ifThen,
   mill,
   objects,
@@ -96,4 +98,14 @@ test.each([0, 1, 3].flatMap(library => [false, true].map(countered => ({ library
   expect(state.zoneOrder.p1.library).toHaveLength(library - moved)
   expect(state.zoneOrder.p1.graveyard).toHaveLength(moved)
   expect(state.stack).toHaveLength(0)
+})
+
+// Minimal spell program: the catalog separately owns its printed damage amount.
+test('damage instruction applies once to every selected player and finishes the spell', () => {
+  const state = run([damage({ source: ref('source'), targets: players(), amount: 4 })])
+  expect(state.players.p1.life).toBe(36)
+  expect(state.players.p2.life).toBe(36)
+  expect(Object.values(state.objects).find(object => object.name === 'Part07 action spell')?.zone).toBe('graveyard')
+  expect(state.stack).toHaveLength(0)
+  expect(state.resolution).toBeUndefined()
 })
