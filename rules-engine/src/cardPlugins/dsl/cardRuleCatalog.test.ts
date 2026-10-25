@@ -2315,7 +2315,10 @@ test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steal
     { kind: 'saga', chapters: [
       { numbers: [1], instructions: [{ kind: 'createToken' }] },
       { numbers: [2], instructions: [{ kind: 'tap', skipNextUntap: true }] },
-      { numbers: [3], instructions: [{ kind: 'changeControl' }, { kind: 'untap' }] },
+      { numbers: [3], decisions: { targets: [{
+        filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'opponent' } },
+        min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 },
+      }] }, instructions: [{ kind: 'changeControl' }, { kind: 'untap' }] },
     ] },
   ])
 })
