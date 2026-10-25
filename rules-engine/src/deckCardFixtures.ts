@@ -14,6 +14,8 @@ export const DECK_DIRECTORIES = [
 ] as const
 
 type DeckFace = {
+  colors?: string[]
+  color_indicator?: string[]
   mana_cost?: string
   name?: string
   oracle_text?: string
@@ -22,6 +24,7 @@ type DeckFace = {
 
 type DeckCard = {
   name: string
+  cache?: string
   card: DeckFace & {
     faces?: DeckFace[]
     power?: string
@@ -47,23 +50,34 @@ export const deckCards = (directory: string) => {
 }
 
 /** The catalog entry a table deal would build for this deck card. */
-export const catalogEntry = ({ card }: DeckCard): ReplayCard => {
+export const catalogEntry = ({ card, cache }: DeckCard): ReplayCard => {
+  const source: DeckFace & { card_faces?: DeckFace[] } = cache
+    ? JSON.parse(readFileSync(join(decksRoot, '..', cache), 'utf8')) as DeckFace & { card_faces?: DeckFace[] }
+    : card
   const joined = (field: 'mana_cost' | 'oracle_text' | 'type_line') =>
     (card.faces ?? []).map((face) => face[field] ?? '').join(' // ')
   return {
     type_line: card.type_line ?? joined('type_line'),
     mana_cost: card.mana_cost ?? joined('mana_cost'),
     oracle_text: card.oracle_text ?? joined('oracle_text'),
+    ...(source.colors !== undefined ? { colors: source.colors } : {}),
+    ...(source.color_indicator !== undefined ? { color_indicator: source.color_indicator } : {}),
     stats: card.power != null ? `${card.power}/${card.toughness}` : '',
     ...(card.faces && card.faces.length > 1
       ? {
-          faces: card.faces.map((face) => ({
-            name: face.name ?? '',
-            type_line: face.type_line ?? '',
-            mana_cost: face.mana_cost ?? '',
-            oracle_text: face.oracle_text ?? '',
-            stats: '',
-          })),
+          faces: card.faces.map((face, index) => {
+            const colors = source.card_faces?.[index]?.colors ?? face.colors
+            const indicator = source.card_faces?.[index]?.color_indicator ?? face.color_indicator
+            return {
+              name: face.name ?? '',
+              type_line: face.type_line ?? '',
+              mana_cost: face.mana_cost ?? '',
+              oracle_text: face.oracle_text ?? '',
+              stats: '',
+              ...(colors !== undefined ? { colors } : {}),
+              ...(indicator !== undefined ? { color_indicator: indicator } : {}),
+            }
+          }),
         }
       : {}),
   }

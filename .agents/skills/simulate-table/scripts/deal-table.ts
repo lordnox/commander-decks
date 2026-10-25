@@ -337,6 +337,8 @@ export const cardFaces = (cache: Json) => {
       || "",
     type_line: face.type_line || "",
     mana_cost: face.mana_cost || "",
+    ...(face.colors !== undefined ? { colors: face.colors } : {}),
+    ...(face.color_indicator !== undefined ? { color_indicator: face.color_indicator } : {}),
     oracle_text: face.oracle_text || "",
     stats: face.power != null
       ? `${face.power}/${face.toughness}`
@@ -344,7 +346,7 @@ export const cardFaces = (cache: Json) => {
   }))
 }
 
-const catalogEntry = async (entry: Json, repo: string) => {
+export const catalogEntry = async (entry: Json, repo: string) => {
   const card = entry.card ?? {}
   const cache = typeof entry.cache === "string"
     ? await readJson(join(repo, entry.cache)).catch(() => ({}))
@@ -359,6 +361,8 @@ const catalogEntry = async (entry: Json, repo: string) => {
     mana_cost: cache.mana_cost || card.mana_cost || joinedFaces(cache, "mana_cost"),
     oracle_text: cache.oracle_text || card.oracle_text || joinedFaces(cache, "oracle_text"),
     stats: statLine(cache),
+    ...(cache.colors !== undefined ? { colors: cache.colors } : {}),
+    ...(cache.color_indicator !== undefined ? { color_indicator: cache.color_indicator } : {}),
     ...(faces ? { faces } : {}),
   }
 }

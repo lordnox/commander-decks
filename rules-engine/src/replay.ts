@@ -1,3 +1,4 @@
+import { normalizeColorSet } from '../../shared/cardColors'
 import { grantedRulesFor } from './cardPlugins'
 import { CARD_TYPES, SUPERTYPES } from './definitions'
 import { commanderRules } from './formats'
@@ -20,6 +21,9 @@ export type ReplayCard = {
   mana_cost: string
   oracle_text: string
   stats: string
+  /** Authoritative external Scryfall characteristics; absence permits legacy inference. */
+  colors?: string[]
+  color_indicator?: string[]
   /** Separate characteristics for double-faced cards and Room doors. */
   faces?: ReplayCard[]
 }
@@ -95,8 +99,12 @@ const manaValueOf = (cost: string) =>
     return total + 1
   }, 0)
 
-const colorsOf = (cost: string) =>
-  [...new Set([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
+const colorsOf = (card: ReplayCard | undefined, cost: string) => {
+  const external = card?.colors ?? card?.color_indicator
+  if (external !== undefined) return [...normalizeColorSet(external)]
+  if (/^Devoid\b/m.test(card?.oracle_text ?? '')) return []
+  return [...normalizeColorSet([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
+}
 
 const faceCharacteristics = (face: ReplayCard) => {
   const types = CARD_TYPES.filter((type) =>
@@ -112,7 +120,7 @@ const faceCharacteristics = (face: ReplayCard) => {
     subtypes: face.type_line.split(' — ')[1]?.split(' ') ?? [],
     manaCost: face.mana_cost,
     manaValue: manaValueOf(face.mana_cost),
-    colors: colorsOf(face.mana_cost),
+    colors: colorsOf(face, face.mana_cost),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     printedDefense: defense,
@@ -155,7 +163,7 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     supertypes,
     manaCost,
     manaValue: manaValueOf(manaCost),
-    colors: colorsOf(manaCost),
+    colors: colorsOf(roomFaces ? card : card?.faces?.[0] ?? card, manaCost),
     ...(roomFaces
       ? {
           roomDoors: roomFaces.map((face, index) => ({

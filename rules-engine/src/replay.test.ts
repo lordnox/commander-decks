@@ -4,6 +4,7 @@ import { commanderRules } from './formats'
 import { cardTemplate } from './newGame'
 import { createServerGame } from './runtime'
 import {
+  replayCardTemplate,
   importLiveReplayState,
   replayComparableState,
   replayExpectedState,
@@ -356,5 +357,62 @@ describe('table replay conversion', () => {
       controller: 'p1',
       text: 'targeting Spark Double (p2 graveyard)',
     }])
+  })
+})
+
+
+describe('replay color input boundary', () => {
+  const printed = {
+    type_line: 'Creature — Test', mana_cost: '{B}', oracle_text: '', stats: '1/1',
+  }
+
+  test('authoritative colors preserve colorless and normalize all five colors', () => {
+    expect(replayCardTemplate('Fixture', { ...printed, colors: [] }).colors).toEqual([])
+    expect(replayCardTemplate('Fixture', {
+      ...printed, colors: ['G', 'U', 'W', 'B', 'U', 'R'], color_indicator: ['R'],
+    }).colors).toEqual(['W', 'U', 'B', 'R', 'G'])
+  })
+
+  test('indicators precede mana inference, including empty indicators', () => {
+    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: ['R'] }).colors).toEqual(['R'])
+    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: [] }).colors).toEqual([])
+    expect(replayCardTemplate('Fixture', printed).colors).toEqual(['B'])
+    expect(replayCardTemplate('Fixture', { ...printed, mana_cost: '{C}' }).colors).toEqual([])
+  })
+
+  test('devoid suppresses inference in catalogs without authoritative fields', () => {
+    expect(replayCardTemplate('Fixture', {
+      ...printed, oracle_text: 'Devoid (This card has no color.)\nFlying',
+    }).colors).toEqual([])
+  })
+
+  test('external arrays reject invalid symbols instead of silently losing colors', () => {
+    for (const symbol of ['C', 'blue', 'UB']) {
+      expect(() => replayCardTemplate('Fixture', { ...printed, colors: [symbol] })).toThrow()
+      expect(() => replayCardTemplate('Fixture', { ...printed, color_indicator: [symbol] })).toThrow()
+    }
+  })
+
+  test('double-faced objects use the front face rather than the combined color set', () => {
+    const template = replayCardTemplate('Front // Back', {
+      ...printed, colors: ['B', 'R'], faces: [
+        { ...printed, name: 'Front', colors: [] },
+        { ...printed, name: 'Back', mana_cost: '', color_indicator: ['R'] },
+      ],
+    })
+    expect(template.colors).toEqual([])
+    expect(template.frontFace?.colors).toEqual([])
+    expect(template.backFace?.colors).toEqual(['R'])
+  })
+
+  test('Room doors retain their separate colors while the object uses combined colors', () => {
+    const template = replayCardTemplate('Left // Right', {
+      ...printed, type_line: 'Enchantment — Room', colors: ['U', 'R'], faces: [
+        { ...printed, name: 'Left', type_line: 'Enchantment — Room', colors: ['U'] },
+        { ...printed, name: 'Right', type_line: 'Enchantment — Room', colors: ['R'] },
+      ],
+    })
+    expect(template.colors).toEqual(['U', 'R'])
+    expect(template.roomDoors?.map((door) => door.colors)).toEqual([['U'], ['R']])
   })
 })
