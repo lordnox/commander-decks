@@ -1,3 +1,6 @@
+import { ok } from '../../testHelpers'
+import type { GameState } from '../../types'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -144,4 +147,32 @@ describe('staticModifierLifecycle', () => {
     expect(cleanup.state.step).toBe('cleanup')
     expect(cleanup.state.objects[creature.id]).toMatchObject({ power: 6, toughness: 6 })
   })
+})
+
+const named = (state: GameState, name: string) =>
+  Object.values(state.objects).find((object) => object.name === name)!
+
+test('a catalog static modifier affects only controlled creatures and expires when its source leaves', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [
+        cardTemplate('Glorious Anthem', { types: ['Enchantment'] }),
+        cardTemplate('Your Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+      ],
+      p2: [cardTemplate('Their Bear', { types: ['Creature'], power: 2, toughness: 2 })],
+    },
+  }, { random: () => 0 })
+  const anthem = named(server.state, 'Glorious Anthem')
+  const yours = named(server.state, 'Your Bear')
+  const theirs = named(server.state, 'Their Bear')
+  expect(anthem.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Glorious Anthem'))
+  expect(anthem.effects).toEqual([])
+  expect(yours.power).toBe(3)
+  expect(yours.toughness).toBe(3)
+  expect(theirs.power).toBe(2)
+  expect(theirs.toughness).toBe(2)
+  const left = ok(server.rules(server.state, { type: 'move', objectId: anthem.id, to: 'graveyard' }))
+  expect(named(left, 'Your Bear').power).toBe(2)
+  expect(named(left, 'Your Bear').toughness).toBe(2)
 })

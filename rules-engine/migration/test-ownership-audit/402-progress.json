@@ -23,6 +23,10 @@
     "cardRuleCatalog.damageAndLeaves:97",
     "cardRuleCatalog.damageAndLeaves:helper:expectBeast:23",
     "cardRuleCatalog.damageAndLeaves:helper:leaveThragtusk:32",
+    "cardRuleCatalog.staticsAndAlternativeCosts:101",
+    "cardRuleCatalog.staticsAndAlternativeCosts:137",
+    "cardRuleCatalog.staticsAndAlternativeCosts:156",
+    "cardRuleCatalog.staticsAndAlternativeCosts:76",
     "cardRuleCatalog.drawAndKeywords:107",
     "cardRuleCatalog.drawAndKeywords:86",
     "chainsOfMephistopheles.integration:105",
@@ -1141,6 +1145,38 @@
       "destination": "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts",
       "suite": "catalog spell composes draw and life loss exactly once",
       "evidence": "Retains the canonical Night\u2019s Whisper template and exact pinned snapshot/empty-effects checks. Casting and resolving leaves its controller at 38 life with exactly two cards in hand and the spell in the graveyard; no copied definition or runtime change."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:76"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/staticModifierLifecycle.test.ts",
+      "suite": "a catalog static modifier affects only controlled creatures and expires when its source leaves",
+      "evidence": "Retains canonical Glorious Anthem binding and empty effects; own creature is 3/3 exactly once, opponent stays 2/2, and own creature returns to 2/2 after source departure."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:101"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/replacements.test.ts",
+      "suite": "an entry exile program composes with a static graveyard destination replacement",
+      "evidence": "Retains canonical Rest in Peace binding and empty effects; both graveyards fill before entry, one entry trigger exiles both and empties both graveyards, and subsequent destruction and discard go to exile with no graveyard residue."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:137"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog spell announcements require both colored and generic printed mana",
+      "evidence": "Retains canonical Night\u2019s Whisper binding; rejects no mana and colored-only payment, then consumes one black plus one colorless mana for the printed cost."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:156"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "a catalog alternative cost validates ordered discards before countering the target spell",
+      "evidence": "Retains canonical Foil binding and empty effects; rejects reversed typed discard order, pays Island plus another card to graveyard, has two stack items, then counters the target and moves both spells to graveyard with an empty stack."
     }
   ]
 }
