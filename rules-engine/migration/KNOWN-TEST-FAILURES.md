@@ -2,7 +2,10 @@
 
 ## Generated card-handler reload fixture
 
-**Status:** known baseline failure, tracked separately from the Rule DSL work.
+**Status:** historical; no longer applicable after #486 removed the host
+handler loader, temporary-module imports, and all four generated-handler
+fixtures. The complete host suite now runs without fixture exclusions. This
+record preserves the observations below until the historical cleanup in #464.
 
 **Test:** `live-runner/src/kernelHost.test.ts` — `loads generated card handlers from the current worktree`
 
@@ -17,9 +20,9 @@ Bun 1.3.14 (bun 1.3.14 (0d9b296a))
 The failure predates Parts 03–05 and is separate from their DSL changes. The
 fixture writes a generated handler with `version: 1`, loads it, rewrites the
 same handler with `version: 2`, and expects the second load to observe version
-2. It currently fails while importing the temporary generated module.
+2. At the time it failed while importing the temporary generated module.
 
-Reproduce only this test with:
+Historical reproduction command (the fixture has since been removed):
 
 ```text
 bun test live-runner/src/kernelHost.test.ts --test-name-pattern 'loads generated card handlers from the current worktree'

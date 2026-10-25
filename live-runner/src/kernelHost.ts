@@ -8,7 +8,6 @@ export {
   assertAgentKernelBoundary,
   hasKernel,
   kernelPath,
-  loadHostCardPlugins,
   openKernel,
   rollbackState,
 } from './kernelOpen'
