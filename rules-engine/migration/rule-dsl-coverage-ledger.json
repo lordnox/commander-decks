@@ -4346,7 +4346,7 @@
           "rules-engine/src/cardPlugins/combatTax.test.ts:31 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:66 — test('Baird does not tax a creature attacking another opponent', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:84 — test('a tapped Archangel does not impose its attack tax', () => {",
-          "rules-engine/src/plugins/combat.test.ts:124 — test('a combat nobody joined skips blockers and damage', () => {"
+          "rules-engine/src/plugins/combat.test.ts:123 — test('a combat nobody joined skips blockers and damage', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5277,7 +5277,7 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/plugins/combat.test.ts:263 — test('a deathtouch trampler only owes its blocker one damage', () => {",
+          "rules-engine/src/plugins/combat.test.ts:262 — test('a deathtouch trampler only owes its blocker one damage', () => {",
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
@@ -5360,9 +5360,9 @@
           "rules-engine/src/cardPlugins/untilEot.test.ts:206 — test('an earlier duration ending does not overwrite a later control effect', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:29 — test('cleanup reverts a land animation while retaining its original type', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:58 — test('cleanup reverts a temporary pump', () => {",
-          "rules-engine/src/plugins/combat.test.ts:124 — test('a combat nobody joined skips blockers and damage', () => {",
-          "rules-engine/src/plugins/combat.test.ts:138 — test('a first striker keeps its own damage step', () => {",
-          "rules-engine/src/plugins/combat.test.ts:93 — test('entering the combat damage step assigns damage without being asked', () => {",
+          "rules-engine/src/plugins/combat.test.ts:123 — test('a combat nobody joined skips blockers and damage', () => {",
+          "rules-engine/src/plugins/combat.test.ts:137 — test('a first striker keeps its own damage step', () => {",
+          "rules-engine/src/plugins/combat.test.ts:92 — test('entering the combat damage step assigns damage without being asked', () => {",
           "rules-engine/src/plugins/combatLegendaryDamage.test.ts:38"
         ]
       },
@@ -6054,7 +6054,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:489",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:488",
         "rules-engine/src/cardPlugins/effectRuntime.ts:276",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
         "rules-engine/src/cardPlugins/effectRuntime.ts:673",
@@ -6221,8 +6221,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:665",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:843",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:664",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:842",
         "rules-engine/src/cardPlugins/effectRuntime.ts:109",
         "rules-engine/src/cardPlugins/effectRuntime.ts:266",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
