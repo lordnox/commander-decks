@@ -21,6 +21,7 @@ import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
+import { emptyMana } from '../../draft'
 import type { Amount } from './schema/v1'
 import type { GameState, Plugin, ReduceResult } from '../../types'
 
@@ -383,4 +384,60 @@ test('entry counter transforms validate amounts and reject unbound replacement r
   for (const enterCounters of invalidCounters) {
     expect(() => compileCardRuleDefinition(card([staticAbility(replacement(wouldEnter(), modifyEvent({ enterCounters })))]))).toThrow()
   }
+})
+
+describe('catalog Sea Gate, Reborn pay-life-or-tap back face', () => {
+  const SEA_GATE = 'Sea Gate Restoration // Sea Gate, Reborn'
+  const game = () => createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate(SEA_GATE)] },
+  }, { random: () => 0.5 })
+  type Server = ReturnType<typeof game>
+  const seaGate = (state: GameState) => Object.values(state.objects).find((object) => object.name === SEA_GATE)!
+  const play = (server: Server, state = server.state) =>
+    ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: seaGate(state).id }))
+  const choose = (server: Server, state: GameState, optionId: string) => {
+    const pending = pendingOptionSelection(state, 'p1')!
+    return ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId }))
+  }
+  const withLife = (server: Server, life: number) => {
+    const state = structuredClone(server.state)
+    state.players.p1.life = life
+    return state
+  }
+
+  test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {
+    const server = game()
+    const asked = play(server)
+    const pending = pendingOptionSelection(asked, 'p1')!
+    expect(pending).toMatchObject({ source: SEA_GATE })
+    expect(pending.prompt).toContain('pay 3 life')
+    expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+    const settled = choose(server, asked, PAY_LIFE_OPTION)
+    expect(settled.players.p1.life).toBe(server.state.players.p1.life - 3)
+    expect(seaGate(settled)).toMatchObject({ types: ['Land'], tapped: false })
+    const mana = ok(server.rules(settled, { type: 'tapForMana', seat: 'p1', objectId: seaGate(settled).id }))
+    expect(mana.players.p1.mana).toEqual({ ...emptyMana(), U: 1 })
+  })
+
+  test('declining the payment enters it tapped and costs no life', () => {
+    const server = game()
+    const declined = choose(server, play(server), DECLINE_LIFE_OPTION)
+    expect(seaGate(declined).tapped).toBe(true)
+    expect(declined.players.p1.life).toBe(server.state.players.p1.life)
+  })
+
+  test('at 2 life the 3-life payment is not possible, so the land enters tapped', () => {
+    const server = game()
+    const settled = choose(server, play(server, withLife(server, 2)), PAY_LIFE_OPTION)
+    expect(settled.players.p1.life).toBe(2)
+    expect(seaGate(settled).tapped).toBe(true)
+  })
+
+  test('at exactly 3 life the 3-life payment is allowed, and it costs the game', () => {
+    const server = game()
+    const settled = choose(server, play(server, withLife(server, 3)), PAY_LIFE_OPTION)
+    expect(settled.players.p1.life).toBe(0)
+    expect(settled.players.p1.lost).toBe(true)
+  })
 })

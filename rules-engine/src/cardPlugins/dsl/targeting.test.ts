@@ -17,6 +17,7 @@ import { forestOverlay } from '../../plugins/forestOverlay'
 import { canonicalTargetBindings } from './compiler/targeting'
 import { instructionSpell } from './instructionTestSupport'
 import { resolveStack } from '../../testHelpers'
+import { legalActsFor } from '../../actions'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -731,4 +732,55 @@ test('minimum power filters exclude objects without a power characteristic even 
     type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Canonical Target Spell').id,
     targets: [{ kind: 'object', objectId: named(server.state, 'Target Bear').id }],
   }).ok).toBe(false)
+})
+
+/** Catalog Arbor Elf with tapped basic Forest, basic Island, and nonbasic Forest fixtures. */
+const arborElfGame = () => createServerGame(commanderRules, {
+  players: 2,
+  battlefield: {
+    p1: [
+      { ...cardTemplate('Arbor Elf'), summoningSickness: false },
+      cardTemplate('Basic Forest', { types: ['Land'], supertypes: ['Basic'], subtypes: ['Forest'], tapped: true }),
+      cardTemplate('Basic Island', { types: ['Land'], supertypes: ['Basic'], subtypes: ['Island'], tapped: true }),
+      cardTemplate('Nonbasic Forest', { types: ['Land'], subtypes: ['Forest', 'Island'], tapped: true }),
+    ],
+  },
+}, { random: () => 0.5 })
+
+const untapWithArborElf = (state: GameState, targetName: string) => ({
+  type: 'activateAbility' as const,
+  seat: 'p1',
+  objectId: named(state, 'Arbor Elf').id,
+  abilityId: '$.abilities[0]',
+  targets: [{ kind: 'object' as const, objectId: named(state, targetName).id }],
+})
+
+describe('catalog Arbor Elf subtype-filtered activated target', () => {
+  test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {
+    const server = arborElfGame()
+    for (const land of ['Basic Forest', 'Nonbasic Forest']) {
+      const activated = ok(server.rules(server.state, untapWithArborElf(server.state, land)))
+      expect(named(activated, 'Arbor Elf').tapped).toBe(true)
+      const resolved = resolveStack(server.rules, activated)
+      expect(named(resolved, land).tapped).toBe(false)
+      expect(named(resolved, 'Basic Island').tapped).toBe(true)
+    }
+  })
+
+  test('an Island or the Elf itself is not a legal target', () => {
+    const server = arborElfGame()
+    expect(server.rules(server.state, untapWithArborElf(server.state, 'Basic Island')).ok).toBe(false)
+    expect(server.rules(server.state, untapWithArborElf(server.state, 'Arbor Elf')).ok).toBe(false)
+  })
+
+  test('the action layer offers one activation per Forest', () => {
+    const server = arborElfGame()
+    const acts = legalActsFor(server.state, 'p1').filter((act) =>
+      act.kind === 'activateAbility' && act.name === 'Arbor Elf')
+    const targets = acts.flatMap((act) =>
+      act.kind === 'activateAbility'
+        ? (act.targetGroups ?? []).flatMap((group) => group.targets.map((candidate) => candidate.name))
+        : [])
+    expect(targets.toSorted()).toEqual(['Basic Forest', 'Nonbasic Forest'])
+  })
 })

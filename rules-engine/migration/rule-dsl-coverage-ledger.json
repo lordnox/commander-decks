@@ -318,8 +318,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:281 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:524 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:282 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:525 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
         ]
       },
       "neededCanonicalNode": "new canonical ability/effect node",
@@ -4875,13 +4875,13 @@
         "matches": 89,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:263 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:69",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:158 — test('an attacker cannot also tap to pay its own attack tax', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:188 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:31 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:66 — test('Baird does not tax a creature attacking another opponent', () => {",
-          "rules-engine/src/cardPlugins/combatTax.test.ts:84 — test('a tapped Archangel does not impose its attack tax', () => {"
+          "rules-engine/src/cardPlugins/combatTax.test.ts:84 — test('a tapped Archangel does not impose its attack tax', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts:7 — test('ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
