@@ -7,7 +7,9 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState, Plugin } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { blink, card, compileCardRuleDefinition, createDefinitionSnapshot, enters, gainLife, leaves, objects, players, ref, select, spell, target, whenever } from './v1'
+import { hasKeyword } from '../../keywords'
+import { pendingSelectionFor } from '../../rules/selectCards'
+import { blink, card, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, enters, gainLife, grantKeywordEffect, leaves, objects, players, pumpEffect, putCounters, ref, select, spell, target, untilCleanup, whenever } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find(object => object.name === name)!
 const setup = (instruction: Parameters<typeof blink>[0] = { targets: target(0) }, extra: Parameters<typeof cardTemplate>[1] = {}, plugins: Plugin[] = [], owner = 'p1') => createServerGame(commanderRules, {
@@ -127,4 +129,83 @@ test('selector blink exiles the full group before returning it and queues trigge
   expect(resolved.players.p1.life).toBe(41)
   expect((resolved.pendingTriggers?.length ?? 0) + resolved.stack.filter(item => item.kind === 'ability').length).toBe(4)
   expect(resolved.resolution).toBeUndefined()
+})
+
+const definition = (...abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+test('a blinked permanent sees itself leave and enter as a new object', () => {
+  const server = setup({ targets: target(0) }, { ruleDefinition: definition(
+    whenever(leaves({ filter: ref('self') }), { instructions: [gainLife({ targets: ref('controller'), amount: 3 })] }),
+    whenever(enters({ filter: ref('self') }), { instructions: [gainLife({ targets: ref('controller'), amount: 2 })] }),
+  ) })
+  const blinked = ok(server.rules(announce(server), { type: 'resolveTop' }))
+  // Both triggers wait for their controller to order them (CR 603.3b).
+  const order = pendingSelectionFor(blinked, 'p1')
+  expect(order?.triggerOrder?.ids).toHaveLength(2)
+  const ordered = ok(server.rules(blinked, { type: 'selectCards', seat: 'p1', selectionId: order!.id, kind: 'choose', count: order!.count, objectIds: order!.candidates }))
+  const resolved = resolveStack(server.rules, ordered)
+  expect(resolved.stack).toEqual([])
+  expect(resolved.players.p1.life).toBe(46)
+})
+
+test('enter triggers from a blink act on the returned object rather than the exiled one', () => {
+  const server = setup({ targets: target(0) })
+  const state = structuredClone(server.state)
+  const watcherId = 'blink-watcher'
+  state.objects[watcherId] = {
+    ...structuredClone(named(state, 'Permanent fixture')),
+    id: watcherId,
+    name: 'Watcher',
+    types: ['Enchantment'],
+    power: null,
+    toughness: null,
+    tapped: false,
+    ruleDefinition: definition(whenever(enters({ filter: { type: 'Creature' } }), {
+      instructions: [putCounters({ targets: ref('triggering.object.after'), counter: '+1/+1', count: 1 })],
+    })),
+  }
+  state.zoneOrder.p1.battlefield.push(watcherId)
+  state.zoneCounts.p1.battlefield += 1
+  const before = named(state, 'Permanent fixture')
+  const cast = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Instruction fixture').id, targets: [{ kind: 'object', objectId: before.id }] }))
+  const returned = named(resolveStack(server.rules, cast), 'Permanent fixture')
+  expect(returned).toMatchObject({ zone: 'battlefield', incarnation: before.incarnation + 2, counters: { '+1/+1': 1 }, power: 3, toughness: 4 })
+})
+
+test('until-end-of-turn effects on a permanent end when it blinks', () => {
+  const affect = instructionSpell({
+    decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+    instructions: [
+      createEffect({ targets: target(0), effect: pumpEffect(2, 2), duration: untilCleanup() }),
+      createEffect({ targets: target(0), effect: grantKeywordEffect('flying'), duration: untilCleanup() }),
+    ],
+  })
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [{ ...affect, name: 'Pump fixture' }, instructionSpell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [blink({ targets: target(0) })],
+    })] },
+    battlefield: { p1: [cardTemplate('Permanent fixture', { types: ['Creature'], power: 2, toughness: 3 })] },
+  }, { random: () => 0 })
+  const cast = (state: GameState, name: string) => resolveStack(server.rules, ok(server.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, name).id,
+    targets: [{ kind: 'object', objectId: named(state, 'Permanent fixture').id }],
+  })))
+  const pumped = cast(server.state, 'Pump fixture')
+  expect(named(pumped, 'Permanent fixture')).toMatchObject({ power: 4, toughness: 5 })
+  expect(hasKeyword(named(pumped, 'Permanent fixture'), 'flying')).toBe(true)
+  const returned = named(cast(pumped, 'Instruction fixture'), 'Permanent fixture')
+  expect(returned).toMatchObject({ power: 2, toughness: 3 })
+  expect(returned.continuousEffects ?? []).toEqual([])
+  expect(hasKeyword(returned, 'flying')).toBe(false)
+})
+
+test('a blinked attacker returns removed from combat', () => {
+  const server = setup()
+  const state = structuredClone(announce(server))
+  named(state, 'Permanent fixture').attacking = 'p2'
+  const returned = named(resolveStack(server.rules, state), 'Permanent fixture')
+  expect(returned).toMatchObject({ zone: 'battlefield', attacking: null, blocking: null })
 })
