@@ -206,7 +206,6 @@ const shouldRefresh = (
   event.type === 'move'
   || Boolean(enteringObjectId(event, state))
   || (event.type === 'custom' && event.name === SYNC)
-  || (event.type === 'custom' && event.name === 'pitOfOfferings.linkExiled')
 
 const needsSync = (state: GameState) =>
   Object.values(state.objects).some((object) => {
