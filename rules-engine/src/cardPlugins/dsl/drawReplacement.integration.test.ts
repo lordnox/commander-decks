@@ -27,8 +27,15 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, Plugin } from '../../types'
+import { enterAdditionalDrawStep } from '../../rules/drawStepHistory'
+import { makeDraft, freezeDraft } from '../../draft'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
-import { answerDiscard, chainsDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
+import {
+  answerDiscard,
+  discardThenDrawDefinition as discardThenDraw,
+  ownDrawStep,
+  pickReplacement,
+} from './dslTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -162,75 +169,177 @@ describe('drawReplacement — integration', () => {
   })
 })
 
-describe('Chains discard-then-draw replacement', () => {
-  const exileDiscardDestination: Plugin = {
-    id: 'test.exileDiscardDestination',
-    replace: ({ event }) => (
-      event.type === 'move' && event.to === 'graveyard'
-        ? { ...event, to: 'exile' as const }
-        : undefined
-    ),
-  }
+const namedZone = (state: GameState, name: string) =>
+  Object.values(state.objects).find((object) => object.name === name)?.zone
 
-  test('first actual draw in own draw step is exempt from Chains', () => {
+const preventDiscard: Plugin = {
+  id: 'test.preventDiscard',
+  replace: ({ event }) => (event.type === 'discard' ? null : undefined),
+}
+
+const discardToGainLife: Plugin = {
+  id: 'test.discardToGainLife',
+  replace: ({ event }) => (
+    event.type === 'discard'
+      ? { type: 'gainLife' as const, seat: event.seat, amount: 1 }
+      : undefined
+  ),
+}
+
+const exileDiscardDestination: Plugin = {
+  id: 'test.exileDiscardDestination',
+  replace: ({ event }) => (
+    event.type === 'move' && event.to === 'graveyard'
+      ? { ...event, to: 'exile' as const }
+      : undefined
+  ),
+}
+
+const preventMoveToGraveyard: Plugin = {
+  id: 'test.preventMoveToGraveyard',
+  replace: ({ event }) => (event.type === 'move' && event.to === 'graveyard' ? null : undefined),
+}
+
+describe('conditional discard-then-draw replacements', () => {
+  test('first actual draw in own draw step is exempt from the replacement', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
       libraries: { p1: [cardTemplate('Top')] },
     }, { random: () => 0 })
-    const state = reduce(server, ownDrawStep(server.state, 'p1'), { type: 'draw', seat: 'p1' })
+    const state = ok(server.rules(ownDrawStep(server.state, 'p1'), { type: 'draw', seat: 'p1' }))
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
   })
 
-  test('one Chains discards once then draws without reapplying Chains', () => {
+  test('the replacement affects the second draw in the same draw step', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
       hands: { p1: [cardTemplate('Hand Card')] },
       libraries: { p1: [cardTemplate('Lib A'), cardTemplate('Lib B')] },
     }, { random: () => 0 })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1' })
-    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    const pending = pendingSelectionFor(state, 'p1')
+    expect(pending?.kind).toBe('discard')
     const handId = state.zoneOrder.p1.hand[0]!
-    state = reduce(server, state, {
+    state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
-      selectionId: pendingSelectionFor(state, 'p1')!.id,
+      selectionId: pending!.id,
       kind: 'discard',
       count: 1,
       objectIds: [handId],
-    })
+    }))
     expect(state.zoneOrder.p1.graveyard).toContain(handId)
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
-    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.zoneOrder.p1.hand[0]).not.toBe(handId)
   })
 
   test('empty hand mills instead of drawing', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
       libraries: { p1: [cardTemplate('Mill Me')] },
     }, { random: () => 0 })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1' })
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
     expect(state.zoneOrder.p1.graveyard).toHaveLength(1)
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  })
+
+  test('draw in another player draw step is affected even as first draw that turn', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p2: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('P1 Hand')] },
+      libraries: { p1: [cardTemplate('Lib')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p2')
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+  })
+
+  test('one replacement source does not apply twice to the follow-up draw', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
+      libraries: { p1: [cardTemplate('L1')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    const pending = pendingSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: pending.id,
+      kind: 'discard',
+      count: 1,
+      objectIds: [state.zoneOrder.p1.hand[0]!],
+    }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+  })
+
+  test('competing replacements let the player choose', () => {
+    const preventDraw: Plugin = {
+      id: 'test.preventDraw',
+      replace: ({ event }) => (event.type === 'draw' ? null : undefined),
+    }
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('H')] },
+      libraries: { p1: [cardTemplate('L')] },
+    }, { random: () => 0, cardPlugins: [preventDraw] })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingOptionSelection(state, 'p1')?.options.length).toBeGreaterThanOrEqual(2)
+  })
+
+  test('non-draw replacement does not consume the first-draw exemption', () => {
+    const toMill = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(replacement(
+        wouldDraw(),
+        replaceWith(mill({ count: amount(1), targets: ref('event.player') })),
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Mill replacer', { types: ['Enchantment'], ruleDefinition: toMill() }),
+          cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
+        ],
+      },
+      hands: { p1: [cardTemplate('Later hand')] },
+      libraries: { p1: [cardTemplate('A'), cardTemplate('B')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(1)
+    expect(state.drawStepTracking?.actualDraws?.p1 ?? 0).toBe(0)
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
   })
 
   test('draw three completes three independent discard-then-draw procedures through restore', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
       hands: { p1: [cardTemplate('H1'), cardTemplate('H2'), cardTemplate('H3')] },
       libraries: { p1: [cardTemplate('L1'), cardTemplate('L2'), cardTemplate('L3')] },
     }, { random: () => 0 })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1', count: 3 })
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1', count: 3 }))
     expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
     expect(state.eventProcessing?.pendingEvent).toMatchObject({ type: 'draw', count: 1, remainingAfter: 2 })
     state = answerDiscard(server, state, true)
@@ -242,54 +351,101 @@ describe('Chains discard-then-draw replacement', () => {
     expect(state.eventProcessing).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(3)
     expect(state.zoneOrder.p1.graveyard).toHaveLength(3)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand.every((id) => state.objects[id].name.startsWith('L'))).toBe(true)
+    expect(state.zoneOrder.p1.graveyard.every((id) => state.objects[id].name.startsWith('H'))).toBe(true)
   })
 
-  test('competing replacements let the player choose', () => {
-    const preventDraw: Plugin = {
-      id: 'test.preventDraw',
-      replace: ({ event }) => (event.type === 'draw' ? null : undefined),
-    }
+  test('a prevented discard binds failure and mills instead of drawing', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
-      hands: { p1: [cardTemplate('H')] },
-      libraries: { p1: [cardTemplate('L')] },
-    }, { random: () => 0, cardPlugins: [preventDraw] })
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('Keep')] },
+      libraries: { p1: [cardTemplate('Mill Me'), cardTemplate('Later')] },
+    }, { random: () => 0, cardPlugins: [preventDiscard] })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1' })
-    expect(pendingOptionSelection(state, 'p1')?.options.length).toBeGreaterThanOrEqual(2)
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(namedZone(state, 'Keep')).toBe('hand')
+    expect(namedZone(state, 'Mill Me')).toBe('graveyard')
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.zoneOrder.p1.library).toHaveLength(1)
+  })
+
+  test('a discard replaced with another action binds failure and mills instead of drawing', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('H')] },
+      libraries: { p1: [cardTemplate('L')] },
+    }, { random: () => 0, cardPlugins: [discardToGainLife] })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    const life = state.players.p1.life
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(namedZone(state, 'H')).toBe('hand')
+    expect(namedZone(state, 'L')).toBe('graveyard')
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.players.p1.life).toBe(life + 1)
+  })
+
+  test('a prevented discard destination binds failure and mills instead of drawing', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      hands: { p1: [cardTemplate('Keep')] },
+      libraries: { p1: [cardTemplate('Mill Me'), cardTemplate('Later')] },
+    }, { random: () => 0, cardPlugins: [preventMoveToGraveyard] })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(namedZone(state, 'Keep')).toBe('hand')
+    expect(namedZone(state, 'Mill Me')).toBe('graveyard')
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.zoneOrder.p1.library).toHaveLength(1)
   })
 
   test('a redirected discard destination still counts as discarded and draws', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
       hands: { p1: [cardTemplate('Exiled')] },
       libraries: { p1: [cardTemplate('Drawn')] },
     }, { random: () => 0, cardPlugins: [exileDiscardDestination] })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1' })
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
     state = answerDiscard(server, state, true)
-    expect(named(state, 'Exiled').zone).toBe('exile')
-    expect(named(state, 'Drawn').zone).toBe('hand')
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(namedZone(state, 'Exiled')).toBe('exile')
+    expect(namedZone(state, 'Drawn')).toBe('hand')
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
   })
 
-  test('two Chains with two cards in hand discard twice then draw once', () => {
+  test('two replacement sources with two cards in hand discard twice then draw once', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: { p1: [
-        cardTemplate('Chains A', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
-        cardTemplate('Chains B', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
+        cardTemplate('Replacer A', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
+        cardTemplate('Replacer B', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
       ] },
       hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
       libraries: { p1: [cardTemplate('L1')] },
     }, { random: () => 0 })
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
-    state = reduce(server, state, { type: 'draw', seat: 'p1' })
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
     state = pickReplacement(server, state)
     state = answerDiscard(server, state)
     state = answerDiscard(server, state)
@@ -300,11 +456,62 @@ describe('Chains discard-then-draw replacement', () => {
     expect(state.zoneOrder.p1.library).toHaveLength(0)
   })
 
+  test('two replacement sources with one card in hand mills the follow-up draw', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [
+        cardTemplate('Replacer A', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
+        cardTemplate('Replacer B', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
+      ] },
+      hands: { p1: [cardTemplate('Only Hand')] },
+      libraries: { p1: [cardTemplate('Mill Me'), cardTemplate('Stay')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    state = pickReplacement(server, state)
+    state = answerDiscard(server, state)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+    expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name)).toEqual(['Only Hand', 'Mill Me'])
+    expect(state.zoneOrder.p1.library).toHaveLength(1)
+    expect(state.objects[state.zoneOrder.p1.library[0]!].name).toBe('Stay')
+  })
+
+  test('milling an empty library is not an attempted draw', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      libraries: { p1: [] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+  })
+
+  test('extra draw step starts a fresh exemption', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
+      libraries: { p1: [cardTemplate('First'), cardTemplate('Second')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    const draft = makeDraft(state)
+    enterAdditionalDrawStep(draft, 'p1')
+    state = freezeDraft(draft)
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+  })
+
   test.each([false, true])('empty library on the draw branch loses unless replaced by a win (Laboratory Maniac=%s)', withManiac => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: { p1: [
-        cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
+        cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
         ...(withManiac ? [cardTemplate('Laboratory Maniac')] : []),
       ] },
       hands: { p1: [cardTemplate('Pay')] },
@@ -313,7 +520,7 @@ describe('Chains discard-then-draw replacement', () => {
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
     state = reduce(server, state, { type: 'draw', seat: 'p1' })
-    state = pickReplacement(server, state, 'Chains')
+    state = pickReplacement(server, state, 'Replacer')
     state = answerDiscard(server, state, true)
     expect(state.players.p1.lost).toBe(!withManiac)
     expect(state.players.p2.lost).toBe(withManiac)
