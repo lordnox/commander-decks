@@ -26,6 +26,7 @@ import yarokTheDesecrated from './yarok-the-desecrated'
 import ancientGreenwarden from './ancient-greenwarden'
 import ringsOfBrighthearth from './rings-of-brighthearth'
 import hedgeShredder from './hedge-shredder'
+import laboratoryManiac from './laboratory-maniac'
 import lair_of_the_hydra from './lair-of-the-hydra'
 import hall_of_storm_giants from './hall-of-storm-giants'
 import firdoch_core from './firdoch-core'
@@ -443,6 +444,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   'Virtue of Knowledge': virtueOfKnowledge,
   'Vantress Visions': virtueOfKnowledge,
   'Hedge Shredder': hedgeShredder,
+  'Laboratory Maniac': laboratoryManiac,
   'Lair of the Hydra': lair_of_the_hydra,
   'Hall of Storm Giants': hall_of_storm_giants,
   'Firdoch Core': firdoch_core,

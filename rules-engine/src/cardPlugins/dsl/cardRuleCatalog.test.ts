@@ -3096,3 +3096,15 @@ test('family 42 catalog cards compose the world rule, player effects, extra turn
     instructions: [{ kind: 'destroy', cannotRegenerate: true }],
   }])
 })
+
+
+test('catalog Laboratory Maniac replaces its controller’s empty-library draw with a win', () => {
+  expect(cardRuleDefinitionSnapshotFor('Laboratory Maniac')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{
+      kind: 'replacement', optional: false,
+      event: { kind: 'draw', filter: { player: { kind: 'players', filter: { relation: 'you' } } } },
+      when: { kind: 'compareAmount', operator: 'eq', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'library', owner: 'you' } } }, right: { kind: 'constant', value: 0 } },
+      transform: { kind: 'replaceWith', instructions: [{ kind: 'winGame', targets: { kind: 'contextRef', name: 'controller' } }] },
+    }] },
+  ])
+})
