@@ -625,3 +625,26 @@ test.each([
   expect(finished.stack).toHaveLength(0)
   expect(server.rules(finished, answer).ok).toBe(false)
 })
+
+// CR 603.3a: the pending ability retains the controller captured at trigger time.
+test.each(['p1', 'p2'] as const)('pending self-leave token trigger restores its captured controller %s', controller => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { [controller]: [cardTemplate('Thragtusk')] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Thragtusk')
+  const left = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'exile' }))
+  expect(left.stack).toHaveLength(1)
+  expect(Object.values(left.objects).filter(object => object.token)).toHaveLength(0)
+  const restored = restoreJournal(JSON.parse(JSON.stringify(createJournal(left))), server.rules).current()
+  expect(restored.stack).toHaveLength(1)
+  expect(restored.stack[0].controller).toBe(controller)
+  expect(Object.values(restored.objects).filter(object => object.token)).toHaveLength(0)
+  const finished = resolveStack(server.rules, restored)
+  const tokens = Object.values(finished.objects).filter(object => object.token && object.zone === 'battlefield')
+  expect(tokens).toHaveLength(1)
+  expect(tokens[0]).toMatchObject({ name: 'Beast', token: true, power: 3, toughness: 3, controller })
+  expect(finished.objects[source.id].zone).toBe('exile')
+  expect(finished.stack).toHaveLength(0)
+  expect(finished.resolution).toBeUndefined()
+})

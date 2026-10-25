@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { createJournal, restoreJournal } from '../journal'
 import { ability, actions, amount, card, chooseInstructions, compileCardRuleDefinition, createDefinitionSnapshot, draw, gainLife, keyword, loseLife, move, objects, players, ref, select, self, spell, target, whenever } from '../cardPlugins/dsl/v1'
+import { cardRuleDefinitionSnapshotFor } from '../cardPlugins/dsl/cardRuleCatalog'
 import { commanderRules } from '../formats'
 import { hasKeyword } from '../keywords'
 import { cardTemplate } from '../newGame'
@@ -715,4 +716,63 @@ describe('wallOfOmens — integration', () => {
       expect(Object.values(state.objects).some((object) => object.name === 'Omens draw' && object.zone === 'hand')).toBe(true)
     })
   })
+})
+
+// Catalog-backed integration of entry and leave triggers (CR 603.6a/c).
+test.each(['graveyard', 'hand', 'exile'] as const)(
+  'self entry and departure triggers resolve independently when moved to %s', to => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Thragtusk')] },
+    }, { random: () => 0 })
+    const source = named(server.state, 'Thragtusk')
+    expect(source.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Thragtusk'))
+    expect(source.effects).toEqual([])
+    const entered = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+    expect(entered.stack).toHaveLength(1)
+    const afterEntry = resolveStack(server.rules, entered)
+    expect(afterEntry.players.p1.life).toBe(45)
+    expect(Object.values(afterEntry.objects).filter(object => object.token)).toHaveLength(0)
+
+    const left = ok(server.rules(afterEntry, { type: 'move', objectId: source.id, to }))
+    expect(left.stack).toHaveLength(1)
+    const finished = resolveStack(server.rules, left)
+    expect(finished.players.p1.life).toBe(45)
+    expect(finished.objects[source.id].zone).toBe(to)
+    const tokens = Object.values(finished.objects).filter(object => object.token && object.zone === 'battlefield')
+    expect(tokens).toHaveLength(1)
+    expect(tokens[0]).toMatchObject({ name: 'Beast', token: true, power: 3, toughness: 3, controller: 'p1' })
+    expect(finished.stack).toHaveLength(0)
+  },
+)
+
+test('opponent draw triggers damage the drawing player and ignore controller draws', () => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: { p1: [cardTemplate('Fate Unraveler')] },
+    libraries: {
+      p1: [cardTemplate('Controller Draw')],
+      p2: [cardTemplate('First Opponent Draw')],
+      p3: [cardTemplate('Second Opponent Draw')],
+    },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Fate Unraveler')
+  expect(source.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Fate Unraveler'))
+  expect(source.effects).toEqual([])
+  let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+  expect(state.stack).toHaveLength(0)
+  expect(state.players.p1.life).toBe(40)
+  expect(state.players.p2.life).toBe(40)
+  expect(state.players.p3.life).toBe(40)
+  for (const seat of ['p2', 'p3'] as const) {
+    state = ok(server.rules(state, { type: 'draw', seat, count: 1 }))
+    expect(state.stack).toHaveLength(1)
+    state = resolveStack(server.rules, state)
+    expect(state.players[seat].life).toBe(39)
+    expect(state.players.p1.life).toBe(40)
+    expect(state.objects[state.zoneOrder[seat].hand[0]].zone).toBe('hand')
+    expect(state.stack).toHaveLength(0)
+  }
+  expect(state.players.p2.life).toBe(39)
+  expect(state.players.p3.life).toBe(39)
 })
