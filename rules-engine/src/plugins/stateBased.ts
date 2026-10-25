@@ -10,6 +10,7 @@ import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
 import { ceaseToExist } from '../rules/spellCopies'
 import { FAILED_DRAW_SINCE_SBA } from '../rules/draw'
+import { hasWorldSupertype } from '../rules/worldSupertype'
 import { activePrintedStaticModifiers } from '../cardPlugins/dsl/staticModifierCore'
 import {
   BATTLE_DEFEATED_ABILITY,
@@ -237,10 +238,10 @@ export const stateBased: Plugin = {
 
     // CR 704.5k: only the permanent that has had the world supertype for the shortest time survives; a tie loses all.
     const worlds = Object.values(draft.objects).filter(object =>
-      object.zone === 'battlefield' && !object.phasedOut && object.supertypes.includes('World'))
+      object.zone === 'battlefield' && !object.phasedOut && hasWorldSupertype(object))
     if (worlds.length > 1) {
-      const newest = Math.max(...worlds.map(object => object.battlefieldTimestamp ?? 0))
-      const survivors = worlds.filter(object => (object.battlefieldTimestamp ?? 0) === newest)
+      const newest = Math.max(...worlds.map(object => object.worldTimestamp ?? 0))
+      const survivors = worlds.filter(object => (object.worldTimestamp ?? 0) === newest)
       for (const object of worlds) {
         if (survivors.length > 1 || object !== survivors[0]) events.push(moveToGraveyard(object.id))
       }

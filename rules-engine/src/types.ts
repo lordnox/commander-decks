@@ -421,6 +421,8 @@ export type GameObject = {
   enteredBattlefieldTurn?: number
   /** CR 613.7d timestamp of this permanent's latest battlefield entry; absent for setup permanents. */
   battlefieldTimestamp?: number
+  /** CR 704.5k timestamp of this permanent's latest acquisition of the world supertype. */
+  worldTimestamp?: number
   /** Per-ability trigger and resolve counts for generic trigger frequency flags. */
   triggerFrequency?: Record<
     string,

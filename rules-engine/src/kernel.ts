@@ -46,6 +46,7 @@ import {
 } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/selectPlayers'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection, settleResolutionPayment } from './rules/selectOptions'
+import { syncWorldTimestamps, worldTimestampsStale } from './rules/worldSupertype'
 import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
 import { canonicalCyclingEvent } from './cardPlugins/cycling'
@@ -1549,6 +1550,8 @@ const driveResolution = (
           }
         }
       }
+      // CR 704.5k: the events of one committed batch acquire the world supertype simultaneously.
+      if (committed.resolution?.phase !== 'committing') syncWorldTimestamps(committed, committed.allocTs)
       current = freezeDraft(committed)
       if (current.resolution?.phase === 'waiting') {
         return { ok: true, state: current, trace: entries }
@@ -1824,6 +1827,11 @@ const checkpoint = (
       continue
     }
 
+    if (worldTimestampsStale(current)) {
+      const synced = makeDraft(current)
+      syncWorldTimestamps(synced, synced.allocTs)
+      current = freezeDraft(synced)
+    }
     const sbaDraft = makeDraft(current)
     const pending = collectSba(current, sbaDraft, catalog)
     // CR 704.5b: consume the history after checking it, before applying this

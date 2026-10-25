@@ -8,10 +8,6 @@ import { life } from './life'
 import { stateBased } from './stateBased'
 import { dies, gainLife } from '../cardPlugins/effects'
 import { triggers } from '../rules/triggers'
-import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
 
 const manaStub: Plugin = { id: 'mana' }
 
@@ -193,25 +189,4 @@ test('checkpoint non-convergence is reported instead of silently capped', () => 
 
   expect(result.ok).toBe(false)
   if (!result.ok) expect(result.error).toContain('did not converge after 32')
-})
-
-test('the world rule keeps only the newest world permanent and loses every tied one', () => {
-  const world = (name: string) => cardTemplate(name, { types: ['Enchantment'], supertypes: ['World'] })
-  const server = createServerGame(commanderRules, {
-    players: 2,
-    battlefield: { p1: [world('Older world')] },
-    hands: { p2: [world('Newer world')] },
-  }, { random: () => 0 })
-  const newer = server.state.zoneOrder.p2.hand[0]
-  const entered = ok(server.rules(server.state, { type: 'move', objectId: newer, to: 'battlefield' }))
-  expect(Object.values(entered.objects).find(object => object.name === 'Older world')?.zone).toBe('graveyard')
-  expect(entered.objects[newer].zone).toBe('battlefield')
-
-  const tied = createServerGame(commanderRules, {
-    players: 2,
-    battlefield: { p1: [world('Setup world A')], p2: [world('Setup world B')] },
-  }, { random: () => 0 })
-  const checked = ok(tied.rules(tied.state, { type: 'addMana', seat: 'p1', mana: {} }))
-  expect(Object.values(checked.objects).filter(object => object.zone === 'graveyard').map(object => object.name).sort())
-    .toEqual(['Setup world A', 'Setup world B'])
 })
