@@ -1563,9 +1563,10 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
 }
 
 /**
- * Enumerate meaningful choices for the seat with priority. Mana abilities are
- * folded into spells they can fund; listing every untapped land as a choice
- * would make an otherwise empty priority window look actionable.
+ * Enumerate meaningful choices for the seat with priority, plus any forced
+ * choice waiting for that seat during resolution. Mana abilities are folded
+ * into spells they can fund; listing every untapped land as a choice would
+ * make an otherwise empty priority window look actionable.
  *
  * Target legality and card-specific restrictions are deliberately
  * conservative: an uncertain action remains listed and therefore causes a
@@ -1633,12 +1634,12 @@ export const availableActions = (
         : []),
     ]
   }
-  if (state.priority !== seat) return []
-  if (state.step === 'untap' || state.step === 'cleanup') return []
   const waiting = waitingContinueAction(state, seat)
     ?? waitingPlayerSelection(state, seat)
     ?? waitingCardSelection(state, seat)
   if (waiting) return [waiting]
+  if (state.priority !== seat) return []
+  if (state.step === 'untap' || state.step === 'cleanup') return []
   const actions: AvailableAction[] = []
   const hand = state.zoneOrder[seat]?.hand ?? []
 

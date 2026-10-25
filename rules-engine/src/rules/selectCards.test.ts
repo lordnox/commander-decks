@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { availableActions } from '../actions'
+import { availableActions, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
@@ -20,6 +20,43 @@ const ok = (result: ReduceResult) => {
 }
 
 describe('selectCards game rule', () => {
+  test('exposes a resolution choice to its chooser without priority', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [card('Hidden A'), card('Hidden B')] },
+      players: 2,
+    })
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'choosePile',
+      count: 1,
+      candidates: server.state.zoneOrder.p1.library,
+      source: 'Resolving effect',
+    })
+    const opened = freezeDraft(draft)
+    opened.priority = null
+    opened.step = 'cleanup'
+    opened.stack.push({
+      id: 'resolving-effect',
+      kind: 'ability',
+      objectId: 'source',
+      controller: 'p1',
+      name: 'Resolving effect',
+      targets: [],
+    })
+
+    expect(legalActsFor(opened, 'p1')).toContainEqual(expect.objectContaining({
+      kind: 'selectCards',
+      cardKind: 'choosePile',
+      names: ['Face-down card', 'Face-down card'],
+    }))
+    expect(availableActions(opened, 'p2')).toEqual([])
+    expect(availableActions({
+      ...opened,
+      players: { ...opened.players, p1: { ...opened.players.p1, lost: true } },
+    }, 'p1')).toEqual([])
+  })
+
   test('opens a server-owned candidate list and resolves with selectCards', () => {
     const server = createServerGame(commanderRules, {
       hands: { p2: [card('Island'), card('Forest')] },
