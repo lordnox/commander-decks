@@ -4804,7 +4804,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/plugins/spells.test.ts:159 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {",
-          "rules-engine/src/plugins/turnStructure.test.ts:15"
+          "rules-engine/src/plugins/turnStructure.test.ts:16"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5342,9 +5342,9 @@
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
           "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:109 — test('a permanent the dying player only controlled goes back to its owner', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:126 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:151 — test('continuous recomputation settles before ordinary SBA collection', () => {"
+          "rules-engine/src/plugins/stateBased.test.ts:105 — test('a permanent the dying player only controlled goes back to its owner', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:122 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:147 — test('continuous recomputation settles before ordinary SBA collection', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5397,7 +5397,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/plugins/stateBased.test.ts:174 — test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {"
+          "rules-engine/src/plugins/stateBased.test.ts:170 — test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6141,7 +6141,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1488"
+        "rules-engine/src/types.ts:1490"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6215,11 +6215,11 @@
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
         "rules-engine/src/driver.ts:1615",
-        "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
-        "rules-engine/src/newGame.ts:143",
-        "rules-engine/src/newGame.ts:40",
-        "rules-engine/src/newGame.ts:43",
+        "rules-engine/src/newGame.ts:142",
+        "rules-engine/src/newGame.ts:144",
+        "rules-engine/src/newGame.ts:41",
+        "rules-engine/src/newGame.ts:44",
         "rules-engine/src/plugins/battle.ts:173",
         "rules-engine/src/plugins/battle.ts:180",
         "rules-engine/src/plugins/doubleFaced.ts:34",
@@ -6305,16 +6305,16 @@
         "rules-engine/src/formats.ts:143",
         "rules-engine/src/formats.ts:46",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:567",
-        "rules-engine/src/kernel.ts:569",
-        "rules-engine/src/kernel.ts:907",
+        "rules-engine/src/kernel.ts:568",
+        "rules-engine/src/kernel.ts:570",
+        "rules-engine/src/kernel.ts:908",
         "rules-engine/src/newGame.ts:1",
-        "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
         "rules-engine/src/newGame.ts:131",
         "rules-engine/src/newGame.ts:132",
-        "rules-engine/src/newGame.ts:183",
-        "rules-engine/src/newGame.ts:288",
+        "rules-engine/src/newGame.ts:133",
+        "rules-engine/src/newGame.ts:186",
+        "rules-engine/src/newGame.ts:291",
         "rules-engine/src/plugins/index.ts:118",
         "rules-engine/src/plugins/index.ts:47",
         "rules-engine/src/plugins/rooms.ts:52",
@@ -6672,10 +6672,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          192
+          200
         ],
         "samples": [
-          "192: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "200: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7251,10 +7251,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1709
+          1712
         ],
         "samples": [
-          "1709: event.name === SEARCH_CHOSEN"
+          "1712: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7270,12 +7270,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          189,
-          222
+          193,
+          226
         ],
         "samples": [
-          "189: const source = draft.object(cloned.objectId)",
-          "222: return draft.addToStack({"
+          "193: const source = draft.object(cloned.objectId)",
+          "226: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7490,12 +7490,12 @@
       {
         "path": "rules-engine/src/plugins/stateBased.ts",
         "lines": [
-          48,
-          53
+          49,
+          54
         ],
         "samples": [
-          "48: const token = draft.object(event.objectId)",
-          "53: const object = draft.object(event.objectId)"
+          "49: const token = draft.object(event.objectId)",
+          "54: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -9615,34 +9615,34 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          532,
-          537,
-          544,
-          549,
-          637,
-          683,
-          687,
-          691,
-          699,
-          714,
-          723,
-          726,
-          779,
-          782,
-          791,
-          834,
-          849,
-          883,
-          922,
-          929,
-          935,
-          952,
-          960
+          533,
+          538,
+          545,
+          550,
+          638,
+          684,
+          688,
+          692,
+          700,
+          715,
+          724,
+          727,
+          780,
+          783,
+          792,
+          835,
+          850,
+          884,
+          923,
+          930,
+          936,
+          953,
+          961
         ],
         "samples": [
-          "532: const object = draft.object(event.objectId)",
-          "537: const object = draft.object(event.objectRef.objectId)",
-          "544: const object = draft.object(event.objectId)"
+          "533: const object = draft.object(event.objectId)",
+          "538: const object = draft.object(event.objectRef.objectId)",
+          "545: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

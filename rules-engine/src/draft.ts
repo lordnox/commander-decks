@@ -1,5 +1,6 @@
 import { withReferencedObjects } from './rules/canonicalReferences'
 import { STUN_COUNTER } from './rules/untap'
+import { hasWorldSupertype } from './rules/worldSupertype'
 import type { CardInstruction } from './cardPlugins/effects'
 import { counterPtBonus } from './definitions'
 import { captureObject, pinTarget, refreshExecutionReferences, snapshotObject } from './objectIdentity'
@@ -155,6 +156,9 @@ export const makeDraft = (state: GameState): Draft => {
       delete object.staticRulesTimestamp
       if (to === 'battlefield') object.battlefieldTimestamp = draft.allocTs()
       else delete object.battlefieldTimestamp
+      // CR 704.5k: a permanent entering with the world supertype acquires it on entry.
+      if (to === 'battlefield' && hasWorldSupertype(object)) object.worldTimestamp = object.battlefieldTimestamp
+      else delete object.worldTimestamp
     }
     if (from === 'battlefield' && to !== 'battlefield') {
       delete object.attachedToRef

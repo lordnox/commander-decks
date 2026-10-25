@@ -6,6 +6,7 @@ import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
 import { applyFace } from './plugins/doubleFaced'
 import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
+import { hasWorldSupertype } from './rules/worldSupertype'
 import type { GameFormat } from './formats'
 import {
   type GameObject,
@@ -156,6 +157,8 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     ) {
       objects[id].counters.loyalty = objects[id].printedLoyalty
     }
+    // CR 704.5k: setup permanents have had the world supertype since the game began.
+    if (objects[id].zone === 'battlefield' && hasWorldSupertype(objects[id])) objects[id].worldTimestamp = 0
     const actualZone = objects[id].zone
     zoneOrder[playerId][actualZone].push(id)
     zoneCounts[playerId][actualZone] += 1
