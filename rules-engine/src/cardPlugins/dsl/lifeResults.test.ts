@@ -62,6 +62,25 @@ test('redirected life loss to an eliminated player contributes no actual loss', 
   expect(state.players.p2.life).toBe(40)
 })
 
+test('catalog Exsanguinate drains each opponent for X and gains the total', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Exsanguinate')] },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 3 }
+  const cast = ok(server.rules(ready, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: ready.zoneOrder.p1.hand[0],
+    x: 3,
+  }))
+  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+
+  expect(resolved.players.p1.life).toBe(49)
+  expect(resolved.playerOrder.slice(1).map((seat) => resolved.players[seat].life))
+    .toEqual([37, 37, 37])
+})
+
 test.each(['Swords to Plowshares', 'Condemn'])('zone-change follow-up pays the captured controller using resolution-time stats (%s)', name => {
   const server = createServerGame(commanderRules, {
     hands: { p1: [cardTemplate(name, { manaCost: '{0}' })] },

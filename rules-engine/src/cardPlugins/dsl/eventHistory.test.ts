@@ -112,6 +112,22 @@ test('life-gain occurrences capture the player and actual amount', () => {
   expect(resolveStack(server.rules, yours).players.p2.life).toBe(43)
 })
 
+test('catalog Niv-Mizzet, Ghost Counsel triggers only on its controller gaining life and captures the gained amount', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
+  }, { random: () => 0.5 })
+  const opponentGain = ok(server.rules(server.state, { type: 'gainLife', seat: 'p2', amount: 5 }))
+  expect(opponentGain.stack).toHaveLength(0)
+
+  const yours = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 2 }))
+  expect(yours.stack[0]).toMatchObject({
+    kind: 'ability',
+    name: 'Niv-Mizzet, Ghost Counsel',
+    controller: 'p1',
+    execution: { occurrence: { kind: 'event', eventType: 'gainLife', player: 'p1', amount: 2 } },
+  })
+})
+
 test('duringOwnTurn ignores an opponent drawing on another seat\'s turn', () => {
   const definition = watcher(
     whenever(draws({ player: players({ relation: 'opponent' }), duringOwnTurn: true }), {

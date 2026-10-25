@@ -334,6 +334,8 @@
     "ladyEvangelaRemaining:132",
     "ladyEvangelaRemaining:170",
     "ladyEvangelaRemaining:202",
+    "ladyEvangelaRemaining:233",
+    "ladyEvangelaRemaining:263",
     "ladyEvangelaRemaining:288",
     "ladyEvangelaRemaining:327",
     "ladyEvangelaRemaining:365",
@@ -365,6 +367,11 @@
     "mirkwoodBats:87",
     "mirkwoodBats:98",
     "mossborn-hydra:20",
+    "nivMizzetGhostCounsel:102",
+    "nivMizzetGhostCounsel:115",
+    "nivMizzetGhostCounsel:64",
+    "nivMizzetGhostCounsel:78",
+    "nivMizzetGhostCounsel:93",
     "pit-of-offerings:100",
     "pit-of-offerings:50",
     "plugDackPart33Blink:105",
@@ -396,6 +403,8 @@
     "sin:181",
     "sin:35",
     "sin:74",
+    "sinFall:16",
+    "sinFall:38",
     "sinFallFinishers:133",
     "sinFallFinishers:181",
     "sinFallFinishers:216",
@@ -1791,6 +1800,78 @@
       "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
       "suite": "catalog Sea Gate, Reborn pay-life-or-tap back face / at exactly 3 life the 3-life payment is allowed, and it costs the game",
       "evidence": "At 3 life choosing pay sets life to 0 and p1 has lost."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:64"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/eventHistory.test.ts",
+      "suite": "catalog Niv-Mizzet, Ghost Counsel triggers only on its controller gaining life and captures the gained amount",
+      "evidence": "Uses the canonical catalog definition. An opponent gaining 5 puts nothing on the stack; p1 gaining 2 puts a p1-controlled Niv-Mizzet ability on the stack whose captured gainLife occurrence has amount 2 (the canonical equivalent of the legacy payload.triggerAmount assertion that cadbdb5a dropped)."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:78"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
+      "suite": "catalog Niv-Mizzet accepting pays life and draws using the captured gain amount",
+      "evidence": "Uses the canonical catalog definition. The typed option selection for p1 is a canonical life resolution payment whose waiting trigger captured amount 3 (restoring the count: 3 evidence cadbdb5a dropped); paying leaves life 40, draws exactly 3, and clears the selection."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:93"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
+      "suite": "catalog Niv-Mizzet declining leaves life and hand unchanged",
+      "evidence": "Declining after gaining 2 keeps life 42 and the hand size unchanged."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:102"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
+      "suite": "catalog Niv-Mizzet cannot accept when life is below the captured trigger amount",
+      "evidence": "After gaining 5 with life lowered to 3, selecting pay is rejected."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:115"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
+      "suite": "catalog Niv-Mizzet tap drains opponents, gains one life, then offers pay-one-draw-one without looping",
+      "evidence": "Tap ability: p2 at 39, p1 at 41; the follow-up payment captures amount 1 (restoring the count: 1 evidence cadbdb5a dropped); paying returns p1 to 40 with an empty stack and no further selection."
+    },
+    {
+      "groups": [
+        "sinFall:16"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/lifeResults.test.ts",
+      "suite": "catalog Exsanguinate drains each opponent for X and gains the total",
+      "evidence": "Uses the canonical catalog definition. X=3: p1 at 49 and each of three opponents at 37."
+    },
+    {
+      "groups": [
+        "sinFall:38"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Toxic Deluge pays X life at announcement and applies negative X globally until cleanup",
+      "evidence": "Uses the canonical catalog definition. X=41 above the 40 life total is rejected (486f7377 rejected X=40; cadbdb5a moved the boundary to 41 per CR 119.4, and this test also asserts X=40 is accepted); X=3 pays to 37, Large becomes 2/2, Small dies, and after cleanup Large is 5/5 and Small reports 2/2."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:233"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog Hatred pays X life at announcement and pumps only power",
+      "evidence": "Uses the canonical catalog definition on an exchangeable 0/2 creature fixture. X=5 pays to 35 at cast; after resolution the fixture is 5/2."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:263"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/amount.test.ts",
+      "suite": "catalog Infernal Contract draws four and loses half life rounded up",
+      "evidence": "Uses the canonical catalog definition. From 15 life: hand holds 4 cards and life is 7."
     }
   ]
 }

@@ -1420,7 +1420,7 @@
           "live-runner/src/kernelHost.test.ts:483 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/amount.test.ts:74 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:91 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:280 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:138 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1030 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {"
@@ -4823,7 +4823,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 57,
+        "matches": 59,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
@@ -5322,7 +5322,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1160 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1212 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",

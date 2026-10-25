@@ -1,4 +1,4 @@
-import type { Plugin } from '../../types'
+import type { GameState, Plugin } from '../../types'
 import { describe, expect, test } from 'bun:test'
 import {
   createPlayerEffect,
@@ -24,7 +24,7 @@ import {
   players,
 } from './v1'
 import { instructionSpell } from './instructionTestSupport'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
@@ -678,4 +678,86 @@ test.each([PLAYER_EFFECTS.lifeTotalCannotChange, PLAYER_EFFECTS.cannotLoseLife].
     expect(pendingOptionSelection(result.state, 'p1')).toBeUndefined()
     expect(result.state.resolution).toBeUndefined()
   }
+})
+
+/** Catalog Niv-Mizzet with a neutral library large enough for every draw below. */
+const nivGame = () => createServerGame(commanderRules, {
+  battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
+  libraries: { p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Library fixture ${index}`)) },
+}, { random: () => 0.5 })
+
+type NivGame = ReturnType<typeof nivGame>
+
+const gainAndOffer = (server: NivGame, amount: number) =>
+  resolveStack(server.rules, ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount })))
+
+const answerNiv = (server: NivGame, state: GameState, optionId: 'pay' | 'decline') => ok(server.rules(state, {
+  type: 'selectOption', seat: 'p1', selectionId: pendingOptionSelection(state, 'p1')!.id, optionId,
+}))
+
+/** The open life payment and the gained amount captured by the waiting trigger it belongs to. */
+const nivOffer = (state: GameState) => {
+  const pending = pendingOptionSelection(state, 'p1')!
+  const stackId = pending.action.kind === 'canonicalResolutionPayment' ? pending.action.stackId : undefined
+  return { pending, captured: state.stack.find((item) => item.id === stackId)?.execution?.occurrence }
+}
+
+test('catalog Niv-Mizzet accepting pays life and draws using the captured gain amount', () => {
+  const server = nivGame()
+  const offered = gainAndOffer(server, 3)
+  const { pending, captured } = nivOffer(offered)
+  expect(pending).toMatchObject({
+    seat: 'p1',
+    source: 'Niv-Mizzet, Ghost Counsel',
+    action: { kind: 'canonicalResolutionPayment', cost: { kind: 'life' } },
+  })
+  expect(captured).toMatchObject({ eventType: 'gainLife', player: 'p1', amount: 3 })
+  const beforeHand = offered.zoneCounts.p1.hand
+  const accepted = answerNiv(server, offered, 'pay')
+  expect(accepted.players.p1.life).toBe(40)
+  expect(accepted.zoneCounts.p1.hand).toBe(beforeHand + 3)
+  expect(pendingOptionSelection(accepted, 'p1')).toBeUndefined()
+})
+
+test('catalog Niv-Mizzet declining leaves life and hand unchanged', () => {
+  const server = nivGame()
+  const offered = gainAndOffer(server, 2)
+  const beforeHand = offered.zoneCounts.p1.hand
+  const declined = answerNiv(server, offered, 'decline')
+  expect(declined.players.p1.life).toBe(42)
+  expect(declined.zoneCounts.p1.hand).toBe(beforeHand)
+})
+
+test('catalog Niv-Mizzet cannot accept when life is below the captured trigger amount', () => {
+  const server = nivGame()
+  const state = gainAndOffer(server, 5)
+  state.players.p1.life = 3
+  expect(server.rules(state, {
+    type: 'selectOption',
+    seat: 'p1',
+    selectionId: pendingOptionSelection(state, 'p1')!.id,
+    optionId: 'pay',
+  }).ok).toBe(false)
+})
+
+test('catalog Niv-Mizzet tap drains opponents, gains one life, then offers pay-one-draw-one without looping', () => {
+  const server = nivGame()
+  const objectId = server.state.zoneOrder.p1.battlefield[0]!
+  const tapped = ok(server.rules(server.state, {
+    type: 'activateAbility',
+    seat: 'p1',
+    objectId,
+    abilityId: '$.abilities[2]',
+  }))
+  const drained = resolveStack(server.rules, tapped)
+  expect(drained.players.p2.life).toBe(39)
+  expect(drained.players.p1.life).toBe(41)
+  const { pending, captured } = nivOffer(drained)
+  expect(pending).toMatchObject({ seat: 'p1', action: { kind: 'canonicalResolutionPayment', cost: { kind: 'life' } } })
+  expect(captured).toMatchObject({ eventType: 'gainLife', player: 'p1', amount: 1 })
+
+  const paid = answerNiv(server, drained, 'pay')
+  expect(paid.players.p1.life).toBe(40)
+  expect(paid.stack).toHaveLength(0)
+  expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
 })

@@ -568,6 +568,58 @@ test.each([[39, true], [40, true], [41, false]] as const)('life-X costs allow pa
   if (result.ok) expect(result.transaction.lockedCost.nonMana).toContainEqual(lifeCost(life))
 })
 
+test('catalog Hatred pays X life at announcement and pumps only power', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Hatred')] },
+    battlefield: { p1: [cardTemplate('Wall fixture', { types: ['Creature'], power: 0, toughness: 2 })] },
+  }, { random: () => 0.5 })
+  let state = structuredClone(server.state)
+  state.active = 'p1'
+  state.priority = 'p1'
+  state.step = 'precombatMain'
+  state.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  const wall = named(state, 'Wall fixture')
+  state = ok(server.rules(state, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(state, 'Hatred').id,
+    x: 5,
+    targets: [{ kind: 'object', objectId: wall.id }],
+  }))
+  expect(state.players.p1.life).toBe(35)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[wall.id].power).toBe(5)
+  expect(state.objects[wall.id].toughness).toBe(2)
+})
+
+test('catalog Toxic Deluge pays X life at announcement and applies negative X globally until cleanup', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Toxic Deluge')] },
+    battlefield: {
+      p1: [cardTemplate('Large', { types: ['Creature'], power: 5, toughness: 5 })],
+      p2: [cardTemplate('Small', { types: ['Creature'], power: 2, toughness: 2 })],
+    },
+  }, { random: () => 0.5 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
+  const spell = ready.zoneOrder.p1.hand[0]
+  // CR 119.4: paying more life than the 40 available is illegal; paying all 40 is allowed.
+  expect(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell, x: 41 }).ok).toBe(false)
+  expect(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell, x: 40 }).ok).toBe(true)
+
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell, x: 3 }))
+  expect(cast.players.p1.life).toBe(37)
+  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(named(resolved, 'Large')).toMatchObject({ power: 2, toughness: 2 })
+  expect(named(resolved, 'Small').zone).toBe('graveyard')
+  const cleaned = ok(server.rules(
+    { ...resolved, step: 'end', priority: 'p1' },
+    { type: 'advanceStep' },
+  ))
+  expect(named(cleaned, 'Large')).toMatchObject({ power: 5, toughness: 5 })
+  expect(named(cleaned, 'Small')).toMatchObject({ power: 2, toughness: 2 })
+})
+
 
 test.each([0, 3])('colored X mana is enforced when locking spell payment (X=%s)', x => {
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
