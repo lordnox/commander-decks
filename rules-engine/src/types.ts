@@ -967,6 +967,8 @@ export type GameState = {
   step: StepId
   /** Combatants with first/double strike as the first damage step began (CR 510.4). */
   firstStrikeCombatants?: ObjectIdentity[]
+  /** Damage step whose combat damage turn-based action already ran; reset on every step change (CR 510.1). */
+  combatDamageAssignedIn?: StepId
   passedInRow: PlayerId[]
   /** Extra turns queued to begin after the current turn ends; the next one taken is first (CR 500.7). */
   extraTurns?: PlayerId[]
