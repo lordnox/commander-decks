@@ -175,6 +175,6 @@ export default {
   scryfall, types: ["Sorcery"], subtypes: [], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     ...suspend(3, '{1}{G}{G}'),
-    spell({ instructions: [captureAmount({ amount: 0, bindResult: 'roundPuts' }), repeatWhile({ condition: compareAmount(resultAmount('roundPuts'), 'gte', 1), instructions: [placementRound] })] }),
+    spell({ instructions: [captureAmount({ amount: 1, bindResult: 'roundPuts' }), repeatWhile({ condition: compareAmount(resultAmount('roundPuts'), 'gte', 1), instructions: [placementRound] })] }),
   ]),
 } satisfies CatalogEntry

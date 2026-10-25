@@ -5,7 +5,7 @@ import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { ok } from '../../testHelpers'
-import { activated, card, choosePlayer, choice, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, players, ref, repeat } from './v1'
+import { activated, captureAmount, card, choosePlayer, choice, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, difference, gainLife, players, ref, repeat, repeatWhile, resultAmount } from './v1'
 
 const restored = <T>(value: T) => JSON.parse(JSON.stringify(value)) as T
 
@@ -14,6 +14,29 @@ test.each([0, 1, 3])('counted repetition preserves each remaining iteration thro
     choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'recipient' }),
     gainLife({ targets: choice('recipient'), amount: 1 }),
   ])] })])))
+  const server = createServerGame(commanderRules, { players: 3, battlefield: { p1: [cardTemplate('Fixture', { types: ['Artifact'], ruleDefinition: definition })] } }, { random: () => 0 })
+  let state = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: server.state.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' }))
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  for (let i = 0; i < count; i++) {
+    const pick = pendingPlayerSelectionFor(state, 'p1')!
+    expect(pick.candidates).toEqual(['p2', 'p3'])
+    state = ok(server.rules(restored(state), { type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: [i % 2 === 0 ? 'p2' : 'p3'] }))
+  }
+  expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
+  expect(state.players.p2.life).toBe(40 + Math.ceil(count / 2))
+  expect(state.players.p3.life).toBe(40 + Math.floor(count / 2))
+  expect(state.stack).toHaveLength(0)
+})
+
+test.each([0, 1, 3])('conditional repetition checks its condition before every pass, including the first, across restores (%s)', count => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({ costs: [], instructions: [
+    captureAmount({ amount: count, bindResult: 'left' }),
+    repeatWhile({ condition: compareAmount(resultAmount('left'), 'gte', 1), instructions: [
+      choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'recipient' }),
+      gainLife({ targets: choice('recipient'), amount: 1 }),
+      captureAmount({ amount: difference(resultAmount('left'), 1), bindResult: 'left' }),
+    ] }),
+  ] })])))
   const server = createServerGame(commanderRules, { players: 3, battlefield: { p1: [cardTemplate('Fixture', { types: ['Artifact'], ruleDefinition: definition })] } }, { random: () => 0 })
   let state = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: server.state.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' }))
   state = ok(server.rules(state, { type: 'resolveTop' }))

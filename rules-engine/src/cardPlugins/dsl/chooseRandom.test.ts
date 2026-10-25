@@ -93,6 +93,7 @@ test('chooseRandom persists the journaled pick across restore', () => {
 
 test.each([
   { types: ['Land', 'Land', 'Creature', 'Artifact'], copied: 3 },
+  { types: ['Artifact', 'Creature'], copied: 1 },
   { types: ['Land', 'Land'], copied: 2 },
 ])('repeatWhile stops at a nonland or exhausted pool: $types', ({ types, copied }) => {
   const server = createServerGame(commanderRules, {

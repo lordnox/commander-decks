@@ -2005,17 +2005,14 @@ export const prepareResolutionStep = (draft: Draft) => {
       continue
     }
     if (instruction.kind === 'repeatWhile') {
-      const looping = scope.continueWhile === true
-      if (looping) {
-        const context = runtimeContext(draft, frame, item, scope.scopeId)
-        if (!evaluateCondition(instruction.condition, context)) continue
-      }
+      // A while loop: the condition gates every pass, including the first.
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      if (!evaluateCondition(instruction.condition, context)) continue
       frame.scopes.push({
         path: `${path}.instructions`,
         scopeId: scope.scopeId,
         instructions: [...instruction.instructions, instruction],
         cursor: 0,
-        continueWhile: true,
       })
       continue
     }

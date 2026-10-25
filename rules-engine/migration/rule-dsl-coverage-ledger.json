@@ -5189,7 +5189,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 65,
+        "matches": 66,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3325 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4342 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
@@ -6075,7 +6075,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:105",
         "rules-engine/src/cardPlugins/instructions.ts:108",
-        "rules-engine/src/types.ts:1494"
+        "rules-engine/src/types.ts:1492"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -7076,8 +7076,8 @@
           365,
           370,
           877,
-          2342,
-          2390
+          2339,
+          2387
         ],
         "samples": [
           "365: const liveSource = draft.object(source.ref.objectId)",
