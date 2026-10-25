@@ -13,15 +13,5 @@
     "path": "rules-engine/src/cardPlugins/randomExileCopy.ts",
     "code": "custom-picker-event",
     "digest": "7052646c09b8064893f1778a7f11f1d22c46feae8e49f79bb20a4630f0d67505"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/reinsOfPower.ts",
-    "code": "literal-name-dispatch",
-    "digest": "5822d7285f3fc5c7597e88e01698b85a42fb8376805cf781fcd5caa33eefe8d5"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/reinsOfPower.ts",
-    "code": "literal-name-dispatch",
-    "digest": "2b49d8083c2a9b2accbac5245091e41144284ee39774e46b4fc90cb4e17f7c40"
   }
 ]
