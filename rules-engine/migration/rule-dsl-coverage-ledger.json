@@ -318,8 +318,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:282 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:525 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:283 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:526 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
         ]
       },
       "neededCanonicalNode": "new canonical ability/effect node",
@@ -3944,7 +3944,7 @@
         "matches": 11,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:67 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:62 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
@@ -4368,7 +4368,7 @@
         "matches": 29,
         "samples": [
           "rules-engine/src/actions.test.ts:311 — test('accounts for commander tax', () => {",
-          "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:271 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
+          "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:64 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:630 — test('repeated phasing modes keep independent target scopes for the same creature', () => {",
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
@@ -4872,7 +4872,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 89,
+        "matches": 90,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:263 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
@@ -5400,7 +5400,7 @@
         "matches": 22,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:67 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:62 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:281 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",

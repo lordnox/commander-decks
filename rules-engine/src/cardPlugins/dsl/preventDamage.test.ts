@@ -1278,3 +1278,208 @@ test('created prevention captures player results independently of its source aft
   expect(damaged.players.p1.life).toBe(40)
   expect(damaged.preventionInstances?.[0]?.remaining).toBe(0)
 })
+
+describe('catalog prevention card integrations', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const creature = (name: string, size = 2) =>
+    cardTemplate(name, { types: ['Creature'], power: size, toughness: size })
+
+  /** Gives p1 the given mana with priority in its main phase. */
+  const withMana = (state: GameState, mana: Partial<GameState['players'][string]['mana']>, seat = 'p1') => {
+    const ready = structuredClone(state)
+    ready.active = seat
+    ready.priority = seat
+    ready.step = 'precombatMain'
+    ready.players[seat].mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, ...mana }
+    return ready
+  }
+
+  const castAndResolve = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    name: string,
+    targets: Extract<Parameters<typeof server.rules>[1], { type: 'castSpell' }>['targets'] = [],
+  ) => ok(server.rules(ok(server.rules(state, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(state, name).id,
+    targets,
+  })), { type: 'resolveTop' }))
+
+  test('catalog Batwing Brume independently uses every color actually spent', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Batwing Brume')] },
+      battlefield: { p2: [creature('First Attacker'), creature('Second Attacker')] },
+    }, { random: () => 0.5 })
+    const ready = withMana(server.state, { W: 1, B: 1 })
+    for (const attacker of ready.zoneOrder.p2.battlefield) {
+      ready.objects[attacker].attacking = { kind: 'player', player: 'p1' }
+    }
+    const resolved = castAndResolve(server, ready, 'Batwing Brume')
+    // Black spent: each attacking player loses 1 life per attacking creature they control.
+    expect(resolved.players.p2.life).toBe(38)
+    // White spent: all combat damage this turn is prevented.
+    expect(resolved.preventionInstances?.[0]?.remaining).toBe('unlimited')
+    expect(ok(server.rules(resolved, {
+      type: 'combatDamage',
+      sourceId: named(resolved, 'First Attacker').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    })).players.p1.life).toBe(40)
+  })
+
+  test('catalog Comeuppance reflects creature and noncreature damage without reflecting controlled sources', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Comeuppance')] },
+      battlefield: {
+        p1: [creature('Friendly', 2)],
+        p2: [creature('Hostile', 3), cardTemplate('Hostile Relic', { types: ['Artifact'] })],
+      },
+    }, { random: () => 0.5 })
+    let state = castAndResolve(server, withMana(server.state, { W: 1, C: 3 }), 'Comeuppance')
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Hostile').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(named(state, 'Hostile').zone).toBe('graveyard')
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Hostile Relic').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p2.life).toBe(38)
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Friendly').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(38)
+  })
+
+  test('catalog Energy Arc validates, untaps, and prevents combat damage dealt by and to its targets', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Energy Arc')] },
+      battlefield: { p1: [creature('Guard', 2)], p2: [creature('Raider', 3)] },
+    }, { random: () => 0.5 })
+    const ready = withMana(server.state, { W: 1, U: 1 })
+    named(ready, 'Raider').tapped = true
+    const duplicate = server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(ready, 'Energy Arc').id,
+      targets: [
+        { kind: 'object', objectId: named(ready, 'Raider').id },
+        { kind: 'object', objectId: named(ready, 'Raider').id },
+      ],
+    })
+    expect(duplicate.ok).toBe(false)
+
+    let state = castAndResolve(server, ready, 'Energy Arc', [
+      { kind: 'object', objectId: named(ready, 'Raider').id },
+    ])
+    expect(named(state, 'Raider').tapped).toBe(false)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: named(state, 'Raider').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: named(state, 'Guard').id,
+      target: { kind: 'object', objectId: named(state, 'Raider').id },
+      amount: 2,
+    }))
+    expect(named(state, 'Raider').damageMarked).toBe(0)
+  })
+
+  test('catalog Inkshield prevents only combat damage to its controller and creates exact Inklings', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Inkshield')] },
+      battlefield: { p2: [creature('Attacker', 3)] },
+    }, { random: () => 0.5 })
+    let state = castAndResolve(server, withMana(server.state, { W: 1, B: 1, C: 3 }), 'Inkshield')
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: named(state, 'Attacker').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    const inklings = Object.values(state.objects).filter((object) => object.name === 'Inkling')
+    expect(inklings).toHaveLength(3)
+    expect(inklings.every((token) =>
+      token.power === 2
+      && token.toughness === 1
+      && token.colors.join('') === 'WB'
+      && token.oracleText === 'Flying')).toBe(true)
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Attacker').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 1,
+    }))
+    expect(state.players.p1.life).toBe(39)
+  })
+
+  test('catalog Sokrates prevents player combat damage and both players draw half rounded down', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p2: [cardTemplate('Swords to Plowshares')] },
+      battlefield: {
+        p1: [cardTemplate('Sokrates, Athenian Teacher')],
+        p2: [creature('Attacker', 5)],
+      },
+      libraries: {
+        p1: [cardTemplate('P1 A'), cardTemplate('P1 B')],
+        p2: [cardTemplate('P2 A'), cardTemplate('P2 B')],
+      },
+    }, { random: () => 0.5 })
+    const plenty = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+    let state = withMana(server.state, plenty)
+    const sokrates = named(state, 'Sokrates, Athenian Teacher')
+    state.objects[sokrates.id].summoningSickness = false
+    // Untapped Sokrates has hexproof.
+    const targeting = withMana(state, plenty, 'p2')
+    const protectedCast = server.rules(targeting, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: named(targeting, 'Swords to Plowshares').id,
+      targets: [{ kind: 'object', objectId: sokrates.id }],
+    })
+    expect(protectedCast.ok).toBe(false)
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[2]',
+      seat: 'p1',
+      objectId: sokrates.id,
+      targets: [{ kind: 'object', objectId: named(state, 'Attacker').id }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    // Tapped by its own cost, Sokrates loses hexproof.
+    const tappedTargeting = withMana(state, plenty, 'p2')
+    expect(server.rules(tappedTargeting, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: named(tappedTargeting, 'Swords to Plowshares').id,
+      targets: [{ kind: 'object', objectId: sokrates.id }],
+    }).ok).toBe(true)
+    state = ok(server.rules(state, {
+      type: 'combatDamage',
+      sourceId: named(state, 'Attacker').id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 5,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(state.zoneOrder.p2.hand).toHaveLength(3)
+  })
+})

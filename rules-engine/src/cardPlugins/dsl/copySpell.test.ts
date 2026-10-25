@@ -365,3 +365,44 @@ test('a triggered ability copy retains its original source while using the copy 
   expect(state.players.p1.life).toBe(42)
   expect(state.players.p2.life).toBe(42)
 })
+
+test('catalog Twincast copies a spell through the stack-copy path without moving the original card', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Twincast')], p2: [cardTemplate('Swords to Plowshares')] },
+    battlefield: { p1: [cardTemplate('Copy Target', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0.5 })
+  const named = (current: typeof server.state, name: string) =>
+    Object.values(current.objects).find((object) => object.name === name)!
+  let state = structuredClone(server.state)
+  state.step = 'precombatMain'
+  state.active = 'p2'
+  state.priority = 'p2'
+  state.players.p2.mana.W = 1
+  const targetId = named(state, 'Copy Target').id
+  const swordsId = named(state, 'Swords to Plowshares').id
+  state = ok(server.rules(state, {
+    type: 'castSpell', seat: 'p2', objectId: swordsId, targets: [{ kind: 'object', objectId: targetId }],
+  }))
+  state.priority = 'p1'
+  state.players.p1.mana.U = 3
+  state = ok(server.rules(state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Twincast').id,
+    targets: [{ kind: 'stackItem', stackId: state.stack[0]!.id }],
+  }))
+  expect(state.players.p1.mana.U).toBe(1)
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  // The copy is mandatory and free: it is already on the stack, no further mana is paid,
+  // and the caster may only keep or change its target; declining is not an option.
+  expect(state.players.p1.mana.U).toBe(1)
+  const offer = pendingOptionSelection(state, 'p1')!
+  expect(offer.options.map((option) => option.id)).toEqual(['keep', 'retarget'])
+  expect(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'decline' }).ok).toBe(false)
+  expect(server.rules(state, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'keep' }))
+  expect(state.stack[0]).toMatchObject({ copy: true, controller: 'p1', targets: [{ kind: 'object', objectId: targetId }] })
+  expect(state.objects[swordsId].zone).toBe('stack')
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[targetId].zone).toBe('exile')
+  expect(state.objects[swordsId].zone).toBe('stack')
+})

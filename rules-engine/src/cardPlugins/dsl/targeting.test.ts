@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { keyword, blink, flagbearer, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, staticAbility, target, counter, stackItems, variable, whenever } from './v1'
+import { legalActsFor } from '../../actions'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -17,7 +18,6 @@ import { forestOverlay } from '../../plugins/forestOverlay'
 import { canonicalTargetBindings } from './compiler/targeting'
 import { instructionSpell } from './instructionTestSupport'
 import { resolveStack } from '../../testHelpers'
-import { legalActsFor } from '../../actions'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -782,5 +782,93 @@ describe('catalog Arbor Elf subtype-filtered activated target', () => {
         ? (act.targetGroups ?? []).flatMap((group) => group.targets.map((candidate) => candidate.name))
         : [])
     expect(targets.toSorted()).toEqual(['Basic Forest', 'Nonbasic Forest'])
+  })
+})
+
+describe('catalog targeting integrations', () => {
+  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+
+  /** Main-phase priority for one seat with enough mana for any fixture. */
+  const ready = (state: GameState, seat = 'p1') => {
+    const next = structuredClone(state)
+    next.active = seat
+    next.priority = seat
+    next.step = 'precombatMain'
+    next.players[seat].mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+    return next
+  }
+
+  test('catalog Standard Bearer requires supported opposing targeted spells to choose a Flagbearer', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p2: [cardTemplate('Swords to Plowshares')] },
+      battlefield: { p1: [cardTemplate('Standard Bearer'), creature('Protected Bear')] },
+    }, { random: () => 0.5 })
+    const state = ready(server.state, 'p2')
+    const swords = named(state, 'Swords to Plowshares')
+    const wrong = server.rules(state, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: swords.id,
+      targets: [{ kind: 'object', objectId: named(state, 'Protected Bear').id }],
+    })
+    expect(wrong.ok).toBe(false)
+    const right = server.rules(state, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: swords.id,
+      targets: [{ kind: 'object', objectId: named(state, 'Standard Bearer').id }],
+    })
+    expect(right.ok).toBe(true)
+  })
+
+  test('live action enumeration exposes catalog Settle the Wreckage player targets and Energy Arc multi-targets', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Settle the Wreckage'), cardTemplate('Energy Arc')] },
+      battlefield: { p2: [creature('Target')] },
+    }, { random: () => 0.5 })
+    const state = structuredClone(server.state)
+    state.players.p1.mana = { W: 3, U: 1, B: 0, R: 0, G: 0, C: 2 }
+    const acts = legalActsFor(state, 'p1')
+    const settle = acts.filter((action) =>
+      action.kind === 'castSpell' && action.name === 'Settle the Wreckage')
+    expect(settle).toHaveLength(1)
+    const settleAct = settle[0]
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0]).toMatchObject({
+      kind: 'player', min: 1, max: 1,
+    })
+    expect(settleAct?.kind === 'castSpell' && settleAct.targetGroups?.[0].targets).toHaveLength(4)
+    const energy = acts.find((action) =>
+      action.kind === 'castSpell' && action.name === 'Energy Arc')
+    expect(energy?.kind === 'castSpell' && energy.targetGroups?.[0].max).toBe(1)
+  })
+
+  test('live action enumeration exposes catalog Tenuous Truce opponents and Sokrates creature targets', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p1: [cardTemplate('Tenuous Truce')] },
+      battlefield: {
+        p1: [cardTemplate('Sokrates, Athenian Teacher')],
+        p2: [creature('Dialogue Target')],
+      },
+    }, { random: () => 0.5 })
+    const state = ready(server.state)
+    const sokrates = named(state, 'Sokrates, Athenian Teacher')
+    state.objects[sokrates.id].summoningSickness = false
+    const actions = legalActsFor(state, 'p1')
+    const truceTargets = actions.filter((action) =>
+      action.kind === 'castSpell' && action.name === 'Tenuous Truce')
+    expect(truceTargets.map((action) =>
+      action.kind === 'castSpell' ? action.targetObjectId : undefined).sort())
+      .toEqual(['p2', 'p3', 'p4'])
+    const dialogue = actions.find((action) =>
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
+    expect(dialogue?.kind === 'activateAbility' ? dialogue.targetGroups?.[0] : undefined)
+      .toMatchObject({
+        label: 'Target 1',
+        min: 1,
+        max: 1,
+      })
   })
 })

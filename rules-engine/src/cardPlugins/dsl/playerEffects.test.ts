@@ -139,3 +139,37 @@ test('player protection prevents player targeting and damage without shielding c
   }))
   expect(damaged.players.p1.life).toBe(40)
 })
+
+test('catalog Everybody Lives stops life loss, lethal destruction, and targeting', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Everybody Lives!')], p2: [targetedLoss] },
+    battlefield: {
+      p1: [cardTemplate('Protected', { types: ['Creature'], power: 2, toughness: 2 })],
+      p2: [cardTemplate('Enemy', { types: ['Creature'], power: 4, toughness: 4 })],
+    },
+  }, { random: () => 0.5 })
+  const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
+  const hostileCast = (state: GameState) => server.rules({ ...state, priority: 'p2' }, {
+    type: 'castSpell',
+    seat: 'p2',
+    objectId: named(state, 'Instruction fixture').id,
+    targets: [{ kind: 'player', player: 'p1' }],
+  })
+  const ready = structuredClone(server.state)
+  ready.step = 'precombatMain'
+  ready.players.p1.mana = { W: 1, U: 0, B: 0, R: 0, G: 0, C: 1 }
+  // Control: before Everybody Lives! resolves, the opponent may target p1.
+  expect(hostileCast(ready).ok).toBe(true)
+  let state = resolveStack(server.rules, ok(server.rules(ready, {
+    type: 'castSpell', seat: 'p1', objectId: named(ready, 'Everybody Lives!').id,
+  })))
+  state = ok(server.rules(state, {
+    type: 'dealDamage',
+    sourceId: named(state, 'Enemy').id,
+    target: { kind: 'object', objectId: named(state, 'Protected').id },
+    amount: 4,
+  }))
+  expect(named(state, 'Protected').zone).toBe('battlefield')
+  expect(ok(server.rules(state, { type: 'loseLife', seat: 'p1', amount: 40 })).players.p1.life).toBe(40)
+  expect(hostileCast(state).ok).toBe(false)
+})
