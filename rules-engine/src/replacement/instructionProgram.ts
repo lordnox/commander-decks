@@ -95,6 +95,11 @@ const emitInstruction = (
   program: ReplacementInstructionProgramState,
 ) => {
   switch (instruction.kind) {
+    case 'winGame':
+      for (const seat of recipients(instruction.targets, context)) {
+        recordEmitted({ type: 'winGame', seat, source: program.sourceId }, lineage, program)
+      }
+      return
     case 'draw': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction, context) ?? 0
