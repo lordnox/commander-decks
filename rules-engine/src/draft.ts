@@ -2,7 +2,7 @@ import { withReferencedObjects } from './rules/canonicalReferences'
 import { STUN_COUNTER } from './rules/untap'
 import { hasWorldSupertype } from './rules/worldSupertype'
 import type { CardInstruction } from './cardPlugins/effects'
-import { counterPtBonus } from './definitions'
+import { counterPtBonus, setEntryLoyalty } from './definitions'
 import { captureObject, pinTarget, refreshExecutionReferences, snapshotObject } from './objectIdentity'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
@@ -160,6 +160,7 @@ export const makeDraft = (state: GameState): Draft => {
       if (to === 'battlefield' && hasWorldSupertype(object)) object.worldTimestamp = object.battlefieldTimestamp
       else delete object.worldTimestamp
     }
+    if (from !== to && to === 'battlefield') setEntryLoyalty(object)
     if (from === 'battlefield' && to !== 'battlefield') {
       delete object.attachedToRef
       // CR 400.7: the object that arrives is new, so counters do not follow it.
@@ -168,6 +169,7 @@ export const makeDraft = (state: GameState): Draft => {
       if (object.power !== null) object.power -= bonus
       if (object.toughness !== null) object.toughness -= bonus
       object.counters = {}
+      if (object.types.includes('Planeswalker')) object.loyaltyActivatedTurn = null
     }
     if (to !== 'battlefield') {
       delete object.enteredWithCastOption

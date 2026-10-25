@@ -9,7 +9,7 @@ import { commitExileLink, opponentBecameMonarchSince, releaseCanonicalLinkedExil
 import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
 import { changeController, changeControllerPermanent, copyObject } from './cardPlugins/continuousEffects'
 import { applyCopy, applyCopyExtraFromExcept } from './cardPlugins/effectRuntime'
-import { counterPtBonus } from './definitions'
+import { counterPtBonus, setEntryLoyalty } from './definitions'
 import type { PluginCatalog } from './catalog'
 import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
 import type { Draft } from './draft'
@@ -883,13 +883,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         if (event.copyOf) {
           const copied = draft.object(event.copyOf.objectId)
           if (copied && isSameObject(copied, event.copyOf)) applyCopy(object, copied, event.copyExcept ?? {})
-          if (
-            object.types.includes('Planeswalker')
-            && object.printedLoyalty !== null
-            && object.counters.loyalty === undefined
-          ) {
-            object.counters.loyalty = object.printedLoyalty
-          }
+          setEntryLoyalty(object)
         }
         if (event.enterCounters) {
           const before = counterPtBonus(object)

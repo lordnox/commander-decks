@@ -1258,12 +1258,6 @@ export const spells: Plugin = {
         if (object.subtypes.includes('Aura') && auraTarget?.kind === 'object') {
           object.attachedTo = auraTarget.objectId
         }
-        if (
-          object.types.includes('Planeswalker')
-          && object.printedLoyalty !== null
-        ) {
-          object.counters.loyalty = object.printedLoyalty
-        }
         installGrantedRules(draft, object)
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;

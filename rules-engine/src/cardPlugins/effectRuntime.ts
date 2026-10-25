@@ -1,6 +1,6 @@
 import { snapshotObject } from '../objectIdentity'
 import { copiableColors, reapplyColorChanges } from './colorEffects'
-import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
+import { gameObjectFieldDefaults, isPermanentType, setEntryLoyalty } from '../definitions'
 import type Draft from '../draft'
 import { abilityTokens, hasKeyword } from '../keywords'
 import { legendaryCombatDamageFrom } from '../plugins/combatLegendaryDamage'
@@ -103,6 +103,7 @@ export const createToken = (
     effects: template.effects ?? [],
     battlefieldTimestamp: draft.allocTs(),
   }
+  if (token.counters.loyalty === undefined) setEntryLoyalty(token)
   draft.objects[id] = token
   draft.zoneOrder[controller].battlefield.push(id)
   draft.zoneCounts[controller].battlefield += 1

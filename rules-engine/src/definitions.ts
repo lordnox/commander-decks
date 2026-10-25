@@ -46,6 +46,13 @@ export const isPermanentType = (types: readonly string[]) =>
 export const counterPtBonus = (object: Pick<GameObject, 'counters'>) =>
   (object.counters['+1/+1'] ?? 0) - (object.counters['-1/-1'] ?? 0)
 
+/** CR 306.5b: a planeswalker enters with loyalty equal to its printed loyalty. */
+export const setEntryLoyalty = (object: GameObject) => {
+  if (object.types.includes('Planeswalker') && object.printedLoyalty !== null) {
+    object.counters.loyalty = object.printedLoyalty
+  }
+}
+
 /** Shared zeroed fields for cards, tokens, and templates. */
 export const gameObjectFieldDefaults = (): Omit<
   GameObject,
