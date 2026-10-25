@@ -97,6 +97,7 @@ describe('canonical escape', () => {
       targets: [{ kind: 'object', objectId: targetCard.id }],
     }))
     expect(costs.every(id => cast.objects[id].zone === 'exile')).toBe(true)
+    expect(cast.objects[targetCard.id].zone).toBe('graveyard')
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[targetCard.id].zone).toBe('exile')
     expect(resolved.objects[cling.id].zone).toBe('graveyard')

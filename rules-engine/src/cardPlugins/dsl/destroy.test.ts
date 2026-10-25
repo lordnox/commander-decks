@@ -17,6 +17,7 @@ import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 
 const run=(instructions:any[])=>{
  const snapshot=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'spell',costs:[],decisions:{targets:[]},instructions}])))
@@ -86,7 +87,7 @@ test('catalog Murder destroys its chosen creature and rejects a player target', 
   }, { random: () => 0 })
   const murder = Object.values(server.state.objects).find(object => object.name === 'Murder')!
   const bear = Object.values(server.state.objects).find(object => object.name === 'Target Bear')!
-  expect(murder.ruleDefinition).toBeDefined()
+  expect(murder.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Murder'))
   expect(murder.effects).toEqual([])
   expect(server.rules(server.state, {
     type: 'castSpell', seat: 'p1', objectId: murder.id,
