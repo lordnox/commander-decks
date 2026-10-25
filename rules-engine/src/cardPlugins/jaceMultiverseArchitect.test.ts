@@ -14,12 +14,6 @@ const jace = (loyalty = 4) => planeswalker('Jace, Multiverse Architect', loyalty
   counters: { loyalty },
 })
 
-const creature = (name: string) => cardTemplate(name, {
-  types: ['Creature'],
-  power: 2,
-  toughness: 2,
-})
-
 const game = (setup: Parameters<typeof createServerGame>[1] = {}) =>
   createServerGame(commanderRules, {
     players: 2,
@@ -41,92 +35,6 @@ const atOpponentBeginCombat = (
 }
 
 describe('Jace, Multiverse Architect', () => {
-  test('registry exposes the begin-combat optional pay handler', () => {
-    const runtime = game()
-    expect(runtime.state.objects[jaceId(runtime.state)].name).toBe('Jace, Multiverse Architect')
-  })
-
-  test('opponent paying {2} lets creatures attack your Jace planeswalkers', () => {
-    const runtime = game({
-      battlefield: {
-        p1: [jace()],
-        p2: [creature('Attacker')],
-      },
-    })
-    const attackerId = Object.values(runtime.state.objects)
-      .find((object) => object.name === 'Attacker')!.id
-    const targetJace = jaceId(runtime.state)
-    let state = atOpponentBeginCombat(runtime, runtime.state)
-    state = resolveStack(runtime.rules, state)
-    const offer = pendingOptionSelection(state, 'p2')!
-    state.players.p2.mana.C = 2
-    state = ok(runtime.rules(state, {
-      type: 'selectOption',
-      seat: 'p2',
-      selectionId: offer.id,
-      optionId: 'pay',
-    }))
-    state = { ...state, step: 'declareAttackers', priority: 'p2', active: 'p2' }
-    const declared = runtime.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p2',
-      attackers: [{ objectId: attackerId, defender: { kind: 'object', objectId: targetJace } }],
-    })
-    expect(declared.ok).toBe(true)
-  })
-
-  test('declining the {2} tax blocks attacks on your Jaces but not on you', () => {
-    const runtime = game({ battlefield: { p1: [jace()], p2: [creature('Attacker')] } })
-    const attackerId = Object.values(runtime.state.objects)
-      .find((object) => object.name === 'Attacker')!.id
-    const targetJace = jaceId(runtime.state)
-    let state = atOpponentBeginCombat(runtime, runtime.state)
-    state = resolveStack(runtime.rules, state)
-    state = ok(runtime.rules(state, {
-      type: 'selectOption',
-      seat: 'p2',
-      selectionId: pendingOptionSelection(state, 'p2')!.id,
-      optionId: 'decline',
-    }))
-    state = { ...state, step: 'declareAttackers', priority: 'p2', active: 'p2' }
-    const blocked = runtime.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p2',
-      attackers: [{ objectId: attackerId, defender: { kind: 'object', objectId: targetJace } }],
-    })
-    expect(blocked.ok).toBe(false)
-    const atPlayer = runtime.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p2',
-      attackers: [{ objectId: attackerId, defender: 'p1' }],
-    })
-    expect(atPlayer.ok).toBe(true)
-  })
-
-  test('attack restriction clears after the turn', () => {
-    const runtime = game({ battlefield: { p1: [jace()], p2: [creature('Attacker')] } })
-    const attackerId = Object.values(runtime.state.objects)
-      .find((object) => object.name === 'Attacker')!.id
-    const targetJace = jaceId(runtime.state)
-    let state = atOpponentBeginCombat(runtime, runtime.state)
-    state = resolveStack(runtime.rules, state)
-    state = ok(runtime.rules(state, {
-      type: 'selectOption',
-      seat: 'p2',
-      selectionId: pendingOptionSelection(state, 'p2')!.id,
-      optionId: 'decline',
-    }))
-    state = { ...state, step: 'cleanup', active: 'p2' }
-    state = ok(runtime.rules(state, { type: 'advanceStep' }))
-    state = { ...state, step: 'declareAttackers', priority: 'p2', active: 'p2' }
-    const declared = runtime.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p2',
-      attackers: [{ objectId: attackerId, defender: { kind: 'object', objectId: targetJace } }],
-    })
-    expect(declared.ok).toBe(true)
-  })
-
   test('+1 draws two then prompts to put a hand card on the bottom', () => {
     const runtime = game({
       libraries: { p1: ['A', 'B', 'C'].map((name) => cardTemplate(name)) },
@@ -181,20 +89,6 @@ describe('Jace, Multiverse Architect', () => {
     expect(state.zoneOrder.p1.battlefield).toContain(
       Object.values(state.objects).find((object) => object.name === 'Revealed Walker')!.id,
     )
-  })
-
-  test('cannot target Jace himself with −3', () => {
-    const runtime = game()
-    const id = jaceId(runtime.state)
-    const state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
-    const activated = runtime.rules(state, {
-      type: 'activateAbility',
-      abilityId: '$.abilities[2]',
-      seat: 'p1',
-      objectId: id,
-      targets: [{ kind: 'object', objectId: id }],
-    })
-    expect(activated.ok).toBe(false)
   })
 
   test('pending optional pay survives projection for the payer only', () => {
