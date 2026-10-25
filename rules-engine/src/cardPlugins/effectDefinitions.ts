@@ -8,7 +8,6 @@ import type {
   ZoneId,
 } from '../types'
 
-
 /**
  * Static P/T from cards exiled with the source: a fixed bonus per card, or
  * (`fromLinked`) each linked card's own power and toughness (Imprint).
