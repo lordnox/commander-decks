@@ -1,5 +1,6 @@
 import { resolveStack } from '../../testHelpers'
 import { describe, expect, test } from 'bun:test'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import {
   amount,
   activated,

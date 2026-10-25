@@ -1998,7 +1998,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:3255 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
-          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:68 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1273 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1416 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
@@ -2359,7 +2359,7 @@
       "candidateEvidence": {
         "matches": 19,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:70 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:288 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:145 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
