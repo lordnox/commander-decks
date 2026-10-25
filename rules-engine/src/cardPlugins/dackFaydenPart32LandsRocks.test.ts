@@ -36,6 +36,7 @@ const plains = () =>
     oracleText: '({T}: Add {W}.)',
   })
 
+// Pinned audit groups :295 and :331 remain assigned to #403, including their setup.
 describe('land-search privacy integrations (#403)', () => {
   test('Expedition Map sacrifices itself and opens a hidden library search', () => {
     const map = cardTemplate('Expedition Map', {

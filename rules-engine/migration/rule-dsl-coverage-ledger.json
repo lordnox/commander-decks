@@ -3808,7 +3808,7 @@
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2824 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2857 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:393 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:394 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:101 — test('every surveil land carries its enter trigger, not just its tap', () => {",
@@ -4259,12 +4259,12 @@
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:78 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:161 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:362 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:252 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:162 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:139 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1009 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1009 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1072 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4522,7 +4522,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 91,
+        "matches": 92,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -6044,7 +6044,7 @@
           "live-runner/src/kernelHost.test.ts:1051 — test('a restored private choice survives a host restart', async () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2824 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2857 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:393 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:394 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {"
         ]

@@ -102,7 +102,7 @@ test.each([
   const resolved = resolveStack(server.rules, announced)
   expect(resolved.objects[source].zone).toBe('graveyard')
   expect(resolved.zoneOrder.p1.hand).toHaveLength(count)
-  expect(resolved.zoneOrder.p1.hand.every(id => resolved.objects[id].name.endsWith('draw'))).toBe(true)
+  expect(resolved.zoneOrder.p1.hand.map(id => resolved.objects[id].name)).toEqual(['First draw', 'Second draw'].slice(0, count))
 })
 
 test('another-creature sacrifice is paid before the life gain resolves', () => {
