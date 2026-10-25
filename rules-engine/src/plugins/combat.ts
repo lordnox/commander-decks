@@ -1,6 +1,7 @@
 import { playerAttackDeclarationError } from '../rules/attackRequirements'
 import { isSameObject } from '../objectIdentity'
 import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
+import { COMBAT_ERRORS } from './combatConstants'
 import { attackDeclarationBanned } from '../cardPlugins/attackBan'
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'
 import { hasKeyword, lethalDamage } from '../keywords'
@@ -88,6 +89,7 @@ export const combat: Plugin = {
   legal: ({ state, event }) => {
     if (event.type === 'declareAttackers') {
       if (state.step !== 'declareAttackers') return 'attackers can only be declared in declare attackers'
+      if (state.attackersDeclared) return COMBAT_ERRORS.attackersAlreadyDeclared
       if (event.seat !== state.active || event.seat !== state.priority) {
         return 'only the active player with priority can declare attackers'
       }
@@ -202,6 +204,7 @@ export const combat: Plugin = {
   },
   apply: ({ event, draft }) => {
     if (event.type === 'declareAttackers') {
+      draft.attackersDeclared = true
       for (const declaration of event.attackers) {
         const attacker = draft.object(declaration.objectId)
         if (!attacker) continue
