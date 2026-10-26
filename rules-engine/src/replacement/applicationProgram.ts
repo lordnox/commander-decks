@@ -12,11 +12,11 @@ import {
 } from '../cardPlugins/dsl/compiler/runtime'
 import { PENDING_OPTION_SELECTION, openOptionSelection } from '../rules/selectOptions'
 import type PluginCatalog from '../catalog'
+import type { CardColor } from '../../../shared/cardColors'
 import type {
   EventProcessingFrame,
   GameEvent,
   GameState,
-  ManaId,
   ObjectIdentity,
   ReduceResult,
   ReplacementProgramCursor,
@@ -33,13 +33,13 @@ export const registerNestedApply = (apply: NestedApply) => {
   nestedApply = apply
 }
 
-const COLORS = new Set<ManaId>(['W', 'U', 'B', 'R', 'G'])
+const COLORS = new Set<CardColor>(['W', 'U', 'B', 'R', 'G'])
 
 const storeChosenColor = (frame: EventProcessingFrame, optionId: string) => {
-  if (!COLORS.has(optionId as ManaId)) return
+  if (!COLORS.has(optionId as CardColor)) return
   const pending = frame.pendingEvent
   if (pending.type === 'move') {
-    frame.pendingEvent = { ...pending, chosenColor: optionId as ManaId }
+    frame.pendingEvent = { ...pending, chosenColor: optionId as CardColor }
   }
 }
 
@@ -459,8 +459,8 @@ export const rememberApplicationChoice = (
   if (bindChoice === CHOSEN_COLOR_BINDING) {
     storeChosenColor(frame, optionId)
     const source = draft.objects[program.sourceId]
-    if (source && COLORS.has(optionId as ManaId)) {
-      source.chosenColor = optionId as ManaId
+    if (source && COLORS.has(optionId as CardColor)) {
+      source.chosenColor = optionId as CardColor
       draft.note(`${chooser ?? source.controller} chooses ${optionId} for ${source.name}`)
     }
   }

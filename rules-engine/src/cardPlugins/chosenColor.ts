@@ -1,9 +1,10 @@
 import { openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
-import type { ManaId, Plugin } from '../types'
+import type { Plugin } from '../types'
+import type { CardColor } from '../../../shared/cardColors'
 import { effectsOf } from './cardRules'
 import { enteringObjectId } from './entersTapped'
 
-const COLORS: Array<{ id: Exclude<ManaId, 'C'>; label: string }> = [
+const COLORS: Array<{ id: CardColor; label: string }> = [
   { id: 'W', label: 'White' },
   { id: 'U', label: 'Blue' },
   { id: 'B', label: 'Black' },
@@ -41,7 +42,7 @@ export const chosenColor: Plugin = {
     const pending = pendingOptionSelection(state, event.seat)
     const chosen = draft.object(pending?.sourceId ?? '')
     if (pending?.action.kind !== 'choose-color' || !chosen) return
-    chosen.chosenColor = event.optionId as ManaId
+    chosen.chosenColor = event.optionId as CardColor
     draft.note(`${event.seat} chooses ${event.optionId} for ${chosen.name}`)
   },
 }

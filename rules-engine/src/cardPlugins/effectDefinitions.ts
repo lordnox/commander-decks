@@ -7,7 +7,7 @@ import type {
   TriggerBindingIf,
   ZoneId,
 } from '../types'
-import type { ColorSet } from '../../../shared/cardColors'
+import type { CardColor, ColorSet } from '../../../shared/cardColors'
 
 /**
  * Static P/T from cards exiled with the source: a fixed bonus per card, or
@@ -854,7 +854,7 @@ export type CardEffect =
       }
       pumpPerLinkedExile?: LinkedExilePump
       /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */
-      enchantedManaBoost?: { mana: Exclude<ManaId, 'C'> } | { chosenColor: true }
+      enchantedManaBoost?: { mana: CardColor } | { chosenColor: true }
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }
