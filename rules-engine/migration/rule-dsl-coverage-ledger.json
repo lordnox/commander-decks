@@ -1995,16 +1995,16 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 91,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3256 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1030 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1236 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1377 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1703 — test('catalog life-history and win cards compose canonical instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1862 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1862 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1926 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -5149,7 +5149,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 279,
+        "matches": 277,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2084 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -6283,16 +6283,16 @@
         "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts — static hexproof layer > removing the source restores printed hexproof and drops the granted hexproof"
       ],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 14,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2773 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:26",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:105 — test('leaving the lord removes the grant before another sliver enters', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:12",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:130 — test('stamped granted triggers clone without matchers', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:15",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:30",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:33"
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:33",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:339 — test('a host restart restores the open fight choice', () => {"
         ]
       },
       "neededCanonicalNode": "generated/granted ability definition with independent source and version context",
