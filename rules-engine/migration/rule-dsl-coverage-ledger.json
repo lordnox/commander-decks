@@ -394,8 +394,8 @@
         "matches": 19,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
-          "rules-engine/src/cardPlugins/linkedExile.test.ts:269 — test('open link-exile selection survives projection for the choosing seat', () => {",
-          "rules-engine/src/cardPlugins/linkedExile.test.ts:46 — test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {",
+          "rules-engine/src/cardPlugins/linkedExile.test.ts:305 — test('open link-exile selection survives projection for the choosing seat', () => {",
+          "rules-engine/src/cardPlugins/linkedExile.test.ts:82 — test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:122 — test('trigger if gates ETB on opponent life lead', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:52 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
@@ -1094,7 +1094,7 @@
         "matches": 14,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:22 — test('Thragtusk composes self-entry life gain and self-leave token creation rather than dies', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:281 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1088 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1145 — test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1617 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
@@ -1421,7 +1421,7 @@
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:91 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:280 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:233 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:138 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1030 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {"
         ]
@@ -1504,7 +1504,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/seaGate.test.ts:51 — test('instructions are clone-safe', () => {"
+          "rules-engine/src/cardPlugins/seaGate.test.ts:54 — test('instructions are clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2156,7 +2156,7 @@
       "candidateEvidence": {
         "matches": 29,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:236 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1085 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1328 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1465 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
@@ -2361,7 +2361,7 @@
         "matches": 19,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:70 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:286 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:239 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:144 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1020 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1270 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
@@ -2626,7 +2626,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1233 — test('catalog Nezahal composes uncounterable, hand size, a cast trigger, and a discard blink', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1374 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
-          "rules-engine/src/cardPlugins/seaGate.test.ts:52 — test('instructions are clone-safe', () => {"
+          "rules-engine/src/cardPlugins/seaGate.test.ts:55 — test('instructions are clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -2669,7 +2669,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/opponentPiles.test.ts:172 — test('an untargeted public split asks an opponent, then the controller picks a pile', () => {"
+          "rules-engine/src/cardPlugins/opponentPiles.test.ts:262 — test('an untargeted public split asks an opponent, then the controller picks a pile', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3051,7 +3051,7 @@
       "candidateEvidence": {
         "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:284 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:237 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1041 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1301 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1587 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
@@ -3514,7 +3514,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:268 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:221 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1166 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2695 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {",
@@ -3631,12 +3631,12 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 25,
+        "matches": 26,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1006 — test('a restored private choice survives a host restart', async () => {",
           "live-runner/src/kernelHost.test.ts:3831 — test('a top-of-library choice preserves its revealed order', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:281 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2707 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
@@ -3752,9 +3752,9 @@
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2719 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2752 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:394 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:519 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
-          "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {",
+          "rules-engine/src/cardPlugins/lookTopPick.test.ts:249 — test('rejects another seat, another kind, and another count', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('every surveil land carries its enter trigger, not just its tap', () => {",
           "rules-engine/src/rules/selectCards.test.ts:253 — test('surveil 1 mills or keeps the private top card', () => {"
         ]
@@ -3777,7 +3777,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:284 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:237 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2235 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2589 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:592 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
@@ -3945,7 +3945,7 @@
         "matches": 11,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:283 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:236 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2123 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
@@ -4202,7 +4202,7 @@
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:63 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:364 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:251 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:204 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:17 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:138 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1026 — test('Blitzball taps for any color and sacrifices after legendary combat damage', () => {",
@@ -4369,12 +4369,12 @@
         "matches": 29,
         "samples": [
           "rules-engine/src/actions.test.ts:369 — test('accounts for commander tax', () => {",
-          "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:64 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:630 — test('repeated phasing modes keep independent target scopes for the same creature', () => {",
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
           "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts:14 — test('commander queries use the controlled battlefield instance rather than ownership or legendary status', () => {",
           "rules-engine/src/cardPlugins/dsl/stackItemFilters.test.ts:28 — test('stack filters distinguish command-zone casts from hand casts', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:156 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:364 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)"
         ]
       },
@@ -4563,8 +4563,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:263 — test('the boost ends when the enchanted land leaves and the Aura goes with it', () => {",
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:89 — test('effects name the plugins and handlers a host has to load', () => {"
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:264 — test('the boost ends when the enchanted land leaves and the Aura goes with it', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:90 — test('effects name the plugins and handlers a host has to load', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4598,13 +4598,14 @@
         "rules-engine/src/cardPlugins/exilePayoffs.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:112 — test('pumps itself until end of turn by the power of a linked exiled card', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:142 — test('puts a linked exiled card into its owner graveyard and gains life equal to mana value', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:176 — test('chooses among several linked exiled cards before pumping', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:228 — test('pumps a stack target using linked exile power', () => {",
-          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:32"
+          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:123 — test('a private Ingester target survives a host restart and resolves through the live chooser', () => {",
+          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:78"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4679,8 +4680,8 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:190 — test('an enchanted overlay Forest counts as a Forest', () => {",
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:345 — test('an enchanted overlay Forest is boosted too', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:191 — test('an enchanted overlay Forest counts as a Forest', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:348 — test('an enchanted overlay Forest is boosted too', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:109 — test('the Forest subtype honors the forest overlay for every land', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:44"
         ]
@@ -4802,7 +4803,7 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:255 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:208 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1316 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1851 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:600 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
@@ -4873,16 +4874,16 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 90,
+        "matches": 89,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:263 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:158 — test('an attacker cannot also tap to pay its own attack tax', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:188 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:31 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:66 — test('Baird does not tax a creature attacking another opponent', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:84 — test('a tapped Archangel does not impose its attack tax', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts:7 — test('ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts:7 — test('ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:100 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5148,7 +5149,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 278,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5190,7 +5191,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 67,
+        "matches": 68,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3285 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4302 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
@@ -5401,7 +5402,7 @@
         "matches": 22,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1261 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:281 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:234 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2100 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2112 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2123 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
@@ -5934,7 +5935,7 @@
         "matches": 3,
         "samples": [
           "live-runner/src/host.test.ts:159 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:147 — test('a sacrifice choice dies with the spell that asked for it', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:231 — test('a sacrifice choice dies with the spell that asked for it', () => {",
           "site/src/TopdeckDialog.test.tsx:258 — test('a resolving Scapeshift asks for land sacrifices before opening a search', () => {"
         ]
       },
@@ -5983,9 +5984,9 @@
           "live-runner/src/kernelHost.test.ts:1011 — test('a restored private choice survives a host restart', async () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2719 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2752 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:394 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:519 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
-          "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {"
+          "rules-engine/src/cardPlugins/lookTopPick.test.ts:249 — test('rejects another seat, another kind, and another count', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
