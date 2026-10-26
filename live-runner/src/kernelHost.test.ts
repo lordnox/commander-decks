@@ -20,6 +20,7 @@ import {
   restoreJournal,
   waitingSelectCards,
 } from '../../rules-engine/src/index'
+import type { FaceCharacteristics } from '../../rules-engine/src/types'
 import type { GameEvent, GameState, TableReplay } from '../../rules-engine/src/index'
 import {
   librarySearch,
@@ -392,13 +393,13 @@ const abilitySearchGame = (
   return { kernel, lobby, sourceId }
 }
 
-const landFaceOf = (oracleText: string) => ({
+const landFaceOf = (oracleText: string): FaceCharacteristics => ({
   types: ['Land'],
   subtypes: [],
   supertypes: [],
   manaCost: '',
   manaValue: 0,
-  colors: [],
+  colors: '',
   oracleText,
 })
 
@@ -875,7 +876,7 @@ describe('kernel host journal', () => {
     const lobby = createLobby()
     lobby.phase = 'play'
     const first = await openKernel('pod', root, lobby)
-    expect(readFileSync(kernelPath('pod', root), 'utf8')).toContain('rules-engine/v0')
+    expect(readFileSync(kernelPath('pod', root), 'utf8')).toContain('rules-engine/v1')
 
     const seat = first.history.current().priority
     expect(seat).toBeTruthy()
@@ -3128,7 +3129,7 @@ describe('kernel host journal', () => {
             supertypes: [],
             manaCost: '{2}{G}',
             manaValue: 3,
-            colors: ['G'],
+            colors: 'G',
             printedDefense: 3,
           },
           backFace: {
@@ -3137,7 +3138,7 @@ describe('kernel host journal', () => {
             supertypes: [],
             manaCost: '',
             manaValue: 0,
-            colors: ['G'],
+            colors: 'G',
             power: 4,
             toughness: 4,
           },
@@ -3585,7 +3586,7 @@ describe('up-to-N trigger targets live choice', () => {
                   name: 'Elephant',
                   types: ['Creature'],
                   subtypes: ['Elephant'],
-                  colors: ['G'],
+                  colors: 'G',
                   power: 3,
                   toughness: 3,
                 }),

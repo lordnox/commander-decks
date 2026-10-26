@@ -22,7 +22,7 @@ test('graveyard exile is paid before a modified token copy resolves from source 
   expect(countered.objects[id]!.zone).toBe('exile')
   const resolved = resolveStack(server.rules, JSON.parse(JSON.stringify(activated)))
   const token = Object.values(resolved.objects).find(object => object.token)!
-  expect(token).toMatchObject({ zone: 'battlefield', colors: ['W'], subtypes: ['Zombie', 'Angel'], manaCost: '', manaValue: 0, power: 4, toughness: 4 })
+  expect(token).toMatchObject({ zone: 'battlefield', colors: 'W', subtypes: ['Zombie', 'Angel'], manaCost: '', manaValue: 0, power: 4, toughness: 4 })
   expect(token.ruleDefinition).toEqual(state.objects[id]!.ruleDefinition)
 })
 

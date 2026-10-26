@@ -734,7 +734,7 @@ describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', ()
           token: true,
           power: 3,
           toughness: 3,
-          colors: ['G'],
+          colors: 'G',
           subtypes: ['Elephant'],
           types: ['Creature'],
         })

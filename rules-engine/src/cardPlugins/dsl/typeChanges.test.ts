@@ -91,5 +91,5 @@ test('animation retains land types and counters, sets color/subtype and chosen X
   expect(attack.ok).toBe(false)
   if (!attack.ok) expect(attack.error).toContain('summoning sickness')
   state = ok(server.rules({ ...state, step: 'end' }, { type: 'advanceStep' }))
-  expect(state.objects[id]).toMatchObject({ types: ['Land'], subtypes: ['Forest'], colors: [], power: null, toughness: null })
+  expect(state.objects[id]).toMatchObject({ types: ['Land'], subtypes: ['Forest'], colors: '', power: null, toughness: null })
 })

@@ -291,7 +291,7 @@ describe('Room doors', () => {
       subtypes: ['Room'],
       manaCost: '',
       manaValue: 0,
-      colors: [],
+      colors: '',
       oracleText: '',
       effects: [],
       unlockedDoors: [],

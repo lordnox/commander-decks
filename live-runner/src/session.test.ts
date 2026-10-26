@@ -124,8 +124,8 @@ describe('session', () => {
 })
 
 describe('snapshot', () => {
-  test('lobby payload is v2', () => {
-    expect(encodeLobby(createLobby())).toStartWith('v2.')
+  test('lobby payload is v3', () => {
+    expect(encodeLobby(createLobby())).toStartWith('v3.')
   })
 })
 

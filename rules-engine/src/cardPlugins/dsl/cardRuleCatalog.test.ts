@@ -79,7 +79,7 @@ test.each([
 
 test('catalog Aetherize returns all attacking permanents to hand', () => {
   expect(cardTemplateDefaultsFor('Aetherize')).toMatchObject({
-    types: ['Instant'], colors: ['U'], manaCost: '{3}{U}', manaValue: 4,
+    types: ['Instant'], colors: 'U', manaCost: '{3}{U}', manaValue: 4,
   })
   expect(cardRuleDefinitionSnapshotFor('Aetherize')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -108,7 +108,7 @@ test('catalog Dismember preserves its Phyrexian mana costs and temporary reducti
 
 test.each(['Cultivate', "Kodama's Reach"] as const)('catalog %s splits two basics between battlefield and hand', name => {
   expect(cardTemplateDefaultsFor(name)).toMatchObject({
-    types: ['Sorcery'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+    types: ['Sorcery'], colors: 'G', manaCost: '{2}{G}', manaValue: 3,
   })
   expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -132,7 +132,7 @@ test.each(['Cultivate', "Kodama's Reach"] as const)('catalog %s splits two basic
 
 test('catalog Harrow sacrifices a controlled land and finds up to two basic lands', () => {
   expect(cardTemplateDefaultsFor('Harrow')).toMatchObject({
-    types: ['Instant'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+    types: ['Instant'], colors: 'G', manaCost: '{2}{G}', manaValue: 3,
   })
   expect(cardRuleDefinitionSnapshotFor('Harrow')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -211,7 +211,7 @@ test('catalog instruction parameters preserve controller life changes and exile 
 test('catalog Growth Spiral draws before offering one optional land from hand', () => {
   const definition = cardRuleDefinitionSnapshotFor('Growth Spiral')!.definition
   expect(cardTemplateDefaultsFor('Growth Spiral')).toMatchObject({
-    types: ['Instant'], colors: ['G', 'U'], manaCost: '{G}{U}', manaValue: 2,
+    types: ['Instant'], colors: 'UG', manaCost: '{G}{U}', manaValue: 2,
   })
   expect(definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -234,7 +234,7 @@ test('catalog Growth Spiral draws before offering one optional land from hand', 
 
 test('catalog Three Visits allows fail-to-find and puts a Forest onto the battlefield', () => {
   expect(cardTemplateDefaultsFor('Three Visits')).toMatchObject({
-    types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2,
+    types: ['Sorcery'], colors: 'G', manaCost: '{1}{G}', manaValue: 2,
   })
   expect(cardRuleDefinitionSnapshotFor('Three Visits')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -254,7 +254,7 @@ test('catalog Three Visits allows fail-to-find and puts a Forest onto the battle
 
 test("catalog Nature's Lore allows fail-to-find and puts a Forest onto the battlefield", () => {
   expect(cardTemplateDefaultsFor("Nature's Lore")).toMatchObject({
-    types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2,
+    types: ['Sorcery'], colors: 'G', manaCost: '{1}{G}', manaValue: 2,
   })
   expect(cardRuleDefinitionSnapshotFor("Nature's Lore")!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -274,7 +274,7 @@ test("catalog Nature's Lore allows fail-to-find and puts a Forest onto the battl
 
 test('catalog Aftermath Analyst mills on enter and reclaims graveyard lands tapped', () => {
   expect(cardTemplateDefaultsFor('Aftermath Analyst')).toMatchObject({
-    types: ['Creature'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2,
+    types: ['Creature'], colors: 'G', manaCost: '{1}{G}', manaValue: 2,
   })
   const abilities = cardRuleDefinitionSnapshotFor('Aftermath Analyst')!.definition.abilities
   expect(abilities).toHaveLength(2)
@@ -315,7 +315,7 @@ test('catalog Aesi composes extra land plays and a land-enter draw without legac
   })
   expect(cardTemplateDefaultsFor('Aesi, Tyrant of Gyre Strait')).toMatchObject({
     types: ['Creature'],
-    colors: ['G', 'U'],
+    colors: 'UG',
     manaCost: '{4}{G}{U}',
     manaValue: 6,
   })
@@ -480,7 +480,7 @@ test('catalog Darkness prevents all combat damage this turn', () => {
 
 test('catalog Kami of False Hope sacrifices itself to prevent all combat damage this turn', () => {
   expect(cardTemplateDefaultsFor('Kami of False Hope')).toMatchObject({
-    types: ['Creature'], subtypes: ['Spirit'], colors: ['W'], manaCost: '{W}', manaValue: 1,
+    types: ['Creature'], subtypes: ['Spirit'], colors: 'W', manaCost: '{W}', manaValue: 1,
   })
   expect(cardRuleDefinitionSnapshotFor('Kami of False Hope')!.definition.abilities[0]).toMatchObject({
     kind: 'activated',
@@ -496,7 +496,7 @@ test('catalog Kami of False Hope sacrifices itself to prevent all combat damage 
 
 test('catalog Sokrates grants defender, conditional hexproof, and a combat-dialogue prevention', () => {
   expect(cardTemplateDefaultsFor('Sokrates, Athenian Teacher')).toMatchObject({
-    types: ['Creature'], subtypes: ['Human', 'Advisor'], colors: ['W', 'U'], manaCost: '{1}{W}{U}', manaValue: 3,
+    types: ['Creature'], subtypes: ['Human', 'Advisor'], colors: 'WU', manaCost: '{1}{W}{U}', manaValue: 3,
   })
   expect(cardRuleDefinitionSnapshotFor('Sokrates, Athenian Teacher')!.definition.abilities).toMatchObject([
     { kind: 'keyword', keyword: KEYWORDS.defender },
@@ -517,7 +517,7 @@ test('catalog Sokrates grants defender, conditional hexproof, and a combat-dialo
 
 test('catalog Lady Evangela fogs combat damage from a targeted creature', () => {
   expect(cardTemplateDefaultsFor('Lady Evangela')).toMatchObject({
-    types: ['Creature'], subtypes: ['Human', 'Cleric'], colors: ['W', 'U', 'B'], manaCost: '{W}{U}{B}', manaValue: 3,
+    types: ['Creature'], subtypes: ['Human', 'Cleric'], colors: 'WUB', manaCost: '{W}{U}{B}', manaValue: 3,
   })
   expect(cardRuleDefinitionSnapshotFor('Lady Evangela')!.definition.abilities[0]).toMatchObject({
     kind: 'activated',
@@ -767,12 +767,12 @@ test('catalog Ulvenwald Tracker taps to fight a controlled creature with a diffe
 })
 
 test('immediate blink catalog entries preserve targeting and return-controller differences', () => {
-  expect(cardTemplateDefaultsFor('Cloudshift')).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{W}', manaValue: 1 })
+  expect(cardTemplateDefaultsFor('Cloudshift')).toMatchObject({ types: ['Instant'], colors: 'W', manaCost: '{W}', manaValue: 1 })
   expect(cardRuleDefinitionSnapshotFor('Cloudshift')!.definition.abilities).toMatchObject([{
     kind: 'spell', decisions: { targets: [{ min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } }] },
     instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 }, returnController: { kind: 'contextRef', name: 'controller' } }],
   }])
-  expect(cardTemplateDefaultsFor('Flicker of Fate')).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{1}{W}', manaValue: 2 })
+  expect(cardTemplateDefaultsFor('Flicker of Fate')).toMatchObject({ types: ['Instant'], colors: 'W', manaCost: '{1}{W}', manaValue: 2 })
   expect(cardRuleDefinitionSnapshotFor('Flicker of Fate')!.definition.abilities).toMatchObject([{
     kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Enchantment' }] } } }] },
     instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 } }],
@@ -780,7 +780,7 @@ test('immediate blink catalog entries preserve targeting and return-controller d
 })
 
 test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {
-  expect(cardTemplateDefaultsFor('Ghostly Flicker')).toMatchObject({ types: ['Instant'], colors: ['U'], manaCost: '{2}{U}', manaValue: 3 })
+  expect(cardTemplateDefaultsFor('Ghostly Flicker')).toMatchObject({ types: ['Instant'], colors: 'U', manaCost: '{2}{U}', manaValue: 3 })
   expect(cardRuleDefinitionSnapshotFor('Ghostly Flicker')!.definition.abilities).toMatchObject([{
     kind: 'spell', decisions: { targets: [{ min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 }, distinct: true,
       filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } } }] },
@@ -789,7 +789,7 @@ test('catalog Ghostly Flicker declares exactly two distinct controlled artifact,
 })
 
 test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {
-  expect(cardTemplateDefaultsFor('Felidar Guardian')).toMatchObject({ types: ['Creature'], colors: ['W'], manaCost: '{3}{W}', manaValue: 4 })
+  expect(cardTemplateDefaultsFor('Felidar Guardian')).toMatchObject({ types: ['Creature'], colors: 'W', manaCost: '{3}{W}', manaValue: 4 })
   expect(cardRuleDefinitionSnapshotFor('Felidar Guardian')!.definition.abilities).toMatchObject([{
     kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
     decisions: { targets: [{ min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', other: true } } }] },
@@ -801,7 +801,7 @@ test('catalog Felidar Guardian targets another controlled permanent before offer
 })
 
 test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {
-  expect(cardTemplateDefaultsFor('Restoration Angel')).toMatchObject({ types: ['Creature'], subtypes: ['Angel'], colors: ['W'], manaCost: '{3}{W}', manaValue: 4 })
+  expect(cardTemplateDefaultsFor('Restoration Angel')).toMatchObject({ types: ['Creature'], subtypes: ['Angel'], colors: 'W', manaCost: '{3}{W}', manaValue: 4 })
   expect(cardRuleDefinitionSnapshotFor('Restoration Angel')!.definition.abilities).toMatchObject([
     { kind: 'keyword', keyword: 'flash' },
     { kind: 'keyword', keyword: 'flying' },
@@ -819,7 +819,7 @@ test('catalog Banisher Priest exiles an opponent creature until it leaves', () =
   expect(cardTemplateDefaultsFor('Banisher Priest')).toMatchObject({
     types: ['Creature'],
     subtypes: ['Human', 'Cleric'],
-    colors: ['W'],
+    colors: 'W',
     manaCost: '{1}{W}{W}',
     manaValue: 3,
   })
@@ -839,7 +839,7 @@ test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for
   expect(cardTemplateDefaultsFor('Werefox Bodyguard')).toMatchObject({
     types: ['Creature'],
     subtypes: ['Elf', 'Fox', 'Knight'],
-    colors: ['W'],
+    colors: 'W',
     manaCost: '{1}{W}{W}',
     manaValue: 3,
   })
@@ -870,7 +870,7 @@ test('catalog Fiend Hunter links a separate leave trigger rather than until-leav
   expect(cardTemplateDefaultsFor('Fiend Hunter')).toMatchObject({
     types: ['Creature'],
     subtypes: ['Human', 'Cleric'],
-    colors: ['W'],
+    colors: 'W',
     manaCost: '{1}{W}{W}',
     manaValue: 3,
   })
@@ -924,12 +924,12 @@ test.each([['Explore', 1], ['Summer Bloom', 3]] as const)('%s grants its printed
   expect(ability.kind).toBe('spell')
   if (ability.kind !== 'spell') throw new Error('expected spell')
   expect(ability.instructions?.[0]).toEqual({ kind: 'grantLandPlays', count: { kind: 'constant', value: count }, targets: { kind: 'contextRef', name: 'controller' } })
-  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2 })
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Sorcery'], colors: 'G', manaCost: '{1}{G}', manaValue: 2 })
 })
 
 
 test.each(['Long Road Home', 'Otherworldly Journey'])('%s returns the exiled creature with an entry counter', name => {
-  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{1}{W}', manaValue: 2 })
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Instant'], colors: 'W', manaCost: '{1}{W}', manaValue: 2 })
   expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
     decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] },
@@ -1085,7 +1085,7 @@ test('X catalog cards preserve their life costs, signed deltas and land-creature
       { kind: 'if', condition: { kind: 'compareAmount', operator: 'gte' }, then: [{ kind: 'chooseCards' }, { kind: 'move', to: 'battlefield', tapped: true }] },
     ],
   })
-  expect(cardRuleDefinitionSnapshotFor('Awaken the Woods')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createToken', count: { kind: 'variable', name: 'X' }, token: { name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: ['G'], power: 1, toughness: 1 } }] })
+  expect(cardRuleDefinitionSnapshotFor('Awaken the Woods')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createToken', count: { kind: 'variable', name: 'X' }, token: { name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: 'G', power: 1, toughness: 1 } }] })
 })
 
 test('Gilded Lotus offers exactly five single-color three-mana programs', () => {
@@ -1142,7 +1142,7 @@ test.each(["Collector's Vault", 'Daily Bugle Newspaper'])('%s draws, discards, t
     { kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }], instructions: [
       { kind: 'draw', count: { kind: 'constant', value: 1 } },
       { kind: 'discard', count: { kind: 'constant', value: 1 } },
-      { kind: 'createToken', count: { kind: 'constant', value: 1 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: [] } },
+      { kind: 'createToken', count: { kind: 'constant', value: 1 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: '' } },
     ] },
   ])
 })
@@ -1433,7 +1433,7 @@ test('catalog Secluded Steppe enters tapped, makes white, and cycles for {W}', (
 })
 
 test('catalog Astral Drift cycles itself and blinks a creature after you cycle a card', () => {
-  expect(cardTemplateDefaultsFor('Astral Drift')).toMatchObject({ types: ['Enchantment'], colors: ['W'], manaCost: '{2}{W}', manaValue: 3 })
+  expect(cardTemplateDefaultsFor('Astral Drift')).toMatchObject({ types: ['Enchantment'], colors: 'W', manaCost: '{2}{W}', manaValue: 3 })
   const exileUntilEnd = {
     decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
     instructions: [{ kind: 'chooseInstructions', optional: true, options: [
@@ -1727,7 +1727,7 @@ test('Braids offers an eligible hand permanent to the active upkeep player', () 
 test('Show and Tell collects one optional ACE/L card from each hand before they enter together', () => {
   expect(cardTemplateDefaultsFor('Show and Tell')).toMatchObject({
     types: ['Sorcery'],
-    colors: ['U'],
+    colors: 'U',
     manaCost: '{2}{U}',
     manaValue: 3,
   })
@@ -1748,7 +1748,7 @@ test('Show and Tell collects one optional ACE/L card from each hand before they 
 test('Eureka repeats sequential permanent puts until a full round declines', () => {
   expect(cardTemplateDefaultsFor('Eureka')).toMatchObject({
     types: ['Sorcery'],
-    colors: ['G'],
+    colors: 'G',
     manaCost: '{2}{G}{G}',
     manaValue: 4,
   })
@@ -1789,7 +1789,7 @@ test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample 
 test("Rishkar's Expertise draws from greatest power then offers a capped free hand cast", () => {
   expect(cardTemplateDefaultsFor("Rishkar's Expertise")).toMatchObject({
     types: ['Sorcery'],
-    colors: ['G'],
+    colors: 'G',
     manaCost: '{4}{G}{G}',
     manaValue: 6,
   })
@@ -1850,7 +1850,7 @@ test('group 15 consumers compose name, comparison, and mana-ability queries', ()
     kind: 'triggered', instructions: [
       { kind: 'if', condition: { kind: 'somePlayerHasMore', metric: 'lands' }, then: [{ kind: 'createToken', token: { name: 'Treasure' } }] },
       { kind: 'if', condition: { metric: 'life' }, then: [{ kind: 'gainLife', amount: { value: 4 } }] },
-      { kind: 'if', condition: { metric: 'creatures' }, then: [{ kind: 'createToken', count: { value: 2 }, token: { name: 'Fish', colors: ['U'] } }] },
+      { kind: 'if', condition: { metric: 'creatures' }, then: [{ kind: 'createToken', count: { value: 2 }, token: { name: 'Fish', colors: 'U' } }] },
       { kind: 'if', condition: { metric: 'hand' }, then: [{ kind: 'draw' }] },
     ],
   }])
@@ -2280,7 +2280,7 @@ test('Blightsteel Colossus composes trample, infect, indestructible, and owner-l
   expect(cardTemplateDefaultsFor('Blightsteel Colossus')).toMatchObject({
     types: ['Artifact', 'Creature'],
     subtypes: ['Phyrexian', 'Golem'],
-    colors: [],
+    colors: '',
     manaCost: '{12}',
     manaValue: 12,
   })
@@ -2305,7 +2305,7 @@ test('Darksteel Colossus composes trample, indestructible, and owner-library shu
   expect(cardTemplateDefaultsFor('Darksteel Colossus')).toMatchObject({
     types: ['Artifact', 'Creature'],
     subtypes: ['Golem'],
-    colors: [],
+    colors: '',
     manaCost: '{11}',
     manaValue: 11,
   })
@@ -2329,7 +2329,7 @@ test('Woodfall Primus composes trample, a mandatory noncreature destroy, and per
   expect(cardTemplateDefaultsFor('Woodfall Primus')).toMatchObject({
     types: ['Creature'],
     subtypes: ['Treefolk', 'Shaman'],
-    colors: ['G'],
+    colors: 'G',
     manaCost: '{5}{G}{G}{G}',
     manaValue: 8,
   })
@@ -2575,7 +2575,7 @@ test('family 22 catalog composes characteristics, types, grants, and attachments
   expect(abilities('Masked Vandal')).toMatchObject([{ kind: 'keyword', keyword: 'changeling' }, { on: { kind: 'enters' }, instructions: [{ kind: 'sequence' }] }])
   expect(abilities('Maskwood Nexus')).toMatchObject([
     { effects: [{ kind: 'addTypes', allCreatureTypes: true }] },
-    { costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'createToken', token: { colors: ['U'], abilities: [{ keyword: 'changeling' }] } }] },
+    { costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'createToken', token: { colors: 'U', abilities: [{ keyword: 'changeling' }] } }] },
   ])
   expect(cardTemplateDefaultsFor('Lumra, Bellow of the Woods')).toMatchObject({ types: ['Creature'], supertypes: ['Legendary'], subtypes: ['Elemental', 'Bear'] })
   expect(abilities('Lumra, Bellow of the Woods')).toMatchObject([
@@ -2669,7 +2669,7 @@ test('zone-play catalog entries compose land permissions, top visibility, and to
   ])
   expect(definitions('Mole Man, Moloid Master')).toMatchObject([
     { kind: 'static', effects: [{ kind: 'playLands' }] },
-    { kind: 'triggered', instructions: [{ kind: 'createToken', token: { name: 'Moloid', colors: ['G'], abilities: [
+    { kind: 'triggered', instructions: [{ kind: 'createToken', token: { name: 'Moloid', colors: 'G', abilities: [
       { kind: 'triggered', instructions: [{ kind: 'chooseInstructions' }] },
     ] } }] },
   ])
@@ -2786,7 +2786,7 @@ test('Parting Gust composes a promised tapped blue Fish before conditional nonto
     kind: 'spell', optionalCosts: [{ kind: 'choosePlayer', players: { kind: 'players', filter: { relation: 'opponent' } } }],
     decisions: { targets: [{ filter: { kind: 'objects', filter: { type: 'Creature', token: false } } }] },
     instructions: [
-      { kind: 'if', then: [{ kind: 'createToken', targets: { kind: 'paidCostPlayer', index: 0 }, tapped: true, token: { colors: ['U'], power: 1, toughness: 1 } }] },
+      { kind: 'if', then: [{ kind: 'createToken', targets: { kind: 'paidCostPlayer', index: 0 }, tapped: true, token: { colors: 'U', power: 1, toughness: 1 } }] },
       { kind: 'if', then: [{ kind: 'move', to: 'exile' }], otherwise: [{ kind: 'sequence', instructions: [
         { kind: 'move', to: 'exile' }, { kind: 'createDelayed', instructions: [{ kind: 'move', to: 'battlefield', enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } }] },
       ] }] },
@@ -2816,7 +2816,7 @@ test('family 24 composes animation, mana, ward, nonzero X, and crew in the canon
     costs: [{ kind: 'mana', amount: '{5}{U}' }], instructions: [{ kind: 'sequence', instructions: [
       { effect: { kind: 'setStats', power: { value: 7 }, toughness: { value: 7 } } },
       { effect: { kind: 'addTypes', types: ['Creature'], subtypes: ['Giant'] } },
-      { effect: { kind: 'setColors', colors: ['U'] } }, { effect: { kind: 'grantWard', cost: { kind: 'mana', generic: 3 } } },
+      { effect: { kind: 'setColors', colors: 'U' } }, { effect: { kind: 'grantWard', cost: { kind: 'mana', generic: 3 } } },
     ] }],
   })
   expect(cardRuleDefinitionSnapshotFor('Lair of the Hydra')!.definition.abilities[2]).toMatchObject({
