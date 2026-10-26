@@ -1,7 +1,9 @@
 import { describe, expect, test } from 'bun:test'
+import { deckCardTemplate } from '../deckCardFixtures'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { maximumHandSize } from '../plugins/turnStructure'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
@@ -14,6 +16,7 @@ import {
 } from './effects'
 import { noMaxHand } from './noMaxHand'
 import { onResolve as onResolvePlugin } from './onResolve'
+import { PAY_LIFE_OPTION } from './dsl/v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -104,5 +107,32 @@ describe('draw hand size plus one, then no maximum hand size', () => {
       to: 'graveyard',
     }))
     expect(maximumHandSize(left, 'p1')).toBe(7)
+  })
+})
+
+describe('Sea Gate Restoration private land choice', () => {
+  test('the life choice is private to its controller and survives a restart', () => {
+    const seaGate = 'Sea Gate Restoration // Sea Gate, Reborn'
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [deckCardTemplate(seaGate)] },
+      libraries: { p1: filler('Library', 12) },
+    }, { random: () => 0.5 })
+    const asked = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: named(server.state, seaGate).id,
+    }))
+    expect(server.project(asked, 'p1').players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
+    expect(server.project(asked, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
+    const restarted = structuredClone(asked)
+    const pending = pendingOptionSelection(restarted, 'p1')!
+    const paid = ok(server.rules(restarted, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: PAY_LIFE_OPTION,
+    }))
+    expect(paid.players.p1.life).toBe(server.state.players.p1.life - 3)
   })
 })

@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { hasKeyword } from '../keywords'
+import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate, type CardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
   DIALOG_CHOSEN,
@@ -14,6 +15,12 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
+import { activated } from './activated'
+import { becomeCopyOfTarget } from './becomeCopyOfTarget'
+import { cycling } from './cycling'
+import { entersTapped } from './entersTapped'
+import { linkedExile } from './linkedExile'
+import { onResolve as onResolvePlugin } from './onResolve'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -93,7 +100,84 @@ const withMana = (state: GameState) => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
+const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, entersTapped, librarySearch, linkedExile, onResolvePlugin]
+
 describe('librarySearch', () => {
+  test('a sacrificing legacy map opens the generic hidden library search', () => {
+    const map = cardTemplate('Expedition Map', { types: ['Artifact'] })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [map] }, libraries: { p1: [forest('Hidden Forest')] },
+    }, { random: () => 0.5, cardPlugins: legacySearchPlugins })
+    const mapId = named(server.state, 'Expedition Map').id
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana.C = 2
+    const announced = ok(server.rules(ready, { type: 'activateAbility', abilityId: '$.abilities[0]', seat: 'p1', objectId: mapId }))
+    const opened = resolveStack(server.rules, announced)
+    expect(opened.objects[mapId].zone).toBe('graveyard')
+    expect(pendingSelectionFor(opened, 'p1')).toMatchObject({ kind: 'choose', min: 0, count: 1, viewLibrary: true })
+    expect(projectForViewer(opened, 'p2').zoneOrder.p1.library).toEqual([])
+  })
+
+  test("a legacy Archaeomancer's Map finds up to two Plains and puts them in hand", () => {
+    const map = cardTemplate("Archaeomancer's Map", { types: ['Artifact'], manaCost: '{2}{W}' })
+    const p1 = cardTemplate('Plains A', { types: ['Land'], subtypes: ['Plains'], supertypes: ['Basic'] })
+    const p2 = cardTemplate('Plains B', { types: ['Land'], subtypes: ['Plains'], supertypes: ['Basic'] })
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [map] },
+      libraries: { p1: [p1, p2, cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })] },
+    }, { random: () => 0.5, cardPlugins: legacySearchPlugins })
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana = { W: 1, U: 0, B: 0, R: 0, G: 0, C: 2 }
+    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+    const resolved = resolveStack(server.rules, cast)
+    const pick = pendingSelectionFor(resolved, 'p1')!
+    expect(pick).toMatchObject({ kind: 'choose', min: 0, count: 2, viewLibrary: true })
+    expect(pick.candidates.map(id => resolved.objects[id].name)).toEqual(['Plains A', 'Plains B'])
+    const finished = ok(server.rules(resolved, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2, objectIds: pick.candidates }))
+    expect(finished.zoneOrder.p1.hand).toHaveLength(2)
+    expect(projectForViewer(finished, 'p2').zoneOrder.p1.library).toEqual([])
+  })
+  test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {
+    const basic = (name: string, subtype: string) => card(name, ['Land'], {
+      supertypes: ['Basic'], subtypes: [subtype],
+    })
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [card('Settle the Wreckage', ['Instant'], { manaCost: '{2}{W}{W}' })] },
+      battlefield: { p2: [card('Attacker One', ['Creature']), card('Attacker Two', ['Creature'])] },
+      libraries: { p2: [basic('Plains', 'Plains'), basic('Island', 'Island'), card('Guildgate', ['Land'])] },
+    }, { random: () => 0.5 })
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 2 }
+    for (const id of ready.zoneOrder.p2.battlefield) ready.objects[id].attacking = { kind: 'player', player: 'p1' }
+    named(ready, 'Attacker Two').tags = ['commander']
+    const noTarget = server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: named(ready, 'Settle the Wreckage').id })
+    expect(noTarget.ok).toBe(false)
+    const castEvent = { type: 'castSpell' as const, seat: 'p1' as const, objectId: named(ready, 'Settle the Wreckage').id, targets: [{ kind: 'player' as const, player: 'p2' as const }] }
+    const cast = ok(server.rules(ready, castEvent))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(named(resolved, 'Attacker One').zone).toBe('exile')
+    expect(named(resolved, 'Attacker Two').zone).toBe('command')
+    const selection = pendingSelectionFor(resolved, 'p2')!
+    expect(selection.candidates).toHaveLength(2)
+    expect(selection.count).toBe(1)
+    expect(selection.candidates.every((id) => Boolean(projectForViewer(resolved, 'p2').objects[id]))).toBe(true)
+    expect(selection.candidates.every((id) => !projectForViewer(resolved, 'p1').objects[id])).toBe(true)
+    let journal = createJournal(ready)
+    journal = recordAccepted(journal, castEvent)
+    journal = recordAccepted(journal, { type: 'resolveTop' })
+    const restored = restoreJournal(journal, server.rules).current()
+    expect(pendingSelectionFor(restored, 'p2')?.id).toBe(selection.id)
+    expect(server.rules(restored, { type: 'selectCards', seat: 'p2', kind: 'choose', count: 1, objectIds: [named(restored, 'Guildgate').id] }).ok).toBe(false)
+    const chosen = selection.candidates[0]
+    const finished = ok(server.rules(restored, { type: 'selectCards', seat: 'p2', kind: 'choose', count: 1, objectIds: [chosen] }))
+    expect(finished.objects[chosen]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(pendingSelectionFor(finished, 'p2')).toBeUndefined()
+  })
+
   test('a legacy search spell stops resolution and records whose choice is open', () => {
     const server = game({
       hand: [legacyForestSearchSpell()],

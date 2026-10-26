@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
+import { createJournal, restoreJournal } from '../journal'
 import { cardTemplate, forest } from '../newGame'
 import type { CardTemplate } from '../newGame'
 import { pendingOptionSelection } from '../rules/selectOptions'
@@ -297,21 +298,23 @@ describe('Utopia Sprawl style chosen color', () => {
       .toBeDefined()
     expect(server.project(entered, 'p2').players.p1.data['kernel.pendingOptionSelection'])
       .toBeUndefined()
-    expect(server.rules(entered, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
-    expect(server.rules(entered, {
+    const restarted = restoreJournal(createJournal(entered), server.rules).current()
+    expect(pendingOptionSelection(restarted, 'p1')?.id).toBe(pending.id)
+    expect(server.rules(restarted, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    expect(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p1',
       selectionId: pending.id,
       optionId: 'C',
     }).ok).toBe(false)
-    expect(server.rules(entered, {
+    expect(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p2',
       selectionId: pending.id,
       optionId: 'U',
     }).ok).toBe(false)
 
-    const chosen = ok(server.rules(entered, {
+    const chosen = ok(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p1',
       selectionId: pending.id,

@@ -3,6 +3,7 @@ import { legalActsFor, availableActions, eventsForAvailableAction } from '../act
 import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
+import { createJournal, restoreJournal } from '../journal'
 import { cardTemplate, forest } from '../newGame'
 import type { CardTemplate } from '../newGame'
 import { manaModes } from '../plugins/mana'
@@ -250,21 +251,24 @@ describe('activated mana abilities with a choice of pool', () => {
     expect(server.project(opened, 'p2').players.p1.data['kernel.pendingOptionSelection'])
       .toBeUndefined()
 
-    expect(server.rules(opened, {
+    const restarted = restoreJournal(createJournal(opened), server.rules).current()
+    expect(pendingOptionSelection(restarted, 'p1')?.id).toBe(pending.id)
+
+    expect(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p1',
       selectionId: pending.id,
       optionId: 'RR',
     }).ok).toBe(false)
-    expect(server.rules(opened, {
+    expect(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p2',
       selectionId: pending.id,
       optionId: 'UU',
     }).ok).toBe(false)
-    expect(server.rules(opened, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    expect(server.rules(restarted, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
 
-    const resolved = ok(server.rules(opened, {
+    const resolved = ok(server.rules(restarted, {
       type: 'selectOption',
       seat: 'p1',
       selectionId: pending.id,

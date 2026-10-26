@@ -101,6 +101,41 @@ describe('discard N cards as an activation cost', () => {
     expect(named(state, 'Held 1').zone).toBe('hand')
     expect(state.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
   })
+
+  test('a three-card discard keeps the delayed blink through restart', () => {
+    const { server, ready } = game(5, blinkSelf({ when: 'nextEndStep', tapped: true }))
+    const source = named(ready, 'Tide Elder')
+    const picks = ids(ready, 'Held 1', 'Held 3', 'Held 5')
+    expect(activate(server, ready, picks.slice(0, 2)).ok).toBe(false)
+    expect(activate(server, ready, [...picks.slice(0, 2), named(ready, 'Tide Elder').id]).ok).toBe(false)
+    expect(activate(server, ready, [picks[0]!, picks[0]!, picks[1]!]).ok).toBe(false)
+    expect(ready.stack).toHaveLength(0)
+
+    const events = [{
+      type: 'activateAbility' as const,
+      seat: 'p1' as const,
+      objectId: source.id,
+      abilityId: ABILITY,
+      choices: picks,
+    }]
+    expect(events).toHaveLength(1)
+    const paid = ok(server.rules(ready, events[0]!))
+    expect(picks.map((id) => paid.objects[id]!.zone)).toEqual(['graveyard', 'graveyard', 'graveyard'])
+    expect(paid.zoneOrder.p1.hand.map((id) => paid.objects[id]!.name).toSorted()).toEqual(['Held 2', 'Held 4'])
+    expect(paid.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
+    expect(paid.objects[source.id]!.zone).toBe('battlefield')
+
+    const exiled = resolveStack(server.rules, paid)
+    expect(exiled.objects[source.id]!.zone).toBe('exile')
+    expect(exiled.delayedTriggers).toHaveLength(1)
+    const restarted = structuredClone(exiled)
+    expect(restarted.delayedTriggers).toHaveLength(1)
+    const back = resolveStack(server.rules, advanceToEndStep(server, restarted))
+    expect(back.objects[source.id]).toMatchObject({
+      zone: 'battlefield', tapped: true, controller: 'p1', owner: 'p1',
+    })
+    expect(back.delayedTriggers).toHaveLength(0)
+  })
 })
 
 describe('blinkSelf', () => {
