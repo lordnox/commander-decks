@@ -63,7 +63,9 @@
     "cirdanTriggers:103",
     "cirdanTriggers:204",
     "cirdanTriggers:293",
-    "cirdanTriggers:405"
+    "cirdanTriggers:405",
+    "plugDackPart36Creatures:180",
+    "sinFallLands:98"
   ],
   "relocations": [
     {
@@ -499,7 +501,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Terastodon offers exactly the legal noncreature targets privately, up to three",
-      "evidence": "Catalog Terastodon is 9/9 and offers the exact two-permanent candidate set including its controller's artifact while excluding the opponent creature; the optional count matches the candidate count and another seat sees no choice."
+      "evidence": "Catalog Terastodon is 9/9 and offers the exact two-permanent candidate set including its controller's artifact while excluding the opponent creature; the optional count matches the candidate count and another seat sees no choice. Maximum coverage remains in the mechanic suite's 'it can destroy three of its controller own permanents; their Elephants come back to its controller' test, and the structural catalog assertion is 'Terastodon registers an up-to-three destroy with a per-controller Elephant'."
     },
     {
       "groups": [
@@ -508,6 +510,22 @@
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Terastodon restores its exact open choice and creates an Elephant for each target controller",
       "evidence": "The enter trigger is journaled, restore reproduces the exact pending selection, and selecting one artifact each from p2 and p3 destroys both and creates an Elephant under each target controller."
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:180"
+      ],
+      "destination": "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts",
+      "suite": "catalog Curious Colossus privately chooses an opponent then shrinks their board",
+      "evidence": "The catalog Curious Colossus spell offers all three opponents to p1 privately and keeps the exact player selection across a clone. Choosing p2 applies the Coward subtype, removes abilities, sets the opposing creature to 1/1, and leaves its controller unchanged; p3 stays untouched."
+    },
+    {
+      "groups": [
+        "sinFallLands:98"
+      ],
+      "destination": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
+      "suite": "channel pays the legendary discount, validates targets, and completes Boseiju search",
+      "evidence": "The catalog channel rejects a basic-land target, pays the reduced cost with two legendary creatures, sacrifices Boseiju, destroys the chosen utility land, privately offers the opponent exactly one basic Island, moves that choice to the battlefield, then resolves Otawara against the creature."
     }
   ]
 }
