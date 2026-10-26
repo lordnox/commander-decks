@@ -4,6 +4,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer, createClientGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
@@ -159,6 +160,48 @@ const partitionChoices = (
 }
 
 describe('opponentPiles', () => {
+  test('catalog Hostile Negotiations reveals one pile without leaking the other', () => {
+    const library = Array.from({ length: 7 }, (_, index) => cardTemplate(`Library ${index + 1}`, {
+      types: [index === 3 ? 'Land' : 'Sorcery'],
+    }))
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [cardTemplate('Hostile Negotiations', { types: ['Instant'], manaCost: '{3}{B}', ruleDefinition: cardRuleDefinitionSnapshotFor('Hostile Negotiations') })] },
+      libraries: { p1: library },
+    }, { random: () => 0.5 })
+    let state = structuredClone(server.state)
+    state.players.p1.mana.B = 1
+    state.players.p1.mana.C = 3
+    const spell = named(state, 'Hostile Negotiations')
+    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell.id }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const reveal = pendingSelectionFor(state, 'p1')!
+    expect(reveal.kind).toBe('choosePile')
+    expect(reveal.candidates).toHaveLength(6)
+    expect(state.zoneOrder.p1.exile).toHaveLength(6)
+    expect(server.project(state, 'p1').zoneOrder.p1.exile).toHaveLength(6)
+    expect(server.project(state, 'p2').zoneOrder.p1.exile).toHaveLength(0)
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: reveal.id, kind: 'choosePile', count: 1, objectIds: reveal.piles!['face-up'] }))
+    const opponentChoice = pendingPlayerSelectionFor(state, 'p1')!
+    expect(opponentChoice.candidates).toContain('p2')
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: opponentChoice.id, players: ['p2'] }))
+    const take = pendingSelectionFor(state, 'p2')!
+    expect(take.kind).toBe('choosePile')
+    expect(take.pileLabels).toEqual({ 'face-up': 'Pile 1', 'face-down': 'Pile 2' })
+    const bystander = server.project(state, 'p3')
+    const chooserView = server.project(state, 'p2')
+    expect(bystander.zoneOrder.p1.exile).toHaveLength(3)
+    expect(JSON.stringify(bystander)).not.toContain('Library 4')
+    expect(pendingSelectionFor(bystander, 'p2')).toBeUndefined()
+    expect(pendingSelectionFor(chooserView, 'p2')).toMatchObject({ kind: 'choosePile' })
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p2', selectionId: take.id, kind: 'choosePile', count: 1, objectIds: take.piles!['face-down'] }))
+    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name).sort())
+      .toEqual(['Library 4', 'Library 5', 'Library 6'])
+    expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name).sort())
+      .toEqual(['Hostile Negotiations', 'Library 1', 'Library 2', 'Library 3'])
+    expect(state.players.p1.life).toBe(37)
+    expect(pendingSelectionFor(state, 'p2')).toBeUndefined()
+  })
   test('opponentPiles() is clone-safe', () => {
     const instruction = opponentPiles(5, { reveal: 'public', piles: 'public' })
     expect(structuredClone(instruction)).toEqual(instruction)

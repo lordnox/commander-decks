@@ -1,11 +1,14 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { createJournal, restoreJournal } from '../../journal'
+import { createJournal, recordAccepted, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
+import { createLobby } from '../../../../live-runner/src/lobby'
+import { applyKernelAct } from '../../../../live-runner/src/kernelHost'
+import type { KernelHandle } from '../../../../live-runner/src/kernelHandle'
 import { instructionSpell } from './instructionTestSupport'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { activated, card, CHOICE_RELATIONS, chooseX, compileCardRuleDefinition, compareCharacteristic, createDefinitionSnapshot, lifeCost, manaCost, objects, ref, sacrificeCost, searchLibrary, splitSearchLibrary, tapCost, variable } from './v1'
@@ -81,6 +84,89 @@ test('searchLibrary resumes its typed pending choice after journal restore', () 
   const searching = singleSearchBegin(server)
   const restored = restoreJournal(createJournal(searching), server.rules).current()
   expect(singleSearchFinish(server, restored)).toEqual(singleSearchFinish(server, searching))
+})
+
+const handleFor = (rules: KernelHandle['rules'], initial: GameState) => {
+  let journal = createJournal(initial)
+  const history = restoreJournal(journal, rules)
+  return {
+    get journal() { return journal },
+    history,
+    rules,
+    dispatch: (event) => {
+      const result = history.dispatch(event)
+      if (result.ok) journal = recordAccepted(journal, event)
+      return result
+    },
+    save: () => {},
+  }
+}
+
+test('catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly', () => {
+  const top = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
+  const grave = ['Grave 1', 'Grave 2', 'Grave 3', 'Grave 4', 'Grave 5', 'Grave 6', 'Grave 7']
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Dig Through Time'), ...grave.map((name) => cardTemplate(name, { types: ['Sorcery'] }))] },
+    battlefield: { p1: ['Island A', 'Island B', 'Island C'].map((name) => cardTemplate(name, {
+      types: ['Land'], subtypes: ['Island'], supertypes: ['Basic'], tapProduces: { U: 1 },
+    })) },
+    libraries: {
+      p1: [...top, 'Rest A', 'Rest B'].map((name) => cardTemplate(name, { types: ['Sorcery'] })),
+      p2: [cardTemplate('Opposing Secret', { types: ['Sorcery'] })],
+    },
+  }, { random: () => 0 })
+  let ready = server.state
+  for (const name of grave) ready = ok(server.rules(ready, {
+    type: 'move', objectId: named(ready, name).id, to: 'graveyard',
+  }))
+  const kernel = handleFor(server.rules, ready)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  const dig = named(ready, 'Dig Through Time')
+  const six = grave.slice(0, 6).map((name) => named(ready, name).id)
+  expect(() => applyKernelAct(kernel, lobby, 'p1', {
+    type: 'act', kind: 'castSpell', objectId: dig.id, targetObjectIds: six.slice(0, 3),
+  })).toThrow()
+  expect(kernel.history.current().stack).toHaveLength(0)
+  const events = applyKernelAct(kernel, lobby, 'p1', {
+    type: 'act', kind: 'castSpell', objectId: dig.id, targetObjectIds: six,
+  })
+  expect(events.map((event) => event.type)).toEqual(['tapForMana', 'tapForMana', 'castSpell'])
+  const cast = kernel.history.current()
+  expect(six.every((id) => cast.objects[id].zone === 'exile')).toBe(true)
+  expect(named(cast, 'Grave 7').zone).toBe('graveyard')
+  expect(['Island A', 'Island B', 'Island C'].filter((name) => named(cast, name).tapped)).toHaveLength(2)
+  expect(cast.stack[0]).toMatchObject({ kind: 'spell', name: 'Dig Through Time' })
+  const looking = resolveStack(server.rules, cast)
+  const selection = pendingSelectionFor(looking, 'p1')!
+  expect(selection.kind).toBe('choose')
+  expect(selection.count).toBe(2)
+  expect(selection.candidates.map((id) => looking.objects[id].name)).toEqual(top)
+  expect(pendingSelectionFor(projectForViewer(looking, 'p2'), 'p1')).toBeUndefined()
+  expect(JSON.stringify(projectForViewer(looking, 'p2'))).not.toContain('Top 1')
+
+  const choose = (state: GameState, names: string[]) => {
+    const pending = pendingSelectionFor(state, 'p1')!
+    return server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: pending.id,
+      kind: 'choose', count: 2,
+      objectIds: names.map((name) => named(state, name).id),
+    })
+  }
+  expect(choose(looking, ['Top 1']).ok).toBe(false)
+  expect(choose(looking, ['Top 1', 'Top 1']).ok).toBe(false)
+  expect(choose(looking, ['Opposing Secret', 'Top 1']).ok).toBe(false)
+  const restored = restoreJournal(createJournal(looking), server.rules).current()
+  expect(choose(restored, ['Top 3', 'Top 6'])).toEqual(choose(looking, ['Top 3', 'Top 6']))
+  const done = ok(choose(restored, ['Top 3', 'Top 6']))
+  expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+  expect(done.zoneOrder.p1.hand.map((id) => done.objects[id].name)).toEqual(['Top 3', 'Top 6'])
+  expect(done.zoneOrder.p1.library.map((id) => done.objects[id].name)).toEqual([
+    'Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7',
+  ])
+  expect(named(done, 'Dig Through Time').zone).toBe('graveyard')
+  expect(done.stack).toHaveLength(0)
 })
 
 test('searchLibrary finishes resolving an empty library without a selection', () => {
