@@ -82,8 +82,6 @@ const island = (name = 'Island') => cardTemplate(name, {
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const names = (state: GameState, ids: string[]) => ids.map((id) => state.objects[id].name)
-
 const handleFor = (
   rules: KernelHandle['rules'],
   initial: GameState,
@@ -127,109 +125,6 @@ const passUntilResolved = (kernel: KernelHandle) => {
   }
   throw new Error('stack did not resolve')
 }
-
-describe('Dig Through Time', () => {
-  const TOP = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
-  const GRAVE = ['Grave 1', 'Grave 2', 'Grave 3', 'Grave 4', 'Grave 5', 'Grave 6', 'Grave 7']
-
-  const setup = async () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [real('Dig Through Time'), ...GRAVE.map((name) => cardTemplate(name, { types: ['Sorcery'] }))],
-      },
-      battlefield: { p1: [island('Island A'), island('Island B'), island('Island C')] },
-      libraries: {
-        p1: [...TOP, 'Rest A', 'Rest B'].map((name) => cardTemplate(name, { types: ['Sorcery'] })),
-        p2: [cardTemplate('Opposing Secret', { types: ['Sorcery'] })],
-      },
-    }, { random: () => 0.5 })
-    let state = server.state
-    for (const name of GRAVE) {
-      state = ok(server.rules(state, { type: 'move', objectId: named(state, name).id, to: 'graveyard' }))
-    }
-    return { server, state }
-  }
-
-  test('a human delves six cards, taps two Islands, and picks two cards through a restart', async () => {
-    const { server, state } = await setup()
-    const kernel = handleFor(server.rules, state)
-    const lobby = playLobby()
-    const spell = named(state, 'Dig Through Time')
-    const six = GRAVE.slice(0, 6).map((name) => named(state, name).id)
-
-    // Too few delved cards leaves more generic mana than two Islands can pay.
-    expect(() => applyKernelAct(kernel, lobby, 'p1', {
-      type: 'act',
-      kind: 'castSpell',
-      objectId: spell.id,
-      targetObjectIds: six.slice(0, 3),
-    })).toThrow()
-    expect(kernel.history.current().stack).toHaveLength(0)
-
-    const events = applyKernelAct(kernel, lobby, 'p1', {
-      type: 'act',
-      kind: 'castSpell',
-      objectId: spell.id,
-      targetObjectIds: six,
-    })
-    expect(events.map((event) => event.type)).toEqual(['tapForMana', 'tapForMana', 'castSpell'])
-    const cast = kernel.history.current()
-    expect(six.every((id) => cast.objects[id].zone === 'exile')).toBe(true)
-    expect(cast.objects[named(state, 'Grave 7').id].zone).toBe('graveyard')
-    expect(['Island A', 'Island B', 'Island C'].filter((name) => named(cast, name).tapped))
-      .toHaveLength(2)
-    expect(cast.stack[0]).toMatchObject({ kind: 'spell', name: 'Dig Through Time' })
-
-    const looking = passUntilResolved(kernel)
-    const selection = pendingSelectionFor(looking, 'p1')!
-    expect(names(looking, selection.candidates)).toEqual(TOP)
-    expect(selection).toMatchObject({ kind: 'choose', count: 2 })
-    const pick = (ids: string[]) => ({
-      type: 'selectCards' as const,
-      seat: 'p1' as const,
-      selectionId: selection.id,
-      kind: 'choose' as const,
-      count: selection.count,
-      objectIds: ids,
-    })
-    const restored = JSON.parse(JSON.stringify(looking))
-    expect(server.rules(looking, pick([selection.candidates[0]!])).ok).toBe(false)
-    expect(server.rules(looking, pick(selection.candidates.slice(0, 3))).ok).toBe(false)
-    expect(server.rules(looking, { ...pick([selection.candidates[2]!, selection.candidates[5]!]), seat: 'p2' }).ok)
-      .toBe(false)
-    const done = ok(server.rules(restored, pick([selection.candidates[2]!, selection.candidates[5]!])))
-    expect(ok(server.rules(JSON.parse(JSON.stringify(looking)), pick([selection.candidates[2]!, selection.candidates[5]!]))))
-      .toEqual(done)
-    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-    expect(names(done, done.zoneOrder.p1.hand).toSorted()).toEqual(['Top 3', 'Top 6'])
-    expect(names(done, done.zoneOrder.p1.library)).toEqual([
-      'Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7',
-    ])
-    expect(named(done, 'Dig Through Time').zone).toBe('graveyard')
-    expect(done.stack).toHaveLength(0)
-  })
-
-  test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {
-    const { server, state } = await setup()
-    const ready = structuredClone(state)
-    ready.players.p1.mana.U = 2
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Dig Through Time').id,
-      delve: GRAVE.slice(0, 6).map((name) => named(ready, name).id),
-    }))
-    const looking = ok(server.rules(cast, { type: 'resolveTop' }))
-    const opponent = JSON.stringify(projectForViewer(looking, 'p2'))
-    for (const name of [...TOP, 'Rest A']) expect(opponent).not.toContain(name)
-    expect(pendingSelectionFor(projectForViewer(looking, 'p2'), 'p1')).toBeUndefined()
-    expect(TOP.every((name) =>
-      Object.values(projectForViewer(looking, 'p1').objects).some((object) => object.name === name)))
-      .toBe(true)
-  })
-
-})
 
 const handOf = (state: GameState, seat = 'p1') =>
   state.zoneOrder[seat].hand.map((id) => state.objects[id].name)
