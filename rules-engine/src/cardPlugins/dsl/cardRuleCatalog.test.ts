@@ -1688,6 +1688,15 @@ test('catalog timing and activation-cost cards compose canonical when, flash, an
     kind: 'activated',
     availableFrom: ['hand'],
     costReductions: [{ generic: { kind: 'count' } }],
+    instructions: [
+      { kind: 'capturePlayer' },
+      { kind: 'destroy' },
+      { kind: 'sequence', instructions: [
+        { kind: 'chooseCards', min: { kind: 'constant', value: 0 } },
+        { kind: 'move', to: 'battlefield' },
+        { kind: 'shuffle' },
+      ] },
+    ],
   })
   expect(cardRuleDefinitionSnapshotFor('Blossoming Tortoise')!.definition.abilities).toMatchObject([
     { kind: 'triggered', on: { kind: 'enters' } },

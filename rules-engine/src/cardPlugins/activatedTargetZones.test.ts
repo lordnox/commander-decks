@@ -206,7 +206,7 @@ describe('activated target payment and resolution lifecycle', () => {
         },
         libraries: {
           p2: [
-            card('Found Island', ['Land'], { supertypes: ['Basic'], subtypes: ['Island'] }),
+            card('Typed Dual Land', ['Land'], { subtypes: ['Forest', 'Island'] }),
             card('No Type Land', ['Land']),
           ],
         },
@@ -238,7 +238,7 @@ describe('activated target payment and resolution lifecycle', () => {
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[utility.id].zone).toBe('graveyard')
     const search = pendingSelectionFor(state, 'p2')!
-    const found = named(state, 'Found Island')
+    const found = named(state, 'Typed Dual Land')
     expect(search).toMatchObject({ kind: 'choose', min: 0, viewLibrary: true, candidates: [found.id] })
     expect(server.project(state, 'p1').players.p2.data['kernel.pendingSelection'])
       .toBeUndefined()
