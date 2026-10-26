@@ -28,6 +28,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { hasKeyword } from '../../keywords'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
@@ -740,6 +741,33 @@ test('catalog Profane Command rejects a single mode and drains the chosen player
   const resolved = resolveStack(server.rules, cast)
   expect(resolved.players.p2.life).toBe(38)
   expect(resolved.objects[bear]).toMatchObject({ power: 1, toughness: 1 })
+})
+
+test('catalog Profane Command restores its fear and life-loss modes with exact X targets', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    hands: { p1: [cardTemplate('Profane Command')] },
+    battlefield: { p1: [
+      cardTemplate('One', { types: ['Creature'], power: 1, toughness: 1 }),
+      cardTemplate('Two', { types: ['Creature'], power: 1, toughness: 1 }),
+    ] },
+  }, { random: () => 0.5 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
+  const one = named(state, 'One').id
+  const two = named(state, 'Two').id
+  const cast = reduce(server, state, {
+    type: 'castSpell', seat: 'p1', objectId: named(state, 'Profane Command').id, x: 2,
+    modeIndices: [0, 3],
+    targetClauses: [[{ kind: 'player', player: 'p3' }], [
+      { kind: 'object', objectId: one }, { kind: 'object', objectId: two },
+    ]],
+  })
+  const restored = JSON.parse(JSON.stringify(cast)) as GameState
+  const resolved = resolveStack(server.rules, restored)
+  expect(resolved.players.p3.life).toBe(38)
+  expect(hasKeyword(resolved.objects[one]!, 'fear')).toBe(true)
+  expect(hasKeyword(resolved.objects[two]!, 'fear')).toBe(true)
 })
 
 test('catalog Will of the Sultai mills the chosen player and returns your lands tapped on the first mode', () => {

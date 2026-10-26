@@ -396,6 +396,7 @@ describe('life-effect player choices', () => {
     choosing = ok(server.rules(choosing, { type: 'resolveTop' }))
     const first = pendingOptionSelection(choosing, 'p1')!
     expect(choosing.objects[wall]!.counters.age).toBe(1)
+    expect(pendingOptionSelection(server.project(choosing, 'p1'), 'p1')).toBeDefined()
     expect(server.project(choosing, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
     expect(server.rules(choosing, {
       type: 'selectOption', seat: 'p2', selectionId: first.id, optionId: 'instruction:0',
@@ -405,6 +406,9 @@ describe('life-effect player choices', () => {
     }))
     const recipient = pendingPlayerSelectionFor(choosing, 'p1')!
     expect(recipient.candidates).toEqual(['p2', 'p3', 'p4'])
+    expect(server.rules(choosing, {
+      type: 'selectPlayers', seat: 'p1', selectionId: recipient.id, players: [],
+    }).ok).toBe(false)
     expect(pendingPlayerSelectionFor(server.project(choosing, 'p2'), 'p1')).toBeUndefined()
     choosing = ok(server.rules(choosing, {
       type: 'selectPlayers', seat: 'p1', selectionId: recipient.id, players: ['p2'],
@@ -419,6 +423,20 @@ describe('life-effect player choices', () => {
     next = ok(server.rules(next, { type: 'resolveTop' }))
     const second = pendingOptionSelection(next, 'p1')!
     expect(next.objects[wall]!.counters.age).toBe(2)
+    const paidSecond = ok(server.rules(structuredClone(next), {
+      type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'instruction:0',
+    }))
+    const secondRecipient = pendingPlayerSelectionFor(paidSecond, 'p1')!
+    const paidOnce = ok(server.rules(paidSecond, {
+      type: 'selectPlayers', seat: 'p1', selectionId: secondRecipient.id, players: ['p2'],
+    }))
+    const repeatedRecipient = pendingPlayerSelectionFor(paidOnce, 'p1')!
+    const paidAgain = ok(server.rules(paidOnce, {
+      type: 'selectPlayers', seat: 'p1', selectionId: repeatedRecipient.id, players: ['p2'],
+    }))
+    expect(paidAgain.players.p2.life).toBe(43)
+    expect(paidAgain.objects[wall]!.counters.age).toBe(2)
+    expect(pendingPlayerSelectionFor(paidAgain, 'p1')).toBeUndefined()
     next = ok(server.rules(next, {
       type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'instruction:1',
     }))
@@ -463,11 +481,22 @@ describe('life-effect player choices', () => {
     }, { random: () => 0.5 })
     const gained = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 2, source: 'test' }))
     const offered = resolveStack(server.rules, gained)
-    const restarted = structuredClone(offered)
-    expect(pendingOptionSelection(restarted, 'p1')).toMatchObject({
+    const restarted = JSON.parse(JSON.stringify(offered)) as GameState
+    const payment = pendingOptionSelection(restarted, 'p1')!
+    expect(payment).toMatchObject({
       seat: 'p1',
       source: 'Niv-Mizzet, Ghost Counsel',
+      action: { kind: 'canonicalResolutionPayment', cost: { kind: 'life' } },
     })
+    const stackId = payment.action.kind === 'canonicalResolutionPayment' ? payment.action.stackId : undefined
+    expect(restarted.stack.find(item => item.id === stackId)?.execution?.occurrence)
+      .toMatchObject({ eventType: 'gainLife', player: 'p1', amount: 2 })
+    const handBefore = restarted.zoneCounts.p1.hand
+    const paid = ok(server.rules(restarted, {
+      type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'pay',
+    }))
+    expect(paid.players.p1.life).toBe(40)
+    expect(paid.zoneCounts.p1.hand).toBe(handBefore + 2)
   })
 })
 

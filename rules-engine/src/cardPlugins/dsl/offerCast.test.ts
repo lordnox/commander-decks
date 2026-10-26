@@ -7,7 +7,8 @@ import { createJournal, recordAccepted, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { ok } from '../../testHelpers'
+import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
+import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { onResolve as onResolveEffect, targetOnResolve } from '../effects'
 import { onResolve } from '../onResolve'
@@ -443,6 +444,50 @@ describe('offerCast from a chosen opponent hand', () => {
       expect(cast.state.players.p1.mana.R).toBe(mana.R)
       expect(cast.state.players.p1.life).toBe(life - (additionalCost ? 2 : 0))
     }
+  })
+
+  test('catalog Kuroki lets its chosen opponent decline or draw before the controller free-casts', () => {
+    const stealGame = () => createServerGame(commanderRules, {
+      players: 4,
+      battlefield: { p1: [cardTemplate('Kuroki, Thief of Talents')] },
+      hands: { p2: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+      libraries: { p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`Extra ${index}`)) },
+    }, { random: () => 0.5 })
+    const opened = (server: ReturnType<typeof stealGame>) => {
+      const atEndStep = { ...server.state, active: 'p1' as const, priority: 'p1' as const, step: 'postcombatMain' as const }
+      let state = ok(server.rules(atEndStep, { type: 'advanceStep' }))
+      state = resolveStack(server.rules, state)
+      const target = pendingPlayerSelectionFor(state, 'p1')!
+      state = ok(server.rules(state, {
+        type: 'selectPlayers', seat: 'p1', selectionId: target.id, players: ['p2'],
+      }))
+      state = resolveStack(server.rules, state)
+      return { state, choice: pendingOptionSelection(state, 'p2')! }
+    }
+
+    const decliningServer = stealGame()
+    const declining = opened(decliningServer)
+    expect(pendingOptionSelection(projectForViewer(declining.state, 'p1'), 'p2')).toBeUndefined()
+    const declined = ok(decliningServer.rules(declining.state, {
+      type: 'selectOption', seat: 'p2', selectionId: declining.choice.id,
+      optionId: declining.choice.options.find(option => option.label === 'Decline')!.id,
+    }))
+    expect(named(declined, 'Kuroki, Thief of Talents').counters['+1/+1']).toBe(2)
+
+    const acceptingServer = stealGame()
+    const accepting = opened(acceptingServer)
+    expect(pendingOptionSelection(accepting.state, 'p2')).toBeDefined()
+    const accepted = ok(acceptingServer.rules(accepting.state, {
+      type: 'selectOption', seat: 'p2', selectionId: accepting.choice.id,
+      optionId: accepting.choice.options.find(option => option.label === 'Draw four')!.id,
+    }))
+    expect(accepted.zoneOrder.p2.hand.length).toBeGreaterThan(1)
+    const bolt = named(accepted, 'Lightning Bolt').id
+    expect(projectForViewer(accepted, 'p3').objects[bolt]).toBeUndefined()
+    expect(projectForViewer(accepted, 'p1').objects[bolt]?.name).toBe('Lightning Bolt')
+    const freeCast = legalActsFor(accepted, 'p1').find(action =>
+      action.kind === 'castSpell' && action.objectId === bolt)!
+    expect(freeCast).toMatchObject({ kind: 'castSpell', objectId: bolt, alternativeCost: 'withoutPayingMana' })
   })
 })
 
