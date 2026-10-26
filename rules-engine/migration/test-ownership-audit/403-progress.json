@@ -634,7 +634,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/creatureTypeChoices.test.ts",
       "suite": "catalog Cavern of Souls restores its private type choice and restricts mana to matching creatures",
-      "evidence": "The Cavern test was removed by 97768667; the unrelated Boseiju channel case remains in sinFallLands.test.ts. This catalog integration JSON-restores the private Wizard type choice, checks the restricted-mana identity, rejects Wrong Bear, casts Matching Wizard as uncounterable, and confirms the restricted mana is consumed."
+      "evidence": "The Cavern test was removed by 97768667; the unrelated Boseiju channel case remains in sinFallLands.test.ts. This catalog integration JSON-restores the private Wizard type choice, checks the restricted-mana identity while unrestricted p1 blue mana remains 0, rejects Wrong Bear, casts Matching Wizard as uncounterable, and confirms the restricted mana is consumed."
     },
     {
       "groups": [
