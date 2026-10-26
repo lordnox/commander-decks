@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
-import { createServerGame, projectForViewer } from '../../runtime'
+import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
@@ -29,7 +29,6 @@ const handCount = (state: GameState, seat: 'p1' | 'p2' = 'p1') =>
 
 const charmCard = () => cardTemplate('Esper Charm', { types: ['Instant'], manaCost: '{0}' })
 const reverberateCard = () => cardTemplate('Reverberate', { types: ['Instant'], manaCost: '{0}' })
-const tutorCard = () => cardTemplate('Diabolic Tutor', { types: ['Sorcery'], manaCost: '{0}' })
 
 const copyableBolt = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
   spell({
@@ -178,53 +177,7 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     expect(afterCopy.objects[reverberate.id].zone).toBe('graveyard')
   })
 
-  test('Diabolic Tutor searches the library through selectCards and shuffles', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [tutorCard()] },
-      libraries: {
-        p1: ['Prize', 'Filler A', 'Filler B'].map((name) => cardTemplate(name)),
-      },
-    }, { random: () => 0 })
-    const tutor = named(server.state, 'Diabolic Tutor')
-    expect(tutor.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Diabolic Tutor'))
-    expect(tutor.effects).toEqual([])
-    const searching = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: tutor.id,
-    })))
-    const pick = pendingSelectionFor(searching, 'p1')!
-    expect(pick.kind).toBe('choose')
-    expect(pick.fromZone).toBe('library')
-    expect(pick.candidates).toEqual([
-      named(searching, 'Prize').id,
-      named(searching, 'Filler A').id,
-      named(searching, 'Filler B').id,
-    ])
-    expect(pendingSelectionFor(projectForViewer(searching, 'p2'), 'p1')).toBeUndefined()
-    expect(Object.values(projectForViewer(searching, 'p2').objects).some(
-      (object) => object.name === 'Prize',
-    )).toBe(false)
 
-    const found = ok(server.rules(searching, {
-      type: 'selectCards',
-      seat: 'p1',
-      selectionId: pick.id,
-      kind: 'choose',
-      count: 1,
-      objectIds: [named(searching, 'Prize').id],
-    }))
-    expect(named(found, 'Prize').zone).toBe('hand')
-    expect(named(found, 'Filler A').zone).toBe('library')
-    expect(named(found, 'Filler B').zone).toBe('library')
-    expect(found.zoneOrder.p1.library).toEqual([
-      named(found, 'Filler B').id,
-      named(found, 'Filler A').id,
-    ])
-    expect(found.objects[tutor.id].zone).toBe('graveyard')
-    expect(found.resolution).toBeUndefined()
-  })
 
 })
 

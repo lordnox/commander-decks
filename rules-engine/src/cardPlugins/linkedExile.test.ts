@@ -14,6 +14,8 @@ import {
   returnLinkedExile,
 } from './effects'
 import { linkedExile } from './linkedExile'
+import { activated } from './activated'
+import { exilePayoffs } from './exilePayoffs'
 
 const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
   cardTemplate(name, {
@@ -37,6 +39,40 @@ const game = (setup: {
   )
 
 describe('linkedExile', () => {
+  test('Fiend Hunter link choice stays private to its chooser', () => {
+    const hunter = cardTemplate('Fiend Hunter', { types: ['Creature'], power: 2, toughness: 2 })
+    const prey = cardTemplate('Hidden Prey', { types: ['Creature'] })
+    const server = createServerGame(commanderRules, {
+      players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] },
+    }, { random: () => 0.5, cardPlugins: [activated, exilePayoffs, linkedExile] })
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move', objectId: named(server.state, 'Fiend Hunter').id, to: 'battlefield',
+    })))
+    expect(pendingSelectionFor(entered, 'p1')?.candidates.length).toBeGreaterThan(0)
+    expect(pendingSelectionFor(server.project(entered, 'p1'), 'p1')?.candidates.length).toBeGreaterThan(0)
+    expect(pendingSelectionFor(server.project(entered, 'p2'), 'p2')).toBeUndefined()
+  })
+
+  test('Fiend Hunter resumes a linked target choice after restart', () => {
+    const hunter = cardTemplate('Fiend Hunter', { types: ['Creature'], power: 2, toughness: 2 })
+    const prey = cardTemplate('Restart Prey', { types: ['Creature'] })
+    const server = createServerGame(commanderRules, {
+      players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] },
+    }, { random: () => 0.5, cardPlugins: [activated, exilePayoffs, linkedExile] })
+    const preyId = named(server.state, 'Restart Prey').id
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move', objectId: named(server.state, 'Fiend Hunter').id, to: 'battlefield',
+    })))
+    const before = pendingSelectionFor(entered, 'p1')
+    expect(before).toBeDefined()
+    const restarted = structuredClone(entered)
+    expect(pendingSelectionFor(restarted, 'p1')?.id).toBe(before?.id)
+    expect(server.rules(restarted, { type: 'selectCards', seat: 'p2', kind: 'choose', count: 1, objectIds: [preyId] }).ok).toBe(false)
+    const finished = ok(server.rules(restarted, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [preyId] }))
+    expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+    expect(finished.stack).toHaveLength(1)
+    expect(named(resolveStack(server.rules, finished), 'Restart Prey').zone).toBe('exile')
+  })
   test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {
     const cage = creature('Cage Cleric', 'p1')
     cage.effects = [

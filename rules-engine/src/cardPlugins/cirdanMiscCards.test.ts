@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -12,7 +11,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
-  applyKernelAct,
   applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
@@ -126,17 +124,11 @@ const passUntilResolved = (kernel: KernelHandle) => {
   throw new Error('stack did not resolve')
 }
 
-const handOf = (state: GameState, seat = 'p1') =>
-  state.zoneOrder[seat].hand.map((id) => state.objects[id].name)
-
 const filler = (prefix: string, count: number, types = ['Sorcery'], manaValue?: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`${prefix} ${index + 1}`, {
     types,
     ...(manaValue === undefined ? {} : { manaCost: `{${manaValue}}`, manaValue }),
   }))
-
-const costed = (name: string, types: string[], manaValue: number, extra: Partial<CardTemplate> = {}) =>
-  cardTemplate(name, { types, manaCost: `{${manaValue}}`, manaValue, ...extra })
 
 const playerBallot = (targets: string[]) => ({
   type: 'topdeck' as const,
@@ -147,37 +139,8 @@ const playerBallot = (targets: string[]) => ({
   })),
 })
 
-const mainPhase = (state: GameState, seat = 'p1') => {
-  const ready = structuredClone(state)
-  ready.active = seat
-  ready.priority = seat
-  ready.step = 'precombatMain'
-  return ready
-}
-
-const pool = (state: GameState, mana: Partial<GameState['players'][string]['mana']>, seat = 'p1') => {
-  Object.assign(state.players[seat].mana, mana)
-  return state
-}
-
 const creature = (name: string, extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
-
-/** Advance steps (resolving whatever trigger lands) until `stop` holds or a choice opens. */
-const advanceUntil = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  stop: (state: GameState) => boolean,
-) => {
-  let current = state
-  for (let guard = 0; guard < 80 && !stop(current); guard += 1) {
-    const choosing = current.playerOrder.some((seat) =>
-      pendingSelectionFor(current, seat) || pendingPlayerSelectionFor(current, seat))
-    if (choosing) break
-    current = resolveStack(server.rules, ok(server.rules(current, { type: 'advanceStep' })))
-  }
-  return current
-}
 
 /** The kernel choice for chapter III, answered by offered position with exactly the picked cards as targets. */
 const stealAnswer = (cards: string[], picked: string[]) => ({
@@ -419,139 +382,3 @@ describe('Kiora Bests the Sea God', () => {
 
 })
 
-describe('Nezahal, Primal Tide', () => {
-  const HELD = ['Held 1', 'Held 2', 'Held 3', 'Held 4', 'Held 5']
-  const setup = async (onBattlefield = true) => {
-    const server = createServerGame(commanderRules, {
-      players: 3,
-      hands: {
-        p1: [
-          ...HELD.map((name) => cardTemplate(name, { types: ['Sorcery'] })),
-          ...(onBattlefield ? [] : [real('Nezahal, Primal Tide')]),
-        ],
-        p2: [
-          costed('Opp Trick', ['Instant'], 0),
-          costed('Opp Bear', ['Creature'], 0),
-          cardTemplate('Counterspell'),
-        ],
-        p3: [costed('P3 Trick', ['Instant'], 0)],
-      },
-      battlefield: { p1: onBattlefield ? [real('Nezahal, Primal Tide')] : [] },
-      libraries: { p1: filler('Lib', 6), p2: filler('Opp Lib', 3), p3: filler('P3 Lib', 3) },
-    }, { random: () => 0.5 })
-    return { server, state: server.state }
-  }
-
-  test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {
-    const { server, state } = await setup()
-    const ready = mainPhase(state)
-    const nezahal = named(ready, 'Nezahal, Primal Tide')
-    const offer = legalActsFor(ready, 'p1').find((action) =>
-      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
-    if (!offer || offer.kind !== 'activateAbility') throw new Error('discard ability not offered')
-    const kernel = handleFor(server.rules, ready)
-    const lobby = playLobby()
-    const picks = ['Held 1', 'Held 3', 'Held 5'].map((name) => named(ready, name).id)
-    const act = (targetObjectIds: string[]) => applyKernelAct(kernel, lobby, 'p1', {
-      type: 'act',
-      kind: 'activateAbility',
-      objectId: nezahal.id,
-      abilityId: offer.abilityId,
-      text: offer.text,
-      targetObjectIds,
-    })
-
-    expect(() => act(picks.slice(0, 2))).toThrow()
-    expect(() => act([...picks.slice(0, 2), named(ready, 'Lib 1').id])).toThrow()
-    expect(() => act([picks[0], picks[0], picks[1]])).toThrow()
-    expect(kernel.history.current().stack).toHaveLength(0)
-    expect(act(picks)).toHaveLength(1)
-
-    const cost = kernel.history.current()
-    expect(picks.every((id) => cost.objects[id].zone === 'graveyard')).toBe(true)
-    expect(handOf(cost).toSorted()).toEqual(['Held 2', 'Held 4'])
-    expect(cost.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[2]' })
-    expect(cost.objects[nezahal.id].zone).toBe('battlefield')
-
-    const exiled = passUntilResolved(kernel)
-    expect(exiled.objects[nezahal.id].zone).toBe('exile')
-    expect(exiled.delayedTriggers).toHaveLength(1)
-
-    // A restart mid-turn keeps the pending return.
-    const restarted = handleFor(server.rules, ready, kernel.journal).history.current()
-    expect(restarted.delayedTriggers).toHaveLength(1)
-    const back = advanceUntil(server, restarted, (next) => next.step === 'end' && next.stack.length === 0)
-    expect(back.objects[nezahal.id]).toMatchObject({ zone: 'battlefield', tapped: true, controller: 'p1', owner: 'p1' })
-    expect(back.delayedTriggers).toHaveLength(0)
-  })
-
-})
-
-describe("Rishkar's Expertise", () => {
-  const setup = async (options: {
-    hand?: CardTemplate[]
-    creatures?: CardTemplate[]
-    libraryCount?: number
-    library?: CardTemplate[]
-  } = {}) => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [real("Rishkar's Expertise"), ...(options.hand ?? [])] },
-      battlefield: {
-        p1: options.creatures ?? [
-          creature('Big Ally', { power: 5, toughness: 5 }),
-          creature('Small Ally', { power: 1, toughness: 1 }),
-        ],
-        p2: [creature('Huge Foe', { power: 9, toughness: 9 })],
-      },
-      libraries: { p1: options.library ?? filler('Lib', options.libraryCount ?? 12, ['Creature'], 2) },
-    }, { random: () => 0.5 })
-    return { server, state: server.state }
-  }
-
-  test('the offer is private, survives a host restart, and is answered with live acts', async () => {
-    const { server, state } = await setup({ hand: [costed('Held Five', ['Creature'], 5)] })
-    const ready = pool(mainPhase(state), { G: 2, C: 4 })
-    const kernel = handleFor(server.rules, ready)
-    expect(kernel.dispatch({
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, "Rishkar's Expertise").id,
-    }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
-
-    const open = kernel.history.current()
-    const opponent = JSON.stringify(projectForViewer(open, 'p2'))
-    for (const name of ['Held Five', 'Lib 1']) expect(opponent).not.toContain(name)
-    expect(legalActsFor(open, 'p2').some((action) => action.kind === 'castSpell')).toBe(false)
-
-    const restartedKernel = handleFor(server.rules, ready, kernel.journal)
-    expect(restartedKernel.history.current()).toEqual(open)
-    const lobby = playLobby()
-    expect(() => applyKernelAct(restartedKernel, lobby, 'p1', {
-      type: 'act',
-      kind: 'castSpell',
-      objectId: named(open, 'Held Five').id,
-    })).toThrow()
-    expect(applyKernelAct(restartedKernel, lobby, 'p1', {
-      type: 'act',
-      kind: 'castSpell',
-      objectId: named(open, 'Held Five').id,
-      alternativeCost: 'withoutPayingMana',
-    })).toHaveLength(1)
-    const cast = restartedKernel.history.current()
-    expect(cast.stack[0]).toMatchObject({ name: 'Held Five', castFrom: 'hand' })
-    expect(cast.players.p1.mana).toEqual(open.players.p1.mana)
-    const done = passUntilResolved(restartedKernel)
-    expect(named(done, 'Held Five').zone).toBe('battlefield')
-
-    const declineKernel = handleFor(server.rules, ready, kernel.journal)
-    applyKernelAct(declineKernel, playLobby(), 'p1', {
-      type: 'act',
-      kind: 'declineFreeCast',
-      objectId: named(open, "Rishkar's Expertise").id,
-    })
-    expect(named(declineKernel.history.current(), 'Held Five').zone).toBe('hand')
-  })
-}
-)

@@ -8,6 +8,7 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { choiceEffects } from './choiceEffects'
+import { activated } from './activated'
 import { eachPlayerWheel } from './eachPlayerWheel'
 import {
   eachPlayerDiscard,
@@ -18,6 +19,8 @@ import {
   onResolve,
 } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
+import { giftCast } from './giftCast'
+import { encore as encorePlugin } from './encore'
 
 
 
@@ -161,6 +164,63 @@ describe('eachPlayerReturn', () => {
     expect(current.zoneOrder.p3.hand).toEqual([])
     expect(current.zoneOrder.p1.hand).toEqual([])
     expect(named(current, 'Common Grave').zone).toBe('exile')
+  })
+})
+
+describe('legacy loot discard lifecycle', () => {
+  test("Collector's Vault keeps its legacy loot handler and finishes with a Treasure", () => {
+    const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate("Collector's Vault", { types: ['Artifact'] })] },
+      hands: { p1: [cardTemplate('Hand Fodder', { types: ['Instant'] })] },
+      libraries: { p1: [cardTemplate('Library Card', { types: ['Instant'] })] },
+    }, { random: () => 0.5, cardPlugins: plugins })
+    const artifact = named(server.state, "Collector's Vault").id
+    server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 2 }
+    let resolved = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: artifact, abilityId: '$.abilities[0]' }))
+    const fodder = named(resolved, 'Hand Fodder').id
+    for (let step = 0; step < 8; step += 1) {
+      const discard = pendingSelectionFor(resolved, 'p1')
+      if (discard) {
+        resolved = ok(server.rules(resolved, { type: 'selectCards', seat: 'p1', kind: discard.kind, count: discard.count, objectIds: [fodder] }))
+        continue
+      }
+      if (resolved.stack.length === 0 || resolved.stack[0]?.waiting) break
+      resolved = ok(server.rules(resolved, { type: 'resolveTop' }))
+    }
+    expect(named(resolved, 'Library Card').zone).toBe('hand')
+    expect(resolved.zoneOrder.p1.battlefield.filter((id) => resolved.objects[id].subtypes.includes('Treasure'))).toHaveLength(1)
+    expect(projectForViewer(resolved, 'p2').zoneOrder.p1.library).toHaveLength(0)
+  })
+})
+
+describe('legacy typed sacrifice selection', () => {
+  test('Reprocess retains the optional typed sacrifice and draws for each selected permanent', () => {
+    const permanent = (name: string, types: string[]) => cardTemplate(name, { types })
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Reprocess', { types: ['Sorcery'], manaCost: '{2}{B}{B}' })] },
+      battlefield: { p1: [permanent('Relic', ['Artifact']), permanent('Body', ['Creature']), permanent('Song', ['Enchantment'])] },
+      libraries: { p1: [cardTemplate('Fresh', { types: ['Instant'] })] },
+    }, { random: () => 0.5, cardPlugins: [onResolvePlugin] })
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
+    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0] }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', count: 2, min: 0, fromZone: 'battlefield' })
+    expect(selection.candidates).toHaveLength(2)
+    expect(server.project(choosing, 'p2').players.p1.data['kernel.pendingSelection']).toBeUndefined()
+    const relic = named(choosing, 'Relic')
+    expect(server.rules(choosing, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: selection.count,
+      objectIds: [relic.id, relic.id],
+    }).ok).toBe(false)
+    const resolved = ok(server.rules(structuredClone(choosing), {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: selection.count, objectIds: [relic.id],
+    }))
+    expect(resolved.objects[relic.id].zone).toBe('graveyard')
+    expect(named(resolved, 'Fresh').zone).toBe('hand')
+    expect(named(resolved, 'Song').zone).toBe('battlefield')
   })
 })
 

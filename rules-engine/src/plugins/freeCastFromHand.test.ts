@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { readFileSync } from 'node:fs'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
@@ -15,9 +16,27 @@ import {
 } from '../cardPlugins/effects'
 import { onResolve } from '../cardPlugins/onResolve'
 import { targetedResolve } from '../cardPlugins/targetedResolve'
+import { createLobby } from '../../../live-runner/src/lobby'
+import { applyKernelAct } from '../../../live-runner/src/kernelHost'
+import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
+
+const cardNames = JSON.parse(readFileSync(new URL('../../../cards/index.json', import.meta.url), 'utf8')).names as Record<string, string>
+const real = (name: string) => {
+  const card = JSON.parse(readFileSync(new URL(`../../../cards/${cardNames[name.toLowerCase()]}.json`, import.meta.url), 'utf8'))
+  const [front, back = ''] = card.type_line.split(' — ')
+  const words = front.split(' ')
+  const supertypes = words.filter((word: string) => ['Legendary', 'Basic', 'Snow'].includes(word))
+  return cardTemplate(card.name, {
+    types: words.filter((word: string) => !supertypes.includes(word)), supertypes,
+    subtypes: back ? back.split(' ') : [], manaCost: card.mana_cost, manaValue: card.cmc,
+    colors: card.colors ?? [], oracleText: card.oracle_text,
+    ...(card.power === undefined ? {} : { power: Number(card.power) }),
+    ...(card.toughness === undefined ? {} : { toughness: Number(card.toughness) }),
+  })
+}
 
 const spell = (
   name: string,
@@ -75,7 +94,83 @@ const castFree = (state: GameState, name: string, extra: object = {}) => ({
   ...extra,
 })
 
+const kernelFor = (rules: KernelHandle['rules'], initial: GameState, journal = createJournal(initial)): KernelHandle => {
+  const history = restoreJournal(journal, rules)
+  return {
+    get journal() { return journal }, history, rules,
+    dispatch: (event) => {
+      const result = history.dispatch(event)
+      if (result.ok) journal = recordAccepted(journal, event)
+      return result
+    },
+    save: () => {},
+  }
+}
+
+const playLobby = () => {
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  return lobby
+}
+
+const passUntilResolved = (kernel: KernelHandle) => {
+  for (let guard = 0; guard < 12; guard += 1) {
+    const state = kernel.history.current()
+    if (state.stack.length === 0 || state.stack[0].waiting || state.resolution?.phase === 'waiting' || !state.priority) return state
+    const result = kernel.dispatch({ type: 'passPriority', seat: state.priority })
+    if (!result.ok) throw new Error(result.error)
+  }
+  throw new Error('stack did not resolve')
+}
+
 describe('free cast from hand', () => {
+  test("Rishkar's Expertise keeps its private capped offer through a live-host restart", () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [
+          real("Rishkar's Expertise"),
+          spell('Held Five', ['Creature'], '{5}', 5),
+        ],
+      },
+      battlefield: {
+        p1: [cardTemplate('Big Ally', { types: ['Creature'], power: 5, toughness: 5 }), cardTemplate('Small Ally', { types: ['Creature'], power: 1, toughness: 1 })],
+        p2: [cardTemplate('Huge Foe', { types: ['Creature'], power: 9, toughness: 9 })],
+      },
+      libraries: { p1: Array.from({ length: 12 }, (_, index) => cardTemplate(`Lib ${index + 1}`, { types: ['Creature'], manaValue: 2 })) },
+    }, { random: () => 0.5 })
+    const ready = structuredClone(server.state)
+    ready.active = 'p1'
+    ready.priority = 'p1'
+    ready.step = 'precombatMain'
+    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 4 }
+    const kernel = kernelFor(server.rules, ready)
+    expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: named(ready, "Rishkar's Expertise").id }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    const open = kernel.history.current()
+    const opponent = JSON.stringify(projectForViewer(open, 'p2'))
+    for (const name of ['Held Five', 'Lib 1']) expect(opponent).not.toContain(name)
+    expect(legalActsFor(open, 'p2').some((action) => action.kind === 'castSpell')).toBe(false)
+    const restartedKernel = kernelFor(server.rules, ready, kernel.journal)
+    expect(restartedKernel.history.current()).toEqual(open)
+    const lobby = playLobby()
+    expect(() => applyKernelAct(restartedKernel, lobby, 'p1', {
+      type: 'act', kind: 'castSpell', objectId: named(open, 'Held Five').id,
+    })).toThrow()
+    expect(applyKernelAct(restartedKernel, lobby, 'p1', {
+      type: 'act', kind: 'castSpell', objectId: named(open, 'Held Five').id,
+      alternativeCost: 'withoutPayingMana',
+    })).toHaveLength(1)
+    const cast = restartedKernel.history.current()
+    expect(cast.stack[0]).toMatchObject({ name: 'Held Five', castFrom: 'hand' })
+    expect(cast.players.p1.mana).toEqual(open.players.p1.mana)
+    expect(named(passUntilResolved(restartedKernel), 'Held Five').zone).toBe('battlefield')
+    const declineKernel = kernelFor(server.rules, ready, kernel.journal)
+    applyKernelAct(declineKernel, playLobby(), 'p1', {
+      type: 'act', kind: 'declineFreeCast', objectId: named(open, "Rishkar's Expertise").id,
+    })
+    expect(named(declineKernel.history.current(), 'Held Five').zone).toBe('hand')
+  })
   test('offers every nonland card within the mana value cap, or a decline', () => {
     const { state } = offered()
     const acts = legalActsFor(state, 'p1')
