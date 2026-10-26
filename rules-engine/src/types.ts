@@ -7,7 +7,7 @@ import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announc
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import type { ObjectCollectionBinding, ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV2, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v2'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
-import type { ColorSet } from '../../shared/cardColors'
+import type { CardColor, ColorSet } from '../../shared/cardColors'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
@@ -374,7 +374,7 @@ export type GameObject = {
   /** Chosen creature type, for example Roaming Throne. */
   chosenType?: string
   /** Chosen color of a permanent that says "choose a color" as it enters. */
-  chosenColor?: ManaId
+  chosenColor?: CardColor
   /** The card this permanent is printed as, once a copy effect renamed it. */
   printedName?: string
   /** Object ids currently linked to this permanent by an "exiled with" ability. */
@@ -1317,7 +1317,7 @@ export type GameEvent =
       }
       /** Color chosen as this object enters (CR 614.12). */
       chosenType?: string
-      chosenColor?: ManaId
+      chosenColor?: CardColor
       /** Take a non-resolving spell off the stack when this card leaves it (bounce, not counter). */
       dropStackItem?: boolean
     }

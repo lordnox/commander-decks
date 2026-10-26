@@ -46,9 +46,12 @@ export const cardTemplate = (
     ...face,
     colors: parseColorSet(face.colors),
   })
-  const normalizedFrontFace = frontFace
+  const mergedFrontFace = frontFace
     ? normalizeFace({ ...frontDefaults, ...frontFace })
-    : frontDefaults
+    : frontDefaults ? normalizeFace(frontDefaults) : undefined
+  const normalizedFrontFace = mergedFrontFace && overrides.ruleDefinition !== undefined
+    ? { ...mergedFrontFace, ruleDefinition: overrides.ruleDefinition }
+    : mergedFrontFace
   const normalizedBackFace = backFace
     ? normalizeFace({ ...backDefaults, ...backFace })
     : backDefaults

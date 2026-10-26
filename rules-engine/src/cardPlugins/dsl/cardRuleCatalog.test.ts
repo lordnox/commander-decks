@@ -1,6 +1,8 @@
 import { expect, test } from 'bun:test'
 import { CARD_COLORS, CHOICE_RELATIONS, KEYWORDS, PLAYER_EFFECT_DURATIONS, PLAYER_EFFECTS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
+import { snapshotFor } from '../../cards/snapshot'
+import { cardTemplate } from '../../newGame'
 
 // Card configuration has structural coverage; instruction suites own execution.
 test.each([
@@ -353,6 +355,14 @@ test('catalog Vampire Hounds composes a discard-cost pump without legacy effects
   expect(ability.kind).toBe('activated')
   if (ability.kind !== 'activated') throw new Error('expected activated configuration')
   expect(ability.instructions!.map(instruction => instruction.kind)).toEqual(['createEffect'])
+})
+
+test('a caller-pinned rule snapshot survives a catalog double-faced card front-face reset', () => {
+  const pinned = snapshotFor([])
+  const template = cardTemplate('Malakir Rebirth', { ruleDefinition: pinned })
+
+  expect(template.ruleDefinition).toEqual(pinned)
+  expect(template.frontFace?.ruleDefinition).toEqual(pinned)
 })
 
 test('Diabolic Tutor supplies printed characteristics beside its canonical rules', () => {

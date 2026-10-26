@@ -762,7 +762,7 @@ const actionEvents = (
       const source = evaluateObjectReference(instruction.of, context, 'currentOrLastKnown')[0]
       const color = source?.chosenColor
       const amount = availableAmount(instruction.amount, context) ?? 0
-      return color && color !== 'C' && amount > 0 ? recipients(instruction.targets, context).map(seat => ({ type: 'addMana' as const, seat, mana: { [color]: amount }, sourceId: frame.source.ref.objectId })) : []
+      return color && amount > 0 ? recipients(instruction.targets, context).map(seat => ({ type: 'addMana' as const, seat, mana: { [color]: amount }, sourceId: frame.source.ref.objectId })) : []
     }
     case 'addMana': {
       const targets = recipients(instruction.targets, context)
