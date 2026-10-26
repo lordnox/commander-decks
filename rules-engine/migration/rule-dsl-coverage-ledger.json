@@ -4604,7 +4604,7 @@
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:142 — test('puts a linked exiled card into its owner graveyard and gains life equal to mana value', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:176 — test('chooses among several linked exiled cards before pumping', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:228 — test('pumps a stack target using linked exile power', () => {",
-          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:123 — test('a private Ingester target survives a host restart and resolves through the live chooser', () => {",
+          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:165 — test('a private Ingester target survives a host restart and resolves through the live chooser', () => {",
           "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:78"
         ]
       },
@@ -5149,7 +5149,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 280,
+        "matches": 281,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
