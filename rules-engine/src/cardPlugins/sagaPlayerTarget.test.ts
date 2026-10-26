@@ -621,7 +621,7 @@ describe('catalog Kiora Bests the Sea God target lifecycle', () => {
   })
 
   test('GAP: Kiora chapter III does not ask for ward on a targeted warded permanent', () => {
-    // Keep this characterization until the missing triggered-ability ward capability in #394 is implemented.
+    // Keep this characterization until the targeted chapter ward defect in #537 is fixed.
     const server = createServerGame(commanderRules, {
       players: 3,
       battlefield: {
