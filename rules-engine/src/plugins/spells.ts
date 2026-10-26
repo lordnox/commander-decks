@@ -114,6 +114,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
       phyrexianLife: event.phyrexianLife,
       deferPayment: true,
       targetClauses,
+      withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
       genericAdjustment: canonicalGenericAdjustment(source, spellCost(state, source, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
@@ -125,7 +126,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         seat: event.seat,
         selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-      }), event.x, announced.manaCost),
+      }), event.x, announced.manaCost, event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana),
     },
   )
   if (!locked.ok) return locked
@@ -219,8 +220,8 @@ const targetInputsAgree = (state: GameState, event: Extract<GameEvent, { type: '
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0, baseMana = object.manaCost) => {
-  const base = baseMana.replaceAll('{X}', x > 0 ? `{${x}}` : '')
+const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0, baseMana = object.manaCost, withoutPayingMana = false) => {
+  const base = withoutPayingMana ? '' : baseMana.replaceAll('{X}', x > 0 ? `{${x}}` : '')
   return genericCost(adjustedMana) - genericCost(base)
 }
 
@@ -543,6 +544,7 @@ export const spells: Plugin = {
         selectedAlternative: event.selectedAlternativeCost,
         phyrexianLife: event.phyrexianLife,
         targetClauses,
+        withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
         genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
           additionalGeneric: event.additionalGeneric,
           x: event.x,
@@ -554,7 +556,7 @@ export const spells: Plugin = {
           seat: event.seat,
           selected,
           withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-        }), event.x, announced.manaCost),
+        }), event.x, announced.manaCost, event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana),
       },
     )
     if (!announcement.ok) return
@@ -724,6 +726,7 @@ export const spells: Plugin = {
                 phyrexianLife: event.phyrexianLife,
                 deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
                 targetClauses,
+                withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
                   x: event.x,
@@ -735,7 +738,7 @@ export const spells: Plugin = {
                   seat: event.seat,
                   selected,
                   withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-                }), event.x, announced.manaCost),
+                }), event.x, announced.manaCost, event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana),
               },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
@@ -982,6 +985,7 @@ export const spells: Plugin = {
             phyrexianLife: event.phyrexianLife,
             deferPayment: Boolean(event.manaActivations) || (event.delve?.length ?? 0) > 0 || (event.convoke?.length ?? 0) > 0,
             targetClauses,
+            withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,
               x: event.x,
@@ -993,7 +997,7 @@ export const spells: Plugin = {
               seat: event.seat,
               selected,
               withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-            }), event.x, announced.manaCost),
+            }), event.x, announced.manaCost, event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana),
           })
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)

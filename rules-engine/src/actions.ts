@@ -884,6 +884,7 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
     const result = beginSpellAnnouncement(state, announcementSource(object, availableAlternateCastEffect(state, seat, object, action.castOption)), seat, previewAbility, grouped, action.x, choices, {
       evidence, targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
+      withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
       selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
     })
     return result.ok ? result.transaction.lockedCost.mana ?? '' : undefined
@@ -2734,7 +2735,7 @@ export const eventsForAvailableAction = (
         : []
       const tax = taxFor(state, seat, canonicalSource)
       const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, announcementSource(canonicalSource, availableAlternateCastEffect(state, seat, canonicalSource, action.castOption)), seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
-        { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
+        { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax, withoutPayingMana: action.alternativeCost === 'withoutPayingMana' }) : undefined
       if (announcement && !announcement.ok) return null
       const cost = reduceGenericManaCost(
         announcement?.ok ? announcement.transaction.lockedCost.mana ?? ''
