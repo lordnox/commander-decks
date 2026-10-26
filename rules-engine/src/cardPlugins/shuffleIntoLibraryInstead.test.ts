@@ -129,6 +129,11 @@ describe('relocated from cirdanColossi.test.ts → shuffleIntoLibraryInstead.tes
             objectId: named(server.state, colossusName).id,
           })))
           expectInLibrary(state)
+          const id = named(state, colossusName).id
+          expect(state.objects[id].knownTo).toBeUndefined()
+          for (const viewer of ['p1', 'p2', 'p3'] as const) {
+            expect(server.project(state, viewer).objects[id]).toBeUndefined()
+          }
         })
 
         test('a discard from hand is still a discard but ends up in the library', () => {
