@@ -384,6 +384,48 @@ describe('Lady Evangela life-total and X cards', () => {
 })
 
 describe('life-effect player choices', () => {
+  test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      battlefield: { p1: [cardTemplate('Wall of Shards')] },
+    }, { random: () => 0.5 })
+    const wall = server.state.zoneOrder.p1.battlefield[0]!
+    let choosing = structuredClone(server.state)
+    choosing.step = 'untap'
+    choosing = ok(server.rules(choosing, { type: 'advanceStep' }))
+    choosing = ok(server.rules(choosing, { type: 'resolveTop' }))
+    const first = pendingOptionSelection(choosing, 'p1')!
+    expect(choosing.objects[wall]!.counters.age).toBe(1)
+    expect(server.project(choosing, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
+    expect(server.rules(choosing, {
+      type: 'selectOption', seat: 'p2', selectionId: first.id, optionId: 'instruction:0',
+    }).ok).toBe(false)
+    choosing = ok(server.rules(choosing, {
+      type: 'selectOption', seat: 'p1', selectionId: first.id, optionId: 'instruction:0',
+    }))
+    const recipient = pendingPlayerSelectionFor(choosing, 'p1')!
+    expect(recipient.candidates).toEqual(['p2', 'p3', 'p4'])
+    expect(pendingPlayerSelectionFor(server.project(choosing, 'p2'), 'p1')).toBeUndefined()
+    choosing = ok(server.rules(choosing, {
+      type: 'selectPlayers', seat: 'p1', selectionId: recipient.id, players: ['p2'],
+    }))
+    expect(choosing.players.p2.life).toBe(41)
+
+    let next = structuredClone(choosing)
+    next.step = 'untap'
+    next.active = 'p1'
+    next.priority = 'p1'
+    next = ok(server.rules(next, { type: 'advanceStep' }))
+    next = ok(server.rules(next, { type: 'resolveTop' }))
+    const second = pendingOptionSelection(next, 'p1')!
+    expect(next.objects[wall]!.counters.age).toBe(2)
+    next = ok(server.rules(next, {
+      type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'instruction:1',
+    }))
+    expect(next.objects[wall]!.zone).toBe('graveyard')
+    expect(pendingOptionSelection(next, 'p1')).toBeUndefined()
+  })
+
   test('Queza queues a typed opponent choice and drains only the chosen player', () => {
     const server = createServerGame(commanderRules, {
       players: 4,
