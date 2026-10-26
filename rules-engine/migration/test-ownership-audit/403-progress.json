@@ -602,7 +602,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
       "suite": "catalog Kuroki lets its chosen opponent decline or draw before the controller free-casts",
-      "evidence": "The Kuroki source group was removed in 72ef80b4. The catalog integration preserves the exact Lightning Bolt candidate and four-card library, private p2 decline/draw choice, +2 counter outcome, draw, opponent hidden identity, controller-visible identity, and availability of the without-paying-mana cast action. The reusable offerCast owner test casting the pick pays nothing, clears the offer, and the spell resolves normally covers cast completion."
+      "evidence": "The Kuroki source group was removed in 72ef80b4. The catalog integration preserves the exact Lightning Bolt candidate and four-card library, private p2 decline/draw choice, +2 counter outcome, draw, opponent hidden identity, controller-visible identity, and availability of the without-paying-mana cast action. A targeted announcement with the legal p3 target is rejected for locked-cost payment on clean base dc2dd0ed; tracked in https://github.com/lordnox/commander-decks/issues/540. The mechanic-owner test `offerCast.test.ts` / `accepting draws first, then the caster sees that hand and free-casts a nonland card under their control` retains the exact generic opponent-hand completion path: it puts the opponent-owned card on the stack under p1, checks p1's mana is unchanged, and resolves under p1 while p2 remains owner."
     },
     {
       "groups": [
