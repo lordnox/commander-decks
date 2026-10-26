@@ -5,7 +5,7 @@ import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import type { GameState } from '../../types'
+import type { GameEvent, GameState } from '../../types'
 import { createLobby } from '../../../../live-runner/src/lobby'
 import { applyKernelAct } from '../../../../live-runner/src/kernelHost'
 import type { KernelHandle } from '../../../../live-runner/src/kernelHandle'
@@ -93,7 +93,7 @@ const handleFor = (rules: KernelHandle['rules'], initial: GameState) => {
     get journal() { return journal },
     history,
     rules,
-    dispatch: (event) => {
+    dispatch: (event: GameEvent) => {
       const result = history.dispatch(event)
       if (result.ok) journal = recordAccepted(journal, event)
       return result
