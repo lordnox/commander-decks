@@ -113,6 +113,48 @@ const enterAndChoose = (
 }
 
 describe('imprint power and toughness', () => {
+  test('catalog Phyrexian Ingester offers itself and other legal creatures but no token, artifact, or hexproof creature', () => {
+    const ingesterCard = cardTemplate('Phyrexian Ingester')
+    const ownBear = prey('Own Bear', 2, 2)
+    const bigFoe = prey('Big Foe', 4, 6)
+    const foeToken = prey('Foe Token', 9, 9)
+    foeToken.token = true
+    const foeRelic = cardTemplate('Foe Relic', { types: ['Artifact'] })
+    const shroudedFoe = cardTemplate('Shrouded Foe', {
+      types: ['Creature'], power: 5, toughness: 5, oracleText: 'Hexproof',
+    })
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [ingesterCard] },
+      battlefield: { p1: [ownBear], p2: [bigFoe, foeToken, foeRelic], p3: [shroudedFoe] },
+    }, { random: () => 0.5 })
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move', objectId: named(server.state, 'Phyrexian Ingester').id, to: 'battlefield',
+    })))
+    const selection = pendingSelectionFor(entered, 'p1')!
+    expect(selection.candidates.map((id) => entered.objects[id]!.name).toSorted())
+      .toEqual(['Big Foe', 'Own Bear', 'Phyrexian Ingester'])
+    expect(selection).toMatchObject({ kind: 'choose', min: 1, count: 1, destinations: ['skip', 'target'] })
+    for (const name of ['Foe Token', 'Foe Relic', 'Shrouded Foe']) {
+      expect(server.rules(entered, {
+        type: 'selectCards', seat: 'p1', kind: 'choose', count: 1,
+        objectIds: [named(entered, name).id],
+      }).ok).toBe(false)
+    }
+    expect(server.rules(entered, {
+      type: 'selectCards', seat: 'p2', kind: 'choose', count: 1,
+      objectIds: [named(entered, 'Big Foe').id],
+    }).ok).toBe(false)
+    const chosenSelf = ok(server.rules(entered, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1,
+      objectIds: [named(entered, 'Phyrexian Ingester').id],
+    }))
+    expect(chosenSelf.stack[0]?.targets).toContainEqual({
+      kind: 'object', objectId: named(entered, 'Phyrexian Ingester').id,
+      incarnation: named(entered, 'Phyrexian Ingester').incarnation, zone: 'battlefield',
+    })
+  })
+
   test('a private Ingester target survives a host restart and resolves through the live chooser', () => {
     const ingesterCard = cardTemplate('Imprint Ingester', {
       types: ['Creature'],

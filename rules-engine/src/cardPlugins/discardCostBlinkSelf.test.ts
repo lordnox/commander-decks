@@ -5,6 +5,10 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
+import { createLobby } from '../../../live-runner/src/lobby'
+import { applyKernelAct } from '../../../live-runner/src/kernelHost'
+import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
+import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { activated } from './activated'
 import { blinkPlugin } from './blink'
 import { ability, blinkSelf } from './effects'
@@ -13,6 +17,22 @@ const ABILITY = 'test.reset'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
+
+const handleFor = (rules: KernelHandle['rules'], initial: GameState): KernelHandle => {
+  let journal = createJournal(initial)
+  const history = restoreJournal(journal, rules)
+  return {
+    get journal() { return journal },
+    history,
+    rules,
+    dispatch: (event) => {
+      const result = history.dispatch(event)
+      if (result.ok) journal = recordAccepted(journal, event)
+      return result
+    },
+    save: () => {},
+  }
+}
 
 const hand = (count: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`Held ${index + 1}`))
@@ -111,15 +131,24 @@ describe('discard N cards as an activation cost', () => {
     expect(activate(server, ready, [picks[0]!, picks[0]!, picks[1]!]).ok).toBe(false)
     expect(ready.stack).toHaveLength(0)
 
-    const events = [{
-      type: 'activateAbility' as const,
-      seat: 'p1' as const,
+    const kernel = handleFor(server.rules, ready)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const acts = (targetObjectIds: string[]) => applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
       objectId: source.id,
       abilityId: ABILITY,
-      choices: picks,
-    }]
-    expect(events).toHaveLength(1)
-    const paid = ok(server.rules(ready, events[0]!))
+      text: ABILITY,
+      targetObjectIds,
+    })
+    expect(() => acts(picks.slice(0, 2))).toThrow()
+    expect(() => acts([...picks.slice(0, 2), named(ready, 'Tide Elder').id])).toThrow()
+    expect(() => acts([picks[0]!, picks[0]!, picks[1]!])).toThrow()
+    expect(kernel.history.current().stack).toHaveLength(0)
+    expect(acts(picks)).toHaveLength(1)
+
+    const paid = kernel.history.current()
     expect(picks.map((id) => paid.objects[id]!.zone)).toEqual(['graveyard', 'graveyard', 'graveyard'])
     expect(paid.zoneOrder.p1.hand.map((id) => paid.objects[id]!.name).toSorted()).toEqual(['Held 2', 'Held 4'])
     expect(paid.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
@@ -128,7 +157,7 @@ describe('discard N cards as an activation cost', () => {
     const exiled = resolveStack(server.rules, paid)
     expect(exiled.objects[source.id]!.zone).toBe('exile')
     expect(exiled.delayedTriggers).toHaveLength(1)
-    const restarted = structuredClone(exiled)
+    const restarted = JSON.parse(JSON.stringify(exiled)) as GameState
     expect(restarted.delayedTriggers).toHaveLength(1)
     const back = resolveStack(server.rules, advanceToEndStep(server, restarted))
     expect(back.objects[source.id]).toMatchObject({
