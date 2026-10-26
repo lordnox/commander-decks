@@ -71,7 +71,13 @@ const open = (
   seat: PlayerId = 'p1',
   prepare: (state: GameState) => void = () => {},
 ) => {
-  const game = server({ ...options, hands: { [seat]: [callers(instruction)], ...options.hands } })
+  const game = server({
+    ...options,
+    hands: {
+      ...options.hands,
+      [seat]: [callers(instruction), ...(options.hands?.[seat] ?? [])],
+    },
+  })
   const before = structuredClone(game.state)
   prepare(before)
   const entered = resolveStack(game.rules, ok(game.rules(before, {
@@ -232,17 +238,32 @@ describe('generic voting', () => {
       },
       [exileVoteWinners()],
     )
-    const { game, state } = open(judgment, {
-      battlefield: { p2: [bear('Left')], p3: [bear('Right')] },
+    const { game, state: opened } = open(judgment, {
+      battlefield: { p1: [bear('Mine')], p2: [bear('Left')], p3: [bear('Right')] },
+      hands: { p1: [card('Private Answer', ['Instant'])] },
     })
-    const left = named(state, 'Left').id
-    const right = named(state, 'Right').id
-    const done = castAll(game, state, [
-      ['p1', left], ['p2', right], ['p3', left], ['p4', right],
-    ])
-    expect(finished(done.result).result.tied).toBe(true)
-    expect(named(done.state, 'Left').zone).toBe('exile')
-    expect(named(done.state, 'Right').zone).toBe('exile')
+    expect(pendingVote(opened)).toMatchObject({ owner: 'p1', secret: false })
+    expect(pendingOptionSelection(opened, 'p1')?.action).toMatchObject({ kind: 'vote', voter: 'p1' })
+    const privateAnswerId = named(opened, 'Private Answer').id
+    const p2View = projectForViewer(opened, 'p2')
+    expect(pendingVote(p2View)).toBeDefined()
+    expect(p2View.objects[privateAnswerId]).toBeUndefined()
+
+    const choose = (current: GameState, seat: PlayerId, objectName: string) =>
+      answer(game, current, seat, named(current, objectName).id)
+    expect(choose(opened, 'p1', 'Mine').ok).toBe(false)
+    let state = ok(choose(opened, 'p1', 'Left'))
+    expect(choose(state, 'p2', 'Mine').ok).toBe(false)
+    state = ok(choose(state, 'p2', 'Right'))
+    state = ok(choose(state, 'p3', 'Left'))
+    const last = choose(state, 'p4', 'Right')
+    state = ok(last)
+    expect(finished(last).result.tied).toBe(true)
+    expect(named(state, 'Left').zone).toBe('exile')
+    expect(named(state, 'Right').zone).toBe('exile')
+    expect(named(state, 'Mine').zone).toBe('battlefield')
+    expect(pendingVote(state)).toBeUndefined()
+    expect(last.trace.some(({ event }) => event.type === 'votesFinished')).toBe(true)
   })
 
   test('a vote with nothing to vote for finishes at once with empty tallies', () => {
@@ -435,12 +456,17 @@ describe('per-option effects on the voted object', () => {
   test('each voted creature gets one stun counter per vote and taps; unvoted ones are left alone', () => {
     const { game, state } = open(trap, board)
     const [bearId, boarId] = ['Bear', 'Boar'].map((name) => named(state, name).id)
-    const afterTwo = castAll(game, state, [['p1', bearId], ['p2', bearId]]).state
+    const afterTwo = castAll(game, state, [['p1', bearId], ['p2', boarId]]).state
     // Secret until the end: other seats never see who is being stunned.
+    expect(pendingVote(afterTwo)?.votes).toEqual({ p1: bearId, p2: boarId })
+    expect(pendingVote(projectForViewer(afterTwo, 'p1'))?.votes).toEqual({ p1: bearId, p2: '*' })
+    expect(pendingVote(projectForViewer(afterTwo, 'p2'))?.votes).toEqual({ p1: '*', p2: boarId })
     expect(pendingVote(projectForViewer(afterTwo, 'p3'))?.votes).toEqual({ p1: '*', p2: '*' })
+    expect(pendingVote(projectForViewer(afterTwo, null))?.votes).toEqual({ p1: '*', p2: '*' })
     expect(named(afterTwo, 'Bear').counters.stun).toBeUndefined()
+    expect(named(afterTwo, 'Bear').tapped).toBe(false)
 
-    const done = castAll(game, afterTwo, [['p3', bearId], ['p4', boarId]]).state
+    const done = castAll(game, afterTwo, [['p3', bearId], ['p4', bearId]]).state
     expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 3 }, tapped: true })
     expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
     expect(named(done, 'Elk')).toMatchObject({ counters: {}, tapped: false })
@@ -460,6 +486,21 @@ describe('per-option effects on the voted object', () => {
     const done = castAll(game, gone, [['p4', boarId]]).state
     expect(named(done, 'Bear')).toMatchObject({ zone: 'graveyard', counters: {}, tapped: false })
     expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 2 }, tapped: true })
+  })
+
+  test('an open secret object vote survives a host restart and stays private', () => {
+    const { game, state } = open(trap, board)
+    const bearId = named(state, 'Bear').id
+    const midway = ok(answer(game, state, 'p1', bearId))
+    const restarted = server({})
+    const reloaded = structuredClone(midway)
+    expect(pendingVote(reloaded)?.votes).toEqual({ p1: bearId })
+    expect(pendingOptionSelection(reloaded, 'p2')).toBeDefined()
+    expect(pendingVote(projectForViewer(reloaded, 'p2'))?.votes).toEqual({ p1: '*' })
+
+    const done = castAll(restarted, reloaded, [['p2', bearId], ['p3', bearId], ['p4', bearId]]).state
+    expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 4 }, tapped: true })
+    expect(pendingVote(done)).toBeUndefined()
   })
 
   test('stun counters make the creature skip untaps one at a time', () => {
