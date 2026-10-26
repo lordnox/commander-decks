@@ -64,6 +64,7 @@ test('catalog Cavern of Souls restores its private type choice and restricts man
   expect(tapped.state.players.p1.restrictedMana).toMatchObject([
     { mana: 'U', creatureType: 'Wizard', uncounterable: true },
   ])
+  expect(tapped.state.players.p1.mana.U).toBe(0)
   expect(server.rules(tapped.state, { type: 'castSpell', seat: 'p1', objectId: named(tapped.state, 'Wrong Bear').id }).ok).toBe(false)
   const cast = server.rules(tapped.state, { type: 'castSpell', seat: 'p1', objectId: named(tapped.state, 'Matching Wizard').id })
   if (!cast.ok) throw new Error(cast.error)
