@@ -170,17 +170,17 @@
       "groups": [
         "cirdanMiscCards:176"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-      "suite": "generic lookTopPick tests plus catalog Dig Through Time lifecycle",
-      "evidence": "generic legacy scry choice remains in lookTopPick.test.ts; the catalog Dig Through Time integration retains delve payment, private top seven, reject paths, journal round-trip equality, ordered hand/library and spell completion"
+      "destination": "rules-engine/src/cardPlugins/lookTopPick.test.ts",
+      "suite": "a delve spell keeps its private top-seven choice after a host restart",
+      "evidence": "generic legacy scry choice remains in lookTopPick.test.ts; the catalog Dig Through Time integration retains delve payment, private top seven, reject paths, journal round-trip equality, ordered hand/library and spell completion Canonical Dig Through Time cost/payment, typed choice rejection and JSON-restored outcome checks are additionally retained in dsl/searchLibrary.test.ts."
     },
     {
       "groups": [
         "cirdanMiscCards:252"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-      "suite": "catalog Dig Through Time preserves private look projections",
-      "evidence": "catalog Dig Through Time projection hides all seven looked-at cards plus Rest A from opponents while exposing all seven to its chooser"
+      "destination": "rules-engine/src/cardPlugins/lookTopPick.test.ts",
+      "suite": "only the looking seat sees the cards, before and after the choice",
+      "evidence": "catalog Dig Through Time projection hides all seven looked-at cards plus Rest A from opponents while exposing all seven to its chooser The catalog Dig Through Time integration also asserts the full private TOP + Rest A identity set."
     },
     {
       "groups": [
@@ -211,7 +211,7 @@
         "cirdanPartBMana:320"
       ],
       "destination": "rules-engine/src/cardPlugins/manaChoice.test.ts",
-      "suite": "without a named pool the controller chooses privately, and the choice survives a restart",
+      "suite": "without a named pool the controller chooses privately and the pick resolves",
       "evidence": "private mana mode options survive restart; wrong-seat and unoffered modes rejected; selected pool matches exact expected mana"
     },
     {
@@ -219,7 +219,7 @@
         "cirdanPartBMana:571"
       ],
       "destination": "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts",
-      "suite": "entering opens a private color choice that survives a restart and stores the pick",
+      "suite": "opens a private color choice as the Aura enters and stores the pick",
       "evidence": "private entry color choice survives restore, rejects priority and wrong color/seat, stores U and clears pending selection"
     },
     {
