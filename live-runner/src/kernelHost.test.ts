@@ -4272,14 +4272,22 @@ test('canonical control assignments rebuild after a host restart and exclude ass
   lobby.human = 'p1'
   expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
   expect(lobby.topdeck?.cards).toEqual(['p2', 'p3', 'p4'])
+  const firstSelection = pendingPlayerSelectionFor(kernel.history.current(), 'p1')!
   expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, { type: 'topdeck', choices: lobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p3' ? 'target' : 'skip' })) }))).toBe(true)
+  expect(kernel.journal.events).toContainEqual({
+    type: 'selectPlayers', selectionId: firstSelection.id, seat: 'p1', players: ['p3'],
+  })
   const restartedKernel = handleFor(server.rules, JSON.parse(JSON.stringify(kernel.history.current())))
   const restartedLobby = createLobby()
   restartedLobby.phase = 'play'
   restartedLobby.human = 'p1'
   expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
   expect(restartedLobby.topdeck?.cards).toEqual(['p2', 'p4'])
+  const secondSelection = pendingPlayerSelectionFor(restartedKernel.history.current(), 'p1')!
   expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', slotted(restartedLobby, { type: 'topdeck', choices: restartedLobby.topdeck!.cards.map((card, slot) => ({ card, slot, destination: card === 'p2' ? 'target' : 'skip' })) }))).toBe(true)
+  expect(restartedKernel.journal.events).toContainEqual({
+    type: 'selectPlayers', selectionId: secondSelection.id, seat: 'p1', players: ['p2'],
+  })
   const finished = restartedKernel.history.current()
   expect(Object.values(finished.objects).find(object => object.name === 'Alpha')?.controller).toBe('p3')
   expect(Object.values(finished.objects).find(object => object.name === 'Beta')?.controller).toBe('p2')
