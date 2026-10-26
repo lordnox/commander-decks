@@ -15,7 +15,6 @@ import {
   addManaChoice,
   chooseColorOnEnter,
   enchantedManaBoost,
-  handlerIdsFromEffects,
   pluginIdsFromEffects,
   staticGrant,
 } from './effects'
@@ -85,16 +84,9 @@ const castThroughActions = (
 }
 
 describe('capability wiring', () => {
-  test('effects name the plugins and handlers a host has to load', () => {
+  test('static effects identify legacy granted plugins', () => {
     const effects = [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })]
     expect(pluginIdsFromEffects(effects)).toEqual(['enchantedManaBoost'])
-    expect(handlerIdsFromEffects(effects)).toContain('chosenColor')
-    expect(handlerIdsFromEffects([activate({
-      id: 'filter',
-      manaAbility: true,
-      costs: { mana: '{G/U}', tap: true },
-      do: [addManaChoice({ G: 2 }, { U: 2 })],
-    })])).toEqual(expect.arrayContaining(['activated', 'manaChoice']))
   })
 })
 

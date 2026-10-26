@@ -133,7 +133,7 @@ export const encoreHandlers = {
   sacrificeObjectIds,
 }
 
-/** Marker plugin so handlerIdsFromEffects can load encore instruction handlers. */
+/** Marker plugin retained for legacy effect execution. */
 export const encore: Plugin = {
   id: 'encore',
 }
