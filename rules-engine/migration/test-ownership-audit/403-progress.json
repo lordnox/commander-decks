@@ -22,7 +22,25 @@
     "splitTrapVotes:146",
     "splitTrapVotes:250",
     "splitTrapVotes:314",
-    "splitTrapVotes:399"
+    "splitTrapVotes:399",
+    "cirdanColossi:205",
+    "cirdanMiscCards:176",
+    "cirdanMiscCards:252",
+    "cirdanMiscCards:944",
+    "cirdanMiscCards:1172",
+    "cirdanMiscCards:1376",
+    "cirdanPartBMana:320",
+    "cirdanPartBMana:571",
+    "cirdanPartBMana:751",
+    "combatPreventionCards:257",
+    "dackFaydenPart32LandsRocks:295",
+    "dackFaydenPart32LandsRocks:331",
+    "dackFaydenPart34LinkedExile:407",
+    "dackFaydenPart34LinkedExile:428",
+    "dackPartyPart35:165",
+    "sinFall:143",
+    "sinFallReplacements:78",
+    "cardRuleCatalog.modesCopiesAndSearch:234"
   ],
   "relocations": [
     {
@@ -122,7 +140,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
       "suite": "an open copy choice survives a host restart",
-      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3\u2019s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
+      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3’s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
     },
     {
       "groups": [
@@ -138,7 +156,151 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "an open secret object vote survives a host restart and stays private",
-      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat\u2019s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
+      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat’s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
+    },
+    {
+      "groups": [
+        "cirdanColossi:205"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a sacrifice puts it in the library, not the graveyard",
+      "evidence": "the source becomes unknown to every viewer after the Colossus reshuffles"
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:176"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "generic lookTopPick tests plus catalog Dig Through Time lifecycle",
+      "evidence": "generic legacy scry choice remains in lookTopPick.test.ts; the catalog Dig Through Time integration retains delve payment, private top seven, reject paths, journal round-trip equality, ordered hand/library and spell completion"
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:252"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "catalog Dig Through Time preserves private look projections",
+      "evidence": "catalog Dig Through Time projection hides all seven looked-at cards plus Rest A from opponents while exposing all seven to its chooser"
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:944"
+      ],
+      "destination": "rules-engine/src/cardPlugins/discardCostBlinkSelf.test.ts",
+      "suite": "a three-card discard keeps the delayed blink through restart",
+      "evidence": "rejects too few, duplicate and non-hand costs without stacking; three discards resolve to exile, survive restart and return the source tapped at next end step"
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1172"
+      ],
+      "destination": "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts",
+      "suite": "a private Ingester target survives a host restart and resolves through the live chooser",
+      "evidence": "generic Imprint Ingester fixture keeps candidate list and chooser private, host restore equality, duplicate/wrong-seat rejection, exile link, 7/9 outcome and cleared choice"
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1376"
+      ],
+      "destination": "rules-engine/src/plugins/freeCastFromHand.test.ts",
+      "suite": "Rishkar's Expertise keeps its private capped offer through a live-host restart",
+      "evidence": "catalog Rishkar offer stays private across host restart; plain cast rejected, free cast preserves mana and resolves, decline keeps card in hand"
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:320"
+      ],
+      "destination": "rules-engine/src/cardPlugins/manaChoice.test.ts",
+      "suite": "without a named pool the controller chooses privately, and the choice survives a restart",
+      "evidence": "private mana mode options survive restart; wrong-seat and unoffered modes rejected; selected pool matches exact expected mana"
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:571"
+      ],
+      "destination": "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts",
+      "suite": "entering opens a private color choice that survives a restart and stores the pick",
+      "evidence": "private entry color choice survives restore, rejects priority and wrong color/seat, stores U and clears pending selection"
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:751"
+      ],
+      "destination": "rules-engine/src/cardPlugins/seaGate.test.ts",
+      "suite": "the life choice is private to its controller and survives a restart",
+      "evidence": "life-payment prompt stays private and is restored; accepting loses exactly three life"
+    },
+    {
+      "groups": [
+        "combatPreventionCards:257"
+      ],
+      "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
+      "suite": "Settle exiles attackers and resumes a private typed basic-land search after restart",
+      "evidence": "Settle’s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:295"
+      ],
+      "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
+      "suite": "a sacrificing legacy map opens the generic hidden library search",
+      "evidence": "legacy Expedition Map sacrifices itself, opens hidden library search and withholds opponent library identities"
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:331"
+      ],
+      "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
+      "suite": "a legacy Archaeomancer's Map finds up to two Plains and puts them in hand",
+      "evidence": "legacy Archaeomancer’s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:407"
+      ],
+      "destination": "rules-engine/src/cardPlugins/linkedExile.test.ts",
+      "suite": "open link-exile selection survives projection for the choosing seat",
+      "evidence": "the link-exile selection and candidate identities are available only to the choosing seat"
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:428"
+      ],
+      "destination": "rules-engine/src/cardPlugins/linkedExile.test.ts",
+      "suite": "Fiend Hunter resumes a linked target choice after restart",
+      "evidence": "open linked target selection retains its id through restart and selected target is exiled"
+    },
+    {
+      "groups": [
+        "dackPartyPart35:165"
+      ],
+      "destination": "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts",
+      "suite": "Collector's Vault keeps its legacy loot handler and finishes with a Treasure",
+      "evidence": "legacy Collector’s Vault choice draws, privately discards and creates exactly one Treasure"
+    },
+    {
+      "groups": [
+        "sinFall:143"
+      ],
+      "destination": "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts",
+      "suite": "Reprocess retains the optional typed sacrifice and draws for each selected permanent",
+      "evidence": "Reprocess typed optional sacrifice excludes opponent view, sends chosen Relic to graveyard, draws Fresh and leaves Song in play"
+    },
+    {
+      "groups": [
+        "sinFallReplacements:78"
+      ],
+      "destination": "rules-engine/src/cardPlugins/opponentPiles.test.ts",
+      "suite": "the legacy hidden-pile mechanic keeps the unchosen pile private through its opponent choice",
+      "evidence": "generic active hiddenPiles fixture preserves four reveal options, controller-only exile identities, bystander privacy, opponent chooser, exact hand/graveyard/life outcome and clears pending option"
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:234"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "catalog Diabolic Tutor privately finds any card and shuffles",
+      "evidence": "catalog Diabolic Tutor retains canonical snapshot, typed private library candidate set, chosen hand card, unchosen library order, shuffle and spell completion"
     }
   ]
 }

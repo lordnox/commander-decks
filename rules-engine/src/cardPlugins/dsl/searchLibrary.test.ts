@@ -144,20 +144,28 @@ test('catalog Dig Through Time rejects invalid picks and restores its private tw
   expect(selection.count).toBe(2)
   expect(selection.candidates.map((id) => looking.objects[id].name)).toEqual(top)
   expect(pendingSelectionFor(projectForViewer(looking, 'p2'), 'p1')).toBeUndefined()
-  expect(JSON.stringify(projectForViewer(looking, 'p2'))).not.toContain('Top 1')
+  const opponent = JSON.stringify(projectForViewer(looking, 'p2'))
+  for (const name of [...top, 'Rest A']) expect(opponent).not.toContain(name)
+  expect(top.every((name) =>
+    Object.values(projectForViewer(looking, 'p1').objects).some((object) => object.name === name)))
+    .toBe(true)
 
-  const choose = (state: GameState, names: string[]) => {
+  const choose = (state: GameState, names: string[], seat: 'p1' | 'p2' = 'p1') => {
     const pending = pendingSelectionFor(state, 'p1')!
     return server.rules(state, {
-      type: 'selectCards', seat: 'p1', selectionId: pending.id,
+      type: 'selectCards', seat, selectionId: pending.id,
       kind: 'choose', count: 2,
       objectIds: names.map((name) => named(state, name).id),
     })
   }
   expect(choose(looking, ['Top 1']).ok).toBe(false)
+  expect(choose(looking, ['Top 1', 'Top 2', 'Top 3']).ok).toBe(false)
   expect(choose(looking, ['Top 1', 'Top 1']).ok).toBe(false)
   expect(choose(looking, ['Opposing Secret', 'Top 1']).ok).toBe(false)
-  const restored = restoreJournal(createJournal(looking), server.rules).current()
+  expect(choose(looking, ['Top 3', 'Top 6'], 'p2').ok).toBe(false)
+  expect(pendingSelectionFor(looking, 'p1')).toBeDefined()
+  const restoredJournal = JSON.parse(JSON.stringify(createJournal(looking)))
+  const restored = restoreJournal(restoredJournal, server.rules).current()
   expect(choose(restored, ['Top 3', 'Top 6'])).toEqual(choose(looking, ['Top 3', 'Top 6']))
   const done = ok(choose(restored, ['Top 3', 'Top 6']))
   expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
