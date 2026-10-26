@@ -77,7 +77,7 @@ const ingester = () => cardTemplate('Imprint Ingester', {
     handler('linkedExile'),
     handler('exilePayoffs'),
     pumpFromLinkedExileStats(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' }, { optional: true, max: 1 })),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' }, { optional: true })),
   ],
 })
 
@@ -114,7 +114,7 @@ const enterAndChoose = (
 
 describe('imprint power and toughness', () => {
   test('a private Ingester target survives a host restart and resolves through the live chooser', () => {
-    const ingesterCard = cardTemplate('Phyrexian Ingester', {
+    const ingesterCard = cardTemplate('Imprint Ingester', {
       types: ['Creature'],
       power: 3,
       toughness: 3,
@@ -133,14 +133,12 @@ describe('imprint power and toughness', () => {
       battlefield: { p1: [ownBear], p2: [bigFoe] },
     }, { random: () => 0.5, cardPlugins: [linkedExile, exilePayoffs] })
     const ready = structuredClone(server.state)
-    // Keep this named-card fixture on the still-active generic handler path.
-    delete named(ready, 'Phyrexian Ingester').ruleDefinition
     ready.active = 'p1'
     ready.priority = 'p1'
     ready.step = 'precombatMain'
     ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 6 }
     const kernel = handleFor(server.rules, ready)
-    expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: named(ready, 'Phyrexian Ingester').id }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: named(ready, 'Imprint Ingester').id }).ok).toBe(true)
     passUntilResolved(kernel)
     const lobby = playLobby()
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
@@ -169,7 +167,7 @@ describe('imprint power and toughness', () => {
     expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Big Foe']))).toBe(true)
     const done = passUntilResolved(restartedKernel)
     expect(named(done, 'Big Foe').zone).toBe('exile')
-    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
+    expect(stats(done, 'Imprint Ingester')).toEqual([7, 9])
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
   })
   test('the effect is clone-safe', () => {

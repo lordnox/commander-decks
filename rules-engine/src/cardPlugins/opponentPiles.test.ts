@@ -4,6 +4,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer, createClientGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
@@ -16,6 +17,7 @@ import {
 
 
 import { activated } from './activated'
+import { hiddenPiles } from './hiddenPiles'
 
 import { choiceEffects } from './choiceEffects'
 import {librarySearch} from './librarySearch'
@@ -37,9 +39,12 @@ const applyKernelChoice = (
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 import {
   onResolve as onResolveEffect,
+  handler,
+  hiddenPileNegotiation,
   opponentPiles,
   targetOnResolve,
 } from './effects'
+import { onResolve as onResolvePlugin } from './onResolve'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 
@@ -160,6 +165,48 @@ const partitionChoices = (
 }
 
 describe('opponentPiles', () => {
+  test('the legacy hidden-pile mechanic keeps the unchosen pile private through its opponent choice', () => {
+    const library = Array.from({ length: 7 }, (_, index) => cardTemplate(`Legacy Library ${index + 1}`, {
+      types: [index === 3 ? 'Land' : 'Sorcery'],
+    }))
+    const legacySpell = cardTemplate('Legacy Hidden Piles Fixture', {
+      types: ['Instant'],
+      manaCost: '{3}{B}',
+      effects: [handler('hiddenPiles'), handler('onResolve'), onResolveEffect(hiddenPileNegotiation(3, 3))],
+    })
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [legacySpell] },
+      libraries: { p1: library },
+    }, { random: () => 0.5, cardPlugins: [onResolvePlugin, hiddenPiles] })
+    let state = structuredClone(server.state)
+    state.players.p1.mana.B = 1
+    state.players.p1.mana.C = 3
+    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Legacy Hidden Piles Fixture').id }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const reveal = pendingOptionSelection(state, 'p1')!
+    expect(reveal.options).toHaveLength(4)
+    expect(state.zoneOrder.p1.exile).toHaveLength(6)
+    expect(server.project(state, 'p1').zoneOrder.p1.exile).toHaveLength(6)
+    expect(server.project(state, 'p2').zoneOrder.p1.exile).toHaveLength(0)
+    const revealChoice = reveal.options.find(({ id }) => id === '0:p2')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: reveal.id, optionId: revealChoice.id }))
+    const take = pendingOptionSelection(state, 'p2')!
+    expect(take.options[0].label).toContain('Legacy Library 1')
+    expect(take.options[1].label).toBe('Face-down pile 2 (3 cards)')
+    const bystander = server.project(state, 'p3')
+    expect(bystander.zoneOrder.p1.exile).toHaveLength(3)
+    expect(JSON.stringify(bystander)).not.toContain('Legacy Library 4')
+    expect(bystander.players.p2.data['kernel.pendingOptionSelection']).toBeUndefined()
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p2', selectionId: take.id, optionId: '1' }))
+    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name).sort())
+      .toEqual(['Legacy Library 4', 'Legacy Library 5', 'Legacy Library 6'])
+    expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name).sort())
+      .toEqual(['Legacy Hidden Piles Fixture', 'Legacy Library 1', 'Legacy Library 2', 'Legacy Library 3'])
+    expect(state.players.p1.life).toBe(37)
+    expect(pendingOptionSelection(state)).toBeUndefined()
+  })
+
   test('catalog Hostile Negotiations reveals one pile without leaking the other', () => {
     const library = Array.from({ length: 7 }, (_, index) => cardTemplate(`Library ${index + 1}`, {
       types: [index === 3 ? 'Land' : 'Sorcery'],
