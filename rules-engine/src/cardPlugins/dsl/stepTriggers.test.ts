@@ -79,7 +79,7 @@ test('step patterns validate engine step names and expose only their player occu
 test('catalog Portal to Phyrexia restores its upkeep creature choice and returns the captured card', () => {
   const server = createServerGame(commanderRules, {
     battlefield: { p1: [cardTemplate('Portal to Phyrexia')] },
-    hands: { p2: [cardTemplate('Borrowed Body', { types: ['Creature'], manaCost: '{4}{G}', power: 3, toughness: 3 })] },
+    hands: { p2: [cardTemplate('Borrowed Body', { types: ['Creature'], manaCost: '{4}{G}' })] },
   }, { random: () => 0 })
   const body = server.state.zoneOrder.p2.hand[0]!
   let state = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))

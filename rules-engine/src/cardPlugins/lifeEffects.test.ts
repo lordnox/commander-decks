@@ -2,7 +2,7 @@ import type { GameState } from '../types'
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
@@ -447,7 +447,7 @@ describe('life-effect player choices', () => {
   test('Queza queues a typed opponent choice and drains only the chosen player', () => {
     const server = createServerGame(commanderRules, {
       players: 4,
-      libraries: { p1: [cardTemplate('Draw fixture')] },
+      libraries: { p1: [forest()] },
       battlefield: { p1: [cardTemplate('Queza, Augur of Agonies')] },
     }, { random: () => 0.5 })
     let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
@@ -465,7 +465,12 @@ describe('life-effect player choices', () => {
 
   test('opponents do not see the pending Niv-Mizzet payment in projection', () => {
     const server = createServerGame(commanderRules, {
-      libraries: { p1: [cardTemplate('Niv card A'), cardTemplate('Niv card B')] },
+      libraries: { p1: [
+        cardTemplate('Plains', { types: ['Land'] }),
+        cardTemplate('Island', { types: ['Land'] }),
+        cardTemplate('Swamp', { types: ['Land'] }),
+        cardTemplate('Mountain', { types: ['Land'] }),
+      ] },
       battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
     }, { random: () => 0.5 })
     const gained = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 1, source: 'test' }))
@@ -476,7 +481,12 @@ describe('life-effect player choices', () => {
 
   test('host restart keeps the open Niv-Mizzet optional life payment', () => {
     const server = createServerGame(commanderRules, {
-      libraries: { p1: [cardTemplate('Niv card A'), cardTemplate('Niv card B'), cardTemplate('Niv card C')] },
+      libraries: { p1: [
+        cardTemplate('Plains', { types: ['Land'] }),
+        cardTemplate('Island', { types: ['Land'] }),
+        cardTemplate('Swamp', { types: ['Land'] }),
+        cardTemplate('Mountain', { types: ['Land'] }),
+      ] },
       battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
     }, { random: () => 0.5 })
     const gained = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 2, source: 'test' }))
