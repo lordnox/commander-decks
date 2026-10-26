@@ -4270,6 +4270,7 @@ test('canonical control assignments rebuild after a host restart and exclude ass
   const lobby = createLobby()
   lobby.phase = 'play'
   lobby.human = 'p1'
+  expect(pendingPlayerSelectionFor(kernel.history.current(), 'p1')).toBeDefined()
   expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
   expect(lobby.topdeck?.cards).toEqual(['p2', 'p3', 'p4'])
   const firstSelection = pendingPlayerSelectionFor(kernel.history.current(), 'p1')!

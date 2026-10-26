@@ -415,6 +415,7 @@ describe('permanent control change', () => {
     server.state.players.p1.data = draft.players.p1.data
     server.state.priority = 'p1'
     const kernel = handleFor(server.rules, server.state)
+    expect(pendingPlayerSelectionFor(kernel.history.current(), 'p1')).toBeDefined()
     const lobby = createLobby()
     lobby.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)

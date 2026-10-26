@@ -226,4 +226,39 @@ describe('gift cast and extra turns', () => {
     }))
     expect(cast.stack[0]?.giftRecipient).toBe('p2')
   })
+
+  test('generic finishGiftCast recipient selection survives JSON restore and stays private', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 4,
+        hands: {
+          p1: [card('Fable of the Restored Promise', ['Instant'], {
+            manaCost: '{U}',
+            effects: [gift({ draw: 1 }), onResolve(draw(1))],
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.U = 1
+    const spell = Object.values(ready.objects).find(object => object.name === 'Fable of the Restored Promise')!
+    const waiting = ok(server.rules(ready, {
+      type: 'castSpell', seat: 'p1', objectId: spell.id, giftPromised: true,
+    }))
+    const pending = pendingPlayerSelectionFor(waiting, 'p1')!
+    expect(pending.action.kind).toBe('finishGiftCast')
+    expect(pending.candidates).toEqual(['p2', 'p3', 'p4'])
+    expect(pendingPlayerSelectionFor(projectForViewer(waiting, 'p1'), 'p1')).toBeDefined()
+    expect(pendingPlayerSelectionFor(projectForViewer(waiting, 'p3'), 'p1')).toBeUndefined()
+
+    const restored = JSON.parse(JSON.stringify(waiting))
+    const restoredPending = pendingPlayerSelectionFor(restored, 'p1')!
+    const finished = ok(server.rules(restored, {
+      type: 'selectPlayers', seat: 'p1', selectionId: restoredPending.id, players: ['p3'],
+    }))
+    expect(finished.stack[0]).toMatchObject({ giftPromised: true, giftRecipient: 'p3' })
+    expect(pendingPlayerSelectionFor(finished, 'p1')).toBeUndefined()
+  })
 })

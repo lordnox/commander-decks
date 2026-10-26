@@ -5,7 +5,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { STEP_IDS } from '../../types'
-import type { StepId } from '../../types'
+import type { GameState, StepId } from '../../types'
 import { activated, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, createEffect, gainLife, grantAbilityEffect, objects, players, ref, stepBegins, untilCleanup, whenever } from './v1'
 
 const snapshot = (abilities: Parameters<typeof card>[0]) => createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
@@ -74,6 +74,31 @@ test('step patterns validate engine step names and expose only their player occu
   for (const step of STEP_IDS) expect(() => snapshot([whenever(stepBegins({ step }), { instructions: [gainLife({ targets: ref('triggering.player'), amount: 1 })] })])).not.toThrow()
   expect(() => snapshot([whenever(stepBegins({ step: 'invalid' as StepId }), { instructions: [] })])).toThrow()
   expect(() => snapshot([whenever(stepBegins({ step: 'upkeep' }), { instructions: [{ kind: 'move', targets: ref('triggering.object.after'), to: 'hand' }] })])).toThrow()
+})
+
+test('catalog Portal to Phyrexia restores its upkeep creature choice and returns the captured card', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Portal to Phyrexia')] },
+    hands: { p2: [cardTemplate('Borrowed Body', { types: ['Creature'], manaCost: '{4}{G}', power: 3, toughness: 3 })] },
+  }, { random: () => 0 })
+  const body = server.state.zoneOrder.p2.hand[0]!
+  let state = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))
+  state = { ...state, step: 'untap', active: 'p1', priority: 'p1' }
+  state = ok(server.rules(state, { type: 'advanceStep' }))
+  expect(state.stack).toHaveLength(0)
+
+  const restarted = JSON.parse(JSON.stringify(state)) as GameState
+  const selection = pendingSelectionFor(restarted, 'p1')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 1, candidates: [body] })
+  expect(pendingSelectionFor(server.project(restarted, 'p2'), 'p1')).toBeUndefined()
+  const targeted = ok(server.rules(restarted, {
+    type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [body],
+  }))
+  expect(targeted.stack[0]?.name).toBe('Portal to Phyrexia')
+  const resolved = resolveStack(server.rules, targeted)
+  expect(resolved.objects[body]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+  expect(resolved.objects[body]!.subtypes).toContain('Phyrexian')
+  expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
 })
 
 test.each([false, true])('an unfiltered upkeep gives the active player the optional hand entry, not the trigger controller (decline=%s)', decline => {

@@ -65,7 +65,20 @@
     "cirdanTriggers:293",
     "cirdanTriggers:405",
     "plugDackPart36Creatures:180",
-    "sinFallLands:98"
+    "sinFallLands:98",
+    "blinkValue:237",
+    "copyPolitics:233",
+    "dackFaydenHelpingHand:203",
+    "dackPartyPart35:200",
+    "dackPartyPart35:297",
+    "jaceMultiverseArchitect:199",
+    "ladyEvangelaGaps:220",
+    "ladyEvangelaRemaining:504",
+    "nivMizzetGhostCounsel:138",
+    "nivMizzetGhostCounsel:145",
+    "sinFall:219",
+    "sinFallLands:26",
+    "sinFallModals:226"
   ],
   "relocations": [
     {
@@ -526,6 +539,110 @@
       "destination": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
       "suite": "channel pays the legendary discount, validates targets, and completes Boseiju search",
       "evidence": "The catalog channel rejects a basic-land target, pays the reduced cost with two legendary creatures, discards Boseiju, destroys the chosen utility land, privately offers exactly one nonbasic Forest/Island dual while excluding an untyped land, moves the pick to the battlefield, then resolves Otawara against the creature. The structural catalog channel assertion retains the optional choose/move/shuffle sequence that replaces the audited legacy after: shuffleLibrary payload."
+    },
+    {
+      "groups": [
+        "blinkValue:237"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "Queza queues a typed opponent choice and drains only the chosen player",
+      "evidence": "The assigned Queza case was deleted from blinkValue.test.ts by 97768667 without an ownership row. This catalog-backed owner preserves the four-seat legal candidate set, chooser-private pending selectPlayers choice, selected p3, resolution continuation, and exact life totals for p1/p2/p3."
+    },
+    {
+      "groups": [
+        "copyPolitics:233"
+      ],
+      "destination": "rules-engine/src/cardPlugins/demonstrate.test.ts",
+      "suite": "Rings copies a nonmana activated ability through a restart-safe typed choice",
+      "evidence": "The source group disappeared when copyPolitics.test.ts was deleted by 9845cff5. The catalog Rings test now exercises an actual nonmana ability, restores the pending choice, rejects the wrong seat, accepts the copier answer, and verifies the copied ability and exact draw outcome."
+    },
+    {
+      "groups": [
+        "dackFaydenHelpingHand:203"
+      ],
+      "destination": "live-runner/src/kernelHost.test.ts",
+      "suite": "canonical control assignments rebuild after a host restart and exclude assigned recipients",
+      "evidence": "The source card test was deleted by d525a001. This catalog-backed test drives actual host choices before and after JSON journal restoration, asserts the real selectPlayers journal events and returned legal candidates, excludes the already-assigned recipient, and verifies final control assignment. The active generic compatibility path remains covered by permanentControl.test.ts: pair donation choice survives a host restart, including the initial pending selection, restored host choice, and retained legacy pending flag after the first assignment."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:200"
+      ],
+      "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
+      "suite": "Perch Protection gifts an extra turn and phases out on the promised gift",
+      "evidence": "The old Perch case was removed from dackPartyPart35.test.ts by c58d7804. The catalog integration chooses p2 through the canonical cost-choice action, verifies the promised gift and extra turn recipient, and checks the source phases out. Generic finishGiftCast pending-choice coverage remains in this owner as opens selectPlayers when gift is promised without a recipient."
+    },
+    {
+      "groups": [
+        "dackPartyPart35:297"
+      ],
+      "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
+      "suite": "Perch Protection gift recipient survives JSON restore and is hidden from another player",
+      "evidence": "The old recipient continuation case was removed from dackPartyPart35.test.ts by c58d7804. The canonical Perch integration JSON-restores the actual stack announcement with p3 captured, verifies opponent privacy and p3 extra turn. Generic finishGiftCast continuation separately JSON-roundtrips a live private pendingPlayerSelection, finishes it with p3, and checks giftRecipient p3 with no pending choice left."
+    },
+    {
+      "groups": [
+        "jaceMultiverseArchitect:199"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "pending optional pay survives projection for the payer only",
+      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1’s projection, preserving the payment outcome while correcting that privacy representation."
+    },
+    {
+      "groups": [
+        "ladyEvangelaGaps:220"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "Wall of Shards adds age counters, validates each opponent payment, and sacrifices",
+      "evidence": "The source case was removed by 72ef80b4. Catalog Wall preserves the legal opponent candidate list, owner-only option and player-choice projections, wrong-seat and empty-recipient rejection while pending, first age payment, then the age-2 branch where p2 answers both sequential life choices (41 to 43), age remains 2, and pending state clears. A separate branch declines at age 2 and sacrifices the Wall."
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:504"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
+      "suite": "catalog Kuroki lets its chosen opponent decline or draw before the controller free-casts",
+      "evidence": "The Kuroki source group was removed in 72ef80b4. The catalog integration preserves the exact Lightning Bolt candidate and four-card library, private p2 decline/draw choice, +2 counter outcome, draw, opponent hidden identity, controller-visible identity, and availability of the without-paying-mana cast action. The reusable offerCast owner test casting the pick pays nothing, clears the offer, and the spell resolves normally covers cast completion."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:138"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "opponents do not see the pending Niv-Mizzet payment in projection",
+      "evidence": "The source Niv file was deleted by 798e78c6. The catalog owner verifies the payer has the typed pending optional payment while an opponent projection omits it."
+    },
+    {
+      "groups": [
+        "nivMizzetGhostCounsel:145"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "host restart keeps the open Niv-Mizzet optional life payment",
+      "evidence": "The source group was deleted by 798e78c6. This catalog test JSON-roundtrips the actual canonicalResolutionPayment, verifies the captured gainLife occurrence amount is 2, answers pay, and checks life 40 plus exactly two draws. The separate resolutionPayment.test.ts catalog Niv-Mizzet accepting pays life and draws using the captured gain amount test independently exercises the generic binding at amount 3."
+    },
+    {
+      "groups": [
+        "sinFall:219"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/stepTriggers.test.ts",
+      "suite": "catalog Portal to Phyrexia restores its upkeep creature choice and returns the captured card",
+      "evidence": "The source group was removed by 798e78c6. The catalog owner advances to upkeep with the exact Borrowed Body in the graveyard, JSON-roundtrips the chooser-only creature selection, verifies the selected target is put on the stack, resolves that trigger once, and checks battlefield controller p1 plus the Phyrexian subtype and cleared pending choice."
+    },
+    {
+      "groups": [
+        "sinFallLands:26"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/creatureTypeChoices.test.ts",
+      "suite": "catalog Cavern of Souls restores its private type choice and restricts mana to matching creatures",
+      "evidence": "The Cavern test was removed by 97768667; the unrelated Boseiju channel case remains in sinFallLands.test.ts. This catalog integration JSON-restores the private Wizard type choice, checks the restricted-mana identity, rejects Wrong Bear, casts Matching Wizard as uncounterable, and confirms the restricted mana is consumed."
+    },
+    {
+      "groups": [
+        "sinFallModals:226"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "catalog Profane Command restores its fear and life-loss modes with exact X targets",
+      "evidence": "The source group was deleted by 97768667. The canonical integration selects the original two modes and X=2, serializes the announced stack state, then verifies p3 loses exactly two life and both original creature targets have fear."
     }
   ]
 }
