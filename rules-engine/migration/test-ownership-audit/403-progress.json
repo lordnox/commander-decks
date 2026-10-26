@@ -59,7 +59,11 @@
     "cirdanMiscCards:654",
     "cirdanMiscCards:685",
     "cirdanMiscCards:697",
-    "cirdanMiscCards:729"
+    "cirdanMiscCards:729",
+    "cirdanTriggers:103",
+    "cirdanTriggers:204",
+    "cirdanTriggers:293",
+    "cirdanTriggers:405"
   ],
   "relocations": [
     {
@@ -472,6 +476,38 @@
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "GAP: Kiora chapter III does not ask for ward on a targeted warded permanent",
       "evidence": "Preserves the deliberate GAP characterization with the ward plugin active: Kiora's chapter ability targets the opponent's warded creature, is placed on the stack without a ward payment choice, and takes control. The capability is tracked by #394; this test-ownership change makes no runtime change."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:103"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Woodfall Primus privately offers every legal noncreature permanent, including its controller's",
+      "evidence": "Catalog Woodfall Primus opens an exact one-target choice containing the controller's artifact and opponents' artifact and land, excluding both a creature and artifact creature; the chooser sees the choice and another seat does not."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:204"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Woodfall Primus restores its exact open target choice and resolves the replayed pick",
+      "evidence": "The move-to-battlefield trigger is journaled, restore reproduces the exact pending selection, and the replayed pick destroys the selected opponent land."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:293"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Terastodon offers exactly the legal noncreature targets privately, up to three",
+      "evidence": "Catalog Terastodon is 9/9 and offers the exact two-permanent candidate set including its controller's artifact while excluding the opponent creature; the optional count matches the candidate count and another seat sees no choice."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:405"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Terastodon restores its exact open choice and creates an Elephant for each target controller",
+      "evidence": "The enter trigger is journaled, restore reproduces the exact pending selection, and selecting one artifact each from p2 and p3 destroys both and creates an Elephant under each target controller."
     }
   ]
 }
