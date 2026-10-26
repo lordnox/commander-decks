@@ -40,7 +40,15 @@
     "dackPartyPart35:165",
     "sinFall:143",
     "sinFallReplacements:78",
-    "cardRuleCatalog.modesCopiesAndSearch:234"
+    "cardRuleCatalog.modesCopiesAndSearch:234",
+    "cardRuleCatalog.damageAndLeaves:266",
+    "cardRuleCatalog.drawAndKeywords:169",
+    "cardRuleCatalog.modesCopiesAndSearch:332",
+    "cardRuleCatalog.staticsAndAlternativeCosts:240",
+    "cardRuleCatalog.targetedActions:227",
+    "chainsOfMephistopheles:169",
+    "chainsOfMephistopheles:323",
+    "chainsOfMephistopheles:376"
   ],
   "relocations": [
     {
@@ -301,6 +309,70 @@
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "catalog Diabolic Tutor privately finds any card and shuffles",
       "evidence": "catalog Diabolic Tutor retains canonical snapshot, typed private library candidate set, chosen hand card, unchosen library order, shuffle and spell completion"
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:266"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore keeps the stamped definitionRevision for Fate Unraveler",
+      "evidence": "Uses cardTemplate's canonical Fate Unraveler registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:169"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore keeps the stamped definitionRevision for Duskdale Wurm",
+      "evidence": "Uses cardTemplate's canonical Duskdale Wurm registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:332"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore keeps the stamped definitionRevision for Reverberate",
+      "evidence": "Uses cardTemplate's canonical Reverberate registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:240"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore keeps the stamped definitionRevision for Rest in Peace",
+      "evidence": "Uses cardTemplate's canonical Rest in Peace registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:227"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "journal restore keeps the stamped definitionRevision for Vampire Hounds",
+      "evidence": "Uses cardTemplate's canonical Vampire Hounds registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:169"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "JSON reconnect of a Chains discard resumes the same request without leaking private continuation",
+      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. JSON restore preserves the event-processing frame, complete pending-selection payload, chooser id/candidates, and Chains source id/controller; p2's projection hides the pending request and p1's hand card, p2 cannot answer, and p1's answer clears the frame and request, discards then draws the exact cards, and cannot be replayed."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:323"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a discarded card keeps its discard trigger through JSON restore",
+      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The discard trigger is placed on the stack exactly once before JSON round-trip and remains exactly once after restore with the same stack id/controller/source object; resolving it gains three life and removes the ability from the stack. The p1 discard candidates contain only its hand card despite the p2 secret-hand decoy."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles:376"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a suspended discard destination binds after restore and draws",
+      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The p1 discard candidates exclude p2's secret-hand decoy. After discarding, competing destination options remain suspended and hidden from p2 along with the discarded card; JSON restore preserves the Chains source id/controller, p1 option id and exact options, and discarded-card id/owner/controller. Choosing exile completes the replacement, draws the library card, and clears card and option selections with exact final zones."
     }
   ]
 }

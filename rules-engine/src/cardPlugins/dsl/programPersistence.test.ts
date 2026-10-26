@@ -38,7 +38,9 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok, resolveStack } from '../../testHelpers'
 import type { EventTrace, GameEvent, GameState, Plugin } from '../../types'
+import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 import { answerDiscard, discardThenDrawDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
+import { loadDefinitionSnapshot } from './v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -201,6 +203,29 @@ const elementalCopies = (state: GameState) =>
   Object.values(state.objects).filter((object) => object.token && object.name === 'Command Elemental')
 
 describe('programPersistence', () => {
+  for (const cardName of [
+    'Fate Unraveler',
+    'Duskdale Wurm',
+    'Reverberate',
+    'Rest in Peace',
+    'Vampire Hounds',
+  ]) {
+    test(`journal restore keeps the stamped definitionRevision for ${cardName}`, () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate(cardName)] },
+      }, { random: () => 0 })
+      const object = named(server.state, cardName)
+      const revision = cardRuleDefinitionSnapshotFor(cardName)!.definitionRevision
+      const json = JSON.parse(JSON.stringify(object.ruleDefinition))
+
+      expect(json.definitionRevision).toBe(revision)
+      expect(loadDefinitionSnapshot(json).definitionRevision).toBe(revision)
+      const restored = restoreJournal(createJournal(server.state), server.rules)
+      expect(restored.current().objects[object.id].ruleDefinition?.definitionRevision).toBe(revision)
+    })
+  }
+
   test('journal restore of an untargeted ruleDefinition spell matches live zones, life, and stack', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -273,6 +298,7 @@ describe('programPersistence', () => {
       hands: { p1: [cardTemplate('Secret Hand')] },
       libraries: { p1: [cardTemplate('Lib A'), cardTemplate('Lib B')] },
     }, { random: () => 0 })
+    const chainsId = named(server.state, 'Chains').id
     let state = ownDrawStep(server.state, 'p1')
     state.drawStepTracking!.actualDraws = { p1: 1 }
     state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
@@ -282,8 +308,12 @@ describe('programPersistence', () => {
 
     const restored = JSON.parse(JSON.stringify(state)) as GameState
     const restoredPending = pendingSelectionFor(restored, 'p1')!
+    expect(named(restored, 'Chains').id).toBe(chainsId)
+    expect(named(restored, 'Chains').controller).toBe('p1')
+    expect(restoredPending.seat).toBe('p1')
     expect(restoredPending.id).toBe(pending.id)
     expect(restoredPending.candidates).toEqual(pending.candidates)
+    expect(restoredPending).toEqual(pending)
 
     const replica = projectForViewer(restored, 'p2')
     expect('eventProcessing' in replica).toBe(false)
