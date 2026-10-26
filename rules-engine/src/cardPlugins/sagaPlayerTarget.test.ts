@@ -445,6 +445,13 @@ describe('catalog Kiora Bests the Sea God target lifecycle', () => {
       type: 'topdeck',
       choices: [{ card: 'p3', slot: 0, destination: 'target' }],
     })).toBe(false)
+    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p2', slot: 0, destination: 'target' },
+        { card: 'p3', slot: 1, destination: 'target' },
+      ],
+    })).toThrow()
     expect(pendingPlayerSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
     expect(applyKernelChoice(restartedKernel, restarted, 'p1', {
       type: 'topdeck',
@@ -573,6 +580,12 @@ describe('catalog Kiora Bests the Sea God target lifecycle', () => {
       count: 1,
       objectIds: [target.id],
     }))
+    expect(stacked.stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Kiora Bests the Sea God',
+      payload: { sagaChapter: 3 },
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
     expect(named(stacked, 'Kiora Bests the Sea God').zone).toBe('battlefield')
     named(stacked, 'Foe Alpha').oracleText = 'Hexproof'
     const done = resolveStack(server.rules, stacked)
@@ -592,6 +605,12 @@ describe('catalog Kiora Bests the Sea God target lifecycle', () => {
       count: 1,
       objectIds: [target.id],
     }))
+    expect(stacked.stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Kiora Bests the Sea God',
+      payload: { sagaChapter: 3 },
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
     const gone = ok(server.rules(stacked, { type: 'move', objectId: target.id, to: 'graveyard' }))
     const done = resolveStack(server.rules, gone)
     expect(named(done, 'Foe Beta')).toMatchObject({ zone: 'graveyard', controller: 'p2' })
