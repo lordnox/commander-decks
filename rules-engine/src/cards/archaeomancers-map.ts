@@ -27,7 +27,7 @@ const triggeringPlayersLands = objects({
 
 export default {
   types: ['Artifact'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{2}{W}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

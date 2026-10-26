@@ -9,7 +9,7 @@ const niv = () => cardTemplate('Niv-Mizzet, Ghost Counsel', {
   types: ['Creature'],
   subtypes: ['Spirit', 'Dragon'],
   supertypes: ['Legendary'],
-  colors: ['W', 'B'],
+  colors: 'WB',
   power: 4,
   toughness: 4,
 })

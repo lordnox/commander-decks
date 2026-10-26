@@ -4,7 +4,7 @@ import { activated, manaCost, mill, move, objects, ref, sacrificeCost, self, whe
 
 export default {
   types: ['Creature'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{1}{G}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

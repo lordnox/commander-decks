@@ -14,7 +14,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Instant'], colors: ['B'], manaCost: '{3}{B}{B}', manaValue: 5,
+  types: ['Instant'], colors: 'B', manaCost: '{3}{B}{B}', manaValue: 5,
   ruleDefinition: snapshotFor([
     spell({
       when: allConditions(currentStep('end'), activePlayer(ref('controller'))),

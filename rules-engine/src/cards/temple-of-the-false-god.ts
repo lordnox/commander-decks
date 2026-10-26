@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, compareAmount, count, objects, ref, tapCost } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     activated({
       when: compareAmount(count(objects({ zone: 'battlefield', type: 'Land', controller: 'you' })), 'gte', 5),

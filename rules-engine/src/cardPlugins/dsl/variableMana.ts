@@ -1,4 +1,4 @@
-import type { VariableSpec } from './schema/v1'
+import type { VariableSpec } from './schema/v2'
 
 export const variableManaColor = (variables: readonly VariableSpec[] | undefined) =>
   variables?.find(variable => variable.name === 'X')?.manaColor

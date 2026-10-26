@@ -10,6 +10,7 @@ import {
   commanderRules,
   createJournal,
   createServerGame,
+  KERNEL_SCHEMA,
   importLiveReplayState,
   lastAuthoritativeState,
   recordAccepted,
@@ -127,7 +128,7 @@ export const openKernel = async (
         ? { initial: importLiveReplayState(replay), events: [] }
         : runReplayRounds(replay, lastTurn)
       journal = {
-        schema: 'rules-engine/v0',
+        schema: KERNEL_SCHEMA,
         initial: converted.initial,
         events: converted.events,
       }

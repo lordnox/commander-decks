@@ -11,8 +11,8 @@ import {
   objectMatchesSelector,
   type RuleDslRuntimeContext,
 } from './compiler/runtime'
-import type { Instruction, PlayerRecipient } from './schema/v1'
-import { REVEAL_UNTIL_REST } from './schema/v1'
+import type { Instruction, PlayerRecipient } from './schema/v2'
+import { REVEAL_UNTIL_REST } from './schema/v2'
 
 export type RevealUntilInstruction = Instruction & { kind: 'revealUntil' }
 

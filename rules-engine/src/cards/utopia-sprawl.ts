@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { amount, asThisEntersChooseColor, objects, ref, select, spell, staticAbility, tappedForMana, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Enchantment'], subtypes: ['Aura'], colors: ['G'], manaCost: '{G}', manaValue: 1,
+  types: ['Enchantment'], subtypes: ['Aura'], colors: 'G', manaCost: '{G}', manaValue: 1,
   ruleDefinition: snapshotFor([
     staticAbility({ kind: 'enchant', filter: objects({ zone: 'battlefield', type: 'Land', subtypes: ['Forest'] }) }),
     spell({ decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Land', subtypes: ['Forest'] }), count: 1 })] }, instructions: [] }),

@@ -2,7 +2,7 @@ import { markKnownTo } from '../../knowledge'
 import { manaValueOf } from '../effectRuntime'
 import type Draft from '../../draft'
 import type { GameObject, GameState, PlayerId, SpellCastPermission, ZoneId } from '../../types'
-import { SPELL_CAST_COSTS } from './schema/v1'
+import { SPELL_CAST_COSTS } from './schema/v2'
 
 type PermissionState = GameState | Draft
 

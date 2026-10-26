@@ -4,7 +4,7 @@ import { activated, blinkUntil, manaCost, objects, ref, sacrificeCost, select, s
 
 export default {
   types: ['Artifact'],
-  colors: [],
+  colors: '',
   manaCost: '{1}',
   manaValue: 1,
   ruleDefinition: snapshotFor([

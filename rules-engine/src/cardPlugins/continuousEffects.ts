@@ -16,7 +16,7 @@ import { effectsOf } from './cardRules'
 import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
-import { KEYWORDS } from './dsl/schema/v1'
+import { KEYWORDS } from './dsl/schema/v2'
 import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
@@ -58,7 +58,7 @@ const restoreCopy = (object: GameObject, snapshot: CopySnapshot) => {
   object.supertypes = [...snapshot.supertypes]
   object.manaCost = snapshot.manaCost
   object.manaValue = snapshot.manaValue
-  object.colors = [...snapshot.colors]
+  object.colors = snapshot.colors
   object.power = snapshot.power
   object.toughness = snapshot.toughness
   object.printedLoyalty = snapshot.printedLoyalty
@@ -545,7 +545,7 @@ const effectHolds = (
 const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   switch (effect.kind) {
     case 'colorChange':
-      object.colors = [...effect.before]
+      object.colors = effect.before
       return
     default: break
   }
@@ -610,8 +610,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
   switch (effect.kind) {
     case 'colorChange':
       // Rebase survivors after an earlier color effect expires.
-      effect.before = [...object.colors]
-      object.colors = [...effect.after]
+      effect.before = object.colors
+      object.colors = effect.after
       return
     default: break
   }

@@ -4,7 +4,7 @@ import { chooseModes, counter, draw, move, objects, ref, select, spell, stackIte
 
 export default {
   types: ["Instant"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{1}{U}{U}{U}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

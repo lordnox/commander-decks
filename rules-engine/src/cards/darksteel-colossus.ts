@@ -5,7 +5,7 @@ import { keyword, shuffleIntoOwnerLibrary } from '../cardPlugins/dsl/v1'
 export default {
   types: ['Artifact', 'Creature'],
   subtypes: ['Golem'],
-  colors: [],
+  colors: '',
   manaCost: '{11}',
   manaValue: 11,
   ruleDefinition: snapshotFor([

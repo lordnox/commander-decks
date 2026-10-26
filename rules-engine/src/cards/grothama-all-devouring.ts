@@ -17,7 +17,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Wurm'], colors: ['G'], manaCost: '{3}{G}{G}', manaValue: 5,
+  types: ['Creature'], subtypes: ['Wurm'], colors: 'G', manaCost: '{3}{G}{G}', manaValue: 5,
   ruleDefinition: snapshotFor([
     staticAbility(grantAbilityTo({
       targets: objects({ zone: 'battlefield', type: 'Creature', other: true }),

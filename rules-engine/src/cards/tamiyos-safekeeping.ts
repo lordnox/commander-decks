@@ -4,7 +4,7 @@ import { KEYWORDS, createEffect, gainLife, grantKeywordEffect, objects, ref, sel
 
 export default {
   types: ["Instant"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

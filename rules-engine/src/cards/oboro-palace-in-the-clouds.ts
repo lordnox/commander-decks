@@ -4,7 +4,7 @@ import { activated, manaCost, move, ref } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

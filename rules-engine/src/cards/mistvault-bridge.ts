@@ -4,7 +4,7 @@ import { modifyEvent, replacement, staticAbility, wouldEnter } from '../cardPlug
 
 export default {
   types: ["Artifact", "Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

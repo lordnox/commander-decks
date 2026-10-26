@@ -4,7 +4,7 @@ import { counter, gainLife, ref, select, spell, stackItems, target } from '../ca
 
 export default {
   types: ["Instant"],
-  colors: ["U", "W"],
+  colors: 'WU',
   manaCost: "{W}{U}{U}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

@@ -10,7 +10,7 @@ const recipientValue = (field: 'life' | 'toughness' | 'loyalty') => divide({
 })
 
 export default {
-  types: ['Sorcery'], colors: ['B'], manaCost: '{X}{1}{B}', manaValue: 2,
+  types: ['Sorcery'], colors: 'B', manaCost: '{X}{1}{B}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { variables: [chooseX({ manaColor: 'B' })], targets: [select({ filter: anyTarget(), count: 1 })] },

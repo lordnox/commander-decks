@@ -4,7 +4,7 @@ import { objects, ref, sacrificeCost, searchLibrary, spell } from '../cardPlugin
 
 export default {
   types: ["Instant"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

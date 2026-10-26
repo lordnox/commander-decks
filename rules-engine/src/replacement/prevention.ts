@@ -16,7 +16,7 @@ import type {
   PlayerReference,
   PreventionEffectDefinition,
   PreventionFilter,
-} from '../cardPlugins/dsl/schema/v1'
+} from '../cardPlugins/dsl/schema/v2'
 import { captureObject } from '../objectIdentity'
 import type {
   CapturedObject,

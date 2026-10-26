@@ -4,7 +4,7 @@ import { move, objects, spell } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Instant'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{3}{U}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

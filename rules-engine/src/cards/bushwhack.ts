@@ -4,7 +4,7 @@ import { chooseModes, fight, objects, ref, searchLibrary, select, spell, target 
 
 export default {
   types: ["Sorcery"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

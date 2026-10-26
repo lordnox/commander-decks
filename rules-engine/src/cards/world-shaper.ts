@@ -5,7 +5,7 @@ import { chooseInstructions, mill, move, objects, ref, self, whenever } from '..
 export default {
   types: ["Creature"],
   subtypes: ["Merfolk", "Shaman"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{3}{G}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

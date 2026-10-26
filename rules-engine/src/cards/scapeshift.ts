@@ -5,7 +5,7 @@ import { choice, chooseCards, count, objects, ref, resultAmount, sacrifice, sear
 const lands = objects({ zone: 'battlefield', controller: 'you', type: 'Land' })
 
 export default {
-  types: ['Sorcery'], colors: ['G'], manaCost: '{2}{G}{G}', manaValue: 4,
+  types: ['Sorcery'], colors: 'G', manaCost: '{2}{G}{G}', manaValue: 4,
   ruleDefinition: snapshotFor([spell({ instructions: [
     chooseCards({ chooser: ref('controller'), filter: lands, bindChoice: 'offering', min: 0, max: count(lands) }),
     sacrifice({ targets: choice('offering'), bindCount: 'sacrificed' }),

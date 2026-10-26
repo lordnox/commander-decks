@@ -11,7 +11,7 @@ import {
   printedStaticEffectKey,
   prospectiveBattlefieldStaticReplacements,
 } from '../cardPlugins/dsl/staticModifierCore'
-import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v2'
 import { captureObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
 import { isProtectedFirstDrawInOwnDrawStep } from '../rules/drawStepHistory'

@@ -5,7 +5,7 @@ import { evaluateDistributionBounds, evaluateModeBounds, modeOccurrences, select
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
-import type { CardRuleDefinitionSnapshotV1, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV2, TargetClause } from '../cardPlugins/dsl/schema/v2'
 import type { CanonicalTargetBinding, GameObject, StackExecutionContext, TargetRef } from '../types'
 import { allocationOptions } from './canonicalAllocation'
 import { openCardSelection, targetDestinations } from './selectCards'
@@ -17,7 +17,7 @@ export const ANY_TARGET_KINDS = { player: 'player', permanent: 'permanent' } as 
 type ClauseBounds = { min: number; max: number }
 
 export type CanonicalAnnouncement = {
-  definitionSnapshot: CardRuleDefinitionSnapshotV1
+  definitionSnapshot: CardRuleDefinitionSnapshotV2
   abilityIndex: number
   execution: StackExecutionContext
   source: GameObject
@@ -35,7 +35,7 @@ export type CanonicalAnnouncement = {
 }
 
 export type CanonicalChoicePayload = {
-  definitionSnapshot: CardRuleDefinitionSnapshotV1
+  definitionSnapshot: CardRuleDefinitionSnapshotV2
   abilityIndex: number
   execution: StackExecutionContext
   sourceId: string

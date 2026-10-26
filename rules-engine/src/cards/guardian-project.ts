@@ -9,7 +9,7 @@ const noMatchingCreature = (zone: 'battlefield' | 'graveyard') => compareAmount(
 })), 'eq', 0)
 
 export default {
-  types: ['Enchantment'], colors: ['G'], manaCost: '{3}{G}', manaValue: 4,
+  types: ['Enchantment'], colors: 'G', manaCost: '{3}{G}', manaValue: 4,
   ruleDefinition: snapshotFor([
     whenever(enters({ filter: { type: 'Creature', controller: 'you', token: false } }), {
       interveningIf: allConditions(noMatchingCreature('battlefield'), noMatchingCreature('graveyard')),

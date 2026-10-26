@@ -4,7 +4,7 @@ import { move, objects, redirectEvent, replacement, self, staticAbility, wheneve
 
 export default {
   types: ["Enchantment"],
-  colors: ["W"],
+  colors: 'W',
   manaCost: "{1}{W}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

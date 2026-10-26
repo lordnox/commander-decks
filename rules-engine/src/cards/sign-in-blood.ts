@@ -4,7 +4,7 @@ import { draw, loseLife, players, select, spell, target } from '../cardPlugins/d
 
 export default {
   types: ["Sorcery"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{B}{B}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

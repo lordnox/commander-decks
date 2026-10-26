@@ -8,7 +8,7 @@ import { copyUntilEndOfTurn } from '../continuousEffects'
 import { copyCharacteristics } from '../effectRuntime'
 import { instructionSpell } from './instructionTestSupport'
 import { card, compileCardRuleDefinition, createEffect, objects, permanentEffect, setColorsEffect, spell, stackItems, select, counter, target, untilCleanup, untilStep } from './v1'
-import type { CardColor, EffectDuration } from './v1'
+import type { CardColor, ColorSet, EffectDuration } from './v1'
 
 const compileColorFilter = (color: unknown) => compileCardRuleDefinition(card([spell({
   decisions: { targets: [select({ filter: stackItems({ kind: 'spell', color: color as CardColor }), count: 1 })] },
@@ -16,19 +16,19 @@ const compileColorFilter = (color: unknown) => compileCardRuleDefinition(card([s
 })]))
 
 const recipientName = 'Color recipient fixture'
-const colorResponse = (colors: readonly CardColor[], duration: EffectDuration = untilCleanup()) => instructionSpell({
+const colorResponse = (colors: ColorSet, duration: EffectDuration = untilCleanup()) => instructionSpell({
   instructions: [createEffect({ targets: objects({ name: recipientName }), effect: setColorsEffect(colors), duration })],
 })
 
 test('setColors preserves timestamp order across cleanup, restore, and later expiration', () => {
-  const first = colorResponse(['B'])
+  const first = colorResponse('B')
   first.name = 'First color fixture'
-  const second = colorResponse(['R'], untilStep('untap'))
+  const second = colorResponse('R', untilStep('untap'))
   second.name = 'Second color fixture'
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [first, second] },
-    battlefield: { p1: [cardTemplate(recipientName, { types: ['Creature'], colors: ['U'], power: 2, toughness: 2 })] },
+    battlefield: { p1: [cardTemplate(recipientName, { types: ['Creature'], colors: 'U', power: 2, toughness: 2 })] },
   }, { random: () => 0 })
   const find = (name: string) => Object.values(server.state.objects).find(object => object.name === name)!
   const recipient = find(recipientName)
@@ -37,24 +37,24 @@ test('setColors preserves timestamp order across cleanup, restore, and later exp
     const cast = ok(server.rules(current, { type: 'castSpell', seat: 'p1', objectId: find(name).id }))
     current = ok(server.rules(cast, { type: 'resolveTop' }))
   }
-  expect(current.objects[recipient.id].colors).toEqual(['R'])
+  expect(current.objects[recipient.id].colors).toBe('R')
   current = restoreJournal(createJournal(current), server.rules).current()
   const cleanup = ok(server.rules({ ...current, step: 'end', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' }))
   expect(cleanup.step).toBe('cleanup')
-  expect(cleanup.objects[recipient.id].colors).toEqual(['R'])
+  expect(cleanup.objects[recipient.id].colors).toBe('R')
   expect(cleanup.objects[recipient.id].continuousEffects).toHaveLength(1)
   const restored = restoreJournal(createJournal(cleanup), server.rules).current()
   const untap = ok(server.rules(restored, { type: 'advanceStep' }))
   expect(untap.step).toBe('untap')
-  expect(untap.objects[recipient.id].colors).toEqual(['U'])
+  expect(untap.objects[recipient.id].colors).toBe('U')
   expect(untap.objects[recipient.id].continuousEffects).toBeUndefined()
 })
 
 test('setColors follows a permanent spell onto the battlefield but expires when it leaves', () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [colorResponse(['B'], permanentEffect()), cardTemplate(recipientName, {
-      types: ['Creature'], colors: ['U'], manaCost: '{0}', power: 2, toughness: 2,
+    hands: { p1: [colorResponse('B', permanentEffect()), cardTemplate(recipientName, {
+      types: ['Creature'], colors: 'U', manaCost: '{0}', power: 2, toughness: 2,
     })] },
   }, { random: () => 0 })
   const source = Object.values(server.state.objects).find(object => object.name === 'Instruction fixture')!
@@ -62,37 +62,37 @@ test('setColors follows a permanent spell onto the battlefield but expires when 
   const stacked = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: recipient.id }))
   const responded = ok(server.rules(stacked, { type: 'castSpell', seat: 'p1', objectId: source.id }))
   const changed = ok(server.rules(responded, { type: 'resolveTop' }))
-  expect(changed.objects[recipient.id].colors).toEqual(['B'])
+  expect(changed.objects[recipient.id].colors).toBe('B')
   const restored = restoreJournal(createJournal(changed), server.rules).current()
   const permanent = ok(server.rules(restored, { type: 'resolveTop' }))
   expect(permanent.objects[recipient.id].zone).toBe('battlefield')
-  expect(permanent.objects[recipient.id].colors).toEqual(['B'])
+  expect(permanent.objects[recipient.id].colors).toBe('B')
   const died = ok(server.rules(permanent, { type: 'move', objectId: recipient.id, to: 'graveyard' }))
-  expect(died.objects[recipient.id].colors).toEqual(['U'])
+  expect(died.objects[recipient.id].colors).toBe('U')
   expect(died.objects[recipient.id].continuousEffects).toBeUndefined()
   const returned = ok(server.rules(died, { type: 'move', objectId: recipient.id, to: 'battlefield' }))
-  expect(returned.objects[recipient.id].colors).toEqual(['U'])
+  expect(returned.objects[recipient.id].colors).toBe('U')
 })
 
 test('setColors supports colorless objects and nonbattlefield recipients without changing costs', () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [colorResponse([]), cardTemplate(recipientName, { colors: ['U'], manaCost: '{U}' })] },
+    hands: { p1: [colorResponse(''), cardTemplate(recipientName, { colors: 'U', manaCost: '{U}' })] },
   }, { random: () => 0 })
   const source = Object.values(server.state.objects).find(object => object.name === 'Instruction fixture')!
   const recipient = Object.values(server.state.objects).find(object => object.name === recipientName)!
   const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id }))
   const changed = ok(server.rules(cast, { type: 'resolveTop' }))
   expect(changed.objects[recipient.id].zone).toBe('hand')
-  expect(changed.objects[recipient.id].colors).toEqual([])
+  expect(changed.objects[recipient.id].colors).toBe('')
   expect(changed.objects[recipient.id].manaCost).toBe('{U}')
 })
 
 test('color filters compose and validate only Magic colors, and setColors rejects invalid colors', () => {
   for (const color of ['W', 'U', 'B', 'R', 'G']) expect(() => compileColorFilter(color)).not.toThrow()
-  for (const color of ['C', 'blue', '', 1]) {
+  for (const color of ['C', 'blue', 1]) {
     expect(() => compileColorFilter(color)).toThrow()
-    expect(() => colorResponse([color as CardColor])).toThrow()
+    expect(() => colorResponse(color as ColorSet)).toThrow()
   }
   expect(() => compileCardRuleDefinition(card([spell({
     decisions: { targets: [select({ filter: stackItems({ all: [{ kind: 'spell' }, { any: [{ color: 'U' }, { color: 'R' }] }], not: { color: 'B' } }), count: 1 })] },
@@ -106,10 +106,10 @@ for (const colorAppliedFirst of [false, true]) {
     test(`setColors layer 5 follows copy layer 1 (color applied first: ${colorAppliedFirst}, color expires first: ${colorExpiresFirst})`, () => {
       const server = createServerGame(commanderRules, {
         players: 2,
-        hands: { p1: [colorResponse(['B'], untilStep(colorExpiresFirst ? 'end' : 'untap'))] },
+        hands: { p1: [colorResponse('B', untilStep(colorExpiresFirst ? 'end' : 'untap'))] },
         battlefield: { p1: [
-          cardTemplate(recipientName, { types: ['Creature'], colors: ['U'], power: 2, toughness: 2 }),
-          cardTemplate('Copy model fixture', { types: ['Creature'], colors: ['R'], power: 3, toughness: 3 }),
+          cardTemplate(recipientName, { types: ['Creature'], colors: 'U', power: 2, toughness: 2 }),
+          cardTemplate('Copy model fixture', { types: ['Creature'], colors: 'R', power: 3, toughness: 3 }),
         ] },
       }, { random: () => 0 })
       const source = Object.values(server.state.objects).find(object => object.name === 'Instruction fixture')!
@@ -122,17 +122,17 @@ for (const colorAppliedFirst of [false, true]) {
       const cast = ok(server.rules(current, { type: 'castSpell', seat: 'p1', objectId: source.id }))
       current = ok(server.rules(cast, { type: 'resolveTop' }))
       if (colorAppliedFirst) copyUntilEndOfTurn(current.objects[recipient.id], copyModel)
-      expect(current.objects[recipient.id].colors).toEqual(['B'])
-      expect(copyCharacteristics(current.objects[recipient.id]).colors).toEqual(['R'])
+      expect(current.objects[recipient.id].colors).toBe('B')
+      expect(copyCharacteristics(current.objects[recipient.id]).colors).toBe('R')
       current = restoreJournal(createJournal(current), server.rules).current()
       const end = ok(server.rules({ ...current, step: 'postcombatMain', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' }))
       expect(end.step).toBe('end')
-      expect(end.objects[recipient.id].colors).toEqual(colorExpiresFirst ? ['R'] : ['B'])
+      expect(end.objects[recipient.id].colors).toBe(colorExpiresFirst ? 'R' : 'B')
       const cleanup = ok(server.rules(end, { type: 'advanceStep' }))
-      expect(cleanup.objects[recipient.id].colors).toEqual(colorExpiresFirst ? ['U'] : ['B'])
+      expect(cleanup.objects[recipient.id].colors).toBe(colorExpiresFirst ? 'U' : 'B')
       const restored = restoreJournal(createJournal(cleanup), server.rules).current()
       const untap = ok(server.rules(restored, { type: 'advanceStep' }))
-      expect(untap.objects[recipient.id].colors).toEqual(['U'])
+      expect(untap.objects[recipient.id].colors).toBe('U')
       expect(untap.objects[recipient.id].continuousEffects).toBeUndefined()
     })
   }

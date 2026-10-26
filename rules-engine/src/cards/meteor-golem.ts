@@ -5,7 +5,7 @@ import { destroy, objects, select, self, target, whenever } from '../cardPlugins
 export default {
   types: ["Artifact", "Creature"],
   subtypes: ["Golem"],
-  colors: [],
+  colors: '',
   manaCost: "{7}",
   manaValue: 7,
   ruleDefinition: snapshotFor([

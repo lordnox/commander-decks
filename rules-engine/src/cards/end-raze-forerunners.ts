@@ -5,7 +5,7 @@ import { createEffect, grantKeywordEffect, keyword, KEYWORDS, objects, pumpEffec
 export default {
   types: ["Creature"],
   subtypes: ["Boar"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{5}{G}{G}{G}",
   manaValue: 8,
   ruleDefinition: snapshotFor([

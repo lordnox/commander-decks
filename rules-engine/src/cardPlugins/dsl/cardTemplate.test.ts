@@ -5,11 +5,10 @@ import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
 test('catalog card templates own their mutable defaults', () => {
   const first = cardTemplate('Counterspell')
   first.types.push('Creature')
-  first.colors.push('R')
   first.ruleDefinition!.definitionRevision = 'changed fixture'
   const next = cardTemplate('Counterspell')
   expect(next.types).toEqual(['Instant'])
-  expect(next.colors).toEqual(['U'])
+  expect(next.colors).toBe('U')
   expect(next.manaValue).toBe(2)
   expect(next.manaCost).toBe('{U}{U}')
   expect(next.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Counterspell'))

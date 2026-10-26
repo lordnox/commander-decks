@@ -7,6 +7,7 @@ import type {
   TriggerBindingIf,
   ZoneId,
 } from '../types'
+import type { ColorSet } from '../../../shared/cardColors'
 
 /**
  * Static P/T from cards exiled with the source: a fixed bonus per card, or
@@ -63,7 +64,7 @@ export type TokenSpec = {
   power?: number | null
   toughness?: number | null
   oracleText?: string
-  colors?: string[]
+  colors?: ColorSet
   sacrificeForMana?: Partial<ManaPool>
   /** Stamped onto the token; plugins read these, never the token's name. */
   effects?: CardEffect[]
@@ -229,7 +230,7 @@ export type CardInstruction =
     }
   | {
       kind: 'embalmToken'
-      colors: string[]
+      colors: ColorSet
       extraSubtypes: string[]
     }
   | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }

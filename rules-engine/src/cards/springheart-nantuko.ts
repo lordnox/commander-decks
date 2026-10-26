@@ -23,7 +23,7 @@ import {
 export default {
   types: ['Enchantment', 'Creature'],
   subtypes: ['Insect', 'Monk'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{1}{G}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

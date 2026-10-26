@@ -1,6 +1,6 @@
 import type { GameObject, Plugin } from '../types'
 import { hasKeyword } from '../keywords'
-import { KEYWORDS } from './dsl/schema/v1'
+import { KEYWORDS } from './dsl/schema/v2'
 import { openStackCopyChoice } from './stackCopy'
 
 export const DEMONSTRATE_TRIGGER = 'demonstrate.trigger'

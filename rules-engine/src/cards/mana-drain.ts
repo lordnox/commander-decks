@@ -15,7 +15,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Instant'], colors: ['U'], manaCost: '{U}{U}', manaValue: 2,
+  types: ['Instant'], colors: 'U', manaCost: '{U}{U}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] },

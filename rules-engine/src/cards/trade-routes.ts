@@ -4,7 +4,7 @@ import { activated, discardCost, draw, manaCost, move, objects, select, target }
 
 export default {
   types: ["Enchantment"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{1}{U}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

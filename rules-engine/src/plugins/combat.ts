@@ -1,6 +1,6 @@
 import { playerAttackDeclarationError } from '../rules/attackRequirements'
 import { isSameObject } from '../objectIdentity'
-import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
+import { KEYWORDS } from '../cardPlugins/dsl/schema/v2'
 import { COMBAT_ERRORS } from './combatConstants'
 import { attackDeclarationBanned } from '../cardPlugins/attackBan'
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'

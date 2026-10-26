@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { blinkUntil, compareAmount, destroy, hasGreatestCharacteristic, ifThen, manaCost, objects, paidCostCount, select, spell, stepDelayed, target } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -149,7 +149,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Instant'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Instant'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ optionalCostBounds: { min: 1 }, optionalCosts: [manaCost('{1}'), manaCost('{2}')],
       costLabels: { optional: ['Exile and return — {1}', 'Destroy a creature with greatest power — {2}'] },

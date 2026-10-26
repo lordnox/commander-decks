@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { attacks, choice, chooseCardsForEachPlayer, compareAmount, draw, enters, forEachPlayer, ifThen, keywordAbility, move, objects, players, ref, vote, voteTally, whenever } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -149,7 +149,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Creature'], subtypes: ['Elf', 'Noble'], supertypes: ['Legendary'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     keywordAbility('vigilance'),
     ...[enters({ filter: ref('source') }), attacks({ filter: ref('source') })].map(on => whenever(on, { instructions: [

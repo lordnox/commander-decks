@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
+import { normalizeColorSet } from '../../../shared/cardColors'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState, Plugin, PlayerId, ReduceResult } from '../types'
@@ -42,7 +43,7 @@ export const deckCard = (name: string, extra: Partial<CardTemplate> = {}): CardT
     subtypes: back ? back.split(' ') : [],
     manaCost: card.mana_cost,
     manaValue: card.cmc,
-    colors,
+    colors: normalizeColorSet(colors),
     oracleText: card.oracle_text,
     ...(hasStats ? { power: Number(card.power), toughness: Number(card.toughness) } : {}),
     ...extra,

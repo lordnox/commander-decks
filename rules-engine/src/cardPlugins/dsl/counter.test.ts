@@ -129,7 +129,7 @@ for (const changeColor of [false, true]) {
   test(`counter checks current spell color at resolution (${changeColor ? 'response makes blue spell black' : 'blue spell stays blue'})`, () => {
     const colorChange = instructionSpell({
       decisions: { targets: [select({ filter: objects({ zone: 'stack', type: 'Instant' }), count: 1 })] },
-      instructions: [createEffect({ targets: target(0), effect: setColorsEffect(['B']), duration: untilCleanup() })],
+      instructions: [createEffect({ targets: target(0), effect: setColorsEffect('B'), duration: untilCleanup() })],
     })
     colorChange.name = 'Color response fixture'
     const server = createServerGame(commanderRules, {
@@ -140,7 +140,7 @@ for (const changeColor of [false, true]) {
           instructions: [counter({ targets: target(0) }), gainLife({ amount: 3, targets: ref('controller') })],
         }),
         colorChange,
-        cardTemplate('Blue instant fixture', { types: ['Instant'], colors: ['U'], manaCost: '{0}' }),
+        cardTemplate('Blue instant fixture', { types: ['Instant'], colors: 'U', manaCost: '{0}' }),
       ] },
     }, { random: () => 0 })
     const find = (name: string) => Object.values(server.state.objects).find(object => object.name === name)!
@@ -160,11 +160,11 @@ for (const changeColor of [false, true]) {
       expect(responded.stack.map(item => item.objectId)).toEqual([response.id, source.id, victim.id])
       const restoredResponse = restoreJournal(createJournal(responded), server.rules).current()
       const changed = ok(server.rules(restoredResponse, { type: 'resolveTop' }))
-      expect(changed.objects[victim.id].colors).toEqual(['B'])
+      expect(changed.objects[victim.id].colors).toBe('B')
       expect(changed.objects[response.id].zone).toBe('graveyard')
       expect(changed.stack.map(item => item.objectId)).toEqual([source.id, victim.id])
       current = restoreJournal(createJournal(changed), server.rules).current()
-      expect(current.objects[victim.id].colors).toEqual(['B'])
+      expect(current.objects[victim.id].colors).toBe('B')
     }
     const lifeBefore = current.players.p1.life
     const resolved = ok(server.rules(current, { type: 'resolveTop' }))
@@ -176,7 +176,7 @@ for (const changeColor of [false, true]) {
       expect(resolved.players.p1.life).toBe(lifeBefore)
       const victimResolved = ok(server.rules(resolved, { type: 'resolveTop' }))
       expect(victimResolved.objects[victim.id].zone).toBe('graveyard')
-      expect(victimResolved.objects[victim.id].colors).toEqual(['U'])
+      expect(victimResolved.objects[victim.id].colors).toBe('U')
       expect(victimResolved.objects[victim.id].continuousEffects).toBeUndefined()
     } else {
       expect(resolved.objects[victim.id].zone).toBe('graveyard')
@@ -357,7 +357,7 @@ test.each([false, true])('counter follow-up retains controller even if the spell
   const cast = ok(server.rules(responding, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0]!.id }] }))
   const state = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
   const bird = Object.values(state.objects).find(object => object.token)!
-  expect(bird).toMatchObject({ controller: 'p2', types: ['Creature'], subtypes: ['Bird'], colors: ['U'], power: 2, toughness: 2 })
+  expect(bird).toMatchObject({ controller: 'p2', types: ['Creature'], subtypes: ['Bird'], colors: 'U', power: 2, toughness: 2 })
   expect(hasKeyword(bird, 'flying')).toBe(true)
   expect(state.objects[ready.zoneOrder.p2.hand[0]!].zone).toBe(uncounterable ? 'stack' : 'graveyard')
 })

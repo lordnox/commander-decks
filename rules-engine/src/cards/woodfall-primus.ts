@@ -14,7 +14,7 @@ import {
 export default {
   types: ['Creature'],
   subtypes: ['Treefolk', 'Shaman'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{5}{G}{G}{G}',
   manaValue: 8,
   ruleDefinition: snapshotFor([

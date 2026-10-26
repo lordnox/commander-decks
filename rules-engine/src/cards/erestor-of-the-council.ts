@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { count, createToken, draw, players, ref, scry, token, votesFinished, whenever } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -168,7 +168,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Creature'], subtypes: ['Elf', 'Noble'], supertypes: ['Legendary'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     whenever(votesFinished('vote'), { instructions: [createToken({ count: 1, targets: players({ relation: 'opponent', voted: { binding: 'vote', with: ref('controller'), agreement: 'same' } }), token: token('Treasure') }), scry({ count: count(players({ relation: 'opponent', voted: { binding: 'vote', with: ref('controller'), agreement: 'different' } })), targets: ref('controller') }), draw(1)] }),
   ]),

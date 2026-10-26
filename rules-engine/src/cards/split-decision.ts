@@ -14,7 +14,7 @@ import {
 
 export default {
   types: ['Instant'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{1}{U}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

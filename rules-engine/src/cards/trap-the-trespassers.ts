@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { choice, forEach, objects, putCounters, ref, spell, tap, vote, voteTally } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -141,7 +141,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Instant'], subtypes: [], supertypes: [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ instructions: [vote({ prompt: 'Secretly vote for a creature you do not control.', secret: true, options: { kind: 'objects', filter: objects({ zone: 'battlefield', type: 'Creature', not: { controller: 'you' } }) }, bindResult: 'vote', bindObjects: 'voted' }), forEach({ of: choice('voted'), instructions: [putCounters({ targets: ref('triggering.object.after'), counter: 'stun', count: voteTally('vote', { object: ref('triggering.object.after') }) }), tap(ref('triggering.object.after'))] })] }),
   ]),

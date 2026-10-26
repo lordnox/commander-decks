@@ -28,7 +28,7 @@ const millReturnLand = [
 ]
 
 export default {
-  types: ['Creature'], subtypes: ['Turtle'], colors: ['G'], manaCost: '{2}{G}{G}', manaValue: 4,
+  types: ['Creature'], subtypes: ['Turtle'], colors: 'G', manaCost: '{2}{G}{G}', manaValue: 4,
   ruleDefinition: snapshotFor([
     whenever(self.enters, { instructions: millReturnLand }),
     whenever(self.attacks, { instructions: millReturnLand }),

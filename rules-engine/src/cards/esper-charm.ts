@@ -4,7 +4,7 @@ import { chooseModes, destroy, discard, draw, objects, players, ref, select, spe
 
 export default {
   types: ["Instant"],
-  colors: ["B", "U", "W"],
+  colors: 'WUB',
   manaCost: "{W}{U}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

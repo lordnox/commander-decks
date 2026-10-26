@@ -4,7 +4,7 @@ import { destroy, objects, ref, searchLibrary, select, spell, target } from '../
 
 export default {
   types: ["Instant"],
-  colors: ["B", "G"],
+  colors: 'BG',
   manaCost: "{1}{B}{B}{G}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

@@ -6,6 +6,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { hasKeyword } from '../../keywords'
+import { copyCharacteristics } from '../effectRuntime'
 import { instructionSpell } from './instructionTestSupport'
 import {
   captureCopy,
@@ -81,27 +82,35 @@ test('copy except adds types, subtypes, and removes the mana cost', () => {
 })
 
 test('copy except can replace colors after copiable values are taken', () => {
-  const { copy: token } = resolveCopy({ colors: ['U'] }, { colors: ['W'] })
-  expect(token.colors).toEqual(['W'])
+  const { copy: token } = resolveCopy({ colors: 'U' }, { colors: 'W' })
+  expect(token.colors).toBe('W')
+})
+
+test('copy except preserves an explicit colorless override through snapshot restore', () => {
+  const { server, copy: token, resolved } = resolveCopy({ colors: 'U' }, { colors: '' })
+  expect(token.colors).toBe('')
+  expect(copyCharacteristics(token).colors).toBe('')
+  const restored = restoreJournal(createJournal(resolved), server.rules).current()
+  expect(copiesOf(restored, 'Copied Original')[0]!.colors).toBe('')
 })
 
 test('copy keeps copiable colors unless except replaces them', () => {
   const paint = instructionSpell({
     instructions: [createEffect({
       targets: objects({ name: 'Copied Original' }),
-      effect: setColorsEffect(['B']),
+      effect: setColorsEffect('B'),
       duration: untilCleanup(),
     })],
   })
   paint.name = 'Paint fixture'
   const copiableCopy = copySpell()
   copiableCopy.name = 'Copiable copy fixture'
-  const overriddenCopy = copySpell({ colors: ['W'] })
+  const overriddenCopy = copySpell({ colors: 'W' })
   overriddenCopy.name = 'Overridden copy fixture'
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [paint, copiableCopy, overriddenCopy] },
-    battlefield: { p1: [cardTemplate('Copied Original', { types: ['Creature'], colors: ['R'], power: 2, toughness: 2 })] },
+    battlefield: { p1: [cardTemplate('Copied Original', { types: ['Creature'], colors: 'R', power: 2, toughness: 2 })] },
   }, { random: () => 0 })
   let state = structuredClone(server.state)
   state = resolveStack(server.rules, ok(server.rules(state, {
@@ -109,14 +118,14 @@ test('copy keeps copiable colors unless except replaces them', () => {
     seat: 'p1',
     objectId: named(state, 'Paint fixture').id,
   })))
-  expect(named(state, 'Copied Original').colors).toEqual(['B'])
+  expect(named(state, 'Copied Original').colors).toBe('B')
   const copiable = resolveStack(server.rules, ok(server.rules(state, {
     type: 'castSpell',
     seat: 'p1',
     objectId: named(state, 'Copiable copy fixture').id,
     targets: [{ kind: 'object', objectId: named(state, 'Copied Original').id }],
   })))
-  expect(copiesOf(copiable, 'Copied Original')[0]!.colors).toEqual(['R'])
+  expect(copiesOf(copiable, 'Copied Original')[0]!.colors).toBe('R')
   const overridden = resolveStack(server.rules, ok(server.rules(copiable, {
     type: 'castSpell',
     seat: 'p1',
@@ -124,7 +133,7 @@ test('copy keeps copiable colors unless except replaces them', () => {
     targets: [{ kind: 'object', objectId: named(copiable, 'Copied Original').id }],
   })))
   const copies = copiesOf(overridden, 'Copied Original')
-  expect(copies.map(token => token.colors.join('')).toSorted()).toEqual(['R', 'W'])
+  expect(copies.map(token => token.colors).toSorted()).toEqual(['R', 'W'])
 })
 
 test('copy except applies to a captured snapshot after the original leaves', () => {

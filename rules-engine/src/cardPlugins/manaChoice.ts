@@ -6,7 +6,7 @@ import { effectsOf } from './cardRules'
 import { conditionHolds } from './effects'
 import { captureObject } from '../objectIdentity'
 import { evaluateCreatureType, evaluatePlayerReference, evaluatePlayerSelector, evaluateRuntimeAmount, isSourceSacrificeCost, loadDefinitionSnapshot, lockedManaCost } from './dsl/compiler'
-import type { Instruction } from './dsl/schema/v1'
+import type { Instruction } from './dsl/schema/v2'
 import type { InstructionHandler } from './instructionHandlers/types'
 
 const MANA_ORDER: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { choice, chooseCards, manaAndLifeCost, mill, move, objects, payOptional, ref, stepBegins, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; source retrieval date is unknown.
@@ -149,7 +149,7 @@ const scryfall = {
 export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

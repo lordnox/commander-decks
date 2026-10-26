@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseCards, ifThen, move, objects, ref, result, sacrifice, select, spell, target } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Sorcery'], colors: ['B'], manaCost: '{2}{B}', manaValue: 3,
+  types: ['Sorcery'], colors: 'B', manaCost: '{2}{B}', manaValue: 3,
   ruleDefinition: snapshotFor([spell({
     decisions: { targets: [select({ filter: objects({ zone: 'graveyard', type: 'Creature', owner: 'you' }), count: 2 })] },
     instructions: [

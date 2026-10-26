@@ -4,7 +4,7 @@ import { grantLandType, objects, staticAbility } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Enchantment'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{1}{B}{B}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

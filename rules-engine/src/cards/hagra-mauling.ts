@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activated, amount, compareAmount, count, destroy, modifyEvent, objects, players, ref, replacement, select, spell, staticAbility, tapCost, target, wouldEnter } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -196,7 +196,7 @@ const landDefinition = snapshotFor([
 ])
 
 export default {
-  scryfall, types: ['Instant'], colors: front.colors, manaCost: front.mana_cost, manaValue: scryfall.cmc, ruleDefinition,
-  frontFace: { types: ['Instant'], colors: front.colors, manaCost: front.mana_cost, manaValue: scryfall.cmc, subtypes: [], supertypes: [], oracleText: front.oracle_text, ruleDefinition },
-  backFace: { types: ['Land'], colors: back.colors, manaCost: '', manaValue: 0, subtypes: [], supertypes: [], oracleText: back.oracle_text, ruleDefinition: landDefinition },
+  scryfall, types: ['Instant'], colors: colorSetFromScryfall(front.colors), manaCost: front.mana_cost, manaValue: scryfall.cmc, ruleDefinition,
+  frontFace: { types: ['Instant'], colors: colorSetFromScryfall(front.colors), manaCost: front.mana_cost, manaValue: scryfall.cmc, subtypes: [], supertypes: [], oracleText: front.oracle_text, ruleDefinition },
+  backFace: { types: ['Land'], colors: colorSetFromScryfall(back.colors), manaCost: '', manaValue: 0, subtypes: [], supertypes: [], oracleText: back.oracle_text, ruleDefinition: landDefinition },
 } satisfies CatalogEntry

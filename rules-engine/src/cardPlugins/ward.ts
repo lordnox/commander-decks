@@ -1,5 +1,5 @@
 import { matchesPlayer } from './dsl/compiler/runtime'
-import { PLAYER_RELATIONS } from './dsl/schema/v1'
+import { PLAYER_RELATIONS } from './dsl/schema/v2'
 import type Draft from '../draft'
 import type { StackItem } from '../types'
 import {

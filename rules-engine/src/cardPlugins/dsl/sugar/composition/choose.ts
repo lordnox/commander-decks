@@ -1,4 +1,4 @@
-import type { Instruction, PlayerReference } from '../../schema/v1'
+import type { Instruction, PlayerReference } from '../../schema/v2'
 import { chooseInstructions, ref } from '../../builders'
 
 export const choose = (input: {

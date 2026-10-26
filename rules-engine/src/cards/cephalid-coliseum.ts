@@ -19,7 +19,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     activated({
       costs: [tapCost()],

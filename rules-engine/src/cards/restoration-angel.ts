@@ -5,7 +5,7 @@ import { blink, keyword, may, objects, ref, select, self, target, whenever } fro
 export default {
   types: ['Creature'],
   subtypes: ['Angel'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{3}{W}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

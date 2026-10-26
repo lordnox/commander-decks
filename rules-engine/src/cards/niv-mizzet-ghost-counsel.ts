@@ -20,7 +20,7 @@ export default {
   types: ['Creature'],
   subtypes: ['Spirit', 'Dragon'],
   supertypes: ['Legendary'],
-  colors: ['B', 'W'],
+  colors: 'WB',
   manaCost: '{2}{W}{W}{B}{B}',
   manaValue: 6,
   ruleDefinition: snapshotFor([

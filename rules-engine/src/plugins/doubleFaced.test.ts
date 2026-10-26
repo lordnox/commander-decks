@@ -21,7 +21,7 @@ const bridgeworks = () => cardTemplate('Bridgeworks Battle // Tanglespan Bridgew
     supertypes: [],
     manaCost: '{2}{G}',
     manaValue: 3,
-    colors: ['G'],
+    colors: 'G',
   },
   backFace: {
     types: ['Land'],
@@ -29,7 +29,7 @@ const bridgeworks = () => cardTemplate('Bridgeworks Battle // Tanglespan Bridgew
     supertypes: [],
     manaCost: '',
     manaValue: 0,
-    colors: [],
+    colors: '',
   },
 })
 
@@ -103,7 +103,7 @@ describe('modal double-faced cards', () => {
         supertypes: [],
         manaCost: '{1}{U}',
         manaValue: 2,
-        colors: ['U'],
+        colors: 'U',
         oracleText: spellText,
       },
       backFace: {
@@ -112,7 +112,7 @@ describe('modal double-faced cards', () => {
         supertypes: [],
         manaCost: '',
         manaValue: 0,
-        colors: [],
+        colors: '',
         oracleText: landText,
       },
     })

@@ -4,7 +4,7 @@ import { activated, lifeCost, move, ref } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Creature"],
-  colors: ["B", "W"],
+  colors: 'WB',
   manaCost: "{3}{W}{B}",
   manaValue: 5,
   ruleDefinition: snapshotFor([

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { chooseX, gainLife, loseLife, players, ref, resultAmount, spell, variable } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Sorcery'], colors: ["B"], manaCost: '{X}{B}{B}', manaValue: 2,
+  types: ['Sorcery'], colors: 'B', manaCost: '{X}{B}{B}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { variables: [chooseX()] },

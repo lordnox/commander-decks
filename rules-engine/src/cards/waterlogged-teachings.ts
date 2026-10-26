@@ -22,13 +22,13 @@ const ruleDefinition = snapshotFor([
 
 export default {
   types: ['Instant'],
-  colors: ['U', 'B'],
+  colors: 'UB',
   manaCost: '{3}{U/B}',
   manaValue: 4,
   ruleDefinition,
   frontFace: {
     types: ['Instant'],
-    colors: ['U', 'B'],
+    colors: 'UB',
     manaCost: '{3}{U/B}',
     manaValue: 4,
     subtypes: [],

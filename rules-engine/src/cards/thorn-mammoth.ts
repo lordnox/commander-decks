@@ -5,7 +5,7 @@ import { enters, fight, keyword, objects, ref, select, target, whenever } from '
 export default {
   types: ["Creature"],
   subtypes: ["Elephant"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{5}{G}{G}",
   manaValue: 7,
   ruleDefinition: snapshotFor([

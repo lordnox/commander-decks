@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import {
   anyTarget,
   activated,
@@ -165,7 +165,7 @@ export default {
   types: ['Planeswalker'],
   supertypes: ['Legendary'],
   subtypes: typeLine[1]?.split(' ') ?? [],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   printedLoyalty: Number(scryfall.loyalty),

@@ -1,6 +1,6 @@
 import { definitionRevisionFor } from './builders/revision'
-import { RULE_DSL_SCHEMA_VERSION } from './schema/v1'
-import type { InstructionResult, GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
+import { RULE_DSL_SCHEMA_VERSION } from './schema/v2'
+import type { InstructionResult, GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v2'
 import type { ZoneId } from '../../types'
 
 /**

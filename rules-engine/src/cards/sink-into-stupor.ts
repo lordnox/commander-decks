@@ -23,7 +23,7 @@ const ruleDefinition = snapshotFor([
 
 export default {
   types: ['Instant'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{1}{U}{U}',
   manaValue: 3,
   ruleDefinition,
@@ -31,7 +31,7 @@ export default {
     types: ['Instant'],
     subtypes: [],
     supertypes: [],
-    colors: ['U'],
+    colors: 'U',
     manaCost: '{1}{U}{U}',
     manaValue: 3,
     oracleText: "Return target spell or nonland permanent an opponent controls to its owner's hand.",

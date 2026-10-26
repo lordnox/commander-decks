@@ -4,7 +4,7 @@ import { characteristic, divide, draw, loseLife, ref, ROUNDING_MODES, spell } fr
 
 export default {
   types: ['Sorcery'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{B}{B}{B}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

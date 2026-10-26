@@ -1,4 +1,5 @@
 import { objectIdentity } from '../objectIdentity'
+import { normalizeColorSet } from '../../../shared/cardColors'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import {
@@ -198,7 +199,7 @@ const SCENARIOS: Record<string, Scenario> = {
     surplus: true,
   },
   'Pit of Offerings': {
-    exile: [cardTemplate('Exiled Red Card', { types: ['Creature'], colors: ['R'] })],
+    exile: [cardTemplate('Exiled Red Card', { types: ['Creature'], colors: 'R' })],
     setup: (state, sourceId) => {
       const exiled = Object.values(state.objects).find((object) => object.name === 'Exiled Red Card')!
       state.linkedExileSets = [{ source: objectIdentity(state.objects[sourceId]), cards: [objectIdentity(exiled)] }]
@@ -360,7 +361,7 @@ const probeCard = (probe: Probe | undefined, cost: string) => cardTemplate(PROBE
 const commanderCard = (colors: ManaId[]) => cardTemplate('Test Commander', {
   types: ['Creature'],
   supertypes: ['Legendary'],
-  colors,
+  colors: normalizeColorSet(colors.filter((color) => color !== 'C')),
   tags: ['commander'],
 })
 

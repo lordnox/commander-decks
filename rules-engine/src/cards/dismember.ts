@@ -4,7 +4,7 @@ import { createEffect, manaCost, objects, pumpEffect, select, spell, target, unt
 
 export default {
   types: ['Instant'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{1}{B/P}{B/P}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

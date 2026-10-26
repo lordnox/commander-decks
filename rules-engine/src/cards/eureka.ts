@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import {
   captureAmount,
   choice,
@@ -173,7 +173,7 @@ const placementRound = forEachPlayer({
 export default {
   scryfall,
   types: [scryfall.type_line],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

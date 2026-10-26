@@ -6,7 +6,7 @@ export default {
   types: ['Creature'],
   subtypes: ['Halfling', 'Rogue'],
   supertypes: ['Legendary'],
-  colors: ['B', 'W'],
+  colors: 'WB',
   manaCost: '{W}{B}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

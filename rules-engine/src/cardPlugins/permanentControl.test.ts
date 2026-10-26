@@ -28,7 +28,7 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { createServerGame } from '../runtime'
 import type { GameState } from '../types'
 import { hasKeyword } from '../keywords'
-import { KEYWORDS } from './dsl/schema/v1'
+import { KEYWORDS } from './dsl/schema/v2'
 import { ok, testObject } from '../testHelpers'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
@@ -115,7 +115,7 @@ describe('permanent control change', () => {
       oracleText: '',
       manaCost: '',
       manaValue: 0,
-      colors: [],
+      colors: '',
       subtypes: [],
       supertypes: [],
       printedLoyalty: null,
@@ -140,7 +140,7 @@ describe('permanent control change', () => {
       oracleText: '',
       manaCost: '',
       manaValue: 0,
-      colors: [],
+      colors: '',
       subtypes: [],
       supertypes: [],
       printedLoyalty: null,
@@ -266,7 +266,7 @@ describe('permanent control change', () => {
       oracleText: '',
       manaCost: '',
       manaValue: 0,
-      colors: [],
+      colors: '',
       subtypes: [],
       supertypes: [],
       printedLoyalty: null,

@@ -4,7 +4,7 @@ import { activated, draw, ref, sacrificeCost } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Artifact"],
-  colors: [],
+  colors: '',
   manaCost: "{3}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

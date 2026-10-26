@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { compareAmount, count, enters, may, modifyEvent, move, objects, ref, replacement, select, staticAbility, target, whenever, wouldEnter } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], subtypes: ['Island'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], subtypes: ['Island'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }), {
       when: compareAmount(count(objects({ zone: 'battlefield', type: 'Land', subtypes: ['Island'], controller: 'you', other: true })), 'lte', 2),

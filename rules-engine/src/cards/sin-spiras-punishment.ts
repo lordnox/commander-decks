@@ -51,7 +51,7 @@ export default {
   types: ['Creature'],
   subtypes: ['Nightmare'],
   supertypes: ['Legendary'],
-  colors: ['B', 'G', 'U'],
+  colors: 'UBG',
   manaCost: '{4}{B}{G}{U}',
   manaValue: 7,
   ruleDefinition: snapshotFor([

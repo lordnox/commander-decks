@@ -7,7 +7,7 @@ import { captureObject } from '../objectIdentity'
 import { pendingSelectionFor, PENDING_SELECTION } from '../rules/selectCards'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
-import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v2'
 import {
   advanceApplicationProgram,
   initApplicationProgram,

@@ -1,7 +1,7 @@
 import { canPayLife } from './lifePayments'
 import { CREATURE_TYPE_CHOICE_ACTION } from '../creatureTypes'
 import { COLLECTED_CHOICE_ACTION, PARTICIPATION_OPTION } from '../cardPlugins/dsl/collectedChoices'
-import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
+import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v2'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { ANY_TARGET_KINDS, canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
@@ -14,7 +14,7 @@ import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, EventTrace, GameEvent, GameState, ManaPool, ObjectIdentity, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
-import type { CardRuleDefinitionSnapshotV1, ResolutionCost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV2, ResolutionCost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v2'
 import { allocationOptions } from './canonicalAllocation'
 import { captureLexicalBindings, generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates, resolutionManaCost } from '../cardPlugins/dsl/resolutionPayment'
@@ -172,7 +172,7 @@ export type PendingOptionSelection = {
     stackId: string
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
-    definitionSnapshot: CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV2
     abilityIndex: number
     execution: StackExecutionContext
     sourceId: string

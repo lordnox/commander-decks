@@ -1,6 +1,6 @@
-import type { DistributionSpec, ModeSpec, TargetClause, ModeDefinition } from '../schema/v1'
+import type { DistributionSpec, ModeSpec, TargetClause, ModeDefinition } from '../schema/v2'
 import type { TargetRef } from '../../../types'
-import type { AmountEvaluationContext } from '../schema/v1'
+import type { AmountEvaluationContext } from '../schema/v2'
 import { evaluateAmount } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
 import type { RuleDslRuntimeContext } from './runtime'

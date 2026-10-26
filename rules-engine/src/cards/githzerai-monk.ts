@@ -5,7 +5,7 @@ import { keyword, objects, self, tap, whenever } from '../cardPlugins/dsl/v1'
 export default {
   types: ["Creature"],
   subtypes: ['Gith', 'Monk'],
-  colors: ["W"],
+  colors: 'W',
   manaCost: "{4}{W}",
   manaValue: 5,
   ruleDefinition: snapshotFor([

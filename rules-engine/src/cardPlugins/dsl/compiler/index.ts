@@ -1,12 +1,12 @@
 import type {
-  CardRuleDefinitionSnapshotV1,
-  CardRuleDefinitionV1,
-  CompiledCardRuleDefinitionV1,
-} from '../schema/v1'
-import { RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+  CardRuleDefinitionSnapshotV2,
+  CardRuleDefinitionV2,
+  CompiledCardRuleDefinitionV2,
+} from '../schema/v2'
+import { RULE_DSL_SCHEMA_VERSION } from '../schema/v2'
 import { cloneJsonData, deepFreezeData, inspectJsonData } from './data'
 import { RuleDslValidationError } from './errors'
-import { assertDefinitionV1, validateDefinitionV1 } from './validate'
+import { assertDefinitionV2, validateDefinitionV2 } from './validate'
 
 export { evaluateAmount, evaluateTargetBounds, MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 export * from './runtime'
@@ -15,7 +15,7 @@ export * from './modes'
 export { RuleDslEvaluationError, RuleDslValidationError } from './errors'
 export type { RuleDslDiagnostic } from './errors'
 
-export const RULE_DSL_V1_CAPABILITIES = Object.freeze({
+export const RULE_DSL_V2_CAPABILITIES = Object.freeze({
   canonicalLoad: true as const,
   serialization: true as const,
   runtimeExecution: Object.freeze({
@@ -25,31 +25,31 @@ export const RULE_DSL_V1_CAPABILITIES = Object.freeze({
   }),
 })
 
-export const compileCardRuleDefinition = (input: unknown): CompiledCardRuleDefinitionV1 => {
+export const compileCardRuleDefinition = (input: unknown): CompiledCardRuleDefinitionV2 => {
   const dataDiagnostics = inspectJsonData(input)
   if (dataDiagnostics.length > 0) throw new RuleDslValidationError(dataDiagnostics)
   const copy = cloneJsonData(input)
-  const { diagnostics, declarations } = validateDefinitionV1(copy)
-  assertDefinitionV1(copy, diagnostics)
+  const { diagnostics, declarations } = validateDefinitionV2(copy)
+  assertDefinitionV2(copy, diagnostics)
   const definition = deepFreezeData(copy)
   return Object.freeze({
     schemaVersion: RULE_DSL_SCHEMA_VERSION,
     definitionRevision: definition.definitionRevision,
     definition,
     declarations: Object.freeze(declarations.map((entry) => Object.freeze({ ...entry }))),
-    capabilities: RULE_DSL_V1_CAPABILITIES,
+    capabilities: RULE_DSL_V2_CAPABILITIES,
   })
 }
 
 export const createDefinitionSnapshot = (
-  compiled: CompiledCardRuleDefinitionV1,
-): CardRuleDefinitionSnapshotV1 => deepFreezeData(cloneJsonData({
+  compiled: CompiledCardRuleDefinitionV2,
+): CardRuleDefinitionSnapshotV2 => deepFreezeData(cloneJsonData({
   schemaVersion: compiled.schemaVersion,
   definitionRevision: compiled.definitionRevision,
   definition: compiled.definition,
 }))
 
-export const loadDefinitionSnapshot = (input: unknown): CompiledCardRuleDefinitionV1 => {
+export const loadDefinitionSnapshot = (input: unknown): CompiledCardRuleDefinitionV2 => {
   const diagnostics = inspectJsonData(input)
   if (diagnostics.length > 0) throw new RuleDslValidationError(diagnostics)
   if (input === null || typeof input !== 'object' || Array.isArray(input)) {
@@ -58,13 +58,13 @@ export const loadDefinitionSnapshot = (input: unknown): CompiledCardRuleDefiniti
   const snapshot = input as Record<string, unknown>
   const snapshotDiagnostics = [] as Array<{ path: string; code: string; message: string }>
   for (const key of Object.keys(snapshot)) if (!['schemaVersion', 'definitionRevision', 'definition'].includes(key)) {
-    snapshotDiagnostics.push({ path: `$.${key}`, code: 'unknown-field', message: 'field is not part of a Rule DSL v1 snapshot' })
+    snapshotDiagnostics.push({ path: `$.${key}`, code: 'unknown-field', message: 'field is not part of a Rule DSL v2 snapshot' })
   }
   for (const key of ['schemaVersion', 'definitionRevision', 'definition']) if (!(key in snapshot)) {
     snapshotDiagnostics.push({ path: `$.${key}`, code: 'missing-field', message: 'required field is missing' })
   }
   if (snapshot.schemaVersion !== RULE_DSL_SCHEMA_VERSION) {
-    snapshotDiagnostics.push({ path: '$.schemaVersion', code: 'unsupported-version', message: `unsupported Rule DSL schema version: ${String(snapshot.schemaVersion)}` })
+    snapshotDiagnostics.push({ path: '$.schemaVersion', code: 'unsupported-version', message: `unsupported Rule DSL schema version: ${String(snapshot.schemaVersion)}; recreate the game with current card definitions` })
   }
   const compiled = compileCardRuleDefinition(snapshot.definition)
   if (snapshot.definitionRevision !== compiled.definitionRevision) {
@@ -77,5 +77,5 @@ export const loadDefinitionSnapshot = (input: unknown): CompiledCardRuleDefiniti
   return compiled
 }
 
-export const serializeCardRuleDefinition = (definition: CardRuleDefinitionV1): string =>
+export const serializeCardRuleDefinition = (definition: CardRuleDefinitionV2): string =>
   JSON.stringify(compileCardRuleDefinition(definition).definition)

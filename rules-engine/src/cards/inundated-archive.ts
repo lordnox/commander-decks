@@ -4,7 +4,7 @@ import { activated, amount, chooseModes, modifyEvent, ref, replacement, staticAb
 
 export default {
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

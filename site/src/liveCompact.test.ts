@@ -3,11 +3,12 @@ import {
   compactLiveWire,
   expandLiveWire,
   fetchDeckIndex,
+  LIVE_SNAPSHOT_VERSION,
   LIVE_WIRE_VERSION,
   loadDeckIndexes,
   STRIDE,
   type DeckIndex,
-  type LiveWireV2,
+  type LiveWireV3,
 } from './liveCompact'
 import type { LiveSnapshot } from './liveCodec'
 
@@ -16,7 +17,7 @@ const index = (names: string[]): DeckIndex => ({
 })
 
 const snapshot = (): LiveSnapshot => ({
-  v: 1,
+  v: LIVE_SNAPSHOT_VERSION,
   you: 'p2',
   headline: 'Test table',
   waiting: 'Would this line work? Confirm or replace it.',
@@ -127,7 +128,7 @@ const snapshot = (): LiveSnapshot => ({
   },
 })
 
-describe('live compact v2', () => {
+describe('live compact v3', () => {
   test('loads bracket-plus deck slugs without encoding the path separator', async () => {
     const original = globalThis.fetch
     let requested = ''
@@ -162,7 +163,7 @@ describe('live compact v2', () => {
 
   test('board cards are deck slot integers', () => {
     const wire = compactLiveWire(snapshot())
-    expect(wire.v).toBe(2)
+    expect(wire.v).toBe(LIVE_WIRE_VERSION)
     expect(wire.d).toEqual(['alpha', 'beta', 'gamma', 'delta'])
     expect(wire.x).toBeUndefined()
     const beta = wire.z[1] as unknown[]
@@ -443,7 +444,7 @@ describe('live compact v2', () => {
   })
 
   test('v0 and other unsupported snapshot versions are rejected before compaction', () => {
-    for (const version of [0, 2, 3, 'nope'] as const) {
+    for (const version of [0, 1, 3, 'nope'] as const) {
       expect(() => compactLiveWire({ ...snapshot(), v: version } as LiveSnapshot)).toThrow(
         `Unsupported live snapshot version: ${version}`,
       )
@@ -452,15 +453,15 @@ describe('live compact v2', () => {
 
   test('a missing wire version is rejected', () => {
     const { v: _v, ...rest } = compactLiveWire(snapshot())
-    expect(() => expandLiveWire(rest as LiveWireV2)).toThrow(
+    expect(() => expandLiveWire(rest as LiveWireV3)).toThrow(
       'Unsupported live wire version: undefined',
     )
   })
 
   test('v0 and other unsupported wire versions are rejected', () => {
     const wire = compactLiveWire(snapshot())
-    for (const version of [0, 1, 3, 'nope'] as const) {
-      expect(() => expandLiveWire({ ...wire, v: version } as LiveWireV2)).toThrow(
+    for (const version of [0, 1, 2, 4, 'nope'] as const) {
+      expect(() => expandLiveWire({ ...wire, v: version } as LiveWireV3)).toThrow(
         `Unsupported live wire version: ${version}`,
       )
     }

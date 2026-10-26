@@ -4,7 +4,7 @@ import { activated, differentTargets, fight, manaCost, objects, select, tapCost,
 
 export default {
   types: ["Creature"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

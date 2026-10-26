@@ -4,7 +4,7 @@ import { activated, modifyEvent, move, objects, players, ref, replacement, selec
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

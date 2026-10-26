@@ -12,7 +12,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Instant'], colors: ['W'], manaCost: '{2}{W}{W}', manaValue: 4,
+  types: ['Instant'], colors: 'W', manaCost: '{2}{W}{W}', manaValue: 4,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },

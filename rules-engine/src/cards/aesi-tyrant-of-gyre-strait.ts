@@ -4,7 +4,7 @@ import { may, draw, enters, extraLandPlays, staticAbility, whenever } from '../c
 
 export default {
   types: ['Creature'],
-  colors: ['G', 'U'],
+  colors: 'UG',
   manaCost: '{4}{G}{U}',
   manaValue: 6,
   ruleDefinition: snapshotFor([

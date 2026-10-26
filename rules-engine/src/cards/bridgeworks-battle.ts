@@ -20,7 +20,7 @@ const ruleDefinition = snapshotFor([
 
 export default {
   types: ['Sorcery'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{2}{G}',
   manaValue: 3,
   ruleDefinition,
@@ -28,7 +28,7 @@ export default {
     types: ['Sorcery'],
     subtypes: [],
     supertypes: [],
-    colors: ['G'],
+    colors: 'G',
     manaCost: '{2}{G}',
     manaValue: 3,
     oracleText: "Target creature you control gets +2/+2 until end of turn. It fights up to one target creature you don't control. (Each deals damage equal to its power to the other.)",

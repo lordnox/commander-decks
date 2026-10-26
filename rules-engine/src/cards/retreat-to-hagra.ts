@@ -4,7 +4,7 @@ import { KEYWORDS, chooseModes, createEffect, enters, gainLife, grantKeywordEffe
 
 export default {
   types: ["Enchantment"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{2}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

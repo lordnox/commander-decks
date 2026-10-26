@@ -14,10 +14,10 @@ const ruleDefinition = snapshotFor([
 ])
 
 export default {
-  types: ['Instant'], colors: ["B", "G"], manaCost: "{B/G}", manaValue: 1,
+  types: ['Instant'], colors: 'BG', manaCost: "{B/G}", manaValue: 1,
   ruleDefinition,
   frontFace: {
-    types: ['Instant'], colors: ["B", "G"], manaCost: "{B/G}", manaValue: 1,
+    types: ['Instant'], colors: 'BG', manaCost: "{B/G}", manaValue: 1,
     subtypes: [], supertypes: [], oracleText: "Put a +1/+1 counter on target creature. It gains indestructible until end of turn.", ruleDefinition,
   },
   backFace: {

@@ -22,7 +22,7 @@ import {
 
 export default {
   types: ['Instant'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{G}{G}{G}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

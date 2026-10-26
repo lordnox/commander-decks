@@ -93,7 +93,7 @@ test('catalog Aetherize returns all attacking permanents to hand', () => {
 
 test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {
   expect(cardTemplateDefaultsFor('Dismember')).toMatchObject({
-    types: ['Instant'], colors: ['B'], manaCost: '{1}{B/P}{B/P}', manaValue: 3,
+    types: ['Instant'], colors: 'B', manaCost: '{1}{B/P}{B/P}', manaValue: 3,
   })
   expect(cardRuleDefinitionSnapshotFor('Dismember')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -358,7 +358,7 @@ test('catalog Vampire Hounds composes a discard-cost pump without legacy effects
 test('Diabolic Tutor supplies printed characteristics beside its canonical rules', () => {
   expect(cardTemplateDefaultsFor('Diabolic Tutor')).toEqual({
     types: ['Sorcery'],
-    colors: ['B'],
+    colors: 'B',
     manaCost: '{2}{B}{B}',
     manaValue: 4,
     ruleDefinition: cardRuleDefinitionSnapshotFor('Diabolic Tutor')!,
@@ -465,7 +465,7 @@ test('catalog Selenia pays two life to return its source to hand', () => {
 
 test('catalog Darkness prevents all combat damage this turn', () => {
   expect(cardTemplateDefaultsFor('Darkness')).toMatchObject({
-    types: ['Instant'], colors: ['B'], manaCost: '{B}', manaValue: 1,
+    types: ['Instant'], colors: 'B', manaCost: '{B}', manaValue: 1,
   })
   expect(cardRuleDefinitionSnapshotFor('Darkness')!.definition.abilities[0]).toMatchObject({
     kind: 'spell',
@@ -944,7 +944,7 @@ test.each(['Long Road Home', 'Otherworldly Journey'])('%s returns the exiled cre
 
 
 test('Infernal Contract composes four draws with rounded-up half-life loss', () => {
-  expect(cardTemplateDefaultsFor('Infernal Contract')).toMatchObject({ types: ['Sorcery'], colors: ['B'], manaCost: '{B}{B}{B}', manaValue: 3 })
+  expect(cardTemplateDefaultsFor('Infernal Contract')).toMatchObject({ types: ['Sorcery'], colors: 'B', manaCost: '{B}{B}{B}', manaValue: 3 })
   expect(cardRuleDefinitionSnapshotFor('Infernal Contract')!.definition.abilities[0]).toMatchObject({
     kind: 'spell', instructions: [
       { kind: 'draw', count: { kind: 'constant', value: 4 } },
@@ -1863,7 +1863,7 @@ test('group 15 consumers compose name, comparison, and mana-ability queries', ()
   }])
   expect(cardRuleDefinitionSnapshotFor('Field of the Dead')!.definition.abilities).toMatchObject([
     { kind: 'static' }, { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { value: 1 } } }] },
-    { kind: 'triggered', interveningIf: { left: { kind: 'countDistinctNames' }, right: { value: 7 } }, instructions: [{ kind: 'createToken', token: { colors: ['B'], power: 2, toughness: 2 } }] },
+    { kind: 'triggered', interveningIf: { left: { kind: 'countDistinctNames' }, right: { value: 7 } }, instructions: [{ kind: 'createToken', token: { colors: 'B', power: 2, toughness: 2 } }] },
   ])
   expect(cardRuleDefinitionSnapshotFor('Moonsilver Key')!.definition.abilities).toMatchObject([{
     kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }],
@@ -1933,7 +1933,7 @@ test('remaining mana-production cards retain costs, timing, triggers, Aura restr
 
 test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {
   const template = cardTemplateDefaultsFor('Profane Command')!
-  expect(template).toMatchObject({ types: ['Sorcery'], colors: ['B'], manaCost: '{X}{B}{B}', manaValue: 2 })
+  expect(template).toMatchObject({ types: ['Sorcery'], colors: 'B', manaCost: '{X}{B}{B}', manaValue: 2 })
   const ability = cardRuleDefinitionSnapshotFor('Profane Command')!.definition.abilities[0]!
   expect(ability).toMatchObject({
     kind: 'spell',

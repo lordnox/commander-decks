@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activated, addMana, CARD_COLORS, chooseCreatureTypeAsEnters, chooseInstructions, chosenCreatureType, ref, staticAbility, tapCost } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache when available; original retrieval date is unknown.
@@ -145,7 +145,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     staticAbility(chooseCreatureTypeAsEnters()),
     activated({ costs: [tapCost()], instructions: [addMana({ amount: { C: 1 } })] }),

@@ -47,7 +47,7 @@ describe('Rule DSL runtime evaluation', () => {
     const source = context.state.objects[context.source.ref.objectId]
     source.zone = 'stack'
     source.types = ['Instant']
-    source.colors = ['U', 'R']
+    source.colors = 'UR'
     context.state.stack = [{ id: 'spell1', kind: 'spell', objectId: source.id, controller: 'p1', name: source.name, targets: [] }]
     const selector = { kind: 'stackItems' as const, filter: {
       all: [{ kind: 'spell' as const }, { type: 'Instant' }],
@@ -55,7 +55,7 @@ describe('Rule DSL runtime evaluation', () => {
       not: { color: 'B' as const },
     } }
     expect(evaluateStackItemSelector(selector, context).map(item => item.id)).toEqual(['spell1'])
-    source.colors = ['B']
+    source.colors = 'B'
     expect(evaluateStackItemSelector(selector, context)).toEqual([])
     delete context.state.objects[source.id]
     expect(evaluateStackItemSelector(selector, context)).toEqual([])

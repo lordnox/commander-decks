@@ -28,7 +28,7 @@ const anyPlayers = players({ relation: 'any' })
 export default {
   types: ['Creature'],
   subtypes: ['Crab', 'Druid'],
-  colors: ['B', 'G', 'U'],
+  colors: 'UBG',
   manaCost: '{B}{G}{U}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

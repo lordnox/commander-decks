@@ -4,7 +4,7 @@ import { compareAmount, count, createEffect, ifThen, objects, pumpEffect, select
 
 export default {
   types: ["Instant"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{1}{B}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

@@ -4,7 +4,7 @@ import { activated, discard, draw, manaCost, players, tapCost } from '../cardPlu
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

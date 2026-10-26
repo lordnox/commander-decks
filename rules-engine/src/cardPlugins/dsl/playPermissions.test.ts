@@ -78,8 +78,8 @@ describe('canonical land permissions', () => {
     const state = structuredClone(server.state)
     const land = state.objects[state.zoneOrder.p1.library[0]]
     land.types = ['Instant']
-    land.frontFace = { types: ['Instant'], subtypes: [], supertypes: [], manaCost: '{U}', manaValue: 1, colors: ['U'] }
-    land.backFace = { types: ['Land'], subtypes: [], supertypes: [], manaCost: '', manaValue: 0, colors: [] }
+    land.frontFace = { types: ['Instant'], subtypes: [], supertypes: [], manaCost: '{U}', manaValue: 1, colors: 'U' }
+    land.backFace = { types: ['Land'], subtypes: [], supertypes: [], manaCost: '', manaValue: 0, colors: '' }
     expect(server.rules(state, { type: 'playLand', seat: 'p1', objectId: land.id, face: 'front' }).ok).toBe(false)
     expect(availableActions(state, 'p1').some(action => action.kind === 'playLand' && action.objectId === land.id)).toBe(true)
     const played = ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: land.id, face: 'back' }))

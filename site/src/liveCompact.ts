@@ -13,8 +13,8 @@ export type DeckIndex = {
   cards: DeckCard[]
 }
 
-export const LIVE_SNAPSHOT_VERSION = 1 as const
-export const LIVE_WIRE_VERSION = 2 as const
+export const LIVE_SNAPSHOT_VERSION = 2 as const
+export const LIVE_WIRE_VERSION = 3 as const
 export const LIVE_SNAPSHOT_PREFIX = `v${LIVE_SNAPSHOT_VERSION}.` as const
 export const LIVE_WIRE_PREFIX = `v${LIVE_WIRE_VERSION}.` as const
 
@@ -42,7 +42,7 @@ export const assertLiveSnapshotVersion = (snapshot: { v?: unknown }) => {
   }
 }
 
-export type LiveWireV2 = {
+export type LiveWireV3 = {
   v: typeof LIVE_WIRE_VERSION
   y?: number
   h: string
@@ -367,7 +367,7 @@ const packExileNotes = (cards: LiveSeat['exile']) => {
   return notes.some((note) => note !== 0) ? notes : ABSENT
 }
 
-export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
+export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV3 => {
   assertLiveSnapshotVersion(snapshot)
   const seats = seatsOf(snapshot)
   const slugs = slugsFromSnapshot(snapshot)
@@ -402,7 +402,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   })
 
   const you = snapshot.you ? SEAT_IDS.indexOf(snapshot.you as (typeof SEAT_IDS)[number]) : -1
-  const wire: LiveWireV2 = {
+  const wire: LiveWireV3 = {
     v: LIVE_WIRE_VERSION,
     h: snapshot.headline,
     t: snapshot.turn,
@@ -454,7 +454,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
             snapshot.topdeck.purpose,
             snapshot.topdeck.cancellation,
       ]),
-    ] as unknown as NonNullable<LiveWireV2['l']>
+    ] as unknown as NonNullable<LiveWireV3['l']>
     if (snapshot.topdeck.interaction) wire.ir = snapshot.topdeck.interaction
     if (snapshot.topdeck.optionalDraw) wire.od = snapshot.topdeck.optionalDraw
   }
@@ -596,7 +596,7 @@ const unpackExile = (
 }
 
 export const expandLiveWire = (
-  wire: LiveWireV2,
+  wire: LiveWireV3,
   indexes: Record<string, DeckIndex> = {},
 ): LiveSnapshot => {
   assertLiveWireVersion(wire)

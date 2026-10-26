@@ -15,7 +15,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Artifact'], colors: [], manaCost: '{6}', manaValue: 6,
+  types: ['Artifact'], colors: '', manaCost: '{6}', manaValue: 6,
   ruleDefinition: snapshotFor([
     activated({
       when: allConditions(currentStep('upkeep'), activePlayer(ref('controller'))),

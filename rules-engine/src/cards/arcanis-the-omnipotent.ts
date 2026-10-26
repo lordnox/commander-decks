@@ -4,7 +4,7 @@ import { activated, draw, manaCost, move, ref, tapCost } from '../cardPlugins/ds
 
 export default {
   types: ["Creature"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{3}{U}{U}{U}",
   manaValue: 6,
   ruleDefinition: snapshotFor([

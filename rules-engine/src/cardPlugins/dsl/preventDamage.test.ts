@@ -1418,7 +1418,7 @@ describe('catalog prevention card integrations', () => {
     expect(inklings.every((token) =>
       token.power === 2
       && token.toughness === 1
-      && token.colors.join('') === 'WB'
+      && token.colors === 'WB'
       && token.oracleText === 'Flying')).toBe(true)
     expect(state.players.p1.life).toBe(40)
     state = ok(server.rules(state, {

@@ -143,7 +143,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

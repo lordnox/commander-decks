@@ -4,7 +4,7 @@ import { activated, gainLife, objects, ref, sacrificeCost, tapCost } from '../ca
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

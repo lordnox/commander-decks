@@ -5,7 +5,7 @@ import { activated, destroy, draw, keyword, objects, players, ref, select, self,
 export default {
   types: ["Creature"],
   subtypes: ["Human", "Artificer"],
-  colors: ["W"],
+  colors: 'W',
   manaCost: "{2}{W}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

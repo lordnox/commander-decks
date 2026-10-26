@@ -15,7 +15,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Bird', 'Warlock'], colors: ['W', 'B'], manaCost: '{1}{W}{B}', manaValue: 3,
+  types: ['Creature'], subtypes: ['Bird', 'Warlock'], colors: 'WB', manaCost: '{1}{W}{B}', manaValue: 3,
   ruleDefinition: snapshotFor([
     keyword.flying,
     whenever(playerAttacks({ defender: players({ relation: 'opponent' }) }), {

@@ -184,8 +184,8 @@ const enchantment = snapshotFor([staticAbility(multiplyTriggers({ sources: objec
 const adventure = snapshotFor([spell({ decisions: { targets: [select({ filter: stackItems({ kind: 'ability', controller: 'you' }), count: 1 })] }, instructions: [copyAbility({ targets: target(0), retarget: { kind: 'chooseNewTargets' } })] })])
 export default {
   scryfall,
-  types: ['Enchantment'], colors: ['U'], manaCost: '{4}{U}', manaValue: 5,
+  types: ['Enchantment'], colors: 'U', manaCost: '{4}{U}', manaValue: 5,
   ruleDefinition: enchantment,
-  frontFace: { types: ['Enchantment'], subtypes: [], supertypes: [], colors: ['U'], manaCost: '{4}{U}', manaValue: 5, oracleText: scryfall.card_faces[0].oracle_text, ruleDefinition: enchantment },
-  backFace: { types: ['Instant'], subtypes: ['Adventure'], supertypes: [], colors: ['U'], manaCost: '{1}{U}', manaValue: 2, oracleText: scryfall.card_faces[1].oracle_text, ruleDefinition: adventure },
+  frontFace: { types: ['Enchantment'], subtypes: [], supertypes: [], colors: 'U', manaCost: '{4}{U}', manaValue: 5, oracleText: scryfall.card_faces[0].oracle_text, ruleDefinition: enchantment },
+  backFace: { types: ['Instant'], subtypes: ['Adventure'], supertypes: [], colors: 'U', manaCost: '{1}{U}', manaValue: 2, oracleText: scryfall.card_faces[1].oracle_text, ruleDefinition: adventure },
 } satisfies CatalogEntry

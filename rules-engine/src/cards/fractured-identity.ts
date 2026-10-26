@@ -15,7 +15,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Sorcery'], colors: ['W', 'U'], manaCost: '{3}{W}{U}', manaValue: 5,
+  types: ['Sorcery'], colors: 'WU', manaCost: '{3}{W}{U}', manaValue: 5,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: objects({ zone: 'battlefield', not: { type: 'Land' } }), count: 1 })] },

@@ -4,7 +4,7 @@ import { destroy, objects, select, spell, target } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Instant"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{1}{B}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

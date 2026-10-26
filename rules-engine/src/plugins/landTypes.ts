@@ -1,5 +1,5 @@
 import type { GameObject, GameState } from '../types'
-import { BASIC_LAND_TYPES, type BasicLandType } from '../cardPlugins/dsl/schema/v1'
+import { BASIC_LAND_TYPES, type BasicLandType } from '../cardPlugins/dsl/schema/v2'
 
 export { BASIC_LAND_TYPES }
 export type { BasicLandType }

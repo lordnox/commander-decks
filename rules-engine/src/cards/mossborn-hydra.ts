@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { amount, counterCount, enters, keyword, modifyEvent, putCounters, ref, replacement, staticAbility, whenever, wouldEnter } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; source retrieval date is unknown.
@@ -148,7 +148,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

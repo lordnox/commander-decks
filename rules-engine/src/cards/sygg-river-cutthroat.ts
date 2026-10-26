@@ -11,7 +11,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Merfolk', 'Rogue'], colors: ['U', 'B'], manaCost: '{U/B}{U/B}', manaValue: 2,
+  types: ['Creature'], subtypes: ['Merfolk', 'Rogue'], colors: 'UB', manaCost: '{U/B}{U/B}', manaValue: 2,
   ruleDefinition: snapshotFor([
     whenever(stepBegins({ step: 'end' }), {
       interveningIf: compareAmount(

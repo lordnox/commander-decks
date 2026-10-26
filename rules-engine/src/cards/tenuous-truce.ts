@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { draw, playerAttacks, players, ref, sacrifice, staticAbility, stepBegins, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache when available; original retrieval date is unknown.
@@ -145,7 +145,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
 staticAbility({ kind: 'enchant', filter: players({ relation: 'opponent' }) }),
 whenever(stepBegins({ step: 'end', player: ref('enchanted.player') }), { instructions: [draw({ targets: ref('controller'), count: 1 }), draw({ targets: ref('enchanted.player'), count: 1 })] }),

@@ -4,7 +4,7 @@ import { captureObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId } from '../../types'
 import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 import { activePrintedStaticModifiers, isActiveKeywordStatic } from './staticModifierCore'
-import type { ContinuousEffectDefinition } from './schema/v1'
+import type { ContinuousEffectDefinition } from './schema/v2'
 
 type CastSpellsEffect = Extract<ContinuousEffectDefinition, { kind: 'castSpells' }>
 

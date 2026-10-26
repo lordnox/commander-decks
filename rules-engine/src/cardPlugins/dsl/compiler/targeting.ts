@@ -1,10 +1,10 @@
-import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
+import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v2'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { playerHasHexproof } from '../../../plugins/playerEffects'
 import { effectsOf } from '../../cardRules'
 import { printedStaticEffectsOfKind } from '../staticModifierCore'
-import type { CardRuleDefinitionV1, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v1'
+import type { CardRuleDefinitionV2, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v2'
 import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
@@ -247,7 +247,7 @@ const satisfiesConstraints = (
 export const canonicalTargetBindings = (
   state: GameState,
   source: GameObject,
-  definition: CardRuleDefinitionV1,
+  definition: CardRuleDefinitionV2,
   abilityIndex: number,
   supplied: readonly TargetRef[],
   item?: StackItem,
@@ -332,7 +332,7 @@ export const canonicalTargetBindings = (
 export const canonicalTargetCandidates = (
   state: GameState,
   source: GameObject,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  ability: Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>,
   controller: PlayerId,
   occurrence?: OccurrenceSnapshot,
   clausesOverride?: readonly TargetClause[],
@@ -392,7 +392,7 @@ export const canonicalTargetCandidates = (
 export const canonicalTargetLegalityForAbility = (
   state: GameState,
   source: GameObject,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  ability: Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>,
   bindings: readonly CanonicalTargetBinding[],
   item?: StackItem,
   controller?: PlayerId,
@@ -432,7 +432,7 @@ export const canonicalTargetLegalityForAbility = (
 export const canonicalTargetLegalityByScope = (
   state: GameState,
   source: GameObject,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  ability: Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>,
   bindings: readonly CanonicalTargetBinding[],
   item?: StackItem,
 ) => {
@@ -471,7 +471,7 @@ export const canonicalTargetLegalityByScope = (
 export const canonicalWholeItemGate = (
   state: GameState,
   source: GameObject,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  ability: Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>,
   bindings: readonly CanonicalTargetBinding[],
   item?: StackItem,
 ) => {
@@ -497,7 +497,7 @@ export const canonicalWholeItemGate = (
 export const canonicalTargetError = (
   state: GameState,
   source: GameObject,
-  definition: CardRuleDefinitionV1,
+  definition: CardRuleDefinitionV2,
   abilityIndex: number,
   supplied: readonly TargetRef[],
   item?: StackItem,
@@ -541,7 +541,7 @@ export const canonicalTargetError = (
 export const canonicalFlagbearerError = (
   state: GameState,
   source: GameObject,
-  definition: CardRuleDefinitionV1,
+  definition: CardRuleDefinitionV2,
   abilityIndex: number,
   supplied: readonly TargetRef[],
   grouped?: readonly (readonly TargetRef[])[],

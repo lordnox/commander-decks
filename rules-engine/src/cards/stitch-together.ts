@@ -4,7 +4,7 @@ import { compareAmount, count, ifThen, move, objects, select, spell, target } fr
 
 export default {
   types: ["Sorcery"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{B}{B}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

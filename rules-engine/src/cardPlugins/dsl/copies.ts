@@ -3,7 +3,7 @@ import { canonicalTargetError } from './compiler/targeting'
 import { putSpellCopyOnStack } from '../../rules/spellCopies'
 import type { Draft } from '../../draft'
 import { captureObject, isSameObject } from '../../objectIdentity'
-import type { CardRuleDefinitionV1, TargetClause } from './schema/v1'
+import type { CardRuleDefinitionV2, TargetClause } from './schema/v2'
 import type { GameState, GameObject, StackItem, TargetRef, PlayerId } from '../../types'
 export const copyTargets = (
   original: StackItem,
@@ -37,7 +37,7 @@ const recipientAndReplacementUnchanged = (recipient: TargetRef, replacement: Tar
 
 const copyTargetLayout = (
   original: StackItem,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  ability: Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>,
   targets: readonly TargetRef[],
 ) => {
   const bindings = original.execution?.targetBindings ?? []

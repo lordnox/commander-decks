@@ -12,7 +12,7 @@ import {
   normalizeColorSet,
   parseColorSet,
 } from '../../shared/cardColors'
-import { CARD_COLORS as DSL_CARD_COLORS } from './cardPlugins/dsl/schema/v1'
+import { CARD_COLORS as DSL_CARD_COLORS } from './cardPlugins/dsl/schema/v2'
 
 const subsets = Array.from({ length: 32 }, (_, bits) =>
   [...'WUBRG'].filter((_, index) => (bits & (1 << index)) !== 0).join(''))

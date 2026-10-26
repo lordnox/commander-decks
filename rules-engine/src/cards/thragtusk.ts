@@ -4,7 +4,7 @@ import { createToken, gainLife, ref, self, token, whenever } from '../cardPlugin
 
 export default {
   types: ['Creature'],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{4}{G}",
   manaValue: 5,
   ruleDefinition: snapshotFor([

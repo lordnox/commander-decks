@@ -1,4 +1,4 @@
-import type { AmountInput, DelayedPattern, ObjectRecipient } from '../../schema/v1'
+import type { AmountInput, DelayedPattern, ObjectRecipient } from '../../schema/v2'
 import { choice, createDelayed, move, sequence } from '../../builders'
 
 /** A delayed owner-controlled return, composed from ordinary movement and delayed programs. */

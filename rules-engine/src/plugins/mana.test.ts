@@ -239,7 +239,7 @@ describe('mana', () => {
     const eva = {
       ...bears(),
       name: 'Lady Evangela',
-      colors: ['W', 'U', 'B'],
+      colors: 'WUB' as const,
       tags: ['commander'],
     }
     const state = newGame({
@@ -277,7 +277,7 @@ describe('mana', () => {
       ...bears(),
       name: 'Lady Evangela',
       manaCost: '{W}{U}{B}',
-      colors: ['W', 'U', 'B'],
+      colors: 'WUB' as const,
       tags: ['commander'],
     }
     const state = newGame({

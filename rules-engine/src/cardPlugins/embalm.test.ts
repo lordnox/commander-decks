@@ -26,15 +26,15 @@ const cryptWarden = () => cardTemplate('Crypt Warden', {
   subtypes: ['Human', 'Soldier'],
   manaCost: '{2}{W}',
   manaValue: 3,
-  colors: ['W'],
+  colors: 'W',
   power: 3,
   toughness: 3,
-  effects: [embalm('{4}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] })],
+  effects: [embalm('{4}{W}', { colors: 'W', extraSubtypes: ['Zombie'] })],
 })
 
 describe('embalm', () => {
   test('clone-safe embalm builder stamps parameterized exceptions', () => {
-    const stamped = embalm('{3}{U}', { colors: ['U'], extraSubtypes: ['Zombie', 'Horror'] })
+    const stamped = embalm('{3}{U}', { colors: 'U', extraSubtypes: ['Zombie', 'Horror'] })
     const cloned = structuredClone(stamped)
     expect(cloned).toEqual({
       op: 'activate',
@@ -44,7 +44,7 @@ describe('embalm', () => {
       costs: { mana: '{3}{U}', exileFromGraveyard: true },
       do: [{
         kind: 'embalmToken',
-        colors: ['U'],
+        colors: 'U',
         extraSubtypes: ['Zombie', 'Horror'],
       }],
     })
@@ -91,7 +91,7 @@ describe('embalm', () => {
     expect(token).toMatchObject({
       name: 'Crypt Warden',
       token: true,
-      colors: ['W'],
+      colors: 'W',
       manaCost: '',
       manaValue: 0,
       power: 3,

@@ -4,7 +4,7 @@ import { activated, objects, select, tapCost, target, untap } from '../cardPlugi
 
 export default {
   types: ["Creature"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

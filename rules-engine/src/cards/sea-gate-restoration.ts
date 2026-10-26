@@ -17,7 +17,7 @@ const ruleDefinition = snapshotFor([
 
 export default {
   types: ['Sorcery'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{4}{U}{U}{U}',
   manaValue: 7,
   ruleDefinition,
@@ -25,7 +25,7 @@ export default {
     types: ['Sorcery'],
     subtypes: [],
     supertypes: [],
-    colors: ['U'],
+    colors: 'U',
     manaCost: '{4}{U}{U}{U}',
     manaValue: 7,
     oracleText: 'Draw cards equal to the number of cards in your hand plus one. You have no maximum hand size for the rest of the game.',

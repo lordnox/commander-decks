@@ -5,7 +5,7 @@ import { enters, mill, players, select, target, whenever } from '../cardPlugins/
 export default {
   types: ["Creature"],
   subtypes: ["Crab"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{U}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, choice, chooseCards, chooseInstructions, compareAmount, count, modifyEvent, objects, programBranch, ref, replacement, reveal, staticAbility, tapCost, wouldEnter } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     staticAbility(replacement(wouldEnter(), modifyEvent({}), { program: [
       chooseCards({ chooser: ref('controller'), filter: objects({ zone: 'hand', owner: 'you', other: true, any: [{ subtypes: ['Island'] }, { subtypes: ['Swamp'] }] }), bindChoice: 'revealed', min: 0, max: 1 }),

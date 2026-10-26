@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, gainLife, lifeLostThisTurn, players, ref, sacrificeCost, tapCost } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Artifact'], colors: ['W', 'B'], manaCost: '{1}{W}{B}', manaValue: 3,
+  types: ['Artifact'], colors: 'WB', manaCost: '{1}{W}{B}', manaValue: 3,
   ruleDefinition: snapshotFor([
     activated({
       costs: [tapCost(), sacrificeCost(ref('source'), 1)],

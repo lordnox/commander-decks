@@ -4,7 +4,7 @@ import { compareAmount, count, modifyEvent, players, replacement, staticAbility,
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseCards, inspectTop, LIBRARY_VISIBILITY, move, objects, ref, remaining, createToken, spell, token } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ["Sorcery"], colors: ['G'], manaCost: '{1}{G}', manaValue: 2,
+  types: ["Sorcery"], colors: 'G', manaCost: '{1}{G}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({
       instructions: [

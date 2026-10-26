@@ -1,4 +1,4 @@
-import type { Instruction } from './schema/v1'
+import type { Instruction } from './schema/v2'
 import { OPTIONAL_ACTION_DIAGNOSTIC_CODE } from './compiler/constants'
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'

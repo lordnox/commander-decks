@@ -5,7 +5,7 @@ import { activated, preventAllCombatDamageThisTurn, ref, sacrificeCost } from '.
 export default {
   types: ['Creature'],
   subtypes: ['Spirit'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{W}',
   manaValue: 1,
   ruleDefinition: snapshotFor([

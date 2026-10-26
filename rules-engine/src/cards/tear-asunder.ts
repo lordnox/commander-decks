@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { compareAmount, move, manaCost, objects, paidCostCount, select, spell, target } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -142,7 +142,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Instant'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Instant'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ costLabels: { optional: ['Kicker {1}{B}'] }, optionalCosts: [manaCost('{1}{B}')], decisions: { targets: [select({ filter: objects({ zone: 'battlefield', any: [
       { type: 'Artifact' }, { type: 'Enchantment' },

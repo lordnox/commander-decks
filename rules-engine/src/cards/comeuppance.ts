@@ -44,7 +44,7 @@ const redirectPreventedDamage = (
 
 export default {
   types: ['Instant'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{3}{W}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

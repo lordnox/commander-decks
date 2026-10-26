@@ -4,7 +4,7 @@ import { gainLife, ifThen, objects, ref, result, sacrifice, searchLibrary, self,
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

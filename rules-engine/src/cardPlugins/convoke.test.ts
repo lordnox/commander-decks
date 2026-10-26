@@ -4,10 +4,11 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
+import type { ColorSet } from '../../../shared/cardColors'
 import { card as definition, compileCardRuleDefinition, activated, convoke, destroy, objects, select, target } from './dsl/v1'
 import { instructionSpell } from './dsl/instructionTestSupport'
 
-const card = (name: string, types: string[], colors: string[] = []) =>
+const card = (name: string, types: string[], colors: ColorSet = '') =>
   cardTemplate(name, { types, colors })
 
 const ok = (result: ReduceResult) => {
@@ -29,16 +30,16 @@ const game = () => createServerGame(
     },
     battlefield: {
       p1: [
-        { ...card('Black Creature', ['Creature'], ['B']), tapProduces: { C: 1 } },
-        card('Green Creature', ['Creature'], ['G']),
+        { ...card('Black Creature', ['Creature'], 'B'), tapProduces: { C: 1 } },
+        card('Green Creature', ['Creature'], 'G'),
         card('Colorless Creature', ['Creature']),
-        card('Mana Rock', ['Artifact'], ['B']),
-        { ...card('Tapped Creature', ['Creature'], ['B']), tapped: true },
-        { ...card('Phased Creature', ['Creature'], ['B']), phasedOut: true },
+        card('Mana Rock', ['Artifact'], 'B'),
+        { ...card('Tapped Creature', ['Creature'], 'B'), tapped: true },
+        { ...card('Phased Creature', ['Creature'], 'B'), phasedOut: true },
       ],
       p2: [
-        card('Opponent Creature', ['Creature'], ['B']),
-        card('Target Bear', ['Creature'], ['G']),
+        card('Opponent Creature', ['Creature'], 'B'),
+        card('Target Bear', ['Creature'], 'G'),
       ],
     },
 

@@ -13,14 +13,14 @@ const ruleDefinition = snapshotFor([
 export default {
   types: ['Creature'],
   subtypes: ['Goblin'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{2}{B}',
   manaValue: 3,
   ruleDefinition,
   frontFace: {
     types: ['Creature'],
     subtypes: ['Goblin'],
-    colors: ['B'],
+    colors: 'B',
     manaCost: '{2}{B}',
     manaValue: 3,
     supertypes: [],

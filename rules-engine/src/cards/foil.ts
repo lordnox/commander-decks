@@ -4,7 +4,7 @@ import { counter, discardCost, manaCost, objects, select, spell, stackItems, tar
 
 export default {
   types: ["Instant"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{2}{U}{U}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

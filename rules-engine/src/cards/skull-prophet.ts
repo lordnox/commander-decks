@@ -5,7 +5,7 @@ import { activated, amount, mill, ref, tapCost } from '../cardPlugins/dsl/v1'
 export default {
   types: ["Creature"],
   subtypes: ["Human", "Druid"],
-  colors: ["B", "G"],
+  colors: 'BG',
   manaCost: "{B}{G}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

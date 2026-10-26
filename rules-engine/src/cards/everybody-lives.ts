@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import {
   createEffect,
   createPlayerEffect,
@@ -155,7 +155,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Instant'],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

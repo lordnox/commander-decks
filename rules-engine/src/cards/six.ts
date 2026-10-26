@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activePlayer, choice, chooseCards, mill, move, objects, players, ref, self, staticAbility, whenever, keyword, castSpells } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; source retrieval date is unknown.
@@ -153,7 +153,7 @@ export default {
   types: typeWords.filter(type => type !== 'Legendary'),
   supertypes: typeWords.filter(type => type === 'Legendary'),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   power: Number(scryfall.power),

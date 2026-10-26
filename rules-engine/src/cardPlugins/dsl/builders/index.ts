@@ -10,8 +10,9 @@ import type {
   StatDeltaInput,
   RoundingMode,
   CardColor,
-  CardRuleDefinitionInputV1,
-  CardRuleDefinitionV1,
+  CardRuleDefinitionInputV2,
+  CardRuleDefinitionV2,
+  RuleDslSchemaVersion,
   ChoiceReference,
   Condition,
   ContinuousEffectDefinition,
@@ -88,7 +89,7 @@ import type {
   WheneverConfiguration,
   WardCost,
   Zone,
-} from '../schema/v1'
+} from '../schema/v2'
 import {
   LIBRARY_VISIBILITY,
   CHOSEN_COLOR_BINDING,
@@ -99,7 +100,7 @@ import {
   RULE_DSL_SCHEMA_VERSION,
   SPELL_CAST_COSTS,
   UNLIMITED_PREVENTION,
-} from '../schema/v1'
+} from '../schema/v2'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
 import type { RoomDoorId, StepId } from '../../../types'
@@ -789,9 +790,9 @@ export const saga = (input: {
 })
 
 export const cardRuleDefinition = (
-  schemaVersion: 1,
-  definition: CardRuleDefinitionInputV1,
-): CardRuleDefinitionV1 => {
+  schemaVersion: RuleDslSchemaVersion,
+  definition: CardRuleDefinitionInputV2,
+): CardRuleDefinitionV2 => {
   if (schemaVersion !== RULE_DSL_SCHEMA_VERSION) {
     throw new TypeError(`unsupported Rule DSL schema version: ${String(schemaVersion)}`)
   }

@@ -103,8 +103,8 @@ test('card-color mana queries use only current linked identities and feed produc
     activated({ costs: [tapCost()], instructions: [addManaFrom({ of: objects({ zone: 'exile', exiledWith: ref('source') }), basis: MANA_QUERY_BASIS.colors })] }),
   ])))
   const server = createServerGame(commanderRules, {
-    battlefield: { p1: [cardTemplate('Color query fixture', { types: ['Land'], colors: ['G'], ruleDefinition: colors }), queryLand()] },
-    libraries: { p2: [cardTemplate('Multicolor fixture', { types: ['Creature'], colors: ['U', 'B'], zone: 'graveyard' }), cardTemplate('Colorless fixture', { colors: [], zone: 'graveyard' }), cardTemplate('Unrelated fixture', { colors: ['R'], zone: 'exile' })] },
+    battlefield: { p1: [cardTemplate('Color query fixture', { types: ['Land'], colors: 'G', ruleDefinition: colors }), queryLand()] },
+    libraries: { p2: [cardTemplate('Multicolor fixture', { types: ['Creature'], colors: 'UB', zone: 'graveyard' }), cardTemplate('Colorless fixture', { colors: '', zone: 'graveyard' }), cardTemplate('Unrelated fixture', { colors: 'R', zone: 'exile' })] },
   }, { random: () => 0 })
   const source = named(server.state, 'Color query fixture')
   expect(manaModes(source, server.state)).toEqual([{ C: 1 }])

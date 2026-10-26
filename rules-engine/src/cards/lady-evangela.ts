@@ -13,7 +13,7 @@ import {
 export default {
   types: ['Creature'],
   subtypes: ['Human', 'Cleric'],
-  colors: ['W', 'U', 'B'],
+  colors: 'WUB',
   manaCost: '{W}{U}{B}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

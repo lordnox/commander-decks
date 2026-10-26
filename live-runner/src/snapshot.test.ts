@@ -1,6 +1,6 @@
 import { inflateSync } from 'node:zlib'
 import { describe, expect, test } from 'bun:test'
-import { expandLiveWire, type LiveWireV2 } from '../../site/src/liveCompact'
+import { expandLiveWire, type LiveWireV3 } from '../../site/src/liveCompact'
 import { normalizeSeats } from '../../site/src/liveCodec'
 import { applyInbox, createLobby, rollTurnOrder } from './lobby'
 import { encodeLobby, lobbyWire } from './snapshot'
@@ -9,7 +9,7 @@ const decodePayload = (payload: string) => {
   const body = payload.slice('v2.'.length)
   const padded = body.replace(/-/g, '+').replace(/_/g, '/')
     + '='.repeat((4 - (body.length % 4)) % 4)
-  return JSON.parse(inflateSync(Buffer.from(padded, 'base64')).toString()) as LiveWireV2
+  return JSON.parse(inflateSync(Buffer.from(padded, 'base64')).toString()) as LiveWireV3
 }
 
 describe('lobby snapshots', () => {

@@ -23,7 +23,7 @@ import { evidencePaymentEvents, announcementCostChoices, activatedPermissionFiel
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
-import type { AbilityDefinition, TargetClause } from './dsl/schema/v1'
+import type { AbilityDefinition, TargetClause } from './dsl/schema/v2'
 import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
 import { canonicalManaAbilityForTap, canonicalManaClassification } from './dsl/manaPrograms'

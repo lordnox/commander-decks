@@ -1,4 +1,4 @@
-import type { AmountInput } from '../../schema/v1'
+import type { AmountInput } from '../../schema/v2'
 import { activated, amount, ref } from '../../builders'
 import { animate } from './animate'
 

@@ -38,7 +38,7 @@ export default {
   types: ['Creature'],
   subtypes: ['Human', 'Dryad'],
   supertypes: ['Legendary'],
-  colors: ['B', 'G', 'U'],
+  colors: 'UBG',
   manaCost: '{B}{G}{U}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

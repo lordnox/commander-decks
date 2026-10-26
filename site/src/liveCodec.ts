@@ -25,7 +25,7 @@ import {
   loadDeckIndexes,
   unsupportedLiveSnapshotVersion,
   type DeckIndex,
-  type LiveWireV2,
+  type LiveWireV3,
 } from './liveCompact'
 import { assertReplaySchema } from './replaySchema'
 import { DEFAULT_CONDUIT_ORIGIN, conduitOrigin } from './liveConduit'
@@ -427,7 +427,7 @@ export const decodeLivePayload = async (payload: string) => {
       if (prefix !== LIVE_WIRE_PREFIX) {
         throw new Error(unsupportedLiveSnapshotVersion(parsed.v))
       }
-      const wire = parsed as LiveWireV2
+      const wire = parsed as LiveWireV3
       if (!wire.h) {
         throw new Error('Live snapshot is missing required fields')
       }

@@ -5,7 +5,7 @@ import { linkExile, objects, returnLinkedExile, select, self, target, whenever }
 export default {
   types: ['Creature'],
   subtypes: ['Human', 'Cleric'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{1}{W}{W}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

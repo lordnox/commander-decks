@@ -4,7 +4,7 @@ import { cardDiscarded, loseLife, players, ref, whenever } from '../cardPlugins/
 
 export default {
   types: ["Enchantment"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{1}{B}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

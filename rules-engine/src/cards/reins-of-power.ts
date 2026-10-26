@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { exchangeControl, objects, players, ref, select, spell, target, untilCleanup } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -135,7 +135,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Instant'],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

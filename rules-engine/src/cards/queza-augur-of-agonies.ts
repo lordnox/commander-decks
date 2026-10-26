@@ -5,7 +5,7 @@ import { draws, gainLife, loseLife, players, ref, select, target, whenever } fro
 export default {
   types: ['Creature'],
   subtypes: ['Octopus', 'Advisor'],
-  colors: ['W', 'U', 'B'],
+  colors: 'WUB',
   manaCost: '{1}{W}{U}{B}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

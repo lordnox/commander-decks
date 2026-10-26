@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { createToken, enters, may, mill, objects, players, playLands, ref, self, staticAbility, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -174,12 +174,12 @@ export default {
   scryfall,
   types: ['Creature'], supertypes: ['Legendary'],
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     staticAbility(playLands(players({ relation: 'you' }), objects({ zone: 'graveyard', owner: 'you', type: 'Land' }))),
     whenever(enters({ filter: { type: 'Land', controller: 'you' } }), { instructions: [
       createToken({ targets: ref('controller'), count: 1, token: {
-        name: 'Moloid', types: ['Creature'], subtypes: ['Minion'], colors: ['G'], power: 1, toughness: 1,
+        name: 'Moloid', types: ['Creature'], subtypes: ['Minion'], colors: 'G', power: 1, toughness: 1,
         abilities: [whenever(self.attacks, { instructions: [may(mill({ targets: ref('controller'), count: 1 }))] })],
       } }),
     ] }),

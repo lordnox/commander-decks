@@ -4,7 +4,7 @@ import { objects, self, tap, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Creature"],
-  colors: ["W"],
+  colors: 'W',
   manaCost: "{4}{W}{W}",
   manaValue: 6,
   ruleDefinition: snapshotFor([

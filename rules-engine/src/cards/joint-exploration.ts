@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { choice, chooseCards, compareAmount, draw, ifThen, manaCost, move, objects, paidCostCount, ref, scry, spell } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -146,7 +146,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ costLabels: { optional: ['Kicker {G}'] }, optionalCosts: [manaCost('{G}')], instructions: [
       scry({ targets: ref('controller'), count: 2 }),

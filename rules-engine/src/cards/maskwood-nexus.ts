@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activated, addTypesTo, createToken, keyword, manaCost, objects, ref, staticAbility, tapCost } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache when available; original retrieval date is unknown.
@@ -153,9 +153,9 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
 staticAbility(addTypesTo({ targets: objects({ type: 'Creature', any: [{ zone: 'battlefield', controller: 'you' }, { zone: 'stack', controller: 'you' }, { not: { zone: 'battlefield' }, owner: 'you' }] }), allCreatureTypes: true })),
-activated({ costs: [manaCost('{3}'), tapCost()], instructions: [createToken({ targets: ref('controller'), count: 1, token: { name: 'Shapeshifter', types: ['Creature'], subtypes: ['Shapeshifter'], colors: ['U'], power: 2, toughness: 2, abilities: [keyword.changeling] } })] })
+activated({ costs: [manaCost('{3}'), tapCost()], instructions: [createToken({ targets: ref('controller'), count: 1, token: { name: 'Shapeshifter', types: ['Creature'], subtypes: ['Shapeshifter'], colors: 'U', power: 2, toughness: 2, abilities: [keyword.changeling] } })] })
   ]),
 } satisfies CatalogEntry

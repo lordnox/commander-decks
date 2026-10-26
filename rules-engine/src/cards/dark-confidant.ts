@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { captureAmount, characteristic, choice, compareAmount, count, ifThen, inspectTop, LIBRARY_VISIBILITY, loseLife, move, objects, ref, resultAmount, stepBegins, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Human', 'Wizard'], colors: ['B'], manaCost: '{1}{B}', manaValue: 2,
+  types: ['Creature'], subtypes: ['Human', 'Wizard'], colors: 'B', manaCost: '{1}{B}', manaValue: 2,
   ruleDefinition: snapshotFor([
     whenever(stepBegins({ step: 'upkeep', player: ref('controller') }), {
       instructions: [

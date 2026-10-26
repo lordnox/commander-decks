@@ -2,7 +2,7 @@ import { matchesTargetFilter } from './targetedResolve'
 import type { TargetFilter } from './effectDefinitions'
 import type Draft from '../draft'
 import type { AttackerDecl, CapturedObject, GameState, PlayerId, TargetRef } from '../types'
-import type { ObjectSelector } from './dsl/schema/v1'
+import type { ObjectSelector } from './dsl/schema/v2'
 import { objectMatchesSelector } from './dsl/compiler/runtime'
 
 export const ATTACK_BANS = 'combat.attackBansUntilEot'

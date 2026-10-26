@@ -2,17 +2,18 @@ import { isCreatureType, CREATURE_TYPES } from '../../../creatureTypes'
 import { STEP_IDS } from '../../../types'
 import { LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE, OPTIONAL_ACTION_DIAGNOSTIC_CODE, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE } from './constants'
 import type {
-  CardRuleDefinitionV1,
+  CardRuleDefinitionV2,
   ContextBinding,
   DefinitionDeclaration,
   ResultField,
-} from '../schema/v1'
-import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING } from '../schema/v1'
+} from '../schema/v2'
+import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING } from '../schema/v2'
 import { definitionRevisionFor } from '../builders/revision'
 import { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
+import { parseColorSet } from '../../../../../shared/cardColors'
 
 type Data = Record<string, unknown>
 type Domain = 'damage' | 'player' | 'object' | 'stack' | 'boolean' | 'number' | 'creatureType'
@@ -57,7 +58,7 @@ const objectFilterMentionsZone = (filter: unknown, zone: string): boolean => {
 const childPath = (path: string, key: string | number): string =>
   typeof key === 'number' ? `${path}[${key}]` : `${path}.${key}`
 
-export const validateDefinitionV1 = (root: unknown): {
+export const validateDefinitionV2 = (root: unknown): {
   diagnostics: RuleDslDiagnostic[]
   declarations: DefinitionDeclaration[]
 } => {
@@ -65,6 +66,13 @@ export const validateDefinitionV1 = (root: unknown): {
   const declarations: DefinitionDeclaration[] = []
   const issue = (path: string, code: string, message: string): void => {
     diagnostics.push({ path, code, message })
+  }
+  const validateColorSet = (value: unknown, path: string) => {
+    try {
+      parseColorSet(value)
+    } catch (error) {
+      issue(path, 'color-set', error instanceof Error ? error.message : 'expected a canonical WUBRG color-set string')
+    }
   }
   const nonemptyString = (value: unknown, path: string) => {
     if (typeof value !== 'string' || value.length === 0) issue(path, 'type', 'expected a nonempty string')
@@ -78,7 +86,7 @@ export const validateDefinitionV1 = (root: unknown): {
   }
   const exactKeys = (value: Data, path: string, allowed: readonly string[], required: readonly string[] = []): void => {
     const allowedSet = new Set(allowed)
-    for (const key of Object.keys(value)) if (!allowedSet.has(key)) issue(childPath(path, key), 'unknown-field', 'field is not part of Rule DSL v1')
+    for (const key of Object.keys(value)) if (!allowedSet.has(key)) issue(childPath(path, key), 'unknown-field', 'field is not part of Rule DSL v2')
     for (const key of required) if (!(key in value)) issue(childPath(path, key), 'missing-field', 'required field is missing')
   }
   const array = (value: unknown, path: string, options: { nonempty?: boolean; max?: number } = {}): readonly unknown[] => {
@@ -1333,6 +1341,7 @@ export const validateDefinitionV1 = (root: unknown): {
         const token = object(node.token, childPath(path, 'token'))
         if (token) {
           exactKeys(token, childPath(path, 'token'), ['name', 'types', 'subtypes', 'colors', 'power', 'toughness', 'oracleText', 'abilities'], ['name', 'types'])
+          if (token.colors !== undefined) validateColorSet(token.colors, childPath(path, 'token.colors'))
           if (token.abilities !== undefined) array(token.abilities, `${path}.token.abilities`).forEach((ability, index) => validateAbility(ability, `${path}.token.abilities[${index}]`))
           if (typeof token.name !== 'string' || !Array.isArray(token.types)) issue(childPath(path, 'token'), 'type', 'token requires name and types')
         }
@@ -1493,8 +1502,7 @@ export const validateDefinitionV1 = (root: unknown): {
               if (duration?.kind !== 'untilCleanup') issue(childPath(path, 'duration'), 'domain', 'a regeneration shield lasts only this turn (CR 701.19a)')
               break
             case 'setColors':
-              array(effect.colors, childPath(childPath(path, 'effect'), 'colors')).forEach((color, index) =>
-                enumeration(color, childPath(childPath(childPath(path, 'effect'), 'colors'), index), new Set(CARD_COLORS), 'card color'))
+              validateColorSet(effect.colors, childPath(path, 'effect.colors'))
               break
             case 'addTypes':
               if (effect.creatureType !== undefined) validateCreatureType(effect.creatureType, childPath(path, 'effect.creatureType'), env)
@@ -2080,8 +2088,7 @@ export const validateDefinitionV1 = (root: unknown): {
       }
     }
     if (except.colors !== undefined) {
-      array(except.colors, childPath(path, 'colors')).forEach((color, index) =>
-        enumeration(color, childPath(childPath(path, 'colors'), index), new Set(CARD_COLORS), 'card color'))
+      validateColorSet(except.colors, childPath(path, 'colors'))
     }
     if (except.types !== undefined) {
       array(except.types, childPath(path, 'types'), { nonempty: true }).forEach((type, index) => {
@@ -2774,11 +2781,11 @@ export const validateDefinitionV1 = (root: unknown): {
   if (!definition) return { diagnostics, declarations }
   exactKeys(definition, '$', ['schemaVersion', 'definitionRevision', 'abilities'], ['schemaVersion', 'definitionRevision', 'abilities'])
   if (definition.schemaVersion !== RULE_DSL_SCHEMA_VERSION) {
-    issue('$.schemaVersion', 'unsupported-version', `unsupported Rule DSL schema version: ${String(definition.schemaVersion)}`)
+    issue('$.schemaVersion', 'unsupported-version', `unsupported Rule DSL schema version: ${String(definition.schemaVersion)}; recreate the game with current card definitions`)
     return { diagnostics, declarations }
   }
-  if (typeof definition.definitionRevision !== 'string' || !/^v1-[0-9a-f]{16}$/.test(definition.definitionRevision)) {
-    issue('$.definitionRevision', 'definition-revision', 'expected a v1 immutable content revision')
+  if (typeof definition.definitionRevision !== 'string' || !/^v2-[0-9a-f]{16}$/.test(definition.definitionRevision)) {
+    issue('$.definitionRevision', 'definition-revision', 'expected a v2 immutable content revision')
   }
   const abilities = array(definition.abilities, '$.abilities')
   abilities.forEach((ability, index) => validateAbility(ability, childPath('$.abilities', index)))
@@ -2789,9 +2796,9 @@ export const validateDefinitionV1 = (root: unknown): {
   return { diagnostics, declarations }
 }
 
-export function assertDefinitionV1(
+export function assertDefinitionV2(
   value: unknown,
   diagnostics: readonly RuleDslDiagnostic[],
-): asserts value is CardRuleDefinitionV1 {
+): asserts value is CardRuleDefinitionV2 {
   if (diagnostics.length > 0) throw new RuleDslValidationError(diagnostics)
 }

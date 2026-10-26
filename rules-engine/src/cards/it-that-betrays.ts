@@ -5,7 +5,7 @@ import { annihilator, move, objects, ref, sacrificed, whenever } from '../cardPl
 export default {
   types: ['Creature'],
   subtypes: ['Eldrazi'],
-  colors: [],
+  colors: '',
   manaCost: '{12}',
   manaValue: 12,
   ruleDefinition: snapshotFor([

@@ -1,6 +1,7 @@
 import { isKnownTo } from '../../rules-engine/src/knowledge'
 import { abilityTokens } from '../../rules-engine/src/keywords'
 import { controlledBattlefield, replayComparableState } from '../../rules-engine/src/replay'
+import { LIVE_SNAPSHOT_VERSION } from '../../site/src/liveCompact'
 import type {
   EventTrace,
   GameObject,
@@ -364,7 +365,7 @@ export const liveSnapshotFromState = (options: {
   const pendingChooser = lobby.topdeck?.seat
   const combat = kernelCombat(state)
   return {
-    v: 1,
+    v: LIVE_SNAPSHOT_VERSION,
     ...(combat ? { combat } : {}),
     you: viewer,
     headline: seats.map((seat) => seat.name).join(' / ') || 'Live table',

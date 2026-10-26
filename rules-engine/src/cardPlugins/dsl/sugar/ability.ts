@@ -3,7 +3,7 @@ import type {
   OccurrencePattern,
   TriggeredAbilityDefinition,
   WheneverConfiguration,
-} from '../schema/v1'
+} from '../schema/v2'
 import { whenever } from '../builders'
 
 type WheneverSugar = {

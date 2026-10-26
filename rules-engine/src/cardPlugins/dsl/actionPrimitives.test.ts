@@ -20,7 +20,7 @@ import {
   sequence,
 } from './v1'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './compiler'
-import type { Instruction } from './schema/v1'
+import type { Instruction } from './schema/v2'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'

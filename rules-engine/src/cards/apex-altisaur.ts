@@ -8,7 +8,7 @@ const fightUncontrolled = {
 }
 
 export default {
-  types: ['Creature'], subtypes: ['Dinosaur'], colors: ['G'], manaCost: '{7}{G}{G}', manaValue: 9,
+  types: ['Creature'], subtypes: ['Dinosaur'], colors: 'G', manaCost: '{7}{G}{G}', manaValue: 9,
   ruleDefinition: snapshotFor([
     whenever(self.enters, fightUncontrolled),
     whenever(self.dealtDamage, fightUncontrolled),

@@ -4,7 +4,7 @@ import { choice, chooseCards, delve, inspectTop, move, objects, ref, remaining, 
 
 export default {
   types: ['Instant'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{6}{U}{U}',
   manaValue: 8,
   ruleDefinition: snapshotFor([

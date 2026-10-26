@@ -4,7 +4,7 @@ import { chooseCards, choice, destroy, move, objects, ref, select, spell, target
 
 export default {
   types: ["Sorcery"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{1}{G}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

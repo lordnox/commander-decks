@@ -19,7 +19,7 @@ const namedWeddingRing = { type: 'Artifact', sameNameAs: ref('source') }
 
 export default {
   types: ['Artifact'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{2}{W}{W}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

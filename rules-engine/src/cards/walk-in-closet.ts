@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { castSpells, createRuleEffect, objects, players, playLands, staticAbility, unlockDoor, untilCleanup, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; Oracle text verified on 2026-10-24.
@@ -180,13 +180,13 @@ const cellarRules = snapshotFor([
 
 export default {
   scryfall,
-  types: ['Enchantment'], subtypes: ['Room'], colors: scryfall.colors,
+  types: ['Enchantment'], subtypes: ['Room'], colors: colorSetFromScryfall(scryfall.colors),
   manaCost: `${closet.mana_cost} // ${cellar.mana_cost}`, manaValue: scryfall.cmc,
   roomDoors: [
     { name: closet.name, manaCost: closet.mana_cost, oracleText: closet.oracle_text,
-      types: ['Enchantment'], subtypes: ['Room'], supertypes: [], colors: scryfall.colors, manaValue: 3, ruleDefinition: closetRules },
+      types: ['Enchantment'], subtypes: ['Room'], supertypes: [], colors: colorSetFromScryfall(scryfall.colors), manaValue: 3, ruleDefinition: closetRules },
     { name: cellar.name, manaCost: cellar.mana_cost, oracleText: cellar.oracle_text,
-      types: ['Enchantment'], subtypes: ['Room'], supertypes: [], colors: scryfall.colors, manaValue: 5, ruleDefinition: cellarRules },
+      types: ['Enchantment'], subtypes: ['Room'], supertypes: [], colors: colorSetFromScryfall(scryfall.colors), manaValue: 5, ruleDefinition: cellarRules },
   ],
   ruleDefinition: snapshotFor([...closetRules.definition.abilities, ...cellarRules.definition.abilities]),
 } satisfies CatalogEntry

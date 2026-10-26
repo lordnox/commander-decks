@@ -879,7 +879,7 @@ export const addChosenColorMana = (
   colors?: Array<Exclude<ManaId, 'C'>>,
 ): CardInstruction => ({
   kind: 'addChosenColorMana',
-  ...(colors ? { colors } : {}),
+  ...(colors !== undefined ? { colors } : {}),
 })
 
 export const destroyTargetPermanent = (...types: string[]): CardInstruction => ({

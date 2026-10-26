@@ -4,7 +4,7 @@ import { chooseCards, choice, draw, move, objects, ref, sequence, spell } from '
 
 export default {
   types: ['Instant'],
-  colors: ['G', 'U'],
+  colors: 'UG',
   manaCost: '{G}{U}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

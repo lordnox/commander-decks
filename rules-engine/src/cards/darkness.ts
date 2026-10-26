@@ -4,7 +4,7 @@ import { preventAllCombatDamageThisTurn, spell } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Instant'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{B}',
   manaValue: 1,
   ruleDefinition: snapshotFor([

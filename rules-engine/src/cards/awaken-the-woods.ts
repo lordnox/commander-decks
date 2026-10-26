@@ -4,7 +4,7 @@ import { chooseX, createToken, ref, spell, token, variable } from '../cardPlugin
 
 export default {
   types: ["Sorcery"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{X}{G}{G}",
   manaValue: 2,
   ruleDefinition: snapshotFor([
