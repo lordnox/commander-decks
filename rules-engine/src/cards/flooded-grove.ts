@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, chooseInstructions, manaCost, ref, tapCost } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: amount(1) } }] }),
     activated({ costs: [manaCost('{G/U}'), tapCost()], instructions: [chooseInstructions({ chooser: ref('controller'), options: [

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseX, compareAmount, count, ifThen, inspectTop, LIBRARY_VISIBILITY, move, objects, ref, spell, untap, variable } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Sorcery'], colors: ['G'], manaCost: '{X}{G}', manaValue: 1,
+  types: ['Sorcery'], colors: 'G', manaCost: '{X}{G}', manaValue: 1,
   ruleDefinition: snapshotFor([
     spell({ decisions: { variables: [chooseX()] }, instructions: [
       inspectTop({ player: ref('controller'), count: variable('X'), bindChoice: 'top', visibility: LIBRARY_VISIBILITY.public }),

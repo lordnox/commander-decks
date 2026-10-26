@@ -74,17 +74,17 @@ describe('planeswalker loyalty abilities', () => {
     const green = cardTemplate('Green Permanent', {
       types: ['Enchantment'],
       manaValue: 3,
-      colors: ['G'],
+      colors: 'G',
     })
     const colorless = cardTemplate('Colorless Permanent', {
       types: ['Artifact'],
       manaValue: 2,
-      colors: [],
+      colors: '',
     })
     const expensive = cardTemplate('Expensive Permanent', {
       types: ['Creature'],
       manaValue: 5,
-      colors: ['B'],
+      colors: 'B',
     })
     const runtime = gameWithUgin(7, {
       battlefield: { p1: [ugin(7)], p2: [green, colorless, expensive] },

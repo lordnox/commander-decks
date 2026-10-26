@@ -1,10 +1,10 @@
-import type { TokenDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { TokenDefinition } from '../cardPlugins/dsl/schema/v2'
 
 export const insect11G = {
   name: 'Insect',
   types: ['Creature'],
   subtypes: ['Insect'],
-  colors: ['G'],
+  colors: 'G',
   power: 1,
   toughness: 1,
 } satisfies TokenDefinition

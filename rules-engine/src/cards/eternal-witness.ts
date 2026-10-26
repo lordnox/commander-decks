@@ -4,7 +4,7 @@ import { chooseInstructions, move, objects, ref, select, self, target, whenever 
 
 export default {
   types: ["Creature"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{1}{G}{G}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

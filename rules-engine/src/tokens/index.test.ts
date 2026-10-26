@@ -3,7 +3,7 @@ import { TOKEN_CATALOG, token } from './index'
 
 test('token() resolves distinctive catalog ids', () => {
   expect(token('Inkling-2-1-WB-flying')).toMatchObject({
-    name: 'Inkling', power: 2, toughness: 1, colors: ['W', 'B'], oracleText: 'Flying',
+    name: 'Inkling', power: 2, toughness: 1, colors: 'WB', oracleText: 'Flying',
   })
   expect(token('Treasure')).toMatchObject({
     name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'],

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from "./types"
-import { snapshotFor } from "./snapshot"
+import { colorSetFromScryfall, snapshotFor } from "./snapshot"
 import { characteristic, choice, chooseCards, count, devour, inspectTop, move, objects, ref, remaining, self, staticAbility, ward, whenever } from "../cardPlugins/dsl/v1"
 
 // Copied from the shared Scryfall cache when available; original retrieval date is unknown.
@@ -152,7 +152,7 @@ export default {
   types: typeWords.filter(type => type !== "Legendary"),
   supertypes: typeWords.filter(type => type === "Legendary"),
   subtypes: scryfall.type_line.split(" — ")[1]?.split(" ") ?? [],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([

@@ -25,7 +25,7 @@ const elephant = {
   name: 'Elephant',
   types: ['Creature'],
   subtypes: ['Elephant'],
-  colors: ['G'],
+  colors: 'G' as const,
   power: 3,
   toughness: 3,
 }

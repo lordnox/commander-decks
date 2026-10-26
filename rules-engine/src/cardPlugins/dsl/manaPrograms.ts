@@ -1,6 +1,6 @@
 import { effectiveActivatedDefinition, canonicalActivationIsActive } from './activatedGrants'
 import type { GameObject, ManaId } from '../../types'
-import type { Instruction } from './schema/v1'
+import type { Instruction } from './schema/v2'
 import { classifyManaAbility, compileCardRuleDefinition } from './compiler'
 import { grantedOrPrintedBasicLandTypes } from '../../plugins/landTypes'
 

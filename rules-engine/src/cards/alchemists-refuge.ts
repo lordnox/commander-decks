@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, grantFlash, manaCost, ref, tapCost, untilCleanup } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     activated({
       costs: [tapCost()],

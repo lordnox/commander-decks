@@ -4,7 +4,7 @@ import { activated, amount, modifyEvent, ref, replacement, staticAbility, tapCos
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

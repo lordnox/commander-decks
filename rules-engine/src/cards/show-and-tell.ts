@@ -12,7 +12,7 @@ import {
 
 export default {
   types: ['Sorcery'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{2}{U}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

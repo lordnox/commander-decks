@@ -5,7 +5,7 @@ import { capturePlayer, chooseInstructions, controllerOf, counter, createDelayed
 const recipient = resultPlayer('spellController')
 
 export default {
-  types: ['Instant'], colors: ['U'], manaCost: '{1}{U}', manaValue: 2,
+  types: ['Instant'], colors: 'U', manaCost: '{1}{U}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] },

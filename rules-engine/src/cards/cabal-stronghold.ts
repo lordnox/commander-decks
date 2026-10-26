@@ -4,7 +4,7 @@ import { activated, count, manaCost, objects, ref, tapCost } from '../cardPlugin
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

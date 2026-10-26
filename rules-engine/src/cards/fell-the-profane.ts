@@ -17,7 +17,7 @@ const ruleDefinition = snapshotFor([
 
 export default {
   types: ['Instant'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{2}{B}{B}',
   manaValue: 4,
   ruleDefinition,
@@ -25,7 +25,7 @@ export default {
     types: ['Instant'],
     subtypes: [],
     supertypes: [],
-    colors: ['B'],
+    colors: 'B',
     manaCost: '{2}{B}{B}',
     manaValue: 4,
     oracleText: 'Destroy target creature or planeswalker.',

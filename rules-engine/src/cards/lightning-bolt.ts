@@ -4,7 +4,7 @@ import { anyTarget, damage, ref, select, spell, target } from '../cardPlugins/ds
 
 export default {
   types: ["Instant"],
-  colors: ["R"],
+  colors: 'R',
   manaCost: "{R}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

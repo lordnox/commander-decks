@@ -4,7 +4,7 @@ import { activated, createDelayed, manaCost, modifyEvent, move, objects, ref, re
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -100,9 +100,9 @@ const manaValueOf = (cost: string) =>
 
 const colorsOf = (card: ReplayCard | undefined, cost: string) => {
   const external = card?.colors ?? card?.color_indicator
-  if (external !== undefined) return [...normalizeColorSet(external)]
-  if (/^Devoid\b/m.test(card?.oracle_text ?? '')) return []
-  return [...normalizeColorSet([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
+  if (external !== undefined) return normalizeColorSet(external)
+  if (/^Devoid\b/m.test(card?.oracle_text ?? '')) return ''
+  return normalizeColorSet([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))
 }
 
 const faceCharacteristics = (face: ReplayCard) => {

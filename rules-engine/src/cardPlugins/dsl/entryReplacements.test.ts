@@ -22,7 +22,7 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { emptyMana } from '../../draft'
-import type { Amount } from './schema/v1'
+import type { Amount } from './schema/v2'
 import type { GameState, Plugin, ReduceResult } from '../../types'
 
 const ok = (result: ReduceResult) => {

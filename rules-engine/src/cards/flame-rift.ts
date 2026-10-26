@@ -4,7 +4,7 @@ import { damage, players, ref, spell } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Sorcery"],
-  colors: ["R"],
+  colors: 'R',
   manaCost: "{1}{R}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

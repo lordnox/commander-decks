@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { choice, inspectTop, LIBRARY_VISIBILITY, move, partitionPiles, players, ref, select, spell, target } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -137,7 +137,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Instant'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Instant'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] }, instructions: [
       inspectTop({ player: ref('controller'), count: 4, bindChoice: 'cards', visibility: LIBRARY_VISIBILITY.private }),

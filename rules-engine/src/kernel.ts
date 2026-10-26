@@ -11,7 +11,7 @@ import { changeController, changeControllerPermanent, copyObject } from './cardP
 import { applyCopy, applyCopyExtraFromExcept } from './cardPlugins/effectRuntime'
 import { counterPtBonus, setEntryLoyalty } from './definitions'
 import type { PluginCatalog } from './catalog'
-import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
+import { KEYWORDS } from './cardPlugins/dsl/schema/v2'
 import type { Draft } from './draft'
 import { freezeDraft, makeDraft, nextPlayer } from './draft'
 import type {
@@ -593,10 +593,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           }]
           break
         case 'setColors': {
-          const before = [...object.colors]
-          object.colors = [...new Set(event.effect.colors)]
+          const before = object.colors
+          object.colors = event.effect.colors
           object.continuousEffects = [...(object.continuousEffects ?? []), {
-            effect: { kind: 'colorChange', before, after: [...object.colors], incarnation: object.incarnation }, duration,
+            effect: { kind: 'colorChange', before, after: object.colors, incarnation: object.incarnation }, duration,
           }]
           break
         }

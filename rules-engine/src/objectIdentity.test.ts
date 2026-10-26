@@ -518,7 +518,7 @@ describe('rules object identity', () => {
       supertypes: [],
       manaCost: '',
       manaValue: 0,
-      colors: [],
+      colors: '',
       power: 4,
       toughness: 4,
       oracleText: '',

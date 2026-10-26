@@ -4,7 +4,7 @@ import { blink, may, objects, select, self, target, whenever } from '../cardPlug
 
 export default {
   types: ['Creature'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{3}{W}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

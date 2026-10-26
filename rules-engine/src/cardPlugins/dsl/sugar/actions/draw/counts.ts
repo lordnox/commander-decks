@@ -1,4 +1,4 @@
-import type { AmountInput, Instruction, PlayerRecipient } from '../../../schema/v1'
+import type { AmountInput, Instruction, PlayerRecipient } from '../../../schema/v2'
 import { draw, variable } from '../../../builders'
 
 export type DrawCounts = {

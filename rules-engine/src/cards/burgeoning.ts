@@ -4,7 +4,7 @@ import { chooseCards, choice, landPlayed, move, objects, players, ref, whenever 
 
 export default {
   types: ["Enchantment"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

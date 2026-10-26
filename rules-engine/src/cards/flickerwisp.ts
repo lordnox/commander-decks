@@ -5,7 +5,7 @@ import { blinkUntil, keyword, objects, select, self, stepDelayed, target, whenev
 export default {
   types: ['Creature'],
   subtypes: ['Elemental'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{1}{W}{W}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

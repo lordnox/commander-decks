@@ -14,10 +14,10 @@ const ruleDefinition = snapshotFor([
 ])
 
 export default {
-  types: ['Instant'], colors: ["G"], manaCost: "{2}{G}", manaValue: 3,
+  types: ['Instant'], colors: 'G', manaCost: "{2}{G}", manaValue: 3,
   ruleDefinition,
   frontFace: {
-    types: ['Instant'], colors: ["G"], manaCost: "{2}{G}", manaValue: 3,
+    types: ['Instant'], colors: 'G', manaCost: "{2}{G}", manaValue: 3,
     subtypes: [], supertypes: [], oracleText: "Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)", ruleDefinition,
   },
   backFace: {

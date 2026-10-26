@@ -4,7 +4,7 @@ import { amount, modifyStats, objects, staticAbility } from '../cardPlugins/dsl/
 
 export default {
   types: ["Enchantment"],
-  colors: ["W"],
+  colors: 'W',
   manaCost: "{1}{W}{W}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

@@ -5,7 +5,7 @@ import { KEYWORDS, activated, createEffect, grantKeywordEffect, keyword, manaCos
 export default {
   types: ["Creature"],
   subtypes: ["Beast"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{5}{G}{G}",
   manaValue: 7,
   ruleDefinition: snapshotFor([

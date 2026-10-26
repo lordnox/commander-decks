@@ -13,8 +13,9 @@ import type {
 } from '../types'
 import type { CardCondition, CardEffect, CardInstruction, TokenSpec } from './effectDefinitions'
 import { cloneJsonData, deepFreezeData } from './dsl/compiler/data'
-import { RULE_DSL_SCHEMA_VERSION } from './dsl/schema/v1'
+import { RULE_DSL_SCHEMA_VERSION } from './dsl/schema/v2'
 import { card } from './dsl/sugar/card'
+import type { ColorSet } from '../../../shared/cardColors'
 
 export const basicLand = (object: GameObject) =>
   object.types.includes('Land') && object.supertypes.includes('Basic')
@@ -79,7 +80,7 @@ export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { n
   subtypes: token.subtypes ?? [],
   power: token.power ?? null,
   toughness: token.toughness ?? null,
-  colors: token.colors ?? [],
+  colors: token.colors ?? '',
   oracleText: token.oracleText ?? '',
   effects: effectsFromTokenSpec(token),
 })
@@ -176,7 +177,7 @@ export const manaValueOf = (object: GameObject) => {
 export const applyCopyExtraFromExcept = (except?: {
   notLegendary?: true | boolean
   noManaCost?: true | boolean
-  colors?: readonly string[]
+  colors?: ColorSet
   types?: readonly string[]
   subtypes?: readonly string[]
   keywords?: readonly string[]
@@ -186,7 +187,7 @@ export const applyCopyExtraFromExcept = (except?: {
 } ) => ({
   ...(except?.notLegendary ? { notLegendary: true } : {}),
   ...(except?.noManaCost ? { noManaCost: true } : {}),
-  ...(except?.colors ? { colors: [...except.colors] } : {}),
+  ...(except?.colors !== undefined ? { colors: except.colors } : {}),
   ...(except?.types ? { extraTypes: [...except.types] } : {}),
   ...(except?.subtypes ? { extraSubtypes: [...except.subtypes] } : {}),
   ...(except?.keywords ? { keywords: [...except.keywords] } : {}),
@@ -199,7 +200,7 @@ export type CopyModifiers = {
   notLegendary?: boolean
   flying?: boolean
   keywords?: readonly string[]
-  colors?: readonly string[]
+  colors?: ColorSet
   extraTypes?: readonly string[]
   extraSubtypes?: readonly string[]
   noManaCost?: boolean
@@ -216,7 +217,7 @@ type CopyCharacteristicFields = {
   types: string[]
   subtypes?: string[]
   supertypes?: string[]
-  colors?: string[]
+  colors?: ColorSet
   manaCost?: string
   manaValue?: number
   oracleText?: string
@@ -240,7 +241,7 @@ export const applyCopyModifiers = <T extends CopyCharacteristicFields>(
     ...(extra.notLegendary
       ? { supertypes: (characteristics.supertypes ?? []).filter(entry => entry !== 'Legendary') }
       : {}),
-    ...(extra.colors ? { colors: [...extra.colors] } : {}),
+    ...(extra.colors !== undefined ? { colors: extra.colors } : {}),
     ...(extra.noManaCost ? { manaCost: '', manaValue: 0 } : {}),
     ...(oracleAdditions.length > 0
       ? { oracleText: [characteristics.oracleText, ...oracleAdditions].filter(Boolean).join('\n') }
@@ -540,7 +541,7 @@ export function applyCopy (
     keepAbilities?: boolean
     flying?: boolean
     keywords?: readonly string[]
-    colors?: readonly string[]
+    colors?: ColorSet
     extraTypes?: readonly string[]
     extraSubtypes?: readonly string[]
     noManaCost?: boolean

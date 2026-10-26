@@ -24,7 +24,7 @@ import {
   sourceActiveZones,
   sourceStaticAbilitiesActive,
 } from './staticModifierCore'
-import type { BasicLandType, ContinuousEffectDefinition, Keyword } from './schema/v1'
+import type { BasicLandType, ContinuousEffectDefinition, Keyword } from './schema/v2'
 import { isCurrentlyBestowed, legalBestowHost } from './bestowRuntime'
 
 const SYNC = 'dslStaticModifiers.sync'

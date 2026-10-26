@@ -13,7 +13,9 @@ import {
 } from './liveCodec'
 import {
   LIVE_SNAPSHOT_PREFIX,
+  LIVE_SNAPSHOT_VERSION,
   LIVE_WIRE_PREFIX,
+  LIVE_WIRE_VERSION,
   compactLiveWire,
 } from './liveCompact'
 import type { ReplayGame } from './replayTypes'
@@ -113,7 +115,7 @@ describe('conduit links', () => {
 
 test('public payload redacts a private draw summary', async () => {
   const snapshot = {
-    v: 1,
+    v: LIVE_SNAPSHOT_VERSION,
     you: 'p1',
     headline: 'Test',
     turn: 1,
@@ -172,7 +174,7 @@ test('public payload redacts a private draw summary', async () => {
 
 test('public payload keeps known opponent hand cards', async () => {
   const snapshot = {
-    v: 1,
+    v: LIVE_SNAPSHOT_VERSION,
     you: 'p1',
     headline: 'Test',
     turn: 1,
@@ -212,7 +214,7 @@ const payloadFor = (body: object, prefix: string) => {
 }
 
 const codecSnapshot = () => ({
-  v: 1 as const,
+  v: LIVE_SNAPSHOT_VERSION,
   headline: 'Test',
   turn: 1,
   phase: 'main1',
@@ -262,10 +264,10 @@ describe('live payload versions', () => {
     const payload = await encodeLivePayload(codecSnapshot())
     expect(payload.startsWith(LIVE_WIRE_PREFIX)).toBe(true)
     const decoded = await decodeLivePayload(payload)
-    expect(decoded.v).toBe(2)
+    expect(decoded.v).toBe(LIVE_WIRE_VERSION)
     const opened = await openLivePayload(payload, '/')
     expect(opened.headline).toBe('Test')
-    expect(opened.v).toBe(1)
+    expect(opened.v).toBe(LIVE_SNAPSHOT_VERSION)
   })
 
   test('private and public encoders reject missing, v0, and unknown snapshot versions', async () => {
@@ -273,7 +275,7 @@ describe('live payload versions', () => {
     const unsupported = [
       missing,
       { ...codecSnapshot(), v: 0 },
-      { ...codecSnapshot(), v: 2 },
+      { ...codecSnapshot(), v: 1 },
       { ...codecSnapshot(), v: 3 },
     ] as LiveSnapshot[]
     for (const snapshot of unsupported) {
@@ -284,15 +286,13 @@ describe('live payload versions', () => {
     }
   })
 
-  test('an expanded v1 snapshot payload is still accepted', async () => {
+  test('an expanded v1 snapshot payload is rejected', async () => {
     const payload = payloadFor({
       v: 1,
       headline: 'Legacy snapshot',
       catalog: {},
     }, LIVE_SNAPSHOT_PREFIX)
-    const decoded = await decodeLivePayload(payload)
-    expect(decoded.v).toBe(1)
-    expect(decoded).toHaveProperty('headline', 'Legacy snapshot')
+    await expect(decodeLivePayload(payload)).rejects.toThrow('Unsupported live snapshot version: 1')
   })
 
   test('unknown prefixes are rejected', async () => {
@@ -306,12 +306,12 @@ describe('live payload versions', () => {
       .rejects.toThrow('Unsupported live snapshot version: undefined')
     await expect(decodeLivePayload(payloadFor({ ...wire, v: 0 }, LIVE_WIRE_PREFIX)))
       .rejects.toThrow('Unsupported live snapshot version: 0')
-    await expect(decodeLivePayload(payloadFor({ ...wire, v: 1 }, LIVE_WIRE_PREFIX)))
-      .rejects.toThrow('Unsupported live snapshot version: 1')
-    await expect(decodeLivePayload(payloadFor({ ...wire, v: 3 }, LIVE_WIRE_PREFIX)))
-      .rejects.toThrow('Unsupported live snapshot version: 3')
-    await expect(decodeLivePayload(payloadFor(wire, LIVE_SNAPSHOT_PREFIX)))
+    await expect(decodeLivePayload(payloadFor({ ...wire, v: 2 }, LIVE_WIRE_PREFIX)))
       .rejects.toThrow('Unsupported live snapshot version: 2')
+    await expect(decodeLivePayload(payloadFor({ ...wire, v: 4 }, LIVE_WIRE_PREFIX)))
+      .rejects.toThrow('Unsupported live snapshot version: 4')
+    await expect(decodeLivePayload(payloadFor(wire, LIVE_SNAPSHOT_PREFIX)))
+      .rejects.toThrow('Unsupported live snapshot version: 3')
   })
 })
 

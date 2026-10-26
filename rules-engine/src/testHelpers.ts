@@ -6,6 +6,7 @@ import type {
   ReduceResult,
   RoomDoorCharacteristics,
 } from './types'
+import { normalizeColorSet } from '../../shared/cardColors'
 
 export const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -24,7 +25,7 @@ export const roomDoor = (
   manaCost,
   manaValue: [...manaCost.matchAll(/\{(\d+|[WUBRGC])\}/g)]
     .reduce((total, match) => total + (/^\d+$/.test(match[1]) ? Number(match[1]) : 1), 0),
-  colors: [...new Set([...manaCost.matchAll(/[WUBRG]/g)].map((match) => match[0]))],
+  colors: normalizeColorSet([...manaCost.matchAll(/[WUBRG]/g)].map((match) => match[0])),
   oracleText: '',
   ...extra,
 })

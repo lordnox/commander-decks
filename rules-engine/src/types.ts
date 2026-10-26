@@ -5,8 +5,9 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ObjectCollectionBinding, ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v1'
+import type { ObjectCollectionBinding, ResolvedRuleEffect, ActivatedAbilityDefinition, WardCost, InstructionResult, ObjectOccurrenceFilter, ObjectSelector, ActivationFilter, CardRuleDefinitionSnapshotV2, Cost, ResolutionCost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform, ResultMaxBinding } from './cardPlugins/dsl/schema/v2'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
+import type { ColorSet } from '../../shared/cardColors'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
@@ -53,13 +54,13 @@ export type RestrictedMana = {
 }
 
 export type FaceCharacteristics = {
-  ruleDefinition?: CardRuleDefinitionSnapshotV1
+  ruleDefinition?: CardRuleDefinitionSnapshotV2
   types: string[]
   subtypes: string[]
   supertypes: string[]
   manaCost: string
   manaValue: number
-  colors: string[]
+  colors: ColorSet
   power?: number | null
   toughness?: number | null
   printedDefense?: number | null
@@ -83,7 +84,7 @@ export type CopySnapshot = {
   supertypes: string[]
   manaCost: string
   manaValue: number
-  colors: string[]
+  colors: ColorSet
   power: number | null
   toughness: number | null
   printedLoyalty: number | null
@@ -97,7 +98,7 @@ export type CopySnapshot = {
 export type ReversibleEffect =
   | { kind: 'redirectDeparture'; to: ZoneId; incarnation: number; timestamp: number }
   | { kind: 'ward'; cost: WardCost }
-  | { kind: 'colorChange'; before: string[]; after: string[]; incarnation: number }
+  | { kind: 'colorChange'; before: ColorSet; after: ColorSet; incarnation: number }
   | { kind: 'pump'; power: number; toughness: number }
   /**
    * `after` is the layer 7b base set and `before` the pre-animation values.
@@ -334,7 +335,7 @@ export type GameObject = {
   /** An absent printed mana cost is unpayable, unlike {0}. */
   manaCostAbsent?: true
   manaValue: number
-  colors: string[]
+  colors: ColorSet
   /**
    * Printed characteristics of the front face. In the library, only this face
    * exists for a transforming or modal double-faced card (CR 712.8a).
@@ -405,7 +406,7 @@ export type GameObject = {
   }>
   canonicalGrantedActivations?: Array<Omit<NonNullable<GameObject['canonicalGrantedAbilities']>[number], 'ability'> & { ability: ActivatedAbilityDefinition }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
-  ruleDefinition?: CardRuleDefinitionSnapshotV1
+  ruleDefinition?: CardRuleDefinitionSnapshotV2
   /** CR 613.7a rules timestamp for printed static abilities on this object. */
   staticRulesTimestamp?: number
   /** Active printed static restrictions emitted by this object (for example Stony Silence). */
@@ -552,7 +553,7 @@ export type StackExecutionContext = {
   results?: Record<string, InstructionResult>
   scopeId?: string
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
-  definitionSnapshot?: CardRuleDefinitionSnapshotV1
+  definitionSnapshot?: CardRuleDefinitionSnapshotV2
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
   choices?: Record<string, CanonicalChoiceRecipient[]>
@@ -630,7 +631,7 @@ export type CanonicalResolutionFrame = {
   parentPriority?: PlayerId | null
   controller: PlayerId
   intendedPriority: PlayerId
-  definitionSnapshot: CardRuleDefinitionSnapshotV1
+  definitionSnapshot: CardRuleDefinitionSnapshotV2
   declarationPath: string
   source: CapturedObject
   scopeId?: string
@@ -754,7 +755,7 @@ export type PendingTrigger = {
   execution: StackExecutionContext
   /** Canonical DSL triggered ability pinned at the occurrence. */
   canonical?: {
-    definitionSnapshot: CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV2
     abilityIndex: number
     /** The delayed program reuses bindings captured by its parent resolution. */
     inheritedTargets?: boolean
@@ -1005,7 +1006,7 @@ export type NestedManaPaymentFrame = {
   pendingActivation: Omit<StackItem, 'id'> & { id?: string }
   plannedPaymentCursor: number
   source?: CapturedObject
-  definitionSnapshot?: CardRuleDefinitionSnapshotV1
+  definitionSnapshot?: CardRuleDefinitionSnapshotV2
 }
 
 export type ProvisionalAnnouncementFrame = {
@@ -1021,7 +1022,7 @@ export type ProvisionalAnnouncementFrame = {
   inlineManaAbility?: boolean
   nestedManaPayment?: NestedManaPaymentFrame
   source?: CapturedObject
-  definitionSnapshot?: CardRuleDefinitionSnapshotV1
+  definitionSnapshot?: CardRuleDefinitionSnapshotV2
 }
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
@@ -1091,7 +1092,7 @@ export type DelayedTrigger = {
   objectRef?: ObjectIdentity
   execution?: StackExecutionContext
   canonical?: {
-    definitionSnapshot: CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV2
     abilityIndex: number
     /** The delayed program reuses bindings captured by its parent resolution. */
     inheritedTargets?: boolean
@@ -1249,7 +1250,7 @@ export type GameEvent =
         name: string
         types: string[]
         subtypes?: string[]
-        colors?: string[]
+        colors?: ColorSet
         power?: number | null
         toughness?: number | null
         oracleText?: string
@@ -1308,7 +1309,7 @@ export type GameEvent =
         keepAbilities?: boolean
         flying?: boolean
         keywords?: readonly string[]
-        colors?: readonly string[]
+        colors?: ColorSet
         extraTypes?: readonly string[]
         extraSubtypes?: readonly string[]
         noManaCost?: boolean

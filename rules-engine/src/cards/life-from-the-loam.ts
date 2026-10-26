@@ -4,7 +4,7 @@ import { dredgeAbility, move, objects, select, spell, target } from '../cardPlug
 
 export default {
   types: ['Sorcery'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{1}{G}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

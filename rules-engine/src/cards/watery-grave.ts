@@ -5,7 +5,7 @@ import { asThisEntersPayLifeOrTap, staticAbility } from '../cardPlugins/dsl/v1'
 export default {
   types: ['Land'],
   subtypes: ['Island', 'Swamp'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

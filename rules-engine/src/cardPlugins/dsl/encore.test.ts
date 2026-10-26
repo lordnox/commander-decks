@@ -14,7 +14,7 @@ import { encore } from './v1'
 const fixture = () => createServerGame(commanderRules, {
   players: 4,
   hands: { p1: [cardTemplate('Encore fixture', { zone: 'graveyard', types: ['Creature'], subtypes: ['Beast'],
-    colors: ['G'], manaCost: '{3}{G}', manaValue: 4, power: 4, toughness: 4, ruleDefinition: snapshotFor([encore('{2}')]) })] },
+    colors: 'G', manaCost: '{3}{G}', manaValue: 4, power: 4, toughness: 4, ruleDefinition: snapshotFor([encore('{2}')]) })] },
 }, { random: () => 0 })
 const activate = (server: ReturnType<typeof fixture>) => {
   const state = structuredClone(server.state)
@@ -32,7 +32,7 @@ test('encore copies captured source values once per current opponent, then binds
   state = resolveStack(server.rules, restoreJournal(createJournal(state), server.rules).current())
   const [token] = state.zoneOrder.p1.battlefield.map(id => state.objects[id])
   expect(state.zoneOrder.p1.battlefield).toHaveLength(1)
-  expect(token).toMatchObject({ token: true, power: 4, toughness: 4, manaCost: '{3}{G}', subtypes: ['Beast'], colors: ['G'] })
+  expect(token).toMatchObject({ token: true, power: 4, toughness: 4, manaCost: '{3}{G}', subtypes: ['Beast'], colors: 'G' })
   expect(hasKeyword(token, 'haste')).toBe(true)
   expect(playerAttackRequirements(token)).toEqual(['p2'])
   expect(state.delayedTriggers).toHaveLength(1)

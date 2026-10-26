@@ -9,7 +9,7 @@ const exileUntilEnd = {
 
 export default {
   types: ['Enchantment'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{2}{W}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

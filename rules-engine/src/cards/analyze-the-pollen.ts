@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { collectEvidence, compareAmount, ifThen, objects, paidCostCount, ref, searchLibrary, spell } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared cache; Oracle text and rulings verified on 2026-10-24.
@@ -140,7 +140,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Sorcery'], colors: scryfall.colors,
+  scryfall, types: ['Sorcery'], colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ optionalCosts: [collectEvidence(8)], costLabels: { optional: ['Collect evidence 8'] }, instructions: [

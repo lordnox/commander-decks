@@ -52,12 +52,12 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { objectMatchesSelector, evaluateRuntimeAmount, evaluateObjectSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV2, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
-import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v1'
+import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v2'
 
 const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
   if (event.type !== 'activateAbility') return false
@@ -140,7 +140,7 @@ type PendingTrigger = {
   triggerAmount?: number
   payload?: Record<string, unknown>
   canonical?: {
-    definitionSnapshot: CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV2
     abilityIndex: number
   }
   triggeredByAbility?: boolean

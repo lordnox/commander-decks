@@ -4,7 +4,7 @@ import { CHOICE_RELATIONS, activated, manaCost, modifyEvent, objects, ref, repla
 
 export default {
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { addTypesTo, characteristic, compareAmount, count, may, modifyStats, move, objects, players, ref, select, staticAbility, stepBegins, target, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache when available; original retrieval date is unknown.
@@ -140,7 +140,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
 whenever(stepBegins({ step: 'upkeep', player: players({ relation: 'you' }) }), {
   decisions: { targets: [select({ filter: objects({ zone: 'graveyard', type: 'Enchantment', owner: 'you' }), count: 1 })] },

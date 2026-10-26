@@ -16,7 +16,7 @@ import {
 export default {
   types: ['Enchantment'],
   subtypes: ['Saga'],
-  colors: ['U'],
+  colors: 'U',
   manaCost: '{5}{U}{U}',
   manaValue: 7,
   ruleDefinition: snapshotFor([
@@ -30,7 +30,7 @@ export default {
             name: 'Kraken',
             types: ['Creature'],
             subtypes: ['Kraken'],
-            colors: ['U'],
+            colors: 'U',
             power: 8,
             toughness: 8,
             oracleText: 'Hexproof',

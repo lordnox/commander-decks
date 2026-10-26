@@ -4,7 +4,7 @@ import { objects, ref, spell, splitSearchLibrary } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Sorcery'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{2}{G}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { abilityActivated, copyAbility, eventStackItem, manaCost, payOptional, players, ref, whenever } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text verified on 2026-10-24.
@@ -141,7 +141,7 @@ export default {
   scryfall,
   types: ['Artifact'],
   subtypes: [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     whenever(abilityActivated(players({ relation: 'you' })), { instructions: [payOptional({ payer: ref('controller'), cost: manaCost('{2}'), bindResult: 'paid', ifPaid: [copyAbility({ targets: eventStackItem(), retarget: { kind: 'chooseNewTargets' } })] })] }),
   ]),

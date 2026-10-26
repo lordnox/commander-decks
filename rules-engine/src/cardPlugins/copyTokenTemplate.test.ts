@@ -10,7 +10,7 @@ const bear = () => cardTemplate('Runeclaw Bear', {
   subtypes: ['Bear'],
   manaCost: '{1}{G}',
   manaValue: 2,
-  colors: ['G'],
+  colors: 'G',
   power: 2,
   toughness: 2,
 })
@@ -44,7 +44,7 @@ describe('copy token template', () => {
     const { draft, copied } = draftWith(bear())
     const token = createToken(draft, 'p1', copyTokenTemplate(copied))
 
-    expect(token.colors).toEqual(['G'])
+    expect(token.colors).toBe('G')
     expect(token.manaValue).toBe(2)
   })
 

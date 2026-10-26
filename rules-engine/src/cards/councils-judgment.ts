@@ -4,7 +4,7 @@ import { choice, move, objects, spell, vote } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Sorcery'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{1}{W}{W}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

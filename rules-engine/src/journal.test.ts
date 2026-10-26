@@ -5,7 +5,7 @@ import {
   onResolve as onResolveEffect,
 } from './cardPlugins/effects'
 import { commanderRules } from './formats'
-import { createJournal, recordAccepted, restoreJournal } from './journal'
+import { createJournal, KERNEL_SCHEMA, recordAccepted, restoreJournal } from './journal'
 import { cardTemplate, forest, type CardTemplate } from './newGame'
 import { replayComparableState } from './replay'
 import { createServerGame } from './runtime'
@@ -53,6 +53,16 @@ test('a kernel journal restores accepted events without storing before/after tre
   const restored = restoreJournal(journal, server.rules)
   expect(restored.current().objects[land.id].zone).toBe('battlefield')
   expect(journal.initial.objects[land.id].zone).toBe('hand')
+})
+
+test('a legacy journal schema is rejected with a recreate-game instruction', () => {
+  const server = createServerGame(commanderRules)
+  const journal = createJournal(server.state)
+  const legacy = { ...journal, schema: 'rules-engine/v0' } as unknown as typeof journal
+  expect(journal.schema).toBe(KERNEL_SCHEMA)
+  expect(() => restoreJournal(legacy, server.rules)).toThrow(
+    'Recreate the game to use the current color-set format',
+  )
 })
 
 test('journal restores a typed discard and its durable source resolution', () => {

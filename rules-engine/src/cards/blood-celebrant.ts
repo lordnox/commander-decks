@@ -5,7 +5,7 @@ import { activated, amount, CARD_COLORS, chooseInstructions, lifeCost, manaCost,
 export default {
   types: ["Creature"],
   subtypes: ["Human", "Cleric"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{B}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

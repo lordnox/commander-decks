@@ -4,7 +4,7 @@ import { copySpell, select, spell, stackItems, target } from '../cardPlugins/dsl
 
 export default {
   types: ["Instant"],
-  colors: ["R"],
+  colors: 'R',
   manaCost: "{R}{R}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

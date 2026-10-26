@@ -22,7 +22,7 @@ test('catalog lookup requires an exact own key and returns undefined for unknown
 test('catalog snapshots are pinned and retain their revision when loaded', () => {
   const snapshot = cardRuleDefinitionSnapshotFor('Counterspell')!
   expect(cardRuleDefinitionSnapshotFor('Counterspell')).toBe(snapshot)
-  expect(snapshot.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
+  expect(snapshot.definitionRevision).toMatch(/^v2-[0-9a-f]{16}$/)
   expect(cardRuleDefinitionSnapshotFor('Absorb')!.definitionRevision).not.toBe(snapshot.definitionRevision)
   expect(loadDefinitionSnapshot(snapshot).definitionRevision).toBe(snapshot.definitionRevision)
 })

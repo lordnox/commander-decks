@@ -4,7 +4,7 @@ import { blinkUntil, objects, select, spell, stepDelayed, target } from '../card
 
 export default {
   types: ['Instant'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{1}{W}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

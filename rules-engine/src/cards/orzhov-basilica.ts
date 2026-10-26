@@ -4,7 +4,7 @@ import { choice, chooseCards, modifyEvent, move, objects, ref, replacement, self
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -4,7 +4,7 @@ import { activated, amount, noMaximumHandSize, ref, staticAbility, tapCost } fro
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

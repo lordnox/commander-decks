@@ -4,7 +4,7 @@ import { activated, draw, manaCost, ref, sacrificeCost, tapCost } from '../cardP
 
 export default {
   types: ["Artifact"],
-  colors: [],
+  colors: '',
   manaCost: "{2}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

@@ -64,6 +64,7 @@ export { bears, bolt, forest, newGame, yarokFixture, yurlokFixture } from './new
 export { createHistory, lastAuthoritativeState } from './history'
 export {
   createJournal,
+  KERNEL_SCHEMA,
   recordAccepted,
   restoreJournal,
   type KernelJournal,

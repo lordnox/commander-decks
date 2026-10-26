@@ -12,7 +12,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Artifact'], colors: [], manaCost: '{3}', manaValue: 3,
+  types: ['Artifact'], colors: '', manaCost: '{3}', manaValue: 3,
   ruleDefinition: snapshotFor([
     activated({
       costs: [tapCost()],

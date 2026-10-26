@@ -21,10 +21,10 @@ const ruleDefinition = snapshotFor([
 ])
 
 export default {
-  types: ['Instant'], colors: ['B'], manaCost: '{B}', manaValue: 1,
+  types: ['Instant'], colors: 'B', manaCost: '{B}', manaValue: 1,
   ruleDefinition,
   frontFace: {
-    types: ['Instant'], colors: ['B'], manaCost: '{B}', manaValue: 1,
+    types: ['Instant'], colors: 'B', manaCost: '{B}', manaValue: 1,
     subtypes: [], supertypes: [], oracleText: "Choose target creature. You lose 2 life. Until end of turn, that creature gains \"When this creature dies, return it to the battlefield tapped under its owner's control.\"", ruleDefinition,
   },
   backFace: { ...malakirMire, subtypes: [], supertypes: [], oracleText: "This land enters tapped.\n{T}: Add {B}." },

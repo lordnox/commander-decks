@@ -20,7 +20,7 @@ import {
 export default {
   types: ['Land'],
   subtypes: ['Gate'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

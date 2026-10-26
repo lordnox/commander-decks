@@ -5,7 +5,7 @@ import { activated, manaCost, objects, ref, sacrificeCost, searchLibrary, tapCos
 export default {
   types: ["Land"],
   subtypes: ["Urza's", "Cave"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

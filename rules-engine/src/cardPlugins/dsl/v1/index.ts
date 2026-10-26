@@ -1,4 +1,4 @@
-export * from '../schema/v1'
+export * from '../schema/v2'
 export * from '../builders'
 export * from '../compiler'
 export * from '../copies'

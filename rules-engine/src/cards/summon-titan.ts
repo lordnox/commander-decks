@@ -22,7 +22,7 @@ const controlledLands = count(objects({ zone: 'battlefield', type: 'Land', contr
 export default {
   types: ['Enchantment', 'Creature'],
   subtypes: ['Saga', 'Giant'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{3}{G}{G}',
   manaValue: 5,
   ruleDefinition: snapshotFor([

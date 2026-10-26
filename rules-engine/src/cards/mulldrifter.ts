@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { compareAmount, draw, keyword, manaCost, paidCostCount, ref, sacrifice, self, spell, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -139,7 +139,7 @@ const scryfall = {
 
 export default {
   scryfall, types: scryfall.type_line.split(' — ')[0].split(' '), subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     keyword.flying,
     spell({ costLabels: { alternative: ['Evoke {2}{U}'] }, alternativeCosts: [[manaCost('{2}{U}')]], instructions: [] }),

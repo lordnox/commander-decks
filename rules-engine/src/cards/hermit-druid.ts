@@ -5,7 +5,7 @@ import { activated, manaCost, objects, ref, revealUntil, REVEAL_UNTIL_REST, tapC
 export default {
   types: ["Creature"],
   subtypes: ["Human", "Druid"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{1}{G}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

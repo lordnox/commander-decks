@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { choice, chooseCards, count, foretell, keyword, linkExile, objects, ref, self, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared cache; Oracle text and rulings verified on 2026-10-24.
@@ -160,7 +160,7 @@ const scryfall = {
 
 export default {
   power: Number(scryfall.power), toughness: Number(scryfall.toughness),
-  scryfall, types: ["Creature"], subtypes: ["Angel", "Cleric"], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ["Creature"], subtypes: ["Angel", "Cleric"], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     keyword.flash, keyword.flying, foretell('{2}{W}'),
     whenever(self.enters, { instructions: [

@@ -4,7 +4,7 @@ import { activated, manaCost, objects, ref, sacrificeCost, searchLibrary, tapCos
 
 export default {
   types: ["Artifact"],
-  colors: [],
+  colors: '',
   manaCost: "{1}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

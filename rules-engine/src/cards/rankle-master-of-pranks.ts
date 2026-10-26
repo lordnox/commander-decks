@@ -22,7 +22,7 @@ export default {
   types: ['Creature'],
   subtypes: ['Faerie', 'Rogue'],
   supertypes: ['Legendary'],
-  colors: ['B'],
+  colors: 'B',
   manaCost: '{2}{B}{B}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

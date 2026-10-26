@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activated, amount, animate, chooseX, compareAmount, count, manaCost, modifyEvent, objects, ref, replacement, staticAbility, tapCost, variable, wouldEnter } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -145,10 +145,10 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Land'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Land'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }), { when: compareAmount(count(objects({ zone: 'battlefield', controller: 'you', type: 'Land', other: true })), 'gte', 2) })),
     activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { G: amount(1) } }] }),
-    activated({ costs: [manaCost('{X}{G}')], decisions: { variables: [chooseX({ min: 1 })] }, instructions: [animate({ targets: ref('source'), power: variable('X'), toughness: variable('X'), subtypes: ['Hydra'], colors: ['G'] })] }),
+    activated({ costs: [manaCost('{X}{G}')], decisions: { variables: [chooseX({ min: 1 })] }, instructions: [animate({ targets: ref('source'), power: variable('X'), toughness: variable('X'), subtypes: ['Hydra'], colors: 'G' })] }),
   ]),
 } satisfies CatalogEntry

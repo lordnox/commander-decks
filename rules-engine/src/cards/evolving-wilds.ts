@@ -4,7 +4,7 @@ import { activated, objects, ref, sacrificeCost, searchLibrary, tapCost } from '
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

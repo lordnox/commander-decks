@@ -4,7 +4,7 @@ import { chooseX, createEffect, lifeCost, negate, objects, pumpEffect, spell, un
 
 export default {
   types: ["Sorcery"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{2}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

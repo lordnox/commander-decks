@@ -3,7 +3,7 @@ import { hasProtectionFromEverything } from '../../../plugins/protectionFromEver
 import { isCreatureType } from '../../../creatureTypes'
 import { linkedExileCards } from '../../../rules/canonicalLinkedExile'
 import { hasManaAbility } from '../manaPrograms'
-import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
+import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v2'
 import { hasKeyword } from '../../../keywords'
 import { BASIC_LAND_TYPES, hasBasicLandType } from '../../../plugins/landTypes'
 import { isSameObject, targetObject } from '../../../objectIdentity'
@@ -45,8 +45,8 @@ import type {
   StackItemReference,
   StackItemSelector,
   TargetReference,
-} from '../schema/v1'
-import { AMOUNT_COMPARE_OPERATORS, LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
+} from '../schema/v2'
+import { AMOUNT_COMPARE_OPERATORS, LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v2'
 import { lifeLostThisTurn as recordedLifeLostThisTurn } from '../../../plugins/life'
 import { legendaryCombatDamageFrom } from '../../../plugins/combatLegendaryDamage'
 import type { DistributionAllocation } from './modes'
@@ -475,7 +475,7 @@ const matchesObjectFilter = (
   if (mismatchesOwner(object, filter, context)) return false
   if (filter.card !== undefined && (!object.token && !object.spellCopy) !== filter.card) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
-  if (filter.colored !== undefined && (object.colors.length > 0) !== filter.colored) return false
+  if (filter.colored !== undefined && (object.colors !== '') !== filter.colored) return false
   if (filter.color !== undefined && !object.colors.includes(filter.color)) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < filter.powerAtLeast)) return false

@@ -4,7 +4,7 @@ import { chooseInstructions, revealUntil, draw, objects, players, ref, replaceme
 
 export default {
   types: ['Enchantment'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{2}{G}{G}',
   manaValue: 4,
   ruleDefinition: snapshotFor([

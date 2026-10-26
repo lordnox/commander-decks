@@ -1,7 +1,7 @@
 import { isSameObject } from '../../objectIdentity'
 import type { GameObject, PlayerId } from '../../types'
 import type { Draft } from '../../draft'
-import type { InstructionResult } from './schema/v1'
+import type { InstructionResult } from './schema/v2'
 
 export const numericInstructionResult = (value: InstructionResult | undefined) =>
   typeof value === 'number' ? value : 0

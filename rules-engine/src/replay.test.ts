@@ -367,23 +367,23 @@ describe('replay color input boundary', () => {
   }
 
   test('authoritative colors preserve colorless and normalize all five colors', () => {
-    expect(replayCardTemplate('Fixture', { ...printed, colors: [] }).colors).toEqual([])
+    expect(replayCardTemplate('Fixture', { ...printed, colors: [] }).colors).toBe('')
     expect(replayCardTemplate('Fixture', {
       ...printed, colors: ['G', 'U', 'W', 'B', 'U', 'R'], color_indicator: ['R'],
-    }).colors).toEqual(['W', 'U', 'B', 'R', 'G'])
+    }).colors).toBe('WUBRG')
   })
 
   test('indicators precede mana inference, including empty indicators', () => {
-    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: ['R'] }).colors).toEqual(['R'])
-    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: [] }).colors).toEqual([])
-    expect(replayCardTemplate('Fixture', printed).colors).toEqual(['B'])
-    expect(replayCardTemplate('Fixture', { ...printed, mana_cost: '{C}' }).colors).toEqual([])
+    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: ['R'] }).colors).toBe('R')
+    expect(replayCardTemplate('Fixture', { ...printed, color_indicator: [] }).colors).toBe('')
+    expect(replayCardTemplate('Fixture', printed).colors).toBe('B')
+    expect(replayCardTemplate('Fixture', { ...printed, mana_cost: '{C}' }).colors).toBe('')
   })
 
   test('devoid suppresses inference in catalogs without authoritative fields', () => {
     expect(replayCardTemplate('Fixture', {
       ...printed, oracle_text: 'Devoid (This card has no color.)\nFlying',
-    }).colors).toEqual([])
+    }).colors).toBe('')
   })
 
   test('external arrays reject invalid symbols instead of silently losing colors', () => {
@@ -400,9 +400,9 @@ describe('replay color input boundary', () => {
         { ...printed, name: 'Back', mana_cost: '', color_indicator: ['R'] },
       ],
     })
-    expect(template.colors).toEqual([])
-    expect(template.frontFace?.colors).toEqual([])
-    expect(template.backFace?.colors).toEqual(['R'])
+    expect(template.colors).toBe('')
+    expect(template.frontFace?.colors).toBe('')
+    expect(template.backFace?.colors).toBe('R')
   })
 
   test('Room doors retain their separate colors while the object uses combined colors', () => {
@@ -412,7 +412,7 @@ describe('replay color input boundary', () => {
         { ...printed, name: 'Right', type_line: 'Enchantment — Room', colors: ['R'] },
       ],
     })
-    expect(template.colors).toEqual(['U', 'R'])
-    expect(template.roomDoors?.map((door) => door.colors)).toEqual([['U'], ['R']])
+    expect(template.colors).toBe('UR')
+    expect(template.roomDoors?.map((door) => door.colors)).toEqual(['U', 'R'])
   })
 })

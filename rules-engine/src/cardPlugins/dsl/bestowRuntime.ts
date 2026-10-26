@@ -1,6 +1,6 @@
 import type Draft from '../../draft'
 import type { GameObject, GameState, TargetRef } from '../../types'
-import type { ContinuousEffectDefinition, SpellAbilityDefinition } from './schema/v1'
+import type { ContinuousEffectDefinition, SpellAbilityDefinition } from './schema/v2'
 
 export const canonicalBestowEffect = (object: GameObject) =>
   object.ruleDefinition?.definition.abilities

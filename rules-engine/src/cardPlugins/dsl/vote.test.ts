@@ -13,7 +13,7 @@ import { snapshotFor } from '../../cards/snapshot'
 import { stackCopyPending } from '../stackCopy'
 import { pendingVote } from '../vote'
 import { instructionSpell } from './instructionTestSupport'
-import type { Instruction } from './schema/v1'
+import type { Instruction } from './schema/v2'
 import {
   choice,
   amount,

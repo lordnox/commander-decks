@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { activated, counterCount, manaCost, modifyEvent, paidCostCount, ref, replacement, spell, staticAbility, tapCost, wouldEnter } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -142,7 +142,7 @@ export default {
   scryfall,
   types: scryfall.type_line.split(' — ')[0].split(' '),
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ costLabels: { optional: ['Multikicker {2}'] }, optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0], instructions: [] }),
     staticAbility(replacement(wouldEnter(), modifyEvent({ enterCounters: { charge: paidCostCount('optional', 0) } }))),

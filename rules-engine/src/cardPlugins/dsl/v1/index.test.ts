@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import {
-  RULE_DSL_V1_CAPABILITIES,
+  RULE_DSL_V2_CAPABILITIES,
   RuleDslEvaluationError,
   RuleDslValidationError,
   ability,
@@ -44,10 +44,11 @@ import {
   withTargets,
   prohibitActivation,
   modifyStats,
-  type CardRuleDefinitionV1,
+  type CardRuleDefinitionV2,
   type Instruction,
 } from './index'
 import { definitionRevisionFor } from '../builders/revision'
+import { RULE_DSL_SCHEMA_VERSION } from '../schema/v2'
 
 const diagnosticCodes = (run: () => unknown): string[] => {
   try {
@@ -69,7 +70,7 @@ const diagnosticPaths = (run: () => unknown): string[] => {
   }
 }
 
-const revise = (definition: CardRuleDefinitionV1): CardRuleDefinitionV1 => {
+const revise = (definition: CardRuleDefinitionV2): CardRuleDefinitionV2 => {
   const copy = structuredClone(definition)
   copy.definitionRevision = definitionRevisionFor({
     schemaVersion: copy.schemaVersion,
@@ -80,7 +81,7 @@ const revise = (definition: CardRuleDefinitionV1): CardRuleDefinitionV1 => {
 
 describe('Rule DSL v1 canonical authoring', () => {
   test('explicit and compact Wall of Omens lower to identical canonical data and paths', () => {
-    const explicit = cardRuleDefinition(1, {
+    const explicit = cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, {
       abilities: [
         keyword.defender,
         whenever(self.enters, { instructions: [actions.draw.self.one] }),
@@ -131,11 +132,18 @@ describe('Rule DSL v1 canonical authoring', () => {
     expect(JSON.stringify(restored.definition)).toBe(serialized)
   })
 
+  test('old persisted schema versions are rejected with an actionable message', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([])))
+    expect(() => loadDefinitionSnapshot({ ...snapshot, schemaVersion: 1 })).toThrow(
+      'unsupported Rule DSL schema version: 1; recreate the game with current card definitions',
+    )
+  })
+
   test('definition revision is content-derived and distinct from schema version', () => {
     const defender = card([keyword.defender])
     const trample = card([keyword.trample])
-    expect(defender.schemaVersion).toBe(1)
-    expect(trample.schemaVersion).toBe(1)
+    expect(defender.schemaVersion).toBe(RULE_DSL_SCHEMA_VERSION)
+    expect(trample.schemaVersion).toBe(RULE_DSL_SCHEMA_VERSION)
     expect(defender.definitionRevision).not.toBe(trample.definitionRevision)
 
     const staleSnapshot = structuredClone(createDefinitionSnapshot(compileCardRuleDefinition(defender)))
@@ -158,7 +166,7 @@ describe('Rule DSL v1 canonical authoring', () => {
       if (value !== null && typeof value === 'object') values.push(...Object.values(value))
     }
 
-    const mutable = JSON.parse(JSON.stringify(authored)) as CardRuleDefinitionV1
+    const mutable = JSON.parse(JSON.stringify(authored)) as CardRuleDefinitionV2
     const one = compileCardRuleDefinition(mutable)
     const two = compileCardRuleDefinition(mutable)
     expect(one.definition).not.toBe(two.definition)
@@ -239,10 +247,10 @@ describe('Rule DSL v1 canonical authoring', () => {
 describe('Rule DSL v1 structural and domain validation', () => {
   test('rejects unsupported versions and node kinds at their declaration paths', () => {
     const unsupportedVersion = structuredClone(card([])) as unknown as Record<string, unknown>
-    unsupportedVersion.schemaVersion = 2
+    unsupportedVersion.schemaVersion = 1
     expect(diagnosticPaths(() => compileCardRuleDefinition(unsupportedVersion))).toEqual(['$.schemaVersion'])
 
-    const unsupportedNode = structuredClone(card([keyword.defender])) as unknown as CardRuleDefinitionV1
+    const unsupportedNode = structuredClone(card([keyword.defender])) as unknown as CardRuleDefinitionV2
     ;(unsupportedNode.abilities[0] as unknown as { kind: string }).kind = 'oracleText'
     expect(diagnosticPaths(() => compileCardRuleDefinition(revise(unsupportedNode)))).toContain('$.abilities[0].kind')
   })
@@ -287,11 +295,11 @@ describe('Rule DSL v1 structural and domain validation', () => {
     const firstInstruction = (definition: Record<string, unknown>) =>
       ((definition.abilities as Array<Record<string, unknown>>)[0].instructions as Array<Record<string, unknown>>)[0]
     ;((firstInstruction(wrongZone).filter as Record<string, unknown>).filter as Record<string, unknown>).zone = 'hand'
-    expect(diagnosticPaths(() => compileCardRuleDefinition(revise(wrongZone as unknown as CardRuleDefinitionV1)))).toContain('$.abilities[0].instructions[0].viewLibrary')
+    expect(diagnosticPaths(() => compileCardRuleDefinition(revise(wrongZone as unknown as CardRuleDefinitionV2)))).toContain('$.abilities[0].instructions[0].viewLibrary')
 
     const invalidFlag = structuredClone(fullLibraryChoice) as unknown as Record<string, unknown>
     firstInstruction(invalidFlag).viewLibrary = false
-    expect(diagnosticCodes(() => compileCardRuleDefinition(revise(invalidFlag as unknown as CardRuleDefinitionV1)))).toContain('constant')
+    expect(diagnosticCodes(() => compileCardRuleDefinition(revise(invalidFlag as unknown as CardRuleDefinitionV2)))).toContain('constant')
   })
 
   test('rejects unresolved X and bounds while accepting explicitly declared X', () => {
@@ -655,20 +663,20 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
       get() { reads += 1; return 'keyword' },
     })
     const root = {
-      schemaVersion: 1,
-      definitionRevision: 'v1-0000000000000000',
+      schemaVersion: RULE_DSL_SCHEMA_VERSION,
+      definitionRevision: 'v2-0000000000000000',
       abilities: [hostile],
     }
     expect(diagnosticCodes(() => compileCardRuleDefinition(root))).toContain('accessor')
     expect(reads).toBe(0)
-    expect(() => cardRuleDefinition(1, { abilities: [hostile as never] })).toThrow('accessors')
+    expect(() => cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, { abilities: [hostile as never] })).toThrow('accessors')
     expect(reads).toBe(0)
 
     const hostileRoot = Object.defineProperty({}, 'abilities', {
       enumerable: true,
       get() { reads += 1; return [] },
     })
-    expect(() => cardRuleDefinition(1, hostileRoot as never)).toThrow('accessors')
+    expect(() => cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, hostileRoot as never)).toThrow('accessors')
     expect(reads).toBe(0)
   })
 
@@ -700,8 +708,8 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
     const sparseAbilities: unknown[] = []
     sparseAbilities.length = 1_000_000_000
     const sparse = {
-      schemaVersion: 1,
-      definitionRevision: 'v1-0000000000000000',
+      schemaVersion: RULE_DSL_SCHEMA_VERSION,
+      definitionRevision: 'v2-0000000000000000',
       abilities: sparseAbilities,
     }
     expect(diagnosticCodes(() => compileCardRuleDefinition(sparse))).toContain('data-node-limit')
@@ -733,12 +741,12 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
   })
 
   test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {
-    expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toEqual({
+    expect(RULE_DSL_V2_CAPABILITIES.runtimeExecution).toEqual({
       abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
       instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'payOptional', 'sequence'],
       decisions: 'fullySuppliedTargets',
     })
     expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution)
-      .toEqual(RULE_DSL_V1_CAPABILITIES.runtimeExecution)
+      .toEqual(RULE_DSL_V2_CAPABILITIES.runtimeExecution)
   })
 })

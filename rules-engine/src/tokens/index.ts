@@ -1,7 +1,7 @@
 import { shapeshifter11Changeling } from './shapeshifter'
 import { fish11U } from './fish'
 import { zombie22B } from './zombie'
-import type { TokenDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { TokenDefinition } from '../cardPlugins/dsl/schema/v2'
 import { beast33G } from './beast'
 import { bird22UFlying } from './bird'
 import { eldraziSpawn01 } from './eldrazi-spawn'

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { capturePlayer, controllerOf, counter, createToken, resultPlayer, select, spell, stackItems, target, token } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Instant'], colors: ['U'], manaCost: '{U}', manaValue: 1,
+  types: ['Instant'], colors: 'U', manaCost: '{U}', manaValue: 1,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: stackItems({ kind: 'spell', any: [{ type: 'Enchantment' }, { type: 'Instant' }, { type: 'Sorcery' }] }), count: 1 })] },

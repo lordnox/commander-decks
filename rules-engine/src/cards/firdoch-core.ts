@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { CARD_COLORS, activated, amount, animate, chooseInstructions, keyword, manaCost, ref, tapCost } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -142,7 +142,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Artifact'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Artifact'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     keyword.changeling,
     activated({ costs: [tapCost()], instructions: [chooseInstructions({ chooser: ref('controller'), options: CARD_COLORS.map(color => ({ label: color, instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { [color]: amount(1) } }] })) })] }),

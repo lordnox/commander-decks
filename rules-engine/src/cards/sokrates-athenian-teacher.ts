@@ -28,7 +28,7 @@ const halfPrevented = divide({ value: eventAmount(), by: 2, rounding: ROUNDING_M
 export default {
   types: ['Creature'],
   subtypes: ['Human', 'Advisor'],
-  colors: ['W', 'U'],
+  colors: 'WU',
   manaCost: '{1}{W}{U}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

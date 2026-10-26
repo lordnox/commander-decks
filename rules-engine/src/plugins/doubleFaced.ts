@@ -52,7 +52,7 @@ export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
   object.supertypes = [...face.supertypes]
   object.manaCost = face.manaCost
   object.manaValue = face.manaValue
-  object.colors = [...face.colors]
+  object.colors = face.colors
   if (face.power !== undefined) object.power = face.power
   if (face.toughness !== undefined) object.toughness = face.toughness
   if (face.printedDefense !== undefined) object.printedDefense = face.printedDefense

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { linkExile, objects, select, self, target, warp, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared cache; Oracle text and rulings verified on 2026-10-24.
@@ -140,6 +140,6 @@ const scryfall = {
 
 export default {
   power: Number(scryfall.power), toughness: Number(scryfall.toughness),
-  scryfall, types: ['Creature'], subtypes: ['Drix','Assassin'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Creature'], subtypes: ['Drix','Assassin'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([warp('{1}{W}'), whenever(self.enters, { decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', not: { subtypes: ['Assassin'] } }), min: 0, max: 1 })] }, instructions: [linkExile({ targets: target(0), untilSourceLeaves: true })] })]),
 } satisfies CatalogEntry

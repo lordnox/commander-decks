@@ -2,9 +2,9 @@ import { captureObject, isSameObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId, PrintedStaticModifier, ZoneId } from '../../types'
 import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 import { compileCardRuleDefinition } from './compiler'
-import { KEYWORDS } from './schema/v1'
+import { KEYWORDS } from './schema/v2'
 import { ZONE_IDS } from '../../types'
-import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, WardCost, Zone } from './schema/v1'
+import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, WardCost, Zone } from './schema/v2'
 
 export type ActiveKeywordStatic = {
   abilityIndex: number

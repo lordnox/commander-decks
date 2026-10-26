@@ -5,7 +5,7 @@ import { cycleFromHand, modifyEvent, replacement, staticAbility, wouldEnter } fr
 export default {
   types: ['Land'],
   subtypes: ['Plains', 'Island', 'Swamp'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -1,4 +1,5 @@
 import type { ZoneId } from '../types'
+import type { ColorSet } from '../../../shared/cardColors'
 import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
@@ -184,7 +185,7 @@ export const encore = (manaCost: string): CardEffect => ability(
 
 export const embalm = (
   manaCost: string,
-  options: { colors: string[]; extraSubtypes: string[] },
+  options: { colors: ColorSet; extraSubtypes: string[] },
 ): CardEffect => activate({
   id: 'embalm',
   zone: 'graveyard',
@@ -192,7 +193,7 @@ export const embalm = (
   costs: { mana: manaCost, exileFromGraveyard: true },
   do: [{
     kind: 'embalmToken',
-    colors: [...options.colors],
+    colors: options.colors,
     extraSubtypes: [...options.extraSubtypes],
   }],
 })

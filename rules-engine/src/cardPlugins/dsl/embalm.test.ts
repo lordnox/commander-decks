@@ -6,7 +6,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { card, compileCardRuleDefinition, createDefinitionSnapshot, embalm, keyword } from './v1'
 
-const setup = () => createServerGame(commanderRules, { hands: { p1: [cardTemplate('Yard fixture', { zone: 'graveyard', types: ['Creature'], subtypes: ['Angel'], colors: ['G'], manaCost: '{3}{G}', manaValue: 4, power: 4, toughness: 4, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([embalm('{2}'), keyword.flying]))) })] } }, { random: () => 0 })
+const setup = () => createServerGame(commanderRules, { hands: { p1: [cardTemplate('Yard fixture', { zone: 'graveyard', types: ['Creature'], subtypes: ['Angel'], colors: 'G', manaCost: '{3}{G}', manaValue: 4, power: 4, toughness: 4, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([embalm('{2}'), keyword.flying]))) })] } }, { random: () => 0 })
 
 test('graveyard exile is paid before a modified token copy resolves from source LKI', () => {
   const server = setup(), id = server.state.zoneOrder.p1.graveyard[0]!

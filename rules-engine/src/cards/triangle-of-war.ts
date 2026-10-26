@@ -4,7 +4,7 @@ import { activated, fight, manaCost, objects, ref, sacrificeCost, select, target
 
 export default {
   types: ["Artifact"],
-  colors: [],
+  colors: '',
   manaCost: "{1}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

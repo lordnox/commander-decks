@@ -16,7 +16,7 @@ import {
 export default {
   types: ['Creature'],
   subtypes: ['Insect'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{2}{G}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

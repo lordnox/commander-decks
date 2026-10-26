@@ -27,7 +27,7 @@ const elephant = {
   name: 'Elephant',
   types: ['Creature'],
   subtypes: ['Elephant'],
-  colors: ['G'],
+  colors: 'G' as const,
   power: 3,
   toughness: 3,
 }
@@ -131,7 +131,7 @@ describe('up-to-N triggered targets', () => {
       token: true,
       power: 3,
       toughness: 3,
-      colors: ['G'],
+      colors: 'G' as const,
       subtypes: ['Elephant'],
       controller: 'p2',
     })

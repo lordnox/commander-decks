@@ -11,7 +11,7 @@ import { runRevealUntil, storeRevealUntilBindings } from '../cardPlugins/dsl/rev
 import { captureObject, objectIdentity } from '../objectIdentity'
 import { openCardSelection } from '../rules/selectCards'
 import { openOptionSelection } from '../rules/selectOptions'
-import type { Instruction, PlayerRecipient } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction, PlayerRecipient } from '../cardPlugins/dsl/schema/v2'
 import type {
   EventProcessingFrame,
   GameEvent,

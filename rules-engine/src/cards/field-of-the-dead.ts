@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, compareAmount, countDistinctNames, createToken, enters, modifyEvent, objects, ref, replacement, staticAbility, tapCost, token, whenever, wouldEnter } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Land'], colors: [], manaCost: '', manaValue: 0,
+  types: ['Land'], colors: '', manaCost: '', manaValue: 0,
   ruleDefinition: snapshotFor([
     staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }))),
     activated({ costs: [tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: amount(1) } }] }),

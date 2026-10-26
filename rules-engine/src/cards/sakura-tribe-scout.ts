@@ -5,7 +5,7 @@ import { activated, chooseCards, choice, move, objects, ref, tapCost } from '../
 export default {
   types: ["Creature"],
   subtypes: ["Snake", "Shaman", "Scout"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{G}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

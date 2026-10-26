@@ -1,6 +1,6 @@
 import type { GameObject, RoomDoorId } from '../../types'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './compiler'
-import type { AbilityDefinition } from './schema/v1'
+import type { AbilityDefinition } from './schema/v2'
 import { card } from './sugar/card'
 
 const stampUnlockDoor = (ability: AbilityDefinition, door: RoomDoorId): AbilityDefinition => {

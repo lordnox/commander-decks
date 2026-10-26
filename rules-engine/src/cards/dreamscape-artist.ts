@@ -5,7 +5,7 @@ import { activated, discardCost, manaCost, objects, ref, sacrificeCost, searchLi
 export default {
   types: ["Creature"],
   subtypes: ["Human", "Spellshaper"],
-  colors: ["U"],
+  colors: 'U',
   manaCost: "{1}{U}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

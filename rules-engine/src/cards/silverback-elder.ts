@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseCards, chooseModes, destroy, gainLife, inspectTop, move, objects, ref, remaining, select, spellCast, target, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Ape', 'Shaman'], colors: ['G'], manaCost: '{2}{G}{G}{G}', manaValue: 5,
+  types: ['Creature'], subtypes: ['Ape', 'Shaman'], colors: 'G', manaCost: '{2}{G}{G}{G}', manaValue: 5,
   ruleDefinition: snapshotFor([
     whenever(spellCast({ filter: { type: 'Creature', controller: 'you' } }), {
       decisions: { modes: chooseModes({ count: 1 }) },

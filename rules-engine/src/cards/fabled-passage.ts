@@ -4,7 +4,7 @@ import { activated, choice, chooseCards, compareAmount, count, ifThen, move, obj
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

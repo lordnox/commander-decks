@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { enters, gainLife, objects, players, playLands, ref, revealLibraryTop, staticAbility, whenever } from '../cardPlugins/dsl/v1'
 
 // Retrieved from Scryfall on 2026-10-23.
@@ -147,7 +147,7 @@ export default {
   scryfall,
   types: ['Creature'],
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     staticAbility(revealLibraryTop(players({ relation: 'you' }))),
     staticAbility(playLands(players({ relation: 'you' }), objects({ zone: 'library', owner: 'you', type: 'Land' }), { topOnly: true })),

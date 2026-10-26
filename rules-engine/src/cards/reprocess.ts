@@ -5,7 +5,7 @@ import { choice, chooseCards, count, draw, objects, ref, resultAmount, sacrifice
 const eligible = objects({ zone: 'battlefield', controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] })
 
 export default {
-  types: ['Sorcery'], colors: ['B'], manaCost: '{2}{B}{B}', manaValue: 4,
+  types: ['Sorcery'], colors: 'B', manaCost: '{2}{B}{B}', manaValue: 4,
   ruleDefinition: snapshotFor([spell({ instructions: [
     chooseCards({ chooser: ref('controller'), filter: eligible, bindChoice: 'offering', min: 0, max: count(eligible) }),
     sacrifice({ targets: choice('offering'), bindCount: 'sacrificed' }),

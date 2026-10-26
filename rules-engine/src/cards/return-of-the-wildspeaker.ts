@@ -20,7 +20,7 @@ const nonHumanCreatures = () => objects({
 })
 
 export default {
-  types: ['Instant'], colors: ['G'], manaCost: '{4}{G}', manaValue: 5,
+  types: ['Instant'], colors: 'G', manaCost: '{4}{G}', manaValue: 5,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { modes: chooseModes({ count: 1 }) },

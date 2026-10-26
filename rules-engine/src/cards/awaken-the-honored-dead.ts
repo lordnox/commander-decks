@@ -16,7 +16,7 @@ import {
 export default {
   types: ['Enchantment'],
   subtypes: ['Saga'],
-  colors: ['B', 'G', 'U'],
+  colors: 'UBG',
   manaCost: '{B}{G}{U}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

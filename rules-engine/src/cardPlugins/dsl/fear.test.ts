@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
+import type { ColorSet } from '../../../../shared/cardColors'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
@@ -11,18 +12,18 @@ const flyingFear = createDefinitionSnapshot(compileCardRuleDefinition(card([keyw
 
 for (const granted of [false, true]) {
   test.each([
-    [['Creature'], [], false],
-    [['Creature'], ['G'], false],
-    [['Creature'], ['B'], true],
-    [['Creature'], ['B', 'G'], true],
-    [['Artifact', 'Creature'], [], true],
-    [['Artifact', 'Creature'], ['G'], true],
+    [['Creature'], '', false],
+    [['Creature'], 'G', false],
+    [['Creature'], 'B', true],
+    [['Creature'], 'BG', true],
+    [['Artifact', 'Creature'], '', true],
+    [['Artifact', 'Creature'], 'G', true],
   ])('fear granted=' + granted + ' permits blocker types=%j colors=%j: %s', (types, colors, legal) => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: {
         p1: [cardTemplate('Attacker fixture', { types: ['Creature'], power: 2, toughness: 2, ...(granted ? {} : { ruleDefinition: fear }) })],
-        p2: [cardTemplate('Blocker fixture', { types, colors, power: 2, toughness: 2 })],
+        p2: [cardTemplate('Blocker fixture', { types, colors: colors as ColorSet, power: 2, toughness: 2 })],
       },
       hands: { p1: [instructionSpell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), effect: grantKeywordEffect(KEYWORDS.fear), duration: untilCleanup() })] })] },
     }, { random: () => 0 })
@@ -46,7 +47,7 @@ test('fear does not bypass other blocking restrictions', () => {
     players: 2,
     battlefield: {
       p1: [cardTemplate('Attacker fixture', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: flyingFear })],
-      p2: [cardTemplate('Blocker fixture', { types: ['Artifact', 'Creature'], colors: ['B'], power: 2, toughness: 2 })],
+      p2: [cardTemplate('Blocker fixture', { types: ['Artifact', 'Creature'], colors: 'B', power: 2, toughness: 2 })],
     },
   }, { random: () => 0 })
   const state = structuredClone(server.state)

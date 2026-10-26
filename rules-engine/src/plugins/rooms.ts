@@ -7,6 +7,7 @@ import type {
   RoomDoorId,
 } from '../types'
 import { payCost } from './spells'
+import { normalizeColorSet } from '../../../shared/cardColors'
 
 const DOORS: RoomDoorId[] = ['left', 'right']
 
@@ -47,7 +48,7 @@ export const applyRoomDoors = (object: GameObject, doors: RoomDoorId[]) => {
   object.supertypes = unique(shared.flatMap((door) => door.supertypes))
   object.manaCost = characteristics.map((door) => door.manaCost).join(' // ')
   object.manaValue = characteristics.reduce((total, door) => total + door.manaValue, 0)
-  object.colors = unique(characteristics.flatMap((door) => door.colors))
+  object.colors = normalizeColorSet(unique(characteristics.flatMap((door) => [...door.colors])))
   object.oracleText = characteristics.map((door) => door.oracleText).join(' // ')
   object.grantedRules = unique(characteristics.flatMap((door) => door.grantedRules ?? []))
   object.effects = characteristics.flatMap((door) => effectsOf(door))

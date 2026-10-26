@@ -1,5 +1,5 @@
 import type { GameObject } from '../types'
-import type { CardRuleDefinitionSnapshotV1 } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV2 } from '../cardPlugins/dsl/schema/v2'
 
 export type CardTemplate = Pick<GameObject, 'types' | 'colors' | 'manaCost' | 'manaValue' | 'frontFace' | 'backFace'> & {
   roomDoors?: GameObject['roomDoors']
@@ -9,7 +9,7 @@ export type CardTemplate = Pick<GameObject, 'types' | 'colors' | 'manaCost' | 'm
   subtypes?: GameObject['subtypes']
   supertypes?: GameObject['supertypes']
   printedLoyalty?: GameObject['printedLoyalty']
-  ruleDefinition: CardRuleDefinitionSnapshotV1
+  ruleDefinition: CardRuleDefinitionSnapshotV2
 }
 
 /** Embedded Scryfall response; additional printing fields are retained for reference. */

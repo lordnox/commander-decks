@@ -1,4 +1,4 @@
-import type { AbilityDefinition } from '../../schema/v1'
+import type { AbilityDefinition } from '../../schema/v2'
 import { bestowEffect, manaCost, objects, paidCostCount, select, spell, staticAbility } from '../../builders'
 
 /** Alternative Aura casting plus the type overlay that lasts while the object stays bestowed. */

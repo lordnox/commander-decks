@@ -68,7 +68,7 @@ export const gameObjectFieldDefaults = (): Omit<
   supertypes: [],
   manaCost: '',
   manaValue: 0,
-  colors: [],
+  colors: '',
   power: null,
   toughness: null,
   printedLoyalty: null,

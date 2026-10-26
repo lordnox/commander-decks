@@ -1,5 +1,5 @@
 import { keywordAbility } from '../builders'
-import { KEYWORDS } from '../schema/v1'
+import { KEYWORDS } from '../schema/v2'
 
 export const keyword = Object.freeze({
   get changeling() { return keywordAbility(KEYWORDS.changeling) },

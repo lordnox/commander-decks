@@ -4,7 +4,7 @@ import { captureAmount, resultAmount, characteristic, loseLife, move, objects, r
 
 export default {
   types: ["Sorcery"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{B}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

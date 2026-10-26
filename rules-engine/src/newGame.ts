@@ -6,7 +6,10 @@ import { applyFace } from './plugins/doubleFaced'
 import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
 import { hasWorldSupertype } from './rules/worldSupertype'
 import type { GameFormat } from './formats'
+import { parseColorSet } from '../../shared/cardColors'
+import type { ColorSet } from '../../shared/cardColors'
 import {
+  type FaceCharacteristics,
   type GameObject,
   type GameState,
   type PlayerId,
@@ -19,6 +22,14 @@ export type CardTemplate = Omit<GameObject, 'id' | 'owner' | 'controller' | 'zon
   zone?: GameObject['zone']
 }
 
+type FaceInput = Partial<FaceCharacteristics>
+type CardTemplateOverrides = Omit<Partial<CardTemplate>, 'colors' | 'frontFace' | 'backFace' | 'roomDoors'> & {
+  colors?: ColorSet
+  frontFace?: FaceInput
+  backFace?: FaceInput
+  roomDoors?: [Partial<NonNullable<GameObject['roomDoors']>[number]>, Partial<NonNullable<GameObject['roomDoors']>[number]>]
+}
+
 const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone'> => ({
   ...gameObjectFieldDefaults(),
   name: 'Unknown',
@@ -27,20 +38,34 @@ const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone
 /** One place that knows every GameObject field, so callers name only what matters. */
 export const cardTemplate = (
   name: string,
-  overrides: Partial<CardTemplate> = {},
+  overrides: CardTemplateOverrides = {},
 ): CardTemplate => {
+  const validateColors = (colors: ColorSet) => parseColorSet(colors)
   const catalogDefaults = cardTemplateDefaultsFor(name)
   const types = overrides.types ?? catalogDefaults?.types ?? []
   const creatureStats = types.includes('Creature')
     ? { power: 1, toughness: 1 }
     : {}
+  const frontFace = overrides.frontFace
+  const backFace = overrides.backFace
+  const roomDoors = overrides.roomDoors
+  const { colors: _colors, frontFace: _frontFace, backFace: _backFace, roomDoors: _roomDoors, ...otherOverrides } = overrides
+  const frontDefaults = catalogDefaults?.frontFace
+  const backDefaults = catalogDefaults?.backFace
   return {
-    ...defaultObject(), name, ...catalogDefaults, ...creatureStats, ...overrides,
-    ...(catalogDefaults?.frontFace ? { frontFace: { ...catalogDefaults.frontFace, ...overrides.frontFace,
+    ...defaultObject(), name, ...catalogDefaults, ...creatureStats, ...otherOverrides,
+    ...(overrides.colors !== undefined ? { colors: validateColors(overrides.colors) } : {}),
+    ...(frontDefaults || frontFace ? { frontFace: { ...frontDefaults, ...frontFace,
+      ...(frontFace?.colors !== undefined ? { colors: validateColors(frontFace.colors) } : {}),
       ...(overrides.ruleDefinition ? { ruleDefinition: overrides.ruleDefinition } : {}),
     } } : {}),
-    ...(catalogDefaults?.backFace ? { backFace: { ...catalogDefaults.backFace, ...overrides.backFace } } : {}),
-  }
+    ...(backDefaults || backFace ? { backFace: { ...backDefaults, ...backFace,
+      ...(backFace?.colors !== undefined ? { colors: validateColors(backFace.colors) } : {}),
+    } } : {}),
+    ...(roomDoors ? { roomDoors: roomDoors.map((door) => ({ ...door,
+      ...(door.colors !== undefined ? { colors: validateColors(door.colors) } : {}),
+    })) as CardTemplate['roomDoors'] } : {}),
+  } as CardTemplate
 }
 
 const player = (format: GameFormat, id: PlayerId): PlayerState => ({

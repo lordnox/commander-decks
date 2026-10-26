@@ -16,7 +16,7 @@ describe('external catalog color transport', () => {
       const entry = await dealCatalogEntry({ cache: 'card.json' }, directory)
       expect(entry.colors).toEqual([])
       expect(entry.color_indicator).toEqual(['R'])
-      expect(replayCardTemplate('Fixture', entry).colors).toEqual([])
+      expect(replayCardTemplate('Fixture', entry).colors).toBe('')
       const absent = await dealCatalogEntry({}, directory)
       expect(absent).not.toHaveProperty('colors')
       expect(absent).not.toHaveProperty('color_indicator')

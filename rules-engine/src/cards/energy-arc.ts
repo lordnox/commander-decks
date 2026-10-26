@@ -14,7 +14,7 @@ const creatures = objects({ zone: 'battlefield', type: 'Creature' })
 
 export default {
   types: ['Instant'],
-  colors: ['W', 'U'],
+  colors: 'WU',
   manaCost: '{W}{U}',
   manaValue: 2,
   ruleDefinition: snapshotFor([

@@ -1,7 +1,7 @@
 import { canPayLife } from '../rules/lifePayments'
 import { isPermanentType, setEntryLoyalty } from '../definitions'
 import { hasKeyword } from '../keywords'
-import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
+import { KEYWORDS } from '../cardPlugins/dsl/schema/v2'
 import { captureObject } from '../objectIdentity'
 import { poolTotal, type Draft } from '../draft'
 import type {
@@ -53,7 +53,7 @@ import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError
 import { proposedCostSource, evidencePaymentEvents, announcementCostChoices, activatedPermissionFields, activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, spellCastPermission } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/dsl/manaPrograms'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
-import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
+import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v2'
 import { evaluateDistributionBounds, evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
@@ -354,8 +354,7 @@ export const validPhyrexianLifePayment = (manaCost: string, paidWithLife: number
 const validPhyrexianLife = validPhyrexianLifePayment
 
 export const convokeColors = (object: GameObject) =>
-  object.colors.filter((color): color is ManaId =>
-    color !== 'C' && MANA_SYMBOLS.has(color as ManaId))
+  [...object.colors].filter((color): color is ManaId => MANA_SYMBOLS.has(color as ManaId))
 
 const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | null => {
   if (index === costs.length) return pool

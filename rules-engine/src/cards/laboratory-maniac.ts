@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { compareAmount, count, objects, players, ref, replacement, replaceWith, staticAbility, winGame, wouldDraw } from '../cardPlugins/dsl/v1'
 
 // Retrieved from Scryfall on 2026-10-25; no cached entry was available.
@@ -142,7 +142,7 @@ export default {
   scryfall,
   types: ['Creature'],
   subtypes: ['Human', 'Wizard'],
-  colors: scryfall.colors,
+  colors: colorSetFromScryfall(scryfall.colors),
   manaCost: scryfall.mana_cost,
   manaValue: scryfall.cmc,
   power: Number(scryfall.power),

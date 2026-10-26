@@ -1,5 +1,5 @@
 import { activated, choice, copy, createDelayed, createEffect, exileSourceCost, forEachPlayer, manaCost, objects, players, ref, sacrifice, stepDelayed, untilCleanup } from '../../builders'
-import { KEYWORDS } from '../../schema/v1'
+import { KEYWORDS } from '../../schema/v2'
 
 /** CR 702.141: shared graveyard payment, copies, attack requirements, and one delayed sacrifice. */
 export const encore = (cost: string) => activated({

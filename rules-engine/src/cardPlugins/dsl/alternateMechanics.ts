@@ -1,5 +1,5 @@
 import type { GameObject } from '../../types'
-import type { ContinuousEffectDefinition } from './schema/v1'
+import type { ContinuousEffectDefinition } from './schema/v2'
 
 /** Printed zone mechanics remain part of the canonical definition in hand and exile. */
 export const zoneMechanic = <K extends 'foretell' | 'plot' | 'suspend' | 'warp'>(object: GameObject, kind: K) =>

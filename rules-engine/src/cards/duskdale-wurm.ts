@@ -4,7 +4,7 @@ import { keyword } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Creature"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{5}{G}{G}",
   manaValue: 7,
   ruleDefinition: snapshotFor([keyword.trample]),

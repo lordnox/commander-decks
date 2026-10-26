@@ -40,7 +40,7 @@ import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
 import { activatedPermissionFields, activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeBounds, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluatePlayerSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost, spellCastPermission } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
-import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionV2, Cost, Instruction } from './cardPlugins/dsl/schema/v2'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
@@ -56,7 +56,7 @@ import {
   validTargetRef,
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
-import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
+import { KEYWORDS } from './cardPlugins/dsl/schema/v2'
 import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
 import {
   adventureFaceOf,
@@ -1267,7 +1267,7 @@ const canPayActivateCosts = (
   (cost) => canFund(state, seat, cost),
 )
 
-type CanonicalTargetedAbility = Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>
+type CanonicalTargetedAbility = Extract<CardRuleDefinitionV2['abilities'][number], { decisions: unknown }>
 
 const canonicalActionTargetGroups = (
   state: GameState, object: GameObject, ability: CanonicalTargetedAbility, seat: PlayerId,
@@ -1405,7 +1405,7 @@ const combatDamageIsThreatened = (state: GameState) =>
 
 const activationManaUpper = (state: GameState, seat: PlayerId) => poolTotal(state.players[seat].mana) + manaSources(state, seat).reduce((total, plays) => total + Math.max(0, ...plays.map(play => poolTotal({ ...emptyMana(), ...play.pool }) - (play.cost ? costSize(play.cost) : 0))), 0)
 
-const loyaltyXValues = (object: GameObject, ability: Extract<CardRuleDefinitionV1['abilities'][number], { kind: 'activated' }>) => {
+const loyaltyXValues = (object: GameObject, ability: Extract<CardRuleDefinitionV2['abilities'][number], { kind: 'activated' }>) => {
   const variables = ability.decisions.variables ?? []
   if (variables.length !== 1) return
   const [variable] = variables

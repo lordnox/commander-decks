@@ -72,11 +72,11 @@ by applying.
 
 ## 3. Definition structure
 
-The proposed serialized root is:
+The current serialized root uses schema version 2:
 
 ```ts
 type CardRuleDefinition = {
-  schemaVersion: 1
+  schemaVersion: 2
   abilities: AbilityDefinition[]
 }
 
@@ -1426,7 +1426,7 @@ activated."
 
 ```ts
 const stonySilence: CardRuleDefinition = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   abilities: [
     staticAbility(
       prohibitActivation({
@@ -1493,7 +1493,7 @@ from card metadata; its rule definition declares the keyword.
 
 ```ts
 const duskdaleWurm: CardRuleDefinition = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   abilities: [
     keywordAbility('trample'),
   ],
@@ -1517,7 +1517,7 @@ their owners' hands.
 **Proposed authoring DSL:**
 
 ```ts
-const aetherTide = cardRuleDefinition(1, {
+const aetherTide = cardRuleDefinition(2, {
   abilities: [spell({
     decisions: {
       variables: [chooseX()],
@@ -1562,7 +1562,7 @@ creatures.
 **Proposed authoring DSL:**
 
 ```ts
-const hex = cardRuleDefinition(1, {
+const hex = cardRuleDefinition(2, {
   abilities: [spell({
     decisions: {
       targets: [select({
@@ -1594,7 +1594,7 @@ or have a target player create two Treasure tokens.
 **Proposed authoring DSL:**
 
 ```ts
-const ashlingsCommand = cardRuleDefinition(1, {
+const ashlingsCommand = cardRuleDefinition(2, {
   abilities: [spell({
     decisions: {
       modes: chooseModes({ count: 2 }),
@@ -1669,7 +1669,7 @@ a target creature, or counter a target activated or triggered ability.
 **Proposed authoring DSL:**
 
 ```ts
-const brokersConfluence = cardRuleDefinition(1, {
+const brokersConfluence = cardRuleDefinition(2, {
   abilities: [spell({
     decisions: {
       modes: chooseModes({ count: 3, repeatable: true }),
@@ -1722,7 +1722,7 @@ death, makes a target player lose 1 life, and gains its controller 1 life.
 [sugar catalogue](#14-authoring-sugar-and-canonical-data):
 
 ```ts
-const bloodArtist = cardRuleDefinition(1, {
+const bloodArtist = cardRuleDefinition(2, {
   abilities: [
     whenever(dies({
       filter: { any: [ref('self'), { type: 'Creature' }] },
@@ -1770,7 +1770,7 @@ leads to a draw; not discarding leads to milling one card instead.
 **Proposed authoring DSL:**
 
 ```ts
-const chainsOfMephistopheles = cardRuleDefinition(1, {
+const chainsOfMephistopheles = cardRuleDefinition(2, {
   abilities: [
     staticAbility(
       replacement({
@@ -1870,7 +1870,7 @@ mana cost, types, and printed stats remain card metadata.
 **Proposed authoring DSL**, first using the explicit wrapper:
 
 ```ts
-const wallOfOmens = cardRuleDefinition(1, {
+const wallOfOmens = cardRuleDefinition(2, {
   abilities: [
     keyword.defender,
     whenever(self.enters, {
@@ -1891,7 +1891,7 @@ const wallOfOmens = card([
 cardRules.set('Wall of Omens', wallOfOmens)
 ```
 
-`card` is a version-pinned wrapper for `cardRuleDefinition(1, { abilities })`.
+`card` is a version-pinned wrapper for `cardRuleDefinition(2, { abilities })`.
 `ability.whenever` accepts instruction nodes and wraps them in an ordinary
 trigger configuration. `actions.draw.self.one` produces
 `draw({ count: 1, targets: ref('controller') })`. Here `self` is the player
@@ -2104,13 +2104,13 @@ Adding sugar does not add runtime support for its underlying mechanic.
 
 ### Card wrappers and keyword catalogue
 
-`cardRuleDefinition(1, config)` supplies the root version; `card(abilities)` from
+`cardRuleDefinition(2, config)` supplies the root version; `card(abilities)` from
 the version-1 entry point wraps `{ abilities }`. Both emit the same canonical data.
-The compact helper stays pinned to version 1 when later schemas are introduced.
+The compact authoring helper delegates to the current persisted schema version.
 
 ```ts
 declare function cardRuleDefinition(
-  schemaVersion: 1,
+  schemaVersion: 2,
   definition: Omit<CardRuleDefinition, 'schemaVersion'>,
 ): CardRuleDefinition
 
@@ -2311,8 +2311,8 @@ by concept and action family. Use this proposed structure under
 
 ```text
 dsl/
-  v1/index.ts                 # Public exports pinned to schema version 1
-  schema/v1.ts               # Canonical serialized node types
+  v1/index.ts                 # Stable authoring API backed by persisted schema v2
+  schema/v2.ts               # Canonical serialized node types
   builders/                  # Explicit node constructors, defaults, normalization
   compiler/                  # Validation and compilation to authoritative data
   sugar/
@@ -2356,7 +2356,7 @@ branch. Keep the distinction between building data and executing it explicit:
 
 | Authoring expression | Canonical data / meaning |
 | --- | --- |
-| `cardRuleDefinition(1, config)` | `{ schemaVersion: 1, ...config }`; card identity stays in the name registry. |
+| `cardRuleDefinition(2, config)` | `{ schemaVersion: 2, ...config }`; card identity stays in the name registry. |
 | `keyword.trample` | `{ kind: 'keyword', keyword: 'trample' }`; immutable shared definition. |
 | `whenever(pattern, config)` | A `kind: 'triggered'` ability with `on: pattern`; defaults include battlefield scope and empty decisions. |
 | `self.dies` | A death-occurrence pattern whose filter is the symbolic source reference. |

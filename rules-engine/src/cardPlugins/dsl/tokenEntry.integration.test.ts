@@ -138,5 +138,5 @@ test('catalog Beza, the Bounding Spring creates blue Fish tokens when an opponen
     .map((id) => resolved.objects[id])
     .filter((object) => object.subtypes.includes('Fish'))
   expect(fishTokens.length).toBeGreaterThanOrEqual(2)
-  for (const token of fishTokens) expect(token.colors).toEqual(['U'])
+  for (const token of fishTokens) expect(token.colors).toBe('U')
 })

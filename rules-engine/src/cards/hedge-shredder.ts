@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { crew, may, mill, move, moved, ref, self, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; original retrieval date is unknown.
@@ -149,7 +149,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Artifact'], subtypes: ['Vehicle'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc, power: 5, toughness: 5,
+  scryfall, types: ['Artifact'], subtypes: ['Vehicle'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc, power: 5, toughness: 5,
   ruleDefinition: snapshotFor([
     whenever(self.attacks, { instructions: [may(mill({ count: 2, targets: ref('controller') }))] }),
     whenever(moved({ filter: { type: 'Land', owner: 'you' }, from: 'library', to: 'graveyard', group: true }), {

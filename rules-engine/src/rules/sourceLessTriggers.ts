@@ -1,6 +1,6 @@
 import { withReferencedObjects } from './canonicalReferences'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
-import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v1'
+import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v2'
 import { gameObjectFieldDefaults } from '../definitions'
 import { captureObject } from '../objectIdentity'
 import type Draft from '../draft'

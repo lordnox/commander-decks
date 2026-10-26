@@ -4,7 +4,7 @@ import { grantLandType, objects, staticAbility } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   supertypes: ['Legendary'],

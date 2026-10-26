@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseCards, compareAmount, count, ifThen, inspectTop, move, objects, ref, remaining, spell } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Instant'], colors: ['G', 'U'], manaCost: '{G}{U}', manaValue: 2,
+  types: ['Instant'], colors: 'UG', manaCost: '{G}{U}', manaValue: 2,
   ruleDefinition: snapshotFor([
     spell({ instructions: [
       inspectTop({ player: ref('controller'), count: 4, bindChoice: 'top' }),

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { count, keyword, mill, modifyStats, move, objects, ref, self, staticAbility, whenever } from '../cardPlugins/dsl/v1'
 import { ZONE_IDS } from '../types'
 
@@ -152,7 +152,7 @@ export default {
   types: scryfall.type_line.split(' — ')[0].split(' ').filter(type => type !== 'Legendary'),
   supertypes: scryfall.type_line.startsWith('Legendary ') ? ['Legendary'] : [],
   subtypes: scryfall.type_line.split(' — ')[1]?.split(' ') ?? [],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
 keyword.reach, keyword.vigilance,
 { ...staticAbility(modifyStats({ targets: objects({ among: ref('source') }), set: true, characteristicDefining: true, power: count(objects({ zone: 'battlefield', type: 'Land', controller: 'you' })), toughness: count(objects({ zone: 'battlefield', type: 'Land', controller: 'you' })) })), activeIn: ZONE_IDS },

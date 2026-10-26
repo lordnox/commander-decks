@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { choice, chooseCards, inspectTop, LIBRARY_VISIBILITY, move, objects, ref, remaining, self, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ["Creature"], colors: ['G'], manaCost: '{1}{G}', manaValue: 2,
+  types: ["Creature"], colors: 'G', manaCost: '{1}{G}', manaValue: 2,
   subtypes: ['Satyr'],
   ruleDefinition: snapshotFor([
     whenever(self.enters, {

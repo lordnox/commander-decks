@@ -9,7 +9,7 @@ import {
 } from '../cardPlugins/dsl/spellPermissions'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
-import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
+import { KEYWORDS } from '../cardPlugins/dsl/schema/v2'
 import { registerDelayedTrigger } from '../rules/delayedTriggers'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
 

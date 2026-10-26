@@ -4,7 +4,7 @@ import { activated, discard, draw, manaCost, objects, ref, searchLibrary, self, 
 
 export default {
   types: ["Legendary", "Artifact"],
-  colors: [],
+  colors: '',
   manaCost: "{2}",
   manaValue: 2,
   ruleDefinition: snapshotFor([

@@ -4,7 +4,7 @@ import { damage, draws, players, ref, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Enchantment", "Creature"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{3}{B}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

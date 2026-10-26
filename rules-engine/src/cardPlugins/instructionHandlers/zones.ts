@@ -464,7 +464,7 @@ const exileColoredPermanentsAtMostX: InstructionHandler<'exileColoredPermanentsA
   for (const object of Object.values(draft.objects)) {
     if (
       object.zone === 'battlefield'
-      && object.colors.length > 0
+      && object.colors !== ''
       && object.manaValue <= x
     ) {
       draft.enqueue({ type: 'move', objectId: object.id, to: 'exile' })

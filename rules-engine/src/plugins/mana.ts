@@ -159,7 +159,7 @@ export const manaModes = (
   if (/any of the exiled cards' colors/i.test(freeText) && state) {
     const colors = new Set(
       (object.exiledCards ?? [])
-        .flatMap((objectId) => state.objects[objectId]?.colors ?? [])
+        .flatMap((objectId) => [...(state.objects[objectId]?.colors ?? '')])
         .filter((color): color is ManaId => COLORS.includes(color as ManaId)),
     )
     for (const color of colors) modes.push({ [color]: 1 })

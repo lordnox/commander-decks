@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { captureAmount, choice, chooseCards, compareAmount, forEachPlayer, move, objects, players, ref, repeatWhile, resultAmount, spell, suspend } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared cache; Oracle text and rulings verified on 2026-10-24.
@@ -172,7 +172,7 @@ const placementRound = forEachPlayer({
 
 export default {
   manaCostAbsent: true,
-  scryfall, types: [scryfall.type_line], subtypes: [], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: [scryfall.type_line], subtypes: [], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     ...suspend(3, '{1}{G}{G}'),
     spell({ instructions: [captureAmount({ amount: 1, bindResult: 'roundPuts' }), repeatWhile({ condition: compareAmount(resultAmount('roundPuts'), 'gte', 1), instructions: [placementRound] })] }),

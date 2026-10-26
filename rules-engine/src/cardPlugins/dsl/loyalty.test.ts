@@ -88,9 +88,9 @@ test('minus X loyalty exiles colored permanents at the chosen mana value or less
     battlefield: {
       p1: [walker(minusX, 7)],
       p2: [
-        cardTemplate('Green Permanent', { types: ['Enchantment'], manaValue: 3, colors: ['G'] }),
-        cardTemplate('Colorless Permanent', { types: ['Artifact'], manaValue: 2, colors: [] }),
-        cardTemplate('Expensive Permanent', { types: ['Creature'], manaValue: 5, colors: ['B'] }),
+        cardTemplate('Green Permanent', { types: ['Enchantment'], manaValue: 3, colors: 'G' }),
+        cardTemplate('Colorless Permanent', { types: ['Artifact'], manaValue: 2, colors: '' }),
+        cardTemplate('Expensive Permanent', { types: ['Creature'], manaValue: 5, colors: 'B' }),
       ],
     },
   })

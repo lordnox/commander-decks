@@ -20,7 +20,7 @@ import {
 
 export default {
   types: ['Artifact'],
-  colors: [],
+  colors: '',
   manaCost: '{9}',
   manaValue: 9,
   ruleDefinition: snapshotFor([

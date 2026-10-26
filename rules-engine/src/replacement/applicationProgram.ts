@@ -4,7 +4,7 @@ import { REPLACEMENT_APPLICATION_CARD_CHOICE, REPLACEMENT_APPLICATION_PLAYER_CHO
 import { openCardSelection } from '../rules/selectCards'
 import { freezeDraft, makeDraft } from '../draft'
 import { objectIdentity, captureObject, isSameObject } from '../objectIdentity'
-import { CHOSEN_COLOR_BINDING, CHOSEN_CREATURE_TYPE_BINDING } from '../cardPlugins/dsl/schema/v1'
+import { CHOSEN_COLOR_BINDING, CHOSEN_CREATURE_TYPE_BINDING } from '../cardPlugins/dsl/schema/v2'
 import {
   evaluateObjectReference, evaluateObjectSelector, evaluatePlayerReference, evaluatePlayerSelector,
   evaluateCondition,
@@ -23,7 +23,7 @@ import type {
 } from '../types'
 import { applyReplacementTransform } from './program'
 
-import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v2'
 
 type NestedApply = (state: GameState, event: GameEvent, catalog: PluginCatalog) => ReduceResult
 

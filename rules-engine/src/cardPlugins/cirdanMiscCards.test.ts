@@ -3,6 +3,7 @@ import { describe, expect, test } from 'bun:test'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
+import { normalizeColorSet } from '../../../shared/cardColors'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ward as wardPlugin } from './ward'
 import { pendingSelectionFor } from '../rules/selectCards'
@@ -61,7 +62,7 @@ const real = (name: string, extra: Partial<CardTemplate> = {}): CardTemplate => 
     subtypes: back ? back.split(' ') : [],
     manaCost: card.mana_cost,
     manaValue: card.cmc,
-    colors: card.colors ?? [],
+    colors: normalizeColorSet(card.colors ?? []),
     oracleText: card.oracle_text,
     ...(card.power === undefined ? {} : { power: Number(card.power) }),
     ...(card.toughness === undefined ? {} : { toughness: Number(card.toughness) }),

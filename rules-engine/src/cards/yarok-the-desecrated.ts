@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { amount, keywordAbility, multiplyTriggers, objects, staticAbility } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text verified on 2026-10-24.
@@ -149,7 +149,7 @@ export default {
   scryfall,
   types: ['Creature'],
   subtypes: ['Elemental', 'Horror'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   supertypes: ['Legendary'],
   ruleDefinition: snapshotFor([
     keywordAbility('deathtouch'), keywordAbility('lifelink'),

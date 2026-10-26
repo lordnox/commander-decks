@@ -4,7 +4,7 @@ import { chooseCards, choice, compareAmount, count, ifThen, objects, ref, sacrif
 
 export default {
   types: ["Instant"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{2}{G}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

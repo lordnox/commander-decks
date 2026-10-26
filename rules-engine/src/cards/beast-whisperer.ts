@@ -5,7 +5,7 @@ import { draw, spellCast, whenever } from '../cardPlugins/dsl/v1'
 export default {
   types: ["Creature"],
   subtypes: ["Elf", "Druid"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{2}{G}{G}",
   manaValue: 4,
   ruleDefinition: snapshotFor([

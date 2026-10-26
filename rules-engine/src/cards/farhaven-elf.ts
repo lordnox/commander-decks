@@ -4,7 +4,7 @@ import { may, objects, ref, searchLibrary, self, whenever } from '../cardPlugins
 
 export default {
   types: ["Creature"],
-  colors: ["G"],
+  colors: 'G',
   manaCost: "{2}{G}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

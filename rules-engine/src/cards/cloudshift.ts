@@ -4,7 +4,7 @@ import { blink, objects, ref, select, spell, target } from '../cardPlugins/dsl/v
 
 export default {
   types: ['Instant'],
-  colors: ['W'],
+  colors: 'W',
   manaCost: '{W}',
   manaValue: 1,
   ruleDefinition: snapshotFor([

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { amount, keywordAbility, multiplyTriggers, objects, players, playLands, staticAbility } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text verified on 2026-10-24.
@@ -143,7 +143,7 @@ export default {
   scryfall,
   types: ['Creature'],
   subtypes: ['Elemental'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     keywordAbility('reach'),
     staticAbility(playLands(players({ relation: 'you' }), objects({ zone: 'graveyard', owner: 'you', type: 'Land' }))),

@@ -4,7 +4,7 @@ import { mill, ref, self, whenever } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ["Creature"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{B}",
   manaValue: 1,
   ruleDefinition: snapshotFor([

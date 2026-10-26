@@ -4,7 +4,7 @@ import { activated, draw, manaCost, ref, sacrificeCost, tapCost } from '../cardP
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

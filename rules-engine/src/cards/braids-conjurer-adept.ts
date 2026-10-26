@@ -5,7 +5,7 @@ import { choice, chooseCards, move, objects, ref, stepBegins, whenever } from '.
 const activePlayer = ref('triggering.player')
 
 export default {
-  types: ['Creature'], subtypes: ['Human', 'Wizard'], colors: ['U'], manaCost: '{2}{U}{U}', manaValue: 4,
+  types: ['Creature'], subtypes: ['Human', 'Wizard'], colors: 'U', manaCost: '{2}{U}{U}', manaValue: 4,
   ruleDefinition: snapshotFor([
     whenever(stepBegins({ step: 'upkeep' }), {
       instructions: [

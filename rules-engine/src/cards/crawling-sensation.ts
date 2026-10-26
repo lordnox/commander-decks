@@ -4,7 +4,7 @@ import { createToken, may, mill, moved, ref, stepBegins, token, whenever } from 
 
 export default {
   types: ['Enchantment'],
-  colors: ['G'],
+  colors: 'G',
   manaCost: '{2}{G}',
   manaValue: 3,
   ruleDefinition: snapshotFor([

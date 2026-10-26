@@ -4,7 +4,7 @@ import { activated, createEffect, discardCost, objects, pumpEffect, ref, untilCl
 
 export default {
   types: ["Creature"],
-  colors: ["B"],
+  colors: 'B',
   manaCost: "{2}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

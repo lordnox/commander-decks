@@ -23,7 +23,7 @@ export const tramplePumpFromGreatestPower = () => {
 }
 
 export default {
-  types: ['Sorcery'], colors: ['G'], manaCost: '{3}{G}{G}', manaValue: 5,
+  types: ['Sorcery'], colors: 'G', manaCost: '{3}{G}{G}', manaValue: 5,
   ruleDefinition: snapshotFor([
     spell({ instructions: tramplePumpFromGreatestPower() }),
   ]),

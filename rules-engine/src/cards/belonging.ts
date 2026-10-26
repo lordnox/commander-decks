@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { createToken, encore, ref, self, token, whenever } from '../cardPlugins/dsl/v1'
 
 // Copied from the shared Scryfall cache; Oracle text verified on 2026-10-24.
@@ -156,7 +156,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Creature'], subtypes: scryfall.type_line.split(' — ')[1].split(' '),
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   power: 6, toughness: 6,
   ruleDefinition: snapshotFor([
     whenever(self.enters, { instructions: [createToken({ count: 3, targets: ref('controller'), token: token('Shapeshifter-1-1-changeling') })] }),

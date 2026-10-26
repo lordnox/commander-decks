@@ -1,12 +1,12 @@
 import type { RoomDoorId, StepId } from '../../../types'
-import type { CardColor } from '../../../../../shared/cardColors'
+import type { CardColor, ColorSet } from '../../../../../shared/cardColors'
 import type { PlayerEffect, PlayerEffectDuration } from '../../../plugins/playerEffectConstants'
 
 export { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
 
 export const ROOM_DOORS = ['left', 'right'] as const
 
-export const RULE_DSL_SCHEMA_VERSION = 1 as const
+export const RULE_DSL_SCHEMA_VERSION = 2 as const
 
 /** Binding stored on the entering object as `chosenColor` (CR 614.12). */
 export const CHOSEN_COLOR_BINDING = 'chosenColor' as const
@@ -37,7 +37,7 @@ export const SPELL_CAST_TIMING = { flash: 'flash', sorcery: 'sorcery' } as const
 export type SpellCastTiming = typeof SPELL_CAST_TIMING[keyof typeof SPELL_CAST_TIMING]
 
 export { CARD_COLORS } from '../../../../../shared/cardColors'
-export type { CardColor } from '../../../../../shared/cardColors'
+export type { CardColor, ColorSet } from '../../../../../shared/cardColors'
 
 export const PLAYER_RELATIONS = {
   you: 'you', opponent: 'opponent', anyone: 'any', teammate: 'teammate',
@@ -447,7 +447,7 @@ export type CreatedEffect =
   | { kind: 'goad' }
   /** CR 701.19a: the next time this permanent would be destroyed this turn, regenerate it instead. */
   | { kind: 'regenerationShield' }
-  | { kind: 'setColors'; colors: readonly CardColor[] }
+  | { kind: 'setColors'; colors: ColorSet }
   | { kind: 'pump'; power: StatDelta; toughness: StatDelta }
   | { kind: 'grantKeyword'; keyword: Keyword }
   | { kind: 'grantAbility'; ability: GeneratedAbility }
@@ -496,7 +496,7 @@ export type LibraryVisibility = typeof LIBRARY_VISIBILITY[keyof typeof LIBRARY_V
 export type CopyExcept = {
   notLegendary?: true
   noManaCost?: true
-  colors?: readonly CardColor[]
+  colors?: ColorSet
   types?: readonly string[]
   subtypes?: readonly string[]
   keywords?: readonly Keyword[]
@@ -509,7 +509,7 @@ export type TokenDefinition = {
   name: string
   types: string[]
   subtypes?: string[]
-  colors?: string[]
+  colors?: ColorSet
   power?: number | null
   toughness?: number | null
   oracleText?: string
@@ -1106,13 +1106,13 @@ export type AbilityDefinition =
   | DredgeAbilityDefinition
   | SagaAbilityDefinition
 
-export type CardRuleDefinitionV1 = {
+export type CardRuleDefinitionV2 = {
   schemaVersion: RuleDslSchemaVersion
   definitionRevision: string
   abilities: readonly AbilityDefinition[]
 }
 
-export type CardRuleDefinitionInputV1 = {
+export type CardRuleDefinitionInputV2 = {
   abilities: readonly AbilityDefinition[]
 }
 
@@ -1130,10 +1130,10 @@ export type DefinitionDeclaration = {
   kind: string
 }
 
-export type CompiledCardRuleDefinitionV1 = {
+export type CompiledCardRuleDefinitionV2 = {
   schemaVersion: RuleDslSchemaVersion
   definitionRevision: string
-  definition: CardRuleDefinitionV1
+  definition: CardRuleDefinitionV2
   declarations: readonly DefinitionDeclaration[]
   capabilities: {
     canonicalLoad: true
@@ -1151,10 +1151,10 @@ export type CompiledCardRuleDefinitionV1 = {
  * process catalogue. Both version pins are repeated outside the payload so a
  * corrupt or mismatched snapshot fails before a frame is restored.
  */
-export type CardRuleDefinitionSnapshotV1 = {
+export type CardRuleDefinitionSnapshotV2 = {
   schemaVersion: RuleDslSchemaVersion
   definitionRevision: string
-  definition: CardRuleDefinitionV1
+  definition: CardRuleDefinitionV2
 }
 
 export type AmountEvaluationContext = {

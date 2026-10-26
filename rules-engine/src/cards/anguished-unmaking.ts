@@ -4,7 +4,7 @@ import { loseLife, move, objects, ref, select, spell, target } from '../cardPlug
 
 export default {
   types: ["Instant"],
-  colors: ["B", "W"],
+  colors: 'WB',
   manaCost: "{1}{W}{B}",
   manaValue: 3,
   ruleDefinition: snapshotFor([

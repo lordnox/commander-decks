@@ -12,7 +12,7 @@ import { CONTROL_CHOICE_ACTION, CONTROL_EVENT } from './cardPlugins/dsl/controlC
 import { pickRandomChoices, RANDOM_CHOICE as HIDDEN_RANDOM } from './plugins/hiddenInformation'
 import { CANONICAL_RANDOM_RESULT } from './cardPlugins/dsl/canonicalRandom'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
-import { KEYWORDS, LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v1'
+import { KEYWORDS, LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION, SPELL_CAST_TIMING } from './cardPlugins/dsl/schema/v2'
 import { openSpellCast } from './cardPlugins/dsl/spellPermissions'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { completeAdventureSpell } from './plugins/adventure'
@@ -47,7 +47,7 @@ import type {
   Instruction,
   ObjectRecipient,
   PlayerRecipient,
-} from './cardPlugins/dsl/schema/v1'
+} from './cardPlugins/dsl/schema/v2'
 import { numericInstructionResult } from './cardPlugins/dsl/instructionResults'
 import type Draft from './draft'
 import type {
@@ -69,7 +69,7 @@ import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
 import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/revealUntilExecution'
-import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
+import type { DelayedPattern } from './cardPlugins/dsl/schema/v2'
 import { canPayResolutionMana, eligibleResolutionManaAbilities, resolutionCostLabel, resolutionManaCost } from './cardPlugins/dsl/resolutionPayment'
 import { beginVote, disambiguateVoteOptions, pendingVote } from './cardPlugins/vote'
 import { PLAYER_EFFECT_DURATIONS, PLAYER_EFFECT_RULE_PLUGINS, PLAYER_EFFECTS_PLUGIN_ID } from './plugins/playerEffectConstants'
@@ -1251,7 +1251,7 @@ const actionEvents = (
           ...(ruleDefinition ? { ruleDefinition } : {}),
           types: [...instruction.token.types],
           ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),
-          ...(instruction.token.colors ? { colors: [...instruction.token.colors] } : {}),
+          ...(instruction.token.colors !== undefined ? { colors: instruction.token.colors } : {}),
           dsl: true as const,
         },
       })))

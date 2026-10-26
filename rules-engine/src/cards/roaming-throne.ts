@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { addTypesTo, amount, chooseCreatureTypeAsEnters, chosenCreatureType, multiplyTriggers, objects, ref, staticAbility, ward } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text verified on 2026-10-24.
@@ -141,7 +141,7 @@ export default {
   scryfall,
   types: ['Artifact', 'Creature'],
   subtypes: ['Golem'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     staticAbility(chooseCreatureTypeAsEnters(), addTypesTo({ targets: objects({ among: ref('source') }), creatureType: chosenCreatureType() })),
     staticAbility(ward({ kind: 'mana', generic: 2 })),

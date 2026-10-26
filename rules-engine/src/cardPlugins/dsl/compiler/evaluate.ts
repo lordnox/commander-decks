@@ -1,5 +1,5 @@
-import type { Amount, AmountEvaluationContext, LifeTotalAmount, StatDelta, TargetClause } from '../schema/v1'
-import { ROUNDING_MODES } from '../schema/v1'
+import type { Amount, AmountEvaluationContext, LifeTotalAmount, StatDelta, TargetClause } from '../schema/v2'
+import { ROUNDING_MODES } from '../schema/v2'
 import { RuleDslEvaluationError } from './errors'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
 

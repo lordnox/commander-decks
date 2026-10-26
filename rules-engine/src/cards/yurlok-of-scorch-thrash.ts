@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { activated, amount, keyword, manaCost, players, staticAbility, tapCost } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Viashino', 'Shaman'], colors: ['B', 'R', 'G'], manaCost: '{1}{B}{R}{G}', manaValue: 4,
+  types: ['Creature'], subtypes: ['Viashino', 'Shaman'], colors: 'BRG', manaCost: '{1}{B}{R}{G}', manaValue: 4,
   ruleDefinition: snapshotFor([
     keyword.vigilance,
     staticAbility({ kind: 'loseLifeOnManaLoss' }),

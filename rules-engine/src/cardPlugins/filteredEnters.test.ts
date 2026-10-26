@@ -5,15 +5,15 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { createTokenInstruction, enters, gainLife, type TargetFilter, type TokenSpec } from './effects'
 
-const whiteKnight = {
-  name: 'White Knight', types: ['Creature'], subtypes: ['Knight'], colors: ['W'],
+const whiteKnight: TokenSpec = {
+  name: 'White Knight', types: ['Creature'], subtypes: ['Knight'], colors: 'W',
   power: 2, toughness: 2,
 }
 const scenarios: { name: string; token: boolean; seat: 'p1' | 'p2'; spec: TokenSpec }[] = [
   { name: 'your white Knight token', token: true, seat: 'p1', spec: whiteKnight },
   { name: 'opponent white Knight token', token: true, seat: 'p2', spec: whiteKnight },
-  { name: 'your blue Knight token', token: true, seat: 'p1', spec: { ...whiteKnight, colors: ['U'] } },
-  { name: 'your multicolor Knight token', token: true, seat: 'p1', spec: { ...whiteKnight, colors: ['W', 'U'] } },
+  { name: 'your blue Knight token', token: true, seat: 'p1', spec: { ...whiteKnight, colors: 'U' } },
+  { name: 'your multicolor Knight token', token: true, seat: 'p1', spec: { ...whiteKnight, colors: 'WU' } },
   { name: 'your white Soldier token', token: true, seat: 'p1', spec: { ...whiteKnight, subtypes: ['Soldier'] } },
   { name: 'your white Knight creature card', token: false, seat: 'p1', spec: whiteKnight },
   { name: 'your white noncreature token', token: true, seat: 'p1', spec: { ...whiteKnight, types: ['Artifact'] } },

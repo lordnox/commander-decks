@@ -4,7 +4,7 @@ import { CARD_COLORS, activated, amount, chooseCards, chooseInstructions, choice
 
 export default {
   types: ["Land"],
-  colors: [],
+  colors: '',
   manaCost: "",
   manaValue: 0,
   ruleDefinition: snapshotFor([

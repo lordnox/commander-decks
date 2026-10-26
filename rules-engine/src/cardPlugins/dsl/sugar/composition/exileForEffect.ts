@@ -1,4 +1,4 @@
-import type { Instruction, ObjectSelector, PlayerReference } from '../../schema/v1'
+import type { Instruction, ObjectSelector, PlayerReference } from '../../schema/v2'
 import { choice, chooseCards, compareAmount, count, ifThen, move, objects, sequence } from '../../builders'
 
 /** Optional one-card resolution cost. CR 118.12 checks payment, not the move's destination. */

@@ -15,7 +15,7 @@ import {
 } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Creature'], subtypes: ['Elephant'], colors: ['G'], manaCost: '{6}{G}{G}', manaValue: 8,
+  types: ['Creature'], subtypes: ['Elephant'], colors: 'G', manaCost: '{6}{G}{G}', manaValue: 8,
   ruleDefinition: snapshotFor([
     whenever(self.enters, {
       decisions: { targets: [select({ filter: objects({ zone: 'battlefield', not: { type: 'Creature' } }), min: 0, max: 3 })] },

@@ -3,7 +3,7 @@ import { snapshotFor } from './snapshot'
 import { count, destroy, divide, forEachPlayer, mill, objects, players, ref, ROUNDING_MODES, select, spell, target } from '../cardPlugins/dsl/v1'
 
 export default {
-  types: ['Sorcery'], colors: ['U', 'B'], manaCost: '{3}{U}{B}{B}', manaValue: 6,
+  types: ['Sorcery'], colors: 'UB', manaCost: '{3}{U}{B}{B}', manaValue: 6,
   ruleDefinition: snapshotFor([
     spell({
       decisions: { targets: [select({ filter: players(), min: 0, max: count(players()) })] },

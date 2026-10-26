@@ -26,7 +26,7 @@ import { onResolve } from './onResolve'
 
 import {type CardTemplate} from '../newGame'
 const knight = (name = 'Knight', token = false) => cardTemplate(name, {
-  types: ['Creature'], subtypes: ['Knight'], colors: ['W'], power: 2, toughness: 2, token,
+  types: ['Creature'], subtypes: ['Knight'], colors: 'W', power: 2, toughness: 2, token,
 })
 const watcher = (effects: CardEffect[]) => cardTemplate('Watcher', { types: ['Enchantment'], effects })
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
@@ -167,7 +167,7 @@ describe('shared trigger matching', () => {
 
   test('draw filters the drawn object and does not trigger on an empty library', () => {
     const server = game([draws({ filter: { colors: ['W'], type: 'Creature' } }, gainLife(1))], {
-      libraries: { p1: [knight(), cardTemplate('Blue', { types: ['Instant'], colors: ['U'] })] },
+      libraries: { p1: [knight(), cardTemplate('Blue', { types: ['Instant'], colors: 'U' })] },
     })
     const drawn = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 2 }))
     expect(drawn.stack).toHaveLength(1)
@@ -217,8 +217,8 @@ describe('shared trigger matching', () => {
       all: [{ colors: ['W'] }, { any: [{ subtypes: ['Knight'] }, { type: 'Instant' }] }],
       not: { type: 'Artifact' },
     } }, gainLife(1))], { hands: { p1: [
-      cardTemplate('Artifact Knight', { types: ['Artifact', 'Creature'], colors: ['W'], subtypes: ['Knight'] }),
-      cardTemplate('Blue Knight', { types: ['Creature'], colors: ['U'], subtypes: ['Knight'] }),
+      cardTemplate('Artifact Knight', { types: ['Artifact', 'Creature'], colors: 'W', subtypes: ['Knight'] }),
+      cardTemplate('Blue Knight', { types: ['Creature'], colors: 'U', subtypes: ['Knight'] }),
     ] } })
     for (const name of ['Artifact Knight', 'Blue Knight']) {
       const state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, name).id }))

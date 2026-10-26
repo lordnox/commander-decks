@@ -4,7 +4,7 @@ import { activated, amount, cycleFromHand, modifyEvent, ref, replacement, static
 
 export default {
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { enters, move, objects, ref, unearth, whenever } from '../cardPlugins/dsl/v1'
 
 // Cached Scryfall response; Oracle text and rulings verified on 2026-10-24.
@@ -147,7 +147,7 @@ const scryfall = {
 export default {
   power: Number(scryfall.power), toughness: Number(scryfall.toughness),
   scryfall, types: ['Creature'], subtypes: ['Leviathan'],
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     whenever(enters({ filter: ref('source') }), { instructions: [move({ targets: objects({ zone: 'battlefield', other: true, not: { type: 'Land' } }), to: 'hand' })] }),
     unearth('{6}{U}'),

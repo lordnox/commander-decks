@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { characteristic, encore, modifyStats, objects, ref, staticAbility } from '../cardPlugins/dsl/v1'
 import { ZONE_IDS } from '../types'
 
@@ -161,7 +161,7 @@ const scryfall = {
 export default {
   scryfall,
   types: ['Creature'], subtypes: scryfall.type_line.split(' — ')[1].split(' '),
-  colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   power: 0, toughness: 0,
   ruleDefinition: snapshotFor([
     { ...staticAbility(modifyStats({ targets: objects({ among: ref('source') }), set: true, characteristicDefining: true,

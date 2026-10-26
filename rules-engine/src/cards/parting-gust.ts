@@ -1,5 +1,5 @@
 import type { CatalogEntry, ScryfallCardData } from './types'
-import { snapshotFor } from './snapshot'
+import { snapshotFor, colorSetFromScryfall } from './snapshot'
 import { blinkUntil, choosePlayerCost, compareAmount, createToken, ifThen, move, objects, paidCostCount, paidCostPlayer, players, select, spell, stepDelayed, target } from '../cardPlugins/dsl/v1'
 import { fish11U } from '../tokens/fish'
 
@@ -164,7 +164,7 @@ const scryfall = {
 } satisfies ScryfallCardData
 
 export default {
-  scryfall, types: ['Instant'], colors: scryfall.colors, manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
+  scryfall, types: ['Instant'], colors: colorSetFromScryfall(scryfall.colors), manaCost: scryfall.mana_cost, manaValue: scryfall.cmc,
   ruleDefinition: snapshotFor([
     spell({ costs: [], optionalCosts: [choosePlayerCost(players({ relation: 'opponent' }))],
       costLabels: { optional: ['Gift a tapped Fish'] },

@@ -1,11 +1,11 @@
-import type { TokenDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { TokenDefinition } from '../cardPlugins/dsl/schema/v2'
 import { activated, amount, ref, sacrificeCost } from '../cardPlugins/dsl/builders'
 
 export const eldraziSpawn01 = {
   name: 'Eldrazi Spawn',
   types: ['Creature'],
   subtypes: ['Eldrazi', 'Spawn'],
-  colors: [],
+  colors: '',
   power: 0,
   toughness: 1,
   abilities: [activated({

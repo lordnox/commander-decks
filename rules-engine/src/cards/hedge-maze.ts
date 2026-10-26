@@ -4,7 +4,7 @@ import { modifyEvent, ref, replacement, self, staticAbility, surveil, whenever, 
 
 export default {
   types: ['Land'],
-  colors: [],
+  colors: '',
   manaCost: '',
   manaValue: 0,
   ruleDefinition: snapshotFor([

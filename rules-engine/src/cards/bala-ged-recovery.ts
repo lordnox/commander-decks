@@ -11,10 +11,10 @@ const ruleDefinition = snapshotFor([
 ])
 
 export default {
-  types: ['Sorcery'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+  types: ['Sorcery'], colors: 'G', manaCost: '{2}{G}', manaValue: 3,
   ruleDefinition,
   frontFace: {
-    types: ['Sorcery'], subtypes: [], supertypes: [], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+    types: ['Sorcery'], subtypes: [], supertypes: [], colors: 'G', manaCost: '{2}{G}', manaValue: 3,
     oracleText: 'Return target card from your graveyard to your hand.', ruleDefinition,
   },
   backFace: {

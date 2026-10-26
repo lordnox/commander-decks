@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import type { Instruction } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction } from '../cardPlugins/dsl/schema/v2'
 import { instructionSpell } from '../cardPlugins/dsl/instructionTestSupport'
 import {
   createPlayerEffect,

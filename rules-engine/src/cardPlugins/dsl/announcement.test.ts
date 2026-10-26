@@ -1185,7 +1185,7 @@ test('catalog Snuff Out validates the Swamp and four-life alternative cost', () 
     hands: { p1: [cardTemplate('Snuff Out')] },
     battlefield: {
       p1: [cardTemplate('Swamp', { types: ['Land'], subtypes: ['Swamp'] })],
-      p2: [cardTemplate('White Bear', { types: ['Creature'], colors: ['W'], power: 2, toughness: 2 })],
+      p2: [cardTemplate('White Bear', { types: ['Creature'], colors: 'W', power: 2, toughness: 2 })],
     },
   }, { random: () => 0.5 })
   const ready = structuredClone(server.state)
