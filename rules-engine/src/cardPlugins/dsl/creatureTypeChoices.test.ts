@@ -39,6 +39,7 @@ test('catalog Cavern of Souls restores its private type choice and restricts man
       cardTemplate('Wrong Bear', { types: ['Creature'], subtypes: ['Bear'], manaCost: '{U}', power: 2, toughness: 2 }),
       cardTemplate('Matching Wizard', { types: ['Creature'], subtypes: ['Wizard'], manaCost: '{U}', power: 2, toughness: 2 }),
     ] },
+    battlefield: { p1: [cardTemplate('Wizard', { types: ['Creature'], subtypes: ['Wizard'] })] },
   }, { random: () => 0.5 })
   const cavern = server.state.zoneOrder.p1.hand[0]!
   const entered = server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: cavern })
