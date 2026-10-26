@@ -5,7 +5,8 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
-import { ok } from '../testHelpers'
+import { ok, resolveStack } from '../testHelpers'
+import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
@@ -379,6 +380,52 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(state.players.p1.life).toBe(39)
     expect(state.players.p1.mana.U).toBe(1)
     expect(state.players.p1.mana.B).toBe(0)
+  })
+})
+
+describe('life-effect player choices', () => {
+  test('Queza queues a typed opponent choice and drains only the chosen player', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      libraries: { p1: [cardTemplate('Draw fixture')] },
+      battlefield: { p1: [cardTemplate('Queza, Augur of Agonies')] },
+    }, { random: () => 0.5 })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+    const pending = pendingPlayerSelectionFor(state, 'p1')!
+    expect(pending.candidates).toEqual(['p2', 'p3', 'p4'])
+    expect(pendingPlayerSelectionFor(server.project(state, 'p2'), 'p1')).toBeUndefined()
+    state = ok(server.rules(state, {
+      type: 'selectPlayers', selectionId: pending.id, seat: 'p1', players: ['p3'],
+    }))
+    state = resolveStack(server.rules, state)
+    expect(state.players.p1.life).toBe(41)
+    expect(state.players.p2.life).toBe(40)
+    expect(state.players.p3.life).toBe(39)
+  })
+
+  test('opponents do not see the pending Niv-Mizzet payment in projection', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [cardTemplate('Niv card A'), cardTemplate('Niv card B')] },
+      battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
+    }, { random: () => 0.5 })
+    const gained = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 1, source: 'test' }))
+    const offered = resolveStack(server.rules, gained)
+    expect(pendingOptionSelection(offered, 'p1')).toBeDefined()
+    expect(pendingOptionSelection(server.project(offered, 'p2'), 'p1')).toBeUndefined()
+  })
+
+  test('host restart keeps the open Niv-Mizzet optional life payment', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [cardTemplate('Niv card A'), cardTemplate('Niv card B'), cardTemplate('Niv card C')] },
+      battlefield: { p1: [cardTemplate('Niv-Mizzet, Ghost Counsel')] },
+    }, { random: () => 0.5 })
+    const gained = ok(server.rules(server.state, { type: 'gainLife', seat: 'p1', amount: 2, source: 'test' }))
+    const offered = resolveStack(server.rules, gained)
+    const restarted = structuredClone(offered)
+    expect(pendingOptionSelection(restarted, 'p1')).toMatchObject({
+      seat: 'p1',
+      source: 'Niv-Mizzet, Ghost Counsel',
+    })
   })
 })
 

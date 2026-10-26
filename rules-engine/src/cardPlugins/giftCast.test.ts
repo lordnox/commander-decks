@@ -41,6 +41,53 @@ const run = (
 const plugins = [giftCast, onResolvePlugin, drawPlugin]
 
 describe('gift cast and extra turns', () => {
+  test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p1: [card('Perch Protection', ['Instant'])] },
+      battlefield: { p1: [card('Held Bear', ['Creature'], { power: 2, toughness: 2 })] },
+    }, { random: () => 0.5, cardPlugins: plugins })
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
+    const spell = Object.values(ready.objects).find((object) => object.name === 'Perch Protection')!
+    const gifts = legalActsFor(ready, 'p1').filter((action) =>
+      action.kind === 'castSpell' && action.objectId === spell.id && action.selectedOptionalCosts?.includes(0))
+    expect(gifts.map((action) => action.kind === 'castSpell' ? action.costPlayers?.['0'] : undefined))
+      .toEqual(['p2', 'p3', 'p4'])
+    const gifted = gifts.find((action) => action.kind === 'castSpell' && action.costPlayers?.['0'] === 'p2')!
+    const cast = run(server, ready, eventsForAvailableAction(ready, 'p1', gifted)!)
+    expect(cast.stack[0]?.execution?.announcement?.costChoices).toMatchObject({
+      optional: [0],
+      players: { 0: 'p2' },
+    })
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.zoneOrder.p1.battlefield.filter((id) =>
+      resolved.objects[id].subtypes.includes('Bird'))).toHaveLength(4)
+    expect(resolved.objects[Object.values(resolved.objects).find((object) => object.name === 'Held Bear')!.id].phasedOut)
+      .toBe(true)
+    expect(resolved.extraTurns).toEqual(['p2'])
+  })
+
+  test('Perch Protection gift recipient survives JSON restore and is hidden from another player', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p1: [card('Perch Protection', ['Instant'])] },
+    }, { random: () => 0.5, cardPlugins: plugins })
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 4 }
+    const spell = Object.values(ready.objects).find((object) => object.name === 'Perch Protection')!
+    const gifted = legalActsFor(ready, 'p1').find((action) =>
+      action.kind === 'castSpell' && action.objectId === spell.id && action.costPlayers?.['0'] === 'p3')!
+    const cast = run(server, ready, eventsForAvailableAction(ready, 'p1', gifted)!)
+    const restored = JSON.parse(JSON.stringify(cast)) as typeof cast
+    expect(restored.stack[0]?.execution?.announcement?.costChoices).toMatchObject({
+      optional: [0],
+      players: { 0: 'p3' },
+    })
+    expect(pendingPlayerSelectionFor(projectForViewer(restored, 'p2'), 'p1')).toBeUndefined()
+    expect(ok(server.rules(restored, { type: 'resolveTop' })).extraTurns).toEqual(['p3'])
+  })
+
   test('promised gift creates a tapped token for the chosen opponent before other effects', () => {
     const server = createServerGame(
       commanderRules,
