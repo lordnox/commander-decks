@@ -657,8 +657,10 @@ export const beginSpellAnnouncement = (
     deferPayment?: boolean
     targetClauses?: readonly TargetClause[]
     phyrexianLife?: number[]
+    withoutPayingMana?: boolean
   } = {},
 ) => {
+  const { withoutPayingMana, ...announcementOptions } = options
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
@@ -676,7 +678,9 @@ export const beginSpellAnnouncement = (
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
       xManaColor: variableManaColor(ability.decisions.variables),
-      mandatory: ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
+      mandatory: withoutPayingMana
+        ? ability.costs.filter(cost => cost.kind !== 'mana')
+        : ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
         ? ability.costs
         : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
       additional: ability.additionalCosts,
@@ -691,9 +695,9 @@ export const beginSpellAnnouncement = (
     excludeSourceFromCosts: true,
     payment,
     nonManaChoices,
-    ...options,
-    ...(options.evidence ? { evidence: options.evidence.map(ids => [...ids]) } : {}),
-    ...(options.deferPayment ? { deferPayment: true } : {}),
+    ...announcementOptions,
+    ...(announcementOptions.evidence ? { evidence: announcementOptions.evidence.map(ids => [...ids]) } : {}),
+    ...(announcementOptions.deferPayment ? { deferPayment: true } : {}),
   }, `spell:${source.id}`)
 }
 

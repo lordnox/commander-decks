@@ -14,6 +14,8 @@ import { onResolve } from '../onResolve'
 import { targetedResolve } from '../targetedResolve'
 import {
   greatest,
+  lifeCost,
+  manaCost,
   objects,
   card,
   chooseInstructions,
@@ -382,6 +384,65 @@ describe('offerCast from a chosen opponent hand', () => {
     expect(cast.players.p1.mana).toEqual(accepted.players.p1.mana)
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(named(resolved, 'Drawn Rival Bear')).toMatchObject({ zone: 'battlefield', controller: 'p1', owner: 'p2' })
+  })
+
+  test.each([
+    { explicitMana: false, additionalCost: false },
+    { explicitMana: true, additionalCost: false },
+    { explicitMana: false, additionalCost: true },
+    { explicitMana: true, additionalCost: true },
+  ])('targeted free casts from an opponent hand skip printed mana and preserve other costs (%s)', ({ explicitMana, additionalCost }) => {
+    const targetedSpell = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({
+        costs: explicitMana ? [manaCost('{3}{R}')] : [],
+        decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+        ...(additionalCost ? { additionalCosts: [manaCost('{1}'), lifeCost(2)] } : {}),
+        instructions: [],
+      }),
+    ])))
+    const bolt = testCard('Targeted Bolt', ['Instant'], '{3}{R}', 4, { ruleDefinition: targetedSpell })
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [testCard('Steal Caster', ['Sorcery'], '{0}', 0, { ruleDefinition: stealDefinition })], p2: [bolt] },
+      libraries: { p2: [testCard('Drawn Rival Bear', ['Creature'], '{3}{G}', 4)] },
+    }, { random: () => 0.5 })
+    const castStealer = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Steal Caster').id,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }))
+    const state = ok(server.rules(castStealer, { type: 'resolveTop' }))
+    const pending = pendingOptionSelection(state, 'p2')!
+    const accepted = ok(server.rules(state, { type: 'selectOption', seat: 'p2', selectionId: pending.id, optionId: pending.options[0].id }))
+    const object = named(accepted, 'Targeted Bolt')
+    const funded = structuredClone(accepted)
+    funded.players.p1.mana.C = additionalCost ? 3 : 0
+    const action = legalActsFor(funded, 'p1').find(candidate => candidate.kind === 'castSpell' && candidate.objectId === object.id)
+    if (!action || action.kind !== 'castSpell') throw new Error('targeted free cast was not offered')
+    expect(action).toMatchObject({ kind: 'castSpell', alternativeCost: 'withoutPayingMana' })
+    expect(action.targetGroups?.[0].targets.some(candidate => candidate.objectId === 'p3')).toBe(true)
+
+    const mana = structuredClone(funded.players.p1.mana)
+    const life = funded.players.p1.life
+    const event = {
+      type: 'castSpell' as const, seat: 'p1' as const, objectId: object.id, alternativeCost: 'withoutPayingMana' as const,
+      ...(additionalCost ? { additionalGeneric: 2 } : {}),
+      targetClauses: [[{ kind: 'player' as const, player: 'p3' as const }]],
+    }
+    if (additionalCost) {
+      const unfunded = structuredClone(funded)
+      unfunded.players.p1.mana.C = 2
+      expect(server.rules(unfunded, event).ok).toBe(false)
+    }
+
+    const cast = server.rules(funded, event)
+    expect(cast.ok).toBe(true)
+    if (cast.ok) {
+      expect(cast.state.stack[0]).toMatchObject({ objectId: object.id, controller: 'p1', targets: [{ kind: 'player', player: 'p3' }] })
+      expect(cast.state.objects[object.id]).toMatchObject({ owner: 'p2', zone: 'stack', controller: 'p1' })
+      expect(cast.state.players.p1.mana.C).toBe(mana.C - (additionalCost ? 3 : 0))
+      expect(cast.state.players.p1.mana.R).toBe(mana.R)
+      expect(cast.state.players.p1.life).toBe(life - (additionalCost ? 2 : 0))
+    }
   })
 })
 
