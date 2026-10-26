@@ -420,6 +420,61 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger
       return { state, offered }
     }
 
+  test('catalog Grothama gives each attacking creature owner a private fight choice', () => {
+    const { server, ready } = grothamaGame({
+      p1: [deckCard('Grothama, All-Devouring')],
+      p2: [brute('Raider', 3), brute('Ogre', 4)],
+    })
+    const attacked = placeGrantedTriggers(server, ok(server.rules(
+      withGrant(server, ready),
+      attackEvent(ready, 'p2', ['Raider', 'Ogre']),
+    )))
+    expect(attacked.stack).toHaveLength(2)
+
+    const first = ok(server.rules(attacked, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(first, 'p2')!
+    expect(selection).toMatchObject({
+      kind: 'choose',
+      seat: 'p2',
+      count: 1,
+      min: 0,
+      candidates: [grothamaId(first)],
+    })
+    expect(pendingSelectionFor(projectForViewer(first, 'p1'), 'p2')).toBeUndefined()
+
+    const { state } = resolveFights(server, attacked)
+    expect(named(state, 'Raider').zone).toBe('graveyard')
+    expect(named(state, 'Ogre').zone).toBe('graveyard')
+    expect(named(state, 'Grothama, All-Devouring').damageDealtBy).toEqual({ p2: 7 })
+    expect(named(state, 'Grothama, All-Devouring').damageMarked).toBe(7)
+    expect(named(state, 'Grothama, All-Devouring').zone).toBe('battlefield')
+  })
+
+  test('catalog Grothama restores its pending fight choice from the journal', () => {
+    const { server, ready } = grothamaGame({
+      p1: [deckCard('Grothama, All-Devouring')],
+      p2: [brute('Raider', 3)],
+    })
+    const synced = withGrant(server, ready)
+    const event = attackEvent(synced, 'p2', ['Raider'])
+    const opened = ok(server.rules(ok(server.rules(synced, event)), { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(opened, 'p2')!
+
+    let journal = createJournal(synced)
+    journal = recordAccepted(journal, event)
+    journal = recordAccepted(journal, { type: 'resolveTop' })
+    const restored = restoreJournal(journal, server.rules).current()
+    expect(pendingSelectionFor(restored, 'p2')).toEqual(selection)
+    const fought = resolveStack(server.rules, ok(server.rules(restored, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'choose',
+      count: 1,
+      objectIds: [grothamaId(restored)],
+    })))
+    expect(named(fought, 'Raider').zone).toBe('graveyard')
+  })
+
     test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {
       const { server, ready } = grothamaGame({
         p1: [deckCard('Grothama, All-Devouring'), brute('P1 Bear', 2), artifact('P1 Rock')],

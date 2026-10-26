@@ -48,7 +48,11 @@
     "cardRuleCatalog.targetedActions:227",
     "chainsOfMephistopheles:169",
     "chainsOfMephistopheles:323",
-    "chainsOfMephistopheles:376"
+    "chainsOfMephistopheles:376",
+    "cirdanEldrazi:96",
+    "cirdanEldrazi:146",
+    "cirdanGrothamaGuardian:166",
+    "cirdanGrothamaGuardian:288"
   ],
   "relocations": [
     {
@@ -373,6 +377,38 @@
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "a suspended discard destination binds after restore and draws",
       "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The p1 discard candidates exclude p2's secret-hand decoy. After discarding, competing destination options remain suspended and hidden from p2 along with the discarded card; JSON restore preserves the Chains source id/controller, p1 option id and exact options, and discarded-card id/owner/controller. Choosing exile completes the replacement, draws the library card, and clears card and option selections with exact final zones."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:96"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "targeting Sire asks only the caster to pay seven life before the spell can resolve",
+      "evidence": "Catalog Sire of Seven Deaths is the source of the opponent's ward choice. The spell stays off the stack while the exact pay/decline options are pending; only p1 sees the choice, paying costs seven life, puts the original spell on the stack, and clears the choice."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:146"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "a journal restore retains Sire’s pending ward choice and accepts the replayed answer",
+      "evidence": "Catalog Sire ward is restored from the journal with the exact pending choice identity; p1's replayed pay answer costs seven life, resumes the original spell, and clears the pending choice. Generic legacy ward handler cases remain in the mechanic suite."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:166"
+      ],
+      "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
+      "suite": "catalog Grothama gives each attacking creature owner a private fight choice",
+      "evidence": "The catalog Grothama creates two attacker triggers. p2 receives exactly Grothama as the private candidate; resolving both choices kills Raider and Ogre and records seven damage from p2 on Grothama, which remains on the battlefield."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:288"
+      ],
+      "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
+      "suite": "catalog Grothama restores its pending fight choice from the journal",
+      "evidence": "The catalog attack event and trigger resolution are journaled. Restoring reproduces p2's exact open choice; the answer resolves the fight and puts Raider in the graveyard."
     }
   ]
 }

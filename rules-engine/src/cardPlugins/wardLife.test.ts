@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { projectForViewer } from '../index'
 import { commanderRules } from '../formats'
+import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
@@ -167,6 +168,86 @@ describe('Ward with a life payment', () => {
     const paid = ok(answer(server, activate(), 'pay'))
     expect(paid.players.p1.life).toBe(13)
     expect(paid.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'poker.poke' })
+  })
+})
+
+describe('catalog Sire of Seven Deaths ward', () => {
+  const setup = () => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [cardTemplate('Fixture Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+      battlefield: {
+        p2: [cardTemplate('Sire of Seven Deaths')],
+      },
+    }, { random: () => 0.5 })
+    const state = structuredClone(server.state)
+    state.players.p1.mana.R = 1
+    state.priority = 'p1'
+    return { server, state }
+  }
+
+  test('targeting Sire asks only the caster to pay seven life before the spell can resolve', () => {
+    const { server, state } = setup()
+    const bolt = named(state, 'Fixture Bolt')
+    const sire = Object.values(state.objects).find(
+      (object) => object.name === 'Sire of Seven Deaths' && object.controller === 'p2',
+    )!
+    expect(sire.controller).toBe('p2')
+    const cast = ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: bolt.id,
+      targets: [{ kind: 'object', objectId: sire.id }],
+    }))
+    const choice = pendingOptionSelection(cast, 'p1')!
+    expect(cast.stack).toHaveLength(0)
+    expect(choice).toMatchObject({
+      source: 'Sire of Seven Deaths',
+      options: [{ id: 'pay' }, { id: 'decline' }],
+      action: { kind: 'ward-life', life: 7 },
+    })
+    expect(pendingOptionSelection(projectForViewer(cast, 'p1'), 'p1')?.id).toBe(choice.id)
+    for (const viewer of ['p2', 'p3'] as const) {
+      expect(pendingOptionSelection(projectForViewer(cast, viewer), 'p1')).toBeUndefined()
+    }
+
+    const event: GameEvent = {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: choice.id,
+      optionId: 'pay',
+    }
+    const paid = ok(server.rules(cast, event))
+    expect(paid.players.p1.life).toBe(33)
+    expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: bolt.id })
+    expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
+  })
+
+  test('a journal restore retains Sire’s pending ward choice and accepts the replayed answer', () => {
+    const { server, state } = setup()
+    const bolt = named(state, 'Fixture Bolt')
+    const sire = named(state, 'Sire of Seven Deaths')
+    const castEvent: GameEvent = {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: bolt.id,
+      targets: [{ kind: 'object', objectId: sire.id }],
+    }
+    const warded = ok(server.rules(state, castEvent))
+    const choice = pendingOptionSelection(warded, 'p1')!
+    let journal = createJournal(state)
+    journal = recordAccepted(journal, castEvent)
+    const restored = restoreJournal(journal, server.rules).current()
+    expect(pendingOptionSelection(restored, 'p1')).toEqual(choice)
+    const paid = ok(server.rules(restored, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: choice.id,
+      optionId: 'pay',
+    }))
+    expect(paid.players.p1.life).toBe(33)
+    expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: bolt.id })
+    expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
   })
 })
 
