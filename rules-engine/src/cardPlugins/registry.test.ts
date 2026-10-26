@@ -707,7 +707,7 @@ test('encore catalog cards retain their full printed programs and shared graveya
   const soul = cardTemplateDefaultsFor('Soul of Eternity')!
   expect(belonging).toMatchObject({ power: 6, toughness: 6, subtypes: ['Elemental', 'Incarnation'] })
   expect(belonging.ruleDefinition.definition.abilities[0]).toMatchObject({ kind: 'triggered', instructions: [
-    { kind: 'createToken', count: { kind: 'constant', value: 3 }, token: { name: 'Shapeshifter', colors: [], power: 1, toughness: 1, abilities: [{ kind: 'keyword', keyword: 'changeling' }] } },
+    { kind: 'createToken', count: { kind: 'constant', value: 3 }, token: { name: 'Shapeshifter', colors: '', power: 1, toughness: 1, abilities: [{ kind: 'keyword', keyword: 'changeling' }] } },
   ] })
   expect(belonging.ruleDefinition.definition.abilities.some(ability => ability.kind === 'keyword' && ability.keyword === 'changeling')).toBe(false)
   expect(soul.ruleDefinition.definition.abilities[0]).toMatchObject({ kind: 'static',

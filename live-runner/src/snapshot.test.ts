@@ -6,7 +6,7 @@ import { applyInbox, createLobby, rollTurnOrder } from './lobby'
 import { encodeLobby, lobbyWire } from './snapshot'
 
 const decodePayload = (payload: string) => {
-  const body = payload.slice('v2.'.length)
+  const body = payload.slice('v3.'.length)
   const padded = body.replace(/-/g, '+').replace(/_/g, '/')
     + '='.repeat((4 - (body.length % 4)) % 4)
   return JSON.parse(inflateSync(Buffer.from(padded, 'base64')).toString()) as LiveWireV3

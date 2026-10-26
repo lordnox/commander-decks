@@ -22,7 +22,7 @@ describe('cardRuleCatalog — damageAndLeaves', () => {
         kind: 'createToken',
         count: { kind: 'constant', value: 1 },
         targets: ref('controller'),
-        token: { name: 'Beast', types: ['Creature'], subtypes: ['Beast'], colors: ['G'], power: 3, toughness: 3 },
+        token: { name: 'Beast', types: ['Creature'], subtypes: ['Beast'], colors: 'G', power: 3, toughness: 3 },
       }],
     }])
   })

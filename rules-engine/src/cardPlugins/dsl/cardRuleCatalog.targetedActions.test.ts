@@ -189,7 +189,7 @@ test('controller follow-up catalog programs capture their recipient before remov
         break
       case 'Swan Song':
         expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'stackItems', filter: { kind: 'spell', any: [{ type: 'Enchantment' }, { type: 'Instant' }, { type: 'Sorcery' }] } })
-        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ token: expect.objectContaining({ colors: ['U'], power: 2, toughness: 2, oracleText: 'Flying' }) }))
+        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ token: expect.objectContaining({ colors: 'U', power: 2, toughness: 2, oracleText: 'Flying' }) }))
         break
       case 'Swords to Plowshares':
         expect(ability.instructions[2]).toEqual(expect.objectContaining({ kind: 'move', to: 'exile' }))

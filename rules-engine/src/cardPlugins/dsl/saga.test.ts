@@ -226,7 +226,7 @@ describe('catalog saga chapter sequencing and token lifetime', () => {
       token: true,
       power: 8,
       toughness: 8,
-      colors: ['U'],
+      colors: 'U',
       types: ['Creature'],
       subtypes: ['Kraken'],
     })
