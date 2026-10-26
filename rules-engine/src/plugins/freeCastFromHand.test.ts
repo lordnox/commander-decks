@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-import { readFileSync } from 'node:fs'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
@@ -22,21 +21,6 @@ import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
-
-const cardNames = JSON.parse(readFileSync(new URL('../../../cards/index.json', import.meta.url), 'utf8')).names as Record<string, string>
-const real = (name: string) => {
-  const card = JSON.parse(readFileSync(new URL(`../../../cards/${cardNames[name.toLowerCase()]}.json`, import.meta.url), 'utf8'))
-  const [front, back = ''] = card.type_line.split(' — ')
-  const words = front.split(' ')
-  const supertypes = words.filter((word: string) => ['Legendary', 'Basic', 'Snow'].includes(word))
-  return cardTemplate(card.name, {
-    types: words.filter((word: string) => !supertypes.includes(word)), supertypes,
-    subtypes: back ? back.split(' ') : [], manaCost: card.mana_cost, manaValue: card.cmc,
-    colors: card.colors ?? [], oracleText: card.oracle_text,
-    ...(card.power === undefined ? {} : { power: Number(card.power) }),
-    ...(card.toughness === undefined ? {} : { toughness: Number(card.toughness) }),
-  })
-}
 
 const spell = (
   name: string,
@@ -129,7 +113,7 @@ describe('free cast from hand', () => {
       players: 2,
       hands: {
         p1: [
-          real("Rishkar's Expertise"),
+          cardTemplate("Rishkar's Expertise"),
           spell('Held Five', ['Creature'], '{5}', 5),
         ],
       },
