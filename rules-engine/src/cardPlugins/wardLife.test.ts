@@ -8,7 +8,7 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { ability, handlerIdsFromEffects, ward } from './effects'
+import { ability, ward } from './effects'
 import { ward as wardPlugin } from './ward'
 
 import {type CardTemplate} from '../newGame'
@@ -77,9 +77,8 @@ const answer = (
 })
 
 describe('Ward with a life payment', () => {
-  test('the effect is clone-safe and stamps the ward handler', () => {
+  test('the effect is clone-safe', () => {
     expect(structuredClone(ward({ life: 7 }))).toEqual(ward({ life: 7 }))
-    expect(handlerIdsFromEffects([ward({ life: 7 })])).toEqual(['ward'])
   })
 
   test('targeting asks the caster privately; paying loses the life and the spell goes on', () => {

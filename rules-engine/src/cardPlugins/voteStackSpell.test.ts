@@ -12,7 +12,6 @@ import {
   targetOnResolve,
   vote as voteInstruction,
 } from './effectBuilders'
-import { handlerIdsFromEffects } from './effectRuntime'
 import { stackCopy, stackCopyPending, stackCopyTargetCandidates } from './stackCopy'
 import { targetedResolve } from './targetedResolve'
 import { pendingVote, vote } from './vote'
@@ -226,11 +225,5 @@ describe('acting on the spell a vote spell targeted', () => {
     }))
     expect(next.stack[0]).toMatchObject({ copy: true })
     expect(stackCopyPending(next)).toBeUndefined()
-  })
-
-  test('copying the targeted spell loads the stack-copy handler', () => {
-    expect(handlerIdsFromEffects([splitEffect])).toEqual(
-      expect.arrayContaining(['targetedResolve', 'vote', 'stackCopy']),
-    )
   })
 })

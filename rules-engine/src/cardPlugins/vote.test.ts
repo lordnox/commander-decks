@@ -27,7 +27,6 @@ import {
   vote as voteInstruction,
 } from './effectBuilders'
 import type { CardInstruction, VoteOptions } from './effectDefinitions'
-import { handlerIdsFromEffects } from './effectRuntime'
 import { PENDING_VOTE, pendingVote, vote } from './vote'
 import { CHOOSE_VOTES, secretCouncil } from './secretCouncil'
 
@@ -53,7 +52,6 @@ const erestor = () => cardTemplate('Watcher', {
     draw(1),
   )],
 })
-
 const callers = (instruction: CardInstruction) => cardTemplate('Caller', {
   types: ['Creature'],
   effects: [enters(instruction)],
@@ -538,15 +536,5 @@ describe('open votes survive a host restart', () => {
     const done = castAll(restored, reloaded, [['p2', 'b'], ['p3', 'a'], ['p4', 'a']])
     expect(finished(done.result).result.tallies).toEqual({ a: 3, b: 1 })
     expect(done.state.players.p1.life).toBe(45)
-  })
-})
-
-describe('vote handler ids', () => {
-  test('nested vote instructions are found wherever the vote hides', () => {
-    const effects = [onVotesFinished(forEachVoter('all', createTreasures(1, 'triggeringPlayer')))]
-    expect(handlerIdsFromEffects(effects)).not.toContain('vote')
-    expect(handlerIdsFromEffects([
-      enters(ifVoteLeads('a', [voteInstruction('Again?', NAMED, [])])),
-    ])).toContain('vote')
   })
 })

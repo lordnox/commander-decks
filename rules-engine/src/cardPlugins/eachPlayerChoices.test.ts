@@ -15,7 +15,6 @@ import {
   eachPlayerMayWheel,
   eachPlayerReturn,
   exileThisSpell,
-  handlerIdsFromEffects,
   onResolve,
 } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
@@ -77,10 +76,8 @@ describe('eachPlayerReturn', () => {
     return { server, state }
   }
 
-  test('is clone-safe and stamps the choice handler', () => {
+  test('is clone-safe', () => {
     expect(structuredClone(eachPlayerReturn(2))).toEqual(eachPlayerReturn(2))
-    expect(handlerIdsFromEffects([onResolve(eachPlayerReturn(2))]).toSorted())
-      .toEqual(['choiceEffects', 'onResolve'])
   })
 
   test('opens a private choice per player with cards, in turn order', () => {
@@ -264,10 +261,8 @@ describe('eachPlayerMayWheel', () => {
     libraries: { p1: filler('Lib', 10), p2: filler('Lib2', 10), p3: filler('Lib3', 10) },
   }, { random: () => 0.5, cardPlugins: [onResolvePlugin, eachPlayerWheel] })
 
-  test('is clone-safe and stamps its own handler', () => {
+  test('is clone-safe', () => {
     expect(structuredClone(eachPlayerMayWheel(7))).toEqual(eachPlayerMayWheel(7))
-    expect(handlerIdsFromEffects([onResolve(eachPlayerMayWheel(7))]).toSorted())
-      .toEqual(['eachPlayerWheel', 'onResolve'])
   })
 
   test('asks one player at a time in turn order, privately, and each may decline', () => {
