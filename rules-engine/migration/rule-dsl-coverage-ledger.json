@@ -1479,8 +1479,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 4,
         "samples": [
+          "rules-engine/src/actions.test.ts:143 — test('exposes pending player and continue actions during resolution', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:171 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:34 — test('drawHandDifference() is clone-safe', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:59 — test('choosing an opponent with a larger hand draws the difference', () => {"
@@ -3755,7 +3756,7 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('every surveil land carries its enter trigger, not just its tap', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:216 — test('surveil 1 mills or keeps the private top card', () => {"
+          "rules-engine/src/rules/selectCards.test.ts:253 — test('surveil 1 mills or keeps the private top card', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4367,7 +4368,7 @@
       "candidateEvidence": {
         "matches": 29,
         "samples": [
-          "rules-engine/src/actions.test.ts:311 — test('accounts for commander tax', () => {",
+          "rules-engine/src/actions.test.ts:369 — test('accounts for commander tax', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:64 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/dsl/destroyResults.test.ts:113 — test('a commander redirected from the graveyard yields no token', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:630 — test('repeated phasing modes keep independent target scopes for the same creature', () => {",
@@ -4463,7 +4464,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 93,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -5147,7 +5148,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 277,
+        "matches": 278,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2083 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5189,16 +5190,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 66,
+        "matches": 67,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3285 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4302 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
           "live-runner/src/kernelHost.test.ts:773 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
+          "rules-engine/src/actions.test.ts:150 — test('exposes pending player and continue actions during resolution', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:20 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:109 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:62 — test('choosing an opponent with a larger hand draws the difference', () => {"
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6111,7 +6112,7 @@
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
         "rules-engine/src/actions.ts:1516",
-        "rules-engine/src/actions.ts:1684",
+        "rules-engine/src/actions.ts:1685",
         "rules-engine/src/actions.ts:910",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
