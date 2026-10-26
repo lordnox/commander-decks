@@ -316,7 +316,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Fate Unraveler",
-      "evidence": "Uses cardTemplate's canonical Fate Unraveler registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.damageAndLeaves.test.ts and is absent on current main. Uses cardTemplate's canonical Fate Unraveler registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
     },
     {
       "groups": [
@@ -324,7 +324,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Duskdale Wurm",
-      "evidence": "Uses cardTemplate's canonical Duskdale Wurm registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.drawAndKeywords.test.ts and is absent on current main. Uses cardTemplate's canonical Duskdale Wurm registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
     },
     {
       "groups": [
@@ -332,7 +332,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Reverberate",
-      "evidence": "Uses cardTemplate's canonical Reverberate registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.modesCopiesAndSearch.test.ts and is absent on current main. Uses cardTemplate's canonical Reverberate registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
     },
     {
       "groups": [
@@ -340,7 +340,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Rest in Peace",
-      "evidence": "Uses cardTemplate's canonical Rest in Peace registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.staticsAndAlternativeCosts.test.ts and is absent on current main. Uses cardTemplate's canonical Rest in Peace registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
     },
     {
       "groups": [
@@ -348,7 +348,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Vampire Hounds",
-      "evidence": "Uses cardTemplate's canonical Vampire Hounds registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.targetedActions.test.ts and is absent on current main. Uses cardTemplate's canonical Vampire Hounds registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
     },
     {
       "groups": [
