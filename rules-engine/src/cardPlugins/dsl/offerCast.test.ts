@@ -446,7 +446,7 @@ describe('offerCast from a chosen opponent hand', () => {
     }
   })
 
-  test('catalog Kuroki lets its chosen opponent decline or draw before the controller free-casts', () => {
+  test('catalog Kuroki lets its chosen opponent decline or draw before offering the controller a free cast', () => {
     const stealGame = () => createServerGame(commanderRules, {
       players: 4,
       battlefield: { p1: [cardTemplate('Kuroki, Thief of Talents')] },
@@ -485,6 +485,7 @@ describe('offerCast from a chosen opponent hand', () => {
     const bolt = named(accepted, 'Lightning Bolt').id
     expect(projectForViewer(accepted, 'p3').objects[bolt]).toBeUndefined()
     expect(projectForViewer(accepted, 'p1').objects[bolt]?.name).toBe('Lightning Bolt')
+    // Targeted completion currently fails locked-cost validation on base; see #540. Generic opponent-hand completion remains covered above.
     const freeCast = legalActsFor(accepted, 'p1').find(action =>
       action.kind === 'castSpell' && action.objectId === bolt)!
     expect(freeCast).toMatchObject({ kind: 'castSpell', objectId: bolt, alternativeCost: 'withoutPayingMana' })
