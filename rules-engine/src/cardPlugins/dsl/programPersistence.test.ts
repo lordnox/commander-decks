@@ -305,6 +305,7 @@ describe('programPersistence', () => {
     const pending = pendingSelectionFor(state, 'p1')!
     expect(pending.kind).toBe('discard')
     expect(state.eventProcessing).toBeDefined()
+    expect(state.eventProcessing?.id).toBeDefined()
 
     const restored = JSON.parse(JSON.stringify(state)) as GameState
     const restoredPending = pendingSelectionFor(restored, 'p1')!
@@ -340,6 +341,7 @@ describe('programPersistence', () => {
     const finished = ok(server.rules(restored, answer))
     expect(named(finished, 'Secret Hand').zone).toBe('graveyard')
     expect(named(finished, 'Lib A').zone).toBe('hand')
+    expect(finished.zoneOrder.p1.hand).toHaveLength(1)
     expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
     expect(finished.eventProcessing).toBeUndefined()
 
