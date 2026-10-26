@@ -52,7 +52,14 @@
     "cirdanEldrazi:96",
     "cirdanEldrazi:146",
     "cirdanGrothamaGuardian:166",
-    "cirdanGrothamaGuardian:288"
+    "cirdanGrothamaGuardian:288",
+    "cirdanMiscCards:536",
+    "cirdanMiscCards:587",
+    "cirdanMiscCards:635",
+    "cirdanMiscCards:654",
+    "cirdanMiscCards:685",
+    "cirdanMiscCards:697",
+    "cirdanMiscCards:729"
   ],
   "relocations": [
     {
@@ -409,6 +416,62 @@
       "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
       "suite": "catalog Grothama restores its pending fight choice from the journal",
       "evidence": "The catalog attack event and trigger resolution are journaled. Restoring reproduces p2's exact open choice; the answer resolves the fight and puts Raider in the graveyard."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:536"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter II privately targets an opponent and survives a live-host restart",
+      "evidence": "Catalog Kiora opens the two-opponent player choice through the live host. Another seat cannot see or answer it, priority cannot pass while it is open, the journal restore preserves the exact offered choice, and p1's answer taps the chosen opponent's nonlands and marks them to skip their next untap."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:587"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter III offers exactly the legal opponent permanents to its private chooser",
+      "evidence": "Catalog Kiora's live offer contains the exact three-seat candidate set (including the land and decoy creature, excluding the Saga controller's permanent and the hexproof creature). Other seats see no chooser state; the Saga remains until resolution. After journal restore, zero, all, and two-target answers plus another seat are rejected; one legal artifact is taken, unrelated controllers stay unchanged, and the Saga is sacrificed after the chapter resolves."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:635"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter III rejects noncandidates and keeps its choice open",
+      "evidence": "The typed live selection excludes the hexproof opponent creature and the Saga controller's Island; submitting either object id is rejected and leaves the original choice pending."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:654"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter III takes a lone target, or sacrifices the Saga when none qualifies",
+      "evidence": "With one legal opponent permanent, the typed live choice still takes it and sacrifices Kiora. With only the hexproof creature and the controller's Island, no choice opens, the stack empties, and the Saga is sacrificed."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:685"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter III rechecks a target that gains hexproof in response",
+      "evidence": "After Kiora's chapter selects Foe Alpha and the ability is stacked, granting the target hexproof before resolution preserves it under p2 control and still sacrifices Kiora."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:697"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "chapter III fizzles if its target leaves before resolution",
+      "evidence": "After selecting Foe Beta, moving that target to the graveyard before resolution leaves it under p2 control, does not change any p1 battlefield permanent, empties the stack, and sacrifices Kiora."
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:729"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
+      "suite": "GAP: Kiora chapter III does not ask for ward on a targeted warded permanent",
+      "evidence": "Preserves the deliberate GAP characterization with the ward plugin active: Kiora's chapter ability targets the opponent's warded creature, is placed on the stack without a ward payment choice, and takes control. The capability is tracked by #394; this test-ownership change makes no runtime change."
     }
   ]
 }

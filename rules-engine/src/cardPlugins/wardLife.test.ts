@@ -219,6 +219,7 @@ describe('catalog Sire of Seven Deaths ward', () => {
     }
     const paid = ok(server.rules(cast, event))
     expect(paid.players.p1.life).toBe(33)
+    expect(paid.stack).toHaveLength(1)
     expect(paid.stack[0]).toMatchObject({ kind: 'spell', objectId: bolt.id })
     expect(pendingOptionSelection(paid, 'p1')).toBeUndefined()
   })
