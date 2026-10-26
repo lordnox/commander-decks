@@ -525,7 +525,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
       "suite": "channel pays the legendary discount, validates targets, and completes Boseiju search",
-      "evidence": "The catalog channel rejects a basic-land target, pays the reduced cost with two legendary creatures, sacrifices Boseiju, destroys the chosen utility land, privately offers the opponent exactly one basic Island, moves that choice to the battlefield, then resolves Otawara against the creature."
+      "evidence": "The catalog channel rejects a basic-land target, pays the reduced cost with two legendary creatures, discards Boseiju, destroys the chosen utility land, privately offers exactly one nonbasic Forest/Island dual while excluding an untyped land, moves the pick to the battlefield, then resolves Otawara against the creature. The structural catalog channel assertion retains the optional choose/move/shuffle sequence that replaces the audited legacy after: shuffleLibrary payload."
     }
   ]
 }
