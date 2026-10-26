@@ -3,9 +3,12 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { targetOnResolve } from './effects'
+import { activate, draw } from './effects'
+import { activated } from './activated'
 import { demonstrate } from './demonstrate'
 import { stackCopy, stackCopyPending } from './stackCopy'
 import { targetedResolve } from './targetedResolve'
@@ -49,6 +52,43 @@ const serverWithTechnique = () => createServerGame(
 )
 
 describe('demonstrate', () => {
+  test('Rings copies a nonmana activated ability through a restart-safe typed choice', () => {
+    const tapper = cardTemplate('Tap Drawer', {
+      types: ['Creature'],
+      effects: [activate({ id: 'tap.draw', costs: { tap: true }, do: [draw(1)] })],
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Rings of Brighthearth'), tapper],
+      },
+      libraries: { p1: [cardTemplate('Card A'), cardTemplate('Card B')] },
+    }, { random: () => 0.5, cardPlugins: [activated] })
+    let state = structuredClone(server.state)
+    const tapperId = named(state, 'Tap Drawer').id
+    state.objects[tapperId].summoningSickness = false
+    state.players.p1.mana.C = 2
+    state = ok(server.rules(state, {
+      type: 'activateAbility', abilityId: 'tap.draw', seat: 'p1', objectId: tapperId,
+    }))
+    expect(state.stack).toHaveLength(2)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = JSON.parse(JSON.stringify(state)) as typeof state
+    const pending = pendingOptionSelection(state, 'p1')!
+    expect(pending).toMatchObject({ seat: 'p1', source: 'Rings of Brighthearth' })
+    expect(server.rules(state, {
+      type: 'selectOption', seat: 'p2', selectionId: pending.id,
+      optionId: pending.options[0]!.id,
+    }).ok).toBe(false)
+    state = ok(server.rules(state, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id,
+      optionId: pending.options[0]!.id,
+    }))
+    expect(state.stack).toHaveLength(2)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+  })
+
   test('the caster may decline to copy the spell', () => {
     const server = serverWithTechnique()
     let state = ready(server.state)

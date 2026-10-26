@@ -4,6 +4,9 @@ import { cardTemplate, forest, planeswalker } from '../newGame'
 import { commanderRules } from '../formats'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
+import { projectForViewer } from '../runtime'
+import { pendingOptionSelection } from '../rules/selectOptions'
+import { ok, resolveStack } from '../testHelpers'
 import type { GameObject, ReduceResult } from '../types'
 import { planeswalker as planeswalkerPlugin } from './planeswalker'
 
@@ -25,6 +28,23 @@ const uginId = (state: ReturnType<typeof gameWithUgin>['state']) =>
   Object.values(state.objects).find((object) => object.name === 'Ugin, the Spirit Dragon')!.id
 
 describe('planeswalker loyalty abilities', () => {
+  test('pending optional pay survives projection for the payer only', () => {
+    const runtime = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Jace, Multiverse Architect')] },
+    }, { random: () => 0.5 })
+    let state = structuredClone(runtime.state)
+    state.active = 'p2'
+    state.step = 'precombatMain'
+    state = ok(runtime.rules(state, { type: 'advanceStep' }))
+    expect(state.step).toBe('beginCombat')
+    state = resolveStack(runtime.rules, state)
+    const projected = projectForViewer(state, 'p2')
+    expect(pendingOptionSelection(projected, 'p2')).toBeDefined()
+    const leaked = projectForViewer(state, 'p1')
+    expect(pendingOptionSelection(leaked, 'p2')).toBeUndefined()
+  })
+
   test('+2 pays loyalty and deals 3 to any target from the stack', () => {
     const runtime = gameWithUgin()
     const id = uginId(runtime.state)
