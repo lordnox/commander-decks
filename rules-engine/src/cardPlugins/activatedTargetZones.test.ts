@@ -7,6 +7,7 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
+import { activated } from './activated'
 
 /**
  * Activated abilities with a filtered target re-check it on resolution (CR 608.2b), so the filter
@@ -175,5 +176,91 @@ describe('Boseiju, Who Endures', () => {
     const resolved = resolveStack(server.rules, stacked)
     expect(pendingSelectionFor(resolved, 'p2')).toBeDefined()
     expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
+  })
+})
+
+describe('activated target payment and resolution lifecycle', () => {
+  test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [
+            card('Legend One', ['Creature'], { supertypes: ['Legendary'] }),
+            card('Legend Two', ['Creature'], { supertypes: ['Legendary'] }),
+          ],
+          p2: [
+            card('Basic Forest', ['Land'], {
+              supertypes: ['Basic'],
+              subtypes: ['Forest'],
+            }),
+            card('Utility Land', ['Land']),
+            card('Bounce Me', ['Creature']),
+          ],
+        },
+        hands: {
+          p1: [
+            card('Boseiju, Who Endures', ['Land']),
+            card('Otawara, Soaring City', ['Land']),
+          ],
+        },
+        libraries: {
+          p2: [
+            card('Found Island', ['Land'], { supertypes: ['Basic'], subtypes: ['Island'] }),
+            card('No Type Land', ['Land']),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    let state = structuredClone(server.state)
+    state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 1, C: 1 }
+    const boseiju = named(state, 'Boseiju, Who Endures')
+    const basic = named(state, 'Basic Forest')
+    expect(server.rules(state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[1]',
+      seat: 'p1',
+      objectId: boseiju.id,
+      targets: [{ kind: 'object', objectId: basic.id }],
+    }).ok).toBe(false)
+
+    const utility = named(state, 'Utility Land')
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[1]',
+      seat: 'p1',
+      objectId: boseiju.id,
+      targets: [{ kind: 'object', objectId: utility.id }],
+    }))
+    expect(state.players.p1.mana).toEqual({ W: 0, U: 1, B: 0, R: 0, G: 0, C: 1 })
+    expect(state.objects[boseiju.id].zone).toBe('graveyard')
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.objects[utility.id].zone).toBe('graveyard')
+    const search = pendingSelectionFor(state, 'p2')!
+    const found = named(state, 'Found Island')
+    expect(search).toMatchObject({ kind: 'choose', min: 0, viewLibrary: true, candidates: [found.id] })
+    expect(server.project(state, 'p1').players.p2.data['kernel.pendingSelection'])
+      .toBeUndefined()
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'choose',
+      count: 1,
+      objectIds: [found.id],
+    }))
+    expect(state.objects[found.id].zone).toBe('battlefield')
+
+    const otawara = named(state, 'Otawara, Soaring City')
+    const creature = named(state, 'Bounce Me')
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      abilityId: '$.abilities[1]',
+      seat: 'p1',
+      objectId: otawara.id,
+      targets: [{ kind: 'object', objectId: creature.id }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.objects[creature.id].zone).toBe('hand')
   })
 })

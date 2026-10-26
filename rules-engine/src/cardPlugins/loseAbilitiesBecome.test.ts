@@ -5,7 +5,7 @@ import { activate, draw } from './effectBuilders'
 import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { bears, newGame } from '../testGame'
 import { ok } from '../testHelpers'
@@ -54,6 +54,51 @@ const abilityBear = () => cardTemplate('Fixture Ability Bear', {
 })
 
 describe('loseAbilitiesBecome', () => {
+  test('catalog Curious Colossus privately chooses an opponent then shrinks their board', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: { p1: [cardTemplate('Curious Colossus', {
+        types: ['Creature'],
+        manaCost: '{4}{W}',
+        manaValue: 5,
+        power: 4,
+        toughness: 4,
+      })] },
+      battlefield: {
+        p2: [cardTemplate('Fixture Curious Bear', { types: ['Creature'], power: 4, toughness: 4 })],
+      },
+    }, { random: () => 0.5, cardPlugins: [onResolvePlugin] })
+    let state = structuredClone(server.state)
+    state.active = 'p1'
+    state.priority = 'p1'
+    state.players.p1.mana = { W: 4, U: 0, B: 0, R: 0, G: 0, C: 1 }
+    const source = Object.values(state.objects).find((object) => object.name === 'Curious Colossus')!
+    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: source.id }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const choice = pendingPlayerSelectionFor(state, 'p1')!
+    expect(choice.candidates).toEqual(['p2', 'p3', 'p4'])
+    expect(pendingPlayerSelectionFor(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+    const restarted = structuredClone(state)
+    expect(pendingPlayerSelectionFor(restarted, 'p1')?.id).toBe(choice.id)
+
+    state = ok(server.rules(state, {
+      type: 'selectPlayers',
+      seat: 'p1',
+      selectionId: choice.id,
+      players: ['p2'],
+    }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', name: 'Curious Colossus' })
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const bear = Object.values(state.objects).find((object) => object.name === 'Fixture Curious Bear')!
+    expect(bear).toMatchObject({ power: 1, toughness: 1 })
+    expect(bear.subtypes).toContain('Coward')
+    expect(bear.effects).toEqual([])
+    expect(bear.controller).toBe('p2')
+    expect(Object.values(state.objects).filter((object) => object.zone === 'battlefield' && object.controller === 'p3'))
+      .toEqual([])
+  })
+
   test('stamps each creature the chosen opponent controls and survives cleanup', () => {
     const server = createServerGame(
       commanderRules,
