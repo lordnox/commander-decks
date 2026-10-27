@@ -1995,7 +1995,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 91,
+        "matches": 92,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3256 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -3631,7 +3631,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 26,
+        "matches": 27,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1007 — test('a restored private choice survives a host restart', async () => {",
@@ -5149,7 +5149,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 278,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2084 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5322,7 +5322,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1248 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1323 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -6003,10 +6003,12 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 4,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3555 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/ward.test.ts:65 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
+          "rules-engine/src/cardPlugins/dsl/ward.test.ts:210 — test('ward uses format-defined opponents rather than every other controller', () => {",
+          "rules-engine/src/cardPlugins/dsl/ward.test.ts:72 — test('a catalog permanent presents its printed ward payment to the target player', () => {",
+          "rules-engine/src/cardPlugins/dsl/ward.test.ts:88 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -6927,15 +6929,15 @@
       {
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
-          243,
-          276,
-          292,
-          302
+          255,
+          288,
+          304,
+          314
         ],
         "samples": [
-          "243: const allowed = event.type === 'custom'",
-          "276: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
-          "292: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
+          "255: const allowed = event.type === 'custom'",
+          "288: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
+          "304: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7811,12 +7813,12 @@
       {
         "path": "rules-engine/src/rules/canonicalAnnouncement.ts",
         "lines": [
-          93,
-          280
+          94,
+          281
         ],
         "samples": [
-          "93: const live = draft.object(announcement.execution.source.ref.objectId)",
-          "280: draft.addToStack({"
+          "94: const live = draft.object(announcement.execution.source.ref.objectId)",
+          "281: const item = draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8793,20 +8795,20 @@
       {
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
-          91,
-          92,
-          204,
-          215,
-          310,
-          317,
-          336,
-          345,
-          365
+          103,
+          104,
+          216,
+          227,
+          322,
+          329,
+          348,
+          357,
+          377
         ],
         "samples": [
-          "91: const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined",
-          "92: draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {",
-          "204: const object = draft.object(pending.event.objectId)"
+          "103: const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined",
+          "104: draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {",
+          "216: const object = draft.object(pending.event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
