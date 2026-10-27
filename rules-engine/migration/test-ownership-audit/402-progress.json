@@ -11556,6 +11556,133 @@
         ],
         "note": "Current test callback retains the full pinned matcher set and fixture/parameter group; execution uses these current owner imports."
       }
+    },
+    {
+      "groups": [
+        "sin:35"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts; rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "triggered random copies repeat over lands, stop at a nonland, and enter tapped",
+      "evidence": "The removed card-specific registered-handler path is represented by reusable typed DSL execution coverage, and the canonical card configuration remains pinned structurally as \u201cSin, Spira\u2019s Punishment repeats a random tapped copy while the exiled card is a land.\u201d The generic trigger fixture verifies the ability is on stack after entry, exiles successive lands and then the first nonland, creates matching battlefield copies, and stamps them tapped. Runtime route is the current canonical DSL trigger \u2192 chooseRandom/copy/captureAmount/move/repeatWhile; no legacy handler is used.",
+      "currentAssertions": [
+        "expect(entered.stack[0]?.kind).toBe('ability')",
+        "expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['First Land', 'Second Land', 'Relic'])",
+        "expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher', 'First Land', 'Second Land', 'Relic'])",
+        "expect(Object.values(state.objects).filter(object => object.token).every(object => object.tapped)).toBe(true)"
+      ],
+      "fixtures": [
+        "Random copy watcher",
+        "First Land",
+        "Second Land",
+        "Relic"
+      ],
+      "runtimeRoute": "Canonical DSL inline trigger definition with typed chooseRandom/copy/captureAmount/move/repeatWhile nodes; catalog composition checked in dsl/cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "sin:74"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
+      "suite": "the first random nonland ends the triggered repetition",
+      "evidence": "Generic canonical trigger fixture now puts a nonland first in the eligible graveyard order; deterministic selection copies/exiles that card and leaves the subsequent land in the graveyard. This retains the stop-on-first-nonland branch through the current canonical trigger runtime. The generic repeatWhile parameterized spell suite also exercises nonland termination without a card-name fixture.",
+      "currentAssertions": [
+        "expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])",
+        "expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id].name)).toEqual(['Later Land'])",
+        "expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher', 'Relic'])"
+      ],
+      "fixtures": [
+        "Random copy watcher",
+        "Relic",
+        "Later Land"
+      ],
+      "runtimeRoute": "Canonical DSL triggered ability with chooseRandom and repeatWhile; random source selects the first eligible card."
+    },
+    {
+      "groups": [
+        "sin:104"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
+      "suite": "an attack trigger uses the same random-copy program",
+      "evidence": "The canonical generic trigger fixture has an attacks occurrence with the same reusable chooseRandom/copy/repeatWhile program as its entry occurrence. The test declares the watcher as an attacker, verifies the ability goes on the stack, resolves it, and checks the chosen permanent is exiled and copied to the battlefield.",
+      "currentAssertions": [
+        "expect(attacking.stack[0]?.kind).toBe('ability')",
+        "expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])",
+        "expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher', 'Relic'])"
+      ],
+      "fixtures": [
+        "Random copy watcher",
+        "Relic"
+      ],
+      "runtimeRoute": "Canonical DSL self.attacks trigger, exercised through declareAttackers and resolveTop."
+    },
+    {
+      "groups": [
+        "sin:135"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
+      "suite": "the entry trigger resolves harmlessly when no owned permanent qualifies",
+      "evidence": "The generic canonical trigger is executed with an empty eligible graveyard. It is still put on the stack, then resolves without creating a copy or moving a card; this preserves the empty-set behavior in the current DSL runtime.",
+      "currentAssertions": [
+        "expect(entered.stack[0]?.kind).toBe('ability')",
+        "expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher'])",
+        "expect(state.zoneOrder.p1.exile).toEqual([])"
+      ],
+      "fixtures": [
+        "Random copy watcher"
+      ],
+      "runtimeRoute": "Canonical DSL self.enters trigger with chooseRandom binding an empty set."
+    },
+    {
+      "groups": [
+        "sin:151"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
+      "suite": "casting the source puts its enter trigger on the stack after it resolves",
+      "evidence": "A generic creature authored with the same canonical enter trigger is cast for mana, resolves onto the battlefield, and leaves the triggered ability on the stack. Resolving that ability then performs the exile-copy effect. The card-specific legacy registry route is replaced by the canonical DSL runtime and is made explicit here.",
+      "currentAssertions": [
+        "expect(entered.objects[source.id]?.zone).toBe('battlefield')",
+        "expect(entered.stack[0]?.kind).toBe('ability')",
+        "expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])"
+      ],
+      "fixtures": [
+        "Random copy watcher",
+        "Relic"
+      ],
+      "runtimeRoute": "Canonical DSL spell resolution creates a self.enters trigger; typed ability resolves through the standard rules engine."
+    },
+    {
+      "groups": [
+        "sin:181"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
+      "suite": "a copied permanent keeps and executes its stamped canonical ability",
+      "evidence": "The eligible generic artifact fixture carries a canonical ruleDefinition with a self.enters draw ability. A canonical random copy preserves that exact definition and the copied permanent\u2019s enter trigger draws Fresh Card. This replaces the legacy effects-array assertion with DSL snapshot and runtime evidence.",
+      "currentAssertions": [
+        "expect(copy.ruleDefinition).toEqual(drawOnEntry)",
+        "expect(state.zoneOrder.p1.hand.map(id => state.objects[id].name)).toEqual(['Fresh Card'])"
+      ],
+      "fixtures": [
+        "Random copy watcher",
+        "Value Relic",
+        "Fresh Card"
+      ],
+      "runtimeRoute": "Canonical DSL copy instruction preserves the copied ruleDefinition snapshot; copied permanent enters and executes the triggered ability."
+    },
+    {
+      "groups": [
+        "homerPass2:193"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/ward.test.ts; rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts",
+      "suite": "a catalog permanent presents its printed ward payment to the target player",
+      "evidence": "Current canonical catalog structural coverage pins Roaming Throne\u2019s Ward {2} static ability in cardRuleCatalog.abilityCopies.test.ts. The ward mechanic suite now uses cardTemplate(\"Roaming Throne\") as its integration fixture and checks the target player receives a ward-pay dialog for exactly 2. Canonical ward triggers only after the targeted spell resolves, so this test checks the current execution timing rather than the removed legacy immediate-dialog route.",
+      "currentAssertions": [
+        "expect(pendingDialog(waiting)).toMatchObject({ kind: 'ward-pay', count: 2 })"
+      ],
+      "fixtures": [
+        "Roaming Throne",
+        "Ward probe"
+      ],
+      "runtimeRoute": "Catalog-backed canonical Roaming Throne ruleDefinition; cast target spell, resolve spell, then execute canonical ward trigger."
     }
   ],
   "retainedOwnerEvidence": [

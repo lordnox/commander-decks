@@ -8,19 +8,25 @@ import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
 import {
   captureAmount,
+  card,
   choice,
   chooseCards,
   chooseRandom,
   compareAmount,
   copy,
   count,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
   createToken,
+  draw,
   move,
   objects,
   putCounters,
   ref,
   repeatWhile,
   resultAmount,
+  self,
+  whenever,
 } from './v1'
 
 const named = (state: GameState, name: string) =>
@@ -42,6 +48,130 @@ const exileCopy = [
   }),
   move({ targets: choice('picked'), to: 'exile' }),
 ]
+
+const repeatExileCopy = [
+  ...exileCopy,
+  repeatWhile({
+    condition: compareAmount(resultAmount('wasLand'), 'gte', 1),
+    instructions: exileCopy,
+  }),
+]
+
+const randomCopyTrigger = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(self.enters, { instructions: repeatExileCopy }),
+  whenever(self.attacks, { instructions: repeatExileCopy }),
+])))
+
+const randomCopyWatcher = (extra = {}) => cardTemplate('Random copy watcher', {
+  types: ['Creature'],
+  power: 3,
+  toughness: 3,
+  ruleDefinition: randomCopyTrigger,
+  ...extra,
+})
+
+test('triggered random copies repeat over lands, stop at a nonland, and enter tapped', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [
+      randomCopyWatcher(),
+      cardTemplate('First Land', { types: ['Land'], zone: 'graveyard' }),
+      cardTemplate('Second Land', { types: ['Land'], zone: 'graveyard' }),
+      cardTemplate('Relic', { types: ['Artifact'], zone: 'graveyard' }),
+    ] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Random copy watcher')
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+  expect(entered.stack[0]?.kind).toBe('ability')
+  const state = resolveStack(server.rules, entered)
+  expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['First Land', 'Second Land', 'Relic'])
+  expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual([
+    'Random copy watcher', 'First Land', 'Second Land', 'Relic',
+  ])
+  expect(Object.values(state.objects).filter(object => object.token).every(object => object.tapped)).toBe(true)
+})
+
+test('the first random nonland ends the triggered repetition', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [
+      randomCopyWatcher(),
+      cardTemplate('Relic', { types: ['Artifact'], zone: 'graveyard' }),
+      cardTemplate('Later Land', { types: ['Land'], zone: 'graveyard' }),
+    ] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Random copy watcher')
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+  const state = resolveStack(server.rules, entered)
+  expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])
+  expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id].name)).toEqual(['Later Land'])
+  expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher', 'Relic'])
+})
+
+test('an attack trigger uses the same random-copy program', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [randomCopyWatcher({ summoningSickness: false })] },
+    hands: { p1: [cardTemplate('Relic', { types: ['Artifact'], zone: 'graveyard' })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Random copy watcher')
+  const ready = { ...structuredClone(server.state), active: 'p1' as const, priority: 'p1' as const, step: 'declareAttackers' as const }
+  const attacking = ok(server.rules(ready, {
+    type: 'declareAttackers', seat: 'p1',
+    attackers: [{ objectId: source.id, defender: 'p2' }],
+  }))
+  expect(attacking.stack[0]?.kind).toBe('ability')
+  const state = resolveStack(server.rules, attacking)
+  expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])
+  expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher', 'Relic'])
+})
+
+test('the entry trigger resolves harmlessly when no owned permanent qualifies', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [randomCopyWatcher()] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Random copy watcher')
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+  expect(entered.stack[0]?.kind).toBe('ability')
+  const state = resolveStack(server.rules, entered)
+  expect(state.zoneOrder.p1.battlefield.map(id => state.objects[id].name)).toEqual(['Random copy watcher'])
+  expect(state.zoneOrder.p1.exile).toEqual([])
+})
+
+test('casting the source puts its enter trigger on the stack after it resolves', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [randomCopyWatcher({ manaCost: '{1}', manaValue: 1 }), cardTemplate('Relic', { types: ['Artifact'], zone: 'graveyard' })] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.step = 'precombatMain'
+  ready.players.p1.mana.C = 1
+  const source = named(ready, 'Random copy watcher')
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: source.id }))
+  const entered = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(entered.objects[source.id]?.zone).toBe('battlefield')
+  expect(entered.stack[0]?.kind).toBe('ability')
+  const state = resolveStack(server.rules, entered)
+  expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['Relic'])
+})
+
+test('a copied permanent keeps and executes its stamped canonical ability', () => {
+  const drawOnEntry = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, { instructions: [draw({ count: 1, targets: ref('controller') })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [randomCopyWatcher(), cardTemplate('Value Relic', { types: ['Artifact'], ruleDefinition: drawOnEntry, zone: 'graveyard' })] },
+    libraries: { p1: [cardTemplate('Fresh Card', { types: ['Instant'] })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Random copy watcher')
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+  const state = resolveStack(server.rules, entered)
+  const copy = Object.values(state.objects).find(object => object.token && object.name === 'Value Relic')!
+  expect(copy.ruleDefinition).toEqual(drawOnEntry)
+  expect(state.zoneOrder.p1.hand.map(id => state.objects[id].name)).toEqual(['Fresh Card'])
+})
 
 test('chooseRandom binds an empty set and continues when nothing qualifies', () => {
   const server = createServerGame(commanderRules, {
