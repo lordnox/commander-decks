@@ -212,6 +212,68 @@ describe('imprint power and toughness', () => {
     expect(stats(done, 'Imprint Ingester')).toEqual([7, 9])
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
   })
+
+  test('catalog Ingester keeps its private self-inclusive target choice through host restart', () => {
+    const ingesterCard = cardTemplate('Phyrexian Ingester', { power: 3, toughness: 3 })
+    const ownBear = prey('Own Bear', 2, 2)
+    const bigFoe = prey('Big Foe', 4, 6)
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [ingesterCard] },
+      battlefield: { p1: [ownBear], p2: [bigFoe] },
+    }, { random: () => 0.5 })
+    const ready = structuredClone(server.state)
+    ready.active = 'p1'
+    ready.priority = 'p1'
+    ready.step = 'precombatMain'
+    ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 6 }
+    const kernel = handleFor(server.rules, ready)
+    expect(kernel.dispatch({
+      type: 'castSpell', seat: 'p1', objectId: named(ready, 'Phyrexian Ingester').id,
+    }).ok).toBe(true)
+    passUntilResolved(kernel)
+    const lobby = playLobby()
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      cards: ['Phyrexian Ingester', 'Own Bear', 'Big Foe'],
+      destinations: ['skip', 'target'],
+      requirements: { target: { min: 1, max: 1 } },
+    })
+
+    const open = kernel.history.current()
+    expect(pendingSelectionFor(projectForViewer(open, 'p2'), 'p1')).toBeUndefined()
+    expect(JSON.stringify(projectForViewer(open, 'p2').players.p1.data)).not.toContain('Big Foe')
+    const restartedKernel = handleFor(server.rules, ready, kernel.journal)
+    const restarted = playLobby()
+    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
+    expect(restarted.topdeck).toEqual(lobby.topdeck)
+    const answer = (picked: string[]) => ({
+      type: 'topdeck' as const,
+      choices: (lobby.topdeck!.cards as string[]).map((name, slot) => ({
+        card: name, slot, destination: (picked.includes(name) ? 'target' : 'skip') as 'target' | 'skip',
+      })),
+    })
+    expect(applyKernelChoice(restartedKernel, restarted, 'p2', answer(['Big Foe']))).toBe(false)
+    expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Big Foe']))).toBe(true)
+    const afterTarget = playLobby()
+    expect(prepareKernelPendingChoice(restartedKernel, afterTarget)).toBe(true)
+    const accept = {
+      type: 'topdeck' as const,
+      choices: [
+        { card: 'Accept', slot: 0, destination: 'target' as const },
+        { card: 'Decline', slot: 1, destination: 'skip' as const },
+      ],
+    }
+    expect(applyKernelChoice(restartedKernel, afterTarget, 'p2', accept)).toBe(false)
+    expect(applyKernelChoice(restartedKernel, afterTarget, 'p1', accept)).toBe(true)
+    const done = passUntilResolved(restartedKernel)
+    expect(named(done, 'Big Foe').zone).toBe('exile')
+    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
+    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+  })
+
   test('the effect is clone-safe', () => {
     expect(structuredClone(pumpFromLinkedExileStats())).toEqual(pumpFromLinkedExileStats())
   })

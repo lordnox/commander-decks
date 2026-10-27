@@ -58,6 +58,7 @@ test('catalog Diabolic Tutor privately finds any card and shuffles', () => {
   }, { random: () => 0 })
   const tutor = named(server.state, 'Diabolic Tutor')
   expect(tutor.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Diabolic Tutor'))
+  expect(tutor.effects).toEqual([])
   const searching = resolveStack(server.rules, ok(server.rules(server.state, {
     type: 'castSpell', seat: 'p1', objectId: tutor.id,
   })))
