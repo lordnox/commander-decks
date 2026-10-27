@@ -12813,6 +12813,14 @@
       "destination": "rules-engine/src/cardPlugins/selfSacrificeMana.test.ts",
       "suite": "Malevolent Rumble creates a functional Eldrazi Spawn",
       "evidence": "The live integration test resolves catalog Malevolent Rumble, selects the only eligible permanent among four revealed cards, verifies the spawned token is an Eldrazi Spawn 0/1 with registered ruleDefinition, then activates its mana ability and verifies token cessation plus C mana."
+    },
+    {
+      "groups": [
+        "rankle:83"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "combat damage chooses modes before Rankle is put on the stack",
+      "evidence": "Current test records the required choice boundary: after damage the ability has not reached the stack while modes are selected; the selected modes are then present on the resulting trigger. This corrects the pinned assertion\u2019s opposite ordering and matches Comprehensive Rules 603.3c and 700.2b, which require modes for a modal triggered ability to be announced as it is put on the stack. The card\u2019s current mode choices remain the same."
     }
   ],
   "retainedOwnerEvidence": [
