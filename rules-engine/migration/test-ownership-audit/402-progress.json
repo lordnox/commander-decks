@@ -12029,7 +12029,7 @@
         "named legacy registration / listed handlers"
       ],
       "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
-    }
+    },
     {
       "groups": [
         "cirdanColossi:98"
