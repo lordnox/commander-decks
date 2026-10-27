@@ -378,6 +378,7 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(cards)).toEqual([])
     for (const name of cards) {
       expect(deckCardTemplate(name).oracleText.length).toBeGreaterThan(0)
+      expect(cardTemplateDefaultsFor(name)).toBeDefined()
       expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
     }
   })
