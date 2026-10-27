@@ -12693,6 +12693,62 @@
       "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
       "suite": "rejects duplicate, unknown, and wrong-controller target submissions",
       "evidence": "The current selectPlayers route rejects duplicate players, unknown player identifiers, and submissions from a seat other than the chooser. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "lilianasCaress:61"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "Cry on stack, waiting discard, continueAction, then Caress drains",
+      "evidence": "The owner suite uses a minimal discard spell and discard-drain watcher: it verifies the spell stays on stack while the discard choice is open, the chosen card enters graveyard, then the queued drain trigger resolves after continuation. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:113"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "an opponent discarding puts Caress on the stack before life loss",
+      "evidence": "The generic discard watcher test confirms the opponent card is in graveyard, its controller has not yet lost life, one drain ability is queued, and resolving it applies the two-life loss. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:132"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "each discarded card triggers separately",
+      "evidence": "The test loops over two separate discard occurrences and resolves each drain independently. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:144"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "the controller discarding is not an opponent",
+      "evidence": "The fixture has the watcher controller discard; the test checks no drain stack item and unchanged life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:153"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "a Caress that has left the battlefield drains nobody",
+      "evidence": "The watcher leaves before discard; the current test confirms no drain is queued and the discarder\u2019s life remains unchanged. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:169"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "players can respond to the Caress trigger before life loss",
+      "evidence": "The test responds to the queued drain with Lightning Bolt, verifies three life loss resolves first, then resolves the drain for two additional life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "lilianasCaress:210"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "two Caresses trigger in APNAP order",
+      "evidence": "Two discard watchers controlled by p2 and p3 observe one discard; stack order is p3 then p2 and each resolves for two life in sequence. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     }
   ],
   "retainedOwnerEvidence": [
