@@ -723,7 +723,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2232 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2233 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
           "rules-engine/src/cardPlugins/dsl/monarch.test.ts:143 — test('monarch instructions reject object recipients and conflicting exile durations', () => {"
         ]
       },
@@ -743,7 +743,7 @@
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:105 — test('blink rejects player recipients, object controller references and malformed options', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2911 — test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2912 — test('family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:810 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:824 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:834 — test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {",
@@ -876,7 +876,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2633 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2634 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -1097,10 +1097,10 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1125 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1182 — test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1654 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1897 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2280 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2321 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1655 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1898 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2281 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2322 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1197,9 +1197,9 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:508 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1625 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1956 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2729 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1626 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1957 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2730 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:414 — test('catalog Reverberate copies an instant once, keeps its target, and rejects a creature spell', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:79 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
@@ -1779,8 +1779,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2477 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3026 — test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2478 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3027 — test('family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -1836,7 +1836,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2712 — test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2713 — test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:335 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
@@ -1864,7 +1864,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1085 — test('Kogla fights on entry, destroys a defending-player permanent, and bounces a Human', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1289 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1334 — test('green modal spell fronts compose their fight and protection instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2047 — test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2048 — test('Decisive Denial composes controlled-versus-uncontrolled fight or a noncreature counter with controller payment', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:791 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:802 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {"
         ]
@@ -2002,9 +2002,9 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1057 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1263 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1404 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1739 — test('catalog life-history and win cards compose canonical instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1898 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1962 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1740 — test('catalog life-history and win cards compose canonical instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1899 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1963 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2161,9 +2161,9 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1365 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1502 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1541 — test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1620 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1654 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1674 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1621 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1655 — test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1675 — test('the two upkeep reveal cards share a public reveal, captured mana value, hand move, and life loss', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -2241,10 +2241,10 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2200 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2223 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2233 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2550 — test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2201 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2224 — test('Pit of Offerings retains tapped entry, three graveyard targets, and both mana abilities', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2234 — test('Palace Jailer has two independent entry abilities with opponent-monarch exile duration', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2551 — test('catalog Alabaster Host Intercessor composes linked exile and Plainscycling', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:871 — test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:893 — test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:923 — test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {",
@@ -2266,7 +2266,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2123 — test('catalog Marina Vendrell inspects seven for enchantments and toggles a Room door', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2124 — test('catalog Marina Vendrell inspects seven for enchantments and toggles a Room door', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2846,10 +2846,10 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1215 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:132 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1401 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1826 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1856 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1991 — test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2206 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1827 — test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1857 — test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1992 — test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2207 — test('linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3054,11 +3054,11 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:57 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1078 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1338 — test('green modal spell fronts compose their fight and protection instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1624 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2040 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2321 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2823 — test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2993 — test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1625 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2041 — test('Mossborn Hydra composes trample, entry counters, and resolution-time landfall doubling', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2322 — test('Zanarkand composes a tapped Town with Lasting Fayth adventure token counters', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2824 — test('Will of the Sultai keeps one-or-both mode bounds separate from payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2994 — test('Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3517,7 +3517,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:41 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:113 — test('catalog Abundance replaces its controller’s draw with a land or nonland choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1203 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2741 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2742 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:75 — test('stamped revealUntil effects are structuredClone-safe', () => {"
         ]
@@ -3632,16 +3632,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 31,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1007 — test('a restored private choice survives a host restart', async () => {",
           "live-runner/src/kernelHost.test.ts:3832 — test('a top-of-library choice preserves its revealed order', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2753 — test('kicker catalog entries compose optional payments with independent effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2754 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:94 — test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {",
-          "rules-engine/src/cardPlugins/dsl/revealUntil.test.ts:85 — test('reveals until a land, puts it in hand, and orders the rest on the bottom', () => {"
+          "rules-engine/src/cardPlugins/dsl/orderCards.test.ts:35"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3751,9 +3751,9 @@
         "matches": 10,
         "samples": [
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2765 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2798 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:520 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2766 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2799 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:533 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:249 — test('rejects another seat, another kind, and another count', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('every surveil land carries its enter trigger, not just its tap', () => {",
@@ -3779,8 +3779,8 @@
         "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:57 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2281 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2635 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2282 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2636 — test('family 22 catalog composes characteristics, types, grants, and attachments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:629 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:645 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {"
         ]
@@ -3947,11 +3947,11 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:1262 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:56 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2146 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2158 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2169 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2180 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2474 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2147 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2159 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2170 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2181 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2475 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
           "rules-engine/src/cardPlugins/dsl/vote.test.ts:103 — test('voters answer in APNAP order from the controller and each ballot is validated', () => {"
         ]
       },
@@ -3973,8 +3973,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1759 — test('catalog life-history and win cards compose canonical instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3045 — test('catalog Laboratory Maniac replaces its controller’s empty-library draw with a win', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1760 — test('catalog life-history and win cards compose canonical instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:3046 — test('catalog Laboratory Maniac replaces its controller’s empty-library draw with a win', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -4424,9 +4424,9 @@
           "live-runner/src/kernelHost.test.ts:508 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:36 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1625 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1956 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2729 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1626 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1957 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2730 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:33",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:365 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {"
         ]
@@ -4703,7 +4703,7 @@
       "candidateEvidence": {
         "matches": 13,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2970 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2971 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:12",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:13",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:20",
@@ -4806,7 +4806,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:28 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1353 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1897 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1898 — test('group 15 consumers compose name, comparison, and mana-ability queries', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:637 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:51 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
@@ -5130,10 +5130,10 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2269 — test('Awaken the Honored Dead is a three-chapter saga with a reflexive discard return', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2279 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2294 — test('Summon: Titan mills, returns lands, then pumps another creature', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2599 — test('family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2270 — test('Awaken the Honored Dead is a three-chapter saga with a reflexive discard return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2280 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2295 — test('Summon: Titan mills, returns lands, then pumps another creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2600 — test('family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions', () => {",
           "rules-engine/src/plugins/saga.test.ts:27",
           "rules-engine/src/plugins/saga.test.ts:42"
         ]
@@ -5150,7 +5150,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 281,
+        "matches": 282,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2084 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5402,11 +5402,11 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:1262 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2146 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2158 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2169 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2180 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2474 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2147 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2159 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2170 — test('catalog Split Decision votes to counter or copy a targeted instant or sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2181 — test(\"catalog Selvala's Stampede tallies wild reveals and free-hand permanents\", () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2475 — test('Sail into the West composes public voting with collected recovery or optional discard/draw', () => {",
           "rules-engine/src/cardPlugins/dsl/vote.test.ts:134 — test('the leading option continues the then branch and a tie takes otherwise', () => {"
         ]
       },
@@ -5981,9 +5981,9 @@
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "live-runner/src/host.test.ts:130 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1012 — test('a restored private choice survives a host restart', async () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2765 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2798 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
-          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:520 — test('land search ignores a modal card whose front face is a sorcery', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2766 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2799 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
+          "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:533 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:237 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:249 — test('rejects another seat, another kind, and another count', () => {"
         ]
@@ -6151,7 +6151,7 @@
         "rules-engine/src/cards/waterlogged-teachings.ts:39",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
-        "rules-engine/src/driver.ts:1615",
+        "rules-engine/src/driver.ts:1616",
         "rules-engine/src/newGame.ts:164",
         "rules-engine/src/newGame.ts:165",
         "rules-engine/src/newGame.ts:167",
@@ -6599,12 +6599,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          725,
-          744
+          726,
+          745
         ],
         "samples": [
-          "725: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "744: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "726: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "745: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7082,16 +7082,16 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          365,
-          370,
-          877,
-          2339,
-          2387
+          366,
+          371,
+          878,
+          2364,
+          2412
         ],
         "samples": [
-          "365: const liveSource = draft.object(source.ref.objectId)",
-          "370: const resolving = draft.object(item.objectId)",
-          "877: const source = draft.object(sourceId)"
+          "366: const liveSource = draft.object(source.ref.objectId)",
+          "371: const resolving = draft.object(item.objectId)",
+          "878: const source = draft.object(sourceId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7696,42 +7696,42 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          384,
-          897,
-          924,
-          933,
-          951,
-          970,
-          1011,
-          1021,
-          1030,
-          1043,
-          1045,
-          1057,
-          1068,
-          1072,
-          1077,
-          1080,
-          1089,
-          1095,
-          1107,
+          385,
+          913,
+          940,
+          949,
+          967,
+          986,
+          1027,
+          1037,
+          1046,
+          1059,
+          1061,
+          1073,
+          1084,
+          1088,
+          1093,
+          1096,
+          1105,
           1111,
-          1129,
-          1199,
-          1266,
-          1269,
-          1289,
-          1293,
-          1302,
-          1308,
-          1316,
+          1123,
+          1127,
+          1145,
+          1215,
+          1282,
+          1285,
+          1305,
+          1309,
           1318,
-          1323
+          1324,
+          1332,
+          1334,
+          1339
         ],
         "samples": [
-          "384: draft.enqueue({",
-          "897: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "924: const object = objectId ? draft.object(objectId) : undefined"
+          "385: draft.enqueue({",
+          "913: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "940: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

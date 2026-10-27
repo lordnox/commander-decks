@@ -103,7 +103,7 @@ const handleFor = (rules: KernelHandle['rules'], initial: GameState) => {
   }
 }
 
-test('catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly', () => {
+test('catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly', () => {
   const top = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
   const grave = ['Grave 1', 'Grave 2', 'Grave 3', 'Grave 4', 'Grave 5', 'Grave 6', 'Grave 7']
   const server = createServerGame(commanderRules, {
@@ -168,12 +168,25 @@ test('catalog Dig Through Time rejects invalid picks and restores its private tw
   const restoredJournal = JSON.parse(JSON.stringify(createJournal(looking)))
   const restored = restoreJournal(restoredJournal, server.rules).current()
   expect(choose(restored, ['Top 3', 'Top 6'])).toEqual(choose(looking, ['Top 3', 'Top 6']))
-  const done = ok(choose(restored, ['Top 3', 'Top 6']))
+  const ordering = ok(choose(restored, ['Top 3', 'Top 6']))
+  const order = pendingSelectionFor(ordering, 'p1')!
+  expect(order.kind).toBe('scry')
+  expect(order.destinations).toEqual(['bottom'])
+  expect(order.candidates.map((id) => ordering.objects[id].name)).toEqual(['Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7'])
+  expect(pendingSelectionFor(projectForViewer(ordering, 'p2'), 'p1')).toBeUndefined()
+  const hidden = JSON.stringify(projectForViewer(ordering, 'p2'))
+  for (const name of top) expect(hidden).not.toContain(name)
+  const bottom = ['Top 7', 'Top 5', 'Top 4', 'Top 2', 'Top 1']
+  const orderEvent = (state: GameState) => ({
+    type: 'selectCards' as const, seat: 'p1', selectionId: pendingSelectionFor(state, 'p1')!.id, kind: 'scry' as const,
+    count: bottom.length, choices: bottom.map((name) => ({ objectId: named(state, name).id, destination: 'bottom' as const })),
+  })
+  const reordered = restoreJournal(JSON.parse(JSON.stringify(createJournal(ordering))), server.rules).current()
+  expect(server.rules(reordered, orderEvent(reordered))).toEqual(server.rules(ordering, orderEvent(ordering)))
+  const done = ok(server.rules(reordered, orderEvent(reordered)))
   expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
   expect(done.zoneOrder.p1.hand.map((id) => done.objects[id].name)).toEqual(['Top 3', 'Top 6'])
-  expect(done.zoneOrder.p1.library.map((id) => done.objects[id].name)).toEqual([
-    'Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7',
-  ])
+  expect(done.zoneOrder.p1.library.map((id) => done.objects[id].name)).toEqual(['Rest A', 'Rest B', ...bottom])
   expect(named(done, 'Dig Through Time').zone).toBe('graveyard')
   expect(done.stack).toHaveLength(0)
 })
