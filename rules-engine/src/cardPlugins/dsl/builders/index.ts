@@ -1274,6 +1274,10 @@ export const chooseCards = (input: {
   }) satisfies Extract<Instruction, { kind: 'chooseCards' }>
 }
 
+/** Let the chooser order `cards` for one end of a library, binding them in the order a later `move` places them. */
+export const orderCards = (input: Omit<Extract<Instruction, { kind: 'orderCards' }>, 'kind'>) =>
+  immutableData({ kind: 'orderCards' as const, ...input }) satisfies Extract<Instruction, { kind: 'orderCards' }>
+
 /** CR 702.86: whenever this attacks, the defending player sacrifices N permanents. */
 export const annihilator = (count: number) => whenever(attacks({ filter: ref('self') }), {
   instructions: [

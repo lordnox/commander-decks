@@ -239,6 +239,7 @@ const preflightInstructions = (
       case 'chooseInstructions':
       case 'distributeControl':
       case 'chooseCards':
+      case 'orderCards':
       case 'revealUntil':
       case 'scry':
       case 'surveil':
@@ -2162,6 +2163,30 @@ export const prepareResolutionStep = (draft: Draft) => {
         })
       } else if (min === 0) {
         frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'orderCards') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const cards = objectActions(instruction.cards, context)
+      if (chooser && cards.length > 1) {
+        openCardSelection(draft, {
+          seat: chooser,
+          kind: 'scry',
+          count: cards.length,
+          candidates: cards.map((object) => object.id),
+          targetIdentities: Object.fromEntries(cards.map((object) => [object.id, objectIdentity(object)])),
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: `Order these cards for the ${instruction.position} of the library.`,
+          destinations: [instruction.position],
+          canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice, action: 'orderCards' },
+        })
+      } else {
+        frame.choices = { ...frame.choices, [instruction.bindChoice]: cards.map((object) => ({ kind: 'object' as const, ...objectIdentity(object) })) }
       }
       frame.phase = 'committing'
       frame.pendingEvents = []

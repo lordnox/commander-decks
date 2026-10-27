@@ -153,7 +153,7 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'partitionPiles' | 'choosePile' | typeof COLLECTED_CHOICE_ACTION.cards
+    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck' | 'orderCards' | 'partitionPiles' | 'choosePile' | typeof COLLECTED_CHOICE_ACTION.cards
     bindOther?: string
     replacementFrameId?: string
     payment?: {
@@ -308,6 +308,7 @@ export const liveSelectionCandidates = (
   if (
     (selection.kind === 'scry' || selection.kind === 'surveil' || selection.kind === 'partition')
     && (!selection.fromZone || selection.fromZone === 'library')
+    && !selection.targetIdentities
   ) {
     const top = new Set(libraryTop(state, fromSeat, selection.count))
     return selection.candidates.filter((objectId) => top.has(objectId))
@@ -882,6 +883,21 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       pending.seats = pending.seats.filter(seat => seat !== event.seat)
       draft.note(`${event.seat} ${selection.kind === 'scry' ? 'scries' : 'surveils'} ${choices.length} card(s)`)
       finishCanonicalTopDeckChoices(draft)
+      draft.priority = null
+      return
+    }
+    if (canonicalChoice.action === 'orderCards' && selection.kind === 'scry') {
+      const choices = parseChoices(event)
+      if (!choices) return
+      // Choices list the final arrangement from top to bottom; successive top moves stack in reverse.
+      const placement = choices[0]?.destination === 'top' ? choices.toReversed() : choices
+      draft.resolution.choices = {
+        ...draft.resolution.choices,
+        [canonicalChoice.binding]: placement.flatMap(({ objectId }) => {
+          const object = draft.objects[objectId]
+          return object ? [{ kind: 'object' as const, ...objectIdentity(object) }] : []
+        }),
+      }
       draft.priority = null
       return
     }

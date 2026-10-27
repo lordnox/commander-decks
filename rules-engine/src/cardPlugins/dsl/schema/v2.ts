@@ -759,6 +759,14 @@ export type Instruction =
       distinct: true
       whenInsufficient: 'chooseAvailable'
     }
+  /** Let the chooser order cards bound for one end of a library; binds them in placement order for a later `move`. */
+  | {
+      kind: 'orderCards'
+      bindChoice: string
+      chooser: PlayerReference
+      cards: ObjectRecipient
+      position: 'top' | 'bottom'
+    }
   /** Reveal from the top of each recipient's library until a match is found. */
   | {
       kind: 'revealUntil'
