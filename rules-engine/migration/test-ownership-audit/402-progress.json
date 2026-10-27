@@ -12030,6 +12030,78 @@
       ],
       "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
     }
+    {
+      "groups": [
+        "cirdanColossi:98"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "state-based death from zero toughness shuffles it into its owner library",
+      "evidence": "The source fixture pair remains the `COLOSSI` loop. The complete `expectInLibrary` helper still checks library zone/order, graveyard absence, reveal, and shuffle; this callback additionally checks the final library size is four."
+    },
+    {
+      "groups": [
+        "cirdanColossi:107"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a sacrifice puts it in the library, not the graveyard",
+      "evidence": "The same two-card `COLOSSI` parameterization exercises sacrifice. `expectInLibrary` retains all five pinned zone/order/graveyard/reveal/shuffle checks. The current callback also proves the object is unknown and omitted from all three viewer projections."
+    },
+    {
+      "groups": [
+        "cirdanColossi:116"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a discard from hand is still a discard but ends up in the library",
+      "evidence": "The `COLOSSI` fixture is discarded from p1 hand with a discard watcher. `expectInLibrary` retains the five replacement-destination checks, and the test verifies hand removal and the discard trigger life gain."
+    },
+    {
+      "groups": [
+        "cirdanColossi:133"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a milled Colossus is shuffled back instead of reaching the graveyard",
+      "evidence": "For each `COLOSSI` fixture, an entering self-mill enchantment mills two cards from p1 library. The callback verifies the Colossus returns to library, is absent from graveyard, and the reveal is logged; the replaced test keeps the same runtime path."
+    },
+    {
+      "groups": [
+        "cirdanColossi:153"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+      "suite": "a spell countered by a real Counterspell is shuffled into the library",
+      "evidence": "Both `COLOSSI` fixture names are tested through a real cast and targeted Counterspell resolution under commander rules. The shared `expectInLibrary` checks zone/order/graveyard/reveal/shuffle; the test also checks Counterspell reaches graveyard."
+    },
+    {
+      "groups": [
+        "cirdanColossi:180"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a card exiled and then moved to a graveyard still goes to the library",
+      "evidence": "For each `COLOSSI` fixture, the test explicitly verifies the intermediate exile state, then moves it to graveyard and applies the shared five-check `expectInLibrary` assertion. Runtime still uses the same replacement handler."
+    },
+    {
+      "groups": [
+        "cirdanColossi:340"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "`annihilator makes p2 sacrifice ${colossusName} and a rock: the rock is stolen, the Colossus shuffled`",
+      "evidence": "The same `COLOSSI` pair and It That Betrays fixture resolve p2\u2019s two-card sacrifice choice and trigger ordering. Current assertions check Colossus library zone/controller, absence from p1 battlefield and p2 graveyard, and the rock changing to p1 controller while retaining p2 ownership. The selection schema is now typed `choose` (the semantic request remains count two for p2)."
+    },
+    {
+      "groups": [
+        "cirdanColossi:361"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "`${colossusName} sacrificed outside combat is not stolen either`",
+      "evidence": "The same `COLOSSI` pair and betrayer fixture exercise a direct sacrifice outside combat. Current checks require library zone and p2 controller, and absence from p1 battlefield, preserving the no-theft result."
+    },
+    {
+      "groups": [
+        "cirdanColossi:383"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
+      "suite": "an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing",
+      "evidence": "The Darksteel Colossus and It That Betrays fixture attacks with no second eligible sacrifice. The typed one-card p2 choice resolves; final p1 battlefield contains only It That Betrays and Darksteel Colossus is in its owner library."
+    }
   ],
   "retainedOwnerEvidence": [
     {
