@@ -1,6 +1,6 @@
 {
   "issue": 403,
-  "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved.",
+  "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved. Manual callback/fixture/runtime audit completed for all 73 non-Courser lifecycle groups; see manualAudit for exact checked IDs and the one existing behavior exception (#552).",
   "implemented": [
     "cardRuleCatalog.damageAndLeaves:164",
     "councilCards:173",
@@ -96,7 +96,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "pending self-leave token trigger restores its captured controller %s",
-      "evidence": "Catalog-backed leave trigger is pending with no Beast before and after JSON journal restore. Resolves to exactly one 3/3 battlefield Beast controlled by the captured controller, with source still exiled and stack/resolution empty. Both seats are exercised."
+      "evidence": "Catalog-backed leave trigger is pending with no Beast before and after JSON journal restore. Resolves to exactly one 3/3 battlefield Beast controlled by the captured controller, with source still exiled and stack/resolution empty. Both seats are exercised. Manually compared the whole pending Thragtusk callback for both captured controllers: trigger stacks without a Beast before/after JSON journal restore, captured controller remains stable, resolves exactly one 3/3 Beast for that seat, source remains exiled, and stack/resolution clear. The current parameterized test uses catalog Thragtusk and explicitly checks its token characteristics."
     },
     {
       "groups": [
@@ -162,7 +162,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "Council's Judgment style outcome exiles every tied winner",
-      "evidence": "Retains the public chooser action, hides an opponent hand card in another voter projection, rejects the caster-owned permanent from both the caster and another voter, exiles each of two tied opposing permanents, leaves the caster permanent on the battlefield, clears the pending vote, and verifies votesFinished in the minimal generic legacy vote fixture."
+      "evidence": "Retains the public chooser action, hides an opponent hand card in another voter projection, rejects the caster-owned permanent from both the caster and another voter, exiles each of two tied opposing permanents, leaves the caster permanent on the battlefield, clears the pending vote, and verifies votesFinished in the minimal generic legacy vote fixture. Manually compared all pinned assertions in the generic vote mechanic callback: public vote state and current voter, a private hand identity absent to p2, rejects caster's own permanent for p1 and p2, exiles both tied opposing winners while leaving the caster permanent, clears vote, and emits votesFinished. Named Council's Judgment registration is covered by structural registry tests."
     },
     {
       "groups": [
@@ -170,7 +170,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
       "suite": "public ballots stay visible while a targeted spell vote advances in order",
-      "evidence": "Minimal generic legacy targeted-spell/vote fixture preserves caster-first APNAP order, public ballot and option ids, current chooser ownership, rejection of an out-of-turn/invalid ballot and priority pass, public votes for another viewer and server projection, and the next voter-only choice projection."
+      "evidence": "Minimal generic legacy targeted-spell/vote fixture preserves caster-first APNAP order, public ballot and option ids, current chooser ownership, rejection of an out-of-turn/invalid ballot and priority pass, public votes for another viewer and server projection, and the next voter-only choice projection. Manually compared every pinned assertion: current generic targeted-spell vote test retains public/nonsecret APNAP ballots and option IDs, only current voter selection, rejects out-of-turn and unknown ballots and priority pass, and projects the same open ballot map to another seat and server while hiding the next voter's selection. The specific Split Decision registration remains covered structurally."
     },
     {
       "groups": [
@@ -178,7 +178,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
       "suite": "an open copy choice survives a host restart",
-      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3’s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
+      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3\u2019s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state. Manually compared complete callback: ballots p1/p2 survive JSON host restart and p3 has the open selection; after finishing the vote, the stack-copy choice is JSON-restored and seat p1 keeps/retargets it, yielding a copy and clearing pending state. The same Split Decision registration remains covered structurally."
     },
     {
       "groups": [
@@ -186,7 +186,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "each voted creature gets one stun counter per vote and taps; unvoted ones are left alone",
-      "evidence": "Generic legacy secret object ballots verify p1 sees only its own selected object id, p2 sees only its own, p3 and the server see masked values, and no stun effect occurs before voting completes."
+      "evidence": "Generic legacy secret object ballots verify p1 sees only its own selected object id, p2 sees only its own, p3 and the server see masked values, and no stun effect occurs before voting completes. Manual callback check: all six pinned assertion texts are unchanged in the matching destination callback; the generic `voteInstruction` fixture preserves secret object ballots, the no-effect-before-completion assertion, and per-object stun/tap results. The catalog-backed `dsl/vote.test.ts` separately exercises actual Trap the Trespassers resolution and its stun outcome; `registry.test.ts` covers registration."
     },
     {
       "groups": [
@@ -194,7 +194,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "an open secret object vote survives a host restart and stays private",
-      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat’s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
+      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat\u2019s projection; completion applies exactly four stun counters, taps the creature, and clears the vote. Manual callback check: all three pinned assertion texts are unchanged in the matching destination callback; the generic secret-object vote is JSON-restored with the private vote still masked and completes with the expected stun/tap result. Actual catalog vote ownership is independently exercised in `dsl/vote.test.ts`."
     },
     {
       "groups": [
@@ -202,23 +202,23 @@
       ],
       "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
       "suite": "a sacrifice puts it in the library, not the graveyard",
-      "evidence": "the source becomes unknown to every viewer after the Colossus reshuffles"
+      "evidence": "the source becomes unknown to every viewer after the Colossus reshuffles Manually checked pinned privacy assertions in the current parameterized tests for both Blightsteel and Darksteel: after sacrifice replacement puts each into its owner's library, knownTo is absent and all three viewers' projections omit the card identity. The common `expectInLibrary` helper also checks library membership and excludes graveyard; test suite passes both fixtures."
     },
     {
       "groups": [
         "cirdanMiscCards:176"
       ],
-      "destination": "rules-engine/src/cardPlugins/lookTopPick.test.ts",
-      "suite": "a delve spell keeps its private top-seven choice after a host restart",
-      "evidence": "generic legacy scry choice remains in lookTopPick.test.ts; the catalog Dig Through Time integration retains delve payment, private top seven, reject paths, journal round-trip equality, ordered hand/library and spell completion Canonical Dig Through Time cost/payment, typed choice rejection and JSON-restored outcome checks are additionally retained in dsl/searchLibrary.test.ts."
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly",
+      "evidence": "The named card is now canonical after #432, so the owner is this catalog-backed integration, not the generic synthetic Delve Look Spell test in lookTopPick.test.ts (which separately retains generic legacy scry coverage). The pinned callback's delve failure/no-stack, six-card exile and remaining seventh card, two-Island payment event order, spell stack, private top-seven candidates, exact-two rejection/other-seat rejection, restore, chosen hand, spell cleanup, and final library assertions are represented here; the current test adds duplicate/foreign-card rejection and journal round-trip equality. One pinned outcome is not equivalent: the old topdeck event let the chooser order the five unchosen cards, and the pinned callback verifies that order survives restart. The canonical chooseCards event chooses only the two hand cards; unchosen cards are bottomed automatically in source order. Current assertion expects Top 1, 2, 4, 5, 7, while the source explicitly chose Top 7, 5, 4, 2, 1. This gap is tracked in #552 and remains unresolved under #548's runtime-unchanged constraint."
     },
     {
       "groups": [
         "cirdanMiscCards:252"
       ],
-      "destination": "rules-engine/src/cardPlugins/lookTopPick.test.ts",
-      "suite": "only the looking seat sees the cards, before and after the choice",
-      "evidence": "catalog Dig Through Time projection hides all seven looked-at cards plus Rest A from opponents while exposing all seven to its chooser The catalog Dig Through Time integration also asserts the full private TOP + Rest A identity set."
+      "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+      "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly",
+      "evidence": "Current owner is the canonical Dig Through Time integration after #432. The callback retains each pinned privacy assertion: the chooser sees all seven candidates; the opponent projection contains none of the seven candidates or Rest A and has no pending selection for p1. The generic lookTopPick privacy test also remains as separate coverage for the still-active legacy scry handler, but it is not the named card's current runtime route."
     },
     {
       "groups": [
@@ -234,7 +234,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts",
       "suite": "a private Ingester target survives a host restart and resolves through the live chooser",
-      "evidence": "generic Imprint Ingester fixture keeps candidate list and chooser private, host restore equality, duplicate/wrong-seat rejection, exile link, 7/9 outcome and cleared choice"
+      "evidence": "Generic Imprint Ingester fixture keeps chooser privacy, host restore equality, duplicate/wrong-seat rejection, exile link, 7/9 outcome, and cleared choice. Added a separate catalog-backed live-host test because this generic callback cannot establish the named card route: it casts catalog Phyrexian Ingester, verifies its self-inclusive candidate list and private projection, restores the open choice, rejects the wrong seat, accepts Big Foe, then checks exile, 7/9 stats, and cleared selection. Its optional Accept/Decline decision is resolved after choosing the required target."
     },
     {
       "groups": [
@@ -242,7 +242,7 @@
       ],
       "destination": "rules-engine/src/plugins/freeCastFromHand.test.ts",
       "suite": "Rishkar's Expertise keeps its private capped offer through a live-host restart",
-      "evidence": "catalog Rishkar offer stays private across host restart; plain cast rejected, free cast preserves mana and resolves, decline keeps card in hand"
+      "evidence": "catalog Rishkar offer stays private across host restart; plain cast rejected, free cast preserves mana and resolves, decline keeps card in hand Manually checked complete live-host callback: named card cast/resolution, opponent projection hides offered card and opponents have no free-cast action, JSON host restore equality, paid-mana cast rejection, accepted free-cast leaves mana unchanged and resolves, and declining leaves the card in hand. The current callback additionally verifies opponent cannot see the library card."
     },
     {
       "groups": [
@@ -250,7 +250,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/manaChoice.test.ts",
       "suite": "without a named pool the controller chooses privately and the pick resolves",
-      "evidence": "private mana mode options survive restart; wrong-seat and unoffered modes rejected; selected pool matches exact expected mana"
+      "evidence": "private mana mode options survive restart; wrong-seat and unoffered modes rejected; selected pool matches exact expected mana Manual callback comparison: the destination reuses the exact pinned three-option IDs/labels, payment-before-choice, chooser-only projection, stable selection id after journal restore, wrong-seat/invalid-option rejection, and final mana result. The exchangeable Test Filter Land uses the same generic `manaChoice` runtime; no named card behavior is claimed."
     },
     {
       "groups": [
@@ -258,7 +258,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts",
       "suite": "opens a private color choice as the Aura enters and stores the pick",
-      "evidence": "private entry color choice survives restore, rejects priority and wrong color/seat, stores U and clears pending selection"
+      "evidence": "private entry color choice survives restore, rejects priority and wrong color/seat, stores U and clears pending selection Manual callback comparison: the destination retains all option colors, private pending choice, priority-pass and invalid-option rejection, selection persistence across journal restore, wrong-seat rejection, chosen color, and cleared pending selection. The minimal Test Utopia Sprawl fixture runs the generic Aura-entry color mechanic."
     },
     {
       "groups": [
@@ -266,7 +266,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/seaGate.test.ts",
       "suite": "the life choice is private to its controller and survives a restart",
-      "evidence": "life-payment prompt stays private and is restored; accepting loses exactly three life"
+      "evidence": "life-payment prompt stays private and is restored; accepting loses exactly three life Manual callback comparison: current owner uses the stored Sea Gate Restoration // Sea Gate, Reborn card template and same `playLand` route; it preserves chooser-only pending state, restore with the same count-three dialog, and resolves the life payment by exactly 3."
     },
     {
       "groups": [
@@ -274,7 +274,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "Settle exiles attackers and resumes a private typed basic-land search after restart",
-      "evidence": "Settle’s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
+      "evidence": "Settle\u2019s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped Manually compared every pinned outcome in the generic library-search mechanic test: no-target cast rejected; normal attacker exiled, commander enters command; only basic candidates exposed to p2 and hidden from p1; count-one choice remains after journal restore; noncandidate rejected; chosen basic enters tapped battlefield and pending search clears. Named handler routing remains compatibility through the engine registration path; mechanics test supplies exchangeable attackers/library cards."
     },
     {
       "groups": [
@@ -282,7 +282,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "a sacrificing legacy map opens the generic hidden library search",
-      "evidence": "legacy Expedition Map sacrifices itself, opens hidden library search and withholds opponent library identities"
+      "evidence": "legacy Expedition Map sacrifices itself, opens hidden library search and withholds opponent library identities The exact named Expedition Map legacy activation remains in the destination: map sacrifices to graveyard, opens the generic typed hidden-library search, and opponent projection contains no library identities. The generic search behavior test additionally owns picker semantics."
     },
     {
       "groups": [
@@ -290,15 +290,15 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "a legacy Archaeomancer's Map finds up to two Plains and puts them in hand",
-      "evidence": "legacy Archaeomancer’s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
+      "evidence": "legacy Archaeomancer\u2019s Map offers exactly two Plains and moves both to hand while opposing projection hides the library The exact named legacy Archaeomancer's Map still resolves its enter search for up to two Plains; the current matcher verifies source/via, Plains A/B candidates, both cards in hand, and library hidden from opponent. The owner's name-preserving helper replaces cached stored-deck fixture wrappers only."
     },
     {
       "groups": [
         "dackFaydenPart34LinkedExile:407"
       ],
       "destination": "rules-engine/src/cardPlugins/linkedExile.test.ts",
-      "suite": "open link-exile selection survives projection for the choosing seat",
-      "evidence": "the link-exile selection and candidate identities are available only to the choosing seat"
+      "suite": "Fiend Hunter link choice stays private to its chooser",
+      "evidence": "The current named Fiend Hunter callback preserves the pinned chooser-only candidate assertions in its enter-trigger flow. The generic Cage Cleric test separately verifies the reusable linked-exile projection path. The named Fiend Hunter callback verifies a nonempty candidate set for the chooser and its projected view and no opponent pending selection. It exercises the named registration; the generic Cage Cleric callback separately preserves the reusable link-exile projection route."
     },
     {
       "groups": [
@@ -306,7 +306,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/linkedExile.test.ts",
       "suite": "Fiend Hunter resumes a linked target choice after restart",
-      "evidence": "open linked target selection retains its id through restart and selected target is exiled"
+      "evidence": "Named Fiend Hunter selection remains pending with the same id across structured-clone host restart; wrong-seat selection is rejected, the chooser resolves it, pending selection clears, and the prey is exiled. The callback resolves the stack after selection, preserving the pinned exile outcome. The named Fiend Hunter callback retains selection presence and exact id across restart, wrong-seat rejection, successful chooser pick, cleared selection, stack continuation, and exile after resolution. The pinned final-zone assertion is reached after the current callback explicitly resolves the trigger."
     },
     {
       "groups": [
@@ -314,7 +314,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts",
       "suite": "Collector's Vault keeps its legacy loot handler and finishes with a Treasure",
-      "evidence": "legacy Collector’s Vault choice draws, privately discards and creates exactly one Treasure"
+      "evidence": "legacy Collector\u2019s Vault choice draws, privately discards and creates exactly one Treasure Manual callback check: all three pinned assertion texts remain exact in the destination callback and it still exercises named Collector's Vault through its legacy loot handler, resolving to a Treasure."
     },
     {
       "groups": [
@@ -338,7 +338,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "catalog Diabolic Tutor privately finds any card and shuffles",
-      "evidence": "catalog Diabolic Tutor retains canonical snapshot, typed private library candidate set, chosen hand card, unchosen library order, shuffle and spell completion"
+      "evidence": "catalog Diabolic Tutor retains canonical snapshot, typed private library candidate set, chosen hand card, unchosen library order, shuffle and spell completion Catalog Diabolic Tutor integration retains exact definition snapshot, no legacy effects, all library candidates, private chooser/library identities, selected card to hand, unselected order, spell graveyard, and completed resolution. Added the missing explicit `effects: []` assertion so all pinned assertions are represented in one current callback."
     },
     {
       "groups": [
@@ -346,7 +346,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Fate Unraveler",
-      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.damageAndLeaves.test.ts and is absent on current main. Uses cardTemplate's canonical Fate Unraveler registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.damageAndLeaves.test.ts and is absent on current main. Uses cardTemplate's canonical Fate Unraveler registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id. Current programPersistence loop exercises Fate Unraveler by name in the exact pinned assertion sequence: definitionRevision survives JSON load and journal restore. Other loop cards are separate inventoried rows."
     },
     {
       "groups": [
@@ -354,7 +354,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Duskdale Wurm",
-      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.drawAndKeywords.test.ts and is absent on current main. Uses cardTemplate's canonical Duskdale Wurm registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.drawAndKeywords.test.ts and is absent on current main. Uses cardTemplate's canonical Duskdale Wurm registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id. Current programPersistence loop exercises Duskdale Wurm by name: its stamped definitionRevision is unchanged through JSON snapshot load and journal restore."
     },
     {
       "groups": [
@@ -362,7 +362,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Reverberate",
-      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.modesCopiesAndSearch.test.ts and is absent on current main. Uses cardTemplate's canonical Reverberate registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.modesCopiesAndSearch.test.ts and is absent on current main. Uses cardTemplate's canonical Reverberate registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id. Current programPersistence loop exercises Reverberate by name: its stamped definitionRevision is unchanged through JSON snapshot load and journal restore."
     },
     {
       "groups": [
@@ -370,7 +370,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Rest in Peace",
-      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.staticsAndAlternativeCosts.test.ts and is absent on current main. Uses cardTemplate's canonical Rest in Peace registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.staticsAndAlternativeCosts.test.ts and is absent on current main. Uses cardTemplate's canonical Rest in Peace registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id. Current programPersistence loop exercises Rest in Peace by name: its stamped definitionRevision is unchanged through JSON snapshot load and journal restore."
     },
     {
       "groups": [
@@ -378,7 +378,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore keeps the stamped definitionRevision for Vampire Hounds",
-      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.targetedActions.test.ts and is absent on current main. Uses cardTemplate's canonical Vampire Hounds registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id."
+      "evidence": "Restores the source assertions from audited revision 486f73779424dc94fdaaa2712337462994ebe2e6, where the group was still in cardRuleCatalog.targetedActions.test.ts and is absent on current main. Uses cardTemplate's canonical Vampire Hounds registration. JSON serialization preserves the source definitionRevision, loadDefinitionSnapshot restores that revision, and journal restore retains it on the same object id. Current programPersistence loop exercises Vampire Hounds by name: its stamped definitionRevision is unchanged through JSON snapshot load and journal restore."
     },
     {
       "groups": [
@@ -394,7 +394,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "a discarded card keeps its discard trigger through JSON restore",
-      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The discard trigger is placed on the stack exactly once before JSON round-trip and remains exactly once after restore with the same stack id/controller/source object; resolving it gains three life and removes the ability from the stack. The p1 discard candidates contain only its hand card despite the p2 secret-hand decoy."
+      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The discard trigger is placed on the stack exactly once before JSON round-trip and remains exactly once after restore with the same stack id/controller/source object; resolving it gains three life and removes the ability from the stack. The p1 discard candidates contain only its hand card despite the p2 secret-hand decoy. Manual callback check: all eight pinned assertion texts are unchanged in the matching canonical integration callback; the inline canonical discard replacement fixture retains the discarded-card trigger through JSON restore."
     },
     {
       "groups": [
@@ -402,7 +402,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "a suspended discard destination binds after restore and draws",
-      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The p1 discard candidates exclude p2's secret-hand decoy. After discarding, competing destination options remain suspended and hidden from p2 along with the discarded card; JSON restore preserves the Chains source id/controller, p1 option id and exact options, and discarded-card id/owner/controller. Choosing exile completes the replacement, draws the library card, and clears card and option selections with exact final zones."
+      "evidence": "The shared discardThenDrawDefinition matches the audited chainsDefinition semantics. The p1 discard candidates exclude p2's secret-hand decoy. After discarding, competing destination options remain suspended and hidden from p2 along with the discarded card; JSON restore preserves the Chains source id/controller, p1 option id and exact options, and discarded-card id/owner/controller. Choosing exile completes the replacement, draws the library card, and clears card and option selections with exact final zones. Manual callback check: all eight pinned assertion texts are unchanged in the matching canonical integration callback; the inline canonical destination fixture binds the suspended destination after restore and draws."
     },
     {
       "groups": [
@@ -410,15 +410,15 @@
       ],
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
       "suite": "targeting Sire asks only the caster to pay seven life before the spell can resolve",
-      "evidence": "Catalog Sire of Seven Deaths is the source of the opponent's ward choice. The spell stays off the stack while the exact pay/decline options are pending; only p1 sees the choice, paying costs seven life, puts the original spell on the stack, and clears the choice."
+      "evidence": "Catalog Sire of Seven Deaths is the source of the opponent's ward choice. The spell stays off the stack while the exact pay/decline options are pending; only p1 sees the choice, paying costs seven life, puts the original spell on the stack, and clears the choice. Manual callback comparison: the named canonical Sire fixture is still cast at by another seat; current assertions retain no-stack while pending, pay/decline options, caster-only view (including hidden opponent and third-seat projections), life 40\u219233, continued Bolt on stack, and cleared choice."
     },
     {
       "groups": [
         "cirdanEldrazi:146"
       ],
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
-      "suite": "a journal restore retains Sire’s pending ward choice and accepts the replayed answer",
-      "evidence": "Catalog Sire ward is restored from the journal with the exact pending choice identity; p1's replayed pay answer costs seven life, resumes the original spell, and clears the pending choice. Generic legacy ward handler cases remain in the mechanic suite."
+      "suite": "a journal restore retains Sire\u2019s pending ward choice and accepts the replayed answer",
+      "evidence": "Catalog Sire ward is restored from the journal with the exact pending choice identity; p1's replayed pay answer costs seven life, resumes the original spell, and clears the pending choice. Generic legacy ward handler cases remain in the mechanic suite. Manual callback comparison: the named canonical Sire fixture is cast at through the same `castSpell` event; journal replay restores the exact pending option and the payer's response changes life to 33, leaves the spell on stack, and clears the pending choice."
     },
     {
       "groups": [
@@ -426,7 +426,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
       "suite": "catalog Grothama gives each attacking creature owner a private fight choice",
-      "evidence": "The catalog Grothama creates two attacker triggers. p2 receives exactly Grothama as the private candidate; resolving both choices kills Raider and Ogre and records seven damage from p2 on Grothama, which remains on the battlefield."
+      "evidence": "The catalog Grothama creates two attacker triggers. p2 receives exactly Grothama as the private candidate; resolving both choices kills Raider and Ogre and records seven damage from p2 on Grothama, which remains on the battlefield. Manually checked the named catalog Grothama route across two attacking creatures: each owner receives a private optional fight choice, opponent projection hides it, both attackers die when choosing to fight, the Grothama ledger records 7 damage from p2, and Grothama remains on battlefield. Catalog fixture uses `deckCard` and exact attackers from the source group."
     },
     {
       "groups": [
@@ -434,7 +434,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
       "suite": "catalog Grothama restores its pending fight choice from the journal",
-      "evidence": "The catalog attack event and trigger resolution are journaled. Restoring reproduces p2's exact open choice; the answer resolves the fight and puts Raider in the graveyard."
+      "evidence": "The catalog attack event and trigger resolution are journaled. Restoring reproduces p2's exact open choice; the answer resolves the fight and puts Raider in the graveyard. Manual callback check: both pinned assertion texts are unchanged in the matching named Grothama callback, including journal-restored pending choice equality."
     },
     {
       "groups": [
@@ -442,7 +442,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter II privately targets an opponent and survives a live-host restart",
-      "evidence": "Catalog Kiora opens the two-opponent player choice through the live host. Another seat cannot see or answer it, priority cannot pass while it is open, the journal restore preserves the exact offered choice, and p1's answer taps the chosen opponent's nonlands and marks them to skip their next untap."
+      "evidence": "Catalog Kiora opens the two-opponent player choice through the live host. Another seat cannot see or answer it, priority cannot pass while it is open, the journal restore preserves the exact offered choice, and p1's answer taps the chosen opponent's nonlands and marks them to skip their next untap. Manually checked the entire callback against the pinned player-pick assertions: Kiora chapter II uses the same catalog card template and targeted-player host route; unauthorized priority and wrong seat are rejected, wrong count paths throw without clearing the pick, restart reproduces the same topdeck request, and the selected opponent yields tapped outcomes for only its creatures. The two legacy payload `targetFilter` assertions are represented by the canonical typed player request and exact two-opponent candidate list."
     },
     {
       "groups": [
@@ -450,7 +450,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter III offers exactly the legal opponent permanents to its private chooser",
-      "evidence": "Catalog Kiora's live offer contains the exact three-seat candidate set (including the land and decoy creature, excluding the Saga controller's permanent and the hexproof creature). Other seats see no chooser state; the Saga remains until resolution. After journal restore, zero, all, and two-target answers plus another seat are rejected; one legal artifact is taken, unrelated controllers stay unchanged, and the Saga is sacrificed after the chapter resolves."
+      "evidence": "Catalog Kiora's live offer contains the exact three-seat candidate set (including the land and decoy creature, excluding the Saga controller's permanent and the hexproof creature). Other seats see no chooser state; the Saga remains until resolution. After journal restore, zero, all, and two-target answers plus another seat are rejected; one legal artifact is taken, unrelated controllers stay unchanged, and the Saga is sacrificed after the chapter resolves. Manually checked complete pinned callback: same catalog Kiora chapter III fixture, exact offered candidate names and one-card requirement, no priority while pending, exact choice across host restore, zero/two-pick and out-of-turn rejection, choice remains pending after rejections, chosen relic changes controller but not owner, unchosen permanents stay put, and Saga is sacrificed. The generic `topdeck` action preserves target-choice behavior through the current typed host route."
     },
     {
       "groups": [
@@ -458,7 +458,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter III rejects noncandidates and keeps its choice open",
-      "evidence": "The typed live selection excludes the hexproof opponent creature and the Saga controller's Island; submitting either object id is rejected and leaves the original choice pending."
+      "evidence": "The typed live selection excludes the hexproof opponent creature and the Saga controller's Island; submitting either object id is rejected and leaves the original choice pending. Manually checked the complete pinned callback: the hexproof creature and own Island remain outside candidates; both typed selections are rejected and the choice remains open. The canonical catalog route now stores target bindings rather than the removed legacy `selectCards` event shape."
     },
     {
       "groups": [
@@ -466,7 +466,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter III takes a lone target, or sacrifices the Saga when none qualifies",
-      "evidence": "With one legal opponent permanent, the typed live choice still takes it and sacrifices Kiora. With only the hexproof creature and the controller's Island, no choice opens, the stack empties, and the Saga is sacrificed."
+      "evidence": "With one legal opponent permanent, the typed live choice still takes it and sacrifices Kiora. With only the hexproof creature and the controller's Island, no choice opens, the stack empties, and the Saga is sacrificed. Manually checked both branches from the pinned callback against the same Kiora catalog setup: one legal Foe Relic is taken and the Saga sacrificed; when no legal target remains, there is no pending choice or stack item and the Saga is sacrificed."
     },
     {
       "groups": [
@@ -474,7 +474,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter III rechecks a target that gains hexproof in response",
-      "evidence": "After Kiora's chapter selects Foe Alpha and the ability is stacked, granting the target hexproof before resolution preserves it under p2 control and still sacrifices Kiora."
+      "evidence": "After Kiora's chapter selects Foe Alpha and the ability is stacked, granting the target hexproof before resolution preserves it under p2 control and still sacrifices Kiora. Manually checked canonical target revalidation: Kiora chapter III stacks a real object target, adding hexproof before resolution leaves it under p2 control and sacrifices the Saga. The legacy serialized `targetFilter` matcher is superseded by canonical typed target binding and the same runtime recheck."
     },
     {
       "groups": [
@@ -482,15 +482,15 @@
       ],
       "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
       "suite": "chapter III fizzles if its target leaves before resolution",
-      "evidence": "After selecting Foe Beta, moving that target to the graveyard before resolution leaves it under p2 control, does not change any p1 battlefield permanent, empties the stack, and sacrifices Kiora."
+      "evidence": "After selecting Foe Beta, moving that target to the graveyard before resolution leaves it under p2 control, does not change any p1 battlefield permanent, empties the stack, and sacrifices Kiora. Manually checked canonical target revalidation: after Kiora chapter III binds Foe Beta, moving it to graveyard before resolution leaves it there under p2 ownership, leaves no stolen p1 battlefield object beyond Own Island, and sacrifices the Saga. The legacy serialized `targetFilter` payload is replaced by canonical typed target binding."
     },
     {
       "groups": [
         "cirdanMiscCards:729"
       ],
-      "destination": "rules-engine/src/cardPlugins/sagaPlayerTarget.test.ts",
-      "suite": "GAP: Kiora chapter III does not ask for ward on a targeted warded permanent",
-      "evidence": "Preserves the deliberate GAP characterization with the ward plugin active: Kiora's chapter ability targets the opponent's warded creature, is placed on the stack without a ward payment choice, and takes control. The capability is tracked by #394; this test-ownership change makes no runtime change."
+      "destination": "rules-engine/src/cardPlugins/dsl/ward.test.ts",
+      "suite": "targeted chapters trigger ward after choosing targets (%j)",
+      "evidence": "The former GAP characterization was removed when #537 was fixed in PR #544. The generic ward mechanic now tests both the canonical Kiora catalog registration and an exchangeable minimal Saga fixture, with pay=false/true. It preserves target choice before the ward trigger, target incarnation and opponent controller, ward trigger on top of the chapter, priority/payment prompt, no control change before payment, decline countering the chapter, and payment allowing control change and Saga sacrifice. This verifies the lifecycle while honoring the defect fix."
     },
     {
       "groups": [
@@ -498,7 +498,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Woodfall Primus privately offers every legal noncreature permanent, including its controller's",
-      "evidence": "Catalog Woodfall Primus opens an exact one-target choice containing the controller's artifact and opponents' artifact and land, excluding both a creature and artifact creature; the chooser sees the choice and another seat does not."
+      "evidence": "Catalog Woodfall Primus opens an exact one-target choice containing the controller's artifact and opponents' artifact and land, excluding both a creature and artifact creature; the chooser sees the choice and another seat does not. Manually checked current named Woodfall Primus candidate filter and projection: exactly the two opposing noncreatures plus its controller's noncreature are offered, creatures and artifact creatures excluded, and chooser-only selection remains visible only to p1 with stable id."
     },
     {
       "groups": [
@@ -506,7 +506,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Woodfall Primus restores its exact open target choice and resolves the replayed pick",
-      "evidence": "The move-to-battlefield trigger is journaled, restore reproduces the exact pending selection, and the replayed pick destroys the selected opponent land."
+      "evidence": "The move-to-battlefield trigger is journaled, restore reproduces the exact pending selection, and the replayed pick destroys the selected opponent land. Manual callback check: both pinned assertion texts are unchanged in the matching named Woodfall Primus callback; journal restore preserves the exact selection and its replayed target resolves."
     },
     {
       "groups": [
@@ -514,7 +514,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Terastodon offers exactly the legal noncreature targets privately, up to three",
-      "evidence": "Catalog Terastodon is 9/9 and offers the exact two-permanent candidate set including its controller's artifact while excluding the opponent creature; the optional count matches the candidate count and another seat sees no choice. Maximum coverage remains in the mechanic suite's 'it can destroy three of its controller own permanents; their Elephants come back to its controller' test, and the structural catalog assertion is 'Terastodon registers an up-to-three destroy with a per-controller Elephant'."
+      "evidence": "Catalog Terastodon is 9/9 and offers the exact two-permanent candidate set including its controller's artifact while excluding the opponent creature; the optional count matches the candidate count and another seat sees no choice. Maximum coverage remains in the mechanic suite's 'it can destroy three of its controller own permanents; their Elephants come back to its controller' test, and the structural catalog assertion is 'Terastodon registers an up-to-three destroy with a per-controller Elephant'. Manually checked named Terastodon characteristics and private candidate list; only the two legal noncreature permanents appear and p3 cannot see the choice. Its companion restore test :405 resolves two selected targets and creates one Elephant for each target controller. The current typed selection represents max available candidates rather than the legacy fixed `count: 3`; catalog composition retains the three-target cap."
     },
     {
       "groups": [
@@ -522,7 +522,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Terastodon restores its exact open choice and creates an Elephant for each target controller",
-      "evidence": "The enter trigger is journaled, restore reproduces the exact pending selection, and selecting one artifact each from p2 and p3 destroys both and creates an Elephant under each target controller."
+      "evidence": "The enter trigger is journaled, restore reproduces the exact pending selection, and selecting one artifact each from p2 and p3 destroys both and creates an Elephant under each target controller. Manual callback check: all three pinned assertion texts are unchanged in the matching named Terastodon callback; journal restore preserves the choice and produces one Elephant for each target controller."
     },
     {
       "groups": [
@@ -530,7 +530,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts",
       "suite": "catalog Curious Colossus privately chooses an opponent then shrinks their board",
-      "evidence": "The catalog Curious Colossus spell offers all three opponents to p1 privately and keeps the exact player selection across a clone. Choosing p2 applies the Coward subtype, removes abilities, sets the opposing creature to 1/1, and leaves its controller unchanged; p3 stays untouched."
+      "evidence": "The catalog Curious Colossus spell offers all three opponents to p1 privately and keeps the exact player selection across a clone. Choosing p2 applies the Coward subtype, removes abilities, sets the opposing creature to 1/1, and leaves its controller unchanged; p3 stays untouched. Manually checked complete callback: actual catalog Curious Colossus, opponent-only private player selection persists through restart, then the selected opponent's creature becomes a 1/1 Coward with effects cleared; another opponent's board remains unchanged. Its pinned effect and state assertions are preserved alongside the exact restored selection id."
     },
     {
       "groups": [
@@ -546,7 +546,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
       "suite": "Queza queues a typed opponent choice and drains only the chosen player",
-      "evidence": "The assigned Queza case was deleted from blinkValue.test.ts by 97768667 without an ownership row. This catalog-backed owner preserves the four-seat legal candidate set, chooser-private pending selectPlayers choice, selected p3, resolution continuation, and exact life totals for p1/p2/p3."
+      "evidence": "The assigned Queza case was deleted from blinkValue.test.ts by 97768667 without an ownership row. This catalog-backed owner preserves the four-seat legal candidate set, chooser-private pending selectPlayers choice, selected p3, resolution continuation, and exact life totals for p1/p2/p3. Manual callback check: all four pinned assertion texts are unchanged in the matching named Queza callback and the typed opponent choice drains only the selected player."
     },
     {
       "groups": [
@@ -554,7 +554,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/demonstrate.test.ts",
       "suite": "Rings copies a nonmana activated ability through a restart-safe typed choice",
-      "evidence": "The source group disappeared when copyPolitics.test.ts was deleted by 9845cff5. The catalog Rings test now exercises an actual nonmana ability, restores the pending choice, rejects the wrong seat, accepts the copier answer, and verifies the copied ability and exact draw outcome."
+      "evidence": "The source group disappeared when copyPolitics.test.ts was deleted by 9845cff5. The catalog Rings test now exercises an actual nonmana ability, restores the pending choice, rejects the wrong seat, accepts the copier answer, and verifies the copied ability and exact draw outcome. Manually compared the named Rings of Brighthearth callback: nonmana tap ability creates two stack items; a JSON-restored typed Rings copy choice is visible only to p1 and rejects p2; accepting yields two card draws, exactly two cards in hand. The generic demonstrate suite owns copy semantics."
     },
     {
       "groups": [
@@ -562,7 +562,7 @@
       ],
       "destination": "live-runner/src/kernelHost.test.ts",
       "suite": "canonical control assignments rebuild after a host restart and exclude assigned recipients",
-      "evidence": "The source card test was deleted by d525a001. This catalog-backed test drives actual host choices before and after JSON journal restoration, asserts the real selectPlayers journal events and returned legal candidates, excludes the already-assigned recipient, and verifies final control assignment. The active generic compatibility path remains covered by permanentControl.test.ts: pair donation choice survives a host restart, including the initial pending selection, restored host choice, and retained legacy pending flag after the first assignment."
+      "evidence": "The source card test was deleted by d525a001. This catalog-backed test drives actual host choices before and after JSON journal restoration, asserts the real selectPlayers journal events and returned legal candidates, excludes the already-assigned recipient, and verifies final control assignment. The active generic compatibility path remains covered by permanentControl.test.ts: pair donation choice survives a host restart, including the initial pending selection, restored host choice, and retained legacy pending flag after the first assignment. Manually checked named card route: actual catalog Dack Fayden, Helping Hand triggers player choices through the live host, assigns distinct opponents to Alpha/Beta, and survives a host reconstruction between choices. `permanentControl.test.ts` separately retains the pinned pending-donation state assertions in the generic reusable mechanic, while `kernelHost.test.ts` checks the actual named card route and the accepted player-event journal entries."
     },
     {
       "groups": [
@@ -570,7 +570,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
       "suite": "Perch Protection gifts an extra turn and phases out on the promised gift",
-      "evidence": "The old Perch case was removed from dackPartyPart35.test.ts by c58d7804. The catalog integration chooses p2 through the canonical cost-choice action, verifies the promised gift and extra turn recipient, and checks the source phases out. Generic finishGiftCast pending-choice coverage remains in this owner as opens selectPlayers when gift is promised without a recipient."
+      "evidence": "The old Perch case was removed from dackPartyPart35.test.ts by c58d7804. The catalog integration chooses p2 through the canonical cost-choice action, verifies the promised gift and extra turn recipient, and checks the source phases out. Generic finishGiftCast pending-choice coverage remains in this owner as opens selectPlayers when gift is promised without a recipient. Manually checked named Perch Protection cast through gift-cost actions: finishing the gift cast is pending, another player's projection hides the chooser, resolution creates four Birds, phases out Held Bear, and grants the expected p2 extra turn."
     },
     {
       "groups": [
@@ -578,7 +578,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
       "suite": "Perch Protection gift recipient survives JSON restore and is hidden from another player",
-      "evidence": "The old recipient continuation case was removed from dackPartyPart35.test.ts by c58d7804. The canonical Perch integration JSON-restores the actual stack announcement with p3 captured, verifies opponent privacy and p3 extra turn. Generic finishGiftCast continuation separately JSON-roundtrips a live private pendingPlayerSelection, finishes it with p3, and checks giftRecipient p3 with no pending choice left."
+      "evidence": "The old recipient continuation case was removed from dackPartyPart35.test.ts by c58d7804. The canonical Perch integration JSON-restores the actual stack announcement with p3 captured, verifies opponent privacy and p3 extra turn. Generic finishGiftCast continuation separately JSON-roundtrips a live private pendingPlayerSelection, finishes it with p3, and checks giftRecipient p3 with no pending choice left. Manually checked named Perch Protection JSON restore route: gift-cast choice remains hidden from p2, restored stack records p3 as recipient, and the pending action remains finishGiftCast. The associated first lifecycle row verifies resulting phase-out/extra-turn outcomes."
     },
     {
       "groups": [
@@ -586,7 +586,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "pending optional pay survives projection for the payer only",
-      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1’s projection, preserving the payment outcome while correcting that privacy representation."
+      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1\u2019s projection, preserving the payment outcome while correcting that privacy representation."
     },
     {
       "groups": [
@@ -602,7 +602,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/offerCast.test.ts",
       "suite": "catalog Kuroki lets its chosen opponent decline or draw before offering the controller a free cast",
-      "evidence": "The Kuroki source group was removed in 72ef80b4. The catalog integration preserves the exact Lightning Bolt candidate and four-card library, private p2 decline/draw choice, +2 counter outcome, draw, opponent hidden identity, controller-visible identity, and availability of the without-paying-mana cast action. A targeted announcement with the legal p3 target is rejected for locked-cost payment on clean base dc2dd0ed; tracked in https://github.com/lordnox/commander-decks/issues/540. The mechanic-owner test `offerCast.test.ts` / `accepting draws first, then the caster sees that hand and free-casts a nonland card under their control` retains the exact generic opponent-hand completion path: it puts the opponent-owned card on the stack under p1, checks p1's mana is unchanged, and resolves under p1 while p2 remains owner."
+      "evidence": "The Kuroki source group was removed in 72ef80b4. The catalog integration preserves the exact Lightning Bolt candidate and four-card library, private p2 decline/draw choice, +2 counter outcome, draw, opponent hidden identity, controller-visible identity, and availability of the without-paying-mana cast action. A targeted announcement with the legal p3 target succeeds under withoutPayingMana on current origin/main after merged fix #542. The mechanic-owner test `offerCast.test.ts` / `accepting draws first, then the caster sees that hand and free-casts a nonland card under their control` retains the exact generic opponent-hand completion path: it puts the opponent-owned card on the stack under p1, checks p1's mana is unchanged, and resolves under p1 while p2 remains owner."
     },
     {
       "groups": [
@@ -699,5 +699,90 @@
         "expect(server.project(left, 'p2').players.p1.data.revealed_top).toBeUndefined()"
       ]
     }
-  ]
+  ],
+  "manualAudit": {
+    "scope": "Non-Courser lifecycle groups; each was checked against its pinned assertion texts, current callback fixtures, runtime route, privacy/ordering, and restore behavior. Four Courser groups belong to completed #545.",
+    "verifiedGroups": [
+      "blinkValue:237",
+      "cardRuleCatalog.damageAndLeaves:164",
+      "cardRuleCatalog.damageAndLeaves:266",
+      "cardRuleCatalog.drawAndKeywords:169",
+      "cardRuleCatalog.modesCopiesAndSearch:234",
+      "cardRuleCatalog.modesCopiesAndSearch:332",
+      "cardRuleCatalog.staticsAndAlternativeCosts:240",
+      "cardRuleCatalog.targetedActions:227",
+      "chainsOfMephistopheles:169",
+      "chainsOfMephistopheles:323",
+      "chainsOfMephistopheles:376",
+      "cirdanColossi:205",
+      "cirdanEldrazi:146",
+      "cirdanEldrazi:96",
+      "cirdanGrothamaGuardian:166",
+      "cirdanGrothamaGuardian:288",
+      "cirdanMiscCards:1172",
+      "cirdanMiscCards:1376",
+      "cirdanMiscCards:176",
+      "cirdanMiscCards:252",
+      "cirdanMiscCards:536",
+      "cirdanMiscCards:587",
+      "cirdanMiscCards:635",
+      "cirdanMiscCards:654",
+      "cirdanMiscCards:685",
+      "cirdanMiscCards:697",
+      "cirdanMiscCards:729",
+      "cirdanMiscCards:944",
+      "cirdanPartBMana:320",
+      "cirdanPartBMana:571",
+      "cirdanPartBMana:751",
+      "cirdanTriggers:103",
+      "cirdanTriggers:204",
+      "cirdanTriggers:293",
+      "cirdanTriggers:405",
+      "combatPreventionCards:257",
+      "copyPolitics:233",
+      "copyPolitics:47",
+      "councilCards:173",
+      "councilCards:193",
+      "councilCards:248",
+      "councilCards:282",
+      "councilCards:294",
+      "councilCards:355",
+      "councilCards:411",
+      "councilCards:426",
+      "councilCards:511",
+      "dackFaydenHelpingHand:203",
+      "dackFaydenPart32LandsRocks:295",
+      "dackFaydenPart32LandsRocks:331",
+      "dackFaydenPart34LinkedExile:407",
+      "dackFaydenPart34LinkedExile:428",
+      "dackPartyPart35:165",
+      "dackPartyPart35:200",
+      "dackPartyPart35:297",
+      "jaceMultiverseArchitect:199",
+      "ladyEvangelaGaps:220",
+      "ladyEvangelaRemaining:504",
+      "nivMizzetGhostCounsel:138",
+      "nivMizzetGhostCounsel:145",
+      "plugDackPart33Blink:300",
+      "plugDackPart33Blink:327",
+      "plugDackPart36Creatures:180",
+      "sinFall:143",
+      "sinFall:219",
+      "sinFallLands:26",
+      "sinFallLands:98",
+      "sinFallModals:226",
+      "sinFallReplacements:78",
+      "splitTrapVotes:146",
+      "splitTrapVotes:250",
+      "splitTrapVotes:314",
+      "splitTrapVotes:399"
+    ],
+    "exceptions": [
+      {
+        "group": "cirdanMiscCards:176",
+        "issue": 552,
+        "detail": "Current Dig Through Time DSL puts unchosen inspected cards on the bottom in source order; pinned test allowed choosing their top-of-library order."
+      }
+    ]
+  }
 }

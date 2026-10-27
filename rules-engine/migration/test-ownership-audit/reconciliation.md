@@ -1,6 +1,7 @@
 # Final ownership reconciliation — #543
 
-This is a progress record, not a declaration that the full audit is complete.
+The full 750-group evidence audit and retention review are complete on this branch.
+The unresolved Dig Through Time behavior tracked by #552 keeps #403 and #543 open.
 The inventory remains pinned at `486f73779424dc94fdaaa2712337462994ebe2e6`;
 the reconciliation starting tree is `c515c27c`.
 
@@ -9,15 +10,19 @@ the reconciliation starting tree is `c515c27c`.
 | Issue | Scope | Evidence status |
 | --- | --- | --- |
 | [#545](https://github.com/lordnox/commander-decks/issues/545) | Four Courser lifecycle groups | Full callbacks, all 11 assertions, helpers and compatibility route checked; exact destinations recorded in `403-progress.json`. |
-| [#546](https://github.com/lordnox/commander-decks/issues/546) | All 129 #401 groups | Structural reconciliation remains open; 128 groups have no relocation entry at the starting tree. |
-| [#547](https://github.com/lordnox/commander-decks/issues/547) | All 544 #402 groups | Core reconciliation remains open; 289 groups have no relocation entry at the starting tree, including the 29 `keep-owned` rows. |
-| [#548](https://github.com/lordnox/commander-decks/issues/548) | Full 750-group reconciliation and suite/helper gates | Depends on the three evidence slices; also verifies the remaining 73 #403 groups against their evidence. |
+| [#546](https://github.com/lordnox/commander-decks/issues/546) | All 129 #401 groups | PR [#555](https://github.com/lordnox/commander-decks/pull/555) has the reviewed 129-row owner record and is integrated in this branch. |
+| [#547](https://github.com/lordnox/commander-decks/issues/547) | All 544 #402 groups | All 515 moved groups have per-group destination/runtime evidence; 29 retained groups have current owner, assertions, fixtures, and runtime-route evidence. |
+| [#548](https://github.com/lordnox/commander-decks/issues/548) | Full 750-group reconciliation and suite/helper gates | The complete 129 / 544 / 77 ledgers and the 73-row non-Courser lifecycle audit are integrated. Current source/helper retention is documented below; no suites or helpers were removed. |
 
-The starting implemented lists contain 129 / 515 / 77 IDs respectively.
-These counts do not establish equivalence. After #545, all 77 #403 IDs have
-relocation entries, but the other 73 still need the final evidence review.
-Missing relocation entries do not by themselves establish missing tests.
-Do not close #403 or #543 based on this partial reconciliation.
+The inventory accounts for 129 / 544 / 77 IDs across #401 / #402 / #403. `validate-progress.py` requires exact per-group destination evidence for all 515 moved #402 groups and all 29 separately retained owners. #403 has relocation rows for all 77 IDs and an exact manual audit record for the 73 non-Courser groups; row coverage does not establish behavior equivalence for the separately recorded #552 exception.
+
+The only current #403 lifecycle behavior exception is `cirdanMiscCards:176`: canonical Dig Through Time does not let the player order unchosen inspected cards onto the library top. This is tracked in [#552](https://github.com/lordnox/commander-decks/issues/552); do not describe that group as equivalent or close #403/#543 while it remains unresolved. Kuroki’s previously reported targeted free-cast issue #540 was fixed in merged #542 and its targeted announcement now succeeds.
+
+The pinned #402 assertion `yurlok:79` is a superseded API check: it expected a raw activation event without `manaAbility` to fail with “mana ability.” The current canonical runtime offers Yurlok's action, accepts that event, and resolves it with an empty stack; the classifier infers a mana ability from its activated mana-production program. Issue search found no matching Yurlok defect, and this reproduction does not show a current stack-behavior defect. Record the changed assertion contract explicitly rather than claiming the pinned rejection assertion is preserved. This is not an unresolved behavior exception; #552 remains the sole current behavior exception.
+
+No suite, source helper, runtime code, or inventory entry has been deleted by #548. The ten detailed suites listed below remain present with current catalog snapshots, integration assertions, and mechanic owners. The pinned helper consumer inventory in `helpers.md` remains a removal gate. Do not close #403 or #543 until #552 is resolved.
+
+The pinned `helpers.md` has 531 helper rows across 64 historical source paths and references 628 unique ownership groups. A current path check finds 4 of those exact historical paths still present; all 628 group references are represented in the combined #401/#402/#403 ledgers. The shared `cirdanCreatureCards.ts` helper remains imported by 11 current test files, so it is retained. Historical group accounting is not a substitute for the final per-helper current import review; no helper is removed by this reconciliation.
 
 ## Checked Courser evidence
 
@@ -53,14 +58,18 @@ card-named suite is already absent at the starting tree.
 
 ## Remaining retention gates
 
-Ten detailed audited suites still exist at the starting tree: the five
+The ten detailed audited suites still exist in the integrated checkout: the five
 `dsl/cardRuleCatalog` suites for the main catalog, damage/leaves,
 modes/copies/search, statics/alternative costs, and targeted actions;
 `registry.test.ts`; and `activatedTargetZones.test.ts`, `combatTax.test.ts`,
 `demonstrate.test.ts`, and `liveTableMana.test.ts`. Their existence alone is
-neither an obsolete-source finding nor checked retention evidence. #546/#547
-must identify each surviving group's owner; #548 must inspect current contents
-and helper imports before documenting final retention or deleting anything.
+neither an obsolete-source finding nor checked retention evidence. The current
+files were inspected: catalog suites read canonical snapshots and assert
+registrations, selectors, instructions, and parameters; `registry.test.ts`
+checks structural registration; `activatedTargetZones.test.ts` checks the
+canonical route and zone constraints; the remaining mechanic suites retain
+their integration and runtime assertions. Their imports are local test/runtime
+dependencies, not exported helpers consumed by other tests.
 The historical helper consumer list in `helpers.md` remains a removal gate,
 not permission to remove its entries automatically.
 
@@ -69,6 +78,27 @@ not permission to remove its entries automatically.
 At implementation: the four library-top tests pass with 11 expectations;
 `validate.py` checks all 271 pinned suites, 750 groups and 2594 assertion sites.
 Broader repository checks and hosted results are recorded in the implementation
-PR. The pinned validator validates historical source accounting, not behavioral
-equivalence of migrated tests. Hosted validation does not finish the outstanding
-manual evidence audits above.
+PR. The pinned validator checks historical source accounting; `validate-progress.py`
+checks current per-group evidence coverage. Neither check by itself proves
+behavioral equivalence, so the manual audits and #552 exception remain part of
+the reconciliation record.
+
+## #548 local checks
+
+The 73-group lifecycle review checked each current callback against its pinned
+assertions, fixture names/parameters, runtime route, private/public projection,
+and restore path where applicable. The affected focused tests passed: 188 tests
+across 11 files, 1,198 expectations. A temporary exact Kuroki targeted-cast
+reproduction passed after merged #542. On the integrated tree, `validate.py`
+passes the pinned accounting (271 suites, 750 groups, 2,594 assertion sites),
+and `validate-progress.py` passes #401 (129/129), #402 (515 relocations plus 29
+retained owners), and #403 (77/77, including 73 manual-audit groups and the
+#552 exception).
+
+Local checks passed: `bun test rules-engine` (3,947 tests, 16,451 expectations),
+`bun test live-runner` (255 tests, 1,627 expectations), site tests (53 tests, 145
+expectations), both TypeScript checks, DSL authoring tests (12 tests, 58
+expectations), the DSL authoring gate, rule DSL coverage, import validation,
+lint, and production site build. The linter reports repository warnings but
+exits successfully. Hosted CI and PR-title checks are pending on the final PR
+head; they will be checked before reporting completion.
