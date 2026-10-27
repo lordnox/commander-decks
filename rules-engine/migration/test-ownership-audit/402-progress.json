@@ -12101,6 +12101,62 @@
       "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
       "suite": "an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing",
       "evidence": "The Darksteel Colossus and It That Betrays fixture attacks with no second eligible sacrifice. The typed one-card p2 choice resolves; final p1 battlefield contains only It That Betrays and Darksteel Colossus is in its owner library."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:300"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "every opponent is stopped from casting even mana values, zero included",
+      "evidence": "The exact Void Winnower card is used with opponent spell fixtures of mana values 0, 2, 3, 4, and 5 in a multiplayer table; both even spells and zero are rejected for p2."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:314"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "odd mana values and the controller own spells are unaffected",
+      "evidence": "The Void Winnower fixture proves odd-valued spells from p2 and p3 resolve and its controller\u2019s even-valued spell resolves."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:321"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "lands are not spells and can still be played",
+      "evidence": "The same Void Winnower fixture uses an opponent\u2019s Test Forest and confirms the land-play action succeeds."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:334"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "the restriction ends the moment Void Winnower leaves the battlefield",
+      "evidence": "With Void Winnower initially on p1 battlefield, the test moves it away and verifies p2 can cast the previously restricted even-valued spell."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:380"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "opponents cannot block with even-valued creatures, including zero and tokens",
+      "evidence": "The exact Void Winnower card and explicit mana-value blocker fixtures test both zero and even values, including a token; block declarations are rejected for p2."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:391"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "odd-valued creatures still block, alone or together",
+      "evidence": "The same Void Winnower combat fixture verifies odd-value blockers can block singly and together, while the even-value combination is rejected."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:412"
+      ],
+      "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
+      "suite": "only the defending opponents are restricted in a multiplayer table",
+      "evidence": "The exact Void Winnower fixture attacks one of two opponents: the defender\u2019s even-value block is rejected, while a nondefending opponent\u2019s block is legal."
     }
   ],
   "retainedOwnerEvidence": [
