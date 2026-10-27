@@ -12205,6 +12205,14 @@
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
       "suite": "its own controller is never warded against, and an activated ability is warded too",
       "evidence": "The exact Sire fixtures on p1 and p2 plus Fixture Poker exercise both paths: targeting own Sire resolves without a ward choice, while the activated poker ability targeting opponent Sire triggers the seven-life choice and resolves when paid. Runtime is the same explicit ward and activated plugin pair."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:218"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "menace: a single blocker is rejected and two are accepted",
+      "evidence": "The exact Sire of Seven Deaths card and Bear A/B fixtures remain in cirdanCombatGame. The pinned matcher is unchanged: one blocker returns a menace error, and two blockers are accepted."
     }
   ],
   "retainedOwnerEvidence": [
