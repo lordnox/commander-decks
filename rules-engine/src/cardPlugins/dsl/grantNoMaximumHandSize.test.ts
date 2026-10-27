@@ -1,6 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  addAmount,
+  count,
+  createDefinitionSnapshot,
+  draw,
+  noMaximumHandSize,
+  objects,
+  staticAbility,
   compileCardRuleDefinition,
   grantNoMaximumHandSize,
   players,
@@ -25,20 +32,33 @@ describe('grantNoMaximumHandSize', () => {
       players: 2,
       hands: {
         p1: [
-          instructionSpell({ instructions: [grantNoMaximumHandSize({ targets: ref('controller') })] }),
+          instructionSpell({ instructions: [
+            draw({ count: addAmount(count(objects({ zone: 'hand', controller: 'you' })), 1), targets: ref('controller') }),
+            grantNoMaximumHandSize({ targets: ref('controller') }),
+          ] }),
           ...Array.from({ length: 8 }, () => cardTemplate('Held card')),
         ],
       },
+      libraries: { p1: Array.from({ length: 12 }, () => cardTemplate('Library card')) },
+      battlefield: { p1: [cardTemplate('Unlimited source', {
+        types: ['Artifact'],
+        ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(noMaximumHandSize())]))),
+      })] },
     }, { random: () => 0 })
     const source = server.state.zoneOrder.p1.hand[0]
     const resolved = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'castSpell', seat: 'p1', objectId: source,
     })))
+    expect(resolved.zoneOrder.p1.hand).toHaveLength(8 + 9)
+    expect(resolved.zoneOrder.p1.library).toHaveLength(12 - 9)
     expect(resolved.objects[source].zone).toBe('graveyard')
     expect(resolved.players.p1.data[NO_MAXIMUM_HAND_SIZE]).toBe(true)
     expect(maximumHandSize(resolved, 'p1')).toBeNull()
     expect(maximumHandSize(resolved, 'p2')).toBe(7)
-    expect(ok(server.rules({ ...resolved, step: 'cleanup' }, { type: 'advanceStep' })).step).toBe('untap')
+    const gone = ok(server.rules(resolved, { type: 'move', objectId: resolved.zoneOrder.p1.battlefield[0], to: 'graveyard' }))
+    expect(gone.players.p1.data.maximumHandSize).toBeUndefined()
+    expect(maximumHandSize(gone, 'p1')).toBeNull()
+    expect(ok(server.rules({ ...gone, step: 'cleanup' }, { type: 'advanceStep' })).step).toBe('untap')
   })
 
   test('a grant to another player does not lift the controller limit', () => {

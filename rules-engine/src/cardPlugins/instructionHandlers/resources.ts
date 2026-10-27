@@ -2,7 +2,6 @@ import { selectedPlayers } from '../selectors'
 import type Draft from '../../draft'
 import type { PlayerId, StackItem } from '../../types'
 import { swampCount } from '../../plugins/swampOverlay'
-import { NO_MAXIMUM_HAND_SIZE } from '../../plugins/turnStructure'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { openFreeCast } from '../../plugins/rebound'
 import { openCardSelection } from '../../rules/selectCards'
@@ -177,18 +176,6 @@ const handDifferenceDrawCount = (
   0,
   draft.zoneOrder[opponent].hand.length - draft.zoneOrder[controller].hand.length,
 )
-
-const drawHandSize: InstructionHandler<'drawHandSize'> = ({ draft, source }, instruction) => {
-  draft.enqueue({
-    type: 'draw',
-    seat: source.controller,
-    count: draft.zoneOrder[source.controller].hand.length + (instruction.plus ?? 0),
-  })
-}
-
-const noMaximumHandSize: InstructionHandler<'noMaximumHandSize'> = ({ draft, source }) => {
-  draft.players[source.controller].data[NO_MAXIMUM_HAND_SIZE] = true
-}
 
 const drawHandDifference: InstructionHandler<'drawHandDifference'> = (
   { draft, source, item },
@@ -860,8 +847,6 @@ export const resourceHandlers = {
   setAllLifeToLowest,
   gainLifeLostThisTurn,
   exchangeLifeWithOpponent,
-  drawHandSize,
-  noMaximumHandSize,
   drawHandDifference,
   winGame,
   addPlusCounters,

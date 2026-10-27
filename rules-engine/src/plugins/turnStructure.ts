@@ -36,7 +36,7 @@ export const emptyAllManaPools = (draft: Draft) => {
 
 /**
  * Permanent "no maximum hand size for the rest of the game". Kept apart from
- * `maximumHandSize` (the static grant that `noMaxHand` refreshes and clears).
+ * configured `maximumHandSize` limits and canonical static grants.
  */
 export const NO_MAXIMUM_HAND_SIZE = 'noMaximumHandSize'
 

@@ -164,10 +164,6 @@ export type CardInstruction =
   | { kind: 'gainLife'; count: number | 'triggerAmount'; to?: PlayerSelector }
   | { kind: 'damage'; amount: number; to: PlayerSelector }
   | { kind: 'drawX' }
-  /** Draw cards equal to the number of cards in your hand, plus `plus`. */
-  | { kind: 'drawHandSize'; plus?: number }
-  /** For the rest of the game you have no maximum hand size. */
-  | { kind: 'noMaximumHandSize' }
   | { kind: 'setAllLifeToLowest' }
   | { kind: 'gainLifeLostThisTurn'; who: 'controller' | 'all' }
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }

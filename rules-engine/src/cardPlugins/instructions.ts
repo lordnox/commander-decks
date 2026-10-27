@@ -621,10 +621,6 @@ export const exchangeLifeWithOpponent = (
   options: { optional?: boolean; drawLifeLost?: boolean } = {},
 ): CardInstruction => ({ kind: 'exchangeLifeWithOpponent', ...options })
 
-export const drawHandSize = (plus = 0): CardInstruction => ({ kind: 'drawHandSize', plus })
-
-export const noMaximumHandSize = (): CardInstruction => ({ kind: 'noMaximumHandSize' })
-
 export const drawHandDifference = (): CardInstruction => ({ kind: 'drawHandDifference' })
 
 export const winGame = (): CardInstruction => ({ kind: 'winGame' })
