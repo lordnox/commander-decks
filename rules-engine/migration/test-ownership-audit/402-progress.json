@@ -12637,6 +12637,62 @@
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "a token destroyed this way still gives its controller an Elephant",
       "evidence": "The exact Terastodon catalog trigger targets a Treasure token and confirms its controller receives an Elephant after the token is destroyed. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "homer:45"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "triggers when a land token enters",
+      "evidence": "The exact HOMER_NAME card fixture observes a land token created by an instruction spell and checks that player targeting opens. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:63"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "triggers when a land spell resolves",
+      "evidence": "The homerGame helper casts the land fixture as a spell, resolves it onto battlefield, and confirms a player-target selection opens. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:77"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "landfall waits for any number of player targets, then mills each target",
+      "evidence": "The test confirms zero-min player choice and priority lock, submits p2 and p4, then resolves and checks only those two libraries were milled four each. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:109"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "each sea-creature permanent counts once even with two relevant types; changeling counts a noncreature permanent as a Crab",
+      "evidence": "The helper dual-type sea-creature counts once; a separate Changeling noncreature fixture counts as Crab. Each selected target is milled four cards. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:162"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "counts sea creatures when the triggered ability resolves",
+      "evidence": "A sea creature is removed after landfall target choice but before resolution; the assertion checks the reduced mill amount. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:187"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "choosing no targets is legal",
+      "evidence": "The typed player-choice accepts an empty selection and resolves with no graveyard changes or pending choice. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
+    },
+    {
+      "groups": [
+        "homer:206"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "rejects duplicate, unknown, and wrong-controller target submissions",
+      "evidence": "The current selectPlayers route rejects duplicate players, unknown player identifiers, and submissions from a seat other than the chooser. The shared homerGame fixture uses the exact HOMER_NAME catalog card under commanderRules; current player-choice protocol is typed selectPlayers."
     }
   ],
   "retainedOwnerEvidence": [
