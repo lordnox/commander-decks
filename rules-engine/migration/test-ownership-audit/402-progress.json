@@ -13237,6 +13237,46 @@
       "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
       "suite": "the ETB draw trigger resolves even after the Wall leaves the battlefield",
       "evidence": "A minimal DSL entry-trigger fixture stacks Wall of Omens\u2019 draw trigger, moves the Wall away, resolves the trigger, and verifies the library card still reaches hand."
+    },
+    {
+      "groups": [
+        "soulsOfTheFaultless:39"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "combat damage to a watcher gains that much life and the attacker loses it",
+      "evidence": "Minimal combat-damage trigger test captures source player and exact damage amount, leaves life totals unchanged before trigger resolution, then credits the watcher controller and makes the attacker lose the matching life."
+    },
+    {
+      "groups": [
+        "soulsOfTheFaultless:67"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "the combat-damage life swap still resolves after lethal damage",
+      "evidence": "Four lethal combat damage removes the watcher before its trigger resolves; the trigger still awards four life and makes the attacker lose four."
+    },
+    {
+      "groups": [
+        "soulsOfTheFaultless:83"
+      ],
+      "destination": "rules-engine/src/cardPlugins/lifeEffects.test.ts",
+      "suite": "noncombat damage and damage the watcher deals do not trigger the swap",
+      "evidence": "The generic watcher mechanic suite verifies both noncombat damage and watcher-as-source damage do not trigger the exchange."
+    },
+    {
+      "groups": [
+        "stonySilence.integration:39"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts",
+      "suite": "Stony Silence rejects artifact activations and mana shortcuts before costs",
+      "evidence": "Minimal canonical DSL restriction fixture rejects an artifact ability and tapForMana shortcut while restriction is active; action feed omits the prohibited shortcut."
+    },
+    {
+      "groups": [
+        "stonySilence.integration:59"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts",
+      "suite": "abilities already on the stack still resolve after Stony Silence arrives",
+      "evidence": "Minimal DSL integration puts the draw ability on stack, introduces the restriction, verifies future activation is prohibited, then resolves the existing ability successfully."
     }
   ],
   "retainedOwnerEvidence": [
