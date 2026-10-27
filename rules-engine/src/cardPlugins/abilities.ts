@@ -1,6 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -102,11 +102,6 @@ export const payLifeX = (
 export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
 
 export const delve = (): CardEffect => ({ op: 'castCost', delve: true })
-
-export const gift = (spec: GiftSpec): CardEffect => ({
-  op: 'castCost',
-  gift: spec,
-})
 
 export const reduceGenericIf = (
   amount: number,

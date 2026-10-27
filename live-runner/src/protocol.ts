@@ -113,8 +113,6 @@ type InboxPayload =
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
-      giftPromised?: boolean
-      giftRecipientId?: string
       announcementId?: string
       transactionId?: string
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
@@ -257,8 +255,6 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const text = message.text
       const attackers = message.attackers
       const x = message.x
-      const giftPromised = message.giftPromised
-      const giftRecipientId = message.giftRecipientId
       const blockers = message.blockers
       const announcementId = message.announcementId
       const transactionId = message.transactionId
@@ -408,8 +404,6 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
           : {}),
         ...(typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? { x } : {}),
-        ...(giftPromised === true ? { giftPromised: true } : {}),
-        ...(typeof giftRecipientId === 'string' ? { giftRecipientId } : {}),
       })
     }
     case OPTIONAL_DRAW_MODE_MESSAGE:

@@ -80,7 +80,6 @@ export const prepareSelectPlayersChoice = (kernel: KernelHandle, lobby: LobbySta
   const seat = playerSelection.seat
   const phase = (() => {
     switch (playerSelection.action.kind) {
-      case 'finishGiftCast': return 'announcement' as const
       case 'putTriggeredAbility': return 'triggerPlacement' as const
       default: return 'resolution' as const
     }

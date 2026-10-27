@@ -472,8 +472,6 @@ export type StackItem = {
   choices?: string[]
   /** Mana actually removed from the pool while casting, by symbol. */
   manaSpent?: Partial<ManaPool>
-  giftPromised?: boolean
-  giftRecipient?: PlayerId
   castOption?: string
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
@@ -1184,8 +1182,6 @@ export type GameEvent =
       /** Announcement-time distribution allocations keyed by modal scope. */
       distributionBindings?: DistributionAllocation[]
       additionalGeneric?: number
-      giftPromised?: boolean
-      giftRecipient?: PlayerId
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'

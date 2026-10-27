@@ -684,18 +684,6 @@ export const reanimateCreatureFromGraveyards = (
   ...(addSubtype ? { addSubtype } : {}),
 })
 
-export const ifGiftPromised = (...whenTrue: CardInstruction[]): CardInstruction => ({
-  kind: 'if',
-  if: { kind: 'giftPromised' },
-  whenTrue,
-})
-
-export const ifGiftNotPromised = (...whenTrue: CardInstruction[]): CardInstruction => ({
-  kind: 'if',
-  if: { kind: 'giftNotPromised' },
-  whenTrue,
-})
-
 export const hiddenPileNegotiation = (
   pileSize: number,
   lifeLoss: number,

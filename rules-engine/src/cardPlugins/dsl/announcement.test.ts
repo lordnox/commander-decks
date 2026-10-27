@@ -4,6 +4,7 @@ import { createJournal, restoreJournal } from '../../journal'
 import { describe, expect, test } from 'bun:test'
 import {
   createPlayerEffect,
+  createToken,
   PLAYER_EFFECTS,
   PLAYER_EFFECT_DURATIONS,
   ifThen,
@@ -1365,4 +1366,41 @@ test.each([{ selectedOptionalCosts: [1] }, { selectedOptionalCosts: [0, 1] }])('
   expect(resolved.zoneOrder.p1.hand).toHaveLength(both ? 3 : 2)
   expect(resolved.objects[objectId].zone).toBe('graveyard')
   expect(resolved.stack).toHaveLength(0)
+})
+
+test.each([false, true])('optional player receipts control delivery and both program branches after restore (promised=%s)', promised => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    hands: { p1: [instructionSpell({
+      optionalCosts: [choosePlayerCost(players({ relation: 'opponent' }))],
+      instructions: [
+        ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), {
+          then: [
+            createToken({ count: 1, targets: paidCostPlayer(0), tapped: true, token: { name: 'Gift token', types: ['Creature'], subtypes: ['Fish'], power: 1, toughness: 1 } }),
+            draw({ count: 1, targets: paidCostPlayer(0) }),
+            gainLife({ amount: 5, targets: ref('controller') }),
+          ],
+          otherwise: [gainLife({ amount: 1, targets: ref('controller') })],
+        }),
+        draw(1),
+      ],
+    })] },
+    libraries: { p1: [cardTemplate('Controller draw')], p2: [cardTemplate('Recipient draw')] },
+  }, { random: () => 0.5 })
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId,
+    ...(promised ? { selectedOptionalCosts: [0], costPlayers: { 0: 'p2' } } : {}),
+  }))
+  expect(cast.zoneOrder.p2.battlefield).toHaveLength(0)
+  expect(cast.zoneOrder.p2.hand).toHaveLength(0)
+  const restored = restoreJournal(createJournal(cast), server.rules).current()
+  const resolved = resolveStack(server.rules, restored)
+  expect(resolved.players.p1.life).toBe(promised ? 45 : 41)
+  expect(resolved.zoneOrder.p1.hand.map(id => resolved.objects[id].name)).toEqual(['Controller draw'])
+  expect(resolved.zoneOrder.p2.hand.map(id => resolved.objects[id].name)).toEqual(promised ? ['Recipient draw'] : [])
+  const tokens = resolved.zoneOrder.p2.battlefield.map(id => resolved.objects[id])
+  expect(tokens).toHaveLength(promised ? 1 : 0)
+  if (promised) expect(tokens[0]).toMatchObject({ token: true, controller: 'p2', tapped: true, subtypes: ['Fish'], power: 1, toughness: 1 })
+  expect(resolved.zoneOrder.p3.battlefield).toHaveLength(0)
+  expect(resolved.objects[objectId].zone).toBe('graveyard')
 })

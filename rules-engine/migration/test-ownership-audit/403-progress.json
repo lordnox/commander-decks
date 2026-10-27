@@ -568,17 +568,17 @@
       "groups": [
         "dackPartyPart35:200"
       ],
-      "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
+      "destination": "rules-engine/src/cardPlugins/dsl/extraTurns.test.ts",
       "suite": "Perch Protection gifts an extra turn and phases out on the promised gift",
-      "evidence": "The old Perch case was removed from dackPartyPart35.test.ts by c58d7804. The catalog integration chooses p2 through the canonical cost-choice action, verifies the promised gift and extra turn recipient, and checks the source phases out. Generic finishGiftCast pending-choice coverage remains in this owner as opens selectPlayers when gift is promised without a recipient. Manually checked named Perch Protection cast through gift-cost actions: finishing the gift cast is pending, another player's projection hides the chooser, resolution creates four Birds, phases out Held Bear, and grants the expected p2 extra turn."
+      "evidence": "The existing catalog integration moved to dsl/extraTurns.test.ts without changing its outcomes: offers p2/p3/p4 through canonical optional-player costs, records optional [0] with player p2, creates four Birds, phases out Held Bear and grants p2 an extra turn. The separate legacy finishGiftCast pending action is retired with the plugin. Canonical optional-player announcement tests own supplied-choice validation and receipts; playerPrograms.test.ts owns private typed player choices and restore."
     },
     {
       "groups": [
         "dackPartyPart35:297"
       ],
-      "destination": "rules-engine/src/cardPlugins/giftCast.test.ts",
+      "destination": "rules-engine/src/cardPlugins/dsl/extraTurns.test.ts",
       "suite": "Perch Protection gift recipient survives JSON restore and is hidden from another player",
-      "evidence": "The old recipient continuation case was removed from dackPartyPart35.test.ts by c58d7804. The canonical Perch integration JSON-restores the actual stack announcement with p3 captured, verifies opponent privacy and p3 extra turn. Generic finishGiftCast continuation separately JSON-roundtrips a live private pendingPlayerSelection, finishes it with p3, and checks giftRecipient p3 with no pending choice left. Manually checked named Perch Protection JSON restore route: gift-cast choice remains hidden from p2, restored stack records p3 as recipient, and the pending action remains finishGiftCast. The associated first lifecycle row verifies resulting phase-out/extra-turn outcomes."
+      "evidence": "The existing catalog integration moved to dsl/extraTurns.test.ts: canonical optional-player cost receipt for p3 survives JSON restore, opponent p2 has no pending player selection for p1, and resolution grants the p3 extra turn. Generic finishGiftCast picker/state shapes are retired API contracts; canonical supplied-choice announcements and generic private typed player-program choices retain their own validation, projection and restore coverage."
     },
     {
       "groups": [
