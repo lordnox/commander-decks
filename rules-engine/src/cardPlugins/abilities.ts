@@ -1,6 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardCondition, CardEffect, CardInstruction, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -95,22 +95,6 @@ export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const energyCost = (amount: number): ActivateCost => ({ energy: amount })
 
-export const payLifeX = (
-  options: { timing?: 'yourEndStep' } = {},
-): CardEffect => ({ op: 'castCost', lifeX: true, ...options })
-
-export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
-
-export const delve = (): CardEffect => ({ op: 'castCost', delve: true })
-
-export const reduceGenericIf = (
-  amount: number,
-  condition: CastCostCondition,
-): CardEffect => ({
-  op: 'castCost',
-  reduceGeneric: { amount, if: condition },
-})
-
 export const alternateCast = (
   id: string,
   label: string,
@@ -190,11 +174,6 @@ export const escape = (
 )
 
 export const uncounterable = (): CardEffect => ({ op: 'spellTrait', uncounterable: true })
-
-export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
-  op: 'castCost',
-  xMana: color,
-})
 
 export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
   yourUpkeep(putPermanentFromGraveyard())

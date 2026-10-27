@@ -15,9 +15,7 @@ import type {
   RestrictedMana,
   TargetRef,
 } from '../types'
-import type { CastCostCondition } from '../cardPlugins/effectDefinitions'
 import { searchEffect } from '../cardPlugins/effects'
-import { conditionHolds } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
 import {
   alternateCastEffect,
@@ -28,7 +26,6 @@ import {
 } from '../cardPlugins/alternateCosts'
 import { canPlayExiledWithLife } from '../cardPlugins/exiledWith'
 import { manaValueOf } from '../cardPlugins/effects'
-import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { consumeSpellCast, matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
 import { canonicalSpellPermission } from '../cardPlugins/dsl/playPermissions'
@@ -112,7 +109,6 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        targets: event.targets,
         seat: event.seat,
         selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
@@ -222,27 +218,10 @@ export const announcementSource = (
   ? { ...object, manaCost: printedAlternateManaCost(selected, object) }
   : object
 
-const xManaKind = (object: GameObject) =>
-  effectsOf(object).flatMap((effect) =>
-    effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
-
-
 export const reduceGenericManaCost = (manaCost: string, amount: number) => {
   const reduced = Math.max(0, genericCost(manaCost) - amount)
   const nonGeneric = manaCost.replaceAll(/\{\d+\}/g, '')
   return `${reduced > 0 ? `{${reduced}}` : ''}${nonGeneric}`
-}
-
-const reductionApplies = (
-  state: GameState,
-  object: GameObject,
-  condition: CastCostCondition,
-  targets: TargetRef[],
-  seat: PlayerId,
-) => {
-  if (condition.kind !== 'target') return conditionHolds(condition, state, object)
-  return targets.some((target) =>
-    validTargetRef(state, target, condition.filter, seat))
 }
 
 export const spellCost = (
@@ -252,7 +231,6 @@ export const spellCost = (
     additionalGeneric?: number
     x?: number
     castOption?: string
-    targets?: TargetRef[]
     seat?: PlayerId
     selected?: AlternateCastEffect
     withoutPayingMana?: boolean
@@ -268,9 +246,7 @@ export const spellCost = (
     ? effectsOf(object).find((effect) => effect.op === 'bestow')
     : undefined
   const x = options.x ?? 0
-  const xCost = xManaKind(object) === 'black'
-    ? '{B}'.repeat(x)
-    : x > 0 ? `{${x}}` : ''
+  const xCost = x > 0 ? `{${x}}` : ''
   const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
   const base = options.withoutPayingMana || options.castOption === 'exiledWithLife'
     ? ''
@@ -280,19 +256,7 @@ export const spellCost = (
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }`
-  const reduction = effectsOf(object).reduce((amount, effect) =>
-    effect.op === 'castCost'
-      && effect.reduceGeneric
-      && reductionApplies(
-        state,
-        object,
-        effect.reduceGeneric.if,
-        options.targets ?? [],
-        options.seat ?? object.controller,
-      )
-      ? amount + effect.reduceGeneric.amount
-      : amount, 0)
-  return reduceGenericManaCost(total, reduction)
+  return total
 }
 
 const cannotBeCountered = (object: GameObject) => {
@@ -472,12 +436,10 @@ const paySpellCost = (
 }
 
 export const hasConvoke = (object: GameObject) =>
-  effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
-  || compiledCanonicalHasCost(object, 'convoke')
+  compiledCanonicalHasCost(object, 'convoke')
 
 export const hasDelve = (object: GameObject) =>
-  effectsOf(object).some((effect) => effect.op === 'castCost' && effect.delve)
-  || compiledCanonicalHasCost(object, 'delve')
+  compiledCanonicalHasCost(object, 'delve')
 
 const installGrantedRules = (draft: Draft, object: GameObject) => {
   for (const pluginId of object.grantedRules) {
@@ -531,7 +493,6 @@ export const spells: Plugin = {
           additionalGeneric: event.additionalGeneric,
           x: event.x,
           castOption: event.castOption,
-          targets: event.targets,
           seat: event.seat,
           selected,
           withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
@@ -710,7 +671,6 @@ export const spells: Plugin = {
                   additionalGeneric: event.additionalGeneric,
                   x: event.x,
                   castOption: event.castOption,
-                  targets: event.targets,
                   seat: event.seat,
                   selected,
                   withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
@@ -832,7 +792,6 @@ export const spells: Plugin = {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        targets: event.targets,
         seat: event.seat,
         selected,
         withoutPayingMana: freeCast,
@@ -953,7 +912,6 @@ export const spells: Plugin = {
               additionalGeneric: event.additionalGeneric,
               x: event.x,
               castOption: event.castOption,
-              targets: event.targets,
               seat: event.seat,
               selected,
               withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
@@ -975,7 +933,6 @@ export const spells: Plugin = {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        targets: event.targets,
         seat: event.seat,
         selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,

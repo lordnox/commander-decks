@@ -647,14 +647,6 @@ const canCastAtTiming = (
     && !fromPermissionZone
   ) return false
   if (!permission?.takeControl && (object.owner !== seat || object.controller !== seat)) return false
-  const endStepOnly = effectsOf(object).some(
-    (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',
-  )
-  if (
-    !withoutPayingMana
-    && endStepOnly
-    && (state.active !== seat || state.step !== 'end')
-  ) return false
   const spellAbility = canonicalSpellProgram(object)
   if (
     !withoutPayingMana
@@ -850,8 +842,8 @@ const canonicalSpellProgram = (object: GameObject) => object.ruleDefinition
   ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
   : undefined
 
-const paysVariableLife = (object: GameObject) => effectsOf(object).some(effect => effect.op === 'castCost' && effect.lifeX)
-  || canonicalSpellProgram(object)?.costs.some(cost => cost.kind === 'life' && cost.amount.kind === 'variable') === true
+const paysVariableLife = (object: GameObject) =>
+  canonicalSpellProgram(object)?.costs.some(cost => cost.kind === 'life' && cost.amount.kind === 'variable') === true
 
 const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameObject, action: Extract<AvailableAction, { kind: 'castSpell' }>, partial = false) => {
   try {
@@ -963,10 +955,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const paysLifeX = paysVariableLife(object)
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
-  const hasTargetReduction = effectsOf(object).some((effect) =>
-    effect.op === 'castCost'
-    && effect.reduceGeneric?.if.kind === 'target')
-    || Boolean(object.ruleDefinition && loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.some(ability => ability.kind === 'spell' && costsDependOnTargets(ability.costReductions)))
+  const hasTargetReduction = Boolean(object.ruleDefinition && loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.some(ability => ability.kind === 'spell' && costsDependOnTargets(ability.costReductions)))
   const canonicalAbility = object.ruleDefinition
     ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
     : undefined
@@ -1916,16 +1905,10 @@ const targetVariants = (
     if (candidate.kind !== 'castSpell') return false
     const face = castFaceOf(source)
     const spell = face ? { ...source, ...face } : source
-    const targets = candidate.targetObjectId
-      ? [{ kind: 'object' as const, objectId: candidate.targetObjectId }]
-      : candidate.targetPlayerId
-        ? [{ kind: 'player' as const, player: candidate.targetPlayerId }]
-        : []
     const delveMax = candidate.targetGroups?.find((group) => group.delve)?.max ?? 0
     return canFund(state, seat, reduceGenericManaCost(canonicalActionManaCost(state, seat, source, candidate) ?? spellCost(state, spell, {
       additionalGeneric: taxFor(state, seat, source),
       castOption: candidate.castOption,
-      targets,
       seat,
       withoutPayingMana: candidate.alternativeCost === 'withoutPayingMana',
     }), delveMax), {
@@ -2668,10 +2651,6 @@ export const eventsForAvailableAction = (
   const playerAura = object
     ? Boolean(enchantPlayerTargets(state, object)) || effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
-  const hasDeclarativeAdditionalCost = object
-    ? effectsOf(object).some((effect) =>
-        effect.op === 'castCost' && effect.lifeX)
-    : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.
   const face = object
@@ -2711,10 +2690,7 @@ export const eventsForAvailableAction = (
       && !entryChoice
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(spellText)
     )
-    || (
-      /additional cost/i.test(spellText)
-      && !hasDeclarativeAdditionalCost
-    )
+    || /additional cost/i.test(spellText)
   ) {
     if (!['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(object?.name ?? '')) {
       return null
@@ -2767,7 +2743,6 @@ export const eventsForAvailableAction = (
     additionalGeneric: tax,
     x: action.x,
     castOption: alternative?.id ?? action.castOption,
-    targets,
     seat,
     withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
   }), action.delve?.length ?? 0)

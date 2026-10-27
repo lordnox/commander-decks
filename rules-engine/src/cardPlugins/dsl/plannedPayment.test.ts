@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
   manaCost,
+  compareAmount,
+  count,
   collectEvidence,
   move,
   objects,
@@ -171,11 +173,11 @@ describe('persisted planned payment workflow', () => {
       costs: [{ kind: 'sacrifice', filter: objects({ zone: 'battlefield', type: 'Creature' }), count: amount(1) }],
       decisions: { targets: [] }, instructions: [{ kind: 'addMana', amount: { C: amount(2) }, targets: ref('controller') }],
     }])))
-    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{2}')], decisions: { targets: [] }, instructions: [] }])))
+    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{2}')], costReductions: [{ generic: amount(1), when: compareAmount(count(objects({ zone: 'battlefield', type: 'Creature', controller: 'you' })), 'gte', 1) }], decisions: { targets: [] }, instructions: [] }])))
     const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [
       cardTemplate('Cost-changing mana source', { types: ['Artifact'], ruleDefinition: sourceDefinition }),
       cardTemplate('Cost-reducing creature', { types: ['Creature'], power: 2, toughness: 2 }),
-    ] }, hands: { p1: [cardTemplate('Reduced locked spell', { types: ['Sorcery'], manaCost: '{2}', ruleDefinition: spellDefinition, effects: [{ op: 'castCost', reduceGeneric: { amount: 1, if: { kind: 'controlledCreaturePower', min: 1 } } }] })] } }, { random: () => 0 })
+    ] }, hands: { p1: [cardTemplate('Reduced locked spell', { types: ['Sorcery'], manaCost: '{2}', ruleDefinition: spellDefinition })] } }, { random: () => 0 })
     const source = Object.values(server.state.objects).find((object) => object.name === 'Cost-changing mana source')!
     const creature = Object.values(server.state.objects).find((object) => object.name === 'Cost-reducing creature')!
     const spell = Object.values(server.state.objects).find((object) => object.name === 'Reduced locked spell')!
