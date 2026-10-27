@@ -2348,6 +2348,86 @@
       "destination": "rules-engine/src/cardPlugins/dsl/escape.test.ts",
       "suite": "catalog Cling to Dust pays five other graveyard cards before resolving its target",
       "evidence": "The historical source file is already absent on current main. Restored its surviving behavior as a canonical catalog integration in escape.test.ts, including exact cost cardinality, rejecting the spell itself as a cost, exiling the five costs and target, returning Cling to Dust to the graveyard, and gaining three life."
+    },
+    {
+      "groups": [
+        "cirdanStatics:129"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "the layer is inactive before its source enters",
+      "evidence": "The exact pre-entry assertions are restored: Ally Bear lacks hexproof, Shrouded Elf retains printed hexproof, and both target legality checks run before the source enters. Then the same canonical helper moves the generic Hexproof Boar fixture onto the battlefield."
+    },
+    {
+      "groups": [
+        "cirdanStatics:137"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "your creatures have hexproof and opposing creatures lose a printed hexproof",
+      "evidence": "The generic staticBoardPump fixture grants to your creatures, including itself, and suppresses printed hexproof on two opposing players. The test checks noncreature exclusion and unchanged stats for the 4/4 source and 2/2 ally."
+    },
+    {
+      "groups": [
+        "cirdanStatics:153"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "targeting honors the granted and suppressed hexproof",
+      "evidence": "The targetOnResolve creature spell is attempted from each relevant side: p2 and p3 cannot target the protected ally/source, while p1 can target its own creatures and the opponent creatures whose printed hexproof is suppressed."
+    },
+    {
+      "groups": [
+        "cirdanStatics:162"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "opponents can target one another while your layer suppresses printed hexproof",
+      "evidence": "The suite retains p1 targeting a printed-hexproof opponent after suppression and p2 targeting a third-player creature, using the same generic probe fixtures."
+    },
+    {
+      "groups": [
+        "cirdanStatics:170"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
+      "suite": "cannot-gain suppression overrides printed, static, and temporary grants regardless of source order (%s)",
+      "evidence": "Canonical mechanic coverage uses exchangeable suppressor/grantor fixtures in both source orders. It checks printed, static, and until-cleanup hexproof grants remain suppressed, unrelated artifact behavior, source departure, and cleanup."
+    },
+    {
+      "groups": [
+        "cirdanStatics:193"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "removing the source restores printed hexproof and drops the granted hexproof",
+      "evidence": "The current mechanic test checks the pre-removal protected/unprotected target outcomes, moves the source to the graveyard, then confirms granted hexproof drops, printed hexproof returns, and target legality changes accordingly."
+    },
+    {
+      "groups": [
+        "cirdanStatics:204"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "a creature arriving later is covered by the same layer",
+      "evidence": "The exchangeable late creature starts without hexproof, enters under the active layer, then gains hexproof and becomes an illegal target for the opponent."
+    },
+    {
+      "groups": [
+        "cirdanStatics:215"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "a creature that changes controller loses the old controller\u2019s grant",
+      "evidence": "The test checks the creature first has the original controller\u2019s grant, changes its controller through the generic move event, then checks new controller and loss of that grant."
+    },
+    {
+      "groups": [
+        "cirdanStatics:229"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "each source suppresses the other source, then the surviving grant returns",
+      "evidence": "Two generic staticBoardPump sources cancel each other\u2019s hexproof grant/suppression; removing the rival restores the surviving source\u2019s grant and opponent targeting restriction."
+    },
+    {
+      "groups": [
+        "cirdanStatics:251"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
+      "suite": "hexproof also rejects an opposing activated ability target",
+      "evidence": "The generic Fixture Poker activated ability uses the same battlefield Creature target filter as the instant probe. With the source\u2019s layer active, the opponent\u2019s activateAbility request against Ally Bear is rejected."
     }
   ],
   "retainedOwnerEvidence": [

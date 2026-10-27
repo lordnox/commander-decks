@@ -5,7 +5,8 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { staticBoardPump, targetOnResolve } from './effects'
+import { activate, staticBoardPump, targetOnResolve } from './effects'
+import { activated } from './activated'
 import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
@@ -120,29 +121,52 @@ const archetype = () => cardTemplate('Hexproof Boar', {
   ],
 })
 
+const poker = () => cardTemplate('Fixture Poker', {
+  types: ['Creature'],
+  effects: [activate({
+    id: 'poker.poke',
+    costs: {},
+    targets: { filter: { zone: 'battlefield', type: 'Creature' } },
+    do: [{ kind: 'gainLife', count: 1 }],
+  })],
+})
+
 const probe = (name: string) => cardTemplate(name, {
   types: ['Instant'],
   effects: [targetOnResolve('select', { zone: 'battlefield', type: 'Creature' })],
 })
 
 describe('static hexproof layer', () => {
-  const hexproofGame = () => {
+  const hexproofGame = (withRival = false) => {
     const server = createServerGame(
       commanderRules,
       {
-        hands: { p1: [probe('Probe One')], p2: [probe('Probe Two')] },
+        players: 3,
+        hands: {
+          p1: [archetype(), probe('Probe One')],
+          p2: [probe('Probe Two')],
+          p3: [probe('Probe Three')],
+        },
         battlefield: {
-          p1: [archetype(), cardTemplate('Ally Bear', { types: ['Creature'] })],
+          p1: [cardTemplate('Ally Bear', { types: ['Creature'], power: 2, toughness: 2 }), cardTemplate('Ally Relic', { types: ['Artifact'] })],
           p2: [
+            ...(withRival ? [archetype()] : []),
             cardTemplate('Shrouded Elf', { types: ['Creature'], oracleText: 'Hexproof' }),
             cardTemplate('Enemy Bear', { types: ['Creature'] }),
+            poker(),
           ],
+          p3: [cardTemplate('Third Bear', { types: ['Creature'] })],
         },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
+      { random: () => 0.5, cardPlugins: [targetedResolve, activated] },
     )
-    const state = ok(server.rules(server.state, { type: 'custom', name: 'staticBoardPump.sync' }))
-    const casts = (from: 'p1' | 'p2', probeName: string, target: string, at = state) => server.rules(
+    const start = server.state
+    const state = ok(server.rules(start, {
+      type: 'move',
+      objectId: named(start, 'Hexproof Boar').id,
+      to: 'battlefield',
+    }))
+    const casts = (from: 'p1' | 'p2' | 'p3', probeName: string, target: string, at = state) => server.rules(
       { ...at, priority: from },
       {
         type: 'castSpell',
@@ -151,8 +175,16 @@ describe('static hexproof layer', () => {
         targets: [{ kind: 'object', objectId: named(at, target).id }],
       },
     ).ok
-    return { server, state, casts }
+    return { server, start, state, casts }
   }
+
+  test('the layer is inactive before its source enters', () => {
+    const { start, casts } = hexproofGame()
+    expect(hasKeyword(named(start, 'Ally Bear'), 'hexproof')).toBe(false)
+    expect(hasKeyword(named(start, 'Shrouded Elf'), 'hexproof')).toBe(true)
+    expect(casts('p2', 'Probe Two', 'Ally Bear', start)).toBe(true)
+    expect(casts('p1', 'Probe One', 'Shrouded Elf', start)).toBe(false)
+  })
 
   test('your creatures have hexproof and opposing creatures lose a printed hexproof', () => {
     const { state } = hexproofGame()
@@ -160,15 +192,64 @@ describe('static hexproof layer', () => {
     expect(hasKeyword(named(state, 'Hexproof Boar'), 'hexproof')).toBe(true)
     expect(hasKeyword(named(state, 'Shrouded Elf'), 'hexproof')).toBe(false)
     expect(hasKeyword(named(state, 'Enemy Bear'), 'hexproof')).toBe(false)
+    expect(hasKeyword(named(state, 'Third Bear'), 'hexproof')).toBe(false)
+    expect(hasKeyword(named(state, 'Ally Relic'), 'hexproof')).toBe(false)
+    expect(stats(state, 'Hexproof Boar')).toEqual([4, 4])
+    expect(stats(state, 'Ally Bear')).toEqual([2, 2])
   })
 
   test('targeting honors the granted and suppressed hexproof', () => {
     const { casts } = hexproofGame()
     expect(casts('p2', 'Probe Two', 'Ally Bear')).toBe(false)
     expect(casts('p2', 'Probe Two', 'Hexproof Boar')).toBe(false)
+    expect(casts('p3', 'Probe Three', 'Hexproof Boar')).toBe(false)
     expect(casts('p1', 'Probe One', 'Shrouded Elf')).toBe(true)
     expect(casts('p1', 'Probe One', 'Enemy Bear')).toBe(true)
     expect(casts('p1', 'Probe One', 'Ally Bear')).toBe(true)
+  })
+
+  test('opponents can target one another while your layer suppresses printed hexproof', () => {
+    const { casts } = hexproofGame()
+    expect(casts('p1', 'Probe One', 'Shrouded Elf')).toBe(true)
+    expect(casts('p2', 'Probe Two', 'Third Bear')).toBe(true)
+  })
+
+  test('a creature that changes controller loses the old controller’s grant', () => {
+    const { server, state } = hexproofGame()
+    const ally = named(state, 'Ally Bear')
+    expect(hasKeyword(ally, 'hexproof')).toBe(true)
+    const changed = ok(server.rules(state, {
+      type: 'move',
+      objectId: ally.id,
+      to: 'battlefield',
+      controller: 'p2',
+    }))
+    expect(named(changed, 'Ally Bear').controller).toBe('p2')
+    expect(hasKeyword(named(changed, 'Ally Bear'), 'hexproof')).toBe(false)
+  })
+
+  test('each source suppresses the other source, then the surviving grant returns', () => {
+    const { server, state, casts } = hexproofGame(true)
+    const sources = Object.values(state.objects).filter(object => object.name === 'Hexproof Boar')
+    expect(sources.map(object => object.zone).sort()).toEqual(['battlefield', 'battlefield'])
+    expect(hasKeyword(named(state, 'Ally Bear'), 'hexproof')).toBe(false)
+    expect(hasKeyword(named(state, 'Shrouded Elf'), 'hexproof')).toBe(false)
+    expect(casts('p2', 'Probe Two', 'Ally Bear')).toBe(true)
+    const gone = ok(server.rules(state, { type: 'move', objectId: sources.find(object => object.controller === 'p2')!.id, to: 'graveyard' }))
+    expect(hasKeyword(named(gone, 'Ally Bear'), 'hexproof')).toBe(true)
+    expect(casts('p2', 'Probe Two', 'Ally Bear', gone)).toBe(false)
+  })
+
+  test('hexproof also rejects an opposing activated ability target', () => {
+    const { server, state } = hexproofGame()
+    const result = server.rules({ ...state, active: 'p2', priority: 'p2' }, {
+      type: 'activateAbility',
+      seat: 'p2',
+      objectId: named(state, 'Fixture Poker').id,
+      abilityId: 'poker.poke',
+      targets: [{ kind: 'object', objectId: named(state, 'Ally Bear').id }],
+    })
+    expect(result.ok).toBe(false)
   })
 
   test('removing the source restores printed hexproof and drops the granted hexproof', () => {
