@@ -1,20 +1,13 @@
 import { zoneMechanic } from '../cardPlugins/dsl/alternateMechanics'
 import { payCost } from './spells'
-import { effectsOf } from '../cardPlugins/cardRules'
 import type { AlternateCastEffect } from '../cardPlugins/alternateCosts'
-import type { CardEffect } from '../cardPlugins/effectDefinitions'
 import { isKnownTo, markKnownToAll } from '../knowledge'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
 export const FORETELL_CAST_ID = 'foretell'
 export const FORETELL_ACTION_COST = '{2}'
 
-export type ForetellEffect = Extract<CardEffect, { op: 'foretell' }>
-
-export const foretellEffects = (object: GameObject) =>
-  effectsOf(object).filter((effect): effect is ForetellEffect => effect.op === 'foretell')
-
-export const foretellCostOf = (object: GameObject) => zoneMechanic(object, 'foretell')?.manaCost ?? foretellEffects(object)[0]?.manaCost
+export const foretellCostOf = (object: GameObject) => zoneMechanic(object, 'foretell')?.manaCost
 
 export const hasForetell = (object: GameObject) => foretellCostOf(object) !== undefined
 

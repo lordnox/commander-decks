@@ -155,11 +155,6 @@ export const embalm = (
   }],
 })
 
-export const foretell = (manaCost: string): CardEffect => ({
-  op: 'foretell',
-  manaCost,
-})
-
 export const escape = (
   manaCost: string,
   exileCount: number,
