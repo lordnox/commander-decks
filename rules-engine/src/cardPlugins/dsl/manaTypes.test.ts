@@ -4,7 +4,8 @@ import { deckCardTemplate } from '../../deckCardFixtures'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { activatedManaOptions } from '../manaChoice'
 import { manaModes } from '../../plugins/mana'
@@ -121,3 +122,32 @@ test('card-color mana queries use only current linked identities and feed produc
   expect(manaModes(state.objects[source.id], state)).toEqual([{ C: 1 }])
   expect(manaModes(named(state, 'Query fixture'), state)).toEqual([{ C: 1 }])
 })
+
+
+test('catalog Pit of Offerings links only its chosen graveyard card for color production', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Pit of Offerings')] },
+    libraries: { p1: [cardTemplate('Blue Card', { types: ['Instant'], colors: 'U', zone: 'graveyard' }), cardTemplate('Black Card', { types: ['Instant'], colors: 'B', zone: 'graveyard' })] },
+  }, { random: () => 0 })
+  const pit = named(server.state, 'Pit of Offerings')
+  const entered = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: pit.id }))
+  const targets = pendingSelectionFor(entered, 'p1')!
+  const blue = named(entered, 'Blue Card')
+  const black = named(entered, 'Black Card')
+  expect(targets.candidates).toEqual(expect.arrayContaining([blue.id, black.id]))
+  const stacked = ok(server.rules(entered, {
+    type: 'selectCards', seat: 'p1', selectionId: targets.id, kind: 'choose', count: targets.count, objectIds: [blue.id],
+  }))
+  const resolved = resolveStack(server.rules, stacked)
+  expect(resolved.objects[blue.id]).toMatchObject({ zone: 'exile', exiledWith: pit.id })
+  expect(resolved.objects[black.id].zone).toBe('graveyard')
+  const restored = JSON.parse(JSON.stringify(resolved)) as typeof resolved
+  expect(restored.linkedExileSets).toEqual(resolved.linkedExileSets)
+  const ready = structuredClone(restored)
+  ready.objects[pit.id].tapped = false
+  expect(ok(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: pit.id, mana: 'U' })).players.p1.mana.U).toBe(1)
+  expect(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: pit.id, mana: 'B' }).ok).toBe(false)
+})
+
+
