@@ -12885,6 +12885,38 @@
       "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
       "suite": "the pump goes away with the Baloth",
       "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
+    },
+    {
+      "groups": [
+        "delightedHalfling:53"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetingMana.test.ts",
+      "suite": "{T}: Add {C} is unrestricted and pays for anything",
+      "evidence": "The Delighted Halfling test uses the catalog deck fixture and the live tapForMana/castSpell/advanceStep runtime. It verifies colorless mana is unrestricted, green mana is restricted to legendary casting and marks that spell uncounterable, unused restricted mana expires at the next step, and summoning sickness/tapped state reject activation."
+    },
+    {
+      "groups": [
+        "delightedHalfling:63"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetingMana.test.ts",
+      "suite": "the colored mana is kept apart and pays only for a legendary spell, which becomes uncounterable",
+      "evidence": "The Delighted Halfling test uses the catalog deck fixture and the live tapForMana/castSpell/advanceStep runtime. It verifies colorless mana is unrestricted, green mana is restricted to legendary casting and marks that spell uncounterable, unused restricted mana expires at the next step, and summoning sickness/tapped state reject activation."
+    },
+    {
+      "groups": [
+        "delightedHalfling:75"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetingMana.test.ts",
+      "suite": "the restricted mana is lost when the step ends",
+      "evidence": "The Delighted Halfling test uses the catalog deck fixture and the live tapForMana/castSpell/advanceStep runtime. It verifies colorless mana is unrestricted, green mana is restricted to legendary casting and marks that spell uncounterable, unused restricted mana expires at the next step, and summoning sickness/tapped state reject activation."
+    },
+    {
+      "groups": [
+        "delightedHalfling:81"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetingMana.test.ts",
+      "suite": "a summoning-sick source cannot tap, and a tapped one cannot tap again",
+      "evidence": "The Delighted Halfling test uses the catalog deck fixture and the live tapForMana/castSpell/advanceStep runtime. It verifies colorless mana is unrestricted, green mana is restricted to legendary casting and marks that spell uncounterable, unused restricted mana expires at the next step, and summoning sickness/tapped state reject activation."
     }
   ],
   "retainedOwnerEvidence": [
