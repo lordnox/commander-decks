@@ -26,7 +26,7 @@ describe('effectDuration', () => {
       battlefield: { p1: [cardTemplate(name, { summoningSickness: true })] },
     }, { random: () => 0 })
     const id = server.state.zoneOrder.p1.battlefield[0]!
-    server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, ...mana }
+    Object.assign(server.state.players.p1.mana, mana)
     const activated = server.rules(server.state, {
       type: 'activateAbility', seat: 'p1', objectId: id, abilityId, ...(x === undefined ? {} : { x }),
     })
