@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 18,
+    "cardEffects": 17,
     "cardInstructions": 177,
     "instructionHandlersDiscovered": 177,
     "builtInPlugins": 62,
@@ -132,23 +132,6 @@
         "13"
       ],
       "status": "unobserved"
-    },
-    {
-      "variant": "foretell",
-      "mechanic": "specialized legacy effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/plugins/foretell.test.ts:32 — test('stamps a clone-safe foretell builder on effects', () => {"
-        ]
-      },
-      "neededCanonicalNode": "new canonical ability/effect node",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference"
     },
     {
       "variant": "handler",
@@ -4569,27 +4552,25 @@
       "variant": "foretell",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/plugins/foretell.test.ts — dedicated plugin/mechanic suite"
-      ],
+      "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2971 — test('family 25 catalog cards retain printed stats and canonical keyword parameters', () => {",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:12",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:13",
           "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:20",
-          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:27",
-          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:39 — test('foretell works during your combat with a spell on the stack; plot requires an empty main phase', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:120 — test('legal acts expose foretell during a main-phase special-action window', () => {",
-          "rules-engine/src/plugins/foretell.test.ts:29"
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:22",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:24",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:30",
+          "rules-engine/src/cardPlugins/dsl/preparedCasting.test.ts:34"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
+      "status": "candidate-test-reference"
     },
     {
       "variant": "grantCreatureTrigger",
@@ -7131,15 +7112,15 @@
       {
         "path": "rules-engine/src/plugins/foretell.ts",
         "lines": [
-          89,
-          97,
-          106,
-          112
+          82,
+          90,
+          99,
+          105
         ],
         "samples": [
-          "89: const object = draft.object(event.objectId)",
-          "97: draft.move(object.id, 'exile')",
-          "106: const object = draft.object(event.objectId)"
+          "82: const object = draft.object(event.objectId)",
+          "90: draft.move(object.id, 'exile')",
+          "99: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

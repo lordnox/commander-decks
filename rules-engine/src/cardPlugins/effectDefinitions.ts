@@ -845,7 +845,6 @@ export type CardEffect =
       afterWarp?: boolean
       exileGraveyard?: { count: number; other?: boolean }
     }
-  | { op: 'foretell'; manaCost: string }
   | { op: 'drawReplacementByType' }
   | {
       op: 'targetingRequirement'
