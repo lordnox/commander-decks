@@ -12845,6 +12845,46 @@
       "destination": "rules-engine/src/cardPlugins/opponentPiles.test.ts",
       "suite": "Fact or Fiction uses a public opponent pile split",
       "evidence": "The catalog-backed Fact or Fiction integration verifies its first choice targets the public opponent split among p2/p3/p4. The mechanic suite separately verifies this same public split uses five cards, exposes the split publicly, and then asks the controller which pile to take. The current typed canonicalChoosePlayer request supersedes the old opponentPiles action payload while retaining count and route semantics."
+    },
+    {
+      "groups": [
+        "cirdanStatics:289"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "without the commander it is a vanilla 5/5 trampler and its team is untouched",
+      "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
+    },
+    {
+      "groups": [
+        "cirdanStatics:297"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "with your commander out it is 7/7 and your other creatures get +2/+2 and trample",
+      "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
+    },
+    {
+      "groups": [
+        "cirdanStatics:313"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "another player commander does not count, and losing the commander removes everything",
+      "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
+    },
+    {
+      "groups": [
+        "cirdanStatics:330"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "if the Baloth is the commander, it pumps itself and the rest of the team",
+      "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
+    },
+    {
+      "groups": [
+        "cirdanStatics:345"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "the pump goes away with the Baloth",
+      "evidence": "The Thunderfoot Baloth integration fixture retains both p1 and opponent commanders, Ally Bear, Ally Relic, and Enemy Bear. Assertions verify printed 5/5/trample without the controller commander; +2/+2/trample only for controller creatures when present; opponent commander does not enable it; removing/re-entering the commander removes/restores the effect; Baloth-as-commander pumps itself; and removing Baloth removes the pump. This is the same live static-board-pump route and relevant state transitions."
     }
   ],
   "retainedOwnerEvidence": [
