@@ -178,7 +178,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
       "suite": "an open copy choice survives a host restart",
-      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3’s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
+      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3\u2019s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
     },
     {
       "groups": [
@@ -194,7 +194,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "an open secret object vote survives a host restart and stays private",
-      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat’s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
+      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat\u2019s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
     },
     {
       "groups": [
@@ -274,7 +274,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "Settle exiles attackers and resumes a private typed basic-land search after restart",
-      "evidence": "Settle’s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
+      "evidence": "Settle\u2019s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
     },
     {
       "groups": [
@@ -290,7 +290,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "a legacy Archaeomancer's Map finds up to two Plains and puts them in hand",
-      "evidence": "legacy Archaeomancer’s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
+      "evidence": "legacy Archaeomancer\u2019s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
     },
     {
       "groups": [
@@ -314,7 +314,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts",
       "suite": "Collector's Vault keeps its legacy loot handler and finishes with a Treasure",
-      "evidence": "legacy Collector’s Vault choice draws, privately discards and creates exactly one Treasure"
+      "evidence": "legacy Collector\u2019s Vault choice draws, privately discards and creates exactly one Treasure"
     },
     {
       "groups": [
@@ -417,7 +417,7 @@
         "cirdanEldrazi:146"
       ],
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
-      "suite": "a journal restore retains Sire’s pending ward choice and accepts the replayed answer",
+      "suite": "a journal restore retains Sire\u2019s pending ward choice and accepts the replayed answer",
       "evidence": "Catalog Sire ward is restored from the journal with the exact pending choice identity; p1's replayed pay answer costs seven life, resumes the original spell, and clears the pending choice. Generic legacy ward handler cases remain in the mechanic suite."
     },
     {
@@ -586,7 +586,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "pending optional pay survives projection for the payer only",
-      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1’s projection, preserving the payment outcome while correcting that privacy representation."
+      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1\u2019s projection, preserving the payment outcome while correcting that privacy representation."
     },
     {
       "groups": [
@@ -643,6 +643,61 @@
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "catalog Profane Command restores its fear and life-loss modes with exact X targets",
       "evidence": "The source group was deleted by 97768667. The canonical integration selects the original two modes and X=2, serializes the announced stack state, then verifies p3 loses exactly two life and both original creature targets have fear."
+    },
+    {
+      "groups": [
+        "courserOfKruphix:26"
+      ],
+      "destination": "rules-engine/src/cardPlugins/libraryTop.test.ts",
+      "suite": "reveals the library top while a reveal-top source is on the battlefield",
+      "evidence": "Both opponent assertions are unchanged: the public top is Card A while the library zone order stays hidden (empty).",
+      "fixtureEvidence": "Complete pinned callback matches the destination after only the documented title, fixture-expression, plugins-variable and source-ID renames. Pinned CARD_RULES supplied staticRevealLibraryTop(), staticPlayLandsFromLibraryTop(), handler('courserOfKruphix'), and landfall(gainLife(1)). The exchangeable revealer fixture supplies those same three effect operations explicitly; the unchanged plugin list [onResolve, courserOfKruphix] supplies the handler. The courserOfKruphix plugin source is unchanged from the pinned revision. Neither fixture uses a canonical ruleDefinition. This verifies the active compatibility route, not a canonical replacement.",
+      "assertions": [
+        "expect(opponent.players.p1.data.revealed_top).toEqual(['Card A'])",
+        "expect(opponent.zoneOrder.p1.library).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "courserOfKruphix:42"
+      ],
+      "destination": "rules-engine/src/cardPlugins/libraryTop.test.ts",
+      "suite": "draw 3 during a resolving spell keeps each card known with no priority between draws",
+      "evidence": "All five assertions are unchanged: initial Card A reveal, empty final stack, no residual draw action, opponent-known hand ordered Card A/B/C, and final revealed top Card D. Draw Three still supplies onResolveEffect(draw(3)); castSpell and the complete passAll helper are unchanged.",
+      "fixtureEvidence": "Complete pinned callback matches the destination after only the documented title, fixture-expression, plugins-variable and source-ID renames. Pinned CARD_RULES supplied staticRevealLibraryTop(), staticPlayLandsFromLibraryTop(), handler('courserOfKruphix'), and landfall(gainLife(1)). The exchangeable revealer fixture supplies those same three effect operations explicitly; the unchanged plugin list [onResolve, courserOfKruphix] supplies the handler. The courserOfKruphix plugin source is unchanged from the pinned revision. Neither fixture uses a canonical ruleDefinition. This verifies the active compatibility route, not a canonical replacement.",
+      "assertions": [
+        "expect(server.project(server.state, 'p2').players.p1.data.revealed_top).toEqual(['Card A'])",
+        "expect(resolved.stack).toHaveLength(0)",
+        "expect(resolved.stack.some((item) => item.actionId === 'draw')).toBe(false)",
+        "expect(opponent.zoneOrder.p1.hand.map((id) => opponent.objects[id].name)).toEqual([ 'Card A', 'Card B', 'Card C', ])",
+        "expect(opponent.players.p1.data.revealed_top).toEqual(['Card D'])"
+      ]
+    },
+    {
+      "groups": [
+        "courserOfKruphix:77"
+      ],
+      "destination": "rules-engine/src/cardPlugins/libraryTop.test.ts",
+      "suite": "may play a land from the top of the library",
+      "evidence": "All three assertions are unchanged: the exact top land reaches the battlefield, p1 gains exactly one life, and the opponent sees Bolt as the refreshed top. The same resolveStack helper resolves the landfall gainLife(1).",
+      "fixtureEvidence": "Complete pinned callback matches the destination after only the documented title, fixture-expression, plugins-variable and source-ID renames. Pinned CARD_RULES supplied staticRevealLibraryTop(), staticPlayLandsFromLibraryTop(), handler('courserOfKruphix'), and landfall(gainLife(1)). The exchangeable revealer fixture supplies those same three effect operations explicitly; the unchanged plugin list [onResolve, courserOfKruphix] supplies the handler. The courserOfKruphix plugin source is unchanged from the pinned revision. Neither fixture uses a canonical ruleDefinition. This verifies the active compatibility route, not a canonical replacement.",
+      "assertions": [
+        "expect(played.objects[landId].zone).toBe('battlefield')",
+        "expect(played.players.p1.life).toBe(commanderRules.startingLife + 1)",
+        "expect(server.project(played, 'p2').players.p1.data.revealed_top).toEqual(['Bolt'])"
+      ]
+    },
+    {
+      "groups": [
+        "courserOfKruphix:99"
+      ],
+      "destination": "rules-engine/src/cardPlugins/libraryTop.test.ts",
+      "suite": "stops revealing the library top when the source leaves",
+      "evidence": "The same move-to-graveyard event removes the reveal source and the opponent revealed_top becomes undefined; courserId was renamed sourceId.",
+      "fixtureEvidence": "Complete pinned callback matches the destination after only the documented title, fixture-expression, plugins-variable and source-ID renames. Pinned CARD_RULES supplied staticRevealLibraryTop(), staticPlayLandsFromLibraryTop(), handler('courserOfKruphix'), and landfall(gainLife(1)). The exchangeable revealer fixture supplies those same three effect operations explicitly; the unchanged plugin list [onResolve, courserOfKruphix] supplies the handler. The courserOfKruphix plugin source is unchanged from the pinned revision. Neither fixture uses a canonical ruleDefinition. This verifies the active compatibility route, not a canonical replacement.",
+      "assertions": [
+        "expect(server.project(left, 'p2').players.p1.data.revealed_top).toBeUndefined()"
+      ]
     }
   ]
 }
