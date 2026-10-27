@@ -23,6 +23,7 @@ import {
   self,
 } from './v1'
 import { cardTemplate } from '../../newGame'
+import { createJournal, restoreJournal } from '../../journal'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
@@ -190,7 +191,7 @@ describe('entryReplacement — integration', () => {
 })
 
 
-test.each([2, 3])('repeatable additional payments remain available to an as-enters replacement, then clear on departure (%s)', payments => {
+test.each([0, 2, 3])('repeatable additional payments remain available to an as-enters replacement, then clear on departure (%s)', payments => {
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
     spell({ optionalCosts: [manaCost('{2}')], repeatableOptionalCosts: [0], instructions: [] }),
     staticAbility(replacement(wouldEnter(), modifyEvent({ enterCounters: { charge: paidCostCount('optional', 0) } }))),
@@ -199,8 +200,11 @@ test.each([2, 3])('repeatable additional payments remain available to an as-ente
   server.state.players.p1.mana.C = 6
   const objectId = server.state.zoneOrder.p1.hand[0]
   const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: Array.from({ length: payments }, () => 0) }))
-  const entered = resolveStack(server.rules, cast)
-  expect(entered.objects[objectId].counters.charge).toBe(payments)
+  expect(cast.players.p1.mana.C).toBe(6 - payments * 2)
+  const restored = restoreJournal(createJournal(cast), server.rules).current()
+  const entered = resolveStack(server.rules, restored)
+  expect(entered.objects[objectId].counters.charge ?? 0).toBe(payments)
+  if (payments === 0) expect(entered.objects[objectId].counters.charge).toBeUndefined()
   expect(entered.objects[objectId].castCostChoices?.optional).toEqual(Array.from({ length: payments }, () => 0))
   const gone = ok(server.rules(entered, { type: 'move', objectId, to: 'graveyard' }))
   expect(gone.objects[objectId].castCostChoices).toBeUndefined()

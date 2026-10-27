@@ -138,7 +138,7 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
     },
     {
       waiting: `${lobby.occupants[seat]?.name ?? seat} is searching privately.`,
-      prompt: pending.kicked && spec.kickedPrompt ? spec.kickedPrompt : spec.prompt,
+      prompt: spec.prompt,
       judge: 'Waiting for a private library search.',
     },
     candidates,

@@ -6,8 +6,7 @@ import {
 import type { GameObject, GameState, PlayerId, Plugin, StackItem, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
-import { spellWasKicked } from '../plugins/kickCast'
-import { targetedEffectFilter, targetedEffectForIndex, validTarget, validTargetRef } from './targetedResolve'
+import { targetedEffectForIndex, validTarget, validTargetRef } from './targetedResolve'
 import { targetObject } from '../objectIdentity'
 
 export const PENDING_STACK_COPY = 'kernel.pendingStackCopy'
@@ -87,7 +86,7 @@ const legalObjectTarget = (
     return validTarget(
       state,
       object,
-      targetedEffectFilter(targeted, spellWasKicked(item)),
+      targeted.filter,
       controller,
     )
   }

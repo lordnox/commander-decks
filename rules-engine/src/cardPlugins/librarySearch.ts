@@ -51,7 +51,6 @@ export type PendingSearch = {
   source: string
   sourceId: string
   via: 'spell' | 'ability' | 'enters' | 'resolve'
-  kicked?: boolean
   max?: number
   x?: number
   shuffleIfSearched?: boolean
@@ -177,13 +176,10 @@ const libraryCharacteristics = (object: GameObject): GameObject =>
 const matchesSearch = (
   object: GameObject,
   spec: SearchSpec,
-  kicked: boolean,
   x?: number,
 ) => {
   const characteristics = libraryCharacteristics(object)
-  if (kicked && spec.kickedMatch) {
-    if (!spec.kickedMatch(characteristics)) return false
-  } else if (!spec.match(characteristics)) return false
+  if (!spec.match(characteristics)) return false
   if (spec.maxManaValue === 'x') return manaValueOf(characteristics) <= Math.max(0, x ?? 0)
   if (typeof spec.maxManaValue === 'number') {
     return manaValueOf(characteristics) <= spec.maxManaValue
@@ -195,7 +191,6 @@ export const searchCandidates = (
   state: GameState,
   seat: PlayerId,
   spec: SearchSpec,
-  kicked = false,
   x?: number,
 ) => {
   const zones = spec.zones ?? ['library']
@@ -206,7 +201,7 @@ export const searchCandidates = (
     return ids
       .map((objectId) => state.objects[objectId])
       .filter((object): object is GameObject =>
-        Boolean(object) && matchesSearch(object, spec, kicked, x))
+        Boolean(object) && matchesSearch(object, spec, x))
   })
 }
 
@@ -349,7 +344,6 @@ export const librarySearch: Plugin = {
         source: item.name,
         sourceId: item.objectId,
         via: 'spell',
-        kicked: item.kicked === true,
         max: spec.empoweredIf
           && spec.empoweredMax
           && conditionHolds(spec.empoweredIf, state, object)
@@ -457,7 +451,6 @@ export const librarySearch: Plugin = {
         source,
         sourceId,
         via,
-        ...(event.payload?.kicked === true ? { kicked: true } : {}),
         ...(typeof event.payload?.max === 'number' ? { max: event.payload.max } : {}),
         ...(typeof event.payload?.x === 'number' ? { x: event.payload.x } : {}),
         ...(event.payload?.shuffleIfSearched === true || spec?.shuffleIfSearched

@@ -191,9 +191,9 @@ Do exactly one host step:
 - Strict path first: never use a fallback to bypass a rejected action, timing,
   target, cost, priority, or state-based-action check. Decompose the line into
   ordinary GameEvents and let every event pass through the reducer.
-- A kicked spell uses \`kicked: true\` on its \`castSpell\` event after its
-  additional cost is paid. That flag is part of the stack item and lets card
-  handlers preserve the chosen mode through resolution.
+- Choose kicker and multikicker through the offered canonical action’s optional
+  cost selections. Reuse the action payload so payment and resolution share the
+  server-owned cost receipt.
 - For a source that says "Add one mana of any color", include the chosen symbol
   on the event: { type: 'tapForMana', seat, objectId, mana: 'W' } (or U/B/R/G).
 - If a card has a weird rules interaction (see Yurlok of Scorch Thrash), look it

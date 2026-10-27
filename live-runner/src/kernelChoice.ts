@@ -141,7 +141,7 @@ export const searchOffer = (
   spec: SearchSpec,
   pending: PendingSearch,
 ): Offer => {
-  const candidates = searchCandidates(state, seat, spec, pending.kicked, pending.x)
+  const candidates = searchCandidates(state, seat, spec, pending.x)
   return sortedByName({
     ids: candidates.map((object) => object.id),
     names: candidates.map((object) => object.name),

@@ -103,19 +103,9 @@ export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
 
 export const delve = (): CardEffect => ({ op: 'castCost', delve: true })
 
-export const kicker = (cost: string): CardEffect => ({
-  op: 'castCost',
-  kicker: cost,
-})
-
 export const gift = (spec: GiftSpec): CardEffect => ({
   op: 'castCost',
   gift: spec,
-})
-
-export const multikicker = (cost: string): CardEffect => ({
-  op: 'castCost',
-  multikicker: cost,
 })
 
 export const reduceGenericIf = (
@@ -279,20 +269,6 @@ export const upToTargetsOnResolve = (
   optional: true,
   min: 0,
   max,
-})
-
-export const targetOnResolveKicked = (
-  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
-  filter: TargetFilter,
-  kickedFilter: TargetFilter,
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'targetedResolve',
-  target: 0,
-  filter,
-  kickedFilter,
-  action,
-  ...(instructions.length > 0 ? { do: instructions } : {}),
 })
 
 export const targetOnResolveAt = (
