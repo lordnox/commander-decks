@@ -13173,6 +13173,70 @@
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
       "suite": "Famished Worldsire Ward {3} can be paid with mana",
       "evidence": "The catalog-backed ward test offers its {3} payment and resolves the spell after mana payment, preserving the card-specific ward amount and timing."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:187"
+      ],
+      "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
+      "suite": "declining one fight leaves that attacker alive and out of the ledger",
+      "evidence": "The current catalog Grothama integration creates two attackers and resolves one accepted and one declined fight. It verifies only the declined attacker survives and Grothama\u2019s controller ledger contains exactly damage dealt by the accepted fighter."
+    },
+    {
+      "groups": [
+        "plugDackPart37:158"
+      ],
+      "destination": "rules-engine/src/cardPlugins/drawHandDifference.test.ts",
+      "suite": "entersTargetingOpponent wraps drawHandDifference into a player choice",
+      "evidence": "Minimal trigger integration uses entersTargetingOpponent(drawHandDifference), verifies public hand-count choice candidates and draws the difference only for the selected opponent."
+    },
+    {
+      "groups": [
+        "plugDackPart37:196"
+      ],
+      "destination": "rules-engine/src/cardPlugins/tapAll.test.ts",
+      "suite": "enters tapAll with opponent filter leaves controlled creatures untapped",
+      "evidence": "Minimal creature-entry test checks the entering source and controller\u2019s creatures stay untapped while each opponent creature is tapped."
+    },
+    {
+      "groups": [
+        "reinsOfPower:18"
+      ],
+      "destination": "rules-engine/src/cardPlugins/permanentControl.test.ts",
+      "suite": "swaps creature control until cleanup",
+      "evidence": "Runtime test resolves Reins of Power, swaps each side\u2019s creatures, grants haste to the creatures gained, then verifies control and temporary haste revert at cleanup."
+    },
+    {
+      "groups": [
+        "sinFallGaps:64"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
+      "suite": "Lotus Field asks to sacrifice two lands on entry",
+      "evidence": "Current live entry test verifies the choose-two sacrifice request when other lands exist and covers zero/one-land edge cases; choosing two leaves the expected battlefield count."
+    },
+    {
+      "groups": [
+        "sinFallGaps:245"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "modal land-entry triggers announce mode 1 before resolution",
+      "evidence": "Catalog Retreat to Hagra integration presents both modes on land entry; choosing mode 1 drains all opponents and gains its controller life, while mode 0 provides the targeted deathtouch line."
+    },
+    {
+      "groups": [
+        "sinFallGaps:271"
+      ],
+      "destination": "rules-engine/src/cardPlugins/staticBoardPump.test.ts",
+      "suite": "Colossification attaches, taps, and pumps the creature",
+      "evidence": "Current live Aura resolution attaches Colossification to the selected creature, taps it, and checks the resulting power/toughness increase."
+    },
+    {
+      "groups": [
+        "wallOfOmens.integration:36"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "the ETB draw trigger resolves even after the Wall leaves the battlefield",
+      "evidence": "A minimal DSL entry-trigger fixture stacks Wall of Omens\u2019 draw trigger, moves the Wall away, resolves the trigger, and verifies the library card still reaches hand."
     }
   ],
   "retainedOwnerEvidence": [
