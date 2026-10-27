@@ -12749,6 +12749,46 @@
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "two Caresses trigger in APNAP order",
       "evidence": "Two discard watchers controlled by p2 and p3 observe one discard; stack order is p3 then p2 and each resolves for two life in sequence. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "homerPass2:65"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/resolutionPayment.test.ts",
+      "suite": "current catalog or mechanic owner",
+      "evidence": "Ripples mills the top three at first main, pays mana plus life, and recovers only those bound cards."
+    },
+    {
+      "groups": [
+        "homerPass2:95"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts",
+      "suite": "current catalog or mechanic owner",
+      "evidence": "Catalog Victimize proceeds to return both targeted creatures tapped only when sacrifice succeeds; none and suppressed cases do not continue."
+    },
+    {
+      "groups": [
+        "homerPass2:246"
+      ],
+      "destination": "rules-engine/src/cardPlugins/triggerFrequency.test.ts",
+      "suite": "current catalog or mechanic owner",
+      "evidence": "The first Zimone and Dina draw does not trigger; the second opens a one-player choice for p2."
+    },
+    {
+      "groups": [
+        "homerPass2:268"
+      ],
+      "destination": "rules-engine/src/cardPlugins/delayInstructions.test.ts",
+      "suite": "current catalog or mechanic owner",
+      "evidence": "Catalog Malakir Rebirth charges two life, grants one delayed ability, and returns its target tapped after it dies."
+    },
+    {
+      "groups": [
+        "homerPass2:301"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "current catalog or mechanic owner",
+      "evidence": "Catalog structure verifies Mole Man playLands plus the Moloid attack trigger; landfall runtime verifies a land entry creates the 1/1 green Minion token. The route is canonical DSL."
     }
   ],
   "retainedOwnerEvidence": [
