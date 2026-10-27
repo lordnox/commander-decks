@@ -1,6 +1,6 @@
 {
   "issue": 403,
-  "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved. Manual callback/fixture/runtime audit completed for all 73 non-Courser lifecycle groups; see manualAudit for exact checked IDs and the one existing behavior exception (#552).",
+  "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved. Manual callback/fixture/runtime audit completed for all 73 non-Courser lifecycle groups; see manualAudit for exact checked IDs; the former #552 behavior exception was resolved by #558.",
   "implemented": [
     "cardRuleCatalog.damageAndLeaves:164",
     "councilCards:173",
@@ -209,15 +209,15 @@
         "cirdanMiscCards:176"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-      "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly",
-      "evidence": "The named card is now canonical after #432, so the owner is this catalog-backed integration, not the generic synthetic Delve Look Spell test in lookTopPick.test.ts (which separately retains generic legacy scry coverage). The pinned callback's delve failure/no-stack, six-card exile and remaining seventh card, two-Island payment event order, spell stack, private top-seven candidates, exact-two rejection/other-seat rejection, restore, chosen hand, spell cleanup, and final library assertions are represented here; the current test adds duplicate/foreign-card rejection and journal round-trip equality. One pinned outcome is not equivalent: the old topdeck event let the chooser order the five unchosen cards, and the pinned callback verifies that order survives restart. The canonical chooseCards event chooses only the two hand cards; unchosen cards are bottomed automatically in source order. Current assertion expects Top 1, 2, 4, 5, 7, while the source explicitly chose Top 7, 5, 4, 2, 1. This gap is tracked in #552 and remains unresolved under #548's runtime-unchanged constraint."
+      "suite": "catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly",
+      "evidence": "The named card is now canonical after #432, so the owner is this catalog-backed integration, not the generic synthetic Delve Look Spell test in lookTopPick.test.ts (which separately retains generic legacy scry coverage). The pinned callback's delve failure/no-stack, six-card exile and remaining seventh card, two-Island payment event order, spell stack, private top-seven candidates, exact-two rejection/other-seat rejection, restore, chosen hand, spell cleanup, and final library assertions are represented here; the current test adds duplicate/foreign-card rejection and journal round-trip equality. The pinned chooser-ordered bottom is now equivalent after #552 was fixed by #558: once the two hand cards are chosen, an orderCards scry-kind selection offers only Top 1, 2, 4, 5, 7 with the single bottom destination, stays hidden from p2, and survives a JSON journal restore with identical results; the chooser submits Top 7, 5, 4, 2, 1 and the final library is Rest A, Rest B, Top 7, 5, 4, 2, 1, matching the pinned callback exactly. The pinned host lobby.topdeck look-top projection is superseded by the typed selectCards choose/scry selections, whose projections are asserted here."
     },
     {
       "groups": [
         "cirdanMiscCards:252"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-      "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly",
+      "suite": "catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly",
       "evidence": "Current owner is the canonical Dig Through Time integration after #432. The callback retains each pinned privacy assertion: the chooser sees all seven candidates; the opponent projection contains none of the seven candidates or Rest A and has no pending selection for p1. The generic lookTopPick privacy test also remains as separate coverage for the still-active legacy scry handler, but it is not the named card's current runtime route."
     },
     {
@@ -777,12 +777,6 @@
       "splitTrapVotes:314",
       "splitTrapVotes:399"
     ],
-    "exceptions": [
-      {
-        "group": "cirdanMiscCards:176",
-        "issue": 552,
-        "detail": "Current Dig Through Time DSL puts unchosen inspected cards on the bottom in source order; pinned test allowed choosing their top-of-library order."
-      }
-    ]
+    "exceptions": []
   }
 }
