@@ -264,7 +264,7 @@
       "groups": [
         "cirdanPartBMana:751"
       ],
-      "destination": "rules-engine/src/cardPlugins/seaGate.test.ts",
+      "destination": "rules-engine/src/cardPlugins/dsl/entryReplacements.test.ts",
       "suite": "the life choice is private to its controller and survives a restart",
       "evidence": "life-payment prompt stays private and is restored; accepting loses exactly three life Manual callback comparison: current owner uses the stored Sea Gate Restoration // Sea Gate, Reborn card template and same `playLand` route; it preserves chooser-only pending state, restore with the same count-three dialog, and resolves the life payment by exactly 3."
     },

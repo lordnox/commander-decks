@@ -406,6 +406,26 @@ describe('catalog Sea Gate, Reborn pay-life-or-tap back face', () => {
     return state
   }
 
+  test('the life choice is private to its controller and survives a restart', () => {
+    const server = game()
+    const asked = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: seaGate(server.state).id,
+    }))
+    expect(server.project(asked, 'p1').players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
+    expect(server.project(asked, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
+    const restarted = structuredClone(asked)
+    const pending = pendingOptionSelection(restarted, 'p1')!
+    const paid = ok(server.rules(restarted, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: PAY_LIFE_OPTION,
+    }))
+    expect(paid.players.p1.life).toBe(server.state.players.p1.life - 3)
+  })
+
   test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {
     const server = game()
     const asked = play(server)
