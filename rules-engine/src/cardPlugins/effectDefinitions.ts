@@ -506,13 +506,6 @@ export type CardInstruction =
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
-export type SpreeMode = {
-  id: string
-  label: string
-  extraCost: string
-  do: CardInstruction[]
-}
-
 export type ModalSpec = {
   choose: 'one' | 'any' | 'two'
   commanderChooseBoth?: boolean
@@ -862,7 +855,6 @@ export type CardEffect =
       timing?: 'yourEndStep'
       kicker?: string
       gift?: GiftSpec
-      spree?: SpreeMode[]
       multikicker?: string
       reduceGeneric?: {
         amount: number

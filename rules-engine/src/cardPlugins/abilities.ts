@@ -1,6 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, SagaChapter, SearchSpec, SpreeMode, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardCondition, CardEffect, CardInstruction, CastCostCondition, GiftSpec, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -111,18 +111,6 @@ export const kicker = (cost: string): CardEffect => ({
 export const gift = (spec: GiftSpec): CardEffect => ({
   op: 'castCost',
   gift: spec,
-})
-
-export const spreeMode = (
-  id: string,
-  label: string,
-  extraCost: string,
-  instructions: CardInstruction[],
-): SpreeMode => ({ id, label, extraCost, do: instructions })
-
-export const spree = (modes: SpreeMode[]): CardEffect => ({
-  op: 'castCost',
-  spree: modes,
 })
 
 export const multikicker = (cost: string): CardEffect => ({

@@ -27,8 +27,8 @@
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 69,
-    "directMutationSites": 531,
+    "customEventDispatchSites": 65,
+    "directMutationSites": 526,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 140,
     "cardRegistrationOnlyGaps": 0,
@@ -3565,7 +3565,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 31,
+        "matches": 29,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1007 — test('a restored private choice survives a host restart', async () => {",
@@ -5080,7 +5080,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 282,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2084 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5434,18 +5434,16 @@
       "variant": "choose-modes",
       "mechanic": "specialized legacy dialog",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/castTriggers.ts",
-        "rules-engine/src/cardPlugins/spreeCast.ts"
+        "rules-engine/src/cardPlugins/castTriggers.ts"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.test.ts:433 — test('publishes the server option bounds and actual source label', () => {",
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {",
-          "rules-engine/src/cardPlugins/spreeCast.test.ts:85 — test('opens Spree mode choice before paying mana, then casts with selected modes', () => {"
+          "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {"
         ]
       },
       "neededCanonicalNode": "announcement-time selectOptions offer with scoped mode identities",
@@ -6008,7 +6006,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1493"
+        "rules-engine/src/types.ts:1491"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6041,9 +6039,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1517",
-        "rules-engine/src/actions.ts:1686",
-        "rules-engine/src/actions.ts:911",
+        "rules-engine/src/actions.ts:1497",
+        "rules-engine/src/actions.ts:1666",
+        "rules-engine/src/actions.ts:909",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
@@ -6168,8 +6166,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:660",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:837",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:653",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:830",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:574",
@@ -6196,7 +6194,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:501",
+        "rules-engine/src/plugins/spells.ts:494",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:167",
@@ -6585,28 +6583,6 @@
         "samples": [
           "10: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return",
           "20: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) {"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/spreeCast.ts",
-        "lines": [
-          171,
-          193,
-          216,
-          257
-        ],
-        "samples": [
-          "171: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
-          "193: if (event.type === 'custom' && event.name === 'spreeCast.openSelection' && event.seat) {",
-          "216: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7294,30 +7270,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          942,
-          948,
-          1028,
-          1048,
-          1050,
-          1053,
-          1063,
-          1066,
-          1081,
-          1082,
-          1092,
-          1095,
-          1097,
-          1187,
+          932,
+          938,
+          1016,
+          1036,
+          1038,
+          1041,
+          1051,
+          1054,
+          1069,
+          1070,
+          1080,
+          1083,
+          1085,
+          1172,
+          1196,
           1211,
-          1226,
-          1245,
-          1257,
-          1273
+          1230,
+          1242,
+          1258
         ],
         "samples": [
-          "942: const moved = draft.object(event.objectId)",
-          "948: const object = draft.object(event.objectId)",
-          "1028: .map((objectId) => draft.object(objectId))"
+          "932: const moved = draft.object(event.objectId)",
+          "938: const object = draft.object(event.objectId)",
+          "1016: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7985,29 +7961,6 @@
           "29: const source = draft.object(dialog.sourceId)",
           "30: const copied = targetIds[0] ? draft.object(targetIds[0]) : undefined",
           "46: draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/spreeCast.ts",
-        "lines": [
-          91,
-          131,
-          221,
-          232,
-          247
-        ],
-        "samples": [
-          "91: const object = draft.object(resume.objectId)",
-          "131: draft.enqueue({",
-          "221: const object = draft.object(pending.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
