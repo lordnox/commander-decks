@@ -12309,6 +12309,14 @@
       "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
       "suite": "catalog-backed Mirkwood Bats token occurrence integration",
       "evidence": "The catalog integration places two Mirkwood Bats on the battlefield and creates two tokens. It verifies four triggers queue and each opponent loses two life per source/token occurrence. The current execution route is the canonical DSL catalog definition, with ordinary runtime token and sacrifice events."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:116"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
+      "suite": "sacrificing a created Treasure for mana queues the trigger without draining immediately",
+      "evidence": "The current Mirkwood Bats owner suite creates a Treasure through Token Maker, activates its tap-for-mana ability, checks black mana is produced and the trigger is pending without immediate life loss, then resolves it and checks the additional life loss. Its fixture remains under the relocated Bats mechanic test and tests the same commanderRules event route."
     }
   ],
   "retainedOwnerEvidence": [
