@@ -160,6 +160,11 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Courser of Kruphix')).toBeDefined()
   })
 
+  test('Bender’s Waterskin and Souls of the Faultless have canonical definitions', () => {
+    expect(cardRuleDefinitionSnapshotFor("Bender's Waterskin")).toBeDefined()
+    expect(cardRuleDefinitionSnapshotFor('Souls of the Faultless')).toBeDefined()
+  })
+
   test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {
     const covered = [
       'Círdan the Shipwright',
