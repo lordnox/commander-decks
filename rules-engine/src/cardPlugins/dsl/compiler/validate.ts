@@ -1643,6 +1643,13 @@ export const validateDefinitionV2 = (root: unknown): {
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         return
       }
+      case 'orderCards':
+        exactKeys(node, path, ['kind', 'bindChoice', 'chooser', 'cards', 'position'], ['kind', 'bindChoice', 'chooser', 'cards', 'position'])
+        validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
+        validateRecipient(node.cards, childPath(path, 'cards'), env, ['object'])
+        enumeration(node.position, childPath(path, 'position'), new Set(['top', 'bottom']), 'library position')
+        declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
+        return
       case 'distributeControl':
         exactKeys(node, path, ['kind', 'targets', 'chooser', 'recipients', 'distinct'], ['kind', 'targets', 'chooser', 'recipients', 'distinct'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
