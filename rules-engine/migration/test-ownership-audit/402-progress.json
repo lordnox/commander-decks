@@ -12821,6 +12821,30 @@
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "combat damage chooses modes before Rankle is put on the stack",
       "evidence": "Current test records the required choice boundary: after damage the ability has not reached the stack while modes are selected; the selected modes are then present on the resulting trigger. This corrects the pinned assertion\u2019s opposite ordering and matches Comprehensive Rules 603.3c and 700.2b, which require modes for a modal triggered ability to be announced as it is put on the stack. The card\u2019s current mode choices remain the same."
+    },
+    {
+      "groups": [
+        "homerRest:53"
+      ],
+      "destination": "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts",
+      "suite": "Sakashima copies another creature and turns off the legend rule",
+      "evidence": "The same entry fixture presents a copy choice, selects legendary Crab Homer, and verifies the clone takes Homer\u2019s copied name/subtype while retaining Sakashima\u2019s printed name. The live copy has legend-rule exemption and both permanents remain on the battlefield; the current canonical copy-choice event replaces the legacy dialog kind."
+    },
+    {
+      "groups": [
+        "homerRest:96"
+      ],
+      "destination": "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts",
+      "suite": "an opponent-owned clone entering under your control copies your creature",
+      "evidence": "The opponent-owned Spark Double is moved under p1 control. The test verifies it enters under p1 and offers exactly p1 a copy choice containing Sygg, River Cutthroat; this preserves controller, choice recipient, and candidate set."
+    },
+    {
+      "groups": [
+        "homerPass2:29"
+      ],
+      "destination": "rules-engine/src/cardPlugins/opponentPiles.test.ts",
+      "suite": "Fact or Fiction uses a public opponent pile split",
+      "evidence": "The catalog-backed Fact or Fiction integration verifies its first choice targets the public opponent split among p2/p3/p4. The mechanic suite separately verifies this same public split uses five cards, exposes the split publicly, and then asks the controller which pile to take. The current typed canonicalChoosePlayer request supersedes the old opponentPiles action payload while retaining count and route semantics."
     }
   ],
   "retainedOwnerEvidence": [
