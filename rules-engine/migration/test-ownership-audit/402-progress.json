@@ -12917,6 +12917,54 @@
       "destination": "rules-engine/src/cardPlugins/targetingMana.test.ts",
       "suite": "a summoning-sick source cannot tap, and a tapped one cannot tap again",
       "evidence": "The Delighted Halfling test uses the catalog deck fixture and the live tapForMana/castSpell/advanceStep runtime. It verifies colorless mana is unrestricted, green mana is restricted to legendary casting and marks that spell uncounterable, unused restricted mana expires at the next step, and summoning sickness/tapped state reject activation."
+    },
+    {
+      "groups": [
+        "sygg:49"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "an opponent bleeding three life puts the trigger on the stack before the draw choice",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "sygg:74"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "accepting the trigger draws a card and declining does not",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "sygg:99"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "an opponent who died to that life loss still counts",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "sygg:118"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "two life lost by an opponent is not enough",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "sygg:128"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "the watcher's own life loss does not trigger it",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "sygg:138"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "life lost on an earlier turn does not carry over",
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     }
   ],
   "retainedOwnerEvidence": [
