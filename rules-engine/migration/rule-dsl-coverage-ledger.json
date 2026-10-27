@@ -21,18 +21,18 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 20,
-    "cardInstructions": 179,
-    "instructionHandlersDiscovered": 179,
+    "cardInstructions": 178,
+    "instructionHandlersDiscovered": 178,
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 70,
-    "directMutationSites": 532,
+    "customEventDispatchSites": 69,
+    "directMutationSites": 531,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 140,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 37,
+    "candidateOnlyInstructionRows": 36,
     "candidateOnlyCardRows": 0
   },
   "cardEffects": [
@@ -1806,29 +1806,6 @@
         "03"
       ],
       "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "extraLandPlays",
-      "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2713 — test('zone-play catalog entries compose land permissions, top visibility, and token abilities', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:335 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
-        ]
-      },
-      "neededCanonicalNode": "typed continuous effect with duration",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "13",
-      "dependencyParts": [
-        "02",
-        "07",
-        "10"
-      ],
-      "status": "candidate-test-reference",
       "handlerDiscovered": true
     },
     {
@@ -4015,7 +3992,6 @@
       "exileThisSpell",
       "exileUntilOpponentBecomesMonarch",
       "exileVoteWinners",
-      "extraLandPlays",
       "fight",
       "fightOwnedVsOpponent",
       "fightUpToOne",
@@ -6013,7 +5989,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:485",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:484",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:493",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -6028,10 +6004,10 @@
         "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:211",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:4",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:43",
-        "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:113",
+        "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:101",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
-        "rules-engine/src/cardPlugins/instructions.ts:105",
-        "rules-engine/src/cardPlugins/instructions.ts:108",
+        "rules-engine/src/cardPlugins/instructions.ts:100",
+        "rules-engine/src/cardPlugins/instructions.ts:103",
         "rules-engine/src/types.ts:1493"
       ],
       "executableCoverageEvidence": [
@@ -6192,8 +6168,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:839",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:660",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:837",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:574",
@@ -6906,12 +6882,10 @@
       {
         "path": "rules-engine/src/cardPlugins/additionalLandPlay.ts",
         "lines": [
-          38,
-          43
+          32
         ],
         "samples": [
-          "38: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')",
-          "43: if (event.type === 'grantLandPlays' || (event.type === 'custom' && event.name === GRANT_EXTRA_LAND_PLAY && event.seat)) {"
+          "32: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -9043,16 +9017,15 @@
         "lines": [
           14,
           19,
-          35,
-          62,
-          76,
-          90,
-          101
+          50,
+          64,
+          78,
+          89
         ],
         "samples": [
           "14: draft.enqueue({ type: 'addMana', seat, mana: instruction.mana })",
           "19: draft.enqueue({",
-          "35: draft.enqueue({"
+          "50: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

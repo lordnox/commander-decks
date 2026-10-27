@@ -208,7 +208,6 @@ export type CardInstruction =
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
-  | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'returnSelfAsEnchantment' }
   /** Return this card from the graveyard to the battlefield under its owner's control with one counter. */
@@ -800,7 +799,6 @@ export type CardEffect =
   | {
       op: 'static'
       pluginId?: string
-      extraLandPlays?: number
       extraLandfall?: number
       extraEnters?: number
       playLandsFromGraveyard?: boolean
