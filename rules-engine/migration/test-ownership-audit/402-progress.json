@@ -13061,6 +13061,38 @@
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "\u22127 untaps and draws during each opponent turn",
       "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+    },
+    {
+      "groups": [
+        "marinaVendrell:42"
+      ],
+      "destination": "rules-engine/src/plugins/rooms.test.ts",
+      "suite": "enters by revealing seven, putting enchantments into hand, and the rest on the bottom at random",
+      "evidence": "Catalog Marina enters and resolves its reveal-seven effect: enchantments go to hand, one eligible card stays on top, and remaining cards are randomized to library bottom."
+    },
+    {
+      "groups": [
+        "marinaVendrell:76"
+      ],
+      "destination": "rules-engine/src/plugins/rooms.test.ts",
+      "suite": "taps as a sorcery to unlock a door without paying its mana cost",
+      "evidence": "Catalog Marina runtime advertises only the eligible right-door target; activating at sorcery timing taps her, spends no mana, unlocks that door, and gains 3 life."
+    },
+    {
+      "groups": [
+        "marinaVendrell:120"
+      ],
+      "destination": "rules-engine/src/plugins/rooms.test.ts",
+      "suite": "generic Room targets do not impose a controller restriction",
+      "evidence": "A generic Room-targeting activation controlled by p1 can target a p2 Room and resolve; the test verifies p1 gains life and the Room remains controlled by p2."
+    },
+    {
+      "groups": [
+        "marinaVendrell:175"
+      ],
+      "destination": "rules-engine/src/plugins/rooms.test.ts",
+      "suite": "rejects the tap except as a sorcery and rejects an opponent Room",
+      "evidence": "The current integration rejects activation outside sorcery timing and rejects an opposing player\u2019s Room, preserving the ability\u2019s timing and target-controller constraints."
     }
   ],
   "retainedOwnerEvidence": [
