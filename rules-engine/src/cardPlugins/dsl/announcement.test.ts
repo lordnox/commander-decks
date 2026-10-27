@@ -757,6 +757,81 @@ test('an optional payment can expand target eligibility before costs are paid', 
 
 
 describe('conditional cost reductions', () => {
+  test('catalog Price of Fame reduces its cost only for a legendary creature target', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Price of Fame')] },
+      battlefield: { p2: [
+        cardTemplate('Legendary creature', { types: ['Creature'], supertypes: ['Legendary'], power: 2, toughness: 2 }),
+        cardTemplate('Ordinary creature', { types: ['Creature'], power: 2, toughness: 2 }),
+      ] },
+    }, { random: () => 0 })
+    server.state.players.p1.mana.B = 1
+    server.state.players.p1.mana.C = 1
+    const spellId = server.state.zoneOrder.p1.hand[0]!
+    const [legend, ordinary] = server.state.zoneOrder.p2.battlefield
+    const offered = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell')
+    expect(offered).toHaveLength(1)
+    expect(offered[0]?.kind === 'castSpell' && offered[0].targetGroups?.[0].targets.map(candidate => candidate.objectId)).toEqual([legend])
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: ordinary }] }).ok).toBe(false)
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: legend }] }))
+    expect(cast.players.p1.mana.B + cast.players.p1.mana.C).toBe(0)
+    expect(resolveStack(server.rules, cast).objects[legend]!.zone).toBe('graveyard')
+  })
+
+  test('catalog Drag to the Roots reduces its cost with four graveyard card types and excludes lands', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Drag to the Roots')] },
+      libraries: { p1: [
+        cardTemplate('Graveyard creature', { types: ['Creature'], zone: 'graveyard' }),
+        cardTemplate('Graveyard artifact', { types: ['Artifact'], zone: 'graveyard' }),
+        cardTemplate('Graveyard instant', { types: ['Instant'], zone: 'graveyard' }),
+        cardTemplate('Graveyard sorcery', { types: ['Sorcery'], zone: 'graveyard' }),
+      ] },
+      battlefield: { p2: [
+        cardTemplate('Nonland target', { types: ['Creature'], power: 2, toughness: 2 }),
+        cardTemplate('Land target', { types: ['Land'] }),
+      ] },
+    }, { random: () => 0 })
+    server.state.players.p1.mana.B = 1
+    server.state.players.p1.mana.G = 1
+    const spellId = server.state.zoneOrder.p1.hand[0]!
+    const [creature, land] = server.state.zoneOrder.p2.battlefield
+    const offered = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell')
+    expect(offered).toHaveLength(1)
+    expect(offered[0]?.kind === 'castSpell' && offered[0].targetGroups?.[0].targets.map(candidate => candidate.objectId)).toEqual([creature])
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: land }] }).ok).toBe(false)
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: creature }] }))
+    expect(cast.players.p1.mana.B + cast.players.p1.mana.G).toBe(0)
+    expect(resolveStack(server.rules, cast).objects[creature]!.zone).toBe('graveyard')
+  })
+
+  test('catalog Tear Asunder expands its target to nonlands only when kicker is paid', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Tear Asunder')] },
+      battlefield: { p2: [
+        cardTemplate('Artifact target', { types: ['Artifact'] }),
+        cardTemplate('Creature target', { types: ['Creature'], power: 2, toughness: 2 }),
+        cardTemplate('Land target', { types: ['Land'] }),
+      ] },
+    }, { random: () => 0 })
+    server.state.players.p1.mana.G = 1
+    server.state.players.p1.mana.C = 2
+    server.state.players.p1.mana.B = 1
+    const spellId = server.state.zoneOrder.p1.hand[0]!
+    const [artifact, creature, land] = server.state.zoneOrder.p2.battlefield
+    const offered = legalActsFor(server.state, 'p1').filter(action => action.kind === 'castSpell')
+    expect(offered).toHaveLength(2)
+    const unKicked = offered.find(action => action.kind === 'castSpell' && !action.selectedOptionalCosts)
+    const kicked = offered.find(action => action.kind === 'castSpell' && action.selectedOptionalCosts?.includes(0))
+    expect(unKicked?.kind === 'castSpell' && unKicked.targetGroups?.[0].targets.map(candidate => candidate.objectId)).toEqual([artifact])
+    expect(kicked?.kind === 'castSpell' && kicked.targetGroups?.[0].targets.map(candidate => candidate.objectId)).toEqual([artifact, creature])
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: creature }] }).ok).toBe(false)
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: land }], selectedOptionalCosts: [0] }).ok).toBe(false)
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId, targets: [{ kind: 'object', objectId: creature }], selectedOptionalCosts: [0] }))
+    expect(cast.players.p1.mana.G + cast.players.p1.mana.B + cast.players.p1.mana.C).toBe(0)
+    expect(resolveStack(server.rules, cast).objects[creature]!.zone).toBe('exile')
+  })
+
   test('a chosen target determines a generic reduction without reducing colored mana', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
       decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
