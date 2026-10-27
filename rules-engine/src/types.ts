@@ -477,7 +477,6 @@ export type StackItem = {
   kicked?: boolean
   giftPromised?: boolean
   giftRecipient?: PlayerId
-  spreeModes?: string[]
   /** Times the multikicker cost was paid; 0 is explicit for multikicker spells. */
   timesKicked?: number
   castOption?: string
@@ -1193,7 +1192,6 @@ export type GameEvent =
       kicked?: boolean
       giftPromised?: boolean
       giftRecipient?: PlayerId
-      spreeModes?: string[]
       timesKicked?: number
       castOption?: string
       phyrexianLife?: number[]

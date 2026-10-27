@@ -16,7 +16,6 @@ import type {
   TargetRef,
 } from '../types'
 import type { CastCostCondition } from '../cardPlugins/effectDefinitions'
-import { spreeExtraCost, spreeModesOf } from '../spreeCost'
 import { searchEffect } from '../cardPlugins/effects'
 import { conditionHolds } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
@@ -120,7 +119,6 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         x: event.x,
         castOption: event.castOption,
         kicked: event.kicked,
-        spreeModes: event.spreeModes,
         timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
@@ -264,7 +262,6 @@ export const spellCost = (
     x?: number
     castOption?: string
     kicked?: boolean
-    spreeModes?: string[]
     timesKicked?: number
     targets?: TargetRef[]
     seat?: PlayerId
@@ -293,10 +290,6 @@ export const spellCost = (
       ?? withX(object.manaCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
-  }${
-    options.spreeModes && options.spreeModes.length > 0
-      ? spreeExtraCost(spreeModesOf(object) ?? [], options.spreeModes)
-      : ''
   }${extraKickMana(object, timesKickedFromCast(options))}`
   const reduction = effectsOf(object).reduce((amount, effect) =>
     effect.op === 'castCost'
@@ -550,7 +543,6 @@ export const spells: Plugin = {
           x: event.x,
           castOption: event.castOption,
           kicked: event.kicked,
-          spreeModes: event.spreeModes,
           timesKicked: event.timesKicked,
           targets: event.targets,
           seat: event.seat,
@@ -732,7 +724,6 @@ export const spells: Plugin = {
                   x: event.x,
                   castOption: event.castOption,
                   kicked: event.kicked,
-                  spreeModes: event.spreeModes,
                   timesKicked: event.timesKicked,
                   targets: event.targets,
                   seat: event.seat,
@@ -867,7 +858,6 @@ export const spells: Plugin = {
         x: event.x,
         castOption: event.castOption,
         kicked: event.kicked,
-        spreeModes: event.spreeModes,
         timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
@@ -991,7 +981,6 @@ export const spells: Plugin = {
               x: event.x,
               castOption: event.castOption,
               kicked: event.kicked,
-              spreeModes: event.spreeModes,
               timesKicked: event.timesKicked,
               targets: event.targets,
               seat: event.seat,
@@ -1016,7 +1005,6 @@ export const spells: Plugin = {
         x: event.x,
         castOption: event.castOption,
         kicked: event.kicked,
-        spreeModes: event.spreeModes,
         timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
@@ -1108,9 +1096,6 @@ export const spells: Plugin = {
               giftPromised: true,
               ...(event.giftRecipient ? { giftRecipient: event.giftRecipient } : {}),
             }
-          : {}),
-        ...(event.spreeModes && event.spreeModes.length > 0
-          ? { spreeModes: event.spreeModes }
           : {}),
         ...(timesKicked > 0 ? { kicked: true } : {}),
         ...(hasMultikicker(object) || event.timesKicked !== undefined

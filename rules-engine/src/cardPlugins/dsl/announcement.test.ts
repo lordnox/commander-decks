@@ -1331,3 +1331,38 @@ test('catalog Snuff Out validates the Swamp and four-life alternative cost', () 
   lowLife.players.p1.life = 3
   expect(server.rules(lowLife, payLife).ok).toBe(false)
 })
+
+test.each([{ selectedOptionalCosts: [1] }, { selectedOptionalCosts: [0, 1] }])('paid optional programs charge their selected costs once (%j)', ({ selectedOptionalCosts }) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({
+      optionalCosts: [manaCost('{1}'), manaCost('{2}')], optionalCostBounds: { min: 1 },
+      instructions: [
+        ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), { then: [draw(1)] }),
+        ifThen(compareAmount(paidCostCount('optional', 1), 'gte', 1), { then: [draw(2)] }),
+      ],
+    }, '{1}{U}')] },
+    libraries: { p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Library ${index}`)) },
+  }, { random: () => 0.5 })
+  server.state.players.p1.mana.U = 1
+  server.state.players.p1.mana.C = 4
+  const before = structuredClone(server.state)
+  const objectId = before.zoneOrder.p1.hand[0]
+  const offered = availableActions(server.state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(offered.map(action => action.selectedOptionalCosts?.join(',')).sort()).toEqual(['0', '0,1', '1'])
+  expect(server.state).toEqual(before)
+  for (const invalid of [[], [2], [0, 0]]) {
+    expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: invalid }).ok).toBe(false)
+    expect(server.state).toEqual(before)
+  }
+  const action = offered.find(action => action.selectedOptionalCosts?.join(',') === selectedOptionalCosts.join(','))!
+  const cast = eventsForAvailableAction(server.state, 'p1', action)!
+    .reduce((current, event) => ok(server.rules(current, event)), server.state)
+  const both = selectedOptionalCosts.length === 2
+  expect(cast.players.p1.mana.U).toBe(0)
+  expect(cast.players.p1.mana.C).toBe(both ? 0 : 1)
+  const resolved = resolveStack(server.rules, restoreJournal(createJournal(cast), server.rules).current())
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(both ? 3 : 2)
+  expect(resolved.objects[objectId].zone).toBe('graveyard')
+  expect(resolved.stack).toHaveLength(0)
+})

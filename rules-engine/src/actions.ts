@@ -42,7 +42,6 @@ import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugin
 import { captureObject } from './objectIdentity'
 import type { CardRuleDefinitionV2, Cost, Instruction } from './cardPlugins/dsl/schema/v2'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
   activateEffect,
   conditionHolds,
@@ -157,7 +156,6 @@ export type AvailableAction =
       kicked?: boolean
       giftPromised?: boolean
       giftRecipientId?: string
-      spreeModes?: string[]
       timesKicked?: number
       selectedOptionalCosts?: number[]
       costPlayers?: Readonly<Record<number, PlayerId>>
@@ -1048,22 +1046,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       }))
       return funded.length > 0 ? funded : [action]
     })
-  const withSpree = (
-    action: Extract<AvailableAction, { kind: 'castSpell' }>,
-  ): AvailableAction[] => {
-    const modes = spreeModesOf(spell)
-    if (!modes || modes.length === 0) return [action]
-    return spreeSubsetActions(modes).map((spreeModes) => {
-      const label = spreeModes
-        .map((id) => modes.find((mode) => mode.id === id)?.label ?? id)
-        .join(' + ')
-      return {
-        ...action,
-        spreeModes,
-        castLabel: [action.castLabel, label].filter(Boolean).join(' — '),
-      }
-    })
-  }
   const canonicalAbility = object.ruleDefinition
     ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
     : undefined
@@ -1103,8 +1085,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     base: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
   ) => withGiftRecipients(
-    withCostOptions(base).flatMap(action => withKicker(action, options)).flatMap((action) =>
-      action.kind === 'castSpell' ? withSpree(action) : [action]).flatMap((action) => {
+    withCostOptions(base).flatMap(action => withKicker(action, options)).flatMap((action) => {
       if (action.kind !== 'castSpell') return []
       if (object.manaCostAbsent && !action.castOption && !action.alternativeCost && action.selectedAlternativeCost === undefined) return []
       if (hasCanonicalCostOptions && preview(action) === undefined) return []
@@ -1113,7 +1094,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         x: options.x ?? action.x,
         castOption: options.castOption ?? action.castOption,
         kicked: action.kicked,
-        spreeModes: action.spreeModes,
         timesKicked: action.timesKicked,
         seat,
       })
@@ -1899,7 +1879,6 @@ const targetVariants = (
       x: action.x,
       castOption: action.castOption,
       kicked: action.kicked,
-      spreeModes: action.spreeModes,
       timesKicked: action.timesKicked,
       seat,
       withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
@@ -2295,7 +2274,6 @@ export const sameLegalAct = (
     selectedAlternativeCost?: number
     giftPromised?: boolean
     giftRecipientId?: string
-    spreeModes?: string[]
     castOption?: string
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
@@ -2334,7 +2312,6 @@ export const sameLegalAct = (
       && left.kicked === right.kicked
       && left.giftPromised === right.giftPromised
       && left.giftRecipientId === right.giftRecipientId
-      && JSON.stringify(left.spreeModes ?? []) === JSON.stringify(right.spreeModes ?? [])
       && JSON.stringify(left.costPlayers ?? {}) === JSON.stringify(right.costPlayers ?? {})
       && JSON.stringify(left.selectedOptionalCosts ?? []) === JSON.stringify(right.selectedOptionalCosts ?? [])
       && left.selectedAlternativeCost === right.selectedAlternativeCost
@@ -2780,7 +2757,6 @@ export const eventsForAvailableAction = (
     || (object
       ? effects.some((effect) =>
         (effect.op === 'trigger' && effect.on === 'resolve')
-        || (effect.op === 'castCost' && effect.spree)
         || (effect.op === 'search' && effect.via === 'spell')
         || effect.op === 'playerAuraDeal')
       : false)
@@ -2789,7 +2765,7 @@ export const eventsForAvailableAction = (
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
-        effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift || effect.spree || effect.multikicker))
+        effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift || effect.multikicker))
     : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.
@@ -2887,7 +2863,6 @@ export const eventsForAvailableAction = (
     x: action.x,
     castOption: alternative?.id ?? action.castOption,
     kicked: action.kicked,
-    spreeModes: action.spreeModes,
     timesKicked: action.timesKicked,
     targets,
     seat,
@@ -2919,9 +2894,6 @@ export const eventsForAvailableAction = (
       ...(action.kicked ? { kicked: true } : {}),
       ...(action.giftPromised ? { giftPromised: true } : {}),
       ...(action.giftRecipientId ? { giftRecipient: action.giftRecipientId } : {}),
-      ...(action.spreeModes && action.spreeModes.length > 0
-        ? { spreeModes: action.spreeModes }
-        : {}),
       ...(action.timesKicked !== undefined ? { timesKicked: action.timesKicked } : {}),
       ...(action.door ? { door: action.door } : {}),
       ...(action.adventureCast ? { adventureCast: true } : {}),

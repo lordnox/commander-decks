@@ -1,13 +1,14 @@
 import { expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../../actions'
+import { createJournal, restoreJournal } from '../../journal'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
-import { createServerGame } from '../../runtime'
+import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { amount, card, compileCardRuleDefinition, draw, players, ref, scry, spell, surveil } from './v1'
+import { compareAmount, ifThen, manaCost, paidCostCount, amount, card, compileCardRuleDefinition, draw, players, ref, scry, spell, surveil } from './v1'
 
 const setup = (kind: 'scry' | 'surveil', count = 4, each = false, size = 6) => createServerGame(commanderRules, {
   players: 2,
@@ -178,4 +179,43 @@ test('an abandoned final library choice does not strand the remaining players re
   expect(resolved.players.p3.lost).toBe(true)
   expect(names(resolved, 'p1', 'hand')).toEqual(['First'])
   expect(resolved.resolution).toBeUndefined()
+})
+
+test.each([false, true])('a paid scry program suspends later paid programs through restore (draw=%s)', withDraw => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({
+      optionalCosts: [manaCost('{1}'), manaCost('{1}')], optionalCostBounds: { min: 1 },
+      instructions: [
+        ifThen(compareAmount(paidCostCount('optional', 0), 'gte', 1), { then: [scry({ count: 1, targets: ref('controller') })] }),
+        ifThen(compareAmount(paidCostCount('optional', 1), 'gte', 1), { then: [draw(1)] }),
+      ],
+    }, '{U}')] },
+    libraries: { p1: [cardTemplate('First'), cardTemplate('Second')] },
+  }, { random: () => 0.5 })
+  server.state.players.p1.mana.U = withDraw ? 3 : 2
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const cast = ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId, selectedOptionalCosts: withDraw ? [0, 1] : [0],
+  }))
+  expect(cast.players.p1.mana.U).toBe(0)
+  const paused = resolveStack(server.rules, cast)
+  const selection = pendingSelectionFor(paused, 'p1')!
+  expect(selection).toMatchObject({ kind: 'scry', count: 1, sourceId: objectId })
+  expect(paused.zoneOrder.p1.hand).toHaveLength(0)
+  expect(paused.objects[objectId].zone).toBe('stack')
+  expect(paused.priority).toBeNull()
+  expect(pendingSelectionFor(projectForViewer(paused, 'p2'), 'p1')).toBeUndefined()
+  const restored = restoreJournal(createJournal(paused), server.rules).current()
+  expect(pendingSelectionFor(restored, 'p1')?.id).toBe(selection.id)
+  const finished = ok(server.rules(restored, {
+    type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'scry', count: 1,
+    choices: [{ objectId: selection.candidates[0], destination: 'bottom' }],
+  }))
+  expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+  expect(finished.resolution).toBeUndefined()
+  expect(finished.stack).toHaveLength(0)
+  expect(finished.objects[objectId].zone).toBe('graveyard')
+  expect(finished.zoneOrder.p1.hand).toHaveLength(withDraw ? 1 : 0)
+  expect(finished.zoneOrder.p1.library.at(-1)).toBe(selection.candidates[0])
 })

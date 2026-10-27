@@ -116,7 +116,6 @@ type InboxPayload =
       kicked?: boolean
       giftPromised?: boolean
       giftRecipientId?: string
-      spreeModes?: string[]
       timesKicked?: number
       announcementId?: string
       transactionId?: string
