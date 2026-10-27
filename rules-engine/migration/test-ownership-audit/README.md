@@ -88,3 +88,9 @@ Everything without proved equivalent evidence remains live coverage. There is no
 The inventory validator passes: 271 suites, 750 groups, and 2,594 distinct assertion sites. Local rules tests pass (2,592), live-runner CI tests pass (232), site tests pass (53), and TypeScript, imports, lint, DSL authoring, and authoring tests pass.
 
 `bun run check:rule-dsl-coverage` fails with “rule-dsl coverage ledger is stale” at `ruleDslCoverage.ts:649`. The identical command fails in a clean `git archive` export of the audited commit using Bun 1.3.14 and the same installed dependencies. Historical issue [#369](https://github.com/lordnox/commander-decks/issues/369) is closed; this is a recurrence on the pinned base, not an audit-file change. This PR leaves the unrelated ledger untouched.
+
+## Final reconciliation progress
+
+See [reconciliation.md](reconciliation.md) for #543’s checked Courser evidence,
+remaining child issues, and the distinction between implemented IDs and verified
+equivalence. The full reconciliation remains open.
