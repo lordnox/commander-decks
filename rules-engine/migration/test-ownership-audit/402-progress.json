@@ -12461,6 +12461,62 @@
       "destination": "rules-engine/src/plugins/doubleFaced.test.ts",
       "suite": "Trawler casts its front face, triggers, and resets after the land face leaves",
       "evidence": "The deck-resolved Trawler MDFC is cast as a creature and triggers; a separate copy is played as its land face, accepts the graveyard choice, then leaves and restores the creature front face. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "rankle:106"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "choosing no modes leaves the table alone",
+      "evidence": "The current Rankle fixture is hit by combat damage, the mode chooser is completed with no choices, no dialog remains, p2 retains only the three combat damage lost life, p1 remains unchanged, and the hand is unchanged. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:114"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "the sacrifice mode asks every player with a creature",
+      "evidence": "The test selects the sacrifice mode; p1 and p2 each receive a one-card typed choose selection and each selected creature reaches graveyard. The current DSL route encodes sacrifice choice as generic choose rather than the legacy selection kind, preserving each-player behavior. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:136"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "a player with no creature is not asked to sacrifice",
+      "evidence": "After removing p2\u2019s only creature, selecting Rankle\u2019s sacrifice mode yields no p2 choice while p1 with a creature still receives a one-card typed choose selection. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:155"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "the drain mode costs each player a life and draws them a card",
+      "evidence": "Selecting the drain mode verifies p1 loses one life, p2 loses the three combat plus one mode life, and p2 hand grows to three cards. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:168"
+      ],
+      "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
+      "suite": "the discard mode drains through Liliana\u2019s Caress",
+      "evidence": "The fixture enables Liliana\u2019s Caress; selecting discard makes p2 discard Island, then verifies Caress queues and resolves for two more life after the initial three combat damage. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:205"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "choosing every mode queues discards before sacrifices",
+      "evidence": "The mode chooser selects all three modes; the current test verifies the APNAP discard choice is pending before the subsequent sacrifice choice and p2\u2019s life reflects the combat damage plus drain mode. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "rankle:217"
+      ],
+      "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
+      "suite": "each-player discard opens dialogs in APNAP order",
+      "evidence": "With a four-player table and active player p3, the discard mode requests p3\u2019s choice first and then p4\u2019s choice, preserving APNAP order. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
     }
   ],
   "retainedOwnerEvidence": [
