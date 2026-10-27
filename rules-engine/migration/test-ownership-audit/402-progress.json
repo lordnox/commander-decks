@@ -13277,6 +13277,14 @@
       "destination": "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts",
       "suite": "abilities already on the stack still resolve after Stony Silence arrives",
       "evidence": "Minimal DSL integration puts the draw ability on stack, introduces the restriction, verifies future activation is prohibited, then resolves the existing ability successfully."
+    },
+    {
+      "groups": [
+        "mossborn-hydra:20"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "catalog Mossborn Hydra enters with its +1/+1 counter after its spell resolves",
+      "evidence": "New catalog-backed integration casts Mossborn Hydra, resolves its permanent spell, verifies battlefield entry, then resolves the collected ETB trigger and checks the +1/+1 counter. The focused entry-trigger suite passes."
     }
   ],
   "retainedOwnerEvidence": [

@@ -42,6 +42,21 @@ const reduce = (
 ) => ok(server.rules(state, event))
 
 describe('entryTriggers — integration', () => {
+  test('catalog Mossborn Hydra enters with its +1/+1 counter after its spell resolves', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Mossborn Hydra')] },
+    }, { random: () => 0 })
+    const hydra = named(server.state, 'Mossborn Hydra')
+    server.state.players.p1.mana.G = 1
+    server.state.players.p1.mana.C = 2
+    const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: hydra.id })
+    expect(cast.stack).toHaveLength(1)
+    const entered = reduce(server, cast, { type: 'resolveTop' })
+    expect(entered.objects[hydra.id].zone).toBe('battlefield')
+    const resolved = resolveStack(server.rules, entered)
+    expect(resolved.objects[hydra.id].counters['+1/+1']).toBe(1)
+  })
 
   describe('targeted entry trigger', () => {
     const entryDestroyerDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
