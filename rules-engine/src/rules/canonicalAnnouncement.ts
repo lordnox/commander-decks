@@ -1,3 +1,4 @@
+import { captureTriggeredWardTriggers } from '../cardPlugins/ward'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
@@ -277,7 +278,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
     })
     return true
   }
-  draft.addToStack({
+  const item = draft.addToStack({
     kind: 'ability',
     ...(announcement.execution.sourceLess ? { sourceLess: true as const } : {}),
     objectId: source.id,
@@ -302,6 +303,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       targetBindings,
     },
   })
+  captureTriggeredWardTriggers(draft, item)
   return true
 }
 

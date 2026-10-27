@@ -36,7 +36,6 @@ import {
 import { serializableEffects } from './effectRuntime'
 import { permanentControl } from './permanentControl'
 import { targetedResolve } from './targetedResolve'
-import { ward as wardPlugin } from './ward'
 
 const handleFor = (
   rules: KernelHandle['rules'],
@@ -618,36 +617,5 @@ describe('catalog Kiora Bests the Sea God target lifecycle', () => {
       .filter((object) => object.controller === 'p1' && object.zone === 'battlefield')
       .map((object) => object.name)).toEqual(['Own Island'])
     expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
-  })
-
-  test('GAP: Kiora chapter III does not ask for ward on a targeted warded permanent', () => {
-    // Keep this characterization until the targeted chapter ward defect in #537 is fixed.
-    const server = createServerGame(commanderRules, {
-      players: 3,
-      battlefield: {
-        p1: [cardTemplate('Kiora Bests the Sea God', { counters: { lore: 2 } })],
-        p2: [creature('Warded Foe', 'Ward {5}')],
-      },
-    }, { random: () => 0.5, cardPlugins: [wardPlugin] })
-    const state = server.state
-    const kernel = handleFor(server.rules, state)
-    advanceKioraChapter(kernel, state)
-    const choice = pendingSelectionFor(kernel.history.current(), 'p1')!
-    expect(choice.candidates).toContain(named(state, 'Warded Foe').id)
-    const stacked = ok(server.rules(kernel.history.current(), {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [named(state, 'Warded Foe').id],
-    }))
-    expect(stacked.stack[0]).toMatchObject({
-      kind: 'ability',
-      name: 'Kiora Bests the Sea God',
-      payload: { sagaChapter: 3 },
-      targets: [{ kind: 'object', objectId: named(state, 'Warded Foe').id }],
-    })
-    const done = resolveStack(server.rules, stacked)
-    expect(named(done, 'Warded Foe').controller).toBe('p1')
   })
 })

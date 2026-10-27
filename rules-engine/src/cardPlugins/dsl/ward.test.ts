@@ -17,6 +17,10 @@ import {
   select,
   spell,
   staticAbility,
+  saga,
+  objects,
+  changeControl,
+  target,
   ward,
 } from './v1'
 const snapshot = (cost: Parameters<typeof ward>[0]) =>
@@ -155,4 +159,46 @@ test('ward uses format-defined opponents rather than every other controller', ()
   const server = game({ kind: 'mana', generic: 3 })
   server.state.opponents.p2 = []
   expect(castAt(server).stack.filter(item => item.payload?.canonicalWard)).toHaveLength(0)
+})
+
+test.each([
+  { pay: false, catalog: false }, { pay: true, catalog: false },
+  { pay: false, catalog: true }, { pay: true, catalog: true },
+])('targeted chapters trigger ward after choosing targets (%j)', ({ pay, catalog }) => {
+  const server = game({ kind: 'mana', generic: 5 }, { battlefield: { p1: [catalog ? cardTemplate('Kiora Bests the Sea God', { counters: { lore: 2 } }) : cardTemplate('Chapter fixture', {
+    types: ['Enchantment'], subtypes: ['Saga'], counters: { lore: 2 },
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([saga({ chapters: [
+      { numbers: [1, 2], instructions: [] },
+      { numbers: [3], decisions: { targets: [select({ filter: objects({ zone: 'battlefield', controller: 'opponent' }), count: 1 })] }, instructions: [changeControl({ targets: target(0), controller: ref('controller') })] },
+    ] })]))),
+  })] } })
+  const source = Object.values(server.state.objects).find(object => object.name === (catalog ? 'Kiora Bests the Sea God' : 'Chapter fixture'))!
+  const foe = Object.values(server.state.objects).find(object => object.name === 'Warded fixture')!
+  const choosing = ok(server.rules(server.state, { type: 'putCounters', objectId: source.id, counter: 'lore', count: 1 }))
+  expect(choosing.stack).toHaveLength(0)
+  expect(pendingDialog(choosing)).toBeUndefined()
+  const pick = pendingSelectionFor(choosing, 'p1')!
+  const stacked = ok(server.rules(choosing, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [foe.id] }))
+  expect(stacked.stack).toHaveLength(2)
+  const chapter = stacked.stack[1]!
+  expect(chapter.targets).toEqual([{ kind: 'object', objectId: foe.id, incarnation: foe.incarnation, zone: 'battlefield' }])
+  expect(stacked.stack[0]).toMatchObject({ controller: 'p2', payload: { canonicalWard: true, spellStackId: chapter.id } })
+  expect(stacked.priority).toBe('p1')
+  expect(pendingDialog(stacked)).toBeUndefined()
+  const waiting = ok(server.rules(JSON.parse(JSON.stringify(stacked)), { type: 'resolveTop' }))
+  expect(waiting.objects[foe.id].controller).toBe('p2')
+  expect(waiting.stack.some(item => item.id === chapter.id)).toBe(true)
+  expect(pendingDialog(waiting)).toMatchObject({ kind: 'ward-pay', count: 5, seat: 'p1' })
+  waiting.players.p1.mana.C = 5
+  const answered = ok(server.rules(JSON.parse(JSON.stringify(waiting)), { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: pay } }))
+  expect(answered.objects[foe.id].controller).toBe('p2')
+  expect(answered.stack).toHaveLength(pay ? 1 : 0)
+  if (pay) {
+    expect(answered.players.p1.mana.C).toBe(0)
+    const done = ok(server.rules(answered, { type: 'resolveTop' }))
+    expect(done.objects[foe.id].controller).toBe('p1')
+    expect(done.objects[source.id].zone).toBe('graveyard')
+  } else {
+    expect(answered.objects[source.id].zone).toBe('graveyard')
+  }
 })
