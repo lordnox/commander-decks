@@ -28,6 +28,7 @@ type WardSpec = NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>
 
 type PendingCast = {
   event: Extract<GameEvent, { type: 'castSpell' | 'activateAbility' }>
+    | { type: 'triggeredAbility'; seat: string; objectId: string; targets: TargetRef[] }
   stackId?: string
   spellRef?: CapturedObject['ref']
   warded?: CapturedObject
@@ -85,9 +86,20 @@ const wardTargets = (
 }
 
 /** Capture ward only after the targeting spell or nonmana ability is on the stack. */
-export const captureCanonicalWardTriggers = (state: GameState, draft: Draft, event: PendingCast['event'], item: StackItem) => {
+export const captureCanonicalWardTriggers = (state: GameState, draft: Draft, event: Extract<GameEvent, { type: 'castSpell' | 'activateAbility' }>, item: StackItem) => {
   if (event.wardPaid) return
-  for (const { object, ward } of wardTargets(state, event.seat, castTargets(event))) {
+  captureWardTriggers(state, draft, event, item, castTargets(event))
+}
+
+/** CR 702.21a: chapter and other triggered abilities trigger ward once targets are committed. */
+export const captureTriggeredWardTriggers = (draft: Draft, item: StackItem) => {
+  captureWardTriggers(draft, draft, {
+    type: 'triggeredAbility', seat: item.controller, objectId: item.objectId, targets: item.targets,
+  }, item, item.targets)
+}
+
+const captureWardTriggers = (state: GameState, draft: Draft, event: PendingCast['event'], item: StackItem, targets: TargetRef[] | undefined) => {
+  for (const { object, ward } of wardTargets(state, event.seat, targets)) {
     const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined
     draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {
       canonicalWard: true, spellStackId: item.id, cast: structuredClone(event), casterSeat: event.seat,
@@ -223,12 +235,12 @@ const counterPending = (
     draft.note(`${object?.name ?? 'Spell'} was countered by Ward`)
     return
   }
-  if (pending.event.type === 'activateAbility') {
+  if (pending.event.type === 'activateAbility' || pending.event.type === 'triggeredAbility') {
     const ability = pending.event
     const index = draft.stack.findIndex((item) =>
       (!pending.stackId || item.id === pending.stackId) && item.kind === 'ability'
       && item.objectId === ability.objectId
-      && item.abilityId === ability.abilityId)
+      && (ability.type === 'triggeredAbility' || item.abilityId === ability.abilityId))
     if (index >= 0) draft.stack.splice(index, 1)
     draft.note('Ability was countered by Ward')
   }
@@ -313,7 +325,7 @@ export const ward: Plugin = {
           cost: `{${dialog.count}}`,
         })
         clearPendingCast(draft, event.seat)
-        if (!pending.stackId) {
+        if (!pending.stackId && pending.event.type !== 'triggeredAbility') {
           draft.enqueue({ ...pending.event, wardPaid: true })
         }
         draft.note(`${event.seat} pays Ward {${dialog.count}}`)
@@ -341,7 +353,7 @@ export const ward: Plugin = {
       })
       // Paying all of your life is legal, but then you lose before the spell could go on.
       if (draft.players[event.seat].life > selection.action.life) {
-        if (!pending.stackId) {
+        if (!pending.stackId && pending.event.type !== 'triggeredAbility') {
           draft.enqueue({ ...pending.event, wardPaid: true })
         }
       }
@@ -361,7 +373,7 @@ export const ward: Plugin = {
         counterPending(draft, pending)
         return
       }
-      if (!pending.stackId) {
+      if (!pending.stackId && pending.event.type !== 'triggeredAbility') {
         draft.enqueue({ ...pending.event, wardPaid: true })
       }
       draft.note(`${event.seat} pays Ward`)
