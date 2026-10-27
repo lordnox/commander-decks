@@ -57,3 +57,21 @@ test('a catalog mana-rain ability gives both players mana that Yurlok burns when
   expect(ok(server.rules(burned, { type: 'emptyManaPools' })).players.p1.life).toBe(37)
 })
 
+test('the catalog Yurlok mana ability resolves directly without creating a stack item', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Yurlok of Scorch Thrash')] },
+  }, { random: () => 0 })
+  const yurlokId = server.state.zoneOrder.p1.battlefield[0]!
+  server.state.objects[yurlokId]!.summoningSickness = false
+  server.state.players.p1.mana.C = 1
+
+  const result = server.rules(server.state, {
+    type: 'activateAbility', seat: 'p1', objectId: yurlokId, abilityId: '$.abilities[2]',
+  })
+  expect(result.ok).toBe(true)
+  if (!result.ok) return
+  expect(result.state.stack).toEqual([])
+  expect(result.state.players.p1.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
+  expect(result.state.players.p2.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
+})
+

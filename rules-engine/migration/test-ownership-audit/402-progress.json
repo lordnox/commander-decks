@@ -13351,6 +13351,22 @@
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "Fell the Profane destroys the target creature or planeswalker",
       "evidence": "The pinned historical assertion expected life loss after destruction, but the current Scryfall Oracle record and canonical DSL definition for Fell the Profane contain only \u201cDestroy target creature or planeswalker.\u201d The current catalog-backed test verifies the target moves to the graveyard and the opponent remains at 40 life. The drain assertion was stale relative to the authoritative card text, so preserving it would encode behavior the card does not have."
+    },
+    {
+      "groups": [
+        "yurlok:79"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/manaLoss.test.ts",
+      "suite": "the catalog Yurlok mana ability resolves directly without creating a stack item",
+      "evidence": "The current canonical runtime classifies the catalog ability as a mana ability without the legacy event manaAbility flag. The direct activateAbility route succeeds, leaves the stack empty, and immediately adds {B}{R}{G} to both players; this is the correct no-stack mana-ability behavior. It supersedes the pinned assertion that expected the stack route to reject the request with a \u201cmana ability\u201d error."
+    },
+    {
+      "groups": [
+        "yurlok:35"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/manaLoss.test.ts",
+      "suite": "a catalog mana-rain ability gives both players mana that Yurlok burns when pools empty",
+      "evidence": "The catalog-backed test activates $.abilities[2], verifies the tap cost and exact {B}{R}{G} pool for both players, then empties pools and verifies each loses three life and both pools clear. A second empty is idempotent. This preserves the complete mana-rain and mana-burn behavior on the current canonical route."
     }
   ],
   "retainedOwnerEvidence": [
