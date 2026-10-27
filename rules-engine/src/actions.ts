@@ -12,15 +12,10 @@ import type { CardEffect, TargetFilter } from './cardPlugins/effects'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
-  kickCastLabel,
-  multikickerCostOf,
-} from './plugins/kickCast'
-import {
   announcementSource,
   convokeColors,
   hasConvoke,
   hasDelve,
-  kickerCostOf,
   payCost,
   phyrexianSymbols,
   reduceGenericManaCost,
@@ -50,7 +45,6 @@ import {
 } from './cardPlugins/effects'
 import { SEARCH_FETCH } from './cardPlugins/librarySearch'
 import {
-  targetedEffectFilter,
   targetedResolveBounds,
   validTargetRef,
 } from './cardPlugins/targetedResolve'
@@ -153,10 +147,8 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetName?: string
       x?: number
-      kicked?: boolean
       giftPromised?: boolean
       giftRecipientId?: string
-      timesKicked?: number
       selectedOptionalCosts?: number[]
       costPlayers?: Readonly<Record<number, PlayerId>>
       selectedAlternativeCost?: number
@@ -978,45 +970,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     effect.op === 'castCost'
     && effect.reduceGeneric?.if.kind === 'target')
     || Boolean(object.ruleDefinition && loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.some(ability => ability.kind === 'spell' && costsDependOnTargets(ability.costReductions)))
-  const withKicker = (
-    action: Extract<AvailableAction, { kind: 'castSpell' }>,
-    options: { castOption?: string; x?: number } = {},
-  ): AvailableAction[] => {
-    const multikicker = multikickerCostOf(object)
-    if (multikicker) {
-      const variants: AvailableAction[] = []
-      for (let timesKicked = 0; timesKicked < 100; timesKicked += 1) {
-        const cost = spellCost(state, spell, {
-          additionalGeneric: tax,
-          x: options.x ?? action.x,
-          castOption: options.castOption ?? action.castOption,
-          timesKicked,
-          seat,
-        })
-        if (!canFund(state, seat, cost, [], spell)) {
-          if (timesKicked === 0) break
-          break
-        }
-        variants.push({
-          ...action,
-          timesKicked,
-          ...(timesKicked > 0 ? { kicked: true } : {}),
-          castLabel: kickCastLabel(action.castLabel, timesKicked),
-        })
-      }
-      return variants
-    }
-    if (!kickerCostOf(object)) return [action]
-    return [
-      action,
-      {
-        ...action,
-        kicked: true,
-        timesKicked: 1,
-        castLabel: kickCastLabel(action.castLabel, 1),
-      },
-    ]
-  }
   const withGift = (
     action: Extract<AvailableAction, { kind: 'castSpell' }>,
   ): AvailableAction[] => {
@@ -1085,7 +1038,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     base: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
   ) => withGiftRecipients(
-    withCostOptions(base).flatMap(action => withKicker(action, options)).flatMap((action) => {
+    withCostOptions(base).flatMap((action) => {
       if (action.kind !== 'castSpell') return []
       if (object.manaCostAbsent && !action.castOption && !action.alternativeCost && action.selectedAlternativeCost === undefined) return []
       if (hasCanonicalCostOptions && preview(action) === undefined) return []
@@ -1093,8 +1046,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         additionalGeneric: tax,
         x: options.x ?? action.x,
         castOption: options.castOption ?? action.castOption,
-        kicked: action.kicked,
-        timesKicked: action.timesKicked,
         seat,
       })
       if (hasTargetReduction) return [action]
@@ -1878,8 +1829,6 @@ const targetVariants = (
       additionalGeneric: taxFor(state, seat, source),
       x: action.x,
       castOption: action.castOption,
-      kicked: action.kicked,
-      timesKicked: action.timesKicked,
       seat,
       withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
     })
@@ -1944,7 +1893,7 @@ const targetVariants = (
   }
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
-  const filter = targetedEffectFilter(effect, action.kicked === true)
+  const filter = effect.filter
   const bounds = targetedResolveBounds(effect)
   const objectTargets = Object.values(state.objects)
     .filter((object) =>
@@ -2010,8 +1959,6 @@ const targetVariants = (
     return canFund(state, seat, reduceGenericManaCost(canonicalActionManaCost(state, seat, source, candidate) ?? spellCost(state, spell, {
       additionalGeneric: taxFor(state, seat, source),
       castOption: candidate.castOption,
-      kicked: candidate.kicked,
-      timesKicked: candidate.timesKicked,
       targets,
       seat,
       withoutPayingMana: candidate.alternativeCost === 'withoutPayingMana',
@@ -2267,8 +2214,6 @@ export const sameLegalAct = (
     targetObjectIds?: string[]
     targetPlayerId?: string
     x?: number
-    kicked?: boolean
-    timesKicked?: number
     selectedOptionalCosts?: number[]
     costPlayers?: Readonly<Record<number, PlayerId>>
     selectedAlternativeCost?: number
@@ -2309,13 +2254,11 @@ export const sameLegalAct = (
     return samePickedTargets
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
-      && left.kicked === right.kicked
       && left.giftPromised === right.giftPromised
       && left.giftRecipientId === right.giftRecipientId
       && JSON.stringify(left.costPlayers ?? {}) === JSON.stringify(right.costPlayers ?? {})
       && JSON.stringify(left.selectedOptionalCosts ?? []) === JSON.stringify(right.selectedOptionalCosts ?? [])
       && left.selectedAlternativeCost === right.selectedAlternativeCost
-      && left.timesKicked === right.timesKicked
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
       && left.alternativeCost === right.alternativeCost
@@ -2765,7 +2708,7 @@ export const eventsForAvailableAction = (
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
-        effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift || effect.multikicker))
+        effect.op === 'castCost' && (effect.lifeX || effect.gift))
     : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.
@@ -2862,8 +2805,6 @@ export const eventsForAvailableAction = (
     additionalGeneric: tax,
     x: action.x,
     castOption: alternative?.id ?? action.castOption,
-    kicked: action.kicked,
-    timesKicked: action.timesKicked,
     targets,
     seat,
     withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
@@ -2891,10 +2832,8 @@ export const eventsForAvailableAction = (
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.delve?.length ? { delve: action.delve } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
-      ...(action.kicked ? { kicked: true } : {}),
       ...(action.giftPromised ? { giftPromised: true } : {}),
       ...(action.giftRecipientId ? { giftRecipient: action.giftRecipientId } : {}),
-      ...(action.timesKicked !== undefined ? { timesKicked: action.timesKicked } : {}),
       ...(action.door ? { door: action.door } : {}),
       ...(action.adventureCast ? { adventureCast: true } : {}),
       ...(action.targetObjectIds && alternative?.discard

@@ -1727,7 +1727,6 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
           state,
           searchSeat,
           spec,
-          search?.kicked,
           search?.x,
         ).some(({ id }) => id === event.objectId)
         const destinations = spec?.split

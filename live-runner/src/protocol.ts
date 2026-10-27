@@ -113,10 +113,8 @@ type InboxPayload =
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
-      kicked?: boolean
       giftPromised?: boolean
       giftRecipientId?: string
-      timesKicked?: number
       announcementId?: string
       transactionId?: string
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
@@ -259,7 +257,6 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const text = message.text
       const attackers = message.attackers
       const x = message.x
-      const kicked = message.kicked
       const giftPromised = message.giftPromised
       const giftRecipientId = message.giftRecipientId
       const blockers = message.blockers
@@ -411,7 +408,6 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
           : {}),
         ...(typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? { x } : {}),
-        ...(kicked === true ? { kicked: true } : {}),
         ...(giftPromised === true ? { giftPromised: true } : {}),
         ...(typeof giftRecipientId === 'string' ? { giftRecipientId } : {}),
       })

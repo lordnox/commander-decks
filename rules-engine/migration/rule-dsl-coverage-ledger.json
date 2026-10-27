@@ -21,16 +21,16 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 20,
-    "cardInstructions": 178,
-    "instructionHandlersDiscovered": 178,
+    "cardInstructions": 177,
+    "instructionHandlersDiscovered": 177,
     "builtInPlugins": 62,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 65,
-    "directMutationSites": 526,
+    "directMutationSites": 525,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 140,
+    "instructionUnobservedGaps": 139,
     "cardRegistrationOnlyGaps": 0,
     "candidateOnlyInstructionRows": 36,
     "candidateOnlyCardRows": 0
@@ -104,10 +104,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {",
-          "rules-engine/src/plugins/multikicker.test.ts:39 — test('multikicker(cost) builders are independent clones', () => {"
+          "rules-engine/src/cardPlugins/dsl/plannedPayment.test.ts:178 — test('a planned mana sacrifice cannot change the spell total locked before payment', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost modifier",
@@ -2959,24 +2958,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "putChargeCountersFromTimesKicked",
-      "mechanic": "semantic game action",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "shared typed action primitive and outcome",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03"
-      ],
-      "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "putCounters",
       "mechanic": "semantic game action",
       "currentRegistrations": [],
@@ -4049,7 +4030,6 @@
       "pumpSelf",
       "pumpTargetEqualToLands",
       "pumpTargetX",
-      "putChargeCountersFromTimesKicked",
       "putCounters",
       "putFromHand",
       "putHandCardOnLibraryBottom",
@@ -5987,7 +5967,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:484",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:483",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:493",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -6006,7 +5986,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1491"
+        "rules-engine/src/types.ts:1484"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6039,9 +6019,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1497",
-        "rules-engine/src/actions.ts:1666",
-        "rules-engine/src/actions.ts:909",
+        "rules-engine/src/actions.ts:1448",
+        "rules-engine/src/actions.ts:1617",
+        "rules-engine/src/actions.ts:901",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
@@ -6049,7 +6029,7 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:441",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
-        "rules-engine/src/cardPlugins/librarySearch.ts:175",
+        "rules-engine/src/cardPlugins/librarySearch.ts:174",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
         "rules-engine/src/cards/boggart-trawler.ts:20",
@@ -6166,8 +6146,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:653",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:830",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:650",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:826",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:574",
@@ -6194,7 +6174,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:494",
+        "rules-engine/src/plugins/spells.ts:484",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:167",
@@ -6763,15 +6743,15 @@
       {
         "path": "rules-engine/src/cardPlugins/librarySearch.ts",
         "lines": [
-          365,
-          384,
-          431,
-          470
+          359,
+          378,
+          425,
+          463
         ],
         "samples": [
-          "365: if (event.type === 'custom' && event.name === SEARCH_SACRIFICE_BEGIN && event.seat) {",
-          "384: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
-          "431: if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {"
+          "359: if (event.type === 'custom' && event.name === SEARCH_SACRIFICE_BEGIN && event.seat) {",
+          "378: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
+          "425: if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7270,30 +7250,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          932,
-          938,
-          1016,
-          1036,
-          1038,
+          909,
+          915,
+          988,
+          1008,
+          1010,
+          1013,
+          1023,
+          1026,
           1041,
-          1051,
-          1054,
-          1069,
-          1070,
-          1080,
-          1083,
-          1085,
-          1172,
-          1196,
-          1211,
-          1230,
-          1242,
-          1258
+          1042,
+          1052,
+          1055,
+          1057,
+          1139,
+          1163,
+          1178,
+          1197,
+          1205,
+          1221
         ],
         "samples": [
-          "932: const moved = draft.object(event.objectId)",
-          "938: const object = draft.object(event.objectId)",
-          "1016: .map((objectId) => draft.object(objectId))"
+          "909: const moved = draft.object(event.objectId)",
+          "915: const object = draft.object(event.objectId)",
+          "988: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7993,14 +7973,14 @@
       {
         "path": "rules-engine/src/cardPlugins/stackCopy.ts",
         "lines": [
-          185,
-          239,
-          240
+          184,
+          238,
+          239
         ],
         "samples": [
-          "185: draft.addToStack({",
-          "239: draft.enqueue({ type: 'payMana', seat: event.seat, cost: pending.cost })",
-          "240: draft.addToStack({"
+          "184: draft.addToStack({",
+          "238: draft.enqueue({ type: 'payMana', seat: event.seat, cost: pending.cost })",
+          "239: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8469,23 +8449,23 @@
       {
         "path": "rules-engine/src/cardPlugins/librarySearch.ts",
         "lines": [
-          274,
-          276,
-          367,
+          269,
+          271,
+          361,
+          384,
           390,
+          395,
           396,
-          401,
-          402,
-          415,
-          475,
-          483,
-          488,
-          501
+          409,
+          468,
+          476,
+          481,
+          494
         ],
         "samples": [
-          "274: draft.enqueue({ type: 'sacrifice', objectId: entered.id })",
-          "276: draft.enqueue({",
-          "367: const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined"
+          "269: draft.enqueue({ type: 'sacrifice', objectId: entered.id })",
+          "271: draft.enqueue({",
+          "361: const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8805,28 +8785,27 @@
           224,
           251,
           261,
-          270,
-          280,
-          289,
-          298,
-          313,
-          349,
-          366,
-          421,
+          266,
+          275,
+          284,
+          299,
+          335,
+          352,
+          407,
+          416,
+          428,
           430,
-          442,
-          444,
-          459,
-          590,
-          597,
-          605,
-          624,
-          635,
-          645,
-          698,
-          714,
-          749,
-          790
+          445,
+          576,
+          583,
+          591,
+          610,
+          621,
+          631,
+          684,
+          700,
+          735,
+          776
         ],
         "samples": [
           "32: const object = typeof objectId === 'string' ? draft.object(objectId) : undefined",
@@ -9165,14 +9144,14 @@
       {
         "path": "rules-engine/src/cardPlugins/targetedResolve.ts",
         "lines": [
-          249,
-          307,
-          315
+          242,
+          300,
+          308
         ],
         "samples": [
-          "249: draft.enqueue({",
-          "307: draft.enqueue({",
-          "315: draft.enqueue({ type: 'tap', objectId: object.id })"
+          "242: draft.enqueue({",
+          "300: draft.enqueue({",
+          "308: draft.enqueue({ type: 'tap', objectId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

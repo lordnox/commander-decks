@@ -2,7 +2,7 @@ import type { GameObject, GameState, Plugin, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
 import { printedStaticEffectsOfKind } from './dsl/staticModifierCore'
-import { targetedEffectFilter, targetedEffectForIndex, validTarget } from './targetedResolve'
+import { targetedEffectForIndex, validTarget } from './targetedResolve'
 
 const requirement = (
   state: GameState,
@@ -38,7 +38,7 @@ const canFillObjectTarget = (
       ? validTarget(
           state,
           candidate,
-          targetedEffectFilter(effect, (event.timesKicked ?? (event.kicked ? 1 : 0)) > 0),
+          effect.filter,
           event.seat,
         )
       : false

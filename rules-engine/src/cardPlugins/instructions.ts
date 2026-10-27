@@ -696,10 +696,6 @@ export const ifGiftNotPromised = (...whenTrue: CardInstruction[]): CardInstructi
   whenTrue,
 })
 
-export const putChargeCountersFromTimesKicked = (): CardInstruction => ({
-  kind: 'putChargeCountersFromTimesKicked',
-})
-
 export const hiddenPileNegotiation = (
   pileSize: number,
   lifeLoss: number,

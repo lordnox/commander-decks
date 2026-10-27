@@ -416,8 +416,6 @@ export type GameObject = {
   /** CR 702.103e–g: a bestowed Aura that has already ceased to be bestowed. */
   bestowedCeased?: true
   castCostChoices?: PaidCostChoices
-  /** Multikicker count stamped when this permanent entered from a resolving spell. */
-  enteredWithTimesKicked?: number
   /** Turn this object most recently entered the battlefield. */
   enteredBattlefieldTurn?: number
   /** CR 613.7d timestamp of this permanent's latest battlefield entry; absent for setup permanents. */
@@ -474,11 +472,8 @@ export type StackItem = {
   choices?: string[]
   /** Mana actually removed from the pool while casting, by symbol. */
   manaSpent?: Partial<ManaPool>
-  kicked?: boolean
   giftPromised?: boolean
   giftRecipient?: PlayerId
-  /** Times the multikicker cost was paid; 0 is explicit for multikicker spells. */
-  timesKicked?: number
   castOption?: string
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
@@ -1189,10 +1184,8 @@ export type GameEvent =
       /** Announcement-time distribution allocations keyed by modal scope. */
       distributionBindings?: DistributionAllocation[]
       additionalGeneric?: number
-      kicked?: boolean
       giftPromised?: boolean
       giftRecipient?: PlayerId
-      timesKicked?: number
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'

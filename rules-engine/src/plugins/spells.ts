@@ -20,11 +20,6 @@ import { searchEffect } from '../cardPlugins/effects'
 import { conditionHolds } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
 import {
-  extraKickMana,
-  hasMultikicker,
-  timesKickedFromCast,
-} from './kickCast'
-import {
   alternateCastEffect,
   availableAlternateCastEffect,
   finishedSpellZone,
@@ -118,8 +113,6 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        kicked: event.kicked,
-        timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
         selected,
@@ -234,7 +227,6 @@ const xManaKind = (object: GameObject) =>
   effectsOf(object).flatMap((effect) =>
     effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
 
-export { kickerCostOf, multikickerCostOf, hasMultikicker } from './kickCast'
 
 export const reduceGenericManaCost = (manaCost: string, amount: number) => {
   const reduced = Math.max(0, genericCost(manaCost) - amount)
@@ -261,8 +253,6 @@ export const spellCost = (
     additionalGeneric?: number
     x?: number
     castOption?: string
-    kicked?: boolean
-    timesKicked?: number
     targets?: TargetRef[]
     seat?: PlayerId
     selected?: AlternateCastEffect
@@ -290,7 +280,7 @@ export const spellCost = (
       ?? withX(object.manaCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
-  }${extraKickMana(object, timesKickedFromCast(options))}`
+  }`
   const reduction = effectsOf(object).reduce((amount, effect) =>
     effect.op === 'castCost'
       && effect.reduceGeneric
@@ -542,8 +532,6 @@ export const spells: Plugin = {
           additionalGeneric: event.additionalGeneric,
           x: event.x,
           castOption: event.castOption,
-          kicked: event.kicked,
-          timesKicked: event.timesKicked,
           targets: event.targets,
           seat: event.seat,
           selected,
@@ -723,8 +711,6 @@ export const spells: Plugin = {
                   additionalGeneric: event.additionalGeneric,
                   x: event.x,
                   castOption: event.castOption,
-                  kicked: event.kicked,
-                  timesKicked: event.timesKicked,
                   targets: event.targets,
                   seat: event.seat,
                   selected,
@@ -846,19 +832,10 @@ export const spells: Plugin = {
       if (event.giftPromised && !giftSpecOf(spell)) {
         return `${spell.name} has no gift cost`
       }
-      if (
-        hasMultikicker(spell)
-        && event.timesKicked !== undefined
-        && (!Number.isSafeInteger(event.timesKicked) || event.timesKicked < 0)
-      ) {
-        return `${spell.name} requires a nonnegative integer multikicker count`
-      }
       const fullCost = canonicalLockedManaCost ?? spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        kicked: event.kicked,
-        timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
         selected,
@@ -980,8 +957,6 @@ export const spells: Plugin = {
               additionalGeneric: event.additionalGeneric,
               x: event.x,
               castOption: event.castOption,
-              kicked: event.kicked,
-              timesKicked: event.timesKicked,
               targets: event.targets,
               seat: event.seat,
               selected,
@@ -1004,14 +979,11 @@ export const spells: Plugin = {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
-        kicked: event.kicked,
-        timesKicked: event.timesKicked,
         targets: event.targets,
         seat: event.seat,
         selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
       }), event.delve?.length ?? 0)
-      const timesKicked = timesKickedFromCast(event)
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
         .filter((creature): creature is GameObject => Boolean(creature))
@@ -1090,16 +1062,11 @@ export const spells: Plugin = {
         name: object.name,
         targets: event.targets ?? event.targetClauses?.flat() ?? [],
         manaSpent,
-        ...(event.kicked ? { kicked: true } : {}),
         ...(event.giftPromised
           ? {
               giftPromised: true,
               ...(event.giftRecipient ? { giftRecipient: event.giftRecipient } : {}),
             }
-          : {}),
-        ...(timesKicked > 0 ? { kicked: true } : {}),
-        ...(hasMultikicker(object) || event.timesKicked !== undefined
-          ? { timesKicked }
           : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
@@ -1235,10 +1202,6 @@ export const spells: Plugin = {
 
       if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {
         object.enteredWithCastOption = item.castOption
-        const resolvedTimesKicked = timesKickedFromCast(item)
-        if (hasMultikicker(object) || item.timesKicked !== undefined || item.kicked) {
-          object.enteredWithTimesKicked = resolvedTimesKicked
-        }
         draft.move(object.id, 'battlefield')
         setEntryLoyalty(object)
         object.enteredBattlefieldTurn = draft.turn

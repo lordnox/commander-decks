@@ -86,7 +86,6 @@ export type TopdeckDecision = LiveInteractionMetadata & {
     selectionId?: string
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal' | 'partition' | 'choosePile'
     resumePassSeat?: SeatId
-    kicked?: boolean
     giftPromised?: boolean
     giftRecipientId?: string
     chosenEvent?: string

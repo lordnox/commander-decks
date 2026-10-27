@@ -172,7 +172,6 @@ export type CardInstruction =
   | { kind: 'addPlusCounters'; count: InstructionCount }
   /** Puts counters of any kind on the object a per-option or per-trigger pass is about; skipped once it has left the battlefield. */
   | { kind: 'putCounters'; counter: string; count: number | 'triggerAmount'; subject: 'triggeringObject' }
-  | { kind: 'putChargeCountersFromTimesKicked' }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | {
       kind: 'revealUntil'
@@ -616,8 +615,6 @@ export type CastCostCondition =
 export type SearchSpec = {
   prompt: string
   match: (object: GameObject) => boolean
-  kickedMatch?: (object: GameObject) => boolean
-  kickedPrompt?: string
   destination: SearchDestination
   tapped?: boolean
   min: number
@@ -765,7 +762,6 @@ export type CardEffect =
       /** Consecutive targets sharing `filter`, starting at `target`. */
       count?: number
       filter: TargetFilter
-      kickedFilter?: TargetFilter
       action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select' | 'libraryBottom'
       /** Return reanimated permanents tapped. */
       tapped?: boolean
@@ -853,9 +849,7 @@ export type CardEffect =
       lifeX?: boolean
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'
-      kicker?: string
       gift?: GiftSpec
-      multikicker?: string
       reduceGeneric?: {
         amount: number
         if: CastCostCondition

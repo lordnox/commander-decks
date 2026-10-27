@@ -16,7 +16,6 @@ import { isSwamp } from '../plugins/swampOverlay'
 import { hasProtectionFromEverything } from '../plugins/protectionFromEverything'
 import { putIntoGraveyardFromBattlefieldThisTurn } from '../plugins/fromBattlefieldThisTurn'
 import { effectsOf } from './cardRules'
-import { spellWasKicked } from '../plugins/kickCast'
 import { runInstructions, type CardEffect, type TargetFilter } from './effects'
 import { openStackCopyChoice } from './stackCopy'
 import { finishedSpellZone } from './alternateCosts'
@@ -175,11 +174,6 @@ const targetedEffects = (object: GameObject) =>
   effectsOf(object).filter((effect): effect is TargetedResolveEffect =>
     effect.op === 'targetedResolve')
 
-export const targetedEffectFilter = (
-  effect: TargetedResolveEffect,
-  kicked: boolean,
-) => kicked && effect.kickedFilter ? effect.kickedFilter : effect.filter
-
 export const targetedResolveBounds = (
   effect: TargetedResolveEffect,
 ) => ({
@@ -204,11 +198,10 @@ export const targetedEffectForIndex = (
 const eachTargetedSlot = (
   effects: TargetedResolveEffect[],
   targets: TargetRef[] | undefined,
-  kicked: boolean,
   visit: (effect: TargetedResolveEffect, target: TargetRef | undefined, filter: TargetFilter) => void,
 ) => {
   for (const effect of effects) {
-    const filter = targetedEffectFilter(effect, kicked)
+    const filter = effect.filter
     const { max } = targetedResolveBounds(effect)
     for (let offset = 0; offset < max; offset += 1) {
       visit(effect, targets?.[effect.target + offset], filter)
@@ -331,7 +324,7 @@ const openResolutionSacrifice = (
   const objectIds: string[] = []
   let tapped = false
   let to: ZoneId = 'battlefield'
-  eachTargetedSlot(effects, item.targets, spellWasKicked(item), (effect, target, filter) => {
+  eachTargetedSlot(effects, item.targets, (effect, target, filter) => {
     if (!validTargetRef(state, target, filter, item.controller, item.castOption)) return
     if (target?.kind !== 'object') return
     objectIds.push(target.objectId)
@@ -438,7 +431,7 @@ export const targetedResolve: Plugin = {
     }
     const seen = new Set<string>()
     for (const effect of effects) {
-      const filter = targetedEffectFilter(effect, spellWasKicked(event))
+      const filter = effect.filter
       const { min } = targetedResolveBounds(effect)
       const slice = effects.length === 1 ? chosen : targetsForEffect(chosen, effect)
       if (slice.length < min) return `${source.name} requires ${min} target`
@@ -461,7 +454,7 @@ export const targetedResolve: Plugin = {
     if (effects.length === 0) return
     if (openResolutionSacrifice(draft, state, source, item, effects)) return
     for (const effect of effects) {
-      const filter = targetedEffectFilter(effect, spellWasKicked(item))
+      const filter = effect.filter
       const { min } = targetedResolveBounds(effect)
       const chosen = targetsForEffect(item.targets, effect)
       const legal = chosen.filter((target) =>

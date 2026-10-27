@@ -262,20 +262,6 @@ const addPlusCounters: InstructionHandler<'addPlusCounters'> = (
   if (object) applyPlusCounters(object, instructionCount(instruction.count, source.controller, item))
 }
 
-const putChargeCountersFromTimesKicked: InstructionHandler<'putChargeCountersFromTimesKicked'> = ({
-  draft,
-  source,
-  item,
-}) => {
-  const live = draft.object(source.id)
-  if (!live) return
-  const count = live.enteredWithTimesKicked
-    ?? (item ? (item.timesKicked ?? (item.kicked ? 1 : 0)) : 0)
-  if (count <= 0) return
-  live.counters.charge = (live.counters.charge ?? 0) + count
-  draft.note(`${live.name} enters with ${count} charge counter${count === 1 ? '' : 's'}`)
-}
-
 const doublePlusCounters: InstructionHandler<'doublePlusCounters'> = ({ draft, source }) => {
   const live = draft.object(source.id)
   if (!live) return
@@ -851,7 +837,6 @@ export const resourceHandlers = {
   winGame,
   addPlusCounters,
   putCounters,
-  putChargeCountersFromTimesKicked,
   doublePlusCounters,
   loseLife,
   loseLifeTargetPlayer,
