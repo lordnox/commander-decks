@@ -12581,6 +12581,62 @@
       "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
       "suite": "may decline the upkeep return",
       "evidence": "The Starfield upkeep trigger lets the player decline; no ability remains on stack and the enchantment stays in the graveyard. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:97"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Oracle trample comes from the printed text",
+      "evidence": "The exact Woodfall Primus catalog card is constructed through deckCard and verified to have printed trample and 6/6 stats. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:133"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "it must target if it can, even its own permanent",
+      "evidence": "With only an own noncreature permanent as a legal target, the exact Woodfall Primus trigger offers only it, rejects zero targets, and destroys that permanent when chosen. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:160"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "an opponent permanent with hexproof cannot be chosen, but your own can",
+      "evidence": "The exact Woodfall Primus fixture verifies target candidates include the controller\u2019s own hexproof permanent and ordinary opponent rock but exclude opponent hexproof. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:223"
+      ],
+      "destination": "rules-engine/src/cardPlugins/persist.test.ts",
+      "suite": "it returns with a -1/-1 counter, destroys another permanent, and then stays dead",
+      "evidence": "The persist owner test uses the exact Woodfall Primus catalog fixture; after the first death it returns with a -1/-1 counter at 5/5, its second enter trigger chooses the remaining rock, and its next death leaves it in graveyard. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:306"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "choosing nothing is the you may declined: no stack item, nothing destroyed",
+      "evidence": "The exact Terastodon catalog fixture is given no legal targets; the optional choice declines with no stack ability and leaves the battlefield unchanged. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:315"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "duplicate-named targets are separate permanents: each controller gets one Elephant per permanent",
+      "evidence": "Two same-name permanents are selected by object identity; both are destroyed and each prior controller receives one Elephant per permanent. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+    },
+    {
+      "groups": [
+        "cirdanTriggers:379"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "a token destroyed this way still gives its controller an Elephant",
+      "evidence": "The exact Terastodon catalog trigger targets a Treasure token and confirms its controller receives an Elephant after the token is destroyed. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
     }
   ],
   "retainedOwnerEvidence": [
