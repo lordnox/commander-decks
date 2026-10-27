@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 19,
+    "cardEffects": 18,
     "cardInstructions": 177,
     "instructionHandlersDiscovered": 177,
     "builtInPlugins": 62,
@@ -288,24 +288,6 @@
         "05"
       ],
       "status": "unobserved"
-    },
-    {
-      "variant": "spellTrait",
-      "mechanic": "specialized legacy effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:282 — test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {",
-          "rules-engine/src/cardPlugins/dsl/targeting.test.ts:525 — test('an uncounterable but legal counter action fails while later instructions execute', () => {"
-        ]
-      },
-      "neededCanonicalNode": "new canonical ability/effect node",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference"
     },
     {
       "variant": "static",
@@ -1931,7 +1913,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 91,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3261 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -6154,7 +6136,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:445",
+        "rules-engine/src/plugins/spells.ts:444",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:167",
@@ -7213,30 +7195,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          864,
-          870,
-          941,
-          961,
-          963,
-          966,
-          976,
-          979,
+          863,
+          869,
+          940,
+          960,
+          962,
+          965,
+          975,
+          978,
+          993,
           994,
-          995,
-          1005,
-          1008,
-          1010,
-          1086,
-          1110,
-          1125,
-          1144,
-          1152,
-          1168
+          1004,
+          1007,
+          1009,
+          1085,
+          1109,
+          1124,
+          1143,
+          1151,
+          1167
         ],
         "samples": [
-          "864: const moved = draft.object(event.objectId)",
-          "870: const object = draft.object(event.objectId)",
-          "941: .map((objectId) => draft.object(objectId))"
+          "863: const moved = draft.object(event.objectId)",
+          "869: const object = draft.object(event.objectId)",
+          "940: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

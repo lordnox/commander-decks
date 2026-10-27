@@ -173,8 +173,6 @@ export const escape = (
   },
 )
 
-export const uncounterable = (): CardEffect => ({ op: 'spellTrait', uncounterable: true })
-
 export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
   yourUpkeep(putPermanentFromGraveyard())
 
