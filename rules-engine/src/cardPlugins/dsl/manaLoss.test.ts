@@ -74,4 +74,3 @@ test('the catalog Yurlok mana ability resolves directly without creating a stack
   expect(result.state.players.p1.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
   expect(result.state.players.p2.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
 })
-

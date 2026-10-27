@@ -149,5 +149,3 @@ test('catalog Pit of Offerings links only its chosen graveyard card for color pr
   expect(ok(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: pit.id, mana: 'U' })).players.p1.mana.U).toBe(1)
   expect(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: pit.id, mana: 'B' }).ok).toBe(false)
 })
-
-
