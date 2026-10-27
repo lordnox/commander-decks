@@ -275,11 +275,15 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(resolved.objects[targetObject.id].damageMarked).toBe(1)
   })
 
-  test('canonical targeting leaves Ward as a stack trigger and declined Ward counters the spell', () => {
-    const snapshot = snapshotFor([{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }], [targetCreature()])
+  test('canonical targeting leaves Ward as a stack trigger and declined Ward cannot counter an uncounterable spell', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      uncounterable: true,
+      decisions: { targets: [targetCreature()] },
+      instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+    })])))
     const server = createServerGame(commanderRules, {
       players: 2,
-      hands: { p1: [cardTemplate('Canonical Target Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot, effects: [{ op: 'spellTrait', uncounterable: true }] })] },
+      hands: { p1: [cardTemplate('Canonical Target Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
       battlefield: { p2: [cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
     }, { random: () => 0, cardPlugins: [wardPlugin] })
     const spellObject = named(server.state, 'Canonical Target Spell')
@@ -289,6 +293,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
       targets: [{ kind: 'object', objectId: targetObject.id }],
     }))
     expect(cast.stack[0]?.kind).toBe('ability')
+    expect(cast.stack.find(item => item.kind === 'spell')).toMatchObject({ uncounterable: true })
     expect(cast.stack[0]?.payload?.canonicalWard).toBe(true)
     expect(cast.stack[0]?.controller).toBe('p2')
     const response = structuredClone(cast)
@@ -522,7 +527,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
       types: ['Instant'],
       manaCost: '{0}',
       manaValue: 0,
-      effects: [{ op: 'spellTrait', uncounterable: true }],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([spell({ uncounterable: true, instructions: [] })]))),
     })
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -535,6 +540,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const targetSpell = named(server.state, 'Uncounterable Spell')
     let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: targetSpell.id }))
     const counterSpell = named(state, 'Canonical Target Spell')
+    expect(state.stack[0]).toMatchObject({ uncounterable: true })
     const targetStackId = state.stack.find((item) => item.objectId === targetSpell.id)!.id
     state = ok(server.rules(state, {
       type: 'castSpell', seat: 'p1', objectId: counterSpell.id,

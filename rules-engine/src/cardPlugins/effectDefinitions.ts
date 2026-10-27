@@ -847,7 +847,6 @@ export type CardEffect =
     }
   | { op: 'foretell'; manaCost: string }
   | { op: 'drawReplacementByType' }
-  | { op: 'spellTrait'; uncounterable?: boolean }
   | {
       op: 'targetingRequirement'
       kind: 'flagbearer' | 'hexproof-while-untapped'

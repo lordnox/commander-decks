@@ -260,7 +260,6 @@ export const spellCost = (
 }
 
 const cannotBeCountered = (object: GameObject) => {
-  if (effectsOf(object).some((effect) => effect.op === 'spellTrait' && effect.uncounterable)) return true
   const abilities = object.ruleDefinition?.definition.abilities
   if (!abilities) return false
   return abilities.some((ability) => {
