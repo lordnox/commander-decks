@@ -13285,6 +13285,22 @@
       "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
       "suite": "catalog Mossborn Hydra enters with its +1/+1 counter after its spell resolves",
       "evidence": "New catalog-backed integration casts Mossborn Hydra, resolves its permanent spell, verifies battlefield entry, then resolves the collected ETB trigger and checks the +1/+1 counter. The focused entry-trigger suite passes."
+    },
+    {
+      "groups": [
+        "pit-of-offerings:50"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/manaTypes.test.ts",
+      "suite": "catalog Pit of Offerings links only its chosen graveyard card for color production",
+      "evidence": "The new catalog-backed integration exposes both graveyard cards, selects only Blue Card, verifies that card alone moves to exile linked to Pit while Black Card remains in graveyard, then JSON-restores the state and verifies the linked card produces U while B remains unavailable."
+    },
+    {
+      "groups": [
+        "pit-of-offerings:100"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/manaTypes.test.ts",
+      "suite": "catalog Pit of Offerings restores linked exiled-card identities from a replay",
+      "evidence": "The same integration JSON-restores the canonical linkedExileSets and verifies the restored relationship still permits the color ability. The former plugin-specific adoption event is replaced by persisted canonical source/card identities."
     }
   ],
   "retainedOwnerEvidence": [
