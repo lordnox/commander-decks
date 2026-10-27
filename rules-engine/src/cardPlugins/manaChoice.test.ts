@@ -65,6 +65,16 @@ const run = (
 ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 describe('costed mana abilities are not free modes', () => {
+  test.each(['W', 'U', 'B', 'R', 'G'] as const)('catalog Firdoch Core taps for the chosen mana color %s', color => {
+    const server = game([deckCardTemplate('Firdoch Core')])
+    const core = named(server.state, 'Firdoch Core')
+    const result = server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: core.id, mana: color })
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.players.p1.mana[color]).toBe(1)
+      expect(result.state.objects[core.id].tapped).toBe(true)
+    }
+  })
   test('a filter land taps for {C} only; its costed clause is not a tap mode', () => {
     expect(manaModes({ oracleText: GROVE_TEXT })).toEqual([{ C: 1 }])
   })

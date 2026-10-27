@@ -1,4 +1,5 @@
 import { expect, test } from 'bun:test'
+import { eventsForAvailableAction, legalActsFor } from '../../actions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { pendingSelectionFor } from '../../rules/selectCards'
@@ -124,6 +125,35 @@ test.each(['scry', 'surveil'] as const)('%s accepts an empty library without ope
   expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
   expect(resolved.resolution).toBeUndefined()
   expect(resolved.players.p1.lost).toBe(true)
+})
+
+test('catalog Joint Exploration scries, draws, then puts a land from hand onto the battlefield when kicked', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Joint Exploration'), cardTemplate('Hand Land', { types: ['Land'] })] },
+    libraries: { p1: [cardTemplate('Keep on top'), cardTemplate('Bottom card'), cardTemplate('Drawn card')] },
+  }, { random: () => 0 })
+  server.state.players.p1.mana = { W: 10, U: 10, B: 10, R: 10, G: 10, C: 10 }
+  const spellId = server.state.zoneOrder.p1.hand[0]!
+  const land = server.state.zoneOrder.p1.hand[1]!
+  const kicked = legalActsFor(server.state, 'p1').find(action => action.kind === 'castSpell' && action.objectId === spellId && action.selectedOptionalCosts?.includes(0))!
+  expect(kicked).toBeDefined()
+  let cast = server.state
+  for (const event of eventsForAvailableAction(cast, 'p1', kicked) ?? []) cast = ok(server.rules(cast, event))
+  let state = resolveStack(server.rules, cast)
+  const scryChoice = pendingSelectionFor(state, 'p1')!
+  expect(scryChoice.kind).toBe('scry')
+  expect(scryChoice.candidates.map(id => state.objects[id]?.name)).toEqual(['Keep on top', 'Bottom card'])
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: scryChoice.id, kind: 'scry', count: 2, choices: [
+    { objectId: scryChoice.candidates[0]!, destination: 'top' },
+    { objectId: scryChoice.candidates[1]!, destination: 'bottom' },
+  ] }))
+  expect(names(state, 'p1', 'hand')).toEqual(['Hand Land', 'Keep on top'])
+  const landChoice = pendingSelectionFor(state, 'p1')!
+  expect(landChoice.candidates).toContain(land)
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: landChoice.id, kind: 'choose', count: 1, objectIds: [land] }))
+  expect(state.objects[land]?.zone).toBe('battlefield')
+  expect(state.zoneOrder.p1.library.map(id => state.objects[id]?.name)).toEqual(['Drawn card', 'Bottom card'])
+  expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
 })
 
 test.each(['scry', 'surveil'] as const)('%s compilation checks count and recipient domains', kind => {

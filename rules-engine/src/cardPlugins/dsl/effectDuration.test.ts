@@ -17,6 +17,36 @@ import { createServerGame } from '../../runtime'
 
 describe('effectDuration', () => {
 
+  test.each([
+    ['Firdoch Core', '$.abilities[2]', { C: 4 }, undefined, 4, 'Artifact'],
+    ['Hall of Storm Giants', '$.abilities[2]', { U: 1, C: 5 }, undefined, 7, 'Land'],
+    ['Lair of the Hydra', '$.abilities[2]', { G: 1, C: 2 }, 2, 2, 'Land'],
+  ] as const)('%s animation is temporary and cannot attack the turn it entered', (name, abilityId, mana, x, stats, baseType) => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate(name, { summoningSickness: true })] },
+    }, { random: () => 0 })
+    const id = server.state.zoneOrder.p1.battlefield[0]!
+    server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, ...mana }
+    const activated = server.rules(server.state, {
+      type: 'activateAbility', seat: 'p1', objectId: id, abilityId, ...(x === undefined ? {} : { x }),
+    })
+    expect(activated.ok).toBe(true)
+    if (!activated.ok) return
+    const animated = server.rules(activated.state, { type: 'resolveTop' })
+    expect(animated.ok).toBe(true)
+    if (!animated.ok) return
+    expect(animated.state.objects[id]?.types).toContain('Creature')
+    expect(animated.state.objects[id]).toMatchObject({ power: stats, toughness: stats })
+    const attack = server.rules({ ...structuredClone(animated.state), step: 'declareAttackers', priority: 'p1' }, {
+      type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: id, defender: 'p2' }],
+    })
+    expect(attack.ok).toBe(false)
+    if (!attack.ok) expect(attack.error).toContain('summoning sickness')
+    const expired = server.rules({ ...structuredClone(animated.state), step: 'end' }, { type: 'advanceStep' })
+    expect(expired.ok).toBe(true)
+    if (expired.ok) expect(expired.state.objects[id]).toMatchObject({ types: [baseType], power: null, toughness: null })
+  })
+
   test('canonical pump durations retain their declared step and turn deadlines', () => {
     const makeDefinition = (duration: Parameters<typeof createEffect>[0]['duration']) =>
       createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
