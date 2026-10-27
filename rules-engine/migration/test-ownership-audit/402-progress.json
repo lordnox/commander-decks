@@ -13093,6 +13093,38 @@
       "destination": "rules-engine/src/plugins/rooms.test.ts",
       "suite": "rejects the tap except as a sorcery and rejects an opponent Room",
       "evidence": "The current integration rejects activation outside sorcery timing and rejects an opposing player\u2019s Room, preserving the ability\u2019s timing and target-controller constraints."
+    },
+    {
+      "groups": [
+        "ladyEvangela:168"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "Darkness prevents combat damage until cleanup",
+      "evidence": "Live combat test casts Darkness for black mana, verifies combat damage is prevented, then advances to cleanup and confirms the prevention instance is removed."
+    },
+    {
+      "groups": [
+        "ladyEvangela:214"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts",
+      "suite": "Lady Evangela fogs only the targeted creature",
+      "evidence": "Catalog-backed activated ability targets Angry Bear only; after both Angry and Quiet Bears attack, combat damage shows the targeted attacker prevented and the other still damages p1."
+    },
+    {
+      "groups": [
+        "ladyEvangela:263"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/lifeResults.test.ts",
+      "suite": "zone-change follow-up pays the captured controller using resolution-time stats (Swords to Plowshares)",
+      "evidence": "Canonical DSL integration casts Swords at an opponent-owned creature with a distinct owner, mutates its power before resolution, then verifies exile and life gain to the controller at resolution-time power; related cases cover zero/negative power and token cessation."
+    },
+    {
+      "groups": [
+        "ladyEvangela:289"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/inspectTop.test.ts",
+      "suite": "Dark Confidant reveals into hand without drawing and uses the revealed mana value",
+      "evidence": "Catalog-backed upkeep test covers empty library, zero and five mana value, redirected hand movement, no draw event, exact life loss, and direct reveal-to-hand behavior."
     }
   ],
   "retainedOwnerEvidence": [
