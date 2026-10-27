@@ -12389,6 +12389,78 @@
       "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
       "suite": "Terastodon draws for itself, and the Elephant tokens it makes for you do not draw",
       "evidence": "The exact Terastodon fixture enters with its land-destruction effect and creates Elephant tokens; the callback checks the source draws while its created tokens do not trigger Guardian Project. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:31"
+      ],
+      "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
+      "suite": "Courtyard checks other lands at %i",
+      "evidence": "The current helper instantiates Concealed Courtyard from the saved deck fixture and tests 0 through 4 other lands; the land is tapped exactly when count is at least three. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:37"
+      ],
+      "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
+      "suite": "Vault checks living opponents (%s)",
+      "evidence": "The current helper instantiates Vault of Champions and tests four living players versus a duel; it enters tapped only in the duel. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:43"
+      ],
+      "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
+      "suite": "Boggart Bog life choice applies only to its land (pay=%s)",
+      "evidence": "The Godless Shrine callback retains both pay and decline choices, typed option ids, absence of other pending choice protocols, life totals, and tapped status. The same owner suite tests Boggart Trawler land-face pay/decline with its printed three-life cost. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:57"
+      ],
+      "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
+      "suite": "Boggart Bog cannot pay three life at two life",
+      "evidence": "The exact Boggart Trawler // Boggart Bog fixture starts at two life, attempts the pay option, and remains at two life with the land tapped. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:66"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "Bojuka Bog triggers on a land drop and can exile its controller graveyard",
+      "evidence": "The catalog-backed Bojuka Bog fixture enters by playLand; its trigger selects p1 and resolution exiles the controller\u2019s own graveyard card. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:78"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "%s targets a player then exiles at resolution on a move entry",
+      "evidence": "The test.each parameterization covers both Bojuka Bog and Boggart Trawler // Boggart Bog. Each moves into battlefield, opens a typed player choice, then exiles at resolution the chosen graveyard. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:93"
+      ],
+      "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
+      "suite": "Trawler exile still resolves after its source stops being a creature",
+      "evidence": "The exact Trawler MDFC is moved through the front-face trigger, then its active face changes; the queued exile choice still resolves after the source stops being a creature. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:105"
+      ],
+      "destination": "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts",
+      "suite": "a token copy of Trawler carries its graveyard exile trigger",
+      "evidence": "The test creates a token with the exact catalog Boggart Trawler ruleDefinition abilities and confirms the copied trigger opens its player selection, with no legacy dialog. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:117"
+      ],
+      "destination": "rules-engine/src/plugins/doubleFaced.test.ts",
+      "suite": "Trawler casts its front face, triggers, and resets after the land face leaves",
+      "evidence": "The deck-resolved Trawler MDFC is cast as a creature and triggers; a separate copy is played as its land face, accepts the graveyard choice, then leaves and restores the creature front face. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     }
   ],
   "retainedOwnerEvidence": [
