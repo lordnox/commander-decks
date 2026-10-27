@@ -19,7 +19,6 @@ import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
 import { librarySearch } from './librarySearch'
 import { onResolve } from './onResolve'
-import {castCosts} from './castCosts'
 import {ward} from './ward'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -274,7 +273,6 @@ describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () 
     onResolve,
     choiceEffects,
     librarySearch,
-    castCosts,
     ward,
     exiledWith,
     pendingDialogLock,

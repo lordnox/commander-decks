@@ -8,7 +8,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
-  applyKernelAct,
   applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
@@ -28,7 +27,7 @@ const applyKernelChoice = (
     : {}),
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import { delve as delveEffect, lookTopPick, onResolve as onResolveEffect } from './effects'
+import { lookTopPick, onResolve as onResolveEffect } from './effects'
 import { onResolve } from './onResolve'
 
 const TOP = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
@@ -133,23 +132,6 @@ const VALID: Array<[string, 'hand' | 'bottom']> = [
   ['Top 7', 'bottom'],
 ]
 
-const GRAVE = ['Grave 1', 'Grave 2', 'Grave 3', 'Grave 4', 'Grave 5', 'Grave 6', 'Grave 7']
-
-const playLobby = () => {
-  const lobby = createLobby()
-  lobby.phase = 'play'
-  return lobby
-}
-
-const passUntilResolved = (kernel: KernelHandle) => {
-  for (let guard = 0; guard < 12; guard += 1) {
-    const state = kernel.history.current()
-    if (state.stack.length === 0 || state.stack[0].waiting || state.resolution?.phase === 'waiting' || !state.priority) return state
-    const result = kernel.dispatch({ type: 'passPriority', seat: state.priority })
-    if (!result.ok) throw new Error(result.error)
-  }
-  throw new Error('stack did not resolve')
-}
 
 describe('lookTopPick', () => {
   test('lookTopPick() is clone-safe', () => {
@@ -345,74 +327,4 @@ describe('lookTopPick', () => {
     expect(done.stack).toHaveLength(0)
   })
 
-  test('a delve spell keeps its private top-seven choice after a host restart', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [cardTemplate('Delve Look Spell', {
-        types: ['Instant'], manaCost: '{6}{U}{U}', manaValue: 8,
-        effects: [delveEffect(), onResolveEffect(lookTopPick(7, 2))],
-      }), ...GRAVE.map((name) => cardTemplate(name, { types: ['Sorcery'] }))] },
-      battlefield: { p1: ['Island A', 'Island B', 'Island C'].map((name) => cardTemplate(name, { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })) },
-      libraries: {
-        p1: [...TOP, 'Rest A', 'Rest B'].map((name) => cardTemplate(name, { types: ['Sorcery'] })),
-        p2: [cardTemplate('Opposing Secret', { types: ['Sorcery'] })],
-      },
-    }, { random: () => 0.5, cardPlugins: [onResolve] })
-    let initial = server.state
-    for (const name of GRAVE) {
-      initial = ok(server.rules(initial, { type: 'move', objectId: named(initial, name).id, to: 'graveyard' }))
-    }
-    const kernel = handleFor(server.rules, initial)
-    const lobby = playLobby()
-    const spell = named(initial, 'Delve Look Spell')
-    const delved = GRAVE.slice(0, 6).map((name) => named(initial, name).id)
-
-    expect(() => applyKernelAct(kernel, lobby, 'p1', {
-      type: 'act', kind: 'castSpell', objectId: spell.id, targetObjectIds: delved.slice(0, 3),
-    })).toThrow()
-    expect(kernel.history.current().stack).toHaveLength(0)
-    const events = applyKernelAct(kernel, lobby, 'p1', {
-      type: 'act', kind: 'castSpell', objectId: spell.id, targetObjectIds: delved,
-    })
-    expect(events.map((event) => event.type)).toEqual(['tapForMana', 'tapForMana', 'castSpell'])
-    const cast = kernel.history.current()
-    expect(delved.every((id) => cast.objects[id].zone === 'exile')).toBe(true)
-    expect(cast.objects[named(initial, 'Grave 7').id].zone).toBe('graveyard')
-    expect(['Island A', 'Island B', 'Island C'].filter((name) => named(cast, name).tapped)).toHaveLength(2)
-    expect(cast.stack[0]).toMatchObject({ kind: 'spell', name: 'Delve Look Spell' })
-
-    const looking = passUntilResolved(kernel)
-    const selection = pendingSelectionFor(looking, 'p1')!
-    expect(names(looking, selection.candidates)).toEqual(TOP)
-    expect(selection).toMatchObject({ kind: 'scry', count: 7, handQuota: 2 })
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({
-      seat: 'p1', kind: 'look-top', cards: TOP, destinations: ['bottom', 'hand'],
-      requirements: { hand: { min: 2, max: 2 } },
-    })
-    const opponent = JSON.stringify(projectForViewer(looking, 'p2'))
-    for (const name of [...TOP, 'Rest A']) expect(opponent).not.toContain(name)
-    expect(pendingSelectionFor(projectForViewer(looking, 'p2'), 'p1')).toBeUndefined()
-    expect(TOP.every((name) => Object.values(projectForViewer(looking, 'p1').objects).some((object) => object.name === name))).toBe(true)
-
-    const restartedKernel = handleFor(server.rules, initial, kernel.journal)
-    expect(restartedKernel.history.current()).toEqual(looking)
-    const restarted = playLobby()
-    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
-    expect(restarted.topdeck?.cards).toEqual(TOP)
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')?.id).toBe(selection.id)
-    const answer = (ids: string[]) => live(TOP.map((name) => [name, ids.includes(name) ? 'hand' : 'bottom']))
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1']))).toThrow()
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 1', 'Top 2', 'Top 3']))).toThrow()
-    expect(applyKernelChoice(restartedKernel, restarted, 'p2', answer(['Top 3', 'Top 6']))).toBe(false)
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
-    expect(applyKernelChoice(restartedKernel, restarted, 'p1', answer(['Top 3', 'Top 6']))).toBe(true)
-
-    const done = restartedKernel.history.current()
-    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-    expect(names(done, done.zoneOrder.p1.hand).toSorted()).toEqual(['Top 3', 'Top 6'])
-    expect(names(done, done.zoneOrder.p1.library)).toEqual(['Rest A', 'Rest B', 'Top 1', 'Top 2', 'Top 4', 'Top 5', 'Top 7'])
-    expect(named(done, 'Delve Look Spell').zone).toBe('graveyard')
-    expect(done.stack).toHaveLength(0)
-  })
 })

@@ -62,7 +62,6 @@ import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
-  delve,
   destroyThenTokenForController,
   entersTarget,
   entersTargetingUpTo,
@@ -108,6 +107,11 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  spell as dslSpell,
+  delve as dslDelve,
+  select as dslSelect,
+  target as dslTarget,
+  destroy as dslDestroy,
   activated as dslActivated,
   discardCost,
   gainLife,
@@ -1454,7 +1458,10 @@ describe('kernel host journal', () => {
             cardTemplate('Deep Cut', {
               types: ['Instant'],
               manaCost: '{3}{G}',
-              effects: [delve(), targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' })],
+              ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+                costs: [dslDelve()], decisions: { targets: [dslSelect({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+                instructions: [dslDestroy({ targets: dslTarget(0) })],
+              })]))),
             }),
             ...['Gy One', 'Gy Two', 'Gy Three'].map((name) =>
               cardTemplate(name, { types: ['Sorcery'] })),
@@ -1490,16 +1497,14 @@ describe('kernel host journal', () => {
       type: 'act',
       kind: 'castSpell',
       objectId: spell.id,
-      targetObjectId: victim.id,
-      targetObjectIds: [],
+      targetObjectIds: [victim.id],
     })).toThrow('Invalid selection for Graveyard cards to exile (delve)')
 
     expect(applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'castSpell',
       objectId: spell.id,
-      targetObjectId: victim.id,
-      targetObjectIds: pick,
+      targetObjectIds: [...pick, victim.id],
     }).map((event) => event.type)).toEqual(['tapForMana', 'tapForMana', 'castSpell'])
     const current = kernel.history.current()
     expect(pick.map((objectId) => current.objects[objectId].zone)).toEqual(['exile', 'exile'])

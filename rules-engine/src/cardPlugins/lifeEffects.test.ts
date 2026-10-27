@@ -9,14 +9,13 @@ import { ok, resolveStack } from '../testHelpers'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
-import { castCosts } from './castCosts'
 import { gainLife, loseLife, triggerOn } from './effects'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 const card = (name: string, types: string[], manaCost = '') =>
   cardTemplate(name, { types, manaCost })
 
-const plugins = [activated, castCosts, onResolve, targetedResolve]
+const plugins = [activated, onResolve, targetedResolve]
 
 const withMana = (
   state: GameState,

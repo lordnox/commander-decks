@@ -20,7 +20,6 @@ import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
 import {onResolve} from './onResolve'
-import {castCosts} from './castCosts'
 import {ward} from './ward'
 
 
@@ -569,7 +568,6 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
     onResolve,
     choiceEffects,
     librarySearch,
-    castCosts,
     ward,
     exiledWith,
     pendingDialogLock,

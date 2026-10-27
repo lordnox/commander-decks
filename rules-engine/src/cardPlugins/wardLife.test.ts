@@ -19,7 +19,6 @@ import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
 import { librarySearch } from './librarySearch'
 import {onResolve} from './onResolve'
-import {castCosts} from './castCosts'
 import {deckCard} from './cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -269,7 +268,6 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
     onResolve,
     choiceEffects,
     librarySearch,
-    castCosts,
     wardPlugin,
     exiledWith,
     pendingDialogLock,

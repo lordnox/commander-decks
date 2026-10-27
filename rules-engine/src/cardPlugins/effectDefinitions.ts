@@ -600,10 +600,6 @@ export type StaticBoardPumpSpec = {
   suppressKeywords?: string[]
 }
 
-export type CastCostCondition =
-  | CardCondition
-  | { kind: 'target'; filter: TargetFilter }
-
 export type SearchSpec = {
   prompt: string
   match: (object: GameObject) => boolean
@@ -834,18 +830,6 @@ export type CardEffect =
       playExiledWithLife?: boolean
     }
   | { op: 'handler'; pluginId: string }
-  | {
-      op: 'castCost'
-      convoke?: boolean
-      delve?: boolean
-      lifeX?: boolean
-      xMana?: 'generic' | 'black'
-      timing?: 'yourEndStep'
-      reduceGeneric?: {
-        amount: number
-        if: CastCostCondition
-      }
-    }
   | {
       op: 'alternateCast'
       id: string
