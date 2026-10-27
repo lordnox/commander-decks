@@ -28,18 +28,6 @@ const chooseVotesThisTurn: InstructionHandler<'chooseVotesThisTurn'> = ({ draft,
   draft.players[source.controller].data['secretCouncil.chooseVotes'] = true
 }
 
-const extraLandPlays: InstructionHandler<'extraLandPlays'> = (
-  { draft, source },
-  instruction,
-) => {
-  draft.enqueue({
-    type: 'custom',
-    name: 'additionalLandPlay.grant',
-    seat: source.controller,
-    payload: { count: instruction.count },
-  })
-}
-
 const eachPlayerDiscard: InstructionHandler<'eachPlayerDiscard'> = (
   { draft, source },
   instruction,
@@ -143,7 +131,6 @@ export const multiplayerHandlers = {
   addManaToEachPlayer,
   secretCouncil,
   chooseVotesThisTurn,
-  extraLandPlays,
   eachPlayerDiscard,
   eachPlayerSacrifice,
   eachPlayerLoseLife,

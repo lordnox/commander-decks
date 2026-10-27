@@ -139,11 +139,6 @@ export const blockTax = (
   blockTax: { amount, ...options },
 })
 
-export const staticExtraLandPlays = (count: number): CardEffect => ({
-  op: 'static',
-  extraLandPlays: count,
-})
-
 export const staticRevealLibraryTop = (): CardEffect => ({
   op: 'static',
   revealLibraryTop: true,

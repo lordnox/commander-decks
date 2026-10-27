@@ -1,14 +1,8 @@
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { activePrintedStaticModifiers } from './dsl/staticModifierCore'
-import { effectsOf } from './cardRules'
 
-export const EXTRA_LAND_PLAYS = 'additionalLandPlay.extra'
-export const GRANT_EXTRA_LAND_PLAY = 'additionalLandPlay.grant'
-
-const legacyStaticExtraLandPlays = (object: GameObject) =>
-  effectsOf(object).reduce((sum, effect) =>
-    sum + (effect.op === 'static' ? effect.extraLandPlays ?? 0 : 0), 0)
+export const EXTRA_LAND_PLAYS = 'additionalLandPlay.extra' as const
 
 const dslStaticExtraLandPlays = (state: GameState | Draft, object: GameObject) =>
   activePrintedStaticModifiers(state as GameState, object).reduce((sum, entry) =>
@@ -18,7 +12,7 @@ const staticCount = (state: GameState | Draft, seat: PlayerId) =>
   Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield' && object.controller === seat).reduce(
     (total, object) =>
-      total + legacyStaticExtraLandPlays(object) + dslStaticExtraLandPlays(state, object),
+      total + dslStaticExtraLandPlays(state, object),
     0,
   )
 
@@ -40,8 +34,8 @@ const isStepAdvance = (event: { type: string; name?: string }) =>
 export const additionalLandPlay: Plugin = {
   id: 'additionalLandPlay',
   apply: ({ event, draft }) => {
-    if (event.type === 'grantLandPlays' || (event.type === 'custom' && event.name === GRANT_EXTRA_LAND_PLAY && event.seat)) {
-      const count = event.type === 'grantLandPlays' ? event.count : Number(event.payload?.count ?? 1)
+    if (event.type === 'grantLandPlays') {
+      const count = event.count
       if (!Number.isSafeInteger(count) || count < 1) return
       const seat = event.seat
       if (!seat) return

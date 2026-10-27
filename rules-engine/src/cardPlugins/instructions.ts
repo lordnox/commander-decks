@@ -39,11 +39,6 @@ export const addManaChoice = (...options: Array<Partial<ManaPool>>): CardInstruc
   options,
 })
 
-export const extraLandPlays = (count: number): CardInstruction => ({
-  kind: 'extraLandPlays',
-  count,
-})
-
 export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', count })
 
 export const scry = (count: InstructionCount): CardInstruction => ({ kind: 'scry', count })

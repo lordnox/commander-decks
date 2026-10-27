@@ -4,12 +4,14 @@ import {
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   extraLandPlays,
+  draw,
   grantLandPlays,
   players,
   ref,
   spell,
   staticAbility,
 } from './v1'
+import type { GameState } from '../../types'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
@@ -24,6 +26,48 @@ const extraLandDefinition = () => createDefinitionSnapshot(compileCardRuleDefini
 const forest = () => cardTemplate('Forest', { types: ['Land'], subtypes: ['Forest'] })
 
 describe('extraLandPlays static', () => {
+  test('without a source a seat has only its normal land play', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [forest(), forest()] },
+    }, { random: () => 0.5 })
+    const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+    expect(played.players.p1.landPlaysAllowed).toBe(1)
+    expect(played.players.p1.landsPlayed).toBe(1)
+    expect(server.rules(played, { type: 'playLand', seat: 'p1', objectId: played.zoneOrder.p1.hand[0] }).ok).toBe(false)
+  })
+
+  test('static sources stack with grants and leaving sources remove only their own allowance', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [forest(), forest()] },
+      battlefield: { p1: Array.from({ length: 2 }, () => cardTemplate('Allowance source', {
+        types: ['Artifact'], ruleDefinition: extraLandDefinition(),
+      })) },
+    }, { random: () => 0.5 })
+    const granted = ok(server.rules(server.state, { type: 'grantLandPlays', seat: 'p1', count: 1 }))
+    expect(granted.players.p1.landPlaysAllowed).toBe(4)
+    expect(granted.players.p2.landPlaysAllowed).toBe(1)
+    const [first, second] = granted.zoneOrder.p1.battlefield
+    const one = ok(server.rules(granted, { type: 'move', objectId: first, to: 'graveyard' }))
+    expect(one.players.p1.landPlaysAllowed).toBe(3)
+    const none = ok(server.rules(one, { type: 'move', objectId: second, to: 'graveyard' }))
+    expect(none.players.p1.landPlaysAllowed).toBe(2)
+  })
+
+  test('removing a static source preserves spent plays and restores the base allowance', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [forest(), forest(), forest()] },
+      battlefield: { p1: [cardTemplate('Allowance source', { types: ['Artifact'], ruleDefinition: extraLandDefinition() })] },
+    }, { random: () => 0.5 })
+    let state = server.state
+    for (let index = 0; index < 2; index += 1) {
+      state = ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: state.zoneOrder.p1.hand[0] }))
+    }
+    const gone = ok(server.rules(state, { type: 'move', objectId: server.state.zoneOrder.p1.battlefield[0], to: 'graveyard' }))
+    expect(gone.players.p1.landPlaysAllowed).toBe(1)
+    expect(gone.players.p1.landsPlayed).toBe(2)
+    expect(server.rules(gone, { type: 'playLand', seat: 'p1', objectId: gone.zoneOrder.p1.hand[0] }).ok).toBe(false)
+  })
+
   test('a nameless fixture grants one additional land play on the battlefield', () => {
     const server = createServerGame(
       commanderRules,
@@ -76,6 +120,25 @@ describe('temporary additional land plays', () => {
     expect(cleanup.step).toBe('cleanup')
     expect(cleanup.players.p1.landPlaysAllowed).toBe(2)
     expect(cleanup.players.p1.landsPlayed).toBe(5)
+  })
+
+  test.each([1, 3])('a resolving grant of %i composes with drawing and expires at the next untap', (count) => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [instructionSpell({ instructions: [grantLandPlays({ count, targets: ref('controller') }), draw(1)] })] },
+      libraries: { p1: [forest()] },
+    }, { random: () => 0.5 })
+    const source = server.state.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source }))
+    const resolved = resolveStack(server.rules, cast)
+    expect(resolved.players.p1.landPlaysAllowed).toBe(1 + count)
+    expect(resolved.zoneOrder.p1.hand.map(id => resolved.objects[id].name)).toEqual(['Forest'])
+    expect(resolved.objects[source].zone).toBe('graveyard')
+    let state: GameState = { ...resolved, priority: null }
+    for (let guard = 0; guard < 24 && state.step !== 'untap'; guard += 1) {
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+    }
+    expect(state.step).toBe('untap')
+    expect(state.players.p1.landPlaysAllowed).toBe(1)
   })
 
   test('a grant to another player changes allowance without permitting lands outside their turn', () => {
