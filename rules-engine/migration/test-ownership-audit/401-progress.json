@@ -2399,9 +2399,9 @@
       "groups": [
         "registry:150"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy",
-      "evidence": "Current structural owner for Dovin's Veto, Mulldrifter, Phial of Galadriel, Snuff Out, Wall of Shards. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Lady Evangela alternate and replacement cards stay registered",
+      "evidence": "The registry suite checks all five source names; the family catalog test pins the World enchantment, alternative costs, player effects, extra turn, and no-regeneration structure for the corresponding cards.",
       "sourceTitle": "the Lady Evangela alternate and replacement cards stay registered",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/registry.test.ts",
@@ -2413,15 +2413,21 @@
         "expect(missingCardPlugins([ \"Dovin's Veto\", 'Mulldrifter', 'Phial of Galadriel', 'Snuff Out', 'Wall of Shards', ])).toEqual([])",
         "expect(cardPluginEntry('Mulldrifter')?.handlerIds).toEqual(['alternateCosts'])",
         "expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy"
+        }
       ]
     },
     {
       "groups": [
         "registry:162"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
-      "evidence": "Current structural owner for Famished Worldsire, Finale of Devastation, Valgavoth, Terror Eater. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Sin Fall finisher cards load their handlers",
+      "evidence": "The registry suite checks all three source names; the canonical family and named catalog owners retain Famished Worldsire’s ward/replacement/entry program, Finale’s search and X≥10 pump, and Valgavoth’s ward/exiled-card composition.",
       "sourceTitle": "the Sin Fall finisher cards load their handlers",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/registry.test.ts",
@@ -2435,6 +2441,20 @@
         "expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([ 'castCosts', 'librarySearch', ])",
         "expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([ 'exiledWith', 'ward', ])",
         "expect(cardPluginEntry('Valgavoth, Terror Eater')?.pluginIds).toEqual(['exiledWith'])"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Finale of Devastation searches library or graveyard and pumps only at X ≥ 10"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 26 catalog cards compose retrace, linked exile, and life-equal-mana-value casts"
+        }
       ]
     },
     {
@@ -2504,9 +2524,9 @@
       "groups": [
         "registry:236"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
-      "evidence": "Current structural owner for Archetype of Endurance, Blightsteel Colossus, Darksteel Colossus, Grothama, All-Devouring, Guardian Project, It That Betrays, Sire of Seven Deaths, Terastodon, Thunderfoot Baloth, Void Winnower, Woodfall Primus. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Círdan creature group stays registered",
+      "evidence": "The registration owner checks all 11 original card names for missing plugins; canonical composition owners preserve individual DSL definitions (including the separate Blightsteel/Darksteel snapshots and combat, ward, trigger, and template assertions).",
       "sourceTitle": "the Círdan creature group stays registered",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/registry.test.ts",
@@ -2519,6 +2539,44 @@
         "expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])",
         "expect(cardPluginEntry('Sire of Seven Deaths')?.handlerIds).toEqual(['ward'])",
         "expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Archetype of Endurance grants controlled creatures hexproof and prohibits it on opponents creatures"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Blightsteel Colossus composes trample, infect, indestructible, and owner-library shuffle"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Darksteel Colossus composes trample, indestructible, and owner-library shuffle"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Grothama grants an optional fight and pays out source-attributed damage"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "group 15 consumers compose name, comparison, and mana-ability queries"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Woodfall Primus composes trample, a mandatory noncreature destroy, and persist"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Thunderfoot Baloth keeps printed trample and commander-conditioned team grants"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+          "suite": "Terastodon registers an up-to-three destroy with a per-controller Elephant"
+        }
       ]
     },
     {
@@ -2586,9 +2644,9 @@
       "groups": [
         "registry:308"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "family 25 catalog cards retain printed stats and canonical keyword parameters",
-      "evidence": "Current structural owner for Angel of Sanctions, Banisher Priest, Bishop of Binding, Fiend Hunter, Glorious Protector, Lumbering Battlement, Palace Jailer, Werefox Bodyguard. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack Fayden part 34 linked-exile cages stay registered",
+      "evidence": "The registry owner checks all eight original linked-exile names for plugin presence; named catalog owners retain each available card’s exact template or linked-exile structure, including the two pinned Fiend Hunter and Bishop handler combinations.",
       "sourceTitle": "Dack Fayden part 34 linked-exile cages stay registered",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/registry.test.ts",
@@ -2600,6 +2658,20 @@
         "expect(missingCardPlugins(covered)).toEqual([])",
         "expect(cardPluginEntry('Fiend Hunter')?.handlerIds?.toSorted()) .toEqual(['choiceEffects', 'linkedExile'])",
         "expect(cardPluginEntry('Bishop of Binding')?.handlerIds?.toSorted()) .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 25 catalog cards retain printed stats and canonical keyword parameters"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life"
+        }
       ]
     },
     {
@@ -2644,9 +2716,9 @@
       "groups": [
         "registry:339"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once",
-      "evidence": "Current structural owner for Arcanis the Omnipotent, Breena, the Demagogue, City of Brass, Condemn, Counterspell, Cryptic Command, Desertion, Hatred, Infernal Contract, Kuroki, Thief of Talents, Mana Drain, Minamo, School at Water's Edge, Wedding Ring. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Lady Evangela remaining group stays registered",
+      "evidence": "The current registration suite covers all 13 source names. Current catalog owners preserve the distinct grouped-move, turn ordinal, provenance, life, and repeat-once structures; Counterspell’s target/resolution behavior remains in its mechanic owner.",
       "sourceTitle": "the Lady Evangela remaining group stays registered",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/registry.test.ts",
@@ -2658,6 +2730,24 @@
         "expect(missingCardPlugins([ 'Counterspell', 'Arcanis the Omnipotent', \"Minamo, School at Water's Edge\", 'Condemn', 'Hatred', 'Infernal Contract', 'Mana Drain', 'Desertion', 'City of Brass', 'Cryptic Command', 'Wedding Ring', 'Breena, the Demagogue', 'Kuroki, Thief of Talents', ])).toEqual([])",
         "expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')",
         "expect(cardPluginEntry('Cryptic Command')?.handlerIds).toContain('modalSpell')"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog Cryptic Command chooses two modes with separate counter and permanent targets"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Kuroki composes menace with an opponent-chosen draw-and-steal or counters branch"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+          "suite": "counter targets a creature spell and removes it exactly once after journal restore"
+        }
       ]
     },
     {
