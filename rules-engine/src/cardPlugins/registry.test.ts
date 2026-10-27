@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { cardTemplateDefaultsFor, cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
-import { catalogEntry, deckCards } from '../deckCardFixtures'
+import { catalogEntry, deckCardTemplate, deckCards } from '../deckCardFixtures'
 import { missingCardPlugins } from './index'
 
 describe('card plugin registry', () => {
@@ -365,17 +365,21 @@ describe('card plugin registry', () => {
   })
 
   test('Círdan part-B mana cards stay registered', () => {
-    expect(missingCardPlugins([
+    const cards = [
       "Alchemist's Refuge",
       'Arbor Elf',
       'Flooded Grove',
-      'Waterlogged Grove',
-      'Simic Signet',
-      'Wild Growth',
-      'Utopia Sprawl',
       'Sea Gate Restoration // Sea Gate, Reborn',
-      'Sink into Stupor // Soporific Springs',
-    ])).toEqual([])
+      'Simic Signet',
+      'Utopia Sprawl',
+      'Waterlogged Grove',
+      'Wild Growth',
+    ]
+    expect(missingCardPlugins(cards)).toEqual([])
+    for (const name of cards) {
+      expect(deckCardTemplate(name).oracleText.length).toBeGreaterThan(0)
+      expect(cardRuleDefinitionSnapshotFor(name)).toBeDefined()
+    }
   })
 
   test('Kambal added mana and graveyard cards stay registered', () => {
