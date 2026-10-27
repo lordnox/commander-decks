@@ -12789,6 +12789,30 @@
       "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
       "suite": "current catalog or mechanic owner",
       "evidence": "Catalog structure verifies Mole Man playLands plus the Moloid attack trigger; landfall runtime verifies a land entry creates the 1/1 green Minion token. The route is canonical DSL."
+    },
+    {
+      "groups": [
+        "homerRest:34"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "a bounce land asks which land to return",
+      "evidence": "The live test uses Simic Growth Chamber plus Forest; its pending choice includes exactly the land and current Forest, the land enters tapped, selecting Forest returns it to hand, and resolution ends. This is the same target domain, entry state, and selected outcome as the pinned group."
+    },
+    {
+      "groups": [
+        "homerRest:220"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Black Sun\u2019s Twilight scales with X and reanimates tapped at five",
+      "evidence": "The live test casts X=5 with six black mana, verifies the creature target becomes 1/1, then selects the graveyard creature and verifies it enters under p1 tapped. Fixtures, X/payment, target and reanimation outcome match the pinned group."
+    },
+    {
+      "groups": [
+        "homerRest:270"
+      ],
+      "destination": "rules-engine/src/cardPlugins/selfSacrificeMana.test.ts",
+      "suite": "Malevolent Rumble creates a functional Eldrazi Spawn",
+      "evidence": "The live integration test resolves catalog Malevolent Rumble, selects the only eligible permanent among four revealed cards, verifies the spawned token is an Eldrazi Spawn 0/1 with registered ruleDefinition, then activates its mana ability and verifies token cessation plus C mana."
     }
   ],
   "retainedOwnerEvidence": [
