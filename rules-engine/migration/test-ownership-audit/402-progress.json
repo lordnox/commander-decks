@@ -12965,6 +12965,62 @@
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "life lost on an earlier turn does not carry over",
       "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles.integration:33"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "first actual draw in own draw step is exempt from the replacement",
+      "evidence": "Rule DSL integration fixture with discardThenDraw and a library card performs the first actual draw in its controller\u2019s draw step; the card moves to hand without a discard or graveyard entry, preserving the exemption."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles.integration:44"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "the replacement affects the second draw in the same draw step",
+      "evidence": "With actual-draw tracking already at one, the next draw opens a discard selection, puts the chosen hand card in graveyard, draws a replacement card, and closes the choice without reapplying the replacement."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles.integration:122"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "a redirected discard destination still counts as discarded and draws",
+      "evidence": "The integration installs an exile-discard destination plugin, selects the hand card, verifies it goes to exile rather than graveyard, and still verifies the replacement draw reaches hand."
+    },
+    {
+      "groups": [
+        "chainsOfMephistopheles.integration:161"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
+      "suite": "empty library on the draw branch sets failed-draw SBA",
+      "evidence": "The empty-library integration follows the replacement\u2019s draw branch, verifies the failed-draw marker and empty hand, then checks the appropriate player loses unless the Laboratory Maniac replacement wins."
+    },
+    {
+      "groups": [
+        "aetherTide:38"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "X zero pays only blue and opens no picker",
+      "evidence": "Aether Tide announcement fixture confirms X=0 pays the blue component, requires no creature discards, and opens no picker; adjacent X=2 coverage verifies additional generic payment and exactly two creature discards. The route is the canonical DSL announcement mechanics."
+    },
+    {
+      "groups": [
+        "ashlingsCommand.integration:105"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "each selected mode keeps a local target domain",
+      "evidence": "The actual DSL mode integration selects multiple modes with separate target clauses; the tests preserve each mode\u2019s local target scope through cast and resolution."
+    },
+    {
+      "groups": [
+        "brokersConfluence.integration:73"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
+      "suite": "repeated phasing modes keep independent target scopes for the same creature",
+      "evidence": "The minimal DSL integration selects the repeatable phasing mode twice against one creature and verifies two independent scope IDs plus the resolved phased-out state."
     }
   ],
   "retainedOwnerEvidence": [
