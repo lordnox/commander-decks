@@ -12173,6 +12173,38 @@
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "every printed keyword comes from the Oracle text",
       "evidence": "The exact Sire of Seven Deaths `deckCard` fixture remains. Current callback checks all six printed keywords, four absent keywords, and 7/7 stats; the same `commanderRules` registration path is exercised."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:116"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "declining counters the spell and costs no life",
+      "evidence": "The exact Sire of Seven Deaths fixture remains on p2 while p1 casts the Ward spell fixture with one red mana. Declining leaves p1 at 40, removes the spell from stack, and records the ward counter log."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:125"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "a caster at 6 life cannot pay seven and the spell is countered with no choice",
+      "evidence": "The exact Sire and Ward spell fixtures use p1 life six. The test verifies no option choice is pending, stack is empty, and life remains six."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:133"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "rejects other seats, unknown options, and moving on while the choice is open",
+      "evidence": "The exact Sire/Ward spell fixture opens p1\u2019s ward option. The test rejects a bogus option, p2 attempting to answer p1\u2019s choice, and p1 passing priority while the choice remains open."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:162"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "its own controller is never warded against, and an activated ability is warded too",
+      "evidence": "The exact Sire fixtures on p1 and p2 plus Fixture Poker exercise both paths: targeting own Sire resolves without a ward choice, while the activated poker ability targeting opponent Sire triggers the seven-life choice and resolves when paid. Runtime is the same explicit ward and activated plugin pair."
     }
   ],
   "retainedOwnerEvidence": [
