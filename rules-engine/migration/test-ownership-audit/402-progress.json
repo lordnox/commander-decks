@@ -12157,6 +12157,22 @@
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "only the defending opponents are restricted in a multiplayer table",
       "evidence": "The exact Void Winnower fixture attacks one of two opponents: the defender\u2019s even-value block is rejected, while a nondefending opponent\u2019s block is legal."
+    },
+    {
+      "groups": [
+        "cirdanColossi:61"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "Oracle keywords come from the printed text, and only Blightsteel has infect",
+      "evidence": "The exact Blightsteel and Darksteel `deckCard` fixtures remain in the current callback. It checks all three Blightsteel keywords, Darksteel trample/indestructible and lack of infect, and both 11/11 stats. The helper now reads the current state implicitly, with the same printed-keyword behavior."
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:63"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "every printed keyword comes from the Oracle text",
+      "evidence": "The exact Sire of Seven Deaths `deckCard` fixture remains. Current callback checks all six printed keywords, four absent keywords, and 7/7 stats; the same `commanderRules` registration path is exercised."
     }
   ],
   "retainedOwnerEvidence": [
