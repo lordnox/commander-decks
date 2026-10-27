@@ -53,6 +53,25 @@ const game = (cost: Parameters<typeof ward>[0], extras: Parameters<typeof create
     },
   }, { random: () => 0 })
 
+test('a catalog permanent presents its printed ward payment to the target player', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Roaming Throne')] },
+    hands: { p2: [cardTemplate('Ward probe', { types: ['Instant'], manaCost: '{C}', ruleDefinition: targetSpell })] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.priority = 'p2'
+  ready.players.p2.mana.C = 3
+  const cast = ok(server.rules(ready, {
+    type: 'castSpell',
+    seat: 'p2',
+    objectId: Object.values(ready.objects).find(object => object.name === 'Ward probe')!.id,
+    targets: [{ kind: 'object', objectId: Object.values(ready.objects).find(object => object.name === 'Roaming Throne')!.id }],
+  }))
+  const waiting = ok(server.rules(cast, { type: 'resolveTop' }))
+  expect(pendingDialog(waiting)).toMatchObject({ kind: 'ward-pay', count: 2 })
+})
+
 const castAt = (server: ReturnType<typeof game>) => ok(server.rules(server.state, {
   type: 'castSpell',
   seat: 'p1',
