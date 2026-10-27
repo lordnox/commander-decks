@@ -11683,6 +11683,352 @@
         "Ward probe"
       ],
       "runtimeRoute": "Catalog-backed canonical Roaming Throne ruleDefinition; cast target spell, resolve spell, then execute canonical ward trigger."
+    },
+    {
+      "groups": [
+        "cirdanColossi:89"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "a destroy event on a permanent still fails because of indestructible",
+      "evidence": "The complete pinned assertion matcher remains in the current test callback. The source fixture pair is preserved by the enclosing `for (const colossusName of COLOSSI)` where `COLOSSI` is exactly Blightsteel Colossus and Darksteel Colossus; the current callback builds each via `deckCard(colossusName)` and runs the same state-based destroy check.",
+      "sourceAssertions": [
+        "expect(state.objects[id].zone).toBe('battlefield')"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        },
+        {
+          "name": "Darksteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [
+        "for (const colossusName of COLOSSI)"
+      ],
+      "sourceHelpers": [
+        "COLOSSI:16",
+        "server:90",
+        "game:24",
+        "colossusName:78",
+        "id:91",
+        "state:94",
+        "damaged:92",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:189"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "it returns to its owner, not the controller who took it",
+      "evidence": "The full owner/controller destination assertions remain in the current callback inside the same COLOSSI loop. Its fixture parameter is the exact Blightsteel/Darksteel pair; `deckCard(colossusName)` plus the current `game()` harness retain the replacement route.",
+      "sourceAssertions": [
+        "expect(stolen.objects[id].controller).toBe('p2')",
+        "expect(state.zoneOrder.p1.library).toContain(id)",
+        "expect(state.zoneOrder.p2.library).not.toContain(id)",
+        "expect(state.zoneOrder.p2.graveyard).toEqual([])"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        },
+        {
+          "name": "Darksteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [
+        "for (const colossusName of COLOSSI)"
+      ],
+      "sourceHelpers": [
+        "COLOSSI:16",
+        "server:190",
+        "game:24",
+        "colossusName:78",
+        "id:191",
+        "state:199",
+        "stolen:192",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:215"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "a token copy of it is not a card: it is not shuffled into a library, and it ceases to exist (CR 704.5d)",
+      "evidence": "The complete pinned zone-removal and unchanged-library assertion group remains in the current callback inside the exact two-card COLOSSI loop. The runtime fixture is now constructed as `deckCard(colossusName, { token: true })`; the owner zones and library are checked for all three seats.",
+      "sourceAssertions": [
+        "expect(state.objects[id]).toBeUndefined()",
+        "expect(state.zoneOrder[seat][zone]).not.toContain(id)",
+        "expect(state.zoneOrder.p1.library).toEqual(libraryBefore)"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        },
+        {
+          "name": "Darksteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [
+        "for (const colossusName of COLOSSI)"
+      ],
+      "sourceHelpers": [
+        "COLOSSI:16",
+        "server:216",
+        "game:24",
+        "colossusName:78",
+        "id:219",
+        "state:221",
+        "libraryBefore:220",
+        "seat:223",
+        "zone:224",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:250"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "unblocked, infect gives the player eleven poison counters and no life loss",
+      "evidence": "Both pinned player damage assertions remain verbatim in the current test callback. Its active fixture is Blightsteel Colossus via `attackGame()`/`deckCard`, whose helper drives real declare-attackers and combat-damage events.",
+      "sourceAssertions": [
+        "expect(damaged.players.p2.poison).toBe(11)",
+        "expect(damaged.players.p2.life).toBe(40)"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [],
+      "sourceHelpers": [
+        "attackGame:234",
+        "blockers:252",
+        "damaged:253",
+        "server:235",
+        "game:24",
+        "ready:238",
+        "object:239",
+        "send:241",
+        "attacked:242",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:258"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "blocked by a small creature it tramples over, infecting the blocker and the player",
+      "evidence": "The full pinned poison/life/blocker-zone assertion group remains verbatim in the current callback. `attackGame([fixtureCreature(\"Chump Bear\")])` sets up the same Colossus combat damage and blocker route.",
+      "sourceAssertions": [
+        "expect(damaged.players.p2.poison).toBe(9)",
+        "expect(damaged.players.p2.life).toBe(40)",
+        "expect(named(damaged, 'Chump Bear').zone).toBe('graveyard')"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [],
+      "sourceHelpers": [
+        "attackGame:234",
+        "blocking:260",
+        "blocked:261",
+        "damaged:269",
+        "server:235",
+        "game:24",
+        "ready:238",
+        "object:239",
+        "send:241",
+        "attacked:242",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:276"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "lethal damage from a huge blocker does not destroy it because it is indestructible",
+      "evidence": "Both pinned battlefield and uniqueness checks remain verbatim in the current test callback. `attackGame` uses the same deckCard-backed Blightsteel fixture against a 20/20 Huge Wall and advances real combat damage.",
+      "sourceAssertions": [
+        "expect(named(damaged, 'Blightsteel Colossus').zone).toBe('battlefield')",
+        "expect(allNamed(damaged, 'Blightsteel Colossus')).toHaveLength(1)"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [],
+      "sourceHelpers": [
+        "attackGame:234",
+        "blocking:280",
+        "blocked:281",
+        "damaged:289",
+        "server:235",
+        "game:24",
+        "ready:238",
+        "object:239",
+        "send:241",
+        "attacked:242",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:296"
+      ],
+      "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
+      "suite": "trample past a chump blocker deals the rest as ordinary combat damage",
+      "evidence": "The complete pinned life-total and poison assertions remain verbatim in the current callback. The current helper uses a deckCard-backed Darksteel Colossus and a 2/2 Chump Bear in a real combat sequence.",
+      "sourceAssertions": [
+        "expect(state.players.p2.life).toBe(31)",
+        "expect(state.players.p2.poison).toBe(0)"
+      ],
+      "fixtures": [
+        {
+          "name": "Darksteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        }
+      ],
+      "parameterization": [],
+      "sourceHelpers": [
+        "server:297",
+        "game:24",
+        "ready:303",
+        "state:306",
+        "object:304",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
+    },
+    {
+      "groups": [
+        "cirdanColossi:373"
+      ],
+      "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
+      "suite": "without the replacement an ordinary permanent is still taken, so the Colossus is the exception",
+      "evidence": "The original control assertion remains verbatim in the current callback. The current test uses `betrayGame(\"Blightsteel Colossus\")`, including the actual It That Betrays source and P2 Rock, then resolves the sacrifice trigger; it checks the ordinary Rock is taken while the replacement card case remains handled in adjacent mechanic tests.",
+      "sourceAssertions": [
+        "expect(state.objects[rock]).toMatchObject({ zone: 'battlefield', controller: 'p1' })"
+      ],
+      "fixtures": [
+        {
+          "name": "Blightsteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        },
+        {
+          "name": "Darksteel Colossus",
+          "canonical": false,
+          "handlers": [
+            "shuffleIntoLibraryInstead"
+          ]
+        },
+        {
+          "name": "It That Betrays",
+          "canonical": false,
+          "handlers": []
+        }
+      ],
+      "parameterization": [],
+      "sourceHelpers": [
+        "server:374",
+        "betrayGame:328",
+        "rock:375",
+        "state:376",
+        "colossusName:339",
+        "COLOSSI:16",
+        "game:24",
+        "betrayer:48",
+        "filler:20",
+        "plugins:18"
+      ],
+      "pinnedRuntime": [
+        "named legacy registration / listed handlers"
+      ],
+      "currentRuntimeRoute": "Current owner uses the same active `commanderRules` execution and the deckCard/fixtureCreature helper path. Combat rows execute full combat events; shuffle rows use the `game()` rules-engine harness with card replacement effects active."
     }
   ],
   "retainedOwnerEvidence": [
