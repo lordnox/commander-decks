@@ -481,7 +481,7 @@
       "ownerTests": [
         {
           "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-          "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly"
+          "suite": "catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly"
         }
       ],
       "currentOwners": [
@@ -495,7 +495,7 @@
         },
         {
           "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
-          "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly",
+          "suite": "catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly",
           "parameters": null,
           "assertions": [
             "expect(() => applyKernelAct(kernel, lobby, 'p1', {\n    type: 'act', kind: 'castSpell', objectId: dig.id, targetObjectIds: six.slice(0, 3),\n  }))",
@@ -518,6 +518,12 @@
             "expect(choose(looking, ['Top 3', 'Top 6'], 'p2').ok)",
             "expect(pendingSelectionFor(looking, 'p1'))",
             "expect(choose(restored, ['Top 3', 'Top 6']))",
+            "expect(order.kind)",
+            "expect(order.destinations)",
+            "expect(order.candidates.map((id) => ordering.objects[id].name))",
+            "expect(pendingSelectionFor(projectForViewer(ordering, 'p2'), 'p1'))",
+            "expect(hidden)",
+            "expect(server.rules(reordered, orderEvent(reordered)))",
             "expect(pendingSelectionFor(done, 'p1'))",
             "expect(done.zoneOrder.p1.hand.map((id) => done.objects[id].name))",
             "expect(done.zoneOrder.p1.library.map((id) => done.objects[id].name))",
@@ -531,7 +537,7 @@
           "name": "Dig Through Time",
           "owners": [
             "Dig Through Time delves then inspects seven for two",
-            "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly"
+            "catalog Dig Through Time rejects invalid picks and restores its private pick and bottom order exactly"
           ]
         }
       ]
