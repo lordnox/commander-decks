@@ -13125,6 +13125,54 @@
       "destination": "rules-engine/src/cardPlugins/dsl/inspectTop.test.ts",
       "suite": "Dark Confidant reveals into hand without drawing and uses the revealed mana value",
       "evidence": "Catalog-backed upkeep test covers empty library, zero and five mana value, redirected hand movement, no draw event, exact life loss, and direct reveal-to-hand behavior."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:72"
+      ],
+      "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
+      "suite": "Famished Worldsire devours lands, gains counters, and puts tapped lands from the top",
+      "evidence": "The live Worldsire test casts the card with two lands, selects both for devour, verifies six +1/+1 counters and 6 power, then inspects the library and confirms both top lands are available for its tapped land move."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:133"
+      ],
+      "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
+      "suite": "Finale of Devastation finds a graveyard creature without shuffling",
+      "evidence": "Current test resolves the catalog Finale from the graveyard route and verifies the creature returns without a library shuffle."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:181"
+      ],
+      "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
+      "suite": "Finale of Devastation shuffles after a library find and pumps at X \u2265 10",
+      "evidence": "Current test exercises library search, shuffle tracking, and the X\u226510 pump threshold for the found creature."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:216"
+      ],
+      "destination": "rules-engine/src/cardPlugins/exilePayoffs.test.ts",
+      "suite": "Valgavoth exiles opposing graveyard cards and casts them for life",
+      "evidence": "Current Valgavoth integration moves opposing graveyard cards into exile linked to Valgavoth and permits casting a linked card for its life cost."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:255"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "Valgavoth Ward sacrifices three nonlands or counters the spell",
+      "evidence": "The ward integration verifies a minimum-three sacrifice choice filtered to nonlands and confirms the spell is countered or proceeds according to the selected response."
+    },
+    {
+      "groups": [
+        "sinFallFinishers:301"
+      ],
+      "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
+      "suite": "Famished Worldsire Ward {3} can be paid with mana",
+      "evidence": "The catalog-backed ward test offers its {3} payment and resolves the spell after mana payment, preserving the card-specific ward amount and timing."
     }
   ],
   "retainedOwnerEvidence": [
