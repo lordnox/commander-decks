@@ -12317,6 +12317,78 @@
       "destination": "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts",
       "suite": "sacrificing a created Treasure for mana queues the trigger without draining immediately",
       "evidence": "The current Mirkwood Bats owner suite creates a Treasure through Token Maker, activates its tap-for-mana ability, checks black mana is produced and the trigger is pending without immediate life loss, then resolves it and checks the additional life loss. Its fixture remains under the relocated Bats mechanic test and tests the same commanderRules event route."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:328"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a nontoken creature with a new name draws a card",
+      "evidence": "The projectGame helper instantiates the exact Guardian Project catalog card through deckCard; a new non-token fixture creature moves to battlefield, queues one trigger, then draws one card. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:336"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a token does not trigger it",
+      "evidence": "The same helper and exact Guardian Project catalog fixture are used with a token Bear; the token enters and queues no trigger. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:341"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "another creature you control with the same name stops the draw, a token copy included",
+      "evidence": "The callback exercises both a real same-name creature and a same-name token copy already controlled by p1, then checks the entering creature queues no trigger in either case. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:355"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a same-named creature controlled by an opponent does not stop the draw",
+      "evidence": "The exact Guardian Project source and same-name Bear fixture are used, with the existing Bear controlled by p2; p1 enters its Bear and draws one card. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:364"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a creature card of that name in your graveyard stops the draw; in an opponent graveyard it does not",
+      "evidence": "The current callback retains both owner cases: a same-name creature card in p1 graveyard prevents the trigger, while p2 graveyard does not. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:376"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a noncreature card of that name in your graveyard does not count",
+      "evidence": "The exact Guardian Project fixture is paired with a creature Bear in hand and same-name Instant in p1 graveyard; entering Bear queues the trigger. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:398"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a dead creature card blocks the next copy, but a shuffled-away Colossus never does",
+      "evidence": "The test checks a creature card in graveyard blocks the next same-name entry, then uses actual Blightsteel Colossus copies and the library-replacement runtime route to verify no Colossus reaches graveyard and the next copy triggers. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:426"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "a creature stolen by It That Betrays enters under your control and draws if its name is new",
+      "evidence": "The exact It That Betrays fixture sacrifices an opponent new-name creature; the current callback checks it enters under p1 control and p1 draws. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:455"
+      ],
+      "destination": "rules-engine/src/cardPlugins/watchedEnters.test.ts",
+      "suite": "Terastodon draws for itself, and the Elephant tokens it makes for you do not draw",
+      "evidence": "The exact Terastodon fixture enters with its land-destruction effect and creates Elephant tokens; the callback checks the source draws while its created tokens do not trigger Guardian Project. Current owner executes the catalog Guardian Project template through commanderRules; reusable owner/controller/zone checks use exchangeable creature fixtures."
     }
   ],
   "retainedOwnerEvidence": [
