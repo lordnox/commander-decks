@@ -38,10 +38,6 @@ export type PendingPlayerSelection = {
     | { kind: 'designateBattleProtector' }
     | { kind: 'assignDonatedPermanent'; donationId: string; objectId: string }
     | {
-        kind: 'finishGiftCast'
-        cast: Omit<Extract<GameEvent, { type: 'castSpell' }>, 'type' | 'giftRecipient'>
-      }
-    | {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]
         triggeringPlayer: PlayerId

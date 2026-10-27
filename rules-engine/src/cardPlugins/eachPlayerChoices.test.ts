@@ -18,7 +18,6 @@ import {
   onResolve,
 } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
-import { giftCast } from './giftCast'
 import { encore as encorePlugin } from './encore'
 
 
@@ -166,7 +165,7 @@ describe('eachPlayerReturn', () => {
 
 describe('legacy loot discard lifecycle', () => {
   test("Collector's Vault keeps its legacy loot handler and finishes with a Treasure", () => {
-    const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
+    const plugins = [onResolvePlugin, activated, encorePlugin]
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [cardTemplate("Collector's Vault", { types: ['Artifact'] })] },
       hands: { p1: [cardTemplate('Hand Fodder', { types: ['Instant'] })] },

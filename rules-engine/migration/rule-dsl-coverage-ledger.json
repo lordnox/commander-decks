@@ -27,8 +27,8 @@
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 65,
-    "directMutationSites": 525,
+    "customEventDispatchSites": 64,
+    "directMutationSites": 523,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 139,
     "cardRegistrationOnlyGaps": 0,
@@ -4112,7 +4112,7 @@
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:64 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:364 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:365 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:24 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:17 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:12 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
@@ -4741,9 +4741,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:233 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:292 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:529 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:234 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:293 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:530 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1077 — test('Breena rewards attacks on a richer opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1115 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {"
         ]
@@ -5102,7 +5102,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 73,
+        "matches": 71,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3286 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:4279 — test('canonical control assignments rebuild after a host restart and exclude assigned recipients', () => {",
@@ -5233,7 +5233,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1323 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:1324 — test('catalog Snuff Out validates the Swamp and four-life alternative cost', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5967,9 +5967,9 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:483",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:475",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:493",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:491",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -5986,7 +5986,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1484"
+        "rules-engine/src/types.ts:1480"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -6019,14 +6019,14 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1448",
-        "rules-engine/src/actions.ts:1617",
-        "rules-engine/src/actions.ts:901",
+        "rules-engine/src/actions.ts:1414",
+        "rules-engine/src/actions.ts:1583",
+        "rules-engine/src/actions.ts:898",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:437",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:441",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:435",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:439",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
         "rules-engine/src/cardPlugins/librarySearch.ts:174",
@@ -6146,11 +6146,11 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:621",
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:650",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:826",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:642",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:818",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:574",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:572",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
@@ -6174,7 +6174,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:484",
+        "rules-engine/src/plugins/spells.ts:483",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:167",
@@ -6262,10 +6262,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          557
+          555
         ],
         "samples": [
-          "557: if (!extra.keepName && object.name !== copied.name) {"
+          "555: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6563,23 +6563,6 @@
         "samples": [
           "10: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return",
           "20: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) {"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/giftCast.ts",
-        "lines": [
-          77
-        ],
-        "samples": [
-          "77: if (event.type === 'custom' && event.name === 'giftCast.openSelection') {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7250,30 +7233,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          909,
-          915,
-          988,
-          1008,
-          1010,
-          1013,
-          1023,
-          1026,
-          1041,
-          1042,
-          1052,
-          1055,
-          1057,
-          1139,
-          1163,
-          1178,
-          1197,
-          1205,
-          1221
+          905,
+          911,
+          984,
+          1004,
+          1006,
+          1009,
+          1019,
+          1022,
+          1037,
+          1038,
+          1048,
+          1051,
+          1053,
+          1129,
+          1153,
+          1168,
+          1187,
+          1195,
+          1211
         ],
         "samples": [
-          "909: const moved = draft.object(event.objectId)",
-          "915: const object = draft.object(event.objectId)",
-          "988: .map((objectId) => draft.object(objectId))"
+          "905: const moved = draft.object(event.objectId)",
+          "911: const object = draft.object(event.objectId)",
+          "984: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7629,17 +7612,17 @@
       {
         "path": "rules-engine/src/rules/selectPlayers.ts",
         "lines": [
-          180,
-          212,
-          219,
+          176,
+          208,
+          215,
+          223,
           227,
-          231,
-          271
+          267
         ],
         "samples": [
-          "180: const object = draft.object(objectId)",
-          "212: draft.enqueue({",
-          "219: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
+          "176: const object = draft.object(objectId)",
+          "208: draft.enqueue({",
+          "215: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7870,14 +7853,14 @@
         "lines": [
           121,
           123,
-          459,
-          468,
-          469
+          457,
+          466,
+          467
         ],
         "samples": [
           "121: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
           "123: draft.enqueue({",
-          "459: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
+          "457: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8007,25 +7990,6 @@
           "20: const object = draft.move(objectId, 'exile')",
           "28: draft.enqueue({",
           "83: const object = draft.object(objectId)"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/giftCast.ts",
-        "lines": [
-          26,
-          100
-        ],
-        "samples": [
-          "26: draft.enqueue({ type: 'draw', seat: recipient, count: spec.draw })",
-          "100: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

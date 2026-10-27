@@ -409,8 +409,6 @@ export const conditionHolds = (
   }
   if (condition.kind === 'controllerIsActive') return state.active === object.controller
   if (condition.kind === 'castOption') return object.enteredWithCastOption === condition.id
-  if (condition.kind === 'giftPromised') return stackItem?.giftPromised === true
-  if (condition.kind === 'giftNotPromised') return stackItem?.giftPromised !== true
   if (condition.kind === 'controllerUpkeep') {
     return state.active === object.controller && state.step === 'upkeep'
   }

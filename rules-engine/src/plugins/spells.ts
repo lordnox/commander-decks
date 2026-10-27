@@ -35,7 +35,6 @@ import { canonicalSpellPermission } from '../cardPlugins/dsl/playPermissions'
 import { SPELLS_CAST_THIS_TURN, spellsCastThisTurn } from '../rules/spellsCast'
 import { ceaseToExist } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
-import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
 import { cantCastSpellWith } from './opponentRestrictions'
 import { enchantTargetError } from './enchant'
@@ -829,9 +828,6 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires X to be 0 when cast without paying its mana cost`
       }
-      if (event.giftPromised && !giftSpecOf(spell)) {
-        return `${spell.name} has no gift cost`
-      }
       const fullCost = canonicalLockedManaCost ?? spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
@@ -1062,12 +1058,6 @@ export const spells: Plugin = {
         name: object.name,
         targets: event.targets ?? event.targetClauses?.flat() ?? [],
         manaSpent,
-        ...(event.giftPromised
-          ? {
-              giftPromised: true,
-              ...(event.giftRecipient ? { giftRecipient: event.giftRecipient } : {}),
-            }
-          : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
         ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),

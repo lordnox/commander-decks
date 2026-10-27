@@ -9,7 +9,6 @@ import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, manaRequiresTap, poolForChoice, sacrificesForMana } from './plugins/mana'
 import type { CardEffect, TargetFilter } from './cardPlugins/effects'
-import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
   announcementSource,
@@ -147,8 +146,6 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetName?: string
       x?: number
-      giftPromised?: boolean
-      giftRecipientId?: string
       selectedOptionalCosts?: number[]
       costPlayers?: Readonly<Record<number, PlayerId>>
       selectedAlternativeCost?: number
@@ -970,35 +967,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     effect.op === 'castCost'
     && effect.reduceGeneric?.if.kind === 'target')
     || Boolean(object.ruleDefinition && loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.some(ability => ability.kind === 'spell' && costsDependOnTargets(ability.costReductions)))
-  const withGift = (
-    action: Extract<AvailableAction, { kind: 'castSpell' }>,
-  ): AvailableAction[] => {
-    const spec = giftSpecOf(object)
-    if (!spec) return [action]
-    const label = spec.label ?? 'gift'
-    return [
-      action,
-      {
-        ...action,
-        giftPromised: true,
-        castLabel: action.castLabel ? `${action.castLabel} — ${label}` : label,
-      },
-    ]
-  }
-  const withGiftRecipients = (
-    actions: AvailableAction[],
-  ): AvailableAction[] =>
-    actions.flatMap((action) => {
-      if (action.kind !== 'castSpell' || !action.giftPromised) return [action]
-      const opponents = state.playerOrder.filter((player) =>
-        player !== seat && !state.players[player].lost)
-      const funded = opponents.map((opponent) => ({
-        ...action,
-        giftRecipientId: opponent,
-        castLabel: [action.castLabel, `to ${opponent}`].filter(Boolean).join(' '),
-      }))
-      return funded.length > 0 ? funded : [action]
-    })
   const canonicalAbility = object.ruleDefinition
     ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
     : undefined
@@ -1037,8 +1005,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const fundedVariants = (
     base: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
-  ) => withGiftRecipients(
-    withCostOptions(base).flatMap((action) => {
+  ) => withCostOptions(base).flatMap((action) => {
       if (action.kind !== 'castSpell') return []
       if (object.manaCostAbsent && !action.castOption && !action.alternativeCost && action.selectedAlternativeCost === undefined) return []
       if (hasCanonicalCostOptions && preview(action) === undefined) return []
@@ -1062,8 +1029,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           ...(castLabel ? { castLabel } : {}),
         }
       })
-    }).flatMap((action) => action.kind === 'castSpell' ? withGift(action) : [action]),
-  )
+    })
   const staticPermission = canonicalSpellPermission(state, seat, object)
   const printedPermission = matchingSpellCast(state, seat, object.id)
   const authorizedZone = state.castableZones.includes(object.zone)
@@ -2217,8 +2183,6 @@ export const sameLegalAct = (
     selectedOptionalCosts?: number[]
     costPlayers?: Readonly<Record<number, PlayerId>>
     selectedAlternativeCost?: number
-    giftPromised?: boolean
-    giftRecipientId?: string
     castOption?: string
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
@@ -2254,8 +2218,6 @@ export const sameLegalAct = (
     return samePickedTargets
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
-      && left.giftPromised === right.giftPromised
-      && left.giftRecipientId === right.giftRecipientId
       && JSON.stringify(left.costPlayers ?? {}) === JSON.stringify(right.costPlayers ?? {})
       && JSON.stringify(left.selectedOptionalCosts ?? []) === JSON.stringify(right.selectedOptionalCosts ?? [])
       && left.selectedAlternativeCost === right.selectedAlternativeCost
@@ -2708,7 +2670,7 @@ export const eventsForAvailableAction = (
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
-        effect.op === 'castCost' && (effect.lifeX || effect.gift))
+        effect.op === 'castCost' && effect.lifeX)
     : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.
@@ -2832,8 +2794,6 @@ export const eventsForAvailableAction = (
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.delve?.length ? { delve: action.delve } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
-      ...(action.giftPromised ? { giftPromised: true } : {}),
-      ...(action.giftRecipientId ? { giftRecipient: action.giftRecipientId } : {}),
       ...(action.door ? { door: action.door } : {}),
       ...(action.adventureCast ? { adventureCast: true } : {}),
       ...(action.targetObjectIds && alternative?.discard
