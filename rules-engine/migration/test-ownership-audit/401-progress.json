@@ -423,9 +423,9 @@
       "groups": [
         "cirdanPartBMana:115"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "catalog timing and activation-cost cards compose canonical when, flash, and reductions",
-      "evidence": "Current structural owner for Alchemist's Refuge, Arbor Elf, Flooded Grove, Sea Gate Restoration // Sea Gate, Reborn, Simic Signet, Utopia Sprawl, Waterlogged Grove, Wild Growth. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Círdan part-B mana cards stay registered",
+      "evidence": "The registry owner now checks all eight parameterized cards for a nonempty deck Oracle text, no missing plugin, and a canonical catalog snapshot. Card-specific timing, activation costs, and instructions remain pinned by the named catalog tests.",
       "sourceTitle": "%s is table-driven and builds from its deck Oracle text",
       "sourceSpan": {
         "file": "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts",
@@ -438,6 +438,32 @@
       "pinnedAssertions": [
         "expect(deckCardTemplate(name).oracleText.length).toBeGreaterThan(0)",
         "expect(cardPluginEntry(name)).toBeDefined()"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog timing and activation-cost cards compose canonical when, flash, and reductions"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog %s composes a targeted untap with its tap-symbol cost"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog %s owns its activated programs without legacy registrations"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "catalog %s pays one mana and taps for its exact color pair"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Sea Gate Restoration draws hand size plus one then grants unlimited hand size"
+        },
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks"
+        }
       ]
     },
     {
