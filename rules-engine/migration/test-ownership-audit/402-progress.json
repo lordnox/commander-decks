@@ -12213,6 +12213,70 @@
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "menace: a single blocker is rejected and two are accepted",
       "evidence": "The exact Sire of Seven Deaths card and Bear A/B fixtures remain in cirdanCombatGame. The pinned matcher is unchanged: one blocker returns a menace error, and two blockers are accepted."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:32"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The catalog Mirkwood Bats runtime integration creates three artifact tokens, checks three queued triggers with no immediate loss, then resolves them and verifies each of the three opponents loses three life. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:40"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The same actual catalog Bats integration uses three artifact token fixtures; their creation queues the card trigger and each opponent loses one life per created token. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:49"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The generic DSL mechanic test `creation filters use the actual token controller` creates a token controlled by p2 while the p1 observer filters `controller: you`; it confirms no trigger is queued. The shared mechanic semantics complement the catalog Bats integration. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:56"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The catalog Mirkwood Bats integration sacrifices a created token after the creation triggers resolve; the token ceases to exist and a new trigger resolves, taking one life from each opponent. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:65"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The generic DSL mechanic test `sacrifice uses the token controller before its move` verifies the controller-at-sacrifice occurrence is observed even when token ownership differs; it checks the trigger survives replacement of the token destination. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:87"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The generic mechanic `only a sacrifice queues the sacrifice occurrence` parameterizes sacrifice, destroy, exile, and bounce and confirms only the sacrifice action queues the observer trigger. This preserves the source group\u2019s key distinction between sacrifice and other departures. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:98"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The generic mechanic `a resolving permanent spell copy becomes a token without a creation occurrence` verifies an ordinary move of a token copy does not emit tokenCreated. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:143"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
+      "evidence": "The generic mechanic `a token with a canonical observer sees its own creation and sacrifice` confirms a token\u2019s own copied observer can see both events and receives the sacrifice occurrence after creation. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
     }
   ],
   "retainedOwnerEvidence": [

@@ -34,6 +34,28 @@ test.each([1, 3])('creating %s tokens queues one creation trigger per token, wit
   expect(direct.players.p1.life).toBe(40 + count)
 })
 
+test('catalog Mirkwood Bats drains each opponent for every created or sacrificed token', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Mirkwood Bats')] },
+    hands: { p1: [instructionSpell({ instructions: [createToken({
+      targets: ref('controller'), count: 3,
+      token: { name: 'Treasure fixture', types: ['Artifact'], power: 0, toughness: 0 },
+    })] })] },
+  }, { random: () => 0 })
+  const created = begin(server)
+  expect(created.stack).toHaveLength(3)
+  expect(created.players.p2.life).toBe(40)
+  const drained = resolveStack(server.rules, created)
+  expect(server.state.playerOrder.map((seat) => drained.players[seat].life)).toEqual([40, 37, 37, 37])
+
+  const token = Object.values(drained.objects).find((object) => object.token)!
+  const sacrificed = ok(server.rules(drained, { type: 'sacrifice', objectId: token.id }))
+  expect(sacrificed.stack).toHaveLength(1)
+  const afterSacrifice = resolveStack(server.rules, sacrificed)
+  expect(server.state.playerOrder.map((seat) => afterSacrifice.players[seat].life)).toEqual([40, 36, 36, 36])
+})
+
 test('creation remains observable when a zero-toughness token immediately ceases to exist', () => {
   const server = setup(1, [], 0)
   const state = begin(server)
