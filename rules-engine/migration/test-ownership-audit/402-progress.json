@@ -13367,6 +13367,30 @@
       "destination": "rules-engine/src/cardPlugins/dsl/manaLoss.test.ts",
       "suite": "a catalog mana-rain ability gives both players mana that Yurlok burns when pools empty",
       "evidence": "The catalog-backed test activates $.abilities[2], verifies the tap cost and exact {B}{R}{G} pool for both players, then empties pools and verifies each loses three life and both pools clear. A second empty is idempotent. This preserves the complete mana-rain and mana-burn behavior on the current canonical route."
+    },
+    {
+      "groups": [
+        "homerKeywordCosts:31"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "conditional cost reductions / catalog Tear Asunder expands its target to nonlands only when kicker is paid",
+      "evidence": "The canonical card test inspects legal cast actions for the kicker choice, rejects illegal artifact/land target combinations, pays kicker when selected, and verifies the un-kicked and kicked resolution routes (destroy versus exile) on catalog-backed fixtures. This preserves the optional-cost payment and target-filter behavior through the DSL announcement route."
+    },
+    {
+      "groups": [
+        "homerKeywordCosts:100"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "conditional cost reductions / catalog Price of Fame reduces its cost only for a legendary creature target",
+      "evidence": "The catalog-backed cast test offers only the legendary target when mana permits the conditional reduction, rejects an ordinary target and insufficient payment atomically, then pays the reduced cost, destroys the legendary target, opens surveil 2, and completes resolution. This restores the full target-dependent reduction and follow-up behavior."
+    },
+    {
+      "groups": [
+        "homerKeywordCosts:156"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "conditional cost reductions / catalog Drag to the Roots reduces its cost with four graveyard card types and excludes lands",
+      "evidence": "The catalog-backed test verifies payment fails without four distinct graveyard card types and that a land target is excluded, then provides four card types, observes the legal reduced cast, pays the remaining colored/generic cost, destroys the target, and places the spell in its graveyard. This preserves delirium gating, target filtering, payment, and resolution."
     }
   ],
   "retainedOwnerEvidence": [
