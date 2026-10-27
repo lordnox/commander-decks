@@ -1,6 +1,6 @@
 {
   "issue": 401,
-  "note": "Working-tree implementation record for #401. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been consolidated into registry/catalog owners, retained in those owners, or removed as proven duplicates.",
+  "note": "Working-tree implementation record for #401. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been consolidated into registry/catalog owners, retained in those owners, or removed as proven duplicates. Every issue-401 inventory ID now has an explicit current-owner row with the exact destination test title; duplicate evidence and removed legacy API contracts are called out in their rows.",
   "implemented": [
     "activatedTargetZones:109",
     "blinkValue:25",
@@ -135,11 +135,424 @@
   "relocations": [
     {
       "groups": [
-        "cardRuleCatalog.drawAndKeywords:72"
+        "activatedTargetZones:109"
       ],
-      "destination": "rules-engine/src/cardPlugins/dsl/staticKeywords.test.ts",
-      "suite": "catalog keyword binding works without Oracle text or legacy effects",
-      "evidence": "Preserves catalog snapshot stamping, empty Oracle text, no legacy effects, and effective trample in a mechanic-owned catalog-binding integration. Exact trample-only composition remains in cardRuleCatalog.test.ts."
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog %s composes a bounded target with a non-targeting delayed owner return",
+      "evidence": "Catalog snapshot asserts the exact {2} plus sacrifice-self costs, battlefield creature selector and min/max, exile binding, and next-end-step owner return.",
+      "sourceTitle": "is registered from its exact Oracle text: {2}, sacrifice, target creature",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
+        "startLine": 109,
+        "endLine": 117
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Voyager Staff')).toEqual([{ op: 'activate', id: BLINK, costs: { mana: '{2}', sacrifice: 'self' }, targets: { filter: { zone: 'battlefield', type: 'Creature' } }, do: [{ kind: 'blink', when: 'nextEndStep', returnController: 'owner' }], }])"
+      ]
+    },
+    {
+      "groups": [
+        "blinkValue:25"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Lady Evangela blink-value cards stay registered",
+      "evidence": "The source matcher is the shared registry coverage assertion for all six names; this owner retains that exact card-pool registration check.",
+      "sourceTitle": "all seven cards are registered through the reusable handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/blinkValue.test.ts",
+        "startLine": 25,
+        "endLine": 35
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(cards)).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanColossi:51"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Blightsteel Colossus composes trample, infect, indestructible, and owner-library shuffle",
+      "evidence": "Current named catalog snapshots cover the exact static owner-library replacement for Blightsteel; Darksteel has the parallel named snapshot test. Both suites are listed as ownerTests below.",
+      "sourceTitle": "both load only the shuffle replacement handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanColossi.test.ts",
+        "startLine": 51,
+        "endLine": 59
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor(name)).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])",
+        "expect(cardPluginEntry(name)).toMatchObject({ pluginIds: [], handlerIds: ['shuffleIntoLibraryInstead'], })"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "Darksteel Colossus composes trample, indestructible, and owner-library shuffle"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:53"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "The canonical snapshot pins the seven-life ward amount and ability composition; legacy handler IDs were removed with the registry API.",
+      "sourceTitle": "registers only the Ward-pay-7-life stamp the Oracle parser cannot read",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts",
+        "startLine": 53,
+        "endLine": 61
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Sire of Seven Deaths')).toEqual([ { op: 'static', ward: { life: 7 } }, ])",
+        "expect(cardPluginEntry('Sire of Seven Deaths')).toMatchObject({ pluginIds: [], handlerIds: ['ward'], })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanEldrazi:259"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "The canonical snapshot pins the even-mana cast and block restrictions; legacy handler IDs were removed with the registry API.",
+      "sourceTitle": "registers one static cast and one static block restriction on even mana values",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts",
+        "startLine": 259,
+        "endLine": 265
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Void Winnower')).toEqual([ { op: 'static', opponentsCantCast: { parity: 'even' } }, { op: 'static', opponentsCantBlock: { parity: 'even' } }, ])",
+        "expect(cardPluginEntry('Void Winnower')).toMatchObject({ pluginIds: [], handlerIds: [] })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:101"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Grothama grants an optional fight and pays out source-attributed damage",
+      "evidence": "Snapshot asserts the creature attack grant and leaves payout instructions; gameplay behavior stays in its mechanic suite.",
+      "sourceTitle": "registers an every-other-creature attack grant and a leaves trigger that pays by damage ledger",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts",
+        "startLine": 101,
+        "endLine": 114
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Grothama, All-Devouring')).toEqual([ { op: 'static', grantCreatureTrigger: { to: { controller: 'any', other: true }, on: 'attacks', do: [{ kind: 'mayFightGrantSource' }], }, }, { op: 'trigger', on: 'leaves', do: [{ kind: 'eachPlayerDrawDamageDealtToSource' }] }, ])",
+        "expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanGrothamaGuardian:315"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "group 15 consumers compose name, comparison, and mana-ability queries",
+      "evidence": "The catalog snapshot pins Guardian Project’s creature watcher and unique-name intervening condition before drawing.",
+      "sourceTitle": "registers one watcher on your nontoken creatures entering, drawing behind the unique-name check",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts",
+        "startLine": 315,
+        "endLine": 324
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Guardian Project')).toEqual([{ op: 'trigger', on: 'permanentEnters', watch: { type: 'Creature', controller: 'you', nontoken: true }, do: [{ kind: 'draw', count: 1 }], if: { kind: 'triggeringCreatureNameUnique' }, }])",
+        "expect(cardPluginEntry('Guardian Project')).toMatchObject({ pluginIds: [], handlerIds: [] })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:171"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Dig Through Time delves then inspects seven for two",
+      "evidence": "Catalog snapshot asserts the delve cost and the ordered inspect-seven, choose-two, selected-to-hand, remainder-to-bottom program; searchLibrary test owns invalid-pick rejection, private choice visibility, and restore behavior.",
+      "sourceTitle": "is registered with its handler ids",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 171,
+        "endLine": 174
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Dig Through Time']).toSorted()).toEqual(['castCosts', 'onResolve'])",
+        "expect(scryfall('Dig Through Time').oracle_text).toContain('Look at the top seven cards')"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
+          "suite": "catalog Dig Through Time rejects invalid picks and restores its private two-card choice exactly"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:365"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "alternative returns compose graveyard activation and success-dependent delayed follow-up",
+      "evidence": "Kederekt Leviathan template stats are asserted in family 25; its canonical snapshot pins the graveyard activation cost {6}{U} and success-dependent delayed return. The original printed cost {6}{U}{U} is distinct and must remain a template assertion.",
+      "sourceTitle": "is registered with unearth and its handler ids",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 365,
+        "endLine": 368
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])",
+        "expect(real('Kederekt Leviathan')).toMatchObject({ manaCost: '{6}{U}{U}', power: 5, toughness: 5 })"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+          "suite": "family 25 catalog cards retain printed stats and canonical keyword parameters"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:523"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals",
+      "evidence": "Named structural snapshot pins Saga chapters and instructions; printed characteristics are part of the canonical catalog entry.",
+      "sourceTitle": "is registered as a saga with its three chapters",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 523,
+        "endLine": 534
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(scryfall('Kiora Bests the Sea God').oracle_text).toContain('Gain control of target permanent an opponent controls. Untap it.')",
+        "expect(saga).toMatchObject({ op: 'saga' })",
+        "expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers)) .toEqual([[1], [2], [3]])",
+        "expect(real('Kiora Bests the Sea God')).toMatchObject({ manaCost: '{5}{U}{U}', types: ['Enchantment'], subtypes: ['Saga'], })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:870"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Nezahal composes uncounterable, hand size, a cast trigger, and a discard blink",
+      "evidence": "Named snapshot pins uncounterable, no-maximum-hand-size, cast trigger, and discard blink composition.",
+      "sourceTitle": "is registered with its handler ids and static grant",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 870,
+        "endLine": 881
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted()) .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])",
+        "expect(effectsFor('Nezahal, Primal Tide')).toContainEqual({ op: 'spellTrait', uncounterable: true })",
+        "expect(real('Nezahal, Primal Tide')).toMatchObject({ manaCost: '{5}{U}{U}', supertypes: ['Legendary'], subtypes: ['Elder', 'Dinosaur'], power: 7, toughness: 7, })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1052"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "linked exile cards compose persistent sets, full selectors, and independent characteristic bonuses",
+      "evidence": "Catalog composition pins the linked-exile handler structure; named Imprint owner preserves selector and imprint composition details.",
+      "sourceTitle": "is registered as an imprint with its handler ids",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 1052,
+        "endLine": 1056
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Phyrexian Ingester']).toSorted()) .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])",
+        "expect(real('Phyrexian Ingester')).toMatchObject({ manaCost: '{6}{U}', power: 3, toughness: 3 })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1261"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Rishkar's Expertise draws from greatest power then offers a capped free hand cast",
+      "evidence": "Named snapshot pins draw-by-greatest-power followed by the optional free cast capped at mana value five; printed sorcery characteristics are in the same catalog test.",
+      "sourceTitle": "is registered: draw by greatest power, then the free cast as the last instruction",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 1261,
+        "endLine": 1270
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(scryfall(\"Rishkar's Expertise\").oracle_text).toBe( 'Draw cards equal to the greatest power among creatures you control.\\n' + 'You may cast a spell with mana value 5 or less from your hand without paying its mana cost.', )",
+        "expect(effectsFor(\"Rishkar's Expertise\")).toEqual([ onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)), ])",
+        "expect(real(\"Rishkar's Expertise\")).toMatchObject({ manaCost: '{4}{G}{G}', types: ['Sorcery'] })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanMiscCards:1475:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "protection cards compose canonical keywords, target restrictions, and temporary grants",
+      "evidence": "Named snapshot pins indestructible, {1} activation, creature power-at-least-five targeting, and temporary indestructible grant.",
+      "sourceTitle": "is registered from its exact Oracle text and is indestructible itself — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts",
+        "startLine": 1475,
+        "endLine": 1491
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(scryfall('Spearbreaker Behemoth').oracle_text) .toBe('Indestructible\\n{1}: Target creature with power 5 or greater gains indestructible until end of turn.')",
+        "expect(effectsFor('Spearbreaker Behemoth')).toEqual([{ op: 'activate', id: ABILITY, costs: { mana: '{1}' }, targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } }, do: [{ kind: 'grantUntilEot', keywords: ['indestructible'] }], }])"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:115"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog timing and activation-cost cards compose canonical when, flash, and reductions",
+      "evidence": "Current structural owner for Alchemist's Refuge, Arbor Elf, Flooded Grove, Sea Gate Restoration // Sea Gate, Reborn, Simic Signet, Utopia Sprawl, Waterlogged Grove, Wild Growth. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "%s is table-driven and builds from its deck Oracle text",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts",
+        "startLine": 115,
+        "endLine": 118
+      },
+      "parameterization": [
+        "test.each(NAMES)"
+      ],
+      "pinnedAssertions": [
+        "expect(deckCardTemplate(name).oracleText.length).toBeGreaterThan(0)",
+        "expect(cardPluginEntry(name)).toBeDefined()"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanStatics:68"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Archetype of Endurance grants controlled creatures hexproof and prohibits it on opponents creatures",
+      "evidence": "Named snapshot pins both the controller keyword grant and opponent keyword suppression.",
+      "sourceTitle": "registers a grant for its controller and a suppression for opponents, nothing else",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanStatics.test.ts",
+        "startLine": 68,
+        "endLine": 95
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Archetype of Endurance')).toEqual([ { op: 'static', pluginId: 'staticBoardPump', staticBoardPump: { power: 0, toughness: 0, requireTypes: ['Creature'], grantKeywords: ['hexproof'], }, }, { op: 'static', pluginId: 'staticBoardPump', staticBoardPump: { power: 0, toughness: 0, requireTypes: ['Creature'], controller: 'opponent', suppressKeywords: ['hexproof'], }, }, ])",
+        "expect(cardPluginEntry('Archetype of Endurance')).toMatchObject({ pluginIds: ['staticBoardPump', 'staticBoardPump'], })"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanStatics:270"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Thunderfoot Baloth keeps printed trample and commander-conditioned team grants",
+      "evidence": "Named snapshot pins self and team +2/+2/trample effects conditioned on controlling the commander.",
+      "sourceTitle": "registers two commander-conditioned layer effects and no handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanStatics.test.ts",
+        "startLine": 270,
+        "endLine": 286
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry('Thunderfoot Baloth')).toMatchObject({ pluginIds: ['staticBoardPump', 'staticBoardPump'], })",
+        "expect(effectsFor('Thunderfoot Baloth').map((effect) => effect.op === 'static' ? effect.staticBoardPump : undefined)).toEqual([ { power: 2, toughness: 2, requireTypes: ['Creature'], if: { kind: 'controlsCommander' }, affects: 'self' }, { power: 2, toughness: 2, requireTypes: ['Creature'], if: { kind: 'controlsCommander' }, affects: 'others', grantKeywords: ['trample'], }, ])"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanTriggers:78"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Woodfall Primus composes trample, a mandatory noncreature destroy, and persist",
+      "evidence": "Named snapshot pins trample, mandatory noncreature destroy, and persist condition/counter.",
+      "sourceTitle": "registers a mandatory noncreature-permanent destroy on enter and persist",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanTriggers.test.ts",
+        "startLine": 78,
+        "endLine": 94
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Woodfall Primus')).toEqual([ { op: 'trigger', on: 'enters', targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true } }, do: [{ kind: 'destroyTargetPermanent', types: [] }], }, { op: 'trigger', on: 'dies', if: { kind: 'lacksCounter', counter: '-1/-1' }, do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }], }, ])",
+        "expect(cardPluginEntry('Woodfall Primus')?.handlerIds).toEqual(['choiceEffects'])"
+      ]
+    },
+    {
+      "groups": [
+        "cirdanTriggers:272"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Terastodon registers an up-to-three destroy with a per-controller Elephant",
+      "evidence": "Named catalog snapshot pins up-to-three noncreature targets and per-controller Elephant creation; legacy handler list removed.",
+      "sourceTitle": "registers an up-to-three noncreature-permanent destroy with a per-controller Elephant",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/cirdanTriggers.test.ts",
+        "startLine": 272,
+        "endLine": 289
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Terastodon')).toEqual([{ op: 'trigger', on: 'enters', targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true }, min: 0, max: 3 }, do: [{ kind: 'destroyThenTokenForController', token: { name: 'Elephant', types: ['Creature'], subtypes: ['Elephant'], colors: ['G'], power: 3, toughness: 3, }, }], }])"
+      ]
+    },
+    {
+      "groups": [
+        "combatTax:26"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "Current structural owner for Archangel of Tithes, Baird, Steward of Argive. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Archangel and Baird register the reusable combat-tax handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/combatTax.test.ts",
+        "startLine": 26,
+        "endLine": 31
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames([ 'Archangel of Tithes', 'Baird, Steward of Argive', ])).toEqual(['combatTax'])"
+      ]
+    },
+    {
+      "groups": [
+        "councilCards:142"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "council cards register the vote engine handlers they need",
+      "evidence": "Current registration owner checks vote definitions; named council catalog and vote suites retain each card’s selector, effects, and choices.",
+      "sourceTitle": "each council card is registered with the vote engine handlers it needs",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/councilCards.test.ts",
+        "startLine": 142,
+        "endLine": 149
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Sail into the West']).toSorted()) .toEqual(['choiceEffects', 'eachPlayerWheel', 'onResolve', 'vote'])",
+        "expect(handlerIdsForNames([\"Selvala's Stampede\"]).toSorted()).toEqual(['onResolve', 'vote'])",
+        "expect(handlerIdsForNames(['Coercive Portal'])).toEqual(['vote'])",
+        "expect(cardDefinition('Erestor of the Council')?.effects) .toMatchObject([{ op: 'trigger', on: 'votesFinished' }])"
+      ]
     },
     {
       "groups": [
@@ -147,7 +560,55 @@
       ],
       "destination": "rules-engine/src/cardPlugins/registry.test.ts",
       "suite": "%s has no card-specific canonical definition",
-      "evidence": "Rechecked the pinned Plains and Sol Ring assertions against the current catalog owner. Their prior registry-entry absence is preserved by the canonical definition/template-default absence assertions added here; the test uses catalog APIs and does not restore legacy registration behavior."
+      "evidence": "Canonical definition and template-default absence assertions preserve Plains and Sol Ring built-in coverage without recreating legacy registry entries.",
+      "sourceTitle": "built-in mana covers Plains and Sol Ring without cardRules entries — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts",
+        "startLine": 70,
+        "endLine": 85
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry('Plains')).toBeUndefined()",
+        "expect(cardPluginEntry('Sol Ring')).toBeUndefined()"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:87"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack Fayden part 32 lands, rocks, and maps stay registered",
+      "evidence": "Retained registry inventory asserts the complete registered card pool; each card’s canonical snapshot is owned by its named catalog suite.",
+      "sourceTitle": "registered part-32 cards are in the card pool table",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts",
+        "startLine": 87,
+        "endLine": 110
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(registered)).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:322"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy",
+      "evidence": "Current structural owner for Endless Sands, Thespian's Stage. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "cardDefinition lists handlers for Endless Sands and Thespian's Stage",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts",
+        "startLine": 322,
+        "endLine": 329
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Endless Sands')?.handlerIds).toEqual( expect.arrayContaining(['linkedExile', 'activated']), )",
+        "expect(cardDefinition(\"Thespian's Stage\")?.handlerIds).toEqual( expect.arrayContaining(['becomeCopyOfTarget', 'activated']), )"
+      ]
     },
     {
       "groups": [
@@ -155,7 +616,38 @@
       ],
       "destination": "rules-engine/src/cardPlugins/registry.test.ts",
       "suite": "%s has no card-specific canonical definition",
-      "evidence": "Rechecked the pinned Emergence Zone and Northampton Farm absence assertions. The current structural owner now verifies both names remain absent from the canonical definition and template-default lookups; their separate gap rationale remains in the existing Dack part-32 checklist."
+      "evidence": "Canonical definition and template-default absence assertions preserve the no-card-specific-definition contract for both names.",
+      "sourceTitle": "Emergence Zone and Northampton Farm have no CARD_RULES entry",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts",
+        "startLine": 749,
+        "endLine": 752
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry('Emergence Zone')).toBeUndefined()",
+        "expect(cardPluginEntry('Northampton Farm')).toBeUndefined()"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:754"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack part-32 documented GAP: %s",
+      "evidence": "Retained the documented GAP characterization and rationale; this is not card behavior authoring.",
+      "sourceTitle": "documented GAP: %s",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts",
+        "startLine": 754,
+        "endLine": 773
+      },
+      "parameterization": [
+        "test.each([\n    [\n      'Emergence Zone',\n      'Sacrifice-for-flash and {1},{T} timing are not composable from existing plugins; only basic tap-for-{C} is modeled without CARD_RULES.',\n    ],\n    [\n      'Northampton Farm',\n      'Exile a creature you own, then return one exiled creature to the battlefield and other exiled cards to hand is not composable from linkedExile like Endless Sands.',\n    ],\n    [\n      'Everflowing Chalice (tap mana)',\n      'Multikicker charge counters on ETB are wired; {T}: Add {C} for each charge counter has no generic mana-capability.',\n    ],\n    [\n      \"Archaeomancer's Map (land enter)\",\n      'Second ability uses playLand + opponentHasMore, not land-enter nor comparing land counts to the triggering opponent in multiplayer.',\n    ],\n  ] as const)"
+      ],
+      "pinnedAssertions": [
+        "expect(note.length).toBeGreaterThan(20)"
+      ]
     },
     {
       "groups": [
@@ -163,15 +655,1565 @@
       ],
       "destination": "rules-engine/src/cardPlugins/registry.test.ts",
       "suite": "%s has no card-specific canonical definition",
-      "evidence": "Rechecked all four pinned linked-exile GAP names and their empty legacy definitions. The current catalog owner asserts no canonical definition or template defaults for Constricting Sliver, Abdel Adrian, Angel of Serenity, and Driftgloom Coyote; generic legacy compatibility behavior remains untouched."
+      "evidence": "Canonical definition and template-default absence assertions retain the unsupported linked-exile names as absent.",
+      "sourceTitle": "%s is not registered until Pass 1 adds missing builders",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 78,
+        "endLine": 81
+      },
+      "parameterization": [
+        "test.each([...part34GapCards])"
+      ],
+      "pinnedAssertions": [
+        "expect(effectsFor(name)).toEqual([])",
+        "expect(cardDefinition(name)).toBeUndefined()"
+      ]
     },
     {
       "groups": [
-        "registry:183"
+        "dackFaydenPart34LinkedExile:83"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Constricting Sliver remains absent from canonical definition and template-default lookup.",
+      "sourceTitle": "Constricting Sliver — GAP: granted enters triggers do not stamp linkedExileUntilLeaves on Slivers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 83,
+        "endLine": 85
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Constricting Sliver')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:87"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Abdel Adrian remains absent from canonical definition and template-default lookup.",
+      "sourceTitle": "Abdel Adrian, Gorion's Ward — GAP: no createToken-per-linked-exile-count instruction",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 87,
+        "endLine": 89
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Abdel Adrian, Gorion\\'s Ward')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:91"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Angel of Serenity remains absent from canonical definition and template-default lookup.",
+      "sourceTitle": "Angel of Serenity — GAP: linkExile is battlefield-only; Oracle needs graveyard zones and hand return",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 91,
+        "endLine": 93
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Angel of Serenity')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:95"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Driftgloom Coyote remains absent from canonical definition and template-default lookup.",
+      "sourceTitle": "Driftgloom Coyote — GAP: no +1/+1 when exiled creature power ≤ 2",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 95,
+        "endLine": 97
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Driftgloom Coyote')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:120"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack Fayden part 34 linked-exile cages stay registered",
+      "evidence": "Retained pool assertion plus the linked-exile catalog owner; no legacy registration API is reintroduced.",
+      "sourceTitle": "registered part-34 cards are in the card pool table",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts",
+        "startLine": 120,
+        "endLine": 125
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(part34Registered)).toEqual([])",
+        "expect(cardDefinition(name)?.effects.length).toBeGreaterThan(0)"
+      ]
+    },
+    {
+      "groups": [
+        "dackPartyPart35:114"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack party pass-35 inventory matches registered, kernel-only, or GAP",
+      "evidence": "Retained 21-name status partition and GAP reasons; registered entries use canonical catalog definitions.",
+      "sourceTitle": "`${name} — ${status}`",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dackPartyPart35.test.ts",
+        "startLine": 114,
+        "endLine": 126
+      },
+      "parameterization": [
+        "for (const [name, status] of Object.entries(INVENTORY))"
+      ],
+      "pinnedAssertions": [
+        "expect(effects.length).toBeGreaterThan(0)",
+        "expect(effects).toEqual([])",
+        "expect(effects).toEqual([])",
+        "expect(GAP_REASON[name]).toBeTruthy()"
+      ]
+    },
+    {
+      "groups": [
+        "demonstrate:54"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
-      "suite": "catalog Abundance replaces its controller’s draw with a land or nonland choice",
-      "evidence": "The pinned registration group also names Cling to Dust and Hostile Negotiations, whose current structures remain checked by the family-25 and council/pile catalog tests. Abundance had no current named structural owner after its canonical migration. Added a structural snapshot assertion for its printed characteristics, controller-only draw replacement, choice prompt/options, land/nonland filters, reveal destinations, and ordering; no gameplay semantics or fixture copy added."
+      "suite": "family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy",
+      "evidence": "Current structural owner for Incarnation Technique. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Incarnation Technique loads both the trigger and the copy handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/demonstrate.test.ts",
+        "startLine": 54,
+        "endLine": 60
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry('Incarnation Technique')?.handlerIds) .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))",
+        "expect(handlerIdsForNames(['Incarnation Technique'])) .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:47"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+      "suite": "Flame Rift composes four damage to every player from the spell source",
+      "evidence": "The source group’s snapshot/revision checks now have named configuration snapshots for Flame Rift, Thragtusk, and Fate Unraveler; generic snapshot identity/revision mechanics are covered in catalog lookup tests.",
+      "sourceTitle": "lookup is exact card name and pins a compiled snapshot at module load",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 47,
+        "endLine": 62
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(rift).toBeDefined()",
+        "expect(thragtusk).toBeDefined()",
+        "expect(unraveler).toBeDefined()",
+        "expect(cardRuleDefinitionSnapshotFor('flame rift')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()",
+        "expect(rift).toBe(cardRuleDefinitionSnapshotFor('Flame Rift'))",
+        "expect(rift!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)",
+        "expect(thragtusk!.definitionRevision).not.toBe(rift!.definitionRevision)",
+        "expect(unraveler!.definitionRevision).not.toBe(thragtusk!.definitionRevision)",
+        "expect(loadDefinitionSnapshot(rift!).definitionRevision).toBe(rift!.definitionRevision)"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+          "suite": "catalog snapshots are pinned and retain their revision when loaded"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:64"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+      "suite": "Thragtusk composes self-entry life gain and self-leave token creation rather than dies",
+      "evidence": "The named snapshot pins both triggered abilities; empty legacy effects and snapshot stamping are covered by the canonical lookup owner.",
+      "sourceTitle": "newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 64,
+        "endLine": 78
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(thragtusk.ruleDefinition).toEqual(thragtuskSnapshot)",
+        "expect(thragtusk.ruleDefinition?.definitionRevision).toBe(thragtuskSnapshot.definitionRevision)",
+        "expect(thragtusk.effects).toEqual([])",
+        "expect(effectsOf(thragtusk)).toEqual([])",
+        "expect(effectsFor('Thragtusk')).toEqual([])"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+          "suite": "newGame falls back to the catalog snapshot when the input omits ruleDefinition"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:80"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "an explicit snapshot overrides catalog abilities",
+      "evidence": "The explicit override contract is retained in the canonical lookup owner; source-specific Thragtusk composition remains in its named snapshot.",
+      "sourceTitle": "an explicit template ruleDefinition is kept instead of the catalog snapshot",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 80,
+        "endLine": 95
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(thragtusk.ruleDefinition).toEqual(riftSnapshot)"
+      ],
+      "ownerTests": [
+        {
+          "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+          "suite": "an explicit snapshot overrides catalog abilities"
+        }
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:97:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+      "suite": "Flame Rift composes four damage to every player from the spell source",
+      "evidence": "Current structural owner for Flame Rift. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Flame Rift deals four damage to each player once — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 97,
+        "endLine": 112
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Flame Rift')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:114"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+      "suite": "Thragtusk composes self-entry life gain and self-leave token creation rather than dies",
+      "evidence": "Exact `leaves` trigger and Beast token shape remain in the named snapshot.",
+      "sourceTitle": "Thragtusk catalog watches leaves rather than dies",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 114,
+        "endLine": 124
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(snapshot.definition.abilities[1]).toMatchObject({ kind: 'triggered', on: { kind: 'leaves' }, instructions: [{ kind: 'createToken', targets: { kind: 'contextRef', name: 'controller' }, }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:183:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Fate Unraveler composes an opponent-draw trigger without legacy effects",
+      "evidence": "Current structural owner for Fate Unraveler. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 183,
+        "endLine": 220
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Fate Unraveler')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.damageAndLeaves:222:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "cleave and evoke compose ordinary alternative costs with their targeting or entry effects",
+      "evidence": "Current structural owner for Mulldrifter, Thragtusk. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "a catalog object and an unmigrated CARD_RULES object both work in the same game — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts",
+        "startLine": 222,
+        "endLine": 264
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:20"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/staticKeywords.test.ts",
+      "suite": "Duskdale Wurm and Wall of Omens share defender and trample keyword semantics",
+      "evidence": "Named structural cards and keyword owner preserve the catalog snapshot and no-Oracle-text keyword binding.",
+      "sourceTitle": "lookup is exact card name and pins a compiled snapshot at module load",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 20,
+        "endLine": 34
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(wall).toBeDefined()",
+        "expect(wurm).toBeDefined()",
+        "expect(whisper).toBeDefined()",
+        "expect(cardRuleDefinitionSnapshotFor('wall of omens')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Thunderfoot Baloth')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()",
+        "expect(wall).toBe(cardRuleDefinitionSnapshotFor('Wall of Omens'))",
+        "expect(wall!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)",
+        "expect(wurm!.definitionRevision).not.toBe(wall!.definitionRevision)",
+        "expect(loadDefinitionSnapshot(wall!).definitionRevision).toBe(wall!.definitionRevision)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:36"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "newGame falls back to the catalog snapshot when the input omits ruleDefinition",
+      "evidence": "Canonical lookup owner retains stamping with empty effects; Wall of Omens composition is pinned by its catalog entry and mechanic tests.",
+      "sourceTitle": "newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 36,
+        "endLine": 51
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(wall.ruleDefinition).toEqual(wallSnapshot)",
+        "expect(wall.ruleDefinition?.definitionRevision).toBe(wallSnapshot.definitionRevision)",
+        "expect(wall.effects).toEqual([])",
+        "expect(effectsOf(wall)).toEqual([])",
+        "expect(hasKeyword(wall, 'defender', server.state)).toBe(true)",
+        "expect(hasKeyword(wall, 'trample', server.state)).toBe(false)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:53"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "an explicit snapshot overrides catalog abilities",
+      "evidence": "Canonical lookup owner checks override priority and keyword result; named Wall snapshot remains in catalog tests.",
+      "sourceTitle": "an explicit template ruleDefinition is kept instead of the catalog snapshot",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 53,
+        "endLine": 70
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(wall.ruleDefinition).toEqual(wurmSnapshot)",
+        "expect(hasKeyword(wall, 'trample', server.state)).toBe(true)",
+        "expect(hasKeyword(wall, 'defender', server.state)).toBe(false)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:72"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/staticKeywords.test.ts",
+      "suite": "catalog keyword binding works without Oracle text or legacy effects",
+      "evidence": "Explicit trample-only snapshot and no Oracle text behavior remain in static-keyword owner.",
+      "sourceTitle": "Duskdale Wurm receives trample from the catalog without Oracle text or CARD_RULES",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 72,
+        "endLine": 84
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Duskdale Wurm')).toEqual([])",
+        "expect(wurm.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Duskdale Wurm'))",
+        "expect(wurm.oracleText).toBe('')",
+        "expect(hasKeyword(wurm, 'trample', server.state)).toBe(true)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:107:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "catalog spell announcements require both colored and generic printed mana",
+      "evidence": "Current structural owner for Night's Whisper. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Night's Whisper draws two and loses two life once — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 107,
+        "endLine": 124
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor(\"Night's Whisper\")).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.drawAndKeywords:126:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "cleave and evoke compose ordinary alternative costs with their targeting or entry effects",
+      "evidence": "Current structural owner for Mulldrifter, Wall of Omens. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "a catalog object and an unmigrated CARD_RULES object both work in the same game — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts",
+        "startLine": 126,
+        "endLine": 167
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:44"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+      "suite": "lookup is exact card name and pins a compiled snapshot at module load",
+      "evidence": "Current split family suite owns exact-name snapshot identities and revision assertions.",
+      "sourceTitle": "lookup is exact card name and pins a compiled snapshot at module load",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 44,
+        "endLine": 60
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(charm).toBeDefined()",
+        "expect(reverberate).toBeDefined()",
+        "expect(tutor).toBeDefined()",
+        "expect(cardRuleDefinitionSnapshotFor('esper charm')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Cryptic Command')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()",
+        "expect(charm).toBe(cardRuleDefinitionSnapshotFor('Esper Charm'))",
+        "expect(charm!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)",
+        "expect(reverberate!.definitionRevision).not.toBe(charm!.definitionRevision)",
+        "expect(tutor!.definitionRevision).not.toBe(reverberate!.definitionRevision)",
+        "expect(loadDefinitionSnapshot(charm!).definitionRevision).toBe(charm!.definitionRevision)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:62"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "newGame falls back to the catalog snapshot when the input omits ruleDefinition",
+      "evidence": "Canonical lookup owner checks stamped snapshot and empty effects; card-specific composition is in the family catalog suite.",
+      "sourceTitle": "newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 62,
+        "endLine": 74
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(charm.ruleDefinition).toEqual(charmSnapshot)",
+        "expect(charm.ruleDefinition?.definitionRevision).toBe(charmSnapshot.definitionRevision)",
+        "expect(charm.effects).toEqual([])",
+        "expect(effectsOf(charm)).toEqual([])",
+        "expect(effectsFor('Esper Charm')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:76"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "an explicit snapshot overrides catalog abilities",
+      "evidence": "Canonical lookup owner retains caller snapshot precedence; specific Esper Charm/Tutor composition is separately snapshotted.",
+      "sourceTitle": "an explicit template ruleDefinition is kept instead of the catalog snapshot",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 76,
+        "endLine": 90
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(charm.ruleDefinition).toEqual(tutorSnapshot)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:92:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Esper Charm composes modal destroy, draw, or discard without legacy effects",
+      "evidence": "Current structural owner for Esper Charm. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Esper Charm chooses one mode: destroy, draw two, or targeted discard — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 92,
+        "endLine": 167
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Esper Charm')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:169:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "copy spells use canonical definitions",
+      "evidence": "Current structural owner for Reverberate, Twincast. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Reverberate copies an instant once, keeps targets, and rejects a creature spell — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 169,
+        "endLine": 232
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Reverberate')).toEqual([])",
+        "expect(effectsFor('Twincast').length).toBeGreaterThan(0)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:234:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Diabolic Tutor supplies printed characteristics beside its canonical rules",
+      "evidence": "Current structural owner for Diabolic Tutor. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Diabolic Tutor searches the library through selectCards and shuffles — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 234,
+        "endLine": 281
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Diabolic Tutor')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.modesCopiesAndSearch:283:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Diabolic Tutor supplies printed characteristics beside its canonical rules",
+      "evidence": "Current structural owner for Diabolic Tutor, Mulldrifter. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "a catalog object and an unmigrated CARD_RULES object both work in the same game — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts",
+        "startLine": 283,
+        "endLine": 330
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:24"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+      "suite": "lookup is exact card name and pins a compiled snapshot at module load",
+      "evidence": "Current split family suite owns exact-name snapshot identities and revision assertions.",
+      "sourceTitle": "lookup is exact card name and pins a compiled snapshot at module load",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+        "startLine": 24,
+        "endLine": 43
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(anthem).toBeDefined()",
+        "expect(rest).toBeDefined()",
+        "expect(rest!.definition.abilities).toEqual(expect.arrayContaining([ expect.objectContaining({ kind: 'triggered', on: expect.objectContaining({ kind: 'enters' }) }), expect.objectContaining({ kind: 'static' }), ]))",
+        "expect(foil).toBeDefined()",
+        "expect(cardRuleDefinitionSnapshotFor('glorious anthem')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()",
+        "expect(anthem).toBe(cardRuleDefinitionSnapshotFor('Glorious Anthem'))",
+        "expect(anthem!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)",
+        "expect(rest!.definitionRevision).not.toBe(anthem!.definitionRevision)",
+        "expect(foil!.definitionRevision).not.toBe(rest!.definitionRevision)",
+        "expect(loadDefinitionSnapshot(anthem!).definitionRevision).toBe(anthem!.definitionRevision)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:45"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "newGame falls back to the catalog snapshot when the input omits ruleDefinition",
+      "evidence": "Canonical lookup owner checks stamped snapshot and empty effects; card-specific composition has named catalog owners.",
+      "sourceTitle": "newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+        "startLine": 45,
+        "endLine": 59
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(anthem.ruleDefinition).toEqual(anthemSnapshot)",
+        "expect(anthem.ruleDefinition?.definitionRevision).toBe(anthemSnapshot.definitionRevision)",
+        "expect(anthem.effects).toEqual([])",
+        "expect(effectsOf(anthem)).toEqual([])",
+        "expect(effectsFor('Glorious Anthem')).toEqual([])",
+        "expect(effectsFor('Rest in Peace')).toEqual([])",
+        "expect(effectsFor('Foil')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:61"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "an explicit snapshot overrides catalog abilities",
+      "evidence": "Canonical lookup owner retains caller override precedence; card-specific template/configuration owners remain in family suites.",
+      "sourceTitle": "an explicit template ruleDefinition is kept instead of the catalog snapshot",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+        "startLine": 61,
+        "endLine": 74
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(anthem.ruleDefinition).toEqual(foilSnapshot)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:156:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
+      "suite": "a catalog alternative cost validates ordered discards before countering the target spell",
+      "evidence": "Current structural owner for Foil. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Foil pays its Island discard alternative and counters a spell once — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+        "startLine": 156,
+        "endLine": 204
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Foil')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.staticsAndAlternativeCosts:206:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "cleave and evoke compose ordinary alternative costs with their targeting or entry effects",
+      "evidence": "Current structural owner for Glorious Anthem, Mulldrifter. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "a catalog object and an unmigrated CARD_RULES object both work in the same game — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts",
+        "startLine": 206,
+        "endLine": 238
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:23"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+      "suite": "lookup is exact card name and pins a compiled snapshot at module load",
+      "evidence": "Current split family suite owns exact-name snapshot identities and revision assertions.",
+      "sourceTitle": "lookup is exact card name and pins a compiled snapshot at module load",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 23,
+        "endLine": 38
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(murder).toBeDefined()",
+        "expect(sign).toBeDefined()",
+        "expect(hounds).toBeDefined()",
+        "expect(cardRuleDefinitionSnapshotFor('murder')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()",
+        "expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()",
+        "expect(murder).toBe(cardRuleDefinitionSnapshotFor('Murder'))",
+        "expect(murder!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)",
+        "expect(sign!.definitionRevision).not.toBe(murder!.definitionRevision)",
+        "expect(hounds!.definitionRevision).not.toBe(sign!.definitionRevision)",
+        "expect(loadDefinitionSnapshot(murder!).definitionRevision).toBe(murder!.definitionRevision)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:40"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "newGame falls back to the catalog snapshot when the input omits ruleDefinition",
+      "evidence": "Canonical lookup owner checks stamped snapshot and empty effects; named Murder config is retained in its catalog snapshot.",
+      "sourceTitle": "newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 40,
+        "endLine": 52
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(murder.ruleDefinition).toEqual(murderSnapshot)",
+        "expect(murder.ruleDefinition?.definitionRevision).toBe(murderSnapshot.definitionRevision)",
+        "expect(murder.effects).toEqual([])",
+        "expect(effectsOf(murder)).toEqual([])",
+        "expect(effectsFor('Murder')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:54"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "an explicit snapshot overrides catalog abilities",
+      "evidence": "Canonical lookup owner retains caller override precedence; named config assertions remain in catalog owners.",
+      "sourceTitle": "an explicit template ruleDefinition is kept instead of the catalog snapshot",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 54,
+        "endLine": 68
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(murder.ruleDefinition).toEqual(houndsSnapshot)"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:70:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/destroy.test.ts",
+      "suite": "catalog Murder destroys its chosen creature and rejects a player target",
+      "evidence": "Current structural owner for Murder. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Murder destroys the chosen creature once and rejects a player target — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 70,
+        "endLine": 99
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Murder')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:101:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog %s composes canonical instructions without legacy effects",
+      "evidence": "The canonical instruction composition table retains Sign in Blood’s draw and life-loss instruction parameters; all exact pinned matchers remain keyed by this group in inventory.json.",
+      "sourceTitle": "Sign in Blood draws two and loses two life for the targeted player once — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 101,
+        "endLine": 133
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Sign in Blood')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:135:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Vampire Hounds composes a discard-cost pump without legacy effects",
+      "evidence": "Current structural owner for Vampire Hounds. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Vampire Hounds pays a creature-card discard and pumps once — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 135,
+        "endLine": 179
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Vampire Hounds')).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog.targetedActions:181:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "cleave and evoke compose ordinary alternative costs with their targeting or entry effects",
+      "evidence": "Current structural owner for Mulldrifter, Murder. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "a catalog object and an unmigrated CARD_RULES object both work in the same game — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts",
+        "startLine": 181,
+        "endLine": 225
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:6"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Dismember preserves its Phyrexian mana costs and temporary reduction",
+      "evidence": "Current structural owner for Absorb, Aetherize, Anguished Unmaking, Buried Alive, Counterspell, Dismember, Entomb, Growth Spiral, Harrow, Nature's Lore, Three Visits. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog %s composes canonical instructions without legacy effects",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 6,
+        "endLine": 26
+      },
+      "parameterization": [
+        "test.each([\n  ['Counterspell', ['counter']],\n  ['Absorb', ['counter', 'gainLife']],\n  ['Anguished Unmaking', ['move', 'loseLife']],\n  ['Aetherize', ['move']],\n  ['Dismember', ['createEffect']],\n  ['Harrow', ['sequence']],\n  ['Growth Spiral', ['draw', 'sequence']],\n  ['Three Visits', ['sequence']],\n  [\"Nature's Lore\", ['sequence']],\n  ['Entomb', ['sequence']],\n  ['Buried Alive', ['sequence']],\n] as const)"
+      ],
+      "pinnedAssertions": [
+        "expect(effectsFor(name)).toEqual([])",
+        "expect(definition.definition.abilities).toHaveLength(1)",
+        "expect(ability.kind).toBe('spell')",
+        "expect(ability.instructions!.map(instruction => instruction.kind)).toEqual([...kinds])"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:28"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Dismember preserves its Phyrexian mana costs and temporary reduction",
+      "evidence": "Current structural owner for Absorb, Anguished Unmaking, Counterspell, Dismember. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog %s declares its target selector",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 28,
+        "endLine": 38
+      },
+      "parameterization": [
+        "test.each([\n  ['Counterspell', 'stackItems', { kind: 'spell' }],\n  ['Absorb', 'stackItems', { kind: 'spell' }],\n  ['Dismember', 'objects', { zone: 'battlefield', type: 'Creature' }],\n  ['Anguished Unmaking', 'objects', { zone: 'battlefield', not: { type: 'Land' } }],\n] as const)"
+      ],
+      "pinnedAssertions": [
+        "expect(ability).toMatchObject({ decisions: { targets: [{ filter: { kind, filter }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, }] } })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:40"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Aetherize returns all attacking permanents to hand",
+      "evidence": "Current structural owner for Aetherize. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Aetherize returns all attacking permanents to hand",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 40,
+        "endLine": 52
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardTemplateDefaultsFor('Aetherize')).toMatchObject({ types: ['Instant'], colors: ['U'], manaCost: '{3}{U}', manaValue: 4, })",
+        "expect(cardRuleDefinitionSnapshotFor('Aetherize')!.definition.abilities[0]).toMatchObject({ kind: 'spell', instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'battlefield', attacking: true } }, to: 'hand', }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:54"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Dismember preserves its Phyrexian mana costs and temporary reduction",
+      "evidence": "Current structural owner for Dismember. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Dismember preserves its Phyrexian mana costs and temporary reduction",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 54,
+        "endLine": 67
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardTemplateDefaultsFor('Dismember')).toMatchObject({ types: ['Instant'], colors: ['B'], manaCost: '{1}{B/P}{B/P}', manaValue: 3, })",
+        "expect(cardRuleDefinitionSnapshotFor('Dismember')!.definition.abilities[0]).toMatchObject({ kind: 'spell', costs: [{ kind: 'mana', amount: '{1}{B/P}{B/P}' }], instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'constant', value: -5 }, toughness: { kind: 'constant', value: -5 } }, duration: { kind: 'untilCleanup' }, }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:69"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Harrow sacrifices a controlled land and finds up to two basic lands",
+      "evidence": "Current structural owner for Harrow. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Harrow sacrifices a controlled land and finds up to two basic lands",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 69,
+        "endLine": 87
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardTemplateDefaultsFor('Harrow')).toMatchObject({ types: ['Instant'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3, })",
+        "expect(cardRuleDefinitionSnapshotFor('Harrow')!.definition.abilities[0]).toMatchObject({ kind: 'spell', costs: [{ kind: 'sacrifice', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land', } }, count: { kind: 'constant', value: 1 } }], instructions: [{ kind: 'sequence', instructions: [ { kind: 'chooseCards', bindChoice: 'found', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'], } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, viewLibrary: true }, { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'battlefield' }, { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } }, ] }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:89"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Eternal Witness targets a card its controller owns in a graveyard and may return it",
+      "evidence": "Current structural owner for Eternal Witness. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Eternal Witness targets a card its controller owns in a graveyard and may return it",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 89,
+        "endLine": 104
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Eternal Witness')).toEqual([])",
+        "expect(ability).toMatchObject({ kind: 'triggered', on: { kind: 'enters' }, decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', token: false } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, }] }, instructions: [{ kind: 'chooseInstructions', chooser: { kind: 'contextRef', name: 'controller' }, prompt: 'Return the target card?', options: [ { label: 'Return it to your hand', instructions: [{ kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'hand' }] }, { label: 'Decline', instructions: [] }, ] }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:106"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Eternal Witness targets a card its controller owns in a graveyard and may return it",
+      "evidence": "Current structural owner for Buried Alive, Entomb. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog %s configures a controller-library search",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 106,
+        "endLine": 118
+      },
+      "parameterization": [
+        "test.each([\n  ['Entomb', undefined, 1, 1],\n  ['Buried Alive', 'Creature', 0, 3],\n] as const)"
+      ],
+      "pinnedAssertions": [
+        "expect(ability).toMatchObject({ instructions: [{ kind: 'sequence', instructions: [ { kind: 'chooseCards', bindChoice: 'found', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', ...(type ? { type } : {}) } }, min: { kind: 'constant', value: min }, max: { kind: 'constant', value: max } }, { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'graveyard' }, { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } }, ] }] })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:120"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Aesi composes extra land plays and a land-enter draw without legacy effects",
+      "evidence": "Current structural owner for Absorb, Anguished Unmaking. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog instruction parameters preserve controller life changes and exile destination",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 120,
+        "endLine": 129
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardRuleDefinitionSnapshotFor('Absorb')!.definition.abilities[0]).toMatchObject({ instructions: [ { kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }, { kind: 'gainLife', amount: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }, ] })",
+        "expect(cardRuleDefinitionSnapshotFor('Anguished Unmaking')!.definition.abilities[0]).toMatchObject({ instructions: [ { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'exile' }, { kind: 'loseLife', amount: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }, ] })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:131"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Growth Spiral draws before offering one optional land from hand",
+      "evidence": "Current structural owner for Growth Spiral. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Growth Spiral draws before offering one optional land from hand",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 131,
+        "endLine": 154
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Growth Spiral')).toEqual([])",
+        "expect(cardTemplateDefaultsFor('Growth Spiral')).toMatchObject({ types: ['Instant'], colors: ['G', 'U'], manaCost: '{G}{U}', manaValue: 2, })",
+        "expect(definition.abilities[0]).toMatchObject({ kind: 'spell', costs: [], instructions: [ { kind: 'draw', count: { kind: 'constant', value: 1 }, targets: { kind: 'contextRef', name: 'controller' } }, { kind: 'sequence', instructions: [ { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, }, { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield' }, ] }, ], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:156"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Three Visits allows fail-to-find and puts a Forest onto the battlefield",
+      "evidence": "Current structural owner for Three Visits. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Three Visits allows fail-to-find and puts a Forest onto the battlefield",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 156,
+        "endLine": 175
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Three Visits')).toEqual([])",
+        "expect(cardTemplateDefaultsFor('Three Visits')).toMatchObject({ types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2, })",
+        "expect(cardRuleDefinitionSnapshotFor('Three Visits')!.definition.abilities[0]).toMatchObject({ kind: 'spell', instructions: [{ kind: 'sequence', instructions: [ { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', subtypes: ['Forest'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, }, { kind: 'move', targets: { kind: 'choiceRef', binding: 'forest' }, to: 'battlefield' }, { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } }, ] }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:177"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Nature's Lore allows fail-to-find and puts a Forest onto the battlefield",
+      "evidence": "Current structural owner for Nature's Lore. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Nature's Lore allows fail-to-find and puts a Forest onto the battlefield",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 177,
+        "endLine": 196
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor(\"Nature's Lore\")).toEqual([])",
+        "expect(cardTemplateDefaultsFor(\"Nature's Lore\")).toMatchObject({ types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2, })",
+        "expect(cardRuleDefinitionSnapshotFor(\"Nature's Lore\")!.definition.abilities[0]).toMatchObject({ kind: 'spell', instructions: [{ kind: 'sequence', instructions: [ { kind: 'chooseCards', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', subtypes: ['Forest'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, }, { kind: 'move', targets: { kind: 'choiceRef', binding: 'forest' }, to: 'battlefield' }, { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } }, ] }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:198"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Aftermath Analyst mills on enter and reclaims graveyard lands tapped",
+      "evidence": "Current structural owner for Aftermath Analyst. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Aftermath Analyst mills on enter and reclaims graveyard lands tapped",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 198,
+        "endLine": 223
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Aftermath Analyst')).toEqual([])",
+        "expect(cardTemplateDefaultsFor('Aftermath Analyst')).toMatchObject({ types: ['Creature'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2, })",
+        "expect(abilities).toHaveLength(2)",
+        "expect(abilities[0]).toMatchObject({ kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 } }], })",
+        "expect(abilities[1]).toMatchObject({ kind: 'activated', costs: [ { kind: 'mana', amount: '{3}{G}' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } }, ], instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, to: 'battlefield', tapped: true, }], })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:225"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Aesi composes extra land plays and a land-enter draw without legacy effects",
+      "evidence": "Current structural owner for Aesi, Tyrant of Gyre Strait. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog Aesi composes extra land plays and a land-enter draw without legacy effects",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 225,
+        "endLine": 247
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(effectsFor('Aesi, Tyrant of Gyre Strait')).toEqual([])",
+        "expect(definition.definition.abilities).toHaveLength(2)",
+        "expect(definition.definition.abilities[0]).toMatchObject({ kind: 'static', effects: [{ kind: 'extraLandPlays', count: 1 }], })",
+        "expect(definition.definition.abilities[1]).toMatchObject({ kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [ { instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] }, { instructions: [] }, ] }], })",
+        "expect(cardTemplateDefaultsFor('Aesi, Tyrant of Gyre Strait')).toMatchObject({ types: ['Creature'], colors: ['G', 'U'], manaCost: '{4}{G}{U}', manaValue: 6, })"
+      ]
+    },
+    {
+      "groups": [
+        "cardRuleCatalog:249"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "template callers own their characteristics and rule snapshot",
+      "evidence": "Current structural owner for Absorb, Counterspell. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog %s binds counter to its announced target",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+        "startLine": 249,
+        "endLine": 254
+      },
+      "parameterization": [
+        "test.each(['Counterspell', 'Absorb'])"
+      ],
+      "pinnedAssertions": [
+        "expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }, ...(name === 'Absorb' ? [expect.anything()] : [])], })"
+      ]
+    },
+    {
+      "groups": [
+        "homerPass2:29:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Homer remaining cards keep their resolve composition",
+      "evidence": "Current structural owner for Fact or Fiction. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Fact or Fiction uses a public opponent pile split — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/homerPass2.test.ts",
+        "startLine": 29,
+        "endLine": 57
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Fact or Fiction')?.effects).toMatchObject([ { op: 'trigger', do: [{ kind: 'opponentPiles', count: 5, reveal: 'public' }] }, ])"
+      ]
+    },
+    {
+      "groups": [
+        "homerPass2:59"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Homer dumpster cards this pass covers stay registered",
+      "evidence": "Current structural owner for Fortune's Favor. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Fortune's Favor looks privately and splits face-down and face-up",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/homerPass2.test.ts",
+        "startLine": 59,
+        "endLine": 63
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition(\"Fortune's Favor\")?.effects).toMatchObject([ { op: 'targetedResolve', filter: { players: 'opponent' } }, ])"
+      ]
+    },
+    {
+      "groups": [
+        "homerPass2:193:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts",
+      "suite": "ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces",
+      "evidence": "Current structural owner for Roaming Throne. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Roaming Throne stamps Ward {2} — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/homerPass2.test.ts",
+        "startLine": 193,
+        "endLine": 217
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Roaming Throne')?.handlerIds).toContain('ward')"
+      ]
+    },
+    {
+      "groups": [
+        "homerPass2:294"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "sacrifice catalog programs bind actual counts or success before their follow-up",
+      "evidence": "Current structural owner for Life from the Loam. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Life from the Loam targets up to three lands in the graveyard",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/homerPass2.test.ts",
+        "startLine": 294,
+        "endLine": 299
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Life from the Loam')?.effects).toMatchObject([ { op: 'dredge' }, { op: 'targetedResolve', min: 0, max: 3, optional: true }, ])"
+      ]
+    },
+    {
+      "groups": [
+        "homerPass2:313"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Homer remaining cards keep their resolve composition",
+      "evidence": "Current structural owner for Forgotten Cellar, Walk-In Closet. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Forgotten Cellar is the unlock door, not a second Walk-In Closet",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/homerPass2.test.ts",
+        "startLine": 313,
+        "endLine": 320
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([ { op: 'static', playLandsFromGraveyard: true }, ])",
+        "expect(cardDefinition('Forgotten Cellar')?.effects).toMatchObject([ { op: 'trigger', on: 'unlock' }, ])"
+      ]
+    },
+    {
+      "groups": [
+        "kambalManaGraveyards:30"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "sacrifice catalog programs bind actual counts or success before their follow-up",
+      "evidence": "Current structural owner for Boggart Trawler // Boggart Bog, Bojuka Bog, Concealed Courtyard, Godless Shrine, Vault of Champions. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "all five cards register through loadable handlers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/kambalManaGraveyards.test.ts",
+        "startLine": 30,
+        "endLine": 30
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(names)).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "ladyEvangela:29"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Lady Evangela foggy-blood pass stays registered",
+      "evidence": "Current structural owner for Absorb, Anguished Unmaking, Arcanis the Omnipotent, Batwing Brume, Blanket of Night, Blood Celebrant, Breena, the Demagogue, Bubbling Muck, Cabal Coffers, Cabal Stronghold, Children of Korlis, Comeuppance, Counterspell, Crypt Ghast, Cryptic Command, Dark Confidant, Dark Tutelage, Darkness, Debt to the Deathless, Deserted Temple, Dimir Signet, Dovin's Veto, Drain Life, Energy Arc, Esper Panorama, Everybody Lives!, Expedition Map, Exsanguinate, Inkshield, Kami of False Hope, Kuroki, Thief of Talents, Lady Evangela, Magus of the Coffers, Marsh Flats, Mirror Universe, Mister Negative, Mulldrifter, Necrologia, Nirkana Revenant, Orzhov Signet, Raffine's Tower, Repay in Kind, Selenia, Dark Angel, Settle the Wreckage, Snuff Out, Swan Song, Swords to Plowshares, Tainted Sigil, Test of Endurance, Urborg, Tomb of Yawgmoth, Wall of Blood, Wedding Ring. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Eva cards this pass covers stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/ladyEvangela.test.ts",
+        "startLine": 29,
+        "endLine": 84
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Absorb', 'Anguished Unmaking', 'Batwing Brume', 'Blanket of Night', 'Blood Celebrant', 'Bubbling Muck', 'Cabal Coffers', 'Cabal Stronghold', 'Comeuppance', 'Crypt Ghast', 'Dark Confidant', 'Dark Tutelage', 'Darkness', 'Debt to the Deathless', 'Deserted Temple', 'Dimir Signet', 'Drain Life', \"Dovin's Veto\", 'Energy Arc', 'Everybody Lives!', 'Esper Panorama', 'Expedition Map', 'Exsanguinate', 'Inkshield', 'Kami of False Hope', 'Lady Evangela', 'Magus of the Coffers', 'Marsh Flats', 'Mirror Universe', 'Mister Negative', 'Mulldrifter', 'Necrologia', 'Nirkana Revenant', 'Orzhov Signet', \"Raffine's Tower\", 'Repay in Kind', 'Selenia, Dark Angel', 'Settle the Wreckage', 'Snuff Out', 'Swan Song', 'Swords to Plowshares', 'Tainted Sigil', 'Test of Endurance', 'Urborg, Tomb of Yawgmoth', 'Wall of Blood', 'Children of Korlis', 'Counterspell', 'Arcanis the Omnipotent', 'Cryptic Command', 'Wedding Ring', 'Breena, the Demagogue', 'Kuroki, Thief of Talents', ])).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:58"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once",
+      "evidence": "Current structural owner for Arcanis the Omnipotent, Breena, the Demagogue, City of Brass, Condemn, Counterspell, Cryptic Command, Desertion, Hatred, Infernal Contract, Kuroki, Thief of Talents, Mana Drain, Minamo, School at Water's Edge, Wedding Ring. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the remaining Eva cards stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts",
+        "startLine": 58,
+        "endLine": 74
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Counterspell', 'Arcanis the Omnipotent', \"Minamo, School at Water's Edge\", 'Condemn', 'Hatred', 'Infernal Contract', 'Mana Drain', 'Desertion', 'City of Brass', 'Cryptic Command', 'Wedding Ring', 'Breena, the Demagogue', 'Kuroki, Thief of Talents', ])).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "ladyEvangelaRemaining:76"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/counter.test.ts",
+      "suite": "counter targets a creature spell and removes it exactly once after journal restore",
+      "evidence": "Duplicate evidence: the canonical Counterspell test covers target rejection, journal restore, victim graveyard, empty stack, no life change, and second-resolution rejection; pinned composition remains in the catalog.",
+      "sourceTitle": "Counterspell counters the targeted spell",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts",
+        "startLine": 76,
+        "endLine": 104
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(named(state, 'Threat').zone).toBe('graveyard')"
+      ]
+    },
+    {
+      "groups": [
+        "liveTableMana:650"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "sacrifice catalog programs bind actual counts or success before their follow-up",
+      "evidence": "Current structural owner for Sea Gate Restoration // Sea Gate, Reborn. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "catalog entries keep the deck Oracle text of a double-faced land",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/liveTableMana.test.ts",
+        "startLine": 650,
+        "endLine": 655
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(catalogEntry(entry).faces?.[1].oracle_text) .toBe('As this land enters, you may pay 3 life. If you don\\'t, it enters tapped.\\n{T}: Add {U}.')"
+      ]
+    },
+    {
+      "groups": [
+        "marinaVendrell:38"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Marina Vendrell inspects seven for enchantments and toggles a Room door",
+      "evidence": "Current structural owner for Marina Vendrell. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "registers only the generic activated handler",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/marinaVendrell.test.ts",
+        "startLine": 38,
+        "endLine": 40
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry('Marina Vendrell')?.handlerIds).toEqual(['activated'])"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:89"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Githzerai Monk declares flash and flying alongside its entry instruction",
+      "evidence": "Current structural owner for All-Fates Stalker, Cloudshift, Ephemerate, Felidar Guardian, Flicker of Fate, Flickerwisp, Getaway Glamer, Guardian of Ghirapur, Long Road Home, Otherworldly Journey, Parting Gust, Restoration Angel, Voyager Staff. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "registered cards expose plugin definitions and handler ids for the live host",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts",
+        "startLine": 89,
+        "endLine": 103
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(dackBlinkNames)).toEqual([])",
+        "expect(handlerIdsForNames(dackBlinkNames).sort()).toEqual([ 'activated', 'alternateCosts', 'blink', 'blinkValue', 'castCosts', 'choiceEffects', 'giftCast', 'linkedExile', 'spreeCast', 'targetedResolve', ])"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:145"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "%s returns the exiled creature with an entry counter",
+      "evidence": "Duplicate evidence: exact delayed blink/counter behavior is shared in the existing test; Long Road Home composition remains in the catalog.",
+      "sourceTitle": "Long Road Home puts a +1/+1 counter on return at the next end step",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts",
+        "startLine": 145,
+        "endLine": 160
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(exiled.objects[catId].zone).toBe('exile')",
+        "expect(returned.objects[catId].counters['+1/+1']).toBe(1)"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:162"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "%s returns the exiled creature with an entry counter",
+      "evidence": "Duplicate evidence: exact delayed blink/counter behavior is shared in the existing test; Otherworldly Journey composition remains in the catalog.",
+      "sourceTitle": "Otherworldly Journey matches Long Road Home delayed return with a counter",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts",
+        "startLine": 162,
+        "endLine": 177
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(exiled.objects[catId].zone).toBe('exile')",
+        "expect(returned.objects[catId].counters['+1/+1']).toBe(1)"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:85"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Githzerai Monk declares flash and flying alongside its entry instruction",
+      "evidence": "Current structural owner for Alabaster Host Intercessor, Curious Colossus, Darksteel Colossus, Githzerai Monk, Meteor Golem. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "every assigned name is registered, keywords-only, or an explicit GAP",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 85,
+        "endLine": 96
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(Object.keys(PART36_INVENTORY)).toHaveLength(20)",
+        "expect(oracleFor(name).length).toBeGreaterThan(0)",
+        "expect(effects.length).toBeGreaterThan(0)",
+        "expect(effects).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:98"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Githzerai Monk declares flash and flying alongside its entry instruction",
+      "evidence": "Current structural owner for Alabaster Host Intercessor, Curious Colossus, Darksteel Colossus, Githzerai Monk, Meteor Golem. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Darksteel Colossus is registered for the graveyard shuffle replacement (see cirdanColossi.test.ts)",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 98,
+        "endLine": 102
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(PART36_INVENTORY['Darksteel Colossus']).toBe('registered')",
+        "expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])",
+        "expect(oracleFor('Darksteel Colossus')).toContain('shuffle it into its owner\\'s library')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:104"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Githzerai Monk declares flash and flying alongside its entry instruction",
+      "evidence": "Current structural owner for Alabaster Host Intercessor, Curious Colossus, Darksteel Colossus, Githzerai Monk, Meteor Golem. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Salvation Colossus stays off cardRules until a declare-attackers-wide trigger exists",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 104,
+        "endLine": 108
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(PART36_INVENTORY['Salvation Colossus']).toBe('gap')",
+        "expect(effectsFor('Salvation Colossus')).toEqual([])",
+        "expect(oracleFor('Salvation Colossus')).toMatch(/Whenever you attack/)"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:112:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack part-36 creatures are registered, keywords-only, or an explicit GAP",
+      "evidence": "Current structural owner for Alabaster Host Intercessor. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Alabaster Host Intercessor exiles an opponent creature until it leaves — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 112,
+        "endLine": 146
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(oracleFor('Alabaster Host Intercessor')).toContain('Plainscycling {2}')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:180:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 22 catalog composes characteristics, types, grants, and attachments",
+      "evidence": "Current structural owner for Curious Colossus. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Curious Colossus chooses an opponent then shrinks their board — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 180,
+        "endLine": 220
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(oracleFor('Curious Colossus')).toContain('Coward')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:222:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Githzerai Monk declares flash and flying alongside its entry instruction",
+      "evidence": "Current structural owner for Githzerai Monk. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Githzerai Monk taps every creature you do not control on ETB — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 222,
+        "endLine": 246
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(oracleFor('Githzerai Monk')).toContain('tap all creatures you don\\'t control')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart36Creatures:248:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Infernal Contract composes four draws with rounded-up half-life loss",
+      "evidence": "Current structural owner for Meteor Golem. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Meteor Golem destroys an opponent nonland on ETB — configuration assertions",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts",
+        "startLine": 248,
+        "endLine": 273
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(oracleFor('Meteor Golem')).toContain('destroy target nonland permanent an opponent controls')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart37:114"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Wall of Blood pays one life for a temporary source pump",
+      "evidence": "Current structural owner for Astral Drift, Sandstone Oracle, Soul of Eternity, Subjugator Angel, Thalia's Lancers. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "inventory lists every assigned name as registered, kernel-only, or GAP with reasons",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart37.test.ts",
+        "startLine": 114,
+        "endLine": 130
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(PART37_ASSIGNED).toHaveLength(21)",
+        "expect(['registered', 'kernel-only', 'gap']).toContain(status)",
+        "expect(effectsFor(name).length).toBeGreaterThan(0)",
+        "expect(PART37_GAP_REASONS[name]).toBeUndefined()",
+        "expect(effectsFor(name)).toEqual([])",
+        "expect(PART37_GAP_REASONS[name]).toBeUndefined()",
+        "expect(effectsFor(name)).toEqual([])",
+        "expect(PART37_GAP_REASONS[name]).toMatch(/./)"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart37:132"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Wall of Blood pays one life for a temporary source pump",
+      "evidence": "Current structural owner for Astral Drift, Sandstone Oracle, Soul of Eternity, Subjugator Angel, Thalia's Lancers. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "named GAP cards stay out of cardRules until Pass 1 lands capability",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart37.test.ts",
+        "startLine": 132,
+        "endLine": 156
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(gaps).toEqual([ 'Act of Vengeance', 'Ondu Inversion // Ondu Skyruins', 'Rally the Ancestors', 'Realm-Cloaked Giant // Cast Off', 'Serra Avatar', 'Spawning Pit', 'Steel Hellkite', 'Storm of Souls', 'Sudden Salvation', 'The Eagles Are Coming!', 'The Restoration of Eiganjo // Architect of Restoration', 'Timeless Dragon', 'Tri-Sentinel, Act of Vengeance', 'Twins of Discord', 'Wakening Sun\\'s Avatar', ])",
+        "expect(PART37_GAP_REASONS['Rally the Ancestors']).toContain('next upkeep')",
+        "expect(PART37_GAP_REASONS['Storm of Souls']).toContain('1/1 Spirit')",
+        "expect(PART37_GAP_REASONS['The Restoration of Eiganjo // Architect of Restoration']).toContain('Saga')",
+        "expect(PART37_GAP_REASONS['Realm-Cloaked Giant // Cast Off']).toContain('Adventure')",
+        "expect(PART37_GAP_REASONS['Ondu Inversion // Ondu Skyruins']).toContain('nonland')"
+      ]
+    },
+    {
+      "groups": [
+        "plugDackPart37:217"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "encore catalog cards retain their full printed programs and shared graveyard activation",
+      "evidence": "Current structural owner for Astral Drift, Soul of Eternity. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "registered staples match expected builders",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/plugDackPart37.test.ts",
+        "startLine": 217,
+        "endLine": 226
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardDefinition('Soul of Eternity')?.effects).toMatchObject([ ptEqualsLife({ who: 'controller' }), { op: 'activate', id: 'encore' }, ])",
+        "expect(cardDefinition('Astral Drift')?.effects).toMatchObject([ { op: 'trigger', on: 'cycle' }, { op: 'activate', id: 'cycling.astralDrift', cycling: true }, ])"
+      ]
     },
     {
       "groups": [
@@ -179,7 +2221,497 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
       "suite": "catalog lookup requires an exact own key and returns undefined for unknown names",
-      "evidence": "The pinned group checked allHandlerIds/handlerIdsForNames against Forest and Sol Ring. Issue #507 (merged as ce635709) removed CARD_RULES, allHandlerIds, handlerIdsForNames, cardDefinition, and the cardPluginEntry lookups because the registry was empty; this contract has no current runtime subject and must not be restored. The canonical lookup owner verifies exact own-key lookup and unknown-name behavior; named catalog definitions retain their own structural checks."
+      "evidence": "The old allHandlerIds/handlerIdsForNames universe-size assertion has no direct equivalent and became obsolete when #507 removed those empty legacy APIs. Exact-name canonical lookup and unknown-name rejection are retained here; no broader “all handlers” contract is claimed.",
+      "sourceTitle": "a forest table does not load the whole handler catalog",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 18,
+        "endLine": 22
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Forest'])).toEqual([])",
+        "expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped'])",
+        "expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)"
+      ]
+    },
+    {
+      "groups": [
+        "registry:23"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Cryptic Command chooses two modes with separate counter and permanent targets",
+      "evidence": "Current structural owner for Aesi, Tyrant of Gyre Strait, Farseek, Field of the Dead, Icetill Explorer, Misty Rainforest, Riveteers Overlook, Scute Swarm, Sin, Spira's Punishment, Zagoth Triome. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Sin Fall cards this pass covers stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 23,
+        "endLine": 40
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry('Field of the Dead')?.handlerIds) .toEqual(['entersTapped'])",
+        "expect(cardPluginEntry(\"Sin, Spira's Punishment\")?.handlerIds) .toEqual(['randomExileCopy'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:42"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "sacrifice catalog programs bind actual counts or success before their follow-up",
+      "evidence": "Current structural owner for Deathsprout, Homer, the Hermit, Keep Safe. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Homer commander is registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 42,
+        "endLine": 45
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(['Deathsprout', 'Homer, the Hermit', 'Keep Safe'])).toEqual([])",
+        "expect(cardPluginEntry('Homer, the Hermit')?.handlerIds).toEqual(['homer'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:47"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Homer dumpster cards this pass covers stay registered",
+      "evidence": "Current structural owner for Aftermath Analyst, Awaken the Honored Dead, Black Sun's Twilight, Blossoming Tortoise, Cephalid Coliseum, Fact or Fiction, Firdoch Core, Fortune's Favor, Harrow, Hedge Shredder, Homer, the Hermit, Irenicus's Vile Duplication, Life from the Loam, Lumra, Bellow of the Woods, Malakir Rebirth, Masked Vandal, Maskwood Nexus, Mole Man, Moloid Master, Ripples of Undeath, Roaming Throne, Sakashima of a Thousand Faces, Scapeshift, Simic Growth Chamber, Skull Prophet, Spark Double, Springheart Nantuko, Thawing Glaciers, Victimize, Watery Grave, Yarok, the Desecrated, Zimone and Dina. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Homer dumpster cards this pass covers stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 47,
+        "endLine": 82
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:84"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog World Map offers distinct basic and unrestricted land searches at their printed costs",
+      "evidence": "Current structural owner for Hedge Maze, Shadowy Backstreet, Undercity Sewers, Underground Mortuary. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "every surveil land carries its enter trigger, not just its tap",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 84,
+        "endLine": 96
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(surveilLands)).toEqual([])",
+        "expect(cardPluginEntry(land)?.handlerIds?.toSorted()) .toEqual(['choiceEffects', 'entersTapped'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:98"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Cryptic Command chooses two modes with separate counter and permanent targets",
+      "evidence": "Current structural owner for Charcoal Diamond, Choked Estuary, Drowned Catacomb, Eclipsed Steppe, Glacial Fortress, Godless Shrine, Hallowed Fountain, Mistvault Bridge, Morphic Pool, Orzhov Basilica, Raffine's Tower, Shadowy Backstreet, Sky Diamond, Sunken Hollow, Temple of Deceit. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Eva and Sygg enter-tapped cards are registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 98,
+        "endLine": 116
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Charcoal Diamond', 'Choked Estuary', 'Drowned Catacomb', 'Eclipsed Steppe', 'Glacial Fortress', 'Godless Shrine', 'Hallowed Fountain', 'Mistvault Bridge', 'Morphic Pool', 'Orzhov Basilica', \"Raffine's Tower\", 'Shadowy Backstreet', 'Sky Diamond', 'Sunken Hollow', 'Temple of Deceit', ])).toEqual([])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:118"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry",
+      "evidence": "Current structural owner for Bender's Waterskin, Souls of the Faultless. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Lady Evangela damage and mana cards only register card-specific rules",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 118,
+        "endLine": 137
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(cardPluginEntry(generic)).toBeUndefined()",
+        "expect(cardPluginEntry(\"Bender's Waterskin\")).toMatchObject({ pluginIds: ['extraUntap'], handlerIds: [], })",
+        "expect(cardPluginEntry('Souls of the Faultless')).toMatchObject({ pluginIds: [], handlerIds: [], })"
+      ]
+    },
+    {
+      "groups": [
+        "registry:139"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Lady Evangela mana and extort cards stay registered",
+      "evidence": "Current structural owner for Crypt Ghast, Exotic Orchard, Nirkana Revenant, Reflecting Pool. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Lady Evangela mana and extort cards stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 139,
+        "endLine": 148
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Crypt Ghast', 'Exotic Orchard', 'Nirkana Revenant', 'Reflecting Pool', ])).toEqual([])",
+        "expect(cardPluginEntry('Crypt Ghast')?.handlerIds).toContain('extort')",
+        "expect(cardPluginEntry('Nirkana Revenant')?.handlerIds).toContain('activated')"
+      ]
+    },
+    {
+      "groups": [
+        "registry:150"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 42 catalog cards compose the world rule, player effects, extra turns, and no-regeneration destroy",
+      "evidence": "Current structural owner for Dovin's Veto, Mulldrifter, Phial of Galadriel, Snuff Out, Wall of Shards. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Lady Evangela alternate and replacement cards stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 150,
+        "endLine": 160
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ \"Dovin's Veto\", 'Mulldrifter', 'Phial of Galadriel', 'Snuff Out', 'Wall of Shards', ])).toEqual([])",
+        "expect(cardPluginEntry('Mulldrifter')?.handlerIds).toEqual(['alternateCosts'])",
+        "expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:162"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "Current structural owner for Famished Worldsire, Finale of Devastation, Valgavoth, Terror Eater. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Sin Fall finisher cards load their handlers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 162,
+        "endLine": 181
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Famished Worldsire', 'Finale of Devastation', 'Valgavoth, Terror Eater', ])).toEqual([])",
+        "expect(handlerIdsForNames(['Famished Worldsire']).toSorted()).toEqual([ 'choiceEffects', 'ward', ])",
+        "expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([ 'castCosts', 'librarySearch', ])",
+        "expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([ 'exiledWith', 'ward', ])",
+        "expect(cardPluginEntry('Valgavoth, Terror Eater')?.pluginIds).toEqual(['exiledWith'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:183"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Abundance replaces its controller’s draw with a land or nonland choice",
+      "evidence": "Abundance snapshot now covers printed characteristics, controller draw replacement, choice prompt/options, land/nonland filters, found/rest destinations, and ordering; sibling Cling to Dust and Hostile Negotiations remain in their named catalog tests.",
+      "sourceTitle": "the Sin Fall replacement and hidden-pile cards load their handlers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 183,
+        "endLine": 193
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Cling to Dust', 'Hostile Negotiations', ])).toEqual([])",
+        "expect(handlerIdsForNames(['Abundance'])).toEqual([])",
+        "expect(handlerIdsForNames(['Hostile Negotiations']).toSorted()) .toEqual(['hiddenPiles', 'onResolve'])",
+        "expect(handlerIdsForNames(['Cling to Dust']).toSorted()) .toEqual(['alternateCosts', 'targetedResolve'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:195"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Courser of Kruphix is registered",
+      "evidence": "Current structural owner for Courser of Kruphix. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Courser of Kruphix is registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 195,
+        "endLine": 198
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])",
+        "expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:200"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "the Círdan Show Me What You Got cards this pass covers stay registered",
+      "evidence": "Current structural owner for An Offer You Can't Refuse, Apex Altisaur, Beast Whisperer, Braids, Conjurer Adept, Bushwhack, Concordant Crossroads, Cultivate, Círdan the Shipwright, Decisive Denial, End-Raze Forerunners, Eureka, Farhaven Elf, Hypergenesis, Illusion of Choice, Kodama's Reach, Overwhelming Stampede, Pathbreaker Ibex, Rankle, Master of Pranks, Reins of Power, Reliquary Tower, Return of the Wildspeaker, Show and Tell, Silverback Elder, Triangle of War, Twincast. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Círdan Show Me What You Got cards this pass covers stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 200,
+        "endLine": 234
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')",
+        "expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')",
+        "expect(cardPluginEntry('Beast Whisperer')?.handlerIds).toContain('castTriggers')",
+        "expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'stackCopy'])",
+        "expect(cardPluginEntry('Rankle, Master of Pranks')?.handlerIds) .toEqual(['modalSpell', 'choiceEffects'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:236"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "Current structural owner for Archetype of Endurance, Blightsteel Colossus, Darksteel Colossus, Grothama, All-Devouring, Guardian Project, It That Betrays, Sire of Seven Deaths, Terastodon, Thunderfoot Baloth, Void Winnower, Woodfall Primus. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Círdan creature group stays registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 236,
+        "endLine": 254
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])",
+        "expect(cardPluginEntry('Sire of Seven Deaths')?.handlerIds).toEqual(['ward'])",
+        "expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:256"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "Current structural owner for Council's Judgment, Fractured Identity, Mirrorweave, Rings of Brighthearth, Sokrates, Athenian Teacher, Standard Bearer, Tenuous Truce. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Lady Evangela copy-politics group stays registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 256,
+        "endLine": 273
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')",
+        "expect(cardPluginEntry(\"Council's Judgment\")?.handlerIds).toContain('vote')",
+        "expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')",
+        "expect(cardPluginEntry('Sokrates, Athenian Teacher')?.handlerIds) .toEqual(expect.arrayContaining(['activated', 'combatDialogue', 'targetingRequirements']))",
+        "expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')"
+      ]
+    },
+    {
+      "groups": [
+        "registry:275"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Dack party pass-35 inventory matches registered, kernel-only, or GAP",
+      "evidence": "Current structural owner for Dack Fayden, Helping Hand. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Dack Fayden, Helping Hand is registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 275,
+        "endLine": 278
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(['Dack Fayden, Helping Hand'])).toEqual([])",
+        "expect(cardPluginEntry('Dack Fayden, Helping Hand')?.handlerIds).toContain('permanentControl')"
+      ]
+    },
+    {
+      "groups": [
+        "registry:280"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 28 catalog cards compose rebound, demonstrate, exchange, clone, and copy",
+      "evidence": "Current structural owner for Archaeomancer's Map, Commander's Sphere, Endless Sands, Everflowing Chalice, Expedition Map, Geier Reach Sanitarium, Gilded Lotus, Hedron Archive, High Market, Mind Stone, Moonsilver Key, Myriad Landscape, Secluded Steppe, Temple of the False God, Thespian's Stage, Thrór's Map, Urza's Cave, World Map, Worn Powerstone. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Dack Fayden part 32 lands, rocks, and maps stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 280,
+        "endLine": 306
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry(generic)).toBeUndefined()"
+      ]
+    },
+    {
+      "groups": [
+        "registry:308"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 25 catalog cards retain printed stats and canonical keyword parameters",
+      "evidence": "Current structural owner for Angel of Sanctions, Banisher Priest, Bishop of Binding, Fiend Hunter, Glorious Protector, Lumbering Battlement, Palace Jailer, Werefox Bodyguard. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Dack Fayden part 34 linked-exile cages stay registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 308,
+        "endLine": 324
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(covered)).toEqual([])",
+        "expect(cardPluginEntry('Fiend Hunter')?.handlerIds?.toSorted()) .toEqual(['choiceEffects', 'linkedExile'])",
+        "expect(cardPluginEntry('Bishop of Binding')?.handlerIds?.toSorted()) .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:326"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once",
+      "evidence": "Current structural owner for Niv-Mizzet, Ghost Counsel. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Niv-Mizzet, Ghost Counsel stays registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 326,
+        "endLine": 330
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(['Niv-Mizzet, Ghost Counsel'])).toEqual([])",
+        "expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')?.handlerIds?.toSorted()) .toEqual(['activated', 'choiceEffects'])"
+      ]
+    },
+    {
+      "groups": [
+        "registry:332"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 32 catalog walkers compose loyalty costs, emblems, and attack bans",
+      "evidence": "Current structural owner for Jace, Multiverse Architect. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "Jace, Multiverse Architect is registered with optional mana pay",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 332,
+        "endLine": 337
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins(['Jace, Multiverse Architect'])).toEqual([])",
+        "expect(cardPluginEntry('Jace, Multiverse Architect')?.handlerIds).toEqual( expect.arrayContaining(['optionalManaPay', 'planeswalker']), )"
+      ]
+    },
+    {
+      "groups": [
+        "registry:339"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog event-history cards compose grouped moves, ordinals, provenance, life-gain, and repeat-once",
+      "evidence": "Current structural owner for Arcanis the Omnipotent, Breena, the Demagogue, City of Brass, Condemn, Counterspell, Cryptic Command, Desertion, Hatred, Infernal Contract, Kuroki, Thief of Talents, Mana Drain, Minamo, School at Water's Edge, Wedding Ring. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the Lady Evangela remaining group stays registered",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/registry.test.ts",
+        "startLine": 339,
+        "endLine": 357
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(missingCardPlugins([ 'Counterspell', 'Arcanis the Omnipotent', \"Minamo, School at Water's Edge\", 'Condemn', 'Hatred', 'Infernal Contract', 'Mana Drain', 'Desertion', 'City of Brass', 'Cryptic Command', 'Wedding Ring', 'Breena, the Demagogue', 'Kuroki, Thief of Talents', ])).toEqual([])",
+        "expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')",
+        "expect(cardPluginEntry('Cryptic Command')?.handlerIds).toContain('modalSpell')"
+      ]
+    },
+    {
+      "groups": [
+        "sinFallFinishers:57"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions",
+      "evidence": "Current structural owner for Famished Worldsire, Finale of Devastation, Valgavoth, Terror Eater. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "registers handler ids for the three finishers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/sinFallFinishers.test.ts",
+        "startLine": 57,
+        "endLine": 70
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Famished Worldsire']).toSorted()).toEqual([ 'choiceEffects', 'ward', ])",
+        "expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([ 'castCosts', 'librarySearch', ])",
+        "expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([ 'exiledWith', 'ward', ])"
+      ]
+    },
+    {
+      "groups": [
+        "splitTrapVotes:110"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Split Decision votes to counter or copy a targeted instant or sorcery",
+      "evidence": "Current structural owner for Split Decision. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "is registered with targeting, vote and stack-copy handlers",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/splitTrapVotes.test.ts",
+        "startLine": 110,
+        "endLine": 114
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Split Decision'])).toEqual( expect.arrayContaining(['stackCopy', 'targetedResolve', 'vote']), )"
+      ]
+    },
+    {
+      "groups": [
+        "splitTrapVotes:296"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "Split Decision and Trap the Trespassers register vote handlers",
+      "evidence": "Current structural owner for Trap the Trespassers. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "is registered as a vote resolved from the spell",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/splitTrapVotes.test.ts",
+        "startLine": 296,
+        "endLine": 301
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(handlerIdsForNames(['Trap the Trespassers'])).toEqual( expect.arrayContaining(['onResolve', 'vote']), )",
+        "expect(cardDefinition('Trap the Trespassers')?.effects).toBeDefined()"
+      ]
+    },
+    {
+      "groups": [
+        "yurlok:24"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks",
+      "evidence": "Current structural owner for Yurlok of Scorch Thrash. Full pinned matcher text, parameters, and source span are copied above for assertion-by-assertion comparison.",
+      "sourceTitle": "the overlay grants manaBurn while Yurlok is on the battlefield",
+      "sourceSpan": {
+        "file": "rules-engine/src/cardPlugins/yurlok.test.ts",
+        "startLine": 24,
+        "endLine": 33
+      },
+      "parameterization": [],
+      "pinnedAssertions": [
+        "expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual(['manaBurn'])",
+        "expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])",
+        "expect(state.objects[yurlokId].grantedRules).toEqual(['manaBurn'])",
+        "expect(state.rules.some((rule) => rule.pluginId === 'manaBurn' && rule.sourceId === yurlokId)) .toBe(true)",
+        "expect(state.rules.some((rule) => rule.pluginId === 'activated' && rule.sourceId === null)) .toBe(true)"
+      ]
     }
   ]
 }
