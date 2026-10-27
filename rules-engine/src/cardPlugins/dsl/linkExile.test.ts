@@ -189,13 +189,40 @@ test('a sacrificed activated source returns its linked creature after leaving', 
     type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[1]', targets: [{ kind: 'object', objectId: creature }],
   })))
   expect(exiled.objects[creature]).toMatchObject({ zone: 'exile', exiledWith: source })
-  exiled.objects[source].tapped = false
-  const announced = ok(server.rules(exiled, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[2]' }))
+  const opponentsTurn = structuredClone(exiled)
+  opponentsTurn.active = 'p2'
+  opponentsTurn.priority = 'p1'
+  opponentsTurn.step = 'declareAttackers'
+  opponentsTurn.players.p1.mana.C = 4
+  opponentsTurn.objects[source].tapped = false
+  const announced = ok(server.rules(opponentsTurn, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[2]' }))
   expect(announced.objects[source].zone).toBe('graveyard')
   expect(announced.objects[creature].zone).toBe('exile')
   const returned = resolveStack(server.rules, announced)
   expect(returned.objects[creature]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
   expect(returned.objects[source].zone).toBe('graveyard')
+})
+
+test('a creature moved away in response to Endless Sands is not linked or returned', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Endless Sands'), cardTemplate('Response target', { types: ['Creature'] })] },
+  }, { random: () => 0 })
+  server.state.players.p1.mana.C = 6
+  const source = named(server.state, 'Endless Sands').id
+  const targetId = named(server.state, 'Response target').id
+  const announced = ok(server.rules(server.state, {
+    type: 'activateAbility',
+    seat: 'p1',
+    objectId: source,
+    abilityId: '$.abilities[1]',
+    targets: [{ kind: 'object', objectId: targetId }],
+  }))
+  const moved = ok(server.rules(announced, { type: 'move', objectId: targetId, to: 'graveyard' }))
+  const resolved = resolveStack(server.rules, moved)
+
+  expect(resolved.objects[targetId]).toMatchObject({ zone: 'graveyard' })
+  expect(resolved.objects[targetId].exiledWith).toBeUndefined()
+  expect(resolved.objects[source].exiledCards ?? []).toEqual([])
 })
 
 
