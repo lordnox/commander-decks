@@ -12277,6 +12277,38 @@
       "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
       "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
       "evidence": "The generic mechanic `a token with a canonical observer sees its own creation and sacrifice` confirms a token\u2019s own copied observer can see both events and receives the sacrifice occurrence after creation. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:75"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "catalog-backed Mirkwood Bats token occurrence integration",
+      "evidence": "The exact catalog Mirkwood Bats fixture is tested with both a non-token permanent controlled by its controller and a token controlled by an opponent; sacrificing either produces no trigger. The current execution route is the canonical DSL catalog definition, with ordinary runtime token and sacrifice events."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:107"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "catalog-backed Mirkwood Bats token occurrence integration",
+      "evidence": "The catalog integration queues a creation trigger, moves Mirkwood Bats to its owner graveyard while the trigger is waiting, then resolves the queued trigger and verifies opponent life loss still occurs. The current execution route is the canonical DSL catalog definition, with ordinary runtime token and sacrifice events."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:128"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "catalog-backed Mirkwood Bats token occurrence integration",
+      "evidence": "Two catalog-runtime tests remove Bats from active observation by setting its phased-out state and by moving it to graveyard; a subsequent token creation queues no ability in either case. The current execution route is the canonical DSL catalog definition, with ordinary runtime token and sacrifice events."
+    },
+    {
+      "groups": [
+        "mirkwoodBats:160"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
+      "suite": "catalog-backed Mirkwood Bats token occurrence integration",
+      "evidence": "The catalog integration places two Mirkwood Bats on the battlefield and creates two tokens. It verifies four triggers queue and each opponent loses two life per source/token occurrence. The current execution route is the canonical DSL catalog definition, with ordinary runtime token and sacrifice events."
     }
   ],
   "retainedOwnerEvidence": [

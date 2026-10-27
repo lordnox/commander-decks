@@ -56,6 +56,85 @@ test('catalog Mirkwood Bats drains each opponent for every created or sacrificed
   expect(server.state.playerOrder.map((seat) => afterSacrifice.players[seat].life)).toEqual([40, 36, 36, 36])
 })
 
+test('a queued catalog Mirkwood Bats trigger resolves after its source leaves', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Mirkwood Bats')] },
+    hands: { p1: [instructionSpell({ instructions: [createToken({
+      targets: ref('controller'), count: 1, token: { name: 'Token fixture', types: ['Creature'], power: 1, toughness: 1 },
+    })] })] },
+  }, { random: () => 0 })
+  const queued = begin(server)
+  expect(queued.stack).toHaveLength(1)
+  const source = Object.values(queued.objects).find((object) => object.name === 'Mirkwood Bats')!
+  const removed = ok(server.rules(queued, { type: 'move', objectId: source.id, to: 'graveyard' }))
+  expect(resolveStack(server.rules, removed).players.p2.life).toBe(39)
+})
+
+test('catalog Mirkwood Bats sees only its controller sacrificing tokens', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: {
+      p1: [cardTemplate('Mirkwood Bats'), cardTemplate('Artifact fixture', { types: ['Artifact'] })],
+      p2: [cardTemplate('Opponent token', { types: ['Creature'], token: true })],
+    },
+  }, { random: () => 0 })
+  for (const name of ['Artifact fixture', 'Opponent token']) {
+    const state = ok(server.rules(server.state, {
+      type: 'sacrifice',
+      objectId: Object.values(server.state.objects).find((object) => object.name === name)!.id,
+    }))
+    expect(state.stack).toHaveLength(0)
+  }
+  expect(server.state.players.p2.life).toBe(40)
+})
+
+test('each catalog Mirkwood Bats triggers separately for each created token', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Mirkwood Bats'), cardTemplate('Mirkwood Bats')] },
+    hands: { p1: [instructionSpell({ instructions: [createToken({
+      targets: ref('controller'), count: 2,
+      token: { name: 'Token fixture', types: ['Creature'], power: 1, toughness: 1 },
+    })] })] },
+  }, { random: () => 0 })
+  const created = begin(server)
+  expect(created.stack).toHaveLength(4)
+  const drained = resolveStack(server.rules, created)
+  expect([drained.players.p2.life, drained.players.p3.life, drained.players.p4.life]).toEqual([36, 36, 36])
+})
+
+test('a phased-out catalog Mirkwood Bats does not see token creation', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Mirkwood Bats')] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  Object.values(state.objects).find((object) => object.name === 'Mirkwood Bats')!.phasedOut = true
+  const created = ok(server.rules(state, {
+    type: 'createToken', controller: 'p1',
+    token: { name: 'Token fixture', types: ['Creature'], power: 1, toughness: 1 },
+  }))
+  expect(created.stack).toHaveLength(0)
+  expect(created.players.p2.life).toBe(40)
+})
+
+test('a catalog Mirkwood Bats outside the battlefield does not see token creation', () => {
+  const server = createServerGame(commanderRules, {
+    players: 4,
+    battlefield: { p1: [cardTemplate('Mirkwood Bats')] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  const source = Object.values(state.objects).find((object) => object.name === 'Mirkwood Bats')!
+  const left = ok(server.rules(state, { type: 'move', objectId: source.id, to: 'graveyard' }))
+  const created = ok(server.rules(left, {
+    type: 'createToken', controller: 'p1',
+    token: { name: 'Token fixture', types: ['Creature'], power: 1, toughness: 1 },
+  }))
+  expect(created.stack).toHaveLength(0)
+  expect(created.players.p2.life).toBe(40)
+})
+
 test('creation remains observable when a zero-toughness token immediately ceases to exist', () => {
   const server = setup(1, [], 0)
   const state = begin(server)
