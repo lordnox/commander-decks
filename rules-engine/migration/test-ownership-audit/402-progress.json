@@ -12517,6 +12517,70 @@
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "each-player discard opens dialogs in APNAP order",
       "evidence": "With a four-player table and active player p3, the discard mode requests p3\u2019s choice first and then p4\u2019s choice, preserving APNAP order. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:113"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "turns animation on at five enchantments and uses mana value for base stats",
+      "evidence": "The current Starfield fixture plus four other enchantments is initially noncreature; the fifth turns the subject into a creature with mana-value base stats, and a resolving pump adds stats and a counter. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:153"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "recomputes base stats when unlocking a door changes the Room mana value",
+      "evidence": "The current helper uses Starfield plus a locked fixture Room. Unlocking its second door changes mana value from four to ten and animated base stats recompute; a pump is preserved. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:193"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "keeps a +1/+1 counter when the animated mana value changes",
+      "evidence": "The Room mana value change recomputes animated stats while preserving the existing +1/+1 counter contribution. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:230"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "a Room put onto the battlefield locked is 0/0 and dies to state-based actions",
+      "evidence": "The test places the locked Room on battlefield under Starfield animation and verifies it dies and no longer has creature type. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:281"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "reverts below five enchantments and when Starfield leaves",
+      "evidence": "The test exercises both stopping conditions: dropping below five enchantments and moving Starfield away each removes creature type and restores noncreature stats. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:322"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "restores an enchantment creature to its printed stats plus its counters",
+      "evidence": "The animation temporarily raises a 2/2 enchantment creature, countering it leaves a counter; dropping below threshold or removing Starfield restores printed stats plus the counter. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:371"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "returns a targeted enchantment card from its controller graveyard",
+      "evidence": "At p1 upkeep the Starfield trigger offers only the controller\u2019s graveyard enchantment, targets it with the current graveyard incarnation, and returns it after accepting. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+    },
+    {
+      "groups": [
+        "starfieldOfNyx:413"
+      ],
+      "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
+      "suite": "may decline the upkeep return",
+      "evidence": "The Starfield upkeep trigger lets the player decline; no ability remains on stack and the enchantment stays in the graveyard. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
     }
   ],
   "retainedOwnerEvidence": [
