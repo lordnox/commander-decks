@@ -178,7 +178,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/voteStackSpell.test.ts",
       "suite": "an open copy choice survives a host restart",
-      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3\u2019s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
+      "evidence": "The generic legacy targeted-spell vote is restarted after p1/p2 ballots; those ballots and p3’s pending choice survive. The vote completes after restart, the p1 stack-copy choice is restored across a second restart, and accepting it produces one copy and clears stack-copy pending state."
     },
     {
       "groups": [
@@ -194,7 +194,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/vote.test.ts",
       "suite": "an open secret object vote survives a host restart and stays private",
-      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat\u2019s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
+      "evidence": "Generic legacy secret object vote resumes after host recreation with the object-id ballot retained internally, the next chooser available, and the answer masked in another seat’s projection; completion applies exactly four stun counters, taps the creature, and clears the vote."
     },
     {
       "groups": [
@@ -274,7 +274,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "Settle exiles attackers and resumes a private typed basic-land search after restart",
-      "evidence": "Settle\u2019s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
+      "evidence": "Settle’s target-dependent exile count opens a chooser-only basic search after restart; invalid pick is rejected and the chosen land enters tapped"
     },
     {
       "groups": [
@@ -290,7 +290,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
       "suite": "a legacy Archaeomancer's Map finds up to two Plains and puts them in hand",
-      "evidence": "legacy Archaeomancer\u2019s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
+      "evidence": "legacy Archaeomancer’s Map offers exactly two Plains and moves both to hand while opposing projection hides the library"
     },
     {
       "groups": [
@@ -314,7 +314,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts",
       "suite": "Collector's Vault keeps its legacy loot handler and finishes with a Treasure",
-      "evidence": "legacy Collector\u2019s Vault choice draws, privately discards and creates exactly one Treasure"
+      "evidence": "legacy Collector’s Vault choice draws, privately discards and creates exactly one Treasure"
     },
     {
       "groups": [
@@ -417,7 +417,7 @@
         "cirdanEldrazi:146"
       ],
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
-      "suite": "a journal restore retains Sire\u2019s pending ward choice and accepts the replayed answer",
+      "suite": "a journal restore retains Sire’s pending ward choice and accepts the replayed answer",
       "evidence": "Catalog Sire ward is restored from the journal with the exact pending choice identity; p1's replayed pay answer costs seven life, resumes the original spell, and clears the pending choice. Generic legacy ward handler cases remain in the mechanic suite."
     },
     {
@@ -586,7 +586,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "pending optional pay survives projection for the payer only",
-      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1\u2019s projection, preserving the payment outcome while correcting that privacy representation."
+      "evidence": "The source legacy test asserted that the opponent could see the payer prompt. The catalog integration now asserts the canonical typed optional payment is visible to payer p2 and absent from p1’s projection, preserving the payment outcome while correcting that privacy representation."
     },
     {
       "groups": [
