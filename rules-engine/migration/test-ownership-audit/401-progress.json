@@ -140,6 +140,46 @@
       "destination": "rules-engine/src/cardPlugins/dsl/staticKeywords.test.ts",
       "suite": "catalog keyword binding works without Oracle text or legacy effects",
       "evidence": "Preserves catalog snapshot stamping, empty Oracle text, no legacy effects, and effective trample in a mechanic-owned catalog-binding integration. Exact trample-only composition remains in cardRuleCatalog.test.ts."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:70:composition"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Rechecked the pinned Plains and Sol Ring assertions against the current catalog owner. Their prior registry-entry absence is preserved by the canonical definition/template-default absence assertions added here; the test uses catalog APIs and does not restore legacy registration behavior."
+    },
+    {
+      "groups": [
+        "dackFaydenPart32LandsRocks:749"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Rechecked the pinned Emergence Zone and Northampton Farm absence assertions. The current structural owner now verifies both names remain absent from the canonical definition and template-default lookups; their separate gap rationale remains in the existing Dack part-32 checklist."
+    },
+    {
+      "groups": [
+        "dackFaydenPart34LinkedExile:78"
+      ],
+      "destination": "rules-engine/src/cardPlugins/registry.test.ts",
+      "suite": "%s has no card-specific canonical definition",
+      "evidence": "Rechecked all four pinned linked-exile GAP names and their empty legacy definitions. The current catalog owner asserts no canonical definition or template defaults for Constricting Sliver, Abdel Adrian, Angel of Serenity, and Driftgloom Coyote; generic legacy compatibility behavior remains untouched."
+    },
+    {
+      "groups": [
+        "registry:183"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
+      "suite": "catalog Abundance replaces its controller’s draw with a land or nonland choice",
+      "evidence": "The pinned registration group also names Cling to Dust and Hostile Negotiations, whose current structures remain checked by the family-25 and council/pile catalog tests. Abundance had no current named structural owner after its canonical migration. Added a structural snapshot assertion for its printed characteristics, controller-only draw replacement, choice prompt/options, land/nonland filters, reveal destinations, and ordering; no gameplay semantics or fixture copy added."
+    },
+    {
+      "groups": [
+        "registry:18"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.lookup.test.ts",
+      "suite": "catalog lookup requires an exact own key and returns undefined for unknown names",
+      "evidence": "The pinned group checked allHandlerIds/handlerIdsForNames against Forest and Sol Ring. Issue #507 (merged as ce635709) removed CARD_RULES, allHandlerIds, handlerIdsForNames, cardDefinition, and the cardPluginEntry lookups because the registry was empty; this contract has no current runtime subject and must not be restored. The canonical lookup owner verifies exact own-key lookup and unknown-name behavior; named catalog definitions retain their own structural checks."
     }
   ]
 }

@@ -93,6 +93,33 @@ test('catalog Aetherize returns all attacking permanents to hand', () => {
   })
 })
 
+test('catalog Abundance replaces its controller’s draw with a land or nonland choice', () => {
+  expect(cardTemplateDefaultsFor('Abundance')).toMatchObject({
+    types: ['Enchantment'], colors: 'G', manaCost: '{2}{G}{G}', manaValue: 4,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Abundance')!.definition.abilities).toEqual([{
+    kind: 'static',
+    activeIn: ['battlefield'],
+    effects: [{
+      kind: 'replacement',
+      event: { kind: 'draw', filter: { player: { kind: 'players', filter: { relation: 'you' } } } },
+      transform: { kind: 'replaceWith', instructions: [{
+        kind: 'chooseInstructions',
+        chooser: { kind: 'contextRef', name: 'event.player' },
+        prompt: 'Draw normally, or name land or nonland for this draw.',
+        count: { kind: 'constant', value: 1 },
+        options: [
+          { label: 'Draw normally', instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 }, targets: { kind: 'contextRef', name: 'event.player' } }] },
+          { label: 'Land', instructions: [{ kind: 'revealUntil', targets: { kind: 'contextRef', name: 'event.player' }, match: { kind: 'objects', filter: { zone: 'library', type: 'Land' } }, foundTo: 'hand', rest: 'orderBottom' }] },
+          { label: 'Nonland', instructions: [{ kind: 'revealUntil', targets: { kind: 'contextRef', name: 'event.player' }, match: { kind: 'objects', filter: { zone: 'library', not: { type: 'Land' } } }, foundTo: 'hand', rest: 'orderBottom' }] },
+        ],
+        whenInsufficient: 'chooseAvailable',
+      }] },
+      optional: false,
+    }],
+  }])
+})
+
 test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {
   expect(cardTemplateDefaultsFor('Dismember')).toMatchObject({
     types: ['Instant'], colors: 'B', manaCost: '{1}{B/P}{B/P}', manaValue: 3,

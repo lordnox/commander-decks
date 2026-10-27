@@ -141,6 +141,20 @@ describe('card plugin registry', () => {
     expect(cardRuleDefinitionSnapshotFor('Hostile Negotiations')).toBeDefined()
   })
 
+  test.each([
+    'Plains',
+    'Sol Ring',
+    'Emergence Zone',
+    'Northampton Farm',
+    'Constricting Sliver',
+    "Abdel Adrian, Gorion's Ward",
+    'Angel of Serenity',
+    'Driftgloom Coyote',
+  ])('%s has no card-specific canonical definition', (name) => {
+    expect(cardRuleDefinitionSnapshotFor(name)).toBeUndefined()
+    expect(cardTemplateDefaultsFor(name)).toBeUndefined()
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardRuleDefinitionSnapshotFor('Courser of Kruphix')).toBeDefined()
