@@ -1605,7 +1605,8 @@ test('Dig Through Time delves then inspects seven for two', () => {
       { kind: 'inspectTop', count: { kind: 'constant', value: 7 } },
       { kind: 'chooseCards', min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 } },
       { kind: 'move', to: 'hand' },
-      { kind: 'move', to: 'library', position: 'bottom' },
+      { kind: 'orderCards', bindChoice: 'rest', position: 'bottom' },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'rest' }, to: 'library', position: 'bottom' },
     ],
   })
 })

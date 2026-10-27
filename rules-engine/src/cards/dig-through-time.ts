@@ -1,6 +1,6 @@
 import type { CatalogEntry } from './types'
 import { snapshotFor } from './snapshot'
-import { choice, chooseCards, delve, inspectTop, move, objects, ref, remaining, spell } from '../cardPlugins/dsl/v1'
+import { choice, chooseCards, delve, inspectTop, move, objects, orderCards, ref, remaining, spell } from '../cardPlugins/dsl/v1'
 
 export default {
   types: ['Instant'],
@@ -20,7 +20,8 @@ export default {
           count: 2,
         }),
         move({ targets: choice('picked'), to: 'hand' }),
-        move({ targets: remaining(choice('top'), choice('picked')), to: 'library', position: 'bottom' }),
+        orderCards({ chooser: ref('controller'), bindChoice: 'rest', cards: remaining(choice('top'), choice('picked')), position: 'bottom' }),
+        move({ targets: choice('rest'), to: 'library', position: 'bottom' }),
       ],
     }),
   ]),
