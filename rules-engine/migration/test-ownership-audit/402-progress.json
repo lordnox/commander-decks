@@ -13021,6 +13021,46 @@
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "repeated phasing modes keep independent target scopes for the same creature",
       "evidence": "The minimal DSL integration selects the repeatable phasing mode twice against one creature and verifies two independent scope IDs plus the resolved phased-out state."
+    },
+    {
+      "groups": [
+        "teferiSunset:52"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "the action feed exposes +1 target selectors alongside \u22122",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+    },
+    {
+      "groups": [
+        "teferiSunset:71"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "+1 untaps controlled targets, taps opposing targets, and gains life",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+    },
+    {
+      "groups": [
+        "teferiSunset:102"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "+1 rejects two targets competing for the same type slot",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+    },
+    {
+      "groups": [
+        "teferiSunset:120"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "\u22122 opens an exact private top-three choice",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+    },
+    {
+      "groups": [
+        "teferiSunset:140"
+      ],
+      "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
+      "suite": "\u22127 untaps and draws during each opponent turn",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     }
   ],
   "retainedOwnerEvidence": [
