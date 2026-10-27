@@ -1026,7 +1026,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / an intrinsic keyword survives lethal damage and destruction independently of grants",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1034,7 +1034,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1042,7 +1042,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1050,7 +1050,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / the controller may target its own hexproof creature",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1058,7 +1058,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a target whose power drops below 5 in response is not protected",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1066,7 +1066,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / an opponent's creature that gains hexproof in response fizzles the ability",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1074,7 +1074,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / a target that left the battlefield in response fizzles the ability",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1082,7 +1082,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/keywordModifiers.test.ts",
       "suite": "paid temporary indestructibility grants / the protection wears off at cleanup, and the ability needs its {1}",
-      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row\u2019s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
+      "evidence": "Original assertion body preserved with an exchangeable intrinsic-keyword creature plus manaCost({1}) targeted untilCleanup grant and a minimal destroy instruction spell. Covers the row’s exact legal/illegal target, announcement/payment, response legality, lethal/destruction or cleanup branches. Catalog structural test protection cards compose canonical keywords, target restrictions, and temporary grants retains the real card composition."
     },
     {
       "groups": [
@@ -1122,7 +1122,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/copyOnto.test.ts",
       "suite": "permanent land copies retain a usable copy activation",
-      "evidence": "Canonical Thespian\u2019s Stage catalog integration copies Quarry name and G production, verifies a retained canonical copy instruction, then successfully activates that retained ability with the same land target. #432 replaced legacy resolution-time picker assertions with announcement targets; no removed legacy handler is resurrected."
+      "evidence": "Canonical Thespian’s Stage catalog integration copies Quarry name and G production, verifies a retained canonical copy instruction, then successfully activates that retained ability with the same land target. #432 replaced legacy resolution-time picker assertions with announcement targets; no removed legacy handler is resurrected."
     },
     {
       "groups": [
@@ -1146,7 +1146,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/move.test.ts",
       "suite": "conditional entry placement offers a hand land without spending a land play (ahead=%s)",
-      "evidence": "Canonical Archaeomancer\u2019s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger. Lifecycle groups dackFaydenPart32LandsRocks:295 and :331 retain their original test bodies and shared setup in the source for #403; only forest/solRing helpers with no remaining consumers are removed."
+      "evidence": "Canonical Archaeomancer’s Map integration preserves source-named stack entry, optional choose min=0/count=1, hand-land move to battlefield, and landsPlayed=0. Adds equal-land-count negative branch. #432 replaced the legacy playLand handler with the actual land-entry trigger. Lifecycle groups dackFaydenPart32LandsRocks:295 and :331 retain their original test bodies and shared setup in the source for #403; only forest/solRing helpers with no remaining consumers are removed."
     },
     {
       "groups": [
@@ -1170,7 +1170,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "an activated search pays life and source costs before its stack resolution opens a typed choice",
-      "evidence": "Existing minimal canonical search activation now also pays {3}; source is asserted graveyard before resolution, candidates restrict to Land, selected land is battlefield/tapped=true. Retains stack timing, restore, and no reactivation. Equivalent to Urza\u2019s Cave combination after #432."
+      "evidence": "Existing minimal canonical search activation now also pays {3}; source is asserted graveyard before resolution, candidates restrict to Land, selected land is battlefield/tapped=true. Retains stack timing, restore, and no reactivation. Equivalent to Urza’s Cave combination after #432."
     },
     {
       "groups": [
@@ -1218,7 +1218,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts",
       "suite": "a catalog entry search puts a basic land into hand after the typed choice",
-      "evidence": "Canonical Thr\u00f3r\u2019s Map catalog integration casts and resolves entry, opens typed selection with only a basic land candidate, then asserts the chosen land in hand. Adds a nonbasic exclusion while preserving audited ETB-search-to-hand combination."
+      "evidence": "Canonical Thrór’s Map catalog integration casts and resolves entry, opens typed selection with only a basic land candidate, then asserts the chosen land in hand. Adds a nonbasic exclusion while preserving audited ETB-search-to-hand combination."
     },
     {
       "groups": [
@@ -1226,7 +1226,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawThenDiscard.integration.test.ts",
       "suite": "activated draw then player discard keeps the newly drawn card after discarding an old card",
-      "evidence": "Canonical Thr\u00f3r\u2019s Map integration preserves drawn card already in hand before typed discard count=1, old card in graveyard after choice, exactly one card in hand, empty stack. Existing draws update hand candidates, hide them from opponents, and resume discard after restore retains privacy/restore ownership separately; no lifecycle assertion is dropped."
+      "evidence": "Canonical Thrór’s Map integration preserves drawn card already in hand before typed discard count=1, old card in graveyard after choice, exactly one card in hand, empty stack. Existing draws update hand candidates, hide them from opponents, and resume discard after restore retains privacy/restore ownership separately; no lifecycle assertion is dropped."
     },
     {
       "groups": [
@@ -1278,7 +1278,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts",
       "suite": "catalog spell composes draw and life loss exactly once",
-      "evidence": "Retains the canonical Night\u2019s Whisper template and exact pinned snapshot/empty-effects checks. Casting and resolving leaves its controller at 38 life with exactly two cards in hand and the spell in the graveyard; no copied definition or runtime change."
+      "evidence": "Retains the canonical Night’s Whisper template and exact pinned snapshot/empty-effects checks. Casting and resolving leaves its controller at 38 life with exactly two cards in hand and the spell in the graveyard; no copied definition or runtime change."
     },
     {
       "groups": [
@@ -1302,7 +1302,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "catalog spell announcements require both colored and generic printed mana",
-      "evidence": "Retains canonical Night\u2019s Whisper binding; rejects no mana and colored-only payment, then consumes one black plus one colorless mana for the printed cost."
+      "evidence": "Retains canonical Night’s Whisper binding; rejects no mana and colored-only payment, then consumes one black plus one colorless mana for the printed cost."
     },
     {
       "groups": [
@@ -1374,8 +1374,8 @@
         "councilCards:573"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/vote.test.ts",
-      "suite": "catalog Erestor hears C\u00edrdan's secret player vote after C\u00edrdan's draws and placements",
-      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Secret player ballots through typed selectOption replace the legacy secret-vote custom dialog. Pending Erestor trigger carries the exact votes; C\u00edrdan's optional placements for p1 and p2 (given one permanent each so the step is exercised) precede Erestor on the stack; Treasures for p1/p4 only; scry 1 then draw."
+      "suite": "catalog Erestor hears Círdan's secret player vote after Círdan's draws and placements",
+      "evidence": "Commit cadbdb5a deleted this source test without a progress record; this change restores its assertions on the canonical catalog definition. Secret player ballots through typed selectOption replace the legacy secret-vote custom dialog. Pending Erestor trigger carries the exact votes; Círdan's optional placements for p1 and p2 (given one permanent each so the step is exercised) precede Erestor on the stack; Treasures for p1/p4 only; scry 1 then draw."
     },
     {
       "groups": [
@@ -1486,7 +1486,7 @@
         "blinkValue:37"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/blink.test.ts",
-      "suite": "catalog Ephemerate returns a stolen creature under its owner\u2019s control",
+      "suite": "catalog Ephemerate returns a stolen creature under its owner’s control",
       "evidence": "Uses the canonical catalog definition. A p2-owned creature controlled by p1 is blinked and returns to the battlefield with owner p2 and controller p2."
     },
     {
@@ -1502,7 +1502,7 @@
         "plugDackPart33Blink:105"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/blink.test.ts",
-      "suite": "catalog Cloudshift returns a stolen creature under its caster\u2019s control",
+      "suite": "catalog Cloudshift returns a stolen creature under its caster’s control",
       "evidence": "Uses the canonical catalog definition. A p2-owned creature controlled by p1 returns to the battlefield with owner p2 and controller p1."
     },
     {
@@ -2046,7 +2046,7 @@
         "blinkValue:214"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/castTriggers.test.ts",
-      "suite": "catalog Lotho, Corrupt Shirriff triggers only for each player\u2019s second spell in a turn",
+      "suite": "catalog Lotho, Corrupt Shirriff triggers only for each player’s second spell in a turn",
       "evidence": "Uses the canonical catalog definition. p2 casts three spells; p1 loses exactly 1 life (39) and exactly one Treasure is on the battlefield."
     },
     {
@@ -2232,7 +2232,7 @@
         "jaceMultiverseArchitect:185"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
-      "suite": "catalog Jace, Multiverse Architect cannot target itself with its \u22123",
+      "suite": "catalog Jace, Multiverse Architect cannot target itself with its −3",
       "evidence": "Uses the canonical catalog definition without legacy card plugins; activating $.abilities[2] targeting Jace itself is rejected at announcement by its other: true target clause."
     },
     {
@@ -2248,7 +2248,7 @@
         "jaceMultiverseArchitect:156"
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/loyalty.test.ts",
-      "suite": "catalog Jace, Multiverse Architect \u22123 exiles another target you control then reveals onto the battlefield",
+      "suite": "catalog Jace, Multiverse Architect −3 exiles another target you control then reveals onto the battlefield",
       "evidence": "Uses the catalog card definition without legacy plugins. Activates $.abilities[2] targeting another controlled permanent, then asserts the target is exiled and the revealed Jace planeswalker enters the battlefield."
     },
     {
@@ -2259,7 +2259,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/controlAssignment.test.ts",
       "suite": "catalog reveal-to-battlefield integration and minimal control-assignment mechanics",
-      "evidence": "The source suite was removed during Dack\u2019s canonical DSL migration. Current integration coverage in controlAssignment.test.ts exercises two- and four-player pods, reveals and moves the eligible creatures, shuffles, assigns each creature to a distinct opponent, preserves permanent goad, and checks the entering creature\u2019s draw trigger. The zero/one-match cases prove the short-library branch skips donation when no creature enters."
+      "evidence": "The source suite was removed during Dack’s canonical DSL migration. Current integration coverage in controlAssignment.test.ts exercises two- and four-player pods, reveals and moves the eligible creatures, shuffles, assigns each creature to a distinct opponent, preserves permanent goad, and checks the entering creature’s draw trigger. The zero/one-match cases prove the short-library branch skips donation when no creature enters."
     },
     {
       "groups": [
@@ -2267,7 +2267,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/triggerMultiplication.test.ts",
       "suite": "a self-entry trigger resolves its gain-life instruction once for its controller",
-      "evidence": "The mixed test depended on name-keyed CARD_RULES for Mulldrifter, removed with the registry in #507. Its Thragtusk entry life assertion is retained by the minimal self-entry trigger integration here; Thragtusk\u2019s catalog composition remains structural in cardRuleCatalog.damageAndLeaves.test.ts and its self-leave behavior remains in programPersistence.test.ts. Canonical Mulldrifter draw resolution is exercised by the catalog evoke test in announcement.test.ts."
+      "evidence": "The mixed test depended on name-keyed CARD_RULES for Mulldrifter, removed with the registry in #507. Its Thragtusk entry life assertion is retained by the minimal self-entry trigger integration here; Thragtusk’s catalog composition remains structural in cardRuleCatalog.damageAndLeaves.test.ts and its self-leave behavior remains in programPersistence.test.ts. Canonical Mulldrifter draw resolution is exercised by the catalog evoke test in announcement.test.ts."
     },
     {
       "groups": [
@@ -2275,7 +2275,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "journal restore of Wall of Omens ETB draw matches live zones, life, and stack",
-      "evidence": "The mixed test\u2019s CARD_RULES/Mulldrifter half became obsolete when #507 removed the name-keyed registry; catalog Wall of Omens behavior remains tested in the restored ETB draw integration and its defender keyword mechanic test in staticKeywords.test.ts. Mulldrifter\u2019s canonical draw is exercised in announcement.test.ts."
+      "evidence": "The mixed test’s CARD_RULES/Mulldrifter half became obsolete when #507 removed the name-keyed registry; catalog Wall of Omens behavior remains tested in the restored ETB draw integration and its defender keyword mechanic test in staticKeywords.test.ts. Mulldrifter’s canonical draw is exercised in announcement.test.ts."
     },
     {
       "groups": [
@@ -2283,7 +2283,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "catalog Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger",
-      "evidence": "The source suite was removed with the obsolete mixed CARD_RULES assertion in #507. Diabolic Tutor\u2019s typed library choice and shuffle integration is retained under its #403 lifecycle owner; Mulldrifter now uses the canonical catalog and its gameplay integration proves its two-card draw."
+      "evidence": "The source suite was removed with the obsolete mixed CARD_RULES assertion in #507. Diabolic Tutor’s typed library choice and shuffle integration is retained under its #403 lifecycle owner; Mulldrifter now uses the canonical catalog and its gameplay integration proves its two-card draw."
     },
     {
       "groups": [
@@ -2291,7 +2291,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/staticModifierLifecycle.test.ts",
       "suite": "catalog Glorious Anthem modifier integration",
-      "evidence": "The legacy registry half of the source case was invalidated by #507. Glorious Anthem\u2019s canonical static modifier is executed by this mechanic integration; canonical Mulldrifter draw and entry resolution are exercised by announcement.test.ts."
+      "evidence": "The legacy registry half of the source case was invalidated by #507. Glorious Anthem’s canonical static modifier is executed by this mechanic integration; canonical Mulldrifter draw and entry resolution are exercised by announcement.test.ts."
     },
     {
       "groups": [
@@ -2299,7 +2299,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/destroy.test.ts",
       "suite": "catalog Murder destroys its chosen creature and rejects a player target",
-      "evidence": "The mixed source test\u2019s CARD_RULES assertions were superseded by #507. The retained canonical gameplay assertions are split across the Murder destroy integration here and the catalog Mulldrifter entry/draw integration in announcement.test.ts."
+      "evidence": "The mixed source test’s CARD_RULES assertions were superseded by #507. The retained canonical gameplay assertions are split across the Murder destroy integration here and the catalog Mulldrifter entry/draw integration in announcement.test.ts."
     },
     {
       "groups": [
@@ -2323,7 +2323,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/destroy.test.ts",
       "suite": "catalog Murder destroys its chosen creature and rejects a player target",
-      "evidence": "Moved from cardRuleCatalog.targetedActions.test.ts after the replacement passed. The mechanic-owned integration keeps the catalog template, rejects a player target, resolves the chosen creature destruction once, and checks both cards\u2019 final zones."
+      "evidence": "Moved from cardRuleCatalog.targetedActions.test.ts after the replacement passed. The mechanic-owned integration keeps the catalog template, rejects a player target, resolves the chosen creature destruction once, and checks both cards’ final zones."
     },
     {
       "groups": [
@@ -2410,8 +2410,8 @@
         "cirdanStatics:215"
       ],
       "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
-      "suite": "a creature that changes controller loses the old controller\u2019s grant",
-      "evidence": "The test checks the creature first has the original controller\u2019s grant, changes its controller through the generic move event, then checks new controller and loss of that grant."
+      "suite": "a creature that changes controller loses the old controller’s grant",
+      "evidence": "The test checks the creature first has the original controller’s grant, changes its controller through the generic move event, then checks new controller and loss of that grant."
     },
     {
       "groups": [
@@ -2419,7 +2419,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
       "suite": "each source suppresses the other source, then the surviving grant returns",
-      "evidence": "Two generic staticBoardPump sources cancel each other\u2019s hexproof grant/suppression; removing the rival restores the surviving source\u2019s grant and opponent targeting restriction."
+      "evidence": "Two generic staticBoardPump sources cancel each other’s hexproof grant/suppression; removing the rival restores the surviving source’s grant and opponent targeting restriction."
     },
     {
       "groups": [
@@ -2427,7 +2427,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts",
       "suite": "hexproof also rejects an opposing activated ability target",
-      "evidence": "The generic Fixture Poker activated ability uses the same battlefield Creature target filter as the instant probe. With the source\u2019s layer active, the opponent\u2019s activateAbility request against Ally Bear is rejected."
+      "evidence": "The generic Fixture Poker activated ability uses the same battlefield Creature target filter as the instant probe. With the source’s layer active, the opponent’s activateAbility request against Ally Bear is rejected."
     },
     {
       "groups": [
@@ -2435,7 +2435,7 @@
       ],
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "vigilance: attacking does not tap it",
-      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(named(state, 'Sire of Seven Deaths').tapped).toBe(false)"
       ],
@@ -2543,7 +2543,7 @@
       ],
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "lifelink: unblocked it gains its controller seven life",
-      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(state.players.p2.life).toBe(33)",
         "expect(state.players.p1.life).toBe(47)"
@@ -2652,7 +2652,7 @@
       ],
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "first strike: it kills two big blockers before they deal damage",
-      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(named(state, 'Brick A').zone).toBe('graveyard')",
         "expect(named(state, 'Brick B').zone).toBe('graveyard')",
@@ -2764,7 +2764,7 @@
       ],
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "trample: the excess over a chump blocker reaches the defending player",
-      "evidence": "Complete assertion-group evidence: all 3 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 3 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(named(state, 'Bear A').zone).toBe('graveyard')",
         "expect(named(state, 'Bear B').zone).toBe('graveyard')",
@@ -2874,7 +2874,7 @@
       ],
       "destination": "rules-engine/src/plugins/combatKeywords.test.ts",
       "suite": "reach: it can block a flying attacker",
-      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(game.blockError(game.toBlockers('Drake'), ['Sire of Seven Deaths', 'Drake'])).toBeUndefined()"
       ],
@@ -3088,7 +3088,7 @@
       ],
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "Void Winnower itself (mana value nine) is odd, and its controller blocks freely",
-      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(game.blockError(state, ['Void Winnower', 'Attacker'])).toBeUndefined()",
         "expect(game.blockError(state, ['Even Bear', 'Attacker'])).toBeUndefined()"
@@ -3193,7 +3193,7 @@
       ],
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "the restriction ends once Void Winnower is gone",
-      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 1 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(game.blockError(state, ['Two Bear', 'Runner'])).toBeUndefined()"
       ],
@@ -3297,7 +3297,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
       "suite": "every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not",
-      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(granted('P1 Bear')).toHaveLength(1)",
         "expect(granted('P2 Bear')).toHaveLength(1)",
@@ -4721,7 +4721,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "with no noncreature permanent anywhere, the ability never goes on the stack",
-      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(state.stack).toEqual([])",
         "expect(pendingSelectionFor(state, 'p1')).toBeUndefined()"
@@ -6425,7 +6425,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "one X returns each target to its owner hand after paying discards",
-      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(discards.every((id) => next.objects[id].zone === 'graveyard')).toBe(true)",
         "expect(next.objects[targets[0].objectId].zone).toBe('hand')",
@@ -6612,7 +6612,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/announcement.test.ts",
       "suite": "paid mana and discards are not refunded when every target is illegal at resolution",
-      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(discards.every((id) => next.objects[id].zone === 'graveyard')).toBe(true)",
         "expect(next.players.p1.mana.U).toBe(0)",
@@ -7162,7 +7162,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "copying an Elemental happens before the later damage query, so the copy is damaged",
-      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 5 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(copies).toHaveLength(1)",
         "expect(resolved.objects[elemental.id].damageMarked).toBe(2)",
@@ -7310,7 +7310,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "selected modes still resolve in printed order when announced out of order",
-      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 4 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(cast.stack[0].execution?.modeIndices).toEqual([1, 0])",
         "expect(copies).toHaveLength(1)",
@@ -8906,7 +8906,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/targetLegality.integration.test.ts",
       "suite": "destroys remaining legal targets when one dies before resolution",
-      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite\u2019s current execution harness; active runtime imports are listed below.",
+      "evidence": "Complete assertion-group evidence: all 2 pinned matcher expressions are verbatim in this single current owner callback. Every pinned fixture name and parameter is present in the same callback, and the inventoried helper references remain defined in the owner source. The current callback uses the mechanic suite’s current execution harness; active runtime imports are listed below.",
       "assertions": [
         "expect(destroyed).toBe(true)",
         "expect(resolved.objects[creatures[6].id].zone).toBe('battlefield')"
@@ -11563,7 +11563,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts; rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts",
       "suite": "triggered random copies repeat over lands, stop at a nonland, and enter tapped",
-      "evidence": "The removed card-specific registered-handler path is represented by reusable typed DSL execution coverage, and the canonical card configuration remains pinned structurally as \u201cSin, Spira\u2019s Punishment repeats a random tapped copy while the exiled card is a land.\u201d The generic trigger fixture verifies the ability is on stack after entry, exiles successive lands and then the first nonland, creates matching battlefield copies, and stamps them tapped. Runtime route is the current canonical DSL trigger \u2192 chooseRandom/copy/captureAmount/move/repeatWhile; no legacy handler is used.",
+      "evidence": "The removed card-specific registered-handler path is represented by reusable typed DSL execution coverage, and the canonical card configuration remains pinned structurally as “Sin, Spira’s Punishment repeats a random tapped copy while the exiled card is a land.” The generic trigger fixture verifies the ability is on stack after entry, exiles successive lands and then the first nonland, creates matching battlefield copies, and stamps them tapped. Runtime route is the current canonical DSL trigger → chooseRandom/copy/captureAmount/move/repeatWhile; no legacy handler is used.",
       "currentAssertions": [
         "expect(entered.stack[0]?.kind).toBe('ability')",
         "expect(state.zoneOrder.p1.exile.map(id => state.objects[id].name)).toEqual(['First Land', 'Second Land', 'Relic'])",
@@ -11656,7 +11656,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/chooseRandom.test.ts",
       "suite": "a copied permanent keeps and executes its stamped canonical ability",
-      "evidence": "The eligible generic artifact fixture carries a canonical ruleDefinition with a self.enters draw ability. A canonical random copy preserves that exact definition and the copied permanent\u2019s enter trigger draws Fresh Card. This replaces the legacy effects-array assertion with DSL snapshot and runtime evidence.",
+      "evidence": "The eligible generic artifact fixture carries a canonical ruleDefinition with a self.enters draw ability. A canonical random copy preserves that exact definition and the copied permanent’s enter trigger draws Fresh Card. This replaces the legacy effects-array assertion with DSL snapshot and runtime evidence.",
       "currentAssertions": [
         "expect(copy.ruleDefinition).toEqual(drawOnEntry)",
         "expect(state.zoneOrder.p1.hand.map(id => state.objects[id].name)).toEqual(['Fresh Card'])"
@@ -11674,7 +11674,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/ward.test.ts; rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts",
       "suite": "a catalog permanent presents its printed ward payment to the target player",
-      "evidence": "Current canonical catalog structural coverage pins Roaming Throne\u2019s Ward {2} static ability in cardRuleCatalog.abilityCopies.test.ts. The ward mechanic suite now uses cardTemplate(\"Roaming Throne\") as its integration fixture and checks the target player receives a ward-pay dialog for exactly 2. Canonical ward triggers only after the targeted spell resolves, so this test checks the current execution timing rather than the removed legacy immediate-dialog route.",
+      "evidence": "Current canonical catalog structural coverage pins Roaming Throne’s Ward {2} static ability in cardRuleCatalog.abilityCopies.test.ts. The ward mechanic suite now uses cardTemplate(\"Roaming Throne\") as its integration fixture and checks the target player receives a ward-pay dialog for exactly 2. Canonical ward triggers only after the targeted spell resolves, so this test checks the current execution timing rather than the removed legacy immediate-dialog route.",
       "currentAssertions": [
         "expect(pendingDialog(waiting)).toMatchObject({ kind: 'ward-pay', count: 2 })"
       ],
@@ -12084,7 +12084,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts",
       "suite": "`annihilator makes p2 sacrifice ${colossusName} and a rock: the rock is stolen, the Colossus shuffled`",
-      "evidence": "The same `COLOSSI` pair and It That Betrays fixture resolve p2\u2019s two-card sacrifice choice and trigger ordering. Current assertions check Colossus library zone/controller, absence from p1 battlefield and p2 graveyard, and the rock changing to p1 controller while retaining p2 ownership. The selection schema is now typed `choose` (the semantic request remains count two for p2)."
+      "evidence": "The same `COLOSSI` pair and It That Betrays fixture resolve p2’s two-card sacrifice choice and trigger ordering. Current assertions check Colossus library zone/controller, absence from p1 battlefield and p2 graveyard, and the rock changing to p1 controller while retaining p2 ownership. The selection schema is now typed `choose` (the semantic request remains count two for p2)."
     },
     {
       "groups": [
@@ -12116,7 +12116,7 @@
       ],
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "odd mana values and the controller own spells are unaffected",
-      "evidence": "The Void Winnower fixture proves odd-valued spells from p2 and p3 resolve and its controller\u2019s even-valued spell resolves."
+      "evidence": "The Void Winnower fixture proves odd-valued spells from p2 and p3 resolve and its controller’s even-valued spell resolves."
     },
     {
       "groups": [
@@ -12124,7 +12124,7 @@
       ],
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "lands are not spells and can still be played",
-      "evidence": "The same Void Winnower fixture uses an opponent\u2019s Test Forest and confirms the land-play action succeeds."
+      "evidence": "The same Void Winnower fixture uses an opponent’s Test Forest and confirms the land-play action succeeds."
     },
     {
       "groups": [
@@ -12156,7 +12156,7 @@
       ],
       "destination": "rules-engine/src/plugins/opponentRestrictions.test.ts",
       "suite": "only the defending opponents are restricted in a multiplayer table",
-      "evidence": "The exact Void Winnower fixture attacks one of two opponents: the defender\u2019s even-value block is rejected, while a nondefending opponent\u2019s block is legal."
+      "evidence": "The exact Void Winnower fixture attacks one of two opponents: the defender’s even-value block is rejected, while a nondefending opponent’s block is legal."
     },
     {
       "groups": [
@@ -12196,7 +12196,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/wardLife.test.ts",
       "suite": "rejects other seats, unknown options, and moving on while the choice is open",
-      "evidence": "The exact Sire/Ward spell fixture opens p1\u2019s ward option. The test rejects a bogus option, p2 attempting to answer p1\u2019s choice, and p1 passing priority while the choice remains open."
+      "evidence": "The exact Sire/Ward spell fixture opens p1’s ward option. The test rejects a bogus option, p2 attempting to answer p1’s choice, and p1 passing priority while the choice remains open."
     },
     {
       "groups": [
@@ -12260,7 +12260,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
       "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
-      "evidence": "The generic mechanic `only a sacrifice queues the sacrifice occurrence` parameterizes sacrifice, destroy, exile, and bounce and confirms only the sacrifice action queues the observer trigger. This preserves the source group\u2019s key distinction between sacrifice and other departures. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+      "evidence": "The generic mechanic `only a sacrifice queues the sacrifice occurrence` parameterizes sacrifice, destroy, exile, and bounce and confirms only the sacrifice action queues the observer trigger. This preserves the source group’s key distinction between sacrifice and other departures. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
     },
     {
       "groups": [
@@ -12276,7 +12276,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/tokenOccurrences.test.ts",
       "suite": "tokenCreated and sacrificed mechanic semantics; catalog Mirkwood Bats integration",
-      "evidence": "The generic mechanic `a token with a canonical observer sees its own creation and sacrifice` confirms a token\u2019s own copied observer can see both events and receives the sacrifice occurrence after creation. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
+      "evidence": "The generic mechanic `a token with a canonical observer sees its own creation and sacrifice` confirms a token’s own copied observer can see both events and receives the sacrifice occurrence after creation. The current execution route is canonical DSL (`rules-engine/src/cardPlugins/dsl/v1`) and fixtures use either minimal token observer programs or the catalog-resolved Mirkwood Bats template; no legacy card-name handler path remains."
     },
     {
       "groups": [
@@ -12396,7 +12396,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
       "suite": "Courtyard checks other lands at %i",
-      "evidence": "The current helper instantiates Concealed Courtyard from the saved deck fixture and tests 0 through 4 other lands; the land is tapped exactly when count is at least three. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The current helper instantiates Concealed Courtyard from the saved deck fixture and tests 0 through 4 other lands; the land is tapped exactly when count is at least three. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12404,7 +12404,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
       "suite": "Vault checks living opponents (%s)",
-      "evidence": "The current helper instantiates Vault of Champions and tests four living players versus a duel; it enters tapped only in the duel. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The current helper instantiates Vault of Champions and tests four living players versus a duel; it enters tapped only in the duel. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12412,7 +12412,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
       "suite": "Boggart Bog life choice applies only to its land (pay=%s)",
-      "evidence": "The Godless Shrine callback retains both pay and decline choices, typed option ids, absence of other pending choice protocols, life totals, and tapped status. The same owner suite tests Boggart Trawler land-face pay/decline with its printed three-life cost. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The Godless Shrine callback retains both pay and decline choices, typed option ids, absence of other pending choice protocols, life totals, and tapped status. The same owner suite tests Boggart Trawler land-face pay/decline with its printed three-life cost. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12420,7 +12420,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/entersTapped.test.ts",
       "suite": "Boggart Bog cannot pay three life at two life",
-      "evidence": "The exact Boggart Trawler // Boggart Bog fixture starts at two life, attempts the pay option, and remains at two life with the land tapped. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The exact Boggart Trawler // Boggart Bog fixture starts at two life, attempts the pay option, and remains at two life with the land tapped. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12428,7 +12428,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
       "suite": "Bojuka Bog triggers on a land drop and can exile its controller graveyard",
-      "evidence": "The catalog-backed Bojuka Bog fixture enters by playLand; its trigger selects p1 and resolution exiles the controller\u2019s own graveyard card. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The catalog-backed Bojuka Bog fixture enters by playLand; its trigger selects p1 and resolution exiles the controller’s own graveyard card. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12436,7 +12436,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
       "suite": "%s targets a player then exiles at resolution on a move entry",
-      "evidence": "The test.each parameterization covers both Bojuka Bog and Boggart Trawler // Boggart Bog. Each moves into battlefield, opens a typed player choice, then exiles at resolution the chosen graveyard. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The test.each parameterization covers both Bojuka Bog and Boggart Trawler // Boggart Bog. Each moves into battlefield, opens a typed player choice, then exiles at resolution the chosen graveyard. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12444,7 +12444,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts",
       "suite": "Trawler exile still resolves after its source stops being a creature",
-      "evidence": "The exact Trawler MDFC is moved through the front-face trigger, then its active face changes; the queued exile choice still resolves after the source stops being a creature. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The exact Trawler MDFC is moved through the front-face trigger, then its active face changes; the queued exile choice still resolves after the source stops being a creature. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12452,7 +12452,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts",
       "suite": "a token copy of Trawler carries its graveyard exile trigger",
-      "evidence": "The test creates a token with the exact catalog Boggart Trawler ruleDefinition abilities and confirms the copied trigger opens its player selection, with no legacy dialog. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The test creates a token with the exact catalog Boggart Trawler ruleDefinition abilities and confirms the copied trigger opens its player selection, with no legacy dialog. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12460,7 +12460,7 @@
       ],
       "destination": "rules-engine/src/plugins/doubleFaced.test.ts",
       "suite": "Trawler casts its front face, triggers, and resets after the land face leaves",
-      "evidence": "The deck-resolved Trawler MDFC is cast as a creature and triggers; a separate copy is played as its land face, accepts the graveyard choice, then leaves and restores the creature front face. The tests use the saved Kambal deck\u2019s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
+      "evidence": "The deck-resolved Trawler MDFC is cast as a creature and triggers; a separate copy is played as its land face, accepts the graveyard choice, then leaves and restores the creature front face. The tests use the saved Kambal deck’s resolved catalog card fixtures under commanderRules; current face/ability execution routes are canonical card rule templates."
     },
     {
       "groups": [
@@ -12484,7 +12484,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "a player with no creature is not asked to sacrifice",
-      "evidence": "After removing p2\u2019s only creature, selecting Rankle\u2019s sacrifice mode yields no p2 choice while p1 with a creature still receives a one-card typed choose selection. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+      "evidence": "After removing p2’s only creature, selecting Rankle’s sacrifice mode yields no p2 choice while p1 with a creature still receives a one-card typed choose selection. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
     },
     {
       "groups": [
@@ -12499,8 +12499,8 @@
         "rankle:168"
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
-      "suite": "the discard mode drains through Liliana\u2019s Caress",
-      "evidence": "The fixture enables Liliana\u2019s Caress; selecting discard makes p2 discard Island, then verifies Caress queues and resolves for two more life after the initial three combat damage. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+      "suite": "the discard mode drains through Liliana’s Caress",
+      "evidence": "The fixture enables Liliana’s Caress; selecting discard makes p2 discard Island, then verifies Caress queues and resolves for two more life after the initial three combat damage. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
     },
     {
       "groups": [
@@ -12508,7 +12508,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "choosing every mode queues discards before sacrifices",
-      "evidence": "The mode chooser selects all three modes; the current test verifies the APNAP discard choice is pending before the subsequent sacrifice choice and p2\u2019s life reflects the combat damage plus drain mode. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+      "evidence": "The mode chooser selects all three modes; the current test verifies the APNAP discard choice is pending before the subsequent sacrifice choice and p2’s life reflects the combat damage plus drain mode. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
     },
     {
       "groups": [
@@ -12516,7 +12516,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "each-player discard opens dialogs in APNAP order",
-      "evidence": "With a four-player table and active player p3, the discard mode requests p3\u2019s choice first and then p4\u2019s choice, preserving APNAP order. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
+      "evidence": "With a four-player table and active player p3, the discard mode requests p3’s choice first and then p4’s choice, preserving APNAP order. Current owner uses the catalog-backed Rankle rule under commanderRules. Modal choice and sacrifice selections are now canonical DSL typed choices; that route change is called out explicitly."
     },
     {
       "groups": [
@@ -12572,7 +12572,7 @@
       ],
       "destination": "rules-engine/src/plugins/enchantmentAnimation.test.ts",
       "suite": "returns a targeted enchantment card from its controller graveyard",
-      "evidence": "At p1 upkeep the Starfield trigger offers only the controller\u2019s graveyard enchantment, targets it with the current graveyard incarnation, and returns it after accepting. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
+      "evidence": "At p1 upkeep the Starfield trigger offers only the controller’s graveyard enchantment, targets it with the current graveyard incarnation, and returns it after accepting. The shared starfield() helper uses the card template under commanderRules; generic Room/enchantment fixtures keep the animation parameters exchangeable."
     },
     {
       "groups": [
@@ -12604,7 +12604,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
       "suite": "an opponent permanent with hexproof cannot be chosen, but your own can",
-      "evidence": "The exact Woodfall Primus fixture verifies target candidates include the controller\u2019s own hexproof permanent and ordinary opponent rock but exclude opponent hexproof. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
+      "evidence": "The exact Woodfall Primus fixture verifies target candidates include the controller’s own hexproof permanent and ordinary opponent rock but exclude opponent hexproof. The current helper route uses deckCard catalog templates under commanderRules; target selection uses typed selectCards."
     },
     {
       "groups": [
@@ -12700,7 +12700,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "Cry on stack, waiting discard, continueAction, then Caress drains",
-      "evidence": "The owner suite uses a minimal discard spell and discard-drain watcher: it verifies the spell stays on stack while the discard choice is open, the chosen card enters graveyard, then the queued drain trigger resolves after continuation. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The owner suite uses a minimal discard spell and discard-drain watcher: it verifies the spell stays on stack while the discard choice is open, the chosen card enters graveyard, then the queued drain trigger resolves after continuation. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12708,7 +12708,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "an opponent discarding puts Caress on the stack before life loss",
-      "evidence": "The generic discard watcher test confirms the opponent card is in graveyard, its controller has not yet lost life, one drain ability is queued, and resolving it applies the two-life loss. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The generic discard watcher test confirms the opponent card is in graveyard, its controller has not yet lost life, one drain ability is queued, and resolving it applies the two-life loss. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12716,7 +12716,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "each discarded card triggers separately",
-      "evidence": "The test loops over two separate discard occurrences and resolves each drain independently. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The test loops over two separate discard occurrences and resolves each drain independently. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12724,7 +12724,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "the controller discarding is not an opponent",
-      "evidence": "The fixture has the watcher controller discard; the test checks no drain stack item and unchanged life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The fixture has the watcher controller discard; the test checks no drain stack item and unchanged life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12732,7 +12732,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "a Caress that has left the battlefield drains nobody",
-      "evidence": "The watcher leaves before discard; the current test confirms no drain is queued and the discarder\u2019s life remains unchanged. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The watcher leaves before discard; the current test confirms no drain is queued and the discarder’s life remains unchanged. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12740,7 +12740,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "players can respond to the Caress trigger before life loss",
-      "evidence": "The test responds to the queued drain with Lightning Bolt, verifies three life loss resolves first, then resolves the drain for two additional life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "The test responds to the queued drain with Lightning Bolt, verifies three life loss resolves first, then resolves the drain for two additional life. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12748,7 +12748,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "two Caresses trigger in APNAP order",
-      "evidence": "Two discard watchers controlled by p2 and p3 observe one discard; stack order is p3 then p2 and each resolves for two life in sequence. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana\u2019s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
+      "evidence": "Two discard watchers controlled by p2 and p3 observe one discard; stack order is p3 then p2 and each resolves for two life in sequence. The relocated mechanic owner uses an exchangeable Discard Drain watcher fixture; named Liliana’s Caress DSL registration is independently structurally checked in cardRuleCatalog.test.ts."
     },
     {
       "groups": [
@@ -12803,7 +12803,7 @@
         "homerRest:220"
       ],
       "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
-      "suite": "Black Sun\u2019s Twilight scales with X and reanimates tapped at five",
+      "suite": "Black Sun’s Twilight scales with X and reanimates tapped at five",
       "evidence": "The live test casts X=5 with six black mana, verifies the creature target becomes 1/1, then selects the graveyard creature and verifies it enters under p1 tapped. Fixtures, X/payment, target and reanimation outcome match the pinned group."
     },
     {
@@ -12820,7 +12820,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/modalSpell.test.ts",
       "suite": "combat damage chooses modes before Rankle is put on the stack",
-      "evidence": "Current test records the required choice boundary: after damage the ability has not reached the stack while modes are selected; the selected modes are then present on the resulting trigger. This corrects the pinned assertion\u2019s opposite ordering and matches Comprehensive Rules 603.3c and 700.2b, which require modes for a modal triggered ability to be announced as it is put on the stack. The card\u2019s current mode choices remain the same."
+      "evidence": "Current test records the required choice boundary: after damage the ability has not reached the stack while modes are selected; the selected modes are then present on the resulting trigger. This corrects the pinned assertion’s opposite ordering and matches Comprehensive Rules 603.3c and 700.2b, which require modes for a modal triggered ability to be announced as it is put on the stack. The card’s current mode choices remain the same."
     },
     {
       "groups": [
@@ -12828,7 +12828,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts",
       "suite": "Sakashima copies another creature and turns off the legend rule",
-      "evidence": "The same entry fixture presents a copy choice, selects legendary Crab Homer, and verifies the clone takes Homer\u2019s copied name/subtype while retaining Sakashima\u2019s printed name. The live copy has legend-rule exemption and both permanents remain on the battlefield; the current canonical copy-choice event replaces the legacy dialog kind."
+      "evidence": "The same entry fixture presents a copy choice, selects legendary Crab Homer, and verifies the clone takes Homer’s copied name/subtype while retaining Sakashima’s printed name. The live copy has legend-rule exemption and both permanents remain on the battlefield; the current canonical copy-choice event replaces the legacy dialog kind."
     },
     {
       "groups": [
@@ -12924,7 +12924,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "an opponent bleeding three life puts the trigger on the stack before the draw choice",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12932,7 +12932,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "accepting the trigger draws a card and declining does not",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12940,7 +12940,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "an opponent who died to that life loss still counts",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12948,7 +12948,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "two life lost by an opponent is not enough",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12956,7 +12956,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "the watcher's own life loss does not trigger it",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12964,7 +12964,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/generalizedTriggers.test.ts",
       "suite": "life lost on an earlier turn does not carry over",
-      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher\u2019s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
+      "evidence": "Live end-step trigger integration using Sygg River Cutthroat verifies a three-life opponent threshold, trigger placement before the optional draw choice, accept versus decline, an opponent who loses the game still counting, two life not qualifying, the watcher’s own loss not qualifying, and no carryover from an earlier turn. The fixture and turn/seat routing match the pinned trigger behavior."
     },
     {
       "groups": [
@@ -12972,7 +12972,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "first actual draw in own draw step is exempt from the replacement",
-      "evidence": "Rule DSL integration fixture with discardThenDraw and a library card performs the first actual draw in its controller\u2019s draw step; the card moves to hand without a discard or graveyard entry, preserving the exemption."
+      "evidence": "Rule DSL integration fixture with discardThenDraw and a library card performs the first actual draw in its controller’s draw step; the card moves to hand without a discard or graveyard entry, preserving the exemption."
     },
     {
       "groups": [
@@ -12996,7 +12996,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/drawReplacement.integration.test.ts",
       "suite": "empty library on the draw branch sets failed-draw SBA",
-      "evidence": "The empty-library integration follows the replacement\u2019s draw branch, verifies the failed-draw marker and empty hand, then checks the appropriate player loses unless the Laboratory Maniac replacement wins."
+      "evidence": "The empty-library integration follows the replacement’s draw branch, verifies the failed-draw marker and empty hand, then checks the appropriate player loses unless the Laboratory Maniac replacement wins."
     },
     {
       "groups": [
@@ -13012,7 +13012,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/modes.test.ts",
       "suite": "each selected mode keeps a local target domain",
-      "evidence": "The actual DSL mode integration selects multiple modes with separate target clauses; the tests preserve each mode\u2019s local target scope through cast and resolution."
+      "evidence": "The actual DSL mode integration selects multiple modes with separate target clauses; the tests preserve each mode’s local target scope through cast and resolution."
     },
     {
       "groups": [
@@ -13027,8 +13027,8 @@
         "teferiSunset:52"
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
-      "suite": "the action feed exposes +1 target selectors alongside \u22122",
-      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+      "suite": "the action feed exposes +1 target selectors alongside −2",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1’s artifact/land, taps p2’s creature, gains two life, and rejects two targets for one type slot; −2 removes two loyalty and opens a private choice among exactly the top three; −7 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     },
     {
       "groups": [
@@ -13036,7 +13036,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "+1 untaps controlled targets, taps opposing targets, and gains life",
-      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1’s artifact/land, taps p2’s creature, gains two life, and rejects two targets for one type slot; −2 removes two loyalty and opens a private choice among exactly the top three; −7 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     },
     {
       "groups": [
@@ -13044,23 +13044,23 @@
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
       "suite": "+1 rejects two targets competing for the same type slot",
-      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1’s artifact/land, taps p2’s creature, gains two life, and rejects two targets for one type slot; −2 removes two loyalty and opens a private choice among exactly the top three; −7 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     },
     {
       "groups": [
         "teferiSunset:120"
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
-      "suite": "\u22122 opens an exact private top-three choice",
-      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+      "suite": "−2 opens an exact private top-three choice",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1’s artifact/land, taps p2’s creature, gains two life, and rejects two targets for one type slot; −2 removes two loyalty and opens a private choice among exactly the top three; −7 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     },
     {
       "groups": [
         "teferiSunset:140"
       ],
       "destination": "rules-engine/src/cardPlugins/planeswalker.test.ts",
-      "suite": "\u22127 untaps and draws during each opponent turn",
-      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1\u2019s artifact/land, taps p2\u2019s creature, gains two life, and rejects two targets for one type slot; \u22122 removes two loyalty and opens a private choice among exactly the top three; \u22127 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
+      "suite": "−7 untaps and draws during each opponent turn",
+      "evidence": "The live Teferi, Who Slows the Sunset integration exercises the exact ability slot and target groups: +1 untaps p1’s artifact/land, taps p2’s creature, gains two life, and rejects two targets for one type slot; −2 removes two loyalty and opens a private choice among exactly the top three; −7 creates its Teferi emblem and causes the player to untap/draw during each opponent turn."
     },
     {
       "groups": [
@@ -13092,7 +13092,7 @@
       ],
       "destination": "rules-engine/src/plugins/rooms.test.ts",
       "suite": "rejects the tap except as a sorcery and rejects an opponent Room",
-      "evidence": "The current integration rejects activation outside sorcery timing and rejects an opposing player\u2019s Room, preserving the ability\u2019s timing and target-controller constraints."
+      "evidence": "The current integration rejects activation outside sorcery timing and rejects an opposing player’s Room, preserving the ability’s timing and target-controller constraints."
     },
     {
       "groups": [
@@ -13147,8 +13147,8 @@
         "sinFallFinishers:181"
       ],
       "destination": "rules-engine/src/cardPlugins/librarySearch.test.ts",
-      "suite": "Finale of Devastation shuffles after a library find and pumps at X \u2265 10",
-      "evidence": "Current test exercises library search, shuffle tracking, and the X\u226510 pump threshold for the found creature."
+      "suite": "Finale of Devastation shuffles after a library find and pumps at X ≥ 10",
+      "evidence": "Current test exercises library search, shuffle tracking, and the X≥10 pump threshold for the found creature."
     },
     {
       "groups": [
@@ -13180,7 +13180,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts",
       "suite": "declining one fight leaves that attacker alive and out of the ledger",
-      "evidence": "The current catalog Grothama integration creates two attackers and resolves one accepted and one declined fight. It verifies only the declined attacker survives and Grothama\u2019s controller ledger contains exactly damage dealt by the accepted fighter."
+      "evidence": "The current catalog Grothama integration creates two attackers and resolves one accepted and one declined fight. It verifies only the declined attacker survives and Grothama’s controller ledger contains exactly damage dealt by the accepted fighter."
     },
     {
       "groups": [
@@ -13196,7 +13196,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/tapAll.test.ts",
       "suite": "enters tapAll with opponent filter leaves controlled creatures untapped",
-      "evidence": "Minimal creature-entry test checks the entering source and controller\u2019s creatures stay untapped while each opponent creature is tapped."
+      "evidence": "Minimal creature-entry test checks the entering source and controller’s creatures stay untapped while each opponent creature is tapped."
     },
     {
       "groups": [
@@ -13204,7 +13204,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/permanentControl.test.ts",
       "suite": "swaps creature control until cleanup",
-      "evidence": "Runtime test resolves Reins of Power, swaps each side\u2019s creatures, grants haste to the creatures gained, then verifies control and temporary haste revert at cleanup."
+      "evidence": "Runtime test resolves Reins of Power, swaps each side’s creatures, grants haste to the creatures gained, then verifies control and temporary haste revert at cleanup."
     },
     {
       "groups": [
@@ -13236,7 +13236,7 @@
       ],
       "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
       "suite": "the ETB draw trigger resolves even after the Wall leaves the battlefield",
-      "evidence": "A minimal DSL entry-trigger fixture stacks Wall of Omens\u2019 draw trigger, moves the Wall away, resolves the trigger, and verifies the library card still reaches hand."
+      "evidence": "A minimal DSL entry-trigger fixture stacks Wall of Omens’ draw trigger, moves the Wall away, resolves the trigger, and verifies the library card still reaches hand."
     },
     {
       "groups": [
@@ -13301,6 +13301,56 @@
       "destination": "rules-engine/src/cardPlugins/dsl/manaTypes.test.ts",
       "suite": "catalog Pit of Offerings restores linked exiled-card identities from a replay",
       "evidence": "The same integration JSON-restores the canonical linkedExileSets and verifies the restored relationship still permits the color ability. The former plugin-specific adoption event is replaced by persisted canonical source/card identities."
+    },
+    {
+      "groups": [
+        "firdochCore:25"
+      ],
+      "destination": "rules-engine/src/cardPlugins/manaChoice.test.ts",
+      "suite": "costed mana abilities are not free modes / catalog Firdoch Core taps for the chosen mana color",
+      "evidence": "The catalog-backed runtime test.each exercises W/U/B/R/G via tapForMana, verifies the chosen pool receives exactly one mana and the Core becomes tapped. This restores the full five-color output contract on the canonical card template."
+    },
+    {
+      "groups": [
+        "firdochCore:50",
+        "firdochCore:109"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/effectDuration.test.ts",
+      "suite": "effectDuration / Firdoch Core animation is temporary and cannot attack the turn it entered",
+      "evidence": "The canonical catalog ability at $.abilities[2] is activated after supplying {4}; the test verifies 4/4 artifact creature characteristics, rejects an attack with the summoning-sickness reason, and verifies cleanup restores Artifact with null stats. The catalog template carries Changeling, so the tested path is the same canonical card definition after #507."
+    },
+    {
+      "groups": [
+        "sinFallGaps:124",
+        "sinFallGaps:153"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/effectDuration.test.ts",
+      "suite": "effectDuration / Hall of Storm Giants and Lair of the Hydra animations",
+      "evidence": "Catalog abilities at $.abilities[2] activate with their printed costs (Hall {5}{U}; Lair X=2 plus {G}); runtime assertions verify 7/7 and 2/2 creature stats respectively, same-turn attacks fail for summoning sickness, and cleanup restores the original Land type and null stats. These cover the pinned animation and payment outcomes through the canonical DSL runtime."
+    },
+    {
+      "groups": [
+        "jointExploration:15"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/topDeck.test.ts",
+      "suite": "catalog Joint Exploration scries, draws, then puts a land from hand onto the battlefield when kicked",
+      "evidence": "The catalog card is cast through the legal action with optional cost 0 selected. Typed scry selection orders the two inspected cards, the subsequent draw is reflected in hand, the land-choice picker includes the preexisting hand land, and selecting it moves it to the battlefield; the pending choice clears. This restores the complete kicked route without copying a card definition."
+    },
+    {
+      "groups": [
+        "sinFallGaps:91"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts",
+      "suite": "untapped-entry occurrences use the actual entry state and make the return optional",
+      "evidence": "With three other Islands, the canonical Mystic Sanctuary template creates an entry choice containing the graveyard instant; after selection, resolving opens the optional top-deck decision, and accepting places that exact card on top. The case also proves later tapping the Sanctuary and removing an Island do not undo the already-recorded entry condition. Related entersTapped owner tests preserve the three-Island threshold."
+    },
+    {
+      "groups": [
+        "homerRest:325"
+      ],
+      "destination": "rules-engine/src/cardPlugins/targetedResolve.test.ts",
+      "suite": "Fell the Profane destroys the target creature or planeswalker",
+      "evidence": "The pinned historical assertion expected life loss after destruction, but the current Scryfall Oracle record and canonical DSL definition for Fell the Profane contain only “Destroy target creature or planeswalker.” The current catalog-backed test verifies the target moves to the graveyard and the opponent remains at 40 life. The drain assertion was stale relative to the authoritative card text, so preserving it would encode behavior the card does not have."
     }
   ],
   "retainedOwnerEvidence": [
@@ -13958,7 +14008,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback ``funds ${cost}${label}${lifeOf(fund) ? ` for ${lifeOf(fund)} life` : ''}`` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 2 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:481",
@@ -14013,7 +14063,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback ``cannot fund ${cost}{1}: no surplus mana`` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 1 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:490",
@@ -14068,7 +14118,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback ``cannot fund ${costOf(refuse)}${label}`` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 1 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:496",
@@ -14121,7 +14171,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `does not tap while summoning sick` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 1 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:509",
@@ -14172,7 +14222,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback ``activates for ${Object.entries(pool).map(([symbol, count]) => `${count}${symbol}`).join('')}`` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 5 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:529",
@@ -14217,7 +14267,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The source's `is not offered until its cost is in the pool` expectation was intentionally changed after #542 fixed targeted free-cast announcement/payment planning. The current owner test checks no action where the scenario cannot be planner-funded; for the three planner-funded coffers cases it checks exactly one action, the exact mana-source tap count, final mana, and source tap. This verifies the current route and does not preserve a now-false negative assertion.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:551",
@@ -14267,7 +14317,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `a {G} creature is paid by the Forest, never by City of Brass, whatever the object order (City last: %s)` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 5 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:573",
@@ -14318,7 +14368,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 6 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:602",
@@ -14363,7 +14413,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `tapped by hand it adds {%s} and pings once the trigger resolves` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 3 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 65,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:628",
@@ -14401,7 +14451,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `every mana ability is covered by a scenario, an act case, or a named gap` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 1 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 66,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "liveTableMana:638",
@@ -14437,7 +14487,7 @@
       "runtimeEvidence": "The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "evidence": "The current callback `every scenario names a card the four decks play` remains in `rules-engine/src/cardPlugins/liveTableMana.test.ts` with all 1 pinned matcher expressions present verbatim. Its pinned helper call chain is recorded below and is still part of this owner suite. Runtime route: The current owner builds scenario objects through `deckCardFixtures` and evaluates planner/act routes with `eventsForAvailableAction` and the live runtime; it no longer loads handlers by card name.",
       "fixtureCount": 66,
-      "fixtureEvidence": "The group\u2019s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
+      "fixtureEvidence": "The group’s exact fixture registration names, handler set, and inline/canonical flags remain in its pinned inventory record; the current suite resolves its scenario through the shared SCENARIOS/ACT_CASES objects and deckCardFixtures."
     },
     {
       "group": "registry:11",
