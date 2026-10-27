@@ -33,6 +33,39 @@ const activate = (server: ReturnType<typeof setup>, state: GameState, index: num
 })))
 const context = (state: GameState) => ({ state, controller: 'p1', source: captureObject(named(state, 'Holder fixture')) })
 
+test.each([true, false])('catalog optional linked exile resolves a self target after the may choice (accept: %s)', accept => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    hands: { p1: [cardTemplate('Phyrexian Ingester')] },
+    battlefield: {
+      p1: [cardTemplate('Own Bear', { types: ['Creature'], power: 2, toughness: 2 })],
+      p2: [cardTemplate('Big Foe', { types: ['Creature'], power: 4, toughness: 6 })],
+    },
+  }, { random: () => 0.5 })
+  const source = named(server.state, 'Phyrexian Ingester')
+  const entered = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'move', objectId: source.id, to: 'battlefield',
+  })))
+  const selection = pendingSelectionFor(entered, 'p1')!
+  expect(selection.candidates).toContain(source.id)
+  const targeted = resolveStack(server.rules, ok(server.rules(entered, {
+    type: 'selectCards', seat: 'p1', selectionId: selection.id,
+    kind: 'choose', count: 1, objectIds: [source.id],
+  })))
+  // Target announcement does not accept the optional effect during resolution (CR 608.2d).
+  expect(targeted.objects[source.id].zone).toBe('battlefield')
+  const option = pendingOptionSelection(targeted, 'p1')!
+  expect(option).toBeDefined()
+  const resolved = resolveStack(server.rules, ok(server.rules(targeted, {
+    type: 'selectOption', seat: 'p1', selectionId: option.id,
+    optionId: option.options[accept ? 0 : 1].id,
+  })))
+  expect(resolved.objects[source.id].zone).toBe(accept ? 'exile' : 'battlefield')
+  expect(resolved.stack).toHaveLength(0)
+  expect(pendingOptionSelection(resolved, 'p1')).toBeUndefined()
+  for (const name of ['Own Bear', 'Big Foe']) expect(named(resolved, name).zone).toBe('battlefield')
+})
+
 test('persistent linked sets accumulate exact identities and return under their owners after source sacrifice', () => {
   const server = setup()
   let state = activate(server, server.state, 0, 'Card A')
