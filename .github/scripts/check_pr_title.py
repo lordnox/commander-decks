@@ -6,7 +6,7 @@ from __future__ import annotations
 import re
 import sys
 
-from area_labels import AREAS
+AREAS = ('chore', 'ci', 'decks', 'docs', 'dsl', 'live', 'rules', 'server', 'site')
 AREA_PATTERN = '|'.join(AREAS)
 
 # dsl: Part 11 resumable replacement processing

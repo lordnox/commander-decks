@@ -17,10 +17,9 @@ substantially concerns. Keep existing type, priority, and hierarchy labels.
 Milestones are separate; choose areas from the issue's scope, not its milestone.
 Issue titles do not need PR-style area prefixes.
 
-Select Area in the issue form, or pass `--label <area>` to `gh issue create`.
-The **Issue area** workflow applies form selections on creation and checks open,
-reopen, and label-change events. If an issue lacks an area, it maintains an
-actionable comment until a relevant label is added.
+Pass `--label <area>` to `gh issue create`. Agents must check and add relevant
+area labels before creating or updating an issue. This is an agent/contributor
+rule, without automated label enforcement.
 
 ## Choose the right place
 

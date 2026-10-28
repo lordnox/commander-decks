@@ -2,12 +2,10 @@ name: PR title
 
 on:
   pull_request:
-    types: [opened, edited, reopened, synchronize, labeled, unlabeled]
+    types: [opened, edited, reopened, synchronize]
 
 permissions:
   contents: read
-  issues: read
-  pull-requests: read
 
 jobs:
   title:
@@ -18,8 +16,3 @@ jobs:
       - run: python3 .github/scripts/check_pr_title.py "${PR_TITLE}"
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-      - run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
-      - name: Check current PR area labels
-        run: python3 .github/scripts/area_labels.py
-        env:
-          GH_TOKEN: ${{ github.token }}

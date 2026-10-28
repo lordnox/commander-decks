@@ -45,15 +45,11 @@ also needs `site`. Apply labels when opening the PR, for example:
 gh pr create --base main --head <branch> --title 'server: persist accepted events' --label server --body-file <description-file>
 ```
 
-The **PR title** workflow checks the title and current labels, including on
-`labeled` and `unlabeled` events. Mark its `title` check required on `main` to
-block merging until both checks pass.
-
 Issues use the same area labels, chosen by scope, without requiring a title
-prefix. The issue form's required Area selection is applied as labels by the
-**Issue area** workflow after creation. For API/CLI-created issues, supply labels
-explicitly, for example `gh issue create --label server ...`. On opening,
-reopening, or label changes, the workflow reports a missing area label in one
-maintained comment and marks that comment resolved once a label is added. It
-does not restore form selections when a label is deliberately removed. Workflows
-for issues become active when their definitions reach the default branch.
+prefix. Supply labels when creating issues, for example
+`gh issue create --label server ...`.
+
+This is an agent/contributor rule. Before creating or updating an issue or PR,
+check its area labels and add any that are missing. Label changes do not trigger
+CI checks, and missing area labels do not fail CI. The existing **PR title**
+workflow continues to validate title format only.
