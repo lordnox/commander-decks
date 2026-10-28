@@ -5,9 +5,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { activate, staticBoardPump, targetOnResolve } from './effects'
-import { activated } from './activated'
-import { targetedResolve } from './targetedResolve'
+import { activated, amount, card, compareAmount, compileCardRuleDefinition, count, createDefinitionSnapshot, grantKeyword, KEYWORDS, modifyStats, objects, ref, spell, staticAbility, suppressKeyword } from './dsl/v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -17,18 +15,26 @@ const stats = (state: GameState, name: string) => {
   return [object.power, object.toughness]
 }
 
+const snapshot = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+const controlsCommander = compareAmount(count(objects({ zone: 'battlefield', controller: 'you', commander: true })), 'gte', 1)
+
 const lieutenant = () => cardTemplate('Lieutenant Beast', {
   types: ['Creature'],
   power: 4,
   toughness: 4,
-  effects: [
-    staticBoardPump(2, 2, ['Creature'], { if: { kind: 'controlsCommander' }, affects: 'self' }),
-    staticBoardPump(2, 2, ['Creature'], {
-      if: { kind: 'controlsCommander' },
-      affects: 'others',
-      grantKeywords: ['trample'],
-    }),
-  ],
+  ruleDefinition: snapshot([
+    staticAbility(modifyStats({
+      targets: objects({ zone: 'battlefield', among: ref('source') }), power: amount(2), toughness: amount(2), when: controlsCommander,
+    })),
+    staticAbility(modifyStats({
+      targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature', other: true }), power: amount(2), toughness: amount(2), when: controlsCommander,
+    })),
+    staticAbility(grantKeyword({
+      targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature', other: true }), keyword: KEYWORDS.trample, when: controlsCommander,
+    })),
+  ]),
 })
 
 const commanderGame = () => {
@@ -112,28 +118,31 @@ const archetype = () => cardTemplate('Hexproof Boar', {
   types: ['Creature'],
   power: 4,
   toughness: 4,
-  effects: [
-    staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
-    staticBoardPump(0, 0, ['Creature'], {
-      controller: 'opponent',
-      suppressKeywords: ['hexproof'],
-    }),
-  ],
+  ruleDefinition: snapshot([
+    staticAbility(grantKeyword({
+      targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }), keyword: KEYWORDS.hexproof,
+    })),
+    staticAbility(suppressKeyword({
+      targets: objects({ zone: 'battlefield', controller: 'opponent', type: 'Creature' }), keyword: KEYWORDS.hexproof,
+    })),
+  ]),
 })
 
 const poker = () => cardTemplate('Fixture Poker', {
   types: ['Creature'],
-  effects: [activate({
-    id: 'poker.poke',
-    costs: {},
-    targets: { filter: { zone: 'battlefield', type: 'Creature' } },
-    do: [{ kind: 'gainLife', count: 1 }],
-  })],
+  ruleDefinition: snapshot([activated({
+    costs: [],
+    decisions: { targets: [{ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: amount(1), max: amount(1), distinct: true }] },
+    instructions: [],
+  })]),
 })
 
 const probe = (name: string) => cardTemplate(name, {
   types: ['Instant'],
-  effects: [targetOnResolve('select', { zone: 'battlefield', type: 'Creature' })],
+  ruleDefinition: snapshot([spell({
+    decisions: { targets: [{ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: amount(1), max: amount(1), distinct: true }] },
+    instructions: [],
+  })]),
 })
 
 describe('static hexproof layer', () => {
@@ -158,7 +167,7 @@ describe('static hexproof layer', () => {
           p3: [cardTemplate('Third Bear', { types: ['Creature'] })],
         },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve, activated] },
+      { random: () => 0.5 },
     )
     const start = server.state
     const state = ok(server.rules(start, {
@@ -246,7 +255,7 @@ describe('static hexproof layer', () => {
       type: 'activateAbility',
       seat: 'p2',
       objectId: named(state, 'Fixture Poker').id,
-      abilityId: 'poker.poke',
+      abilityId: '$.abilities[0]',
       targets: [{ kind: 'object', objectId: named(state, 'Ally Bear').id }],
     })
     expect(result.ok).toBe(false)

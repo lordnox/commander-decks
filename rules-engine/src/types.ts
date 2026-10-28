@@ -178,8 +178,6 @@ export type EffectDuration =
   | { kind: 'whileSourceOnBattlefield'; sourceId: string; sourceIncarnation?: number }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
   | { kind: 'pumpPerLinkedExile' }
-  /** `index` is the spec's position among the source's `staticBoardPump` effects. */
-  | { kind: 'staticBoardPump'; sourceId: string; index: number }
   /** Printed static ability from a canonical `ruleDefinition`; timestamp is fixed at first compile. */
   | {
       kind: 'printedStatic'
