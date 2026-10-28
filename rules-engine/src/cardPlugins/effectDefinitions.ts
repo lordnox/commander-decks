@@ -638,7 +638,6 @@ export type GrantCreatureTrigger = NonNullable<
 >
 
 export type CardEffect =
-  | { op: 'dredge'; count: number }
   | {
       op: 'saga'
       chapters: SagaChapter[]
