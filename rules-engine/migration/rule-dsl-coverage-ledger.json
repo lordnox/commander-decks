@@ -5632,7 +5632,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/bestow.test.ts:90 — test('landfall copies the attached creature when paid and makes an Insect otherwise', () => {"
+          "rules-engine/src/cardPlugins/bestow.test.ts:89 — test('landfall copies the attached creature when paid and makes an Insect otherwise', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5891,7 +5891,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
-        "rules-engine/src/cardPlugins/bestow.ts:87",
+        "rules-engine/src/cardPlugins/bestow.ts:89",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:475",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
@@ -6501,12 +6501,12 @@
       {
         "path": "rules-engine/src/cardPlugins/bestow.ts",
         "lines": [
-          64,
-          78
+          66,
+          80
         ],
         "samples": [
-          "64: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
-          "78: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
+          "66: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
+          "80: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7990,12 +7990,12 @@
       {
         "path": "rules-engine/src/cardPlugins/bestow.ts",
         "lines": [
-          81,
-          86
+          83,
+          88
         ],
         "samples": [
-          "81: const source = draft.object(dialog.sourceId)",
-          "86: draft.enqueue({ type: 'payMana', seat: event.seat, cost: instruction.cost })"
+          "83: const source = draft.object(dialog.sourceId)",
+          "88: draft.enqueue({ type: 'payMana', seat: event.seat, cost: instruction.cost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
