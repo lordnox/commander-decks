@@ -27,7 +27,6 @@ import { playerEffects } from './playerEffects'
 import { phasing } from './phasing'
 import { protectionFromEverything } from './protectionFromEverything'
 import { untilNextTurn } from './untilNextTurn'
-import { cdaLifePt } from './cdaLifePt'
 import { mana } from './mana'
 import { monarch } from './monarch'
 import { manaBurn } from './manaBurn'
@@ -90,7 +89,6 @@ export const builtInPlugins = [
   life,
   monarch,
   energy,
-  cdaLifePt,
   damage,
   battle,
   doubleFaced,
