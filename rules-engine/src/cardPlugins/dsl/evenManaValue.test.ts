@@ -11,6 +11,7 @@ import {
   opponentsCantCast,
   staticAbility,
 } from './v1'
+import type { ManaValueRestriction } from './schema/v2'
 
 const winnower = createDefinitionSnapshot(compileCardRuleDefinition(card([
   staticAbility(opponentsCantCast('even'), opponentsCantBlock('even')),
@@ -47,6 +48,9 @@ const cast = (server: ReturnType<typeof game>, seat: 'p1' | 'p2', name: string) 
   return server.rules(state, { type: 'castSpell', seat, objectId })
 }
 
+const compileManaValueRestriction = (predicate: ManaValueRestriction) =>
+  compileCardRuleDefinition(card([staticAbility(opponentsCantCast(predicate))]))
+
 test('canonical even-mana-value restrictions include zero and spare the controller', () => {
   const server = game()
   const even = cast(server, 'p2', 'Even spell')
@@ -81,4 +85,17 @@ test('the compiler rejects an unknown mana-value parity', () => {
   expect(() => compileCardRuleDefinition(card([
     staticAbility({ kind: 'opponentsCantCast', parity: 'prime' as 'even' }),
   ]))).toThrow()
+})
+
+test('parity builder keeps its existing serialized shape', () => {
+  expect(opponentsCantCast('even')).toEqual({ kind: 'opponentsCantCast', parity: 'even' })
+  expect(opponentsCantBlock('odd')).toEqual({ kind: 'opponentsCantBlock', parity: 'odd' })
+})
+
+test('the compiler validates mana-value range predicates', () => {
+  expect(compileManaValueRestriction({ min: 3, max: 4 })).toBeDefined()
+  expect(() => compileManaValueRestriction({})).toThrow()
+  expect(() => compileManaValueRestriction({ min: -1 })).toThrow()
+  expect(() => compileManaValueRestriction({ max: 1.5 })).toThrow()
+  expect(() => compileManaValueRestriction({ min: 5, max: 4 })).toThrow()
 })

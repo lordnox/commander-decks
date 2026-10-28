@@ -7,7 +7,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v2'
-import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING } from '../schema/v2'
+import { CHOSEN_CREATURE_TYPE_BINDING, MANA_QUERY_BASIS, PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, BASIC_LAND_TYPES, CHOICE_RELATIONS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS, NUMERIC_RESULT_FIELDS, ROOM_DOORS, SPELL_CAST_COSTS, SPELL_CAST_TIMING, MANA_VALUE_PARITIES } from '../schema/v2'
 import { definitionRevisionFor } from '../builders/revision'
 import { PLAYER_EFFECTS, PLAYER_EFFECT_DURATIONS } from '../../../plugins/playerEffectConstants'
 import type { RuleDslDiagnostic } from './errors'
@@ -2596,8 +2596,17 @@ export const validateDefinitionV2 = (root: unknown): {
             }
             case 'opponentsCantCast':
             case 'opponentsCantBlock': {
-              exactKeys(node, effectPath, ['kind', 'parity'], ['kind', 'parity'])
-              enumeration(node.parity, childPath(effectPath, 'parity'), new Set(['even', 'odd']), 'mana-value parity')
+              exactKeys(node, effectPath, ['kind', 'parity', 'min', 'max'], ['kind'])
+              const hasPredicate = node.parity !== undefined || node.min !== undefined || node.max !== undefined
+              if (!hasPredicate) issue(effectPath, 'domain', 'mana-value restriction needs parity, min, or max')
+              if (node.parity !== undefined) {
+                enumeration(node.parity, childPath(effectPath, 'parity'), new Set(Object.values(MANA_VALUE_PARITIES)), 'mana-value parity')
+              }
+              const min = node.min === undefined ? undefined : integer(node.min, childPath(effectPath, 'min'))
+              const max = node.max === undefined ? undefined : integer(node.max, childPath(effectPath, 'max'))
+              if (min !== undefined && max !== undefined && min > max) {
+                issue(effectPath, 'bounds', 'mana-value minimum exceeds maximum')
+              }
               return
             }
             case 'targetingRequirement': {

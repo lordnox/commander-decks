@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
-import { opponentsCantBlock } from '../cardPlugins/effectBuilders'
-import { serializableEffects } from '../cardPlugins/effects'
+import { card as dslCard, compileCardRuleDefinition, createDefinitionSnapshot, opponentsCantBlock, staticAbility } from '../cardPlugins/dsl/v1'
+import type { ManaValueRestriction } from '../cardPlugins/dsl/schema/v2'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -279,12 +279,14 @@ describe('blocking flying, reach and menace', () => {
   })
 })
 
-const winnower = (predicate: Parameters<typeof opponentsCantBlock>[0] = { parity: 'even' }) =>
+const winnower = (predicate: ManaValueRestriction = { parity: 'even' }) =>
   cardTemplate('Fixture Winnower', {
     types: ['Creature'],
     power: 1,
     toughness: 1,
-    effects: serializableEffects([opponentsCantBlock(predicate)]),
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+      staticAbility(opponentsCantBlock(predicate)),
+    ]))),
   })
 
 const withValue = (name: string, manaValue: number) =>
@@ -319,6 +321,19 @@ describe('opponents can not block with creatures matching a mana value predicate
     expect(range.blockError(rangeState, ['Four', 'Runner'])).toContain("can't block")
     expect(range.blockError(rangeState, ['Two', 'Runner'])).toBeUndefined()
     expect(range.blockError(rangeState, ['Five', 'Runner'])).toBeUndefined()
+  })
+
+  test('parity and inclusive range conditions both apply to blockers', () => {
+    const game = combatGame(
+      [winnower({ parity: 'odd', min: 3, max: 5 }), creature('Runner', 2, 2)],
+      [withValue('Two', 2), withValue('Three', 3), withValue('Four', 4), withValue('Five', 5), withValue('Six', 6)],
+    )
+    const state = game.toBlockers(['Runner'])
+    expect(game.blockError(state, ['Three', 'Runner'])).toContain("can't block")
+    expect(game.blockError(state, ['Five', 'Runner'])).toContain("can't block")
+    expect(game.blockError(state, ['Two', 'Runner'])).toBeUndefined()
+    expect(game.blockError(state, ['Four', 'Runner'])).toBeUndefined()
+    expect(game.blockError(state, ['Six', 'Runner'])).toBeUndefined()
   })
 
   test('the controller is not restricted by its own permanent', () => {

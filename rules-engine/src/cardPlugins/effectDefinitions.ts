@@ -62,13 +62,6 @@ export type TokenSpec = {
   effects?: CardEffect[]
 }
 
-/** Test on a mana value; every present field must hold. Zero is even. */
-export type ManaValuePredicate = {
-  parity?: 'even' | 'odd'
-  min?: number
-  max?: number
-}
-
 export type RevealUntilNonMatch = 'mill' | 'shuffle' | 'bottomRandom'
 
 /**
@@ -755,10 +748,6 @@ export type CardEffect =
       pluginId?: string
       extraLandfall?: number
       extraEnters?: number
-      /** "Your opponents can't block with creatures with …" while this is on the battlefield. */
-      opponentsCantBlock?: ManaValuePredicate
-      /** "Your opponents can't cast spells with …" while this is on the battlefield. */
-      opponentsCantCast?: ManaValuePredicate
       grantRetrace?: {
         nonlandPermanent?: boolean
         duringYourTurn?: boolean
