@@ -41,7 +41,6 @@ import { saga } from './plugins/saga'
 import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
-import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { additionalLandPlay } from './cardPlugins/additionalLandPlay'
 import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
@@ -132,7 +131,6 @@ export const optionalPlugins = [
   swampOverlay,
   extraSwampMana,
   starfieldOfNyx,
-  grantCreatureTrigger,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

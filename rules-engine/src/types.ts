@@ -144,12 +144,6 @@ export type ReversibleEffect =
       after: { power: number; toughness: number }
     }
   | {
-      kind: 'triggerGrant'
-      sourceId: string
-      grantId: string
-      trigger: CardEffect
-    }
-  | {
       kind: 'loseAbilitiesBecome'
       before: {
         oracleText: string

@@ -8,7 +8,6 @@ import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
  * CR 603.3b — APNAP placement has separate non-ability and ability-triggering passes.
  */
 import { effectsOf } from '../cardPlugins/cardRules'
-import { syncGrantCreatureTriggers } from '../cardPlugins/grantCreatureTrigger'
 import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import {
   conditionHolds,
@@ -1117,7 +1116,6 @@ const collectEnters = (
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
-  syncGrantCreatureTriggers(draft)
   const objectId = permanentEnteringObjectId(event, state)
   if (!objectId) return
   const object = draft.object(objectId)
