@@ -855,9 +855,3 @@ export type CardEffect =
       drawAtEnchantedEnd: number
       breakOnMutualAttack: boolean
     }
-  | {
-      op: 'bestow'
-      cost: string
-      power: number
-      toughness: number
-    }

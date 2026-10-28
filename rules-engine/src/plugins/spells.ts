@@ -242,16 +242,12 @@ export const spellCost = (
       ? availableAlternateCastEffect(state, seat, object, options.castOption)
       : undefined
   ) ?? alternateCastEffect(object, options.castOption)
-  const bestowed = options.castOption === 'bestow'
-    ? effectsOf(object).find((effect) => effect.op === 'bestow')
-    : undefined
   const x = options.x ?? 0
   const xCost = x > 0 ? `{${x}}` : ''
   const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
   const base = options.withoutPayingMana || options.castOption === 'exiledWithLife'
     ? ''
     : (selected ? withX(printedAlternateManaCost(selected, object)) : undefined)
-      ?? bestowed?.cost
       ?? withX(object.manaCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
@@ -738,12 +734,9 @@ export const spells: Plugin = {
       if (!event.copy && cantCastSpellWith(state, event.seat, spellManaValue)) {
         return `${spell.name} cannot be cast: an opponent's permanent forbids spells with mana value ${spellManaValue}`
       }
-      const bestow = event.castOption === 'bestow'
-        && effectsOf(spell).some((effect) => effect.op === 'bestow')
       if (
         event.castOption
         && !selected
-        && !bestow
         && !(event.castOption === 'exiledWithLife' && canPlayExiledWithLife(state, event.seat, object))
       ) {
         return `${object.name} has no casting option ${event.castOption}`

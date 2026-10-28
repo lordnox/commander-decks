@@ -40,11 +40,6 @@ export const playerAuraDeal = (): CardEffect => ({
   breakOnMutualAttack: true,
 })
 
-export const bestow = (
-  cost: string,
-  bonus: { power: number; toughness: number },
-): CardEffect => ({ op: 'bestow', cost, ...bonus })
-
 export const handler = (pluginId: string): CardEffect => ({
   op: 'handler',
   pluginId,

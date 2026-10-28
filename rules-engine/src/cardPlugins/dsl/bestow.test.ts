@@ -47,8 +47,8 @@ const bestower = (extra: Parameters<typeof card>[0] = []) => cardTemplate('Besto
     ...bestow('{1}{G}'),
     staticAbility(modifyStats({
       targets: objects({ zone: 'battlefield', enchantedBy: ref('source') }),
-      power: amount(1),
-      toughness: amount(1),
+      power: amount(2),
+      toughness: amount(2),
     })),
     ...extra,
   ]),
@@ -134,7 +134,7 @@ test('legalActsFor offers a creature cast and a bestowed Aura cast that pays the
     power: null,
     toughness: null,
   })
-  expect(resolved.objects[target.id]).toMatchObject({ power: 3, toughness: 3 })
+  expect(resolved.objects[target.id]).toMatchObject({ power: 4, toughness: 4 })
 })
 
 test('an illegal bestow target makes the spell enter as a creature', () => {
