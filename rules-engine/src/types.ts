@@ -134,17 +134,6 @@ export type ReversibleEffect =
   /** CR 701.19a one-use regeneration shield; the destroy handler spends it. */
   | { kind: 'regenerationShield' }
   /**
-   * Layer 7a CDA: base power and toughness each equal a computed value
-   * (life total, counted permanents, …). `after` is the 7a set; +1/+1
-   * counters apply on top (CR 613.4c). `who` is stored for life CDAs.
-   */
-  | {
-      kind: 'cdaLifePt'
-      who?: 'controller' | 'owner'
-      before: { power: number | null; toughness: number | null }
-      after: { power: number; toughness: number }
-    }
-  /**
    * Layer 7b set-P/T: `after` holds independent power and toughness
    * (CR 613.4b). Counters still apply on top (CR 613.4c).
    */
@@ -188,7 +177,6 @@ export type EffectDuration =
   | { kind: 'forTurns'; untilTurn: number }
   | { kind: 'whileSourceOnBattlefield'; sourceId: string; sourceIncarnation?: number }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
-  | { kind: 'cdaLifePt' }
   | { kind: 'pumpPerLinkedExile' }
   /** `index` is the spec's position among the source's `staticBoardPump` effects. */
   | { kind: 'staticBoardPump'; sourceId: string; index: number }

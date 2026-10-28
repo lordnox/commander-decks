@@ -19,18 +19,6 @@ export const grantCreatureTrigger = (
   grantCreatureTrigger: { to, on, do: instructions },
 })
 
-/** Layer 7a CDA: power and toughness each equal the chosen player's life total. */
-export const ptEqualsLife = (options: { who: 'controller' | 'owner' }): CardEffect => ({
-  op: 'static',
-  ptEqualsLife: options,
-})
-
-/** Layer 7a CDA: power and toughness each equal the number of matching permanents you control. */
-export const ptEqualsCount = (types: string | string[]): CardEffect => ({
-  op: 'static',
-  ptEqualsCount: { types: Array.isArray(types) ? types : [types] },
-})
-
 /**
  * Matching permanents get +N/+N while this source is on the battlefield; options add a
  * condition, a self/others or opponent scope, and granted or suppressed keywords.

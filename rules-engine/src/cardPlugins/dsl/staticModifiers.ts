@@ -434,7 +434,6 @@ const printedStaticTimestamp = (entry: ContinuousEffect, fallback: number) =>
 
 const powerToughnessSublayer = (entry: ContinuousEffect) => {
   switch (entry.effect.kind) {
-    case 'cdaLifePt': return 0
     case 'setPt': return entry.effect.cda ? 0 : 1
     case 'pump':
     case 'pumpPerLinkedExile': return 2

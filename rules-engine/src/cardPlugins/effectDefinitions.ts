@@ -755,9 +755,6 @@ export type CardEffect =
       }
       /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
       linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
-      ptEqualsLife?: { who: 'controller' | 'owner' }
-      /** Layer 7a CDA: P/T each equal the number of matching permanents you control. */
-      ptEqualsCount?: { types: string[] }
       /** Activated abilities of matching permanents you control cost this much less. */
       /** Matching permanents get +N/+N and keyword changes while this source is on the battlefield. */
       staticBoardPump?: StaticBoardPumpSpec
