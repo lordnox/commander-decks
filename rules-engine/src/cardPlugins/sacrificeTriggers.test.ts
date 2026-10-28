@@ -18,7 +18,6 @@ import { createTreasures, enters } from './effects'
 import {type CardTemplate} from '../newGame'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
-import {exiledWith} from './exiledWith'
 import {onResolve} from './onResolve'
 import {ward} from './ward'
 
@@ -569,7 +568,6 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
     choiceEffects,
     librarySearch,
     ward,
-    exiledWith,
     pendingDialogLock,
   ]
 

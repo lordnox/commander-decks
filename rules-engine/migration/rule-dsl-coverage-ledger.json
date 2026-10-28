@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 59,
-    "directMutationSites": 502,
+    "directMutationSites": 500,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -2670,7 +2670,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:161 — test('chooses among several linked exiled cards before pumping', () => {"
+          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:160 — test('chooses among several linked exiled cards before pumping', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5696,9 +5696,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1365",
-        "rules-engine/src/actions.ts:1534",
-        "rules-engine/src/actions.ts:862",
+        "rules-engine/src/actions.ts:1350",
+        "rules-engine/src/actions.ts:1519",
+        "rules-engine/src/actions.ts:847",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
@@ -5824,7 +5824,7 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:546",
         "rules-engine/src/cardPlugins/continuousEffects.ts:583",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:608",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:736",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:731",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -5851,7 +5851,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:431",
+        "rules-engine/src/plugins/spells.ts:430",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:156",
@@ -6819,30 +6819,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          847,
-          853,
-          924,
-          944,
-          946,
+          837,
+          843,
+          914,
+          934,
+          936,
+          939,
           949,
-          959,
-          962,
-          977,
+          952,
+          967,
+          968,
           978,
-          988,
-          991,
-          993,
-          1069,
-          1093,
-          1108,
-          1127,
-          1135,
-          1151
+          981,
+          983,
+          1059,
+          1083,
+          1098,
+          1117,
+          1125,
+          1141
         ],
         "samples": [
-          "847: const moved = draft.object(event.objectId)",
-          "853: const object = draft.object(event.objectId)",
-          "924: .map((objectId) => draft.object(objectId))"
+          "837: const moved = draft.object(event.objectId)",
+          "843: const object = draft.object(event.objectId)",
+          "914: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7627,15 +7627,15 @@
       {
         "path": "rules-engine/src/cardPlugins/alternateCosts.ts",
         "lines": [
-          250,
-          257,
-          265,
-          268
+          236,
+          243,
+          251,
+          254
         ],
         "samples": [
-          "250: const object = draft.object(event.objectId)",
-          "257: draft.enqueue({",
-          "265: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
+          "236: const object = draft.object(event.objectId)",
+          "243: draft.enqueue({",
+          "251: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8115,25 +8115,6 @@
           "93: const spellObject = event.type === 'castSpell' ? draft.object(event.objectId) : undefined",
           "94: draft.addToStack({ kind: 'ability', objectId: object.id, controller: object.controller, name: `${object.name}'s Ward`, targets: [], payload: {",
           "206: const object = draft.object(pending.event.objectId)"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/exiledWith.ts",
-        "lines": [
-          38,
-          39
-        ],
-        "samples": [
-          "38: const card = draft.object(event.objectId)",
-          "39: const source = draft.object(rule.sourceId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -64,8 +64,6 @@ import { freeCastCandidates, pendingFreeCastFor } from './plugins/rebound'
 import { enchantPlayerTargets, enchantTargets } from './plugins/enchant'
 import { mayCastAsThoughFlash } from './plugins/flashGrant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
-import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
-import { manaValueOf } from './cardPlugins/effects'
 import { pendingExtortFor } from './cardPlugins/extort'
 import { pendingOptionalManaPayFor } from './cardPlugins/optionalManaPay'
 import {
@@ -845,19 +843,6 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
 }
 
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
-  if (canPlayExiledWithLife(state, seat, object)) {
-    const life = manaValueOf(object)
-    if (canPayLife(state, seat, life)) {
-      return [{
-        kind: 'castSpell',
-        objectId: object.id,
-        name: object.name,
-        castOption: 'exiledWithLife',
-        castLabel: `Cast for ${life} life`,
-      }]
-    }
-    return []
-  }
   const tax = taxFor(state, seat, object)
   if (object.roomDoors) {
     const suffix = tax > 0 ? `{${tax}}` : ''

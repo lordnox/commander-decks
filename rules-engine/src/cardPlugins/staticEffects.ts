@@ -23,22 +23,3 @@ export const staticGrant = (pluginId: string): CardEffect => ({
   op: 'static',
   pluginId,
 })
-
-export const grantRetrace = (): CardEffect => ({
-  op: 'static',
-  grantRetrace: {
-    nonlandPermanent: true,
-    duringYourTurn: true,
-    other: true,
-  },
-})
-
-export const exileOpponentGraveyard = (): CardEffect => ({
-  op: 'static',
-  exileOpponentGraveyard: true,
-})
-
-export const playExiledWithLife = (): CardEffect => ({
-  op: 'static',
-  playExiledWithLife: true,
-})
