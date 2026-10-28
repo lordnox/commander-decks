@@ -9,7 +9,6 @@ import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
 import { doubleFaced } from './plugins/doubleFaced'
-import { enchantedManaBoost } from './plugins/enchantedManaBoost'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { attackSubtypeDraw } from './plugins/attackSubtypeDraw'
 import { fog } from './plugins/fog'
@@ -136,7 +135,6 @@ export const optionalPlugins = [
   forestOverlay,
   swampOverlay,
   extraSwampMana,
-  enchantedManaBoost,
   starfieldOfNyx,
   grantCreatureTrigger,
   staticBoardPump,
