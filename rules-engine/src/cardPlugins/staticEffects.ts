@@ -79,22 +79,6 @@ export const pumpFromLinkedExileStats = (): CardEffect => ({
   pumpPerLinkedExile: { fromLinked: true },
 })
 
-export const attackTax = (
-  amount: number,
-  options: { whileUntapped?: boolean } = {},
-): CardEffect => ({
-  op: 'static',
-  attackTax: { amount, ...options },
-})
-
-export const blockTax = (
-  amount: number,
-  options: { whileAttacking?: boolean } = {},
-): CardEffect => ({
-  op: 'static',
-  blockTax: { amount, ...options },
-})
-
 export const linkedExileUntilLeaves = (
   returnTo: 'battlefield' | 'hand' = 'battlefield',
 ): CardEffect => ({
