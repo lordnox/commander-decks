@@ -1,7 +1,5 @@
 import type { CardCondition, CardEffect } from './effectDefinitions'
 
-export const dredge = (count: number): CardEffect => ({ op: 'dredge', count })
-
 export const entersTapped = (condition?: CardCondition): CardEffect => ({
   op: 'replacement',
   on: 'enters',

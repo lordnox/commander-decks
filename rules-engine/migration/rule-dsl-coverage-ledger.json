@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 15,
+    "cardEffects": 14,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
     "builtInPlugins": 62,
@@ -93,26 +93,6 @@
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "unobserved"
-    },
-    {
-      "variant": "dredge",
-      "mechanic": "draw replacement",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "replacement definition over draw proposals",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "14",
-      "dependencyParts": [
-        "05",
-        "07",
-        "11",
-        "13"
-      ],
       "status": "unobserved"
     },
     {
@@ -6015,7 +5995,7 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:637",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:813",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:812",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -8388,15 +8368,15 @@
       {
         "path": "rules-engine/src/cardPlugins/dredge.ts",
         "lines": [
-          78,
-          85,
-          98,
-          100
+          76,
+          83,
+          96,
+          98
         ],
         "samples": [
-          "78: draft.enqueue({",
-          "85: draft.enqueue({",
-          "98: draft.enqueue({ type: 'move', objectId, to: 'hand' })"
+          "76: draft.enqueue({",
+          "83: draft.enqueue({",
+          "96: draft.enqueue({ type: 'move', objectId, to: 'hand' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
