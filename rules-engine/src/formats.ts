@@ -42,7 +42,6 @@ import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
 import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
-import { staticBoardPump } from './cardPlugins/staticBoardPump'
 import { additionalLandPlay } from './cardPlugins/additionalLandPlay'
 import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
@@ -135,7 +134,6 @@ export const optionalPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantCreatureTrigger,
-  staticBoardPump,
   exilePayoffs,
   attackSubtypeDraw,
   sacrificeLandMana,

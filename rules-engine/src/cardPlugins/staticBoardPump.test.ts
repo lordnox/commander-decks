@@ -5,19 +5,9 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { deckCard, fixtureCreature } from './cirdanCreatureCards'
-import { pluginIdsFromEffects } from './effectRuntime'
-import { staticBoardPump as pumpEffect } from './effects'
-import { staticBoardPump } from './staticBoardPump'
+import { resolveStack } from '../testHelpers'
+import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, modifyStats, objects, staticAbility } from './dsl/v1'
 
-import {resolveStack} from '../testHelpers'
-
-
-
-
-
-
-
-import { targetedResolve } from './targetedResolve'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -38,11 +28,18 @@ const move = (
   to: 'battlefield' | 'graveyard' | 'exile' = 'battlefield',
 ) => ok(server.rules(state, { type: 'move', objectId: named(state, name).id, to }))
 
+const snapshot = (ability: ReturnType<typeof staticAbility>) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card([ability])))
+
 const lord = () => cardTemplate('Land-Creature Lord', {
   types: ['Creature'],
   power: 3,
   toughness: 3,
-  effects: [pumpEffect(1, 1, ['Creature', 'Land'])],
+  ruleDefinition: snapshot(staticAbility(modifyStats({
+    targets: objects({ zone: 'battlefield', controller: 'you', all: [{ type: 'Creature' }, { type: 'Land' }] }),
+    power: amount(1),
+    toughness: amount(1),
+  }))),
 })
 
 const forestDryad = () => cardTemplate('Forest Dryad', {
@@ -59,78 +56,40 @@ const bear = () => cardTemplate('Plain Bear', {
 })
 
 describe('static board pump for land creatures', () => {
-  test('stamped effects grant the staticBoardPump plugin', () => {
-    expect(pluginIdsFromEffects([pumpEffect(1, 1, ['Creature', 'Land'])]))
-      .toEqual(['staticBoardPump'])
-    expect(staticBoardPump.id).toBe('staticBoardPump')
-  })
-
   test('a Forest Dryad gets +1/+1 and a non-land creature does not', () => {
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [lord(), forestDryad(), bear()] } },
-      { random: () => 0.5 },
-    )
-    const dryadId = Object.values(server.state.objects)
-      .find((object) => object.name === 'Forest Dryad')!.id
-    const bearId = Object.values(server.state.objects)
-      .find((object) => object.name === 'Plain Bear')!.id
-    const state = ok(server.rules(server.state, {
-      type: 'custom',
-      name: 'staticBoardPump.sync',
-    }))
-    expect([state.objects[dryadId].power, state.objects[dryadId].toughness]).toEqual([2, 2])
-    expect([state.objects[bearId].power, state.objects[bearId].toughness]).toEqual([2, 2])
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [lord(), forestDryad(), bear()] },
+    }, { random: () => 0.5 })
+    expect(stats(server.state, 'Forest Dryad')).toEqual([2, 2])
+    expect(stats(server.state, 'Plain Bear')).toEqual([2, 2])
   })
 
   test("an opponent's land creature is unchanged", () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: ['p1', 'p2'],
-        battlefield: {
-          p1: [lord()],
-          p2: [forestDryad()],
-        },
-      },
-      { random: () => 0.5 },
-    )
-    const dryadId = Object.values(server.state.objects)
-      .find((object) => object.name === 'Forest Dryad')!.id
-    const state = ok(server.rules(server.state, {
-      type: 'custom',
-      name: 'staticBoardPump.sync',
-    }))
-    expect([state.objects[dryadId].power, state.objects[dryadId].toughness]).toEqual([1, 1])
-  })
-
-  test('structuredClone keeps the staticBoardPump static effect', () => {
-    const stamped = [pumpEffect(1, 1, ['Creature', 'Land'])]
-    expect(structuredClone(stamped)).toEqual(stamped)
+    const server = createServerGame(commanderRules, {
+      players: ['p1', 'p2'],
+      battlefield: { p1: [lord()], p2: [forestDryad()] },
+    }, { random: () => 0.5 })
+    expect(stats(server.state, 'Forest Dryad')).toEqual([1, 1])
   })
 })
 
 const lieutenantGame = () => {
-  const server = createServerGame(
-    commanderRules,
-    {
-      players: 3,
-      battlefield: {
-        p1: [
-          deckCard('Thunderfoot Baloth'),
-          fixtureCreature('Ally Bear'),
-          cardTemplate('Ally Relic', { types: ['Artifact'] }),
-        ],
-        p2: [fixtureCreature('Enemy Bear')],
-      },
-      command: {
-        p1: [fixtureCreature('Our General', { power: 3, toughness: 3, tags: ['commander'] })],
-        p2: [fixtureCreature('Their General', { power: 3, toughness: 3, tags: ['commander'] })],
-      },
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: {
+      p1: [
+        deckCard('Thunderfoot Baloth'),
+        fixtureCreature('Ally Bear'),
+        cardTemplate('Ally Relic', { types: ['Artifact'] }),
+      ],
+      p2: [fixtureCreature('Enemy Bear')],
     },
-    { random: () => 0.5 },
-  )
-  return { server, start: ok(server.rules(server.state, { type: 'custom', name: 'staticBoardPump.sync' })) }
+    command: {
+      p1: [fixtureCreature('Our General', { power: 3, toughness: 3, tags: ['commander'] })],
+      p2: [fixtureCreature('Their General', { power: 3, toughness: 3, tags: ['commander'] })],
+    },
+  }, { random: () => 0.5 })
+  return { server, start: server.state }
 }
 
 describe('Thunderfoot Baloth', () => {
@@ -176,18 +135,11 @@ describe('Thunderfoot Baloth', () => {
   })
 
   test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        battlefield: {
-          p1: [deckCard('Thunderfoot Baloth', { tags: ['commander'] }), fixtureCreature('Ally Bear')],
-        },
-      },
-      { random: () => 0.5 },
-    )
-    const state = ok(server.rules(server.state, { type: 'custom', name: 'staticBoardPump.sync' }))
-    expect(stats(state, 'Thunderfoot Baloth')).toEqual([7, 7])
-    expect(stats(state, 'Ally Bear')).toEqual([4, 4])
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [deckCard('Thunderfoot Baloth', { tags: ['commander'] }), fixtureCreature('Ally Bear')] },
+    }, { random: () => 0.5 })
+    expect(stats(server.state, 'Thunderfoot Baloth')).toEqual([7, 7])
+    expect(stats(server.state, 'Ally Bear')).toEqual([4, 4])
   })
 
   test('the pump goes away with the Baloth', () => {
@@ -201,44 +153,22 @@ describe('Thunderfoot Baloth', () => {
 })
 
 describe('relocated from sinFallGaps.test.ts → staticBoardPump.test.ts', () => {
-  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
-    cardTemplate(name, { types, ...extra })
-
-  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
+  const namedObject = (state: GameState, name: string) => named(state, name)
 
   test('Colossification attaches, taps, and pumps the creature', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: {
-            p1: [card('Bear', ['Creature'], { power: 2, toughness: 2 })],
-          },
-          hands: {
-            p1: [card('Colossification', ['Enchantment'], {
-              subtypes: ['Aura'],
-              manaCost: '{5}{G}{G}',
-            })],
-          },
-        },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 5 }
-      const aura = named(ready, 'Colossification').id
-      const bear = named(ready, 'Bear').id
-      const entered = resolveStack(server.rules, ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: aura,
-        targets: [{ kind: 'object', objectId: bear }],
-      })))
-      expect(entered.objects[aura].attachedTo).toBe(bear)
-      expect(entered.objects[bear]).toMatchObject({
-        tapped: true,
-        power: 22,
-        toughness: 22,
-      })
-    })
-
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Bear', { types: ['Creature'], power: 2, toughness: 2 })] },
+      hands: { p1: [cardTemplate('Colossification')] },
+    }, { random: () => 0.5 })
+    const ready = structuredClone(server.state)
+    ready.players.p1!.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 5 }
+    const aura = namedObject(ready, 'Colossification').id
+    const bearId = namedObject(ready, 'Bear').id
+    const entered = resolveStack(server.rules, ok(server.rules(ready, {
+      type: 'castSpell', seat: 'p1', objectId: aura,
+      targets: [{ kind: 'object', objectId: bearId }],
+    })))
+    expect(entered.objects[aura]!.attachedTo).toBe(bearId)
+    expect(entered.objects[bearId]).toMatchObject({ tapped: true, power: 22, toughness: 22 })
+  })
 })

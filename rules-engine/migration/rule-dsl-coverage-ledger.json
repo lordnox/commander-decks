@@ -23,7 +23,7 @@
     "cardEffects": 9,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
-    "builtInPlugins": 60,
+    "builtInPlugins": 59,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
@@ -48,7 +48,7 @@
           "rules-engine/src/cardPlugins/encore.test.ts:54 — test('encore builder clones safely', () => {",
           "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
           "rules-engine/src/cardPlugins/unearth.test.ts:161 — test('stamps a clone-safe unearth builder on effects', () => {",
-          "rules-engine/src/objectIdentity.test.ts:208 — test('an activated ability resolves from LKI for its captured controller', () => {",
+          "rules-engine/src/objectIdentity.test.ts:207 — test('an activated ability resolves from LKI for its captured controller', () => {",
           "rules-engine/src/plugins/rooms.test.ts:547 — test(\"generic Room targets do not impose a controller restriction\", () => {"
         ]
       },
@@ -176,7 +176,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/objectIdentity.test.ts:169 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
+          "rules-engine/src/objectIdentity.test.ts:168 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -1103,8 +1103,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/objectIdentity.test.ts:365 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
-          "rules-engine/src/objectIdentity.test.ts:472 — test('a stack copy keeps the original identity pin after the target blinks', () => {"
+          "rules-engine/src/objectIdentity.test.ts:370 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
+          "rules-engine/src/objectIdentity.test.ts:477 — test('a stack copy keeps the original identity pin after the target blinks', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1738,7 +1738,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 91,
+        "matches": 90,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3254 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -4952,25 +4952,6 @@
       "status": "confirmed-executable-evidence"
     },
     {
-      "variant": "staticBoardPump",
-      "mechanic": "runtime plugin hook",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/cardPlugins/staticBoardPump.test.ts — dedicated plugin/mechanic suite"
-      ],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:64 — test('stamped effects grant the staticBoardPump plugin', () => {"
-        ]
-      },
-      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
-      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
-    },
-    {
       "variant": "swampOverlay",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [],
@@ -5706,7 +5687,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1468"
+        "rules-engine/src/types.ts:1466"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5823,9 +5804,9 @@
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
         "rules-engine/src/rules/triggers.ts:1553",
+        "rules-engine/src/types.ts:329",
         "rules-engine/src/types.ts:331",
-        "rules-engine/src/types.ts:333",
-        "rules-engine/src/types.ts:337"
+        "rules-engine/src/types.ts:335"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5857,17 +5838,17 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/continuousEffects.ts:167",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:176",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:47",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:548",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:577",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:613",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:615",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:655",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:66",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:630",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:763",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:155",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:164",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:35",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:490",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:519",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:54",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:555",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:557",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:597",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:614",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:744",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -5878,7 +5859,7 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:13",
         "rules-engine/src/cardPlugins/staticEffects.ts:19",
         "rules-engine/src/definitions.ts:81",
-        "rules-engine/src/formats.ts:137",
+        "rules-engine/src/formats.ts:136",
         "rules-engine/src/formats.ts:44",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
@@ -5888,7 +5869,7 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/index.ts:114",
+        "rules-engine/src/plugins/index.ts:113",
         "rules-engine/src/plugins/index.ts:45",
         "rules-engine/src/plugins/rooms.ts:53",
         "rules-engine/src/plugins/rooms.ts:72",
@@ -5898,8 +5879,8 @@
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:156",
-        "rules-engine/src/types.ts:292",
-        "rules-engine/src/types.ts:356",
+        "rules-engine/src/types.ts:290",
+        "rules-engine/src/types.ts:354",
         "rules-engine/src/types.ts:75",
         "rules-engine/src/types.ts:92"
       ],
@@ -6389,14 +6370,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          906,
-          907,
-          909
+          848,
+          849,
+          851
         ],
         "samples": [
-          "906: const endTurnEffects = event.type === 'custom'",
-          "907: && event.name === 'advanceStep'",
-          "909: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "848: const endTurnEffects = event.type === 'custom'",
+          "849: && event.name === 'advanceStep'",
+          "851: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",

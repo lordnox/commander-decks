@@ -1,4 +1,4 @@
-import type { CardEffect, CardInstruction, GrantCreatureTrigger, StaticBoardPumpSpec } from './effectDefinitions'
+import type { CardEffect, CardInstruction, GrantCreatureTrigger } from './effectDefinitions'
 
 export const extraLandfall = (count = 1): CardEffect => ({
   op: 'static',
@@ -17,21 +17,6 @@ export const grantCreatureTrigger = (
 ): CardEffect => ({
   op: 'static',
   grantCreatureTrigger: { to, on, do: instructions },
-})
-
-/**
- * Matching permanents get +N/+N while this source is on the battlefield; options add a
- * condition, a self/others or opponent scope, and granted or suppressed keywords.
- */
-export const staticBoardPump = (
-  power: number,
-  toughness: number,
-  requireTypes: string[],
-  options: Omit<StaticBoardPumpSpec, 'power' | 'toughness' | 'requireTypes'> = {},
-): CardEffect => ({
-  op: 'static',
-  pluginId: 'staticBoardPump',
-  staticBoardPump: { power, toughness, requireTypes, ...options },
 })
 
 export const staticGrant = (pluginId: string): CardEffect => ({
