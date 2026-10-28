@@ -1,0 +1,35 @@
+name: Issue
+description: Report a focused defect or request a change
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Choose every area substantially affected. The workflow applies these as labels; milestones are separate.
+      multiple: true
+      options:
+        - chore
+        - ci
+        - decks
+        - docs
+        - dsl
+        - live
+        - rules
+        - server
+        - site
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or goal
+      description: Describe one actionable problem and the expected result. For defects, include exact reproduction steps, revision, runtime, and actual versus expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: completion
+    attributes:
+      label: Done when
+      description: Describe how the result can be verified. Link related issues or PRs.
+    validations:
+      required: true

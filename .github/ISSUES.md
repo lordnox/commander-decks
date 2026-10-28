@@ -9,6 +9,19 @@ observed symptom. Check relevant closed issues for previous fixes or recurrence.
 Read matching issues before deciding that a failure is new, unrelated, or safe to
 defer. Link existing reports rather than creating duplicates.
 
+## Area labels
+
+Give every issue at least one area label from the
+[shared issue/PR area table](PULL_REQUESTS.md#area-labels), plus any other area it
+substantially concerns. Keep existing type, priority, and hierarchy labels.
+Milestones are separate; choose areas from the issue's scope, not its milestone.
+Issue titles do not need PR-style area prefixes.
+
+Select Area in the issue form, or pass `--label <area>` to `gh issue create`.
+The **Issue area** workflow applies form selections on creation and checks open,
+reopen, and label-change events. If an issue lacks an area, it maintains an
+actionable comment until a relevant label is added.
+
 ## Choose the right place
 
 - A defect introduced by, or specific to, an open PR belongs in that PR's review

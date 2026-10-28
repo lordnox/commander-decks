@@ -59,6 +59,19 @@ Commit after each coherent step without waiting to be asked. Use a 1–2 sentenc
 
 When the task is done, inspect the full diff, exclude unrelated shared-cache or registry changes, push the branch, and open a ready-for-review pull request (`draft: false`) summarizing what changed. Title it `<area>: <imperative summary>` as in [`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md); numbered Rule DSL work is `dsl: Part N …`. Use `gh pr create --base main --head <branch>`; if `gh` is unavailable, return the `compare/main...<branch>?expand=1` URL instead. Return the PR URL.
 
+### Issue and PR area labels
+
+Every issue and PR needs at least one area label from the table in
+[`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md#area-labels): `dsl`, `rules`,
+`decks`, `live`, `server`, `site`, `docs`, `ci`, or `chore`. Add labels for other
+areas substantially affected and preserve existing labels. A PR must include the
+label matching its title prefix; pass `--label <area>` to `gh pr create`.
+Issues choose labels by scope without needing PR-style title prefixes; use the
+issue form or `gh issue create --label <area>`. Milestones are separate from
+area labels. Follow [`.github/ISSUES.md`](.github/ISSUES.md) when reporting defects.
+The **PR title** workflow validates PR labels on title and label changes; the
+**Issue area** workflow reports missing issue labels in a maintained comment.
+
 ### PR title rule
 
 Before creating or renaming a PR, read [`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md) and use an allowed lowercase area followed by `: ` and an imperative summary matching the final change. Use `dsl: Part N …` for numbered Rule DSL work, omit a trailing period, and update the title when the PR scope changes.
