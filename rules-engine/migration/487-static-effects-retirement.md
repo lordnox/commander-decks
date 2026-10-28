@@ -16,8 +16,8 @@ generic engine infrastructure.
 
 | Legacy field(s) | Current reader / producer | Canonical owner / evidence | Status |
 | --- | --- | --- | --- |
-| `playLandsFromGraveyard` | `plugins/lands.ts`; `staticEffects.ts` | DSL `playLands`; `dsl/playPermissions.test.ts` | Pending |
-| `playLandsFromLibraryTop`, `revealLibraryTop` | `libraryTopKnowledge.ts`; `staticEffects.ts` | DSL `playLands`, `revealLibraryTop`; `dsl/playPermissions.test.ts` | Pending |
+| `playLandsFromGraveyard` | `plugins/lands.ts`; `staticEffects.ts` | DSL `playLands`; `dsl/playPermissions.test.ts` | Removed; canonical graveyard permission assertions remain |
+| `playLandsFromLibraryTop`, `revealLibraryTop` | `libraryTopKnowledge.ts`; `staticEffects.ts` | DSL `playLands`, `revealLibraryTop`; `dsl/playPermissions.test.ts` | Removed; `libraryTop.test.ts` now uses catalog Courser of Kruphix |
 | `extraLandfall`, `extraEnters` | `effectRuntime.ts`; `staticEffects.ts` | DSL trigger event multiplicity / canonical trigger program; `triggerFrequency.test.ts` | Pending |
 | `allCreatureTypes` | `actions.ts`, `creatureTypeChoice.ts`, `homer.ts`, `spells.ts`; `staticEffects.ts` | DSL `addTypes` with `allCreatureTypes`; `dsl/typeChanges.test.ts` | Pending |
 | `legendRuleOff` | `plugins/stateBased.ts`; `staticEffects.ts` | DSL `legendRuleOff`; `dsl/legendRuleOff.test.ts` | Pending |
@@ -34,9 +34,11 @@ generic engine infrastructure.
 | `exileOpponentGraveyard`, `playExiledWithLife` | `exiledWith.ts`; `staticEffects.ts` | DSL exile/play permissions; inspect catalog and behavior tests | Pending |
 | `pluginId` | `effectRuntime.ts`, generated/static plugin discovery | Generic plugin plumbing; inspect generated program consumers | Pending; coordinate #651 |
 
-The first review slice is the three library/land permission fields. It will
-remove their legacy producers/readers and cite the existing canonical behavior
-suite rather than duplicate those semantics. Later slices will retire the
+The first review slice is the three library/land permission fields. It removed
+their legacy producers/readers and cites the existing canonical behavior suite
+rather than duplicating those semantics. Focused verification passed 19 tests
+across `plugins/lands.test.ts`, `cardPlugins/libraryTop.test.ts`, and
+`cardPlugins/dsl/playPermissions.test.ts`. Later slices will retire the
 remaining rows, with the granted-trigger and generic plugin adapters retained
 until their generated-program consumers in #648/#651 no longer depend on them.
 
