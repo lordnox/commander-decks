@@ -14,8 +14,7 @@ const tappedForMana = (state: GameState, event: GameEvent) => {
 
 /**
  * Wild Growth / Utopia Sprawl: whenever the permanent this Aura enchants is
- * tapped for mana, its controller adds one more mana, either a fixed color or
- * the color the Aura stored as it entered.
+ * tapped for mana, its controller adds one more mana of the specified color.
  */
 export const enchantedManaBoost: Plugin = {
   id: 'enchantedManaBoost',
@@ -26,7 +25,7 @@ export const enchantedManaBoost: Plugin = {
     const boost = effectsOf(aura).find((effect) =>
       effect.op === 'static' && effect.enchantedManaBoost)
     const spec = boost?.op === 'static' ? boost.enchantedManaBoost : undefined
-    const color = spec && ('chosenColor' in spec ? aura.chosenColor : spec.mana)
+    const color = spec?.mana
     const land = draft.object(tappedId)
     if (!color || !land) return
     draft.enqueue({ type: 'addMana', seat: land.controller, mana: { [color]: 1 } })

@@ -644,11 +644,6 @@ export type CardEffect =
       readAhead?: boolean
     }
   | {
-      op: 'replacement'
-      on: 'enters'
-      do: 'chooseColor'
-    }
-  | {
       op: 'trigger'
       on:
         | 'enters'
@@ -820,7 +815,7 @@ export type CardEffect =
       }
       pumpPerLinkedExile?: LinkedExilePump
       /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */
-      enchantedManaBoost?: { mana: CardColor } | { chosenColor: true }
+      enchantedManaBoost?: { mana: CardColor }
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }

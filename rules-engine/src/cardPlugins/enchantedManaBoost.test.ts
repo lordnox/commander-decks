@@ -9,11 +9,9 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
-import { chosenColor } from './chosenColor'
 import {
   activate,
   addManaChoice,
-  chooseColorOnEnter,
   enchantedManaBoost,
   pluginIdsFromEffects,
   staticGrant,
@@ -29,15 +27,7 @@ const wildGrowth = (): CardTemplate => cardTemplate('Test Wild Growth', {
   effects: [enchantedManaBoost({ mana: 'G' })],
 })
 
-const utopiaSprawl = (): CardTemplate => cardTemplate('Test Utopia Sprawl', {
-  types: ['Enchantment'],
-  subtypes: ['Aura'],
-  manaCost: '{G}',
-  oracleText:
-    'Enchant Forest\nAs this Aura enters, choose a color.\n'
-    + 'Whenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color.',
-  effects: [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
-})
+const utopiaSprawl = (): CardTemplate => cardTemplate('Utopia Sprawl')
 
 const island = (): CardTemplate => cardTemplate('Island', {
   types: ['Land'],
@@ -56,7 +46,7 @@ const game = (hand: CardTemplate[], battlefield: CardTemplate[]) =>
   createServerGame(
     commanderRules,
     { hands: { p1: hand }, battlefield: { p1: battlefield } },
-    { random: () => 0.5, cardPlugins: [activated, chosenColor, manaChoice] },
+    { random: () => 0.5, cardPlugins: [activated, manaChoice] },
   )
 
 const named = (state: GameState, name: string) =>
@@ -84,16 +74,15 @@ const castThroughActions = (
 }
 
 describe('capability wiring', () => {
-  test('static effects identify legacy granted plugins', () => {
-    const effects = [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })]
-    expect(pluginIdsFromEffects(effects)).toEqual(['enchantedManaBoost'])
+  test('static effects identify granted plugins', () => {
+    expect(pluginIdsFromEffects([enchantedManaBoost({ mana: 'G' })])).toEqual(['enchantedManaBoost'])
   })
 })
 
 describe('Aura casting through the action layer', () => {
   test('offers one cast per legal enchant target and none for illegal ones', () => {
     const server = game([utopiaSprawl()], [forest(), island(), bears()])
-    const targets = castActs(server.state, 'Test Utopia Sprawl')
+    const targets = castActs(server.state, 'Utopia Sprawl')
       .map((act) => act.kind === 'castSpell' ? act.targetName : undefined)
     expect(targets).toEqual(['Forest'])
 
@@ -136,7 +125,7 @@ describe('Aura casting through the action layer', () => {
   test('an Aura with nothing to enchant is not offered', () => {
     const server = game([utopiaSprawl()], [island(), forest()])
     server.state.objects[named(server.state, 'Forest').id].zone = 'exile'
-    expect(castActs(server.state, 'Test Utopia Sprawl')).toEqual([])
+    expect(castActs(server.state, 'Utopia Sprawl')).toEqual([])
   })
 
   test('a cast without a target is not planned, and the kernel rejects it', () => {
@@ -158,7 +147,7 @@ describe('Aura casting through the action layer', () => {
   test('the kernel rejects an illegal enchant target', () => {
     const server = game([utopiaSprawl()], [island(), bears(), forest()])
     server.state.players.p1.mana.G = 1
-    const aura = named(server.state, 'Test Utopia Sprawl')
+    const aura = named(server.state, 'Utopia Sprawl')
     for (const wrong of ['Island', 'Test Bears']) {
       const result = server.rules(server.state, {
         type: 'castSpell',
@@ -167,7 +156,7 @@ describe('Aura casting through the action layer', () => {
         targets: [{ kind: 'object', objectId: named(server.state, wrong).id }],
       })
       expect(result.ok).toBe(false)
-      expect(result.ok === false && result.error).toContain('must enchant a forest')
+      expect(result.ok === false && result.error).toContain('do not satisfy the declared clauses')
     }
     expect(server.rules(server.state, {
       type: 'castSpell',
@@ -182,7 +171,7 @@ describe('Aura casting through the action layer', () => {
       island(),
       cardTemplate('Test Yavimaya', { types: ['Land'], effects: [staticGrant('forestOverlay')] }),
     ])
-    expect(castActs(server.state, 'Test Utopia Sprawl')
+    expect(castActs(server.state, 'Utopia Sprawl')
       .map((act) => act.kind === 'castSpell' ? act.targetName : undefined))
       .toEqual(['Island', 'Test Yavimaya'])
   })
@@ -278,7 +267,7 @@ describe('Utopia Sprawl style chosen color', () => {
     const server = game([utopiaSprawl()], [forest(), island()])
     const land = named(server.state, 'Forest').id
     server.state.players.p1.mana.G = 1
-    const entered = castThroughActions(server, server.state, 'Test Utopia Sprawl', land)
+    const entered = castThroughActions(server, server.state, 'Utopia Sprawl', land)
     return { server, entered, land }
   }
 
@@ -312,7 +301,7 @@ describe('Utopia Sprawl style chosen color', () => {
       selectionId: pending.id,
       optionId: 'U',
     }))
-    expect(named(chosen, 'Test Utopia Sprawl').chosenColor).toBe('U')
+    expect(named(chosen, 'Utopia Sprawl').chosenColor).toBe('U')
     expect(pendingOptionSelection(chosen)).toBeUndefined()
   })
 
@@ -333,17 +322,12 @@ describe('Utopia Sprawl style chosen color', () => {
 
   test('an enchanted overlay Forest is boosted too', () => {
     const server = game([utopiaSprawl()], [
-      cardTemplate('Test Yavimaya', {
-        types: ['Land'],
-        tapProduces: { G: 1 },
-        oracleText: '{T}: Add {G}.',
-        effects: [staticGrant('forestOverlay')],
-      }),
+      cardTemplate('Yavimaya, Cradle of Growth'),
       island(),
     ])
     const islandId = named(server.state, 'Island').id
     server.state.players.p1.mana.G = 1
-    const entered = castThroughActions(server, server.state, 'Test Utopia Sprawl', islandId)
+    const entered = castThroughActions(server, server.state, 'Utopia Sprawl', islandId)
     const chosen = ok(server.rules(entered, {
       type: 'selectOption',
       seat: 'p1',

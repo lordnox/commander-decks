@@ -109,9 +109,6 @@ export type PendingOptionSelection = {
     kind: 'mana-choice'
     pools: Record<string, Partial<ManaPool>>
   } | {
-    /** The color a permanent stores as it enters. */
-    kind: 'choose-color'
-  } | {
     /** Optional proliferate recipients selected during resolution. */
     kind: 'canonicalProliferateChoice'
     stackId: string
@@ -242,7 +239,6 @@ export const openOptionSelection = (
     case 'replacementModifier':
     case 'replacementProgramChoice':
     case 'replacementInstructionChoice':
-    case 'choose-color':
       draft.priority = null
       break
     default:
