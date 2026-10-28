@@ -30,12 +30,6 @@ export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
-export const playerAuraDeal = (): CardEffect => ({
-  op: 'playerAuraDeal',
-  drawAtEnchantedEnd: 1,
-  breakOnMutualAttack: true,
-})
-
 export const handler = (pluginId: string): CardEffect => ({
   op: 'handler',
   pluginId,

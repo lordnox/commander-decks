@@ -844,8 +844,3 @@ export type CardEffect =
       exileGraveyard?: { count: number; other?: boolean }
     }
   | { op: 'drawReplacementByType' }
-  | {
-      op: 'playerAuraDeal'
-      drawAtEnchantedEnd: number
-      breakOnMutualAttack: boolean
-    }

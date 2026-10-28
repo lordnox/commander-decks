@@ -1810,9 +1810,7 @@ const targetVariants = (
   const targeted = source
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
-  const playerAura = source
-    ? Boolean(enchantPlayerTargets(state, source)) || effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
-    : false
+  const playerAura = source ? Boolean(enchantPlayerTargets(state, source)) : false
   if (playerAura) {
     return state.playerOrder
       .filter((player) => player !== seat && !state.players[player].lost)
@@ -2621,12 +2619,9 @@ export const eventsForAvailableAction = (
     || (object
       ? effects.some((effect) =>
         (effect.op === 'trigger' && effect.on === 'resolve')
-        || (effect.op === 'search' && effect.via === 'spell')
-        || effect.op === 'playerAuraDeal')
+        || (effect.op === 'search' && effect.via === 'spell'))
       : false)
-  const playerAura = object
-    ? Boolean(enchantPlayerTargets(state, object)) || effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
-    : false
+  const playerAura = object ? Boolean(enchantPlayerTargets(state, object)) : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.
   const face = object
