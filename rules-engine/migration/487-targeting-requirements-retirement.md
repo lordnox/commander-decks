@@ -16,7 +16,6 @@ to structurally verify Standard Bearer's registration and Flagbearer rule.
 
 | Retired assertion | Canonical owner / preserved evidence |
 | --- | --- |
-| Legacy effect builder stamps `targetingRequirement` | Obsolete legacy API-shape assertion; the static DSL builder and Standard Bearer catalog structure remain checked in `dsl/cardRuleCatalog.test.ts`. |
 | An opposing Flagbearer permits choosing an eligible caster-controlled Flagbearer | `an opposing Flagbearer permits choosing an eligible caster-controlled Flagbearer` in `dsl/targeting.test.ts`, now with canonical static abilities on both permanents. |
 | A Flagbearer requires selecting one if able | `a canonical Flagbearer imposes the same if-able obligation` in the same suite retains rejection of an eligible non-Flagbearer and acceptance of the opposing Flagbearer. |
 | Targeting restrictions and copied-target legality | Existing shared keyword-based shroud/hexproof coverage and stack-copy targeting coverage remain in their owning suites; no legacy hexproof-while-untapped cards or fixtures existed. |
