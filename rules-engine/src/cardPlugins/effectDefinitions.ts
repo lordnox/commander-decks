@@ -733,4 +733,3 @@ export type CardEffect =
       afterWarp?: boolean
       exileGraveyard?: { count: number; other?: boolean }
     }
-  | { op: 'drawReplacementByType' }
