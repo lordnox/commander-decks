@@ -10,10 +10,6 @@ import type { InstructionHandler } from './instructionHandlers/types'
 import { effectsOf } from './cardRules'
 import type { CardInstruction, TokenSpec } from './effectDefinitions'
 import { copyTokenTemplate, createToken } from './effectRuntime'
-import { targetObject } from '../objectIdentity'
-
-const bestowEffect = (source: GameObject) =>
-  effectsOf(source).find((effect) => effect.op === 'bestow')
 
 const attachedCreature = (
   state: GameState | Draft,
@@ -39,26 +35,6 @@ const createFallback = (
   token: TokenSpec,
 ) => {
   createToken(draft, controller, token)
-}
-
-const detachInvalidAuras = (
-  draft: Draft,
-) => {
-  for (const source of Object.values(draft.objects)) {
-    const effect = bestowEffect(source)
-    if (!effect || !source.subtypes.includes('Aura') || !source.attachedTo) continue
-    const target = draft.object(source.attachedTo)
-    if (
-      source.zone === 'battlefield'
-      && target?.zone === 'battlefield'
-      && target.types.includes('Creature')
-    ) continue
-    if (target) {
-      if (target.power !== null) target.power -= effect.power
-      if (target.toughness !== null) target.toughness -= effect.toughness
-    }
-    source.attachedTo = null
-  }
 }
 
 export const attachedCopyOrTokenInstruction: InstructionHandler<'attachedCopyOrToken'> = (
@@ -87,17 +63,6 @@ export const attachedCopyOrTokenInstruction: InstructionHandler<'attachedCopyOrT
 export const bestow: Plugin = {
   id: 'bestow',
   legal: ({ state, event }) => {
-    if (event.type === 'castSpell' && event.castOption === 'bestow') {
-      const source = state.objects[event.objectId]
-      if (!source || !bestowEffect(source)) return
-      const target = event.targets?.[0]
-      if (target?.kind !== 'object') return `${source.name} bestow requires a creature target`
-      const object = targetObject(state, target)
-      if (!object || object.zone !== 'battlefield' || !object.types.includes('Creature')) {
-        return `illegal target for ${source.name}`
-      }
-      return
-    }
     if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
       const dialog = pendingDialogFor(state, event.seat)
       if (dialog?.kind !== 'may-pay-mana' || event.payload?.accepted !== true) return
@@ -112,34 +77,6 @@ export const bestow: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
-    detachInvalidAuras(draft)
-
-    if (event.type === 'resolveTop') {
-      const item = state.stack[0]
-      const source = item ? draft.object(item.objectId) : undefined
-      const effect = source ? bestowEffect(source) : undefined
-      if (item?.castOption !== 'bestow' || !source || !effect) return
-      const targetRef = item.targets[0]
-      const target = targetRef?.kind === 'object'
-        ? targetObject(draft, targetRef)
-        : undefined
-      if (!target || target.zone !== 'battlefield' || !target.types.includes('Creature')) {
-        // CR 702.102c: an illegally targeted bestowed Aura resolves as a creature.
-        draft.note(`${source.name}'s bestow target is illegal; it enters as a creature`)
-        return
-      }
-      source.types = ['Enchantment']
-      source.subtypes = ['Aura']
-      source.attachedTo = target.id
-      source.power = null
-      source.toughness = null
-      source.summoningSickness = false
-      if (target.power !== null) target.power += effect.power
-      if (target.toughness !== null) target.toughness += effect.toughness
-      draft.note(`${source.name} enters attached to ${target.name}`)
-      return
-    }
-
     if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return
     const dialog = pendingDialogFor(state, event.seat)
     if (dialog?.kind !== 'may-pay-mana') return

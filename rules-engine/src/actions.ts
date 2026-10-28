@@ -835,9 +835,6 @@ const alternateCastCostGroups = (
   return groups
 }
 
-const bestowEffect = (object: GameObject) =>
-  effectsOf(object).find((effect) => effect.op === 'bestow')
-
 const canonicalSpellProgram = (object: GameObject) => object.ruleDefinition
   ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
   : undefined
@@ -1048,16 +1045,6 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         castLabel: alternative.label,
         ...(targetGroups.length > 0 ? { targetGroups } : {}),
       }, { castOption: alternative.id }))
-    }
-    const bestow = bestowEffect(object)
-    if (bestow) {
-      actions.push(...fundedVariants({
-        kind: 'castSpell',
-        objectId: object.id,
-        name: object.name,
-        castOption: 'bestow',
-        castLabel: `Bestow ${bestow.cost}`,
-      }, { castOption: 'bestow' }))
     }
     return actions
   }
@@ -1811,17 +1798,6 @@ const targetVariants = (
         group.purpose === 'cost' && !group.delve)
       return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...alternateCostGroups, ...costGroups, ...groups.filter(group => group.max > 0)] }]
     })
-  }
-  if (source && action.castOption === 'bestow' && bestowEffect(source)) {
-    return Object.values(state.objects)
-      .filter((object) =>
-        object.zone === 'battlefield'
-        && object.types.includes('Creature'))
-      .map((target) => ({
-        ...action,
-        targetObjectId: target.id,
-        targetName: target.name,
-      }))
   }
   const enchantable = source && !action.castOption ? enchantTargets(state, source) : undefined
   if (enchantable) {
@@ -2663,7 +2639,6 @@ export const eventsForAvailableAction = (
     ? printedSpellText.split('\n').filter((line) => !/^When (?:this .*?|.+?) enters(?: the battlefield)?,/i.test(line)).join('\n')
     : printedSpellText
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
-  const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
   const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))
   // The kernel stores the color an entering permanent chooses.
   const entryChoice = effects.some((effect) =>
@@ -2685,7 +2660,6 @@ export const eventsForAvailableAction = (
     || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(spellText))
     || (
       !hasAlternateCast
-      && !hasBestowCast
       && !doorTriggers
       && !entryChoice
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(spellText)
@@ -2696,7 +2670,6 @@ export const eventsForAvailableAction = (
       return null
     }
   }
-  const bestowing = action.castOption === 'bestow' && hasBestowCast
   const optionalTarget = targeted.length === 1
     && targetedResolveBounds(targeted[0]).min === 0
   if (targeted.length === 1) {
@@ -2707,7 +2680,7 @@ export const eventsForAvailableAction = (
     }
   }
   if (
-    (targeted.length === 1 || playerAura || bestowing || enchanting)
+    (targeted.length === 1 || playerAura || enchanting)
     && !action.targetObjectId
     && !action.targetPlayerId
     && !action.targetObjectIds

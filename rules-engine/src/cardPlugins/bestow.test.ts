@@ -1,8 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-import {
-  eventsForAvailableAction,
-  legalActsFor,
-} from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
@@ -35,7 +31,6 @@ const springheart = (extra: Partial<CardTemplate> = {}) => cardTemplate(
     power: 1,
     toughness: 1,
     effects: [
-      { op: 'bestow', cost: '{1}{G}', power: 1, toughness: 1 },
       landfall(attachedCopyOrToken('{1}{G}', insectToken)),
     ],
     ...extra,
@@ -71,78 +66,7 @@ const attachedGame = () => {
   return { server, spring, bear }
 }
 
-describe('bestow', () => {
-  test('legalActsFor offers creature and bestowed casts and pays the bestow cost', () => {
-    const bestowed = cardTemplate('Test Bestower', {
-      types: ['Enchantment', 'Creature'],
-      manaCost: '{5}',
-      power: 2,
-      toughness: 2,
-      effects: [{ op: 'bestow', cost: '{1}{G}', power: 2, toughness: 2 }],
-    })
-    const server = game({ hand: [bestowed], battlefield: [creature()] })
-    server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 5 }
-    const sourceId = server.state.zoneOrder.p1.hand[0]
-    const target = objectsNamed(server.state, 'Grizzly Bears')[0]
-    const casts = legalActsFor(server.state, 'p1').filter(
-      (action) => action.kind === 'castSpell' && action.objectId === sourceId,
-    )
-
-    expect(casts.some((action) => action.kind === 'castSpell' && !action.castOption)).toBe(true)
-    const bestowedAction = casts.find(
-      (action) => action.kind === 'castSpell'
-        && action.castOption === 'bestow'
-        && action.targetObjectId === target.id,
-    )
-    expect(bestowedAction).toBeDefined()
-    if (!bestowedAction) return
-
-    const events = eventsForAvailableAction(server.state, 'p1', bestowedAction)
-    expect(events).toHaveLength(1)
-    const cast = ok(server.rules(server.state, events![0]))
-    expect(cast.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 4 })
-
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[sourceId]).toMatchObject({
-      zone: 'battlefield',
-      types: ['Enchantment'],
-      subtypes: ['Aura'],
-      attachedTo: target.id,
-      power: null,
-      toughness: null,
-    })
-    expect(resolved.objects[target.id]).toMatchObject({ power: 4, toughness: 4 })
-  })
-
-  test('an illegal bestow target makes the spell enter as a creature', () => {
-    const server = game({ hand: [springheart()], battlefield: [creature()] })
-    server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }
-    const sourceId = server.state.zoneOrder.p1.hand[0]
-    const target = objectsNamed(server.state, 'Grizzly Bears')[0]
-    const cast = ok(server.rules(server.state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: sourceId,
-      castOption: 'bestow',
-      targets: [{ kind: 'object', objectId: target.id }],
-    }))
-    const removed = ok(server.rules(cast, {
-      type: 'move',
-      objectId: target.id,
-      to: 'graveyard',
-    }))
-    const resolved = ok(server.rules(removed, { type: 'resolveTop' }))
-
-    expect(resolved.objects[sourceId]).toMatchObject({
-      zone: 'battlefield',
-      types: ['Enchantment', 'Creature'],
-      subtypes: ['Insect', 'Monk'],
-      attachedTo: null,
-      power: 1,
-      toughness: 1,
-    })
-  })
-
+describe('attachedCopyOrToken instruction', () => {
   test('landfall copies the attached creature when paid and makes an Insect otherwise', () => {
     const paid = attachedGame()
     paid.server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }
@@ -203,22 +127,5 @@ describe('bestow', () => {
     }))
     expect(objectsNamed(insect, 'Grizzly Bears')).toHaveLength(1)
     expect(objectsNamed(insect, 'Insect')).toHaveLength(1)
-  })
-
-  test('an Aura whose creature leaves is put into the graveyard by SBA', () => {
-    const { server, spring, bear } = attachedGame()
-    const moved = ok(server.rules(server.state, {
-      type: 'move',
-      objectId: bear.id,
-      to: 'graveyard',
-    }))
-
-    expect(moved.objects[spring.id].zone).toBe('graveyard')
-    expect(moved.objects[spring.id].attachedTo).toBeNull()
-    expect(moved.objects[bear.id]).toMatchObject({
-      zone: 'graveyard',
-      power: 2,
-      toughness: 2,
-    })
   })
 })

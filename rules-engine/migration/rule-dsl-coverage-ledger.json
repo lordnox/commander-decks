@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 17,
+    "cardEffects": 16,
     "cardInstructions": 177,
     "instructionHandlersDiscovered": 177,
     "builtInPlugins": 62,
@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 64,
-    "directMutationSites": 521,
+    "directMutationSites": 519,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 139,
     "cardRegistrationOnlyGaps": 0,
@@ -79,24 +79,6 @@
         "07"
       ],
       "status": "unobserved"
-    },
-    {
-      "variant": "bestow",
-      "mechanic": "specialized legacy effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/bestow.test.ts:38",
-          "rules-engine/src/cardPlugins/bestow.test.ts:81 — test('legalActsFor offers creature and bestowed casts and pays the bestow cost', () => {"
-        ]
-      },
-      "neededCanonicalNode": "new canonical ability/effect node",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference"
     },
     {
       "variant": "drawReplacementByType",
@@ -5650,7 +5632,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/bestow.test.ts:165 — test('landfall copies the attached creature when paid and makes an Insect otherwise', () => {"
+          "rules-engine/src/cardPlugins/bestow.test.ts:90 — test('landfall copies the attached creature when paid and makes an Insect otherwise', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5909,7 +5891,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
-        "rules-engine/src/cardPlugins/bestow.ts:152",
+        "rules-engine/src/cardPlugins/bestow.ts:87",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:475",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
@@ -5962,9 +5944,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1403",
-        "rules-engine/src/actions.ts:1572",
-        "rules-engine/src/actions.ts:890",
+        "rules-engine/src/actions.ts:1390",
+        "rules-engine/src/actions.ts:1559",
+        "rules-engine/src/actions.ts:887",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
@@ -6117,7 +6099,7 @@
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
-        "rules-engine/src/plugins/spells.ts:444",
+        "rules-engine/src/plugins/spells.ts:440",
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:167",
@@ -6519,12 +6501,12 @@
       {
         "path": "rules-engine/src/cardPlugins/bestow.ts",
         "lines": [
-          101,
-          143
+          64,
+          78
         ],
         "samples": [
-          "101: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
-          "143: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
+          "64: if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {",
+          "78: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6873,12 +6855,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          194,
-          227
+          195,
+          228
         ],
         "samples": [
-          "194: const source = draft.object(cloned.objectId)",
-          "227: return draft.addToStack({"
+          "195: const source = draft.object(cloned.objectId)",
+          "228: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7176,30 +7158,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          863,
-          869,
-          940,
-          960,
-          962,
-          965,
-          975,
-          978,
-          993,
-          994,
-          1004,
-          1007,
-          1009,
-          1085,
-          1109,
-          1124,
-          1143,
-          1151,
-          1167
+          856,
+          862,
+          933,
+          953,
+          955,
+          958,
+          968,
+          971,
+          986,
+          987,
+          997,
+          1000,
+          1002,
+          1078,
+          1102,
+          1117,
+          1136,
+          1144,
+          1160
         ],
         "samples": [
-          "863: const moved = draft.object(event.objectId)",
-          "869: const object = draft.object(event.objectId)",
-          "940: .map((objectId) => draft.object(objectId))"
+          "856: const moved = draft.object(event.objectId)",
+          "862: const object = draft.object(event.objectId)",
+          "933: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8008,15 +7990,12 @@
       {
         "path": "rules-engine/src/cardPlugins/bestow.ts",
         "lines": [
-          50,
-          119,
-          146,
-          151
+          81,
+          86
         ],
         "samples": [
-          "50: const target = draft.object(source.attachedTo)",
-          "119: const source = item ? draft.object(item.objectId) : undefined",
-          "146: const source = draft.object(dialog.sourceId)"
+          "81: const source = draft.object(dialog.sourceId)",
+          "86: draft.enqueue({ type: 'payMana', seat: event.seat, cost: instruction.cost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

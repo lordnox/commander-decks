@@ -5,7 +5,7 @@ import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { ok, resolveStack } from '../../testHelpers'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, draw, objects, players, ref, staticAbility, stepBegins, whenever } from './v1'
+import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, modifyStats, objects, players, ref, staticAbility, stepBegins, whenever } from './v1'
 
 const snapshot = (abilities: Parameters<typeof card>[0]) => createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
@@ -60,6 +60,35 @@ test('a noncast Aura with no legal attachment remains in its original zone', () 
   const state = ok(server.rules(server.state, { type: 'move', objectId: aura, to: 'battlefield' }))
   expect(state.objects[aura]!.zone).toBe('hand')
   expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+})
+
+test('an ordinary Aura goes to the graveyard when its creature host leaves', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Fixture Aura', {
+      types: ['Enchantment'],
+      subtypes: ['Aura'],
+      manaCost: '{0}',
+      ruleDefinition: snapshot([
+        staticAbility({ kind: 'enchant', filter: objects({ zone: 'battlefield', type: 'Creature' }) }),
+        staticAbility(modifyStats({
+          targets: objects({ zone: 'battlefield', enchantedBy: ref('source') }),
+          power: amount(1),
+          toughness: amount(1),
+        })),
+      ]),
+    })] },
+    battlefield: { p1: [cardTemplate('Host', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  const aura = server.state.zoneOrder.p1.hand[0]!
+  const host = server.state.zoneOrder.p1.battlefield[0]!
+  const attached = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: aura, targets: [{ kind: 'object', objectId: host }],
+  })))
+  expect(attached.objects[host]).toMatchObject({ power: 3, toughness: 3 })
+
+  const moved = ok(server.rules(attached, { type: 'move', objectId: host, to: 'graveyard' }))
+  expect(moved.objects[aura]).toMatchObject({ zone: 'graveyard', attachedTo: null })
+  expect(moved.objects[host]).toMatchObject({ zone: 'graveyard', power: 2, toughness: 2 })
 })
 
 test('catalog Tenuous Truce attaches to an opponent, draws at their end step, and breaks on attacks', () => {
