@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 8,
+    "cardEffects": 7,
     "cardInstructions": 175,
     "instructionHandlersDiscovered": 175,
     "builtInPlugins": 57,
@@ -94,27 +94,6 @@
       "ownerPart": "16",
       "dependencyParts": [],
       "status": "unobserved"
-    },
-    {
-      "variant": "saga",
-      "mechanic": "Saga chapters",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/plugins/saga.test.ts:42"
-        ]
-      },
-      "neededCanonicalNode": "chapter occurrence programs",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "06",
-      "dependencyParts": [
-        "02",
-        "03",
-        "05"
-      ],
-      "status": "candidate-test-reference"
     },
     {
       "variant": "search",
@@ -1723,7 +1702,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 90,
+        "matches": 89,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3254 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -4702,14 +4681,13 @@
         "rules-engine/src/plugins/saga.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2270 — test('Awaken the Honored Dead is a three-chapter saga with a reflexive discard return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2280 — test('Kiora Bests the Sea God creates a Kraken, skips the next untap, then steals', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2295 — test('Summon: Titan mills, returns lands, then pumps another creature', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2600 — test('family 21 catalog composes combat taxes, ward, devour, and even-mana restrictions', () => {",
-          "rules-engine/src/plugins/saga.test.ts:27",
-          "rules-engine/src/plugins/saga.test.ts:42"
+          "rules-engine/src/plugins/saga.test.ts:28"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4724,7 +4702,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 276,
+        "matches": 277,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -4797,7 +4775,7 @@
           "rules-engine/src/plugins/commander.test.ts:100 — test('partner commanders track tax separately', () => {",
           "rules-engine/src/plugins/commander.test.ts:70 — test('casting from the command zone pays that commander\\'s tax', () => {",
           "rules-engine/src/plugins/priority.test.ts:18",
-          "rules-engine/src/plugins/saga.test.ts:27",
+          "rules-engine/src/plugins/saga.test.ts:28",
           "rules-engine/src/plugins/spells.test.ts:114 — test('a planeswalker spell enters with its printed loyalty', () => {",
           "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
           "rules-engine/src/plugins/spells.test.ts:14",
@@ -6008,12 +5986,12 @@
       {
         "path": "rules-engine/src/plugins/saga.ts",
         "lines": [
-          228,
-          229
+          134,
+          135
         ],
         "samples": [
-          "228: event.type !== 'custom'",
-          "229: || event.name !== 'advanceStep'"
+          "134: event.type !== 'custom'",
+          "135: || event.name !== 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6880,12 +6858,12 @@
       {
         "path": "rules-engine/src/plugins/saga.ts",
         "lines": [
-          214,
-          300
+          120,
+          206
         ],
         "samples": [
-          "214: const source = draft.object(objectId)",
-          "300: const object = draft.object(event.objectId)"
+          "120: const source = draft.object(objectId)",
+          "206: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

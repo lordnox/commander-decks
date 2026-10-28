@@ -484,12 +484,6 @@ export type ModalSpec = {
   modes: ModalMode[]
 }
 
-export type SagaChapter = {
-  numbers: number[]
-  do: CardInstruction[]
-  targets?: { filter: TargetFilter }
-}
-
 export type ActivateCost = {
   tap?: boolean
   crew?: number
@@ -600,11 +594,6 @@ export type SearchSpec = {
 }
 
 export type CardEffect =
-  | {
-      op: 'saga'
-      chapters: SagaChapter[]
-      readAhead?: boolean
-    }
   | {
       op: 'trigger'
       on:

@@ -1,14 +1,12 @@
-import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/permanentEntry'
-import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
+import { addMinusCounters, addPlusCounters } from '../cardPlugins/effects'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import type { SagaAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
-import { validTarget, validTargetRef } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
 import { captureObject, snapshotObject } from '../objectIdentity'
-import { openCardSelection, pendingSelectionsFor, targetDestinations } from '../rules/selectCards'
-import { openPlayerSelection, pendingPlayerSelectionsFor } from '../rules/selectPlayers'
+import { pendingSelectionsFor } from '../rules/selectCards'
+import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
 const ROMAN_VALUES: Record<string, number> = {
@@ -33,22 +31,6 @@ export const romanNumber = (value: string) => {
   return total
 }
 
-const printedChapters = (object: GameObject): SagaChapter[] =>
-  object.oracleText
-    .split('\n')
-    .flatMap((line) => {
-      const match = line.match(/^([IVXLCDM]+(?:,\s*[IVXLCDM]+)*)\s+[—-]/u)
-      if (!match) return []
-      return [{
-        numbers: match[1].split(',').map((number) => romanNumber(number.trim())),
-        do: [] as CardInstruction[],
-      }]
-    })
-
-const sagaChapters = (object: GameObject) =>
-  effectsOf(object).find((effect) => effect.op === 'saga')?.chapters
-  ?? printedChapters(object)
-
 const canonicalSaga = (object: GameObject): SagaAbilityDefinition | undefined => {
   if (!object.ruleDefinition) return
   try {
@@ -64,17 +46,11 @@ const isSaga = (object: GameObject) => object.subtypes.includes('Saga')
 
 const hasReadAhead = (object: GameObject) =>
   canonicalSaga(object)?.readAhead === true
-  || effectsOf(object).some((effect) => effect.op === 'saga' && effect.readAhead)
-  || /\bRead ahead\b/i.test(object.oracleText)
 
 const finalChapter = (object: GameObject) => {
   const canonical = canonicalSaga(object)
-  if (canonical) return Math.max(0, ...canonical.chapters.flatMap((chapter) => chapter.numbers))
-  return Math.max(0, ...sagaChapters(object).flatMap((chapter) => chapter.numbers))
+  return Math.max(0, ...(canonical?.chapters.flatMap((chapter) => chapter.numbers) ?? []))
 }
-
-const chapterName = (source: GameObject, chapter: number) =>
-  `${source.name} — chapter ${chapter}`
 
 const queueCanonicalChapter = (
   draft: Draft,
@@ -113,82 +89,12 @@ const addChapterTriggers = (
   const readAheadThisTurn = hasReadAhead(source)
     && source.enteredBattlefieldTurn === draft.turn
   const canonical = canonicalSaga(source)
-  if (canonical) {
-    for (const chapter of canonical.chapters) {
-      for (const number of chapter.numbers) {
-        if (before >= number || after < number) continue
-        if (readAheadThisTurn && after !== number) continue
-        queueCanonicalChapter(draft, source, chapter, number)
-      }
-    }
-    return
-  }
-
-  // CR 714.2b: each crossed chapter triggers; read ahead suppresses skipped
-  // chapters during the entry turn (CR 702.155a).
-  for (const chapter of sagaChapters(source)) {
+  if (!canonical) return
+  for (const chapter of canonical.chapters) {
     for (const number of chapter.numbers) {
       if (before >= number || after < number) continue
       if (readAheadThisTurn && after !== number) continue
-      if (chapter.targets?.filter.players) {
-        // A player target (CR 115.1) is chosen as the chapter ability triggers.
-        const candidates = draft.playerOrder.filter((seat) =>
-          validTargetRef(
-            draft,
-            { kind: 'player', player: seat },
-            chapter.targets!.filter,
-            source.controller,
-          ))
-        if (candidates.length === 0) continue
-        openPlayerSelection(draft, {
-          seat: source.controller,
-          sourceId: source.id,
-          source: source.name,
-          prompt: `Choose target player for ${chapterName(source, number)}.`,
-          min: 1,
-          max: 1,
-          candidates,
-          action: {
-            kind: 'putTriggeredAbility',
-            instructions: chapter.do,
-            triggeringPlayer: source.controller,
-            payload: { sagaChapter: number, targetFilter: chapter.targets.filter },
-          },
-        })
-        continue
-      }
-      if (chapter.targets) {
-        const candidates = Object.values(draft.objects)
-          .filter((object) =>
-            validTarget(draft, object, chapter.targets!.filter, source.controller, undefined, source.id))
-          .map((object) => object.id)
-        if (candidates.length === 0) continue
-        openCardSelection(draft, {
-          seat: source.controller,
-          kind: 'choose',
-          count: 1,
-          min: 1,
-          candidates,
-          sourceId: source.id,
-          source: source.name,
-          prompt: `Choose target for ${chapterName(source, number)}.`,
-          destinations: targetDestinations(candidates.length, 1),
-          triggerInstructions: chapter.do,
-          triggerPayload: {
-            instructions: chapter.do,
-            sagaChapter: number,
-            targetFilter: chapter.targets.filter,
-          },
-        })
-        continue
-      }
-      draft.addTriggeredAbility(source, chapter.do, {
-        name: chapterName(source, number),
-        payload: {
-          instructions: chapter.do,
-          sagaChapter: number,
-        },
-      })
+      queueCanonicalChapter(draft, source, chapter, number)
     }
   }
 }

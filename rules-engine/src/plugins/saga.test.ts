@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
-import type { CardInstruction } from '../cardPlugins/effects'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, ref, saga as canonicalSaga } from '../cardPlugins/dsl/v1'
 import { rules } from '../kernel'
 import { cardTemplate } from '../newGame'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { newGame } from '../testGame'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
@@ -27,26 +28,19 @@ const catalog = createCatalog([turnStructure, spells, saga, damage, life])
 const builtinRules = ['turnStructure', 'spells', 'saga', 'damage', 'life']
 
 const chapters = (
-  finalInstructions: CardInstruction[] = [],
+  finalInstructions: ReturnType<typeof gainLife>[] = [],
   readAhead = false,
 ) => cardTemplate('Test Chronicle', {
   types: ['Enchantment'],
   subtypes: ['Saga'],
-  oracleText: [
-    ...(readAhead ? ['Read ahead'] : []),
-    'I — First chapter.',
-    'II — Second chapter.',
-    'III — Final chapter.',
-  ].join('\n'),
-  effects: [{
-    op: 'saga',
-    readAhead,
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([canonicalSaga({
+    ...(readAhead ? { readAhead: true } : {}),
     chapters: [
-      { numbers: [1], do: [] },
-      { numbers: [2], do: [] },
-      { numbers: [3], do: finalInstructions },
+      { numbers: [1], instructions: [gainLife({ amount: 1, targets: ref('controller') })] },
+      { numbers: [2], instructions: [gainLife({ amount: 1, targets: ref('controller') })] },
+      { numbers: [3], instructions: finalInstructions },
     ],
-  }],
+  })]))),
 })
 
 const sagaObject = (state: GameState) =>
@@ -133,15 +127,20 @@ describe('Sagas', () => {
     }, catalog))
 
     expect(advanced.objects[source.id].counters.lore).toBe(3)
-    expect(chapterNumbers(advanced)).toEqual([3, 2, 1])
+    expect((advanced.pendingTriggers ?? []).map((trigger) => trigger.payload?.sagaChapter)).toEqual([1, 2, 3])
     expect(advanced.objects[source.id].zone).toBe('battlefield')
   })
 
-  test('derives shared chapter symbols from printed Saga text', () => {
+  test('a canonical shared chapter number triggers for each crossed number', () => {
     const printed = cardTemplate('Printed Chronicle', {
       types: ['Enchantment'],
       subtypes: ['Saga'],
-      oracleText: 'I, II — Make a token.\nIII — Draw a card.',
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([canonicalSaga({
+        chapters: [
+          { numbers: [1, 2], instructions: [] },
+          { numbers: [3], instructions: [] },
+        ],
+      })]))),
     })
     const base = newGame({
       hands: { p1: [printed] },
@@ -193,35 +192,51 @@ describe('Sagas', () => {
   })
 
   test('waits for every pending chapter ability before sacrificing', () => {
-    const base = newGame({
-      battlefield: { p1: [{ ...chapters(), counters: {} }] },
-      builtinRules,
+    const testChapters = cardTemplate('Test Chronicle', {
+      types: ['Enchantment'],
+      subtypes: ['Saga'],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([canonicalSaga({
+        chapters: [1, 2, 3].map((number) => ({
+          numbers: [number],
+          instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+        })),
+      })]))),
     })
-    const source = sagaObject(base)
-    let state = ok(rules(base, {
-      type: 'putCounters',
-      objectId: source.id,
-      counter: 'lore',
-      count: 3,
-    }, catalog))
-
-    state = ok(rules(state, { type: 'resolveTop' }, catalog))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [testChapters] },
+    }, { random: () => 0 })
+    const source = sagaObject(server.state)
+    let state = ok(server.rules(server.state, {
+      type: 'putCounters', objectId: source.id, counter: 'lore', count: 3,
+    }))
+    expect((state.pendingTriggers ?? []).map((trigger) => trigger.payload?.sagaChapter)).toEqual([1, 2, 3])
     expect(state.objects[source.id].zone).toBe('battlefield')
-    expect(chapterNumbers(state)).toEqual([2, 1])
-
-    state = ok(rules(state, { type: 'resolveTop' }, catalog))
+    const order = pendingSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id,
+      kind: 'choose', count: order.count, objectIds: order.candidates,
+    }))
+    expect(state.stack).toHaveLength(3)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[source.id].zone).toBe('battlefield')
-
-    state = ok(rules(state, { type: 'resolveTop' }, catalog))
+    expect(state.stack).toHaveLength(2)
+    expect(state.players.p1.life).toBe(41)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.objects[source.id].zone).toBe('battlefield')
+    expect(state.stack).toHaveLength(1)
+    expect(state.players.p1.life).toBe(42)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.stack).toHaveLength(0)
     expect(state.objects[source.id].zone).toBe('graveyard')
+    expect(state.players.p1.life).toBe(43)
     expect(state.log).toContain('p1 sacrifices Test Chronicle')
   })
 
   test('resolves the final chapter effect before the sacrifice SBA', () => {
     const base = newGame({
       battlefield: {
-        p1: [{ ...chapters([{ kind: 'gainLife', count: 5 }]), counters: { lore: 2 } }],
+        p1: [{ ...chapters([gainLife({ amount: 5, targets: ref('controller') })]), counters: { lore: 2 } }],
       },
       builtinRules,
     })
@@ -266,11 +281,7 @@ describe('relocated from sinFallGaps.test.ts → saga.test.ts', () => {
       const server = createServerGame(
         commanderRules,
         {
-          hands: { p1: [card('Summon: Titan', ['Enchantment', 'Creature'], {
-            subtypes: ['Saga', 'Giant'],
-            manaCost: '{3}{G}{G}',
-            oracleText: 'I — Mill five cards.\nII — Return all land cards from your graveyard to the battlefield tapped.\nIII — Until end of turn, another target creature you control gains trample and gets +X/+X, where X is the number of lands you control.',
-          })] },
+          hands: { p1: [cardTemplate('Summon: Titan')] },
           libraries: {
             p1: [
               card('A', ['Instant']),

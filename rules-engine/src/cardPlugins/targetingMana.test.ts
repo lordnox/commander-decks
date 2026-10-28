@@ -7,25 +7,21 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack, roomDoor } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import {
   ability,
   addChosenColorMana,
-  destroyTargetPermanent,
   discardCards,
   draw,
-  mayDiscard,
   onResolve,
   onUnlock,
   optionalTargetOnResolve,
   putPermanentFromGraveyard,
   pumpTargetX,
   returnCreatureManaValueX,
-  returnTargetFromGraveyard,
-  sagaChapters,
-  selfMill,
   serializableEffects,
   upToTargetsOnResolve,
   yourUpkeepPutPermanentFromGraveyard,
@@ -64,28 +60,7 @@ const bury = (
   state,
 )
 
-const testChronicle = () => cardTemplate('Test Chronicle', {
-  types: ['Enchantment'],
-  subtypes: ['Saga'],
-  oracleText: 'I — Destroy target nonland permanent.\nII — Mill three cards.\nIII — You may discard a card.',
-  effects: serializableEffects([
-    sagaChapters(
-      {
-        numbers: [1],
-        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
-        do: [destroyTargetPermanent()],
-      },
-      { numbers: [2], do: [selfMill(3)] },
-      {
-        numbers: [3],
-        do: [mayDiscard(1, {
-          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
-          do: [returnTargetFromGraveyard('hand')],
-        })],
-      },
-    ),
-  ]),
-})
+const testChronicle = () => cardTemplate('Awaken the Honored Dead')
 
 describe('optional and up-to targeting', () => {
   test('an up-to-one pump spell casts with zero or one target and still runs extra instructions', () => {
@@ -471,7 +446,7 @@ describe('saga chapter builders', () => {
       },
       { random: () => 0.5, cardPlugins: plugins },
     )
-    const source = named(server.state, 'Test Chronicle')
+    const source = named(server.state, 'Awaken the Honored Dead')
     const bear = named(server.state, 'Rock Bear').id
     const forest = named(server.state, 'Safe Forest').id
     const triggered = ok(server.rules(server.state, {
@@ -507,7 +482,7 @@ describe('saga chapter builders', () => {
       },
       { random: () => 0.5, cardPlugins: plugins },
     )
-    const source = named(server.state, 'Test Chronicle')
+    const source = named(server.state, 'Awaken the Honored Dead')
     const triggered = ok(server.rules(server.state, {
       type: 'putCounters',
       objectId: source.id,
@@ -530,39 +505,45 @@ describe('saga chapter builders', () => {
       { random: () => 0.5, cardPlugins: plugins },
     )
     const buried = bury(server, server.state, ['Loam Land'])
-    const source = named(buried, 'Test Chronicle')
+    const source = named(buried, 'Awaken the Honored Dead')
     const triggered = ok(server.rules(buried, {
       type: 'putCounters',
       objectId: source.id,
       counter: 'lore',
       count: 1,
     }))
-    const chapter = ok(server.rules(triggered, { type: 'resolveTop' }))
-    const discardChoice = pendingSelectionFor(chapter, 'p1')!
-    expect(discardChoice).toMatchObject({ kind: 'discard', min: 0 })
+    const ordered = ok(server.rules(triggered, { type: 'passPriority', seat: 'p1' }))
+    const chapter = ok(server.rules(ordered, { type: 'passPriority', seat: 'p2' }))
+    const resolvedChapter = ok(server.rules(chapter, { type: 'resolveTop' }))
+    const discardChoice = pendingOptionSelection(resolvedChapter, 'p1')!
+    expect(discardChoice.options.map((option) => option.id)).toEqual(['pay', 'decline'])
 
-    const declined = ok(server.rules(structuredClone(chapter), {
-      type: 'selectCards',
+    const declined = ok(server.rules(structuredClone(resolvedChapter), {
+      type: 'selectOption',
       seat: 'p1',
-      kind: 'discard',
-      count: 1,
-      objectIds: [],
+      selectionId: discardChoice.id,
+      optionId: 'decline',
     }))
     expect(declined.objects[named(declined, 'Discarded Bear').id].zone).toBe('hand')
     expect(declined.objects[named(declined, 'Loam Land').id].zone).toBe('graveyard')
 
-    const discarded = ok(server.rules(chapter, {
-      type: 'selectCards',
+    const discarded = ok(server.rules(resolvedChapter, {
+      type: 'selectOption',
       seat: 'p1',
-      kind: 'discard',
-      count: 1,
-      objectIds: [named(chapter, 'Discarded Bear').id],
+      selectionId: discardChoice.id,
+      optionId: 'pay',
     }))
-    const gyChoice = pendingSelectionFor(discarded, 'p1')!
+    const discardPayment = pendingSelectionFor(discarded, 'p1')!
+    expect(discardPayment.candidates).toEqual([named(discarded, 'Discarded Bear').id])
+    const afterDiscard = ok(server.rules(discarded, {
+      type: 'selectCards', seat: 'p1', kind: 'discard', count: 1,
+      objectIds: [named(discarded, 'Discarded Bear').id],
+    }))
+    const gyChoice = pendingSelectionFor(afterDiscard, 'p1')!
     expect(gyChoice.kind).toBe('choose')
-    const landId = named(discarded, 'Loam Land').id
+    const landId = named(afterDiscard, 'Loam Land').id
     expect(gyChoice.candidates).toContain(landId)
-    const stacked = ok(server.rules(discarded, {
+    const stacked = ok(server.rules(afterDiscard, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
