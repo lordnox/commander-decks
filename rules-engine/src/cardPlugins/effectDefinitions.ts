@@ -724,8 +724,6 @@ export type CardEffect =
   | {
       op: 'static'
       pluginId?: string
-      extraLandfall?: number
-      extraEnters?: number
       /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
       grantCreatureTrigger?: {

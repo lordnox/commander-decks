@@ -5,13 +5,19 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import {
   draw,
-  extraLandfall,
   gainLife,
   landfallOnceEachTurn,
   landfallResolveNth,
 } from './effectBuilders'
-
-
+import {
+  amount,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  multiplyTriggers,
+  objects,
+  staticAbility,
+} from './dsl/v1'
 
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import {activated} from './activated'
@@ -68,7 +74,13 @@ describe('trigger frequency flags', () => {
         p1: [
           cardTemplate('Echo Beacon', {
             types: ['Creature'],
-            effects: [extraLandfall(1)],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              staticAbility(multiplyTriggers({
+                sources: objects({ zone: 'battlefield', controller: 'you' }),
+                additional: amount(1),
+                cause: { enters: { type: 'Land' } },
+              })),
+            ]))),
           }),
           cardTemplate('Fable Warden', {
             types: ['Creature'],

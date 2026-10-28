@@ -12,7 +12,6 @@ import { syncGrantCreatureTriggers } from '../cardPlugins/grantCreatureTrigger'
 import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import {
   conditionHolds,
-  extraTriggerCount,
   runInstructions,
   triggerEffects,
   type CardEffect,
@@ -847,18 +846,6 @@ const canonicalGrantedTriggersForOccurrence = (
   }
 }
 
-const canonicalLandfallCopies = (
-  draft: Draft,
-  source: GameObject,
-  candidate: TriggeredAbilityDefinition,
-  occurrence: OccurrenceSnapshot,
-) => {
-  if (candidate.on.kind !== 'enters' || candidate.frequency?.kind === 'onceEachTurn') return 1
-  const object = occurrence.object?.after
-  if (!object?.types.includes('Land') || object.controller !== source.controller) return 1
-  return 1 + extraTriggerCount(draft, source.controller, 'landfall', source)
-}
-
 const canonicalTriggersForOccurrence = (
   state: GameState,
   draft: Draft,
@@ -945,8 +932,7 @@ const canonicalTriggersForOccurrence = (
           triggerAmount: occurrence.amount,
           triggeredByAbility: false,
         }
-        const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
-        for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
+        matches.push(pendingTrigger)
         if (candidate.frequency?.kind === 'onceEachTurn') {
           markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
         }
@@ -1109,7 +1095,7 @@ const collectLandfall = (
       'landfall',
       draft,
       matches,
-      1 + extraTriggerCount(draft, land.controller, 'landfall', source),
+      1,
     )
   }
 }
@@ -1142,7 +1128,7 @@ const collectEnters = (
     'enters',
     draft,
     matches,
-    1 + extraTriggerCount(draft, object.controller, 'enters', object),
+    1,
     { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object },
     event,
   )
