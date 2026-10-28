@@ -21,18 +21,18 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 9,
-    "cardInstructions": 176,
-    "instructionHandlersDiscovered": 176,
-    "builtInPlugins": 58,
+    "cardInstructions": 175,
+    "instructionHandlersDiscovered": 175,
+    "builtInPlugins": 57,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 59,
-    "directMutationSites": 500,
+    "directMutationSites": 499,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 36,
+    "candidateOnlyInstructionRows": 35,
     "candidateOnlyCardRows": 0
   },
   "cardEffects": [
@@ -2246,27 +2246,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "mayFightGrantSource",
-      "mechanic": "resolution choice",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:214 — test('the stamped trigger names the permanent that granted it', () => {"
-        ]
-      },
-      "neededCanonicalNode": "typed choice instruction and continuation",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03",
-        "05"
-      ],
-      "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "mayPayLifeDraw",
       "mechanic": "resolution choice",
       "currentRegistrations": [],
@@ -3791,7 +3770,6 @@
       "mayCastFromExileWithoutPayingMana",
       "mayCastFromHandWithoutPayingMana",
       "mayDraw",
-      "mayFightGrantSource",
       "mayPayLifeDraw",
       "millHalfTargetPlayers",
       "millTarget",
@@ -4351,26 +4329,6 @@
       "status": "candidate-test-reference"
     },
     {
-      "variant": "grantCreatureTrigger",
-      "mechanic": "runtime plugin hook",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — dedicated plugin/mechanic suite"
-      ],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:156 — test('stamped granted triggers clone without matchers', () => {",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:30"
-        ]
-      },
-      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
-      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
-    },
-    {
       "variant": "hiddenInformation",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [],
@@ -4781,7 +4739,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 278,
+        "matches": 276,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5644,7 +5602,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:461",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:456",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:474",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -5653,17 +5611,17 @@
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:39",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:4",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:12",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:169",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:177",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:211",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:11",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:144",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:152",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:186",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:4",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:42",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:101",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1460"
+        "rules-engine/src/types.ts:1454"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5779,10 +5737,10 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1539",
-        "rules-engine/src/types.ts:323",
-        "rules-engine/src/types.ts:325",
-        "rules-engine/src/types.ts:329"
+        "rules-engine/src/rules/triggers.ts:1537",
+        "rules-engine/src/types.ts:317",
+        "rules-engine/src/types.ts:319",
+        "rules-engine/src/types.ts:323"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5814,29 +5772,19 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/continuousEffects.ts:155",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:164",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:35",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:482",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:508",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:54",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:544",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:153",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:162",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:33",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:453",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:479",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:507",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:509",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:52",
         "rules-engine/src/cardPlugins/continuousEffects.ts:546",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:583",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:608",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:729",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:555",
-        "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
-        "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
-        "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
-        "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:94",
-        "rules-engine/src/cardPlugins/staticEffects.ts:3",
-        "rules-engine/src/cardPlugins/staticEffects.ts:9",
         "rules-engine/src/definitions.ts:81",
-        "rules-engine/src/formats.ts:135",
-        "rules-engine/src/formats.ts:44",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
         "rules-engine/src/kernel.ts:902",
@@ -5845,18 +5793,15 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/index.ts:112",
-        "rules-engine/src/plugins/index.ts:45",
         "rules-engine/src/plugins/rooms.ts:53",
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
         "rules-engine/src/plugins/spells.ts:430",
-        "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
-        "rules-engine/src/types.ts:156",
-        "rules-engine/src/types.ts:284",
-        "rules-engine/src/types.ts:348",
+        "rules-engine/src/types.ts:150",
+        "rules-engine/src/types.ts:278",
+        "rules-engine/src/types.ts:342",
         "rules-engine/src/types.ts:75",
         "rules-engine/src/types.ts:92"
       ],
@@ -5865,16 +5810,14 @@
         "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts — static hexproof layer > removing the source restores printed hexproof and drops the granted hexproof"
       ],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 6,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2771 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:105 — test('leaving the lord removes the grant before another sliver enters', () => {",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:12",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:130 — test('stamped granted triggers clone without matchers', () => {",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:15",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:30",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:33",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:339 — test('a host restart restores the open fight choice', () => {"
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:14",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:111 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:262 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/plugins/goad.test.ts:133 — test('goad does not follow a new object after a zone change', () => {",
+          "rules-engine/src/plugins/goad.test.ts:190 — test('goadTargets instruction stamps goad from the resolving source controller', () => {"
         ]
       },
       "neededCanonicalNode": "generated/granted ability definition with independent source and version context",
@@ -5924,10 +5867,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          263
+          262
         ],
         "samples": [
-          "263: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "262: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6186,24 +6129,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          72,
-          178,
-          198,
-          280,
+          71,
+          177,
+          197,
+          279,
+          428,
           429,
-          430,
-          601,
-          1139,
-          1256,
+          600,
+          1137,
+          1254,
+          1411,
           1413,
-          1415,
-          1455,
-          1456
+          1453,
+          1454
         ],
         "samples": [
-          "72: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "178: eventType: event.type === 'custom' ? event.name : event.type,",
-          "198: : event.type === 'custom' && event.name === 'advanceStep'"
+          "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
+          "177: eventType: event.type === 'custom' ? event.name : event.type,",
+          "197: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6346,14 +6289,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          730,
-          731,
-          733
+          688,
+          689,
+          691
         ],
         "samples": [
-          "730: const endTurnEffects = event.type === 'custom'",
-          "731: && event.name === 'advanceStep'",
-          "733: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "688: const endTurnEffects = event.type === 'custom'",
+          "689: && event.name === 'advanceStep'",
+          "691: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7389,24 +7332,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          902,
-          994,
-          1089,
-          1123,
-          1202,
-          1267,
-          1280,
-          1319,
-          1400,
-          1478,
-          1537,
-          1735,
-          1849
+          901,
+          993,
+          1088,
+          1121,
+          1200,
+          1265,
+          1278,
+          1317,
+          1398,
+          1476,
+          1535,
+          1733,
+          1847
         ],
         "samples": [
-          "902: const frequencySource = draft.object(source.id) ?? source",
-          "994: const live = draft.object(source.id)",
-          "1089: const land = draft.object(objectId)"
+          "901: const frequencySource = draft.object(source.id) ?? source",
+          "993: const live = draft.object(source.id)",
+          "1088: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8315,25 +8258,24 @@
       {
         "path": "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts",
         "lines": [
-          23,
-          48,
-          53,
-          67,
-          102,
-          130,
-          131,
-          133,
-          164,
-          176,
-          231,
-          247,
-          279,
-          314
+          22,
+          47,
+          52,
+          66,
+          105,
+          106,
+          108,
+          139,
+          151,
+          206,
+          222,
+          254,
+          289
         ],
         "samples": [
-          "23: draft.enqueue({",
-          "48: draft.enqueue({",
-          "53: draft.enqueue({"
+          "22: draft.enqueue({",
+          "47: draft.enqueue({",
+          "52: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

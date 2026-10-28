@@ -42,7 +42,6 @@ import { stackCopy } from '../cardPlugins/stackCopy'
 import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
-import { grantCreatureTrigger } from '../cardPlugins/grantCreatureTrigger'
 import { dslStaticModifiers } from '../cardPlugins/dsl/staticModifiers'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
@@ -109,7 +108,6 @@ export const builtInPlugins = [
   swampOverlay,
   extraSwampMana,
   starfieldOfNyx,
-  grantCreatureTrigger,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

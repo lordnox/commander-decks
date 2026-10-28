@@ -11,8 +11,6 @@ import type {
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
-import { effectsOf } from './cardRules'
-import type { CardEffect } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
 import { KEYWORDS } from './dsl/schema/v2'
@@ -178,33 +176,6 @@ export const copyObject = (
   applyCopy(object, copied, extra)
   return { kind: 'copy', before, after: snapshotCopy(object) }
 }
-
-const baseEffects = (object: GameObject) => effectsOf(object)
-
-const triggersMatch = (left: CardEffect, right: CardEffect) =>
-  JSON.stringify(left) === JSON.stringify(right)
-
-export const grantTrigger = (
-  object: GameObject,
-  trigger: Extract<CardEffect, { op: 'trigger' }>,
-  sourceId: string,
-  grantId: string,
-): ReversibleEffect => {
-  const stamped = structuredClone(trigger)
-  object.effects = [...baseEffects(object), stamped]
-  return { kind: 'triggerGrant', sourceId, grantId, trigger: stamped }
-}
-
-export const grantTriggerWhileSourceOnBattlefield = (
-  object: GameObject,
-  trigger: Extract<CardEffect, { op: 'trigger' }>,
-  sourceId: string,
-  grantId: string,
-) => withDuration(
-  object,
-  grantTrigger(object, trigger, sourceId, grantId),
-  { kind: 'whileSourceOnBattlefield', sourceId },
-)
 
 export const changeController = (
   object: GameObject,
@@ -520,14 +491,6 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     // combat restriction metadata only
   } else if (effect.kind === 'subtypeGrant') {
     // Status only; land-type readers inspect continuousEffects.
-  } else if (effect.kind === 'triggerGrant') {
-    const effects = object.effects ?? []
-    const index = effects.findIndex((entry) => triggersMatch(entry, effect.trigger))
-    if (index < 0) return
-    const next = [...effects]
-    next.splice(index, 1)
-    if (next.length > 0) object.effects = next
-    else delete object.effects
   }
 }
 
@@ -593,11 +556,6 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     // combat restriction metadata only
   } else if (effect.kind === 'subtypeGrant') {
     // Status only; land-type readers inspect continuousEffects.
-  } else if (effect.kind === 'triggerGrant') {
-    const effects = baseEffects(object)
-    if (!effects.some((entry) => triggersMatch(entry, effect.trigger))) {
-      object.effects = [...effects, structuredClone(effect.trigger)]
-    }
   } else if (effect.kind === 'protectionFromEverything') {
     // Status only; targeting reads continuousEffects directly.
   } else if (effect.kind === 'controller' && object.zone === 'battlefield') {

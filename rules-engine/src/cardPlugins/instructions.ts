@@ -392,7 +392,6 @@ export const chooseCreatureType = (
   action: Extract<CardInstruction, { kind: 'chooseCreatureType' }>['action'],
 ): CardInstruction => ({ kind: 'chooseCreatureType', action })
 
-export const mayFightGrantSource = (): CardInstruction => ({ kind: 'mayFightGrantSource' })
 
 export const putTriggeringCardOntoBattlefield = (): CardInstruction => ({
   kind: 'putTriggeringCardOntoBattlefield',

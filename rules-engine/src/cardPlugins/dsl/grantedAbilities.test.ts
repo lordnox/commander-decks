@@ -6,20 +6,104 @@ import {
   createEffect,
   gainLife,
   grantAbilityEffect,
+  grantAbilityTo,
   objects,
   permanentEffect,
   ref,
   spell,
   players,
   forTurns,
+  self,
+  staticAbility,
 } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelection } from '../../rules/selectPlayers'
+import { ok, resolveStack } from '../../testHelpers'
+
+const staticSliverGrant = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(grantAbilityTo({
+    targets: objects({
+      zone: 'battlefield',
+      type: 'Creature',
+      subtypes: ['Fixture Sliver'],
+      controller: 'you',
+    }),
+    ability: {
+      kind: 'triggered',
+      on: self.enters,
+      instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+    },
+  })),
+])))
+
+const sliver = (name: string) => cardTemplate(name, {
+  types: ['Creature'],
+  subtypes: ['Fixture Sliver'],
+  power: 2,
+  toughness: 2,
+})
 
 describe('grantedAbilities', () => {
+
+  test('a printed static grant reaches only matching creatures its controller controls', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Sliver source', {
+          types: ['Creature'], subtypes: ['Fixture Sliver'], power: 2, toughness: 2,
+          ruleDefinition: staticSliverGrant,
+        })],
+        p2: [sliver('Opponent Sliver')],
+      },
+      hands: { p1: [sliver('Matching Sliver')] },
+    }, { random: () => 0 })
+    const sourceLife = server.state.players.p1.life
+    const opponentLife = server.state.players.p2.life
+    const entered = ok(server.rules(server.state, {
+      type: 'move', objectId: server.state.zoneOrder.p1.hand[0]!, to: 'battlefield',
+    }))
+    expect(entered.stack).toHaveLength(1)
+    const resolved = resolveStack(server.rules, entered)
+    expect(resolved.players.p1.life).toBe(sourceLife + 1)
+    expect(resolved.players.p2.life).toBe(opponentLife)
+    expect(Object.values(resolved.objects).find(object => object.name === 'Opponent Sliver')?.canonicalGrantedAbilities ?? []).toHaveLength(0)
+  })
+
+  test('a matching source grants its trigger to itself as it enters', () => {
+    const source = cardTemplate('Self-granting Sliver', {
+      types: ['Creature'], subtypes: ['Fixture Sliver'], power: 2, toughness: 2,
+      ruleDefinition: staticSliverGrant,
+    })
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [source] },
+    }, { random: () => 0 })
+    const entered = ok(server.rules(server.state, {
+      type: 'move', objectId: server.state.zoneOrder.p1.hand[0]!, to: 'battlefield',
+    }))
+    expect(entered.stack).toHaveLength(1)
+    expect(resolveStack(server.rules, entered).players.p1.life).toBe(41)
+  })
+
+  test('a printed static grant expires before later matching creatures enter', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Sliver source', {
+        types: ['Creature'], subtypes: ['Fixture Sliver'], power: 2, toughness: 2,
+        ruleDefinition: staticSliverGrant,
+      })] },
+      hands: { p1: [sliver('Later Sliver')] },
+    }, { random: () => 0 })
+    const sourceId = server.state.zoneOrder.p1.battlefield[0]!
+    const left = ok(server.rules(server.state, { type: 'move', objectId: sourceId, to: 'graveyard' }))
+    const entered = ok(server.rules(left, {
+      type: 'move', objectId: left.zoneOrder.p1.hand[0]!, to: 'battlefield',
+    }))
+    expect(entered.stack).toHaveLength(0)
+  })
 
   test('a granted canonical draw ability uses its recipient as source and opens typed targets', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
