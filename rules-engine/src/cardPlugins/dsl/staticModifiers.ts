@@ -435,7 +435,7 @@ const printedStaticTimestamp = (entry: ContinuousEffect, fallback: number) =>
 const powerToughnessSublayer = (entry: ContinuousEffect) => {
   switch (entry.effect.kind) {
     case 'setPt': return entry.effect.cda ? 0 : 1
-    case 'pump':
+    case 'pump': return 2
     default: return undefined
   }
 }
