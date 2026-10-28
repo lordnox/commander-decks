@@ -1,7 +1,9 @@
 # Retire the dormant player-Aura compatibility route
 
-Parent: [#487](https://github.com/lordnox/commander-decks/issues/487)  
-Child: [#639](https://github.com/lordnox/commander-decks/issues/639)  
+Parent: [#487](https://github.com/lordnox/commander-decks/issues/487)
+
+Child: [#639](https://github.com/lordnox/commander-decks/issues/639)
+
 Base: `23b74da3`
 
 This change removes the unused `playerAuraDeal` effect variant and builder, the
