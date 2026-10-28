@@ -43,7 +43,6 @@ import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
 import { grantCreatureTrigger } from '../cardPlugins/grantCreatureTrigger'
-import { staticBoardPump } from '../cardPlugins/staticBoardPump'
 import { dslStaticModifiers } from '../cardPlugins/dsl/staticModifiers'
 import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
@@ -112,7 +111,6 @@ export const builtInPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantCreatureTrigger,
-  staticBoardPump,
   exilePayoffs,
   attackSubtypeDraw,
   sacrificeLandMana,

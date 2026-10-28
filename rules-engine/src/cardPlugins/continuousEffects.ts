@@ -7,29 +7,17 @@ import type {
   PlayerId,
   Plugin,
   ReversibleEffect,
-  ZoneId,
 } from '../types'
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
 import { effectsOf } from './cardRules'
-import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
+import type { CardEffect, LinkedExilePump } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
 import { KEYWORDS } from './dsl/schema/v2'
-import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
-
-/** CR 208.2 / 604.3: CDAs apply wherever power and toughness are defined. */
-export const zoneHasPowerToughness = (zone: ZoneId) =>
-  zone === 'battlefield'
-  || zone === 'stack'
-  || zone === 'hand'
-  || zone === 'graveyard'
-  || zone === 'exile'
-  || zone === 'command'
-  || zone === 'library'
 
 export const snapshotCopy = (object: GameObject): CopySnapshot => ({
   name: object.name,
@@ -218,47 +206,6 @@ export const grantTriggerWhileSourceOnBattlefield = (
   { kind: 'whileSourceOnBattlefield', sourceId },
 )
 
-const fromStaticBoardPump = (
-  { duration }: ContinuousEffect,
-  sourceId: string,
-  index?: number,
-) =>
-  duration.kind === 'staticBoardPump'
-  && duration.sourceId === sourceId
-  && (index === undefined || duration.index === index)
-
-export const hasStaticBoardPump = (object: GameObject, sourceId: string, index: number) =>
-  (object.continuousEffects ?? []).some((entry) => fromStaticBoardPump(entry, sourceId, index))
-
-/** Stamp one spec's pump (always, so presence is checkable) and keyword layer on `object`. */
-export const applyStaticBoardPump = (
-  object: GameObject,
-  spec: Pick<StaticBoardPumpSpec, 'power' | 'toughness' | 'grantKeywords' | 'suppressKeywords'>,
-  sourceId: string,
-  index: number,
-) => {
-  if (hasStaticBoardPump(object, sourceId, index)) return
-  const duration = { kind: 'staticBoardPump' as const, sourceId, index }
-  withDuration(object, changeStats(object, spec.power, spec.toughness), duration)
-  if (spec.grantKeywords || spec.suppressKeywords) {
-    withDuration(
-      object,
-      {
-        kind: 'staticKeywords',
-        grant: spec.grantKeywords ?? [],
-        suppress: spec.suppressKeywords ?? [],
-      },
-      duration,
-    )
-  }
-}
-
-/** Drop one spec's stamps, or every spec of the source when `index` is omitted. */
-export const removeStaticBoardPump = (object: GameObject, sourceId: string, index?: number) => {
-  reviseContinuousEffects(object, (entry) =>
-    fromStaticBoardPump(entry, sourceId, index) ? undefined : entry)
-}
-
 export const changeController = (
   object: GameObject,
   controller: PlayerId,
@@ -413,11 +360,6 @@ const durationHolds = (
   anyZone = false,
 ) => {
   switch (duration.kind) {
-    case 'staticBoardPump': {
-      const source = state.objects[duration.sourceId]
-      const spec = source && pumpSpecs(source)[duration.index]
-      return Boolean(spec && pumpApplies(state, source, spec, object))
-    }
     case 'printedStatic': {
       const source = state.objects[duration.sourceId]
       return Boolean(source

@@ -576,22 +576,6 @@ export type TargetFilter = {
   manaValue?: { eq?: number; min?: number; max?: number; parity?: 'even' | 'odd' }
 }
 
-/** Layer-style static effect on matching permanents; keywords are lowercase ability tokens. */
-export type StaticBoardPumpSpec = {
-  power: number
-  toughness: number
-  requireTypes: string[]
-  /** Only while the condition holds for the source; re-evaluated as the game changes. */
-  if?: CardCondition
-  /** `self` is only the source; `others` excludes it. Default: every matching permanent. */
-  affects?: 'self' | 'others'
-  /** Whose permanents are affected. Default: the source's controller. */
-  controller?: 'you' | 'opponent'
-  grantKeywords?: string[]
-  /** "Lose and can't have or gain": wins over every grant, printed or static. */
-  suppressKeywords?: string[]
-}
-
 export type SearchSpec = {
   prompt: string
   match: (object: GameObject) => boolean
@@ -755,9 +739,6 @@ export type CardEffect =
       }
       /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
       linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
-      /** Activated abilities of matching permanents you control cost this much less. */
-      /** Matching permanents get +N/+N and keyword changes while this source is on the battlefield. */
-      staticBoardPump?: StaticBoardPumpSpec
       /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
       grantCreatureTrigger?: {

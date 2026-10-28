@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { card, createDefinitionSnapshot, compileCardRuleDefinition } from './cardPlugins/dsl/v1'
+import { amount, card, createDefinitionSnapshot, compileCardRuleDefinition, modifyStats, objects, staticAbility } from './cardPlugins/dsl/v1'
 import { cardTemplate, newGame } from './newGame'
 import { commanderRules } from './formats'
 import { freezeDraft, makeDraft } from './draft'
@@ -8,7 +8,6 @@ import { projectForViewer } from './runtime'
 import { createServerGame } from './runtime'
 import { ok } from './testHelpers'
 import { activated } from './cardPlugins/activated'
-import { staticBoardPump as pumpEffect } from './cardPlugins/effects'
 import { pendingSelectionFor } from './rules/selectCards'
 import { pendingPlayerSelectionFor } from './rules/selectPlayers'
 import { createJournal, recordAccepted, restoreJournal } from './journal'
@@ -242,7 +241,13 @@ describe('rules object identity', () => {
             types: ['Creature'],
             power: 3,
             toughness: 3,
-            effects: [pumpEffect(3, 3, ['Creature'])],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              staticAbility(modifyStats({
+                targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+                power: amount(3),
+                toughness: amount(3),
+              })),
+            ]))),
           }),
           cardTemplate('Dying Source', {
             types: ['Creature'],
@@ -257,7 +262,7 @@ describe('rules object identity', () => {
         ],
       },
     })
-    let state = ok(server.rules(server.state, { type: 'custom', name: 'staticBoardPump.sync' }))
+    let state = server.state
     const source = Object.values(state.objects).find((object) => object.name === 'Dying Source')!
     expect(source.power).toBe(5)
 
