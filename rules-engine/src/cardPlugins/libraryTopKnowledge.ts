@@ -4,30 +4,11 @@ import { evaluatePlayerSelector } from './dsl/compiler/runtime'
 import type Draft from '../draft'
 import { markKnownToAll } from '../knowledge'
 import type { GameState, PlayerId } from '../types'
-import type { CardEffect } from './effects'
-
-const objectEffects = (object: { effects?: CardEffect[] }) => object.effects ?? []
-
-const hasStatic = (
-  state: GameState | Draft,
-  seat: PlayerId,
-  flag: 'revealLibraryTop' | 'playLandsFromLibraryTop',
-) =>
-  Object.values(state.objects).some((object) =>
-    object.zone === 'battlefield'
-    && object.controller === seat
-    && objectEffects(object).some((effect) =>
-      effect.op === 'static' && effect[flag]))
-
 export const seatRevealsLibraryTop = (state: GameState | Draft, seat: PlayerId) =>
-  hasStatic(state, seat, 'revealLibraryTop')
-  || Object.values(state.objects).some(source =>
+  Object.values(state.objects).some(source =>
     activePrintedStaticModifiers(state, source).some(entry =>
       !isActiveKeywordStatic(entry) && entry.effect.kind === 'revealLibraryTop'
       && evaluatePlayerSelector(entry.effect.players, { state, controller: source.controller, source: captureObject(source) }).includes(seat)))
-
-export const seatPlaysLandsFromLibraryTop = (state: GameState | Draft, seat: PlayerId) =>
-  hasStatic(state, seat, 'playLandsFromLibraryTop')
 
 /** Keep the library top public while a reveal-top source is in play. */
 export const syncRevealedLibraryTop = (draft: Draft, seats?: PlayerId[]) => {

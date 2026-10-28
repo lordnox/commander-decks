@@ -4,14 +4,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { courserOfKruphix } from './courserOfKruphix'
-import {
-  draw,
-  gainLife,
-  landfall,
-  onResolve as onResolveEffect,
-  staticPlayLandsFromLibraryTop,
-  staticRevealLibraryTop,
-} from './effects'
+import { draw, onResolve as onResolveEffect } from './effects'
 import { onResolve } from './onResolve'
 
 const card = (name: string, types: string[] = ['Instant']) =>
@@ -19,14 +12,7 @@ const card = (name: string, types: string[] = ['Instant']) =>
 
 const forest = () => cardTemplate('Forest', { types: ['Land'], subtypes: ['Forest'] })
 
-const revealer = () => cardTemplate('Fixture Library Top', {
-  types: ['Enchantment', 'Creature'],
-  effects: [
-    staticRevealLibraryTop(),
-    staticPlayLandsFromLibraryTop(),
-    landfall(gainLife(1)),
-  ],
-})
+const revealer = () => cardTemplate('Courser of Kruphix')
 
 const plugins = { random: () => 0.5, cardPlugins: [onResolve, courserOfKruphix] }
 

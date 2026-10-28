@@ -5886,7 +5886,7 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:637",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:791",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:788",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -6993,14 +6993,14 @@
       {
         "path": "rules-engine/src/plugins/lands.ts",
         "lines": [
-          48,
-          51,
-          54
+          36,
+          39,
+          42
         ],
         "samples": [
-          "48: const pending = draft.object(event.objectId)",
-          "51: const object = draft.object(event.objectId)",
-          "54: draft.enqueue({ type: 'move', objectId: object.id, to: 'battlefield' })"
+          "36: const pending = draft.object(event.objectId)",
+          "39: const object = draft.object(event.objectId)",
+          "42: draft.enqueue({ type: 'move', objectId: object.id, to: 'battlefield' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
