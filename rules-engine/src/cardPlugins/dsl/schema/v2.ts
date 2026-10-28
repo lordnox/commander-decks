@@ -937,10 +937,10 @@ export type ContinuousEffectDefinition =
   | { kind: 'attackTax'; amount: number; whileUntapped?: true }
   /** Creatures blocking while this source is attacking cost {N} each. */
   | { kind: 'blockTax'; amount: number; whileAttacking?: true }
-  /** Opponents can’t cast spells whose mana value has this parity. Zero is even. */
-  | { kind: 'opponentsCantCast'; parity: ManaValueParity }
-  /** Opponents can’t block with creatures whose mana value has this parity. Zero is even. */
-  | { kind: 'opponentsCantBlock'; parity: ManaValueParity }
+  /** Opponents can’t cast spells matching this mana-value predicate. Zero is even. */
+  | ({ kind: 'opponentsCantCast' } & ManaValueRestriction)
+  /** Opponents can’t block with creatures matching this mana-value predicate. Zero is even. */
+  | ({ kind: 'opponentsCantBlock' } & ManaValueRestriction)
   /** Flagbearer-style obligation while an opponent announces targets. */
   | { kind: 'targetingRequirement'; requirement: 'flagbearer' }
   /** CR 702.21: counter an opponent’s targeted spell or ability unless its controller pays. */
@@ -995,6 +995,13 @@ export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 
 export const MANA_VALUE_PARITIES = { even: 'even', odd: 'odd' } as const
 export type ManaValueParity = typeof MANA_VALUE_PARITIES[keyof typeof MANA_VALUE_PARITIES]
+
+/** Require at least one condition; every present condition must match the mana value. */
+export type ManaValueRestriction = {
+  parity?: ManaValueParity
+  min?: number
+  max?: number
+}
 
 export type WardCost =
   | { kind: 'mana'; generic: number }
