@@ -52,7 +52,7 @@ const drawByTypeReplacement = () => createDefinitionSnapshot(compileCardRuleDefi
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-describe('drawReplacementByType', () => {
+describe('draw replacement by type', () => {
   test('optional draw-by-type replacement keeps choices private and sequences multi-draw decisions', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 9,
+    "cardEffects": 8,
     "cardInstructions": 175,
     "instructionHandlersDiscovered": 175,
     "builtInPlugins": 57,
@@ -78,21 +78,6 @@
         "05",
         "07"
       ],
-      "status": "unobserved"
-    },
-    {
-      "variant": "drawReplacementByType",
-      "mechanic": "specialized legacy effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "new canonical ability/effect node",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "16",
-      "dependencyParts": [],
       "status": "unobserved"
     },
     {
