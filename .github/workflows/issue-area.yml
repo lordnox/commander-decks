@@ -1,0 +1,23 @@
+name: Issue area
+
+on:
+  issues:
+    types: [opened, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: issue-area-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  area:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply form areas and report missing labels
+        run: python3 .github/scripts/area_labels.py
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -6,7 +6,7 @@ from __future__ import annotations
 import re
 import sys
 
-AREAS = ('chore', 'ci', 'decks', 'docs', 'dsl', 'live', 'rules', 'site')
+from area_labels import AREAS
 AREA_PATTERN = '|'.join(AREAS)
 
 # dsl: Part 11 resumable replacement processing
@@ -43,6 +43,7 @@ def self_test() -> None:
     valid = (
         *EXAMPLES,
         'rules: preserve optional payment timing',
+        'server: persist accepted game events',
         'docs: record Rule DSL parts 00-10 as merged',
         'live: redact private replacement frames',
         'site: show waiting seat on live table',
