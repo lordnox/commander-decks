@@ -330,7 +330,6 @@ const optionSelectionMetadata = (pending: PendingOptionSelection) => {
   switch (pending.action.kind) {
     case 'replacementProgramChoice':
     case 'replacementModifier':
-    case 'choose-color':
       return {
         phase: 'replacement' as const,
         purpose: 'replacement' as const,

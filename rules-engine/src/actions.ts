@@ -2635,9 +2635,6 @@ export const eventsForAvailableAction = (
     : printedSpellText
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))
-  // The kernel stores the color an entering permanent chooses.
-  const entryChoice = effects.some((effect) =>
-    effect.op === 'replacement' && effect.do === 'chooseColor')
   const foretoldCast = Boolean(
     object
     && action.castOption === FORETELL_CAST_ID
@@ -2656,7 +2653,6 @@ export const eventsForAvailableAction = (
     || (
       !hasAlternateCast
       && !doorTriggers
-      && !entryChoice
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(spellText)
     )
     || /additional cost/i.test(spellText)

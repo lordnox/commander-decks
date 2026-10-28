@@ -30,8 +30,6 @@ import {
 import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
-import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
-import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { PENDING_VOTE, pendingVote, vote as votePlugin } from '../../rules-engine/src/cardPlugins/vote'
 import {
@@ -1106,19 +1104,13 @@ describe('kernel host journal', () => {
     expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
   })
 
-  test('a suspended frame offers only its answer after a host restart', () => {
+  test('a canonical entry choice resumes after a host restart', () => {
     const server = createServerGame(
       commanderRules,
       {
         players: 2,
         hands: {
-          p1: [cardTemplate('Test Sprawl', {
-            types: ['Enchantment'],
-            subtypes: ['Aura'],
-            manaCost: '{G}',
-            oracleText: 'Enchant Forest\nAs this Aura enters, choose a color.',
-            effects: [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
-          })],
+          p1: [cardTemplate('Utopia Sprawl')],
         },
         battlefield: { p1: [forest()] },
         libraries: {
@@ -1126,7 +1118,7 @@ describe('kernel host journal', () => {
           p2: Array.from({ length: 10 }, forest),
         },
       },
-      { random: () => 0.5, cardPlugins: [chosenColor] },
+      { random: () => 0.5 },
     )
     const landId = server.state.zoneOrder.p1.battlefield[0]
     const kernel = handleFor(server.rules, {
@@ -1175,7 +1167,7 @@ describe('kernel host journal', () => {
     const state = restarted.history.current()
     expect(pendingOptionSelection(state)).toBeUndefined()
     expect(state.objects[state.zoneOrder.p1.battlefield.find(
-      (id) => state.objects[id].name === 'Test Sprawl',
+      (id) => state.objects[id].name === 'Utopia Sprawl',
     )!].chosenColor).toBe('R')
     const tap = restarted.dispatch({ type: 'tapForMana', seat: 'p1', objectId: landId })
     expect(tap.ok ? '' : tap.error).toBe('')
@@ -4138,7 +4130,7 @@ describe('same-named candidates are picked by position', () => {
       seat: 'p1',
       prompt: 'Choose one.',
       options: [{ id: 'first', label: 'Same' }, { id: 'second', label: 'Same' }],
-      action: { kind: 'choose-color' },
+      action: { kind: 'mana-choice', pools: { first: { G: 1 }, second: { G: 1 } } },
     }
     server.state.priority = 'p1'
     const kernel = handleFor(server.rules, server.state)
