@@ -1,13 +1,5 @@
 import type { CardEffect, CardInstruction, GrantCreatureTrigger, ManaValuePredicate, StaticBoardPumpSpec } from './effectDefinitions'
 
-export const enchantedManaBoost = (
-  boost: Extract<CardEffect, { op: 'static' }>['enchantedManaBoost'],
-): CardEffect => ({
-  op: 'static',
-  pluginId: 'enchantedManaBoost',
-  enchantedManaBoost: boost,
-})
-
 export const extraLandfall = (count = 1): CardEffect => ({
   op: 'static',
   extraLandfall: count,

@@ -23,12 +23,12 @@
     "cardEffects": 12,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
-    "builtInPlugins": 62,
+    "builtInPlugins": 61,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 61,
-    "directMutationSites": 507,
+    "directMutationSites": 504,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -4304,26 +4304,6 @@
       "status": "unobserved"
     },
     {
-      "variant": "enchantedManaBoost",
-      "mechanic": "runtime plugin hook",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts — dedicated plugin/mechanic suite"
-      ],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:245 — test('the boost ends when the enchanted land leaves and the Aura goes with it', () => {",
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:78 — test('static effects identify granted plugins', () => {"
-        ]
-      },
-      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
-      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
-    },
-    {
       "variant": "energy",
       "mechanic": "runtime plugin hook",
       "currentRegistrations": [],
@@ -4428,9 +4408,8 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:172 — test('an enchanted overlay Forest counts as a Forest', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:109 — test('the Forest subtype honors the forest overlay for every land', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:44"
         ]
@@ -5966,11 +5945,11 @@
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:94",
-        "rules-engine/src/cardPlugins/staticEffects.ts:21",
-        "rules-engine/src/cardPlugins/staticEffects.ts:27",
+        "rules-engine/src/cardPlugins/staticEffects.ts:13",
+        "rules-engine/src/cardPlugins/staticEffects.ts:19",
         "rules-engine/src/definitions.ts:81",
-        "rules-engine/src/formats.ts:141",
-        "rules-engine/src/formats.ts:46",
+        "rules-engine/src/formats.ts:139",
+        "rules-engine/src/formats.ts:45",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
         "rules-engine/src/kernel.ts:902",
@@ -5979,8 +5958,8 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/index.ts:118",
-        "rules-engine/src/plugins/index.ts:47",
+        "rules-engine/src/plugins/index.ts:116",
+        "rules-engine/src/plugins/index.ts:46",
         "rules-engine/src/plugins/rooms.ts:53",
         "rules-engine/src/plugins/rooms.ts:72",
         "rules-engine/src/plugins/rooms.ts:89",
@@ -6953,27 +6932,6 @@
           "82: const object = draft.object(event.objectId)",
           "90: draft.move(object.id, 'exile')",
           "99: const object = draft.object(event.objectId)"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/plugins/enchantedManaBoost.ts",
-        "lines": [
-          23,
-          29,
-          31
-        ],
-        "samples": [
-          "23: const aura = rule.sourceId ? draft.object(rule.sourceId) : undefined",
-          "29: const land = draft.object(tappedId)",
-          "31: draft.enqueue({ type: 'addMana', seat: land.controller, mana: { [color]: 1 } })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

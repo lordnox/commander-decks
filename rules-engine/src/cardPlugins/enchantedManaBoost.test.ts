@@ -8,24 +8,7 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { activated } from './activated'
-import {
-  activate,
-  addManaChoice,
-  enchantedManaBoost,
-  pluginIdsFromEffects,
-  staticGrant,
-} from './effects'
-import { manaChoice } from './manaChoice'
-
-const wildGrowth = (): CardTemplate => cardTemplate('Test Wild Growth', {
-  types: ['Enchantment'],
-  subtypes: ['Aura'],
-  manaCost: '{G}',
-  oracleText:
-    'Enchant land\nWhenever enchanted land is tapped for mana, its controller adds an additional {G}.',
-  effects: [enchantedManaBoost({ mana: 'G' })],
-})
+const wildGrowth = (): CardTemplate => cardTemplate('Wild Growth')
 
 const utopiaSprawl = (): CardTemplate => cardTemplate('Utopia Sprawl')
 
@@ -46,7 +29,7 @@ const game = (hand: CardTemplate[], battlefield: CardTemplate[]) =>
   createServerGame(
     commanderRules,
     { hands: { p1: hand }, battlefield: { p1: battlefield } },
-    { random: () => 0.5, cardPlugins: [activated, manaChoice] },
+    { random: () => 0.5 },
   )
 
 const named = (state: GameState, name: string) =>
@@ -73,12 +56,6 @@ const castThroughActions = (
   return resolveStack(server.rules, cast)
 }
 
-describe('capability wiring', () => {
-  test('static effects identify granted plugins', () => {
-    expect(pluginIdsFromEffects([enchantedManaBoost({ mana: 'G' })])).toEqual(['enchantedManaBoost'])
-  })
-})
-
 describe('Aura casting through the action layer', () => {
   test('offers one cast per legal enchant target and none for illegal ones', () => {
     const server = game([utopiaSprawl()], [forest(), island(), bears()])
@@ -87,7 +64,7 @@ describe('Aura casting through the action layer', () => {
     expect(targets).toEqual(['Forest'])
 
     const land = game([wildGrowth()], [forest(), island(), bears()])
-    expect(castActs(land.state, 'Test Wild Growth')
+    expect(castActs(land.state, 'Wild Growth')
       .map((act) => act.kind === 'castSpell' ? act.targetName : undefined))
       .toEqual(['Forest', 'Island'])
   })
@@ -130,7 +107,7 @@ describe('Aura casting through the action layer', () => {
 
   test('a cast without a target is not planned, and the kernel rejects it', () => {
     const server = game([wildGrowth()], [forest()])
-    const aura = named(server.state, 'Test Wild Growth')
+    const aura = named(server.state, 'Wild Growth')
     server.state.players.p1.mana.G = 1
     expect(eventsForAvailableAction(server.state, 'p1', {
       kind: 'castSpell',
@@ -169,23 +146,23 @@ describe('Aura casting through the action layer', () => {
   test('an enchanted overlay Forest counts as a Forest', () => {
     const server = game([utopiaSprawl()], [
       island(),
-      cardTemplate('Test Yavimaya', { types: ['Land'], effects: [staticGrant('forestOverlay')] }),
+      cardTemplate('Yavimaya, Cradle of Growth'),
     ])
     expect(castActs(server.state, 'Utopia Sprawl')
       .map((act) => act.kind === 'castSpell' ? act.targetName : undefined))
-      .toEqual(['Island', 'Test Yavimaya'])
+      .toEqual(['Island', 'Yavimaya, Cradle of Growth'])
   })
 
   test('an Aura whose target left before it resolves does not enter', () => {
     const server = game([wildGrowth()], [forest()])
     const land = named(server.state, 'Forest')
-    const act = castActs(server.state, 'Test Wild Growth')[0]
+    const act = castActs(server.state, 'Wild Growth')[0]
     server.state.players.p1.mana.G = 1
     const cast = eventsForAvailableAction(server.state, 'p1', act)!
       .reduce((current: GameState, event) => ok(server.rules(current, event)), server.state)
     const gone = ok(server.rules(cast, { type: 'move', objectId: land.id, to: 'graveyard' }))
     const resolved = resolveStack(server.rules, gone)
-    expect(named(resolved, 'Test Wild Growth').zone).toBe('graveyard')
+    expect(named(resolved, 'Wild Growth').zone).toBe('graveyard')
   })
 })
 
@@ -194,8 +171,8 @@ describe('Aura mana boost', () => {
     const server = game([wildGrowth()], [forest(), forest()])
     const [enchanted, other] = server.state.zoneOrder.p1.battlefield
     server.state.players.p1.mana.G = 1
-    const entered = castThroughActions(server, server.state, 'Test Wild Growth', enchanted)
-    expect(named(entered, 'Test Wild Growth')).toMatchObject({
+    const entered = castThroughActions(server, server.state, 'Wild Growth', enchanted)
+    expect(named(entered, 'Wild Growth')).toMatchObject({
       zone: 'battlefield',
       attachedTo: enchanted,
     })
@@ -207,28 +184,16 @@ describe('Aura mana boost', () => {
   })
 
   test('the boost also follows a {T} mana ability of the enchanted land', () => {
-    const filter = cardTemplate('Test Filter Land', {
-      types: ['Land'],
-      oracleText: '{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}.',
-      effects: [
-        activate({
-          id: 'filter.grove',
-          manaAbility: true,
-          costs: { mana: '{G/U}', tap: true },
-          do: [addManaChoice({ G: 2 }, { U: 2 })],
-        }),
-      ],
-    })
-    const server = game([wildGrowth()], [forest(), filter])
-    const filterId = named(server.state, 'Test Filter Land').id
+    const server = game([wildGrowth()], [forest(), cardTemplate('Flooded Grove')])
+    const filterId = named(server.state, 'Flooded Grove').id
     server.state.players.p1.mana.G = 1
-    const entered = castThroughActions(server, server.state, 'Test Wild Growth', filterId)
+    const entered = castThroughActions(server, server.state, 'Wild Growth', filterId)
     entered.players.p1.mana.U = 1
     const next = ok(server.rules(entered, {
       type: 'activateAbility',
       seat: 'p1',
       objectId: filterId,
-      abilityId: 'filter.grove',
+      abilityId: '$.abilities[1]',
       manaAbility: true,
       choices: ['UU'],
     }))
@@ -239,10 +204,9 @@ describe('Aura mana boost', () => {
     const server = game([wildGrowth()], [forest()])
     const land = server.state.zoneOrder.p1.battlefield[0]
     server.state.players.p1.mana.G = 1
-    const entered = castThroughActions(server, server.state, 'Test Wild Growth', land)
+    const entered = castThroughActions(server, server.state, 'Wild Growth', land)
     const gone = ok(server.rules(entered, { type: 'move', objectId: land, to: 'graveyard' }))
-    expect(named(gone, 'Test Wild Growth').zone).toBe('graveyard')
-    expect(gone.rules.some((rule) => rule.pluginId === 'enchantedManaBoost')).toBe(false)
+    expect(named(gone, 'Wild Growth').zone).toBe('graveyard')
   })
 
   test('two Auras on one land each add a mana', () => {
