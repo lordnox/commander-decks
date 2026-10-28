@@ -1,16 +1,15 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, count, objects, ref, select } from './cardPlugins/dsl/builders'
+import { amount, characteristic, count, modifyStats, objects, ref, select, staticAbility } from './cardPlugins/dsl/builders'
 import { card } from './cardPlugins/dsl/sugar/card'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import type { Instruction } from './cardPlugins/dsl/schema/v2'
 import { finishResolution, prepareResolutionStep, startCanonicalResolution } from './driver'
-import { ptEqualsLife } from './cardPlugins/effects'
-import { cdaLifePt } from './plugins/cdaLifePt'
 import { freezeDraft, makeDraft } from './draft'
 import { commanderRules } from './formats'
 import { cardTemplate } from './newGame'
 import { createServerGame, projectForViewer } from './runtime'
 import { openOptionSelection, pendingOptionSelection } from './rules/selectOptions'
+import { ZONE_IDS } from './types'
 import type { GameState, Plugin, ReduceResult } from './types'
 
 const ok = (result: ReduceResult) => {
@@ -121,7 +120,16 @@ describe('durable canonical resolution driver', () => {
       types: ['Creature'],
       power: null,
       toughness: null,
-      effects: [ptEqualsLife({ who: 'controller' })],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([{
+        ...staticAbility(modifyStats({
+          targets: objects({ among: ref('source') }),
+          power: characteristic(ref('controller'), 'life', { information: 'current' }),
+          toughness: characteristic(ref('controller'), 'life', { information: 'current' }),
+          set: true,
+          characteristicDefining: true,
+        })),
+        activeIn: ZONE_IDS,
+      }]))),
     })
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -137,7 +145,7 @@ describe('durable canonical resolution driver', () => {
         })],
       },
       battlefield: { p1: [vitality] },
-    }, { random: () => 0, cardPlugins: [cdaLifePt] })
+    }, { random: () => 0 })
 
     const resolved = ok(server.rules(cast(server), { type: 'resolveTop' }))
     const creature = Object.values(resolved.objects).find((object) => object.name === 'CDA Fixture')!

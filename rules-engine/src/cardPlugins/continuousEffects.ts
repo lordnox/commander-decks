@@ -405,10 +405,6 @@ const removeLastOracleLine = (object: GameObject, line: string) => {
   object.oracleText = lines.join('\n')
 }
 
-const objectSupportsCdaLifePt = (object: GameObject) =>
-  zoneHasPowerToughness(object.zone)
-  && (object.types.includes('Creature') || object.power !== null || object.toughness !== null)
-
 const durationHolds = (
   state: GameState,
   object: GameObject,
@@ -417,8 +413,6 @@ const durationHolds = (
   anyZone = false,
 ) => {
   switch (duration.kind) {
-    case 'cdaLifePt':
-      return objectSupportsCdaLifePt(object)
     case 'staticBoardPump': {
       const source = state.objects[duration.sourceId]
       const spec = source && pumpSpecs(source)[duration.index]
@@ -563,7 +557,7 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.before.types]
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
-  } else if (effect.kind === 'cdaLifePt' || effect.kind === 'setPt') {
+  } else if (effect.kind === 'setPt') {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
@@ -631,7 +625,7 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.after.types]
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
-  } else if (effect.kind === 'cdaLifePt' || effect.kind === 'setPt') {
+  } else if (effect.kind === 'setPt') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
@@ -801,109 +795,6 @@ const hasExpiredEffects = (state: GameState) =>
     (object.continuousEffects ?? []).some(
       (entry) => !effectHolds(state, object, entry, false),
     ))
-
-const cdaSetPtEntry = (object: GameObject) =>
-  object.continuousEffects?.find(({ effect, duration }) =>
-    effect.kind === 'cdaLifePt' && duration.kind === 'cdaLifePt')
-
-export const lifeTotalForCda = (
-  state: GameState,
-  object: GameObject,
-  who: 'controller' | 'owner',
-) => state.players[who === 'controller' ? object.controller : object.owner]?.life ?? 0
-
-export const countControlledPermanents = (
-  state: GameState,
-  controller: PlayerId,
-  types: string[],
-) =>
-  Object.values(state.objects).filter((candidate) =>
-    candidate.zone === 'battlefield'
-    && candidate.controller === controller
-    && types.every((type) => candidate.types.includes(type))).length
-
-const makeCdaSetPtEffect = (
-  object: GameObject,
-  value: number,
-  who?: 'controller' | 'owner',
-): ReversibleEffect => {
-  const before = {
-    power: withoutCounters(object, object.power),
-    toughness: withoutCounters(object, object.toughness),
-  }
-  object.power = withCounters(object, value)
-  object.toughness = withCounters(object, value)
-  return {
-    kind: 'cdaLifePt',
-    ...(who ? { who } : {}),
-    before,
-    after: { power: value, toughness: value },
-  }
-}
-
-/** Install or refresh the layer-7a set-P/T CDA on one object. */
-export const refreshCdaSetPt = (
-  state: GameState,
-  object: GameObject,
-  value: number,
-  who?: 'controller' | 'owner',
-) => {
-  const active = objectSupportsCdaLifePt(object)
-  const existing = cdaSetPtEntry(object)
-
-  if (!active) {
-    if (existing) {
-      reviseContinuousEffects(object, (entry) =>
-        entry === existing ? undefined : entry)
-    }
-    return
-  }
-
-  if (!existing) {
-    withDuration(
-      object,
-      makeCdaSetPtEffect(object, value, who),
-      { kind: 'cdaLifePt' },
-    )
-    return
-  }
-
-  if (
-    existing.effect.kind === 'cdaLifePt'
-    && existing.effect.after.power === value
-    && existing.effect.after.toughness === value
-    && existing.effect.who === who
-  ) return
-
-  reviseContinuousEffects(object, (entry) => {
-    if (entry !== existing || existing.effect.kind !== 'cdaLifePt') return entry
-    const next = {
-      ...existing.effect,
-      after: { power: value, toughness: value },
-    }
-    if (who) next.who = who
-    else delete next.who
-    return { ...entry, effect: next }
-  })
-}
-
-/** Install or refresh the layer-7a life CDA on one object from its stamped static effect. */
-export const refreshCdaLifePt = (
-  state: GameState,
-  object: GameObject,
-  who: 'controller' | 'owner',
-) => refreshCdaSetPt(state, object, lifeTotalForCda(state, object, who), who)
-
-/** Install or refresh the layer-7a count CDA on one object from matching permanents. */
-export const refreshCdaCountPt = (
-  state: GameState,
-  object: GameObject,
-  types: string[],
-) => refreshCdaSetPt(
-  state,
-  object,
-  countControlledPermanents(state, object.controller, types),
-)
 
 const pumpPerLinkedExileEntry = (object: GameObject) =>
   object.continuousEffects?.find(({ effect, duration }) =>
