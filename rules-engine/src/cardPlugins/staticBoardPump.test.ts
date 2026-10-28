@@ -153,8 +153,6 @@ describe('Thunderfoot Baloth', () => {
 })
 
 describe('relocated from sinFallGaps.test.ts → staticBoardPump.test.ts', () => {
-  const namedObject = (state: GameState, name: string) => named(state, name)
-
   test('Colossification attaches, taps, and pumps the creature', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [cardTemplate('Bear', { types: ['Creature'], power: 2, toughness: 2 })] },
@@ -162,8 +160,8 @@ describe('relocated from sinFallGaps.test.ts → staticBoardPump.test.ts', () =>
     }, { random: () => 0.5 })
     const ready = structuredClone(server.state)
     ready.players.p1!.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 5 }
-    const aura = namedObject(ready, 'Colossification').id
-    const bearId = namedObject(ready, 'Bear').id
+    const aura = named(ready, 'Colossification').id
+    const bearId = named(ready, 'Bear').id
     const entered = resolveStack(server.rules, ok(server.rules(ready, {
       type: 'castSpell', seat: 'p1', objectId: aura,
       targets: [{ kind: 'object', objectId: bearId }],
