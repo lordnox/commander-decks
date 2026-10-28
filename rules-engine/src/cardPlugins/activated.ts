@@ -123,10 +123,6 @@ export const activated: Plugin = {
         action: 'tapForMana',
       })
       if (permissionError) return permissionError
-      const manaEffect = effectsOf(source).find((effect) => effect.op === 'mana')
-      if (manaEffect && !conditionHolds(manaEffect.if, state, source)) {
-        return `${source.name} cannot be activated now`
-      }
       const millMana = effectsOf(source).find((effect): effect is Extract<typeof effect, { op: 'activate' }> =>
         effect.op === 'activate' && Boolean(effect.manaAbility))
       if (millMana) {

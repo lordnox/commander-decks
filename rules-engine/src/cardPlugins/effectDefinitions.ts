@@ -750,19 +750,6 @@ export type CardEffect =
       min?: number
       max?: number
     }
-  | { op: 'mana'; if: CardCondition }
-  | {
-      op: 'manaCapability'
-      from: 'opponentsLands' | 'controlledLands'
-    }
-  | {
-      op: 'restrictedMana'
-      /** Spend this mana only to cast a creature spell of the creature type the source chose. */
-      creatureOfChosenType?: true
-      /** Spend this mana only to cast a legendary spell. */
-      legendary?: true
-      uncounterable?: boolean
-    }
   | {
       op: 'static'
       pluginId?: string

@@ -9,7 +9,6 @@ import type { CardEffect } from '../cardPlugins/effects'
 import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
 import { BASIC_LAND_MANA, BASIC_LAND_TYPES, hasBasicLandType } from './landTypes'
-import { effectsOf } from '../cardPlugins/cardRules'
 import { romanNumber } from './saga'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
@@ -75,8 +74,7 @@ const manaLines = (object: Pick<ManaSource, 'oracleText' | 'counters'>) => {
  * sacrifice of the source itself (Treasure, Lotus Petal). A line with any
  * other cost (`{1}, {T}: Add {G}{U}`, `{T}, Mill a card: Add {C}`, `Sacrifice a
  * creature: Add {C}{C}`) is an activated mana ability and is not a mode.
- * Sacrifice lines count only when the source has no free line, and not when an
- * explicit mana-ability effect already covers them.
+ * Sacrifice lines count only when the source has no free line.
  */
 const tapManaText = (object: Pick<ManaSource, 'oracleText' | 'effects' | 'counters'>) => {
   const { free, sacrifice } = manaLines(object)
@@ -105,7 +103,6 @@ export const manaRequiresTap = (object: Pick<ManaSource, 'oracleText' | 'counter
 export const manaModes = (
   object: ManaSource,
   state?: Pick<GameState, 'objects' | 'rules'>,
-  visited = new Set<string>(),
 ): Partial<Record<ManaId, number>>[] => {
   if (state && object.id && object.ruleDefinition) {
     const source = state.objects[object.id]
@@ -122,8 +119,6 @@ export const manaModes = (
       })
     }
   }
-  const nextVisited = new Set(visited)
-  if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []
   const freeText = tapManaText(object)
   for (const match of freeText.matchAll(
@@ -141,13 +136,9 @@ export const manaModes = (
     if (symbols.length > 0) modes.push(pool)
   }
   const identityMana = /commander's color identity/i.test(freeText)
-  const hasDynamicCapability = object.effects?.some(
-    (effect) => effect.op === 'manaCapability' || effect.op === 'restrictedMana',
-  )
   if (
     /one mana of any color/i.test(freeText)
     && !identityMana
-    && !hasDynamicCapability
   ) {
     for (const symbol of COLORS) modes.push({ [symbol]: 1 })
   }
@@ -163,36 +154,6 @@ export const manaModes = (
         .filter((color): color is ManaId => COLORS.includes(color as ManaId)),
     )
     for (const color of colors) modes.push({ [color]: 1 })
-  }
-  if (state && object.controller) {
-    for (const capability of object.effects ?? []) {
-      if (capability.op === 'restrictedMana') {
-        for (const symbol of COLORS) modes.push({ [symbol]: 1 })
-        continue
-      }
-      if (capability.op !== 'manaCapability') continue
-      const referenced = Object.values(state.objects).filter((candidate) =>
-        candidate.zone === 'battlefield'
-        && candidate.types.includes('Land')
-        && !nextVisited.has(candidate.id)
-        && (
-          capability.from === 'controlledLands'
-            ? candidate.controller === object.controller
-            : candidate.controller !== object.controller
-        ))
-      const symbols = new Set<ManaId>()
-      for (const candidate of referenced) {
-        for (const mode of manaModes(candidate, state, nextVisited)) {
-          for (const symbol of MANA_IDS) {
-            if ((mode[symbol] ?? 0) > 0) symbols.add(symbol)
-          }
-        }
-      }
-      for (const symbol of symbols) {
-        if (capability.from === 'opponentsLands' && symbol === 'C') continue
-        modes.push({ [symbol]: 1 })
-      }
-    }
   }
   // CR 305.6: a land with a basic land type has that type's intrinsic mana
   // ability in addition to its other abilities (Urborg on a Forest, Dryad Arbor).
@@ -286,26 +247,7 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
     if (!pool) return
     object.tapped = true
     if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })
-    const player = draft.players[event.seat]
-    const restriction = effectsOf(object).find((effect) => effect.op === 'restrictedMana')
-    const restrictedSymbol = event.mana && event.mana !== 'C' && restriction
-      ? event.mana
-      : undefined
-    if (restrictedSymbol) {
-      player.restrictedMana = [
-        ...(player.restrictedMana ?? []),
-        {
-          mana: restrictedSymbol,
-          sourceId: object.id,
-          ...(restriction?.op === 'restrictedMana' && restriction.legendary
-            ? { legendary: true }
-            : object.chosenType ? { creatureType: object.chosenType } : {}),
-          ...(restriction?.uncounterable ? { uncounterable: true } : {}),
-        },
-      ]
-    } else {
-      draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })
-    }
+    draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })
     draft.note(`${event.seat} taps ${object.name} for mana`)
     if (
       /this land deals 1 damage to you/i.test(object.oracleText)

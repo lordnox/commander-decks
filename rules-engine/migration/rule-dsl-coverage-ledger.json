@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 12,
+    "cardEffects": 9,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
     "builtInPlugins": 61,
@@ -108,57 +108,6 @@
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "unobserved"
-    },
-    {
-      "variant": "mana",
-      "mechanic": "mana condition",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed mana ability/cost condition",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "08",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "unobserved"
-    },
-    {
-      "variant": "manaCapability",
-      "mechanic": "mana capability",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed mana production capability",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "08",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "unobserved"
-    },
-    {
-      "variant": "restrictedMana",
-      "mechanic": "restricted mana",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed mana production and spending restriction",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "08",
-      "dependencyParts": [
-        "07"
-      ],
       "status": "unobserved"
     },
     {
@@ -5809,9 +5758,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1390",
-        "rules-engine/src/actions.ts:1559",
-        "rules-engine/src/actions.ts:887",
+        "rules-engine/src/actions.ts:1380",
+        "rules-engine/src/actions.ts:1549",
+        "rules-engine/src/actions.ts:877",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:306",
@@ -5937,7 +5886,7 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:637",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:804",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:791",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -6833,17 +6782,17 @@
       {
         "path": "rules-engine/src/plugins/mana.ts",
         "lines": [
-          282,
-          288,
-          307,
-          314,
-          322,
-          356
+          243,
+          249,
+          250,
+          256,
+          264,
+          298
         ],
         "samples": [
-          "282: const object = draft.object(event.objectId)",
-          "288: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
-          "307: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
+          "243: const object = draft.object(event.objectId)",
+          "249: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
+          "250: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7932,17 +7881,17 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          351,
-          354,
-          367,
-          564,
-          598,
-          619
+          347,
+          350,
+          363,
+          560,
+          594,
+          615
         ],
         "samples": [
-          "351: const source = draft.object(event.objectId)",
-          "354: draft.enqueue({",
-          "367: const source = draft.object(event.objectId)"
+          "347: const source = draft.object(event.objectId)",
+          "350: draft.enqueue({",
+          "363: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
