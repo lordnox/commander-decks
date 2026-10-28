@@ -40,16 +40,10 @@ const isSeafood = (object: {
   types: string[]
   subtypes: string[]
   oracleText: string
-  controller: string
-}, draft: Draft) => {
-  if (object.subtypes.some((subtype) => SEA_CREATURE_TYPES.has(subtype))) return true
-  if (abilityTokens(object.oracleText).includes('changeling')) return true
+}) => {
   if (!object.types.includes('Creature')) return false
-  return Object.values(draft.objects).some((candidate) =>
-    candidate.zone === 'battlefield'
-    && candidate.controller === object.controller
-    && (candidate.effects ?? []).some((effect) =>
-      effect.op === 'static' && effect.allCreatureTypes))
+  if (object.subtypes.some((subtype) => SEA_CREATURE_TYPES.has(subtype))) return true
+  return abilityTokens(object.oracleText).includes('changeling')
 }
 
 const mill = (draft: Draft, seat: PlayerId, count: number) => {
@@ -127,7 +121,7 @@ export const homer: Plugin = {
     if (event.name !== HOMER_RESOLVE || state.stack[0]?.name !== HOMER_STACK_NAME) return
     draft.stack.shift()
     const creatures = draft.zoneOf('battlefield', event.seat).filter((object) =>
-      isSeafood(object, draft))
+      isSeafood(object))
     const count = creatures.length * 2
     for (const target of chosenTargets(event.payload) ?? []) {
       mill(draft, target, count)

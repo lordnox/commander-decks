@@ -13,9 +13,7 @@ import { openCardSelection } from '../rules/selectCards'
 import { openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { captureObject, isSameObject, objectIdentity } from '../objectIdentity'
 import type { CapturedObject, GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
-import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
-import type { CardEffect } from './effects'
 import { canonicalWardSpec, printedStaticEffectsOfKind } from './dsl/staticModifierCore'
 
 export const WARD_PENDING_CAST = 'ward.pendingCast'
@@ -24,7 +22,7 @@ export const WARD_AWAITING = 'ward.awaitingSacrifice'
 const PAY_LIFE = 'pay'
 const DECLINE = 'decline'
 
-type WardSpec = NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>
+type WardSpec = ReturnType<typeof canonicalWardSpec>
 
 type PendingCast = {
   event: Extract<GameEvent, { type: 'castSpell' | 'activateAbility' }>
@@ -40,14 +38,6 @@ const canonicalCast = (state: GameState, event: GameEvent) =>
   && Boolean(state.objects[event.objectId]?.ruleDefinition || state.objects[event.objectId]?.canonicalGrantedActivations?.length)
 
 const wardEffects = (state: GameState, object: GameObject) => {
-  const stamped = effectsOf(object).flatMap((effect) =>
-    effect.op === 'static' && effect.ward ? [effect.ward] : [])[0]
-  if (stamped) {
-    if (stamped.generic !== undefined && stamped.mana === undefined) {
-      return [{ ...stamped, mana: stamped.generic }]
-    }
-    return [stamped]
-  }
   const effects = object.continuousEffects ?? []
   const lastLoss = effects.findLastIndex(({ effect }) => effect.kind === 'removeAbilities' || effect.kind === 'loseAbilitiesBecome')
   const granted = effects.flatMap(({ effect }, index) => effect.kind === 'ward' && index > lastLoss ? [canonicalWardSpec(effect.cost)] : [])

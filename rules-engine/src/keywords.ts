@@ -27,7 +27,7 @@ export const hasKeyword = (object: GameObject, keyword: string) => {
   return abilityTokens(object.oracleText).includes(keyword)
 }
 
-/** Generic Ward {N} from a keyword line. Stamped `ward(n)` effects take precedence at the plugin. */
+/** Generic Ward {N} from a keyword line; printed or granted canonical Ward takes precedence. */
 export const wardGeneric = (object: GameObject) => {
   for (const token of abilityTokens(object.oracleText)) {
     const match = /^ward \{(\d+)\}$/.exec(token)

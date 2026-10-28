@@ -4,7 +4,8 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
 import { activated } from './activated'
-import { activate, reduceActivationCost } from './effects'
+import { activate } from './effects'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, objects, reduceActivationCost, staticAbility } from './dsl/v1'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -43,7 +44,12 @@ const costReducer = () => cardTemplate('Cost Reducer', {
   types: ['Creature'],
   power: 1,
   toughness: 3,
-  effects: [reduceActivationCost(1)],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    staticAbility(reduceActivationCost({
+      targets: objects({ zone: 'battlefield', type: 'Land', controller: 'you' }),
+      generic: 1,
+    })),
+  ]))),
 })
 
 describe('land activation cost reduction', () => {
@@ -160,10 +166,5 @@ describe('land activation cost reduction', () => {
       objectId: landId,
     }))
     expect(paid.players.p2.mana.C).toBe(0)
-  })
-
-  test('structuredClone keeps the reduceActivationCost static effect', () => {
-    const stamped = [reduceActivationCost(1)]
-    expect(structuredClone(stamped)).toEqual(stamped)
   })
 })
