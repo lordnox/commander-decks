@@ -6,14 +6,7 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import {
-  enters,
-  handler,
-  linkExile,
-  pumpFromLinkedExileStats,
-} from './effects'
-import { exilePayoffs } from './exilePayoffs'
-import { linkedExile } from './linkedExile'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, linkExile, modifyStats, objects, ref, select, self, staticAbility, sumCharacteristics, target, whenever } from './dsl/v1'
 import { createLobby } from '../../../live-runner/src/lobby'
 import { applyKernelChoice as applyKernelChoiceImpl, prepareKernelPendingChoice } from '../../../live-runner/src/kernelHost'
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
@@ -67,18 +60,25 @@ const stats = (state: GameState, name: string) => {
   return [power, toughness]
 }
 
-// The real card targets a nontoken creature; the nontoken target filter is added by another
-// part, so these tests exile any creature an opponent controls.
+const linked = objects({ zone: 'exile', exiledWith: ref('source') })
+
+// The real card targets a nontoken creature; this exchangeable fixture keeps its target rule
+// broad while exercising the canonical linked-exile selector and characteristic modifier.
 const ingester = () => cardTemplate('Imprint Ingester', {
   types: ['Creature'],
   power: 3,
   toughness: 4,
-  effects: [
-    handler('linkedExile'),
-    handler('exilePayoffs'),
-    pumpFromLinkedExileStats(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' }, { optional: true })),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, {
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }), min: 0, max: 1 })] },
+      instructions: [linkExile({ targets: target(0) })],
+    }),
+    staticAbility(modifyStats({
+      targets: objects({ among: ref('source') }),
+      power: sumCharacteristics(linked, 'power'),
+      toughness: sumCharacteristics(linked, 'toughness'),
+    })),
+  ]))),
 })
 
 const prey = (name: string, power: number, toughness: number, counters = 0) =>
@@ -92,7 +92,7 @@ const prey = (name: string, power: number, toughness: number, counters = 0) =>
 const game = (...preyCards: ReturnType<typeof prey>[]) => createServerGame(commanderRules, {
   hands: { p1: [ingester()] },
   battlefield: { p2: preyCards },
-}, { random: () => 0.5, cardPlugins: [linkedExile, exilePayoffs] })
+}, { random: () => 0.5, cardPlugins: [] })
 
 const enterAndChoose = (
   server: ReturnType<typeof createServerGame>,
@@ -160,12 +160,17 @@ describe('imprint power and toughness', () => {
       types: ['Creature'],
       power: 3,
       toughness: 3,
-      effects: [
-        handler('linkedExile'),
-        handler('exilePayoffs'),
-        pumpFromLinkedExileStats(),
-        enters(linkExile({ type: 'Creature' }, { optional: true, max: 1 })),
-      ],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(self.enters, {
+          decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', other: true }), min: 0, max: 1 })] },
+          instructions: [linkExile({ targets: target(0) })],
+        }),
+        staticAbility(modifyStats({
+          targets: objects({ among: ref('source') }),
+          power: sumCharacteristics(linked, 'power'),
+          toughness: sumCharacteristics(linked, 'toughness'),
+        })),
+      ]))),
     })
     const ownBear = prey('Own Bear', 2, 2)
     const bigFoe = prey('Big Foe', 4, 6)
@@ -173,7 +178,7 @@ describe('imprint power and toughness', () => {
       players: 2,
       hands: { p1: [ingesterCard] },
       battlefield: { p1: [ownBear], p2: [bigFoe] },
-    }, { random: () => 0.5, cardPlugins: [linkedExile, exilePayoffs] })
+    }, { random: () => 0.5, cardPlugins: [] })
     const ready = structuredClone(server.state)
     ready.active = 'p1'
     ready.priority = 'p1'
@@ -272,10 +277,6 @@ describe('imprint power and toughness', () => {
     expect(named(done, 'Big Foe').zone).toBe('exile')
     expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-  })
-
-  test('the effect is clone-safe', () => {
-    expect(structuredClone(pumpFromLinkedExileStats())).toEqual(pumpFromLinkedExileStats())
   })
 
   test('gets +X/+Y from the exiled creature card, ignoring its counters', () => {

@@ -10,12 +10,9 @@ import {
   handler,
   leaves,
   linkExile,
-  linkedExileUntilLeaves,
   returnLinkedExile,
 } from './effects'
-import { linkedExile } from './linkedExile'
 import { activated } from './activated'
-import { exilePayoffs } from './exilePayoffs'
 
 const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
   cardTemplate(name, {
@@ -32,11 +29,7 @@ const game = (setup: {
   hands?: Record<string, ReturnType<typeof cardTemplate>[]>
   battlefield?: Record<string, ReturnType<typeof cardTemplate>[]>
 }) =>
-  createServerGame(
-    commanderRules,
-    { ...setup, players: 3 },
-    { random: () => 0.5, cardPlugins: [linkedExile] },
-  )
+  createServerGame(commanderRules, { ...setup, players: 3 }, { random: () => 0.5 })
 
 describe('linkedExile', () => {
   test('Fiend Hunter link choice stays private to its chooser', () => {
@@ -44,7 +37,7 @@ describe('linkedExile', () => {
     const prey = cardTemplate('Hidden Prey', { types: ['Creature'] })
     const server = createServerGame(commanderRules, {
       players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] },
-    }, { random: () => 0.5, cardPlugins: [activated, exilePayoffs, linkedExile] })
+    }, { random: () => 0.5, cardPlugins: [activated] })
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move', objectId: named(server.state, 'Fiend Hunter').id, to: 'battlefield',
     })))
@@ -58,7 +51,7 @@ describe('linkedExile', () => {
     const prey = cardTemplate('Restart Prey', { types: ['Creature'] })
     const server = createServerGame(commanderRules, {
       players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] },
-    }, { random: () => 0.5, cardPlugins: [activated, exilePayoffs, linkedExile] })
+    }, { random: () => 0.5, cardPlugins: [activated] })
     const preyId = named(server.state, 'Restart Prey').id
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move', objectId: named(server.state, 'Fiend Hunter').id, to: 'battlefield',
@@ -73,55 +66,6 @@ describe('linkedExile', () => {
     expect(finished.stack).toHaveLength(1)
     expect(named(resolveStack(server.rules, finished), 'Restart Prey').zone).toBe('exile')
   })
-  test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {
-    const cage = creature('Cage Cleric', 'p1')
-    cage.effects = [
-      handler('linkedExile'),
-      linkedExileUntilLeaves(),
-      {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { type: 'Creature', controller: 'opponent' } },
-        do: [linkExile({ type: 'Creature', controller: 'opponent' }, {})],
-      },
-    ]
-    const hostage = creature('Hostage Beast', 'p2')
-    const server = game({ hands: { p1: [cage] }, battlefield: { p2: [hostage] } })
-    const cageId = named(server.state, 'Cage Cleric').id
-    const hostageId = named(server.state, 'Hostage Beast').id
-
-    const entered = ok(server.rules(server.state, {
-      type: 'move',
-      objectId: cageId,
-      to: 'battlefield',
-    }))
-    expect(pendingSelectionFor(entered, 'p1')).toBeDefined()
-    const targeted = ok(server.rules(entered, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [hostageId],
-    }))
-    const resolved = resolveStack(server.rules, targeted)
-    expect(resolved.objects[hostageId]).toMatchObject({
-      zone: 'exile',
-      exiledWith: cageId,
-    })
-    expect(resolved.objects[cageId].exiledCards).toEqual([hostageId])
-
-    const sacrificed = ok(server.rules(resolved, {
-      type: 'sacrifice',
-      objectId: cageId,
-    }))
-    expect(sacrificed.stack).toHaveLength(0)
-    expect(sacrificed.objects[hostageId]).toMatchObject({
-      zone: 'battlefield',
-      controller: sacrificed.objects[hostageId].owner,
-    })
-    expect(sacrificed.objects[hostageId].exiledWith).toBeUndefined()
-  })
-
   test('optional link exile may choose zero targets', () => {
     const warden = creature('Paired Warden', 'p1')
     warden.effects = [
@@ -195,7 +139,6 @@ describe('linkedExile', () => {
     const vault = creature('Mass Vault', 'p1')
     vault.effects = [
       handler('linkedExile'),
-      linkedExileUntilLeaves(),
       enters(linkExile({ nonland: true }, { controlled: true, optional: true, max: 3 })),
     ]
     const relic = cardTemplate('Vault Relic', { types: ['Artifact'] })
@@ -228,7 +171,6 @@ describe('linkedExile', () => {
     const warden = creature('Border Warden', 'p1')
     warden.effects = [
       handler('linkedExile'),
-      linkedExileUntilLeaves(),
       enters(linkExile(
         { type: 'Creature', controller: 'opponent' },
         { perOpponent: { max: 1 } },
@@ -267,40 +209,10 @@ describe('linkedExile', () => {
     expect(resolved.objects[wardenId].exiledCards?.sort()).toEqual([eastId, northId].sort())
   })
 
-  test('Hand Vault returns linked cards to their owners hands when it leaves', () => {
-    const vault = creature('Hand Vault', 'p1')
-    vault.effects = [
-      handler('linkedExile'),
-      linkedExileUntilLeaves('hand'),
-      enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-    ]
-    const prey = creature('Hand Prey', 'p2')
-    const server = game({ hands: { p1: [vault] }, battlefield: { p2: [prey] } })
-    const vaultId = named(server.state, 'Hand Vault').id
-    const preyId = named(server.state, 'Hand Prey').id
-
-    let state = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: vaultId,
-      to: 'battlefield',
-    })))
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [preyId],
-    }))
-    state = resolveStack(server.rules, state)
-    state = ok(server.rules(state, { type: 'sacrifice', objectId: vaultId }))
-    expect(state.objects[preyId].zone).toBe('hand')
-  })
-
   test('open link-exile selection survives projection for the choosing seat', () => {
     const cage = creature('Cage Cleric', 'p1')
     cage.effects = [
       handler('linkedExile'),
-      linkedExileUntilLeaves(),
       {
         op: 'trigger',
         on: 'enters',

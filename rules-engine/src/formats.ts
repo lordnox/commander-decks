@@ -47,7 +47,6 @@ import { combatTax } from './cardPlugins/combatTax'
 import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { ward } from './cardPlugins/ward'
 import { alternateCosts } from './cardPlugins/alternateCosts'
-import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
@@ -134,7 +133,6 @@ export const optionalPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantCreatureTrigger,
-  exilePayoffs,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

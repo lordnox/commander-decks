@@ -12,7 +12,7 @@ import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
 import { effectsOf } from './cardRules'
-import type { CardEffect, LinkedExilePump } from './effectDefinitions'
+import type { CardEffect } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
 import { KEYWORDS } from './dsl/schema/v2'
@@ -338,12 +338,6 @@ export const linkedExileCardIds = (state: GameState, source: GameObject) =>
     return card?.zone === 'exile' && card.exiledWith === source.id
   })
 
-const objectSupportsPumpPerLinkedExile = (object: GameObject) =>
-  object.zone === 'battlefield'
-  && object.types.includes('Creature')
-  && object.power !== null
-  && object.toughness !== null
-
 const removeLastOracleLine = (object: GameObject, line: string) => {
   const lines = object.oracleText.split('\n')
   const index = lines.lastIndexOf(line)
@@ -367,8 +361,6 @@ const durationHolds = (
         && source.incarnation === duration.sourceIncarnation
         && printedStaticAbilityActive(state, source, duration.abilityIndex))
     }
-    case 'pumpPerLinkedExile':
-      return objectSupportsPumpPerLinkedExile(object)
     default: break
   }
   if (!anyZone && object.zone !== 'battlefield' && !(object.zone === 'stack' && duration.kind === 'whileControlUnchanged')) return false
@@ -502,9 +494,6 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   } else if (effect.kind === 'setPt') {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
-  } else if (effect.kind === 'pumpPerLinkedExile') {
-    object.power = withCounters(object, effect.before.power)
-    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
@@ -568,9 +557,6 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'setPt') {
-    object.power = withCounters(object, effect.after.power)
-    object.toughness = withCounters(object, effect.after.toughness)
-  } else if (effect.kind === 'pumpPerLinkedExile') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'oracleLine') {
@@ -737,110 +723,6 @@ const hasExpiredEffects = (state: GameState) =>
     (object.continuousEffects ?? []).some(
       (entry) => !effectHolds(state, object, entry, false),
     ))
-
-const pumpPerLinkedExileEntry = (object: GameObject) =>
-  object.continuousEffects?.find(({ effect, duration }) =>
-    effect.kind === 'pumpPerLinkedExile' && duration.kind === 'pumpPerLinkedExile')
-
-/** Total bonus from the cards currently exiled with `object`; exiled cards have no counters. */
-const linkedExileBonus = (
-  state: GameState,
-  object: GameObject,
-  pump: LinkedExilePump,
-) => {
-  const linked = linkedExileCardIds(state, object)
-  if (!('fromLinked' in pump)) {
-    return { power: linked.length * pump.power, toughness: linked.length * pump.toughness }
-  }
-  const cards = linked.map((id) => state.objects[id])
-  return {
-    power: cards.reduce((total, card) => total + (withoutCounters(card, card.power) ?? 0), 0),
-    toughness: cards.reduce((total, card) => total + (withoutCounters(card, card.toughness) ?? 0), 0),
-  }
-}
-
-const expectedPumpPerLinkedExileAfter = (
-  before: { power: number | null; toughness: number | null },
-  bonus: { power: number; toughness: number },
-) => ({
-  power: (before.power ?? 0) + bonus.power,
-  toughness: (before.toughness ?? 0) + bonus.toughness,
-})
-
-/** True when the stamped per-linked-exile pump does not match live exiledCards. */
-export const pumpPerLinkedExileOutOfSync = (
-  state: GameState,
-  object: GameObject,
-  pump: LinkedExilePump,
-) => {
-  const active = objectSupportsPumpPerLinkedExile(object)
-  const existing = pumpPerLinkedExileEntry(object)
-  if (!active) return existing !== undefined
-  if (!existing || existing.effect.kind !== 'pumpPerLinkedExile') return true
-  const nextAfter = expectedPumpPerLinkedExileAfter(
-    existing.effect.before,
-    linkedExileBonus(state, object, pump),
-  )
-  return (
-    existing.effect.after.power !== nextAfter.power
-    || existing.effect.after.toughness !== nextAfter.toughness
-  )
-}
-
-const makePumpPerLinkedExileEffect = (
-  object: GameObject,
-  bonus: { power: number; toughness: number },
-): ReversibleEffect => {
-  const before = {
-    power: withoutCounters(object, object.power),
-    toughness: withoutCounters(object, object.toughness),
-  }
-  const after = expectedPumpPerLinkedExileAfter(before, bonus)
-  object.power = withCounters(object, after.power)
-  object.toughness = withCounters(object, after.toughness)
-  return { kind: 'pumpPerLinkedExile', before, after }
-}
-
-/** Install or refresh the static P/T bonus from cards exiled with this permanent. */
-export const refreshPumpPerLinkedExile = (
-  state: GameState,
-  object: GameObject,
-  pump: LinkedExilePump,
-) => {
-  const active = objectSupportsPumpPerLinkedExile(object)
-  const existing = pumpPerLinkedExileEntry(object)
-
-  if (!active) {
-    if (existing) {
-      reviseContinuousEffects(object, (entry) =>
-        entry === existing ? undefined : entry)
-    }
-    return
-  }
-
-  if (!existing) {
-    withDuration(
-      object,
-      makePumpPerLinkedExileEffect(object, linkedExileBonus(state, object, pump)),
-      { kind: 'pumpPerLinkedExile' },
-    )
-    return
-  }
-
-  if (!pumpPerLinkedExileOutOfSync(state, object, pump)) return
-
-  if (existing.effect.kind !== 'pumpPerLinkedExile') return
-  const before = existing.effect.before
-  const nextAfter = expectedPumpPerLinkedExileAfter(before, linkedExileBonus(state, object, pump))
-
-  reviseContinuousEffects(object, (entry) => {
-    if (entry !== existing || entry.effect.kind !== 'pumpPerLinkedExile') return entry
-    return {
-      ...entry,
-      effect: { ...entry.effect, after: nextAfter },
-    }
-  })
-}
 
 export const continuousEffects: Plugin = {
   id: 'continuousEffects',

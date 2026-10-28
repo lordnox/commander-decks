@@ -10,10 +10,8 @@ import {
   ability,
   handler,
   pumpFromLinkedExilePower,
-  pumpPerLinkedExile,
   putLinkedExileToGraveyardGainLife,
 } from './effects'
-import { exilePayoffs } from './exilePayoffs'
 import { PENDING_SELECTION } from '../rules/selectCards'
 import {choiceEffects} from './choiceEffects'
 import {exiledWith} from './exiledWith'
@@ -56,52 +54,6 @@ const addExiled = (state: GameState, seat: PlayerId, template: ReturnType<typeof
 }
 
 describe('exile payoffs', () => {
-  test('static pump grows with each card exiled with the source', () => {
-    const hoarder = cardTemplate('Linked Exile Hoarder Fixture', {
-      types: ['Creature'],
-      power: 1,
-      toughness: 1,
-      effects: [pumpPerLinkedExile(1, 1)],
-    })
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [hoarder] } },
-      { random: () => 0.5 },
-    )
-    const source = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
-    const first = addExiled(server.state, 'p1', exiledFixture('Exiled One Fixture', 3, 3))
-    const second = addExiled(server.state, 'p1', exiledFixture('Exiled Two Fixture', 5, 5))
-    linkExile(source, first)
-    linkExile(source, second)
-
-    const state = ok(server.rules(server.state, { type: 'custom', name: 'exilePayoffs.sync' }))
-    expect([state.objects[source.id].power, state.objects[source.id].toughness]).toEqual([3, 3])
-  })
-
-  test('does not enqueue exilePayoffs.sync after an unrelated event once the pump is current', () => {
-    const hoarder = cardTemplate('Linked Exile Hoarder Fixture', {
-      types: ['Creature'],
-      power: 1,
-      toughness: 1,
-      effects: [pumpPerLinkedExile(1, 1)],
-    })
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [hoarder] } },
-      { random: () => 0.5 },
-    )
-    const source = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
-    linkExile(source, addExiled(server.state, 'p1', exiledFixture('Exiled One Fixture', 3, 3)))
-
-    const synced = ok(server.rules(server.state, { type: 'custom', name: 'exilePayoffs.sync' }))
-    const logBefore = synced.log.length
-
-    const afterLife = ok(server.rules(synced, { type: 'gainLife', seat: 'p1', amount: 1 }))
-    const syncLog = afterLife.log.slice(logBefore).filter((line) => line.includes('exilePayoffs.sync'))
-    expect(syncLog).toEqual([])
-    expect(exilePayoffs.recompute?.({ state: afterLife } as never)).toEqual([])
-  })
-
   test('pumps itself until end of turn by the power of a linked exiled card', () => {
     const source = cardTemplate('Power Borrower Fixture', {
       types: ['Creature'],
@@ -116,7 +68,7 @@ describe('exile payoffs', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [source] } },
-      { random: () => 0.5, cardPlugins: [activated, exilePayoffs] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const hoarder = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
     const card = addExiled(server.state, 'p1', exiled)
@@ -146,7 +98,7 @@ describe('exile payoffs', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [source] } },
-      { random: () => 0.5, cardPlugins: [activated, exilePayoffs] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const recycler = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
     const card = addExiled(server.state, 'p1', exiled)
@@ -181,7 +133,7 @@ describe('exile payoffs', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [source] } },
-      { random: () => 0.5, cardPlugins: [activated, exilePayoffs] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const chooser = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
     const weakCard = addExiled(server.state, 'p1', weak)
@@ -213,11 +165,6 @@ describe('exile payoffs', () => {
     expect([state.objects[chooser.id].power, state.objects[chooser.id].toughness]).toEqual([7, 7])
   })
 
-  test('structuredClone keeps pumpPerLinkedExile static effects', () => {
-    const stamped = [pumpPerLinkedExile(2, 2)]
-    expect(structuredClone(stamped)).toEqual(stamped)
-  })
-
   test('pumps a stack target using linked exile power', () => {
     const source = cardTemplate('Power Donor Fixture', {
       types: ['Creature'],
@@ -241,7 +188,7 @@ describe('exile payoffs', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [source, recipient] } },
-      { random: () => 0.5, cardPlugins: [activated, exilePayoffs] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const donor = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
     const target = server.state.objects[server.state.zoneOrder.p1.battlefield[1]]
