@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 16,
+    "cardEffects": 15,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
     "builtInPlugins": 62,
@@ -293,21 +293,6 @@
         "03"
       ],
       "status": "candidate-test-reference"
-    },
-    {
-      "variant": "targetingRequirement",
-      "mechanic": "specialized legacy effect",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "new canonical ability/effect node",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "unobserved"
     },
     {
       "variant": "trigger",
@@ -6041,7 +6026,7 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
         "rules-engine/src/definitions.ts:81",
-        "rules-engine/src/formats.ts:143",
+        "rules-engine/src/formats.ts:141",
         "rules-engine/src/formats.ts:46",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
@@ -7820,14 +7805,14 @@
       {
         "path": "rules-engine/src/cardPlugins/stackCopy.ts",
         "lines": [
-          184,
-          238,
-          239
+          175,
+          229,
+          230
         ],
         "samples": [
-          "184: draft.addToStack({",
-          "238: draft.enqueue({ type: 'payMana', seat: event.seat, cost: pending.cost })",
-          "239: draft.addToStack({"
+          "175: draft.addToStack({",
+          "229: draft.enqueue({ type: 'payMana', seat: event.seat, cost: pending.cost })",
+          "230: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

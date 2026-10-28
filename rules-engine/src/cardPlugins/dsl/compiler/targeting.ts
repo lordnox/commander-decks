@@ -2,7 +2,6 @@ import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v2'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { playerHasHexproof } from '../../../plugins/playerEffects'
-import { effectsOf } from '../../cardRules'
 import { printedStaticEffectsOfKind } from '../staticModifierCore'
 import type { CardRuleDefinitionV2, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v2'
 import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
@@ -66,8 +65,6 @@ const canonicalCandidate = (
       if (hasProtectionFromEverything(state, object)) return false
       if (hasKeyword(object, 'shroud')) return false
       if (object.controller !== context.controller && hasKeyword(object, 'hexproof')) return false
-      if (object.controller !== context.controller && !object.tapped && effectsOf(object).some((effect) =>
-        effect.op === 'targetingRequirement' && effect.kind === 'hexproof-while-untapped')) return false
       return true
     }
     case 'stackItems': {
@@ -550,8 +547,7 @@ export const canonicalFlagbearerError = (
 ) => {
   const targetingController = controller ?? source.controller
   const isFlagbearer = (object: GameObject) =>
-    effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer')
-    || printedStaticEffectsOfKind(state, object, 'targetingRequirement')
+    printedStaticEffectsOfKind(state, object, 'targetingRequirement')
       .some((effect) => effect.requirement === 'flagbearer')
   const flagbearers = Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield' && isFlagbearer(object))

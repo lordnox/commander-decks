@@ -30,10 +30,6 @@ export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
-export const targetingRequirement = (
-  kind: Extract<CardEffect, { op: 'targetingRequirement' }>['kind'],
-): CardEffect => ({ op: 'targetingRequirement', kind })
-
 export const playerAuraDeal = (): CardEffect => ({
   op: 'playerAuraDeal',
   drawAtEnchantedEnd: 1,

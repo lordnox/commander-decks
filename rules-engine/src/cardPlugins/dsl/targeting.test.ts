@@ -10,7 +10,6 @@ import { freezeDraft, makeDraft } from '../../draft'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
-import { targetingRequirement } from '../abilities'
 import type { Instruction, TargetClause } from './schema/v2'
 import { evaluateObjectSelector } from './compiler/runtime'
 import { swampOverlay } from '../../plugins/swampOverlay'
@@ -177,12 +176,13 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const snapshot = snapshotFor([
       { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
     ], [targetCreature()])
+    const flagbearerDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(flagbearer())])))
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [cardTemplate('Flagbearer Test Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
       battlefield: {
-        p1: [cardTemplate('Own Flagbearer', { types: ['Creature'], power: 1, toughness: 1, effects: [targetingRequirement('flagbearer')] })],
-        p2: [cardTemplate('Opposing Flagbearer', { types: ['Creature'], power: 1, toughness: 1, effects: [targetingRequirement('flagbearer')] })],
+        p1: [cardTemplate('Own Flagbearer', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: flagbearerDefinition })],
+        p2: [cardTemplate('Opposing Flagbearer', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: flagbearerDefinition })],
       },
     }, { random: () => 0 })
     const spellObject = named(server.state, 'Flagbearer Test Spell')
