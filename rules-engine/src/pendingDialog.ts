@@ -26,7 +26,6 @@ export type PendingDialog = {
     | 'choose-creature-type'
     | 'may'
     | 'may-draw'
-    | 'may-pay-mana'
     | 'may-pay-life'
     | 'may-pay-life-draw'
     | 'secret-vote'

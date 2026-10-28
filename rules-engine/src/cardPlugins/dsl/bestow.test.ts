@@ -209,6 +209,11 @@ test('landfall copies the attached creature when paid and makes an Insect otherw
   const triggered = ok(attachedServer.rules(playTestLand(attached), { type: 'playLand', seat: 'p1', objectId: 'land' }))
   const choosing = resolveStack(attachedServer.rules, triggered)
   const offer = pendingOptionSelection(choosing, 'p1')!
+  expect(offer).toMatchObject({
+    seat: 'p1',
+    sourceId,
+    action: { cost: { kind: 'mana', amount: '{1}{G}' } },
+  })
   const copied = ok(attachedServer.rules(choosing, {
     type: 'selectOption',
     seat: 'p1',

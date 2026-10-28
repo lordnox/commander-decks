@@ -1,6 +1,6 @@
 # Bestow legacy retirement
 
-This is child issue [#629](https://github.com/lordnox/commander-decks/issues/629) under DSL retirement parent #487, based on `origin/main` at `0a5244a0`. It removes the legacy Bestow card effect and plugin branches. Bestow casting and resolution are owned by the canonical Rule DSL tests in `cardPlugins/dsl/bestow.test.ts`; shared Aura attachment rules are owned by `cardPlugins/dsl/attachments.test.ts`. The `attachedCopyOrToken` optional-payment handler remains in `cardPlugins/bestow.ts`, including the existing plugin export and ID `bestow`, because it is a separate legacy instruction still used by the landfall fixture.
+This is child issue [#629](https://github.com/lordnox/commander-decks/issues/629) under DSL retirement parent #487, based on `origin/main` at `0a5244a0`. It removes the legacy Bestow card effect and plugin branches. Bestow casting and resolution are owned by the canonical Rule DSL tests in `cardPlugins/dsl/bestow.test.ts`; shared Aura attachment rules are owned by `cardPlugins/dsl/attachments.test.ts`. The `attachedCopyOrToken` optional-payment handler remains in `cardPlugins/bestow.ts`, including the existing plugin export and ID `bestow`, because it is a separate legacy instruction still used by the landfall fixture. Child #632 subsequently retires that instruction and handler, completing removal of the legacy plugin.
 
 | Retired legacy assertion | Canonical owner and retained evidence |
 | --- | --- |
