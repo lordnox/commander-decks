@@ -45,7 +45,6 @@ import {
   ability,
   blinkSelf,
   eachPlayerMayWheel,
-  ward,
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
@@ -118,6 +117,8 @@ import {
   createDefinitionSnapshot,
   objects,
   ref,
+  staticAbility,
+  ward as wardClause,
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
 import { validateInteractionAnswer } from '../../shared/interaction'
@@ -3517,8 +3518,7 @@ describe('ward live choice', () => {
             types: ['Creature'],
             power: 2,
             toughness: 2,
-            oracleText: 'Ward {2}',
-            effects: [{ op: 'static', ward: { mana: 2 } }],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([staticAbility(wardClause({ kind: 'mana', generic: 2 }))]))),
           })],
         },
         hands: {
@@ -3662,7 +3662,7 @@ describe('ward life live choice', () => {
             types: ['Creature'],
             power: 2,
             toughness: 2,
-            effects: [ward({ life: 7 })],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([staticAbility(wardClause({ kind: 'life', amount: 7 }))]))),
           })],
         },
         hands: { p2: [cardTemplate('Test Hex', { types: ['Instant'], manaCost: '{C}' })] },

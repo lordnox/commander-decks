@@ -8,10 +8,9 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
 import type { GameEvent, GameState } from '../../types'
-import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
-import { compareAmount, manaCost, paidCostCount, activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup } from './v1'
+import { compareAmount, manaCost, paidCostCount, activated, cannotBeCountered, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, staticAbility, target, untilCleanup, ward as wardClause } from './v1'
 
 import { deckCard } from '../cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
@@ -27,6 +26,8 @@ const counterProgram = () => ({
   decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] },
   instructions: [counter({ targets: target(0) })],
 })
+
+const wardDefinition = (amount: number) => createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(wardClause({ kind: 'life', amount }))])))
 
 test('counter targets a creature spell and removes it exactly once after journal restore', () => {
   const server = createServerGame(commanderRules, {
@@ -240,7 +241,7 @@ describe('counterspellAndWard — integration', () => {
           p1: [cardTemplate('Ward probe spell', { types: ['Instant'], manaCost: '{0}', ruleDefinition: snapshot })],
         },
         battlefield: {
-          p2: [cardTemplate('Ward probe bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 1 })] })],
+          p2: [cardTemplate('Ward probe bear', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: wardDefinition(1) })],
         },
       }, { random: () => 0, cardPlugins: [wardPlugin] })
       const spellObject = named(server.state, 'Ward probe spell')

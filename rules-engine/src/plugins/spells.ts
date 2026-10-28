@@ -372,24 +372,16 @@ export const payCost = (
   return payWithConvoke(0, genericCost(manaCost), remainingColored)
 }
 
-const hasAllCreatureTypes = (state: GameState, seat: PlayerId) =>
-  Object.values(state.objects).some((object) =>
-    object.zone === 'battlefield'
-    && !object.phasedOut
-    && object.controller === seat
-    && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
-
 /** Whether mana with a spending restriction may pay for this spell. */
 export const restrictedManaFits = (
   mana: Pick<RestrictedMana, 'creatureType' | 'legendary'>,
   spell: Pick<GameObject, 'types' | 'subtypes' | 'supertypes'> | undefined,
-  everyCreatureType: boolean,
 ) => {
   if (!spell) return false
   if (mana.legendary) return spell.supertypes.includes('Legendary')
   return spell.types.includes('Creature')
     && Boolean(mana.creatureType)
-    && (everyCreatureType || spell.subtypes.includes(mana.creatureType!))
+    && spell.subtypes.includes(mana.creatureType!)
 }
 
 const paySpellCost = (
@@ -400,8 +392,7 @@ const paySpellCost = (
   extras: PayCostHelp = {},
 ) => {
   const stored = state.players[seat].restrictedMana ?? []
-  const allTypes = hasAllCreatureTypes(state, seat)
-  const eligible = stored.filter((mana) => restrictedManaFits(mana, object, allTypes))
+  const eligible = stored.filter((mana) => restrictedManaFits(mana, object))
   const combined = { ...state.players[seat].mana }
   for (const mana of eligible) combined[mana.mana] += 1
   const paid = payCost(combined, cost, extras)

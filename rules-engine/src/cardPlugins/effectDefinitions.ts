@@ -755,8 +755,6 @@ export type CardEffect =
       pluginId?: string
       extraLandfall?: number
       extraEnters?: number
-      allCreatureTypes?: boolean
-      legendRuleOff?: boolean
       attackTax?: { amount: number; whileUntapped?: boolean }
       blockTax?: { amount: number; whileAttacking?: boolean }
       /** "Your opponents can't block with creatures with …" while this is on the battlefield. */
@@ -774,16 +772,9 @@ export type CardEffect =
       /** Layer 7a CDA: P/T each equal the number of matching permanents you control. */
       ptEqualsCount?: { types: string[] }
       /** Activated abilities of matching permanents you control cost this much less. */
-      reduceActivationCost?: { generic: number; requireTypes?: string[] }
       /** Matching permanents get +N/+N and keyword changes while this source is on the battlefield. */
       staticBoardPump?: StaticBoardPumpSpec
       /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
-      ward?: {
-        generic?: number
-        mana?: number
-        life?: number
-        sacrifice?: { count: number; nonland?: boolean }
-      }
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
       grantCreatureTrigger?: {
         to: {

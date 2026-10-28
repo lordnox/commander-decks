@@ -40,8 +40,8 @@ import {
   target,
   whenever,
   wouldDealDamage,
+  ward as wardClause,
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
-import { ward as wardEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import type { GameState } from '../../rules-engine/src/types'
 import { createLobby } from './lobby'
@@ -494,7 +494,7 @@ const wardPaymentHostCase = () => {
         types: ['Creature'],
         power: 2,
         toughness: 2,
-        effects: [wardEffect({ life: 1 })],
+        ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([staticAbility(wardClause({ kind: 'life', amount: 1 }))]))),
       })],
     },
   }, { random: () => 0, cardPlugins: [wardPlugin] })

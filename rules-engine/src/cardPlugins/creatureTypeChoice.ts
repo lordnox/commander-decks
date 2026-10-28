@@ -31,20 +31,11 @@ const allTypes = (objects: Record<string, GameObject>) => [
   ),
 ].sort()
 
-const hasAllCreatureTypes = (
-  objects: Record<string, GameObject>,
-  object: GameObject,
-) => Object.values(objects).some((source) =>
-  source.zone === 'battlefield'
-  && source.controller === object.controller
-  && (source.effects ?? []).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
-
 const hasChosenType = (
-  objects: Record<string, GameObject>,
   object: GameObject,
   chosenType: string,
 ) => chosenType !== OTHER_TYPE
-  && (object.subtypes.includes(chosenType) || hasAllCreatureTypes(objects, object))
+  && object.subtypes.includes(chosenType)
 
 export const chooseCreatureTypeInstruction: InstructionHandler<'chooseCreatureType'> = (
   { draft, source },
@@ -112,7 +103,7 @@ export const creatureTypeChoice: Plugin = {
         if (
           object.zone !== 'battlefield'
           || !object.types.includes('Creature')
-          || hasChosenType(draft.objects, object, chosenType)
+          || hasChosenType(object, chosenType)
         ) continue
         if (pending.action === 'destroyOthers' && hasKeyword(object, 'indestructible')) {
           continue

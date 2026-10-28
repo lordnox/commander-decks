@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { keyword, blink, flagbearer, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, staticAbility, target, counter, stackItems, variable, whenever } from './v1'
+import { keyword, blink, flagbearer, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, staticAbility, target, counter, stackItems, variable, whenever, ward as wardClause } from './v1'
 import { legalActsFor } from '../../actions'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -8,7 +8,6 @@ import type { ReduceResult, GameState } from '../../types'
 import { captureObject } from '../../objectIdentity'
 import { freezeDraft, makeDraft } from '../../draft'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import type { Instruction, TargetClause } from './schema/v2'
 import { evaluateObjectSelector } from './compiler/runtime'
@@ -61,6 +60,8 @@ const canonicalServer = (
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
+
+const wardDefinition = (amount: number) => createDefinitionSnapshot(compileCardRuleDefinition(card([staticAbility(wardClause({ kind: 'life', amount }))])))
 
 describe('canonical Rule DSL target bindings and resolution gate', () => {
   test('optional zero targets resolve and retain their empty clause slot', () => {
@@ -284,7 +285,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [cardTemplate('Canonical Target Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
-      battlefield: { p2: [cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
+      battlefield: { p2: [cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: wardDefinition(2) })] },
     }, { random: () => 0, cardPlugins: [wardPlugin] })
     const spellObject = named(server.state, 'Canonical Target Spell')
     const targetObject = named(server.state, 'Target Bear')
@@ -324,7 +325,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [cardTemplate('Ordinary Ward Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
-      battlefield: { p2: [cardTemplate('Ordinary Ward Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
+      battlefield: { p2: [cardTemplate('Ordinary Ward Bear', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: wardDefinition(2) })] },
     }, { random: () => 0, cardPlugins: [wardPlugin] })
     const spellObject = named(server.state, 'Ordinary Ward Spell')
     const targetObject = named(server.state, 'Ordinary Ward Bear')
@@ -348,7 +349,7 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [cardTemplate('Repeated Ward Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
-      battlefield: { p2: [cardTemplate('Repeated Ward Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
+      battlefield: { p2: [cardTemplate('Repeated Ward Bear', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: wardDefinition(2) })] },
     }, { random: () => 0, cardPlugins: [wardPlugin] })
     const spellObject = named(server.state, 'Repeated Ward Spell')
     const targetObject = named(server.state, 'Repeated Ward Bear')

@@ -484,7 +484,7 @@ const manaPlays = (
         : []
     }),
     ...activatedOptions.flatMap(({ abilityId, cost, pool, choice, sacrifices, restriction }): ManaPlay[] => {
-      if (spell && restriction && !canUseRestrictedMana(state, seat, spell, restriction)) return []
+      if (spell && restriction && !restrictedManaFits(restriction, spell)) return []
       return [{
         pool,
         cost,
@@ -544,21 +544,6 @@ const costSize = (cost: string) =>
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
 
-const canUseRestrictedMana = (
-  state: GameState,
-  seat: PlayerId,
-  spell: GameObject | undefined,
-  restriction: { creatureType?: string; legendary?: boolean },
-) => restrictedManaFits(
-  restriction,
-  spell,
-  Object.values(state.objects).some((object) =>
-    object.zone === 'battlefield'
-    && !object.phasedOut
-    && object.controller === seat
-    && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes)),
-)
-
 const canFund = (
   state: GameState,
   seat: PlayerId,
@@ -569,7 +554,7 @@ const canFund = (
   const cap = Math.max(1, costSize(cost))
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
-    if (canUseRestrictedMana(state, seat, spell, mana)) available[mana.mana] += 1
+    if (restrictedManaFits(mana, spell)) available[mana.mana] += 1
   }
   let pools = [available]
   for (const plays of manaSources(state, seat, spell)) {
@@ -2206,7 +2191,7 @@ const fundingEvents = (
 ): GameEvent[] | null => {
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
-    if (canUseRestrictedMana(state, seat, spell, mana)) available[mana.mana] += 1
+    if (restrictedManaFits(mana, spell)) available[mana.mana] += 1
   }
   let plans: FundingPlan[] = [{ pool: available, events: [], sacrifices: 0 }]
   for (const plays of manaSources(state, seat, spell, excluded)) {
