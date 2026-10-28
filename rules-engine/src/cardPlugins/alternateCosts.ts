@@ -39,20 +39,6 @@ export const availableAlternateCastEffects = (
     ...alternateCastEffects(object),
     ...foretellCastOptions(state, seat, object),
   ]
-  for (const source of Object.values(state.objects)) {
-    if (source.zone !== 'battlefield' || source.controller !== seat) continue
-    for (const effect of effectsOf(source)) {
-      const grant = effect.op === 'static' ? effect.grantRetrace : undefined
-      if (!grant) continue
-      if (grant.duringYourTurn && state.active !== seat) continue
-      if (grant.other && source.id === object.id) continue
-      if (grant.nonlandPermanent && (
-        object.types.includes('Land')
-        || !isPermanentType(object.types)
-      )) continue
-      effects.push(retraceEffect(object))
-    }
-  }
   const plotted = zoneMechanic(object, 'plot')
   if (plotted && object.zone === 'exile' && object.plotted?.incarnation === object.incarnation && state.turn > object.plotted.turn) effects.push({ op: 'alternateCast', id: 'plot', label: 'Cast plotted card', manaCost: '', fromZone: 'exile' })
   const warped = zoneMechanic(object, 'warp')

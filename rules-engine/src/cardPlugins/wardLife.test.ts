@@ -17,7 +17,6 @@ import {DIALOG_CHOSEN, pendingDialog, pendingDialogLock} from '../pendingDialog'
 import {pendingSelectionFor} from '../rules/selectCards'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
-import {exiledWith} from './exiledWith'
 import { librarySearch } from './librarySearch'
 import {onResolve} from './onResolve'
 import {deckCard} from './cirdanCreatureCards'
@@ -270,7 +269,6 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
     choiceEffects,
     librarySearch,
     wardPlugin,
-    exiledWith,
     pendingDialogLock,
   ]
 

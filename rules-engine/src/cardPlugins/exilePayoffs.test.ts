@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { gameObjectFieldDefaults } from '../definitions'
 import { commanderRules } from '../formats'
-import { cardTemplate, type CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { pendingDialogLock } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import type { GameObject, GameState, PlayerId, ReduceResult } from '../types'
@@ -14,7 +14,6 @@ import {
 } from './effects'
 import { PENDING_SELECTION } from '../rules/selectCards'
 import {choiceEffects} from './choiceEffects'
-import {exiledWith} from './exiledWith'
 import { librarySearch } from './librarySearch'
 import { onResolve } from './onResolve'
 import {ward} from './ward'
@@ -208,11 +207,6 @@ describe('exile payoffs', () => {
 })
 
 describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () => {
-  const creature = (name: string, manaCost = '{2}{G}', extra: Partial<CardTemplate> = {}) =>
-    cardTemplate(name, { types: ['Creature'], manaCost, power: 2, toughness: 2, ...extra })
-
-
-
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
@@ -221,7 +215,6 @@ describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () 
     choiceEffects,
     librarySearch,
     ward,
-    exiledWith,
     pendingDialogLock,
   ]
 
@@ -229,7 +222,7 @@ describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () 
       const server = createServerGame(
         commanderRules,
         {
-          battlefield: { p1: [creature('Valgavoth, Terror Eater', '{6}{B}{B}', { power: 6, toughness: 6 })] },
+          battlefield: { p1: [cardTemplate('Valgavoth, Terror Eater')] },
           hands: { p2: [cardTemplate('Exiled Bolt', { types: ['Instant'], manaCost: '{R}' })] },
         },
         { random: () => 0.5, cardPlugins: finisherPlugins },

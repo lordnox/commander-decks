@@ -726,11 +726,6 @@ export type CardEffect =
       pluginId?: string
       extraLandfall?: number
       extraEnters?: number
-      grantRetrace?: {
-        nonlandPermanent?: boolean
-        duringYourTurn?: boolean
-        other?: boolean
-      }
       /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
       grantCreatureTrigger?: {
@@ -745,8 +740,6 @@ export type CardEffect =
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }
-      exileOpponentGraveyard?: boolean
-      playExiledWithLife?: boolean
     }
   | { op: 'handler'; pluginId: string }
   | {

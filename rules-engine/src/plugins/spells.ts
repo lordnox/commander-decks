@@ -24,7 +24,6 @@ import {
   printedAlternateManaCost,
   type AlternateCastEffect,
 } from '../cardPlugins/alternateCosts'
-import { canPlayExiledWithLife } from '../cardPlugins/exiledWith'
 import { manaValueOf } from '../cardPlugins/effects'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { consumeSpellCast, matchingSpellCast } from '../cardPlugins/dsl/spellPermissions'
@@ -245,7 +244,7 @@ export const spellCost = (
   const x = options.x ?? 0
   const xCost = x > 0 ? `{${x}}` : ''
   const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
-  const base = options.withoutPayingMana || options.castOption === 'exiledWithLife'
+  const base = options.withoutPayingMana
     ? ''
     : (selected ? withX(printedAlternateManaCost(selected, object)) : undefined)
       ?? withX(object.manaCost)
@@ -691,14 +690,7 @@ export const spells: Plugin = {
       const permission = matchingSpellCast(state, event.seat, object.id)
       const staticPermission = canonicalSpellPermission(state, event.seat, object)
       const stealCast = Boolean(permission?.takeControl)
-      if (event.castOption === 'exiledWithLife') {
-        if (!canPlayExiledWithLife(state, event.seat, object)) {
-          return 'card cannot be played from exile this way'
-        }
-        if (manaValueOf(object) > state.players[event.seat].life) {
-          return 'not enough life'
-        }
-      } else if (selected?.fromZone) {
+      if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
       } else if (
         !state.castableZones.includes(object.zone)
@@ -712,7 +704,7 @@ export const spells: Plugin = {
       }
       if (
         !stealCast
-        && event.castOption !== 'exiledWithLife'
+        && !staticPermission
         && (object.owner !== event.seat || object.controller !== event.seat)
       ) {
         return 'spell is not owned and controlled by that seat'
@@ -728,7 +720,6 @@ export const spells: Plugin = {
       if (
         event.castOption
         && !selected
-        && !(event.castOption === 'exiledWithLife' && canPlayExiledWithLife(state, event.seat, object))
       ) {
         return `${object.name} has no casting option ${event.castOption}`
       }
@@ -747,7 +738,6 @@ export const spells: Plugin = {
         && !(freeCast && (permission?.asThoughFlash || !stealCast))
         && !permission?.asThoughFlash
         && !staticPermission?.asThoughFlash
-        && event.castOption !== 'exiledWithLife'
       ) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
         if (state.step !== 'precombatMain' && state.step !== 'postcombatMain') {

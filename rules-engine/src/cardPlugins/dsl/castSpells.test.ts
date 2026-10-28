@@ -185,6 +185,17 @@ describe('canonical spell permissions', () => {
     }, { random: () => 0.5 })
     const bolt = named(server.state, 'Exiled Bolt').id
     const ready = ok(server.rules(server.state, { type: 'move', objectId: bolt, to: 'exile' }))
+    const action = availableActions(ready, 'p1').find(candidate =>
+      candidate.kind === 'castSpell'
+      && candidate.objectId === bolt
+      && candidate.castOption === 'exiledWithLife')
+    expect(action).toMatchObject({ castLabel: 'Cast for 1 life' })
+    const unableToPay = structuredClone(ready)
+    unableToPay.players.p1.life = 0
+    expect(availableActions(unableToPay, 'p1').some(candidate =>
+      candidate.kind === 'castSpell'
+      && candidate.objectId === bolt
+      && candidate.castOption === 'exiledWithLife')).toBe(false)
     const cast = ok(server.rules(ready, {
       type: 'castSpell',
       seat: 'p1',
