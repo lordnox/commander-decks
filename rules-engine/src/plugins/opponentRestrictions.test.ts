@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'bun:test'
-import { opponentsCantCast } from '../cardPlugins/effectBuilders'
-import { serializableEffects } from '../cardPlugins/effects'
-import type { ManaValuePredicate } from '../cardPlugins/effectDefinitions'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, opponentsCantCast, staticAbility } from '../cardPlugins/dsl/v1'
+import type { ManaValueRestriction } from '../cardPlugins/dsl/schema/v2'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -12,7 +11,7 @@ import { combatGame, deckCard, fixtureCreature, named } from '../cardPlugins/cir
 const artifact = (name: string, manaCost: string, manaValue: number) =>
   cardTemplate(name, { types: ['Artifact'], manaCost, manaValue })
 
-const gameWith = (predicate: ManaValuePredicate) => {
+const gameWith = (predicate: ManaValueRestriction) => {
   const server = createServerGame(commanderRules, {
     players: 2,
     battlefield: {
@@ -20,7 +19,9 @@ const gameWith = (predicate: ManaValuePredicate) => {
         types: ['Creature'],
         power: 1,
         toughness: 1,
-        effects: serializableEffects([opponentsCantCast(predicate)]),
+        ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+          staticAbility(opponentsCantCast(predicate)),
+        ]))),
       })],
     },
     hands: {
@@ -29,6 +30,7 @@ const gameWith = (predicate: ManaValuePredicate) => {
         artifact('Free', '', 0),
         artifact('Two', '{2}', 2),
         artifact('Three', '{3}', 3),
+        artifact('Four', '{4}', 4),
         cardTemplate('X Rock', { types: ['Artifact'], manaCost: '{X}', manaValue: 0 }),
       ],
     },
@@ -87,6 +89,14 @@ describe('opponents can not cast spells matching a mana value predicate', () => 
     const game = gameWith({ min: 3 })
     expect(game.cast('p2', 'Two').ok).toBe(true)
     expect(game.cast('p2', 'Three').ok).toBe(false)
+  })
+
+  test('parity and inclusive range conditions both apply to spells', () => {
+    const game = gameWith({ parity: 'even', min: 2, max: 4 })
+    expect(game.cast('p2', 'Two').ok).toBe(false)
+    expect(game.cast('p2', 'Four').ok).toBe(false)
+    expect(game.cast('p2', 'Three').ok).toBe(true)
+    expect(game.cast('p2', 'Free').ok).toBe(true)
   })
 
   test('X counts as the chosen value while the spell is cast', () => {

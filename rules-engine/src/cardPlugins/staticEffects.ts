@@ -1,4 +1,4 @@
-import type { CardEffect, CardInstruction, GrantCreatureTrigger, ManaValuePredicate, StaticBoardPumpSpec } from './effectDefinitions'
+import type { CardEffect, CardInstruction, GrantCreatureTrigger, StaticBoardPumpSpec } from './effectDefinitions'
 
 export const extraLandfall = (count = 1): CardEffect => ({
   op: 'static',
@@ -49,18 +49,6 @@ export const staticBoardPump = (
 export const staticGrant = (pluginId: string): CardEffect => ({
   op: 'static',
   pluginId,
-})
-
-/** While on the battlefield, its controller's opponents can't block with creatures matching `predicate`. */
-export const opponentsCantBlock = (predicate: ManaValuePredicate): CardEffect => ({
-  op: 'static',
-  opponentsCantBlock: predicate,
-})
-
-/** While on the battlefield, its controller's opponents can't cast spells matching `predicate`. */
-export const opponentsCantCast = (predicate: ManaValuePredicate): CardEffect => ({
-  op: 'static',
-  opponentsCantCast: predicate,
 })
 
 export const pumpPerLinkedExile = (

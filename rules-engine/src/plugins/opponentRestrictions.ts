@@ -1,12 +1,12 @@
-import { effectsOf } from '../cardPlugins/cardRules'
-import type { ManaValuePredicate } from '../cardPlugins/effectDefinitions'
 import { manaValueOf } from '../cardPlugins/effectRuntime'
 import { printedStaticEffectsOfKind } from '../cardPlugins/dsl/staticModifierCore'
+import type { ManaValueRestriction } from '../cardPlugins/dsl/schema/v2'
+import { MANA_VALUE_PARITIES } from '../cardPlugins/dsl/schema/v2'
 import type { GameObject, GameState, PlayerId } from '../types'
 import { existsOnBattlefield } from './phasing'
 
-export const manaValueMatches = (predicate: ManaValuePredicate, manaValue: number) =>
-  (predicate.parity === undefined || (manaValue % 2 === 0) === (predicate.parity === 'even'))
+export const manaValueMatches = (predicate: ManaValueRestriction, manaValue: number) =>
+  (predicate.parity === undefined || (manaValue % 2 === 0) === (predicate.parity === MANA_VALUE_PARITIES.even))
   && (predicate.min === undefined || manaValue >= predicate.min)
   && (predicate.max === undefined || manaValue <= predicate.max)
 
@@ -22,12 +22,12 @@ const imposedOn = (
 ) =>
   Object.values(state.objects).flatMap((source) => {
     if (!existsOnBattlefield(source) || source.controller === seat) return []
-    const legacy = effectsOf(source).flatMap((effect) =>
-      effect.op === 'static' && effect[key] ? [effect[key]] : [])
     const canonical = printedStaticEffectsOfKind(state, source, key).map((effect) => ({
       parity: effect.parity,
+      min: effect.min,
+      max: effect.max,
     }))
-    return [...legacy, ...canonical]
+    return canonical
   })
 
 export const cantBlockWith = (state: GameState, blocker: GameObject) => {

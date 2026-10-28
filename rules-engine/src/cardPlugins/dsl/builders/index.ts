@@ -37,6 +37,7 @@ import type {
   KeywordAbilityDefinition,
   LifeLostCombine,
   ManaValueParity,
+  ManaValueRestriction,
   LifeTotalAmount,
   ManaId,
   ManaQueryBasis,
@@ -444,11 +445,11 @@ export const blockTax = (amount: number, options: { whileAttacking?: true } = {}
     ...(options.whileAttacking ? { whileAttacking: true as const } : {}),
   })
 
-export const opponentsCantCast = (parity: ManaValueParity): ContinuousEffectDefinition =>
-  immutableData({ kind: 'opponentsCantCast', parity })
+export const opponentsCantCast = (predicate: ManaValueParity | ManaValueRestriction): ContinuousEffectDefinition =>
+  immutableData({ kind: 'opponentsCantCast', ...(typeof predicate === 'string' ? { parity: predicate } : predicate) })
 
-export const opponentsCantBlock = (parity: ManaValueParity): ContinuousEffectDefinition =>
-  immutableData({ kind: 'opponentsCantBlock', parity })
+export const opponentsCantBlock = (predicate: ManaValueParity | ManaValueRestriction): ContinuousEffectDefinition =>
+  immutableData({ kind: 'opponentsCantBlock', ...(typeof predicate === 'string' ? { parity: predicate } : predicate) })
 
 export const flagbearer = (): ContinuousEffectDefinition =>
   immutableData({ kind: 'targetingRequirement', requirement: 'flagbearer' })
