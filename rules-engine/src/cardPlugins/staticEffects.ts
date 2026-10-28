@@ -19,11 +19,6 @@ export const grantCreatureTrigger = (
   grantCreatureTrigger: { to, on, do: instructions },
 })
 
-export const playLandsFromGraveyard = (): CardEffect => ({
-  op: 'static',
-  playLandsFromGraveyard: true,
-})
-
 export const allCreatureTypes = (): CardEffect => ({
   op: 'static',
   allCreatureTypes: true,
@@ -129,16 +124,6 @@ export const blockTax = (
 ): CardEffect => ({
   op: 'static',
   blockTax: { amount, ...options },
-})
-
-export const staticRevealLibraryTop = (): CardEffect => ({
-  op: 'static',
-  revealLibraryTop: true,
-})
-
-export const staticPlayLandsFromLibraryTop = (): CardEffect => ({
-  op: 'static',
-  playLandsFromLibraryTop: true,
 })
 
 export const linkedExileUntilLeaves = (

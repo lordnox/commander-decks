@@ -755,9 +755,6 @@ export type CardEffect =
       pluginId?: string
       extraLandfall?: number
       extraEnters?: number
-      playLandsFromGraveyard?: boolean
-      playLandsFromLibraryTop?: boolean
-      revealLibraryTop?: boolean
       allCreatureTypes?: boolean
       legendRuleOff?: boolean
       attackTax?: { amount: number; whileUntapped?: boolean }
