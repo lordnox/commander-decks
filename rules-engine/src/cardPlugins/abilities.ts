@@ -1,6 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardEffect, CardInstruction, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardEffect, CardInstruction, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -246,9 +246,4 @@ export const optionalBasicLandEnters = (): SearchSpec => ({
   max: 1,
   sacrificeSource: false,
   optionalEnter: true,
-})
-
-export const sagaChapters = (...chapters: SagaChapter[]): CardEffect => ({
-  op: 'saga',
-  chapters,
 })

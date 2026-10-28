@@ -28,14 +28,6 @@ const applyKernelChoice = (
     : {}),
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import {
-  gainControlPermanent,
-  sagaChapters,
-  tapAll,
-} from './effectBuilders'
-import { serializableEffects } from './effectRuntime'
-import { permanentControl } from './permanentControl'
-import { targetedResolve } from './targetedResolve'
 
 const handleFor = (
   rules: KernelHandle['rules'],
@@ -67,31 +59,8 @@ const creature = (name: string, oracleText = '') =>
 
 /** Chapter II targets an opponent; chapter III targets an opponent permanent. */
 const chronicle = (lore: number) => ({
-  ...cardTemplate('Fixture Tide Chronicle', {
-    types: ['Enchantment'],
-    subtypes: ['Saga'],
-    oracleText: [
-      'I — Nothing.',
-      "II — Tap all nonland permanents target opponent controls. They don't untap during their controller's next untap step.",
-      'III — Gain control of target permanent an opponent controls. Untap it.',
-    ].join('\n'),
-    effects: serializableEffects([sagaChapters(
-      { numbers: [1], do: [] },
-      {
-        numbers: [2],
-        targets: { filter: { players: 'opponent' } },
-        do: [tapAll(
-          { zone: 'battlefield', nonland: true },
-          { ofTargetPlayer: true, skipNextUntap: true },
-        )],
-      },
-      {
-        numbers: [3],
-        targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
-        do: [gainControlPermanent(true)],
-      },
-    )]),
-  }),
+  ...cardTemplate('Kiora Bests the Sea God'),
+  name: 'Fixture Tide Chronicle',
   counters: { lore },
 })
 
@@ -110,7 +79,7 @@ const setup = (lore: number) => {
         creature('Fixture Shrouded', 'Hexproof'),
       ],
     },
-  }, { random: () => 0.5, cardPlugins: [targetedResolve, permanentControl] })
+  }, { random: () => 0.5 })
   const loreEvent = {
     type: 'putCounters' as const,
     objectId: named(server.state, 'Fixture Tide Chronicle').id,
