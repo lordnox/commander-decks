@@ -38,6 +38,18 @@ const durationCage = () => cardTemplate('Cage Cleric', {
   ]),
 })
 
+const handReturnCage = () => cardTemplate('Hand Vault', {
+  types: ['Creature'],
+  power: 2,
+  toughness: 2,
+  ruleDefinition: compileCreature([
+    whenever(self.enters, {
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }), count: 1 })] },
+      instructions: [linkExile({ targets: target(0), untilSourceLeaves: true, returnTo: 'hand' })],
+    }),
+  ]),
+})
+
 const pairedWarden = () => cardTemplate('Paired Warden', {
   types: ['Creature'],
   power: 2,
@@ -93,6 +105,22 @@ describe('linkExile until source leaves', () => {
       controller: sacrificed.objects[hostageId].owner,
     })
     expect(sacrificed.objects[hostageId].exiledWith).toBeUndefined()
+  })
+
+  test('a source can return linked cards to their owners hands when it leaves', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [handReturnCage()] },
+      battlefield: { p2: [cardTemplate('Hand Prey', { types: ['Creature'] })] },
+    }, { random: () => 0.5 })
+    const sourceId = named(server.state, 'Hand Vault').id
+    const preyId = named(server.state, 'Hand Prey').id
+    const resolved = resolveStack(server.rules, enterAndChoose(server, sourceId, [preyId]))
+
+    const sacrificed = ok(server.rules(resolved, { type: 'sacrifice', objectId: sourceId }))
+    expect(sacrificed.stack).toHaveLength(0)
+    expect(sacrificed.objects[preyId]).toMatchObject({ zone: 'hand', owner: 'p2' })
+    expect(sacrificed.objects[preyId].exiledWith).toBeUndefined()
   })
 
   test('a source that already left does not exile its chosen target', () => {

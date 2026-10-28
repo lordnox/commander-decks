@@ -23,12 +23,12 @@
     "cardEffects": 9,
     "cardInstructions": 176,
     "instructionHandlersDiscovered": 176,
-    "builtInPlugins": 59,
+    "builtInPlugins": 58,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 60,
-    "directMutationSites": 504,
+    "customEventDispatchSites": 59,
+    "directMutationSites": 502,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -195,16 +195,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 19,
+        "matches": 18,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
-          "rules-engine/src/cardPlugins/linkedExile.test.ts:305 — test('open link-exile selection survives projection for the choosing seat', () => {",
-          "rules-engine/src/cardPlugins/linkedExile.test.ts:82 — test('Cage Cleric returns the hostage when it leaves without a return trigger on the stack', () => {",
+          "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:70 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
-          "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {"
+          "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
+          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:166 — test('resolve counts are separate from onceEachTurn trigger marks', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -2670,7 +2670,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:209 — test('chooses among several linked exiled cards before pumping', () => {"
+          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:161 — test('chooses among several linked exiled cards before pumping', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4054,7 +4054,7 @@
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
           "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts:14 — test('commander queries use the controlled battlefield instance rather than ownership or legendary status', () => {",
           "rules-engine/src/cardPlugins/dsl/stackItemFilters.test.ts:28 — test('stack filters distinguish command-zone casts from hand casts', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:155 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:154 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:365 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)"
         ]
       },
@@ -4243,30 +4243,6 @@
       "candidateEvidence": {
         "matches": 0,
         "samples": []
-      },
-      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
-      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
-    },
-    {
-      "variant": "exilePayoffs",
-      "mechanic": "runtime plugin hook",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/cardPlugins/exilePayoffs.test.ts — dedicated plugin/mechanic suite"
-      ],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:111 — test('pumps itself until end of turn by the power of a linked exiled card', () => {",
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:141 — test('puts a linked exiled card into its owner graveyard and gains life equal to mana value', () => {",
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:175 — test('chooses among several linked exiled cards before pumping', () => {",
-          "rules-engine/src/cardPlugins/exilePayoffs.test.ts:227 — test('pumps a stack target using linked exile power', () => {",
-          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:165 — test('a private Ingester target survives a host restart and resolves through the live chooser', () => {",
-          "rules-engine/src/cardPlugins/imprintPumpFromLinked.test.ts:78"
-        ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
@@ -4805,7 +4781,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 280,
+        "matches": 278,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5545,7 +5521,7 @@
         "matches": 3,
         "samples": [
           "live-runner/src/host.test.ts:159 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:230 — test('a sacrifice choice dies with the spell that asked for it', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:229 — test('a sacrifice choice dies with the spell that asked for it', () => {",
           "site/src/TopdeckDialog.test.tsx:258 — test('a resolving Scapeshift asks for land sacrifices before opening a search', () => {"
         ]
       },
@@ -5668,7 +5644,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:467",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:466",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
         "rules-engine/src/cardPlugins/effectRuntime.ts:491",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -5687,7 +5663,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1466"
+        "rules-engine/src/types.ts:1460"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5804,9 +5780,9 @@
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
         "rules-engine/src/rules/triggers.ts:1553",
-        "rules-engine/src/types.ts:329",
-        "rules-engine/src/types.ts:331",
-        "rules-engine/src/types.ts:335"
+        "rules-engine/src/types.ts:323",
+        "rules-engine/src/types.ts:325",
+        "rules-engine/src/types.ts:329"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5841,14 +5817,14 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:155",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:35",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:490",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:519",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:482",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:508",
         "rules-engine/src/cardPlugins/continuousEffects.ts:54",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:555",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:557",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:597",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:614",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:744",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:544",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:546",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:583",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:613",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:741",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -5859,7 +5835,7 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:13",
         "rules-engine/src/cardPlugins/staticEffects.ts:19",
         "rules-engine/src/definitions.ts:81",
-        "rules-engine/src/formats.ts:136",
+        "rules-engine/src/formats.ts:135",
         "rules-engine/src/formats.ts:44",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
@@ -5869,7 +5845,7 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/index.ts:113",
+        "rules-engine/src/plugins/index.ts:112",
         "rules-engine/src/plugins/index.ts:45",
         "rules-engine/src/plugins/rooms.ts:53",
         "rules-engine/src/plugins/rooms.ts:72",
@@ -5879,8 +5855,8 @@
         "rules-engine/src/rules/triggers.ts:11",
         "rules-engine/src/types.ts:119",
         "rules-engine/src/types.ts:156",
-        "rules-engine/src/types.ts:290",
-        "rules-engine/src/types.ts:354",
+        "rules-engine/src/types.ts:284",
+        "rules-engine/src/types.ts:348",
         "rules-engine/src/types.ts:75",
         "rules-engine/src/types.ts:92"
       ],
@@ -6370,31 +6346,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          848,
-          849,
-          851
+          730,
+          731,
+          733
         ],
         "samples": [
-          "848: const endTurnEffects = event.type === 'custom'",
-          "849: && event.name === 'advanceStep'",
-          "851: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/exilePayoffs.ts",
-        "lines": [
-          208
-        ],
-        "samples": [
-          "208: || (event.type === 'custom' && event.name === SYNC)"
+          "730: const endTurnEffects = event.type === 'custom'",
+          "731: && event.name === 'advanceStep'",
+          "733: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7630,12 +7589,10 @@
       {
         "path": "rules-engine/src/cardPlugins/linkedExile.ts",
         "lines": [
-          76,
-          143
+          65
         ],
         "samples": [
-          "76: const object = draft.object(objectId)",
-          "143: draft.object(event.objectId) ?? before,"
+          "65: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7936,18 +7893,17 @@
       {
         "path": "rules-engine/src/cardPlugins/exilePayoffs.ts",
         "lines": [
-          31,
-          42,
-          52,
-          151,
-          155,
-          157,
-          189
+          15,
+          26,
+          36,
+          135,
+          139,
+          141
         ],
         "samples": [
-          "31: const card = draft.object(cardId)",
-          "42: if (applyTo === 'self') return ctx.draft.object(ctx.source.id)",
-          "52: const exileCard = ctx.draft.object(linkedExileId)"
+          "15: const card = draft.object(cardId)",
+          "26: if (applyTo === 'self') return ctx.draft.object(ctx.source.id)",
+          "36: const exileCard = ctx.draft.object(linkedExileId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

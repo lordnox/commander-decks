@@ -163,11 +163,6 @@ export type ReversibleEffect =
       power: number
       toughness: number
     }
-  | {
-      kind: 'pumpPerLinkedExile'
-      before: { power: number | null; toughness: number | null }
-      after: { power: number; toughness: number }
-    }
 
 export type EffectDuration =
   | { kind: 'whileControlUnchanged'; controller: PlayerId }
@@ -177,7 +172,6 @@ export type EffectDuration =
   | { kind: 'forTurns'; untilTurn: number }
   | { kind: 'whileSourceOnBattlefield'; sourceId: string; sourceIncarnation?: number }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
-  | { kind: 'pumpPerLinkedExile' }
   /** Printed static ability from a canonical `ruleDefinition`; timestamp is fixed at first compile. */
   | {
       kind: 'printedStatic'

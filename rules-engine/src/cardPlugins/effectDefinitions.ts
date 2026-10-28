@@ -9,12 +9,6 @@ import type {
 } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
 
-/**
- * Static P/T from cards exiled with the source: a fixed bonus per card, or
- * (`fromLinked`) each linked card's own power and toughness (Imprint).
- */
-export type LinkedExilePump = { power: number; toughness: number } | { fromLinked: true }
-
 export type CardCondition =
   | { kind: 'sourceType'; type: string }
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
@@ -737,8 +731,6 @@ export type CardEffect =
         duringYourTurn?: boolean
         other?: boolean
       }
-      /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
-      linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
       /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
       grantCreatureTrigger?: {
@@ -753,7 +745,6 @@ export type CardEffect =
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }
-      pumpPerLinkedExile?: LinkedExilePump
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }

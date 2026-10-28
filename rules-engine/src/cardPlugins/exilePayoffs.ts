@@ -1,26 +1,10 @@
 import type Draft from '../draft'
 import { openCardSelection } from '../rules/selectCards'
-import type { GameObject, GameState, Plugin, TargetRef } from '../types'
+import type { GameObject, TargetRef } from '../types'
 import { targetObject } from '../objectIdentity'
-import {
-  changeStatsUntilEndOfTurn,
-  linkedExileCardIds,
-  pumpPerLinkedExileOutOfSync,
-  refreshPumpPerLinkedExile,
-} from './continuousEffects'
-import { enteringObjectId } from './permanentEntry'
+import { changeStatsUntilEndOfTurn, linkedExileCardIds } from './continuousEffects'
 import { manaValueOf } from './effectRuntime'
 import type { InstructionHandler } from './instructionHandlers/types'
-
-const SYNC = 'exilePayoffs.sync'
-
-const pumpPerLinkedExileSpec = (object: GameObject) => {
-  for (const effect of object.effects ?? []) {
-    if (effect.op === 'static' && effect.pumpPerLinkedExile) {
-      return effect.pumpPerLinkedExile
-    }
-  }
-}
 
 export const unlinkLinkedExile = (
   draft: Draft,
@@ -168,58 +152,4 @@ export const exilePayoffsInstructionHandlers = {
   pumpFromLinkedExilePowerApply,
   putLinkedExileToGraveyardGainLife,
   putLinkedExileToGraveyardGainLifeApply,
-}
-
-/**
- * An imprint belongs to one stay on the battlefield: when its holder leaves, the link is
- * forgotten (the exiled card stays exiled), so a returning permanent is a new object with no
- * imprint. Holders that release their cards on leaving (`linkedExileUntilLeaves`) are left to
- * the `linkedExile` plugin.
- */
-const forgetImprint = (
-  state: GameState,
-  objectId: string,
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-) => {
-  const before = state.objects[objectId]
-  if (!before || before.zone !== 'battlefield') return
-  const effects = before.effects ?? []
-  if (!pumpPerLinkedExileSpec(before)) return
-  if (effects.some((effect) => effect.op === 'static' && effect.linkedExileUntilLeaves)) return
-  const holder = draft.object(objectId)
-  if (!holder) return
-  for (const cardId of holder.exiledCards ?? []) unlinkLinkedExile(draft, holder, cardId)
-  holder.exiledCards = []
-}
-
-const refreshAll = (draft: GameState) => {
-  for (const object of Object.values(draft.objects)) {
-    const spec = pumpPerLinkedExileSpec(object)
-    if (spec) refreshPumpPerLinkedExile(draft, object, spec)
-  }
-}
-
-const shouldRefresh = (
-  event: Parameters<NonNullable<Plugin['apply']>>[0]['event'],
-  state: GameState,
-) =>
-  event.type === 'move'
-  || Boolean(enteringObjectId(event, state))
-  || (event.type === 'custom' && event.name === SYNC)
-
-const needsSync = (state: GameState) =>
-  Object.values(state.objects).some((object) => {
-    const spec = pumpPerLinkedExileSpec(object)
-    return spec ? pumpPerLinkedExileOutOfSync(state, object, spec) : false
-  })
-
-export const exilePayoffs: Plugin = {
-  id: 'exilePayoffs',
-  apply: ({ state, event, draft }) => {
-    if (event.type === 'move' && event.to !== 'battlefield') forgetImprint(state, event.objectId, draft)
-    if (!shouldRefresh(event, state)) return
-    refreshAll(draft)
-  },
-  recompute: ({ state }) =>
-    needsSync(state) ? [{ type: 'custom', name: SYNC }] : [],
 }

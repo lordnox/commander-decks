@@ -44,7 +44,6 @@ import { spells } from './spells'
 import { rooms } from './rooms'
 import { grantCreatureTrigger } from '../cardPlugins/grantCreatureTrigger'
 import { dslStaticModifiers } from '../cardPlugins/dsl/staticModifiers'
-import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, instructionResume, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
@@ -111,7 +110,6 @@ export const builtInPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantCreatureTrigger,
-  exilePayoffs,
   attackSubtypeDraw,
   sacrificeLandMana,
   flashGrant,

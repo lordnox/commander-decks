@@ -2,24 +2,13 @@ import type Draft from '../draft'
 import { openCardSelection, targetDestinations } from '../rules/selectCards'
 import { linkExileSelected, releaseLinkedExile, type LinkedExileReturn } from '../rules/linkExile'
 import { apnapSeats } from '../turnOrder'
-import type { GameObject, Plugin, StackItem } from '../types'
+import type { GameObject, StackItem } from '../types'
 import { validTarget } from './targetedResolve'
 import type { TargetFilter } from './effectDefinitions'
 import type { InstructionHandler } from './instructionHandlers/types'
 
 export type { LinkedExileReturn }
 export { linkExileSelected, releaseLinkedExile }
-
-const untilLeavesConfig = (object: GameObject) => {
-  for (const effect of object.effects ?? []) {
-    if (effect.op === 'static' && effect.linkedExileUntilLeaves) {
-      return effect.linkedExileUntilLeaves
-    }
-  }
-}
-
-export const defaultLinkedReturn = (source: GameObject): LinkedExileReturn =>
-  untilLeavesConfig(source)?.returnTo ?? 'battlefield'
 
 const stackObjectTargets = (item?: StackItem) =>
   item?.targets.flatMap((target) => target.kind === 'object' ? [target.objectId] : []) ?? []
@@ -121,28 +110,11 @@ const resolveReturnLinked: InstructionHandler<'returnLinkedExile'> = (
   releaseLinkedExile(
     draft,
     source,
-    instruction.returnTo ?? defaultLinkedReturn(source),
+    instruction.returnTo ?? 'battlefield',
   )
 }
 
 export const linkedExileInstructionHandlers = {
   linkExile: resolveLinkExile,
   returnLinkedExile: resolveReturnLinked,
-}
-
-export const linkedExile: Plugin = {
-  id: 'linkedExile',
-  apply: ({ state, event, draft }) => {
-    if (event.type === 'move') {
-      const before = state.objects[event.objectId]
-      if (!before || before.zone !== 'battlefield' || event.to === 'battlefield') return
-      const config = untilLeavesConfig(before)
-      if (!config) return
-      releaseLinkedExile(
-        draft,
-        draft.object(event.objectId) ?? before,
-        config.returnTo ?? 'battlefield',
-      )
-    }
-  },
 }
