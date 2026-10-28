@@ -8,7 +8,7 @@ import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, manaRequiresTap, poolForChoice, sacrificesForMana } from './plugins/mana'
-import type { CardEffect, TargetFilter } from './cardPlugins/effects'
+import type { TargetFilter } from './cardPlugins/effects'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
   announcementSource,
@@ -472,18 +472,8 @@ const manaPlays = (
 ): ManaPlay[] => {
   const activatedOptions = activatedManaOptions(state, source)
   const modes = source.ruleDefinition && activatedOptions.length > 0 ? [] : manaModes(source, state)
-  const restriction = effectsOf(source).find(
-    (effect): effect is Extract<CardEffect, { op: 'restrictedMana' }> => effect.op === 'restrictedMana',
-  )
-  const taps = restriction
-    && !canUseRestrictedMana(state, seat, spell, {
-      creatureType: source.chosenType,
-      legendary: restriction.legendary === true,
-    })
-    ? modes.filter((mode) => (mode.C ?? 0) > 0)
-    : modes
   return [
-    ...taps.flatMap((mode): ManaPlay[] => {
+    ...modes.flatMap((mode): ManaPlay[] => {
       const choice = tapChoice(state, source, mode)
       return choice
         ? [{

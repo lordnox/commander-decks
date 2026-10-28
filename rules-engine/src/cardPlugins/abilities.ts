@@ -1,6 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardCondition, CardEffect, CardInstruction, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
+import type { ActivateCost, CardEffect, CardInstruction, SagaChapter, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 import { draw, putPermanentFromGraveyard } from './instructions'
 import { yourUpkeep } from './triggers'
@@ -155,18 +155,6 @@ export const escape = (
 
 export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
   yourUpkeep(putPermanentFromGraveyard())
-
-export const manaIf = (condition: CardCondition): CardEffect => ({
-  op: 'mana',
-  if: condition,
-})
-
-export const manaFrom = (
-  from: Extract<CardEffect, { op: 'manaCapability' }>['from'],
-): CardEffect => ({
-  op: 'manaCapability',
-  from,
-})
 
 export const targetOnResolve = (
   action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
