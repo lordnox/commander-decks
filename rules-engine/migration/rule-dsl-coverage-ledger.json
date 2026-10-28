@@ -5884,7 +5884,7 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:66",
         "rules-engine/src/cardPlugins/continuousEffects.ts:661",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:637",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:779",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:777",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
         "rules-engine/src/cardPlugins/effectRuntime.ts:572",
@@ -7617,12 +7617,12 @@
       {
         "path": "rules-engine/src/cardPlugins/combatTax.ts",
         "lines": [
-          167,
-          174
+          140,
+          147
         ],
         "samples": [
-          "167: draft.enqueue({",
-          "174: draft.enqueue({ type: 'payMana', seat: event.seat, cost: `{${tax}}` })"
+          "140: draft.enqueue({",
+          "147: draft.enqueue({ type: 'payMana', seat: event.seat, cost: `{${tax}}` })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

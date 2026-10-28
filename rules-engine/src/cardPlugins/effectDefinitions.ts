@@ -755,8 +755,6 @@ export type CardEffect =
       pluginId?: string
       extraLandfall?: number
       extraEnters?: number
-      attackTax?: { amount: number; whileUntapped?: boolean }
-      blockTax?: { amount: number; whileAttacking?: boolean }
       /** "Your opponents can't block with creatures with …" while this is on the battlefield. */
       opponentsCantBlock?: ManaValuePredicate
       /** "Your opponents can't cast spells with …" while this is on the battlefield. */
