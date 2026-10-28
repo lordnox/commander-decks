@@ -3,7 +3,6 @@ import { exilePayoffsInstructionHandlers } from '../exilePayoffs'
 import { combatCopyHandlers } from './combatCopy'
 import { becomeCopyOfTargetHandlers } from './becomeCopyOfTarget'
 import { controlHandlers } from './control'
-import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { addManaChoiceInstruction } from '../manaChoice'
 import { monarchExileInstructionHandlers } from '../monarchExile'
@@ -51,7 +50,6 @@ const instructionHandlers = {
   ...voteResultHandlers,
   vote: voteInstruction,
   addManaChoice: addManaChoiceInstruction,
-  attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
   monstrosity: monstrosityInstruction,
   eachPlayerMayWheel: eachPlayerMayWheelInstruction,

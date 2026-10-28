@@ -240,15 +240,6 @@ export const forEachVotedOption = (...instructions: CardInstruction[]): CardInst
 
 export const exileVoteWinners = (): CardInstruction => ({ kind: 'exileVoteWinners' })
 
-export const attachedCopyOrToken = (
-  cost: string,
-  token: TokenSpec,
-): CardInstruction => ({
-  kind: 'attachedCopyOrToken',
-  cost,
-  token,
-})
-
 export const createXTokens = (token: TokenSpec): CardInstruction => ({
   kind: 'createXTokens',
   token,

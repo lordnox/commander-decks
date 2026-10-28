@@ -219,7 +219,6 @@ export type CardInstruction =
       colors: ColorSet
       extraSubtypes: string[]
     }
-  | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }
   | { kind: 'copySelf'; for?: 'controller' | 'targetPlayer' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
