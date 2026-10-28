@@ -8,8 +8,9 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { ability, ward } from './effects'
+import { ability } from './effects'
 import { ward as wardPlugin } from './ward'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, staticAbility, ward } from './dsl/v1'
 
 import {type CardTemplate} from '../newGame'
 import {DIALOG_CHOSEN, pendingDialog, pendingDialogLock} from '../pendingDialog'
@@ -23,11 +24,15 @@ import {deckCard} from './cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
+const lifeWard = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(ward({ kind: 'life', amount: 7 })),
+])))
+
 const wurm = () => cardTemplate('Warded Wurm', {
   types: ['Creature'],
   power: 7,
   toughness: 7,
-  effects: [ward({ life: 7 })],
+  ruleDefinition: lifeWard,
 })
 
 const bolt = () => cardTemplate('Ward spell fixture', { types: ['Instant'], manaCost: '{R}' })
@@ -76,10 +81,6 @@ const answer = (
 })
 
 describe('Ward with a life payment', () => {
-  test('the effect is clone-safe', () => {
-    expect(structuredClone(ward({ life: 7 }))).toEqual(ward({ life: 7 }))
-  })
-
   test('targeting asks the caster privately; paying loses the life and the spell goes on', () => {
     const { server, ready } = game()
     const warded = castBolt(server, ready)

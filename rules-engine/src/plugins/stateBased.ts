@@ -217,11 +217,8 @@ export const stateBased: Plugin = {
         .filter((object) =>
           object.zone === 'battlefield'
           && !object.phasedOut
-          && (
-            (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff)
-            || activePrintedStaticModifiers(draft, object).some(entry =>
-              !('keyword' in entry) && entry.effect.kind === 'legendRuleOff')
-          ))
+          && activePrintedStaticModifiers(draft, object).some(entry =>
+            !('keyword' in entry) && entry.effect.kind === 'legendRuleOff'))
         .map((object) => object.controller),
     )
     const legendGroups = new Map<string, GameObject[]>()

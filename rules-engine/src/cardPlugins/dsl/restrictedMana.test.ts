@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { availableActions, eventsForAvailableAction } from '../../actions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
@@ -86,5 +87,36 @@ describe('restricted mana', () => {
     expect(server.rules(tapped, { type: 'castSpell', seat: 'p1', objectId: named(tapped, 'Wrong Bear').id }).ok).toBe(false)
     const cast = ok(server.rules(tapped, { type: 'castSpell', seat: 'p1', objectId: named(tapped, 'Matching Wizard').id }))
     expect(cast.stack[0]).toMatchObject({ name: 'Matching Wizard', uncounterable: true })
+  })
+
+  test('catalog Maskwood Nexus lets restricted mana pay for matching-type creature spells', () => {
+    const producer = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [tapCost()],
+        instructions: [addMana({ amount: { U: 1 }, restriction: { creatureType: 'Wizard', uncounterable: true } })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [
+        cardTemplate('Maskwood Nexus'),
+        cardTemplate('Restricted producer', { types: ['Artifact'], ruleDefinition: producer }),
+      ] },
+      hands: { p1: [cardTemplate('Bear Wizard', { types: ['Creature'], subtypes: ['Bear'], manaCost: '{U}' })] },
+    }, { random: () => 0 })
+    const source = named(server.state, 'Restricted producer')
+    const spell = named(server.state, 'Bear Wizard')
+    expect(spell.subtypes).toContain('Wizard')
+    const castAction = availableActions(server.state, 'p1').find(action => action.kind === 'castSpell' && action.objectId === spell.id)
+    expect(castAction).toBeDefined()
+    const planned = eventsForAvailableAction(server.state, 'p1', castAction!)
+    expect(planned).toMatchObject([
+      { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]', manaAbility: true },
+      { type: 'castSpell', seat: 'p1', objectId: spell.id },
+    ])
+    const tapped = ok(server.rules(server.state, planned![0]!))
+    expect(tapped.players.p1.restrictedMana).toMatchObject([{ mana: 'U', creatureType: 'Wizard', uncounterable: true }])
+    const cast = ok(server.rules(tapped, planned![1]!))
+    expect(cast.stack[0]).toMatchObject({ name: 'Bear Wizard', uncounterable: true })
+    expect(cast.players.p1.restrictedMana).toEqual([])
   })
 })

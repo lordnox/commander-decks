@@ -19,16 +19,6 @@ export const grantCreatureTrigger = (
   grantCreatureTrigger: { to, on, do: instructions },
 })
 
-export const allCreatureTypes = (): CardEffect => ({
-  op: 'static',
-  allCreatureTypes: true,
-})
-
-export const legendRuleOff = (): CardEffect => ({
-  op: 'static',
-  legendRuleOff: true,
-})
-
 /** Layer 7a CDA: power and toughness each equal the chosen player's life total. */
 export const ptEqualsLife = (options: { who: 'controller' | 'owner' }): CardEffect => ({
   op: 'static',
@@ -39,15 +29,6 @@ export const ptEqualsLife = (options: { who: 'controller' | 'owner' }): CardEffe
 export const ptEqualsCount = (types: string | string[]): CardEffect => ({
   op: 'static',
   ptEqualsCount: { types: Array.isArray(types) ? types : [types] },
-})
-
-/** Activated abilities of matching permanents you control cost {N} less to activate. */
-export const reduceActivationCost = (
-  generic: number,
-  requireTypes: string[] = ['Land'],
-): CardEffect => ({
-  op: 'static',
-  reduceActivationCost: { generic, requireTypes },
 })
 
 /**
@@ -63,18 +44,6 @@ export const staticBoardPump = (
   op: 'static',
   pluginId: 'staticBoardPump',
   staticBoardPump: { power, toughness, requireTypes, ...options },
-})
-
-/** Ward {N} or a mana/life/sacrifice Ward cost (CR 702.21). */
-export const ward = (
-  options: number | NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>,
-): CardEffect => ({
-  op: 'static',
-  ward: typeof options === 'number'
-    ? { mana: options }
-    : options.generic !== undefined && options.mana === undefined
-      ? { ...options, mana: options.generic }
-      : options,
 })
 
 export const staticGrant = (pluginId: string): CardEffect => ({

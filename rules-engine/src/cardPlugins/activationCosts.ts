@@ -4,6 +4,7 @@ import { payCost, reduceGenericManaCost } from '../plugins/spells'
 import type { GameObject, GameState, PlayerId } from '../types'
 import type { ActivateCost } from './effectDefinitions'
 import { conditionHolds, millLibrary } from './effectRuntime'
+import { printedActivationCostReductions } from './dsl/compiler/announcement'
 
 type CanPayMana = (cost: string) => boolean
 
@@ -128,18 +129,8 @@ export const activationCostReduction = (
   state: GameState | Draft,
   source: GameObject,
 ) =>
-  Object.values(state.objects).reduce((amount, candidate) => {
-    if (candidate.zone !== 'battlefield' || candidate.controller !== source.controller) {
-      return amount
-    }
-    for (const effect of candidate.effects ?? []) {
-      if (effect.op !== 'static' || !effect.reduceActivationCost) continue
-      const types = effect.reduceActivationCost.requireTypes ?? ['Land']
-      if (!types.every((type) => source.types.includes(type))) continue
-      amount += effect.reduceActivationCost.generic
-    }
-    return amount
-  }, 0)
+  printedActivationCostReductions(state, source)
+    .reduce((amount, reduction) => amount + reduction.generic, 0)
 
 export const reducedActivationMana = (
   state: GameState | Draft,
