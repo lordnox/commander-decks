@@ -2,7 +2,7 @@ import type Draft from '../draft'
 import type { PlayerId, Plugin } from '../types'
 import { abilityTokens } from '../keywords'
 import { extraTriggerCount } from './effects'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId } from './permanentEntry'
 import {
   chosenTargets,
   illegalTargets,

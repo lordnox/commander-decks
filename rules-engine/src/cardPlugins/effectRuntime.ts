@@ -601,10 +601,6 @@ export function applyCopy (
   if (extra.plusCounters && extra.plusCounters > 0) addPlusCounters(object, extra.plusCounters)
 }
 
-export const replacementTaps = (effects: CardEffect[]) =>
-  effects.find((effect): effect is Extract<CardEffect, { op: 'replacement' }> =>
-    effect.op === 'replacement' && effect.do === 'tapSelf')
-
 export const activateEffect = (effects: CardEffect[], abilityId: string) =>
   effects.find((effect): effect is Extract<CardEffect, { op: 'activate' }> =>
     effect.op === 'activate' && effect.id === abilityId)

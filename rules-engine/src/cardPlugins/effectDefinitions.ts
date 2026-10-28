@@ -646,10 +646,7 @@ export type CardEffect =
   | {
       op: 'replacement'
       on: 'enters'
-      do: 'tapSelf' | 'tapUnlessPayLife' | 'tapUnlessRevealSubtype' | 'chooseColor'
-      life?: number
-      subtypes?: string[]
-      if?: CardCondition
+      do: 'chooseColor'
     }
   | {
       op: 'trigger'

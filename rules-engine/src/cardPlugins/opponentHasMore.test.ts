@@ -5,18 +5,36 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import {
+  card as dslCard,
+  compareAmount,
+  compileCardRuleDefinition,
+  count,
+  createDefinitionSnapshot,
+  modifyEvent,
+  players,
+  ref,
+  replacement,
+  staticAbility,
+  wouldEnter,
+} from './dsl/v1'
+import {
   branch,
   controllerLife,
   draw,
   enters,
-  entersTapped as entersTappedEffect,
   gainLife,
   landfall,
   opponentHasMore,
-  opponentsAtMost,
   serializableEffects,
 } from './effects'
-import { entersTapped } from './entersTapped'
+
+const opponentsAtMostOneEntry = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+  staticAbility(replacement(
+    wouldEnter({ object: ref('source') }),
+    modifyEvent({ tapped: true }),
+    { when: compareAmount(count(players({ relation: 'opponent' })), 'lte', 1) },
+  )),
+])))
 
 const land = (name: string) => cardTemplate(name, {
   types: ['Land'],
@@ -54,19 +72,17 @@ describe('opponentHasMore', () => {
     })
     expect(serializableEffects([enters(branch(controllerLife(40), [gainLife(1)]))])[0])
       .toMatchObject({ do: [{ if: { kind: 'controllerLife', min: 40 } }] })
-    expect(serializableEffects([entersTappedEffect(opponentsAtMost(1))])[0])
-      .toMatchObject({ if: { kind: 'opponentsAtMost', max: 1 } })
   })
 
   test('opponentsAtMost still taps a two-player fixture land on enter', () => {
     const springs = cardTemplate('Fixture Springs', {
       types: ['Land'],
-      effects: [entersTappedEffect(opponentsAtMost(1))],
+      ruleDefinition: opponentsAtMostOneEntry,
     })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [springs] } },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
+      { random: () => 0.5 },
     )
     const entered = playFromHand(server, server.state, 'Fixture Springs')
     expect(entered.objects[named(entered, 'Fixture Springs').id].tapped).toBe(true)

@@ -9,7 +9,7 @@ import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
  */
 import { effectsOf } from '../cardPlugins/cardRules'
 import { syncGrantCreatureTriggers } from '../cardPlugins/grantCreatureTrigger'
-import { enteringObjectId } from '../cardPlugins/entersTapped'
+import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import {
   conditionHolds,
   extraTriggerCount,
@@ -963,7 +963,7 @@ const landEnteringObjectId = (event: GameEvent, state: GameState) => {
 }
 
 /**
- * Enters listens to the same entry paths as `entersTapped`, but ability
+ * Enters listens to the same entry paths as the permanent-entry helper, but
  * `resolveTop` must not reuse the source permanent as an entering object.
  */
 const permanentEnteringObjectId = (event: GameEvent, state: GameState) => {

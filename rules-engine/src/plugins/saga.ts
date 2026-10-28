@@ -1,5 +1,5 @@
 import { effectsOf } from '../cardPlugins/cardRules'
-import { enteringObjectId } from '../cardPlugins/entersTapped'
+import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'

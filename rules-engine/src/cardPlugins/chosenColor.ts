@@ -2,7 +2,7 @@ import { openOptionSelection, pendingOptionSelection } from '../rules/selectOpti
 import type { Plugin } from '../types'
 import type { CardColor } from '../../../shared/cardColors'
 import { effectsOf } from './cardRules'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId } from './permanentEntry'
 
 const COLORS: Array<{ id: CardColor; label: string }> = [
   { id: 'W', label: 'White' },

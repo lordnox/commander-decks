@@ -22,7 +22,6 @@ import {ward} from './ward'
 
 import { createServerGame as createRuntimeGame } from '../runtime'
 
-import { entersTapped } from './entersTapped'
 import { hasKeyword } from '../keywords'
 import { allNamed, artifact, choose, deckCard, enter, fixtureCreature, libraries } from './cirdanCreatureCards'
 const ok = (result: ReduceResult) => {
@@ -480,7 +479,6 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        entersTapped,
         librarySearch,
         onResolve,
         targetedResolve,

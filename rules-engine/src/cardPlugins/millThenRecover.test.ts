@@ -19,7 +19,6 @@ import {targetedResolve} from './targetedResolve'
 
 import { createServerGame as createRuntimeGame } from '../runtime'
 
-import { entersTapped } from './entersTapped'
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -167,7 +166,6 @@ describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        entersTapped,
         librarySearch,
         onResolvePlugin,
         targetedResolve,
