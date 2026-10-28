@@ -63,15 +63,6 @@ const legalObjectTarget = (
 ) => {
   const source = state.objects[item.objectId]
   if (!source) return false
-  if (
-    object.controller !== controller
-    && !object.tapped
-    && effectsOf(object).some((effect) =>
-      effect.op === 'targetingRequirement'
-      && effect.kind === 'hexproof-while-untapped')
-  ) {
-    return false
-  }
   const ability = item.abilityId
     ? activateEffect(effectsOf(source), item.abilityId)
     : undefined

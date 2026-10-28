@@ -846,10 +846,6 @@ export type CardEffect =
     }
   | { op: 'drawReplacementByType' }
   | {
-      op: 'targetingRequirement'
-      kind: 'flagbearer' | 'hexproof-while-untapped'
-    }
-  | {
       op: 'playerAuraDeal'
       drawAtEnchantedEnd: number
       breakOnMutualAttack: boolean
