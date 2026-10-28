@@ -204,7 +204,7 @@
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
-          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:166 — test('resolve counts are separate from onceEachTurn trigger marks', () => {"
+          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:178 — test('resolve counts are separate from onceEachTurn trigger marks', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -5646,7 +5646,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:461",
         "rules-engine/src/cardPlugins/effectRuntime.ts:278",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:491",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:474",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -5779,7 +5779,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1553",
+        "rules-engine/src/rules/triggers.ts:1539",
         "rules-engine/src/types.ts:323",
         "rules-engine/src/types.ts:325",
         "rules-engine/src/types.ts:329"
@@ -5824,16 +5824,16 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:546",
         "rules-engine/src/cardPlugins/continuousEffects.ts:583",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:608",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:731",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:729",
         "rules-engine/src/cardPlugins/effectRuntime.ts:111",
         "rules-engine/src/cardPlugins/effectRuntime.ts:268",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:572",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:555",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:24",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:27",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:93",
         "rules-engine/src/cardPlugins/grantCreatureTrigger.ts:94",
-        "rules-engine/src/cardPlugins/staticEffects.ts:13",
-        "rules-engine/src/cardPlugins/staticEffects.ts:19",
+        "rules-engine/src/cardPlugins/staticEffects.ts:3",
+        "rules-engine/src/cardPlugins/staticEffects.ts:9",
         "rules-engine/src/definitions.ts:81",
         "rules-engine/src/formats.ts:135",
         "rules-engine/src/formats.ts:44",
@@ -5924,10 +5924,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          264
+          263
         ],
         "samples": [
-          "264: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "263: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -5939,10 +5939,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          555
+          538
         ],
         "samples": [
-          "555: if (!extra.keepName && object.name !== copied.name) {"
+          "538: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6022,12 +6022,12 @@
       {
         "path": "rules-engine/src/cardPlugins/homer.ts",
         "lines": [
-          72,
-          91
+          71,
+          90
         ],
         "samples": [
-          "72: if (event.type !== 'resolveTop' || item?.name !== HOMER_STACK_NAME) return",
-          "91: if (source.name !== HOMER_NAME) continue"
+          "71: if (event.type !== 'resolveTop' || item?.name !== HOMER_STACK_NAME) return",
+          "90: if (source.name !== HOMER_NAME) continue"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6186,24 +6186,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          73,
-          179,
-          199,
-          281,
+          72,
+          178,
+          198,
+          280,
+          429,
           430,
-          431,
-          602,
-          1153,
-          1270,
-          1427,
-          1429,
-          1469,
-          1470
+          601,
+          1139,
+          1256,
+          1413,
+          1415,
+          1455,
+          1456
         ],
         "samples": [
-          "73: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "179: eventType: event.type === 'custom' ? event.name : event.type,",
-          "199: : event.type === 'custom' && event.name === 'advanceStep'"
+          "72: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
+          "178: eventType: event.type === 'custom' ? event.name : event.type,",
+          "198: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6496,15 +6496,15 @@
       {
         "path": "rules-engine/src/cardPlugins/homer.ts",
         "lines": [
-          62,
-          100,
-          101,
-          121
+          61,
+          96,
+          97,
+          117
         ],
         "samples": [
-          "62: if (event.type !== 'custom' || event.name !== HOMER_CHOSEN) return",
-          "100: if (event.type !== 'custom' || !event.seat) return",
-          "101: if (event.name === HOMER_CHOSEN) {"
+          "61: if (event.type !== 'custom' || event.name !== HOMER_CHOSEN) return",
+          "96: if (event.type !== 'custom' || !event.seat) return",
+          "97: if (event.name === HOMER_CHOSEN) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7389,24 +7389,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          915,
-          1008,
-          1103,
-          1137,
-          1216,
-          1281,
-          1294,
-          1333,
-          1414,
-          1492,
-          1551,
-          1749,
-          1863
+          902,
+          994,
+          1089,
+          1123,
+          1202,
+          1267,
+          1280,
+          1319,
+          1400,
+          1478,
+          1537,
+          1735,
+          1849
         ],
         "samples": [
-          "915: const frequencySource = draft.object(source.id) ?? source",
-          "1008: const live = draft.object(source.id)",
-          "1103: const land = draft.object(objectId)"
+          "902: const frequencySource = draft.object(source.id) ?? source",
+          "994: const live = draft.object(source.id)",
+          "1089: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8510,14 +8510,14 @@
       {
         "path": "rules-engine/src/cardPlugins/homer.ts",
         "lines": [
-          51,
-          88,
-          105
+          50,
+          87,
+          101
         ],
         "samples": [
-          "51: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })",
-          "88: const land = draft.object(objectId)",
-          "105: draft.addToStack({"
+          "50: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })",
+          "87: const land = draft.object(objectId)",
+          "101: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

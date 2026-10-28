@@ -468,23 +468,6 @@ export const returnOwnedLands = (draft: Draft, seat: PlayerId, tapped: boolean) 
   }
 }
 
-export const extraTriggerCount = (
-  state: GameState,
-  seat: PlayerId,
-  kind: 'landfall' | 'enters',
-  _source?: GameObject,
-) =>
-  Object.values(state.objects).reduce((total, object) => {
-    if (object.zone !== 'battlefield' || object.controller !== seat) return total
-    const staticCount = (object.effects ?? []).reduce((sum, effect) => {
-      if (effect.op !== 'static') return sum
-      if (kind === 'landfall') return sum + (effect.extraLandfall ?? 0)
-      return sum + (effect.extraEnters ?? 0)
-    }, 0)
-    return total + staticCount
-  }, 0)
-
-
 const copyExceptAbilities = (effects: CardEffect[] | undefined) =>
   (effects ?? []).filter((effect) =>
     effect.op === 'activate'

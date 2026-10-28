@@ -1,15 +1,5 @@
 import type { CardEffect, CardInstruction, GrantCreatureTrigger } from './effectDefinitions'
 
-export const extraLandfall = (count = 1): CardEffect => ({
-  op: 'static',
-  extraLandfall: count,
-})
-
-export const extraEnters = (count = 1): CardEffect => ({
-  op: 'static',
-  extraEnters: count,
-})
-
 export const grantCreatureTrigger = (
   to: GrantCreatureTrigger['to'],
   on: GrantCreatureTrigger['on'],

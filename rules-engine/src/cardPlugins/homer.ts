@@ -1,7 +1,6 @@
 import type Draft from '../draft'
 import type { PlayerId, Plugin } from '../types'
 import { abilityTokens } from '../keywords'
-import { extraTriggerCount } from './effects'
 import { enteringObjectId } from './permanentEntry'
 import {
   chosenTargets,
@@ -89,10 +88,7 @@ export const homer: Plugin = {
       if (land?.zone === 'battlefield' && land.types.includes('Land')) {
         for (const source of draft.zoneOf('battlefield', land.controller)) {
           if (source.name !== HOMER_NAME) continue
-          const extras = extraTriggerCount(draft, source.controller, 'landfall', source)
-          for (let index = 0; index < 1 + extras; index += 1) {
-            queueTrigger(draft, source.id, source.controller)
-          }
+          queueTrigger(draft, source.id, source.controller)
         }
       }
     }
