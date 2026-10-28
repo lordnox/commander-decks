@@ -21,7 +21,7 @@ import {
   type SearchSpec,
 } from './effects'
 import { effectsOf } from './cardRules'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId } from './permanentEntry'
 import { runInstructions } from './runInstructions'
 import {
   clearPendingDialog,

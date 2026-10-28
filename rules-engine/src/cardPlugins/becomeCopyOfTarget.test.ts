@@ -13,7 +13,6 @@ import { serializableEffects } from './effectRuntime'
 
 import {createServerGame as createRuntimeGame} from '../runtime'
 import {choiceEffects} from './choiceEffects'
-import {entersTapped} from './entersTapped'
 import {librarySearch} from './librarySearch'
 import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
@@ -257,7 +256,6 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        entersTapped,
         librarySearch,
         onResolve,
         targetedResolve,

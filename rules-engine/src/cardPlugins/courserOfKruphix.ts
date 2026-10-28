@@ -1,5 +1,5 @@
 import type { GameEvent, Plugin } from '../types'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId } from './permanentEntry'
 import { syncRevealedLibraryTop } from './libraryTopKnowledge'
 
 const shouldSync = (event: GameEvent) =>

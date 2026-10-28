@@ -6,7 +6,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
 import { choiceEffects } from './choiceEffects'
-import { entersTapped } from './entersTapped'
 
 import {catalogEntry, deckCards} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
@@ -27,7 +26,7 @@ const game = (hand: CardTemplate[], battlefield: CardTemplate[] = []) =>
   createServerGame(
     commanderRules,
     { hands: { p1: hand }, battlefield: { p1: battlefield } },
-    { random: () => 0.5, cardPlugins: [entersTapped] },
+    { random: () => 0.5 },
   )
 
 const named = (state: GameState, name: string) =>
@@ -184,7 +183,7 @@ describe('entersTapped', () => {
         players: 2,
         hands: { p1: [land('Morphic Pool')] },
       },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
+      { random: () => 0.5 },
     )
     const headsUpId = headsUp.state.zoneOrder.p1.hand[0]
     expect(ok(headsUp.rules(headsUp.state, {
@@ -199,7 +198,7 @@ describe('entersTapped', () => {
         players: 3,
         hands: { p1: [land('Morphic Pool')] },
       },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
+      { random: () => 0.5 },
     )
     const multiplayerId = multiplayer.state.zoneOrder.p1.hand[0]
     expect(ok(multiplayer.rules(multiplayer.state, {
@@ -223,7 +222,7 @@ describe('entersTapped', () => {
         hands: { p1: [land('Shadowy Backstreet', ['Plains', 'Swamp'])] },
         libraries: { p1: [land('Swamp', ['Swamp'])] },
       },
-      { random: () => 0.5, cardPlugins: [entersTapped, choiceEffects] },
+      { random: () => 0.5, cardPlugins: [choiceEffects] },
     )
     const objectId = server.state.zoneOrder.p1.hand[0]
 
@@ -246,7 +245,7 @@ describe('entersTapped', () => {
         hands: { p1: [land('Temple of Deceit')] },
         libraries: { p1: [land('Island', ['Island'])] },
       },
-      { random: () => 0.5, cardPlugins: [entersTapped, choiceEffects] },
+      { random: () => 0.5, cardPlugins: [choiceEffects] },
     )
     const objectId = server.state.zoneOrder.p1.hand[0]
     const played = ok(server.rules(server.state, {
@@ -271,7 +270,7 @@ describe('entersTapped', () => {
         hands: { p1: [land('Lair of the Hydra')] },
         battlefield: { p2: [land('Forest', ['Forest']), land('Forest', ['Forest'])] },
       },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
+      { random: () => 0.5 },
     )
     const objectId = server.state.zoneOrder.p1.hand[0]
     const next = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))

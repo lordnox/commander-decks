@@ -8,7 +8,7 @@ import {
   pumpPerLinkedExileOutOfSync,
   refreshPumpPerLinkedExile,
 } from './continuousEffects'
-import { enteringObjectId } from './entersTapped'
+import { enteringObjectId } from './permanentEntry'
 import { manaValueOf } from './effectRuntime'
 import type { InstructionHandler } from './instructionHandlers/types'
 

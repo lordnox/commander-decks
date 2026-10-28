@@ -18,7 +18,6 @@ import { choiceEffects } from './choiceEffects'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cycling } from './cycling'
-import { entersTapped } from './entersTapped'
 import { linkedExile } from './linkedExile'
 import { onResolve as onResolvePlugin } from './onResolve'
 import {
@@ -100,7 +99,7 @@ const withMana = (state: GameState) => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, entersTapped, librarySearch, linkedExile, onResolvePlugin]
+const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, librarySearch, linkedExile, onResolvePlugin]
 
 describe('librarySearch', () => {
   test('a sacrificing legacy map opens the generic hidden library search', () => {

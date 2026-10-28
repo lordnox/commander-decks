@@ -4,7 +4,7 @@ import {
   refreshCdaCountPt,
   refreshCdaLifePt,
 } from '../cardPlugins/continuousEffects'
-import { enteringObjectId } from '../cardPlugins/entersTapped'
+import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import type { GameObject, GameState, Plugin } from '../types'
 
 const SYNC = 'cdaLifePt.sync'
