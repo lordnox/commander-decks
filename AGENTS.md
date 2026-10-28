@@ -66,11 +66,13 @@ Every issue and PR needs at least one area label from the table in
 `decks`, `live`, `server`, `site`, `docs`, `ci`, or `chore`. Add labels for other
 areas substantially affected and preserve existing labels. A PR must include the
 label matching its title prefix; pass `--label <area>` to `gh pr create`.
-Issues choose labels by scope without needing PR-style title prefixes; use the
-issue form or `gh issue create --label <area>`. Milestones are separate from
+Issues choose labels by scope without needing PR-style title prefixes; use
+`gh issue create --label <area>`. Milestones are separate from
 area labels. Follow [`.github/ISSUES.md`](.github/ISSUES.md) when reporting defects.
-The **PR title** workflow validates PR labels on title and label changes; the
-**Issue area** workflow reports missing issue labels in a maintained comment.
+Before creating or updating an issue or PR, check its current area labels and
+add any missing relevant labels. This is an agent rule: do not add CI checks or
+issue workflows to enforce area labels. The existing **PR title** workflow
+continues to validate title format only.
 
 ### PR title rule
 
