@@ -9,7 +9,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import {
   casts,
-  dies,
   discardCards,
   discards,
   draws,
@@ -23,12 +22,25 @@ import {
   type CardEffect,
 } from './effects'
 import { onResolve } from './onResolve'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  dies as dslDies,
+  gainLife as dslGainLife,
+  ref,
+  whenever,
+} from './dsl/v1'
 
 import {type CardTemplate} from '../newGame'
 const knight = (name = 'Knight', token = false) => cardTemplate(name, {
   types: ['Creature'], subtypes: ['Knight'], colors: 'W', power: 2, toughness: 2, token,
 })
 const watcher = (effects: CardEffect[]) => cardTemplate('Watcher', { types: ['Enchantment'], effects })
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+const canonicalWatcher = (name: string, abilities: Parameters<typeof card>[0]) =>
+  cardTemplate(name, { types: ['Enchantment'], ruleDefinition: definition(abilities) })
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const game = (effects: CardEffect[], zones: Parameters<typeof createServerGame>[1] = {}, plugins: Plugin[] = []) =>
   createServerGame(commanderRules, {
@@ -47,8 +59,10 @@ const answerTriggerOrder = (server: ReturnType<typeof createServerGame>, state: 
 
 describe('shared trigger matching', () => {
   test('death watches another white Knight token using pre-death controller and characteristics', () => {
-    const effect = dies({ filter: { other: true, token: true, subtypes: ['Knight'], colors: ['W'], controller: 'you' } }, gainLife(1))
-    const server = game([effect], { battlefield: { p1: [watcher([effect])], p2: [knight('Knight', true)] } })
+    const ability = whenever(dslDies({ filter: {
+      other: true, token: true, subtypes: ['Knight'], color: 'W', controller: 'you',
+    } }), { instructions: [dslGainLife({ amount: 1, targets: ref('controller') })] })
+    const server = game([], { battlefield: { p1: [canonicalWatcher('Watcher', [ability])], p2: [knight('Knight', true)] } })
     const state = structuredClone(server.state)
     named(state, 'Knight').controller = 'p1'
     const died = ok(server.rules(state, { type: 'sacrifice', objectId: named(state, 'Knight').id }))
@@ -58,9 +72,11 @@ describe('shared trigger matching', () => {
   })
 
   test('death excludes artifacts, milling, bounce, exile, and opponent creatures', () => {
-    const effect = dies({ filter: { controller: 'you' } }, gainLife(1))
-    const server = game([effect], {
-      battlefield: { p1: [watcher([effect]), knight(), cardTemplate('Rock', { types: ['Artifact'] })], p2: [knight('Enemy')] },
+    const ability = whenever(dslDies({ filter: { controller: 'you' } }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = game([], {
+      battlefield: { p1: [canonicalWatcher('Watcher', [ability]), knight(), cardTemplate('Rock', { types: ['Artifact'] })], p2: [knight('Enemy')] },
       libraries: { p1: [knight('Milled')] },
     })
     for (const [name, to] of [['Rock', 'graveyard'], ['Enemy', 'graveyard'], ['Milled', 'graveyard'], ['Knight', 'hand'], ['Knight', 'exile']] as const) {
@@ -79,9 +95,15 @@ describe('shared trigger matching', () => {
   })
 
   test('unfiltered dies and leaves still watch only the source', () => {
-    const server = game([], { battlefield: { p1: [cardTemplate('Self', {
-      types: ['Creature'], effects: [dies(gainLife(1)), leaves(gainLife(2))],
-    }), knight()] } })
+    const ability = whenever(dslDies({ filter: ref('self') }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const selfObject = cardTemplate('Self', {
+      types: ['Creature'],
+      effects: [leaves(gainLife(2))],
+      ruleDefinition: definition([ability]),
+    })
+    const server = game([], { battlefield: { p1: [selfObject, knight()] } })
     const other = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'graveyard' }))
     expect(other.stack).toHaveLength(0)
     const self = ok(server.rules(other, { type: 'move', objectId: named(other, 'Self').id, to: 'graveyard' }))
@@ -123,19 +145,20 @@ describe('shared trigger matching', () => {
     expect(second.stack).toHaveLength(0)
   })
 
-  test('legacy trigger groups expose distinct ordering through reconnect', () => {
-    const first = dies({ filter: { type: 'Creature' } }, gainLife(1))
-    const second = dies({ filter: { type: 'Creature' } }, gainLife(2))
+  test('canonical trigger groups expose distinct ordering through reconnect', () => {
+    const first = whenever(dslDies({ filter: { type: 'Creature' } }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const second = whenever(dslDies({ filter: { type: 'Creature' } }), {
+      instructions: [dslGainLife({ amount: 2, targets: ref('controller') })],
+    })
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: {
-        p1: [cardTemplate('Legacy Order Watcher', {
-          types: ['Enchantment'],
-          effects: [first, second],
-        }), knight('Legacy Victim')],
+        p1: [canonicalWatcher('Trigger Order Watcher', [first, second]), knight('Trigger Order Victim')],
       },
     }, { random: () => 0.5 })
-    const event = { type: 'move' as const, objectId: named(server.state, 'Legacy Victim').id, to: 'graveyard' as const }
+    const event = { type: 'move' as const, objectId: named(server.state, 'Trigger Order Victim').id, to: 'graveyard' as const }
     const opened = ok(server.rules(server.state, event))
     const selection = pendingSelectionFor(opened, 'p1')!
     expect(selection.triggerOrder?.entries).toHaveLength(2)
