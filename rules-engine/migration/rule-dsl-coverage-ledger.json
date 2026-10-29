@@ -5239,11 +5239,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3171 — test('publishes and applies the defeated Siege casting choice', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:167 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:90 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
+          "live-runner/src/kernelHost.test.ts:3171 — test('publishes and applies the defeated Siege casting choice', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5559,9 +5557,9 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:456",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:278",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:474",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:453",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:264",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:460",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:38",
@@ -5578,7 +5576,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1452"
+        "rules-engine/src/types.ts:1451"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5616,9 +5614,9 @@
         "rules-engine/src/actions.ts:847",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:306",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:435",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:439",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:292",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:421",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:425",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
         "rules-engine/src/cardPlugins/librarySearch.ts:174",
@@ -5738,9 +5736,9 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:509",
         "rules-engine/src/cardPlugins/continuousEffects.ts:52",
         "rules-engine/src/cardPlugins/continuousEffects.ts:546",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:111",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:268",
-        "rules-engine/src/cardPlugins/effectRuntime.ts:555",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:254",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:541",
+        "rules-engine/src/cardPlugins/effectRuntime.ts:97",
         "rules-engine/src/definitions.ts:81",
         "rules-engine/src/kernel.ts:568",
         "rules-engine/src/kernel.ts:570",
@@ -5839,10 +5837,10 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          538
+          524
         ],
         "samples": [
-          "538: if (!extra.keepName && object.name !== copied.name) {"
+          "524: if (!extra.keepName && object.name !== copied.name) {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -7320,16 +7318,16 @@
       {
         "path": "rules-engine/src/cardPlugins/effectRuntime.ts",
         "lines": [
-          121,
-          123,
-          457,
-          466,
-          467
+          107,
+          109,
+          443,
+          452,
+          453
         ],
         "samples": [
-          "121: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
-          "123: draft.enqueue({",
-          "457: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
+          "107: draft.enqueue({ type: 'tokenCreated', object: snapshotObject(token) })",
+          "109: draft.enqueue({",
+          "443: draft.enqueue({ type: 'move', objectId, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
