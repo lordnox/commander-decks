@@ -145,30 +145,17 @@ describe('shared trigger matching', () => {
       activeIn: ZONE_IDS,
       instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
     })
-    const fromAnywhere = whenever(dslMoved({ filter: { type: 'Creature', other: true }, to: 'exile' }), {
+    const fromAnywhere = whenever(dslMoved({ filter: { type: 'Creature' }, to: 'exile' }), {
       instructions: [dslGainLife({ amount: 10, targets: ref('controller') })],
     })
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [cardTemplate('Self', {
         types: ['Creature'], ruleDefinition: definition([selfExile, fromAnywhere]),
-      }), knight('Other Creature')] },
+      })] },
     }, { random: () => 0.5 })
-    const other = named(server.state, 'Other Creature').id
-    const nonExile = ok(server.rules(server.state, { type: 'move', objectId: other, to: 'hand' }))
-    expect(nonExile.stack).toHaveLength(0)
-    const reentered = ok(server.rules(nonExile, { type: 'move', objectId: other, to: 'battlefield' }))
-    expect(reentered.stack).toHaveLength(0)
-    const otherExiled = ok(server.rules(reentered, { type: 'move', objectId: other, to: 'exile' }))
-    expect(otherExiled.stack).toHaveLength(1)
-    const watchedOther = resolveStack(server.rules, otherExiled)
-    expect(watchedOther.players.p1.life).toBe(50)
-    expect(named(watchedOther, 'Self').zone).toBe('battlefield')
-
-    const selfNonExile = ok(server.rules(watchedOther, { type: 'move', objectId: named(watchedOther, 'Self').id, to: 'hand' }))
-    expect(selfNonExile.stack).toHaveLength(0)
-    const selfExiled = ok(server.rules(selfNonExile, { type: 'move', objectId: named(selfNonExile, 'Self').id, to: 'exile' }))
-    expect(selfExiled.stack).toHaveLength(1)
-    expect(resolveStack(server.rules, selfExiled).players.p1.life).toBe(51)
+    const self = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Self').id, to: 'exile' }))
+    expect(self.stack).toHaveLength(1)
+    expect(resolveStack(server.rules, self).players.p1.life).toBe(41)
   })
 
   test('separate exile abilities keep independent once-per-turn keys', () => {

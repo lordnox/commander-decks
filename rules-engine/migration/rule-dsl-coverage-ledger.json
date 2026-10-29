@@ -4083,7 +4083,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 93,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -4376,7 +4376,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 67,
+        "matches": 68,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
@@ -5264,8 +5264,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:425 — test('optional delayed draws open a may-draw dialog', () => {",
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:444 — test('an optional delayed draw asks the opponent who was named as the drawer', () => {"
+          "rules-engine/src/cardPlugins/runInstructions.test.ts:468 — test('optional delayed draws open a may-draw dialog', () => {",
+          "rules-engine/src/cardPlugins/runInstructions.test.ts:487 — test('an optional delayed draw asks the opponent who was named as the drawer', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5694,7 +5694,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1537",
+        "rules-engine/src/rules/triggers.ts:1585",
         "rules-engine/src/types.ts:316",
         "rules-engine/src/types.ts:318",
         "rules-engine/src/types.ts:322"
@@ -5824,10 +5824,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          263
+          279
         ],
         "samples": [
-          "263: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "279: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6089,16 +6089,16 @@
           71,
           177,
           197,
-          280,
-          429,
-          430,
-          601,
-          1137,
-          1254,
-          1411,
-          1413,
-          1453,
-          1454
+          296,
+          449,
+          450,
+          625,
+          1185,
+          1302,
+          1459,
+          1461,
+          1501,
+          1502
         ],
         "samples": [
           "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -7272,24 +7272,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          902,
-          994,
-          1088,
-          1121,
-          1200,
-          1265,
-          1278,
-          1317,
-          1398,
-          1476,
-          1535,
-          1733,
-          1847
+          938,
+          1042,
+          1136,
+          1169,
+          1248,
+          1313,
+          1326,
+          1365,
+          1446,
+          1524,
+          1583,
+          1781,
+          1895
         ],
         "samples": [
-          "902: const frequencySource = draft.object(source.id) ?? source",
-          "994: const live = draft.object(source.id)",
-          "1088: const land = draft.object(objectId)"
+          "938: const frequencySource = draft.object(source.id) ?? source",
+          "1042: const live = draft.object(source.id)",
+          "1136: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

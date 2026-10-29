@@ -2030,11 +2030,11 @@ export const validateDefinitionV2 = (root: unknown): {
       case 'cycle':
       case 'draw': {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
-        env.context = new Map([...env.context, ['triggering.player', 'player'], ...(node.kind === 'cycle' ? [['triggering.object.after', 'object'] as const] : [])])
+        env.context = new Map([...env.context, ['triggering.player', 'player'], ...(node.kind === 'cycle' ? [['triggering.object.after', 'object'] as const] : node.kind === 'discard' ? [['triggering.object.before', 'object'] as const] : [])])
         if (node.kind === 'draw') env.eventAmount = true
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
-          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep', 'duringOwnTurn', 'nthThisTurn'] : node.kind === 'cycle' ? ['player', 'object'] : ['player'])
+          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep', 'duringOwnTurn', 'nthThisTurn'] : node.kind === 'cycle' || node.kind === 'discard' ? ['player', 'object'] : ['player'])
           if (filter.player !== undefined) validateRecipient(filter.player, childPath(childPath(path, 'filter'), 'player'), env, ['player'])
           if (filter.firstDrawInOwnDrawStep !== undefined && typeof filter.firstDrawInOwnDrawStep !== 'boolean') issue(childPath(childPath(path, 'filter'), 'firstDrawInOwnDrawStep'), 'type', 'expected a boolean')
           if (filter.duringOwnTurn !== undefined && typeof filter.duringOwnTurn !== 'boolean') issue(childPath(childPath(path, 'filter'), 'duringOwnTurn'), 'type', 'expected a boolean')
