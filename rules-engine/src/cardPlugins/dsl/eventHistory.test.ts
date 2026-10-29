@@ -169,6 +169,25 @@ test('nthThisTurn matches only the second draw by that player', () => {
   expect(resolveStack(server.rules, second).players.p1.life).toBe(41)
 })
 
+test('draw occurrence filters inspect the drawn card', () => {
+  const definition = watcher(
+    whenever(draws({ player: ref('controller'), object: { type: 'Creature', color: 'W' } }), {
+      instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    }),
+  )
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Draw watcher fixture', { types: ['Enchantment'], ruleDefinition: definition })] },
+    libraries: { p1: [cardTemplate('Noncreature draw', { types: ['Instant'], colors: 'W' }), cardTemplate('Creature draw', { types: ['Creature'], colors: 'W' })] },
+  }, { random: () => 0 })
+  const ignored = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+  expect(ignored.stack).toHaveLength(0)
+  const matched = ok(server.rules(ignored, { type: 'draw', seat: 'p1', count: 1 }))
+  expect(matched.stack).toHaveLength(1)
+  expect(matched.stack[0]?.execution?.occurrence).toMatchObject({ object: { after: { name: 'Creature draw', zone: 'hand' } } })
+  expect(resolveStack(server.rules, matched).players.p1.life).toBe(41)
+})
+
 test('nthThisTurn matches only a player\'s second spell each turn', () => {
   const definition = watcher(
     whenever(spellCast({ filter: { zone: 'stack' }, nthThisTurn: 2 }), {

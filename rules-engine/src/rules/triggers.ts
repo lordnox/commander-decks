@@ -391,6 +391,10 @@ const canonicalPatternMatches = (
       const discarded = occurrence.object?.before
       if (!discarded || !canonicalFilterMatch(beforeState, source, discarded, pattern.filter.object, occurrence)) return false
     }
+    if (pattern.kind === 'draw' && pattern.filter.object) {
+      const drawn = occurrence.object?.after
+      if (!drawn || !canonicalFilterMatch(state, source, drawn, pattern.filter.object, occurrence)) return false
+    }
     if (pattern.kind === 'cycle' && pattern.filter.object) {
       const object = occurrence.object?.after
       if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence)) return false
@@ -527,6 +531,10 @@ const generatedPatternMatches = (
       if (pattern.kind === 'discard' && pattern.filter.object) {
         const discarded = occurrence.object?.before
         if (!discarded || !canonicalFilterMatch(beforeState, source, discarded, pattern.filter.object, occurrence, execution)) return false
+      }
+      if (pattern.kind === 'draw' && pattern.filter.object) {
+        const drawn = occurrence.object?.after
+        if (!drawn || !canonicalFilterMatch(state, source, drawn, pattern.filter.object, occurrence, execution)) return false
       }
       if (pattern.kind === 'cycle' && pattern.filter.object) {
         const object = occurrence.object?.after
@@ -754,6 +762,11 @@ const occurrenceSpecsForPattern = (
   draft: Draft,
 ): OccurrenceSpec[] => {
   switch (pattern.kind) {
+    case 'draw': {
+      if (event.type !== 'draw') return []
+      const objectId = state.zoneOrder[event.seat]?.library[0]
+      return [{ ...(objectId ? { objectId } : {}), player: event.seat }]
+    }
     case 'attacks':
       return event.type === 'declareAttackers'
         ? event.attackers.map(attacker => ({
