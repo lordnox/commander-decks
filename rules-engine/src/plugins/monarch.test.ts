@@ -1,11 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import {
-  becomeMonarch,
-  enters,
-  exileUntilOpponentBecomesMonarch,
-} from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { newGame } from '../testGame'
@@ -20,6 +15,18 @@ import { life } from './life'
 import { monarch } from './monarch'
 import { turnStructure } from './turnStructure'
 import type { GameState } from '../types'
+import {
+  becomeMonarch,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  linkExile,
+  objects,
+  select,
+  self,
+  target,
+  whenever,
+} from '../cardPlugins/dsl/v1'
 
 const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
   cardTemplate(name, {
@@ -37,6 +44,23 @@ const linkedExileGame = (setup: {
   battlefield?: Record<string, ReturnType<typeof cardTemplate>[]>
 }) =>
   createServerGame(commanderRules, { ...setup, players: 3 }, { random: () => 0.5 })
+
+const opponentCreatureFilter = objects({
+  zone: 'battlefield',
+  type: 'Creature',
+  controller: 'opponent',
+})
+
+const monarchExileDefinition = (alsoBecomeMonarch = false) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, {
+      decisions: { targets: [select({ filter: opponentCreatureFilter, count: 1 })] },
+      instructions: [
+        ...(alsoBecomeMonarch ? [becomeMonarch()] : []),
+        linkExile({ targets: target(0), untilOpponentMonarch: true }),
+      ],
+    }),
+  ])))
 
 describe('monarch', () => {
   test('becomeMonarch designates at most one monarch', () => {
@@ -87,8 +111,14 @@ describe('monarch', () => {
   })
 
   test('becomeMonarch instruction runs through the event', () => {
-    const crown = creature('Crown Heralds', 'p1')
-    crown.effects = [enters(becomeMonarch())]
+    const crown = cardTemplate('Crown Heralds', {
+      types: ['Creature'],
+      power: 2,
+      toughness: 2,
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(self.enters, { instructions: [becomeMonarch()] }),
+      ]))),
+    })
     const server = createServerGame(commanderRules, {
       players: 2,
       hands: { p1: [crown] },
@@ -106,15 +136,10 @@ describe('monarch', () => {
 
 describe('monarch linked exile', () => {
   test('exiles until an opponent becomes monarch and survives the source leaving', () => {
-    const warden = creature('Throne Warden', 'p1')
-    warden.effects = [
-      {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { type: 'Creature', controller: 'opponent' } },
-        do: [becomeMonarch(), exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })],
-      },
-    ]
+    const warden = cardTemplate('Throne Warden', {
+      types: ['Creature'], power: 2, toughness: 2,
+      ruleDefinition: monarchExileDefinition(true),
+    })
     const hostage = creature('Held Captive', 'p2')
     const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
@@ -138,7 +163,12 @@ describe('monarch linked exile', () => {
     expect(resolved.objects[hostageId]).toMatchObject({
       zone: 'exile',
       exiledWith: wardenId,
-      exiledUntilOpponentMonarch: true,
+    })
+    expect(resolved.linkedExileSets).toHaveLength(1)
+    expect(resolved.linkedExileSets?.[0]).toMatchObject({
+      source: { objectId: wardenId },
+      cards: [{ objectId: hostageId }],
+      untilOpponentMonarch: { player: 'p1' },
     })
 
     const sacrificed = ok(server.rules(resolved, {
@@ -152,19 +182,14 @@ describe('monarch linked exile', () => {
       zone: 'battlefield',
       controller: crowned.objects[hostageId].owner,
     })
-    expect(crowned.objects[hostageId].exiledUntilOpponentMonarch).toBeUndefined()
+    expect(crowned.linkedExileSets).toHaveLength(0)
   })
 
   test('private projection keeps the hostage choice on the choosing seat only', () => {
-    const warden = creature('Throne Warden', 'p1')
-    warden.effects = [
-      {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { type: 'Creature', controller: 'opponent' } },
-        do: [exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })],
-      },
-    ]
+    const warden = cardTemplate('Throne Warden', {
+      types: ['Creature'], power: 2, toughness: 2,
+      ruleDefinition: monarchExileDefinition(),
+    })
     const hostage = creature('Held Captive', 'p2')
     const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
@@ -181,20 +206,19 @@ describe('monarch linked exile', () => {
   })
 
   test('host restart preserves an open monarch-exile target choice', () => {
-    const warden = creature('Throne Warden', 'p1')
-    warden.effects = [
-      enters(exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })),
-    ]
+    const warden = cardTemplate('Throne Warden', {
+      types: ['Creature'], power: 2, toughness: 2,
+      ruleDefinition: monarchExileDefinition(),
+    })
     const hostage = creature('Held Captive', 'p2')
     const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
     const hostageId = named(server.state, 'Held Captive').id
-    let entered = ok(server.rules(server.state, {
+    const entered = ok(server.rules(server.state, {
       type: 'move',
       objectId: wardenId,
       to: 'battlefield',
     }))
-    entered = ok(server.rules(entered, { type: 'resolveTop' }))
     expect(pendingSelectionFor(entered, 'p1')).toBeDefined()
     const restarted = structuredClone(entered)
     expect(pendingSelectionFor(restarted, 'p1')?.id).toBe(
@@ -207,14 +231,14 @@ describe('monarch linked exile', () => {
       count: 1,
       objectIds: [hostageId],
     }))
-    expect(finished.objects[hostageId].zone).toBe('exile')
+    expect(resolveStack(server.rules, finished).objects[hostageId].zone).toBe('exile')
   })
 
-  test('clone-safe stamped effects stay serializable', () => {
-    const warden = creature('Throne Warden', 'p1')
-    warden.effects = [
-      enters(becomeMonarch(), exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })),
-    ]
-    expect(() => structuredClone(warden.effects)).not.toThrow()
+  test('canonical trigger snapshots stay serializable', () => {
+    const warden = cardTemplate('Throne Warden', {
+      types: ['Creature'], power: 2, toughness: 2,
+      ruleDefinition: monarchExileDefinition(true),
+    })
+    expect(() => structuredClone(warden.ruleDefinition)).not.toThrow()
   })
 })
