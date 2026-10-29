@@ -68,5 +68,5 @@ also retired. Repository search found no producer outside those tests and no
 registered card consumes the behavior; `Rumor Gatherer` remains a named GAP
 because its alliance-frequency program is unsupported. This removes an
 unregistered legacy-only feature contract rather than adding new canonical DSL
-semantics. The canonical once-per-turn tests still verify trigger-vs-resolution
-frequency isolation for the supported mechanic.
+semantics. The canonical once-per-turn tests still verify per-source/per-turn
+trigger suppression and the existing multiplier behavior.
