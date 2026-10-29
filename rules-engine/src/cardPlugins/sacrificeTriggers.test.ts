@@ -14,7 +14,6 @@ import {
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
 
-import { createTreasures, enters } from './effects'
 import {type CardTemplate} from '../newGame'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
@@ -39,28 +38,19 @@ const applyKernelChoice = (
     : {}),
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import {
-  annihilator,
-  permanentSacrificed,
-  putTriggeringCardOntoBattlefield,
-} from './effects'
 import { alternateCosts } from './alternateCosts'
 import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, shuffleIntoOwnerLibrary } from './dsl/v1'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, createToken, ref, self, shuffleIntoOwnerLibrary, whenever } from './dsl/v1'
+import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
+import { token as tokenDefinition } from '../tokens'
 
 const eldrazi = (name = 'Test Betrayer') => cardTemplate(name, {
   types: ['Creature'],
   subtypes: ['Eldrazi'],
   power: 10,
   toughness: 10,
-  effects: [
-    annihilator(2),
-    permanentSacrificed(
-      { controller: 'opponent', nontoken: true },
-      putTriggeringCardOntoBattlefield(),
-    ),
-  ],
+  ruleDefinition: cardRuleDefinitionSnapshotFor('It That Betrays')!,
 })
 
 const artifact = (name: string) => cardTemplate(name, { types: ['Artifact'], manaCost: '{2}' })
@@ -151,11 +141,23 @@ describe('annihilator', () => {
         { objectId: second, defender: { kind: 'player', player: 'p3' } },
       ],
     }))
-    expect(declared.stack.map((item) => [item.name, item.payload?.defendingPlayer]).sort())
-      .toEqual([
-        ['Second Betrayer', 'p3'],
-        ['Test Betrayer', 'p2'],
-      ])
+    const order = pendingSelectionFor(declared, 'p1')!
+    expect(order.triggerOrder?.entries).toEqual([
+      { id: order.candidates[0], label: 'Test Betrayer ability 1' },
+      { id: order.candidates[1], label: 'Second Betrayer ability 1' },
+    ])
+    const ordered = ok(server.rules(declared, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id,
+      kind: 'choose', count: order.count, objectIds: order.candidates,
+    }))
+    expect(ordered.stack.map((item) => ({
+      name: item.name,
+      defender: item.execution?.occurrence?.defender,
+      attacker: item.execution?.occurrence?.object?.after?.id,
+    }))).toEqual([
+      { name: 'Second Betrayer', defender: 'p3', attacker: second },
+      { name: 'Test Betrayer', defender: 'p2', attacker: first },
+    ])
   })
 
   test('only the defending player chooses, sees the choice, and picks from their own permanents', () => {
@@ -166,10 +168,9 @@ describe('annihilator', () => {
     const choosing = ok(server.rules(declared, { type: 'resolveTop' }))
     const selection = pendingSelectionFor(choosing, 'p2')!
     expect(selection).toMatchObject({
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       seat: 'p2',
-      fromSeat: 'p2',
       source: 'Test Betrayer',
     })
     expect(selection.candidates.map((id) => choosing.objects[id].name).sort())
@@ -184,7 +185,7 @@ describe('annihilator', () => {
     const select = (seat: 'p1' | 'p2', objectIds: string[]) => server.rules(choosing, {
       type: 'selectCards',
       seat,
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       objectIds,
     })
@@ -204,16 +205,24 @@ describe('annihilator', () => {
     const sacrificed = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       objectIds: [rock, swamp],
     }))
     expect(pendingSelectionFor(sacrificed, 'p2')).toBeUndefined()
-    expect(sacrificed.stack.map((item) => item.name)).toEqual(['Test Betrayer', 'Test Betrayer'])
-    expect(sacrificed.stack.map((item) => item.payload?.triggeringPlayer))
+    const order = pendingSelectionFor(sacrificed, 'p1')!
+    expect(order.triggerOrder?.entries).toHaveLength(2)
+    expect(order.triggerOrder?.entries?.map(entry => entry.label)).toEqual([
+      'Test Betrayer ability 2', 'Test Betrayer ability 2',
+    ])
+    const ordered = ok(server.rules(sacrificed, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id,
+      kind: 'choose', count: order.count, objectIds: order.candidates,
+    }))
+    expect(ordered.stack.map((item) => item.execution?.occurrence?.object?.before?.controller))
       .toEqual(['p2', 'p2'])
 
-    const stolen = resolveStack(server.rules, sacrificed)
+    const stolen = resolveStack(server.rules, ordered)
     for (const id of [rock, swamp]) {
       expect(stolen.objects[id]).toMatchObject({ zone: 'battlefield', controller: 'p1', owner: 'p2' })
     }
@@ -229,11 +238,12 @@ describe('annihilator', () => {
     const sacrificed = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 2,
       objectIds: [treasure, rock],
     }))
-    expect(sacrificed.stack).toHaveLength(1)
+    expect(sacrificed.stack.map(item => item.execution?.occurrence?.object?.before?.id))
+      .toEqual([rock])
     const stolen = resolveStack(server.rules, sacrificed)
     expect(stolen.objects[treasure]).toBeUndefined()
     expect(stolen.objects[rock]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
@@ -267,7 +277,7 @@ describe('annihilator', () => {
     const sacrificed = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p2',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
       objectIds: [colossus],
     }))
@@ -284,7 +294,7 @@ describe('annihilator', () => {
     const lobby = createLobby()
     lobby.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'choose' })
     expect([...lobby.topdeck!.cards].sort()).toEqual(['P2 Rock', 'P2 Swamp', 'P2 Treasure'])
     const selectionId = pendingSelectionFor(kernel.history.current(), 'p2')!.id
 
@@ -296,14 +306,14 @@ describe('annihilator', () => {
     const slot = (card: string) => restarted.topdeck!.cards.indexOf(card)
     expect(() => applyKernelChoice(kernel, restarted, 'p2', {
       type: 'topdeck',
-      choices: [{ card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'sacrifice' }],
+      choices: [{ card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'target' }],
     })).toThrow()
     expect(applyKernelChoice(kernel, restarted, 'p2', {
       type: 'topdeck',
       choices: [
-        { card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'sacrifice' },
-        { card: 'P2 Treasure', slot: slot('P2 Treasure'), destination: 'sacrifice' },
-        { card: 'P2 Swamp', slot: slot('P2 Swamp'), destination: 'battlefield' },
+        { card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'target' },
+        { card: 'P2 Treasure', slot: slot('P2 Treasure'), destination: 'target' },
+        { card: 'P2 Swamp', slot: slot('P2 Swamp'), destination: 'skip' },
       ],
     })).toBe(true)
     const settled = resolveStack(kernel.rules, kernel.history.current())
@@ -327,9 +337,11 @@ describe('permanentSacrificed', () => {
     const rock = named(server.state, 'P2 Rock').id
     const state = ok(server.rules(server.state, { type: 'sacrifice', objectId: rock }))
     expect(state.stack).toHaveLength(1)
-    expect(state.stack[0].payload).toMatchObject({
-      triggeringObjectId: rock,
-      triggeringPlayer: 'p2',
+    expect(state.stack[0].execution?.occurrence?.object?.before).toMatchObject({
+      id: rock,
+      owner: 'p2',
+      controller: 'p2',
+      zone: 'battlefield',
     })
     const stolen = resolveStack(server.rules, state)
     expect(stolen.objects[rock]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
@@ -428,8 +440,18 @@ describe('permanentSacrificed from other sacrifice paths', () => {
       sacrifice: ['One', 'Two', 'Three'].map((name) => named(ready, name).id),
       targets: [{ kind: 'object', objectId: target.id }],
     }))
-    expect(cast.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(3)
-    const settled = resolveStack(server.rules, cast)
+    const order = pendingSelectionFor(cast, 'p1')!
+    expect(order.triggerOrder?.entries).toHaveLength(3)
+    const ordered = ok(server.rules(cast, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id,
+      kind: 'choose', count: order.count, objectIds: order.candidates,
+    }))
+    const sacrificeOccurrences = ordered.stack
+      .filter(item => item.name === 'Test Betrayer')
+      .map(item => item.execution?.occurrence?.object?.before)
+    expect(sacrificeOccurrences).toHaveLength(3)
+    expect(sacrificeOccurrences.map(object => object?.controller)).toEqual(['p2', 'p2', 'p2'])
+    const settled = resolveStack(server.rules, ordered)
     for (const name of ['One', 'Two', 'Three']) {
       expect(named(settled, name)).toMatchObject({ zone: 'battlefield', controller: 'p1' })
     }
@@ -470,7 +492,14 @@ describe('relocated from mirkwoodBats.test.ts → sacrificeTriggers.test.ts', ()
   })
   const treasure = () => cardTemplate('Treasure', { types: ['Artifact'], token: true })
   const maker = (count = 1) => cardTemplate('Token Maker', {
-    types: ['Creature'], effects: [enters(createTreasures(count, 'you'))],
+    types: ['Creature'],
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(self.enters, { instructions: [createToken({
+        count,
+        targets: ref('controller'),
+        token: tokenDefinition('Treasure'),
+      })] }),
+    ]))),
   })
   const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
     createServerGame(commanderRules, {
