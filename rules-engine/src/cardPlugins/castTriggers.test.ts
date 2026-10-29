@@ -155,6 +155,9 @@ describe('canonical cast triggers with seat and spell-type filters', () => {
       type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[0]!.id,
     }))
     expect(chosen.players.p1.life).toBe(40)
+    expect(chosen.stack.map((item) => item.kind)).toEqual([
+      'ability', 'ability', 'ability', 'spell',
+    ])
     expect(resolveStack(server.rules, chosen).players.p1.life).toBe(42)
   })
 })
