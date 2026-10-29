@@ -3,20 +3,18 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import {
-  draw,
-  gainLife,
-  landfallOnceEachTurn,
-  landfallResolveNth,
-} from './effectBuilders'
+import { draw as legacyDraw, gainLife as legacyGainLife, landfallResolveNth } from './effectBuilders'
 import {
   amount,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  draw,
+  enters,
   multiplyTriggers,
   objects,
   staticAbility,
+  whenever,
 } from './dsl/v1'
 
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
@@ -34,14 +32,21 @@ const fillerLibrary = () => [
   cardTemplate('Filler C', { types: ['Instant'] }),
 ]
 
+const onceEachTurnLandfall = () => whenever(enters({ filter: { type: 'Land' } }), {
+  frequency: { kind: 'onceEachTurn' },
+  instructions: [draw(1)],
+})
+
+const onceEachTurnWatcher = (name: string) => cardTemplate(name, {
+  types: ['Creature'],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([onceEachTurnLandfall()]))),
+})
+
 describe('trigger frequency flags', () => {
   test('onceEachTurn limits how often that ability triggers on one object', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {
-        p1: [cardTemplate('Fable Warden', {
-          types: ['Creature'],
-          effects: [landfallOnceEachTurn(draw(1))],
-        })],
+        p1: [onceEachTurnWatcher('Fable Warden')],
       },
       hands: { p1: [land('First'), land('Second')] },
       libraries: { p1: fillerLibrary() },
@@ -82,10 +87,7 @@ describe('trigger frequency flags', () => {
               })),
             ]))),
           }),
-          cardTemplate('Fable Warden', {
-            types: ['Creature'],
-            effects: [landfallOnceEachTurn(draw(1))],
-          }),
+          onceEachTurnWatcher('Fable Warden'),
         ],
       },
       hands: { p1: [land('Stepping Stone')] },
@@ -109,14 +111,8 @@ describe('trigger frequency flags', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {
         p1: [
-          cardTemplate('Fable Warden A', {
-            types: ['Creature'],
-            effects: [landfallOnceEachTurn(draw(1))],
-          }),
-          cardTemplate('Fable Warden B', {
-            types: ['Creature'],
-            effects: [landfallOnceEachTurn(draw(1))],
-          }),
+          onceEachTurnWatcher('Fable Warden A'),
+          onceEachTurnWatcher('Fable Warden B'),
         ],
       },
       hands: { p1: [land('Shared')] },
@@ -141,7 +137,7 @@ describe('trigger frequency flags', () => {
       battlefield: {
         p1: [cardTemplate('Guild Scribe', {
           types: ['Creature'],
-          effects: [landfallResolveNth(2, [gainLife(2)], [draw(1)])],
+          effects: [landfallResolveNth(2, [legacyGainLife(2)], [legacyDraw(1)])],
         })],
       },
       hands: { p1: [land('First'), land('Second')] },
@@ -177,9 +173,9 @@ describe('trigger frequency flags', () => {
           effects: [{
             op: 'trigger',
             on: 'landfall',
-            do: [gainLife(1)],
+            do: [legacyGainLife(1)],
             onceEachTurn: true,
-            whenResolvedNth: { nth: 1, do: [draw(1)] },
+            whenResolvedNth: { nth: 1, do: [legacyDraw(1)] },
           }],
         })],
       },
