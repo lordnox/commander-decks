@@ -63,7 +63,7 @@ export type PlayerFilter = {
 }
 
 export type ContextBinding =
-  | 'source'
+  | typeof SOURCE_CONTEXT_BINDING
   | 'subject'
   | 'controller'
   | 'event.player'
@@ -76,6 +76,8 @@ export type ContextBinding =
   | 'triggering.object.controller'
   | 'grant.source'
   | 'enchanted.player'
+
+export const SOURCE_CONTEXT_BINDING = 'source' as const
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export const MANA_QUERY_BASIS = { production: 'production', colors: 'colors' } as const
