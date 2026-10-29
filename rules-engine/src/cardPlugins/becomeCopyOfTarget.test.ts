@@ -2,21 +2,18 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
-import { createServerGame, projectForViewer } from '../runtime'
+import { createServerGame, createServerGame as createRuntimeGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok } from '../testHelpers'
 import type { GameState, ManaPool } from '../types'
+import type { Cost } from './dsl/v1'
+import { activated as activatedDsl, card, chooseCards, choice, compileCardRuleDefinition, copyEffect, createDefinitionSnapshot, createEffect, manaCost, objects, permanently, ref, tapCost } from './dsl/v1'
 import { activated } from './activated'
-import { becomeCopyOfTarget } from './becomeCopyOfTarget'
-import { ability, becomeCopyOfTarget as becomeCopyInstruction } from './effectBuilders'
-import { serializableEffects } from './effectRuntime'
-
-import {createServerGame as createRuntimeGame} from '../runtime'
-import {choiceEffects} from './choiceEffects'
-import {librarySearch} from './librarySearch'
-import {onResolve} from './onResolve'
-import {targetedResolve} from './targetedResolve'
-const plugins = [activated, becomeCopyOfTarget]
+import { choiceEffects } from './choiceEffects'
+import { librarySearch } from './librarySearch'
+import { onResolve } from './onResolve'
+import { targetedResolve } from './targetedResolve'
+const plugins = [activated]
 
 const mana = (extra: Partial<ManaPool>): ManaPool => ({
   W: 0,
@@ -31,38 +28,34 @@ const mana = (extra: Partial<ManaPool>): ManaPool => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const mirrorLandEffects = serializableEffects([
-  ability(
-    { id: 'fictional.mirror', sorcery: true },
-    { tap: true, mana: '{2}' },
-    becomeCopyInstruction({
-      filter: { zone: 'battlefield', type: 'Land' },
-      keepAbility: true,
-    }),
-  ),
-])
-
-const chameleonEffects = serializableEffects([
-  ability(
-    { id: 'fictional.chameleon', sorcery: true },
-    { tap: true },
-    becomeCopyInstruction({
-      filter: { zone: 'battlefield', type: 'Creature' },
-      keepAbility: true,
-    }),
-  ),
-])
+const copyAbility = (type: 'Land' | 'Creature', costs: Cost[]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card([activatedDsl({
+    costs,
+    instructions: [
+      chooseCards({
+        chooser: ref('controller'),
+        filter: objects({ zone: 'battlefield', type, other: true }),
+        count: 1,
+        bindChoice: 'copyTarget',
+      }),
+      createEffect({
+        targets: ref('source'),
+        effect: copyEffect({ of: choice('copyTarget'), except: { keepCopyAbility: true } }),
+        duration: permanently(),
+      }),
+    ],
+  })])))
 
 const fictionalMirror = () => cardTemplate('Fictional Mirror', {
   types: ['Land'],
-  effects: mirrorLandEffects,
+  ruleDefinition: copyAbility('Land', [manaCost('{2}'), tapCost()]),
 })
 
 const fictionalChameleon = () => cardTemplate('Fictional Chameleon', {
   types: ['Creature'],
   power: 1,
   toughness: 1,
-  effects: chameleonEffects,
+  ruleDefinition: copyAbility('Creature', [tapCost()]),
 })
 
 const quarryLand = () => cardTemplate('Fictional Quarry', {
@@ -86,7 +79,7 @@ const activateAndResolve = (
     type: 'activateAbility',
     seat: 'p1',
     objectId: source.id,
-    abilityId: sourceName === 'Fictional Mirror' ? 'fictional.mirror' : 'fictional.chameleon',
+    abilityId: '$.abilities[0]',
   }))
   return ok(server.rules(activatedState, { type: 'resolveTop' }))
 }
@@ -126,8 +119,9 @@ describe('becomeCopyOfTarget', () => {
       name: 'Fictional Quarry',
       tapProduces: { G: 1 },
     })
-    expect(copied.objects[mirror.id].effects?.some((effect) =>
-      effect.op === 'activate' && effect.id === 'fictional.mirror')).toBe(true)
+    expect(copied.objects[mirror.id].ruleDefinition?.definition.abilities.some(ability =>
+      ability.kind === 'activated' && ability.instructions?.some(instruction =>
+        instruction.kind === 'createEffect' && instruction.effect.kind === 'copy'))).toBe(true)
 
     copied.players.p1.mana = mana({ C: 2 })
     copied.objects[mirror.id].tapped = false
@@ -135,7 +129,7 @@ describe('becomeCopyOfTarget', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: mirror.id,
-      abilityId: 'fictional.mirror',
+      abilityId: '$.abilities[0]',
     }))
     const again = ok(server.rules(reactivated, { type: 'resolveTop' }))
     expect(pendingSelectionFor(again, 'p1')?.candidates).toContain(quarry.id)
@@ -199,10 +193,14 @@ describe('becomeCopyOfTarget', () => {
     expect(illegal.ok).toBe(false)
   })
 
-  test('effects with becomeCopyOfTarget are clone-safe', () => {
-    const cloned = structuredClone(mirrorLandEffects)
-    expect(cloned[0].op).toBe('activate')
-    expect((cloned[0] as { do: { kind: string }[] }).do[0].kind).toBe('becomeCopyOfTarget')
+  test('canonical copy abilities are clone-safe', () => {
+    const cloned = structuredClone(fictionalMirror().ruleDefinition!)
+    expect(cloned.definition.abilities[0]).toMatchObject({
+      kind: 'activated',
+      instructions: expect.arrayContaining([
+        expect.objectContaining({ kind: 'createEffect', effect: expect.objectContaining({ kind: 'copy' }) }),
+      ]),
+    })
   })
 
   test('host restart preserves an open copy target selection', () => {
@@ -223,7 +221,7 @@ describe('becomeCopyOfTarget', () => {
       type: 'activateAbility' as const,
       seat: 'p1' as const,
       objectId: named(ready, 'Fictional Mirror').id,
-      abilityId: 'fictional.mirror',
+      abilityId: '$.abilities[0]',
     }
     const afterActivate = ok(server.rules(ready, activateEvent))
     const resolved = ok(server.rules(afterActivate, { type: 'resolveTop' }))

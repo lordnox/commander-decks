@@ -22,6 +22,34 @@ import {
 
 
 describe('continuous effect durations', () => {
+  test('a temporary copy ignores legacy effects and restores the previous effect snapshot', () => {
+    const catalog = createCatalog([turnStructure, continuousEffects])
+    const originalEffect = { op: 'static' as const, pluginId: 'test.originalCopyEffect' }
+    const copiedEffect = { op: 'static' as const, pluginId: 'test.copiedCopyEffect' }
+    const state = newGame({
+      battlefield: {
+        p1: [cardTemplate('Copy target', { types: ['Creature'], power: 2, toughness: 2, effects: [originalEffect] })],
+        p2: [cardTemplate('Copy source', { types: ['Creature'], power: 7, toughness: 7, effects: [copiedEffect] })],
+      },
+      builtinRules: ['turnStructure', 'continuousEffects'],
+    })
+    const target = Object.values(state.objects).find(object => object.name === 'Copy target')!
+    const source = Object.values(state.objects).find(object => object.name === 'Copy source')!
+    untilEndOfTurn(target, copyObject(target, source))
+    expect(target).toMatchObject({ name: 'Copy source', power: 7, toughness: 7, effects: [] })
+
+    const result = rules({ ...state, step: 'end' }, { type: 'advanceStep' }, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[target.id]).toMatchObject({
+      name: 'Copy target',
+      power: 2,
+      toughness: 2,
+      effects: [originalEffect],
+    })
+  })
+
   test('cleanup reverts a land animation while retaining its original type', () => {
     const catalog = createCatalog([turnStructure, continuousEffects])
     const state = newGame({
