@@ -1,13 +1,23 @@
 import { describe, expect, test } from 'bun:test'
+import { pendingOptionSelection } from '../rules/selectOptions'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { CardTemplate } from '../newGame'
 import type { GameState, PlayerId } from '../types'
-import { castModal, casts, draw, gainLife, type CardEffect } from './effects'
-import { castTriggers } from './castTriggers'
+import {
+  card,
+  chooseModes,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  draw,
+  gainLife,
+  ref,
+  spellCast,
+  whenever,
+} from './dsl/v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -15,8 +25,11 @@ const named = (state: GameState, name: string) =>
 const spell = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, manaCost: '{0}', manaValue: 0, ...extra })
 
-const watcher = (name: string, effect: CardEffect) =>
-  cardTemplate(name, { types: ['Enchantment'], effects: [effect] })
+const watcher = (name: string, ability: ReturnType<typeof whenever>) =>
+  cardTemplate(name, {
+    types: ['Enchantment'],
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([ability]))),
+  })
 
 const game = (permanents: CardTemplate[]) =>
   createServerGame(
@@ -33,7 +46,7 @@ const game = (permanents: CardTemplate[]) =>
         p1: ['Lib A', 'Lib B', 'Lib C'].map((name) => cardTemplate(name, { types: ['Sorcery'] })),
       },
     },
-    { random: () => 0.5, cardPlugins: [castTriggers] },
+    { random: () => 0.5 },
   )
 
 const cast = (server: ReturnType<typeof game>, seat: PlayerId, name: string, state = server.state) =>
@@ -46,23 +59,13 @@ const cast = (server: ReturnType<typeof game>, seat: PlayerId, name: string, sta
 const handNames = (state: GameState, seat: PlayerId) =>
   state.zoneOrder[seat].hand.map((id) => state.objects[id].name)
 
-const OPPONENT_NONCREATURE = casts(draw(1), { castBy: 'opponent', noncreatureOnly: true })
+const opponentNoncreatureCast = spellCast({ filter: { controller: 'opponent', not: { type: 'Creature' } } })
 
-describe('cast triggers with seat and spell-type filters', () => {
-  test('casts() is clone-safe and keeps its instructions apart from its filters', () => {
-    const effect = casts(draw(1), gainLife(2), { castBy: 'opponent', noncreatureOnly: true })
-    expect(structuredClone(effect)).toEqual(effect)
-    expect(effect).toEqual({
-      op: 'trigger',
-      on: 'cast',
-      do: [draw(1), gainLife(2)],
-      player: 'opponent',
-      watch: { noncreature: true },
-    })
-  })
-
+describe('canonical cast triggers with seat and spell-type filters', () => {
   test('an opponent casting a noncreature spell draws the watcher controller a card', () => {
-    const server = game([watcher('Nezahal Stand-in', OPPONENT_NONCREATURE)])
+    const server = game([watcher('Nezahal Stand-in', whenever(opponentNoncreatureCast, {
+      instructions: [draw(1)],
+    }))])
     const queued = cast(server, 'p2', 'P2 Trick')
     expect(handNames(queued, 'p1')).not.toContain('Lib A')
     expect(queued.stack[0].kind).toBe('ability')
@@ -75,19 +78,25 @@ describe('cast triggers with seat and spell-type filters', () => {
   })
 
   test('an opponent casting a creature spell does not trigger it', () => {
-    const server = game([watcher('Nezahal Stand-in', OPPONENT_NONCREATURE)])
+    const server = game([watcher('Nezahal Stand-in', whenever(opponentNoncreatureCast, {
+      instructions: [draw(1)],
+    }))])
     const state = cast(server, 'p2', 'P2 Bear')
     expect(handNames(state, 'p1')).not.toContain('Lib A')
   })
 
   test('the controller casting a noncreature spell does not trigger an opponent watcher', () => {
-    const server = game([watcher('Nezahal Stand-in', OPPONENT_NONCREATURE)])
+    const server = game([watcher('Nezahal Stand-in', whenever(opponentNoncreatureCast, {
+      instructions: [draw(1)],
+    }))])
     const state = cast(server, 'p1', 'P1 Trick')
     expect(handNames(state, 'p1')).not.toContain('Lib A')
   })
 
   test('a watcher that has left the battlefield no longer triggers', () => {
-    const server = game([watcher('Nezahal Stand-in', OPPONENT_NONCREATURE)])
+    const server = game([watcher('Nezahal Stand-in', whenever(opponentNoncreatureCast, {
+      instructions: [draw(1)],
+    }))])
     const removed = ok(server.rules(server.state, {
       type: 'move',
       objectId: named(server.state, 'Nezahal Stand-in').id,
@@ -96,48 +105,56 @@ describe('cast triggers with seat and spell-type filters', () => {
     expect(handNames(cast(server, 'p2', 'P2 Trick', removed), 'p1')).not.toContain('Lib A')
   })
 
-  test('without a castBy filter only the controller casts fire, as before', () => {
-    const server = game([watcher('Own Creature Watcher', casts(draw(1), { creatureOnly: true }))])
+  test('without an opponent filter only the controller\'s creature casts trigger it', () => {
+    const ownCreatureCast = spellCast({ filter: { controller: 'you', type: 'Creature' } })
+    const server = game([watcher('Own Creature Watcher', whenever(ownCreatureCast, {
+      instructions: [draw(1)],
+    }))])
     expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Bear')), 'p1')).toContain('Lib A')
     expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Trick')), 'p1')).not.toContain('Lib A')
     expect(handNames(cast(server, 'p2', 'P2 Bear'), 'p1')).not.toContain('Lib A')
   })
 
   test('the noncreature filter also works on the controller\'s own casts', () => {
-    const server = game([watcher('Own Spell Watcher', casts(draw(1), { noncreatureOnly: true }))])
+    const ownNoncreatureCast = spellCast({ filter: { controller: 'you', not: { type: 'Creature' } } })
+    const server = game([watcher('Own Spell Watcher', whenever(ownNoncreatureCast, {
+      instructions: [draw(1)],
+    }))])
     expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Trick')), 'p1')).toContain('Lib A')
     expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Bear')), 'p1')).not.toContain('Lib A')
     expect(handNames(cast(server, 'p2', 'P2 Trick'), 'p1')).not.toContain('Lib A')
   })
 
-  test('a selected modal cast ability resolves separately from choosing its mode', () => {
-    const server = game([watcher('Modal Watcher', castModal({
-      choose: 'one', modes: [{ id: 'life', label: 'Gain life.', do: [gainLife(2)] }],
-    }))])
-    const castState = cast(server, 'p1', 'P1 Trick')
-    const chosen = ok(server.rules(castState, {
-      type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { modes: ['Gain life.'] },
-    }))
-    expect(chosen.players.p1.life).toBe(40)
-    expect(chosen.stack.map((item) => item.kind)).toEqual(['ability', 'spell'])
-    expect(resolveStack(server.rules, chosen).players.p1.life).toBe(42)
-  })
-
-  test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {
-    const modal = castModal({
-      choose: 'one',
-      modes: [{ id: 'draw', label: 'Draw a card.', do: [draw(1)] }],
-    }, { castBy: 'opponent' })
+  test('a selected modal cast trigger resolves separately from choosing its mode', () => {
+    const modal = whenever(opponentNoncreatureCast, {
+      decisions: { modes: chooseModes({ count: 1 }) },
+      modes: [{ instructions: [gainLife({ amount: 2, targets: ref('controller') })] }],
+    })
     const server = game([
-      watcher('Nezahal Stand-in', OPPONENT_NONCREATURE),
-      watcher('Second Watcher', OPPONENT_NONCREATURE),
-      cardTemplate('Modal Watcher', { types: ['Enchantment'], effects: [modal] }),
+      watcher('Nezahal Stand-in', whenever(opponentNoncreatureCast, {
+        instructions: [draw(1)],
+      })),
+      watcher('Second Watcher', whenever(opponentNoncreatureCast, {
+        instructions: [draw(1)],
+      })),
+      watcher('Modal Watcher', modal),
     ])
     const state = cast(server, 'p2', 'P2 Trick')
+    const order = pendingSelectionFor(state, 'p1')
+    const ordered = order ? ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+      count: order.count, objectIds: order.candidates,
+    })) : state
 
-    expect(handNames(state, 'p1')).not.toContain('Lib A')
-    expect(state.stack.filter((item) => item.kind === 'ability')).toHaveLength(2)
-    expect(pendingDialogFor(state, 'p1')).toMatchObject({ kind: 'choose-modes', seat: 'p1' })
-    expect(pendingDialogFor(state, 'p2')).toBeUndefined()
+    expect(handNames(ordered, 'p1')).not.toContain('Lib A')
+    expect(ordered.stack.filter((item) => item.kind === 'ability')).toHaveLength(2)
+    const choice = pendingOptionSelection(ordered, 'p1')!
+    expect(choice).toMatchObject({ seat: 'p1', prompt: 'Choose 1 mode for Modal Watcher.' })
+    expect(pendingOptionSelection(ordered, 'p2')).toBeUndefined()
+    const chosen = ok(server.rules(ordered, {
+      type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[0]!.id,
+    }))
+    expect(chosen.players.p1.life).toBe(40)
+    expect(resolveStack(server.rules, chosen).players.p1.life).toBe(42)
   })
 })
