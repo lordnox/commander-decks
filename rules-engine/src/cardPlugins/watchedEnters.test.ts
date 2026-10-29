@@ -5,15 +5,21 @@ import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { conditionHolds, draw, gainLife, permanentEnters, triggeringCreatureNameUnique } from './effects'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  enters,
+  gainLife as dslGainLife,
+  ref,
+  whenever,
+} from './dsl/v1'
 import { allNamed, artifact, choose, deckCard, fixtureCreature, libraries } from './cirdanCreatureCards'
-const guardian = () => cardTemplate('Test Guardian Project', {
-  types: ['Enchantment'],
-  effects: [permanentEnters(
-    { type: 'Creature', controller: 'you', nontoken: true },
-    { if: triggeringCreatureNameUnique(), do: [draw(1)] },
-  )],
-})
+
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+const guardian = () => cardTemplate('Guardian Project')
 
 const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, { types: ['Creature'], ...extra })
@@ -41,7 +47,7 @@ const handSize = (state: GameState) => state.zoneOrder.p1.hand.length
 
 const cardsDrawn = (state: GameState) => 3 - state.zoneOrder.p1.library.length
 
-describe('permanentEnters with a unique-name intervening if', () => {
+describe('canonical Guardian Project behavior', () => {
   test('the first creature with a name draws, and a second with that name does not', () => {
     const server = game({
       battlefield: { p1: [guardian()] },
@@ -49,7 +55,7 @@ describe('permanentEnters with a unique-name intervening if', () => {
     })
     const first = enter(server, server.state, 'Bear')
     expect(first.stack).toHaveLength(1)
-    expect(first.stack[0]).toMatchObject({ name: 'Test Guardian Project' })
+    expect(first.stack[0]).toMatchObject({ name: 'Guardian Project' })
     const drawn = resolveStack(server.rules, first)
     expect(handSize(drawn)).toBe(2)
 
@@ -228,19 +234,13 @@ describe('permanentEnters with a unique-name intervening if', () => {
     expect(handSize(state)).toBe(1)
   })
 
-  test('the condition cannot be satisfied without a triggering creature', () => {
-    const server = game({ battlefield: { p1: [guardian()] } })
-    const source = named(server.state, 'Test Guardian Project')
-    expect(conditionHolds(triggeringCreatureNameUnique(), server.state, source)).toBe(false)
-  })
 })
 
-describe('permanentEnters watchers', () => {
+describe('canonical entering watchers', () => {
   const watcher = (other: boolean) => creature('Test Watcher', {
-    effects: [permanentEnters(
-      { type: 'Creature', controller: 'you', ...(other ? { other: true } : {}) },
-      { do: [gainLife(1)] },
-    )],
+    ruleDefinition: definition([whenever(enters({
+      filter: { type: 'Creature', controller: 'you', ...(other ? { other: true } : {}) },
+    }), { instructions: [dslGainLife({ amount: 1, targets: ref('controller') })] })]),
   })
 
   test('a creature watching creatures you control also sees itself unless the filter says other', () => {

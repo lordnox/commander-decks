@@ -3,22 +3,30 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { createTokenInstruction, enters } from './effects'
+import { card as dslCard, compileCardRuleDefinition, createDefinitionSnapshot, createToken, ref, self, whenever } from './dsl/v1'
 
-const card = (name: string, types: string[]) => cardTemplate(name, { types })
+const fixtureCard = (name: string, types: string[]) => cardTemplate(name, { types })
+const definition = (abilities: Parameters<typeof dslCard>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(dslCard(abilities)))
 
-describe("Stitcher's Supplier", () => {
-  test('an ETB token instruction creates a token through the shared runner', () => {
-    const maker = {
-      ...card('Test Token Maker', ['Creature']),
-      effects: [enters(createTokenInstruction({
-        name: 'Saproling',
-        types: ['Creature'],
-        subtypes: ['Saproling'],
-        power: 1,
-        toughness: 1,
-      }))],
-    }
+describe('canonical entry and zone triggers', () => {
+  test('a canonical ETB token instruction creates a token', () => {
+    const maker = cardTemplate('Test Token Maker', {
+      types: ['Creature'],
+      ruleDefinition: definition([whenever(self.enters, {
+        instructions: [createToken({
+          count: 1,
+          targets: ref('controller'),
+          token: {
+            name: 'Saproling',
+            types: ['Creature'],
+            subtypes: ['Saproling'],
+            power: 1,
+            toughness: 1,
+          },
+        })],
+      })]),
+    })
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [maker] } },
@@ -39,9 +47,9 @@ describe("Stitcher's Supplier", () => {
     const server = createServerGame(
       commanderRules,
       {
-        hands: { p1: [card("Stitcher's Supplier", ['Creature'])] },
+        hands: { p1: [cardTemplate("Stitcher's Supplier")] },
         libraries: {
-          p1: Array.from({ length: 9 }, (_, index) => card(`Milled ${index}`, ['Instant'])),
+          p1: Array.from({ length: 9 }, (_, index) => fixtureCard(`Milled ${index}`, ['Instant'])),
         },
       },
       { random: () => 0.5 },

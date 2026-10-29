@@ -4,19 +4,44 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
+import type { PlayerReference } from './dsl/v1'
 import {
-  drawHandDifference,
-  enters,
-  entersTargetingOpponent,
-} from './effects'
+  card,
+  choosePlayer,
+  choice as choiceRef,
+  compileCardRuleDefinition,
+  count,
+  createDefinitionSnapshot,
+  difference,
+  draw,
+  objects,
+  players,
+  ref,
+  select,
+  self,
+  target,
+  whenever,
+} from './dsl/v1'
 
 const handCard = (name: string) => cardTemplate(name, { types: ['Instant'] })
+
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+const handDifference = (other: PlayerReference) =>
+  difference(
+    count(objects({ zone: 'hand', owner: other })),
+    count(objects({ zone: 'hand', owner: ref('controller') })),
+  )
 
 const tallyGolem = () => cardTemplate('Tally Golem', {
   types: ['Artifact', 'Creature'],
   power: 0,
   toughness: 4,
-  effects: [enters(drawHandDifference())],
+  ruleDefinition: definition([whenever(self.enters, { instructions: [
+    choosePlayer({ chooser: ref('controller'), filter: players({ relation: 'opponent' }), bindChoice: 'other' }),
+    draw({ targets: ref('controller'), count: handDifference(choiceRef('other')) }),
+  ] })]),
 })
 
 const enterBattlefield = (
@@ -29,11 +54,7 @@ const enterBattlefield = (
   to: 'battlefield',
 })))
 
-describe('drawHandDifference', () => {
-  test('drawHandDifference() is clone-safe', () => {
-    expect(structuredClone(drawHandDifference())).toEqual({ kind: 'drawHandDifference' })
-  })
-
+describe('canonical triggered hand-difference choice', () => {
   test('choosing an opponent with a larger hand draws the difference', () => {
     const server = createServerGame(
       commanderRules,
@@ -56,7 +77,6 @@ describe('drawHandDifference', () => {
       min: 1,
       max: 1,
       candidates: ['p2', 'p3', 'p4'],
-      action: { kind: 'drawHandDifference' },
     })
     state = ok(server.rules(state, {
       type: 'selectPlayers',
@@ -143,10 +163,13 @@ describe('drawHandDifference', () => {
     expect(resolveStack(server.rules, finished).zoneOrder.p1.hand).toHaveLength(3)
   })
 
-  test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {
+  test('a triggered ability can target an opponent before drawing their hand difference', () => {
     const oracle = cardTemplate('Tally Sphinx', {
       types: ['Artifact', 'Creature'],
-      effects: [entersTargetingOpponent(drawHandDifference())],
+      ruleDefinition: definition([whenever(self.enters, {
+        decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+        instructions: [draw({ targets: ref('controller'), count: handDifference(target(0)) })],
+      })]),
     })
     const server = createServerGame(
       commanderRules,
@@ -165,11 +188,7 @@ describe('drawHandDifference', () => {
     )
     let state = enterBattlefield(server, server.state, 'Tally Sphinx')
     const choice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(choice.prompt).toContain('opponent')
-    expect(choice.action).toMatchObject({
-      kind: 'putTriggeredAbility',
-      instructions: [{ kind: 'drawHandDifference' }],
-    })
+    expect(choice).toMatchObject({ min: 1, max: 1, candidates: ['p2', 'p3'] })
     state = ok(server.rules(state, {
       type: 'selectPlayers',
       seat: 'p1',
