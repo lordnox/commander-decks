@@ -50,7 +50,7 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { objectMatchesSelector, evaluateRuntimeAmount, evaluateObjectSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV2, ObjectFilter, ObjectOccurrenceFilter, ObjectReference, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
+import { SOURCE_CONTEXT_BINDING, type CardRuleDefinitionSnapshotV2, type ObjectFilter, type ObjectOccurrenceFilter, type ObjectReference, type OccurrencePattern, type PlayerOccurrenceFilter, type PlayerReference, type PlayerSelector, type TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
@@ -218,7 +218,7 @@ export const movedSourceReferenceMatchesOccurrence = (
   object: Pick<GameObject, 'id' | 'incarnation'>,
   occurrence: Pick<OccurrenceSnapshot, 'eventType' | 'object'>,
 ) => filter.kind === 'contextRef'
-  && filter.name === 'source'
+  && filter.name === SOURCE_CONTEXT_BINDING
   && occurrence.eventType === 'move'
   && source.id === object.id
   && occurrence.object?.before?.id === source.id
