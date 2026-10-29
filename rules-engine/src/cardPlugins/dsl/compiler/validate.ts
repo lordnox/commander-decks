@@ -2034,7 +2034,8 @@ export const validateDefinitionV2 = (root: unknown): {
         let occurrenceObjectContext: readonly (readonly [ContextBinding, 'object'])[] = []
         switch (node.kind) {
           case 'draw':
-            filterKeys = ['player', 'firstDrawInOwnDrawStep', 'duringOwnTurn', 'nthThisTurn']
+            filterKeys = ['player', 'firstDrawInOwnDrawStep', 'duringOwnTurn', 'nthThisTurn', 'object']
+            occurrenceObjectContext = [['triggering.object.after', 'object']]
             break
           case 'cycle':
             filterKeys = ['player', 'object']
