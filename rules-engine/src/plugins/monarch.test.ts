@@ -18,10 +18,13 @@ import type { GameState } from '../types'
 import {
   becomeMonarch,
   card,
+  chooseCards,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  choice,
   linkExile,
   objects,
+  ref,
   select,
   self,
   target,
@@ -58,6 +61,22 @@ const monarchExileDefinition = (alsoBecomeMonarch = false) =>
       instructions: [
         ...(alsoBecomeMonarch ? [becomeMonarch()] : []),
         linkExile({ targets: target(0), untilOpponentMonarch: true }),
+      ],
+    }),
+  ])))
+
+const resolvingChoiceMonarchExileDefinition = () =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, {
+      instructions: [
+        chooseCards({
+          bindChoice: 'hostage',
+          chooser: ref('controller'),
+          filter: opponentCreatureFilter,
+          min: 1,
+          max: 1,
+        }),
+        linkExile({ targets: choice('hostage'), untilOpponentMonarch: true }),
       ],
     }),
   ])))
@@ -208,7 +227,7 @@ describe('monarch linked exile', () => {
   test('host restart preserves an open monarch-exile target choice', () => {
     const warden = cardTemplate('Throne Warden', {
       types: ['Creature'], power: 2, toughness: 2,
-      ruleDefinition: monarchExileDefinition(),
+      ruleDefinition: resolvingChoiceMonarchExileDefinition(),
     })
     const hostage = creature('Held Captive', 'p2')
     const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
@@ -219,10 +238,12 @@ describe('monarch linked exile', () => {
       objectId: wardenId,
       to: 'battlefield',
     }))
-    expect(pendingSelectionFor(entered, 'p1')).toBeDefined()
-    const restarted = structuredClone(entered)
+    expect(pendingSelectionFor(entered, 'p1')).toBeUndefined()
+    const resolving = ok(server.rules(entered, { type: 'resolveTop' }))
+    expect(pendingSelectionFor(resolving, 'p1')).toBeDefined()
+    const restarted = structuredClone(resolving)
     expect(pendingSelectionFor(restarted, 'p1')?.id).toBe(
-      pendingSelectionFor(entered, 'p1')?.id,
+      pendingSelectionFor(resolving, 'p1')?.id,
     )
     const finished = ok(server.rules(restarted, {
       type: 'selectCards',
