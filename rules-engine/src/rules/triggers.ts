@@ -265,6 +265,7 @@ const canonicalFilterMatch = (
   const plain = filter as ObjectFilter
   if (!objectMatchesSelector(object, { kind: 'objects', filter: {
     ...(plain.commander !== undefined ? { commander: plain.commander } : {}),
+    ...(plain.color !== undefined ? { color: plain.color } : {}),
     ...(plain.manaAbility !== undefined ? { manaAbility: plain.manaAbility } : {}),
     ...(plain.enchantedBy ? { enchantedBy: plain.enchantedBy } : {}),
     ...(plain.subtypes ? { subtypes: plain.subtypes } : {}),
