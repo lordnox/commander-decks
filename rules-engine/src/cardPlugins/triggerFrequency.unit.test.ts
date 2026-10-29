@@ -1,11 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import {
-  bumpResolveCountThisTurn,
-  mayTriggerOnceEachTurn,
-  markTriggeredOnceEachTurn,
-  triggerEffectByKey,
-  triggerEffectKey,
-} from './triggerFrequency'
+import { mayTriggerOnceEachTurn, markTriggeredOnceEachTurn, triggerEffectByKey, triggerEffectKey } from './triggerFrequency'
 import type { TriggerFrequencyState } from './triggerFrequency'
 import { draw, landfall, landfallOnceEachTurn } from './effectBuilders'
 
@@ -20,20 +14,15 @@ describe('triggerEffectKey', () => {
 })
 
 describe('per-object frequency slots', () => {
-  test('trigger and resolve counters stay independent', () => {
+  test('onceEachTurn slots are tracked per source and turn', () => {
     const object: { triggerFrequency?: TriggerFrequencyState } = {}
     const key = 'landfall@0'
     expect(mayTriggerOnceEachTurn(object, key, 3)).toBe(true)
     markTriggeredOnceEachTurn(object, key, 3)
     expect(mayTriggerOnceEachTurn(object, key, 3)).toBe(false)
     expect(mayTriggerOnceEachTurn(object, key, 4)).toBe(true)
-    expect(bumpResolveCountThisTurn(object, key, 5)).toBe(1)
-    expect(bumpResolveCountThisTurn(object, key, 5)).toBe(2)
-    expect(bumpResolveCountThisTurn(object, key, 6)).toBe(1)
     expect(object.triggerFrequency?.[key]).toMatchObject({
       triggeredTurn: 3,
-      resolveCountTurn: 6,
-      resolveCount: 1,
     })
   })
 })
