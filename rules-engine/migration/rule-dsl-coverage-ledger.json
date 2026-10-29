@@ -4478,10 +4478,10 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/plugins/monarch.test.ts:65",
-          "rules-engine/src/plugins/monarch.test.ts:68 — test('becomeMonarch designates at most one monarch', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:80 — test('combat damage to the monarch passes the crown to the attacking player', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:99 — test('the monarch draws at the beginning of their end step', () => {"
+          "rules-engine/src/plugins/monarch.test.ts:118 — test('the monarch draws at the beginning of their end step', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:84",
+          "rules-engine/src/plugins/monarch.test.ts:87 — test('becomeMonarch designates at most one monarch', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:99 — test('combat damage to the monarch passes the crown to the attacking player', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
