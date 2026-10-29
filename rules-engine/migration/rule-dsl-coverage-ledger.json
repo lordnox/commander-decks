@@ -159,7 +159,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 12,
         "samples": [
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
@@ -4478,10 +4478,10 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/plugins/monarch.test.ts:41",
-          "rules-engine/src/plugins/monarch.test.ts:44 — test('becomeMonarch designates at most one monarch', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:56 — test('combat damage to the monarch passes the crown to the attacking player', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:75 — test('the monarch draws at the beginning of their end step', () => {"
+          "rules-engine/src/plugins/monarch.test.ts:65",
+          "rules-engine/src/plugins/monarch.test.ts:68 — test('becomeMonarch designates at most one monarch', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:80 — test('combat damage to the monarch passes the crown to the attacking player', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:99 — test('the monarch draws at the beginning of their end step', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
