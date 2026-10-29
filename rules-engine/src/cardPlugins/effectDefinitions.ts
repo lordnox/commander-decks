@@ -51,9 +51,6 @@ export type TokenSpec = {
   toughness?: number | null
   oracleText?: string
   colors?: ColorSet
-  sacrificeForMana?: Partial<ManaPool>
-  /** Stamped onto the token; plugins read these, never the token's name. */
-  effects?: CardEffect[]
 }
 
 export type RevealUntilNonMatch = 'mill' | 'shuffle' | 'bottomRandom'

@@ -7,7 +7,9 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { activate, createTreasures, effectsFromTokenSpec } from './effects'
+import { activate, createTreasures } from './effects'
+import { card as dslCard, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/v1'
+import { token } from '../tokens'
 
 import {createServerGame as createRuntimeGame} from '../runtime'
 
@@ -16,6 +18,8 @@ import {librarySearch} from './librarySearch'
 import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 const TREASURE_TEXT = '{T}, Sacrifice this token: Add one mana of any color.'
+const spawnToken = token('Eldrazi-Spawn-0-1')
+const spawnRuleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard(spawnToken.abilities ?? [])))
 
 const treasure = (): CardTemplate => cardTemplate('Treasure', {
   types: ['Artifact'],
@@ -40,10 +44,11 @@ const spell = (manaCost: string) => cardTemplate('Planner Spell', {
 })
 
 const spawn = () => cardTemplate('Eldrazi Spawn', {
-  types: ['Creature'],
+  types: spawnToken.types,
+  subtypes: spawnToken.subtypes,
   token: true,
   oracleText: 'Sacrifice this token: Add {C}.',
-  effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
+  ruleDefinition: spawnRuleDefinition,
 })
 
 const basic = (name: 'Forest' | 'Mountain'): CardTemplate => cardTemplate(name, {
@@ -207,11 +212,11 @@ describe('sacrifice-this mana abilities', () => {
   test('an Eldrazi Spawn funds a spell through its explicit ability while summoning sick', () => {
     const sickSpawn = cardTemplate('Eldrazi Spawn', {
       types: ['Creature'],
-      subtypes: ['Eldrazi', 'Spawn'],
+      subtypes: spawnToken.subtypes,
       summoningSickness: true,
       token: true,
       oracleText: 'Sacrifice this token: Add {C}.',
-      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
+      ruleDefinition: spawnRuleDefinition,
     })
     const server = game([sickSpawn], [spell('{1}')])
     const objectId = named(server.state, 'Planner Spell')[0].id

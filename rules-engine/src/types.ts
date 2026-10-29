@@ -1214,7 +1214,6 @@ export type GameEvent =
         toughness?: number | null
         oracleText?: string
         ruleDefinition?: GameObject['ruleDefinition']
-        effects?: GameObject['effects']
         dsl?: true
         tapped?: boolean
       }
