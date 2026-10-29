@@ -476,14 +476,6 @@ export type CardInstruction =
   | { kind: 'addPlusCountersToControlled'; count: number }
   | { kind: 'hiddenPileNegotiation'; pileSize: number; pileCount: 2; lifeLoss: number }
 
-export type ModalMode = { id: string; label: string; do: CardInstruction[] }
-
-export type ModalSpec = {
-  choose: 'one' | 'any' | 'two'
-  commanderChooseBoth?: boolean
-  modes: ModalMode[]
-}
-
 export type ActivateCost = {
   tap?: boolean
   crew?: number
@@ -645,7 +637,6 @@ export type CardEffect =
       noncreatureOnly?: boolean
       /** Whose casts fire a `cast` trigger; by default only the permanent's controller's. */
       castBy?: 'opponent'
-      modal?: ModalSpec
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
         /** Fewest targets; defaults to `max`, so `0` makes "up to N" a "you may". */

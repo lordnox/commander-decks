@@ -1031,7 +1031,6 @@ const collectEffects = (
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
     if (!accepts(effect)) continue
-    if (on === 'cast' && effect.modal) continue
     if (on === 'exiled' && !effect.watch && source.id !== watched?.id) continue
     if (!matchesTriggerEvent(state, source, effect, {
       watched, player: meta.triggeringPlayer, fromZone, event,
