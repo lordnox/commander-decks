@@ -32,7 +32,7 @@ const fillerLibrary = () => [
   cardTemplate('Filler C', { types: ['Instant'] }),
 ]
 
-const onceEachTurnLandfall = () => whenever(enters({ filter: { type: 'Land' } }), {
+const onceEachTurnLandfall = () => whenever(enters({ filter: { type: 'Land', controller: 'you' } }), {
   frequency: { kind: 'onceEachTurn' },
   instructions: [draw(1)],
 })
