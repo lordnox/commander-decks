@@ -7,10 +7,6 @@ export type TriggerFrequencySlot = {
   triggeredTurn?: number
   /** Turn the first matching occurrence was observed, for `firstMatchingEachTurn`. */
   firstMatchingTurn?: number
-  /** Turn we are counting resolutions on, for `whenResolvedNth`. */
-  resolveCountTurn?: number
-  /** Resolutions of this ability on `resolveCountTurn`. */
-  resolveCount?: number
 }
 
 export type TriggerFrequencyState = Record<string, TriggerFrequencySlot>
@@ -66,21 +62,6 @@ export const markTriggeredOnceEachTurn = (
   turn: number,
 ) => {
   slot(object, key).triggeredTurn = turn
-}
-
-/** Increments and returns how many times this ability has resolved this turn on this object. */
-export const bumpResolveCountThisTurn = (
-  object: { triggerFrequency?: TriggerFrequencyState },
-  key: string,
-  turn: number,
-) => {
-  const entry = slot(object, key)
-  if (entry.resolveCountTurn !== turn) {
-    entry.resolveCountTurn = turn
-    entry.resolveCount = 0
-  }
-  entry.resolveCount = (entry.resolveCount ?? 0) + 1
-  return entry.resolveCount
 }
 
 export const mayTriggerFirstMatchingEachTurn = (

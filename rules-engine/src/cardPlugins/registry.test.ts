@@ -557,8 +557,7 @@ describe('card plugin registry', () => {
     }
     const gapReason: Partial<Record<string, string>> = {
       'Rumor Gatherer':
-        'Pass 1 lacks controlled-creature-enter trigger with whenResolvedNth (alliance); '
-        + 'only landfallResolveNth exists today.',
+        'Pass 1 lacks a canonical controlled-creature-enter trigger with alliance frequency.',
       'Enduring Innocence':
         'Pass 1 lacks other-creatures-you-control-enter + power≤2 + onceEachTurn; '
         + 'diesReturnAsEnchantment alone is insufficient for full Oracle.',

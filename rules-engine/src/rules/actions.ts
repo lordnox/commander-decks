@@ -6,10 +6,6 @@ import {
   type CardCondition,
   type CardInstruction,
 } from '../cardPlugins/effects'
-import {
-  bumpResolveCountThisTurn,
-  triggerEffectByKey,
-} from '../cardPlugins/triggerFrequency'
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import type { GameObject, GameState, StackItem } from '../types'
@@ -75,21 +71,6 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
   const source = sourceBase.controller === item.controller
     ? sourceBase
     : { ...sourceBase, controller: item.controller }
-  const triggerEffectKey = item.payload?.triggerEffectKey as string | undefined
-  if (triggerEffectKey) {
-    const effect = item.payload?.triggerEffect as ReturnType<typeof triggerEffectByKey>
-      ?? triggerEffectByKey(effectsOf(source), triggerEffectKey)
-    if (effect?.whenResolvedNth) {
-      const resolveCount = bumpResolveCountThisTurn(
-        liveSource ?? source,
-        triggerEffectKey,
-        draft.turn,
-      )
-      instructions = resolveCount === effect.whenResolvedNth.nth
-        ? effect.whenResolvedNth.do
-        : effect.do
-    }
-  }
   const interveningIf = item.payload?.interveningIf as CardCondition | undefined
   const triggeringId = item.payload?.triggeringObjectId
   const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined

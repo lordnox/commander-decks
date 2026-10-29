@@ -189,17 +189,6 @@ export const landfallOnceEachTurn = (...instructions: CardInstruction[]): CardEf
   onceEachTurn: true,
 })
 
-export const landfallResolveNth = (
-  nth: number,
-  base: CardInstruction[],
-  alternate: CardInstruction[],
-): CardEffect => ({
-  op: 'trigger',
-  on: 'landfall',
-  do: base,
-  whenResolvedNth: { nth, do: alternate },
-})
-
 export const landfallTargeting = (
   targets: Extract<CardEffect, { op: 'trigger' }>['targets'],
   ...instructions: CardInstruction[]
