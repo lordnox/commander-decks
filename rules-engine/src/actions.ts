@@ -2501,7 +2501,12 @@ export const eventsForAvailableAction = (
   }
   if (action.kind !== 'castSpell') return null
   const originalSource = state.objects[action.objectId]
-  const canonicalSource = originalSource ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }) : undefined
+  // Room doors carry their own canonical abilities, but announcement costs and
+  // characteristics come from the selected door. The combined Room definition
+  // is not a spell definition and must not enter the regular canonical spell path.
+  const canonicalSource = originalSource && !action.door
+    ? proposedCostSource(originalSource, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost })
+    : undefined
   if (canonicalSource?.ruleDefinition) {
     const definition = loadDefinitionSnapshot(canonicalSource.ruleDefinition).definition
     const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
@@ -2570,11 +2575,15 @@ export const eventsForAvailableAction = (
   const object = door ?? card
   const effects = object ? effectsOf(object) : []
   const targeted = effects.filter((effect) => effect.op === 'targetedResolve')
+  const canonicalDoorTriggers = Boolean(door?.ruleDefinition
+    && loadDefinitionSnapshot(door.ruleDefinition).definition.abilities.some(ability =>
+      ability.kind === 'triggered'
+      && (ability.on.kind === 'enters' || ability.on.kind === 'unlockDoor')))
   // A door's enter and unlock triggers go on the stack like any other trigger,
   // so their printed wording is no reason to hand the cast to the judge.
   const doorTriggers = Boolean(action.door)
-    && effects.some((effect) =>
-      effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'unlock'))
+    && (canonicalDoorTriggers || effects.some((effect) =>
+      effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'unlock')))
   const resolvesThroughKernel = doorTriggers
     || (object
       ? effects.some((effect) =>

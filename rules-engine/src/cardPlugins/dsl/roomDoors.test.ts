@@ -64,6 +64,20 @@ const choosePending = (server: ReturnType<typeof createServerGame>, state: GameS
 }
 
 describe('canonical Room door programs', () => {
+  test('enumerates a canonical trigger door as a cast action without the judge', () => {
+    const server = createServerGame(commanderRules, { hands: { p1: [canonicalRoom()] } })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const state = funded(server.state, { B: 1, C: 2 })
+    const cast = legalActsFor(state, 'p1').find(
+      action => action.kind === 'castSpell' && action.objectId === objectId && action.door === 'left',
+    )
+
+    expect(cast).toBeDefined()
+    expect(eventsForAvailableAction(state, 'p1', cast!)).toEqual([
+      { type: 'castSpell', seat: 'p1', objectId, door: 'left' },
+    ])
+  })
+
   test('the cast door runs its enter and this-door unlock programs, not the other door', () => {
     const server = createServerGame(commanderRules, { hands: { p1: [canonicalRoom()] } })
     const objectId = server.state.zoneOrder.p1.hand[0]

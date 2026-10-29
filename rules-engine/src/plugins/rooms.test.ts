@@ -2,7 +2,9 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { activated } from '../cardPlugins/activated'
-import { gainLife, type CardEffect } from '../cardPlugins/effects'
+import { snapshotFor } from '../cards/snapshot'
+import { gainLife } from '../cardPlugins/effects'
+import { fullyUnlock, gainLife as dslGainLife, ref, self, unlockDoor, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
@@ -10,33 +12,45 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack, roomDoor } from '../testHelpers'
 import type { GameState, ManaPool, Plugin, RoomDoorId } from '../types'
 
+const doorProgram = (...abilities: Parameters<typeof snapshotFor>[0]) => snapshotFor(abilities)
+
 const roomFace = (
   name: string,
   manaCost: string,
   oracleText: string,
-  effects: CardEffect[] = [],
-) => roomDoor(name, manaCost, { oracleText, effects })
+  ruleDefinition: ReturnType<typeof snapshotFor>,
+) => roomDoor(name, manaCost, { oracleText, ruleDefinition })
 
-const trigger = (on: 'enters' | 'unlock' | 'fullyUnlock', life: number): CardEffect => ({
-  op: 'trigger',
-  on,
-  do: [gainLife(life)],
+const roomWithPrograms = (
+  unlockedDoors: Array<'left' | 'right'> | undefined,
+  leftUnlockLife: number,
+  rightUnlockLife: number,
+  leftEntryLife?: number,
+  fullUnlockLife?: number,
+) => cardTemplate('Funeral Room // Awakening Hall', {
+  roomDoors: [
+    roomFace('Funeral Room', '{2}{B}', 'When this Room enters and whenever you unlock this door, gain life.', doorProgram(
+      ...(leftEntryLife === undefined ? [] : [whenever(self.enters, {
+        instructions: [dslGainLife({ amount: leftEntryLife, targets: ref('controller') })],
+      })]),
+      whenever(unlockDoor(), {
+        instructions: [dslGainLife({ amount: leftUnlockLife, targets: ref('controller') })],
+      }),
+    )),
+    roomFace('Awakening Hall', '{6}{B}{B}', 'When you unlock this door, gain life.', doorProgram(
+      whenever(unlockDoor(), {
+        instructions: [dslGainLife({ amount: rightUnlockLife, targets: ref('controller') })],
+      }),
+      ...(fullUnlockLife === undefined ? [] : [whenever(fullyUnlock(), {
+        instructions: [dslGainLife({ amount: fullUnlockLife, targets: ref('controller') })],
+      })]),
+    )),
+  ],
+  ...(unlockedDoors ? { unlockedDoors } : {}),
 })
 
 const room = (unlockedDoors?: Array<'left' | 'right'>) =>
-  cardTemplate('Funeral Room // Awakening Hall', {
-    roomDoors: [
-      roomFace('Funeral Room', '{2}{B}', 'When this Room enters and whenever you unlock this door, each opponent loses 1 life and you gain 1 life.', [
-        trigger('enters', 1),
-        trigger('unlock', 2),
-      ]),
-      roomFace('Awakening Hall', '{6}{B}{B}', 'When you unlock this door, reanimate.', [
-        trigger('unlock', 3),
-        trigger('fullyUnlock', 4),
-      ]),
-    ],
-    ...(unlockedDoors ? { unlockedDoors } : {}),
-  })
+  roomWithPrograms(unlockedDoors, 2, 3, 1, 4)
 
 const funded = (
   state: ReturnType<typeof createServerGame>['state'],
@@ -144,7 +158,7 @@ describe('Room doors', () => {
       zone: 'stack',
       name: 'Awakening Hall',
       manaCost: '{6}{B}{B}',
-      oracleText: 'When you unlock this door, reanimate.',
+      oracleText: 'When you unlock this door, gain life.',
     })
 
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
@@ -157,20 +171,6 @@ describe('Room doors', () => {
 
     const triggered = ok(server.rules(resolved, { type: 'resolveTop' }))
     expect(triggered.players.p1.life).toBe(43)
-  })
-
-  test('a door naming entering and unlocking is still castable without the judge', () => {
-    const server = createServerGame(commanderRules, { hands: { p1: [room()] } })
-    const objectId = server.state.zoneOrder.p1.hand[0]
-    const state = funded(server.state, { B: 1, C: 2 })
-    const cast = legalActsFor(state, 'p1').find(
-      (action) => action.kind === 'castSpell' && action.door === 'left',
-    )
-
-    expect(cast).toBeDefined()
-    expect(eventsForAvailableAction(state, 'p1', cast!)).toEqual([
-      { type: 'castSpell', seat: 'p1', objectId, door: 'left' },
-    ])
   })
 
   test('the cast door produces both its enter and unlock triggers', () => {
@@ -442,19 +442,7 @@ const marina = () => cardTemplate('Marina Vendrell', {
 })
 
 const marinaRoom = (unlockedDoors?: Array<'left' | 'right'>) =>
-  cardTemplate('Funeral Room // Awakening Hall', {
-    roomDoors: [
-      roomDoor('Funeral Room', '{2}{B}', {
-        oracleText: 'When this Room enters and whenever you unlock this door, gain 1 life.',
-        effects: [{ op: 'trigger', on: 'unlock', do: [gainLife(1)] }],
-      }),
-      roomDoor('Awakening Hall', '{6}{B}{B}', {
-        oracleText: 'When you unlock this door, gain 3 life.',
-        effects: [{ op: 'trigger', on: 'unlock', do: [gainLife(3)] }],
-      }),
-    ],
-    ...(unlockedDoors ? { unlockedDoors } : {}),
-  })
+  roomWithPrograms(unlockedDoors, 1, 3)
 
 const namedIncludes = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name.includes(name))!
