@@ -210,7 +210,7 @@ describe('monarch linked exile', () => {
     expect(finished.objects[hostageId].zone).toBe('exile')
   })
 
-  test('clone-safe stamped effects stay serializable', () => {
+  test('canonical trigger snapshots stay serializable', () => {
     const warden = creature('Throne Warden', 'p1')
     warden.effects = [
       enters(becomeMonarch(), exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })),

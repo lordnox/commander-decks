@@ -3,7 +3,6 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { draw as legacyDraw, gainLife as legacyGainLife, landfallResolveNth } from './effectBuilders'
 import {
   amount,
   card,
@@ -132,84 +131,6 @@ describe('trigger frequency flags', () => {
     expect(resolved.zoneCounts.p1.hand).toBe(2)
   })
 
-  test('whenResolvedNth swaps instructions on the matching resolution this turn', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: {
-        p1: [cardTemplate('Guild Scribe', {
-          types: ['Creature'],
-          effects: [landfallResolveNth(2, [legacyGainLife(2)], [legacyDraw(1)])],
-        })],
-      },
-      hands: { p1: [land('First'), land('Second')] },
-      libraries: { p1: fillerLibrary() },
-      players: 2,
-    })
-    const [firstId, secondId] = server.state.zoneOrder.p1.hand
-
-    const firstLand = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: firstId,
-    }))
-    const afterFirst = resolveStack(server.rules, firstLand)
-    expect(afterFirst.players.p1.life).toBe(42)
-    expect(afterFirst.zoneCounts.p1.hand).toBe(1)
-
-    const secondLand = ok(server.rules(afterFirst, {
-      type: 'move',
-      objectId: secondId,
-      to: 'battlefield',
-    }))
-    const afterSecond = resolveStack(server.rules, secondLand)
-    expect(afterSecond.players.p1.life).toBe(42)
-    expect(afterSecond.zoneCounts.p1.hand).toBe(1)
-  })
-
-  test('resolve counts are separate from onceEachTurn trigger marks', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: {
-        p1: [cardTemplate('Ledger Keeper', {
-          types: ['Creature'],
-          effects: [{
-            op: 'trigger',
-            on: 'landfall',
-            do: [legacyGainLife(1)],
-            onceEachTurn: true,
-            whenResolvedNth: { nth: 1, do: [legacyDraw(1)] },
-          }],
-        })],
-      },
-      hands: { p1: [land('Only')] },
-      libraries: { p1: fillerLibrary() },
-      players: 2,
-    })
-    const landId = server.state.zoneOrder.p1.hand[0]
-    const wardenId = server.state.zoneOrder.p1.battlefield[0]
-
-    const played = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: landId,
-    }))
-    expect(played.stack).toHaveLength(1)
-    const resolved = resolveStack(server.rules, played)
-    expect(resolved.zoneCounts.p1.hand).toBe(1)
-    expect(resolved.players.p1.life).toBe(40)
-    expect(resolved.objects[wardenId].triggerFrequency?.['landfall@0']?.triggeredTurn).toBe(1)
-    expect(resolved.objects[wardenId].triggerFrequency?.['landfall@0']?.resolveCount).toBe(1)
-
-    const bounced = ok(server.rules(resolved, {
-      type: 'move',
-      objectId: landId,
-      to: 'graveyard',
-    }))
-    const reentered = ok(server.rules(bounced, {
-      type: 'move',
-      objectId: landId,
-      to: 'battlefield',
-    }))
-    expect(reentered.stack).toHaveLength(0)
-  })
 })
 
 describe('relocated from homerPass2.test.ts → triggerFrequency.test.ts', () => {

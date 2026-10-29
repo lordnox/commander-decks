@@ -401,8 +401,6 @@ export type GameObject = {
     string,
     {
       triggeredTurn?: number
-      resolveCountTurn?: number
-      resolveCount?: number
     }
   >
   /** Turn this card was exiled by its warp delayed trigger; enables warp-from-exile casting. */
@@ -717,7 +715,7 @@ export type PendingTrigger = {
   id: string
   source: GameObject
   instructions: CardInstruction[]
-  effect: Pick<Extract<CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn' | 'whenResolvedNth'>
+  effect: Pick<Extract<CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn'>
   execution: StackExecutionContext
   /** Canonical DSL triggered ability pinned at the occurrence. */
   canonical?: {

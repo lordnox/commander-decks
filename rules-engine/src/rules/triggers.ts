@@ -996,7 +996,7 @@ const noteOnceEachTurnIfNeeded = (
 }
 
 const triggerPayloadExtras = (
-  effect: Pick<TriggerEffect, 'if' | 'do' | 'onceEachTurn' | 'whenResolvedNth'>,
+  effect: Pick<TriggerEffect, 'if' | 'do' | 'onceEachTurn'>,
   key?: string,
   extras: Record<string, unknown> = {},
 ) => ({

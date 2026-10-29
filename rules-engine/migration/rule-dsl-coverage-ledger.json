@@ -159,7 +159,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 14,
         "samples": [
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
@@ -167,8 +167,8 @@
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
-          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:174 — test('resolve counts are separate from onceEachTurn trigger marks', () => {",
-          "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {"
+          "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
+          "rules-engine/src/objectIdentity.test.ts:290 — test('a gain-life trigger serializes its amount and attributed source snapshot', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -5580,7 +5580,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1454"
+        "rules-engine/src/types.ts:1452"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -7210,14 +7210,14 @@
       {
         "path": "rules-engine/src/rules/actions.ts",
         "lines": [
-          45,
-          61,
-          95
+          41,
+          57,
+          76
         ],
         "samples": [
-          "45: const live = draft.object(item.objectId)",
-          "61: const currentSource = draft.object(item.objectId)",
-          "95: const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined"
+          "41: const live = draft.object(item.objectId)",
+          "57: const currentSource = draft.object(item.objectId)",
+          "76: const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
