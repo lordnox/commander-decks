@@ -27,8 +27,8 @@
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 59,
-    "directMutationSites": 499,
+    "customEventDispatchSites": 58,
+    "directMutationSites": 497,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -5033,9 +5033,7 @@
     {
       "variant": "choose-modes",
       "mechanic": "specialized legacy dialog",
-      "currentRegistrations": [
-        "rules-engine/src/cardPlugins/castTriggers.ts"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
@@ -5696,7 +5694,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1537",
+        "rules-engine/src/rules/triggers.ts:1536",
         "rules-engine/src/types.ts:317",
         "rules-engine/src/types.ts:319",
         "rules-engine/src/types.ts:323"
@@ -6095,12 +6093,12 @@
           428,
           429,
           600,
-          1137,
-          1254,
-          1411,
-          1413,
-          1453,
-          1454
+          1136,
+          1253,
+          1410,
+          1412,
+          1452,
+          1453
         ],
         "samples": [
           "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -6334,23 +6332,6 @@
         ],
         "samples": [
           "32: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/castTriggers.ts",
-        "lines": [
-          47
-        ],
-        "samples": [
-          "47: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7293,22 +7274,22 @@
         "lines": [
           901,
           993,
-          1088,
-          1121,
-          1200,
-          1265,
-          1278,
-          1317,
-          1398,
-          1476,
-          1535,
-          1733,
-          1847
+          1087,
+          1120,
+          1199,
+          1264,
+          1277,
+          1316,
+          1397,
+          1475,
+          1534,
+          1732,
+          1846
         ],
         "samples": [
           "901: const frequencySource = draft.object(source.id) ?? source",
           "993: const live = draft.object(source.id)",
-          "1088: const land = draft.object(objectId)"
+          "1087: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8284,25 +8265,6 @@
           "14: draft.enqueue({ type: 'addMana', seat, mana: instruction.mana })",
           "19: draft.enqueue({",
           "50: draft.enqueue({"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/castTriggers.ts",
-        "lines": [
-          12,
-          52
-        ],
-        "samples": [
-          "12: const spell = draft.object(event.objectId)",
-          "52: const permanent = draft.object(permanentId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
