@@ -14,7 +14,7 @@ describe('triggerEffectKey', () => {
 })
 
 describe('per-object frequency slots', () => {
-  test('onceEachTurn slots are tracked per source and turn', () => {
+  test('onceEachTurn slots record the triggering turn', () => {
     const object: { triggerFrequency?: TriggerFrequencyState } = {}
     const key = 'landfall@0'
     expect(mayTriggerOnceEachTurn(object, key, 3)).toBe(true)
