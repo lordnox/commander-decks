@@ -6,6 +6,7 @@ import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
+import { ZONE_IDS } from '../types'
 import type { GameState, Plugin } from '../types'
 import {
   casts,
@@ -140,10 +141,11 @@ describe('shared trigger matching', () => {
   })
 
   test('self exile looks back, while a from-anywhere watcher must still exist after the move', () => {
-    const selfExile = whenever(dslLeaves({ filter: ref('self') }), {
+    const selfExile = whenever(dslMoved({ filter: ref('self'), to: 'exile' }), {
+      activeIn: ZONE_IDS,
       instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
     })
-    const fromAnywhere = whenever(dslLeaves({ filter: { type: 'Creature', other: true } }), {
+    const fromAnywhere = whenever(dslMoved({ filter: { type: 'Creature', other: true }, to: 'exile' }), {
       instructions: [dslGainLife({ amount: 10, targets: ref('controller') })],
     })
     const server = createServerGame(commanderRules, {
@@ -151,15 +153,22 @@ describe('shared trigger matching', () => {
         types: ['Creature'], ruleDefinition: definition([selfExile, fromAnywhere]),
       }), knight('Other Creature')] },
     }, { random: () => 0.5 })
-    const otherLeaves = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Other Creature').id, to: 'exile' }))
-    expect(otherLeaves.stack).toHaveLength(1)
-    const watchedOther = resolveStack(server.rules, otherLeaves)
+    const other = named(server.state, 'Other Creature').id
+    const nonExile = ok(server.rules(server.state, { type: 'move', objectId: other, to: 'hand' }))
+    expect(nonExile.stack).toHaveLength(0)
+    const reentered = ok(server.rules(nonExile, { type: 'move', objectId: other, to: 'battlefield' }))
+    expect(reentered.stack).toHaveLength(0)
+    const otherExiled = ok(server.rules(reentered, { type: 'move', objectId: other, to: 'exile' }))
+    expect(otherExiled.stack).toHaveLength(1)
+    const watchedOther = resolveStack(server.rules, otherExiled)
     expect(watchedOther.players.p1.life).toBe(50)
     expect(named(watchedOther, 'Self').zone).toBe('battlefield')
 
-    const selfLeaves = ok(server.rules(watchedOther, { type: 'move', objectId: named(watchedOther, 'Self').id, to: 'exile' }))
-    expect(selfLeaves.stack).toHaveLength(1)
-    expect(resolveStack(server.rules, selfLeaves).players.p1.life).toBe(51)
+    const selfNonExile = ok(server.rules(watchedOther, { type: 'move', objectId: named(watchedOther, 'Self').id, to: 'hand' }))
+    expect(selfNonExile.stack).toHaveLength(0)
+    const selfExiled = ok(server.rules(selfNonExile, { type: 'move', objectId: named(selfNonExile, 'Self').id, to: 'exile' }))
+    expect(selfExiled.stack).toHaveLength(1)
+    expect(resolveStack(server.rules, selfExiled).players.p1.life).toBe(51)
   })
 
   test('separate exile abilities keep independent once-per-turn keys', () => {
