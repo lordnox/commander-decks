@@ -1,5 +1,5 @@
 import type { TriggerBindingIf, ZoneId } from '../types'
-import type { CardCondition, CardEffect, CardInstruction, ModalSpec, PlayerFilter, TargetFilter } from './effectDefinitions'
+import type { CardCondition, CardEffect, CardInstruction, PlayerFilter, TargetFilter } from './effectDefinitions'
 
 export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
@@ -322,8 +322,3 @@ export const casts = (...args: Array<CardInstruction | CastFilters>): CardEffect
     : last && !('kind' in last) ? args.pop() as CastFilters : {}
   return trigger('cast', castFilters(options), ...args as CardInstruction[])
 }
-
-export const castModal = (modal: ModalSpec, options: CastFilters = {}): CardEffect => ({
-  ...trigger('cast', castFilters(options)),
-  modal,
-})
