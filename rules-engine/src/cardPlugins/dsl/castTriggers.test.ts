@@ -82,6 +82,38 @@ test.each(['p1', 'p2', 'p3'])('noncreature opponent casts draw only for the watc
   }
 })
 
+test.each([
+  { label: 'color', filter: { color: 'B' }, expected: { black: true, blue: false } },
+  { label: 'all', filter: { all: [{ color: 'B' }, { type: 'Instant' }] }, expected: { black: true, blue: false } },
+  { label: 'any', filter: { any: [{ color: 'B' }, { color: 'R' }] }, expected: { black: true, blue: false } },
+  { label: 'not', filter: { not: { color: 'U' } }, expected: { black: true, blue: false } },
+])('canonical cast filters compose color inside $label', ({ filter, expected }) => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(spellCast({ filter }), {
+      instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Color watcher', { types: ['Enchantment'], ruleDefinition: definition })] },
+    hands: { p1: [
+      cardTemplate('Black fixture', { types: ['Instant'], colors: 'B', manaCost: '{0}' }),
+      cardTemplate('Blue fixture', { types: ['Instant'], colors: 'U', manaCost: '{0}' }),
+    ] },
+  }, { random: () => 0 })
+  let state = structuredClone(server.state)
+  for (const [name, matches] of [['Blue fixture', expected.blue], ['Black fixture', expected.black]] as const) {
+    const object = Object.values(state.objects).find(candidate => candidate.name === name)!
+    state.priority = 'p1'
+    state.active = 'p1'
+    state.step = 'precombatMain'
+    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: object.id }))
+    expect(state.stack.filter(item => item.kind === 'ability')).toHaveLength(matches ? 1 : 0)
+    state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  }
+  expect(state.players.p1.life).toBe(expected.black && expected.blue ? 42 : 41)
+})
+
 test('catalog Lotho, Corrupt Shirriff triggers only for each player’s second spell in a turn', () => {
   const instant = (name: string) => cardTemplate(name, { types: ['Instant'], manaCost: '{W}' })
   const server = createServerGame(commanderRules, {
