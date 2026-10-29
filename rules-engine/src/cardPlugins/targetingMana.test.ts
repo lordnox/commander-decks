@@ -16,20 +16,29 @@ import {
   addChosenColorMana,
   discardCards,
   draw,
-  onResolve,
-  onUnlock,
   optionalTargetOnResolve,
-  putPermanentFromGraveyard,
   pumpTargetX,
   returnCreatureManaValueX,
   serializableEffects,
   upToTargetsOnResolve,
-  yourUpkeepPutPermanentFromGraveyard,
 } from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
 import { targetedResolve } from './targetedResolve'
+import {
+  card,
+  chooseCards,
+  choice,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  move,
+  objects,
+  ref,
+  spell as spellAbility,
+  stepBegins,
+  unlockDoor,
+  whenever,
+} from './dsl/v1'
 
-const plugins = [targetedResolve, activated, onResolvePlugin]
+const plugins = [targetedResolve, activated]
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -61,6 +70,37 @@ const bury = (
 )
 
 const testChronicle = () => cardTemplate('Awaken the Honored Dead')
+
+const graveyardPermanentFilter = objects({
+  zone: 'graveyard',
+  owner: 'you',
+  card: true,
+  any: [
+    { type: 'Artifact' },
+    { type: 'Battle' },
+    { type: 'Creature' },
+    { type: 'Enchantment' },
+    { type: 'Land' },
+    { type: 'Planeswalker' },
+  ],
+})
+
+const optionalGraveyardPermanent = () => [
+  chooseCards({
+    bindChoice: 'permanent',
+    chooser: ref('controller'),
+    filter: graveyardPermanentFilter,
+    min: 0,
+    max: 1,
+  }),
+  move({ targets: choice('permanent'), to: 'battlefield' }),
+]
+
+const upkeepGraveyardPermanent = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(stepBegins({ step: 'upkeep', player: ref('controller') }), {
+    instructions: optionalGraveyardPermanent(),
+  }),
+])))
 
 describe('optional and up-to targeting', () => {
   test('an up-to-one pump spell casts with zero or one target and still runs extra instructions', () => {
@@ -321,7 +361,9 @@ describe('optional graveyard permanent put', () => {
     const cellar = cardTemplate('Test Cellar', {
       roomDoors: [
         roomDoor('Open Door', '{G}', {
-          effects: [onUnlock(putPermanentFromGraveyard())],
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+            whenever(unlockDoor(), { instructions: optionalGraveyardPermanent() }),
+          ]))),
         }),
         roomDoor('Closed Door', '{G}'),
       ],
@@ -375,7 +417,7 @@ describe('optional graveyard permanent put', () => {
   test('your-upkeep composition opens the same optional graveyard put', () => {
     const source = cardTemplate('Upkeep Cellar', {
       types: ['Enchantment'],
-      effects: serializableEffects([yourUpkeepPutPermanentFromGraveyard()]),
+      ruleDefinition: upkeepGraveyardPermanent,
     })
     const server = createServerGame(
       commanderRules,
@@ -397,7 +439,9 @@ describe('optional graveyard permanent put', () => {
     const spell = cardTemplate('Graveyard Gift', {
       types: ['Sorcery'],
       manaCost: '{G}',
-      effects: serializableEffects([onResolve(putPermanentFromGraveyard())]),
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spellAbility({ instructions: optionalGraveyardPermanent() }),
+      ]))),
     })
     const relic = cardTemplate('Relic', { types: ['Artifact'] })
     const server = createServerGame(

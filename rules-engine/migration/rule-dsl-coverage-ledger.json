@@ -4699,7 +4699,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 278,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -5576,7 +5576,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1451"
+        "rules-engine/src/types.ts:1450"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5676,26 +5676,26 @@
         "rules-engine/src/plugins/doubleFaced.ts:46",
         "rules-engine/src/plugins/doubleFaced.ts:78",
         "rules-engine/src/plugins/doubleFaced.ts:82",
-        "rules-engine/src/plugins/rooms.ts:109",
-        "rules-engine/src/plugins/rooms.ts:144",
-        "rules-engine/src/plugins/rooms.ts:150",
-        "rules-engine/src/plugins/rooms.ts:162",
-        "rules-engine/src/plugins/rooms.ts:178",
-        "rules-engine/src/plugins/rooms.ts:18",
-        "rules-engine/src/plugins/rooms.ts:187",
-        "rules-engine/src/plugins/rooms.ts:2",
-        "rules-engine/src/plugins/rooms.ts:42",
-        "rules-engine/src/plugins/rooms.ts:98",
+        "rules-engine/src/plugins/rooms.ts:1",
+        "rules-engine/src/plugins/rooms.ts:107",
+        "rules-engine/src/plugins/rooms.ts:142",
+        "rules-engine/src/plugins/rooms.ts:148",
+        "rules-engine/src/plugins/rooms.ts:160",
+        "rules-engine/src/plugins/rooms.ts:17",
+        "rules-engine/src/plugins/rooms.ts:176",
+        "rules-engine/src/plugins/rooms.ts:185",
+        "rules-engine/src/plugins/rooms.ts:41",
+        "rules-engine/src/plugins/rooms.ts:96",
         "rules-engine/src/replacement/discovery.ts:103",
         "rules-engine/src/replacement/types.ts:5",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1536",
-        "rules-engine/src/types.ts:317",
-        "rules-engine/src/types.ts:319",
-        "rules-engine/src/types.ts:323"
+        "rules-engine/src/rules/triggers.ts:1537",
+        "rules-engine/src/types.ts:316",
+        "rules-engine/src/types.ts:318",
+        "rules-engine/src/types.ts:322"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5748,17 +5748,17 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/rooms.ts:53",
-        "rules-engine/src/plugins/rooms.ts:72",
-        "rules-engine/src/plugins/rooms.ts:89",
-        "rules-engine/src/plugins/rooms.ts:93",
+        "rules-engine/src/plugins/rooms.ts:52",
+        "rules-engine/src/plugins/rooms.ts:70",
+        "rules-engine/src/plugins/rooms.ts:87",
+        "rules-engine/src/plugins/rooms.ts:91",
         "rules-engine/src/plugins/spells.ts:430",
-        "rules-engine/src/types.ts:119",
-        "rules-engine/src/types.ts:150",
-        "rules-engine/src/types.ts:278",
-        "rules-engine/src/types.ts:342",
+        "rules-engine/src/types.ts:118",
+        "rules-engine/src/types.ts:149",
+        "rules-engine/src/types.ts:277",
+        "rules-engine/src/types.ts:341",
         "rules-engine/src/types.ts:75",
-        "rules-engine/src/types.ts:92"
+        "rules-engine/src/types.ts:91"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -5822,10 +5822,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          262
+          263
         ],
         "samples": [
-          "262: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "263: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6087,16 +6087,16 @@
           71,
           177,
           197,
-          279,
-          428,
+          280,
           429,
-          600,
-          1136,
-          1253,
-          1410,
-          1412,
-          1452,
-          1453
+          430,
+          601,
+          1137,
+          1254,
+          1411,
+          1413,
+          1453,
+          1454
         ],
         "samples": [
           "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -6966,16 +6966,16 @@
       {
         "path": "rules-engine/src/plugins/rooms.ts",
         "lines": [
-          143,
-          149,
-          160,
-          177,
-          186
+          141,
+          147,
+          158,
+          175,
+          184
         ],
         "samples": [
-          "143: const object = draft.object(event.objectId)",
-          "149: const object = draft.object(event.objectId)",
-          "160: const object = draft.object(event.objectId)"
+          "141: const object = draft.object(event.objectId)",
+          "147: const object = draft.object(event.objectId)",
+          "158: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7270,24 +7270,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          901,
-          993,
-          1087,
-          1120,
-          1199,
-          1264,
-          1277,
-          1316,
-          1397,
-          1475,
-          1534,
-          1732,
-          1846
+          902,
+          994,
+          1088,
+          1121,
+          1200,
+          1265,
+          1278,
+          1317,
+          1398,
+          1476,
+          1535,
+          1733,
+          1847
         ],
         "samples": [
-          "901: const frequencySource = draft.object(source.id) ?? source",
-          "993: const live = draft.object(source.id)",
-          "1087: const land = draft.object(objectId)"
+          "902: const frequencySource = draft.object(source.id) ?? source",
+          "994: const live = draft.object(source.id)",
+          "1088: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
