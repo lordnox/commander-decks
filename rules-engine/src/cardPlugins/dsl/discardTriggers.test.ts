@@ -58,8 +58,29 @@ test.each([false, true].flatMap(granted => [
 })
 
 
-test.each(['triggering.object.before', 'triggering.object.after'] as const)('discard player occurrences do not expose unsupported object references (%s)', binding => {
+test('discard occurrences do not expose an after object reference', () => {
   expect(() => compileCardRuleDefinition(card([
-    whenever(cardDiscarded(), { instructions: [gainLife({ targets: ref('triggering.player'), amount: characteristic(ref(binding), 'manaValue', { information: 'currentOrLastKnown' }) })] }),
+    whenever(cardDiscarded(), { instructions: [gainLife({ targets: ref('triggering.player'), amount: characteristic(ref('triggering.object.after'), 'manaValue', { information: 'currentOrLastKnown' }) })] }),
   ]))).toThrow()
+})
+
+test('discard occurrence filters inspect the actual discarded card', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(cardDiscarded({ object: { type: 'Creature' } }), {
+      instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Creature discard watcher', { ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Noncreature discard', { types: ['Instant'] }), cardTemplate('Creature discard', { types: ['Creature'] })] },
+  }, { random: () => 0 })
+  const noncreature = Object.values(server.state.objects).find(object => object.name === 'Noncreature discard')!
+  const ignored = ok(server.rules(server.state, { type: 'discard', seat: 'p1', objectId: noncreature.id }))
+  expect(ignored.stack).toHaveLength(0)
+  const creature = Object.values(ignored.objects).find(object => object.name === 'Creature discard')!
+  const matched = ok(server.rules(ignored, { type: 'discard', seat: 'p1', objectId: creature.id }))
+  expect(matched.stack).toHaveLength(1)
+  expect(matched.stack[0]?.execution?.occurrence).toMatchObject({ object: { before: { name: 'Creature discard', zone: 'hand' } } })
+  expect(resolveStack(server.rules, matched).players.p1.life).toBe(41)
 })

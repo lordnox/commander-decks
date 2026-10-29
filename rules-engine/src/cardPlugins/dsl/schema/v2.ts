@@ -265,7 +265,7 @@ export type OccurrencePattern =
   | { kind: 'abilityActivated'; filter: PlayerSelector }
   | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
-  | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
+  | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cast'; filter: ObjectOccurrenceFilter; nthThisTurn?: number }
   | { kind: 'becomesTapped' | 'tappedForMana'; filter: ObjectOccurrenceFilter }

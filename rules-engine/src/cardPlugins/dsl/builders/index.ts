@@ -822,7 +822,7 @@ export const stepBegins = (input: Omit<Extract<OccurrencePattern, { kind: 'stepB
 export const landPlayed = (filter: { player?: PlayerReference | PlayerSelector } = {}) =>
   immutableData({ kind: 'playLand' as const, filter })
 
-export const cardDiscarded = (filter: { player?: PlayerReference | PlayerSelector } = {}) =>
+export const cardDiscarded = (filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } = {}) =>
   immutableData({ kind: 'discard' as const, filter })
 
 export const cardCycled = (filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } = {}) =>
