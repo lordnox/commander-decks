@@ -14,6 +14,7 @@ import {
   draws,
   gainLife,
   onResolve as onResolveEffect,
+  trigger,
   type CardEffect,
 } from './effects'
 import { onResolve } from './onResolve'
@@ -148,11 +149,17 @@ describe('shared trigger matching', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [cardTemplate('Self', {
         types: ['Creature'], ruleDefinition: definition([selfExile, fromAnywhere]),
-      })] },
+      }), knight('Other Creature')] },
     }, { random: () => 0.5 })
-    const moved = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Self').id, to: 'exile' }))
-    expect(moved.stack).toHaveLength(1)
-    expect(resolveStack(server.rules, moved).players.p1.life).toBe(41)
+    const otherLeaves = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Other Creature').id, to: 'exile' }))
+    expect(otherLeaves.stack).toHaveLength(1)
+    const watchedOther = resolveStack(server.rules, otherLeaves)
+    expect(watchedOther.players.p1.life).toBe(50)
+    expect(named(watchedOther, 'Self').zone).toBe('battlefield')
+
+    const selfLeaves = ok(server.rules(watchedOther, { type: 'move', objectId: named(watchedOther, 'Self').id, to: 'exile' }))
+    expect(selfLeaves.stack).toHaveLength(1)
+    expect(resolveStack(server.rules, selfLeaves).players.p1.life).toBe(51)
   })
 
   test('separate exile abilities keep independent once-per-turn keys', () => {
@@ -282,12 +289,9 @@ describe('shared trigger matching', () => {
   })
 
   test('the generic builder shares the same matching and once-per-turn handling', () => {
-    const ability = whenever(dslCardDiscarded({ player: ref('controller') }), {
-      frequency: { kind: 'onceEachTurn' },
-      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
-    })
-    expect(structuredClone(ability)).toEqual(ability)
-    const server = canonicalGame([ability], { hands: { p1: [knight('One'), knight('Two')] } })
+    const effect = trigger('discard', { player: 'you', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(1))
+    expect(structuredClone(effect)).toEqual(effect)
+    const server = game([effect], { hands: { p1: [knight('One'), knight('Two')] } })
     let state = server.state
     for (const name of ['One', 'Two']) {
       state = resolveStack(server.rules, ok(server.rules(state, { type: 'discard', seat: 'p1', objectId: named(state, name).id })))
