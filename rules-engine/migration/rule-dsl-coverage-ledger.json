@@ -159,16 +159,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:70 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
-          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:178 — test('resolve counts are separate from onceEachTurn trigger marks', () => {"
+          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:174 — test('resolve counts are separate from onceEachTurn trigger marks', () => {",
+          "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1229,12 +1229,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/actions.test.ts:143 — test('exposes pending player and continue actions during resolution', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:171 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:34 — test('drawHandDifference() is clone-safe', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:59 — test('choosing an opponent with a larger hand draws the difference', () => {"
+          "rules-engine/src/actions.test.ts:143 — test('exposes pending player and continue actions during resolution', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4127,7 +4124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 222,
+        "matches": 221,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4379,16 +4376,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 68,
+        "matches": 67,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:234 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:293 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:530 — test('fractional life costs are evaluated and paid at announcement', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:530 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1077 — test('Breena rewards attacks on a richer opponent', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4702,7 +4699,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 277,
+        "matches": 278,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -4752,8 +4749,8 @@
           "live-runner/src/kernelHost.test.ts:777 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/actions.test.ts:150 — test('exposes pending player and continue actions during resolution', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:148 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {"
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:108 — test('choosing an opponent who does not have more cards draws nothing', () => {",
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:158 — test('a host restart preserves an open opponent choice', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5043,10 +5040,9 @@
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:436 — test('publishes the server option bounds and actual source label', () => {",
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {"
+          "live-runner/src/kernelHost.test.ts:436 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
       "neededCanonicalNode": "announcement-time selectOptions offer with scoped mode identities",
