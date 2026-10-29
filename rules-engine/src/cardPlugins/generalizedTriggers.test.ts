@@ -12,13 +12,8 @@ import {
   discardCards,
   discards,
   draws,
-  exiled,
   gainLife,
-  leaves,
-  loseLife,
   onResolve as onResolveEffect,
-  trigger,
-  triggerOn,
   type CardEffect,
 } from './effects'
 import { onResolve } from './onResolve'
@@ -26,8 +21,14 @@ import {
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  cardDiscarded as dslCardDiscarded,
   dies as dslDies,
+  draws as dslDraws,
   gainLife as dslGainLife,
+  leaves as dslLeaves,
+  loseLife as dslLoseLife,
+  moved as dslMoved,
+  players,
   ref,
   whenever,
 } from './dsl/v1'
@@ -41,6 +42,10 @@ const definition = (abilities: Parameters<typeof card>[0]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 const canonicalWatcher = (name: string, abilities: Parameters<typeof card>[0]) =>
   cardTemplate(name, { types: ['Enchantment'], ruleDefinition: definition(abilities) })
+const canonicalGame = (abilities: Parameters<typeof card>[0], zones: Parameters<typeof createServerGame>[1] = {}, plugins: Plugin[] = []) =>
+  createServerGame(commanderRules, {
+    players: 3, battlefield: { p1: [canonicalWatcher('Watcher', abilities), knight()] }, ...zones,
+  }, { random: () => 0.5, cardPlugins: plugins })
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const game = (effects: CardEffect[], zones: Parameters<typeof createServerGame>[1] = {}, plugins: Plugin[] = []) =>
   createServerGame(commanderRules, {
@@ -85,7 +90,10 @@ describe('shared trigger matching', () => {
   })
 
   test('filtered leaves sees bounce, death, and exile and survives source removal', () => {
-    const server = game([leaves({ filter: { type: 'Creature' } }, gainLife(1))])
+    const ability = whenever(dslLeaves({ filter: { type: 'Creature' } }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = canonicalGame([ability])
     for (const to of ['hand', 'graveyard', 'exile'] as const) {
       const moved = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to }))
       expect(moved.stack).toHaveLength(1)
@@ -95,13 +103,15 @@ describe('shared trigger matching', () => {
   })
 
   test('unfiltered dies and leaves still watch only the source', () => {
-    const ability = whenever(dslDies({ filter: ref('self') }), {
+    const diesAbility = whenever(dslDies({ filter: ref('self') }), {
       instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const leavesAbility = whenever(dslLeaves({ filter: ref('self') }), {
+      instructions: [dslGainLife({ amount: 2, targets: ref('controller') })],
     })
     const selfObject = cardTemplate('Self', {
       types: ['Creature'],
-      effects: [leaves(gainLife(2))],
-      ruleDefinition: definition([ability]),
+      ruleDefinition: definition([diesAbility, leavesAbility]),
     })
     const server = game([], { battlefield: { p1: [selfObject, knight()] } })
     const other = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'graveyard' }))
@@ -111,8 +121,13 @@ describe('shared trigger matching', () => {
   })
 
   test('exile filters origin zones, ownership, and types', () => {
-    const effect = exiled({ from: ['graveyard', 'library'], filter: { owner: 'you', type: 'Creature' } }, gainLife(1))
-    const server = game([effect], { libraries: { p1: [knight('Library Knight')], p2: [knight('Enemy Library')] } })
+    const fromGraveyard = whenever(dslMoved({ filter: { owner: 'you', type: 'Creature' }, from: 'graveyard', to: 'exile' }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const fromLibraryAbility = whenever(dslMoved({ filter: { owner: 'you', type: 'Creature' }, from: 'library', to: 'exile' }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = canonicalGame([fromGraveyard, fromLibraryAbility], { libraries: { p1: [knight('Library Knight')], p2: [knight('Enemy Library')] } })
     const buried = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'graveyard' }))
     const fromGrave = ok(server.rules(buried, { type: 'move', objectId: named(buried, 'Knight').id, to: 'exile' }))
     expect(fromGrave.stack).toHaveLength(1)
@@ -124,19 +139,30 @@ describe('shared trigger matching', () => {
   })
 
   test('self exile looks back, while a from-anywhere watcher must still exist after the move', () => {
-    const server = game([], { battlefield: { p1: [cardTemplate('Self', {
-      types: ['Creature'], effects: [exiled(gainLife(1)), exiled({ filter: { type: 'Creature' } }, gainLife(10))],
-    })] } })
+    const selfExile = whenever(dslLeaves({ filter: ref('self') }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const fromAnywhere = whenever(dslLeaves({ filter: { type: 'Creature', other: true } }), {
+      instructions: [dslGainLife({ amount: 10, targets: ref('controller') })],
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Self', {
+        types: ['Creature'], ruleDefinition: definition([selfExile, fromAnywhere]),
+      })] },
+    }, { random: () => 0.5 })
     const moved = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Self').id, to: 'exile' }))
     expect(moved.stack).toHaveLength(1)
     expect(resolveStack(server.rules, moved).players.p1.life).toBe(41)
   })
 
   test('separate exile abilities keep independent once-per-turn keys', () => {
-    const server = game([
-      exiled({ from: 'battlefield', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(1)),
-      exiled({ from: 'battlefield', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(2)),
-    ], { hands: { p1: [knight('Second')] } })
+    const firstAbility = whenever(dslMoved({ from: 'battlefield', filter: { type: 'Creature' }, to: 'exile' }), {
+      frequency: { kind: 'onceEachTurn' }, instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const secondAbility = whenever(dslMoved({ from: 'battlefield', filter: { type: 'Creature' }, to: 'exile' }), {
+      frequency: { kind: 'onceEachTurn' }, instructions: [dslGainLife({ amount: 2, targets: ref('controller') })],
+    })
+    const server = canonicalGame([firstAbility, secondAbility], { hands: { p1: [knight('Second')] } })
     const firstMove = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'exile' }))
     const first = resolveStack(server.rules, answerTriggerOrder(server, firstMove))
     expect(first.players.p1.life).toBe(43)
@@ -177,7 +203,10 @@ describe('shared trigger matching', () => {
   })
 
   test('draws watches opponents and their second successful draw, once across draw-three', () => {
-    const server = game([draws({ player: { not: { relation: 'you' } }, nthThisTurn: 2 }, gainLife(1))], {
+    const ability = whenever(dslDraws({ player: players({ relation: 'opponent' }), nthThisTurn: 2 }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = canonicalGame([ability], {
       libraries: { p1: [knight()], p2: [knight('A'), knight('B'), knight('C')] },
     })
     const own = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
@@ -201,7 +230,10 @@ describe('shared trigger matching', () => {
 
   test('a prevented draw never triggers', () => {
     const prevent: Plugin = { id: 'preventDraw', replace: ({ event }) => event.type === 'draw' ? null : undefined }
-    const server = game([draws({}, gainLife(1))], { libraries: { p1: [knight()] }, builtinRules: [...commanderRules.rules, 'preventDraw'] }, [prevent])
+    const ability = whenever(dslDraws(), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = canonicalGame([ability], { libraries: { p1: [knight()] }, builtinRules: [...commanderRules.rules, 'preventDraw'] }, [prevent])
     const state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
     expect(state.stack).toHaveLength(0)
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
@@ -250,9 +282,12 @@ describe('shared trigger matching', () => {
   })
 
   test('the generic builder shares the same matching and once-per-turn handling', () => {
-    const effect = trigger('discard', { player: 'you', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(1))
-    expect(structuredClone(effect)).toEqual(effect)
-    const server = game([effect], { hands: { p1: [knight('One'), knight('Two')] } })
+    const ability = whenever(dslCardDiscarded({ player: ref('controller') }), {
+      frequency: { kind: 'onceEachTurn' },
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    expect(structuredClone(ability)).toEqual(ability)
+    const server = canonicalGame([ability], { hands: { p1: [knight('One'), knight('Two')] } })
     let state = server.state
     for (const name of ['One', 'Two']) {
       state = resolveStack(server.rules, ok(server.rules(state, { type: 'discard', seat: 'p1', objectId: named(state, name).id })))
@@ -388,13 +423,9 @@ describe('end-step opponent life-loss draw', () => {
 const discardDrain = () => cardTemplate('Discard Drain', {
   types: ['Enchantment'],
   manaCost: '{1}{B}',
-  oracleText: 'Whenever an opponent discards a card, that player loses 2 life.',
-  effects: [
-    triggerOn('discard', {
-      if: { seat: 'opponent' },
-      do: [loseLife(2, 'triggeringPlayer')],
-    }),
-  ],
+  ruleDefinition: definition([whenever(dslCardDiscarded({ player: players({ relation: 'opponent' }) }), {
+    instructions: [dslLoseLife({ amount: 2, targets: ref('triggering.player') })],
+  })]),
 })
 
 const discardSpell = () => cardTemplate('Forced Discard', {
