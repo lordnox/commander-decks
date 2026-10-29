@@ -1,22 +1,15 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { choiceEffects } from './choiceEffects'
-import {
-  attacks,
-  createTokenInstruction,
-  enters,
-  optionalMill,
-} from './effects'
-
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import {pendingDialogFor} from '../pendingDialog'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { instructionSpell } from './dsl/instructionTestSupport'
-import { createToken, ref } from './dsl/v1'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, createToken, may, mill, ref, self, whenever } from './dsl/v1'
+import type { TokenDefinition } from './dsl/schema/v2'
 import boggartTrawler from '../cards/boggart-trawler'
 const millToken = {
   name: 'Mill Scout',
@@ -24,8 +17,8 @@ const millToken = {
   subtypes: ['Scout'],
   power: 1,
   toughness: 1,
-  effects: [attacks(optionalMill(1))],
-}
+  abilities: [whenever(self.attacks, { instructions: [may(mill({ count: 1, targets: ref('controller') }))] })],
+} satisfies TokenDefinition
 
 const plainToken = {
   name: 'Plain Scout',
@@ -33,7 +26,7 @@ const plainToken = {
   subtypes: ['Scout'],
   power: 1,
   toughness: 1,
-}
+} satisfies TokenDefinition
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -47,16 +40,16 @@ const attackReady = (state: GameState, objectId: string) => {
   return next
 }
 
-const makeToken = (token: typeof millToken | typeof plainToken) => {
+const makeToken = (token: TokenDefinition) => {
+  const makerRule = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, { instructions: [createToken({ count: 1, targets: ref('controller'), token })] }),
+  ])))
   const server = createServerGame(
     commanderRules,
     {
       players: 2,
       hands: {
-        p1: [cardTemplate('Token Maker', {
-          types: ['Creature'],
-          effects: [enters(createTokenInstruction(token))],
-        })],
+        p1: [cardTemplate('Token Maker', { types: ['Creature'], ruleDefinition: makerRule })],
       },
       libraries: {
         p1: [
@@ -65,15 +58,20 @@ const makeToken = (token: typeof millToken | typeof plainToken) => {
         ],
       },
     },
-    { random: () => 0.5, cardPlugins: [choiceEffects] },
+    { random: () => 0.5 },
   )
   const maker = named(server.state, 'Token Maker').id
   const entered = resolveStack(server.rules, ok(server.rules(server.state, {
-    type: 'move',
-    objectId: maker,
-    to: 'battlefield',
+    type: 'move', objectId: maker, to: 'battlefield',
   })))
   return { server, state: entered, tokenId: named(entered, token.name).id }
+}
+
+const resolveMay = (server: ReturnType<typeof createServerGame>, state: GameState, accept: boolean) => {
+  const choice = pendingOptionSelection(state, 'p1')!
+  return ok(server.rules(state, {
+    type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[accept ? 0 : 1].id,
+  }))
 }
 
 describe('token-carried triggered abilities', () => {
@@ -86,12 +84,10 @@ describe('token-carried triggered abilities', () => {
     }))
     expect(declared.stack[0]).toMatchObject({ kind: 'ability', name: 'Mill Scout' })
     const choosing = ok(server.rules(declared, { type: 'resolveTop' }))
-    expect(pendingDialog(choosing)).toMatchObject({
-      kind: 'may',
-      seat: 'p1',
-      source: 'Mill Scout',
-      count: 1,
+    expect(pendingOptionSelection(choosing, 'p1')).toMatchObject({
+      seat: 'p1', source: 'Mill Scout', optionalAction: { acceptSlot: 0, declineSlot: 1 },
     })
+    expect(pendingOptionSelection(choosing, 'p1')?.options).toHaveLength(2)
   })
 
   test('declining the mill leaves the library intact', () => {
@@ -101,15 +97,10 @@ describe('token-carried triggered abilities', () => {
       seat: 'p1',
       attackers: [{ objectId: tokenId, defender: { kind: 'player', player: 'p2' } }],
     })), { type: 'resolveTop' }))
-    const declined = ok(server.rules(choosing, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: false },
-    }))
+    const declined = resolveMay(server, choosing, false)
     expect(declined.zoneOrder.p1.graveyard).toHaveLength(0)
     expect(named(declined, 'Milled One').zone).toBe('library')
-    expect(pendingDialog(declined)).toBeUndefined()
+    expect(pendingOptionSelection(declined, 'p1')).toBeUndefined()
   })
 
   test('accepting mills one card', () => {
@@ -119,12 +110,7 @@ describe('token-carried triggered abilities', () => {
       seat: 'p1',
       attackers: [{ objectId: tokenId, defender: { kind: 'player', player: 'p2' } }],
     })), { type: 'resolveTop' }))
-    const milled = ok(server.rules(choosing, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
-    }))
+    const milled = resolveMay(server, choosing, true)
     expect(named(milled, 'Milled One').zone).toBe('graveyard')
     expect(named(milled, 'Milled Two').zone).toBe('library')
   })
@@ -137,7 +123,7 @@ describe('token-carried triggered abilities', () => {
       attackers: [{ objectId: tokenId, defender: { kind: 'player', player: 'p2' } }],
     }))
     expect(declared.stack).toHaveLength(0)
-    expect(pendingDialog(declared)).toBeUndefined()
+    expect(pendingOptionSelection(declared, 'p1')).toBeUndefined()
     expect(declared.zoneOrder.p1.graveyard).toHaveLength(0)
   })
 
@@ -161,19 +147,12 @@ describe('token-carried triggered abilities', () => {
       seat: 'p1',
       attackers: [{ objectId: tokenId, defender: { kind: 'player', player: 'p2' } }],
     })), { type: 'resolveTop' }))
-    expect(pendingDialog(choosing)?.kind).toBe('may')
+    expect(pendingOptionSelection(choosing, 'p1')?.optionalAction).toBeDefined()
     const restarted = structuredClone(choosing)
-    expect(pendingDialog(restarted)).toMatchObject({
-      kind: 'may',
-      seat: 'p1',
-      source: 'Mill Scout',
+    expect(pendingOptionSelection(restarted, 'p1')).toMatchObject({
+      seat: 'p1', source: 'Mill Scout', optionalAction: { acceptSlot: 0, declineSlot: 1 },
     })
-    const milled = ok(server.rules(restarted, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
-    }))
+    const milled = resolveMay(server, restarted, true)
     expect(named(milled, 'Milled One').zone).toBe('graveyard')
   })
 })
