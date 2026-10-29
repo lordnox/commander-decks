@@ -61,19 +61,6 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   effects: [],
 })
 
-export const effectsFromTokenSpec = (token: TokenSpec): CardEffect[] => {
-  const effects = token.effects ? [...token.effects] : []
-  if (!token.sacrificeForMana) return effects
-  effects.push({
-    op: 'activate',
-    id: 'token.sacrifice-for-mana',
-    manaAbility: true,
-    costs: { sacrifice: 'self' },
-    do: [{ kind: 'addMana', mana: token.sacrificeForMana }],
-  })
-  return effects
-}
-
 export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { name: string } => ({
   name: token.name,
   types: token.types,
@@ -82,7 +69,6 @@ export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { n
   toughness: token.toughness ?? null,
   colors: token.colors ?? '',
   oracleText: token.oracleText ?? '',
-  effects: effectsFromTokenSpec(token),
 })
 
 /** Tokens are created by an effect rather than moved from another zone. */

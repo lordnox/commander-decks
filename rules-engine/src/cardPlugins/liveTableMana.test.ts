@@ -16,7 +16,8 @@ import { DECLINE_LIFE_OPTION } from './dsl/v1'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ManaId, ManaPool } from '../types'
-import { effectsFromTokenSpec } from './effects'
+import { card as dslCard, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/v1'
+import { token } from '../tokens'
 import {activated} from './activated'
 
 /**
@@ -155,7 +156,7 @@ const SCENARIOS: Record<string, Scenario> = {
       token: true,
       summoningSickness: true,
       tapProduces: undefined,
-      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard(token('Eldrazi-Spawn-0-1').abilities ?? []))),
     },
   },
   // Mana that depends on the board.
