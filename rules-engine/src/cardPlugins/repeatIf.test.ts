@@ -3,15 +3,22 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
-import {
-  controlledLands,
-  draw,
-  onResolve,
-  putLandFromHand,
-  repeatIf,
-} from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
 import { pendingSelectionFor } from '../rules/selectCards'
+import {
+  card as dslCard,
+  chooseCards,
+  choice,
+  compareAmount,
+  compileCardRuleDefinition,
+  count,
+  createDefinitionSnapshot,
+  draw as dslDraw,
+  move,
+  objects,
+  ref,
+  repeatOnceIf,
+  spell,
+} from './dsl/v1'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -20,6 +27,23 @@ const land = (name: string) => cardTemplate(name, { types: ['Land'] })
 
 const lands = (count: number) =>
   Array.from({ length: count }, (_, index) => land(`Field ${index + 1}`))
+
+const processLandRound = [
+  dslDraw({ count: 1, targets: ref('controller') }),
+  chooseCards({
+    chooser: ref('controller'),
+    filter: objects({ zone: 'hand', owner: 'you', type: 'Land' }),
+    min: 0, max: 1, bindChoice: 'landToPut',
+  }),
+  move({ targets: choice('landToPut'), to: 'battlefield', tapped: true }),
+]
+
+const repeatDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+  instructions: [repeatOnceIf({
+    condition: compareAmount(count(objects({ zone: 'battlefield', controller: 'you', type: 'Land' })), 'gte', 8),
+    instructions: processLandRound,
+  })],
+})])))
 
 const resolveRepeatSpell = (
   fieldCount: number,
@@ -36,11 +60,7 @@ const resolveRepeatSpell = (
             types: ['Instant'],
             manaCost: '{0}',
             manaValue: 0,
-            effects: [onResolve(repeatIf(
-              controlledLands({ min: 8 }),
-              draw(1),
-              putLandFromHand(true),
-            ))],
+            ruleDefinition: repeatDefinition,
           }),
           ...(extra.hand ?? []),
         ],
@@ -50,7 +70,7 @@ const resolveRepeatSpell = (
           cardTemplate(name, { types: ['Instant'] })),
       },
     },
-    { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+    { random: () => 0.5 },
   )
   const withMana = {
     ...server.state,
