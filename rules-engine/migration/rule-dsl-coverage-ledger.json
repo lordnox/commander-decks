@@ -27,8 +27,8 @@
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 59,
-    "directMutationSites": 499,
+    "customEventDispatchSites": 58,
+    "directMutationSites": 497,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -49,7 +49,7 @@
           "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
           "rules-engine/src/cardPlugins/unearth.test.ts:161 — test('stamps a clone-safe unearth builder on effects', () => {",
           "rules-engine/src/objectIdentity.test.ts:207 — test('an activated ability resolves from LKI for its captured controller', () => {",
-          "rules-engine/src/plugins/rooms.test.ts:547 — test(\"generic Room targets do not impose a controller restriction\", () => {"
+          "rules-engine/src/plugins/rooms.test.ts:535 — test(\"generic Room targets do not impose a controller restriction\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -159,16 +159,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 18,
+        "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:56 — test('casts() is clone-safe and keeps its instructions apart from its filters', () => {",
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:70 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
-          "rules-engine/src/cardPlugins/triggerFrequency.test.ts:178 — test('resolve counts are separate from onceEachTurn trigger marks', () => {"
+          "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
+          "rules-engine/src/objectIdentity.test.ts:290 — test('a gain-life trigger serializes its amount and attributed source snapshot', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1229,12 +1229,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/actions.test.ts:143 — test('exposes pending player and continue actions during resolution', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:171 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:34 — test('drawHandDifference() is clone-safe', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:59 — test('choosing an opponent with a larger hand draws the difference', () => {"
+          "rules-engine/src/actions.test.ts:143 — test('exposes pending player and continue actions during resolution', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4086,7 +4083,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 92,
+        "matches": 93,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -4127,7 +4124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 222,
+        "matches": 221,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4383,12 +4380,12 @@
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:234 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:293 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:530 — test('fractional life costs are evaluated and paid at announcement', () => {"
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:530 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1077 — test('Breena rewards attacks on a richer opponent', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4481,10 +4478,10 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/plugins/monarch.test.ts:41",
-          "rules-engine/src/plugins/monarch.test.ts:44 — test('becomeMonarch designates at most one monarch', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:56 — test('combat damage to the monarch passes the crown to the attacking player', () => {",
-          "rules-engine/src/plugins/monarch.test.ts:75 — test('the monarch draws at the beginning of their end step', () => {"
+          "rules-engine/src/plugins/monarch.test.ts:118 — test('the monarch draws at the beginning of their end step', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:84",
+          "rules-engine/src/plugins/monarch.test.ts:87 — test('becomeMonarch designates at most one monarch', () => {",
+          "rules-engine/src/plugins/monarch.test.ts:99 — test('combat damage to the monarch passes the crown to the attacking player', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4702,7 +4699,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 277,
+        "matches": 280,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -4752,8 +4749,8 @@
           "live-runner/src/kernelHost.test.ts:777 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/actions.test.ts:150 — test('exposes pending player and continue actions during resolution', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:148 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:138 — test('a host restart preserves an open opponent choice', () => {",
-          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:174 — test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {"
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:108 — test('choosing an opponent who does not have more cards draws nothing', () => {",
+          "rules-engine/src/cardPlugins/drawHandDifference.test.ts:158 — test('a host restart preserves an open opponent choice', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -5036,17 +5033,14 @@
     {
       "variant": "choose-modes",
       "mechanic": "specialized legacy dialog",
-      "currentRegistrations": [
-        "rules-engine/src/cardPlugins/castTriggers.ts"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:436 — test('publishes the server option bounds and actual source label', () => {",
-          "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {"
+          "live-runner/src/kernelHost.test.ts:436 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
       "neededCanonicalNode": "announcement-time selectOptions offer with scoped mode identities",
@@ -5270,8 +5264,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:425 — test('optional delayed draws open a may-draw dialog', () => {",
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:444 — test('an optional delayed draw asks the opponent who was named as the drawer', () => {"
+          "rules-engine/src/cardPlugins/runInstructions.test.ts:468 — test('optional delayed draws open a may-draw dialog', () => {",
+          "rules-engine/src/cardPlugins/runInstructions.test.ts:487 — test('an optional delayed draw asks the opponent who was named as the drawer', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5584,7 +5578,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1454"
+        "rules-engine/src/types.ts:1451"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5684,26 +5678,26 @@
         "rules-engine/src/plugins/doubleFaced.ts:46",
         "rules-engine/src/plugins/doubleFaced.ts:78",
         "rules-engine/src/plugins/doubleFaced.ts:82",
-        "rules-engine/src/plugins/rooms.ts:109",
-        "rules-engine/src/plugins/rooms.ts:144",
-        "rules-engine/src/plugins/rooms.ts:150",
-        "rules-engine/src/plugins/rooms.ts:162",
-        "rules-engine/src/plugins/rooms.ts:178",
-        "rules-engine/src/plugins/rooms.ts:18",
-        "rules-engine/src/plugins/rooms.ts:187",
-        "rules-engine/src/plugins/rooms.ts:2",
-        "rules-engine/src/plugins/rooms.ts:42",
-        "rules-engine/src/plugins/rooms.ts:98",
+        "rules-engine/src/plugins/rooms.ts:1",
+        "rules-engine/src/plugins/rooms.ts:107",
+        "rules-engine/src/plugins/rooms.ts:142",
+        "rules-engine/src/plugins/rooms.ts:148",
+        "rules-engine/src/plugins/rooms.ts:160",
+        "rules-engine/src/plugins/rooms.ts:17",
+        "rules-engine/src/plugins/rooms.ts:176",
+        "rules-engine/src/plugins/rooms.ts:185",
+        "rules-engine/src/plugins/rooms.ts:41",
+        "rules-engine/src/plugins/rooms.ts:96",
         "rules-engine/src/replacement/discovery.ts:103",
         "rules-engine/src/replacement/types.ts:5",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1537",
-        "rules-engine/src/types.ts:317",
-        "rules-engine/src/types.ts:319",
-        "rules-engine/src/types.ts:323"
+        "rules-engine/src/rules/triggers.ts:1585",
+        "rules-engine/src/types.ts:316",
+        "rules-engine/src/types.ts:318",
+        "rules-engine/src/types.ts:322"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5756,17 +5750,17 @@
         "rules-engine/src/newGame.ts:156",
         "rules-engine/src/newGame.ts:204",
         "rules-engine/src/newGame.ts:301",
-        "rules-engine/src/plugins/rooms.ts:53",
-        "rules-engine/src/plugins/rooms.ts:72",
-        "rules-engine/src/plugins/rooms.ts:89",
-        "rules-engine/src/plugins/rooms.ts:93",
+        "rules-engine/src/plugins/rooms.ts:52",
+        "rules-engine/src/plugins/rooms.ts:70",
+        "rules-engine/src/plugins/rooms.ts:87",
+        "rules-engine/src/plugins/rooms.ts:91",
         "rules-engine/src/plugins/spells.ts:430",
-        "rules-engine/src/types.ts:119",
-        "rules-engine/src/types.ts:150",
-        "rules-engine/src/types.ts:278",
-        "rules-engine/src/types.ts:342",
+        "rules-engine/src/types.ts:118",
+        "rules-engine/src/types.ts:149",
+        "rules-engine/src/types.ts:277",
+        "rules-engine/src/types.ts:341",
         "rules-engine/src/types.ts:75",
-        "rules-engine/src/types.ts:92"
+        "rules-engine/src/types.ts:91"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -5830,10 +5824,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          262
+          279
         ],
         "samples": [
-          "262: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "279: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6095,16 +6089,16 @@
           71,
           177,
           197,
-          279,
-          428,
-          429,
-          600,
-          1137,
-          1254,
-          1411,
-          1413,
-          1453,
-          1454
+          296,
+          449,
+          450,
+          625,
+          1185,
+          1302,
+          1459,
+          1461,
+          1501,
+          1502
         ],
         "samples": [
           "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -6338,23 +6332,6 @@
         ],
         "samples": [
           "32: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
-        ],
-        "mechanic": "custom event continuation/dispatch",
-        "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
-        "compatibilityRoute": "Decode saved custom events through a versioned compatibility adapter until the owning typed request/action path is proven.",
-        "ownerPart": "05",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/castTriggers.ts",
-        "lines": [
-          47
-        ],
-        "samples": [
-          "47: if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6991,16 +6968,16 @@
       {
         "path": "rules-engine/src/plugins/rooms.ts",
         "lines": [
-          143,
-          149,
-          160,
-          177,
-          186
+          141,
+          147,
+          158,
+          175,
+          184
         ],
         "samples": [
-          "143: const object = draft.object(event.objectId)",
-          "149: const object = draft.object(event.objectId)",
-          "160: const object = draft.object(event.objectId)"
+          "141: const object = draft.object(event.objectId)",
+          "147: const object = draft.object(event.objectId)",
+          "158: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7214,14 +7191,14 @@
       {
         "path": "rules-engine/src/rules/actions.ts",
         "lines": [
-          45,
-          61,
-          95
+          41,
+          57,
+          76
         ],
         "samples": [
-          "45: const live = draft.object(item.objectId)",
-          "61: const currentSource = draft.object(item.objectId)",
-          "95: const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined"
+          "41: const live = draft.object(item.objectId)",
+          "57: const currentSource = draft.object(item.objectId)",
+          "76: const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7295,24 +7272,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          901,
-          993,
-          1088,
-          1121,
-          1200,
-          1265,
-          1278,
-          1317,
-          1398,
-          1476,
-          1535,
-          1733,
-          1847
+          938,
+          1042,
+          1136,
+          1169,
+          1248,
+          1313,
+          1326,
+          1365,
+          1446,
+          1524,
+          1583,
+          1781,
+          1895
         ],
         "samples": [
-          "901: const frequencySource = draft.object(source.id) ?? source",
-          "993: const live = draft.object(source.id)",
-          "1088: const land = draft.object(objectId)"
+          "938: const frequencySource = draft.object(source.id) ?? source",
+          "1042: const live = draft.object(source.id)",
+          "1136: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8288,25 +8265,6 @@
           "14: draft.enqueue({ type: 'addMana', seat, mana: instruction.mana })",
           "19: draft.enqueue({",
           "50: draft.enqueue({"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
-        "path": "rules-engine/src/cardPlugins/castTriggers.ts",
-        "lines": [
-          12,
-          52
-        ],
-        "samples": [
-          "12: const spell = draft.object(event.objectId)",
-          "52: const permanent = draft.object(permanentId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
