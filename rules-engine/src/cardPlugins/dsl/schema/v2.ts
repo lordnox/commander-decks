@@ -310,6 +310,7 @@ export type OccurrencePattern =
       kind: 'draw'
       filter: PlayerOccurrenceFilter & {
         firstDrawInOwnDrawStep?: boolean
+        object?: ObjectOccurrenceFilter
       }
     }
   | { kind: 'manaAdded' }

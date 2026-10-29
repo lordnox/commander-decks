@@ -6,12 +6,10 @@ import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
+import { ZONE_IDS } from '../types'
 import type { GameState, Plugin } from '../types'
 import {
   discardCards,
-  draws,
-  exiled,
-  gainLife,
   onResolve as onResolveEffect,
   type CardEffect,
 } from './effects'
@@ -139,9 +137,18 @@ describe('shared trigger matching', () => {
   })
 
   test('self exile looks back, while a from-anywhere watcher must still exist after the move', () => {
-    const server = game([], { battlefield: { p1: [cardTemplate('Self', {
-      types: ['Creature'], effects: [exiled(gainLife(1)), exiled({ filter: { type: 'Creature' } }, gainLife(10))],
-    })] } })
+    const selfExile = whenever(dslMoved({ filter: ref('self'), to: 'exile' }), {
+      activeIn: ZONE_IDS,
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const fromAnywhere = whenever(dslMoved({ filter: { type: 'Creature' }, to: 'exile' }), {
+      instructions: [dslGainLife({ amount: 10, targets: ref('controller') })],
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Self', {
+        types: ['Creature'], ruleDefinition: definition([selfExile, fromAnywhere]),
+      })] },
+    }, { random: () => 0.5 })
     const self = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Self').id, to: 'exile' }))
     expect(self.stack).toHaveLength(1)
     expect(resolveStack(server.rules, self).players.p1.life).toBe(41)
@@ -226,7 +233,10 @@ describe('shared trigger matching', () => {
   })
 
   test('draw filters the drawn object and does not trigger on an empty library', () => {
-    const server = game([draws({ filter: { colors: ['W'], type: 'Creature' } }, gainLife(1))], {
+    const ability = whenever(dslDraws({ object: { color: 'W', type: 'Creature' } }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = canonicalGame([ability], {
       libraries: { p1: [knight(), cardTemplate('Blue', { types: ['Instant'], colors: 'U' })] },
     })
     const drawn = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 2 }))
