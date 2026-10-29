@@ -73,7 +73,6 @@ export type RoomDoorCharacteristics = FaceCharacteristics & {
   name: string
   oracleText: string
   grantedRules?: string[]
-  effects?: CardEffect[]
 }
 
 export type CopySnapshot = {
