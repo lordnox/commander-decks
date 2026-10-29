@@ -158,6 +158,22 @@ describe('shared trigger matching', () => {
     expect(resolveStack(server.rules, self).players.p1.life).toBe(41)
   })
 
+  test('a from-anywhere trigger does not use a token source after it ceases to exist', () => {
+    const fromAnywhere = whenever(dslMoved({ filter: { type: 'Creature' }, to: 'graveyard' }), {
+      instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Self token', {
+        types: ['Creature'], token: true, ruleDefinition: definition([fromAnywhere]),
+      })] },
+    }, { random: () => 0.5 })
+    const source = named(server.state, 'Self token')
+    const moved = ok(server.rules(server.state, { type: 'move', objectId: source.id, to: 'graveyard' }))
+    expect(moved.objects[source.id]).toBeUndefined()
+    expect(moved.stack).toHaveLength(0)
+    expect(moved.players.p1.life).toBe(40)
+  })
+
   test('separate exile abilities keep independent once-per-turn keys', () => {
     const firstAbility = whenever(dslMoved({ from: 'battlefield', filter: { type: 'Creature' }, to: 'exile' }), {
       frequency: { kind: 'onceEachTurn' }, instructions: [dslGainLife({ amount: 1, targets: ref('controller') })],
