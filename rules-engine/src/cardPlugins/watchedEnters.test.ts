@@ -47,7 +47,7 @@ const handSize = (state: GameState) => state.zoneOrder.p1.hand.length
 
 const cardsDrawn = (state: GameState) => 3 - state.zoneOrder.p1.library.length
 
-describe('canonical Guardian Project behavior', () => {
+describe('canonical entering creatures with an intervening unique-name condition', () => {
   test('the first creature with a name draws, and a second with that name does not', () => {
     const server = game({
       battlefield: { p1: [guardian()] },
