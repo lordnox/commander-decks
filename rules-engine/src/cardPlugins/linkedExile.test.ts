@@ -5,14 +5,19 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, linkExile as dslLinkExile, objects, select, self, target, whenever } from './dsl/v1'
 import {
-  enters,
-  handler,
-  leaves,
-  linkExile,
-  returnLinkedExile,
-} from './effects'
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  linkExile as dslLinkExile,
+  objects,
+  returnLinkedExile as dslReturnLinkedExile,
+  select,
+  self,
+  target,
+  whenever,
+} from './dsl/v1'
+import { enters, handler, linkExile } from './effects'
 import { activated } from './activated'
 
 const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
@@ -36,6 +41,14 @@ const canonicalDefinition = (abilities: Parameters<typeof card>[0]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
 describe('linkedExile', () => {
+  const pairedWarden = (name: string, abilities: Parameters<typeof card>[0]) =>
+    cardTemplate(name, {
+      types: ['Creature'],
+      power: 2,
+      toughness: 2,
+      ruleDefinition: canonicalDefinition(abilities),
+    })
+
   test('Fiend Hunter link choice stays private to its chooser', () => {
     const hunter = cardTemplate('Fiend Hunter', { types: ['Creature'], power: 2, toughness: 2 })
     const prey = cardTemplate('Hidden Prey', { types: ['Creature'] })
@@ -71,11 +84,14 @@ describe('linkedExile', () => {
     expect(named(resolveStack(server.rules, finished), 'Restart Prey').zone).toBe('exile')
   })
   test('optional link exile may choose zero targets', () => {
-    const warden = creature('Paired Warden', 'p1')
-    warden.effects = [
-      handler('linkedExile'),
-      enters(linkExile({ type: 'Creature', controller: 'opponent' }, { optional: true })),
-    ]
+    const warden = pairedWarden('Paired Warden', [whenever(self.enters, {
+      decisions: { targets: [select({
+        filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }),
+        min: 0,
+        max: 1,
+      })] },
+      instructions: [dslLinkExile({ targets: target(0) })],
+    })])
     const mark = creature('Marked Prey', 'p2')
     const server = game({ hands: { p1: [warden] }, battlefield: { p2: [mark] } })
     const wardenId = named(server.state, 'Paired Warden').id
@@ -96,12 +112,17 @@ describe('linkedExile', () => {
   })
 
   test('Paired Warden leaves trigger returns exiled cards on the stack', () => {
-    const warden = creature('Paired Warden', 'p1')
-    warden.effects = [
-      handler('linkedExile'),
-      enters(linkExile({ type: 'Creature', controller: 'opponent' }, { optional: true })),
-      leaves(returnLinkedExile()),
-    ]
+    const warden = pairedWarden('Paired Warden', [
+      whenever(self.enters, {
+        decisions: { targets: [select({
+          filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }),
+          min: 0,
+          max: 1,
+        })] },
+        instructions: [dslLinkExile({ targets: target(0) })],
+      }),
+      whenever(self.leaves, { instructions: [dslReturnLinkedExile()] }),
+    ])
     const mark = creature('Marked Prey', 'p2')
     const server = game({ hands: { p1: [warden] }, battlefield: { p2: [mark] } })
     const wardenId = named(server.state, 'Paired Warden').id
@@ -140,11 +161,19 @@ describe('linkedExile', () => {
   })
 
   test('Mass Vault may exile any number of other nonland permanents you control', () => {
-    const vault = creature('Mass Vault', 'p1')
-    vault.effects = [
-      handler('linkedExile'),
-      enters(linkExile({ nonland: true }, { controlled: true, optional: true, max: 3 })),
-    ]
+    const vault = pairedWarden('Mass Vault', [whenever(self.enters, {
+      decisions: { targets: [select({
+        filter: objects({
+          zone: 'battlefield',
+          controller: 'you',
+          other: true,
+          not: { type: 'Land' },
+        }),
+        min: 0,
+        max: 3,
+      })] },
+      instructions: [dslLinkExile({ targets: target(0) })],
+    })])
     const relic = cardTemplate('Vault Relic', { types: ['Artifact'] })
     const token = cardTemplate('Vault Ally', { types: ['Creature'] })
     const server = game({ hands: { p1: [vault] }, battlefield: { p1: [relic, token] } })

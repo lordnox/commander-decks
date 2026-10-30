@@ -6,22 +6,28 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import {
-  destroyThenTokenForController,
-  destroyTargetPermanent,
-  entersTargeting,
-  entersTargetingUpTo,
-} from './effects'
 import { HOMER_NAME } from './homer'
 import { instructionSpell } from './dsl/instructionTestSupport'
-import { createToken, ref } from './dsl/v1'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  choice,
+  createDefinitionSnapshot,
+  createToken,
+  destroy as dslDestroy,
+  forEach,
+  objects as dslObjects,
+  ref,
+  select as dslSelect,
+  self,
+  target,
+  whenever,
+} from './dsl/v1'
 
 import {catalogEntry, deckCards} from '../deckCardFixtures'
 import {replayCardTemplate} from '../replay'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import { pendingDialogFor } from '../pendingDialog'
-
-const NONCREATURE_PERMANENT = { zone: 'battlefield', permanent: true, noncreature: true } as const
 
 const elephant = {
   name: 'Elephant',
@@ -34,9 +40,22 @@ const elephant = {
 
 const destroyer = cardTemplate('Fixture Destroyer', {
   types: ['Creature'],
-  effects: [
-    entersTargetingUpTo(3, NONCREATURE_PERMANENT, destroyThenTokenForController(elephant)),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+    whenever(self.enters, {
+      decisions: { targets: [dslSelect({
+        filter: dslObjects({ zone: 'battlefield', not: { type: 'Creature' } }),
+        min: 0,
+        max: 3,
+      })] },
+      instructions: [
+        dslDestroy({ targets: target(0), bindChoice: 'destroyed' }),
+        forEach({
+          of: choice('destroyed'),
+          instructions: [createToken({ count: 1, targets: ref('event.player'), token: elephant })],
+        }),
+      ],
+    }),
+  ]))),
 })
 
 const named = (state: GameState, name: string) =>
@@ -66,7 +85,7 @@ const choose = (
   type: 'selectCards',
   seat: 'p1',
   kind: 'choose',
-  count: 3,
+  count: pendingSelectionFor(state, 'p1')!.count,
   objectIds: names.map((name) => named(state, name).id),
 })
 
@@ -97,16 +116,18 @@ describe('up-to-N triggered targets', () => {
     expect(pendingSelectionFor(projectForViewer(state, 'p1'), 'p1')?.id).toBe(selection.id)
   })
 
-  test('choosing zero targets puts nothing on the stack', () => {
+  test('choosing zero targets leaves the triggered ability on the stack without effects', () => {
     const { server, state } = setup({ p2: [artifact('Enemy Rock')] })
     const declined = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
-      count: 3,
+      count: pendingSelectionFor(state, 'p1')!.count,
       objectIds: [],
     }))
-    expect(declined.stack).toHaveLength(0)
+    // The legacy adapter dropped this trigger during target selection; canonical targets
+    // keep the trigger and resolve its empty target list without destroying anything.
+    expect(declined.stack[0]).toMatchObject({ kind: 'ability', targets: [] })
     expect(pendingSelectionFor(declined, 'p1')).toBeUndefined()
     expect(named(declined, 'Enemy Rock').zone).toBe('battlefield')
     expect(elephants(declined, 'p2')).toHaveLength(0)
@@ -277,7 +298,15 @@ describe('up-to-N triggered targets', () => {
 describe('mandatory single triggered target', () => {
   const sniper = cardTemplate('Fixture Sniper', {
     types: ['Creature'],
-    effects: [entersTargeting(NONCREATURE_PERMANENT, destroyTargetPermanent('Artifact'))],
+    ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+      whenever(self.enters, {
+        decisions: { targets: [dslSelect({
+          filter: dslObjects({ zone: 'battlefield', not: { type: 'Creature' } }),
+          count: 1,
+        })] },
+        instructions: [dslDestroy({ targets: target(0) })],
+      }),
+    ]))),
   })
   const open = (battlefield: Record<string, ReturnType<typeof cardTemplate>[]>) => {
     const server = createServerGame(
