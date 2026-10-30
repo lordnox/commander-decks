@@ -21,18 +21,18 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 7,
-    "cardInstructions": 174,
-    "instructionHandlersDiscovered": 174,
+    "cardInstructions": 173,
+    "instructionHandlersDiscovered": 173,
     "builtInPlugins": 57,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 57,
-    "directMutationSites": 493,
+    "customEventDispatchSites": 55,
+    "directMutationSites": 491,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 137,
+    "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 35,
+    "candidateOnlyInstructionRows": 33,
     "candidateOnlyCardRows": 0
   },
   "cardEffects": [
@@ -159,12 +159,8 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:396 — test('stamped effects stay clone-safe', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:125 — test('stamped revealUntil effects are structuredClone-safe', () => {",
-          "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
           "rules-engine/src/objectIdentity.test.ts:263 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
           "rules-engine/src/objectIdentity.test.ts:365 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
           "rules-engine/src/objectIdentity.test.ts:426 — test('player-target trigger answers retain the captured controller and occurrence', () => {",
@@ -945,7 +941,7 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:511 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1626 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1957 — test('remaining mana-production cards retain costs, timing, triggers, Aura restrictions, and source-independent callbacks', () => {",
@@ -1167,7 +1163,7 @@
         "matches": 85,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:487 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:494 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:138 — test('targeted draw and life loss resolve once for the chosen player', () => {",
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
@@ -1701,7 +1697,7 @@
       "candidateEvidence": {
         "matches": 87,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3254 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3288 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1057 — test('Souls of the Faultless converts combat damage into life swing against the attacker', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1263 — test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {",
@@ -2131,7 +2127,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3255 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3289 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/rules/selectPlayers.test.ts:28 — test('selectPlayers rejects stale and duplicate typed target submissions', () => {"
         ]
       },
@@ -2264,24 +2260,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "millThenRecover",
-      "mechanic": "semantic game action",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "shared typed action primitive and outcome",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03"
-      ],
-      "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "monstrosity",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [],
@@ -2401,16 +2379,14 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:398 — test('stamped effects stay clone-safe', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3135,14 +3111,13 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:41 — test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:113 — test('catalog Abundance replaces its controller’s draw with a land or nonland choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1203 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2742 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:127 — test('stamped revealUntil effects are structuredClone-safe', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:153 — test('revealUntilBasicLand builder uses the generalized instruction', () => {"
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:93 — test('canonical shuffle rest choice survives snapshot cloning', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3258,8 +3233,8 @@
         "matches": 28,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
-          "live-runner/src/kernelHost.test.ts:1010 — test('a restored private choice survives a host restart', async () => {",
-          "live-runner/src/kernelHost.test.ts:3829 — test('a top-of-library choice preserves its revealed order', () => {",
+          "live-runner/src/kernelHost.test.ts:1017 — test('a restored private choice survives a host restart', async () => {",
+          "live-runner/src/kernelHost.test.ts:3863 — test('a top-of-library choice preserves its revealed order', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2754 — test('kicker catalog entries compose optional payments with independent effects', () => {",
           "rules-engine/src/cardPlugins/dsl/drawReplacementByType.test.ts:191 — test('fail-to-find puts no card in hand and still orders the rest on the bottom', () => {",
@@ -3423,10 +3398,8 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/tapAll.test.ts:164 — test('stamped filter survives structuredClone on the card template', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3434,7 +3407,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3568,7 +3541,7 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1259 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "live-runner/src/kernelHost.test.ts:1266 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:56 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2147 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2159 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
@@ -3716,7 +3689,6 @@
       "mayPayLifeDraw",
       "millHalfTargetPlayers",
       "millTarget",
-      "millThenRecover",
       "monstrosity",
       "opponentMayPayMana",
       "opponentPiles",
@@ -3995,9 +3967,9 @@
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:222 — test('does not restamp creatures that enter later under that opponent', () => {",
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:245 — test('reverts when the creature leaves the battlefield', () => {",
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:106 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:190 — test('rest-of-game control survives the source leaving the game', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:232 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:112 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:196 — test('rest-of-game control survives the source leaving the game', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:238 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:100 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:128 — test('conditional control ends when its source untaps', () => {"
         ]
@@ -4020,7 +3992,7 @@
       "candidateEvidence": {
         "matches": 42,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:511 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:36 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:7 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1626 — test(\"Archdruid's Charm searches by type, then damages from the pumped creature, then exiles\", () => {",
@@ -4071,9 +4043,9 @@
           "live-runner/src/decisions.test.ts:304 — test('catches a turn that ended over the limit', () => {",
           "live-runner/src/decisions.test.ts:324 — test('discarding records the card and ends the turn', () => {",
           "live-runner/src/host.test.ts:175 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "live-runner/src/kernelHost.test.ts:3078 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
-          "live-runner/src/kernelHost.test.ts:3202 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3942 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
+          "live-runner/src/kernelHost.test.ts:3112 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
+          "live-runner/src/kernelHost.test.ts:3236 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3976 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4109,9 +4081,9 @@
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1043 — test('a host restart rebuilds an open dredge replacement choice', () => {",
-          "live-runner/src/kernelHost.test.ts:1085 — test('a host restart rebuilds and resumes an Abundance draw choice', () => {",
-          "live-runner/src/kernelHost.test.ts:487 — test('publishes and validates a large typed allocation by entry identity', () => {",
+          "live-runner/src/kernelHost.test.ts:1050 — test('a host restart rebuilds an open dredge replacement choice', () => {",
+          "live-runner/src/kernelHost.test.ts:1092 — test('a host restart rebuilds and resumes an Abundance draw choice', () => {",
+          "live-runner/src/kernelHost.test.ts:494 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "live-runner/src/opening.test.ts:151 — test('keeps seven for free, then bottoms after a second mulligan', () => {",
           "live-runner/src/opening.test.ts:169 — test('requires selected bottoms after the free mulligan is used', () => {",
           "live-runner/src/opening.test.ts:182 — test('cheat keeps all seven without bottoming', () => {"
@@ -4313,7 +4285,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/brain.test.ts:154 — test('smart mode omits a human with no plausible game action', () => {",
-          "live-runner/src/kernelHost.test.ts:2704 — test('declares and pays for taxed blocks without judge fallback', async () => {",
+          "live-runner/src/kernelHost.test.ts:2738 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:28 — test('rejects administrative, nested, and unexplained fallbacks', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:49 — test('keeps committed primitive effects when a later fallback continuation is illegal', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:9 — test('runs primitive effects through the normal reducer and traces the fallback', () => {"
@@ -4360,7 +4332,7 @@
         "matches": 69,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
-          "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
+          "live-runner/src/kernelHost.test.ts:3699 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:14",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:44 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:234 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
@@ -4408,7 +4380,7 @@
       "candidateEvidence": {
         "matches": 90,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3521 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:3555 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:158 — test('an attacker cannot also tap to pay its own attack tax', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:188 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
@@ -4683,8 +4655,8 @@
         "matches": 281,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
-          "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
-          "live-runner/src/kernelHost.test.ts:3394 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2116 — test('a search reads the whole library, not only the cards it may take', () => {",
+          "live-runner/src/kernelHost.test.ts:3428 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:246 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:119 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:162 — test('stamped creature filter copies power and toughness', () => {",
@@ -4707,7 +4679,7 @@
         "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:332 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
-          "live-runner/src/kernelHost.test.ts:446 — test('publishes the server option bounds and actual source label', () => {"
+          "live-runner/src/kernelHost.test.ts:453 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4722,12 +4694,12 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 71,
+        "matches": 69,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3284 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
-          "live-runner/src/kernelHost.test.ts:4276 — test('canonical control assignments rebuild after a host restart and exclude assigned recipients', () => {",
-          "live-runner/src/kernelHost.test.ts:4309 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
-          "live-runner/src/kernelHost.test.ts:777 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
+          "live-runner/src/kernelHost.test.ts:3318 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:4310 — test('canonical control assignments rebuild after a host restart and exclude assigned recipients', () => {",
+          "live-runner/src/kernelHost.test.ts:4343 — test('the host offers private pile selection without leaking the hidden pile or implying a hand move', () => {",
+          "live-runner/src/kernelHost.test.ts:784 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/actions.test.ts:150 — test('exposes pending player and continue actions during resolution', () => {",
           "rules-engine/src/cardPlugins/demonstrate.test.ts:148 — test('accepting chooses an opponent and gives both copies independent targets', () => {",
           "rules-engine/src/cardPlugins/drawHandDifference.test.ts:108 — test('choosing an opponent who does not have more cards draws nothing', () => {",
@@ -4909,7 +4881,7 @@
       "candidateEvidence": {
         "matches": 20,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1259 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "live-runner/src/kernelHost.test.ts:1266 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:54 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2147 — test(\"catalog Council's Judgment votes for opponent nonlands and exiles every winner\", () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2159 — test('catalog Coercive Portal votes at upkeep for carnage or homage', () => {",
@@ -5019,7 +4991,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:436 — test('publishes the server option bounds and actual source label', () => {"
+          "live-runner/src/kernelHost.test.ts:443 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
       "neededCanonicalNode": "announcement-time selectOptions offer with scoped mode identities",
@@ -5041,7 +5013,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1865 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
+          "live-runner/src/kernelHost.test.ts:1899 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5119,7 +5091,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3097 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
+          "live-runner/src/kernelHost.test.ts:3131 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5138,7 +5110,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:4033 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
+          "live-runner/src/kernelHost.test.ts:4067 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5177,10 +5149,8 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/fight.test.ts:38 — test('Apex Altisaur asks to fight an opposing creature', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
       "compatibilityRoute": "Preserve pendingDialog saved-state decoding and host routing until a versioned request adapter restores and answers this dialog kind.",
@@ -5188,7 +5158,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "look-top-land",
@@ -5220,7 +5190,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3171 — test('publishes and applies the defeated Siege casting choice', () => {"
+          "live-runner/src/kernelHost.test.ts:3205 — test('publishes and applies the defeated Siege casting choice', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5334,7 +5304,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1822 — test('a generic pending dialog can put several permanent cards from hand', () => {",
+          "live-runner/src/kernelHost.test.ts:1856 — test('a generic pending dialog can put several permanent cards from hand', () => {",
           "rules-engine/src/cardPlugins/vote.test.ts:375 — test('counts read from the vote parameterize later instructions', () => {"
         ]
       },
@@ -5456,7 +5426,7 @@
         "samples": [
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "live-runner/src/host.test.ts:130 — test('a restored private choice keeps its dialog action', async () => {",
-          "live-runner/src/kernelHost.test.ts:1015 — test('a restored private choice survives a host restart', async () => {",
+          "live-runner/src/kernelHost.test.ts:1022 — test('a restored private choice survives a host restart', async () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2766 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2799 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
           "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:533 — test('land search ignores a modal card whose front face is a sorcery', () => {",
@@ -5482,7 +5452,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3552 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:3586 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/dsl/ward.test.ts:210 — test('ward uses format-defined opponents rather than every other controller', () => {",
           "rules-engine/src/cardPlugins/dsl/ward.test.ts:72 — test('a catalog permanent presents its printed ward payment to the target player', () => {",
           "rules-engine/src/cardPlugins/dsl/ward.test.ts:88 — test('canonical mana ward leaves a stack trigger and counters on decline', () => {"
@@ -5533,7 +5503,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:452",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:443",
         "rules-engine/src/cardPlugins/effectRuntime.ts:264",
         "rules-engine/src/cardPlugins/effectRuntime.ts:460",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -5550,8 +5520,8 @@
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:42",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:101",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
-        "rules-engine/src/cardPlugins/instructions.ts:100",
-        "rules-engine/src/cardPlugins/instructions.ts:103",
+        "rules-engine/src/cardPlugins/instructions.ts:91",
+        "rules-engine/src/cardPlugins/instructions.ts:94",
         "rules-engine/src/types.ts:1450"
       ],
       "executableCoverageEvidence": [
@@ -5593,8 +5563,8 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:292",
         "rules-engine/src/cardPlugins/effectRuntime.ts:421",
         "rules-engine/src/cardPlugins/effectRuntime.ts:425",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:235",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:319",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:189",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:273",
         "rules-engine/src/cardPlugins/librarySearch.ts:174",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
@@ -5681,9 +5651,9 @@
         "matches": 34,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "live-runner/src/kernelHost.test.ts:2317 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
-          "live-runner/src/kernelHost.test.ts:2366 — test('casts one Room half and later unlocks the other from structured acts', () => {",
-          "live-runner/src/kernelHost.test.ts:3124 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2351 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
+          "live-runner/src/kernelHost.test.ts:2400 — test('casts one Room half and later unlocks the other from structured acts', () => {",
+          "live-runner/src/kernelHost.test.ts:3158 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/dsl/adventure.test.ts:58",
           "rules-engine/src/cardPlugins/dsl/adventure.test.ts:68",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.abilityCopies.test.ts:10 — test('ability-copy and trigger-multiplier catalog entries preserve their complete selectors and faces', () => {",
@@ -5743,10 +5713,10 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2771 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2805 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:14",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:124 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:275 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:130 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:281 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:133 — test('goad does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:190 — test('goadTargets instruction stamps goad from the resolving source controller', () => {"
         ]
@@ -6064,10 +6034,8 @@
           174,
           194,
           293,
-          450,
-          451,
-          630,
-          1167,
+          627,
+          1014,
           1362,
           1364,
           1404,
@@ -7245,7 +7213,7 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          948,
+          945,
           1046,
           1151,
           1230,
@@ -7258,7 +7226,7 @@
           1794
         ],
         "samples": [
-          "948: const frequencySource = draft.object(source.id) ?? source",
+          "945: const frequencySource = draft.object(source.id) ?? source",
           "1046: const live = draft.object(source.id)",
           "1151: const object = draft.object(objectId)"
         ],
@@ -8103,57 +8071,55 @@
       {
         "path": "rules-engine/src/cardPlugins/instructionHandlers/zones.ts",
         "lines": [
-          27,
-          70,
-          108,
-          122,
-          147,
-          155,
-          157,
-          166,
-          169,
-          174,
-          183,
-          200,
-          206,
-          217,
-          234,
-          257,
-          267,
-          293,
-          300,
-          307,
-          310,
-          321,
-          329,
-          427,
-          428,
-          469,
-          486,
-          487,
-          493,
+          26,
+          69,
+          101,
+          109,
+          111,
+          120,
+          123,
+          128,
+          137,
+          154,
+          160,
+          171,
+          188,
+          211,
+          221,
+          247,
+          254,
+          261,
+          264,
+          275,
+          283,
+          381,
+          382,
+          423,
+          440,
+          441,
+          447,
+          570,
           616,
-          662,
-          713,
-          720,
-          727,
-          734,
+          667,
+          674,
+          681,
+          688,
+          690,
+          696,
+          699,
+          716,
+          718,
+          719,
           736,
-          742,
-          745,
-          762,
-          764,
-          765,
-          782,
-          850,
-          869,
-          887,
-          898
+          804,
+          823,
+          841,
+          852
         ],
         "samples": [
-          "27: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
-          "70: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
-          "108: draft.enqueue({"
+          "26: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
+          "69: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
+          "101: draft.enqueue({ type: 'move', objectId: source.id, to: 'hand' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8302,12 +8268,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          125,
-          128
+          135,
+          138
         ],
         "samples": [
-          "125: const moved = draft.move(event.objectId, event.to)",
-          "128: else draft.enqueue(event)"
+          "135: const moved = draft.move(event.objectId, event.to, event.position)",
+          "138: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

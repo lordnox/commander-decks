@@ -8,7 +8,7 @@ import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
  * CR 603.3b — APNAP placement has separate non-ability and ability-triggering passes.
  */
 import { effectsOf } from '../cardPlugins/cardRules'
-import { enteringObjectId } from '../cardPlugins/permanentEntry'
+import { enteringObjectId, PERMANENT_ENTERED } from '../cardPlugins/permanentEntry'
 import {
   runInstructions,
   triggerEffects,
@@ -447,10 +447,7 @@ const canonicalPatternMatches = (
       break
     case 'enters': {
       const enteringId = permanentEnteringObjectId(event, state)
-      const createdToken = event.type === 'custom'
-        && event.name === 'cardPlugins.permanentEntered'
-        && event.payload?.createdToken === true
-      if (!enteringId || (!createdToken && occurrence.object?.before?.zone === 'battlefield')) return false
+      if (!enteringId || (!isPermanentEntrySignal(event) && occurrence.object?.before?.zone === 'battlefield')) return false
       if (pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
       if (pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
       break
@@ -591,7 +588,7 @@ const generatedPatternMatches = (
     case 'leaves': {
       const enteringId = permanentEnteringObjectId(event, state)
       if (pattern.kind === 'enters' && (
-        !enteringId || occurrence.object?.before?.zone === 'battlefield')) return false
+        !enteringId || (!isPermanentEntrySignal(event) && occurrence.object?.before?.zone === 'battlefield'))) return false
       if (pattern.kind === 'enters' && pattern.fromSpell === true && occurrence.object?.before?.zone !== 'stack') return false
       if (pattern.kind === 'enters' && pattern.fromSpell === false && occurrence.object?.before?.zone === 'stack') return false
       if (pattern.kind === 'dies' && (
@@ -1013,6 +1010,9 @@ const permanentEnteringObjectId = (event: GameEvent, state: GameState) => {
   return enteringObjectId(event, state)
 }
 
+const isPermanentEntrySignal = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
+  event.type === 'custom' && event.name === PERMANENT_ENTERED
+
 const pushCopies = (
   matches: PendingTrigger[],
   source: GameObject,
@@ -1164,7 +1164,7 @@ const collectEnters = (
     const meta = { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object }
     collectEffects(watcher, 'permanentEnters', draft, matches, 1, meta)
     // CR 111.13: a resolving permanent spell copy enters as a token but is not created.
-    if (event.type === 'custom' && event.name === 'cardPlugins.permanentEntered'
+    if (isPermanentEntrySignal(event)
       && event.payload?.createdToken === true && object.token) {
       collectEffects(watcher, 'tokenCreated', draft, matches, 1, meta)
     }

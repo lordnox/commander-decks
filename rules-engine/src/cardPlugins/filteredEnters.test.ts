@@ -11,10 +11,11 @@ import {
   enters,
   gainLife,
   ref,
+  tokenCreated,
   type ObjectFilter,
   whenever,
 } from './dsl/v1'
-import { enters as legacyEnters, gainLife as legacyGainLife, type TokenSpec } from './effects'
+import { type TokenSpec } from './effects'
 
 const definition = (abilities: Parameters<typeof card>[0]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
@@ -83,11 +84,15 @@ describe('filtered enters', () => {
       battlefield: { p1: [
         cardTemplate('Entry Watcher', {
           types: ['Enchantment'],
-          effects: [legacyEnters({ filter: { token: true } }, legacyGainLife(1))],
+          ruleDefinition: definition([whenever(enters({ filter: { token: true } }), {
+            instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+          })]),
         }),
         cardTemplate('Creation Watcher', {
           types: ['Enchantment'],
-          effects: [legacyEnters({ filter: { token: true }, createdOnly: true }, legacyGainLife(10))],
+          ruleDefinition: definition([whenever(tokenCreated({ token: true }), {
+            instructions: [gainLife({ amount: 10, targets: ref('controller') })],
+          })]),
         }),
         cardTemplate('Knight Token', { types: ['Creature'], token: true }),
       ] },

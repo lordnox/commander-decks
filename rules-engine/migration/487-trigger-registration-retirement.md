@@ -108,3 +108,10 @@ The test-only `millThenRecover` instruction handler was removed after its
 paid/declined and insufficient-resource outcomes, the bound milled-card choice,
 privacy, and journal restore coverage; no other producer or runtime consumer
 remains.
+
+`filteredEnters.test.ts` now authors both the ordinary filtered-entry watcher
+and the creation-only watcher canonically. The generic `permanentEntered`
+signal is itself an entry occurrence even when the already-on-battlefield token
+has no `createdToken` marker; only the separate `tokenCreated` pattern requires
+that marker. This preserves the distinction asserted by the prior legacy
+fixture while keeping the synthetic event out of card authoring.
