@@ -13,12 +13,10 @@ import {
 import {
   SEARCH_CHOSEN,
   librarySearch,
-  pendingSearch,
-  searchCandidates,
-  searchSpecForPending,
-  searchingSeat,
 } from './librarySearch'
 import { cycling } from './cycling'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, cycleFromHand, objects, ref, searchLibrary } from './dsl/v1'
+import { pendingSelectionFor } from '../rules/selectCards'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -36,6 +34,9 @@ const plains = (name = 'Plains') =>
     tapProduces: { W: 1 },
   })
 
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
 const run = (
   server: ReturnType<typeof createServerGame>,
   state: GameState,
@@ -46,13 +47,13 @@ describe('cycling', () => {
   test('Cycle Meadow cycles for {W} and draws from hand', () => {
     const cycler = cardTemplate('Cycle Meadow', {
       types: ['Land'],
-      effects: [cycleHand('cycling.cycleMeadow', '{W}')],
+      ruleDefinition: definition([cycleFromHand({ mana: '{W}' })]),
     })
     const drawn = cardTemplate('Drawn card', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [cycler] }, libraries: { p1: [drawn] } },
-      { random: () => 0.5, cardPlugins: [activated, cycling] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Cycle Meadow').id
     const ready = structuredClone(server.state)
@@ -60,7 +61,7 @@ describe('cycling', () => {
 
     const cycled = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.cycleMeadow',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
     }))
@@ -76,7 +77,17 @@ describe('cycling', () => {
   test('Plains Cycler plainscycles for {2} through library search', () => {
     const cycler = cardTemplate('Plains Cycler', {
       types: ['Creature'],
-      effects: [typecycleHand('cycling.plainsCycler', '{2}', 'Plains')],
+      ruleDefinition: definition([cycleFromHand({
+        mana: '{2}',
+        instructions: [searchLibrary({
+          bindChoice: 'found',
+          chooser: ref('controller'),
+          filter: objects({ zone: 'library', owner: 'you', subtypes: ['Plains'] }),
+          min: 0,
+          max: 1,
+          to: 'hand',
+        })],
+      })]),
     })
     const server = createServerGame(
       commanderRules,
@@ -84,7 +95,7 @@ describe('cycling', () => {
         hands: { p1: [cycler] },
         libraries: { p1: [plains(), cardTemplate('Mountain', { types: ['Land'], subtypes: ['Mountain'] })] },
       },
-      { random: () => 0.5, cardPlugins: [activated, cycling, librarySearch] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Plains Cycler').id
     const ready = structuredClone(server.state)
@@ -92,7 +103,7 @@ describe('cycling', () => {
 
     const stacked = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.plainsCycler',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
     }))
@@ -100,23 +111,19 @@ describe('cycling', () => {
     expect(stacked.stack).toHaveLength(1)
 
     const opened = ok(server.rules(stacked, { type: 'resolveTop' }))
-    expect(searchingSeat(opened)).toBe('p1')
-    const pending = pendingSearch(opened, 'p1')!
-    const spec = searchSpecForPending(opened, pending)!
-    expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Plains'])
+    const pending = pendingSelectionFor(opened, 'p1')!
+    expect(pending).toMatchObject({ kind: 'choose', min: 0, count: 1 })
+    expect(pending.candidates.map((id) => opened.objects[id].name)).toEqual(['Plains'])
 
     const p2View = projectForViewer(opened, 'p2')
     expect(p2View.zoneCounts.p1.library).toBe(opened.zoneCounts.p1.library)
     expect(Object.keys(p2View.objects).some((id) => opened.objects[id]?.zone === 'library')).toBe(false)
 
     const found = named(opened, 'Plains').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const finished = ok(server.rules(opened, {
+      type: 'selectCards', seat: 'p1', selectionId: pending.id, kind: 'choose', count: 1, objectIds: [found],
+    }))
     expect(named(finished, 'Plains').zone).toBe('hand')
-    expect(searchingSeat(finished)).toBeUndefined()
     expect(finished.stack).toHaveLength(0)
   })
 
