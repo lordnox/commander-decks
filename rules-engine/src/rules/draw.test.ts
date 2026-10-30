@@ -1,18 +1,27 @@
 import { createJournal, restoreJournal } from '../journal'
 import { instructionSpell } from '../cardPlugins/dsl/instructionTestSupport'
-import { chooseCards, createPlayerEffect, draw as drawInstruction, objects, PLAYER_EFFECT_DURATIONS, PLAYER_EFFECTS, ref } from '../cardPlugins/dsl/v1'
+import {
+  card as dslCard,
+  chooseCards,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createPlayerEffect,
+  discard as dslDiscard,
+  draw as drawInstruction,
+  draws,
+  forEachPlayer,
+  loseLife as dslLoseLife,
+  objects,
+  PLAYER_EFFECT_DURATIONS,
+  PLAYER_EFFECTS,
+  players,
+  ref,
+  spell,
+  whenever,
+} from '../cardPlugins/dsl/v1'
 import { resolveStack } from '../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import { freezeDraft, makeDraft } from '../draft'
-import { onResolve } from '../cardPlugins/onResolve'
-import {
-  discardCards,
-  draw,
-  eachPlayerDraw,
-  loseLife,
-  onResolve as onResolveEffect,
-  triggerOn,
-} from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -23,6 +32,13 @@ import { pendingSelectionFor } from './selectCards'
 
 const card = (name: string, types: string[] = ['Instant']) =>
   cardTemplate(name, { types })
+
+const definition = (abilities: Parameters<typeof dslCard>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(dslCard(abilities)))
+
+const drawLifeDefinition = definition([whenever(draws(), {
+  instructions: [dslLoseLife({ amount: 1, targets: ref('controller') })],
+})])
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -93,16 +109,16 @@ describe('draw game rule', () => {
   test('CR 121.2 / 603: draw-3 during spell resolution applies three draw events without priority between cards', () => {
     const quezaLike = cardTemplate('Queza-like', {
       types: ['Creature'],
-      effects: [
-        triggerOn('draw', {
-          do: [loseLife(1, 'controller')],
-        }),
-      ],
+      ruleDefinition: drawLifeDefinition,
     })
-    const ancestral = cardTemplate('Ancestral Test', {
+    const ancestral = {
+      ...instructionSpell({ instructions: [
+        drawInstruction({ count: 3, targets: ref('controller') }),
+        dslDiscard({ targets: ref('controller'), count: 1 }),
+      ] }, '{0}'),
+      name: 'Ancestral Test',
       types: ['Sorcery'],
-      effects: [onResolveEffect(draw(3), discardCards(1))],
-    })
+    }
     const server = createServerGame(
       commanderRules,
       {
@@ -113,7 +129,7 @@ describe('draw game rule', () => {
         },
         players: 2,
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const spellId = server.state.zoneOrder.p1.hand.find(
       (id) => server.state.objects[id].name === 'Ancestral Test',
@@ -148,10 +164,23 @@ describe('draw game rule', () => {
     }))
     expect(discarded.objects[spellId].zone).toBe('graveyard')
     expect(discarded.objects[discardId].zone).toBe('graveyard')
-    expect(discarded.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(3)
+    expect(discarded.pendingTriggers).toHaveLength(3)
+    expect(discarded.stack).toHaveLength(0)
     expect(discarded.priority).toBe(priorityBefore)
 
-    const afterFirstQueza = ok(server.rules(discarded, { type: 'resolveTop' }))
+    const order = pendingSelectionFor(discarded, 'p1')!
+    expect(order.triggerOrder?.entries).toHaveLength(3)
+    const ordered = ok(server.rules(discarded, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: order.id,
+      kind: 'choose',
+      count: order.count,
+      objectIds: order.candidates,
+    }))
+    expect(ordered.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(3)
+
+    const afterFirstQueza = ok(server.rules(ordered, { type: 'resolveTop' }))
     expect(afterFirstQueza.players.p1.life).toBe(commanderRules.startingLife - 1)
 
     let current = afterFirstQueza
@@ -167,11 +196,7 @@ describe('draw game rule', () => {
   test('manual stack assembly interleaves Queza between draw actions', () => {
     const quezaLike = cardTemplate('Queza-like', {
       types: ['Creature'],
-      effects: [
-        triggerOn('draw', {
-          do: [loseLife(1, 'controller')],
-        }),
-      ],
+      ruleDefinition: drawLifeDefinition,
     })
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [quezaLike] },
@@ -214,7 +239,10 @@ describe('draw game rule', () => {
   test('eachPlayerDraw enqueues draw events that finish during spell resolution', () => {
     const wheel = cardTemplate('Wheel Test', {
       types: ['Sorcery'],
-      effects: [onResolveEffect(eachPlayerDraw(2))],
+      ruleDefinition: definition([spell({ instructions: [forEachPlayer({
+        of: players(),
+        instructions: [drawInstruction({ count: 2, targets: ref('event.player') })],
+      })] })]),
     })
     const server = createServerGame(
       commanderRules,
@@ -226,7 +254,7 @@ describe('draw game rule', () => {
         },
         players: 2,
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const spellId = server.state.zoneOrder.p1.hand[0]
     const cast = ok(server.rules(server.state, {

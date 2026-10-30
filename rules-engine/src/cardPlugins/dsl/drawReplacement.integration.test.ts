@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import {
   amount,
   card,
+  cardDiscarded,
   compileCardRuleDefinition,
   counter,
   createDefinitionSnapshot,
@@ -27,7 +28,6 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, Plugin } from '../../types'
-import { gainLife as effectGainLife, triggerOn } from '../effects'
 import { enterAdditionalDrawStep } from '../../rules/drawStepHistory'
 import { makeDraft, freezeDraft } from '../../draft'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
@@ -451,7 +451,11 @@ describe('conditional discard-then-draw replacements', () => {
           cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
           cardTemplate('Discard Watcher', {
             types: ['Enchantment'],
-            effects: [triggerOn('discard', { do: [effectGainLife(3)] })],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              whenever(cardDiscarded(), {
+                instructions: [gainLife({ targets: ref('controller'), amount: 3 })],
+              }),
+            ]))),
           }),
         ],
       },

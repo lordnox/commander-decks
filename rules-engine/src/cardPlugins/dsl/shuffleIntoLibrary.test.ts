@@ -5,15 +5,28 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { dies, gainLife, leaves, triggerOn } from '../effects'
 import {
   card,
+  cardDiscarded,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  dies,
+  gainLife,
+  leaves,
+  ref,
   shuffleIntoOwnerLibrary,
+  whenever,
 } from './v1'
 
-const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([shuffleIntoOwnerLibrary()])))
+const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  shuffleIntoOwnerLibrary(),
+  whenever(dies({ filter: ref('self') }), {
+    instructions: [gainLife({ targets: ref('controller'), amount: 5 })],
+  }),
+  whenever(leaves({ filter: ref('self') }), {
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  }),
+])))
 
 const colossus = (extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate('Test Colossus', {
@@ -22,16 +35,14 @@ const colossus = (extra: Parameters<typeof cardTemplate>[1] = {}) =>
     toughness: 11,
     manaCost: '{0}',
     ruleDefinition: definition,
-    effects: [
-      dies(gainLife(5)),
-      leaves(gainLife(1)),
-    ],
     ...extra,
   })
 
 const watcher = () => cardTemplate('Discard Watcher', {
   types: ['Enchantment'],
-  effects: [triggerOn('discard', { do: [gainLife(7)] })],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(cardDiscarded(), { instructions: [gainLife({ targets: ref('controller'), amount: 7 })] }),
+  ]))),
 })
 
 const library = () => ['Rest A', 'Rest B', 'Rest C'].map((name) =>
