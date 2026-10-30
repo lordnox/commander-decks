@@ -14,7 +14,6 @@ import { serializableEffects } from './effectRuntime'
 import {createServerGame as createRuntimeGame} from '../runtime'
 import {choiceEffects} from './choiceEffects'
 import {librarySearch} from './librarySearch'
-import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 const plugins = [activated, becomeCopyOfTarget]
 
@@ -257,7 +256,6 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
       cardPlugins: [
         choiceEffects,
         librarySearch,
-        onResolve,
         targetedResolve,
         activated,
       ],

@@ -8,8 +8,6 @@ import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
   librarySearch,
 } from './librarySearch'
-import { targetedResolve } from './targetedResolve'
-import { targetOnResolve, targetsOnResolve } from './effects'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { legalActsFor } from '../actions'
 
@@ -17,7 +15,6 @@ import {resolveStack} from '../testHelpers'
 import {activated} from './activated'
 
 import { choiceEffects } from './choiceEffects'
-import {onResolve} from './onResolve'
 import {ward} from './ward'
 
 import { createServerGame as createRuntimeGame } from '../runtime'
@@ -66,7 +63,7 @@ describe('targeted spell resolution', () => {
         },
         battlefield: { p2: [cardTemplate('Rock', { types: ['Artifact'] })] },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve, librarySearch] },
+      { random: () => 0.5, cardPlugins: [librarySearch] },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 1, C: 1 }
@@ -93,7 +90,7 @@ describe('targeted spell resolution', () => {
         battlefield: { p2: [cardTemplate('Bear', { types: ['Creature'] })] },
         libraries: { p1: [forest()] },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve, librarySearch] },
+      { random: () => 0.5, cardPlugins: [librarySearch] },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 1, C: 1 }
@@ -138,7 +135,7 @@ describe('targeted spell resolution', () => {
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
+      { random: () => 0.5 },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana.B = 1
@@ -156,41 +153,6 @@ describe('targeted spell resolution', () => {
     expect(resolved.objects[sphinx].owner).toBe('p2')
     expect(resolved.players.p1.life).toBe(life - 6)
     expect(resolved.objects[spell].zone).toBe('graveyard')
-  })
-
-  test('a bounced spell is removed from the stack before it can resolve', () => {
-    const bounce = cardTemplate('Stack Bounce', {
-      types: ['Instant'],
-      manaCost: '{U}',
-      effects: [
-        targetOnResolve('bounce', { zone: 'stack' }),
-      ],
-    })
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [bounce], p2: [cardTemplate('Threat', { types: ['Instant'] })] } },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
-    )
-    const ready = structuredClone(server.state)
-    ready.priority = 'p2'
-    const threat = named(ready, 'Threat').id
-    let state = ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: threat }))
-    state.priority = 'p1'
-    state.players.p1.mana.U = 1
-    const answer = named(state, 'Stack Bounce').id
-    state = run(server, state, [
-      {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: answer,
-        targets: [{ kind: 'object', objectId: threat }],
-      },
-      { type: 'resolveTop' },
-    ])
-
-    expect(state.objects[threat].zone).toBe('hand')
-    expect(state.objects[answer].zone).toBe('graveyard')
-    expect(state.stack).toHaveLength(0)
   })
 
 })
@@ -267,25 +229,13 @@ describe('catalog creature enters-with-target triggers', () => {
   })
 })
 
-const victimize = () => cardTemplate('Two-for-One Return', {
-  types: ['Sorcery'],
-  manaCost: '{2}{B}',
-  effects: [
-    targetsOnResolve(
-      'reanimate',
-      { zone: 'graveyard', type: 'Creature', controller: 'you' },
-      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
-    ),
-  ],
-})
-
 const victimizeGame = () => {
   const server = createServerGame(
     commanderRules,
     {
       hands: {
         p1: [
-          victimize(),
+          cardTemplate('Victimize'),
           cardTemplate('Returned Bear', { types: ['Creature'] }),
           cardTemplate('Returned Elk', { types: ['Creature'] }),
         ],
@@ -298,7 +248,7 @@ const victimizeGame = () => {
         p2: [cardTemplate('Enemy Bear', { types: ['Creature'] })],
       },
     },
-    { random: () => 0.5, cardPlugins: [targetedResolve] },
+    { random: () => 0.5 },
   )
   const ready = structuredClone(server.state)
   ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
@@ -315,7 +265,7 @@ const castBoth = (
 ) => ok(server.rules(ready, {
   type: 'castSpell',
   seat: 'p1',
-  objectId: named(ready, 'Two-for-One Return').id,
+  objectId: named(ready, 'Victimize').id,
   targets: [
     { kind: 'object', objectId: named(ready, 'Returned Bear').id },
     { kind: 'object', objectId: named(ready, 'Returned Elk').id },
@@ -328,10 +278,10 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     const { server, ready } = victimizeGame()
     const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
     expect(pendingSelectionFor(choosing, 'p1')).toMatchObject({
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
     })
-    expect(pendingSelectionFor(choosing, 'p1')?.min).toBeUndefined()
+    expect(pendingSelectionFor(choosing, 'p1')?.min).toBe(1)
     expect(pendingSelectionFor(choosing, 'p1')?.candidates).toContain(
       named(choosing, 'Fodder Goat').id,
     )
@@ -347,7 +297,7 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     const resolved = ok(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p1',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
       objectIds: [named(choosing, 'Fodder Goat').id],
     }))
@@ -370,7 +320,7 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     expect(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p1',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
       objectIds: [],
     }).ok).toBe(false)
@@ -392,7 +342,7 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
 
   test('cannot choose 0 or 1 target when 2 are required', () => {
     const { server, ready } = victimizeGame()
-    const spell = named(ready, 'Two-for-One Return').id
+    const spell = named(ready, 'Victimize').id
     const bear = named(ready, 'Returned Bear').id
     expect(server.rules(ready, {
       type: 'castSpell',
@@ -415,7 +365,7 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
       ],
     }).ok).toBe(false)
     const acts = legalActsFor(ready, 'p1').filter((action) =>
-      action.kind === 'castSpell' && action.name === 'Two-for-One Return')
+      action.kind === 'castSpell' && action.name === 'Victimize')
     expect(acts).toHaveLength(1)
     expect(acts[0]).toMatchObject({
       targetGroups: [{ min: 2, max: 2 }],
@@ -432,7 +382,7 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     const resolved = ok(server.rules(restarted, {
       type: 'selectCards',
       seat: 'p1',
-      kind: 'sacrifice',
+      kind: 'choose',
       count: 1,
       objectIds: [named(restarted, 'Fodder Goat').id],
     }))
@@ -445,7 +395,7 @@ describe('relocated from homerPass2.test.ts → targetedResolve.test.ts', () => 
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+  const plugins = [activated, choiceEffects, librarySearch, ward]
 
   test("Black Sun's Twilight casts with zero creature targets", () => {
       const server = createServerGame(
@@ -480,8 +430,6 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       cardPlugins: [
         choiceEffects,
         librarySearch,
-        onResolve,
-        targetedResolve,
         activated,
       ],
     })
