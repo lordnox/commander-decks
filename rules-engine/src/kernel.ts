@@ -921,7 +921,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (pending && !pending.objects.some(ref => ref.objectId === object.id && ref.incarnation === object.incarnation)) {
         pending.objects.push({ objectId: object.id, incarnation: object.incarnation, zone: object.zone })
       }
-      draft.move(object.id, 'graveyard')
+      // Milling is a semantic event, but the resulting zone change is still a
+      // normal move so graveyard replacements (for example Blightsteel
+      // Colossus) can apply to cards milled from a library.
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       draft.note(`${object.name} is milled`)
       return
     }
