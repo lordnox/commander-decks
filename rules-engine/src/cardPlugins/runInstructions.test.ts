@@ -3,20 +3,15 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { resolveStack } from '../testHelpers'
-import type { Plugin, ReduceResult, TargetRef } from '../types'
+import type { ReduceResult, TargetRef } from '../types'
 import {
   activate,
   discardCards,
-  drawAtNextUpkeep,
   gainLife,
-  onResolve,
-  type CardInstruction,
 } from './effects'
-import { choiceEffects } from './choiceEffects'
-import { onResolve as onResolvePlugin } from './onResolve'
 import { activated } from './activated'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import {
   card as dslCard,
   characteristic,
@@ -28,6 +23,7 @@ import {
   draw as dslDraw,
   gainLife as dslGainLife,
   ifThen,
+  may,
   loseLife as dslLoseLife,
   ref,
   select,
@@ -59,44 +55,11 @@ const canonicalSpell = (
   })]))),
 })
 
-const castLegacyDelaySpell = (
-  name: string,
-  instructions: CardInstruction[],
-  options: { cardPlugins?: Plugin[]; targets?: TargetRef[] } = {},
-) => {
-  const server = createServerGame(
-    commanderRules,
-    {
-      players: 2,
-      hands: { p1: [cardTemplate(name, {
-        types: ['Instant'], manaCost: '{0}', manaValue: 0, effects: [onResolve(...instructions)],
-      })] },
-      libraries: {
-        p1: [cardTemplate('Now'), cardTemplate('Later One'), cardTemplate('Later Two')],
-        p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
-      },
-    },
-    { random: () => 0.5, cardPlugins: [onResolvePlugin, ...options.cardPlugins ?? []] },
-  )
-  const withMana = {
-    ...server.state,
-    players: {
-      ...server.state.players,
-      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
-    },
-  }
-  const cast = ok(server.rules(withMana, {
-    type: 'castSpell', seat: 'p1', objectId: named(withMana, name).id,
-    ...(options.targets ? { targets: options.targets } : {}),
-  }))
-  return { server, resolved: ok(server.rules(cast, { type: 'resolveTop' })) }
-}
-
 /** Cast a free instant from p1's hand and resolve it, so its delayed trigger is registered. */
 const castDelaySpell = (
   name: string,
   instructions: Parameters<typeof spell>[0]['instructions'],
-  options: { cardPlugins?: Plugin[]; targets?: TargetRef[] } = {},
+  options: { targets?: TargetRef[] } = {},
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -110,7 +73,7 @@ const castDelaySpell = (
         p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
       },
     },
-    { random: () => 0.5, cardPlugins: [...options.cardPlugins ?? []] },
+    { random: () => 0.5 },
   )
   const withMana = {
     ...server.state,
@@ -415,7 +378,7 @@ describe('runInstructions', () => {
     expect(Object.values(state.objects).some((object) => object.owner === 'p1')).toBe(false)
   })
 
-  test('drawAtNextUpkeep draws on the next upkeep, which is the next player\'s', () => {
+  test("a delayed draw resolves on the next player's upkeep", () => {
     const { server, resolved } = castDelaySpell(
       'Delay Test',
       [dslDraw({ count: 1, targets: ref('controller') }), createDelayed({
@@ -437,7 +400,7 @@ describe('runInstructions', () => {
     expect(state.zoneOrder.p1.hand).toHaveLength(3)
   })
 
-  test('drawAtNextUpkeep for a target controller draws for that opponent', () => {
+  test('a delayed draw uses the captured target player', () => {
     const { server, resolved } = castDelaySpell(
       'Opponent Delay',
       [createDelayed({
@@ -458,36 +421,36 @@ describe('runInstructions', () => {
     expect(state.zoneOrder.p2.hand).toHaveLength(2)
   })
 
-  test('optional delayed draws open a may-draw dialog', () => {
-    const { server, resolved } = castLegacyDelaySpell(
+  test('an optional delayed draw can be accepted at the next upkeep', () => {
+    const { server, resolved } = castDelaySpell(
       'Optional Delay',
-      [drawAtNextUpkeep(1, 'you', true)],
-      { cardPlugins: [choiceEffects] },
+      [createDelayed({
+        condition: stepDelayed({ step: 'upkeep' }),
+        instructions: [may(dslDraw({ count: 1, targets: ref('controller') }))],
+      })],
     )
-    let state = ok(server.rules(nextUpkeep(server, resolved), { type: 'resolveTop' }))
-    expect(pendingDialog(state)).toMatchObject({ kind: 'may-draw', seat: 'p1', count: 1 })
-    state = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
+    const state = resolveStack(server.rules, nextUpkeep(server, resolved))
+    const optional = pendingOptionSelection(state, 'p1')!
+    expect(optional.optionalAction).toBeDefined()
+    const accepted = ok(server.rules(state, {
+      type: 'selectOption', seat: 'p1', selectionId: optional.id, optionId: optional.options[0]!.id,
     }))
-    expect(named(state, 'Now').zone).toBe('hand')
+    expect(named(accepted, 'Now').zone).toBe('hand')
   })
 
-  test('an optional delayed draw asks the opponent who was named as the drawer', () => {
-    const { server, resolved } = castLegacyDelaySpell(
+  test('the targeted player chooses whether to draw at the next upkeep', () => {
+    const { server, resolved } = castDelaySpell(
       'Optional Opponent Delay',
-      [drawAtNextUpkeep(1, 'targetController', true)],
-      { cardPlugins: [choiceEffects], targets: [{ kind: 'player', player: 'p2' }] },
+      [createDelayed({
+        condition: stepDelayed({ step: 'upkeep' }),
+        instructions: [may(dslDraw({ count: 1, targets: target(0) }), target(0))],
+      })],
+      { targets: [{ kind: 'player', player: 'p2' }] },
     )
-    const state = ok(server.rules(nextUpkeep(server, resolved), { type: 'resolveTop' }))
-
-    expect(pendingDialog(state)).toMatchObject({
-      kind: 'may-draw',
-      seat: 'p2',
-      source: 'Optional Opponent Delay',
-    })
+    const state = resolveStack(server.rules, nextUpkeep(server, resolved))
+    expect(pendingOptionSelection(state, 'p2')?.optionalAction).toBeDefined()
+    expect(pendingOptionSelection(state, 'p1')).toBeUndefined()
+    expect(state.stack[0]).toMatchObject({ name: 'Optional Opponent Delay', controller: 'p1' })
   })
 
 })
