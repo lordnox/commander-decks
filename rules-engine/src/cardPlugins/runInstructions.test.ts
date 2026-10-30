@@ -5,14 +5,10 @@ import { createServerGame } from '../runtime'
 import { resolveStack } from '../testHelpers'
 import type { Plugin, ReduceResult, TargetRef } from '../types'
 import {
-  branch,
   activate,
-  controllerLife,
   discardCards,
-  draw,
   drawAtNextUpkeep,
   gainLife,
-  loseLife,
   onResolve,
   type CardInstruction,
 } from './effects'
@@ -21,6 +17,25 @@ import { onResolve as onResolvePlugin } from './onResolve'
 import { activated } from './activated'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { pendingSelectionFor } from '../rules/selectCards'
+import {
+  card as dslCard,
+  characteristic,
+  compareAmount,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createDelayed,
+  discard as dslDiscard,
+  draw as dslDraw,
+  gainLife as dslGainLife,
+  ifThen,
+  loseLife as dslLoseLife,
+  ref,
+  select,
+  spell,
+  stepDelayed,
+  target,
+  players,
+} from './dsl/v1'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -30,8 +45,21 @@ const ok = (result: ReduceResult) => {
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-/** Cast a free instant from p1's hand and resolve it, so its delayed trigger is registered. */
-const castDelaySpell = (
+const canonicalSpell = (
+  name: string,
+  instructions: Parameters<typeof spell>[0]['instructions'],
+  options: { types?: string[]; targetPlayer?: boolean } = {},
+) => cardTemplate(name, {
+  types: options.types ?? ['Instant'],
+  manaCost: '{0}',
+  manaValue: 0,
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+    decisions: { targets: options.targetPlayer ? [select({ filter: players(), count: 1 })] : [] },
+    instructions: instructions ?? [],
+  })]))),
+})
+
+const castLegacyDelaySpell = (
   name: string,
   instructions: CardInstruction[],
   options: { cardPlugins?: Plugin[]; targets?: TargetRef[] } = {},
@@ -40,20 +68,49 @@ const castDelaySpell = (
     commanderRules,
     {
       players: 2,
-      hands: {
-        p1: [cardTemplate(name, {
-          types: ['Instant'],
-          manaCost: '{0}',
-          manaValue: 0,
-          effects: [onResolve(...instructions)],
-        })],
-      },
+      hands: { p1: [cardTemplate(name, {
+        types: ['Instant'], manaCost: '{0}', manaValue: 0, effects: [onResolve(...instructions)],
+      })] },
       libraries: {
         p1: [cardTemplate('Now'), cardTemplate('Later One'), cardTemplate('Later Two')],
         p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
       },
     },
     { random: () => 0.5, cardPlugins: [onResolvePlugin, ...options.cardPlugins ?? []] },
+  )
+  const withMana = {
+    ...server.state,
+    players: {
+      ...server.state.players,
+      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
+    },
+  }
+  const cast = ok(server.rules(withMana, {
+    type: 'castSpell', seat: 'p1', objectId: named(withMana, name).id,
+    ...(options.targets ? { targets: options.targets } : {}),
+  }))
+  return { server, resolved: ok(server.rules(cast, { type: 'resolveTop' })) }
+}
+
+/** Cast a free instant from p1's hand and resolve it, so its delayed trigger is registered. */
+const castDelaySpell = (
+  name: string,
+  instructions: Parameters<typeof spell>[0]['instructions'],
+  options: { cardPlugins?: Plugin[]; targets?: TargetRef[] } = {},
+) => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      players: 2,
+      hands: {
+        p1: [canonicalSpell(name, instructions, { targetPlayer: Boolean(options.targets) })],
+      },
+      libraries: {
+        p1: [cardTemplate('Now'), cardTemplate('Later One'), cardTemplate('Later Two')],
+        p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [...options.cardPlugins ?? []] },
   )
   const withMana = {
     ...server.state,
@@ -84,16 +141,11 @@ const nextUpkeep = (
 
 describe('runInstructions', () => {
   test('gainLife goes through the life event', () => {
-    const spell = cardTemplate('Life Test', {
-      types: ['Instant'],
-      manaCost: '{0}',
-      manaValue: 0,
-      effects: [onResolve(gainLife(3))],
-    })
+    const spell = canonicalSpell('Life Test', [dslGainLife({ amount: 3, targets: ref('controller') })])
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [spell] } },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     const withMana = {
       ...server.state,
@@ -113,18 +165,14 @@ describe('runInstructions', () => {
   })
 
   test('nested if dispatch shares the root buffer and preserves instruction order', () => {
-    const spell = cardTemplate('Nested Buffer Test', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      manaValue: 0,
-      effects: [
-        onResolve(
-          branch(controllerLife(1), [draw(1)]),
-          gainLife(1),
-          discardCards(1),
-        ),
-      ],
-    })
+    const spell = canonicalSpell('Nested Buffer Test', [
+      ifThen(
+        compareAmount(characteristic(ref('controller'), 'life', { information: 'current' }), 'gte', 1),
+        { then: [dslDraw({ count: 1, targets: ref('controller') })] },
+      ),
+      dslGainLife({ amount: 1, targets: ref('controller') }),
+      dslDiscard({ targets: ref('controller'), count: 1 }),
+    ], { types: ['Sorcery'] })
     const server = createServerGame(
       commanderRules,
       {
@@ -135,7 +183,7 @@ describe('runInstructions', () => {
           p2: [cardTemplate('Opponent Card')],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     const withMana = {
       ...server.state,
@@ -157,7 +205,7 @@ describe('runInstructions', () => {
     expect(resolved.stack[0]).toMatchObject({
       name: 'Nested Buffer Test',
     })
-    expect(resolved.resolution).toMatchObject({ kind: 'legacy', phase: 'waiting' })
+    expect(resolved.resolution).toMatchObject({ kind: 'canonicalSpell', phase: 'waiting' })
     const gainIndex = resolved.log.findIndex((line) => line.includes('gains 1 life'))
     const drawIndex = resolved.log.findIndex((line) => line === 'p1 draws a card')
     expect(gainIndex).toBeGreaterThanOrEqual(0)
@@ -175,35 +223,31 @@ describe('runInstructions', () => {
     expect(finished.resolution).toBeUndefined()
   })
 
-  test('all-pass legacy resolution retains its spell and defers SBAs across a choice', () => {
-    const spell = cardTemplate('Legacy Suspender', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      effects: [onResolve(
-        loseLife(41, 'controller'),
-        discardCards(1),
-        gainLife(42),
-      )],
-    })
+  test('all-pass canonical resolution retains its spell and defers SBAs across a choice', () => {
+    const spell = canonicalSpell('Suspended Resolution', [
+      dslLoseLife({ amount: 41, targets: ref('controller') }),
+      dslDiscard({ targets: ref('controller'), count: 1 }),
+      dslGainLife({ amount: 42, targets: ref('controller') }),
+    ], { types: ['Sorcery'] })
     const server = createServerGame(
       commanderRules,
       {
         players: 2,
         hands: { p1: [spell, cardTemplate('Legacy Fodder')] },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = ok(server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',
-      objectId: named(server.state, 'Legacy Suspender').id,
+      objectId: named(server.state, 'Suspended Resolution').id,
     }))
     for (let index = 0; index < state.playerOrder.length; index += 1) {
       state = ok(server.rules(state, { type: 'passPriority', seat: state.priority! }))
     }
 
-    expect(state.resolution).toMatchObject({ kind: 'legacy', phase: 'waiting' })
-    expect(named(state, 'Legacy Suspender').zone).toBe('stack')
+    expect(state.resolution).toMatchObject({ kind: 'canonicalSpell', phase: 'waiting' })
+    expect(named(state, 'Suspended Resolution').zone).toBe('stack')
     expect(state.players.p1).toMatchObject({ life: -1, lost: false })
     expect(server.rules(state, { type: 'resolveTop' }).ok).toBe(false)
 
@@ -215,16 +259,12 @@ describe('runInstructions', () => {
       objectIds: [named(state, 'Legacy Fodder').id],
     }))
     expect(state.players.p1).toMatchObject({ life: 41, lost: false })
-    expect(named(state, 'Legacy Suspender').zone).toBe('graveyard')
+    expect(named(state, 'Suspended Resolution').zone).toBe('graveyard')
     expect(state.resolution).toBeUndefined()
   })
 
   test('a suspended discard does not open an unrelated mana window', () => {
-    const spell = cardTemplate('Discard Gate', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      effects: [onResolve(discardCards(1))],
-    })
+    const spell = canonicalSpell('Discard Gate', [dslDiscard({ targets: ref('controller'), count: 1 })], { types: ['Sorcery'] })
     const server = createServerGame(
       commanderRules,
       {
@@ -232,7 +272,7 @@ describe('runInstructions', () => {
         hands: { p1: [spell, cardTemplate('Discard Fodder')] },
         battlefield: { p2: [cardTemplate('Mana Forest', { types: ['Land'], tapProduces: { G: 1 } })] },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -296,15 +336,14 @@ describe('runInstructions', () => {
   })
 
   test('a chooser concession skips its choice and resumes the independent spell', () => {
-    const spell = cardTemplate('Opponent Choice', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      effects: [onResolve(discardCards(1, 'target'), gainLife(2))],
-    })
+    const spell = canonicalSpell('Opponent Choice', [
+      dslDiscard({ targets: target(0), count: 1 }),
+      dslGainLife({ amount: 2, targets: ref('controller') }),
+    ], { types: ['Sorcery'], targetPlayer: true })
     const server = createServerGame(
       commanderRules,
       { players: 3, hands: { p1: [spell], p2: [cardTemplate('Opponent Fodder')] } },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -323,15 +362,14 @@ describe('runInstructions', () => {
   })
 
   test('an unrelated concession leaves another chooser and the resolution intact', () => {
-    const spell = cardTemplate('Independent Choice', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      effects: [onResolve(discardCards(1), gainLife(2))],
-    })
+    const spell = canonicalSpell('Independent Choice', [
+      dslDiscard({ targets: ref('controller'), count: 1 }),
+      dslGainLife({ amount: 2, targets: ref('controller') }),
+    ], { types: ['Sorcery'] })
     const server = createServerGame(
       commanderRules,
       { players: 3, hands: { p1: [spell, cardTemplate('Independent Fodder')] } },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -340,7 +378,7 @@ describe('runInstructions', () => {
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     state = ok(server.rules(state, { type: 'concede', seat: 'p2' }))
-    expect(state.resolution).toMatchObject({ kind: 'legacy', phase: 'waiting' })
+    expect(state.resolution).toMatchObject({ kind: 'canonicalSpell', phase: 'waiting' })
     expect(pendingSelectionFor(state, 'p1')).toBeDefined()
 
     state = ok(server.rules(state, {
@@ -355,15 +393,14 @@ describe('runInstructions', () => {
   })
 
   test('the controller may concede during its suspended resolution', () => {
-    const spell = cardTemplate('Abandoned Choice', {
-      types: ['Sorcery'],
-      manaCost: '{0}',
-      effects: [onResolve(discardCards(1), gainLife(2))],
-    })
+    const spell = canonicalSpell('Abandoned Choice', [
+      dslDiscard({ targets: ref('controller'), count: 1 }),
+      dslGainLife({ amount: 2, targets: ref('controller') }),
+    ], { types: ['Sorcery'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [spell, cardTemplate('Abandoned Fodder')] } },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -381,7 +418,10 @@ describe('runInstructions', () => {
   test('drawAtNextUpkeep draws on the next upkeep, which is the next player\'s', () => {
     const { server, resolved } = castDelaySpell(
       'Delay Test',
-      [draw(1), drawAtNextUpkeep(2)],
+      [dslDraw({ count: 1, targets: ref('controller') }), createDelayed({
+        condition: stepDelayed({ step: 'upkeep' }),
+        instructions: [dslDraw({ count: 2, targets: ref('controller') })],
+      })],
     )
     expect(named(resolved, 'Now').zone).toBe('hand')
     expect(resolved.delayedTriggers).toHaveLength(1)
@@ -400,7 +440,10 @@ describe('runInstructions', () => {
   test('drawAtNextUpkeep for a target controller draws for that opponent', () => {
     const { server, resolved } = castDelaySpell(
       'Opponent Delay',
-      [drawAtNextUpkeep(2, 'targetController')],
+      [createDelayed({
+        condition: stepDelayed({ step: 'upkeep' }),
+        instructions: [dslDraw({ count: 2, targets: target(0) })],
+      })],
       { targets: [{ kind: 'player', player: 'p2' }] },
     )
     const upkeep = nextUpkeep(server, resolved)
@@ -416,7 +459,7 @@ describe('runInstructions', () => {
   })
 
   test('optional delayed draws open a may-draw dialog', () => {
-    const { server, resolved } = castDelaySpell(
+    const { server, resolved } = castLegacyDelaySpell(
       'Optional Delay',
       [drawAtNextUpkeep(1, 'you', true)],
       { cardPlugins: [choiceEffects] },
@@ -433,7 +476,7 @@ describe('runInstructions', () => {
   })
 
   test('an optional delayed draw asks the opponent who was named as the drawer', () => {
-    const { server, resolved } = castDelaySpell(
+    const { server, resolved } = castLegacyDelaySpell(
       'Optional Opponent Delay',
       [drawAtNextUpkeep(1, 'targetController', true)],
       { cardPlugins: [choiceEffects], targets: [{ kind: 'player', player: 'p2' }] },

@@ -8,15 +8,27 @@ import {
   loseLifeTargetPlayer,
   secondCardDrawn,
   triggerOn,
-  yourFirstMain,
 } from '../cardPlugins/effects'
 import { pendingPlayerSelectionFor } from './selectPlayers'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  gainLife as dslGainLife,
+  ref,
+  stepBegins,
+  whenever,
+} from '../cardPlugins/dsl/v1'
 
 const land = (name: string) => cardTemplate(name, { types: ['Land'] })
 
 const firstMainBeacon = (name: string) => cardTemplate(name, {
   types: ['Enchantment'],
-  effects: [yourFirstMain(gainLife(3))],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(stepBegins({ step: 'precombatMain', player: ref('controller') }), {
+      instructions: [dslGainLife({ amount: 3, targets: ref('controller') })],
+    }),
+  ]))),
 })
 
 describe('landToGraveyard triggers', () => {
@@ -168,10 +180,7 @@ describe('first-main triggers', () => {
   test('does not fire when leaving precombatMain', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {
-        p1: [cardTemplate('First Main Beacon', {
-          types: ['Enchantment'],
-          effects: [yourFirstMain(gainLife(3))],
-        })],
+        p1: [firstMainBeacon('First Main Beacon')],
       },
       players: 2,
     })

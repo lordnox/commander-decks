@@ -1,4 +1,3 @@
-import { effectsOf } from '../cardPlugins/cardRules'
 import { composeUnlockedDoorPrograms } from '../cardPlugins/dsl/roomDoors'
 import type {
   GameObject,
@@ -34,7 +33,7 @@ export const asRoomDoor = (
 ): GameObject | undefined => {
   const characteristics = roomDoor(object, door)
   if (!characteristics) return undefined
-  return { ...object, ...characteristics, effects: effectsOf(characteristics) }
+  return { ...object, ...characteristics }
 }
 
 /** CR 709.5: locked Room halves lose their name, mana cost, and rules text. */
@@ -51,7 +50,6 @@ export const applyRoomDoors = (object: GameObject, doors: RoomDoorId[]) => {
   object.colors = normalizeColorSet(unique(characteristics.flatMap((door) => [...door.colors])))
   object.oracleText = characteristics.map((door) => door.oracleText).join(' // ')
   object.grantedRules = unique(characteristics.flatMap((door) => door.grantedRules ?? []))
-  object.effects = characteristics.flatMap((door) => effectsOf(door))
   if (object.zone === 'battlefield') composeUnlockedDoorPrograms(object, doors)
   else delete object.ruleDefinition
 }

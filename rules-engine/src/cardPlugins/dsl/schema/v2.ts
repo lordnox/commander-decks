@@ -63,7 +63,7 @@ export type PlayerFilter = {
 }
 
 export type ContextBinding =
-  | 'source'
+  | typeof SOURCE_CONTEXT_BINDING
   | 'subject'
   | 'controller'
   | 'event.player'
@@ -76,6 +76,8 @@ export type ContextBinding =
   | 'triggering.object.controller'
   | 'grant.source'
   | 'enchanted.player'
+
+export const SOURCE_CONTEXT_BINDING = 'source' as const
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export const MANA_QUERY_BASIS = { production: 'production', colors: 'colors' } as const
@@ -265,7 +267,7 @@ export type OccurrencePattern =
   | { kind: 'abilityActivated'; filter: PlayerSelector }
   | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
-  | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
+  | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cast'; filter: ObjectOccurrenceFilter; nthThisTurn?: number }
   | { kind: 'becomesTapped' | 'tappedForMana'; filter: ObjectOccurrenceFilter }

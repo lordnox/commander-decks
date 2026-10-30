@@ -50,7 +50,7 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { objectMatchesSelector, evaluateRuntimeAmount, evaluateObjectSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
-import type { CardRuleDefinitionSnapshotV2, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, PlayerOccurrenceFilter, PlayerReference, PlayerSelector, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
+import { SOURCE_CONTEXT_BINDING, type CardRuleDefinitionSnapshotV2, type ObjectFilter, type ObjectOccurrenceFilter, type ObjectReference, type OccurrencePattern, type PlayerOccurrenceFilter, type PlayerReference, type PlayerSelector, type TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v2'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
@@ -212,6 +212,20 @@ const triggerExecution = (
   occurrence,
 })
 
+export const movedSourceReferenceMatchesOccurrence = (
+  filter: ObjectReference,
+  source: Pick<GameObject, 'id' | 'incarnation'>,
+  object: Pick<GameObject, 'id' | 'incarnation'>,
+  occurrence: Pick<OccurrenceSnapshot, 'eventType' | 'object'>,
+) => filter.kind === 'contextRef'
+  && filter.name === SOURCE_CONTEXT_BINDING
+  && occurrence.eventType === 'move'
+  && source.id === object.id
+  && occurrence.object?.before?.id === source.id
+  && occurrence.object.before.incarnation === source.incarnation
+  && occurrence.object.after?.id === object.id
+  && occurrence.object.after.incarnation === object.incarnation
+
 const canonicalFilterMatch = (
   state: GameState,
   source: GameObject,
@@ -239,7 +253,9 @@ const canonicalFilterMatch = (
   const context = { state, controller: source.controller, source: captureObject(source), occurrence, ...lexicalContext }
   if ('kind' in filter) {
     const referenced = evaluateObjectReference(filter, context, 'currentOrLastKnown')
-    return referenced.some((candidate) => candidate.id === object.id && candidate.incarnation === object.incarnation)
+    const isMovedSourceReference = movedSourceReferenceMatchesOccurrence(filter, source, object, occurrence)
+    return referenced.some((candidate) => candidate.id === object.id
+      && (candidate.incarnation === object.incarnation || isMovedSourceReference))
   }
   if ('all' in filter && filter.all && !filter.all.every((part) =>
     canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
@@ -249,6 +265,7 @@ const canonicalFilterMatch = (
   const plain = filter as ObjectFilter
   if (!objectMatchesSelector(object, { kind: 'objects', filter: {
     ...(plain.commander !== undefined ? { commander: plain.commander } : {}),
+    ...(plain.color !== undefined ? { color: plain.color } : {}),
     ...(plain.manaAbility !== undefined ? { manaAbility: plain.manaAbility } : {}),
     ...(plain.enchantedBy ? { enchantedBy: plain.enchantedBy } : {}),
     ...(plain.subtypes ? { subtypes: plain.subtypes } : {}),
@@ -370,6 +387,10 @@ const canonicalPatternMatches = (
     if (event.type !== pattern.kind || !occurrence.player) return false
     if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
       || occurrence.object.before.controller !== occurrence.player)) return false
+    if (pattern.kind === 'discard' && pattern.filter.object) {
+      const discarded = occurrence.object?.before
+      if (!discarded || !canonicalFilterMatch(beforeState, source, discarded, pattern.filter.object, occurrence)) return false
+    }
     if (pattern.kind === 'cycle' && pattern.filter.object) {
       const object = occurrence.object?.after
       if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence)) return false
@@ -503,6 +524,10 @@ const generatedPatternMatches = (
       if (event.type !== pattern.kind || !occurrence.player) return false
       if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
         || occurrence.object.before.controller !== occurrence.player)) return false
+      if (pattern.kind === 'discard' && pattern.filter.object) {
+        const discarded = occurrence.object?.before
+        if (!discarded || !canonicalFilterMatch(beforeState, source, discarded, pattern.filter.object, occurrence, execution)) return false
+      }
       if (pattern.kind === 'cycle' && pattern.filter.object) {
         const object = occurrence.object?.after
         if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence, execution)) return false
@@ -860,7 +885,19 @@ const canonicalTriggersForOccurrence = (
     if (!sourceStaticAbilitiesActive(source) || !definitionSnapshot) continue
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
-      if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
+      if (candidate.kind !== 'triggered') return
+      const sourceAfterEvent = draft.objects[source.id]
+      const sourceMoved = event.type === 'move' && (!sourceAfterEvent || sourceAfterEvent.zone !== source.zone)
+      const usesLastKnownSource = sourceMoved && (candidate.on.kind === 'dies'
+        || candidate.on.kind === 'leaves'
+        || candidate.on.kind === 'sacrificed'
+        || (candidate.on.kind === 'moved' && sourceMovedUsesLastKnownInformation(
+          candidate.on, state.objects[source.id], sourceAfterEvent,
+        )))
+      const activeZones = usesLastKnownSource
+        ? [source.zone]
+        : sourceAfterEvent ? [sourceAfterEvent.zone] : []
+      if (!activeZones.some(zone => candidate.activeIn.includes(zone))) return
       occurrenceSpecsForPattern(candidate.on, event, state, draft).forEach(spec => {
         let occurrence = capturedOccurrence(
           state,
@@ -939,6 +976,18 @@ const canonicalTriggersForOccurrence = (
     })
   }
   canonicalGrantedTriggersForOccurrence(state, draft, event, matches)
+}
+
+const sourceMovedUsesLastKnownInformation = (
+  pattern: Extract<OccurrencePattern, { kind: 'moved' }>,
+  before: GameObject | undefined,
+  after: GameObject | undefined,
+) => {
+  if (!before || (after && after.zone === before.zone)) return false
+  if (before.zone === 'graveyard' && pattern.from?.includes('graveyard')) return true
+  if ((pattern.to === 'hand' || pattern.to === 'library')
+    && ['battlefield', 'stack', 'graveyard', 'exile', 'command'].includes(before.zone)) return true
+  return before.zone === 'battlefield' && pattern.from?.includes('battlefield')
 }
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
