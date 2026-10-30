@@ -4,15 +4,22 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import {
-  dies,
-  enters,
-  gainLife,
-  selfMill,
-  triggerOn,
-} from './effects'
+import { enters, selfMill } from './effects'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { deckCard } from './cirdanCreatureCards'
+import {
+  card as dslCard,
+  cardDiscarded,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  dies as dslDies,
+  gainLife as dslGainLife,
+  ref,
+  whenever,
+} from './dsl/v1'
+
+const definition = (abilities: Parameters<typeof dslCard>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(dslCard(abilities)))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -25,11 +32,15 @@ describe('dies triggers', () => {
         players: 2,
         libraries: { p1: [cardTemplate('Milled Bear', {
           types: ['Creature'],
-          effects: [dies(gainLife(5))],
+          ruleDefinition: definition([whenever(dslDies({ filter: ref('self') }), {
+            instructions: [dslGainLife({ targets: ref('controller'), amount: 5 })],
+          })]),
         })] },
         hands: { p1: [cardTemplate('Discarded Bear', {
           types: ['Creature'],
-          effects: [dies(gainLife(5))],
+          ruleDefinition: definition([whenever(dslDies({ filter: ref('self') }), {
+            instructions: [dslGainLife({ targets: ref('controller'), amount: 5 })],
+          })]),
         })] },
       },
       { random: () => 0.5 },
@@ -67,7 +78,9 @@ describe('relocated from cirdanColossi.test.ts → shuffleIntoLibraryInstead.tes
   /** An enchantment that gains life when a card is discarded, to show the discard still happened. */
   const watcher = () => cardTemplate('Graveyard Watcher', {
     types: ['Enchantment'],
-    effects: [triggerOn('discard', { do: [gainLife(1)] })],
+    ruleDefinition: definition([whenever(cardDiscarded(), {
+      instructions: [dslGainLife({ targets: ref('controller'), amount: 1 })],
+    })]),
   })
 
   const attack = (server: ReturnType<typeof game>, state: GameState) => {
