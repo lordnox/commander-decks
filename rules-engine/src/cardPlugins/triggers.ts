@@ -261,28 +261,3 @@ export const yourUpkeepIf = (
   if: condition,
 })
 
-type CastFilters = TriggerOptions & {
-  creatureOnly?: boolean
-  noncreatureOnly?: boolean
-  castBy?: 'opponent'
-}
-
-const castFilters = (options: CastFilters = {}): TriggerOptions => ({
-  ...options,
-  player: options.player ?? (options.castBy === 'opponent' ? 'opponent' : 'you'),
-  filter: {
-    ...(options.creatureOnly ? { type: 'Creature' } : {}),
-    ...(options.noncreatureOnly ? { noncreature: true } : {}),
-    ...options.filter,
-  },
-})
-
-/** Accept options first, or the legacy options-last form. */
-export const casts = (...args: Array<CardInstruction | CastFilters>): CardEffect => {
-  const first = args[0]
-  const last = args.at(-1)
-  const options = first && !('kind' in first)
-    ? args.shift() as CastFilters
-    : last && !('kind' in last) ? args.pop() as CastFilters : {}
-  return trigger('cast', castFilters(options), ...args as CardInstruction[])
-}

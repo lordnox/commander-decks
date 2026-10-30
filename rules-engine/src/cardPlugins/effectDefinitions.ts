@@ -597,7 +597,6 @@ export type CardEffect =
         | 'upkeep'
         | 'precombatMain'
         | 'beginCombat'
-        | 'cast'
         | 'discard'
         | 'cycle'
         | 'draw'
@@ -627,11 +626,6 @@ export type CardEffect =
       if?: CardCondition | TriggerBindingIf
       /** Active source type checked only when detecting the trigger, never on resolution. */
       sourceTypeAtTrigger?: string
-      creatureOnly?: boolean
-      /** A `cast` trigger only fires for noncreature spells. */
-      noncreatureOnly?: boolean
-      /** Whose casts fire a `cast` trigger; by default only the permanent's controller's. */
-      castBy?: 'opponent'
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
         /** Fewest targets; defaults to `max`, so `0` makes "up to N" a "you may". */

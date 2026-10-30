@@ -58,10 +58,6 @@ export const matchesTriggerEvent = (
   const { watched, player, fromZone, event } = context
   if (source.phasedOut) return false
   if (effect.sourceTypeAtTrigger && !source.types.includes(effect.sourceTypeAtTrigger)) return false
-  if (effect.on === 'cast' && !effect.player
-    && (effect.castBy === 'opponent') === (player === source.controller)) return false
-  if (effect.creatureOnly && !watched?.types.includes('Creature')) return false
-  if (effect.noncreatureOnly && watched?.types.includes('Creature')) return false
   if (effect.player) {
     const filter = typeof effect.player === 'string' ? { relation: effect.player } : effect.player
     if (!player || !matchesPlayerFilter(state, player, source.controller, filter)) return false

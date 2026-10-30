@@ -1397,21 +1397,6 @@ const collectDiscardDraw = (
   }
 }
 
-const collectCasts = (
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'castSpell') return
-  const spell = draft.object(event.objectId)
-  if (!spell || spell.zone !== 'stack') return
-  for (const source of draft.zoneOf('battlefield')) {
-    collectEffects(source, 'cast', draft, matches, 1, {
-      triggeringObjectId: spell.id, triggeringPlayer: event.seat, watched: spell,
-    }, event)
-  }
-}
-
 const eventObjectId = (event: GameEvent) => {
   if (event.type === 'tokenCreated') return event.object.id
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
@@ -1566,7 +1551,6 @@ const collectEventTriggers = (
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(state, draft, event, matches)
-  collectCasts(draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)
