@@ -119,11 +119,8 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:52 — test('a copy token template does not copy legacy effect programs', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:27 — test('a temporary copy ignores legacy effects and restores the previous effect snapshot', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "canonical static effect or ability grant",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -133,7 +130,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "targetedResolve",
@@ -221,7 +218,7 @@
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:30",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:39",
           "rules-engine/src/cardPlugins/dsl/activationCostReduction.test.ts:119 — test('a tap mana ability also receives the continuous land discount', () => {",
-          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:22",
+          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:23",
           "rules-engine/src/cardPlugins/dsl/activationWhen.test.ts:76 — test('a land-count mana ability needs five controlled lands', () => {"
         ]
       },
@@ -1172,7 +1169,7 @@
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:487 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:138 — test('targeted draw and life loss resolve once for the chosen player', () => {",
-          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:28",
+          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:29",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:91 — test('negation is restricted to stat deltas and validates its operand bindings', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:53 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
@@ -3840,8 +3837,8 @@
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:64 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:123 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:199 — test('canonical copy abilities are clone-safe', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:124 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:200 — test('canonical copy abilities are clone-safe', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:365 — test('activated sacrifice of the source rejects another creature as the cost choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:24 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:17 — test('entry lands compose conditional replacement, reveal choice, and untapped-entry programs', () => {",
@@ -4020,8 +4017,8 @@
           "rules-engine/src/cardPlugins/permanentControl.test.ts:177 — test('rest-of-game control survives the source leaving the game', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:219 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:93 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:110 — test('an until-end-of-turn effect created later in cleanup waits for the next cleanup', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:128 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {"
+          "rules-engine/src/cardPlugins/untilEot.test.ts:115 — test('an until-end-of-turn effect created later in cleanup waits for the next cleanup', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:133 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4708,10 +4705,10 @@
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
           "live-runner/src/kernelHost.test.ts:3394 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:246 — test('channel pays the legendary discount, validates targets, and completes Boseiju search', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:112 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:156 — test('stamped creature filter copies power and toughness', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:187 — test('rejects targets outside the stamped filter', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:241 — test('host restart preserves an open copy target selection', () => {"
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:113 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:157 — test('stamped creature filter copies power and toughness', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:188 — test('rejects targets outside the stamped filter', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:247 — test('host restart preserves an open copy target selection', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4893,10 +4890,10 @@
         "matches": 17,
         "samples": [
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:271 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:234 — test('an earlier duration ending does not overwrite a later control effect', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:34 — test('a temporary copy ignores legacy effects and restores the previous effect snapshot', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:57 — test('cleanup reverts a land animation while retaining its original type', () => {",
-          "rules-engine/src/cardPlugins/untilEot.test.ts:86 — test('cleanup reverts a temporary pump', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:239 — test('an earlier duration ending does not overwrite a later control effect', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:39 — test('a temporary copy restores the previous canonical rule definition', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:62 — test('cleanup reverts a land animation while retaining its original type', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:91 — test('cleanup reverts a temporary pump', () => {",
           "rules-engine/src/plugins/combat.test.ts:123 — test('a combat nobody joined skips blockers and damage', () => {",
           "rules-engine/src/plugins/combat.test.ts:137 — test('a first striker keeps its own damage step', () => {",
           "rules-engine/src/plugins/combat.test.ts:92 — test('entering the combat damage step assigns damage without being asked', () => {"
@@ -5534,14 +5531,13 @@
         "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts — token-carried triggered abilities > accepting mills one card"
       ],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:31 — test('a clone token enters untapped rather than with an undefined tap state', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:38 — test('a copy that asks to be tapped enters tapped', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:45 — test('a copy carries the colors and mana value answers key off', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:5",
-          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:57 — test('a copy token template does not copy legacy effect programs', () => {",
-          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:69 — test('a planeswalker copy starts at its printed loyalty', () => {"
+          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:56 — test('a planeswalker copy starts at its printed loyalty', () => {"
         ]
       },
       "neededCanonicalNode": "token definition reference with pinned canonical abilities",
@@ -5579,23 +5575,23 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1451"
+        "rules-engine/src/types.ts:1450"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts — becomeCopyOfTarget > stamped creature filter copies power and toughness"
       ],
       "candidateEvidence": {
-        "matches": 17,
+        "matches": 16,
         "samples": [
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:251 — test('host restart preserves an open copy target selection', () => {",
-          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:87",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:257 — test('host restart preserves an open copy target selection', () => {",
+          "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:88",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:31 — test('a clone token enters untapped rather than with an undefined tap state', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:38 — test('a copy that asks to be tapped enters tapped', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:45 — test('a copy carries the colors and mana value answers key off', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:5",
-          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:57 — test('a copy token template does not copy legacy effect programs', () => {",
-          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:69 — test('a planeswalker copy starts at its printed loyalty', () => {"
+          "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:56 — test('a planeswalker copy starts at its printed loyalty', () => {",
+          "rules-engine/src/cardPlugins/demonstrate.test.ts:110 — test('the caster may decline to copy the spell', () => {"
         ]
       },
       "neededCanonicalNode": "copy action preserving pinned definition revision, modes, X, and target bindings",
@@ -5696,9 +5692,9 @@
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
         "rules-engine/src/rules/triggers.ts:1536",
-        "rules-engine/src/types.ts:317",
-        "rules-engine/src/types.ts:319",
-        "rules-engine/src/types.ts:323"
+        "rules-engine/src/types.ts:316",
+        "rules-engine/src/types.ts:318",
+        "rules-engine/src/types.ts:322"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5730,15 +5726,15 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/continuousEffects.ts:153",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:162",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:151",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:160",
         "rules-engine/src/cardPlugins/continuousEffects.ts:33",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:453",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:479",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:451",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:477",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:505",
         "rules-engine/src/cardPlugins/continuousEffects.ts:507",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:509",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:52",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:546",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:51",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:544",
         "rules-engine/src/cardPlugins/effectRuntime.ts:254",
         "rules-engine/src/cardPlugins/effectRuntime.ts:531",
         "rules-engine/src/cardPlugins/effectRuntime.ts:97",
@@ -5756,10 +5752,10 @@
         "rules-engine/src/plugins/rooms.ts:89",
         "rules-engine/src/plugins/rooms.ts:93",
         "rules-engine/src/plugins/spells.ts:430",
-        "rules-engine/src/types.ts:119",
-        "rules-engine/src/types.ts:150",
-        "rules-engine/src/types.ts:278",
-        "rules-engine/src/types.ts:342",
+        "rules-engine/src/types.ts:118",
+        "rules-engine/src/types.ts:149",
+        "rules-engine/src/types.ts:277",
+        "rules-engine/src/types.ts:341",
         "rules-engine/src/types.ts:75",
         "rules-engine/src/types.ts:92"
       ],
@@ -6247,14 +6243,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          688,
-          689,
-          691
+          686,
+          687,
+          689
         ],
         "samples": [
-          "688: const endTurnEffects = event.type === 'custom'",
-          "689: && event.name === 'advanceStep'",
-          "691: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "686: const endTurnEffects = event.type === 'custom'",
+          "687: && event.name === 'advanceStep'",
+          "689: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
