@@ -10,7 +10,6 @@ import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/permanentEntry'
 import {
-  conditionHolds,
   runInstructions,
   triggerEffects,
   type CardEffect,
@@ -1003,12 +1002,6 @@ const sourceMovedUsesLastKnownInformation = (
   return before.zone === 'battlefield' && pattern.from?.includes('battlefield')
 }
 
-/** Landfall listens to land drops and zone moves, not ability resolution. */
-const landEnteringObjectId = (event: GameEvent, state: GameState) => {
-  if (event.type === 'resolveTop' || event.type === 'playLand') return null
-  return enteringObjectId(event, state)
-}
-
 /**
  * Enters listens to the same entry paths as the permanent-entry helper, but
  * `resolveTop` must not reuse the source permanent as an entering object.
@@ -1136,28 +1129,6 @@ const apnapOrder = (draft: Draft, matches: PendingTrigger[]): PendingTrigger[] =
     if (bucket) ordered.push(...bucket)
   }
   return ordered
-}
-
-const collectLandfall = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  const objectId = landEnteringObjectId(event, state)
-  if (!objectId) return
-  const land = draft.object(objectId)
-  if (!land || land.zone !== 'battlefield' || !land.types.includes('Land')) return
-
-  for (const source of draft.zoneOf('battlefield', land.controller)) {
-    collectEffects(
-      source,
-      'landfall',
-      draft,
-      matches,
-      1,
-    )
-  }
 }
 
 const collectBecomesMonstrous = (
@@ -1350,30 +1321,6 @@ const collectMoveTriggers = (
   if (event.type !== 'move') return
   const before = state.objects[event.objectId]
   if (!before) return
-
-  if (event.to === 'graveyard' && before.types.includes('Land')) {
-    const fromLibrary = before.zone === 'library'
-    const owner = draft.players[before.owner]
-    const firstThisTurn = owner.data[LAND_TO_GRAVEYARD_TURN] !== draft.turn
-    for (const source of draft.zoneOf('battlefield', before.owner)) {
-      const catalog = effectsOf(source)
-      for (const effect of triggerEffects(catalog, 'landToGraveyard')) {
-        if (
-          effect.if
-          && !isTriggerBindingIf(effect.if)
-          && !conditionHolds(effect.if, state, source)
-        ) continue
-        const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
-        if (milledLand && !fromLibrary) continue
-        if (effect.firstTimeEachTurn && !firstThisTurn) continue
-        if (!passesOnceEachTurn(source, effect, catalog, draft.turn)) continue
-        pushCopies(matches, source, effect, 1, {
-          triggeringObjectId: event.objectId,
-          triggerEffectKey: triggerEffectKey(catalog, effect),
-        })
-      }
-    }
-  }
 
   const after = draft.object(before.id)
   if (!after || after.zone === before.zone) return
@@ -1610,7 +1557,6 @@ const collectEventTriggers = (
   event: GameEvent,
 ): PendingTrigger[] => {
   const matches: PendingTrigger[] = []
-  collectLandfall(state, draft, event, matches)
   collectEnters(state, draft, event, matches)
   collectBecomesMonstrous(state, event, matches)
   collectAttacks(state, event, matches)

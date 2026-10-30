@@ -176,29 +176,6 @@ export const draws = (options: TriggerOptions, ...instructions: CardInstruction[
 export const discards = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
   trigger('discard', { player: 'you', ...options }, ...instructions)
 
-export const landfall = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'landfall',
-  do: instructions,
-})
-
-export const landfallOnceEachTurn = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'landfall',
-  do: instructions,
-  onceEachTurn: true,
-})
-
-export const landfallTargeting = (
-  targets: Extract<CardEffect, { op: 'trigger' }>['targets'],
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'landfall',
-  targets,
-  do: instructions,
-})
-
 /** "Whenever players finish voting", for any vote at the table. */
 export const onVotesFinished = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
@@ -236,19 +213,6 @@ export const permanentSacrificed = (
   watch: TargetFilter,
   ...instructions: CardInstruction[]
 ): CardEffect => trigger('permanentSacrificed', { filter: watch }, ...instructions)
-
-export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'landToGraveyard',
-  do: instructions,
-})
-
-export const landToGraveyardOnce = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'landToGraveyard',
-  do: instructions,
-  firstTimeEachTurn: true,
-})
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
