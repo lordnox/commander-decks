@@ -687,11 +687,6 @@ export type CardEffect =
       min?: number
       max?: number
     }
-  | {
-      op: 'static'
-      pluginId?: string
-      /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
-    }
   | { op: 'handler'; pluginId: string }
   | {
       op: 'alternateCast'

@@ -1,5 +1,5 @@
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardPlugins/dsl/cardRuleCatalog'
-import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
+import { serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults, setEntryLoyalty } from './definitions'
 import { emptyMana } from './draft'
 import { applyFace } from './plugins/doubleFaced'
@@ -154,7 +154,6 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       grantedRules: [...new Set([
         ...defaultObject().grantedRules,
         ...(template.grantedRules ?? []),
-        ...pluginIdsFromEffects(effects),
       ])],
       effects,
       ...(ruleDefinition ? { ruleDefinition } : {}),

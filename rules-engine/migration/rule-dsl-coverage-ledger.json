@@ -20,7 +20,7 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 7,
+    "cardEffects": 6,
     "cardInstructions": 175,
     "instructionHandlersDiscovered": 175,
     "builtInPlugins": 57,
@@ -110,25 +110,6 @@
       "dependencyParts": [
         "03",
         "05"
-      ],
-      "status": "unobserved"
-    },
-    {
-      "variant": "static",
-      "mechanic": "static/granted rule",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical static effect or ability grant",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "13",
-      "dependencyParts": [
-        "02",
-        "07",
-        "10"
       ],
       "status": "unobserved"
     },
@@ -5649,9 +5630,9 @@
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:51",
         "rules-engine/src/cards/zanarkand-ancient-metropolis.ts:61",
         "rules-engine/src/driver.ts:1616",
+        "rules-engine/src/newGame.ts:163",
         "rules-engine/src/newGame.ts:164",
-        "rules-engine/src/newGame.ts:165",
-        "rules-engine/src/newGame.ts:167",
+        "rules-engine/src/newGame.ts:166",
         "rules-engine/src/newGame.ts:39",
         "rules-engine/src/newGame.ts:40",
         "rules-engine/src/newGame.ts:41",
@@ -5745,8 +5726,8 @@
         "rules-engine/src/newGame.ts:154",
         "rules-engine/src/newGame.ts:155",
         "rules-engine/src/newGame.ts:156",
-        "rules-engine/src/newGame.ts:204",
-        "rules-engine/src/newGame.ts:301",
+        "rules-engine/src/newGame.ts:203",
+        "rules-engine/src/newGame.ts:300",
         "rules-engine/src/plugins/rooms.ts:52",
         "rules-engine/src/plugins/rooms.ts:70",
         "rules-engine/src/plugins/rooms.ts:87",

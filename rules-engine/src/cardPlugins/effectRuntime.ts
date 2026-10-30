@@ -574,7 +574,3 @@ export const triggerEffects = (
 ) =>
   effects.filter((effect): effect is Extract<CardEffect, { op: 'trigger' }> =>
     effect.op === 'trigger' && effect.on === on)
-
-export const pluginIdsFromEffects = (effects: CardEffect[]) =>
-  effects.flatMap((effect) =>
-    effect.op === 'static' && effect.pluginId ? [effect.pluginId] : [])
