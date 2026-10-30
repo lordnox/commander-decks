@@ -55,10 +55,6 @@ import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
-  destroyThenTokenForController,
-  entersTarget,
-  entersTargetingUpTo,
-  ifYouDoExileFromGraveyard,
   targetOnResolve,
   targetsOnResolve,
 } from '../../rules-engine/src/cardPlugins/effects'
@@ -102,6 +98,9 @@ import {
   chooseInstructions as dslChooseInstructions,
   choice as dslChoice,
   chooseCards as dslChooseCards,
+  compareAmount as dslCompareAmount,
+  count as dslCount,
+  createToken as dslCreateToken,
   spell as dslSpell,
   delve as dslDelve,
   select as dslSelect,
@@ -111,6 +110,9 @@ import {
   discardCost,
   discardHands as dslDiscardHands,
   draw as dslDraw,
+  destroy as dslDestroyInstruction,
+  forEach as dslForEach,
+  ifThen as dslIfThen,
   offerCast as dslOfferCast,
   forEachPlayer as dslForEachPlayer,
   players as dslPlayers,
@@ -120,7 +122,9 @@ import {
   move as dslMove,
   objects as dslObjects,
   payOptional,
+  self as dslSelf,
   ref as dslRef,
+  target as dslTargetRef,
   sacrificeCost,
   vote as dslVote,
   compileCardRuleDefinition,
@@ -128,6 +132,7 @@ import {
   objects,
   ref,
   staticAbility,
+  whenever as dslWhenever,
   ward as wardClause,
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
@@ -3393,12 +3398,17 @@ describe('if-you-do resolution choices', () => {
           p1: [
             cardTemplate('Changeling Scrubber', {
               types: ['Creature'],
-              effects: [
-                entersTarget(
-                  { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
-                  ifYouDoExileFromGraveyard({ type: 'Creature' }),
-                ),
-              ],
+              ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+                dslWhenever(dslSelf.enters, {
+                  decisions: { targets: [dslSelect({ filter: dslObjects({ zone: 'battlefield', controller: 'opponent', any: [{ type: 'Artifact' }, { type: 'Enchantment' }] }), count: 1 })] },
+                  instructions: [
+                    dslChooseCards({ chooser: dslRef('controller'), bindChoice: 'yard', filter: dslObjects({ zone: 'graveyard', owner: 'you', type: 'Creature' }), min: 0, max: 1 }),
+                    dslIfThen(dslCompareAmount(dslCount(dslObjects({ among: dslChoice('yard') })), 'gte', 1), {
+                      then: [dslMove({ targets: dslChoice('yard'), to: 'exile' }), dslMove({ targets: dslTargetRef(0), to: 'exile' })],
+                    }),
+                  ],
+                }),
+              ]))),
             }),
             cardTemplate('Yard Beast', { types: ['Creature'] }),
           ],
@@ -3616,20 +3626,18 @@ describe('up-to-N trigger targets live choice', () => {
         hands: {
           p1: [cardTemplate('Fixture Destroyer', {
             types: ['Creature'],
-            effects: [
-              entersTargetingUpTo(
-                3,
-                { zone: 'battlefield', permanent: true, noncreature: true },
-                destroyThenTokenForController({
-                  name: 'Elephant',
-                  types: ['Creature'],
-                  subtypes: ['Elephant'],
-                  colors: 'G',
-                  power: 3,
-                  toughness: 3,
-                }),
-              ),
-            ],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+              dslWhenever(dslSelf.enters, {
+                decisions: { targets: [dslSelect({ filter: dslObjects({ zone: 'battlefield', not: { type: 'Creature' } }), min: 0, max: 3 })] },
+                instructions: [
+                  dslDestroyInstruction({ targets: dslTargetRef(0), bindChoice: 'destroyed' }),
+                  dslForEach({
+                    of: dslChoice('destroyed'),
+                    instructions: [dslCreateToken({ count: 1, targets: dslRef('event.player'), token: { name: 'Elephant', types: ['Creature'], subtypes: ['Elephant'], colors: 'G', power: 3, toughness: 3 } })],
+                  }),
+                ],
+              }),
+            ]))),
           })],
         },
         battlefield: {
