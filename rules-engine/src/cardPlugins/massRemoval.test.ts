@@ -4,7 +4,17 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { bounceAll, destroyAll, enters } from './effects'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  destroy,
+  enters,
+  move,
+  objects,
+  ref,
+  whenever,
+} from './dsl/v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -25,14 +35,21 @@ const enterBattlefield = (
   to: 'battlefield',
 })))
 
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
 const sweeper = () => cardTemplate('Sweeper Engine', {
   types: ['Artifact'],
-  effects: [enters(destroyAll({ nonland: true, other: true }))],
+  ruleDefinition: definition([whenever(enters({ filter: ref('self') }), {
+    instructions: [destroy({ targets: objects({ zone: 'battlefield', not: { type: 'Land' }, other: true }) })],
+  })]),
 })
 
 const tideEngine = () => cardTemplate('Tide Engine', {
   types: ['Creature'],
-  effects: [enters(bounceAll({ nonland: true, other: true }))],
+  ruleDefinition: definition([whenever(enters({ filter: ref('self') }), {
+    instructions: [move({ targets: objects({ zone: 'battlefield', not: { type: 'Land' }, other: true }), to: 'hand' })],
+  })]),
 })
 
 describe('destroyAll', () => {
@@ -63,7 +80,9 @@ describe('destroyAll', () => {
       hands: {
         p1: [cardTemplate('Self Sweeper', {
           types: ['Artifact'],
-          effects: [enters(destroyAll({ nonland: true }))],
+          ruleDefinition: definition([whenever(enters({ filter: ref('self') }), {
+            instructions: [destroy({ targets: objects({ zone: 'battlefield', not: { type: 'Land' } }) })],
+          })]),
         })],
       },
       battlefield: { p2: [creature('Theirs')] },
@@ -74,11 +93,14 @@ describe('destroyAll', () => {
   })
 
   test('the filter is clone-safe and honours controller', () => {
-    const instruction = destroyAll({ type: 'Creature', controller: 'opponent' })
+    const instruction = destroy({ targets: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }) })
+    const opposition = definition([whenever(enters({ filter: ref('self') }), {
+      instructions: [instruction],
+    })])
     expect(structuredClone(instruction)).toEqual(instruction)
     const server = createServerGame(commanderRules, {
       hands: {
-        p1: [cardTemplate('Opposition', { types: ['Artifact'], effects: [enters(instruction)] })],
+        p1: [cardTemplate('Opposition', { types: ['Artifact'], ruleDefinition: opposition })],
       },
       battlefield: { p1: [creature('Mine')], p2: [creature('Theirs')] },
     }, { random: () => 0.5 })

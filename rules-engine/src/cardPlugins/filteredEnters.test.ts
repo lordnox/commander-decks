@@ -3,7 +3,28 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { createTokenInstruction, enters, gainLife, type TargetFilter, type TokenSpec } from './effects'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createToken,
+  enters,
+  gainLife,
+  ref,
+  type ObjectFilter,
+  whenever,
+} from './dsl/v1'
+import { enters as legacyEnters, gainLife as legacyGainLife, type TokenSpec } from './effects'
+
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+const tokenMaker = (spec: TokenSpec) => cardTemplate('Maker', {
+  types: ['Artifact'],
+  ruleDefinition: definition([whenever(enters({ filter: ref('self') }), {
+    instructions: [createToken({ count: 1, targets: ref('controller'), token: { ...spec } })],
+  })]),
+})
 
 const whiteKnight: TokenSpec = {
   name: 'White Knight', types: ['Creature'], subtypes: ['Knight'], colors: 'W',
@@ -20,14 +41,14 @@ const scenarios: { name: string; token: boolean; seat: 'p1' | 'p2'; spec: TokenS
   { name: 'your white land token', token: true, seat: 'p1', spec: { ...whiteKnight, types: ['Land'] } },
 ]
 
-const filters: { name: string; filter: TargetFilter; matching: number[] }[] = [
-  { name: 'white creature tokens', filter: { colors: ['W'], type: 'Creature', token: true }, matching: [0, 1, 3, 4] },
+const filters: { name: string; filter: ObjectFilter; matching: number[] }[] = [
+  { name: 'white creature tokens', filter: { color: 'W', type: 'Creature', token: true }, matching: [0, 1, 3, 4] },
   { name: 'tokens under your control', filter: { token: true, controller: 'you' }, matching: [0, 2, 3, 4, 6, 7] },
   { name: 'Knight tokens', filter: { subtypes: ['Knight'], token: true }, matching: [0, 1, 2, 3, 6, 7] },
   { name: 'Knight creatures', filter: { type: 'Creature', subtypes: ['Knight'] }, matching: [0, 1, 2, 3, 5] },
-  { name: 'white nonland permanents', filter: { colors: ['W'], nonland: true }, matching: [0, 1, 3, 4, 5, 6] },
+  { name: 'white nonland permanents', filter: { color: 'W', not: { type: 'Land' } }, matching: [0, 1, 3, 4, 5, 6] },
   { name: 'your white Knight creature tokens', filter: {
-    colors: ['W'], type: 'Creature', subtypes: ['Knight'], token: true, controller: 'you',
+    color: 'W', type: 'Creature', subtypes: ['Knight'], token: true, controller: 'you',
   }, matching: [0, 3] },
 ]
 
@@ -36,14 +57,15 @@ describe('filtered enters', () => {
     scenarios.forEach((scenario, index) => {
       test(`${name}: ${scenario.name}`, () => {
         const entering = scenario.token
-          ? cardTemplate('Maker', {
-              types: ['Artifact'], effects: [enters(createTokenInstruction({ ...scenario.spec }))],
-            })
+          ? tokenMaker(scenario.spec)
           : cardTemplate(scenario.spec.name, { ...scenario.spec })
         const server = createServerGame(commanderRules, {
           players: 2,
           battlefield: { p1: [cardTemplate('Watcher', {
-            types: ['Enchantment'], effects: [enters({ filter }, gainLife(1))],
+            types: ['Enchantment'],
+            ruleDefinition: definition([whenever(enters({ filter }), {
+              instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+            })]),
           })] },
           hands: { [scenario.seat]: [entering] },
         }, { random: () => 0.5 })
@@ -60,10 +82,12 @@ describe('filtered enters', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [
         cardTemplate('Entry Watcher', {
-          types: ['Enchantment'], effects: [enters({ filter: { token: true } }, gainLife(1))],
+          types: ['Enchantment'],
+          effects: [legacyEnters({ filter: { token: true } }, legacyGainLife(1))],
         }),
         cardTemplate('Creation Watcher', {
-          types: ['Enchantment'], effects: [enters({ filter: { token: true }, createdOnly: true }, gainLife(10))],
+          types: ['Enchantment'],
+          effects: [legacyEnters({ filter: { token: true }, createdOnly: true }, legacyGainLife(10))],
         }),
         cardTemplate('Knight Token', { types: ['Creature'], token: true }),
       ] },

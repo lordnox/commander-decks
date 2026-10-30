@@ -5,6 +5,7 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, linkExile as dslLinkExile, objects, select, self, target, whenever } from './dsl/v1'
 import {
   enters,
   handler,
@@ -30,6 +31,9 @@ const game = (setup: {
   battlefield?: Record<string, ReturnType<typeof cardTemplate>[]>
 }) =>
   createServerGame(commanderRules, { ...setup, players: 3 }, { random: () => 0.5 })
+
+const canonicalDefinition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
 describe('linkedExile', () => {
   test('Fiend Hunter link choice stays private to its chooser', () => {
@@ -210,16 +214,13 @@ describe('linkedExile', () => {
   })
 
   test('open link-exile selection survives projection for the choosing seat', () => {
-    const cage = creature('Cage Cleric', 'p1')
-    cage.effects = [
-      handler('linkedExile'),
-      {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { type: 'Creature', controller: 'opponent' } },
-        do: [linkExile({ type: 'Creature', controller: 'opponent' }, {})],
-      },
-    ]
+    const cage = cardTemplate('Cage Cleric', {
+      types: ['Creature'], power: 2, toughness: 2,
+      ruleDefinition: canonicalDefinition([whenever(self.enters, {
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'opponent' }), count: 1 })] },
+        instructions: [dslLinkExile({ targets: target(0) })],
+      })]),
+    })
     const hostage = creature('Hostage Beast', 'p2')
     const server = game({ hands: { p1: [cage] }, battlefield: { p2: [hostage] } })
     const cageId = named(server.state, 'Cage Cleric').id
