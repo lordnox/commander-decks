@@ -4,24 +4,32 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer, createClientGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { pendingOptionSelection } from '../rules/selectOptions'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
+import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
+import {
+  card as dslCard,
+  choice,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  inspectTop,
+  LIBRARY_VISIBILITY,
+  lookAt,
+  move,
+  partitionPiles,
+  players,
+  ref,
+  select,
+  spell,
+  target,
+} from './dsl/v1'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
   applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
-
-
-import { activated } from './activated'
-import { hiddenPiles } from './hiddenPiles'
-
-import { choiceEffects } from './choiceEffects'
-import {librarySearch} from './librarySearch'
-import {ward} from './ward'
 const applyKernelChoice = (
   kernel: Parameters<typeof applyKernelChoiceImpl>[0],
   lobby: Parameters<typeof applyKernelChoiceImpl>[1],
@@ -36,17 +44,6 @@ const applyKernelChoice = (
     ? { revision: lobby.topdeck.revision }
     : {}),
 })
-import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import {
-  onResolve as onResolveEffect,
-  handler,
-  hiddenPileNegotiation,
-  opponentPiles,
-  targetOnResolve,
-} from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
-import { onResolve } from './onResolve'
-import { targetedResolve } from './targetedResolve'
 
 const handleFor = (
   rules: KernelHandle['rules'],
@@ -81,32 +78,40 @@ const withMana = (state: GameState) => ({
     ...state.players,
     p1: {
       ...state.players.p1,
-      mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 },
+      mana: { W: 0, U: 1, B: 0, R: 0, G: 0, C: 3 },
     },
   },
 })
-
 const libraryCards = (...names: string[]) =>
   names.map((name) => cardTemplate(name, { types: ['Instant'] }))
 
-const publicPileSpell = () => cardTemplate('Public Pile Instant', {
+const publicPileSpell = () => cardTemplate('Fact or Fiction', {
   types: ['Instant'],
-  manaCost: '{0}',
-  manaValue: 0,
-  effects: [onResolveEffect(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
+  manaCost: '{3}{U}',
+  ruleDefinition: cardRuleDefinitionSnapshotFor('Fact or Fiction'),
 })
 
-const lookPileSpell = () => cardTemplate('Look Pile Instant', {
+const lookPileSpell = () => cardTemplate('Private Opponent Pile Fixture', {
   types: ['Instant'],
   manaCost: '{0}',
   manaValue: 0,
-  effects: [
-    targetOnResolve(
-      'select',
-      { players: 'opponent' },
-      opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
-    ),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+    decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+    instructions: [
+      inspectTop({ player: ref('controller'), count: 4, bindChoice: 'looked', visibility: LIBRARY_VISIBILITY.private }),
+      lookAt({ cards: choice('looked'), viewers: target(0) }),
+      partitionPiles({
+        cards: choice('looked'),
+        partitioner: target(0),
+        chooser: ref('controller'),
+        visibility: 'facedown-faceup',
+        bindChosen: 'kept',
+        bindOther: 'rest',
+      }),
+      move({ targets: choice('kept'), to: 'hand' }),
+      move({ targets: choice('rest'), to: 'graveyard' }),
+    ],
+  })]))),
 })
 
 const castPublic = () => {
@@ -119,12 +124,12 @@ const castPublic = () => {
         p1: libraryCards('Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Rest'),
       },
     },
-    { random: () => 0.5, cardPlugins: [onResolve] },
+    { random: () => 0.5 },
   )
   const cast = ok(server.rules(withMana(server.state), {
     type: 'castSpell',
     seat: 'p1',
-    objectId: named(server.state, 'Public Pile Instant').id,
+    objectId: named(server.state, 'Fact or Fiction').id,
   }))
   return { server, state: ok(server.rules(cast, { type: 'resolveTop' })) }
 }
@@ -139,12 +144,12 @@ const castLook = () => {
         p1: libraryCards('Look A', 'Look B', 'Look C', 'Look D', 'Look Rest'),
       },
     },
-    { random: () => 0.5, cardPlugins: [targetedResolve] },
+    { random: () => 0.5 },
   )
   const cast = ok(server.rules(withMana(server.state), {
     type: 'castSpell',
     seat: 'p1',
-    objectId: named(server.state, 'Look Pile Instant').id,
+    objectId: named(server.state, 'Private Opponent Pile Fixture').id,
     targets: [{ kind: 'player', player: 'p2' }],
   }))
   return { server, state: ok(server.rules(cast, { type: 'resolveTop' })) }
@@ -165,48 +170,6 @@ const partitionChoices = (
 }
 
 describe('opponentPiles', () => {
-  test('the legacy hidden-pile mechanic keeps the unchosen pile private through its opponent choice', () => {
-    const library = Array.from({ length: 7 }, (_, index) => cardTemplate(`Legacy Library ${index + 1}`, {
-      types: [index === 3 ? 'Land' : 'Sorcery'],
-    }))
-    const legacySpell = cardTemplate('Legacy Hidden Piles Fixture', {
-      types: ['Instant'],
-      manaCost: '{3}{B}',
-      effects: [handler('hiddenPiles'), handler('onResolve'), onResolveEffect(hiddenPileNegotiation(3, 3))],
-    })
-    const server = createServerGame(commanderRules, {
-      players: 3,
-      hands: { p1: [legacySpell] },
-      libraries: { p1: library },
-    }, { random: () => 0.5, cardPlugins: [onResolvePlugin, hiddenPiles] })
-    let state = structuredClone(server.state)
-    state.players.p1.mana.B = 1
-    state.players.p1.mana.C = 3
-    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Legacy Hidden Piles Fixture').id }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const reveal = pendingOptionSelection(state, 'p1')!
-    expect(reveal.options).toHaveLength(4)
-    expect(state.zoneOrder.p1.exile).toHaveLength(6)
-    expect(server.project(state, 'p1').zoneOrder.p1.exile).toHaveLength(6)
-    expect(server.project(state, 'p2').zoneOrder.p1.exile).toHaveLength(0)
-    const revealChoice = reveal.options.find(({ id }) => id === '0:p2')!
-    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: reveal.id, optionId: revealChoice.id }))
-    const take = pendingOptionSelection(state, 'p2')!
-    expect(take.options[0].label).toContain('Legacy Library 1')
-    expect(take.options[1].label).toBe('Face-down pile 2 (3 cards)')
-    const bystander = server.project(state, 'p3')
-    expect(bystander.zoneOrder.p1.exile).toHaveLength(3)
-    expect(JSON.stringify(bystander)).not.toContain('Legacy Library 4')
-    expect(bystander.players.p2.data['kernel.pendingOptionSelection']).toBeUndefined()
-    state = ok(server.rules(state, { type: 'selectOption', seat: 'p2', selectionId: take.id, optionId: '1' }))
-    expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name).sort())
-      .toEqual(['Legacy Library 4', 'Legacy Library 5', 'Legacy Library 6'])
-    expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name).sort())
-      .toEqual(['Legacy Hidden Piles Fixture', 'Legacy Library 1', 'Legacy Library 2', 'Legacy Library 3'])
-    expect(state.players.p1.life).toBe(37)
-    expect(pendingOptionSelection(state)).toBeUndefined()
-  })
-
   test('catalog Hostile Negotiations reveals one pile without leaking the other', () => {
     const library = Array.from({ length: 7 }, (_, index) => cardTemplate(`Library ${index + 1}`, {
       types: [index === 3 ? 'Land' : 'Sorcery'],
@@ -249,17 +212,12 @@ describe('opponentPiles', () => {
     expect(state.players.p1.life).toBe(37)
     expect(pendingSelectionFor(state, 'p2')).toBeUndefined()
   })
-  test('opponentPiles() is clone-safe', () => {
-    const instruction = opponentPiles(5, { reveal: 'public', piles: 'public' })
-    expect(structuredClone(instruction)).toEqual(instruction)
-  })
-
   test('an untargeted public split asks an opponent, then the controller picks a pile', () => {
     const { server, state: resolved } = castPublic()
     const opponentChoice = pendingPlayerSelectionFor(resolved, 'p1')!
     expect(opponentChoice).toMatchObject({
       candidates: ['p2', 'p3', 'p4'],
-      action: { kind: 'opponentPiles', count: 5, reveal: 'public', piles: 'public' },
+      action: { kind: 'canonicalChoosePlayer' },
     })
 
     let state = ok(server.rules(resolved, {
@@ -495,40 +453,4 @@ describe('opponentPiles', () => {
     expect(named(finished, 'Look C').zone).toBe('graveyard')
     expect(named(finished, 'Look D').zone).toBe('graveyard')
   })
-})
-
-describe('relocated from homerPass2.test.ts → opponentPiles.test.ts', () => {
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-
-  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
-
-  test('Fact or Fiction uses a public opponent pile split', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          players: 4,
-          hands: { p1: [cardTemplate('Fact or Fiction', { types: ['Instant'], manaCost: '{3}{U}' })] },
-          libraries: {
-            p1: ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Rest'].map((name) =>
-              cardTemplate(name, { types: ['Instant'] })),
-          },
-        },
-        { random: () => 0.5, cardPlugins: plugins },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 3 }
-      const cast = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: named(ready, 'Fact or Fiction').id,
-      }))
-      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-      expect(pendingPlayerSelectionFor(resolved, 'p1')).toMatchObject({
-        candidates: ['p2', 'p3', 'p4'],
-        action: { kind: 'canonicalChoosePlayer' },
-      })
-    })
-
 })
