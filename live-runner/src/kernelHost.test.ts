@@ -39,17 +39,13 @@ import {
   vote as voteInstruction,
 } from '../../rules-engine/src/cardPlugins/effectBuilders'
 import { PENDING_STACK_COPY, stackCopy } from '../../rules-engine/src/cardPlugins/stackCopy'
-import { eachPlayerWheel } from '../../rules-engine/src/cardPlugins/eachPlayerWheel'
 import { blinkPlugin } from '../../rules-engine/src/cardPlugins/blink'
 import {
   ability,
   blinkSelf,
-  eachPlayerMayWheel,
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
-import { onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
-import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
   CUMULATIVE_UPKEEP_PENDING,
   cumulativeUpkeep,
@@ -62,7 +58,6 @@ import {
   destroyThenTokenForController,
   entersTarget,
   entersTargetingUpTo,
-  mayCastFromHandWithoutPayingMana,
   ifYouDoExileFromGraveyard,
   targetOnResolve,
   targetsOnResolve,
@@ -104,6 +99,7 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  chooseInstructions as dslChooseInstructions,
   choice as dslChoice,
   chooseCards as dslChooseCards,
   spell as dslSpell,
@@ -113,13 +109,20 @@ import {
   destroy as dslDestroy,
   activated as dslActivated,
   discardCost,
+  discardHands as dslDiscardHands,
+  draw as dslDraw,
+  offerCast as dslOfferCast,
+  forEachPlayer as dslForEachPlayer,
+  players as dslPlayers,
   gainLife,
   manaAndLifeCost,
   mill as dslMill,
   move as dslMove,
   objects as dslObjects,
   payOptional,
+  ref as dslRef,
   sacrificeCost,
+  vote as dslVote,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   objects,
@@ -1198,7 +1201,7 @@ describe('kernel host journal', () => {
             cardTemplate(`Secret ${index + 1}`, { types: ['Sorcery'] })),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, hiddenPiles] },
+      { random: () => 0.5, cardPlugins: [hiddenPiles] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.B = 1
@@ -1235,19 +1238,21 @@ describe('kernel host journal', () => {
           p1: [cardTemplate('Secret Ballot', {
             types: ['Instant'],
             manaCost: '{1}',
-            effects: [onResolveEffect(voteInstruction(
-              'Alpha or Beta?',
-              {
-                kind: 'named',
-                options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }],
-              },
-              [],
-              true,
-            ))],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+              instructions: [dslVote({
+                prompt: 'Alpha or Beta?',
+                options: {
+                  kind: 'named',
+                  options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }],
+                },
+                bindResult: 'vote',
+                secret: true,
+              })],
+            })]))),
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, votePlugin] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.C = 1
@@ -1526,14 +1531,16 @@ describe('kernel host journal', () => {
               cardTemplate('Free Caster', {
                 types: ['Sorcery'],
                 manaCost: '{0}',
-                effects: [onResolveEffect(mayCastFromHandWithoutPayingMana(5))],
+                ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+                  instructions: [dslOfferCast({ maxManaValue: 5, notLand: true })],
+                })]))),
               }),
               cardTemplate('Cheap Bear', { types: ['Creature'], manaCost: '{3}{G}', manaValue: 4 }),
               cardTemplate('Big Beast', { types: ['Creature'], manaCost: '{6}', manaValue: 6 }),
             ],
           },
         },
-        { random: () => 0.5, cardPlugins: [onResolve] },
+        { random: () => 0.5 },
       )
       const kernel = handleFor(server.rules, server.state)
       const caster = Object.values(server.state.objects).find((object) => object.name === 'Free Caster')!
@@ -1650,7 +1657,7 @@ describe('kernel host journal', () => {
             cardTemplate(name, { types: ['Instant'] })),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const withMana = {
       ...server.state,
@@ -3751,7 +3758,21 @@ describe('each-player and cost live choices', () => {
             cardTemplate('Tide Wheel', {
               types: ['Instant'],
               manaCost: '{C}',
-              effects: [onResolveEffect(eachPlayerMayWheel(2))],
+              ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+                instructions: [dslForEachPlayer({
+                  of: dslPlayers(),
+                  instructions: [dslChooseInstructions({
+                    chooser: dslRef('event.player'),
+                    options: [
+                      { label: 'Discard your hand and draw 2 cards', instructions: [
+                        dslDiscardHands({ targets: dslRef('event.player') }),
+                        dslDraw({ targets: dslRef('event.player'), count: 2 }),
+                      ] },
+                      { label: 'Keep your hand', instructions: [] },
+                    ],
+                  })],
+                })],
+              })]))),
             }),
             cardTemplate('Old One', { types: ['Sorcery'] }),
           ],
@@ -3762,7 +3783,7 @@ describe('each-player and cost live choices', () => {
           p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`New B${index}`)),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, eachPlayerWheel] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.C = 1
