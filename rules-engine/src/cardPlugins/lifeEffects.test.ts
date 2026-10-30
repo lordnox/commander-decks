@@ -1,4 +1,6 @@
 import type { GameState } from '../types'
+import { captureObject } from '../objectIdentity'
+import { CONTROL_EVENT } from './dsl/controlConstants'
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
@@ -12,7 +14,6 @@ import { activated } from './activated'
 import {
   card as dslCard,
   compileCardRuleDefinition,
-  controllerOf,
   createDefinitionSnapshot,
   dealtDamage,
   eventAmount,
@@ -33,7 +34,7 @@ const combatDamageLifeSwap = createDefinitionSnapshot(compileCardRuleDefinition(
     instructions: [
       dslGainLife({ targets: ref('controller'), amount: eventAmount() }),
       dslLoseLife({
-        targets: controllerOf(ref('triggering.source'), { information: 'currentOrLastKnown' }),
+        targets: ref('triggering.player'),
         amount: eventAmount(),
       }),
     ],
@@ -570,9 +571,16 @@ describe('combat damage life swap', () => {
     expect(triggered.players.p1.life).toBe(40)
     expect(triggered.players.p2.life).toBe(40)
 
-    const resolved = ok(server.rules(triggered, { type: 'resolveTop' }))
+    const sourceAfterDamage = triggered.objects[source.id]!
+    const transferred = ok(server.rules(triggered, {
+      type: CONTROL_EVENT.change,
+      objectRef: captureObject(sourceAfterDamage).ref,
+      controller: 'p3',
+    }))
+    const resolved = ok(server.rules(transferred, { type: 'resolveTop' }))
     expect(resolved.players.p1.life).toBe(43)
     expect(resolved.players.p2.life).toBe(37)
+    expect(resolved.players.p3.life).toBe(40)
   })
 
   test('the combat-damage life swap still resolves after lethal damage', () => {
