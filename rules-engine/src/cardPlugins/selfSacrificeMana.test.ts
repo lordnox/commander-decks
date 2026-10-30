@@ -15,7 +15,6 @@ import {createServerGame as createRuntimeGame} from '../runtime'
 
 import { choiceEffects } from './choiceEffects'
 import {librarySearch} from './librarySearch'
-import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 const TREASURE_TEXT = '{T}, Sacrifice this token: Add one mana of any color.'
 const spawnToken = token('Eldrazi-Spawn-0-1')
@@ -241,7 +240,6 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
       cardPlugins: [
         choiceEffects,
         librarySearch,
-        onResolve,
         targetedResolve,
         activated,
       ],
