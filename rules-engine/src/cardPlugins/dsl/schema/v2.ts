@@ -489,7 +489,13 @@ export type ObjectRecipient = ObjectReference | ObjectSelector
 export type StackItemRecipient = StackItemReference | StackItemSelector
 export type DamageRecipient = PlayerRecipient | ObjectRecipient
 
-export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard', keep: 'keep' } as const
+export const REVEAL_UNTIL_REST = {
+  orderBottom: 'orderBottom',
+  graveyard: 'graveyard',
+  keep: 'keep',
+  bottomRandom: 'bottomRandom',
+  shuffle: 'shuffle',
+} as const
 export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL_REST]
 
 export const LIBRARY_VISIBILITY = { private: 'private', public: 'public' } as const

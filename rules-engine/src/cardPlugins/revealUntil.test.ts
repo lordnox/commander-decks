@@ -5,15 +5,15 @@ import { createServerGame, projectForViewer } from '../runtime'
 import type { ReduceResult } from '../types'
 import { continuousEffects } from './continuousEffects'
 import { isGoaded } from '../plugins/goad'
-import { onResolve, goadRevealUntilMatches, revealUntil, revealUntilBasicLand } from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
-import { serializableEffects } from './effectRuntime'
 import {
   card as dslCard,
   compileCardRuleDefinition,
   count,
   createDefinitionSnapshot,
+  createEffect,
+  choice,
   objects,
+  permanentEffect,
   players,
   ref,
   revealUntil as dslRevealUntil,
@@ -37,49 +37,11 @@ const graveyardNames = (state: ReturnType<typeof createServerGame>['state']) =>
 const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
 const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
 
-const castFixture = (
-  name: string,
-  instructions: ReturnType<typeof onResolve>[],
-  library: ReturnType<typeof cardTemplate>[],
-  options: { players?: number } = {},
-) => {
-  const server = createServerGame(
-    commanderRules,
-    {
-      players: options.players ?? 2,
-      hands: {
-        p1: [cardTemplate(name, {
-          types: ['Sorcery'],
-          manaCost: '{0}',
-          manaValue: 0,
-          effects: instructions,
-        })],
-      },
-      libraries: { p1: library },
-    },
-    { random: () => 0, cardPlugins: [onResolvePlugin, continuousEffects] },
-  )
-  const withMana = {
-    ...server.state,
-    players: {
-      ...server.state.players,
-      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
-    },
-  }
-  const cast = ok(server.rules(withMana, {
-    type: 'castSpell',
-    seat: 'p1',
-    objectId: named(withMana, name).id,
-  }))
-  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-  return { server, resolved }
-}
-
 const castCanonicalFixture = (
   name: string,
   instructions: Parameters<typeof spell>[0]['instructions'],
   library: ReturnType<typeof cardTemplate>[],
-  options: { players?: number } = {},
+  options: { players?: number; random?: () => number } = {},
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -97,7 +59,7 @@ const castCanonicalFixture = (
       },
       libraries: { p1: library },
     },
-    { random: () => 0, cardPlugins: [continuousEffects] },
+    { random: options.random ?? (() => 0), cardPlugins: [continuousEffects] },
   )
   const withMana = {
     ...server.state,
@@ -116,46 +78,42 @@ const castCanonicalFixture = (
 }
 
 describe('revealUntil', () => {
-  test('stamped revealUntil effects are structuredClone-safe', () => {
-    const effects = serializableEffects([
-      onResolve(revealUntil(2, { type: 'Creature' }, 'battlefield', 'shuffle')),
-    ])
-    expect(() => structuredClone(effects)).not.toThrow()
-    expect(effects[0]).toMatchObject({
-      op: 'trigger',
-      do: [{
-        kind: 'revealUntil',
-        count: 2,
-        match: { type: 'Creature' },
-        destination: 'battlefield',
-        nonMatch: 'shuffle',
-      }],
+  test('canonical shuffle rest choice survives snapshot cloning', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+      instructions: [dslRevealUntil({
+        targets: ref('controller'),
+        match: objects({ zone: 'library', type: 'Creature' }),
+        foundTo: 'battlefield',
+        rest: REVEAL_UNTIL_REST.shuffle,
+      })],
+    })])))
+    expect(structuredClone(definition)).toEqual(definition)
+    expect(definition.definition.abilities[0]).toMatchObject({
+      kind: 'spell',
+      instructions: [{ kind: 'revealUntil', rest: 'shuffle' }],
     })
   })
 
-  test('non-matches go to the library bottom after a bottomRandom reveal', () => {
-    const { resolved } = castFixture(
+  test('non-matches are randomized on the library bottom after a bottomRandom reveal', () => {
+    const { resolved } = castCanonicalFixture(
       'Bottom Random',
-      [onResolve(revealUntil(1, { types: ['Creature', 'Planeswalker'] }, 'battlefield', 'bottomRandom'))],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        match: objects({ zone: 'library', any: [{ type: 'Creature' }, { type: 'Planeswalker' }] }),
+        foundTo: 'battlefield',
+        rest: REVEAL_UNTIL_REST.bottomRandom,
+      })],
       [
         instant('One'),
         instant('Two'),
         creature('Found'),
       ],
+      { random: () => 0.99 },
     )
     expect(named(resolved, 'Found').zone).toBe('battlefield')
     expect(resolved.zoneOrder.p1.library).toHaveLength(2)
+    expect(resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name)).toEqual(['Two', 'One'])
     expect(graveyardNames(resolved)).toEqual(['Bottom Random'])
-  })
-
-  test('revealUntilBasicLand builder uses the generalized instruction', () => {
-    expect(revealUntilBasicLand()).toEqual({
-      kind: 'revealUntil',
-      count: 1,
-      match: { type: 'Land', supertype: 'Basic' },
-      destination: 'hand',
-      nonMatch: 'mill',
-    })
   })
 
   test('mills non-matches through the first basic land', () => {
@@ -196,9 +154,15 @@ describe('revealUntil', () => {
   })
 
   test('puts N creatures on the battlefield and shuffles other revealed cards', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Shuffle Shape',
-      [onResolve(revealUntil(2, { type: 'Creature' }, 'battlefield', 'shuffle'))],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        count: 2,
+        match: objects({ zone: 'library', type: 'Creature' }),
+        foundTo: 'battlefield',
+        rest: REVEAL_UNTIL_REST.shuffle,
+      })],
       [
         instant('Lead'),
         creature('First'),
@@ -212,8 +176,9 @@ describe('revealUntil', () => {
       .toEqual(['First', 'Second'])
     expect(graveyardNames(resolved)).toEqual([])
     expect(resolved.zoneOrder.p1.library).toHaveLength(4)
-    expect(resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name).sort())
-      .toEqual(['Between', 'Hidden', 'Lead', 'Tail'])
+    const shuffled = resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name)
+    expect([...shuffled].sort()).toEqual(['Between', 'Hidden', 'Lead', 'Tail'])
+    expect(shuffled).not.toEqual(['Lead', 'Between', 'Hidden', 'Tail'])
   })
 
   test('opponentCount reveals one creature per opponent in the pod', () => {
@@ -268,15 +233,23 @@ describe('revealUntil', () => {
   })
 
   test('revealUntil with then goads matches after they enter the battlefield', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Then Goad',
-      [onResolve(revealUntil(
-        2,
-        { type: 'Creature' },
-        'battlefield',
-        'shuffle',
-        goadRevealUntilMatches(),
-      ))],
+      [
+        dslRevealUntil({
+          targets: ref('controller'),
+          count: 2,
+          match: objects({ zone: 'library', type: 'Creature' }),
+          foundTo: 'battlefield',
+          rest: REVEAL_UNTIL_REST.shuffle,
+          bindFound: 'entered',
+        }),
+        createEffect({
+          targets: choice('entered'),
+          effect: { kind: 'goad' },
+          duration: permanentEffect(),
+        }),
+      ],
       [
         instant('Lead'),
         creature('First'),
