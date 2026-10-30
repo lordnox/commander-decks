@@ -11,7 +11,7 @@ import type {
 import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
-import { applyCopy, serializableEffects } from './effectRuntime'
+import { applyCopy } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
 import { KEYWORDS } from './dsl/schema/v2'
 
@@ -149,9 +149,6 @@ export const loseAbilitiesBecome = (
   const before = {
     oracleText: object.oracleText,
     grantedRules: [...object.grantedRules],
-    effects: object.effects?.length
-      ? serializableEffects(object.effects)
-      : undefined,
     subtypes: [...object.subtypes],
     power: withoutCounters(object, object.power),
     toughness: withoutCounters(object, object.toughness),
@@ -449,7 +446,6 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   if (effect.kind === 'removeAbilities') {
     object.oracleText = effect.before.oracleText
     object.grantedRules = [...effect.before.grantedRules]
-    object.effects = effect.before.effects ? structuredClone(effect.before.effects) : undefined
   } else if (effect.kind === 'addTypes') {
     object.types = [...effect.before.types]
     object.subtypes = [...effect.before.subtypes]
@@ -475,9 +471,6 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   } else if (effect.kind === 'loseAbilitiesBecome') {
     object.oracleText = effect.before.oracleText
     object.grantedRules = [...effect.before.grantedRules]
-    object.effects = effect.before.effects
-      ? serializableEffects(effect.before.effects)
-      : undefined
     object.subtypes = [...effect.before.subtypes]
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
@@ -502,7 +495,7 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     default: break
   }
   if (effect.kind === 'removeAbilities') {
-    effect.before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules], ...(object.effects ? { effects: structuredClone(object.effects) } : {}) }
+    effect.before = { oracleText: object.oracleText, grantedRules: [...object.grantedRules] }
     object.oracleText = ''
     object.grantedRules = []
     object.effects = []

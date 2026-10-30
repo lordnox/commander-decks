@@ -1,7 +1,6 @@
 import { testObject } from '../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
-import { activate, draw } from './effectBuilders'
 import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { cardTemplate } from '../newGame'
@@ -21,6 +20,7 @@ import {
   onResolve,
 } from './effectBuilders'
 import { onResolve as onResolvePlugin } from './onResolve'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, ref, tapCost } from './dsl/v1'
 
 const shrinkingColossus = () => cardTemplate('Fixture Shrinking Colossus', {
   types: ['Creature'],
@@ -43,14 +43,10 @@ const abilityBear = () => cardTemplate('Fixture Ability Bear', {
   power: 3,
   toughness: 3,
   subtypes: ['Bear'],
-  oracleText: '{T}: Draw a card.',
-  effects: [
-    activate({
-      id: 'draw',
-      costs: { tap: true },
-      do: [draw(1)],
-    }),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+    costs: [tapCost()],
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  })]))),
 })
 
 describe('loseAbilitiesBecome', () => {
@@ -93,7 +89,6 @@ describe('loseAbilitiesBecome', () => {
     const bear = Object.values(state.objects).find((object) => object.name === 'Fixture Curious Bear')!
     expect(bear).toMatchObject({ power: 1, toughness: 1 })
     expect(bear.subtypes).toContain('Coward')
-    expect(bear.effects).toEqual([])
     expect(bear.controller).toBe('p2')
     expect(Object.values(state.objects).filter((object) => object.zone === 'battlefield' && object.controller === 'p3'))
       .toEqual([])
@@ -140,7 +135,6 @@ describe('loseAbilitiesBecome', () => {
       expect(creature.power).toBe(1)
       expect(creature.toughness).toBe(1)
       expect(creature.oracleText).toBe('')
-      expect(creature.effects).toEqual([])
       expect(creature.subtypes).toContain('Coward')
       expect(creature.continuousEffects?.[0]?.duration).toEqual({ kind: 'permanent' })
     }
@@ -184,10 +178,10 @@ describe('loseAbilitiesBecome', () => {
       (object) => object.name === 'Fixture Ability Bear',
     )!
     expect(bear.power).toBe(1)
-    expect(bear.effects).toEqual([])
+    expect(bear.ruleDefinition?.definition.abilities).toHaveLength(1)
     expect(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'draw',
+      abilityId: '$.abilities[0]',
       seat: 'p2',
       objectId: bear.id,
     }).ok).toBe(false)
@@ -241,7 +235,7 @@ describe('loseAbilitiesBecome', () => {
       power: 3,
       toughness: 3,
     })
-    expect(result.state.objects[bear.id].effects?.length).toBe(1)
+    expect(result.state.objects[bear.id].ruleDefinition?.definition.abilities).toHaveLength(1)
   })
 
   test('structuredClone keeps pending opponent selection and continuous effects', () => {

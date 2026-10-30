@@ -4011,9 +4011,9 @@
       "candidateEvidence": {
         "matches": 23,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:200 — test('does not restamp creatures that enter later under that opponent', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:223 — test('reverts when the creature leaves the battlefield', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:271 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:194 — test('does not restamp creatures that enter later under that opponent', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:217 — test('reverts when the creature leaves the battlefield', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:265 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:177 — test('rest-of-game control survives the source leaving the game', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:219 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:93 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
@@ -4124,7 +4124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 221,
+        "matches": 219,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4889,7 +4889,7 @@
       "candidateEvidence": {
         "matches": 17,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:271 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:265 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:239 — test('an earlier duration ending does not overwrite a later control effect', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:39 — test('a temporary copy restores the previous canonical rule definition', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:62 — test('cleanup reverts a land animation while retaining its original type', () => {",
@@ -5575,7 +5575,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:100",
         "rules-engine/src/cardPlugins/instructions.ts:103",
-        "rules-engine/src/types.ts:1449"
+        "rules-engine/src/types.ts:1448"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5692,9 +5692,9 @@
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
         "rules-engine/src/rules/triggers.ts:1585",
-        "rules-engine/src/types.ts:315",
-        "rules-engine/src/types.ts:317",
-        "rules-engine/src/types.ts:321"
+        "rules-engine/src/types.ts:314",
+        "rules-engine/src/types.ts:316",
+        "rules-engine/src/types.ts:320"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -5727,14 +5727,14 @@
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
         "rules-engine/src/cardPlugins/continuousEffects.ts:151",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:160",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:157",
         "rules-engine/src/cardPlugins/continuousEffects.ts:33",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:451",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:477",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:505",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:507",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:448",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:473",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:498",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:500",
         "rules-engine/src/cardPlugins/continuousEffects.ts:51",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:544",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:537",
         "rules-engine/src/cardPlugins/effectRuntime.ts:254",
         "rules-engine/src/cardPlugins/effectRuntime.ts:531",
         "rules-engine/src/cardPlugins/effectRuntime.ts:97",
@@ -5754,8 +5754,8 @@
         "rules-engine/src/plugins/spells.ts:430",
         "rules-engine/src/types.ts:117",
         "rules-engine/src/types.ts:148",
-        "rules-engine/src/types.ts:276",
-        "rules-engine/src/types.ts:340",
+        "rules-engine/src/types.ts:275",
+        "rules-engine/src/types.ts:339",
         "rules-engine/src/types.ts:75",
         "rules-engine/src/types.ts:91"
       ],
@@ -6243,14 +6243,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          686,
-          687,
-          689
+          679,
+          680,
+          682
         ],
         "samples": [
-          "686: const endTurnEffects = event.type === 'custom'",
-          "687: && event.name === 'advanceStep'",
-          "689: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "679: const endTurnEffects = event.type === 'custom'",
+          "680: && event.name === 'advanceStep'",
+          "682: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",

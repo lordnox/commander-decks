@@ -114,7 +114,7 @@ export type ReversibleEffect =
       kind: 'bestowAura'
       before: { types: string[]; subtypes: string[]; power: number | null; toughness: number | null }
     }
-  | { kind: 'removeAbilities'; timestamp?: number; before: { oracleText: string; grantedRules: string[]; effects?: CardEffect[] } }
+  | { kind: 'removeAbilities'; timestamp?: number; before: { oracleText: string; grantedRules: string[] } }
   | { kind: 'addTypes'; before: { types: string[]; subtypes: string[] }; types: string[]; subtypes: string[] }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
@@ -146,7 +146,6 @@ export type ReversibleEffect =
       before: {
         oracleText: string
         grantedRules: string[]
-        effects?: GameObject['effects']
         subtypes: string[]
         power: number | null
         toughness: number | null
