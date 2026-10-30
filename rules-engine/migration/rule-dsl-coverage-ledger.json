@@ -5637,7 +5637,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1488",
+        "rules-engine/src/rules/triggers.ts:1489",
         "rules-engine/src/types.ts:316",
         "rules-engine/src/types.ts:318",
         "rules-engine/src/types.ts:322"
@@ -6034,11 +6034,11 @@
           194,
           293,
           627,
-          1014,
-          1362,
-          1364,
-          1404,
-          1405
+          1015,
+          1363,
+          1365,
+          1405,
+          1406
         ],
         "samples": [
           "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
@@ -7213,21 +7213,21 @@
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
           945,
-          1046,
-          1151,
-          1230,
-          1282,
-          1295,
-          1310,
-          1427,
-          1486,
-          1680,
-          1794
+          1047,
+          1152,
+          1231,
+          1283,
+          1296,
+          1311,
+          1428,
+          1487,
+          1681,
+          1795
         ],
         "samples": [
           "945: const frequencySource = draft.object(source.id) ?? source",
-          "1046: const live = draft.object(source.id)",
-          "1151: const object = draft.object(objectId)"
+          "1047: const live = draft.object(source.id)",
+          "1152: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

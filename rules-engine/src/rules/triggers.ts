@@ -1010,6 +1010,7 @@ const permanentEnteringObjectId = (event: GameEvent, state: GameState) => {
   return enteringObjectId(event, state)
 }
 
+/** The signal itself marks entry when a caller already placed the object on the battlefield. */
 const isPermanentEntrySignal = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
   event.type === 'custom' && event.name === PERMANENT_ENTERED
 
