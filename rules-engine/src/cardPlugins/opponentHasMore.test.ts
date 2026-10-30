@@ -49,7 +49,7 @@ const someOpponentHasMore = (metric: 'hand' | 'lands' | 'life' | 'creatures') =>
 
 const entersDefinition = (metric: 'hand' | 'lands' | 'life' | 'creatures') =>
   createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
-    whenever(dslEnters({ filter: { type: 'Creature' } }), {
+    whenever(dslEnters({ filter: ref('self') }), {
       instructions: [ifThen(someOpponentHasMore(metric), {
         then: [dslDraw({ count: 1, targets: ref('controller') })],
         otherwise: [dslGainLife({ amount: 1, targets: ref('controller') })],
@@ -117,7 +117,7 @@ describe('opponentHasMore', () => {
       commanderRules,
       {
         players: 2,
-        hands: { p1: [surveyor] },
+        hands: { p1: [surveyor, creature('Other Creature')] },
         libraries: { p1: [instant('Ahead Draw')] },
       },
       { random: () => 0.5 },
@@ -125,13 +125,15 @@ describe('opponentHasMore', () => {
     const resolved = playFromHand(server, server.state, 'Fixture Surveyor')
     expect(named(resolved, 'Ahead Draw').zone).toBe('library')
     expect(resolved.players.p1.life).toBe(commanderRules.startingLife + 1)
+    const unrelatedEntry = playFromHand(server, resolved, 'Other Creature')
+    expect(unrelatedEntry.players.p1.life).toBe(commanderRules.startingLife + 1)
   })
 
   test('trigger if gates ETB on opponent life lead', () => {
     const beacon = cardTemplate('Fixture Beacon', {
       types: ['Creature'],
       ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
-        whenever(dslEnters({ filter: { type: 'Creature' } }), {
+        whenever(dslEnters({ filter: ref('self') }), {
           interveningIf: someOpponentHasMore('life'),
           instructions: [dslGainLife({ amount: 4, targets: ref('controller') })],
         }),
@@ -172,7 +174,7 @@ describe('opponentHasMore', () => {
     const cartographer = cardTemplate('Fixture Cartographer', {
       types: ['Creature'],
       ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
-        whenever(dslEnters({ filter: { type: 'Land' } }), {
+        whenever(dslEnters({ filter: { type: 'Land', controller: 'you' } }), {
           instructions: [ifThen(someOpponentHasMore('creatures'), {
             then: [dslDraw({ count: 1, targets: ref('controller') })],
             otherwise: [dslGainLife({ amount: 1, targets: ref('controller') })],
@@ -202,7 +204,7 @@ describe('opponentHasMore', () => {
     const tally = cardTemplate('Fixture Tally', {
       types: ['Creature'],
       ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
-        whenever(dslEnters({ filter: { type: 'Creature' } }), {
+        whenever(dslEnters({ filter: ref('self') }), {
           instructions: [ifThen(someOpponentHasMore('hand'), {
             then: [dslDraw({ count: 1, targets: ref('controller') })],
           })],
