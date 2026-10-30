@@ -27,8 +27,8 @@
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
-    "customEventDispatchSites": 58,
-    "directMutationSites": 496,
+    "customEventDispatchSites": 57,
+    "directMutationSites": 495,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -48,7 +48,7 @@
           "rules-engine/src/cardPlugins/encore.test.ts:54 — test('encore builder clones safely', () => {",
           "rules-engine/src/cardPlugins/monstrosity.test.ts:40 — test('stamps a clone-safe monstrosity builder on effects', () => {",
           "rules-engine/src/cardPlugins/unearth.test.ts:161 — test('stamps a clone-safe unearth builder on effects', () => {",
-          "rules-engine/src/objectIdentity.test.ts:207 — test('an activated ability resolves from LKI for its captured controller', () => {",
+          "rules-engine/src/objectIdentity.test.ts:213 — test('an activated ability resolves from LKI for its captured controller', () => {",
           "rules-engine/src/plugins/rooms.test.ts:535 — test(\"generic Room targets do not impose a controller restriction\", () => {"
         ]
       },
@@ -140,7 +140,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/objectIdentity.test.ts:168 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
+          "rules-engine/src/objectIdentity.test.ts:174 — test('a blinked target is not rescued by returning before legacy spell resolution', () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -159,16 +159,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:396 — test('stamped effects stay clone-safe', () => {",
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:125 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
-          "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
-          "rules-engine/src/objectIdentity.test.ts:290 — test('a gain-life trigger serializes its amount and attributed source snapshot', () => {",
-          "rules-engine/src/objectIdentity.test.ts:337 — test('refreshing a departed execution source preserves the event source snapshot', () => {",
-          "rules-engine/src/objectIdentity.test.ts:367 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {"
+          "rules-engine/src/objectIdentity.test.ts:263 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
+          "rules-engine/src/objectIdentity.test.ts:365 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
+          "rules-engine/src/objectIdentity.test.ts:426 — test('player-target trigger answers retain the captured controller and occurrence', () => {",
+          "rules-engine/src/plugins/rebound.test.ts:23"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1067,8 +1067,8 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/objectIdentity.test.ts:370 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
-          "rules-engine/src/objectIdentity.test.ts:477 — test('a stack copy keeps the original identity pin after the target blinks', () => {"
+          "rules-engine/src/objectIdentity.test.ts:368 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {",
+          "rules-engine/src/objectIdentity.test.ts:475 — test('a stack copy keeps the original identity pin after the target blinks', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -1699,7 +1699,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 89,
+        "matches": 87,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3254 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -2403,7 +2403,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:385 — test('stamped effects stay clone-safe', () => {"
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:398 — test('stamped effects stay clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -3159,8 +3159,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:113 — test('catalog Abundance replaces its controller’s draw with a land or nonland choice', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1203 — test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2742 — test('family 32 catalog walkers compose loyalty costs, emblems, and attack bans', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:101 — test('revealUntilBasicLand builder uses the generalized instruction', () => {",
-          "rules-engine/src/cardPlugins/revealUntil.test.ts:75 — test('stamped revealUntil effects are structuredClone-safe', () => {"
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:127 — test('stamped revealUntil effects are structuredClone-safe', () => {",
+          "rules-engine/src/cardPlugins/revealUntil.test.ts:153 — test('revealUntilBasicLand builder uses the generalized instruction', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4011,12 +4011,12 @@
       "candidateEvidence": {
         "matches": 22,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:200 — test('does not restamp creatures that enter later under that opponent', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:223 — test('reverts when the creature leaves the battlefield', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:271 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:177 — test('rest-of-game control survives the source leaving the game', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:219 — test('control donation does not follow a new object after a zone change', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:93 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:222 — test('does not restamp creatures that enter later under that opponent', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:245 — test('reverts when the creature leaves the battlefield', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:106 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:190 — test('rest-of-game control survives the source leaving the game', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:232 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:100 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:128 — test('conditional control ends when its source untaps', () => {"
         ]
@@ -4083,7 +4083,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 93,
+        "matches": 91,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -4124,7 +4124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 222,
+        "matches": 221,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4699,7 +4699,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 280,
+        "matches": 281,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2082 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -4889,7 +4889,7 @@
       "candidateEvidence": {
         "matches": 16,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:271 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:206 — test('an earlier duration ending does not overwrite a later control effect', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:29 — test('cleanup reverts a land animation while retaining its original type', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:58 — test('cleanup reverts a temporary pump', () => {",
@@ -5260,11 +5260,8 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:468 — test('optional delayed draws open a may-draw dialog', () => {",
-          "rules-engine/src/cardPlugins/runInstructions.test.ts:487 — test('an optional delayed draw asks the opponent who was named as the drawer', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
       "compatibilityRoute": "Preserve pendingDialog saved-state decoding and host routing until a versioned request adapter restores and answers this dialog kind.",
@@ -5272,7 +5269,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "may-pay-life",
@@ -5692,7 +5689,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1545",
+        "rules-engine/src/rules/triggers.ts:1488",
         "rules-engine/src/types.ts:316",
         "rules-engine/src/types.ts:318",
         "rules-engine/src/types.ts:322"
@@ -5769,8 +5766,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2771 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:14",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:111 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:262 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:124 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:275 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:133 — test('goad does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:190 — test('goadTargets instruction stamps goad from the resolving source controller', () => {"
         ]
@@ -5822,10 +5819,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          278
+          276
         ],
         "samples": [
-          "278: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "276: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6085,23 +6082,22 @@
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
           70,
-          176,
-          196,
-          295,
-          452,
-          453,
-          632,
-          1169,
-          1286,
-          1419,
-          1421,
-          1461,
-          1462
+          174,
+          194,
+          293,
+          450,
+          451,
+          630,
+          1167,
+          1362,
+          1364,
+          1404,
+          1405
         ],
         "samples": [
           "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "176: eventType: event.type === 'custom' ? event.name : event.type,",
-          "196: : event.type === 'custom' && event.name === 'advanceStep'"
+          "174: eventType: event.type === 'custom' ? event.name : event.type,",
+          "194: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7270,23 +7266,22 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          950,
-          1048,
-          1153,
-          1232,
-          1297,
+          948,
+          1046,
+          1151,
+          1230,
+          1282,
+          1295,
           1310,
-          1325,
-          1406,
-          1484,
-          1543,
-          1740,
-          1854
+          1427,
+          1486,
+          1680,
+          1794
         ],
         "samples": [
-          "950: const frequencySource = draft.object(source.id) ?? source",
-          "1048: const live = draft.object(source.id)",
-          "1153: const object = draft.object(objectId)"
+          "948: const frequencySource = draft.object(source.id) ?? source",
+          "1046: const live = draft.object(source.id)",
+          "1151: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
