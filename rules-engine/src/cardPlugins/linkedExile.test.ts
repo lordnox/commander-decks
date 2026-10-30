@@ -7,17 +7,21 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import {
   card,
+  choice,
+  chooseCards,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  forEachPlayer,
   linkExile as dslLinkExile,
   objects,
+  players,
+  ref,
   returnLinkedExile as dslReturnLinkedExile,
   select,
   self,
   target,
   whenever,
 } from './dsl/v1'
-import { enters, handler, linkExile } from './effects'
 import { activated } from './activated'
 
 const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
@@ -201,14 +205,22 @@ describe('linkedExile', () => {
   })
 
   test('Border Warden exiles up to one creature per opponent', () => {
-    const warden = creature('Border Warden', 'p1')
-    warden.effects = [
-      handler('linkedExile'),
-      enters(linkExile(
-        { type: 'Creature', controller: 'opponent' },
-        { perOpponent: { max: 1 } },
-      )),
-    ]
+    const warden = pairedWarden('Border Warden', [whenever(self.enters, {
+      instructions: [
+        forEachPlayer({
+          of: players({ relation: 'opponent' }),
+          collectObjects: { from: 'picked', as: 'targets' },
+          instructions: [chooseCards({
+            chooser: ref('controller'),
+            filter: objects({ zone: 'battlefield', type: 'Creature', controller: ref('event.player') }),
+            min: 0,
+            max: 1,
+            bindChoice: 'picked',
+          })],
+        }),
+        dslLinkExile({ targets: choice('targets') }),
+      ],
+    })])
     const east = creature('East Scout', 'p2')
     const north = creature('North Scout', 'p3')
     const server = game({

@@ -574,7 +574,6 @@ export type CardEffect =
         | 'leaves'
         | 'dies'
         | 'attacks'
-        | 'resolve'
         | 'unlock'
         | 'fullyUnlock'
         | 'combatDamage'

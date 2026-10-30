@@ -23,12 +23,6 @@ export const monstrosity = (manaCost: string, count: number): CardEffect =>
     do: [{ kind: 'monstrosity', count }],
   })
 
-export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'resolve',
-  do: instructions,
-})
-
 export const handler = (pluginId: string): CardEffect => ({
   op: 'handler',
   pluginId,
