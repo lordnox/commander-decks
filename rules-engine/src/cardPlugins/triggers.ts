@@ -160,13 +160,6 @@ export function exiled(...args: Array<TriggerOptions | CardInstruction>): CardEf
   return trigger('exiled', {}, ...args as CardInstruction[])
 }
 
-/** "Whenever players finish voting", for any vote at the table. */
-export const onVotesFinished = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'votesFinished',
-  do: instructions,
-})
-
 export const onUnlock = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'unlock',

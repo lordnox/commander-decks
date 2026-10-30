@@ -1257,22 +1257,6 @@ const collectTapped = (
   collectEffects(object, 'tapped', state, matches, 1, {}, event)
 }
 
-/** Any permanent hears any vote finishing, secret or public, whoever cast it. */
-const collectVotesFinished = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'votesFinished') return
-  for (const source of draft.zoneOf('battlefield')) {
-    collectEffects(source, 'votesFinished', state, matches, 1, {
-      triggeringPlayer: event.owner,
-      payload: { vote: event.result },
-    }, event)
-  }
-}
-
 const collectCombatDamage = (
   state: GameState,
   draft: Draft,
@@ -1511,7 +1495,6 @@ const collectEventTriggers = (
   collectMoveTriggers(state, draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
-  collectVotesFinished(state, draft, event, matches)
   canonicalTriggersForOccurrence(state, draft, event, matches)
   recordLandToGraveyardThisTurn(state, draft, event)
   return matches

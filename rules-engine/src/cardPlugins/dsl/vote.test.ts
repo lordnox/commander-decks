@@ -12,6 +12,7 @@ import { freezeDraft, makeDraft } from '../../draft'
 import { snapshotFor } from '../../cards/snapshot'
 import { stackCopyPending } from '../stackCopy'
 import { pendingVote } from '../vote'
+import { CHOOSE_VOTES } from '../secretCouncil'
 import { instructionSpell } from './instructionTestSupport'
 import type { Instruction } from './schema/v2'
 import {
@@ -98,16 +99,19 @@ test('voters answer in APNAP order from the controller and each ballot is valida
     ifThen(voteLeads('vote', 'a'), { then: [gainLife({ targets: ref('controller'), amount: 10 })] }),
   ])
   const state = begin(game)
+  const firstSelection = pendingOptionSelection(state, 'p1')!
   expect(pendingVote(state)?.voters).toEqual(['p1', 'p2', 'p3', 'p4'])
   expect(pendingVote(state)?.secret).toBe(false)
-  expect(pendingOptionSelection(state, 'p1')?.action).toMatchObject({ kind: 'vote', voter: 'p1' })
+  expect(firstSelection.action).toMatchObject({ kind: 'vote', voter: 'p1' })
   expect(answer(game, state, 'p2', 'a').ok).toBe(false)
   expect(answer(game, state, 'p1', 'c').ok).toBe(false)
+  expect(game.rules(state, { type: 'selectOption', seat: 'p1', selectionId: 'stale-vote', optionId: 'a' }).ok).toBe(false)
   expect(game.rules(state, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
 
   const afterP1 = ok(answer(game, state, 'p1', 'a'))
   expect(pendingOptionSelection(afterP1, 'p1')).toBeUndefined()
   expect(pendingOptionSelection(afterP1, 'p2')?.action).toMatchObject({ kind: 'vote', voter: 'p2' })
+  expect(game.rules(afterP1, { type: 'selectOption', seat: 'p1', selectionId: firstSelection.id, optionId: 'a' }).ok).toBe(false)
   const privateCard = cardTemplate('Hidden Instant', { types: ['Instant'] })
   const withSecret = createServerGame(commanderRules, {
     players: 4,
@@ -124,6 +128,76 @@ test('voters answer in APNAP order from the controller and each ballot is valida
   const voting = begin(withSecret)
   expect(projectForViewer(voting, 'p2').objects[named(voting, 'Hidden Instant').id]).toBeUndefined()
   expect(pendingVote(projectForViewer(voting, 'p2'))).toBeDefined()
+})
+
+test('vote order starts at its controller when that player is not active', () => {
+  const game = server([vote({
+    prompt: 'Vote for alpha or beta.',
+    options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] },
+    bindResult: 'vote',
+  })])
+  const start = structuredClone(game.state)
+  start.active = 'p2'
+  start.priority = 'p1'
+  const cast = ok(game.rules(start, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(start, 'Instruction fixture').id,
+  }))
+  const state = ok(game.rules(cast, { type: 'resolveTop' }))
+  expect(pendingVote(state)?.voters).toEqual(['p1', 'p2', 'p3', 'p4'])
+})
+
+test('a conceding voter is removed from the open vote and tally', () => {
+  const game = server([vote({
+    prompt: 'Vote for alpha or beta.',
+    options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] },
+    bindResult: 'vote',
+  })])
+  let state = begin(game)
+  state = ok(answer(game, state, 'p1', 'a'))
+  state = ok(game.rules(state, { type: 'concede', seat: 'p2' }))
+  expect(pendingVote(state)?.voters).toEqual(['p1', 'p3', 'p4'])
+  expect(pendingOptionSelection(state, 'p3')?.action).toMatchObject({ kind: 'vote', voter: 'p3' })
+  const done = castAll(game, state, [['p3', 'b'], ['p4', 'b']])
+  const finished = done.result.trace.map(({ event }) => event).find(event => event.type === 'votesFinished')
+  expect(finished?.type === 'votesFinished' && finished.result.tallies).toEqual({ a: 1, b: 2 })
+  expect(done.state.players.p2.lost).toBe(true)
+})
+
+test('revealed ballots reach the event and public log before the vote marker clears', () => {
+  const game = server([vote({
+    prompt: 'Vote for alpha or beta.',
+    secret: true,
+    options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] },
+    bindResult: 'vote',
+  })])
+  const done = castAll(game, begin(game), [['p1', 'a'], ['p2', 'b'], ['p3', 'b'], ['p4', 'a']])
+  const finished = done.result.trace.map(({ event }) => event).find(event => event.type === 'votesFinished')
+  expect(finished?.type === 'votesFinished' && finished.result.votes).toEqual({ p1: 'a', p2: 'b', p3: 'b', p4: 'a' })
+  expect(done.state.log.some(line => line.includes('p2 for Beta'))).toBe(true)
+  expect(pendingVote(projectForViewer(done.state, 'p3'))).toBeUndefined()
+})
+
+test('the chooser sees ballots they cast for other players and each voter retains their own', () => {
+  const game = server([vote({
+    prompt: 'Vote for alpha or beta.',
+    secret: true,
+    options: { kind: 'named', options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }] },
+    bindResult: 'vote',
+  })])
+  const start = structuredClone(game.state)
+  start.players.p3.data[CHOOSE_VOTES] = true
+  const state = ok(game.rules(ok(game.rules(start, {
+    type: 'castSpell', seat: 'p1', objectId: named(start, 'Instruction fixture').id,
+  })), { type: 'resolveTop' }))
+  expect(pendingVote(state)?.chooser).toBe('p3')
+  expect(pendingOptionSelection(state, 'p3')?.action).toMatchObject({ voter: 'p1' })
+  const afterP1 = ok(answer(game, state, 'p3', 'a'))
+  expect(pendingVote(projectForViewer(afterP1, 'p3'))?.votes).toEqual({ p1: 'a' })
+  expect(pendingVote(projectForViewer(afterP1, 'p1'))?.votes).toEqual({ p1: 'a' })
+  expect(pendingVote(projectForViewer(afterP1, 'p2'))?.votes).toEqual({ p1: '*' })
+  expect(pendingOptionSelection(afterP1, 'p3')?.action).toMatchObject({ voter: 'p2' })
 })
 
 test('the leading option continues the then branch and a tie takes otherwise', () => {
@@ -186,6 +260,26 @@ test('object ballots tally identities, disambiguate duplicate names, and bind ev
   expect(named(done.state, 'Left').zone).toBe('exile')
   expect(named(done.state, 'Right').zone).toBe('exile')
   expect(named(done.state, 'Mine').zone).toBe('battlefield')
+  const finished = done.result.trace.map(({ event }) => event).find(event => event.type === 'votesFinished')
+  expect(finished?.type === 'votesFinished' && finished.result.tallies).toEqual({
+    [left]: 2,
+    [right]: 2,
+    [named(state, 'Twin').id]: 0,
+    [Object.values(state.objects).find(object => object.name === 'Twin' && object.id !== named(state, 'Twin').id)!.id]: 0,
+  })
+})
+
+test('player options keep every player id and zero-vote totals in the result', () => {
+  const game = server([vote({
+    prompt: 'Vote for a player.',
+    options: { kind: 'players' },
+    bindResult: 'vote',
+  })])
+  const state = begin(game)
+  expect(pendingOptionSelection(state, 'p1')?.options.map(option => option.id)).toEqual(['p1', 'p2', 'p3', 'p4'])
+  const done = castAll(game, state, [['p1', 'p2'], ['p2', 'p2'], ['p3', 'p1'], ['p4', 'p4']])
+  const finished = done.result.trace.map(({ event }) => event).find(event => event.type === 'votesFinished')
+  expect(finished?.type === 'votesFinished' && finished.result.tallies).toEqual({ p1: 1, p2: 2, p3: 0, p4: 1 })
 })
 
 test('a vote with no options finishes immediately and vote tallies stay at zero', () => {

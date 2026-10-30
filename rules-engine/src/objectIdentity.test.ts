@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, gainedLife, modifyStats, objects, ref, staticAbility, whenever } from './cardPlugins/dsl/v1'
+import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, dies, destroy, enters, gainLife, gainedLife, modifyStats, objects, players, ref, select, staticAbility, target, whenever } from './cardPlugins/dsl/v1'
 import { cardTemplate, newGame } from './newGame'
 import { commanderRules } from './formats'
 import { freezeDraft, makeDraft } from './draft'
@@ -18,6 +18,21 @@ describe('rules object identity', () => {
   const gainedLifeWatcher = createDefinitionSnapshot(compileCardRuleDefinition(card([
     whenever(gainedLife({ player: ref('controller') }), {
       instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+    }),
+  ])))
+  const dyingSourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(dies({ filter: ref('self') }), { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+  ])))
+  const choosingSourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(enters({ filter: ref('self') }), {
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature', other: true }), count: 1 })] },
+      instructions: [destroy({ targets: target(0) })],
+    }),
+  ])))
+  const playerChoosingSourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(enters({ filter: ref('self') }), {
+      decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+      instructions: [gainLife({ targets: target(0), amount: 1 })],
     }),
   ])))
 
@@ -259,11 +274,7 @@ describe('rules object identity', () => {
             types: ['Creature'],
             power: 2,
             toughness: 2,
-            effects: [{
-              op: 'trigger',
-              on: 'dies',
-              do: [{ kind: 'gainLife', count: 1 }],
-            }],
+            ruleDefinition: dyingSourceDefinition,
           }),
         ],
       },
@@ -361,12 +372,7 @@ describe('rules object identity', () => {
   test('card-target trigger context survives an open choice, journal restore, and source departure', () => {
     const sourceCard = cardTemplate('Choosing Source', {
       types: ['Creature'],
-      effects: [{
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { zone: 'battlefield', type: 'Creature', other: true } },
-        do: [{ kind: 'destroyTargetPermanent', types: ['Creature'] }],
-      }],
+      ruleDefinition: choosingSourceDefinition,
     })
     const server = createServerGame(commanderRules, {
       players: ['p1', 'p2'],
@@ -378,7 +384,8 @@ describe('rules object identity', () => {
     const enter = { type: 'move' as const, objectId: source.id, to: 'battlefield' as const }
     let state = ok(server.rules(server.state, enter))
     const pending = pendingSelectionFor(state, 'p1')!
-    expect(pending.triggerExecution?.occurrence?.object?.after).toMatchObject({
+    const capturedExecution = pending.canonicalTrigger!.execution
+    expect(capturedExecution.occurrence?.object?.after).toMatchObject({
       id: source.id,
       zone: 'battlefield',
       incarnation: 2,
@@ -387,7 +394,7 @@ describe('rules object identity', () => {
     let journal = createJournal(server.state)
     journal = recordAccepted(journal, enter)
     state = restoreJournal(structuredClone(journal), server.rules).current()
-    expect(pendingSelectionFor(state, 'p1')?.triggerExecution).toEqual(pending.triggerExecution)
+    expect(pendingSelectionFor(state, 'p1')?.canonicalTrigger?.execution).toEqual(capturedExecution)
 
     let blinked = ok(server.rules(state, { type: 'move', objectId: target.id, to: 'exile' }))
     blinked = ok(server.rules(blinked, { type: 'move', objectId: target.id, to: 'battlefield' }))
@@ -401,7 +408,7 @@ describe('rules object identity', () => {
 
     state = ok(server.rules(state, { type: 'move', objectId: source.id, to: 'graveyard' }))
     const refreshed = pendingSelectionFor(state, 'p1')!
-    expect(refreshed.triggerExecution?.source.information).toBe('lastKnown')
+    expect(refreshed.canonicalTrigger?.execution.source.information).toBe('lastKnown')
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
@@ -416,18 +423,17 @@ describe('rules object identity', () => {
       incarnation: 1,
       zone: 'battlefield',
     })
-    expect(state.stack[0].execution).toEqual(refreshed.triggerExecution)
+    expect(state.stack[0].execution).toMatchObject({
+      occurrence: capturedExecution.occurrence,
+      source: { information: 'lastKnown' },
+      targetBindings: [{ recipients: [{ objectId: target.id, incarnation: 1, zone: 'battlefield' }] }],
+    })
   })
 
   test('player-target trigger answers retain the captured controller and occurrence', () => {
     const sourceCard = cardTemplate('Player Choosing Source', {
       types: ['Creature'],
-      effects: [{
-        op: 'trigger',
-        on: 'enters',
-        targets: 'opponent',
-        do: [{ kind: 'gainLife', count: 1 }],
-      }],
+      ruleDefinition: playerChoosingSourceDefinition,
     })
     const server = createServerGame(commanderRules, {
       players: ['p1', 'p2', 'p3'],

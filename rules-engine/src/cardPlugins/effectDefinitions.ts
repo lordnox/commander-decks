@@ -584,7 +584,6 @@ export type CardEffect =
         | 'tokenCreated'
         | 'permanentEnters'
         | 'permanentSacrificed'
-        | 'votesFinished'
       do: CardInstruction[]
       /** Filter the event's involved object; departure triggers use its pre-move characteristics. */
       watch?: TargetFilter

@@ -109,6 +109,15 @@ paid/declined and insufficient-resource outcomes, the bound milled-card choice,
 privacy, and journal restore coverage; no other producer or runtime consumer
 remains.
 
+The final `votesFinished` legacy collector and `onVotesFinished` builder are
+removed. `vote.test.ts` now retires with its legacy registration fixture; the
+canonical vote mechanic suite owns the formerly unique coverage for off-turn
+APNAP order, concession, stale/repeated ballots, chooser and voter privacy,
+zero-vote player/object totals, and revealed result publication/cleanup. The
+object identity suite's dies, card-target entry, and player-target entry
+fixtures now use canonical triggered abilities while retaining occurrence/LKI,
+open-choice restore, target identity, and source-departure assertions.
+
 The `lookTopPick` and `opponentPiles` legacy instruction builders, types, and
 handlers were removed after their fixtures moved to canonical inspect/choose/
 partition instructions or catalog programs. The remaining pile-selection
