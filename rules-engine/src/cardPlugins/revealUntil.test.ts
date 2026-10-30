@@ -11,8 +11,10 @@ import { serializableEffects } from './effectRuntime'
 import {
   card as dslCard,
   compileCardRuleDefinition,
+  count,
   createDefinitionSnapshot,
   objects,
+  players,
   ref,
   revealUntil as dslRevealUntil,
   spell,
@@ -215,9 +217,15 @@ describe('revealUntil', () => {
   })
 
   test('opponentCount reveals one creature per opponent in the pod', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Pod Count',
-      [onResolve(revealUntil('opponentCount', { type: 'Creature' }, 'hand', 'mill'))],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        count: count(players({ relation: 'opponent' })),
+        match: objects({ zone: 'library', type: 'Creature' }),
+        foundTo: 'hand',
+        rest: REVEAL_UNTIL_REST.graveyard,
+      })],
       [
         instant('Noise'),
         creature('A'),
