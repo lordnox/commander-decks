@@ -219,15 +219,6 @@ export type CardInstruction =
       /** After the first process has finished; only the condition check remains. */
       spent?: true
     }
-  /** Mill `count`, then the controller may pay mana and life to put one of those cards into hand. */
-  | {
-      kind: 'millThenRecover'
-      count: number
-      mana?: string
-      life?: number
-      /** Snapshot of milled object ids; set when offering the recover choice after mill. */
-      fromObjectIds?: string[]
-    }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: InstructionCount }
   | {

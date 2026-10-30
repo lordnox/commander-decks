@@ -101,3 +101,10 @@ are retired as unsupported helper-specific behavior; existing canonical dies,
 leaves, source-LKI, and return tests continue to own their independent mechanics.
 `Enduring Innocence` remains an explicit catalog GAP because canonical
 type-removal plus return-as-enchantment semantics are not implemented.
+
+The test-only `millThenRecover` instruction handler was removed after its
+`onResolve` fixture migrated to a canonical spell program using `mill`,
+`chooseCards`, and combined resolution payment. The migrated owner keeps the
+paid/declined and insufficient-resource outcomes, the bound milled-card choice,
+privacy, and journal restore coverage; no other producer or runtime consumer
+remains.

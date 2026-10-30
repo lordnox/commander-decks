@@ -61,15 +61,6 @@ export const putLandFromHand = (tapped = false): CardInstruction => ({
   tapped,
 })
 
-export const millThenRecover = (
-  count: number,
-  cost: { mana?: string; life?: number } = {},
-): CardInstruction => ({
-  kind: 'millThenRecover',
-  count,
-  ...cost,
-})
-
 export const repeatIf = (
   condition: CardCondition,
   ...process: CardInstruction[]

@@ -1,7 +1,6 @@
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices } from '../../plugins/hiddenInformation'
 import { isPhasedOut } from '../../plugins/phasing'
-import { payCost } from '../../plugins/spells'
 import { INSTRUCTIONS_RESUME, openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
@@ -95,51 +94,6 @@ const millTarget: InstructionHandler<'millTarget'> = ({ draft, source, item }, i
       triggeringPlayer: source.controller,
       instructions: [{ kind: 'millTarget', count: instruction.count }],
     },
-  })
-}
-
-const millThenRecover: InstructionHandler<'millThenRecover'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  if (!instruction.fromObjectIds) {
-    const ids = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
-    millLibrary(draft, source.controller, instruction.count)
-    draft.enqueue({
-      type: 'custom',
-      name: INSTRUCTIONS_RESUME,
-      payload: {
-        sourceId: source.id,
-        remaining: [{ ...instruction, fromObjectIds: ids }],
-        ...(item ? { item } : {}),
-      },
-    })
-    return
-  }
-  const controller = draft.players[source.controller]
-  if (instruction.mana && !payCost(controller.mana, instruction.mana)) return
-  if (instruction.life && controller.life < instruction.life) return
-  const candidates = instruction.fromObjectIds.filter((objectId) => draft.object(objectId))
-  if (candidates.length === 0) return
-  const costParts = [
-    instruction.mana ? `pay ${instruction.mana}` : undefined,
-    instruction.life ? `pay ${instruction.life} life` : undefined,
-  ].filter(Boolean)
-  const costText = costParts.length > 0 ? ` ${costParts.join(' and ')} to` : ' to'
-  openCardSelection(draft, {
-    seat: source.controller,
-    kind: 'choose',
-    count: 1,
-    min: 0,
-    candidates,
-    sourceId: source.id,
-    source: source.name,
-    prompt: `You may${costText} put one of those cards into your hand.`,
-    destinations: ['skip', 'target'],
-    fromZone: 'graveyard',
-    moveSelectedTo: 'hand',
-    ...(instruction.mana ? { payMana: instruction.mana } : {}),
-    ...(instruction.life ? { payLife: instruction.life } : {}),
   })
 }
 
@@ -921,7 +875,6 @@ export const zoneHandlers = {
   addPlusCountersFromSacrifice,
   selfMill,
   millTarget,
-  millThenRecover,
   bounceSelf,
   returnToOwnersControl,
   finishWarpExile,

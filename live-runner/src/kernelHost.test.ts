@@ -47,7 +47,7 @@ import {
   eachPlayerMayWheel,
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
-import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
+import { onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
@@ -104,6 +104,8 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  choice as dslChoice,
+  chooseCards as dslChooseCards,
   spell as dslSpell,
   delve as dslDelve,
   select as dslSelect,
@@ -112,6 +114,11 @@ import {
   activated as dslActivated,
   discardCost,
   gainLife,
+  manaAndLifeCost,
+  mill as dslMill,
+  move as dslMove,
+  objects as dslObjects,
+  payOptional,
   sacrificeCost,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
@@ -1606,6 +1613,26 @@ describe('kernel host journal', () => {
   })
 
   test('a host restart rebuilds an open mill-then-recover choice', () => {
+    const millThenRecoverDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+      instructions: [
+        dslMill({ count: 3, targets: ref('controller'), bindChoice: 'milled' }),
+        payOptional({
+          payer: ref('controller'),
+          cost: manaAndLifeCost('{1}', 2),
+          bindResult: 'paid',
+          ifPaid: [
+            dslChooseCards({
+              chooser: ref('controller'),
+              bindChoice: 'recovered',
+              filter: dslObjects({ among: dslChoice('milled') }),
+              min: 1,
+              max: 1,
+            }),
+            dslMove({ targets: dslChoice('recovered'), to: 'hand' }),
+          ],
+        }),
+      ],
+    })])))
     const server = createServerGame(
       commanderRules,
       {
@@ -1615,7 +1642,7 @@ describe('kernel host journal', () => {
             types: ['Instant'],
             manaCost: '{0}',
             manaValue: 0,
-            effects: [onResolveEffect(millThenRecover(3, { mana: '{1}', life: 2 }))],
+            ruleDefinition: millThenRecoverDefinition,
           })],
         },
         libraries: {
@@ -1640,6 +1667,13 @@ describe('kernel host journal', () => {
       objectId: relic.id,
     }).ok).toBe(true)
     expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    const payment = pendingOptionSelection(kernel.history.current(), 'p1')!
+    expect(kernel.dispatch({
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: payment.id,
+      optionId: 'pay',
+    }).ok).toBe(true)
 
     const firstLobby = createLobby()
     firstLobby.phase = 'play'
@@ -1648,7 +1682,7 @@ describe('kernel host journal', () => {
       seat: 'p1',
       kind: 'choose',
       cards: ['Milled One', 'Milled Two', 'Milled Three'],
-      destinations: ['skip', 'target'],
+      destinations: ['target', 'skip'],
     })
 
     const restartedKernel = handleFor(
