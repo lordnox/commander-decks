@@ -92,3 +92,12 @@ mechanic suites. The two object-identity gain-life fixtures now use a canonical
 gained-life definition. Other legacy occurrence families remain until their
 fixture owners are migrated; this does not retire the generic occurrence,
 APNAP, or resolution infrastructure.
+
+The unregistered `diesReturnAsEnchantment` helper and its `returnSelfAsEnchantment`
+instruction were retired with their legacy-only fixture. No catalog entry or
+other producer consumed this operation. Its assertions for type/P/T rewriting,
+owner return, noncreature no-loop behavior, and a second leaves-triggered death
+are retired as unsupported helper-specific behavior; existing canonical dies,
+leaves, source-LKI, and return tests continue to own their independent mechanics.
+`Enduring Innocence` remains an explicit catalog GAP because canonical
+type-removal plus return-as-enchantment semantics are not implemented.

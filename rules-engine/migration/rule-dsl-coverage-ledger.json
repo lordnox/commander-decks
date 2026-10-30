@@ -21,16 +21,16 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 7,
-    "cardInstructions": 175,
-    "instructionHandlersDiscovered": 175,
+    "cardInstructions": 174,
+    "instructionHandlersDiscovered": 174,
     "builtInPlugins": 57,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 57,
-    "directMutationSites": 495,
+    "directMutationSites": 493,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 138,
+    "instructionUnobservedGaps": 137,
     "cardRegistrationOnlyGaps": 0,
     "candidateOnlyInstructionRows": 35,
     "candidateOnlyCardRows": 0
@@ -3018,24 +3018,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "returnSelfAsEnchantment",
-      "mechanic": "semantic game action",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "shared typed action primitive and outcome",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03"
-      ],
-      "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "returnSelfWithCounter",
       "mechanic": "semantic game action",
       "currentRegistrations": [],
@@ -3773,7 +3755,6 @@
       "returnCreatureManaValueX",
       "returnLinkedExile",
       "returnOwnedGraveyardLands",
-      "returnSelfAsEnchantment",
       "returnSelfWithCounter",
       "returnTargetFromGraveyard",
       "returnToOwnersControl",
@@ -4376,7 +4357,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 70,
+        "matches": 69,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
@@ -4425,7 +4406,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 91,
+        "matches": 90,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3521 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
@@ -4825,16 +4806,16 @@
         "rules-engine/src/plugins/stateBased.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 13,
         "samples": [
           "rules-engine/src/plugins/combat.test.ts:262 — test('a deathtouch trampler only owes its blocker one damage', () => {",
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
           "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:105 — test('a permanent the dying player only controlled goes back to its owner', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:122 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
-          "rules-engine/src/plugins/stateBased.test.ts:147 — test('continuous recomputation settles before ordinary SBA collection', () => {"
+          "rules-engine/src/plugins/stateBased.test.ts:109 — test('a permanent the dying player only controlled goes back to its owner', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:126 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
+          "rules-engine/src/plugins/stateBased.test.ts:151 — test('continuous recomputation settles before ordinary SBA collection', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4868,16 +4849,14 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/plugins/stateBased.test.ts:170 — test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
       "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
       "ownerPart": "16",
       "dependencyParts": [],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "turnStructure",
@@ -5554,7 +5533,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:453",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:452",
         "rules-engine/src/cardPlugins/effectRuntime.ts:264",
         "rules-engine/src/cardPlugins/effectRuntime.ts:460",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -5614,8 +5593,8 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:292",
         "rules-engine/src/cardPlugins/effectRuntime.ts:421",
         "rules-engine/src/cardPlugins/effectRuntime.ts:425",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:236",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:320",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:235",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:319",
         "rules-engine/src/cardPlugins/librarySearch.ts:174",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
@@ -5724,15 +5703,15 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/continuousEffects.ts:153",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:162",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:143",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:152",
         "rules-engine/src/cardPlugins/continuousEffects.ts:33",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:453",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:479",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:507",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:509",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:443",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:469",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:497",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:499",
         "rules-engine/src/cardPlugins/continuousEffects.ts:52",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:546",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:536",
         "rules-engine/src/cardPlugins/effectRuntime.ts:254",
         "rules-engine/src/cardPlugins/effectRuntime.ts:541",
         "rules-engine/src/cardPlugins/effectRuntime.ts:97",
@@ -6240,14 +6219,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          688,
-          689,
-          691
+          678,
+          679,
+          681
         ],
         "samples": [
-          "688: const endTurnEffects = event.type === 'custom'",
-          "689: && event.name === 'advanceStep'",
-          "691: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "678: const endTurnEffects = event.type === 'custom'",
+          "679: && event.name === 'advanceStep'",
+          "681: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -8124,59 +8103,57 @@
       {
         "path": "rules-engine/src/cardPlugins/instructionHandlers/zones.ts",
         "lines": [
-          28,
-          71,
-          109,
-          123,
-          148,
-          156,
-          158,
-          167,
-          170,
-          175,
-          184,
-          201,
-          207,
-          218,
-          235,
-          258,
-          268,
-          294,
-          301,
-          308,
-          311,
-          322,
-          330,
+          27,
+          70,
+          108,
+          122,
+          147,
+          155,
+          157,
+          166,
+          169,
+          174,
+          183,
+          200,
+          206,
+          217,
+          234,
+          257,
+          267,
+          293,
+          300,
+          307,
+          310,
+          321,
+          329,
+          427,
           428,
-          429,
-          470,
+          469,
+          486,
           487,
-          490,
-          503,
-          504,
-          510,
-          633,
-          679,
-          730,
-          737,
-          744,
-          751,
-          753,
-          759,
+          493,
+          616,
+          662,
+          713,
+          720,
+          727,
+          734,
+          736,
+          742,
+          745,
           762,
-          779,
-          781,
+          764,
+          765,
           782,
-          799,
-          867,
-          886,
-          904,
-          915
+          850,
+          869,
+          887,
+          898
         ],
         "samples": [
-          "28: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
-          "71: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
-          "109: draft.enqueue({"
+          "27: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
+          "70: if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)",
+          "108: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
