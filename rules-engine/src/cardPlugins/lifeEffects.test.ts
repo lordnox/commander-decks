@@ -22,12 +22,11 @@ import {
   ref,
   whenever,
 } from './dsl/v1'
-import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 const card = (name: string, types: string[], manaCost = '') =>
   cardTemplate(name, { types, manaCost })
 
-const plugins = [activated, onResolve, targetedResolve]
+const plugins = [activated, targetedResolve]
 
 const combatDamageLifeSwap = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
   whenever(dealtDamage({ recipient: ref('self'), combat: true }), {
