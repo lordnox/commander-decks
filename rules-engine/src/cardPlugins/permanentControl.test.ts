@@ -13,7 +13,6 @@ import {
   enters,
   onResolve,
   pairDonateToOpponents,
-  targetOnResolve,
 } from './effectBuilders'
 import { targetedResolve } from './targetedResolve'
 import { runInstructions } from './runInstructions'
@@ -31,6 +30,20 @@ import { hasKeyword } from '../keywords'
 import { KEYWORDS } from './dsl/schema/v2'
 import { ok, testObject } from '../testHelpers'
 import { createLobby } from '../../../live-runner/src/lobby'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createEffect as dslCreateEffect,
+  gainControlEffect,
+  objects as dslObjects,
+  permanentEffect,
+  ref as dslRef,
+  select as dslSelect,
+  spell as dslSpell,
+  target as dslTarget,
+  untap as dslUntap,
+} from './dsl/v1'
 import {
   applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
@@ -451,11 +464,19 @@ const steal = () => cardTemplate('Fixture Steal Spell', {
   types: ['Instant'],
   manaCost: '{0}',
   manaValue: 0,
-  effects: [targetOnResolve(
-    'select',
-    { zone: 'battlefield', permanent: true, controller: 'opponent' },
-    gainControlPermanent(true),
-  )],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+    decisions: {
+      targets: [dslSelect({ filter: dslObjects({ zone: 'battlefield', controller: 'opponent' }), count: 1 })],
+    },
+    instructions: [
+      dslCreateEffect({
+        targets: dslTarget(0),
+        effect: gainControlEffect(dslRef('controller')),
+        duration: permanentEffect(),
+      }),
+      dslUntap(dslTarget(0)),
+    ],
+  })]))),
 })
 
 const find = (state: GameState, name: string) =>

@@ -18,9 +18,24 @@ import {
 import {
   entersTargetingOpponent,
   loseAbilitiesBecome as loseAbilitiesBecomeInstruction,
-  onResolve,
 } from './effectBuilders'
 import { onResolve as onResolvePlugin } from './onResolve'
+import {
+  addTypesEffect,
+  card as dslCard,
+  choosePlayer,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createEffect as dslCreateEffect,
+  objects as dslObjects,
+  permanentEffect,
+  players as dslPlayers,
+  ref as dslRef,
+  removeAbilitiesEffect,
+  setStatsEffect,
+  spell as dslSpell,
+  choice as dslChoice,
+} from './dsl/v1'
 
 const shrinkingColossus = () => cardTemplate('Fixture Shrinking Colossus', {
   types: ['Creature'],
@@ -35,7 +50,14 @@ const shrinkingColossus = () => cardTemplate('Fixture Shrinking Colossus', {
 
 const cowardMaker = () => cardTemplate('Fixture Coward Maker', {
   types: ['Sorcery'],
-  effects: [onResolve(loseAbilitiesBecomeInstruction('Coward', 1, 1))],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+    instructions: [
+      choosePlayer({ chooser: dslRef('controller'), filter: dslPlayers({ relation: 'opponent' }), bindChoice: 'opponent' }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: removeAbilitiesEffect(), duration: permanentEffect() }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: setStatsEffect(1, 1), duration: permanentEffect() }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: addTypesEffect({ subtypes: ['Coward'] }), duration: permanentEffect() }),
+    ],
+  })]))),
 })
 
 const abilityBear = () => cardTemplate('Fixture Ability Bear', {

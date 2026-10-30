@@ -8,6 +8,16 @@ import { isGoaded } from '../plugins/goad'
 import { onResolve, goadRevealUntilMatches, revealUntil, revealUntilBasicLand } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { serializableEffects } from './effectRuntime'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  objects,
+  ref,
+  revealUntil as dslRevealUntil,
+  spell,
+  REVEAL_UNTIL_REST,
+} from './dsl/v1'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -46,6 +56,46 @@ const castFixture = (
       libraries: { p1: library },
     },
     { random: () => 0, cardPlugins: [onResolvePlugin, continuousEffects] },
+  )
+  const withMana = {
+    ...server.state,
+    players: {
+      ...server.state.players,
+      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
+    },
+  }
+  const cast = ok(server.rules(withMana, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(withMana, name).id,
+  }))
+  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+  return { server, resolved }
+}
+
+const castCanonicalFixture = (
+  name: string,
+  instructions: Parameters<typeof spell>[0]['instructions'],
+  library: ReturnType<typeof cardTemplate>[],
+  options: { players?: number } = {},
+) => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      players: options.players ?? 2,
+      hands: {
+        p1: [cardTemplate(name, {
+          types: ['Sorcery'],
+          manaCost: '{0}',
+          manaValue: 0,
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+            instructions: instructions ?? [],
+          })]))),
+        })],
+      },
+      libraries: { p1: library },
+    },
+    { random: () => 0, cardPlugins: [continuousEffects] },
   )
   const withMana = {
     ...server.state,
@@ -107,9 +157,14 @@ describe('revealUntil', () => {
   })
 
   test('mills non-matches through the first basic land', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Hermit Shape',
-      [onResolve(revealUntilBasicLand())],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        match: objects({ zone: 'library', type: 'Land', supertypes: ['Basic'] }),
+        foundTo: 'hand',
+        rest: REVEAL_UNTIL_REST.graveyard,
+      })],
       [
         cardTemplate('Nonbasic', { types: ['Land'] }),
         instant('Spell'),
@@ -123,9 +178,14 @@ describe('revealUntil', () => {
   })
 
   test('mills the entire library when no basic land appears', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Empty Basic',
-      [onResolve(revealUntilBasicLand())],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        match: objects({ zone: 'library', type: 'Land', supertypes: ['Basic'] }),
+        foundTo: 'hand',
+        rest: REVEAL_UNTIL_REST.graveyard,
+      })],
       [instant('One'), creature('Two'), cardTemplate('Gate', { types: ['Land'] })],
     )
     expect(resolved.zoneOrder.p1.library).toHaveLength(0)
@@ -175,9 +235,15 @@ describe('revealUntil', () => {
   })
 
   test('revealed cards are public to opponents without exposing unrevealed library order', () => {
-    const { resolved } = castFixture(
+    const { resolved } = castCanonicalFixture(
       'Fixture Privacy',
-      [onResolve(revealUntil(1, { type: 'Creature' }, 'hand', 'mill'))],
+      [dslRevealUntil({
+        targets: ref('controller'),
+        count: 1,
+        match: objects({ zone: 'library', type: 'Creature' }),
+        foundTo: 'hand',
+        rest: REVEAL_UNTIL_REST.graveyard,
+      })],
       [instant('Top'), creature('Shown'), instant('Buried')],
     )
     const opponent = projectForViewer(resolved, 'p2')
