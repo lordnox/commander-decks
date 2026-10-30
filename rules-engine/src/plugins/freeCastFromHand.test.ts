@@ -7,13 +7,19 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import {
+  card as ruleCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
   draw,
-  drawGreatestPower,
-  mayCastFromHandWithoutPayingMana,
-  onResolve as onResolveEffect,
-  targetOnResolve,
-} from '../cardPlugins/effects'
-import { onResolve } from '../cardPlugins/onResolve'
+  gainLife,
+  greatest,
+  objects,
+  offerCast,
+  ref,
+  spell as ruleSpell,
+  type Instruction,
+} from '../cardPlugins/dsl/v1'
+import { targetOnResolve } from '../cardPlugins/effects'
 import { targetedResolve } from '../cardPlugins/targetedResolve'
 import { createLobby } from '../../../live-runner/src/lobby'
 import { applyKernelAct } from '../../../live-runner/src/kernelHost'
@@ -30,8 +36,11 @@ const spell = (
   extra: Parameters<typeof cardTemplate>[1] = {},
 ) => cardTemplate(name, { types, manaCost, manaValue, ...extra })
 
+const ruleDefinition = (abilities: Parameters<typeof ruleCard>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(ruleCard(abilities)))
+
 const freeCaster = (types = ['Sorcery']) => spell('Free Caster', types, '{0}', 0, {
-  effects: [onResolveEffect(mayCastFromHandWithoutPayingMana(5))],
+  ruleDefinition: ruleDefinition([ruleSpell({ instructions: [offerCast({ maxManaValue: 5, notLand: true })] })]),
 })
 
 const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[] = []) =>
@@ -45,7 +54,9 @@ const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[
           spell('Cheap Bear', ['Creature'], '{2}{G}', 3),
           spell('Big Beast', ['Creature'], '{4}{G}{G}', 6),
           spell('Zero Trick', ['Instant'], '{0}', 0, {
-            effects: [onResolveEffect({ kind: 'gainLife', count: 1 })],
+            ruleDefinition: ruleDefinition([ruleSpell({
+              instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+            })]),
           }),
           cardTemplate('Hand Land', { types: ['Land'] }),
           ...extraHand,
@@ -54,7 +65,7 @@ const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[
       },
       battlefield: { p2: [cardTemplate('Rival Guard', { types: ['Creature'] })] },
     },
-    { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
+    { random: () => 0.5, cardPlugins: [targetedResolve] },
   )
 
 const castable = (state: GameState) =>
@@ -274,7 +285,7 @@ describe('free cast from hand', () => {
         players: 2,
         hands: { p1: [freeCaster(), spell('Big Beast', ['Creature'], '{6}', 6)] },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const cast = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -317,12 +328,15 @@ describe('free cast from hand', () => {
   describe('candidates are read after earlier instructions have landed', () => {
     // "Draw cards equal to the greatest power among creatures you control.
     // You may cast a spell with mana value 5 or less from your hand without paying its mana cost."
-    const drawThenCast = (...drawing: ReturnType<typeof draw>[]) => createServerGame(
+    const drawThenCast = (...drawing: Instruction[]) => createServerGame(
       commanderRules,
       {
         players: 2,
         hands: { p1: [spell('Draw Then Cast', ['Sorcery'], '{0}', 0, {
-          effects: [onResolveEffect(...drawing, mayCastFromHandWithoutPayingMana(5))],
+          ruleDefinition: ruleDefinition([ruleSpell({ instructions: [
+            ...drawing,
+            offerCast({ maxManaValue: 5, notLand: true }),
+          ] })]),
         })] },
         libraries: { p1: [
           spell('Drawn Bear', ['Creature'], '{2}{G}', 3),
@@ -330,7 +344,7 @@ describe('free cast from hand', () => {
         ] },
         battlefield: { p1: [cardTemplate('Big Friend', { types: ['Creature'], power: 1, toughness: 1 })] },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const resolved = (server: ReturnType<typeof drawThenCast>) => {
       const cast = ok(server.rules(server.state, {
@@ -343,7 +357,14 @@ describe('free cast from hand', () => {
 
     for (const [label, build] of [
       ['a plain draw', () => drawThenCast(draw(1))],
-      ['a draw equal to the greatest power', () => drawThenCast(drawGreatestPower())],
+      ['a draw equal to the greatest power', () => drawThenCast(draw({
+        count: greatest({
+          of: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+          characteristic: 'power',
+          information: 'current',
+        }),
+        targets: ref('controller'),
+      }))],
     ] as const) {
       test(`${label} that brings the only castable card opens the offer with it`, () => {
         const state = resolved(build())

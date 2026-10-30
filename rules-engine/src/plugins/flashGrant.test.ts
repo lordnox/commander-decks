@@ -1,7 +1,5 @@
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
-import { addUntilCleanupRule, onResolve as onResolveEffect } from '../cardPlugins/effects'
-import { onResolve } from '../cardPlugins/onResolve'
 import { deckCardTemplate } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
@@ -10,6 +8,11 @@ import type { CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { resolveStack, ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, grantFlash, ref, spell, untilCleanup } from '../cardPlugins/dsl/v1'
+
+const flashGrant = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+  instructions: [grantFlash({ targets: ref('controller'), duration: untilCleanup() })],
+})])))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -25,7 +28,7 @@ const game = () => {
             types: ['Instant'],
             manaCost: '{0}',
             manaValue: 0,
-            effects: [onResolveEffect(addUntilCleanupRule('flashGrant'))],
+            ruleDefinition: flashGrant,
           }),
           cardTemplate('Surprise Bear', { types: ['Creature'], manaCost: '{0}', manaValue: 0 }),
           cardTemplate('Surprise Sorcery', { types: ['Sorcery'], manaCost: '{0}', manaValue: 0 }),
@@ -33,7 +36,7 @@ const game = () => {
         p2: [cardTemplate('Rival Bear', { types: ['Creature'], manaCost: '{0}', manaValue: 0 })],
       },
     },
-    { random: () => 0.5, cardPlugins: [onResolve] },
+    { random: () => 0.5 },
   )
   return server
 }
