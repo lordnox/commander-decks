@@ -10,23 +10,19 @@ import {
   compileCardRuleDefinition,
   count,
   createDefinitionSnapshot,
+  draw as dslDraw,
+  enters as dslEnters,
+  gainLife as dslGainLife,
+  ifThen,
   modifyEvent,
   players,
   ref,
   replacement,
+  somePlayerHasMore,
   staticAbility,
   wouldEnter,
+  whenever,
 } from './dsl/v1'
-import {
-  branch,
-  controllerLife,
-  draw,
-  enters,
-  gainLife,
-  landfall,
-  opponentHasMore,
-  serializableEffects,
-} from './effects'
 
 const opponentsAtMostOneEntry = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
   staticAbility(replacement(
@@ -45,6 +41,22 @@ const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
 
 const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
 
+const someOpponentHasMore = (metric: 'hand' | 'lands' | 'life' | 'creatures') => somePlayerHasMore({
+  players: players({ relation: 'opponent' }),
+  than: ref('controller'),
+  metric,
+})
+
+const entersDefinition = (metric: 'hand' | 'lands' | 'life' | 'creatures') =>
+  createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+    whenever(dslEnters({ filter: { type: 'Creature' } }), {
+      instructions: [ifThen(someOpponentHasMore(metric), {
+        then: [dslDraw({ count: 1, targets: ref('controller') })],
+        otherwise: [dslGainLife({ amount: 1, targets: ref('controller') })],
+      })],
+    }),
+  ])))
+
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -62,18 +74,6 @@ const playFromHand = (
 }
 
 describe('opponentHasMore', () => {
-  test('serializableEffects keeps clone-safe opponentHasMore tags', () => {
-    const effects = serializableEffects([enters(
-      branch(opponentHasMore('lands'), [draw(1)]),
-    )])
-    expect(effects[0]).toMatchObject({
-      op: 'trigger',
-      do: [{ kind: 'if', if: { kind: 'opponentHasMore', stat: 'lands' } }],
-    })
-    expect(serializableEffects([enters(branch(controllerLife(40), [gainLife(1)]))])[0])
-      .toMatchObject({ do: [{ if: { kind: 'controllerLife', min: 40 } }] })
-  })
-
   test('opponentsAtMost still taps a two-player fixture land on enter', () => {
     const springs = cardTemplate('Fixture Springs', {
       types: ['Land'],
@@ -91,9 +91,7 @@ describe('opponentHasMore', () => {
   test('ETB branch draws when an opponent controls more lands', () => {
     const surveyor = cardTemplate('Fixture Surveyor', {
       types: ['Creature'],
-      effects: [enters(
-        branch(opponentHasMore('lands'), [draw(1)], [gainLife(1)]),
-      )],
+      ruleDefinition: entersDefinition('lands'),
     })
     const server = createServerGame(
       commanderRules,
@@ -113,9 +111,7 @@ describe('opponentHasMore', () => {
   test('ETB branch skips draw when land counts are tied', () => {
     const surveyor = cardTemplate('Fixture Surveyor', {
       types: ['Creature'],
-      effects: [enters(
-        branch(opponentHasMore('lands'), [draw(1)], [gainLife(1)]),
-      )],
+      ruleDefinition: entersDefinition('lands'),
     })
     const server = createServerGame(
       commanderRules,
@@ -134,12 +130,12 @@ describe('opponentHasMore', () => {
   test('trigger if gates ETB on opponent life lead', () => {
     const beacon = cardTemplate('Fixture Beacon', {
       types: ['Creature'],
-      effects: [{
-        op: 'trigger',
-        on: 'enters',
-        if: opponentHasMore('life'),
-        do: [gainLife(4)],
-      }],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+        whenever(dslEnters({ filter: { type: 'Creature' } }), {
+          interveningIf: someOpponentHasMore('life'),
+          instructions: [dslGainLife({ amount: 4, targets: ref('controller') })],
+        }),
+      ]))),
     })
     const aheadServer = createServerGame(
       commanderRules,
@@ -175,9 +171,14 @@ describe('opponentHasMore', () => {
   test('landfall branch draws when an opponent controls more creatures', () => {
     const cartographer = cardTemplate('Fixture Cartographer', {
       types: ['Creature'],
-      effects: [landfall(
-        branch(opponentHasMore('creatures'), [draw(1)], [gainLife(1)]),
-      )],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+        whenever(dslEnters({ filter: { type: 'Land' } }), {
+          instructions: [ifThen(someOpponentHasMore('creatures'), {
+            then: [dslDraw({ count: 1, targets: ref('controller') })],
+            otherwise: [dslGainLife({ amount: 1, targets: ref('controller') })],
+          })],
+        }),
+      ]))),
     })
     const server = createServerGame(
       commanderRules,
@@ -200,9 +201,13 @@ describe('opponentHasMore', () => {
   test('ANY opponent ahead on hand size satisfies cardsInHand', () => {
     const tally = cardTemplate('Fixture Tally', {
       types: ['Creature'],
-      effects: [enters(
-        branch(opponentHasMore('cardsInHand'), [draw(1)]),
-      )],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+        whenever(dslEnters({ filter: { type: 'Creature' } }), {
+          instructions: [ifThen(someOpponentHasMore('hand'), {
+            then: [dslDraw({ count: 1, targets: ref('controller') })],
+          })],
+        }),
+      ]))),
     })
     const server = createServerGame(
       commanderRules,
