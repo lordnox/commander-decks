@@ -128,16 +128,6 @@ export const addTypes = (
   return { kind: 'typeChange', before, after: [...object.types] }
 }
 
-/** Enduring-style return: drop Creature and P/T; keep other types (e.g. Enchantment). */
-export const returnAsEnchantmentOnly = (object: GameObject) => {
-  object.types = [...new Set([
-    ...object.types.filter((type) => type !== 'Creature'),
-    'Enchantment',
-  ])]
-  object.power = null
-  object.toughness = null
-}
-
 export type LoseAbilitiesBecomeParams = {
   extraSubtype: string
   power: number

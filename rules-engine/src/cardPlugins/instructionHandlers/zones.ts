@@ -12,7 +12,6 @@ import {
 } from '../effects'
 import { resolveRevealUntilThen, runRevealUntil } from '../revealUntil'
 import { instructionCount } from '../voteResult'
-import { returnAsEnchantmentOnly } from '../continuousEffects'
 import { targetObject as resolveTargetObject } from '../../objectIdentity'
 import { matchesTargetFilter } from '../targetedResolve'
 import { hasKeyword } from '../../keywords'
@@ -479,22 +478,6 @@ const returnOwnedGraveyardLands: InstructionHandler<'returnOwnedGraveyardLands'>
   returnOwnedLands(draft, source.controller, instruction.tapped !== false)
 }
 
-const returnSelfAsEnchantment: InstructionHandler<'returnSelfAsEnchantment'> = (
-  { draft, source },
-) => {
-  // CR 400.7 permits this ability to find the new graveyard object without
-  // treating it as the old battlefield incarnation.
-  const graveyardCard = draft.object(source.id)
-  if (graveyardCard?.zone !== 'graveyard') return
-  returnAsEnchantmentOnly(graveyardCard)
-  draft.enqueue({
-    type: 'move',
-    objectId: graveyardCard.id,
-    to: 'battlefield',
-    controller: graveyardCard.owner,
-  })
-}
-
 const returnSelfWithCounter: InstructionHandler<'returnSelfWithCounter'> = (
   { draft, source },
   instruction,
@@ -959,7 +942,6 @@ export const zoneHandlers = {
   reanimateCreatureFromGraveyards,
   exileColoredPermanentsAtMostX,
   returnOwnedGraveyardLands,
-  returnSelfAsEnchantment,
   returnSelfWithCounter,
   surveil,
   scry,

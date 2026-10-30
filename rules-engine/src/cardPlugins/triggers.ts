@@ -123,14 +123,6 @@ export function dies(...args: Array<TriggerOptions | CardInstruction>): CardEffe
   return trigger('dies', {}, ...args as CardInstruction[])
 }
 
-/** When this dies as a creature, return under its owner's control as a noncreature enchantment. */
-export const diesReturnAsEnchantment = (): CardEffect => ({
-  op: 'trigger',
-  on: 'dies',
-  if: { kind: 'wasCreature' },
-  do: [{ kind: 'returnSelfAsEnchantment' }],
-})
-
 /**
  * CR 702.79 persist: when this dies, if it had no -1/-1 counters on it, return
  * it under its owner's control with a -1/-1 counter. The condition is checked

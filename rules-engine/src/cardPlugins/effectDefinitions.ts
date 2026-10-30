@@ -184,7 +184,6 @@ export type CardInstruction =
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
-  | { kind: 'returnSelfAsEnchantment' }
   /** Return this card from the graveyard to the battlefield under its owner's control with one counter. */
   | { kind: 'returnSelfWithCounter'; counter: string }
   | { kind: 'createToken'; token: TokenSpec }
