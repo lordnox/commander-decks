@@ -894,6 +894,9 @@ export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient;
 export const gainLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'gainLife', amount: toAmount(input.amount), targets: input.targets })
 
+export const gainEnergy = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
+  immutableData({ kind: 'gainEnergy', amount: toAmount(input.amount), targets: input.targets })
+
 export const lowestLife = (of: PlayerSelector = players()) =>
   immutableData({ kind: 'lowestLife' as const, of })
 

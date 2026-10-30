@@ -1079,6 +1079,11 @@ export const validateDefinitionV2 = (root: unknown): {
         validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
+      case 'gainEnergy':
+        exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
+        validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'setLife':
         exactKeys(node, path, ['kind', 'amount', 'targets', 'bindResult'], ['kind', 'amount', 'targets'])
         if (isData(node.amount) && node.amount.kind === 'lowestLife') {

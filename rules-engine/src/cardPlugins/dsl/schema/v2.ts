@@ -605,6 +605,8 @@ export type Instruction =
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
   /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
+  /** Queue energy gain for each resolved player recipient at this point in resolution. */
+  | { kind: 'gainEnergy'; amount: Amount; targets: PlayerRecipient }
   /** Set each recipient's life total; actual loss still flows through loseLife. */
   | { kind: 'setLife'; amount: LifeTotalAmount; targets: PlayerRecipient; bindResult?: string }
   /** Exchange two players' life totals as one action and optionally bind the first player's actual loss. */
