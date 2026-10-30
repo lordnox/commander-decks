@@ -1406,7 +1406,6 @@ const collectCasts = (
   const spell = draft.object(event.objectId)
   if (!spell || spell.zone !== 'stack') return
   for (const source of draft.zoneOf('battlefield')) {
-    // Modal cast triggers retain their existing mode picker, which queues the chosen ability.
     collectEffects(source, 'cast', draft, matches, 1, {
       triggeringObjectId: spell.id, triggeringPlayer: event.seat, watched: spell,
     }, event)
