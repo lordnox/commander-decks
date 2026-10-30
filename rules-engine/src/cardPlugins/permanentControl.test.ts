@@ -11,16 +11,11 @@ import {
   gainControlPermanent,
   draw,
   enters,
-  onResolve,
-  pairDonateToOpponents,
 } from './effectBuilders'
 import { targetedResolve } from './targetedResolve'
 import { runInstructions } from './runInstructions'
-import { serializableEffects } from './effectRuntime'
 import {
-  PENDING_PERMANENT_DONATION,
   permanentControl,
-  pendingPermanentDonation,
 } from './permanentControl'
 import { pendingPlayerSelectionFor, selectPlayers } from '../rules/selectPlayers'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
@@ -28,16 +23,18 @@ import { createServerGame } from '../runtime'
 import type { GameState } from '../types'
 import { hasKeyword } from '../keywords'
 import { KEYWORDS } from './dsl/schema/v2'
-import { ok, testObject } from '../testHelpers'
+import { ok, resolveStack } from '../testHelpers'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
   card as dslCard,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createEffect as dslCreateEffect,
+  distributeControl,
   gainControlEffect,
   objects as dslObjects,
   permanentEffect,
+  players as dslPlayers,
   ref as dslRef,
   select as dslSelect,
   spell as dslSpell,
@@ -90,6 +87,15 @@ const fictional = (name: string, controller: string) =>
   ({ ...cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 }), controller })
 
 const plugins = [continuousEffects, selectPlayers, permanentControl]
+
+const canonicalDonation = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+  instructions: [distributeControl({
+    targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
+    chooser: dslRef('controller'),
+    recipients: dslPlayers({ relation: 'opponent' }),
+    distinct: true,
+  })],
+})])))
 
 const mergeDraft = (state: ReturnType<typeof newGame>, draft: ReturnType<typeof makeDraft>) => ({
   ...state,
@@ -290,144 +296,18 @@ describe('permanent control change', () => {
     expect(blinked.objects[replacementId].continuousEffects).toBeUndefined()
   })
 
-  test('pairDonateToOpponents assigns each permanent to a different opponent when counts match', () => {
+  test('canonical control distribution choice survives a host restart', () => {
     const server = createServerGame(commanderRules, {
       players: 4,
-      battlefield: {
-        p1: [
-          fictional('Guest Alpha', 'p1'),
-          fictional('Guest Beta', 'p1'),
-          fictional('Guest Gamma', 'p1'),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: [permanentControl] })
-    const ids = server.state.zoneOrder.p1.battlefield
-    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
-      id: 'host-1', owner: 'p1', controller: 'p1', zone: 'stack',
-    })
-    server.state.objects[host.id] = host
-
-    const draft = makeDraft(server.state)
-    runInstructions(
-      draft,
-      host,
-      [pairDonateToOpponents(ids)],
-      {
-        id: 'stack-1',
-        kind: 'spell',
-        objectId: host.id,
-        controller: 'p1',
-        name: host.name,
-        targets: [],
-      },
-    )
-    let current = mergeDraft(server.state, draft)
-
-    const pick = (opponent: string) => {
-      const selection = pendingPlayerSelectionFor(current, 'p1')!
-      current = ok(server.rules(current, {
-        type: 'selectPlayers',
-        selectionId: selection.id,
-        seat: 'p1',
-        players: [opponent],
-      }))
-    }
-
-    pick('p2')
-    pick('p3')
-    pick('p4')
-
-    const controllers = ids.map((id) => current.objects[id].controller)
-    expect(new Set(controllers)).toEqual(new Set(['p2', 'p3', 'p4']))
-    expect(pendingPermanentDonation(current)).toBeUndefined()
-  })
-
-  test('rejects assigning the same opponent twice when counts match', () => {
-    const server = createServerGame(commanderRules, {
-      players: 3,
+      hands: { p1: [cardTemplate('Fictional Party', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: canonicalDonation })] },
       battlefield: {
         p1: [fictional('Guest Alpha', 'p1'), fictional('Guest Beta', 'p1')],
       },
-    }, { random: () => 0.5, cardPlugins: [permanentControl] })
-    const ids = server.state.zoneOrder.p1.battlefield
-    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
-      id: 'host-2', owner: 'p1', controller: 'p1', zone: 'stack',
-    })
-    server.state.objects[host.id] = host
-    const draft = makeDraft(server.state)
-    runInstructions(
-      draft,
-      host,
-      [pairDonateToOpponents(ids)],
-      {
-        id: 'stack-1',
-        kind: 'spell',
-        objectId: host.id,
-        controller: 'p1',
-        name: host.name,
-        targets: [],
-      },
-    )
-    let current = mergeDraft(server.state, draft)
-    const first = pendingPlayerSelectionFor(current, 'p1')!
-    current = ok(server.rules(current, {
-      type: 'selectPlayers',
-      selectionId: first.id,
-      seat: 'p1',
-      players: ['p2'],
-    }))
-    const second = pendingPlayerSelectionFor(current, 'p1')!
-    expect(second.candidates).toEqual(['p3'])
-    const duplicate = server.rules(current, {
-      type: 'selectPlayers',
-      selectionId: second.id,
-      seat: 'p1',
-      players: ['p2'],
-    })
-    expect(duplicate.ok).toBe(false)
-  })
-
-  test('stamped effects stay clone-safe', () => {
-    const effects = serializableEffects([
-      onResolve(pairDonateToOpponents(['a', 'b'])),
-    ])
-    expect(() => structuredClone(effects)).not.toThrow()
-    expect(effects[0]).toMatchObject({
-      op: 'trigger',
-      on: 'resolve',
-      do: [{ kind: 'pairDonateToOpponents', objectIds: ['a', 'b'] }],
-    })
-  })
-
-  test('pair donation choice survives a host restart', () => {
-    const server = createServerGame(commanderRules, {
-      players: 4,
-      battlefield: {
-        p1: [fictional('Guest Alpha', 'p1'), fictional('Guest Beta', 'p1')],
-      },
-    }, { random: () => 0.5, cardPlugins: plugins })
-    const ids = server.state.zoneOrder.p1.battlefield
-    const draft = makeDraft(server.state)
-    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
-      id: 'host-3', owner: 'p1', controller: 'p1', zone: 'stack',
-    })
-    draft.objects[host.id] = host
-    runInstructions(
-      draft,
-      host,
-      [pairDonateToOpponents(ids)],
-      {
-        id: 'stack-1',
-        kind: 'spell',
-        objectId: host.id,
-        controller: 'p1',
-        name: host.name,
-        targets: [],
-      },
-    )
-    server.state.players.p1.data = draft.players.p1.data
-    server.state.priority = 'p1'
-    const kernel = handleFor(server.rules, server.state)
+    }, { random: () => 0.5 })
+    const spell = server.state.zoneOrder.p1.hand[0]!
+    const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell }))
+    const resolving = resolveStack(server.rules, cast)
+    const kernel = handleFor(server.rules, resolving)
     expect(pendingPlayerSelectionFor(kernel.history.current(), 'p1')).toBeDefined()
     const lobby = createLobby()
     lobby.phase = 'play'
@@ -456,7 +336,7 @@ describe('permanent control change', () => {
       seat: 'p1',
       players: ['p2'],
     })
-    expect(kernel.history.current().players.p1.data[PENDING_PERMANENT_DONATION]).toBeDefined()
+    expect(pendingPlayerSelectionFor(kernel.history.current(), 'p1')?.candidates).toEqual(['p3', 'p4'])
   })
 })
 
