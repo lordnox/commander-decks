@@ -842,6 +842,8 @@ export const tokenCreated = (filter: ObjectOccurrenceFilter = {}) => immutableDa
 
 export const sacrificed = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'sacrificed' as const, filter })
 
+export const becomesMonstrous = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'becomesMonstrous' as const, filter })
+
 export const dies = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'dies', filter: input.filter })
 

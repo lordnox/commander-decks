@@ -118,6 +118,12 @@ object identity suite's dies, card-target entry, and player-target entry
 fixtures now use canonical triggered abilities while retaining occurrence/LKI,
 open-choice restore, target identity, and source-departure assertions.
 
+The legacy `becomesMonstrous` collector and `onBecomesMonstrous` helper are
+removed. The generic DSL now owns a typed `becomesMonstrous` occurrence pattern,
+and the existing monstrosity mechanic fixture uses it while retaining the
+activation, counter, monstrous-state, draw, and zone-reset assertions. The
+clone-safe legacy builder-shape assertion retired with that helper.
+
 The `lookTopPick` and `opponentPiles` legacy instruction builders, types, and
 handlers were removed after their fixtures moved to canonical inspect/choose/
 partition instructions or catalog programs. The remaining pile-selection

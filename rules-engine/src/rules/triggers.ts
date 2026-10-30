@@ -356,6 +356,12 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'becomesMonstrous') {
+    const object = occurrence.object?.after
+    return event.type === 'becomesMonstrous'
+      && event.objectId === object?.id
+      && Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
+  }
   if (pattern.kind === 'countersRemoved') return matchesCountersRemoved(state, source, pattern, occurrence, event)
   if (pattern.kind === 'votesFinished') return event.type === 'votesFinished'
   if (pattern.kind === 'abilityActivated') return event.type === 'abilityActivated' && evaluatePlayerSelector(pattern.filter, { state, controller: source.controller, source: captureObject(source), occurrence }).includes(event.seat)
@@ -756,6 +762,10 @@ const occurrenceSpecsForPattern = (
   draft: Draft,
 ): OccurrenceSpec[] => {
   switch (pattern.kind) {
+    case 'becomesMonstrous':
+      return event.type === 'becomesMonstrous'
+        ? [{ objectId: event.objectId }]
+        : []
     case 'draw': {
       if (event.type !== 'draw') return []
       const objectId = state.zoneOrder[event.seat]?.library[0]
@@ -1130,17 +1140,6 @@ const apnapOrder = (draft: Draft, matches: PendingTrigger[]): PendingTrigger[] =
   return ordered
 }
 
-const collectBecomesMonstrous = (
-  state: GameState,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'becomesMonstrous') return
-  const object = state.objects[event.objectId]
-  if (!object || object.zone !== 'battlefield') return
-  collectEffects(object, 'becomesMonstrous', state, matches)
-}
-
 const collectEnters = (
   state: GameState,
   draft: Draft,
@@ -1486,7 +1485,6 @@ const collectEventTriggers = (
 ): PendingTrigger[] => {
   const matches: PendingTrigger[] = []
   collectEnters(state, draft, event, matches)
-  collectBecomesMonstrous(state, event, matches)
   collectAttacks(state, event, matches)
   collectSacrifices(state, event, matches)
   collectPlayerAttacks(state, draft, event, matches)

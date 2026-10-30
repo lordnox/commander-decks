@@ -290,6 +290,7 @@ export type OccurrencePattern =
       }
     }
   | { kind: 'tokenCreated' | 'sacrificed'; filter: ObjectOccurrenceFilter }
+  | { kind: 'becomesMonstrous'; filter: ObjectOccurrenceFilter }
   | { kind: 'countersRemoved'; filter: ObjectOccurrenceFilter; counter: string; last?: true }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter; fromSpell?: boolean }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }

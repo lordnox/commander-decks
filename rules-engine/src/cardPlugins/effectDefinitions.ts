@@ -578,7 +578,6 @@ export type CardEffect =
         | 'fullyUnlock'
         | 'combatDamage'
         | 'dealtCombatDamage'
-        | 'becomesMonstrous'
         | 'tapped'
         | 'playerAttacks'
         | 'tokenCreated'

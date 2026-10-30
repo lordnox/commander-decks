@@ -1,12 +1,6 @@
 import type { TriggerBindingIf, ZoneId } from '../types'
 import type { CardCondition, CardEffect, CardInstruction, PlayerFilter, TargetFilter } from './effectDefinitions'
 
-export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'becomesMonstrous',
-  do: instructions,
-})
-
 export type TriggerOptions = {
   filter?: TargetFilter
   player?: 'you' | 'opponent' | 'any' | PlayerFilter

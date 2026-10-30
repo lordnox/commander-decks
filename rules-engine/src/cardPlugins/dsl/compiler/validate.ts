@@ -1930,6 +1930,9 @@ export const validateDefinitionV2 = (root: unknown): {
       case 'enters':
         exactKeys(node, path, ['kind', 'filter', 'fromSpell'], ['kind', 'filter'])
         break
+      case 'becomesMonstrous':
+        exactKeys(node, path, ['kind', 'filter'], ['kind', 'filter'])
+        break
       case 'cast':
         exactKeys(node, path, ['kind', 'filter', 'nthThisTurn'], ['kind', 'filter'])
         break
@@ -1990,6 +1993,7 @@ export const validateDefinitionV2 = (root: unknown): {
       }
       case 'countersRemoved':
       case 'tokenCreated':
+      case 'becomesMonstrous':
       case 'enters':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object']])
