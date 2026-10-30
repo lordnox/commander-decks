@@ -7,11 +7,9 @@ import { MANA_ABILITY_RESOLVED } from '../cardPlugins/dsl/manaConstants'
  * CR 603.2 — a trigger watches for a game event matching its `on` binding.
  * CR 603.3b — APNAP placement has separate non-ability and ability-triggering passes.
  */
-import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId, PERMANENT_ENTERED } from '../cardPlugins/permanentEntry'
 import {
   runInstructions,
-  triggerEffects,
   type CardEffect,
   type TargetFilter,
 } from '../cardPlugins/effects'
@@ -32,18 +30,16 @@ import type {
   Plugin,
   TargetRef,
 } from '../types'
-import { asRoomDoor } from '../plugins/rooms'
 import {
   markFirstMatchingEachTurn,
   markTriggeredOnceEachTurn,
   mayTriggerFirstMatchingEachTurn,
   mayTriggerOnceEachTurn,
-  triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
 import { spellsCastThisTurn } from './spellsCast'
 import { isProtectedFirstDrawInOwnDrawStep } from './drawStepHistory'
-import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
+import { isTriggerBindingIf } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
@@ -747,6 +743,14 @@ const matchesPlayerAttacks = (
     && matchesPlayerRecipient(occurrence.defender, pattern.filter.defender, context)
 }
 
+const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
+  if (typeof target === 'string') return target
+  if (target.kind === 'player') return target.player
+  if (target.kind !== 'object') return undefined
+  const attacked = state.objects[target.objectId]
+  return attacked?.protector ?? attacked?.controller
+}
+
 type OccurrenceSpec = {
   objectId?: string
   player?: PlayerId
@@ -1040,306 +1044,6 @@ const pushCopies = (
   }
 }
 
-const passesOnceEachTurn = (
-  source: GameObject,
-  effect: TriggerEffect,
-  catalog: CardEffect[],
-  turn: number,
-) => !effect.onceEachTurn || mayTriggerOnceEachTurn(source, triggerEffectKey(catalog, effect), turn)
-
-const noteOnceEachTurnIfNeeded = (
-  draft: Draft,
-  source: GameObject,
-  effect: Pick<TriggerEffect, 'onceEachTurn'>,
-  key?: string,
-) => {
-  if (!effect.onceEachTurn || !key) return
-  const live = draft.object(source.id)
-  if (!live) return
-  markTriggeredOnceEachTurn(live, key, draft.turn)
-}
-
-const triggerPayloadExtras = (
-  effect: Pick<TriggerEffect, 'if' | 'do' | 'onceEachTurn'>,
-  key?: string,
-  extras: Record<string, unknown> = {},
-) => ({
-  ...(key ? { triggerEffectKey: key } : {}),
-  triggerEffect: effect,
-  ...(effect.if && !isTriggerBindingIf(effect.if) ? { interveningIf: effect.if } : {}),
-  ...extras,
-})
-
-type TriggerMeta = Pick<
-  PendingTrigger,
-  'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
->
-
-/**
- * `watched` is the permanent a `tokenCreated` / `permanentEnters` / `permanentSacrificed` trigger
- * is about. Such an effect only triggers when `watched` matches its `watch`
- * filter, and its intervening if can read `watched` as well.
- */
-const collectEffects = (
-  source: GameObject,
-  on: TriggerEffect['on'],
-  state: GameState,
-  matches: PendingTrigger[],
-  copies = 1,
-  meta: TriggerMeta & { watched?: GameObject; fromZone?: GameObject['zone'] } = {},
-  event?: GameEvent,
-  accepts: (effect: TriggerEffect) => boolean = () => true,
-) => {
-  if (source.phasedOut) return
-  const { watched, fromZone, ...pending } = meta
-  const catalog = effectsOf(source)
-  for (const effect of triggerEffects(catalog, on)) {
-    if (!accepts(effect)) continue
-    if (on === 'exiled' && !effect.watch && source.id !== watched?.id) continue
-    if (!matchesTriggerEvent(state, source, effect, {
-      watched, player: meta.triggeringPlayer, fromZone, event,
-    })) continue
-    if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
-    const stackCopies = effect.onceEachTurn ? 1 : copies
-    pushCopies(matches, source, effect, stackCopies, {
-      ...pending,
-      triggerEffectKey: triggerEffectKey(catalog, effect),
-    })
-  }
-}
-
-const battlefieldIndex = (draft: Draft, objectId: string, controller: PlayerId) => {
-  const order = draft.zoneOrder[controller]?.battlefield ?? []
-  const index = order.indexOf(objectId)
-  return index === -1 ? Number.MAX_SAFE_INTEGER : index
-}
-
-/** CR 603.3b — active player, then turn order; same-player ties by battlefield ETB index. */
-const apnapOrder = (draft: Draft, matches: PendingTrigger[]): PendingTrigger[] => {
-  const playerOrder = apnapSeats(draft)
-
-  const buckets = new Map<PlayerId, PendingTrigger[]>()
-  for (const match of matches) {
-    const controller = match.source.controller
-    const bucket = buckets.get(controller) ?? []
-    bucket.push(match)
-    buckets.set(controller, bucket)
-  }
-
-  for (const [controller, bucket] of buckets) {
-    bucket.sort((a, b) =>
-      battlefieldIndex(draft, a.source.id, controller)
-      - battlefieldIndex(draft, b.source.id, controller))
-  }
-
-  const ordered: PendingTrigger[] = []
-  for (const seat of playerOrder) {
-    const bucket = buckets.get(seat)
-    if (bucket) ordered.push(...bucket)
-  }
-  return ordered
-}
-
-const collectEnters = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  const objectId = permanentEnteringObjectId(event, state)
-  if (!objectId) return
-  const object = draft.object(objectId)
-  if (!object || object.zone !== 'battlefield') return
-
-  collectEffects(
-    object,
-    'enters',
-    draft,
-    matches,
-    1,
-    { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object },
-    event,
-  )
-  for (const watcher of draft.zoneOf('battlefield')) {
-    const meta = { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object }
-    collectEffects(watcher, 'permanentEnters', draft, matches, 1, meta)
-    // CR 111.13: a resolving permanent spell copy enters as a token but is not created.
-    if (isPermanentEntrySignal(event)
-      && event.payload?.createdToken === true && object.token) {
-      collectEffects(watcher, 'tokenCreated', draft, matches, 1, meta)
-    }
-  }
-}
-
-/**
- * The `sacrifice` event is the one place a sacrifice is visible before the
- * permanent has left, so watchers read its controller and tokenhood from the
- * pre-event state. Whatever the card does afterwards (a replacement may send it
- * to a library) is for the ability's resolution to find out.
- */
-const collectSacrifices = (
-  state: GameState,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'sacrifice') return
-  const sacrificed = state.objects[event.objectId]
-  if (!sacrificed || sacrificed.zone !== 'battlefield') return
-  for (const watcher of Object.values(state.objects)) {
-    if (watcher.zone !== 'battlefield') continue
-    collectEffects(watcher, 'permanentSacrificed', state, matches, 1, {
-      triggeringObjectId: sacrificed.id,
-      triggeringPlayer: sacrificed.controller,
-      watched: sacrificed,
-    })
-  }
-}
-
-const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
-  if (typeof target === 'string') return target
-  if (target.kind === 'player') return target.player
-  if (target.kind !== 'object') return undefined
-  const attacked = state.objects[target.objectId]
-  return attacked?.protector ?? attacked?.controller
-}
-
-/** An attack trigger carries the defending player of the attacker it belongs to. */
-const collectAttacks = (
-  state: GameState,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'declareAttackers') return
-  for (const declaration of event.attackers) {
-    const attacker = state.objects[declaration.objectId]
-    if (!attacker) continue
-    const defender = defendingPlayer(state, declaration.defender)
-    const meta = defender ? { payload: { defendingPlayer: defender } } : {}
-    collectEffects(attacker, 'attacks', state, matches, 1, meta, event)
-  }
-}
-
-const collectPlayerAttacks = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'declareAttackers') return
-  for (const source of draft.zoneOf('battlefield')) {
-    const live = draft.object(source.id)
-    if (!live || live.zone !== 'battlefield') continue
-    const qualifying = event.attackers.some((declaration) => {
-      const defender = defendingPlayer(state, declaration.defender)
-      if (!defender || defender === live.controller || state.players[defender]?.lost) return false
-      return state.playerOrder.some((seat) =>
-        seat !== live.controller
-        && seat !== defender
-        && !state.players[seat].lost
-        && state.players[defender].life > state.players[seat].life)
-    })
-    if (!qualifying) continue
-    collectEffects(live, 'playerAttacks', state, matches, 1, {
-      triggeringPlayer: event.seat,
-    }, event)
-  }
-}
-
-const collectTapped = (
-  state: GameState,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'tap' && event.type !== 'tapForMana') return
-  const object = state.objects[event.objectId]
-  if (!object) return
-  collectEffects(object, 'tapped', state, matches, 1, {}, event)
-}
-
-const collectCombatDamage = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'combatDamage') return
-  const attacker = draft.object(event.sourceId) ?? state.objects[event.sourceId]
-  if (!attacker) return
-  const meta = {
-    triggeringPlayer: attacker.controller,
-    triggerAmount: event.amount,
-  }
-  if (event.target.kind === 'player') {
-    if (attacker.zone === 'battlefield') {
-      collectEffects(attacker, 'combatDamage', state, matches, 1, meta)
-    }
-    return
-  }
-  if (event.target.kind !== 'object') return
-  const recipient = draft.object(event.target.objectId) ?? state.objects[event.target.objectId]
-  if (!recipient || recipient.zone !== 'battlefield') return
-  collectEffects(recipient, 'dealtCombatDamage', state, matches, 1, meta)
-}
-
-const collectMoveTriggers = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'move') return
-  const before = state.objects[event.objectId]
-  if (!before) return
-
-  const after = draft.object(before.id)
-  if (!after || after.zone === before.zone) return
-  const meta = {
-    triggeringObjectId: before.id,
-    triggeringPlayer: before.controller,
-    watched: before,
-  }
-  const departed = before.zone === 'battlefield' && after.zone !== 'battlefield'
-  const died = departed && after.zone === 'graveyard' && before.types.includes('Creature')
-  // CR 603.10: departure watchers use the battlefield and characteristics before the move.
-  const watchers = departed ? Object.values(state.objects) : draft.zoneOf('battlefield')
-  for (const watcher of watchers) {
-    if (watcher.zone !== 'battlefield') continue
-    if (departed) collectEffects(watcher, 'permanentLeaves', state, matches, 1, meta, event)
-    if (died) collectEffects(watcher, 'permanentDies', state, matches, 1, meta, event)
-
-  }
-
-  if (after.zone === 'exile') {
-    // From-anywhere exile triggers use the resulting state; explicit departures look back (CR 603.10).
-    for (const source of Object.values(state.objects)) {
-      if (source.zone !== 'battlefield') continue
-      collectEffects(source, 'exiled', state, matches, 1, {
-        ...meta, fromZone: before.zone,
-      }, event, (effect) => !effect.watch || effect.from !== undefined)
-    }
-    for (const source of draft.zoneOf('battlefield')) {
-      collectEffects(source, 'exiled', draft, matches, 1, {
-        ...meta, watched: after, fromZone: before.zone,
-      }, event, (effect) => Boolean(effect.watch) && effect.from === undefined)
-    }
-  }
-
-  if (departed) {
-    // The leaving object stops existing for the ledger, so the ability keeps what it knew.
-    collectEffects(before, 'leaves', state, matches, 1, before.damageDealtBy
-      ? { payload: { lastKnownDamage: before.damageDealtBy } }
-      : {})
-  }
-
-  if (died) {
-    collectEffects(before, 'dies', state, matches, 1, {
-      triggeringObjectId: before.id,
-      triggeringPlayer: before.controller,
-      watched: before,
-    })
-  }
-}
-
 const eventObjectId = (event: GameEvent) => {
   if (event.type === 'tokenCreated') return event.object.id
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
@@ -1451,55 +1155,50 @@ const collectDelayedTriggers = (
   draft.delayedTriggers = remaining
 }
 
-const collectRoomUnlock = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  const doorId = event.type === 'unlockDoor'
-    ? event.door
-    : event.type === 'resolveTop'
-      ? state.stack[0]?.door
-      : undefined
-  if (!doorId) return
-  const objectId = event.type === 'unlockDoor'
-    ? event.objectId
-    : state.stack[0]?.objectId
-  if (!objectId) return
-  const source = draft.object(objectId)
-  const doorSource = source && asRoomDoor(source, doorId)
-  if (!source?.roomDoors || !doorSource || source.zone !== 'battlefield') return
-  collectEffects(doorSource, 'unlock', draft, matches)
-
-  const beforeCount = state.objects[objectId]?.unlockedDoors?.length ?? 0
-  if ((source.unlockedDoors?.length ?? 0) === 2 && beforeCount < 2) {
-    collectEffects(source, 'fullyUnlock', draft, matches)
-  }
-}
-
 const collectEventTriggers = (
   state: GameState,
   draft: Draft,
   event: GameEvent,
 ): PendingTrigger[] => {
   const matches: PendingTrigger[] = []
-  collectEnters(state, draft, event, matches)
-  collectAttacks(state, event, matches)
-  collectSacrifices(state, event, matches)
-  collectPlayerAttacks(state, draft, event, matches)
-  collectTapped(state, event, matches)
-  collectCombatDamage(state, draft, event, matches)
-  collectMoveTriggers(state, draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
-  collectRoomUnlock(state, draft, event, matches)
   canonicalTriggersForOccurrence(state, draft, event, matches)
   recordLandToGraveyardThisTurn(state, draft, event)
   return matches
 }
 
-// CR 603.2d: modifiers add instances of the original trigger; they do not
-// multiply each other's additional instances or delayed triggered abilities.
+const battlefieldIndex = (draft: Draft, objectId: string, controller: PlayerId) => {
+  const order = draft.zoneOrder[controller]?.battlefield ?? []
+  const index = order.indexOf(objectId)
+  return index === -1 ? Number.MAX_SAFE_INTEGER : index
+}
+
+/** CR 603.3b — active player, then turn order; same-player ties by battlefield ETB index. */
+const apnapOrder = (draft: Draft, matches: PendingTrigger[]): PendingTrigger[] => {
+  const buckets = new Map<PlayerId, PendingTrigger[]>()
+  for (const match of matches) {
+    const controller = match.source.controller
+    const bucket = buckets.get(controller) ?? []
+    bucket.push(match)
+    buckets.set(controller, bucket)
+  }
+  for (const [controller, bucket] of buckets) {
+    bucket.sort((a, b) => battlefieldIndex(draft, a.source.id, controller) - battlefieldIndex(draft, b.source.id, controller))
+  }
+  return apnapSeats(draft).flatMap(seat => buckets.get(seat) ?? [])
+}
+
+const triggerPayloadExtras = (
+  effect: Pick<TriggerEffect, 'if' | 'do' | 'onceEachTurn'>,
+  key?: string,
+  extras: Record<string, unknown> = {},
+) => ({
+  ...(key ? { triggerEffectKey: key } : {}),
+  triggerEffect: effect,
+  ...(effect.if && !isTriggerBindingIf(effect.if) ? { interveningIf: effect.if } : {}),
+  ...extras,
+})
+
 const multiplyPendingTriggers = (state: GameState, draft: Draft, event: GameEvent, matches: PendingTrigger[]) => {
   const seen = new Set<PendingTrigger>()
   const enteringId = event.type === 'playLand' ? event.objectId : permanentEnteringObjectId(event, state)
@@ -1582,7 +1281,6 @@ export const captureEventTriggers = (
       )
       const baseExecution = matchedExecution ?? triggerExecution(source, occurrence, draft)
       const execution = canonical ? withReferencedObjects(draft, { ...baseExecution, ...(draft.monarchRevision !== undefined ? { monarchRevision: draft.monarchRevision } : {}) }, canonical.definitionSnapshot) : baseExecution
-      noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
       return {
         id: pendingId ?? draft.allocId('trigger'),
         source: snapshotObject(source),
