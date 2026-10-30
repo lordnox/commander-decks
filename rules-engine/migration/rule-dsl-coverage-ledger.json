@@ -1695,7 +1695,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 87,
+        "matches": 86,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3288 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:69 — test('conditional branches are distinct nested program scopes', () => {",
@@ -3967,9 +3967,9 @@
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:222 — test('does not restamp creatures that enter later under that opponent', () => {",
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:245 — test('reverts when the creature leaves the battlefield', () => {",
           "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:112 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:196 — test('rest-of-game control survives the source leaving the game', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:238 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:111 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:195 — test('rest-of-game control survives the source leaving the game', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:237 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:100 — test('a temporary characteristic change ends when the object leaves the battlefield', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:128 — test('conditional control ends when its source untaps', () => {"
         ]
@@ -4165,15 +4165,14 @@
         "rules-engine/src/plugins/flashGrant.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/grantFlash.test.ts:32 — test('a resolving grant lets the recipient cast a creature as though it had flash', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:118 — test('the grant ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:194 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:208 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:252 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:28",
-          "rules-engine/src/plugins/flashGrant.test.ts:76 — test('the grant lets its controller cast non-instants outside their main phase', () => {"
+          "rules-engine/src/plugins/flashGrant.test.ts:121 — test('the grant ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:197 — test('its free tap adds {C} and grants nothing', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:211 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:255 — test('the grant is the controller\\'s and ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:79 — test('the grant lets its controller cast non-instants outside their main phase', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4726,10 +4725,10 @@
           "rules-engine/src/plugins/commander.test.ts:70 — test('casting from the command zone pays that commander\\'s tax', () => {",
           "rules-engine/src/plugins/priority.test.ts:18",
           "rules-engine/src/plugins/saga.test.ts:28",
-          "rules-engine/src/plugins/spells.test.ts:114 — test('a planeswalker spell enters with its printed loyalty', () => {",
-          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/spells.test.ts:14",
-          "rules-engine/src/plugins/spells.test.ts:155 — test('the most recently cast spell resolves first', () => {"
+          "rules-engine/src/plugins/spells.test.ts:113 — test('a planeswalker spell enters with its printed loyalty', () => {",
+          "rules-engine/src/plugins/spells.test.ts:13",
+          "rules-engine/src/plugins/spells.test.ts:133 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:154 — test('the most recently cast spell resolves first', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4784,7 +4783,7 @@
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:24",
           "rules-engine/src/plugins/manaBurn.test.ts:70 — test('a permanent that grants manaBurn turns it on and off', () => {",
-          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:133 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:109 — test('a permanent the dying player only controlled goes back to its owner', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:126 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:151 — test('continuous recomputation settles before ordinary SBA collection', () => {"
@@ -5715,8 +5714,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2805 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:14",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:130 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
-          "rules-engine/src/cardPlugins/permanentControl.test.ts:281 — test('control donation does not follow a new object after a zone change', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:129 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
+          "rules-engine/src/cardPlugins/permanentControl.test.ts:280 — test('control donation does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:133 — test('goad does not follow a new object after a zone change', () => {",
           "rules-engine/src/plugins/goad.test.ts:190 — test('goadTargets instruction stamps goad from the resolving source controller', () => {"
         ]

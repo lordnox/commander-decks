@@ -7,11 +7,7 @@ import { cardTemplate } from '../newGame'
 import { newGame } from '../testGame'
 import { makeDraft } from '../draft'
 import { continuousEffects } from './continuousEffects'
-import {
-  gainControlPermanent,
-  draw,
-  enters,
-} from './effectBuilders'
+import { gainControlPermanent } from './effectBuilders'
 import { targetedResolve } from './targetedResolve'
 import { runInstructions } from './runInstructions'
 import {
@@ -31,6 +27,8 @@ import {
   createDefinitionSnapshot,
   createEffect as dslCreateEffect,
   distributeControl,
+  draw as dslDraw,
+  enters as dslEnters,
   gainControlEffect,
   objects as dslObjects,
   permanentEffect,
@@ -40,6 +38,7 @@ import {
   spell as dslSpell,
   target as dslTarget,
   untap as dslUntap,
+  whenever,
 } from './dsl/v1'
 import {
   applyKernelChoice as applyKernelChoiceImpl,
@@ -427,7 +426,10 @@ describe('gain control of a target permanent without a player target', () => {
     const { server, cast } = setupSteal([
       {
         ...fictional('Fixture Loose Rock', 'p2'),
-        effects: [enters(draw(1))],
+        ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([whenever(
+          dslEnters({ filter: dslRef('self') }),
+          { instructions: [dslDraw({ targets: dslRef('controller'), count: 1 })] },
+        )]))),
       },
     ])
     const resolved = ok(server.rules(ok(cast('Fixture Loose Rock')), { type: 'resolveTop' }))
