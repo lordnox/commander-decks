@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 58,
-    "directMutationSites": 497,
+    "directMutationSites": 496,
     "instructionRegistrationOnlyGaps": 0,
     "instructionUnobservedGaps": 138,
     "cardRegistrationOnlyGaps": 0,
@@ -159,16 +159,16 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/linkedExile.test.ts:217 — test('open link-exile selection survives projection for the choosing seat', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:138 — test('trigger if gates ETB on opponent life lead', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:70 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:383 — test('stamped effects stay clone-safe', () => {",
           "rules-engine/src/cardPlugins/revealUntil.test.ts:73 — test('stamped revealUntil effects are structuredClone-safe', () => {",
           "rules-engine/src/cardPlugins/tapAll.test.ts:161 — test('stamped filter survives structuredClone on the card template', () => {",
           "rules-engine/src/objectIdentity.test.ts:257 — test('a dies trigger captures derived source LKI and the event occurrence', () => {",
-          "rules-engine/src/objectIdentity.test.ts:290 — test('a gain-life trigger serializes its amount and attributed source snapshot', () => {"
+          "rules-engine/src/objectIdentity.test.ts:290 — test('a gain-life trigger serializes its amount and attributed source snapshot', () => {",
+          "rules-engine/src/objectIdentity.test.ts:337 — test('refreshing a departed execution source preserves the event source snapshot', () => {",
+          "rules-engine/src/objectIdentity.test.ts:367 — test('card-target trigger context survives an open choice, journal restore, and source departure', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1858,7 +1858,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 29,
+        "matches": 28,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:56 — test('council and pile catalog programs preserve secrecy, complete outcomes, and player scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1122 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
@@ -4124,7 +4124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 221,
+        "matches": 222,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4352,7 +4352,7 @@
         "rules-engine/src/plugins/lands.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 15,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:28 — test('bounded-library catalog programs compose typed choices, remainder routing, and canonical token abilities', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1353 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
@@ -4360,8 +4360,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:637 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:51 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:117 — test('ETB branch skips draw when land counts are tied', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:67 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {"
+          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:114 — test('ETB branch skips draw when land counts are tied', () => {",
+          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:44"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -4376,7 +4376,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 68,
+        "matches": 70,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:497 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3665 — test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {",
@@ -5692,7 +5692,7 @@
         "rules-engine/src/replay.ts:171",
         "rules-engine/src/replay.ts:174",
         "rules-engine/src/replay.ts:175",
-        "rules-engine/src/rules/triggers.ts:1585",
+        "rules-engine/src/rules/triggers.ts:1545",
         "rules-engine/src/types.ts:316",
         "rules-engine/src/types.ts:318",
         "rules-engine/src/types.ts:322"
@@ -5822,10 +5822,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          279
+          278
         ],
         "samples": [
-          "279: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "278: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -6084,24 +6084,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          71,
-          177,
-          197,
-          296,
-          449,
-          450,
-          625,
-          1185,
-          1302,
-          1459,
+          70,
+          176,
+          196,
+          295,
+          452,
+          453,
+          632,
+          1169,
+          1286,
+          1419,
+          1421,
           1461,
-          1501,
-          1502
+          1462
         ],
         "samples": [
-          "71: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
-          "177: eventType: event.type === 'custom' ? event.name : event.type,",
-          "197: : event.type === 'custom' && event.name === 'advanceStep'"
+          "70: if (event.type !== 'custom' || event.name !== MANA_ABILITY_RESOLVED) return false",
+          "176: eventType: event.type === 'custom' ? event.name : event.type,",
+          "196: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -7270,24 +7270,23 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          938,
-          1042,
-          1136,
-          1169,
-          1248,
-          1313,
-          1326,
-          1365,
-          1446,
-          1524,
-          1583,
-          1781,
-          1895
+          950,
+          1048,
+          1153,
+          1232,
+          1297,
+          1310,
+          1325,
+          1406,
+          1484,
+          1543,
+          1740,
+          1854
         ],
         "samples": [
-          "938: const frequencySource = draft.object(source.id) ?? source",
-          "1042: const live = draft.object(source.id)",
-          "1136: const land = draft.object(objectId)"
+          "950: const frequencySource = draft.object(source.id) ?? source",
+          "1048: const live = draft.object(source.id)",
+          "1153: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
