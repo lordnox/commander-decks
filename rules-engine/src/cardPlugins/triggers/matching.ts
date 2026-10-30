@@ -64,8 +64,6 @@ export const matchesTriggerEvent = (
   }
   if (effect.from && (!watched
     || !(Array.isArray(effect.from) ? effect.from : [effect.from]).includes(fromZone ?? watched.zone))) return false
-  if (effect.nthThisTurn !== undefined && (!player || effect.on !== 'draw'
-    || !state.players[player] || cardsDrawnThisTurn(state.players[player]) !== effect.nthThisTurn)) return false
   if (effect.watch && !matchesTargetFilter(state, watched, effect.watch, source.controller, undefined, source.id)) return false
   if (effect.if && isTriggerBindingIf(effect.if)) {
     if (!event || !triggerIfPasses(state, source, event, effect.if)) return false

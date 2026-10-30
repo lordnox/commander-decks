@@ -11,7 +11,6 @@ export type TriggerOptions = {
   filter?: TargetFilter
   player?: 'you' | 'opponent' | 'any' | PlayerFilter
   from?: ZoneId | ZoneId[]
-  nthThisTurn?: number
   if?: CardCondition | TriggerBindingIf
   targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
   onceEachTurn?: boolean
@@ -31,7 +30,6 @@ export const trigger = (
   ...(options.filter ? { watch: options.filter } : {}),
   ...(options.player ? { player: options.player } : {}),
   ...(options.from ? { from: options.from } : {}),
-  ...(options.nthThisTurn !== undefined ? { nthThisTurn: options.nthThisTurn } : {}),
   ...(options.if ? { if: options.if } : {}),
   ...(options.targets ? { targets: options.targets } : {}),
   ...(options.onceEachTurn ? { onceEachTurn: true } : {}),
@@ -169,12 +167,6 @@ export function exiled(...args: Array<TriggerOptions | CardInstruction>): CardEf
   }
   return trigger('exiled', {}, ...args as CardInstruction[])
 }
-
-export const draws = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
-  trigger('draw', { player: 'you', ...options }, ...instructions)
-
-export const discards = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
-  trigger('discard', { player: 'you', ...options }, ...instructions)
 
 /** "Whenever players finish voting", for any vote at the table. */
 export const onVotesFinished = (...instructions: CardInstruction[]): CardEffect => ({

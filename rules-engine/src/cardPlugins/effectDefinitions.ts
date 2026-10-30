@@ -597,18 +597,13 @@ export type CardEffect =
         | 'upkeep'
         | 'precombatMain'
         | 'beginCombat'
-        | 'discard'
-        | 'cycle'
-        | 'draw'
         | 'end'
         | 'unlock'
         | 'fullyUnlock'
         | 'combatDamage'
         | 'dealtCombatDamage'
-        | 'playLand'
         | 'becomesMonstrous'
         | 'tapped'
-        | 'gainLife'
         | 'playerAttacks'
         | 'tokenCreated'
         | 'permanentEnters'
@@ -621,8 +616,6 @@ export type CardEffect =
       player?: 'you' | 'opponent' | 'any' | PlayerFilter
       /** Origin zone for zone-change triggers. */
       from?: ZoneId | ZoneId[]
-      /** Match the nth successful draw by the involved player this turn. */
-      nthThisTurn?: number
       if?: CardCondition | TriggerBindingIf
       /** Active source type checked only when detecting the trigger, never on resolution. */
       sourceTypeAtTrigger?: string

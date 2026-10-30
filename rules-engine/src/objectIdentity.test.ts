@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, card, createDefinitionSnapshot, compileCardRuleDefinition, modifyStats, objects, staticAbility } from './cardPlugins/dsl/v1'
+import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, gainedLife, modifyStats, objects, ref, staticAbility, whenever } from './cardPlugins/dsl/v1'
 import { cardTemplate, newGame } from './newGame'
 import { commanderRules } from './formats'
 import { freezeDraft, makeDraft } from './draft'
@@ -15,6 +15,12 @@ import { openStackCopyChoice, stackCopy } from './cardPlugins/stackCopy'
 import { applyFace } from './plugins/doubleFaced'
 
 describe('rules object identity', () => {
+  const gainedLifeWatcher = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(gainedLife({ player: ref('controller') }), {
+      instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+    }),
+  ])))
+
   test('pins targets once and does not rebind them after leave and return', () => {
     const state = newGame(commanderRules, {
       players: ['p1', 'p2'],
@@ -286,11 +292,7 @@ describe('rules object identity', () => {
           cardTemplate('Life Source', { types: ['Artifact'] }),
           cardTemplate('Life Watcher', {
             types: ['Creature'],
-            effects: [{
-              op: 'trigger',
-              on: 'gainLife',
-              do: [{ kind: 'gainLife', count: 1 }],
-            }],
+            ruleDefinition: gainedLifeWatcher,
           }),
         ],
       },
@@ -333,11 +335,7 @@ describe('rules object identity', () => {
           types: ['Creature'],
           power: 2,
           toughness: 2,
-          effects: [{
-            op: 'trigger',
-            on: 'gainLife',
-            do: [{ kind: 'gainLife', count: 1 }],
-          }],
+          ruleDefinition: gainedLifeWatcher,
         })],
       },
     })

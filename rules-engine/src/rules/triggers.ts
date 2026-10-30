@@ -98,8 +98,6 @@ const matchesTapOccurrence = (before: GameState, after: GameState, source: GameO
   return Boolean(matches && canonicalFilterMatch(after, source, object, pattern.filter, occurrence, execution))
 }
 
-const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
-
 /**
  * CR 603.2 — "for the first time each turn" is part of the trigger event, so it
  * reads the turn's game history for that player rather than what any one source
@@ -1371,32 +1369,6 @@ const collectMoveTriggers = (
   }
 }
 
-const collectDiscardDraw = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (!EVENT_TRIGGER_ON.has(event.type)) return
-  const player = 'seat' in event && typeof event.seat === 'string' ? event.seat : undefined
-  let watched: GameObject | undefined
-  if (event.type === 'draw') {
-    if (!player || cardsDrawnThisTurn(draft.players[player]) <= cardsDrawnThisTurn(state.players[player])) return
-    const drawnId = state.zoneOrder[player].library[0]
-    watched = drawnId ? state.objects[drawnId] : undefined
-  } else if (event.type === 'discard') {
-    watched = state.objects[event.objectId]
-    if (!watched || watched.zone !== 'hand' || watched.controller !== event.seat) return
-  }
-  for (const source of draft.zoneOf('battlefield')) {
-    collectEffects(source, event.type as TriggerEffect['on'], draft, matches, 1, {
-      triggeringPlayer: player,
-      ...(watched ? { triggeringObjectId: watched.id, watched } : {}),
-      ...(event.type === 'gainLife' ? { triggerAmount: event.amount } : {}),
-    }, event)
-  }
-}
-
 const eventObjectId = (event: GameEvent) => {
   if (event.type === 'tokenCreated') return event.object.id
   if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
@@ -1550,7 +1522,6 @@ const collectEventTriggers = (
   for (const on of STEP_TRIGGERS) collectStep(on, state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
-  collectDiscardDraw(state, draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)
