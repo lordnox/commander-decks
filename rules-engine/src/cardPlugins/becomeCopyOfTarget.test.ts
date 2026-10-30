@@ -31,6 +31,7 @@ const named = (state: GameState, name: string) =>
 const copyAbility = (type: 'Land' | 'Creature', costs: Cost[]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card([activatedDsl({
     costs,
+    timing: 'sorcery',
     instructions: [
       chooseCards({
         chooser: ref('controller'),
@@ -197,9 +198,14 @@ describe('becomeCopyOfTarget', () => {
     const cloned = structuredClone(fictionalMirror().ruleDefinition!)
     expect(cloned.definition.abilities[0]).toMatchObject({
       kind: 'activated',
+      timing: 'sorcery',
       instructions: expect.arrayContaining([
         expect.objectContaining({ kind: 'createEffect', effect: expect.objectContaining({ kind: 'copy' }) }),
       ]),
+    })
+    expect(fictionalChameleon().ruleDefinition?.definition.abilities[0]).toMatchObject({
+      kind: 'activated',
+      timing: 'sorcery',
     })
   })
 

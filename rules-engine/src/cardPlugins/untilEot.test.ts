@@ -13,6 +13,7 @@ import {
   untilEndOfTurn,
   whileSourceTappedAndPowerAtMost,
 } from './continuousEffects'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, gainLife, ref } from './dsl/v1'
 
 
 
@@ -22,21 +23,25 @@ import {
 
 
 describe('continuous effect durations', () => {
-  test('a temporary copy ignores legacy effects and restores the previous effect snapshot', () => {
+  test('a temporary copy restores the previous canonical rule definition', () => {
     const catalog = createCatalog([turnStructure, continuousEffects])
-    const originalEffect = { op: 'static' as const, pluginId: 'test.originalCopyEffect' }
-    const copiedEffect = { op: 'static' as const, pluginId: 'test.copiedCopyEffect' }
+    const originalDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [], instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+    })])))
+    const copiedDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [], instructions: [gainLife({ targets: ref('controller'), amount: 2 })],
+    })])))
     const state = newGame({
       battlefield: {
-        p1: [cardTemplate('Copy target', { types: ['Creature'], power: 2, toughness: 2, effects: [originalEffect] })],
-        p2: [cardTemplate('Copy source', { types: ['Creature'], power: 7, toughness: 7, effects: [copiedEffect] })],
+        p1: [cardTemplate('Copy target', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: originalDefinition })],
+        p2: [cardTemplate('Copy source', { types: ['Creature'], power: 7, toughness: 7, ruleDefinition: copiedDefinition })],
       },
       builtinRules: ['turnStructure', 'continuousEffects'],
     })
     const target = Object.values(state.objects).find(object => object.name === 'Copy target')!
     const source = Object.values(state.objects).find(object => object.name === 'Copy source')!
     untilEndOfTurn(target, copyObject(target, source))
-    expect(target).toMatchObject({ name: 'Copy source', power: 7, toughness: 7, effects: [] })
+    expect(target).toMatchObject({ name: 'Copy source', power: 7, toughness: 7, ruleDefinition: copiedDefinition })
 
     const result = rules({ ...state, step: 'end' }, { type: 'advanceStep' }, catalog)
 
@@ -46,7 +51,7 @@ describe('continuous effect durations', () => {
       name: 'Copy target',
       power: 2,
       toughness: 2,
-      effects: [originalEffect],
+      ruleDefinition: originalDefinition,
     })
   })
 

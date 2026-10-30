@@ -91,7 +91,6 @@ export type CopySnapshot = {
   oracleText: string
   grantedRules: string[]
   tapProduces?: Partial<ManaPool>
-  effects?: GameObject['effects']
   ruleDefinition?: GameObject['ruleDefinition']
 }
 

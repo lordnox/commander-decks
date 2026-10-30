@@ -48,19 +48,6 @@ describe('copy token template', () => {
     expect(token.manaValue).toBe(2)
   })
 
-  test('a copy token template does not copy legacy effect programs', () => {
-    const legacyEffect = { op: 'static' as const, pluginId: 'test.legacyCopyEffect' }
-    const { draft, copied } = draftWith(cardTemplate('Legacy source', {
-      types: ['Creature'],
-      effects: [legacyEffect],
-    }))
-    const template = copyTokenTemplate(copied)
-    const token = createToken(draft, 'p1', template)
-
-    expect(template).not.toHaveProperty('effects')
-    expect(token.effects).toEqual([])
-  })
-
   test('a planeswalker copy starts at its printed loyalty', () => {
     const { draft, copied } = draftWith(cardTemplate('Test Walker', {
       types: ['Planeswalker'],

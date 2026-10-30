@@ -32,7 +32,6 @@ export const snapshotCopy = (object: GameObject): CopySnapshot => ({
   oracleText: object.oracleText,
   grantedRules: [...object.grantedRules],
   tapProduces: object.tapProduces ? { ...object.tapProduces } : undefined,
-  effects: object.effects ? structuredClone(object.effects) : undefined,
   ...(object.ruleDefinition ? { ruleDefinition: structuredClone(object.ruleDefinition) } : {}),
 })
 
@@ -51,7 +50,6 @@ const restoreCopy = (object: GameObject, snapshot: CopySnapshot) => {
   object.oracleText = snapshot.oracleText
   object.grantedRules = [...snapshot.grantedRules]
   object.tapProduces = snapshot.tapProduces ? { ...snapshot.tapProduces } : undefined
-  object.effects = snapshot.effects ? structuredClone(snapshot.effects) : undefined
   if (snapshot.ruleDefinition) object.ruleDefinition = structuredClone(snapshot.ruleDefinition)
   else delete object.ruleDefinition
 }
