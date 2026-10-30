@@ -2,8 +2,7 @@ import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
 import type { ActivateCost, CardEffect, CardInstruction, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
-import { draw, putPermanentFromGraveyard } from './instructions'
-import { yourUpkeep } from './triggers'
+import { draw } from './instructions'
 
 export const unearth = (manaCost: string): CardEffect =>
   activate({
@@ -152,9 +151,6 @@ export const escape = (
     exileGraveyard: { count: exileCount, other: true },
   },
 )
-
-export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
-  yourUpkeep(putPermanentFromGraveyard())
 
 export const targetOnResolve = (
   action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],

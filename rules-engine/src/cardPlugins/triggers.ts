@@ -212,44 +212,4 @@ export const triggerOn = (
   options: TriggerOptions & { do: CardInstruction[] },
 ): CardEffect => trigger(on, options, ...options.do)
 
-export const upkeep = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-})
-
-export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-})
-
-export const yourFirstMain = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'precombatMain',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-})
-
-export const yourUpkeepTarget = (
-  filter: TargetFilter,
-  instructions: CardInstruction[],
-): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-  targets: { filter },
-})
-
-export const yourUpkeepIf = (
-  condition: CardCondition,
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: condition,
-})
 

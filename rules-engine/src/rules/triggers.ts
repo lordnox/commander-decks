@@ -1272,19 +1272,6 @@ const collectVotesFinished = (
   }
 }
 
-const STEP_TRIGGERS = ['upkeep', 'precombatMain', 'beginCombat', 'end'] as const
-
-const collectStep = (
-  on: (typeof STEP_TRIGGERS)[number],
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== on) return
-  for (const object of draft.zoneOf('battlefield')) collectEffects(object, on, state, matches)
-}
-
 const collectCombatDamage = (
   state: GameState,
   draft: Draft,
@@ -1519,7 +1506,6 @@ const collectEventTriggers = (
   collectSacrifices(state, event, matches)
   collectPlayerAttacks(state, draft, event, matches)
   collectTapped(state, event, matches)
-  for (const on of STEP_TRIGGERS) collectStep(on, state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
