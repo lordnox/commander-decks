@@ -9,13 +9,43 @@ import { ok, resolveStack } from '../testHelpers'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
-import { gainLife, loseLife, triggerOn } from './effects'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  controllerOf,
+  createDefinitionSnapshot,
+  dealtDamage,
+  eventAmount,
+  gainLife as dslGainLife,
+  loseLife as dslLoseLife,
+  ref,
+  whenever,
+} from './dsl/v1'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 const card = (name: string, types: string[], manaCost = '') =>
   cardTemplate(name, { types, manaCost })
 
 const plugins = [activated, onResolve, targetedResolve]
+
+const combatDamageLifeSwap = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+  whenever(dealtDamage({ recipient: ref('self'), combat: true }), {
+    instructions: [
+      dslGainLife({ targets: ref('controller'), amount: eventAmount() }),
+      dslLoseLife({
+        targets: controllerOf(ref('triggering.source'), { information: 'currentOrLastKnown' }),
+        amount: eventAmount(),
+      }),
+    ],
+  }),
+])))
+
+const combatDamageWatcher = () => cardTemplate('Faultless Watcher', {
+  types: ['Creature'],
+  power: 0,
+  toughness: 4,
+  ruleDefinition: combatDamageLifeSwap,
+})
 
 const withMana = (
   state: GameState,
@@ -511,17 +541,7 @@ describe('life-effect player choices', () => {
 
 describe('combat damage life swap', () => {
   test('combat damage to a watcher gains that much life and the attacker loses it', () => {
-    const watcher = cardTemplate('Faultless Watcher', {
-      types: ['Creature'],
-      power: 0,
-      toughness: 4,
-      effects: [triggerOn('dealtCombatDamage', {
-        do: [
-          gainLife('triggerAmount'),
-          loseLife('triggerAmount', 'triggeringPlayer'),
-        ],
-      })],
-    })
+    const watcher = combatDamageWatcher()
     const attacker = cardTemplate('Hill Giant', {
       types: ['Creature'],
       power: 3,
@@ -544,11 +564,8 @@ describe('combat damage life swap', () => {
       kind: 'ability',
       name: 'Faultless Watcher',
       controller: 'p1',
-      payload: {
-        triggeringPlayer: 'p2',
-        triggerAmount: 3,
-      },
     })
+    expect(triggered.stack[0].execution?.occurrence).toMatchObject({ eventType: 'dealDamage', amount: 3, player: 'p2' })
     expect(triggered.objects[recipient.id].damageMarked).toBe(3)
     expect(triggered.players.p1.life).toBe(40)
     expect(triggered.players.p2.life).toBe(40)
@@ -559,17 +576,7 @@ describe('combat damage life swap', () => {
   })
 
   test('the combat-damage life swap still resolves after lethal damage', () => {
-    const watcher = cardTemplate('Faultless Watcher', {
-      types: ['Creature'],
-      power: 0,
-      toughness: 4,
-      effects: [triggerOn('dealtCombatDamage', {
-        do: [
-          gainLife('triggerAmount'),
-          loseLife('triggerAmount', 'triggeringPlayer'),
-        ],
-      })],
-    })
+    const watcher = combatDamageWatcher()
     const attacker = cardTemplate('Hill Giant', {
       types: ['Creature'],
       power: 3,
@@ -595,17 +602,7 @@ describe('combat damage life swap', () => {
   })
 
   test('noncombat damage and damage the watcher deals do not trigger the swap', () => {
-    const watcher = cardTemplate('Faultless Watcher', {
-      types: ['Creature'],
-      power: 0,
-      toughness: 4,
-      effects: [triggerOn('dealtCombatDamage', {
-        do: [
-          gainLife('triggerAmount'),
-          loseLife('triggerAmount', 'triggeringPlayer'),
-        ],
-      })],
-    })
+    const watcher = combatDamageWatcher()
     const attacker = cardTemplate('Hill Giant', {
       types: ['Creature'],
       power: 3,
