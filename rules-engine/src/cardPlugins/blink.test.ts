@@ -187,6 +187,7 @@ describe('generic blink', () => {
         })],
       }, '{W}'),
       name: 'Journey Home Fixture',
+      types: ['Sorcery'],
     }
     const creature = cardTemplate('Journey Cat', {
       types: ['Creature'],

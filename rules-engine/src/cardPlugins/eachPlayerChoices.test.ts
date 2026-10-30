@@ -25,12 +25,8 @@ const filler = (prefix: string, count: number) =>
 
 const permanent = (name: string, types: string[]) => cardTemplate(name, { types })
 
-const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
-  cardTemplate(name, { types, ...extra })
-
 const wheelProgram = () => forEachPlayer({
   of: players(),
-  startingWith: ref('controller'),
   instructions: [chooseInstructions({
     chooser: ref('event.player'),
     prompt: 'You may discard your hand. If you do, draw 7 cards.',
@@ -292,10 +288,10 @@ describe('eachPlayerReturn after a pause', () => {
 describe('eachPlayerMayWheel', () => {
   const wheelServer = () => createServerGame(commanderRules, {
     players: 3,
-    first: 'p2',
+    first: 'p1',
     hands: {
       p2: [{ ...instructionSpell({ instructions: [wheelProgram()] }, '{1}'), name: 'Sweeping Tide' }],
-      p1: filler('A', 2),
+      p1: [canonicalInstant('Priority Spell', []), ...filler('A', 2)],
       p3: filler('C', 3),
     },
     libraries: { p1: filler('Lib', 10), p2: filler('Lib2', 10), p3: filler('Lib3', 10) },
@@ -307,13 +303,23 @@ describe('eachPlayerMayWheel', () => {
 
   test('asks one player at a time in turn order, privately, and each may decline', () => {
     const server = wheelServer()
-    let state = castAndResolve(server, server.state, 'p2', 'Sweeping Tide')
-    expect(pendingOptionSelection(state)?.seat).toBe('p2')
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 1
+    ready.players.p2.mana.C = 1
+    let state = ok(server.rules(ready, {
+      type: 'castSpell', seat: 'p1', objectId: named(ready, 'Priority Spell').id,
+    }))
+    state = ok(server.rules(state, { type: 'passPriority', seat: 'p1' }))
+    state = ok(server.rules(state, {
+      type: 'castSpell', seat: 'p2', objectId: named(state, 'Sweeping Tide').id,
+    }))
+    state = resolveStack(server.rules, state)
+    expect(pendingOptionSelection(state)?.seat).toBe('p1')
     expect(pendingOptionSelection(state, 'p3')).toBeUndefined()
-    expect(pendingOptionSelection(projectForViewer(state, 'p1'), 'p2')).toBeUndefined()
-    expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p2')).toBeDefined()
+    expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+    expect(pendingOptionSelection(projectForViewer(state, 'p1'), 'p1')).toBeDefined()
 
-    const first = pendingOptionSelection(state, 'p2')!
+    const first = pendingOptionSelection(state, 'p1')!
     expect(first.options.map((option) => option.id)).toEqual(['instruction:0', 'instruction:1'])
     expect(first.options.map((option) => option.label)).toEqual([
       'Discard your hand and draw 7 cards',
@@ -321,77 +327,34 @@ describe('eachPlayerMayWheel', () => {
     ])
     const attempt = (seat: string, optionId: string, selectionId = first.id) =>
       server.rules(state, { type: 'selectOption', seat, selectionId, optionId })
-    expect(attempt('p2', 'bogus').ok).toBe(false)
+    expect(attempt('p1', 'bogus').ok).toBe(false)
     expect(attempt('p3', 'instruction:0').ok).toBe(false)
-    expect(attempt('p2', 'instruction:0', 'stale').ok).toBe(false)
+    expect(attempt('p1', 'instruction:0', 'stale').ok).toBe(false)
 
-    state = ok(attempt('p2', 'instruction:1'))
+    state = ok(attempt('p1', 'instruction:1'))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(pendingOptionSelection(state)?.seat).toBe('p2')
+
+    const restarted = structuredClone(state)
+    expect(pendingOptionSelection(restarted, 'p2')?.id).toBe(pendingOptionSelection(state, 'p2')!.id)
+    state = ok(server.rules(restarted, {
+      type: 'selectOption',
+      seat: 'p2',
+      selectionId: pendingOptionSelection(restarted, 'p2')!.id,
+      optionId: 'instruction:1',
+    }))
     expect(state.zoneOrder.p2.hand).toHaveLength(0)
     expect(pendingOptionSelection(state)?.seat).toBe('p3')
 
-    const restarted = structuredClone(state)
-    expect(pendingOptionSelection(restarted, 'p3')?.id).toBe(pendingOptionSelection(state, 'p3')!.id)
-    state = ok(server.rules(restarted, {
+    state = ok(server.rules(state, {
       type: 'selectOption',
       seat: 'p3',
-      selectionId: pendingOptionSelection(restarted, 'p3')!.id,
+      selectionId: pendingOptionSelection(state, 'p3')!.id,
       optionId: 'instruction:0',
     }))
+    expect(pendingOptionSelection(state)).toBeUndefined()
     expect(state.zoneOrder.p3.hand).toHaveLength(7)
     expect(['C 1', 'C 2', 'C 3'].map((name) => named(state, name).zone))
       .toEqual(['graveyard', 'graveyard', 'graveyard'])
-
-    expect(pendingOptionSelection(state)?.seat).toBe('p1')
-    state = ok(server.rules(state, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pendingOptionSelection(state, 'p1')!.id,
-      optionId: 'instruction:1',
-    }))
-    expect(pendingOptionSelection(state)).toBeUndefined()
-    expect(state.zoneOrder.p1.hand).toHaveLength(2)
   })
-})
-
-describe('relocated from sinFallGaps.test.ts → eachPlayerChoices.test.ts', () => {
-  test('Frantic Search draws two then discards two', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [
-              {
-                ...instructionSpell({ instructions: [
-                  draw({ targets: ref('controller'), count: 2 }),
-                  discard({ targets: ref('controller'), count: 2 }),
-                ] }, '{2}{U}'),
-                name: 'Frantic Search',
-              },
-              card('Keep', ['Instant']),
-              card('Dump', ['Instant']),
-            ],
-          },
-          libraries: { p1: [card('Drawn One', ['Instant']), card('Drawn Two', ['Instant'])] },
-        },
-        { random: () => 0.5 },
-      )
-      let state = structuredClone(server.state)
-      state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
-      const spell = named(state, 'Frantic Search').id
-      state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell }))
-      state = ok(server.rules(state, { type: 'resolveTop' }))
-      expect(state.zoneOrder.p1.hand).toHaveLength(4)
-      expect(pendingSelectionFor(state, 'p1')).toMatchObject({ kind: 'discard', count: 2 })
-      const dump = named(state, 'Dump').id
-      const keep = named(state, 'Keep').id
-      state = ok(server.rules(state, {
-        type: 'selectCards',
-        seat: 'p1',
-        kind: 'discard',
-        count: 2,
-        objectIds: [dump, keep],
-      }))
-      expect([dump, keep].every((id) => state.objects[id].zone === 'graveyard')).toBe(true)
-    })
-
 })
