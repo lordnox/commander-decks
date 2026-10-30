@@ -4,7 +4,6 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { enters, selfMill } from './effects'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { deckCard } from './cirdanCreatureCards'
 import {
@@ -14,7 +13,10 @@ import {
   createDefinitionSnapshot,
   dies as dslDies,
   gainLife as dslGainLife,
+  mill as dslMill,
   ref,
+  ref as dslRef,
+  self,
   whenever,
 } from './dsl/v1'
 
@@ -169,7 +171,9 @@ describe('relocated from cirdanColossi.test.ts → shuffleIntoLibraryInstead.tes
         test('a milled Colossus is shuffled back instead of reaching the graveyard', () => {
           const miller = cardTemplate('Fixture Miller', {
             types: ['Enchantment'],
-            effects: [enters(selfMill(2))],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+              whenever(self.enters, { instructions: [dslMill({ count: 2, targets: dslRef('controller') })] }),
+            ]))),
           })
           const server = game({
             hands: { p1: [miller] },
