@@ -7,18 +7,8 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { choiceEffects } from './choiceEffects'
-import { activated } from './activated'
-import { eachPlayerWheel } from './eachPlayerWheel'
-import {
-  eachPlayerDiscard,
-  eachPlayerMayWheel,
-  eachPlayerReturn,
-  exileThisSpell,
-  onResolve,
-} from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
-import { encore as encorePlugin } from './encore'
+import { instructionSpell } from './dsl/instructionTestSupport'
+import { choice, chooseCardsForEachPlayer, chooseInstructions, discard, discardHands, draw, exileThisSpell as dslExileThisSpell, forEachPlayer, move, objects, players, ref } from './dsl/v1'
 
 
 
@@ -33,8 +23,34 @@ const named = (state: GameState, name: string) =>
 const filler = (prefix: string, count: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`${prefix} ${index + 1}`))
 
-const instant = (name: string, ...effects: ReturnType<typeof onResolve>[]) =>
-  cardTemplate(name, { types: ['Instant'], manaCost: '{1}', manaValue: 1, effects })
+const permanent = (name: string, types: string[]) => cardTemplate(name, { types })
+
+const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+  cardTemplate(name, { types, ...extra })
+
+const wheelProgram = () => forEachPlayer({
+  of: players(),
+  startingWith: ref('controller'),
+  instructions: [chooseInstructions({
+    chooser: ref('event.player'),
+    prompt: 'You may discard your hand. If you do, draw 7 cards.',
+    options: [
+      {
+        label: 'Discard your hand and draw 7 cards',
+        instructions: [
+          discardHands({ targets: ref('event.player') }),
+          draw({ targets: ref('event.player'), count: 7 }),
+        ],
+      },
+      { label: 'Keep your hand', instructions: [] },
+    ],
+  })],
+})
+
+const canonicalInstant = (name: string, instructions: NonNullable<Parameters<typeof instructionSpell>[0]['instructions']>) => ({
+  ...instructionSpell({ instructions }, '{1}'),
+  name,
+})
 
 const castAndResolve = (server: Server, state: GameState, seat: string, name: string) => {
   const ready = structuredClone(state)
@@ -65,43 +81,66 @@ describe('eachPlayerReturn', () => {
       players: 3,
       first: 'p2',
       hands: {
-        p2: [instant('Common Grave', onResolve(eachPlayerReturn(2), exileThisSpell()))],
+        p2: [canonicalInstant('Common Grave', [
+          chooseCardsForEachPlayer({
+            of: players(),
+            filter: objects({ zone: 'graveyard', owner: ref('event.player') }),
+            min: 0,
+            max: 2,
+            bindChoice: 'returned',
+          }),
+          move({ targets: choice('returned'), to: 'hand' }),
+          dslExileThisSpell(),
+        ])],
         p1: filler('A', 3),
         p3: filler('C', 1),
       },
       libraries: { p1: filler('Lib', 3), p2: filler('Lib2', 3), p3: filler('Lib3', 3) },
-    }, { random: () => 0.5, cardPlugins: [onResolvePlugin, choiceEffects] })
+    }, { random: () => 0.5 })
     const state = toGraveyard(server, toGraveyard(server, server.state, 'A', 3), 'C', 1)
     return { server, state }
   }
 
   test('is clone-safe', () => {
-    expect(structuredClone(eachPlayerReturn(2))).toEqual(eachPlayerReturn(2))
+    const instructions = [
+      chooseCardsForEachPlayer({
+        of: players(), filter: objects({ zone: 'graveyard', owner: ref('event.player') }),
+        min: 0, max: 2, bindChoice: 'returned',
+      }),
+      move({ targets: choice('returned'), to: 'hand' }),
+      dslExileThisSpell(),
+    ]
+    expect(structuredClone(instructions)).toEqual(instructions)
   })
 
   test('opens a private choice per player with cards, in turn order', () => {
     const { server, state } = returnServer()
     const paused = castAndResolve(server, state, 'p2', 'Common Grave')
     expect(pendingSelectionFor(paused, 'p2')).toBeUndefined()
+    const p3Card = named(state, 'C 1')
     expect(pendingSelectionFor(paused, 'p3')).toMatchObject({
       count: 1,
       min: 0,
-      moveSelectedTo: 'hand',
-      fromZone: 'graveyard',
-      fromSeat: 'p3',
+      candidates: [p3Card.id],
+      destinations: ['target'],
+      targetIdentities: { [p3Card.id]: { zone: 'graveyard' } },
     })
-    expect(pendingSelectionFor(paused, 'p1')).toMatchObject({
+    const first = pendingSelectionFor(paused, 'p3')!
+    expect(pendingSelectionFor(paused, 'p1')).toBeUndefined()
+    expect(pendingSelectionFor(projectForViewer(paused, 'p1'), 'p3')).toBeUndefined()
+    expect(pendingSelectionFor(projectForViewer(paused, 'p3'), 'p3')).toBeDefined()
+
+    const next = ok(server.rules(paused, {
+      type: 'selectCards', seat: 'p3', selectionId: first.id, kind: 'choose', count: first.count,
+      objectIds: [p3Card.id],
+    }))
+    expect(pendingSelectionFor(next, 'p1')).toMatchObject({
       count: 2,
       min: 0,
       candidates: ['A 1', 'A 2', 'A 3'].map((name) => named(state, name).id),
     })
-    const first = pendingSelectionFor(paused, 'p3')!
-    const second = pendingSelectionFor(paused, 'p1')!
-    expect(first.sequence!).toBeLessThan(second.sequence!)
-    expect(pendingSelectionFor(projectForViewer(paused, 'p1'), 'p1')).toBeDefined()
-    expect(pendingSelectionFor(projectForViewer(paused, 'p1'), 'p3')).toBeUndefined()
-    expect(pendingSelectionFor(projectForViewer(paused, 'p3'), 'p1')).toBeUndefined()
-    expect(pendingSelectionFor(projectForViewer(paused, 'p2'), 'p1')).toBeUndefined()
+    expect(pendingSelectionFor(projectForViewer(next, 'p1'), 'p1')).toBeDefined()
+    expect(pendingSelectionFor(projectForViewer(next, 'p3'), 'p1')).toBeUndefined()
   })
 
   test('rejects illegal picks and completes after every seat answered, across a restart', () => {
@@ -163,22 +202,21 @@ describe('eachPlayerReturn', () => {
   })
 })
 
-describe('legacy loot discard lifecycle', () => {
-  test("Collector's Vault keeps its legacy loot handler and finishes with a Treasure", () => {
-    const plugins = [onResolvePlugin, activated, encorePlugin]
+describe('catalog loot discard lifecycle', () => {
+  test("Collector's Vault draws, discards, and finishes with a Treasure", () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [cardTemplate("Collector's Vault", { types: ['Artifact'] })] },
       hands: { p1: [cardTemplate('Hand Fodder', { types: ['Instant'] })] },
       libraries: { p1: [cardTemplate('Library Card', { types: ['Instant'] })] },
-    }, { random: () => 0.5, cardPlugins: plugins })
+    }, { random: () => 0.5 })
     const artifact = named(server.state, "Collector's Vault").id
     server.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 2 }
     let resolved = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: artifact, abilityId: '$.abilities[0]' }))
     const fodder = named(resolved, 'Hand Fodder').id
     for (let step = 0; step < 8; step += 1) {
-      const discard = pendingSelectionFor(resolved, 'p1')
-      if (discard) {
-        resolved = ok(server.rules(resolved, { type: 'selectCards', seat: 'p1', kind: discard.kind, count: discard.count, objectIds: [fodder] }))
+      const pendingDiscard = pendingSelectionFor(resolved, 'p1')
+      if (pendingDiscard) {
+        resolved = ok(server.rules(resolved, { type: 'selectCards', seat: 'p1', kind: pendingDiscard.kind, count: pendingDiscard.count, objectIds: [fodder] }))
         continue
       }
       if (resolved.stack.length === 0 || resolved.stack[0]?.waiting) break
@@ -190,14 +228,13 @@ describe('legacy loot discard lifecycle', () => {
   })
 })
 
-describe('legacy typed sacrifice selection', () => {
+describe('catalog typed sacrifice selection', () => {
   test('Reprocess retains the optional typed sacrifice and draws for each selected permanent', () => {
-    const permanent = (name: string, types: string[]) => cardTemplate(name, { types })
     const server = createServerGame(commanderRules, {
       hands: { p1: [cardTemplate('Reprocess', { types: ['Sorcery'], manaCost: '{2}{B}{B}' })] },
       battlefield: { p1: [permanent('Relic', ['Artifact']), permanent('Body', ['Creature']), permanent('Song', ['Enchantment'])] },
       libraries: { p1: [cardTemplate('Fresh', { types: ['Instant'] })] },
-    }, { random: () => 0.5, cardPlugins: [onResolvePlugin] })
+    }, { random: () => 0.5 })
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
     const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0] }))
@@ -225,16 +262,20 @@ describe('eachPlayerReturn after a pause', () => {
     const server = createServerGame(commanderRules, {
       hands: {
         p1: [
-          instant('Paused Grave', onResolve(
-            eachPlayerDiscard(1),
-            eachPlayerReturn(2),
-            exileThisSpell(),
-          )),
+          canonicalInstant('Paused Grave', [
+            discard({ targets: players(), count: 1 }),
+            chooseCardsForEachPlayer({
+              of: players(), filter: objects({ zone: 'graveyard', owner: ref('event.player') }),
+              min: 0, max: 2, bindChoice: 'returned',
+            }),
+            move({ targets: choice('returned'), to: 'hand' }),
+            dslExileThisSpell(),
+          ]),
           ...filler('Fodder', 1),
         ],
       },
       libraries: { p1: filler('Lib', 3) },
-    }, { random: () => 0.5, cardPlugins: [onResolvePlugin, choiceEffects] })
+    }, { random: () => 0.5 })
     const paused = castAndResolve(server, server.state, 'p1', 'Paused Grave')
     const afterDiscard = resolveStack(server.rules, ok(server.rules(paused, {
       type: 'selectCards',
@@ -253,15 +294,15 @@ describe('eachPlayerMayWheel', () => {
     players: 3,
     first: 'p2',
     hands: {
-      p2: [instant('Sweeping Tide', onResolve(eachPlayerMayWheel(7)))],
+      p2: [{ ...instructionSpell({ instructions: [wheelProgram()] }, '{1}'), name: 'Sweeping Tide' }],
       p1: filler('A', 2),
       p3: filler('C', 3),
     },
     libraries: { p1: filler('Lib', 10), p2: filler('Lib2', 10), p3: filler('Lib3', 10) },
-  }, { random: () => 0.5, cardPlugins: [onResolvePlugin, eachPlayerWheel] })
+  }, { random: () => 0.5 })
 
   test('is clone-safe', () => {
-    expect(structuredClone(eachPlayerMayWheel(7))).toEqual(eachPlayerMayWheel(7))
+    expect(structuredClone(wheelProgram())).toEqual(wheelProgram())
   })
 
   test('asks one player at a time in turn order, privately, and each may decline', () => {
@@ -273,14 +314,18 @@ describe('eachPlayerMayWheel', () => {
     expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p2')).toBeDefined()
 
     const first = pendingOptionSelection(state, 'p2')!
-    expect(first.options.map((option) => option.id)).toEqual(['wheel', 'keep'])
+    expect(first.options.map((option) => option.id)).toEqual(['instruction:0', 'instruction:1'])
+    expect(first.options.map((option) => option.label)).toEqual([
+      'Discard your hand and draw 7 cards',
+      'Keep your hand',
+    ])
     const attempt = (seat: string, optionId: string, selectionId = first.id) =>
       server.rules(state, { type: 'selectOption', seat, selectionId, optionId })
     expect(attempt('p2', 'bogus').ok).toBe(false)
-    expect(attempt('p3', 'wheel').ok).toBe(false)
-    expect(attempt('p2', 'wheel', 'stale').ok).toBe(false)
+    expect(attempt('p3', 'instruction:0').ok).toBe(false)
+    expect(attempt('p2', 'instruction:0', 'stale').ok).toBe(false)
 
-    state = ok(attempt('p2', 'keep'))
+    state = ok(attempt('p2', 'instruction:1'))
     expect(state.zoneOrder.p2.hand).toHaveLength(0)
     expect(pendingOptionSelection(state)?.seat).toBe('p3')
 
@@ -290,7 +335,7 @@ describe('eachPlayerMayWheel', () => {
       type: 'selectOption',
       seat: 'p3',
       selectionId: pendingOptionSelection(restarted, 'p3')!.id,
-      optionId: 'wheel',
+      optionId: 'instruction:0',
     }))
     expect(state.zoneOrder.p3.hand).toHaveLength(7)
     expect(['C 1', 'C 2', 'C 3'].map((name) => named(state, name).zone))
@@ -301,7 +346,7 @@ describe('eachPlayerMayWheel', () => {
       type: 'selectOption',
       seat: 'p1',
       selectionId: pendingOptionSelection(state, 'p1')!.id,
-      optionId: 'keep',
+      optionId: 'instruction:1',
     }))
     expect(pendingOptionSelection(state)).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(2)
@@ -309,26 +354,26 @@ describe('eachPlayerMayWheel', () => {
 })
 
 describe('relocated from sinFallGaps.test.ts → eachPlayerChoices.test.ts', () => {
-  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
-    cardTemplate(name, { types, ...extra })
-
-  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
   test('Frantic Search draws two then discards two', () => {
       const server = createServerGame(
         commanderRules,
         {
           hands: {
             p1: [
-              card('Frantic Search', ['Instant'], { manaCost: '{2}{U}' }),
+              {
+                ...instructionSpell({ instructions: [
+                  draw({ targets: ref('controller'), count: 2 }),
+                  discard({ targets: ref('controller'), count: 2 }),
+                ] }, '{2}{U}'),
+                name: 'Frantic Search',
+              },
               card('Keep', ['Instant']),
               card('Dump', ['Instant']),
             ],
           },
           libraries: { p1: [card('Drawn One', ['Instant']), card('Drawn Two', ['Instant'])] },
         },
-        { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+        { random: () => 0.5 },
       )
       let state = structuredClone(server.state)
       state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }

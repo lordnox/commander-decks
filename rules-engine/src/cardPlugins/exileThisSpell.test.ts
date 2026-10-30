@@ -5,15 +5,18 @@ import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { choiceEffects } from './choiceEffects'
-import { draw, eachPlayerDiscard, exileThisSpell, onResolve } from './effects'
-import { onResolve as onResolvePlugin } from './onResolve'
+import { instructionSpell } from './dsl/instructionTestSupport'
+import { discard, draw, exileThisSpell, players } from './dsl/v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const spell = (name: string, ...effects: ReturnType<typeof onResolve>[]) =>
-  cardTemplate(name, { types: ['Sorcery'], manaCost: '{1}', manaValue: 1, effects })
+const spell = (name: string, instructions: NonNullable<Parameters<typeof instructionSpell>[0]['instructions']>) => ({
+  ...instructionSpell({ instructions }, '{1}'),
+  name,
+  types: ['Sorcery'],
+  manaValue: 1,
+})
 
 const castAndResolve = (
   server: ReturnType<typeof createServerGame>,
@@ -32,17 +35,17 @@ const castAndResolve = (
 const game = (hand: ReturnType<typeof cardTemplate>[]) => createServerGame(commanderRules, {
   hands: { p1: hand },
   libraries: { p1: [cardTemplate('Top Card')] },
-}, { random: () => 0.5, cardPlugins: [onResolvePlugin, choiceEffects] })
+}, { random: () => 0.5 })
 
 describe('exileThisSpell', () => {
   test('a resolving spell without it goes to the graveyard', () => {
-    const server = game([spell('Plain Wish', onResolve(draw(1)))])
+    const server = game([spell('Plain Wish', [draw(1)])])
     const state = castAndResolve(server, 'Plain Wish')
     expect(named(state, 'Plain Wish').zone).toBe('graveyard')
   })
 
   test('the resolving spell is exiled after its instructions ran', () => {
-    const server = game([spell('Vanishing Wish', onResolve(draw(1), exileThisSpell()))])
+    const server = game([spell('Vanishing Wish', [draw(1), exileThisSpell()])])
     const state = castAndResolve(server, 'Vanishing Wish')
     expect(named(state, 'Top Card').zone).toBe('hand')
     expect(named(state, 'Vanishing Wish').zone).toBe('exile')
@@ -52,12 +55,13 @@ describe('exileThisSpell', () => {
 
   test('still exiles after a private choice paused the resolution, and survives a restart', () => {
     const server = game([
-      spell('Costly Wish', onResolve(eachPlayerDiscard(1), exileThisSpell())),
+      spell('Costly Wish', [discard({ targets: players(), count: 1 }), exileThisSpell()]),
       cardTemplate('Fodder'),
     ])
     const paused = castAndResolve(server, 'Costly Wish')
     const selection = pendingSelectionFor(paused, 'p1')!
-    expect(selection.resume?.remaining).toEqual([exileThisSpell()])
+    expect(selection.candidates.map((id) => paused.objects[id].name)).toEqual(['Fodder'])
+    expect(paused.resolution?.kind).toBe('canonicalSpell')
     const restarted = structuredClone(paused)
     const state = resolveStack(server.rules, ok(server.rules(restarted, {
       type: 'selectCards',
