@@ -21,18 +21,18 @@
   "summary": {
     "cardRegistrations": 0,
     "cardEffects": 7,
-    "cardInstructions": 173,
-    "instructionHandlersDiscovered": 173,
+    "cardInstructions": 171,
+    "instructionHandlersDiscovered": 171,
     "builtInPlugins": 57,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 55,
-    "directMutationSites": 491,
+    "directMutationSites": 490,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 138,
+    "instructionUnobservedGaps": 137,
     "cardRegistrationOnlyGaps": 0,
-    "candidateOnlyInstructionRows": 33,
+    "candidateOnlyInstructionRows": 32,
     "candidateOnlyCardRows": 0
   },
   "cardEffects": [
@@ -1977,25 +1977,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "lookTopPick",
-      "mechanic": "resolution choice",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed choice instruction and continuation",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03",
-        "05"
-      ],
-      "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "lookTopPutLand",
       "mechanic": "resolution choice",
       "currentRegistrations": [],
@@ -2296,27 +2277,6 @@
         "07"
       ],
       "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "opponentPiles",
-      "mechanic": "resolution choice",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/opponentPiles.test.ts:262 — test('an untargeted public split asks an opponent, then the controller picks a pile', () => {"
-        ]
-      },
-      "neededCanonicalNode": "typed choice instruction and continuation",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "03",
-        "05"
-      ],
-      "status": "candidate-test-reference",
       "handlerDiscovered": true
     },
     {
@@ -3346,16 +3306,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2766 — test('conditional-reduction catalog entries keep their independent spell and land effects', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2799 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
           "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:533 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:236 — test('a surveil land both enters tapped and opens its surveil', () => {",
-          "rules-engine/src/cardPlugins/lookTopPick.test.ts:231 — test('rejects another seat, another kind, and another count', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('every surveil land carries its enter trigger, not just its tap', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:253 — test('surveil 1 mills or keeps the private top card', () => {"
+          "rules-engine/src/rules/selectCards.test.ts:253 — test('surveil 1 mills or keeps the private top card', () => {",
+          "site/src/liveCodec.test.ts:133 — test('public payload redacts a private draw summary', async () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -3675,7 +3635,6 @@
       "ifYouDoExileFromGraveyard",
       "linkExile",
       "lockOrUnlockDoor",
-      "lookTopPick",
       "lookTopPutLand",
       "loseAbilitiesBecome",
       "loseHalfLifeRoundedUp",
@@ -3691,7 +3650,6 @@
       "millTarget",
       "monstrosity",
       "opponentMayPayMana",
-      "opponentPiles",
       "opponentsLoseLife",
       "opponentsSacrifice",
       "optionalMill",
@@ -3964,9 +3922,9 @@
       "candidateEvidence": {
         "matches": 22,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:222 — test('does not restamp creatures that enter later under that opponent', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:245 — test('reverts when the creature leaves the battlefield', () => {",
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:223 — test('does not restamp creatures that enter later under that opponent', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:246 — test('reverts when the creature leaves the battlefield', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:295 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:111 — test('gainControlPermanent gives rest-of-game control via stack targets', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:195 — test('rest-of-game control survives the source leaving the game', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:237 — test('control donation does not follow a new object after a zone change', () => {",
@@ -4077,7 +4035,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 221,
+        "matches": 219,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -4839,7 +4797,7 @@
       "candidateEvidence": {
         "matches": 16,
         "samples": [
-          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:293 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
+          "rules-engine/src/cardPlugins/loseAbilitiesBecome.test.ts:295 — test('permanent duration survives turn cleanup unlike until-end-of-turn pumps', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:206 — test('an earlier duration ending does not overwrite a later control effect', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:29 — test('cleanup reverts a land animation while retaining its original type', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:58 — test('cleanup reverts a temporary pump', () => {",
@@ -5421,7 +5379,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 11,
         "samples": [
           "live-runner/src/decisions.test.ts:81 — test('detects surveil from the unresolved stack item', () => {",
           "live-runner/src/host.test.ts:130 — test('a restored private choice keeps its dialog action', async () => {",
@@ -5430,7 +5388,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:2799 — test('Pile On composes a contribution payment method with destruction and surveil', () => {",
           "rules-engine/src/cardPlugins/dsl/searchLibrary.test.ts:533 — test('land search ignores a modal card whose front face is a sorcery', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:236 — test('a surveil land both enters tapped and opens its surveil', () => {",
-          "rules-engine/src/cardPlugins/lookTopPick.test.ts:231 — test('rejects another seat, another kind, and another count', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:77 — test('every surveil land carries its enter trigger, not just its tap', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -5502,7 +5460,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:443",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:434",
         "rules-engine/src/cardPlugins/effectRuntime.ts:264",
         "rules-engine/src/cardPlugins/effectRuntime.ts:460",
         "rules-engine/src/cardPlugins/encore.ts:105",
@@ -5519,8 +5477,8 @@
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:42",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:101",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
-        "rules-engine/src/cardPlugins/instructions.ts:91",
-        "rules-engine/src/cardPlugins/instructions.ts:94",
+        "rules-engine/src/cardPlugins/instructions.ts:78",
+        "rules-engine/src/cardPlugins/instructions.ts:81",
         "rules-engine/src/types.ts:1450"
       ],
       "executableCoverageEvidence": [
@@ -6010,12 +5968,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          726,
-          745
+          683,
+          702
         ],
         "samples": [
-          "726: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "745: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "683: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "702: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -6972,42 +6930,41 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          385,
-          913,
-          940,
-          949,
-          967,
-          986,
-          1027,
-          1037,
-          1046,
-          1059,
-          1061,
-          1073,
+          870,
+          897,
+          906,
+          924,
+          943,
+          984,
+          994,
+          1003,
+          1016,
+          1018,
+          1030,
+          1041,
+          1045,
+          1050,
+          1053,
+          1062,
+          1068,
+          1080,
           1084,
-          1088,
-          1093,
-          1096,
-          1105,
-          1111,
-          1123,
-          1127,
-          1145,
-          1215,
-          1282,
-          1285,
-          1305,
-          1309,
-          1318,
-          1324,
-          1332,
-          1334,
-          1339
+          1102,
+          1172,
+          1239,
+          1242,
+          1262,
+          1266,
+          1275,
+          1281,
+          1289,
+          1291,
+          1296
         ],
         "samples": [
-          "385: draft.enqueue({",
-          "913: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "940: const object = objectId ? draft.object(objectId) : undefined"
+          "870: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "897: const object = objectId ? draft.object(objectId) : undefined",
+          "906: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7021,17 +6978,17 @@
       {
         "path": "rules-engine/src/rules/selectPlayers.ts",
         "lines": [
-          176,
+          169,
+          201,
           208,
-          215,
-          223,
-          227,
-          267
+          216,
+          220,
+          260
         ],
         "samples": [
-          "176: const object = draft.object(objectId)",
-          "208: draft.enqueue({",
-          "215: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
+          "169: const object = draft.object(objectId)",
+          "201: draft.enqueue({",
+          "208: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -8097,23 +8054,23 @@
           440,
           441,
           447,
-          570,
-          616,
-          667,
-          674,
-          681,
-          688,
-          690,
-          696,
-          699,
-          716,
-          718,
-          719,
-          736,
-          804,
-          823,
-          841,
-          852
+          514,
+          560,
+          611,
+          618,
+          625,
+          632,
+          634,
+          640,
+          643,
+          660,
+          662,
+          663,
+          680,
+          748,
+          767,
+          785,
+          796
         ],
         "samples": [
           "26: draft.enqueue({ type: 'move', objectId, to: 'exile' })",

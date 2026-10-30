@@ -109,6 +109,11 @@ paid/declined and insufficient-resource outcomes, the bound milled-card choice,
 privacy, and journal restore coverage; no other producer or runtime consumer
 remains.
 
+The `lookTopPick` and `opponentPiles` legacy instruction builders, types, and
+handlers were removed after their fixtures moved to canonical inspect/choose/
+partition instructions or catalog programs. The remaining pile-selection
+mechanics use the shared typed card-selection route.
+
 `filteredEnters.test.ts` now authors both the ordinary filtered-entry watcher
 and the creation-only watcher canonically. The generic `permanentEntered`
 signal is itself an entry occurrence even when the already-on-battlefield token

@@ -179,7 +179,6 @@ export type CardInstruction =
   | { kind: 'loseLifeTargetController'; amount: number }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
-  | { kind: 'lookTopPick'; count: number; pick: number }
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
@@ -221,14 +220,6 @@ export type CardInstruction =
     }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: InstructionCount }
-  | {
-      kind: 'opponentPiles'
-      count: number
-      /** `public` reveals the cards; `look` shows them only to the chosen opponent. */
-      reveal: 'public' | 'look'
-      /** `public` keeps both piles public; `facedown-faceup` hides the face-down pile. */
-      piles: 'public' | 'facedown-faceup'
-    }
   | { kind: 'putLandFromHand'; tapped?: boolean }
   | { kind: 'bounceChosenLand' }
   | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }

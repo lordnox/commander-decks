@@ -1,7 +1,7 @@
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices } from '../../plugins/hiddenInformation'
 import { isPhasedOut } from '../../plugins/phasing'
-import { INSTRUCTIONS_RESUME, openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
+import { INSTRUCTIONS_RESUME, openCardSelection } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
 import {
@@ -483,62 +483,6 @@ const scry: InstructionHandler<'scry'> = ({ draft, source, item }, instruction) 
   })
 }
 
-const lookTopPick: InstructionHandler<'lookTopPick'> = ({ draft, source }, instruction) => {
-  const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
-  if (candidates.length === 0) return
-  openCardSelection(draft, {
-    seat: source.controller,
-    kind: 'scry',
-    count: instruction.count,
-    candidates,
-    sourceId: source.id,
-    source: source.name,
-    prompt: `Look at the top ${instruction.count} cards. Put ${
-      instruction.pick === 1 ? 'one' : instruction.pick
-    } into your hand and the rest on the bottom of your library in any order.`,
-    destinations: ['bottom', 'hand'],
-    handQuota: instruction.pick,
-  })
-}
-
-const opponentPiles: InstructionHandler<'opponentPiles'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  const targeted = item?.targets.find((target) => target.kind === 'player')
-  if (targeted?.kind === 'player') {
-    openOpponentPilePartition(draft, {
-      opponent: targeted.player,
-      controller: source.controller,
-      sourceId: source.id,
-      source: source.name,
-      count: instruction.count,
-      reveal: instruction.reveal,
-      piles: instruction.piles,
-    })
-    return
-  }
-  const candidates = draft.playerOrder.filter(
-    (seat) => seat !== source.controller && !draft.players[seat].lost,
-  )
-  if (candidates.length === 0) return
-  openPlayerSelection(draft, {
-    seat: source.controller,
-    sourceId: source.id,
-    source: source.name,
-    prompt: 'Choose an opponent to separate the cards.',
-    min: 1,
-    max: 1,
-    candidates,
-    action: {
-      kind: 'opponentPiles',
-      count: instruction.count,
-      reveal: instruction.reveal,
-      piles: instruction.piles,
-    },
-  })
-}
-
 const putHandCardOnLibraryBottom: InstructionHandler<'putHandCardOnLibraryBottom'> = (
   { draft, source },
 ) => {
@@ -898,8 +842,6 @@ export const zoneHandlers = {
   returnSelfWithCounter,
   surveil,
   scry,
-  lookTopPick,
-  opponentPiles,
   putHandCardOnLibraryBottom,
   putLandFromHand,
   bounceChosenLand,
