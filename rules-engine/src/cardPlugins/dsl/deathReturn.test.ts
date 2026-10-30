@@ -9,22 +9,36 @@ import { createEffect, grantAbilityEffect, move, objects, ref, select, self, tar
 const setup = () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    battlefield: { p1: [cardTemplate('Recipient', { types: ['Creature'], power: 2, toughness: 2 })] },
-    hands: { p1: [instructionSpell({
-      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
-      instructions: [createEffect({ targets: target(0), effect: grantAbilityEffect({ kind: 'triggered', on: self.dies, instructions: [move({ targets: ref('triggering.object.after'), to: 'battlefield', tapped: true })] }), duration: untilCleanup() })],
-    })] },
+    battlefield: {
+      p1: [
+        cardTemplate('Recipient', { types: ['Creature'], power: 2, toughness: 2 }),
+        cardTemplate('Other Creature', { types: ['Creature'], power: 2, toughness: 2 }),
+      ],
+    },
+    hands: { p1: [{
+      ...instructionSpell({
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+        instructions: [createEffect({ targets: target(0), effect: grantAbilityEffect({ kind: 'triggered', on: self.dies, instructions: [move({ targets: ref('triggering.object.after'), to: 'battlefield', tapped: true })] }), duration: untilCleanup() })],
+      }, '{0}'),
+      name: 'Temporary death-return spell',
+    }] },
   }, { random: () => 0 })
   const recipient = server.state.zoneOrder.p1.battlefield[0]
   const initial = structuredClone(server.state)
   initial.objects[recipient].controller = 'p2'
-  const granted = resolveStack(server.rules, ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: initial.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: recipient }] })))
-  return { server, granted, recipient }
+  const spell = initial.zoneOrder.p1.hand[0]!
+  const granted = resolveStack(server.rules, ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: spell, targets: [{ kind: 'object', objectId: recipient }] })))
+  return { server, granted, recipient, spell }
 }
 
 test('a granted dies ability finds the graveyard incarnation and returns tapped under its owner after restore', () => {
-  const { server, granted, recipient } = setup()
-  const died = ok(server.rules(granted, { type: 'move', objectId: recipient, to: 'graveyard' }))
+  const { server, granted, recipient, spell } = setup()
+  expect(granted.objects[spell]!.zone).toBe('graveyard')
+  const other = Object.values(granted.objects).find(object => object.name === 'Other Creature')!.id
+  const unrelatedDied = ok(server.rules(granted, { type: 'move', objectId: other, to: 'graveyard' }))
+  expect(unrelatedDied.stack).toHaveLength(0)
+  expect(unrelatedDied.objects[recipient]!.zone).toBe('battlefield')
+  const died = ok(server.rules(unrelatedDied, { type: 'move', objectId: recipient, to: 'graveyard' }))
   expect(died.stack).toHaveLength(1)
   expect(died.stack[0].controller).toBe('p2')
   const returned = resolveStack(server.rules, JSON.parse(JSON.stringify(died)))
