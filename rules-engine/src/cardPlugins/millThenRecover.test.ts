@@ -1,23 +1,16 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame, projectForViewer } from '../runtime'
+import { createServerGame, createServerGame as createRuntimeGame, projectForViewer } from '../runtime'
 import { ok } from '../testHelpers'
-import { millThenRecover, onResolve } from './effects'
 import { stackCopyPending } from './stackCopy'
-import { onResolve as onResolvePlugin } from './onResolve'
-import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
-
-
-
-
-import {activated} from './activated'
-
+import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingOptionSelection, PENDING_OPTION_SELECTION } from '../rules/selectOptions'
+import { activated } from './activated'
 import { choiceEffects } from './choiceEffects'
-import {librarySearch} from './librarySearch'
-import {targetedResolve} from './targetedResolve'
-
-import { createServerGame as createRuntimeGame } from '../runtime'
+import { librarySearch } from './librarySearch'
+import { targetedResolve } from './targetedResolve'
+import { card, choice, chooseCards, compileCardRuleDefinition, createDefinitionSnapshot, manaAndLifeCost, mill, move, objects, payOptional, ref, spell } from './dsl/v1'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -27,6 +20,26 @@ const resolveRecoverSpell = (args: {
   life?: number
   extraGraveyard?: string
 }) => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+    instructions: [
+      mill({ count: 3, targets: ref('controller'), bindChoice: 'milled' }),
+      payOptional({
+        payer: ref('controller'),
+        cost: manaAndLifeCost('{1}', 2),
+        bindResult: 'paid',
+        ifPaid: [
+          chooseCards({
+            chooser: ref('controller'),
+            bindChoice: 'recovered',
+            filter: objects({ among: choice('milled') }),
+            min: 1,
+            max: 1,
+          }),
+          move({ targets: choice('recovered'), to: 'hand' }),
+        ],
+      }),
+    ],
+  })])))
   const server = createServerGame(
     commanderRules,
     {
@@ -37,7 +50,7 @@ const resolveRecoverSpell = (args: {
             types: ['Instant'],
             manaCost: '{0}',
             manaValue: 0,
-            effects: [onResolve(millThenRecover(3, { mana: '{1}', life: 2 }))],
+            ruleDefinition,
           }),
           ...(args.extraGraveyard
             ? [cardTemplate(args.extraGraveyard, { types: ['Instant'] })]
@@ -49,7 +62,7 @@ const resolveRecoverSpell = (args: {
           cardTemplate(name, { types: ['Instant'] })),
       },
     },
-    { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+    { random: () => 0.5 },
   )
   let start = server.state
   if (args.extraGraveyard) {
@@ -78,15 +91,22 @@ const resolveRecoverSpell = (args: {
   return { server, resolved: ok(server.rules(cast, { type: 'resolveTop' })) }
 }
 
-describe('millThenRecover', () => {
+describe('optional recovery after milling', () => {
   test('paying puts one of the milled cards into hand', () => {
     const { server, resolved } = resolveRecoverSpell({ mana: { C: 1 } })
     const milled = ['Milled One', 'Milled Two', 'Milled Three'].map((name) => named(resolved, name))
-    const selection = pendingSelectionFor(resolved, 'p1')
-    expect(selection?.candidates).toEqual(milled.map((card) => card.id))
+    const payment = pendingOptionSelection(resolved, 'p1')!
     expect(milled.every((card) => card.zone === 'graveyard')).toBe(true)
+    const paid = ok(server.rules(resolved, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: payment.id,
+      optionId: 'pay',
+    }))
+    const selection = pendingSelectionFor(paid, 'p1')
+    expect(selection?.candidates).toEqual(milled.map((card) => card.id))
 
-    const chosen = ok(server.rules(resolved, {
+    const chosen = ok(server.rules(paid, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
@@ -101,18 +121,25 @@ describe('millThenRecover', () => {
     expect(pendingSelectionFor(chosen, 'p1')).toBeUndefined()
   })
 
-  test('cannot pay skips the recover choice after mill', () => {
-    const { resolved } = resolveRecoverSpell({ mana: { C: 0 } })
-    expect(named(resolved, 'Milled One').zone).toBe('graveyard')
-    expect(named(resolved, 'Milled Two').zone).toBe('graveyard')
-    expect(named(resolved, 'Milled Three').zone).toBe('graveyard')
-    expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
+  test('insufficient mana prevents payment and recovery after mill', () => {
+    const { server, resolved } = resolveRecoverSpell({ mana: { C: 0 } })
+    const payment = pendingOptionSelection(resolved, 'p1')!
+    expect(payment.options.map(({ id }) => id)).toContain('pay')
+    expect(server.rules(resolved, { type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'pay' }).ok).toBe(false)
+    const declined = ok(server.rules(resolved, { type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'decline' }))
+    expect(named(declined, 'Milled One').zone).toBe('graveyard')
+    expect(named(declined, 'Milled Two').zone).toBe('graveyard')
+    expect(named(declined, 'Milled Three').zone).toBe('graveyard')
+    expect(pendingSelectionFor(declined, 'p1')).toBeUndefined()
   })
 
   test('cannot pay life skips the recover choice after mill', () => {
-    const { resolved } = resolveRecoverSpell({ mana: { C: 1 }, life: 1 })
-    expect(named(resolved, 'Milled One').zone).toBe('graveyard')
-    expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
+    const { server, resolved } = resolveRecoverSpell({ mana: { C: 1 }, life: 1 })
+    const payment = pendingOptionSelection(resolved, 'p1')!
+    expect(server.rules(resolved, { type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'pay' }).ok).toBe(false)
+    const declined = ok(server.rules(resolved, { type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'decline' }))
+    expect(named(declined, 'Milled One').zone).toBe('graveyard')
+    expect(pendingSelectionFor(declined, 'p1')).toBeUndefined()
   })
 
   test('the chosen card must be one of the milled cards', () => {
@@ -122,7 +149,10 @@ describe('millThenRecover', () => {
     })
     const old = named(resolved, 'Old Grave')
     expect(old.zone).toBe('graveyard')
-    const rejected = server.rules(resolved, {
+    const payment = pendingOptionSelection(resolved, 'p1')!
+    const paid = ok(server.rules(resolved, { type: 'selectOption', seat: 'p1', selectionId: payment.id, optionId: 'pay' }))
+    expect(pendingSelectionFor(paid, 'p1')).toBeDefined()
+    const rejected = server.rules(paid, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'choose',
@@ -132,14 +162,14 @@ describe('millThenRecover', () => {
     expect(rejected.ok).toBe(false)
   })
 
-  test('declining pays nothing and leaves the milled cards in the graveyard', () => {
+  test('declining the optional payment leaves the milled cards and resources unchanged', () => {
     const { server, resolved } = resolveRecoverSpell({ mana: { C: 1 } })
+    const payment = pendingOptionSelection(resolved, 'p1')!
     const declined = ok(server.rules(resolved, {
-      type: 'selectCards',
+      type: 'selectOption',
       seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [],
+      selectionId: payment.id,
+      optionId: 'decline',
     }))
     expect(named(declined, 'Milled One').zone).toBe('graveyard')
     expect(declined.players.p1.mana.C).toBe(1)
@@ -152,8 +182,8 @@ describe('millThenRecover', () => {
     const chooser = projectForViewer(resolved, 'p1')
     const opponent = projectForViewer(resolved, 'p2')
 
-    expect(chooser.players.p1.data[PENDING_SELECTION]).toBeTruthy()
-    expect(opponent.players.p1.data[PENDING_SELECTION]).toBeUndefined()
+    expect(chooser.players.p1.data[PENDING_OPTION_SELECTION]).toBeTruthy()
+    expect(opponent.players.p1.data[PENDING_OPTION_SELECTION]).toBeUndefined()
     expect(chooser.objects[rest.id]).toBeUndefined()
     expect(opponent.objects[rest.id]).toBeUndefined()
     expect(opponent.objects[named(resolved, 'Milled One').id]?.zone).toBe('graveyard')
@@ -167,7 +197,6 @@ describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {
       cardPlugins: [
         choiceEffects,
         librarySearch,
-        onResolvePlugin,
         targetedResolve,
         activated,
       ],
