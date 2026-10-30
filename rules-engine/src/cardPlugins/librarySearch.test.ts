@@ -18,24 +18,27 @@ import { choiceEffects } from './choiceEffects'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cycling } from './cycling'
-import { onResolve as onResolvePlugin } from './onResolve'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
   librarySearch,
   pendingSearch,
-  searchCandidates,
-  searchSpecForPending,
-  searchingSeat,
 } from './librarySearch'
 import {
   basicLand,
   bounceSelf,
   delay,
-  hasSubtype,
   searchAbility,
-  searchSpell,
 } from './effects'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  objects as dslObjects,
+  ref as dslRef,
+  searchLibrary as dslSearchLibrary,
+  spell as dslSpell,
+} from './dsl/v1'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
@@ -46,19 +49,19 @@ const forest = (name = 'Forest') =>
 const island = () =>
   card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'], tapProduces: { U: 1 } })
 
-const LEGACY_SEARCH_FIXTURE = 'Legacy search fixture'
-// Game state drops function matchers from explicit effects; the stamped search falls back to basic lands.
-const LEGACY_SEARCH_SPEC = {
-  prompt: 'Search your library for a Forest card and put it onto the battlefield.',
-  match: hasSubtype('Forest'),
-  destination: 'battlefield' as const,
-  min: 1,
-  max: 1,
-}
+const SEARCH_FIXTURE = 'Forest search fixture'
 
-const legacyForestSearchSpell = () => card(LEGACY_SEARCH_FIXTURE, ['Sorcery'], {
+const forestSearchSpell = () => card(SEARCH_FIXTURE, ['Sorcery'], {
   manaCost: '{1}{G}',
-  effects: [searchSpell(LEGACY_SEARCH_SPEC)],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+    instructions: [dslSearchLibrary({
+      bindChoice: 'forest',
+      chooser: dslRef('controller'),
+      filter: dslObjects({ zone: 'library', owner: 'you', subtypes: ['Forest'] }),
+      count: 1,
+      to: 'battlefield',
+    })],
+  })]))),
 })
 
 const ok = (result: ReduceResult) => {
@@ -98,7 +101,7 @@ const withMana = (state: GameState) => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, librarySearch, onResolvePlugin]
+const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, librarySearch]
 
 describe('librarySearch', () => {
   test('a sacrificing legacy map opens the generic hidden library search', () => {
@@ -176,9 +179,9 @@ describe('librarySearch', () => {
     expect(pendingSelectionFor(finished, 'p2')).toBeUndefined()
   })
 
-  test('a legacy search spell stops resolution and records whose choice is open', () => {
+  test('a canonical search spell stops resolution with a private typed choice', () => {
     const server = game({
-      hand: [legacyForestSearchSpell()],
+      hand: [forestSearchSpell()],
       library: [forest('Wooded Foothills'), card('Not a land', ['Instant'])],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -188,16 +191,17 @@ describe('librarySearch', () => {
     ])
 
     expect(state.stack).toHaveLength(1)
-    expect(searchingSeat(state)).toBe('p1')
-    const pending = pendingSearch(state, 'p1')!
-    expect(pending.source).toBe(LEGACY_SEARCH_FIXTURE)
-    expect(searchCandidates(state, 'p1', searchSpecForPending(state, pending)!).map((o) => o.name))
-      .toEqual(['Wooded Foothills'])
+    const selection = pendingSelectionFor(state, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', fromZone: 'library', count: 1, viewLibrary: true })
+    expect(selection.candidates.map((id) => state.objects[id].name)).toEqual(['Wooded Foothills'])
+    expect(pendingSelectionFor(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+    expect(Object.values(projectForViewer(state, 'p2').objects).some((object) => object.name === 'Wooded Foothills'))
+      .toBe(false)
   })
 
   test('nobody may pass priority while a search is open', () => {
     const server = game({
-      hand: [legacyForestSearchSpell()],
+      hand: [forestSearchSpell()],
       library: [forest()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -240,7 +244,7 @@ describe('librarySearch', () => {
 
   test('a repeated resolveTop cannot skip the open choice', () => {
     const server = game({
-      hand: [legacyForestSearchSpell()],
+      hand: [forestSearchSpell()],
       library: [forest()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -253,12 +257,12 @@ describe('librarySearch', () => {
     expect(repeated.state).toEqual(state)
     expect(state.stack).toHaveLength(1)
     expect(state.objects[spell].zone).toBe('stack')
-    expect(searchingSeat(state)).toBe('p1')
+    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
   })
 
-  test('the chosen card resolves the whole spell and clears the marker', () => {
+  test('choosing a card resolves the whole spell and clears the pending selection', () => {
     const server = game({
-      hand: [legacyForestSearchSpell()],
+      hand: [forestSearchSpell()],
       library: [forest('Wooded Foothills'), island()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -266,18 +270,18 @@ describe('librarySearch', () => {
       { type: 'castSpell', seat: 'p1', objectId: spell },
       { type: 'resolveTop' },
     ])
+    const selection = pendingSelectionFor(opened, 'p1')!
     const found = named(opened, 'Wooded Foothills').id
-    const state = run(server, opened, [
-      { type: 'move', objectId: found, to: 'battlefield' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const state = ok(server.rules(opened, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id,
+      kind: 'choose', count: selection.count, objectIds: [found],
+    }))
 
     expect(state.objects[found].zone).toBe('battlefield')
     expect(state.objects[found].tapped).toBe(false)
     expect(state.objects[spell].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
-    expect(searchingSeat(state)).toBeUndefined()
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
     expect(state.players.p1.data['librarySearch.done']).toBeUndefined()
   })
 

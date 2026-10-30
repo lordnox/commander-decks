@@ -1,9 +1,4 @@
 import { expect, test } from 'bun:test'
-import { onResolve } from './cardPlugins/onResolve'
-import {
-  discardCards,
-  onResolve as onResolveEffect,
-} from './cardPlugins/effects'
 import { commanderRules } from './formats'
 import { createJournal, KERNEL_SCHEMA, recordAccepted, restoreJournal } from './journal'
 import { cardTemplate, forest, type CardTemplate } from './newGame'
@@ -12,6 +7,16 @@ import { createServerGame } from './runtime'
 import { ok } from './testHelpers'
 import type { GameState } from './types'
 import { pendingSelectionFor } from './rules/selectCards'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  discard as dslDiscard,
+  players as dslPlayers,
+  select as dslSelect,
+  spell as dslSpell,
+  target as dslTarget,
+} from './cardPlugins/dsl/v1'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -20,7 +25,10 @@ const caressCard = () => cardTemplate("Liliana's Caress")
 
 const cryCard = () => card('Cry of Contrition Test', ['Sorcery'], {
   manaCost: '',
-  effects: [onResolveEffect(discardCards(1, 'target'))],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+    decisions: { targets: [dslSelect({ filter: dslPlayers(), count: 1 })] },
+    instructions: [dslDiscard({ targets: dslTarget(0), count: 1 })],
+  })]))),
 })
 
 const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
@@ -76,7 +84,7 @@ test('journal restores a typed discard and its durable source resolution', () =>
       },
       players: 4,
     },
-    { random: () => 0.5, cardPlugins: [onResolve] },
+    { random: () => 0.5 },
   )
   const spellId = server.state.zoneOrder.p1.hand[0]
   const victimCard = server.state.zoneOrder.p2.hand[0]
@@ -101,7 +109,7 @@ test('journal restores a typed discard and its durable source resolution', () =>
   const selection = pendingSelectionFor(state, 'p2')!
   expect(selection).toMatchObject({ kind: 'discard', count: 1 })
   expect(state.stack[0]).toMatchObject({ kind: 'spell', name: 'Cry of Contrition Test' })
-  expect(state.resolution).toMatchObject({ kind: 'legacy', phase: 'waiting' })
+  expect(state.resolution).toMatchObject({ kind: 'canonicalSpell', phase: 'waiting' })
   expect(replayComparableState(state).stack[0]).toEqual({
     name: 'Cry of Contrition Test',
     kind: 'spell',
