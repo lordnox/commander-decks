@@ -3858,7 +3858,7 @@
           "rules-engine/src/cardPlugins/dsl/move.test.ts:345 — test('move bindResult counts actual exile after commander replacement', () => {",
           "rules-engine/src/cardPlugins/dsl/playerQueries.test.ts:14 — test('commander queries use the controlled battlefield instance rather than ownership or legendary status', () => {",
           "rules-engine/src/cardPlugins/dsl/stackItemFilters.test.ts:28 — test('stack filters distinguish command-zone casts from hand casts', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:160 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:164 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:365 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)"
         ]
       },
@@ -5284,7 +5284,7 @@
         "matches": 3,
         "samples": [
           "live-runner/src/host.test.ts:159 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:236 — test('a sacrifice choice dies with the spell that asked for it', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:240 — test('a sacrifice choice dies with the spell that asked for it', () => {",
           "site/src/TopdeckDialog.test.tsx:258 — test('a resolving Scapeshift asks for land sacrifices before opening a search', () => {"
         ]
       },
@@ -5468,7 +5468,7 @@
         "rules-engine/src/cardPlugins/effectRuntime.ts:424",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:189",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:273",
-        "rules-engine/src/cardPlugins/librarySearch.ts:121",
+        "rules-engine/src/cardPlugins/librarySearch.ts:122",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
         "rules-engine/src/cards/boggart-trawler.ts:20",
@@ -6110,12 +6110,12 @@
       {
         "path": "rules-engine/src/cardPlugins/librarySearch.ts",
         "lines": [
-          192,
-          217
+          196,
+          221
         ],
         "samples": [
-          "192: if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {",
-          "217: if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {"
+          "196: if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {",
+          "221: if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",

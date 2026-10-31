@@ -13,6 +13,7 @@ export type { SearchDestination, SearchSpec } from './effects'
 export const SEARCH_PENDING = 'librarySearch.pending'
 export const SEARCH_BEGIN = 'librarySearch.begin'
 export const SEARCH_CHOSEN = 'librarySearch.chosen'
+export const RETIRED_SEARCH_FETCH = 'librarySearch.fetch'
 
 export type SearchMove = {
   objectId: string
@@ -183,6 +184,9 @@ export const librarySearch: Plugin = {
   id: 'librarySearch',
   legal: (ctx) => {
     const { state, event } = ctx
+    if (event.type === 'activateAbility' && event.abilityId === RETIRED_SEARCH_FETCH) {
+      return 'that card has no library-search ability'
+    }
     if (event.type !== 'passPriority') return
     const seat = searchingSeat(state)
     if (seat) return `${seat} is searching their library for ${pendingSearch(state, seat)!.source}`

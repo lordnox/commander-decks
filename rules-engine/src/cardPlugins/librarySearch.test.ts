@@ -14,11 +14,10 @@ import {
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { availableActions } from '../actions'
 import { choiceEffects } from './choiceEffects'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cycling } from './cycling'
-import { librarySearch, pendingSearch } from './librarySearch'
+import { librarySearch, pendingSearch, RETIRED_SEARCH_FETCH } from './librarySearch'
 import {
   card as dslCard,
   compileCardRuleDefinition,
@@ -138,11 +137,16 @@ describe('librarySearch', () => {
     expect(projectForViewer(finished, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
-  test('a permanent without an activated ability does not offer an activation', () => {
+  test('a plain Forest rejects the retired library-search fetch action', () => {
     const server = game({ battlefield: [forest()], library: [forest()] })
-    const objectId = server.state.zoneOrder.p1.battlefield[0]
-    expect(availableActions(server.state, 'p1').some((action) =>
-      action.kind === 'activateAbility' && action.objectId === objectId)).toBe(false)
+    const result = server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: RETIRED_SEARCH_FETCH,
+      seat: 'p1',
+      objectId: server.state.zoneOrder.p1.battlefield[0],
+    })
+    expect(result.ok).toBe(false)
+    expect(result.ok === false && result.error).toContain('no library-search ability')
   })
 
   test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {
