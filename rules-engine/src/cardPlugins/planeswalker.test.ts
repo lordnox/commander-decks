@@ -7,7 +7,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameObject, ReduceResult } from '../types'
-import { planeswalker as planeswalkerPlugin } from './planeswalker'
 
 const ugin = (loyalty = 7) => planeswalker('Ugin, the Spirit Dragon', 7, {
   manaCost: '{8}',
@@ -21,7 +20,7 @@ const gameWithUgin = (loyalty = 7, extras: Parameters<typeof createServerGame>[1
   createServerGame(commanderRules, {
     battlefield: { p1: [ugin(loyalty)] },
     ...extras,
-  }, { random: () => 0.5, cardPlugins: [planeswalkerPlugin] })
+  }, { random: () => 0.5 })
 
 const uginId = (state: ReturnType<typeof gameWithUgin>['state']) =>
   Object.values(state.objects).find((object) => object.name === 'Ugin, the Spirit Dragon')!.id
@@ -265,7 +264,7 @@ const teferiGame = (loyalty = 4) => createServerGame(
       p1: ['First', 'Second', 'Third', 'Fourth'].map((name) => cardTemplate(name)),
     },
   },
-  { random: () => 0.5, cardPlugins: [planeswalkerPlugin] },
+  { random: () => 0.5 },
 )
 
 const teferiTarget = (object: GameObject) => ({ kind: 'object' as const, objectId: object.id })

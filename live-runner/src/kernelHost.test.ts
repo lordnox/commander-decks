@@ -50,7 +50,6 @@ import {
   CUMULATIVE_UPKEEP_PENDING,
   cumulativeUpkeep,
 } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
-import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
@@ -63,7 +62,7 @@ import {
   PENDING_DIALOG,
   pendingDialogLock,
 } from '../../rules-engine/src/pendingDialog'
-import { cardTemplate, planeswalker } from '../../rules-engine/src/newGame'
+import { cardTemplate } from '../../rules-engine/src/newGame'
 import { roomDoor } from '../../rules-engine/src/testHelpers'
 import {
   PENDING_PLAYER_SELECTION,
@@ -2471,7 +2470,7 @@ describe('kernel host journal', () => {
       {
         battlefield: {
           p1: [
-            planeswalker('Teferi, Who Slows the Sunset', 4),
+            cardTemplate('Teferi, Who Slows the Sunset'),
             cardTemplate('Mana Rock', { types: ['Artifact'], tapped: true }),
             forest(),
           ],
@@ -2482,7 +2481,7 @@ describe('kernel host journal', () => {
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [planeswalkerPlugin] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.step = 'precombatMain'
