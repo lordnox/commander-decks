@@ -559,8 +559,8 @@ describe('card plugin registry', () => {
       'Rumor Gatherer':
         'Pass 1 lacks a canonical controlled-creature-enter trigger with alliance frequency.',
       'Enduring Innocence':
-        'Pass 1 lacks other-creatures-you-control-enter + power≤2 + onceEachTurn; '
-        + 'diesReturnAsEnchantment alone is insufficient for full Oracle.',
+        'Pass 1 lacks other-creatures-you-control-enter + power≤2 + onceEachTurn and '
+        + 'a canonical type-removal and return-as-enchantment operation.',
       'Ori, Plate Stacker':
         'Pass 1 lacks destroy all opponents’ artifacts/enchantments + gain life per destroyed.',
       'Graaz, Unstoppable Juggernaut':

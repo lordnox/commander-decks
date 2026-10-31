@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { eachPlayerDrawDamageDealtToSource, leaves } from '../cardPlugins/effects'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, damageDealtThisTurn, draw, forEachPlayer, players, ref, self, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -17,7 +17,17 @@ const wurm = cardTemplate('Fixture Wurm', {
   types: ['Creature'],
   power: 4,
   toughness: 6,
-  effects: [leaves(eachPlayerDrawDamageDealtToSource())],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.leaves, {
+      instructions: [forEachPlayer({
+        of: players(),
+        instructions: [draw({
+          count: damageDealtThisTurn({ to: ref('source'), by: ref('event.player') }),
+          targets: ref('event.player'),
+        })],
+      })],
+    }),
+  ]))),
 })
 
 const setup = () => {
@@ -122,7 +132,7 @@ describe('each player draws the damage dealt to this by sources they controlled'
       dealDamage(state, 'P2 Ogre', 'Fixture Wurm', 1),
     ].reduce((current, event) => ok(server.rules(current, event)), state)
     expect(named(hurt, 'Fixture Wurm').zone).toBe('graveyard')
-    expect(hurt.stack[0].payload?.lastKnownDamage).toEqual({ p2: 4, p3: 2 })
+    expect(hurt.stack[0].execution?.occurrence?.object?.before?.damageDealtBy).toEqual({ p2: 4, p3: 2 })
 
     const done = resolveStack(server.rules, hurt)
     expect(handSize(done, 'p2')).toBe(4)

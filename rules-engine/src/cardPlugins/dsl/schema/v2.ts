@@ -290,6 +290,7 @@ export type OccurrencePattern =
       }
     }
   | { kind: 'tokenCreated' | 'sacrificed'; filter: ObjectOccurrenceFilter }
+  | { kind: 'becomesMonstrous'; filter: ObjectOccurrenceFilter }
   | { kind: 'countersRemoved'; filter: ObjectOccurrenceFilter; counter: string; last?: true }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter; fromSpell?: boolean }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
@@ -489,7 +490,13 @@ export type ObjectRecipient = ObjectReference | ObjectSelector
 export type StackItemRecipient = StackItemReference | StackItemSelector
 export type DamageRecipient = PlayerRecipient | ObjectRecipient
 
-export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard', keep: 'keep' } as const
+export const REVEAL_UNTIL_REST = {
+  orderBottom: 'orderBottom',
+  graveyard: 'graveyard',
+  keep: 'keep',
+  bottomRandom: 'bottomRandom',
+  shuffle: 'shuffle',
+} as const
 export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL_REST]
 
 export const LIBRARY_VISIBILITY = { private: 'private', public: 'public' } as const
@@ -599,6 +606,8 @@ export type Instruction =
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
   /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
+  /** Queue energy gain for each resolved player recipient at this point in resolution. */
+  | { kind: 'gainEnergy'; amount: Amount; targets: PlayerRecipient }
   /** Set each recipient's life total; actual loss still flows through loseLife. */
   | { kind: 'setLife'; amount: LifeTotalAmount; targets: PlayerRecipient; bindResult?: string }
   /** Exchange two players' life totals as one action and optionally bind the first player's actual loss. */

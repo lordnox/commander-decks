@@ -10,7 +10,13 @@ import type { GameState } from '../types'
 import { activated } from './activated'
 import { ability } from './effects'
 import { ward as wardPlugin } from './ward'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, staticAbility, ward } from './dsl/v1'
+import {
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  staticAbility,
+  ward,
+} from './dsl/v1'
 
 import {type CardTemplate} from '../newGame'
 import {DIALOG_CHOSEN, pendingDialog, pendingDialogLock} from '../pendingDialog'
@@ -18,7 +24,6 @@ import {pendingSelectionFor} from '../rules/selectCards'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
 import { librarySearch } from './librarySearch'
-import {onResolve} from './onResolve'
 import {deckCard} from './cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -265,7 +270,6 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
     Object.values(state.objects).find((object) => object.name === name)!
 
   const finisherPlugins = [
-    onResolve,
     choiceEffects,
     librarySearch,
     wardPlugin,

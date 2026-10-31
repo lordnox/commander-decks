@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import {
   amount,
   card,
+  cardDiscarded,
   compileCardRuleDefinition,
   counter,
   createDefinitionSnapshot,
@@ -27,7 +28,6 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, Plugin } from '../../types'
-import { gainLife as effectGainLife, triggerOn } from '../effects'
 import { enterAdditionalDrawStep } from '../../rules/drawStepHistory'
 import { makeDraft, freezeDraft } from '../../draft'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
@@ -405,7 +405,7 @@ describe('conditional discard-then-draw replacements', () => {
     expect(state.players.p1.life).toBe(life + 1)
   })
 
-  test('a prevented discard destination binds failure and mills instead of drawing', () => {
+  test('a prevented discard destination binds failure and a replacement can prevent the fallback mill', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: { p1: [cardTemplate('Replacer', { types: ['Enchantment'], ruleDefinition: discardThenDraw() })] },
@@ -419,9 +419,9 @@ describe('conditional discard-then-draw replacements', () => {
     state = answerDiscard(server, state, true)
     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
     expect(namedZone(state, 'Keep')).toBe('hand')
-    expect(namedZone(state, 'Mill Me')).toBe('graveyard')
+    expect(namedZone(state, 'Mill Me')).toBe('library')
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
-    expect(state.zoneOrder.p1.library).toHaveLength(1)
+    expect(state.zoneOrder.p1.library).toHaveLength(2)
   })
 
   test('a redirected discard destination still counts as discarded and draws', () => {
@@ -451,7 +451,11 @@ describe('conditional discard-then-draw replacements', () => {
           cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: discardThenDraw() }),
           cardTemplate('Discard Watcher', {
             types: ['Enchantment'],
-            effects: [triggerOn('discard', { do: [effectGainLife(3)] })],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              whenever(cardDiscarded(), {
+                instructions: [gainLife({ targets: ref('controller'), amount: 3 })],
+              }),
+            ]))),
           }),
         ],
       },

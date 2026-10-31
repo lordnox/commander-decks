@@ -21,7 +21,6 @@ import {activated} from './activated'
 
 import { choiceEffects } from './choiceEffects'
 import {librarySearch} from './librarySearch'
-import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 import {ward} from './ward'
 const land = (name: string) => cardTemplate(name, { types: ['Land'] })
@@ -137,7 +136,7 @@ describe('relocated from homerPass2.test.ts → triggerFrequency.test.ts', () =>
   const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
     cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
-  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+  const plugins = [targetedResolve, activated, choiceEffects, librarySearch, ward]
 
   test('Zimone and Dina drain on the second draw', () => {
       const server = createServerGame(

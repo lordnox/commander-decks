@@ -19,11 +19,9 @@ const reboundSpell = () => cardTemplate('Test Rebound', {
   types: ['Sorcery'],
   manaCost: '{4}{U}',
   oracleText: 'Rebound (If you cast this spell from your hand, exile it as it resolves.)',
-  effects: [{
-    op: 'trigger',
-    on: 'resolve',
-    do: [{ kind: 'gainLife', count: 1 }],
-  }],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    spell({ instructions: [gainLife({ amount: 1, targets: ref('controller') })] }),
+  ]))),
 })
 
 const setup = () => {
@@ -125,6 +123,8 @@ describe('rebound', () => {
       seat: 'p1',
       objectId,
       alternativeCost: 'withoutPayingMana',
+      targets: [],
+      targetClauses: [],
     }])
     expect(decline && eventsForAvailableAction(offered, 'p1', decline)).toEqual([{
       type: 'declineFreeCast',

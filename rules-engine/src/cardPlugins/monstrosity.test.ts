@@ -5,14 +5,16 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
+import { card as dslCard, becomesMonstrous, compileCardRuleDefinition, createDefinitionSnapshot, draw as dslDraw, ref, whenever } from './dsl/v1'
 import { activated } from './activated'
 import {
-  draw,
-  MONSTROSITY_ABILITY,
   monstrosity as monstrosityEffect,
-  onBecomesMonstrous,
 } from './effects'
 import { MONSTROSITY_ABILITY as PLUGIN_ABILITY, monstrosity as monstrosityPlugin } from './monstrosity'
+
+const monstrousDraw = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+  whenever(becomesMonstrous(ref('self')), { instructions: [dslDraw(1)] }),
+])))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -21,10 +23,8 @@ const rampagingMireling = () => cardTemplate('Rampaging Mireling', {
   types: ['Creature'],
   power: 1,
   toughness: 1,
-  effects: [
-    monstrosityEffect('{2}{G}', 2),
-    onBecomesMonstrous(draw(1)),
-  ],
+  effects: [monstrosityEffect('{2}{G}', 2)],
+  ruleDefinition: monstrousDraw,
 })
 
 const mana = (state: GameState, seat = 'p1') => {
@@ -33,18 +33,6 @@ const mana = (state: GameState, seat = 'p1') => {
 }
 
 describe('monstrosity', () => {
-  test('stamps a clone-safe monstrosity builder on effects', () => {
-    const effect = monstrosityEffect('{3}{R}', 4)
-    const cloned = structuredClone(effect)
-    expect(cloned).toEqual({
-      op: 'activate',
-      id: MONSTROSITY_ABILITY,
-      costs: { mana: '{3}{R}' },
-      if: { kind: 'notMonstrous' },
-      do: [{ kind: 'monstrosity', count: 4 }],
-    })
-  })
-
   test('activates once, puts counters, marks monstrous, and triggers becomesMonstrous', () => {
     const server = createServerGame(
       commanderRules,

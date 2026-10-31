@@ -179,12 +179,10 @@ export type CardInstruction =
   | { kind: 'loseLifeTargetController'; amount: number }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
-  | { kind: 'lookTopPick'; count: number; pick: number }
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
-  | { kind: 'returnSelfAsEnchantment' }
   /** Return this card from the graveyard to the battlefield under its owner's control with one counter. */
   | { kind: 'returnSelfWithCounter'; counter: string }
   | { kind: 'createToken'; token: TokenSpec }
@@ -220,25 +218,8 @@ export type CardInstruction =
       /** After the first process has finished; only the condition check remains. */
       spent?: true
     }
-  /** Mill `count`, then the controller may pay mana and life to put one of those cards into hand. */
-  | {
-      kind: 'millThenRecover'
-      count: number
-      mana?: string
-      life?: number
-      /** Snapshot of milled object ids; set when offering the recover choice after mill. */
-      fromObjectIds?: string[]
-    }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: InstructionCount }
-  | {
-      kind: 'opponentPiles'
-      count: number
-      /** `public` reveals the cards; `look` shows them only to the chosen opponent. */
-      reveal: 'public' | 'look'
-      /** `public` keeps both piles public; `facedown-faceup` hides the face-down pile. */
-      piles: 'public' | 'facedown-faceup'
-    }
   | { kind: 'putLandFromHand'; tapped?: boolean }
   | { kind: 'bounceChosenLand' }
   | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }
@@ -593,28 +574,15 @@ export type CardEffect =
         | 'leaves'
         | 'dies'
         | 'attacks'
-        | 'resolve'
-        | 'upkeep'
-        | 'precombatMain'
-        | 'beginCombat'
-        | 'cast'
-        | 'discard'
-        | 'cycle'
-        | 'draw'
-        | 'end'
         | 'unlock'
         | 'fullyUnlock'
         | 'combatDamage'
         | 'dealtCombatDamage'
-        | 'playLand'
-        | 'becomesMonstrous'
         | 'tapped'
-        | 'gainLife'
         | 'playerAttacks'
         | 'tokenCreated'
         | 'permanentEnters'
         | 'permanentSacrificed'
-        | 'votesFinished'
       do: CardInstruction[]
       /** Filter the event's involved object; departure triggers use its pre-move characteristics. */
       watch?: TargetFilter
@@ -622,16 +590,9 @@ export type CardEffect =
       player?: 'you' | 'opponent' | 'any' | PlayerFilter
       /** Origin zone for zone-change triggers. */
       from?: ZoneId | ZoneId[]
-      /** Match the nth successful draw by the involved player this turn. */
-      nthThisTurn?: number
       if?: CardCondition | TriggerBindingIf
       /** Active source type checked only when detecting the trigger, never on resolution. */
       sourceTypeAtTrigger?: string
-      creatureOnly?: boolean
-      /** A `cast` trigger only fires for noncreature spells. */
-      noncreatureOnly?: boolean
-      /** Whose casts fire a `cast` trigger; by default only the permanent's controller's. */
-      castBy?: 'opponent'
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
         /** Fewest targets; defaults to `max`, so `0` makes "up to N" a "you may". */
@@ -684,11 +645,6 @@ export type CardEffect =
       optional?: boolean
       min?: number
       max?: number
-    }
-  | {
-      op: 'static'
-      pluginId?: string
-      /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
     }
   | { op: 'handler'; pluginId: string }
   | {

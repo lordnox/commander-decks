@@ -39,17 +39,13 @@ import {
   vote as voteInstruction,
 } from '../../rules-engine/src/cardPlugins/effectBuilders'
 import { PENDING_STACK_COPY, stackCopy } from '../../rules-engine/src/cardPlugins/stackCopy'
-import { eachPlayerWheel } from '../../rules-engine/src/cardPlugins/eachPlayerWheel'
 import { blinkPlugin } from '../../rules-engine/src/cardPlugins/blink'
 import {
   ability,
   blinkSelf,
-  eachPlayerMayWheel,
 } from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
-import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
-import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import {
   CUMULATIVE_UPKEEP_PENDING,
   cumulativeUpkeep,
@@ -59,11 +55,6 @@ import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
-  destroyThenTokenForController,
-  entersTarget,
-  entersTargetingUpTo,
-  mayCastFromHandWithoutPayingMana,
-  ifYouDoExileFromGraveyard,
   targetOnResolve,
   targetsOnResolve,
 } from '../../rules-engine/src/cardPlugins/effects'
@@ -104,6 +95,12 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  chooseInstructions as dslChooseInstructions,
+  choice as dslChoice,
+  chooseCards as dslChooseCards,
+  compareAmount as dslCompareAmount,
+  count as dslCount,
+  createToken as dslCreateToken,
   spell as dslSpell,
   delve as dslDelve,
   select as dslSelect,
@@ -111,13 +108,31 @@ import {
   destroy as dslDestroy,
   activated as dslActivated,
   discardCost,
+  discardHands as dslDiscardHands,
+  draw as dslDraw,
+  destroy as dslDestroyInstruction,
+  forEach as dslForEach,
+  ifThen as dslIfThen,
+  offerCast as dslOfferCast,
+  forEachPlayer as dslForEachPlayer,
+  players as dslPlayers,
   gainLife,
+  manaAndLifeCost,
+  mill as dslMill,
+  move as dslMove,
+  objects as dslObjects,
+  payOptional,
+  self as dslSelf,
+  ref as dslRef,
+  target as dslTargetRef,
   sacrificeCost,
+  vote as dslVote,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   objects,
   ref,
   staticAbility,
+  whenever as dslWhenever,
   ward as wardClause,
 } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
@@ -1191,7 +1206,7 @@ describe('kernel host journal', () => {
             cardTemplate(`Secret ${index + 1}`, { types: ['Sorcery'] })),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, hiddenPiles] },
+      { random: () => 0.5, cardPlugins: [hiddenPiles] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.B = 1
@@ -1228,19 +1243,21 @@ describe('kernel host journal', () => {
           p1: [cardTemplate('Secret Ballot', {
             types: ['Instant'],
             manaCost: '{1}',
-            effects: [onResolveEffect(voteInstruction(
-              'Alpha or Beta?',
-              {
-                kind: 'named',
-                options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }],
-              },
-              [],
-              true,
-            ))],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+              instructions: [dslVote({
+                prompt: 'Alpha or Beta?',
+                options: {
+                  kind: 'named',
+                  options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }],
+                },
+                bindResult: 'vote',
+                secret: true,
+              })],
+            })]))),
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, votePlugin] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.C = 1
@@ -1519,14 +1536,16 @@ describe('kernel host journal', () => {
               cardTemplate('Free Caster', {
                 types: ['Sorcery'],
                 manaCost: '{0}',
-                effects: [onResolveEffect(mayCastFromHandWithoutPayingMana(5))],
+                ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+                  instructions: [dslOfferCast({ maxManaValue: 5, notLand: true })],
+                })]))),
               }),
               cardTemplate('Cheap Bear', { types: ['Creature'], manaCost: '{3}{G}', manaValue: 4 }),
               cardTemplate('Big Beast', { types: ['Creature'], manaCost: '{6}', manaValue: 6 }),
             ],
           },
         },
-        { random: () => 0.5, cardPlugins: [onResolve] },
+        { random: () => 0.5 },
       )
       const kernel = handleFor(server.rules, server.state)
       const caster = Object.values(server.state.objects).find((object) => object.name === 'Free Caster')!
@@ -1606,6 +1625,26 @@ describe('kernel host journal', () => {
   })
 
   test('a host restart rebuilds an open mill-then-recover choice', () => {
+    const millThenRecoverDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+      instructions: [
+        dslMill({ count: 3, targets: ref('controller'), bindChoice: 'milled' }),
+        payOptional({
+          payer: ref('controller'),
+          cost: manaAndLifeCost('{1}', 2),
+          bindResult: 'paid',
+          ifPaid: [
+            dslChooseCards({
+              chooser: ref('controller'),
+              bindChoice: 'recovered',
+              filter: dslObjects({ among: dslChoice('milled') }),
+              min: 1,
+              max: 1,
+            }),
+            dslMove({ targets: dslChoice('recovered'), to: 'hand' }),
+          ],
+        }),
+      ],
+    })])))
     const server = createServerGame(
       commanderRules,
       {
@@ -1615,7 +1654,7 @@ describe('kernel host journal', () => {
             types: ['Instant'],
             manaCost: '{0}',
             manaValue: 0,
-            effects: [onResolveEffect(millThenRecover(3, { mana: '{1}', life: 2 }))],
+            ruleDefinition: millThenRecoverDefinition,
           })],
         },
         libraries: {
@@ -1623,7 +1662,7 @@ describe('kernel host journal', () => {
             cardTemplate(name, { types: ['Instant'] })),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const withMana = {
       ...server.state,
@@ -1640,6 +1679,13 @@ describe('kernel host journal', () => {
       objectId: relic.id,
     }).ok).toBe(true)
     expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    const payment = pendingOptionSelection(kernel.history.current(), 'p1')!
+    expect(kernel.dispatch({
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: payment.id,
+      optionId: 'pay',
+    }).ok).toBe(true)
 
     const firstLobby = createLobby()
     firstLobby.phase = 'play'
@@ -1648,7 +1694,7 @@ describe('kernel host journal', () => {
       seat: 'p1',
       kind: 'choose',
       cards: ['Milled One', 'Milled Two', 'Milled Three'],
-      destinations: ['skip', 'target'],
+      destinations: ['target', 'skip'],
     })
 
     const restartedKernel = handleFor(
@@ -3352,12 +3398,17 @@ describe('if-you-do resolution choices', () => {
           p1: [
             cardTemplate('Changeling Scrubber', {
               types: ['Creature'],
-              effects: [
-                entersTarget(
-                  { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
-                  ifYouDoExileFromGraveyard({ type: 'Creature' }),
-                ),
-              ],
+              ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+                dslWhenever(dslSelf.enters, {
+                  decisions: { targets: [dslSelect({ filter: dslObjects({ zone: 'battlefield', controller: 'opponent', any: [{ type: 'Artifact' }, { type: 'Enchantment' }] }), count: 1 })] },
+                  instructions: [
+                    dslChooseCards({ chooser: dslRef('controller'), bindChoice: 'yard', filter: dslObjects({ zone: 'graveyard', owner: 'you', type: 'Creature' }), min: 0, max: 1 }),
+                    dslIfThen(dslCompareAmount(dslCount(dslObjects({ among: dslChoice('yard') })), 'gte', 1), {
+                      then: [dslMove({ targets: dslChoice('yard'), to: 'exile' }), dslMove({ targets: dslTargetRef(0), to: 'exile' })],
+                    }),
+                  ],
+                }),
+              ]))),
             }),
             cardTemplate('Yard Beast', { types: ['Creature'] }),
           ],
@@ -3575,20 +3626,18 @@ describe('up-to-N trigger targets live choice', () => {
         hands: {
           p1: [cardTemplate('Fixture Destroyer', {
             types: ['Creature'],
-            effects: [
-              entersTargetingUpTo(
-                3,
-                { zone: 'battlefield', permanent: true, noncreature: true },
-                destroyThenTokenForController({
-                  name: 'Elephant',
-                  types: ['Creature'],
-                  subtypes: ['Elephant'],
-                  colors: 'G',
-                  power: 3,
-                  toughness: 3,
-                }),
-              ),
-            ],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+              dslWhenever(dslSelf.enters, {
+                decisions: { targets: [dslSelect({ filter: dslObjects({ zone: 'battlefield', not: { type: 'Creature' } }), min: 0, max: 3 })] },
+                instructions: [
+                  dslDestroyInstruction({ targets: dslTargetRef(0), bindChoice: 'destroyed' }),
+                  dslForEach({
+                    of: dslChoice('destroyed'),
+                    instructions: [dslCreateToken({ count: 1, targets: dslRef('event.player'), token: { name: 'Elephant', types: ['Creature'], subtypes: ['Elephant'], colors: 'G', power: 3, toughness: 3 } })],
+                  }),
+                ],
+              }),
+            ]))),
           })],
         },
         battlefield: {
@@ -3717,7 +3766,21 @@ describe('each-player and cost live choices', () => {
             cardTemplate('Tide Wheel', {
               types: ['Instant'],
               manaCost: '{C}',
-              effects: [onResolveEffect(eachPlayerMayWheel(2))],
+              ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+                instructions: [dslForEachPlayer({
+                  of: dslPlayers(),
+                  instructions: [dslChooseInstructions({
+                    chooser: dslRef('event.player'),
+                    options: [
+                      { label: 'Discard your hand and draw 2 cards', instructions: [
+                        dslDiscardHands({ targets: dslRef('event.player') }),
+                        dslDraw({ targets: dslRef('event.player'), count: 2 }),
+                      ] },
+                      { label: 'Keep your hand', instructions: [] },
+                    ],
+                  })],
+                })],
+              })]))),
             }),
             cardTemplate('Old One', { types: ['Sorcery'] }),
           ],
@@ -3728,7 +3791,7 @@ describe('each-player and cost live choices', () => {
           p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`New B${index}`)),
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve, eachPlayerWheel] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana.C = 1

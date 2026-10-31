@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { activated } from '../cardPlugins/activated'
-import { activate, dies, draw, leaves } from '../cardPlugins/effects'
+import { activate, draw } from '../cardPlugins/effects'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, dies as dslDies, draw as dslDraw, leaves as dslLeaves, ref, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -12,6 +13,14 @@ const named = (state: GameState, name: string) =>
 
 const token = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, { types: ['Creature'], power: 1, toughness: 1, token: true, ...extra })
+
+const drawOnDeath = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(dslDies({ filter: ref('self') }), { instructions: [dslDraw(1)] }),
+])))
+
+const drawOnDeparture = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(dslLeaves({ filter: ref('self') }), { instructions: [dslDraw(1)] }),
+])))
 
 const game = (battlefield: ReturnType<typeof cardTemplate>[], library = 2) =>
   createServerGame(
@@ -62,7 +71,7 @@ describe('tokens cease to exist outside the battlefield (CR 704.5d)', () => {
   })
 
   test('a dying token still triggers its dies ability, which resolves without the token', () => {
-    const server = game([token('Fixture Token', { effects: [dies(draw(1))] })])
+    const server = game([token('Fixture Token', { ruleDefinition: drawOnDeath })])
     const id = named(server.state, 'Fixture Token')!.id
     const died = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'graveyard' }))
 
@@ -73,7 +82,7 @@ describe('tokens cease to exist outside the battlefield (CR 704.5d)', () => {
   })
 
   test('a bounced token still triggers its leaves ability', () => {
-    const server = game([token('Fixture Token', { effects: [leaves(draw(1))] })])
+    const server = game([token('Fixture Token', { ruleDefinition: drawOnDeparture })])
     const id = named(server.state, 'Fixture Token')!.id
     const bounced = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'hand' }))
 

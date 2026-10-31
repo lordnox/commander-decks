@@ -253,7 +253,6 @@ export const copyCharacteristics = (
   oracleText: copied.oracleText,
   grantedRules: [...copied.grantedRules],
   tapProduces: copied.tapProduces ? { ...copied.tapProduces } : undefined,
-  effects: copied.effects ? [...copied.effects] : [],
   ...(copied.ruleDefinition ? { ruleDefinition: structuredClone(copied.ruleDefinition) } : {}),
 }, {
   ...extra,
@@ -454,11 +453,6 @@ export const returnOwnedLands = (draft: Draft, seat: PlayerId, tapped: boolean) 
   }
 }
 
-const copyExceptAbilities = (effects: CardEffect[] | undefined) =>
-  (effects ?? []).filter((effect) =>
-    effect.op === 'activate'
-    && effect.do.some((instruction) => instruction.kind === 'becomeCopyOfTarget'))
-
 const abilityCopiesAsEntry = (ability: {
   kind?: string
   instructions?: readonly { kind?: string; effect?: { kind?: string } }[]
@@ -517,10 +511,6 @@ export function applyCopy (
 ) {
   const characteristics = copyCharacteristics(copied, extra)
   const keptDefinition = extra.keepAbilities || extra.keepAbility ? object.ruleDefinition : undefined
-  const keptStatic = extra.keepName
-    ? (object.effects ?? []).filter((effect) => effect.op === 'static')
-    : []
-  const keptActivate = extra.keepAbility ? copyExceptAbilities(object.effects) : []
   if (!extra.keepName && object.name !== copied.name) {
     // The table still needs to read the card underneath: a clone is answered
     // differently once you know it is a Spark Double wearing someone's face.
@@ -540,11 +530,7 @@ export function applyCopy (
   object.oracleText = characteristics.oracleText
   object.grantedRules = characteristics.grantedRules
   object.tapProduces = characteristics.tapProduces
-  object.effects = characteristics.effects
-  if (keptStatic.length > 0) object.effects = [...object.effects, ...keptStatic]
-  if (keptActivate.length > 0) {
-    object.effects = [...(object.effects ?? []), ...keptActivate]
-  }
+  object.effects = []
   if ('ruleDefinition' in characteristics && characteristics.ruleDefinition) {
     object.ruleDefinition = structuredClone(characteristics.ruleDefinition)
   } else {
@@ -588,7 +574,3 @@ export const triggerEffects = (
 ) =>
   effects.filter((effect): effect is Extract<CardEffect, { op: 'trigger' }> =>
     effect.op === 'trigger' && effect.on === on)
-
-export const pluginIdsFromEffects = (effects: CardEffect[]) =>
-  effects.flatMap((effect) =>
-    effect.op === 'static' && effect.pluginId ? [effect.pluginId] : [])

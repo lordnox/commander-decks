@@ -43,31 +43,9 @@ export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', c
 
 export const scry = (count: InstructionCount): CardInstruction => ({ kind: 'scry', count })
 
-export const opponentPiles = (
-  count: number,
-  options: {
-    reveal: 'public' | 'look'
-    piles: 'public' | 'facedown-faceup'
-  },
-): CardInstruction => ({
-  kind: 'opponentPiles',
-  count,
-  reveal: options.reveal,
-  piles: options.piles,
-})
-
 export const putLandFromHand = (tapped = false): CardInstruction => ({
   kind: 'putLandFromHand',
   tapped,
-})
-
-export const millThenRecover = (
-  count: number,
-  cost: { mana?: string; life?: number } = {},
-): CardInstruction => ({
-  kind: 'millThenRecover',
-  count,
-  ...cost,
 })
 
 export const repeatIf = (
@@ -734,12 +712,6 @@ export const teferiSunsetPlusOne = (): CardInstruction => ({
 export const mayCastFromHandWithoutPayingMana = (maxManaValue: number): CardInstruction => ({
   kind: 'mayCastFromHandWithoutPayingMana',
   maxManaValue,
-})
-
-export const lookTopPick = (count: number, pick: number): CardInstruction => ({
-  kind: 'lookTopPick',
-  count,
-  pick,
 })
 
 export const lookTopPutLand = (

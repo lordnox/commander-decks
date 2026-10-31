@@ -149,10 +149,14 @@ test('catalog Frantic Search untaps up to three chosen tapped lands after lootin
   named(state, 'Island 4').tapped = false
   state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, 'Frantic Search').id }))
   state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.zoneOrder.p1.hand).toHaveLength(4)
   const discard = pendingSelectionFor(state, 'p1')!
+  const dumped = [named(state, 'Dump').id, named(state, 'Keep').id]
+  expect(dumped.every((id) => discard.candidates.includes(id))).toBe(true)
   state = ok(server.rules(state, {
-    type: 'selectCards', seat: 'p1', kind: 'discard', count: 2, objectIds: discard.candidates.slice(0, 2),
+    type: 'selectCards', seat: 'p1', kind: 'discard', count: 2, objectIds: dumped,
   }))
+  expect(dumped.every((id) => state.objects[id].zone === 'graveyard')).toBe(true)
   const selection = pendingSelectionFor(state, 'p1')!
   expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0 })
   const toUntap = selection.candidates.slice(0, 2)

@@ -3,7 +3,6 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
-import { onResolve } from './onResolve'
 import {targetedResolve} from './targetedResolve'
 
 const card = (
@@ -37,7 +36,7 @@ describe('graveyard lands', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const spell = server.state.zoneOrder.p1.hand[0]
     const ready = structuredClone(server.state)
@@ -81,7 +80,7 @@ describe('relocated from sinFallGaps.test.ts → graveyardLands.test.ts', () => 
             ],
           },
         },
-        { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
+        { random: () => 0.5, cardPlugins: [targetedResolve] },
       )
       let ready = structuredClone(server.state)
       ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }

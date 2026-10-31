@@ -20,7 +20,7 @@ export const RULE_DSL_V2_CAPABILITIES = Object.freeze({
   serialization: true as const,
   runtimeExecution: Object.freeze({
     abilitiesWithSuppliedContext: Object.freeze(['activated', 'spell', 'triggered'] as const),
-    instructionKinds: Object.freeze(['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'payOptional', 'sequence']),
+    instructionKinds: Object.freeze(['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainEnergy', 'gainLife', 'loseLife', 'payOptional', 'sequence']),
     decisions: 'fullySuppliedTargets' as const,
   }),
 })

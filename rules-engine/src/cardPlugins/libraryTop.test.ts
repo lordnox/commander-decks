@@ -4,8 +4,14 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { courserOfKruphix } from './courserOfKruphix'
-import { draw, onResolve as onResolveEffect } from './effects'
-import { onResolve } from './onResolve'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  draw,
+  ref,
+  spell,
+} from './dsl/v1'
 
 const card = (name: string, types: string[] = ['Instant']) =>
   cardTemplate(name, { types })
@@ -14,7 +20,7 @@ const forest = () => cardTemplate('Forest', { types: ['Land'], subtypes: ['Fores
 
 const revealer = () => cardTemplate('Courser of Kruphix')
 
-const plugins = { random: () => 0.5, cardPlugins: [onResolve, courserOfKruphix] }
+const plugins = { random: () => 0.5, cardPlugins: [courserOfKruphix] }
 
 const passAll = (server: ReturnType<typeof createServerGame>, state: Parameters<typeof server.rules>[0]) => {
   let current = state
@@ -48,7 +54,9 @@ describe('public library top', () => {
         battlefield: { p1: [revealer()] },
         hands: { p1: [cardTemplate('Draw Three', {
           types: ['Sorcery'],
-          effects: [onResolveEffect(draw(3))],
+          ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+            instructions: [draw({ count: 3, targets: ref('controller') })],
+          })]))),
         })] },
         libraries: {
           p1: [card('Card A'), card('Card B'), card('Card C'), card('Card D')],
