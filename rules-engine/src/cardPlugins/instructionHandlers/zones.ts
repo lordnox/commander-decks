@@ -1,8 +1,7 @@
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices } from '../../plugins/hiddenInformation'
 import { isPhasedOut } from '../../plugins/phasing'
-import { payCost } from '../../plugins/spells'
-import { INSTRUCTIONS_RESUME, openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
+import { INSTRUCTIONS_RESUME, openCardSelection } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
 import {
@@ -12,7 +11,6 @@ import {
 } from '../effects'
 import { resolveRevealUntilThen, runRevealUntil } from '../revealUntil'
 import { instructionCount } from '../voteResult'
-import { returnAsEnchantmentOnly } from '../continuousEffects'
 import { targetObject as resolveTargetObject } from '../../objectIdentity'
 import { matchesTargetFilter } from '../targetedResolve'
 import { hasKeyword } from '../../keywords'
@@ -96,51 +94,6 @@ const millTarget: InstructionHandler<'millTarget'> = ({ draft, source, item }, i
       triggeringPlayer: source.controller,
       instructions: [{ kind: 'millTarget', count: instruction.count }],
     },
-  })
-}
-
-const millThenRecover: InstructionHandler<'millThenRecover'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  if (!instruction.fromObjectIds) {
-    const ids = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
-    millLibrary(draft, source.controller, instruction.count)
-    draft.enqueue({
-      type: 'custom',
-      name: INSTRUCTIONS_RESUME,
-      payload: {
-        sourceId: source.id,
-        remaining: [{ ...instruction, fromObjectIds: ids }],
-        ...(item ? { item } : {}),
-      },
-    })
-    return
-  }
-  const controller = draft.players[source.controller]
-  if (instruction.mana && !payCost(controller.mana, instruction.mana)) return
-  if (instruction.life && controller.life < instruction.life) return
-  const candidates = instruction.fromObjectIds.filter((objectId) => draft.object(objectId))
-  if (candidates.length === 0) return
-  const costParts = [
-    instruction.mana ? `pay ${instruction.mana}` : undefined,
-    instruction.life ? `pay ${instruction.life} life` : undefined,
-  ].filter(Boolean)
-  const costText = costParts.length > 0 ? ` ${costParts.join(' and ')} to` : ' to'
-  openCardSelection(draft, {
-    seat: source.controller,
-    kind: 'choose',
-    count: 1,
-    min: 0,
-    candidates,
-    sourceId: source.id,
-    source: source.name,
-    prompt: `You may${costText} put one of those cards into your hand.`,
-    destinations: ['skip', 'target'],
-    fromZone: 'graveyard',
-    moveSelectedTo: 'hand',
-    ...(instruction.mana ? { payMana: instruction.mana } : {}),
-    ...(instruction.life ? { payLife: instruction.life } : {}),
   })
 }
 
@@ -479,22 +432,6 @@ const returnOwnedGraveyardLands: InstructionHandler<'returnOwnedGraveyardLands'>
   returnOwnedLands(draft, source.controller, instruction.tapped !== false)
 }
 
-const returnSelfAsEnchantment: InstructionHandler<'returnSelfAsEnchantment'> = (
-  { draft, source },
-) => {
-  // CR 400.7 permits this ability to find the new graveyard object without
-  // treating it as the old battlefield incarnation.
-  const graveyardCard = draft.object(source.id)
-  if (graveyardCard?.zone !== 'graveyard') return
-  returnAsEnchantmentOnly(graveyardCard)
-  draft.enqueue({
-    type: 'move',
-    objectId: graveyardCard.id,
-    to: 'battlefield',
-    controller: graveyardCard.owner,
-  })
-}
-
 const returnSelfWithCounter: InstructionHandler<'returnSelfWithCounter'> = (
   { draft, source },
   instruction,
@@ -543,62 +480,6 @@ const scry: InstructionHandler<'scry'> = ({ draft, source, item }, instruction) 
     source: source.name,
     prompt: `Scry ${count}.`,
     destinations: ['top', 'bottom'],
-  })
-}
-
-const lookTopPick: InstructionHandler<'lookTopPick'> = ({ draft, source }, instruction) => {
-  const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
-  if (candidates.length === 0) return
-  openCardSelection(draft, {
-    seat: source.controller,
-    kind: 'scry',
-    count: instruction.count,
-    candidates,
-    sourceId: source.id,
-    source: source.name,
-    prompt: `Look at the top ${instruction.count} cards. Put ${
-      instruction.pick === 1 ? 'one' : instruction.pick
-    } into your hand and the rest on the bottom of your library in any order.`,
-    destinations: ['bottom', 'hand'],
-    handQuota: instruction.pick,
-  })
-}
-
-const opponentPiles: InstructionHandler<'opponentPiles'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  const targeted = item?.targets.find((target) => target.kind === 'player')
-  if (targeted?.kind === 'player') {
-    openOpponentPilePartition(draft, {
-      opponent: targeted.player,
-      controller: source.controller,
-      sourceId: source.id,
-      source: source.name,
-      count: instruction.count,
-      reveal: instruction.reveal,
-      piles: instruction.piles,
-    })
-    return
-  }
-  const candidates = draft.playerOrder.filter(
-    (seat) => seat !== source.controller && !draft.players[seat].lost,
-  )
-  if (candidates.length === 0) return
-  openPlayerSelection(draft, {
-    seat: source.controller,
-    sourceId: source.id,
-    source: source.name,
-    prompt: 'Choose an opponent to separate the cards.',
-    min: 1,
-    max: 1,
-    candidates,
-    action: {
-      kind: 'opponentPiles',
-      count: instruction.count,
-      reveal: instruction.reveal,
-      piles: instruction.piles,
-    },
   })
 }
 
@@ -938,7 +819,6 @@ export const zoneHandlers = {
   addPlusCountersFromSacrifice,
   selfMill,
   millTarget,
-  millThenRecover,
   bounceSelf,
   returnToOwnersControl,
   finishWarpExile,
@@ -959,12 +839,9 @@ export const zoneHandlers = {
   reanimateCreatureFromGraveyards,
   exileColoredPermanentsAtMostX,
   returnOwnedGraveyardLands,
-  returnSelfAsEnchantment,
   returnSelfWithCounter,
   surveil,
   scry,
-  lookTopPick,
-  opponentPiles,
   putHandCardOnLibraryBottom,
   putLandFromHand,
   bounceChosenLand,

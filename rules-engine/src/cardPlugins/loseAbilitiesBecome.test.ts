@@ -1,14 +1,12 @@
-import { testObject } from '../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
-import { activate, draw } from './effectBuilders'
 import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { bears, newGame } from '../testGame'
-import { ok } from '../testHelpers'
+import { ok, resolveStack, testObject } from '../testHelpers'
 import { turnStructure } from '../plugins/turnStructure'
 import {
   continuousEffects,
@@ -16,26 +14,55 @@ import {
   permanent,
 } from './continuousEffects'
 import {
-  entersTargetingOpponent,
-  loseAbilitiesBecome as loseAbilitiesBecomeInstruction,
-  onResolve,
-} from './effectBuilders'
-import { onResolve as onResolvePlugin } from './onResolve'
+  activated as dslActivated,
+  addTypesEffect,
+  card as dslCard,
+  choosePlayer,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  createEffect as dslCreateEffect,
+  draw as dslDraw,
+  objects as dslObjects,
+  permanentEffect,
+  players as dslPlayers,
+  ref as dslRef,
+  removeAbilitiesEffect,
+  select as dslSelect,
+  setStatsEffect,
+  spell as dslSpell,
+  choice as dslChoice,
+  self as dslSelf,
+  tapCost as dslTapCost,
+  target as dslTarget,
+  whenever as dslWhenever,
+} from './dsl/v1'
 
 const shrinkingColossus = () => cardTemplate('Fixture Shrinking Colossus', {
   types: ['Creature'],
   power: 4,
   toughness: 4,
-  effects: [
-    entersTargetingOpponent(
-      loseAbilitiesBecomeInstruction('Coward', 1, 1),
-    ),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+    dslWhenever(dslSelf.enters, {
+      decisions: { targets: [dslSelect({ filter: dslPlayers({ relation: 'opponent' }), count: 1 })] },
+      instructions: [
+        dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslTarget(0) }), effect: removeAbilitiesEffect(), duration: permanentEffect() }),
+        dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslTarget(0) }), effect: setStatsEffect(1, 1), duration: permanentEffect() }),
+        dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslTarget(0) }), effect: addTypesEffect({ subtypes: ['Coward'] }), duration: permanentEffect() }),
+      ],
+    }),
+  ]))),
 })
 
 const cowardMaker = () => cardTemplate('Fixture Coward Maker', {
   types: ['Sorcery'],
-  effects: [onResolve(loseAbilitiesBecomeInstruction('Coward', 1, 1))],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslSpell({
+    instructions: [
+      choosePlayer({ chooser: dslRef('controller'), filter: dslPlayers({ relation: 'opponent' }), bindChoice: 'opponent' }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: removeAbilitiesEffect(), duration: permanentEffect() }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: setStatsEffect(1, 1), duration: permanentEffect() }),
+      dslCreateEffect({ targets: dslObjects({ zone: 'battlefield', type: 'Creature', controller: dslChoice('opponent') }), effect: addTypesEffect({ subtypes: ['Coward'] }), duration: permanentEffect() }),
+    ],
+  })]))),
 })
 
 const abilityBear = () => cardTemplate('Fixture Ability Bear', {
@@ -44,13 +71,9 @@ const abilityBear = () => cardTemplate('Fixture Ability Bear', {
   toughness: 3,
   subtypes: ['Bear'],
   oracleText: '{T}: Draw a card.',
-  effects: [
-    activate({
-      id: 'draw',
-      costs: { tap: true },
-      do: [draw(1)],
-    }),
-  ],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+    dslActivated({ costs: [dslTapCost()], instructions: [dslDraw(1)] }),
+  ]))),
 })
 
 describe('loseAbilitiesBecome', () => {
@@ -67,7 +90,7 @@ describe('loseAbilitiesBecome', () => {
       battlefield: {
         p2: [cardTemplate('Fixture Curious Bear', { types: ['Creature'], power: 4, toughness: 4 })],
       },
-    }, { random: () => 0.5, cardPlugins: [onResolvePlugin] })
+    }, { random: () => 0.5 })
     let state = structuredClone(server.state)
     state.active = 'p1'
     state.priority = 'p1'
@@ -93,7 +116,6 @@ describe('loseAbilitiesBecome', () => {
     const bear = Object.values(state.objects).find((object) => object.name === 'Fixture Curious Bear')!
     expect(bear).toMatchObject({ power: 1, toughness: 1 })
     expect(bear.subtypes).toContain('Coward')
-    expect(bear.effects).toEqual([])
     expect(bear.controller).toBe('p2')
     expect(Object.values(state.objects).filter((object) => object.zone === 'battlefield' && object.controller === 'p3'))
       .toEqual([])
@@ -104,13 +126,13 @@ describe('loseAbilitiesBecome', () => {
       commanderRules,
       {
         players: 4,
+        hands: { p1: [shrinkingColossus()] },
         battlefield: {
-          p1: [shrinkingColossus()],
           p2: [abilityBear(), bears()],
           p3: [bears()],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = structuredClone(server.state)
     state.active = 'p1'
@@ -118,7 +140,7 @@ describe('loseAbilitiesBecome', () => {
     const source = Object.values(state.objects).find(
       (object) => object.name === 'Fixture Shrinking Colossus',
     )!
-    state = ok(server.rules(state, { type: 'move', objectId: source.id, to: 'battlefield' }))
+    state = resolveStack(server.rules, ok(server.rules(state, { type: 'move', objectId: source.id, to: 'battlefield' })))
     const choice = pendingPlayerSelectionFor(state, 'p1')!
     expect(choice.candidates).toEqual(['p2', 'p3', 'p4'])
     state = ok(server.rules(state, {
@@ -140,7 +162,6 @@ describe('loseAbilitiesBecome', () => {
       expect(creature.power).toBe(1)
       expect(creature.toughness).toBe(1)
       expect(creature.oracleText).toBe('')
-      expect(creature.effects).toEqual([])
       expect(creature.subtypes).toContain('Coward')
       expect(creature.continuousEffects?.[0]?.duration).toEqual({ kind: 'permanent' })
     }
@@ -162,7 +183,7 @@ describe('loseAbilitiesBecome', () => {
         hands: { p1: [cowardMaker()] },
         battlefield: { p2: [abilityBear()] },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = structuredClone(server.state)
     state.active = 'p1'
@@ -184,10 +205,10 @@ describe('loseAbilitiesBecome', () => {
       (object) => object.name === 'Fixture Ability Bear',
     )!
     expect(bear.power).toBe(1)
-    expect(bear.effects).toEqual([])
+    expect(bear.ruleDefinition?.definition.abilities).toHaveLength(1)
     expect(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'draw',
+      abilityId: '$.abilities[0]',
       seat: 'p2',
       objectId: bear.id,
     }).ok).toBe(false)
@@ -241,14 +262,15 @@ describe('loseAbilitiesBecome', () => {
       power: 3,
       toughness: 3,
     })
-    expect(result.state.objects[bear.id].effects?.length).toBe(1)
+    expect(result.state.objects[bear.id].oracleText).toBe('{T}: Draw a card.')
+    expect(result.state.objects[bear.id].ruleDefinition?.definition.abilities).toHaveLength(1)
   })
 
   test('structuredClone keeps pending opponent selection and continuous effects', () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [cowardMaker()] } },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      { random: () => 0.5 },
     )
     let state = structuredClone(server.state)
     state.players.p1.mana.C = 10

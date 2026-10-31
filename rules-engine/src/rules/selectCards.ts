@@ -367,49 +367,6 @@ const sameIdSet = (left: string[], right: string[]) => {
   return left.every((id) => rightIds.has(id))
 }
 
-export const openOpponentPilePartition = (
-  draft: Draft,
-  args: {
-    opponent: PlayerId
-    controller: PlayerId
-    sourceId: string
-    source: string
-    count: number
-    reveal: OpponentPileReveal
-    piles: OpponentPileVisibility
-  },
-) => {
-  const candidates = draft.zoneOrder[args.controller].library.slice(0, args.count)
-  if (candidates.length === 0) return
-  if (args.reveal === 'public') {
-    draft.enqueue({
-      type: 'reveal',
-      seat: args.controller,
-      objectIds: candidates,
-      source: args.source,
-    })
-  } else {
-    markKnownTo(draft, candidates, [args.opponent])
-    draft.note(`${args.opponent} looks at the top ${candidates.length} cards for ${args.source}`)
-  }
-  openCardSelection(draft, {
-    seat: args.opponent,
-    kind: 'partition',
-    count: args.count,
-    candidates,
-    sourceId: args.sourceId,
-    source: args.source,
-    prompt: args.piles === 'public'
-      ? `Separate these cards into two piles.`
-      : `Separate these cards into a face-down pile and a face-up pile.`,
-    destinations: ['face-up', 'face-down'],
-    fromSeat: args.controller,
-    pileController: args.controller,
-    pileReveal: args.reveal,
-    pileVisibility: args.piles,
-  })
-}
-
 const parseChoices = (
   event: Extract<GameEvent, { type: 'selectCards' }>,
 ): CardSelectionChoice[] | undefined => {

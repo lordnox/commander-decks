@@ -101,7 +101,7 @@ describe('Rule DSL v1 canonical authoring', () => {
       serialization: true,
       runtimeExecution: {
         abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
-        instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'payOptional', 'sequence'],
+        instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainEnergy', 'gainLife', 'loseLife', 'payOptional', 'sequence'],
         decisions: 'fullySuppliedTargets',
       },
     })
@@ -214,7 +214,7 @@ describe('Rule DSL v1 canonical authoring', () => {
     ])
     expect(compiled.capabilities.runtimeExecution).toEqual({
       abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
-      instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'payOptional', 'sequence'] as readonly string[],
+      instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainEnergy', 'gainLife', 'loseLife', 'payOptional', 'sequence'] as readonly string[],
       decisions: 'fullySuppliedTargets',
     })
   })
@@ -743,7 +743,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
   test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {
     expect(RULE_DSL_V2_CAPABILITIES.runtimeExecution).toEqual({
       abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
-      instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'payOptional', 'sequence'],
+      instructionKinds: ['addMana', 'counter', 'copySpell', 'createDelayed', 'createEffect', 'damage', 'destroy', 'draw', 'gainEnergy', 'gainLife', 'loseLife', 'payOptional', 'sequence'],
       decisions: 'fullySuppliedTargets',
     })
     expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution)

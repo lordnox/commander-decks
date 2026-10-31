@@ -58,18 +58,12 @@ export const matchesTriggerEvent = (
   const { watched, player, fromZone, event } = context
   if (source.phasedOut) return false
   if (effect.sourceTypeAtTrigger && !source.types.includes(effect.sourceTypeAtTrigger)) return false
-  if (effect.on === 'cast' && !effect.player
-    && (effect.castBy === 'opponent') === (player === source.controller)) return false
-  if (effect.creatureOnly && !watched?.types.includes('Creature')) return false
-  if (effect.noncreatureOnly && watched?.types.includes('Creature')) return false
   if (effect.player) {
     const filter = typeof effect.player === 'string' ? { relation: effect.player } : effect.player
     if (!player || !matchesPlayerFilter(state, player, source.controller, filter)) return false
   }
   if (effect.from && (!watched
     || !(Array.isArray(effect.from) ? effect.from : [effect.from]).includes(fromZone ?? watched.zone))) return false
-  if (effect.nthThisTurn !== undefined && (!player || effect.on !== 'draw'
-    || !state.players[player] || cardsDrawnThisTurn(state.players[player]) !== effect.nthThisTurn)) return false
   if (effect.watch && !matchesTargetFilter(state, watched, effect.watch, source.controller, undefined, source.id)) return false
   if (effect.if && isTriggerBindingIf(effect.if)) {
     if (!event || !triggerIfPasses(state, source, event, effect.if)) return false

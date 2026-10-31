@@ -2587,8 +2587,7 @@ export const eventsForAvailableAction = (
   const resolvesThroughKernel = doorTriggers
     || (object
       ? effects.some((effect) =>
-        (effect.op === 'trigger' && effect.on === 'resolve')
-        || (effect.op === 'search' && effect.via === 'spell'))
+        effect.op === 'search' && effect.via === 'spell')
       : false)
   const playerAura = object ? Boolean(enchantPlayerTargets(state, object)) : false
   // A double-faced card is cast as one face, so the other face's text (a land that

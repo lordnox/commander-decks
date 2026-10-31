@@ -3,6 +3,7 @@ import { setEntryLoyalty } from '../../definitions'
 import { objectIdentity } from '../../objectIdentity'
 import { markKnownToAll } from '../../knowledge'
 import { openCardSelection } from '../../rules/selectCards'
+import { pickRandomChoices } from '../../plugins/hiddenInformation'
 import type { GameEvent, ObjectIdentity } from '../../types'
 import {
   evaluatePlayerReference,
@@ -116,13 +117,22 @@ export const runRevealUntil = (
         })
         waiting = true
         break
+      case REVEAL_UNTIL_REST.bottomRandom:
+        for (const objectId of pickRandomChoices(draft, rest, rest.length)) {
+          events.push({ type: 'move', objectId, to: 'library', position: 'bottom' })
+        }
+        break
+      case REVEAL_UNTIL_REST.shuffle:
+        for (const objectId of rest) events.push({ type: 'move', objectId, to: 'library', position: 'bottom' })
+        events.push({ type: 'shuffleLibrary', seat })
+        break
     }
   }
 
   if (applyImmediately) {
     for (const event of events) {
       if (event.type === 'move') {
-        const moved = draft.move(event.objectId, event.to)
+        const moved = draft.move(event.objectId, event.to, event.position)
         if (event.to === 'battlefield' && moved) setEntryLoyalty(moved)
       }
       else draft.enqueue(event)

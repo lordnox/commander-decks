@@ -5,20 +5,31 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import {
-  entersTarget,
-  ifYouDoExileFromGraveyard,
-} from './effects'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, enters, exileForEffect, move, objects, ref, select, target, whenever } from './dsl/v1'
+
+const vandalDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(enters({ filter: ref('self') }), {
+    decisions: {
+      targets: [select({
+        filter: objects({
+          zone: 'battlefield',
+          any: [{ type: 'Artifact' }, { type: 'Enchantment' }],
+          controller: 'opponent',
+        }),
+        count: 1,
+      })],
+    },
+    instructions: [exileForEffect({
+      chooser: ref('controller'),
+      filter: objects({ zone: 'graveyard', owner: 'you', type: 'Creature' }),
+      bindChoice: 'graveyardCreature',
+      then: [move({ targets: target(0), to: 'exile' })],
+    })],
+  }),
+])))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
-
-const vandalEffects = () => [
-  entersTarget(
-    { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
-    ifYouDoExileFromGraveyard({ type: 'Creature' }),
-  ),
-]
 
 const game = () => {
   const server = createServerGame(
@@ -28,7 +39,7 @@ const game = () => {
         p1: [
           cardTemplate('Changeling Scrubber', {
             types: ['Creature'],
-            effects: vandalEffects(),
+            ruleDefinition: vandalDefinition,
           }),
           cardTemplate('Yard Beast', { types: ['Creature'] }),
           cardTemplate('Yard Rock', { types: ['Artifact'] }),

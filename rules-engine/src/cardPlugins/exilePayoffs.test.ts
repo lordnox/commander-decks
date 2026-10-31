@@ -15,7 +15,6 @@ import {
 import { PENDING_SELECTION } from '../rules/selectCards'
 import {choiceEffects} from './choiceEffects'
 import { librarySearch } from './librarySearch'
-import { onResolve } from './onResolve'
 import {ward} from './ward'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -211,7 +210,6 @@ describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () 
     Object.values(state.objects).find((object) => object.name === name)!
 
   const finisherPlugins = [
-    onResolve,
     choiceEffects,
     librarySearch,
     ward,

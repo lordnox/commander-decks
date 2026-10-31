@@ -2,23 +2,10 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
-import type { GameEvent, GameState, ReduceResult } from '../types'
-import { activated } from './activated'
-import {
-  cycleHand,
-  draw,
-  triggerOn,
-  typecycleHand,
-} from './effects'
-import {
-  SEARCH_CHOSEN,
-  librarySearch,
-  pendingSearch,
-  searchCandidates,
-  searchSpecForPending,
-  searchingSeat,
-} from './librarySearch'
-import { cycling } from './cycling'
+import { resolveStack } from '../testHelpers'
+import type { GameState, ReduceResult } from '../types'
+import { card, cardCycled, compileCardRuleDefinition, createDefinitionSnapshot, cycleFromHand, draw, objects, ref, searchLibrary, whenever } from './dsl/v1'
+import { pendingSelectionFor } from '../rules/selectCards'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -36,23 +23,39 @@ const plains = (name = 'Plains') =>
     tapProduces: { W: 1 },
   })
 
-const run = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  events: GameEvent[],
-) => events.reduce((current, event) => ok(server.rules(current, event)), state)
+const definition = (abilities: Parameters<typeof card>[0]) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
+
+const plainsSearch = () => cycleFromHand({
+  mana: '{2}',
+  instructions: [searchLibrary({
+    bindChoice: 'found',
+    chooser: ref('controller'),
+    filter: objects({ zone: 'library', owner: 'you', subtypes: ['Plains'] }),
+    min: 0,
+    max: 1,
+    to: 'hand',
+  })],
+})
+
+const cycleListener = () => cardTemplate('Cycle Listener', {
+  types: ['Enchantment'],
+  ruleDefinition: definition([whenever(cardCycled(), {
+    instructions: [draw({ targets: ref('controller'), count: 1 })],
+  })]),
+})
 
 describe('cycling', () => {
   test('Cycle Meadow cycles for {W} and draws from hand', () => {
     const cycler = cardTemplate('Cycle Meadow', {
       types: ['Land'],
-      effects: [cycleHand('cycling.cycleMeadow', '{W}')],
+      ruleDefinition: definition([cycleFromHand({ mana: '{W}' })]),
     })
     const drawn = cardTemplate('Drawn card', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [cycler] }, libraries: { p1: [drawn] } },
-      { random: () => 0.5, cardPlugins: [activated, cycling] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Cycle Meadow').id
     const ready = structuredClone(server.state)
@@ -60,7 +63,7 @@ describe('cycling', () => {
 
     const cycled = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.cycleMeadow',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
     }))
@@ -76,7 +79,7 @@ describe('cycling', () => {
   test('Plains Cycler plainscycles for {2} through library search', () => {
     const cycler = cardTemplate('Plains Cycler', {
       types: ['Creature'],
-      effects: [typecycleHand('cycling.plainsCycler', '{2}', 'Plains')],
+      ruleDefinition: definition([plainsSearch()]),
     })
     const server = createServerGame(
       commanderRules,
@@ -84,7 +87,7 @@ describe('cycling', () => {
         hands: { p1: [cycler] },
         libraries: { p1: [plains(), cardTemplate('Mountain', { types: ['Land'], subtypes: ['Mountain'] })] },
       },
-      { random: () => 0.5, cardPlugins: [activated, cycling, librarySearch] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Plains Cycler').id
     const ready = structuredClone(server.state)
@@ -92,7 +95,7 @@ describe('cycling', () => {
 
     const stacked = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.plainsCycler',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
     }))
@@ -100,35 +103,28 @@ describe('cycling', () => {
     expect(stacked.stack).toHaveLength(1)
 
     const opened = ok(server.rules(stacked, { type: 'resolveTop' }))
-    expect(searchingSeat(opened)).toBe('p1')
-    const pending = pendingSearch(opened, 'p1')!
-    const spec = searchSpecForPending(opened, pending)!
-    expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Plains'])
+    const pending = pendingSelectionFor(opened, 'p1')!
+    expect(pending).toMatchObject({ kind: 'choose', min: 0, count: 1 })
+    expect(pending.candidates.map((id) => opened.objects[id].name)).toEqual(['Plains'])
 
     const p2View = projectForViewer(opened, 'p2')
     expect(p2View.zoneCounts.p1.library).toBe(opened.zoneCounts.p1.library)
     expect(Object.keys(p2View.objects).some((id) => opened.objects[id]?.zone === 'library')).toBe(false)
 
     const found = named(opened, 'Plains').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const finished = ok(server.rules(opened, {
+      type: 'selectCards', seat: 'p1', selectionId: pending.id, kind: 'choose', count: 1, objectIds: [found],
+    }))
     expect(named(finished, 'Plains').zone).toBe('hand')
-    expect(searchingSeat(finished)).toBeUndefined()
     expect(finished.stack).toHaveLength(0)
   })
 
   test('plainscycling listeners resolve before the library search', () => {
     const cycler = cardTemplate('Plains Cycler', {
       types: ['Creature'],
-      effects: [typecycleHand('cycling.plainsCycler', '{2}', 'Plains')],
+      ruleDefinition: definition([plainsSearch()]),
     })
-    const listener = cardTemplate('Cycle Listener', {
-      types: ['Enchantment'],
-      effects: [triggerOn('cycle', { do: [draw(1)] })],
-    })
+    const listener = cycleListener()
     const bonus = cardTemplate('Bonus card', { types: ['Instant'] })
     const server = createServerGame(
       commanderRules,
@@ -137,26 +133,24 @@ describe('cycling', () => {
         hands: { p1: [cycler] },
         libraries: { p1: [plains(), bonus] },
       },
-      { random: () => 0.5, cardPlugins: [activated, cycling, librarySearch] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Plains Cycler').id
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 2
 
-    const opened = ok(server.rules(ok(server.rules(ready, {
+    const stacked = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.plainsCycler',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
-    })), { type: 'resolveTop' }))
-    expect(opened.stack.some((item) => item.name === 'Cycle Listener')).toBe(false)
-    expect(named(opened, 'Plains').zone).toBe('hand')
-    const searching = ok(server.rules(opened, { type: 'resolveTop' }))
+    }))
+    expect(stacked.stack.map((item) => item.name)).toEqual(['Cycle Listener', 'Plains Cycler'])
+    const afterListener = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(named(afterListener, 'Plains').zone).toBe('hand')
+    expect(afterListener.stack.map((item) => item.name)).toEqual(['Plains Cycler'])
 
-    const finished = run(server, searching, [
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const finished = resolveStack(server.rules, afterListener)
     expect(finished.stack.some((item) => item.name === 'Cycle Listener')).toBe(false)
     expect(named(finished, 'Bonus card').zone).toBe('library')
   })
@@ -164,14 +158,9 @@ describe('cycling', () => {
   test('cycle event triggers battlefield listeners without name checks', () => {
     const cycler = cardTemplate('Cycle Meadow', {
       types: ['Land'],
-      effects: [cycleHand('cycling.cycleMeadow', '{W}')],
+      ruleDefinition: definition([cycleFromHand({ mana: '{W}' })]),
     })
-    const listener = cardTemplate('Cycle Listener', {
-      types: ['Enchantment'],
-      effects: [
-        triggerOn('cycle', { do: [draw(1)] }),
-      ],
-    })
+    const listener = cycleListener()
     const drawn = cardTemplate('Bonus card', { types: ['Instant'] })
     const server = createServerGame(
       commanderRules,
@@ -180,7 +169,7 @@ describe('cycling', () => {
         hands: { p1: [cycler] },
         libraries: { p1: [drawn] },
       },
-      { random: () => 0.5, cardPlugins: [activated, cycling] },
+      { random: () => 0.5 },
     )
     const cyclerId = named(server.state, 'Cycle Meadow').id
     const ready = structuredClone(server.state)
@@ -188,7 +177,7 @@ describe('cycling', () => {
 
     const stacked = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.cycleMeadow',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: cyclerId,
     }))

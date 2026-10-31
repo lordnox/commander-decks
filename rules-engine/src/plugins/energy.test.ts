@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 import { activated } from '../cardPlugins/activated'
+import { ability, activate, draw } from '../cardPlugins/effects'
 import {
-  ability,
-  activate,
-  draw,
-  getEnergy,
-  onResolve,
-} from '../cardPlugins/effects'
-import { onResolve as onResolvePlugin } from '../cardPlugins/onResolve'
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  gainEnergy,
+  ref,
+  spell,
+} from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -48,12 +49,14 @@ describe('player energy', () => {
 })
 
 describe('player energy via instructions', () => {
-  test('resolve getEnergy then pay energy to activate', () => {
+  test('resolving an energy spell then pay energy to activate', () => {
     const grant = cardTemplate('Charge Glyph', {
       types: ['Instant'],
       manaCost: '{0}',
       manaValue: 0,
-      effects: [onResolve(getEnergy(3))],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+        spell({ instructions: [gainEnergy({ amount: 3, targets: ref('controller') })] }),
+      ]))),
     })
     const spender = cardTemplate('Flux Siphon', {
       types: ['Artifact'],
@@ -70,7 +73,7 @@ describe('player energy via instructions', () => {
         battlefield: { p1: [spender] },
         libraries: { p1: [top] },
       },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin, activated] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const withMana = {
       ...server.state,

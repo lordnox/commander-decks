@@ -9,13 +9,11 @@ import { ok, resolveStack } from '../testHelpers'
 import { ZONE_IDS } from '../types'
 import type { GameState, Plugin } from '../types'
 import {
-  discardCards,
-  onResolve as onResolveEffect,
   type CardEffect,
 } from './effects'
-import { onResolve } from './onResolve'
 import {
   card,
+  discard as dslDiscard,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   cardDiscarded as dslCardDiscarded,
@@ -27,7 +25,10 @@ import {
   moved as dslMoved,
   players,
   ref,
+  select as dslSelect,
+  spell as dslSpell,
   spellCast,
+  target,
   whenever,
 } from './dsl/v1'
 
@@ -457,7 +458,10 @@ const discardDrain = () => cardTemplate('Discard Drain', {
 const discardSpell = () => cardTemplate('Forced Discard', {
   types: ['Sorcery'],
   manaCost: '',
-  effects: [onResolveEffect(discardCards(1, 'target'))],
+  ruleDefinition: definition([dslSpell({
+    decisions: { targets: [dslSelect({ filter: players({ relation: 'opponent' }), count: 1 })] },
+    instructions: [dslDiscard({ targets: target(0), count: 1 })],
+  })]),
 })
 
 const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
@@ -477,7 +481,7 @@ const discardDrainGame = () => createServerGame(
       p3: [cardTemplate('Forest', { types: ['Land'] })],
     },
   },
-  { random: () => 0.5, cardPlugins: [onResolve] },
+  { random: () => 0.5 },
 )
 
 const discardEvent = (state: GameState, seat: string, objectId: string) => ({
@@ -498,7 +502,7 @@ describe('opponent discard life loss', () => {
         },
         players: 4,
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const spellId = server.state.zoneOrder.p1.hand[0]
     const victimCard = server.state.zoneOrder.p2.hand[0]
@@ -596,7 +600,7 @@ describe('opponent discard life loss', () => {
           p3: [bolt()],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const discardedId = server.state.zoneOrder.p1.hand[0]
     const boltId = server.state.zoneOrder.p3.hand[0]
@@ -634,7 +638,7 @@ describe('opponent discard life loss', () => {
           p1: [cardTemplate('Island', { types: ['Land'] })],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5 },
     )
     const objectId = server.state.zoneOrder.p1.hand[0]
     const afterDiscard = ok(server.rules(server.state, discardEvent(server.state, 'p1', objectId)))

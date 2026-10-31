@@ -103,6 +103,7 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'copyAbility',
   'putCounters',
   'draw',
+  'gainEnergy',
   'mill',
   'discard',
   'gainLife',
@@ -190,6 +191,7 @@ const preflightInstructions = (
       case 'capturePlayer':
       case 'captureAmount':
       case 'captureCopy':
+      case 'gainEnergy':
       case 'gainLife':
       case 'loseLife':
       case 'setLife':
@@ -941,6 +943,7 @@ const actionEvents = (
       frame.capturedCopies = { ...frame.capturedCopies, [instruction.bindResult]: copyCharacteristics(targets[0]!) }
       return []
     }
+    case 'gainEnergy':
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
@@ -953,7 +956,7 @@ const actionEvents = (
         const assigned = distributedAmount(instruction.targets, seat, context, amount)
         if (assigned === 0) return []
         return [{
-          type: instruction.kind,
+          type: instruction.kind === 'gainEnergy' ? 'addEnergy' as const : instruction.kind,
           seat,
           amount: assigned,
           source: frame.source.ref.objectId,

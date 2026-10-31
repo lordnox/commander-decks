@@ -1,17 +1,10 @@
 import type { TriggerBindingIf, ZoneId } from '../types'
 import type { CardCondition, CardEffect, CardInstruction, PlayerFilter, TargetFilter } from './effectDefinitions'
 
-export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'becomesMonstrous',
-  do: instructions,
-})
-
 export type TriggerOptions = {
   filter?: TargetFilter
   player?: 'you' | 'opponent' | 'any' | PlayerFilter
   from?: ZoneId | ZoneId[]
-  nthThisTurn?: number
   if?: CardCondition | TriggerBindingIf
   targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
   onceEachTurn?: boolean
@@ -31,7 +24,6 @@ export const trigger = (
   ...(options.filter ? { watch: options.filter } : {}),
   ...(options.player ? { player: options.player } : {}),
   ...(options.from ? { from: options.from } : {}),
-  ...(options.nthThisTurn !== undefined ? { nthThisTurn: options.nthThisTurn } : {}),
   ...(options.if ? { if: options.if } : {}),
   ...(options.targets ? { targets: options.targets } : {}),
   ...(options.onceEachTurn ? { onceEachTurn: true } : {}),
@@ -125,14 +117,6 @@ export function dies(...args: Array<TriggerOptions | CardInstruction>): CardEffe
   return trigger('dies', {}, ...args as CardInstruction[])
 }
 
-/** When this dies as a creature, return under its owner's control as a noncreature enchantment. */
-export const diesReturnAsEnchantment = (): CardEffect => ({
-  op: 'trigger',
-  on: 'dies',
-  if: { kind: 'wasCreature' },
-  do: [{ kind: 'returnSelfAsEnchantment' }],
-})
-
 /**
  * CR 702.79 persist: when this dies, if it had no -1/-1 counters on it, return
  * it under its owner's control with a -1/-1 counter. The condition is checked
@@ -170,19 +154,6 @@ export function exiled(...args: Array<TriggerOptions | CardInstruction>): CardEf
   return trigger('exiled', {}, ...args as CardInstruction[])
 }
 
-export const draws = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
-  trigger('draw', { player: 'you', ...options }, ...instructions)
-
-export const discards = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
-  trigger('discard', { player: 'you', ...options }, ...instructions)
-
-/** "Whenever players finish voting", for any vote at the table. */
-export const onVotesFinished = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'votesFinished',
-  do: instructions,
-})
-
 export const onUnlock = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'unlock',
@@ -219,70 +190,3 @@ export const triggerOn = (
   on: Extract<CardEffect, { op: 'trigger' }>['on'],
   options: TriggerOptions & { do: CardInstruction[] },
 ): CardEffect => trigger(on, options, ...options.do)
-
-export const upkeep = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-})
-
-export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-})
-
-export const yourFirstMain = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'precombatMain',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-})
-
-export const yourUpkeepTarget = (
-  filter: TargetFilter,
-  instructions: CardInstruction[],
-): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: { kind: 'controllerIsActive' },
-  targets: { filter },
-})
-
-export const yourUpkeepIf = (
-  condition: CardCondition,
-  ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'upkeep',
-  do: instructions,
-  if: condition,
-})
-
-type CastFilters = TriggerOptions & {
-  creatureOnly?: boolean
-  noncreatureOnly?: boolean
-  castBy?: 'opponent'
-}
-
-const castFilters = (options: CastFilters = {}): TriggerOptions => ({
-  ...options,
-  player: options.player ?? (options.castBy === 'opponent' ? 'opponent' : 'you'),
-  filter: {
-    ...(options.creatureOnly ? { type: 'Creature' } : {}),
-    ...(options.noncreatureOnly ? { noncreature: true } : {}),
-    ...options.filter,
-  },
-})
-
-/** Accept options first, or the legacy options-last form. */
-export const casts = (...args: Array<CardInstruction | CastFilters>): CardEffect => {
-  const first = args[0]
-  const last = args.at(-1)
-  const options = first && !('kind' in first)
-    ? args.shift() as CastFilters
-    : last && !('kind' in last) ? args.pop() as CastFilters : {}
-  return trigger('cast', castFilters(options), ...args as CardInstruction[])
-}

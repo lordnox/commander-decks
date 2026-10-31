@@ -45,6 +45,8 @@ test('ability loss removes printed canonical behavior without deleting unrelated
   const subject = server.state.zoneOrder.p1.battlefield[0]!
   const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! })))
   expect(state.objects[subject]!).toMatchObject({ types: ['Artifact', 'Creature'], subtypes: ['Human'], power: 1, toughness: 1 })
+  const removal = state.objects[subject]!.continuousEffects?.find(({ effect }) => effect.kind === 'removeAbilities')
+  expect(removal?.effect.kind === 'removeAbilities' && 'effects' in removal.effect.before).toBe(false)
   expect(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: subject, abilityId: '$.abilities[1]' }).ok).toBe(false)
   const restored = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'end' }, { type: 'advanceStep' }))
   expect(restored.objects[subject]!.power).toBe(2)

@@ -11,24 +11,21 @@ import {
   applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
-
-const applyKernelChoice = (
-  kernel: Parameters<typeof applyKernelChoiceImpl>[0],
-  lobby: Parameters<typeof applyKernelChoiceImpl>[1],
-  seat: Parameters<typeof applyKernelChoiceImpl>[2],
-  message: Parameters<typeof applyKernelChoiceImpl>[3],
-) => applyKernelChoiceImpl(kernel, lobby, seat, {
-  ...message,
-  ...(message.requestId === undefined && lobby.topdeck?.requestId !== undefined
-    ? { requestId: lobby.topdeck.requestId }
-    : {}),
-  ...(message.revision === undefined && lobby.topdeck?.revision !== undefined
-    ? { revision: lobby.topdeck.revision }
-    : {}),
-})
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import { lookTopPick, onResolve as onResolveEffect } from './effects'
-import { onResolve } from './onResolve'
+import {
+  card as dslCard,
+  choice,
+  chooseCards,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  inspectTop,
+  move,
+  objects,
+  orderCards,
+  ref,
+  remaining,
+  spell,
+} from './dsl/v1'
 
 const TOP = ['Top 1', 'Top 2', 'Top 3', 'Top 4', 'Top 5', 'Top 6', 'Top 7']
 
@@ -54,6 +51,21 @@ const handleFor = (
   }
 }
 
+const applyKernelChoice = (
+  kernel: Parameters<typeof applyKernelChoiceImpl>[0],
+  lobby: Parameters<typeof applyKernelChoiceImpl>[1],
+  seat: Parameters<typeof applyKernelChoiceImpl>[2],
+  message: Parameters<typeof applyKernelChoiceImpl>[3],
+) => applyKernelChoiceImpl(kernel, lobby, seat, {
+  ...message,
+  ...(message.requestId === undefined && lobby.topdeck?.requestId !== undefined
+    ? { requestId: lobby.topdeck.requestId }
+    : {}),
+  ...(message.revision === undefined && lobby.topdeck?.revision !== undefined
+    ? { revision: lobby.topdeck.revision }
+    : {}),
+})
+
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -63,7 +75,21 @@ const digSpell = () => cardTemplate('Dig Spell', {
   types: ['Instant'],
   manaCost: '{0}',
   manaValue: 0,
-  effects: [onResolveEffect(lookTopPick(7, 2))],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+    instructions: [
+      inspectTop({ player: ref('controller'), count: 7, bindChoice: 'top' }),
+      chooseCards({
+        chooser: ref('controller'),
+        bindChoice: 'picked',
+        filter: objects({ zone: 'library', among: choice('top') }),
+        viewCards: choice('top'),
+        count: 2,
+      }),
+      move({ targets: choice('picked'), to: 'hand' }),
+      orderCards({ chooser: ref('controller'), bindChoice: 'rest', cards: remaining(choice('top'), choice('picked')), position: 'bottom' }),
+      move({ targets: choice('rest'), to: 'library', position: 'bottom' }),
+    ],
+  })]))),
 })
 
 const setup = (library: string[]) => {
@@ -77,7 +103,7 @@ const setup = (library: string[]) => {
         p2: [cardTemplate('Opposing Secret', { types: ['Sorcery'] })],
       },
     },
-    { random: () => 0.5, cardPlugins: [onResolve] },
+    { random: () => 0.5 },
   )
   const cast: GameEvent = {
     type: 'castSpell',
@@ -97,167 +123,103 @@ const resolved = (library: string[]) => {
 
 const dig = () => resolved([...TOP, 'Rest A', 'Rest B'])
 
-const pick = (
-  state: GameState,
-  assignments: Array<[string, 'hand' | 'bottom' | 'top' | 'graveyard']>,
-  overrides: Partial<Extract<GameEvent, { type: 'selectCards' }>> = {},
-): GameEvent => ({
-  type: 'selectCards',
-  seat: 'p1',
-  kind: 'scry',
-  count: 7,
-  choices: assignments.map(([name, destination]) => ({
-    objectId: named(state, name).id,
-    destination,
-  })),
-  ...overrides,
+const pick = (state: GameState, cards: string[], seat = 'p1') => ({
+  type: 'selectCards' as const,
+  seat,
+  kind: 'choose' as const,
+  count: cards.length,
+  objectIds: cards.map((name) => named(state, name).id),
 })
 
-const live = (assignments: Array<[string, string]>) => ({
+const orderBottom = (state: GameState, order: string[]) => ({
+  type: 'selectCards' as const,
+  seat: 'p1' as const,
+  kind: 'scry' as const,
+  count: order.length,
+  choices: order.map((name) => ({ objectId: named(state, name).id, destination: 'bottom' as const })),
+})
+
+const live = (cards: string[], candidates: string[]) => ({
   type: 'topdeck' as const,
-  choices: assignments.map(([card, destination], slot) => ({
+  choices: cards.map((card) => ({ card, slot: candidates.indexOf(card), destination: 'bottom' as const })),
+})
+
+const livePick = (cards: string[]) => ({
+  type: 'topdeck' as const,
+  choices: TOP.map((card, slot) => ({
     card,
     slot,
-    destination: destination as 'hand' | 'bottom',
+    destination: cards.includes(card) ? 'target' as const : 'skip' as const,
   })),
 })
 
-const VALID: Array<[string, 'hand' | 'bottom']> = [
-  ['Top 1', 'bottom'],
-  ['Top 2', 'hand'],
-  ['Top 3', 'bottom'],
-  ['Top 4', 'hand'],
-  ['Top 5', 'bottom'],
-  ['Top 6', 'bottom'],
-  ['Top 7', 'bottom'],
-]
+const finish = (server: ReturnType<typeof createServerGame>, state: GameState, picked: string[], bottom: string[]) => {
+  const ordered = ok(server.rules(state, pick(state, picked)))
+  const pending = pendingSelectionFor(ordered, 'p1')
+  return resolveStack(server.rules, pending ? ok(server.rules(ordered, orderBottom(ordered, bottom))) : ordered)
+}
 
-
-describe('lookTopPick', () => {
-  test('lookTopPick() is clone-safe', () => {
-    const instruction = lookTopPick(7, 2)
-    expect(structuredClone(instruction)).toEqual(instruction)
-  })
-
-  test('opens a private typed look at exactly the top cards', () => {
-    const { state } = dig()
+describe('canonical top-library selection', () => {
+  test('opens a private choice for exactly the top cards', () => {
+    const { server, state } = dig()
     const selection = pendingSelectionFor(state, 'p1')!
 
-    expect(selection).toMatchObject({
-      kind: 'scry',
-      count: 7,
-      handQuota: 2,
-      destinations: ['bottom', 'hand'],
-      source: 'Dig Spell',
-    })
+    expect(selection).toMatchObject({ kind: 'choose', count: 2, source: 'Dig Spell' })
     expect(names(state, selection.candidates)).toEqual(TOP)
-    expect(state.priority).toBe('p1')
+    expect(names(state, selection.visibleCards ?? [])).toEqual(TOP)
+    expect(state.priority).toBeNull()
+    const opponent = projectForViewer(state, 'p2')
+    for (const name of [...TOP, 'Rest A']) expect(JSON.stringify(opponent)).not.toContain(name)
+    expect(pendingSelectionFor(opponent, 'p1')).toBeUndefined()
+    expect(server.project(state, 'p1').objects[selection.candidates[0]!]).toBeDefined()
   })
 
-  test('puts the chosen cards into hand and the rest on the bottom in the chosen order', () => {
+  test('puts two chosen cards into hand and orders the rest on the bottom', () => {
     const { server, state: looking } = dig()
-    const done = resolveStack(server.rules, ok(server.rules(looking, pick(looking, [
-      ['Top 7', 'bottom'],
-      ['Top 2', 'hand'],
-      ['Top 1', 'bottom'],
-      ['Top 5', 'hand'],
-      ['Top 3', 'bottom'],
-      ['Top 6', 'bottom'],
-      ['Top 4', 'bottom'],
-    ]))))
+    const done = finish(server, looking, ['Top 2', 'Top 5'], ['Top 7', 'Top 1', 'Top 3', 'Top 6', 'Top 4'])
 
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
     expect(names(done, done.zoneOrder.p1.hand)).toEqual(['Top 2', 'Top 5'])
     expect(names(done, done.zoneOrder.p1.library)).toEqual([
-      'Rest A',
-      'Rest B',
-      'Top 7',
-      'Top 1',
-      'Top 3',
-      'Top 6',
-      'Top 4',
+      'Rest A', 'Rest B', 'Top 7', 'Top 1', 'Top 3', 'Top 6', 'Top 4',
     ])
     expect(named(done, 'Dig Spell').zone).toBe('graveyard')
   })
 
-  test('rejects the wrong number of cards in hand', () => {
+  test('rejects fewer or more than two cards in hand', () => {
     const { server, state } = dig()
-    const none = VALID.map(([name]): [string, 'bottom'] => [name, 'bottom'])
-    const one = VALID.map(([name], index): [string, 'hand' | 'bottom'] => [
-      name,
-      index === 1 ? 'hand' : 'bottom',
-    ])
-    const three = VALID.map(([name], index): [string, 'hand' | 'bottom'] => [
-      name,
-      index < 3 ? 'hand' : 'bottom',
-    ])
-
-    for (const assignments of [none, one, three]) {
-      expect(server.rules(state, pick(state, assignments)))
-        .toMatchObject({ ok: false, error: 'must put exactly 2 card(s) into hand' })
+    for (const cards of [[], ['Top 1'], ['Top 1', 'Top 2', 'Top 3']]) {
+      expect(server.rules(state, pick(state, cards))).toMatchObject({ ok: false })
     }
     expect(pendingSelectionFor(state, 'p1')).toBeDefined()
   })
 
-  test('rejects destinations the look does not allow', () => {
-    const { server, state } = dig()
-    for (const destination of ['top', 'graveyard'] as const) {
-      const assignments = VALID.map(([name, base], index): [string, typeof base | typeof destination] =>
-        [name, index === 0 ? destination : base])
-      expect(server.rules(state, pick(state, assignments)))
-        .toMatchObject({ ok: false, error: `invalid destination ${destination}` })
-    }
-  })
-
   test('rejects missing, duplicate, and foreign cards', () => {
     const { server, state } = dig()
-    expect(server.rules(state, pick(state, VALID.slice(0, 6))))
-      .toMatchObject({ ok: false, error: 'must assign exactly 7 card(s)' })
-
-    const duplicated = VALID.map(([name, destination], index): [string, typeof destination] =>
-      [index === 6 ? 'Top 1' : name, index === 6 ? 'bottom' : destination])
-    expect(server.rules(state, pick(state, duplicated)))
-      .toMatchObject({ ok: false, error: 'each card may only be assigned once' })
-
-    const deeper = VALID.map(([name, destination], index): [string, typeof destination] =>
-      [index === 6 ? 'Rest A' : name, destination])
-    expect(server.rules(state, pick(state, deeper)))
-      .toMatchObject({ ok: false, error: 'card was not offered for this selection' })
+    expect(server.rules(state, pick(state, ['Top 1']))).toMatchObject({ ok: false })
+    expect(server.rules(state, pick(state, ['Top 1', 'Top 1']))).toMatchObject({ ok: false })
+    expect(server.rules(state, pick(state, ['Top 1', 'Rest A']))).toMatchObject({ ok: false })
+    expect(server.rules(state, pick(state, ['Top 1', 'Opposing Secret']))).toMatchObject({ ok: false })
   })
 
-  test('rejects another seat, another kind, and another count', () => {
+  test('rejects another seat or priority passing while the choice is open', () => {
     const { server, state } = dig()
-    expect(server.rules(state, pick(state, VALID, { seat: 'p2' }))).toMatchObject({ ok: false })
-    expect(server.rules(state, pick(state, VALID, { kind: 'surveil' })))
-      .toMatchObject({ ok: false, error: 'expected a scry selection' })
-    expect(server.rules(state, pick(state, VALID, { count: 6 })))
-      .toMatchObject({ ok: false, error: 'expected count 7' })
+    expect(server.rules(state, pick(state, ['Top 1', 'Top 2'], 'p2'))).toMatchObject({ ok: false })
     expect(server.rules(state, { type: 'passPriority', seat: 'p1' })).toMatchObject({ ok: false })
   })
 
-  test('a library smaller than the look still gets its full quota of cards', () => {
+  test('a short library allows choosing every available card and orders the remainder', () => {
     const { server, state } = resolved(['Only 1', 'Only 2', 'Only 3'])
-    expect(pendingSelectionFor(state, 'p1')).toMatchObject({ count: 7, handQuota: 2 })
-
-    expect(server.rules(state, pick(state, [
-      ['Only 1', 'hand'],
-      ['Only 2', 'hand'],
-      ['Only 3', 'hand'],
-    ]))).toMatchObject({ ok: false, error: 'must put exactly 2 card(s) into hand' })
-    const done = ok(server.rules(state, pick(state, [
-      ['Only 3', 'bottom'],
-      ['Only 1', 'hand'],
-      ['Only 2', 'hand'],
-    ])))
+    const done = finish(server, state, ['Only 1', 'Only 2'], ['Only 3'])
     expect(names(done, done.zoneOrder.p1.hand)).toEqual(['Only 1', 'Only 2'])
     expect(names(done, done.zoneOrder.p1.library)).toEqual(['Only 3'])
   })
 
-  test('a one-card library puts that card into hand, and an empty library skips the look', () => {
-    const { server, state } = resolved(['Lone'])
-    const done = ok(server.rules(state, pick(state, [['Lone', 'hand']])))
-    expect(names(done, done.zoneOrder.p1.hand)).toEqual(['Lone'])
-    expect(done.zoneOrder.p1.library).toEqual([])
+  test('one available card is chosen and an empty library skips the choice', () => {
+    const { server, state: oneLooking } = resolved(['Lone'])
+    const one = ok(server.rules(oneLooking, pick(oneLooking, ['Lone'])))
+    expect(names(one, one.zoneOrder.p1.hand)).toEqual(['Lone'])
+    expect(one.zoneOrder.p1.library).toEqual([])
 
     const empty = resolved([]).state
     expect(pendingSelectionFor(empty, 'p1')).toBeUndefined()
@@ -265,42 +227,28 @@ describe('lookTopPick', () => {
     expect(named(empty, 'Dig Spell').zone).toBe('graveyard')
   })
 
-  test('only the looking seat sees the cards, before and after the choice', () => {
-    const { server, state: looking } = dig()
-    const chooser = projectForViewer(looking, 'p1')
-    const opponent = projectForViewer(looking, 'p2')
-
-    expect(TOP.every((name) => Object.values(chooser.objects).some((object) => object.name === name)))
-      .toBe(true)
-    for (const name of [...TOP, 'Rest A']) {
-      expect(JSON.stringify(opponent)).not.toContain(name)
-    }
-    expect(JSON.stringify(opponent)).not.toContain('"candidates":["')
-    expect(pendingSelectionFor(opponent, 'p1')).toBeUndefined()
-
-    const done = ok(server.rules(looking, pick(looking, VALID)))
+  test('private cards stay out of opponent projections and logs', () => {
+    const { server, state } = dig()
+    const done = finish(server, state, ['Top 2', 'Top 4'], ['Top 1', 'Top 3', 'Top 5', 'Top 6', 'Top 7'])
     expect(done.log.join('\n')).not.toMatch(/Top \d/)
-    const afterOpponent = projectForViewer(done, 'p2')
-    for (const name of ['Top 1', 'Top 3', 'Top 5', 'Top 6', 'Top 7']) {
-      expect(JSON.stringify(afterOpponent)).not.toContain(name)
-    }
+    const opponent = projectForViewer(done, 'p2')
+    for (const name of TOP) expect(JSON.stringify(opponent)).not.toContain(name)
   })
 
-  test('a host restart rebuilds the open look and the live choice finishes it', () => {
+  test('a host restart restores the private pick and ordered-bottom choices', () => {
     const { server, cast } = setup([...TOP, 'Rest A', 'Rest B'])
     const kernel = handleFor(server.rules, server.state)
-    for (const event of [cast, { type: 'resolveTop' } as const]) {
-      expect(kernel.dispatch(event).ok).toBe(true)
-    }
+    for (const event of [cast, { type: 'resolveTop' } as const]) expect(kernel.dispatch(event).ok).toBe(true)
+
     const lobby = createLobby()
     lobby.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'look-top',
+      kind: 'choose',
       cards: TOP,
-      destinations: ['bottom', 'hand'],
-      requirements: { hand: { min: 2, max: 2 } },
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 2, max: 2 } },
     })
 
     const restartedKernel = handleFor(server.rules, server.state, kernel.journal)
@@ -308,23 +256,30 @@ describe('lookTopPick', () => {
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
-    expect(restarted.topdeck?.cards).toEqual(TOP)
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')?.id)
-      .toBe(pendingSelectionFor(kernel.history.current(), 'p1')?.id)
+    expect(restarted.topdeck).toMatchObject({
+      cards: TOP,
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 2, max: 2 } },
+    })
 
-    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', live(
-      VALID.map(([name], index) => [name, index === 1 ? 'hand' : 'bottom']),
-    ))).toThrow()
-    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
+    expect(applyKernelChoice(restartedKernel, restarted, 'p1', livePick(['Top 2', 'Top 4']))).toBe(true)
 
-    expect(applyKernelChoice(restartedKernel, restarted, 'p1', live(VALID))).toBe(true)
-    const done = restartedKernel.history.current()
+    const ordered = restartedKernel.history.current()
+    expect(pendingSelectionFor(ordered, 'p1')).toMatchObject({ kind: 'scry', count: 5 })
+    const orderRestartedKernel = handleFor(server.rules, server.state, restartedKernel.journal)
+    const orderLobby = createLobby()
+    orderLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(orderRestartedKernel, orderLobby)).toBe(true)
+    expect(orderLobby.topdeck).toMatchObject({ seat: 'p1', kind: 'scry', cards: ['Top 1', 'Top 3', 'Top 5', 'Top 6', 'Top 7'] })
+    expect(applyKernelChoice(orderRestartedKernel, orderLobby, 'p1', live(
+      ['Top 7', 'Top 1', 'Top 3', 'Top 6', 'Top 5'],
+      ['Top 1', 'Top 3', 'Top 5', 'Top 6', 'Top 7'],
+    ))).toBe(true)
+    const done = orderRestartedKernel.history.current()
     expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
-    expect(restarted.topdeck).toBeUndefined()
+    expect(orderLobby.topdeck).toBeUndefined()
     expect(names(done, done.zoneOrder.p1.hand)).toEqual(['Top 2', 'Top 4'])
-    expect(names(done, done.zoneOrder.p1.library).slice(-5))
-      .toEqual(['Top 1', 'Top 3', 'Top 5', 'Top 6', 'Top 7'])
+    expect(names(done, done.zoneOrder.p1.library).slice(-5)).toEqual(['Top 7', 'Top 1', 'Top 3', 'Top 6', 'Top 5'])
     expect(done.stack).toHaveLength(0)
   })
-
 })

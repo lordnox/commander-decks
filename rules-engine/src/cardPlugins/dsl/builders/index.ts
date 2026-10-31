@@ -842,6 +842,8 @@ export const tokenCreated = (filter: ObjectOccurrenceFilter = {}) => immutableDa
 
 export const sacrificed = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'sacrificed' as const, filter })
 
+export const becomesMonstrous = (filter: ObjectOccurrenceFilter = {}) => immutableData({ kind: 'becomesMonstrous' as const, filter })
+
 export const dies = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'dies', filter: input.filter })
 
@@ -893,6 +895,9 @@ export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient;
 
 export const gainLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'gainLife', amount: toAmount(input.amount), targets: input.targets })
+
+export const gainEnergy = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
+  immutableData({ kind: 'gainEnergy', amount: toAmount(input.amount), targets: input.targets })
 
 export const lowestLife = (of: PlayerSelector = players()) =>
   immutableData({ kind: 'lowestLife' as const, of })

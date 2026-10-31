@@ -2,12 +2,16 @@ import { expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, newGame, planeswalker } from '../testGame'
+import { commanderRules } from '../formats'
+import { cardTemplate } from '../newGame'
+import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
+import { resolveStack } from '../testHelpers'
 import type { Plugin } from '../types'
 import { damage } from './damage'
 import { life } from './life'
 import { stateBased } from './stateBased'
-import { dies, gainLife } from '../cardPlugins/effects'
-import { triggers } from '../rules/triggers'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, dies, gainLife, ref, whenever } from '../cardPlugins/dsl/v1'
 
 const manaStub: Plugin = { id: 'mana' }
 
@@ -155,27 +159,36 @@ test('continuous recomputation settles before ordinary SBA collection', () => {
 })
 
 test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {
-  const catalog = createCatalog([manaStub, stateBased, triggers, life])
-  const state = newGame({
-    battlefield: {
-      p1: [
-        {
-          ...bears(),
-          name: 'Doomed Watcher',
-          effects: [dies({ filter: { type: 'Creature' } }, gainLife(1))],
-        },
-        { ...bears(), name: 'Doomed Friend' },
-      ],
-    },
-    builtinRules: ['mana', 'stateBased', 'triggers', 'life'],
+  const watcher = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(dies({ filter: { type: 'Creature' } }), {
+      instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+    }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [
+      cardTemplate('Doomed Watcher', { types: ['Creature'], power: 2, toughness: 2, ruleDefinition: watcher }),
+      cardTemplate('Doomed Friend', { types: ['Creature'], power: 2, toughness: 2 }),
+    ] },
   })
+  const state = structuredClone(server.state)
   for (const object of Object.values(state.objects)) object.damageMarked = 2
-  const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
+  const result = server.rules(state, { type: 'passPriority', seat: 'p1' })
   if (!result.ok) throw new Error(result.error)
 
   expect(Object.values(result.state.objects).every((object) => object.zone === 'graveyard')).toBe(true)
-  expect(result.state.stack).toHaveLength(2)
-  expect(result.state.stack.every((item) => item.name === 'Doomed Watcher')).toBe(true)
+  expect(result.state.pendingTriggers).toHaveLength(2)
+  expect(new Set(result.state.pendingTriggers?.map(trigger => trigger.execution.occurrence?.object?.before?.name)))
+    .toEqual(new Set(['Doomed Watcher', 'Doomed Friend']))
+  const order = pendingSelectionFor(result.state, 'p1')!
+  const placed = server.rules(result.state, {
+    type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+    count: order.count, objectIds: order.candidates,
+  })
+  if (!placed.ok) throw new Error(placed.error)
+  expect(placed.state.pendingTriggers).toBeUndefined()
+  expect(placed.state.stack).toHaveLength(2)
+  expect(placed.state.stack.every((item) => item.name === 'Doomed Watcher')).toBe(true)
+  expect(resolveStack(server.rules, placed.state).players.p1.life).toBe(42)
 })
 
 test('checkpoint non-convergence is reported instead of silently capped', () => {

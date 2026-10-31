@@ -8,7 +8,6 @@ import type { GameState } from '../types'
 import {createServerGame as createRuntimeGame} from '../runtime'
 import {choiceEffects} from './choiceEffects'
 import {librarySearch} from './librarySearch'
-import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 import {activated} from './activated'
 import {pendingPlayerSelection} from '../rules/selectPlayers'
@@ -183,7 +182,6 @@ describe('relocated from homerRest.test.ts → landfall.test.ts', () => {
       cardPlugins: [
         choiceEffects,
         librarySearch,
-        onResolve,
         targetedResolve,
         activated,
       ],

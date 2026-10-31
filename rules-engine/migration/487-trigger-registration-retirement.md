@@ -4,7 +4,7 @@ Parent: [#487](https://github.com/lordnox/commander-decks/issues/487)
 
 Child: [#648](https://github.com/lordnox/commander-decks/issues/648)
 
-Base: #668 checkpoint `292aa20e`
+Base inventory: `44cb4840`; consolidated and rebased onto `origin/main` `f7414cd2`
 
 This migration removes card-authored trigger, Saga, and draw-replacement
 registration paths after their behavior is owned by the canonical Rule DSL.
@@ -17,14 +17,16 @@ selection remain engine infrastructure.
 | Route | Legacy source / registration | Canonical owner and evidence | Status / sequence |
 | --- | --- | --- | --- |
 | Granted triggered abilities | `staticEffects.ts`, `effectDefinitions.ts`, `grantCreatureTrigger.ts`, `continuousEffects.ts` trigger-grant payload, `types.ts`, optional plugin registration in `formats.ts` and `plugins/index.ts`, and `mayFightGrantSource` instruction handler | `dsl/grantedAbilities.test.ts` static grant tests; catalog Grothama and `dsl/combatDamage.test.ts` | Removed in first slice. Preserved source/controller/subtype matching, grant-to-source at entry, source-leaves cleanup, entering-after cleanup, typed choice privacy, controller-attributed fight damage, and journal restore through canonical behavior. Generic `GeneratedAbility`/`canonicalGrantedAbilities` remains. |
-| Ordinary occurrence triggers | `cardPlugins/triggers.ts`, `cardPlugins/triggerFrequency.ts`, `cardPlugins/triggers/matching.ts`, `rules/triggers.ts`, plus readers of `CardEffect.op === 'trigger'` | `dsl/triggeredAbilities.test.ts`, `dsl/triggerMultiplication.test.ts`, `dsl/combatDamage.test.ts`; `cardPlugins/watchedEnters.test.ts`, `zoneTriggers.test.ts`, `drawHandDifference.test.ts`, `triggerFrequency.test.ts`, and `plugins/monarch.test.ts` now use canonical programs where available | Fixture migration underway; remove remaining legacy producers/readers after remaining occurrence assertions have a canonical owner. Preserve generic occurrence, ordering, LKI, target-choice, once-per-turn frequency, and multiplier contracts. Retired the legacy-only `whenResolvedNth`/`resolveCount` contract: it had no registered card producer or catalog consumer, and no canonical equivalent was introduced. `Rumor Gatherer` remains an explicit unsupported catalog GAP. |
-| Landfall and land-to-graveyard occurrences | `collectLandfall`, direct `landToGraveyard` collector, `CardEffect.on` variants, and legacy builders | Canonical land-move patterns in `cardPlugins/landfall.test.ts`, `rules/triggers.test.ts`, `cardPlugins/opponentHasMore.test.ts`, `cardPlugins/triggerFrequency.test.ts`, and the Crawling Sensation catalog fixture | Removed. Landfall timing, controlled-land scope, source-only entry patterns, optional trigger sequencing, and once-per-turn suppression remain covered through canonical patterns. Ordinary occurrence adapters remain pending under the row above. |
-| Cast triggers | `cardPlugins/castTriggers.ts`, `castModal`, and `op:'trigger'` cast registration | Canonical `whenever` cast patterns in `cardPlugins/dsl/castTriggers.test.ts` and existing cast mechanic suites | The unregistered cast-modal adapter and its legacy modal payload were removed in this checkpoint; no producer or format referenced them. Ordinary cast occurrences still use the shared legacy effect collector pending removal with the other occurrence adapters. Source/controller/type filters, source departure, modal ability choice ownership, and stack ordering remain asserted in canonical suites. The `casts()` builder's clone-shape assertion was removed with its legacy API. |
-| Spell resolve callbacks | `cardPlugins/onResolve.ts`, `abilities.ts:onResolve`, and `op:'trigger', on:'resolve'` reader path | Canonical spell instruction programs; `runInstructions.test.ts` and owning mechanic suites | Pending; migrate callback fixtures before removing resolve adapter. Preserve resolution ordering and continuation/restore behavior. |
+| Ordinary occurrence triggers | `rules/triggers.ts` `collectEffects` scanner and event-specific adapters; `cardPlugins/triggers.ts` builders and `CardEffect.op === 'trigger'` | `dsl/triggeredAbilities.test.ts`, `dsl/triggerMultiplication.test.ts`, `dsl/combatDamage.test.ts`; canonical owner suites for entry, dies/leaves, combat, draw/discard, vote, cast, and identity; canonical multi-target and optional graveyard-exile ETB programs in `live-runner/src/kernelHost.test.ts` | The `GameObject.effects` occurrence scanner and event-specific ordinary collectors are removed after all registered fixture producers moved to canonical definitions. Legacy trigger builders and event matcher are unreferenced; the remaining `CardEffect` union and internal pending-stack shape are tracked in the final #648 cleanup, separate from delayed-trigger registrations. Preserve generic occurrence, ordering, LKI, target-choice, once-per-turn frequency, and multiplier contracts. Retired legacy-only `whenResolvedNth`/`resolveCount` with no catalog consumer; `Rumor Gatherer` remains an explicit unsupported catalog GAP. |
+| Landfall and land-to-graveyard occurrences | `collectLandfall`, direct `landToGraveyard` collector, `CardEffect.on` variants, and legacy builders | Canonical land-move patterns in `cardPlugins/landfall.test.ts`, `rules/triggers.test.ts`, `cardPlugins/opponentHasMore.test.ts`, `cardPlugins/triggerFrequency.test.ts`, and the Crawling Sensation catalog fixture | Removed. Landfall timing, controlled-land scope, source-only entry patterns, optional trigger sequencing, and once-per-turn suppression remain covered through canonical patterns. |
+| Cast triggers | `cardPlugins/castTriggers.ts`, `castModal`, `op:'trigger'` cast registration and its legacy matching path | Canonical `whenever` cast patterns in `cardPlugins/dsl/castTriggers.test.ts` and existing cast mechanic suites | The unregistered cast-modal adapter and the legacy ordinary cast collector/API were removed; repository search found no remaining legacy cast producer or reader. Source/controller/type filters, source departure, modal ability choice ownership, and stack ordering remain asserted in canonical suites. The `casts()` builder's clone-shape assertion was removed with its legacy API. |
+| Spell resolve callbacks | `cardPlugins/onResolve.ts`, `abilities.ts:onResolve`, and `op:'trigger', on:'resolve'` reader path | Canonical spell instruction programs; `runInstructions.test.ts` and owning mechanic suites | Removed. Callback fixtures now use canonical spell programs or catalog definitions; resolution ordering, continuation, choice, and restore assertions remain with their owning mechanics. |
 | Saga registration fallback | `plugins/saga.ts` legacy `op:'saga'` and printed-oracle chapter/read-ahead fallback; `effectDefinitions.ts` Saga effect type; `abilities.ts:sagaChapters`; legacy fixtures in `plugins/saga.test.ts`, `cardPlugins/sagaPlayerTarget.test.ts`, and `cardPlugins/targetingMana.test.ts` | `plugins/saga.test.ts` covers entry lore, precombat-main/controller timing, shared/crossed chapter timing, Read Ahead, pending triggers, partial resolution and final sacrifice; `cardPlugins/dsl/saga.test.ts` and canonical Kiora/Awaken/Summon catalog fixtures cover targets, restore, chapter effects and lifecycle | Removed. All three test fixtures now compile canonical definitions or reuse registered templates. Generic Saga rules, Read Ahead handling, lore counters, chapter pending checks, and final-chapter SBA remain. `romanNumber` remains shared with mana parsing. |
 | Draw replacement by type | `replacements.ts:replaceDrawByType`, `CardEffect.op:'drawReplacementByType'`, and `dsl/drawReplacementByType.test.ts` | Canonical replacement definitions, `dsl/drawReplacementByType.test.ts`, `dsl/drawReplacement.integration.test.ts`, Abundance catalog template | Removed. Repository search found no producer or runtime reader; the four existing DSL tests remain unchanged in behavior and own privacy, multi-draw sequencing, normal draw continuation, fail-to-find, and library ordering. |
 | Room unlock test route | `plugins/rooms.ts` formerly projected `effectsOf` and `RoomDoorCharacteristics.effects` while applying door characteristics; legacy fixture in `cardPlugins/targetingMana.test.ts` | Canonical Room/door state and ability behavior in `cardPlugins/dsl/roomDoors.test.ts`, `plugins/rooms.test.ts`, and `targetingMana.test.ts` | Removed. Door characteristics now carry canonical rule snapshots only; the `effectsOf` projection and Room-specific legacy effects field are gone. Entry/unlock programs, cast action enumeration, mana payment, timing, Starfield characteristics, Marina lock/unlock behavior, and private optional graveyard selection remain covered. |
-| Generic plugin id from generated programs | `staticEffects.ts`, `effectRuntime.ts`, `newGame.ts`, `plugins/index.ts`, token/generated-program resolution | Canonical generated program/runtime registration; issue #651 handoff | Pending #651. Keep generic runtime `pluginId` plumbing until generated programs stop consuming it; this is not a card-authored trigger exception. |
+| Generic plugin id from generated programs | `staticEffects.ts`, `effectRuntime.ts`, `newGame.ts`, generated-object resolution | Canonical generated program/runtime registration; generic built-in/manual rule registration tests | Removed under #651/#647 coordination. Generated objects no longer derive plugin ids from legacy static effects; generic `RuleInstance.pluginId` registration remains. |
+| Copy snapshot effects | `CopySnapshot.effects`, `snapshotCopy`/`restoreCopy`, `copyCharacteristics`, and `applyCopy` | `becomeCopyOfTarget.test.ts`, `untilEot.test.ts`, and canonical copy behavior in `dsl/copyAsEntry.test.ts` | Removed under #651. Temporary copy restoration preserves the canonical `ruleDefinition`; no `CardEffect[]` copy snapshot is produced or restored. |
+| Ability-loss effect snapshots | `ReversibleEffect.removeAbilities.before.effects` and `loseAbilitiesBecome.before.effects`; `kernel.ts` and `continuousEffects.ts` producer/apply/revert paths | `dsl/characteristics.test.ts`, `dsl/grantedActivations.test.ts`, and canonical `loseAbilitiesBecome.test.ts` | Removed under #651. Ability-loss payloads no longer snapshot or restore legacy effect arrays; canonical definitions remain pinned while abilities are suppressed and become available again after the duration ends. |
 
 The first slice removed the legacy grant-trigger stamping bridge. Before
 removal, `grantCreatureTrigger` copied `CardEffect.op:'trigger'` into each
@@ -82,3 +84,79 @@ occurrence patterns. Cartographer explicitly watches lands controlled by its
 controller; source-only entry patterns explicitly bind `self`. The shared
 ordinary occurrence collector remains until its other fixture and resolve
 adapters have canonical owners.
+
+This follow-up removes the generic collector's legacy cast, draw, discard,
+cycle, land-play, life-gain, upkeep, precombat-main, combat-start, and end-step
+branches, along with their `CardEffect` types and builders. Canonical cast,
+draw, discard, cycle, land-play, gained-life, and step patterns retain their
+occurrence, source snapshot, player, and event-order checks in the owning DSL
+mechanic suites. The two object-identity gain-life fixtures now use a canonical
+gained-life definition. Other legacy occurrence families remain until their
+fixture owners are migrated; this does not retire the generic occurrence,
+APNAP, or resolution infrastructure.
+
+The unregistered `diesReturnAsEnchantment` helper and its `returnSelfAsEnchantment`
+instruction were retired with their legacy-only fixture. No catalog entry or
+other producer consumed this operation. Its assertions for type/P/T rewriting,
+owner return, noncreature no-loop behavior, and a second leaves-triggered death
+are retired as unsupported helper-specific behavior; existing canonical dies,
+leaves, source-LKI, and return tests continue to own their independent mechanics.
+`Enduring Innocence` remains an explicit catalog GAP because canonical
+type-removal plus return-as-enchantment semantics are not implemented.
+
+The test-only `millThenRecover` instruction handler was removed after its
+`onResolve` fixture migrated to a canonical spell program using `mill`,
+`chooseCards`, and combined resolution payment. The migrated owner keeps the
+paid/declined and insufficient-resource outcomes, the bound milled-card choice,
+privacy, and journal restore coverage; no other producer or runtime consumer
+remains.
+
+The final `votesFinished` legacy collector and `onVotesFinished` builder are
+removed. `vote.test.ts` now retires with its legacy registration fixture; the
+canonical vote mechanic suite owns the formerly unique coverage for off-turn
+APNAP order, concession, stale/repeated ballots, chooser and voter privacy,
+zero-vote player/object totals, and revealed result publication/cleanup. The
+object identity suite's dies, card-target entry, and player-target entry
+fixtures now use canonical triggered abilities while retaining occurrence/LKI,
+open-choice restore, target identity, and source-departure assertions.
+
+The legacy `becomesMonstrous` collector and `onBecomesMonstrous` helper are
+removed. The generic DSL now owns a typed `becomesMonstrous` occurrence pattern,
+and the existing monstrosity mechanic fixture uses it while retaining the
+activation, counter, monstrous-state, draw, and zone-reset assertions. The
+clone-safe legacy builder-shape assertion retired with that helper.
+
+The shared ordinary-event collector no longer scans `GameObject.effects` for
+trigger registrations. Entry, attack, sacrifice, tap, combat-damage, zone-change,
+and Room-unlock occurrences are collected from canonical definitions; delayed
+trigger registrations still pass through their existing internal delayed
+payload adapter. The #651 copy snapshot checkpoint removes `CopySnapshot.effects`
+and the `choiceEffects` legacy copy-payload reader. Remaining `CardEffect`
+trigger union and pending-trigger compatibility fields are tracked in the final
+#648 cleanup; generic delayed-trigger payloads remain separately owned.
+
+The `ifYouDoExile.test.ts` fixture now uses a canonical entry trigger with a
+typed opponent permanent target and an optional graveyard choice; its decline,
+successful exile, illegal-target, and journal-restart assertions remain. The
+catalog coexistence fixture now uses two canonical definitions and still
+asserts each entry ability resolves once. Duplicate legacy Persist behavior
+assertions were removed after crosswalking to `dsl/persist.test.ts`; the
+card-specific Woodfall Primus/catalog integration assertions remain in
+`cardPlugins/persist.test.ts`.
+
+The `lookTopPick` and `opponentPiles` legacy instruction builders, types, and
+handlers were removed after their fixtures moved to canonical inspect/choose/
+partition instructions or catalog programs. The remaining pile-selection
+mechanics use the shared typed card-selection route.
+
+`filteredEnters.test.ts` now authors both the ordinary filtered-entry watcher
+and the creation-only watcher canonically. The generic `permanentEntered`
+signal is itself an entry occurrence even when the already-on-battlefield token
+has no `createdToken` marker; only the separate `tokenCreated` pattern requires
+that marker. This preserves the distinction asserted by the prior legacy
+fixture while keeping the synthetic event out of card authoring.
+
+The #651 copy snapshot and grant/remove/restore checkpoint also removes legacy
+`CopySnapshot.effects` production/restoration and reversible ability-loss effect
+snapshots. Generated objects no longer derive plugin ids from legacy static
+effects; built-in and manual generic `RuleInstance.pluginId` registration stays.

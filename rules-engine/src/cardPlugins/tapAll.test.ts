@@ -3,9 +3,21 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
-import { enters, onResolve, tapAll, targetOnResolve } from './effects'
-import { targetedResolve } from './targetedResolve'
-import { onResolve as onResolvePlugin } from './onResolve'
+import {
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  forEach,
+  objects,
+  players,
+  ref,
+  self,
+  select,
+  spell,
+  tap,
+  target,
+  whenever,
+} from './dsl/v1'
 import { ok as okState, resolveStack } from '../testHelpers'
 
 const ok = (result: ReduceResult) => {
@@ -22,11 +34,29 @@ const fixtureCreature = (name: string) => cardTemplate(name, {
   toughness: 2,
 })
 
+const tapDefinition = (
+  filter: Parameters<typeof objects>[0],
+  options: { skipNextUntap?: true } = {},
+) => createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+  instructions: [forEach({
+    of: objects(filter),
+    instructions: [tap(ref('triggering.object.after'), options)],
+  })],
+})])))
+
+const tapperDefinition = (filter: Parameters<typeof objects>[0], options: { skipNextUntap?: true } = {}) =>
+  createDefinitionSnapshot(compileCardRuleDefinition(dslCard([whenever(self.enters, {
+    instructions: [forEach({
+      of: objects(filter),
+      instructions: [tap(ref('triggering.object.after'), options)],
+    })],
+  })])))
+
 const resolveFixtureSpell = (
   setup: {
     battlefield?: { p1?: ReturnType<typeof cardTemplate>[]; p2?: ReturnType<typeof cardTemplate>[] }
-    filter: Parameters<typeof tapAll>[0]
-    extra?: Parameters<typeof tapAll>[1]
+    filter: Parameters<typeof objects>[0]
+    extra?: { skipNextUntap?: true }
   },
 ) => {
   const server = createServerGame(
@@ -37,12 +67,12 @@ const resolveFixtureSpell = (
           types: ['Instant'],
           manaCost: '{0}',
           manaValue: 0,
-          effects: [onResolve(tapAll(setup.filter, setup.extra))],
+          ruleDefinition: tapDefinition(setup.filter, setup.extra),
         })],
       },
       battlefield: setup.battlefield ?? {},
     },
-    { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+    { random: () => 0.5 },
   )
   const ready = {
     ...server.state,
@@ -63,11 +93,13 @@ const targetedFreeze = () => cardTemplate('Fixture Targeted Freeze', {
   types: ['Instant'],
   manaCost: '{0}',
   manaValue: 0,
-  effects: [targetOnResolve(
-    'select',
-    { players: 'opponent' },
-    tapAll({ zone: 'battlefield', nonland: true }, { ofTargetPlayer: true, skipNextUntap: true }),
-  )],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([spell({
+    decisions: { targets: [select({ filter: players({ relation: 'opponent' }), min: 0, max: 1 })] },
+    instructions: [forEach({
+      of: objects({ zone: 'battlefield', not: { type: 'Land' }, controller: target(0) }),
+      instructions: [tap(ref('triggering.object.after'), { skipNextUntap: true })],
+    })],
+  })]))),
 })
 
 describe('tapAll', () => {
@@ -90,11 +122,11 @@ describe('tapAll', () => {
   test('notController skips the source permanent but taps other creatures', () => {
     const tapper = {
       ...fixtureCreature('Fixture Psychic Tapper'),
-      effects: [enters(tapAll({
+      ruleDefinition: tapperDefinition({
         zone: 'battlefield',
         type: 'Creature',
-        controller: 'notController',
-      }))],
+        controller: 'opponent',
+      }),
     }
     const server = createServerGame(
       commanderRules,
@@ -121,11 +153,11 @@ describe('tapAll', () => {
   test('enters tapAll with opponent filter leaves controlled creatures untapped', () => {
     const tapper = {
       ...fixtureCreature('Fixture Subjugating Angel'),
-      effects: [enters(tapAll({
+      ruleDefinition: tapperDefinition({
         zone: 'battlefield',
         type: 'Creature',
         controller: 'opponent',
-      }))],
+      }),
     }
     const server = createServerGame(
       commanderRules,
@@ -147,28 +179,17 @@ describe('tapAll', () => {
     expect(named(entered, 'Fixture Remote Creature').tapped).toBe(true)
   })
 
-  test('stamped filter survives structuredClone on the card template', () => {
-    const spell = cardTemplate('Fixture Clone Safe Tap', {
+  test('canonical tap instructions survive structuredClone on the card template', () => {
+    const tapSpell = cardTemplate('Fixture Clone Safe Tap', {
       types: ['Instant'],
-      effects: [onResolve(tapAll({
+      ruleDefinition: tapDefinition({
         zone: 'battlefield',
         type: 'Creature',
-        controller: 'notController',
-      }))],
+        controller: 'opponent',
+      }),
     })
-    const cloned = structuredClone(spell)
-    expect(cloned.effects?.[0]).toEqual({
-      op: 'trigger',
-      on: 'resolve',
-      do: [{
-        kind: 'tapAll',
-        filter: {
-          zone: 'battlefield',
-          type: 'Creature',
-          controller: 'notController',
-        },
-      }],
-    })
+    const cloned = structuredClone(tapSpell)
+    expect(cloned.ruleDefinition).toEqual(tapSpell.ruleDefinition)
   })
 
   test('taps hexproof opponent creatures because tapAll does not target', () => {
@@ -217,7 +238,7 @@ describe('tapAll', () => {
             p3: [fixtureCreature('Fixture Bystander')],
           },
         },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
+        { random: () => 0.5 },
       )
       const cast = server.rules(server.state, {
         type: 'castSpell',
@@ -265,14 +286,12 @@ describe('tapAll', () => {
       expect(cast.ok).toBe(false)
     })
 
-    test('taps nothing when the instruction runs without a player target', () => {
-      const state = resolveFixtureSpell({
-        battlefield: { p2: [fixtureCreature('Fixture Foe Alpha')] },
-        filter: { zone: 'battlefield', nonland: true },
-        extra: { ofTargetPlayer: true, skipNextUntap: true },
-      })
+    test('taps nothing when there is no player target', () => {
+      const { server, cast } = castAt(undefined)
+      const state = resolveStack(server.rules, ok(cast))
       expect(named(state, 'Fixture Foe Alpha').tapped).toBe(false)
       expect(named(state, 'Fixture Foe Alpha').skipNextUntap).toBeUndefined()
     })
+
   })
 })

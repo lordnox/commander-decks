@@ -3,20 +3,19 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import {
-  gainLife,
-  loseLifeTargetPlayer,
-  secondCardDrawn,
-  triggerOn,
-} from '../cardPlugins/effects'
 import { pendingPlayerSelectionFor } from './selectPlayers'
 import {
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  draws,
   gainLife as dslGainLife,
+  loseLife as dslLoseLife,
+  players,
   ref,
+  select,
   stepBegins,
+  target,
   whenever,
 } from '../cardPlugins/dsl/v1'
 
@@ -92,13 +91,15 @@ describe('landToGraveyard triggers', () => {
 
 const secondDrawMage = () => cardTemplate('Second Draw Mage', {
   types: ['Creature'],
-  effects: [
-    triggerOn('draw', {
-      if: secondCardDrawn(),
-      targets: 'opponent',
-      do: [loseLifeTargetPlayer(2), gainLife(2)],
+  ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(draws({ player: ref('controller'), nthThisTurn: 2 }), {
+      decisions: { targets: [select({ filter: players({ relation: 'opponent' }), count: 1 })] },
+      instructions: [
+        dslLoseLife({ amount: 2, targets: target(0) }),
+        dslGainLife({ amount: 2, targets: ref('controller') }),
+      ],
     }),
-  ],
+  ]))),
 })
 
 describe('second-card-drawn triggers', () => {

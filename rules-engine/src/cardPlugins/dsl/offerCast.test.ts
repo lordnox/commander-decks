@@ -10,8 +10,7 @@ import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { onResolve as onResolveEffect, targetOnResolve } from '../effects'
-import { onResolve } from '../onResolve'
+import { targetOnResolve } from '../effects'
 import { targetedResolve } from '../targetedResolve'
 import {
   greatest,
@@ -64,7 +63,9 @@ const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[
           testCard('Cheap Bear', ['Creature'], '{2}{G}', 3),
           testCard('Big Beast', ['Creature'], '{4}{G}{G}', 6),
           testCard('Zero Trick', ['Instant'], '{0}', 0, {
-            effects: [onResolveEffect({ kind: 'gainLife', count: 1 })],
+            ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+              spell({ instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+            ]))),
           }),
           cardTemplate('Hand Land', { types: ['Land'] }),
           ...extraHand,
@@ -73,7 +74,7 @@ const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[
       },
       battlefield: { p2: [cardTemplate('Rival Guard', { types: ['Creature'] })] },
     },
-    { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
+    { random: () => 0.5, cardPlugins: [targetedResolve] },
   )
 
 const castable = (state: GameState) =>
@@ -303,7 +304,7 @@ describe('later-turn exile offerCast', () => {
           testCard('Exile Bear', ['Creature'], '{2}{G}', 3),
         ],
       },
-    }, { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] })
+    }, { random: () => 0.5, cardPlugins: [targetedResolve] })
     const bear = named(server.state, 'Exile Bear')
     const exiled = ok(server.rules(server.state, { type: 'move', objectId: bear.id, to: 'exile' }))
     const caster = named(exiled, 'Later Caster')

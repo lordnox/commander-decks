@@ -6,9 +6,8 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { effectsOf } from '../cardRules'
-import { draw as legacyDraw, enters } from '../effects'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, keyword, loadDefinitionSnapshot } from './v1'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, draw, enters, keyword, loadDefinitionSnapshot, ref, whenever } from './v1'
 
 // Catalog API contracts belong here once; per-card suites own configuration.
 test('catalog lookup requires an exact own key and returns undefined for unknown names', () => {
@@ -73,11 +72,14 @@ test('former legacy registrations are authored in the canonical catalog', () => 
   }
 })
 
-test('catalog programs and legacy compatibility effects execute together without duplicate triggers', () => {
+test('catalog and fixture programs execute together without duplicate triggers', () => {
+  const fixture = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(enters({ filter: ref('self') }), { instructions: [draw(1)] }),
+  ])))
   const server = createServerGame(commanderRules, {
     hands: { p1: [
       cardTemplate('Wall of Omens'),
-      cardTemplate('Legacy compatibility fixture', { types: ['Creature'], power: 1, toughness: 1, effects: [enters(legacyDraw(1))] }),
+      cardTemplate('Fixture Trigger', { types: ['Creature'], power: 1, toughness: 1, ruleDefinition: fixture }),
     ] },
     libraries: { p1: Array.from({ length: 3 }, (_, index) => cardTemplate(`Draw fixture ${index}`)) },
   }, { random: () => 0 })
@@ -88,6 +90,4 @@ test('catalog programs and legacy compatibility effects execute together without
   }
   expect(state.zoneOrder.p1.hand).toHaveLength(2)
   expect(state.zoneOrder.p1.library).toHaveLength(1)
-  expect(state.objects[ids[0]]!.effects).toEqual([])
-  expect(state.objects[ids[1]]!.ruleDefinition).toBeUndefined()
 })

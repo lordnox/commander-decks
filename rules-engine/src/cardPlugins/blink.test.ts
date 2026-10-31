@@ -9,16 +9,13 @@ import { activated } from './activated'
 import {
   activate,
   blink,
-  enters,
-  entersTarget,
-  onResolve,
-  targetOnResolve,
 } from './effects'
 import { blinkPlugin } from './blink'
-import { onResolve as onResolvePlugin } from './onResolve'
 import { targetedResolve } from './targetedResolve'
+import { instructionSpell } from './dsl/instructionTestSupport'
+import { blink as dslBlink, blinkUntil, card as dslCard, chooseCards, choice, compileCardRuleDefinition, createDefinitionSnapshot, enters as dslEnters, objects, ref, select, stepDelayed, target, whenever } from './dsl/v1'
 
-const plugins: Plugin[] = [onResolvePlugin, targetedResolve, activated, blinkPlugin]
+const plugins: Plugin[] = [targetedResolve, activated, blinkPlugin]
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -56,17 +53,13 @@ const advanceToEndStep = (
 
 describe('generic blink', () => {
   test('immediate blink returns under owner (Flicker-of-Fate shape)', () => {
-    const spell = cardTemplate('Fate Flicker Fixture', {
-      types: ['Instant'],
-      manaCost: '{W}',
-      effects: [
-        targetOnResolve(
-          'select',
-          { types: ['Creature', 'Enchantment'] },
-          blink({ returnController: 'owner' }),
-        ),
-      ],
-    })
+    const spell = {
+      ...instructionSpell({
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Enchantment' }] }), count: 1 })] },
+        instructions: [dslBlink({ targets: target(0), returnController: 'owner' })],
+      }, '{W}'),
+      name: 'Fate Flicker Fixture',
+    }
     const server = createServerGame(
       commanderRules,
       {
@@ -94,20 +87,19 @@ describe('generic blink', () => {
     const angel = cardTemplate('Restoration Fixture', {
       types: ['Creature'],
       subtypes: ['Angel'],
-      effects: [
-        enters(
-          blink({
-            optional: true,
-            filter: {
-              controller: 'you',
-              type: 'Creature',
-              excludeSubtypes: ['Angel'],
-            },
-            returnController: 'controller',
-            prompt: 'You may exile a non-Angel creature you control, then return it under your control.',
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([whenever(
+        dslEnters({ filter: ref('source') }),
+        { instructions: [
+          chooseCards({
+            chooser: ref('controller'),
+            filter: objects({ zone: 'battlefield', controller: 'you', type: 'Creature', not: { subtypes: ['Angel'] } }),
+            min: 0,
+            max: 1,
+            bindChoice: 'blinkTarget',
           }),
-        ),
-      ],
+          dslBlink({ targets: choice('blinkTarget'), returnController: ref('controller') }),
+        ] },
+      )]))),
     })
     const bear = cardTemplate('Blink Bear', { types: ['Creature'], power: 2, toughness: 2 })
     const server = createServerGame(
@@ -143,17 +135,18 @@ describe('generic blink', () => {
   test('delayed blink returns at the next end step (Flickerwisp shape)', () => {
     const wisp = cardTemplate('Endstep Wisp Fixture', {
       types: ['Creature'],
-      effects: [
-        entersTarget(
-          { zone: 'battlefield', other: true },
-          blink({ when: 'nextEndStep', returnController: 'owner' }),
-        ),
-      ],
+      ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(dslCard([whenever(
+        dslEnters({ filter: ref('source') }),
+        {
+          decisions: { targets: [select({ filter: objects({ zone: 'battlefield', other: true }), count: 1 })] },
+          instructions: [blinkUntil({ targets: target(0), condition: stepDelayed({ step: 'end' }), bindChoice: 'blinkTarget' })],
+        },
+      )]))),
     })
     const rock = cardTemplate('Blink Rock', { types: ['Artifact'] })
     const server = createServerGame(
       commanderRules,
-      { battlefield: { p1: [wisp, rock] } },
+      { hands: { p1: [wisp] }, battlefield: { p1: [rock] } },
       { random: () => 0.5, cardPlugins: plugins },
     )
     const wispId = named(server.state, 'Endstep Wisp Fixture').id
@@ -183,17 +176,19 @@ describe('generic blink', () => {
   })
 
   test('delayed blink may put a +1/+1 counter on return (Journey-home shape)', () => {
-    const spell = cardTemplate('Journey Home Fixture', {
+    const spell = {
+      ...instructionSpell({
+        decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+        instructions: [blinkUntil({
+          targets: target(0),
+          condition: stepDelayed({ step: 'end' }),
+          bindChoice: 'blinkTarget',
+          enterCounters: { '+1/+1': 1 },
+        })],
+      }, '{W}'),
+      name: 'Journey Home Fixture',
       types: ['Sorcery'],
-      manaCost: '{W}',
-      effects: [
-        targetOnResolve(
-          'select',
-          { type: 'Creature' },
-          blink({ when: 'nextEndStep', plusCounters: 1 }),
-        ),
-      ],
-    })
+    }
     const creature = cardTemplate('Journey Cat', {
       types: ['Creature'],
       power: 1,
@@ -270,18 +265,18 @@ describe('generic blink', () => {
   })
 
   test('optional blink selectCards path can be declined', () => {
-    const angel = cardTemplate('Optional Angel Fixture', {
+    const angel = {
+      ...instructionSpell({ instructions: [
+        chooseCards({
+          bindChoice: 'blinkTarget', chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+          min: 0, max: 1,
+        }),
+        dslBlink({ targets: choice('blinkTarget'), returnController: ref('controller') }),
+      ] }),
+      name: 'Optional Angel Fixture',
       types: ['Creature'],
-      effects: [
-        onResolve(
-          blink({
-            optional: true,
-            filter: { controller: 'you', type: 'Creature' },
-            returnController: 'controller',
-          }),
-        ),
-      ],
-    })
+    }
     const bear = cardTemplate('Decline Bear', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,

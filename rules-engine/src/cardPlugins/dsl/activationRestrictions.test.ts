@@ -4,6 +4,7 @@ import {
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  gainLife,
   prohibitActivation,
   ref,
   staticAbility,
@@ -28,11 +29,40 @@ const artifactDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(ca
   instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 }, targets: ref('controller') }],
 })])))
 
+const sorceryLife = () => createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+  timing: 'sorcery',
+  costs: [],
+  instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+})])))
+
 const stonySilence = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
   staticAbility(prohibitActivation({ abilitySource: { zone: 'battlefield', type: 'Artifact' } })),
 ])))
 
 describe('activationRestrictions', () => {
+  test('sorcery-timing activated abilities wait for the controller main phase', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Sorcery Source', { types: ['Enchantment'], ruleDefinition: sorceryLife() })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find(object => object.name === 'Sorcery Source')!
+    const event = { type: 'activateAbility' as const, seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]' }
+
+    const upkeep = structuredClone(server.state)
+    upkeep.step = 'upkeep'
+    expect(server.rules(upkeep, event).ok).toBe(false)
+
+    const mainPhase = structuredClone(server.state)
+    mainPhase.step = 'precombatMain'
+    const activated = server.rules(mainPhase, event)
+    expect(activated.ok).toBe(true)
+    if (activated.ok) {
+      const resolved = server.rules(activated.state, { type: 'resolveTop' })
+      expect(resolved.ok).toBe(true)
+      if (resolved.ok) expect(resolved.state.players.p1.life).toBe(41)
+    }
+  })
+
   test('Stony Silence rejects artifact activations and mana shortcuts before costs', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
