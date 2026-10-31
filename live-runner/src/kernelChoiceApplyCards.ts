@@ -4,15 +4,8 @@ import {
   waitingSelectCards,
 } from '../../rules-engine/src/index'
 import {
-  pendingSearch,
-  searchSpecForPending,
-  type SearchMove,
-  validateSplitSearchSelection,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
-import {
   discardOffer,
   objectIdsForChoices,
-  searchOffer,
   selectCardsOffer,
   sameIds,
   samePins,
@@ -20,7 +13,6 @@ import {
 } from './kernelChoice'
 import type { LobbyState } from './lobby'
 import type { SeatId } from './protocol'
-import { finishLibrarySearch } from './kernelChoicePrepareCards'
 import { closeKernelChoice } from './kernelSettle'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
@@ -296,64 +288,5 @@ export const applyCastTransformed = (
     judge: cast
       ? `${lobby.occupants[seat]?.name ?? seat} cast the defeated Siege transformed.`
       : `${lobby.occupants[seat]?.name ?? seat} declined to cast the defeated Siege.`,
-  })
-}
-
-export const applyLibrarySearch = (
-  { kernel, lobby, seat, message, decision, state }: ChoiceContext,
-) => {
-  const pending = pendingSearch(state, seat)
-  const spec = pending ? searchSpecForPending(state, pending) : undefined
-  if (!pending || !spec) throw new Error('That library search is no longer open.')
-  const offered = searchOffer(state, seat, spec, pending)
-  if (
-    !sameIds(decision.candidateIds, offered.ids)
-    || !samePins(decision.candidatePins, offered.ids.map((id) => state.objects[id]).filter(Boolean))
-  ) {
-    throw new Error('That library search changed. Refresh and choose again.')
-  }
-  const picked = message.choices.filter(({ destination }) => destination !== 'library')
-  if (spec.split) {
-    const splitError = validateSplitSearchSelection(
-      spec,
-      picked.map(({ destination }) => ({ destination: destination as SearchMove['destination'] })),
-    )
-    if (splitError) throw new Error(splitError)
-  } else {
-    const selected = picked
-      .filter(({ destination }) => destination === spec.destination)
-      .map(({ card }) => card)
-    if (selected.length < spec.min || selected.length > spec.max) {
-      throw new Error(
-        spec.min === spec.max
-          ? `Choose ${spec.min} card(s) for ${pending.source}.`
-          : `Choose between ${spec.min} and ${spec.max} cards for ${pending.source}.`,
-      )
-    }
-  }
-  const ids = objectIdsForChoices(
-    state,
-    searchOffer(state, seat, spec, pending).ids,
-    picked,
-  )
-  const selectionError = spec.validateSelection?.(
-    ids.map((objectId) => state.objects[objectId]),
-  )
-  if (selectionError) throw new Error(selectionError)
-  const moves: SearchMove[] = picked.map(({ destination }, index) => ({
-    objectId: ids[index],
-    destination: (spec.split
-      ? destination
-      : spec.destination) as SearchMove['destination'],
-  }))
-  finishLibrarySearch(kernel, lobby, seat, pending, spec, moves)
-  const selected = picked.map(({ card }) => card)
-  return closeKernelChoice(kernel, lobby, seat, {
-    privateJudge: {
-      [seat]: selected.length > 0
-        ? `${pending.source} found ${selected.join(', ')} and you shuffled.`
-        : `${pending.source} found nothing and you shuffled.`,
-    },
-    judge: `${lobby.occupants[seat]?.name ?? seat} finished a private library search.`,
   })
 }

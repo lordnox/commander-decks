@@ -6,7 +6,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
 import { choiceEffects } from './choiceEffects'
-import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 import { ward } from './ward'
 
@@ -22,7 +21,7 @@ describe('Malakir Rebirth', () => {
         hands: { p1: [cardTemplate('Malakir Rebirth')] },
         battlefield: { p1: [creature] },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve, activated, choiceEffects, librarySearch, ward] },
+      { random: () => 0.5, cardPlugins: [targetedResolve, activated, choiceEffects, ward] },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana.B = 1

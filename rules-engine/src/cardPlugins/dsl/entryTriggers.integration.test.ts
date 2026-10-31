@@ -28,7 +28,6 @@ import { hasKeyword } from '../../keywords'
 import { activated } from '../activated'
 
 import { choiceEffects } from '../choiceEffects'
-import {librarySearch} from '../librarySearch'
 import {targetedResolve} from '../targetedResolve'
 import {ward} from '../ward'
 const named = (state: GameState, name: string) =>
@@ -258,7 +257,7 @@ describe('relocated from homerPass2.test.ts → entryTriggers.integration.test.t
   const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
     cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
-  const plugins = [targetedResolve, activated, choiceEffects, librarySearch, ward]
+  const plugins = [targetedResolve, activated, choiceEffects, ward]
 
   test('Aftermath Analyst mills three on enter', () => {
       const server = createServerGame(

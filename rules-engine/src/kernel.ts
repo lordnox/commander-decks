@@ -50,14 +50,6 @@ import { syncWorldTimestamps, worldTimestampsStale } from './rules/worldSupertyp
 import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
 import { canonicalCyclingEvent } from './cardPlugins/cycling'
-import {
-  SEARCH_CHOSEN,
-  SEARCH_PENDING,
-  pendingSearch,
-  searchCandidates,
-  searchSpecForPending,
-  searchingSeat,
-} from './cardPlugins/librarySearch'
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject, refreshExecutionReferences } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
@@ -409,7 +401,6 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
     PENDING_PLAYER_SELECTION,
     PENDING_OPTION_SELECTION,
     PENDING_DIALOG,
-    SEARCH_PENDING,
   ]) {
     delete draft.players[seat].data[key]
   }
@@ -1204,7 +1195,6 @@ const hasOpenChoice = (state: GameState) => Boolean(
   || pendingPlayerSelection(state)
   || pendingOptionSelection(state)
   || pendingDialog(state)
-  || searchingSeat(state)
   || state.stack.some((item) => item.kind === 'action' && item.waiting)
   || state.playerOrder.some((seat) => pendingFreeCastFor(state, seat))
   || pendingOptionalManaPay(state)
@@ -1672,7 +1662,6 @@ const resumeCanonicalResolution = (
 }
 
 const isResolutionAnswer = (state: GameState, event: GameEvent) => {
-  const searchSeat = searchingSeat(state)
   const dialog = pendingDialog(state)
   const manaPaymentSeat = (
     pendingOptionalManaPay(state)?.payer
@@ -1705,38 +1694,18 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
           && event.name === dialog.chosenEvent
           && (!event.seat || event.seat === dialog.seat)
         )
-        || (
-          event.name === SEARCH_CHOSEN
-          && event.seat
-          && event.seat === searchSeat
-          && Boolean(pendingSearch(state, event.seat))
-        ),
       )
     }
     case 'reveal':
-      return event.seat === searchSeat || Boolean(
+      return Boolean(
         dialog
         && event.seat === dialog.seat
         && event.objectIds.every((objectId) =>
           dialogCandidates(state, dialog).some((object) => object.id === objectId)),
       )
     case 'shuffleLibrary':
-      return event.seat === searchSeat || Boolean(dialog?.shuffleAfter && event.seat === dialog.seat)
+      return Boolean(dialog?.shuffleAfter && event.seat === dialog.seat)
     case 'move': {
-      if (searchSeat) {
-        const search = pendingSearch(state, searchSeat)
-        const spec = search && searchSpecForPending(state, search)
-        const candidate = spec && searchCandidates(
-          state,
-          searchSeat,
-          spec,
-          search?.x,
-        ).some(({ id }) => id === event.objectId)
-        const destinations = spec?.split
-          ? ['battlefield', 'hand']
-          : spec ? [spec.destination] : []
-        if (candidate && destinations.includes(event.to as typeof destinations[number])) return true
-      }
       return Boolean(
         dialog
         && dialog.destinations.includes(event.to as typeof dialog.destinations[number])
@@ -1746,12 +1715,9 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
     case 'tap': {
       const object = state.objects[event.objectId]
       return Boolean(
-        (searchSeat && object?.owner === searchSeat && object.zone === 'battlefield')
-        || (
-          dialog?.destinations.includes('battlefield')
+        dialog?.destinations.includes('battlefield')
           && object?.controller === dialog.seat
           && object.zone === 'battlefield'
-        ),
       )
     }
     case 'tapForMana':

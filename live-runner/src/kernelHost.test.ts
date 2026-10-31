@@ -22,10 +22,6 @@ import {
 } from '../../rules-engine/src/index'
 import type { FaceCharacteristics } from '../../rules-engine/src/types'
 import type { GameEvent, GameState, TableReplay } from '../../rules-engine/src/index'
-import {
-  librarySearch,
-  searchingSeat,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
@@ -198,7 +194,7 @@ const seedKernel = (
           ),
         }
       : undefined,
-    { random: () => 0.5, cardPlugins: [] },
+      { random: () => 0.5, cardPlugins: [] },
   )
   const journal = createJournal(server.state)
   adjust?.(journal.initial)
@@ -336,7 +332,7 @@ const searchGame = (options: { library?: string[] } = {}) => {
         })),
       },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch] },
+    { random: () => 0.5, cardPlugins: [] },
   )
   const initial = {
     ...server.state,
@@ -387,7 +383,7 @@ const abilitySearchGame = (
         })),
       },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch] },
+    { random: () => 0.5, cardPlugins: [] },
   )
   const initial = structuredClone(server.state)
   initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -1841,7 +1837,7 @@ describe('kernel host journal', () => {
     expect(taiga.zone).toBe('battlefield')
     expect(state.objects[spellId].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
-    expect(searchingSeat(state)).toBeUndefined()
+    expect(waitingSelectCards(state, 'p1')).toBeNull()
     expect(lobby.topdeck).toBeUndefined()
     expect(projectForViewer(state, 'p1').zoneOrder.p1.library).toEqual([])
     expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
@@ -2074,7 +2070,7 @@ describe('kernel host journal', () => {
         },
         libraries: { p1: [{ ...forest(), name: 'Library Forest' }] },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+      { random: () => 0.5, cardPlugins: [pendingDialogLock] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -2165,7 +2161,7 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
     const state = kernel.history.current()
     expect(state.objects[spellId].zone).toBe('graveyard')
-    expect(searchingSeat(state)).toBeUndefined()
+    expect(waitingSelectCards(state, 'p1')).toBeNull()
   })
 
   test('a choice outside the search requirements is rejected', () => {
@@ -2585,7 +2581,7 @@ describe('kernel host journal', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch] },
+      { random: () => 0.5, cardPlugins: [] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }

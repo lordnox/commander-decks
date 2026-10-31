@@ -7,7 +7,6 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import {createServerGame as createRuntimeGame} from '../runtime'
 import {choiceEffects} from './choiceEffects'
-import {librarySearch} from './librarySearch'
 import {targetedResolve} from './targetedResolve'
 import {activated} from './activated'
 import {pendingPlayerSelection} from '../rules/selectPlayers'
@@ -181,7 +180,6 @@ describe('relocated from homerRest.test.ts → landfall.test.ts', () => {
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        librarySearch,
         targetedResolve,
         activated,
       ],

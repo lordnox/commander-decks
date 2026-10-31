@@ -38,7 +38,6 @@ const applyKernelChoice = (
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 import { alternateCosts } from './alternateCosts'
-import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 import { card, compileCardRuleDefinition, createDefinitionSnapshot, createToken, ref, self, shuffleIntoOwnerLibrary, whenever } from './dsl/v1'
 import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
@@ -464,7 +463,7 @@ describe('permanentSacrificed from other sacrifice paths', () => {
         battlefield: { p1: [eldrazi()], p2: [forest('First Forest')] },
         hands: { p2: [cardTemplate('Scapeshift', { types: ['Sorcery'], manaCost: '{2}{G}{G}' })] },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+      { random: () => 0.5, cardPlugins: [pendingDialogLock] },
     )
     const ready = asP2(server.state)
     ready.players.p2.mana.G = 4
@@ -593,7 +592,6 @@ describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts'
 
   const finisherPlugins = [
     choiceEffects,
-    librarySearch,
     ward,
     pendingDialogLock,
   ]

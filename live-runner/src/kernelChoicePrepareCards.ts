@@ -4,21 +4,11 @@ import {
   waitingCastTransformed,
   waitingDiscard,
   waitingSelectCards,
-  type GameEvent,
 } from '../../rules-engine/src/index'
-import {
-  SEARCH_CHOSEN,
-  pendingSearch,
-  searchSpecForPending,
-  searchingSeat,
-  type PendingSearch,
-  type SearchMove,
-  type SearchSpec,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
 import type { LobbyState, TopdeckDecision } from './lobby'
-import { isSeatId, type SeatId } from './protocol'
+import { isSeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
-import { discardOffer, openTopdeck, searchOffer, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
+import { discardOffer, openTopdeck, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
 import { pendingOptionSelection, type PendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
@@ -31,118 +21,6 @@ const pileLabel = (
   if (hidden) return `${title} (${ids.length} card${ids.length === 1 ? '' : 's'})`
   if (ids.length === 0) return `${title} (empty)`
   return `${title}: ${ids.map((id) => state.objects[id]?.name ?? 'a card').join(', ')}`
-}
-
-/**
- * Move the found cards, shuffle, close the marker, and let a spell finish
- * resolving. An empty selection is a legal "fail to find" and runs the same
- * path, so the spell never sticks on the stack.
- */
-export const finishLibrarySearch = (
-  kernel: KernelHandle,
-  lobby: LobbyState,
-  seat: SeatId,
-  pending: PendingSearch,
-  spec: SearchSpec,
-  moves: SearchMove[],
-) => {
-  const events: GameEvent[] = []
-  const before = kernel.history.current()
-  const objectIds = moves.map((move) => move.objectId)
-  if (spec.reveal && objectIds.length > 0) {
-    events.push({ type: 'reveal', seat, objectIds, source: pending.source })
-  }
-  for (const move of moves) {
-    events.push({ type: 'move', objectId: move.objectId, to: move.destination })
-    const tapped = move.destination === 'battlefield'
-      && (spec.split?.battlefield.tapped ?? spec.tapped)
-    if (tapped) {
-      events.push({ type: 'tap', objectId: move.objectId })
-    }
-    if (
-      spec.untapWithFourLands
-      && move.destination === 'battlefield'
-    ) {
-      const landsBeforeEntry = Object.values(kernel.history.current().objects)
-        .filter((object) =>
-          object.zone === 'battlefield'
-          && object.controller === seat
-          && object.types.includes('Land'))
-        .length
-      if (landsBeforeEntry >= 3) events.push({ type: 'untap', objectId: move.objectId })
-    }
-  }
-  const searchedLibrary = moves.some((move) =>
-    before.objects[move.objectId]?.zone === 'library')
-  const shouldShuffle = pending.shuffleIfSearched ? searchedLibrary : true
-  if (shouldShuffle) events.push({ type: 'shuffleLibrary', seat })
-  events.push({ type: 'custom', name: SEARCH_CHOSEN, seat })
-  for (const event of events) {
-    const result = kernel.dispatch(event)
-    if (!result.ok) throw new Error(result.error)
-  }
-  lobby.topdeck = undefined
-}
-
-/**
- * Every "search your library" card shares one dialog. The kernel already
- * recorded whose choice is open, so a host that restarted mid-search rebuilds
- * the same private dialog instead of resuming past it.
- */
-export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => {
-  const state = kernel.history.current()
-  const seat = searchingSeat(state)
-  if (!seat || !isSeatId(seat)) return false
-  const pending = pendingSearch(state, seat)
-  const spec = pending ? searchSpecForPending(state, pending) : undefined
-  if (!pending || !spec) return false
-  const zones = spec.zones ?? ['library']
-  const offer = searchOffer(state, seat, spec, pending)
-  const cards = offer.names
-  const candidates = offer.ids.map((objectId) => state.objects[objectId])
-  const minRequired = spec.split
-    ? Math.min(spec.split.battlefield.min, spec.split.hand.min)
-    : spec.min
-  if (cards.length === 0 || cards.length < minRequired) {
-    // Failing to find is a legal choice, and the only one available.
-    finishLibrarySearch(kernel, lobby, seat, pending, spec, [])
-    return false
-  }
-  return openTopdeck(
-    lobby,
-    {
-      seat,
-      kind: 'search',
-      source: pending.source,
-      cards,
-      // Sorted, because the searcher may read the library but not its order.
-      library: (state.zoneOrder[seat]?.library ?? [])
-        .map((objectId) => state.objects[objectId]?.name ?? '')
-        .filter(Boolean)
-        .sort((left, right) => left.localeCompare(right)),
-      destinations: spec.split
-        ? ['library', 'battlefield', 'hand']
-        : zones.includes('graveyard')
-          ? ['library', 'graveyard', spec.destination]
-          : ['library', spec.destination],
-      requirements: spec.split
-        ? {
-            battlefield: {
-              min: spec.split.battlefield.min,
-              max: spec.split.battlefield.max,
-            },
-            hand: { min: spec.split.hand.min, max: spec.split.hand.max },
-          }
-        : { [spec.destination]: { min: spec.min, max: spec.max } },
-      kernel: { sourceId: pending.sourceId, stage: 'library-search' },
-    },
-    {
-      waiting: `${lobby.occupants[seat]?.name ?? seat} is searching privately.`,
-      prompt: spec.prompt,
-      judge: 'Waiting for a private library search.',
-    },
-    candidates,
-  )
 }
 
 export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbyState) => {

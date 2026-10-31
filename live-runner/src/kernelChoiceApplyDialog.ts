@@ -1,6 +1,5 @@
 import {
   DIALOG_CHOSEN,
-  dialogCandidates,
   pendingDialogFor,
 } from '../../rules-engine/src/pendingDialog'
 import {
@@ -79,37 +78,6 @@ export const applyChooseModes = (
     judge: modes.length > 0
       ? `${dialog.source} chose: ${modes.join('; ')}.`
       : `${dialog.source} chose no modes.`,
-  })
-}
-
-export const applySacrificeLands = (
-  { kernel, lobby, seat, message, state }: ChoiceContext,
-) => {
-  const dialog = pendingDialogFor(state, seat)
-  if (dialog?.kind !== 'sacrifice-lands') {
-    throw new Error('That sacrifice choice is no longer open.')
-  }
-  const candidates = dialogCandidates(state, dialog)
-  const objectIds = objectIdsByDestination(
-    state,
-    candidates.map((object) => object.id),
-    message.choices,
-    'sacrifice',
-  )
-  const names = objectIds.map((id) => state.objects[id]?.name).filter(Boolean)
-  dispatchChoiceObjectIds(
-    kernel,
-    seat,
-    dialog.chosenEvent ?? DIALOG_CHOSEN,
-    objectIds,
-  )
-  return closeKernelChoice(kernel, lobby, seat, {
-    privateJudge: {
-      [seat]: `${dialog.source} sacrificed ${
-        names.length > 0 ? names.join(', ') : 'no lands'
-      }.`,
-    },
-    judge: `${dialog.source} resolved after ${objectIds.length} land sacrifice(s).`,
   })
 }
 

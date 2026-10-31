@@ -23,7 +23,6 @@ import {DIALOG_CHOSEN, pendingDialog, pendingDialogLock} from '../pendingDialog'
 import {pendingSelectionFor} from '../rules/selectCards'
 import type {GameEvent} from '../types'
 import {choiceEffects} from './choiceEffects'
-import { librarySearch } from './librarySearch'
 import {deckCard} from './cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -271,7 +270,6 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
 
   const finisherPlugins = [
     choiceEffects,
-    librarySearch,
     wardPlugin,
     pendingDialogLock,
   ]

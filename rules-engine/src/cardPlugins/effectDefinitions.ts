@@ -1,6 +1,5 @@
 import type {
   DelayedTriggerCondition,
-  GameObject,
   ManaId,
   ManaPool,
   PlayerId,
@@ -353,7 +352,6 @@ export type CardInstruction =
       nonHuman?: boolean
       other?: boolean
     }
-  | { kind: 'searchLibrary'; spec?: SearchSpec; subtype?: string }
   | { kind: 'fightOwnedVsOpponent' }
   | { kind: 'counterUnlessPay'; amount: number }
   /** Copy the spell this item targeted; its controller keeps the targets or picks new ones. */
@@ -482,8 +480,6 @@ export type ActivateCost = {
   reducePerLegendaryCreature?: number
 }
 
-export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
-
 export type TargetFilter = {
   /** Boolean composition; fields on the same filter also combine with AND. */
   all?: TargetFilter[]
@@ -527,40 +523,6 @@ export type TargetFilter = {
   powerAtLeast?: number
   /** Mana value predicates; zero is even. */
   manaValue?: { eq?: number; min?: number; max?: number; parity?: 'even' | 'odd' }
-}
-
-export type SearchSpec = {
-  prompt: string
-  match: (object: GameObject) => boolean
-  destination: SearchDestination
-  tapped?: boolean
-  min: number
-  max: number
-  reveal?: boolean
-  gainLife?: number
-  validateSelection?: (objects: GameObject[]) => string | void
-  untapWithFourLands?: boolean
-  /** Sacrificed while casting, as Harrow's printed additional cost. */
-  sacrificeLands?: number
-  /** Sacrificed while resolving, as Scapeshift's first sentence. */
-  sacrificeOnResolve?: 'any'
-  zones?: ZoneId[]
-  maxManaValue?: number | 'x'
-  shuffleIfSearched?: boolean
-  then?: CardInstruction[]
-  empoweredMax?: number
-  empoweredIf?: CardCondition
-  split?: {
-    battlefield: { min: number; max: number; tapped?: boolean }
-    hand: { min: number; max: number }
-    totalMax: number
-    paired?: boolean
-  }
-  /** Hideouts default sacrifice when gainLife or sacrificeSource !== false. */
-  sacrificeSource?: boolean
-  optionalEnter?: boolean
-  /** Run after the search choice completes (fail-to-find included). */
-  after?: CardInstruction[]
 }
 
 export type CardEffect =

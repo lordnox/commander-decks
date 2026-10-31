@@ -5,9 +5,6 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
-import {
-  librarySearch,
-} from './librarySearch'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { legalActsFor } from '../actions'
 
@@ -63,7 +60,7 @@ describe('targeted spell resolution', () => {
         },
         battlefield: { p2: [cardTemplate('Rock', { types: ['Artifact'] })] },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch] },
+      { random: () => 0.5, cardPlugins: [] },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 1, C: 1 }
@@ -90,7 +87,7 @@ describe('targeted spell resolution', () => {
         battlefield: { p2: [cardTemplate('Bear', { types: ['Creature'] })] },
         libraries: { p1: [forest()] },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch] },
+      { random: () => 0.5, cardPlugins: [] },
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 1, C: 1 }
@@ -395,7 +392,7 @@ describe('relocated from homerPass2.test.ts → targetedResolve.test.ts', () => 
   const named = (state: GameState, name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  const plugins = [activated, choiceEffects, librarySearch, ward]
+  const plugins = [activated, choiceEffects, ward]
 
   test("Black Sun's Twilight casts with zero creature targets", () => {
       const server = createServerGame(
@@ -429,7 +426,6 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        librarySearch,
         activated,
       ],
     })

@@ -8,7 +8,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection, PENDING_OPTION_SELECTION } from '../rules/selectOptions'
 import { activated } from './activated'
 import { choiceEffects } from './choiceEffects'
-import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 import { card, choice, chooseCards, compileCardRuleDefinition, createDefinitionSnapshot, manaAndLifeCost, mill, move, objects, payOptional, ref, spell } from './dsl/v1'
 
@@ -196,7 +195,6 @@ describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        librarySearch,
         targetedResolve,
         activated,
       ],

@@ -5,19 +5,14 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
-import {
-  DIALOG_CHOSEN,
-  PENDING_DIALOG,
-  pendingDialog,
-  pendingDialogLock,
-} from '../pendingDialog'
+import { pendingDialogLock } from '../pendingDialog'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cycling } from './cycling'
-import { librarySearch, pendingSearch, RETIRED_SEARCH_FETCH } from './librarySearch'
+import { librarySearch, RETIRED_SEARCH_FETCH } from './librarySearch'
 import {
   card as dslCard,
   compileCardRuleDefinition,
@@ -75,7 +70,7 @@ const game = (options: {
       battlefield: { p1: options.battlefield ?? [] },
       libraries: { p1: options.library ?? [] },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+    { random: () => 0.5, cardPlugins: [pendingDialogLock] },
   )
 
 const run = (
@@ -95,7 +90,7 @@ const withMana = (state: GameState) => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const searchPlugins = [becomeCopyOfTarget, cycling, librarySearch]
+const searchPlugins = [becomeCopyOfTarget, cycling]
 
 describe('librarySearch', () => {
   test('Expedition Map opens the generic hidden library search', () => {
@@ -138,7 +133,10 @@ describe('librarySearch', () => {
   })
 
   test('a plain Forest rejects the retired library-search fetch action', () => {
-    const server = game({ battlefield: [forest()], library: [forest()] })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [forest()] },
+      libraries: { p1: [forest()] },
+    }, { random: () => 0.5, cardPlugins: [librarySearch] })
     const result = server.rules(server.state, {
       type: 'activateAbility',
       abilityId: RETIRED_SEARCH_FETCH,
@@ -221,34 +219,6 @@ describe('librarySearch', () => {
     expect(passed.ok === false && passed.error).toContain('resolution is waiting for input')
   })
 
-  // A journal that already carries the finished search rebuilds the dialog the
-  // spell posted while resolving. Nobody can answer it once the spell is gone.
-  test('a sacrifice choice dies with the spell that asked for it', () => {
-    const server = game({
-      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
-      battlefield: [forest()],
-    })
-    const spell = named(server.state, 'Scapeshift')
-    const stranded = structuredClone(server.state)
-    stranded.objects[spell.id].zone = 'graveyard'
-    stranded.zoneOrder.p1.hand = []
-    stranded.zoneOrder.p1.graveyard = [spell.id]
-    stranded.players.p1.data[PENDING_DIALOG] = {
-      sourceId: spell.id,
-      source: 'Scapeshift',
-      seat: 'p1',
-      kind: 'sacrifice-lands',
-      prompt: 'Sacrifice any number of lands.',
-      waiting: 'is choosing lands to sacrifice.',
-      judge: 'Scapeshift is resolving.',
-      chosenEvent: DIALOG_CHOSEN,
-      destinations: ['battlefield', 'sacrifice'],
-    }
-
-    const passed = ok(server.rules(stranded, { type: 'passPriority', seat: 'p1' }))
-    expect(pendingDialog(passed)).toBeUndefined()
-  })
-
   test('a repeated resolveTop cannot skip the open choice', () => {
     const server = game({
       hand: [forestSearchSpell()],
@@ -289,7 +259,6 @@ describe('librarySearch', () => {
     expect(state.objects[spell].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
-    expect(state.players.p1.data['librarySearch.done']).toBeUndefined()
   })
 
 
@@ -397,7 +366,7 @@ describe('librarySearch', () => {
       },
       {
         random: () => 0.5,
-        cardPlugins: [librarySearch, pendingDialogLock, choiceEffects],
+        cardPlugins: [pendingDialogLock, choiceEffects],
       },
     )
     const elf = server.state.zoneOrder.p1.hand[0]
@@ -414,7 +383,7 @@ describe('librarySearch', () => {
     const declined = ok(server.rules(resolved, {
       type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[1].id,
     }))
-    expect(pendingSearch(declined, 'p1')).toBeUndefined()
+    expect(pendingOptionSelection(declined, 'p1')).toBeUndefined()
     expect(declined.objects[elf].zone).toBe('battlefield')
   })
 

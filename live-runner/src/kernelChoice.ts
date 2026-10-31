@@ -5,11 +5,6 @@ import {
   pendingDialogsFor,
 } from '../../rules-engine/src/pendingDialog'
 import type { WaitingDiscard, WaitingSelectCards } from '../../rules-engine/src/actions'
-import {
-  searchCandidates,
-  type PendingSearch,
-  type SearchSpec,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { distinctCardLabels } from '../../shared/liveTypes'
 import type { LobbyState, TopdeckDecision } from './lobby'
 import type { InboxMessage, SeatId } from './protocol'
@@ -43,7 +38,6 @@ export const OPTIONAL_DIALOGS = new Set([
   'may-pay-mana',
   'may-pay-life',
   'may-pay-life-draw',
-  'may-search',
   'ward-pay',
 ])
 
@@ -133,19 +127,6 @@ const sortedByName = ({ ids, names }: Offer): Offer => {
     .map((_, index) => index)
     .sort((left, right) => names[left].localeCompare(names[right]) || left - right)
   return { ids: order.map((index) => ids[index]), names: order.map((index) => names[index]) }
-}
-
-export const searchOffer = (
-  state: GameState,
-  seat: SeatId,
-  spec: SearchSpec,
-  pending: PendingSearch,
-): Offer => {
-  const candidates = searchCandidates(state, seat, spec, pending.x)
-  return sortedByName({
-    ids: candidates.map((object) => object.id),
-    names: candidates.map((object) => object.name),
-  })
 }
 
 export const discardOffer = (state: GameState, waiting: WaitingDiscard): Offer => {
