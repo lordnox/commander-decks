@@ -30,11 +30,11 @@ targets, and resolution remain in the Rule DSL.
 | Source | Legacy surface still to retire | Status |
 | --- | --- | --- |
 | `cardPlugins/activated.ts` | `CardEffect op: 'activate'` announcement, cost, target, resolution and legacy mana reader; keep canonical activation and mana paths | Pending |
-| `cardPlugins/abilities.ts` | `activate`, `ability`, cycling, encore, embalm, escape, monstrosity, crew and other legacy builders used by fixtures | Pending |
-| `cardPlugins/librarySearch.ts` | Legacy search effect callbacks, pending-search protocol and search-specific legacy ability | Pending |
-| `actions.ts` | Legacy activation/search action enumeration and `librarySearch.fetch` action wiring | Pending |
+| `cardPlugins/abilities.ts` | `activate`, `ability`, cycling, encore, embalm, escape, monstrosity, crew and other legacy builders used by fixtures | Partial: removed `searchAbility`/`searchSpell`; remaining builders pending |
+| `cardPlugins/librarySearch.ts` | Legacy `op: 'search'` callbacks, pending-search protocol and search-specific legacy ability | Partial: removed `op: 'search'` adapter; `SEARCH_BEGIN`/`SEARCH_CHOSEN` typed callback and shared pending-search helpers remain pending |
+| `actions.ts` | Legacy activation/search action enumeration and `librarySearch.fetch` action wiring | Partial: removed search-specific action enumeration, cost/target group lookup, and spell sacrifice adapter; legacy activation wiring remains pending |
 | `rules/actions.ts` | Legacy effect lookup for ability resolution; generic ability and canonical resolution remain | Pending |
-| Test-only fixture owners | `activationCostReduction.test.ts`, `activatedTargetRecheck.test.ts`, `runInstructions.test.ts`, `simpleEffects.test.ts`, `playerEffects.test.ts`, `manaChoice.test.ts`, `selfSacrificeMana.test.ts`, `demonstrate.test.ts`, `discardCostBlinkSelf.test.ts`, `plugins/energy.test.ts`, `plugins/tokenCeases.test.ts`, and legacy search users in `librarySearch.test.ts`, `landfall.test.ts`, `exilePayoffs.test.ts`, `millThenRecover.test.ts`, `modalSpell.test.ts`, `targetedResolve.test.ts`, `delayInstructions.test.ts`, `triggerFrequency.test.ts`, `sacrificeTriggers.test.ts`, `wardLife.test.ts`, and `selfSacrificeMana.test.ts` | Pending; retire or migrate each legacy producer in its mechanic-owned checkpoint |
+| Test-only fixture owners | `activationCostReduction.test.ts`, `activatedTargetRecheck.test.ts`, `runInstructions.test.ts`, `simpleEffects.test.ts`, `playerEffects.test.ts`, `manaChoice.test.ts`, `selfSacrificeMana.test.ts`, `demonstrate.test.ts`, `discardCostBlinkSelf.test.ts`, `plugins/energy.test.ts`, `plugins/tokenCeases.test.ts`, and legacy search users in `librarySearch.test.ts`, `landfall.test.ts`, `exilePayoffs.test.ts`, `millThenRecover.test.ts`, `modalSpell.test.ts`, `targetedResolve.test.ts`, `delayInstructions.test.ts`, `triggerFrequency.test.ts`, `sacrificeTriggers.test.ts`, `wardLife.test.ts`, and `selfSacrificeMana.test.ts` | Partial: two catalog search integrations remain and the unique Glacier callback fixture moved to canonical DSL; other legacy fixture owners are pending |
 | Generated-object prerequisite shared with #651 | `createToken`'s legacy `template.effects` forwarding/default plus `plugins/tokenCeases.test.ts`'s two legacy activation fixtures | Removed in the #651 checkpoint: creation strips legacy effects while preserving canonical `ruleDefinition`; both tokenCeases activations now use canonical programs |
 
 The canonical `dsl/activationCostReduction.test.ts`, `dsl/announcement.test.ts`,
@@ -43,3 +43,14 @@ and `dsl/searchLibrary.test.ts` already own reusable activation cost, timing,
 target legality/recheck, private search selection, and restore behavior. Future
 checkpoints will cite exact tests or migrate unique mechanics into these suites.
 No card registration or DSL-authoring baseline allowance is changed here.
+
+## Search effect adapter checkpoint
+
+| Legacy route / fixture | Canonical owner | Disposition |
+| --- | --- | --- |
+| Search ability/spell effect builders, `op: 'search'` lookup, `librarySearch.fetch` action offer and target-cost wiring | `dsl/searchLibrary.test.ts` activated search, `dsl/announcement.test.ts`, `dsl/targeting.test.ts` | Removed. The canonical search suites retain activation costs and announcement before opening a typed search selection. |
+| Spell-level search sacrifice count adapter | `dsl/searchLibrary.test.ts` catalog sacrifice-count search and zero-sacrifice search | Removed from spell parsing; canonical DSL additional-cost receipts retain count, validation, cost timing, and restore coverage. |
+| Catalog Expedition Map and Archaeomancer's Map search integration | `librarySearch.test.ts`, `dsl/searchLibrary.test.ts` | Retained through the catalog definitions. Tests still exercise action announcement, private library selection, find limits, and hidden identity projection. |
+| Delayed return after a search selection | Canonical minimal activated program in `librarySearch.test.ts`; reusable restore owners in `dsl/searchLibrary.test.ts` and `dsl/delayedPrograms.test.ts` | Migrated from `searchAbility`/`SearchSpec.after` to an activated DSL program with `searchLibrary` followed by `createDelayed`; the test restores while the private pick is pending and again before cleanup. |
+| Generic `SEARCH_BEGIN`/`SEARCH_CHOSEN`, pending-search legality and selection helpers | `librarySearch.ts`, `kernel.ts`, typed DSL search integration suites | Retained as shared instruction-search plumbing; these callbacks are not the removed legacy `op: 'search'` adapter and remain in the #649 inventory. |
+| Unknown legacy fetch action offer | `librarySearch.test.ts` action enumeration for a plain Forest | Replaced the `librarySearch.fetch` rejection check with the canonical contract that a permanent without an activated ability offers no activation. |

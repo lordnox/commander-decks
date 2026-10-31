@@ -39,10 +39,8 @@ import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import {
   activateEffect,
   conditionHolds,
-  searchEffect,
   type ActivateCost,
 } from './cardPlugins/effects'
-import { SEARCH_FETCH } from './cardPlugins/librarySearch'
 import {
   targetedResolveBounds,
   validTargetRef,
@@ -1377,21 +1375,6 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
         abilityId: effect.id,
       }]
     }
-    if (
-      objectZone === 'battlefield'
-      && effect.op === 'search'
-      && effect.via === 'ability'
-      && object.zone === 'battlefield'
-      && canPayActivateCosts(state, object, seat, effect.costs)
-    ) {
-      return [{
-        kind: 'activateAbility',
-        objectId: object.id,
-        name: object.name,
-        text: effect.spec.prompt,
-        abilityId: 'librarySearch.fetch',
-      }]
-    }
     return []
   })
 }
@@ -1936,10 +1919,7 @@ const activationTargetGroups = (
   const effect = source
     ? activateEffect(effectsOf(source), action.abilityId)
     : undefined
-  const search = source && action.abilityId === SEARCH_FETCH
-    ? searchEffect(effectsOf(source))
-    : undefined
-  const costs = effect?.costs ?? (search?.via === 'ability' ? search.costs : undefined)
+  const costs = effect?.costs
   const costGroups = source && costs
     ? activationCostTargetGroups(state, source, costs)
     : []
@@ -2585,10 +2565,6 @@ export const eventsForAvailableAction = (
     && (canonicalDoorTriggers || effects.some((effect) =>
       effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'unlock')))
   const resolvesThroughKernel = doorTriggers
-    || (object
-      ? effects.some((effect) =>
-        effect.op === 'search' && effect.via === 'spell')
-      : false)
   const playerAura = object ? Boolean(enchantPlayerTargets(state, object)) : false
   // A double-faced card is cast as one face, so the other face's text (a land that
   // "enters tapped") says nothing about the spell.

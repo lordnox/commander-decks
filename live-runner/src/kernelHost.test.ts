@@ -24,7 +24,6 @@ import type { FaceCharacteristics } from '../../rules-engine/src/types'
 import type { GameEvent, GameState, TableReplay } from '../../rules-engine/src/index'
 import {
   librarySearch,
-  SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
@@ -364,7 +363,7 @@ const abilitySearchGame = (
   source: string,
   library: Array<{ name: string; subtypes: string[] }>,
   otherLands = 0,
-  abilityId: string = SEARCH_FETCH,
+  abilityId = '$.abilities[0]',
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -401,10 +400,8 @@ const abilitySearchGame = (
     objectId: sourceId,
   })
   if (!activated.ok) throw new Error(activated.error)
-  if (abilityId !== SEARCH_FETCH) {
-    const resolved = kernel.dispatch({ type: 'resolveTop' })
-    if (!resolved.ok) throw new Error(resolved.error)
-  }
+  const resolved = kernel.dispatch({ type: 'resolveTop' })
+  if (!resolved.ok) throw new Error(resolved.error)
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, sourceId }

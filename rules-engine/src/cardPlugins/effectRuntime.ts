@@ -560,8 +560,6 @@ export const activateEffect = (effects: CardEffect[], abilityId: string) =>
   effects.find((effect): effect is Extract<CardEffect, { op: 'activate' }> =>
     effect.op === 'activate' && effect.id === abilityId)
 
-export const searchEffect = (effects: CardEffect[]) =>
-  effects.find((effect): effect is Extract<CardEffect, { op: 'search' }> => effect.op === 'search')
 
 /** Game state is structuredClone'd; drop function matchers from explicit effects. */
 export const serializableEffects = (effects: CardEffect[]): CardEffect[] =>

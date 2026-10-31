@@ -214,19 +214,6 @@ export const targetOnResolveAt = (
   ...(instructions.length > 0 ? { do: instructions } : {}),
 })
 
-export const searchSpell = (spec: SearchSpec): CardEffect => ({
-  op: 'search',
-  via: 'spell',
-  spec,
-})
-
-export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect => ({
-  op: 'search',
-  via: 'ability',
-  spec,
-  costs,
-})
-
 export const optionalBasicLandEnters = (): SearchSpec => ({
   prompt: 'Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.',
   match: basicLand,

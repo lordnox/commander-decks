@@ -627,9 +627,6 @@ export type CardEffect =
       /** CR 702.89 — cycling activated from hand; emits a `cycle` event on resolve. */
       cycling?: true
     }
-  | { op: 'search'; via: 'spell'; spec: SearchSpec }
-  | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }
-  | { op: 'search'; via: 'enters'; spec: SearchSpec }
   | {
       op: 'targetedResolve'
       target: number
