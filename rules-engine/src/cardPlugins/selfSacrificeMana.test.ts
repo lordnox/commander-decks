@@ -277,7 +277,7 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
         type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: selection.count, objectIds: [permanent.id],
       }))
       const spawn = named(resolved, 'Eldrazi Spawn')
-      expect(spawn.effects).toEqual([])
+      expect(spawn.effects).toBeUndefined()
       expect(spawn.ruleDefinition).toBeDefined()
       expect(spawn).toMatchObject({
         types: ['Creature'],

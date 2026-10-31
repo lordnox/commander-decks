@@ -58,7 +58,6 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   zone: 'battlefield',
   summoningSickness: true,
   token: true,
-  effects: [],
 })
 
 export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { name: string } => ({
@@ -79,15 +78,16 @@ export const createToken = (
   emitEntry = true,
 ) => {
   const id = draft.allocId('tok')
+  const tokenTemplate = { ...template }
+  delete tokenTemplate.effects
   const token: GameObject = {
     ...tokenDefaults(),
-    ...template,
+    ...tokenTemplate,
     id,
     owner: controller,
     controller,
     zone: 'battlefield',
     token: true,
-    effects: template.effects ?? [],
     battlefieldTimestamp: draft.allocTs(),
   }
   if (token.counters.loyalty === undefined) setEntryLoyalty(token)
