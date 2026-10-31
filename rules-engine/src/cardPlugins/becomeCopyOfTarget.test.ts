@@ -10,7 +10,6 @@ import type { Cost } from './dsl/v1'
 import { activated as activatedDsl, card, chooseCards, choice, compileCardRuleDefinition, copyEffect, createDefinitionSnapshot, createEffect, manaCost, objects, permanently, ref, tapCost } from './dsl/v1'
 import { activated } from './activated'
 import { choiceEffects } from './choiceEffects'
-import { librarySearch } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 const plugins = [activated]
 
@@ -259,7 +258,6 @@ describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () =
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        librarySearch,
         targetedResolve,
         activated,
       ],

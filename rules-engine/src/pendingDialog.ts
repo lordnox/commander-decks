@@ -19,7 +19,6 @@ export type PendingDialog = {
     | 'copy-creature'
     | 'return-land'
     | 'exile-graveyards'
-    | 'sacrifice-lands'
     | 'sacrifice-creature'
     | 'discard-card'
     | 'choose-modes'
@@ -31,7 +30,6 @@ export type PendingDialog = {
     | 'secret-vote'
     | 'fight-target'
     | 'fight-own'
-    | 'may-search'
     | 'counter-unless'
     | 'counter-spell'
     | 'destroy-permanent'
@@ -148,7 +146,6 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
   if (
     dialog.kind === 'bounce-land'
     || dialog.kind === 'copy-creature'
-    || dialog.kind === 'sacrifice-lands'
     || dialog.kind === 'sacrifice-creature'
   ) {
     return Object.values(state.objects)
@@ -156,7 +153,6 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
         object.zone === 'battlefield'
         && object.controller === dialog.seat
         && (dialog.kind !== 'copy-creature' || object.id !== dialog.sourceId)
-        && (dialog.kind !== 'sacrifice-lands' || object.types.includes('Land'))
         && (dialog.kind !== 'sacrifice-creature' || object.types.includes('Creature'))
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }
@@ -227,12 +223,9 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
  * stack. Without this the lock would hold priority on a dialog whose answer
  * the kernel would apply to a spell that is already in the graveyard.
  */
-const stranded = (state: GameState, dialog: PendingDialog) =>
-  dialog.kind === 'sacrifice-lands' && state.objects[dialog.sourceId]?.zone !== 'stack'
-
 const liveDialog = (state: GameState) => {
   const open = state.playerOrder.flatMap((seat) =>
-    pendingDialogsFor(state, seat).filter((dialog) => !stranded(state, dialog)))
+    pendingDialogsFor(state, seat))
   const sequenced = open.filter((dialog) => typeof dialog.sequence === 'number')
   if (sequenced.length > 0) {
     return [...sequenced].sort((left, right) => (left.sequence ?? 0) - (right.sequence ?? 0))[0]
@@ -248,16 +241,10 @@ export const pendingDialogLock: Plugin = {
     const dialog = liveDialog(state)
     if (dialog) return `${dialog.seat} is resolving ${dialog.source}`
   },
-  apply: ({ state, event, draft }) => {
+  apply: ({ event, draft }) => {
     if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
       clearPendingDialog(draft, event.seat)
       return
-    }
-    for (const seat of state.playerOrder) {
-      const live = pendingDialogsFor(state, seat).filter((dialog) => !stranded(state, dialog))
-      if (live.length === pendingDialogsFor(state, seat).length) continue
-      if (live.length === 0) delete draft.players[seat].data[PENDING_DIALOG]
-      else draft.players[seat].data[PENDING_DIALOG] = live
     }
   },
 }

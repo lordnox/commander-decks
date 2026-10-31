@@ -58,7 +58,6 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   zone: 'battlefield',
   summoningSickness: true,
   token: true,
-  effects: [],
 })
 
 export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { name: string } => ({
@@ -79,15 +78,16 @@ export const createToken = (
   emitEntry = true,
 ) => {
   const id = draft.allocId('tok')
+  const tokenTemplate = { ...template }
+  delete tokenTemplate.effects
   const token: GameObject = {
     ...tokenDefaults(),
-    ...template,
+    ...tokenTemplate,
     id,
     owner: controller,
     controller,
     zone: 'battlefield',
     token: true,
-    effects: template.effects ?? [],
     battlefieldTimestamp: draft.allocTs(),
   }
   if (token.counters.loyalty === undefined) setEntryLoyalty(token)
@@ -560,8 +560,6 @@ export const activateEffect = (effects: CardEffect[], abilityId: string) =>
   effects.find((effect): effect is Extract<CardEffect, { op: 'activate' }> =>
     effect.op === 'activate' && effect.id === abilityId)
 
-export const searchEffect = (effects: CardEffect[]) =>
-  effects.find((effect): effect is Extract<CardEffect, { op: 'search' }> => effect.op === 'search')
 
 /** Game state is structuredClone'd; drop function matchers from explicit effects. */
 export const serializableEffects = (effects: CardEffect[]): CardEffect[] =>

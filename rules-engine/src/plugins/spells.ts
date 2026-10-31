@@ -15,7 +15,6 @@ import type {
   RestrictedMana,
   TargetRef,
 } from '../types'
-import { searchEffect } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
 import {
   alternateCastEffect,
@@ -803,8 +802,6 @@ export const spells: Plugin = {
         creatures: creatures.map(convokeColors),
         phyrexianLife,
       })) return 'not enough mana'
-      const search = searchEffect(effectsOf(object))
-      const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       const canonicalHasDiscard = Boolean(object.ruleDefinition && selected?.discard === undefined
         && compiledCanonicalHasCost(object, 'discard'))
       const canonicalHasSacrifice = Boolean(object.ruleDefinition && selected?.sacrifice === undefined
@@ -812,21 +809,8 @@ export const spells: Plugin = {
       if ((event.discard?.length ?? 0) > 0 && !selected?.discard && !canonicalHasDiscard) {
         return `${object.name} has no discard cost`
       }
-      if ((event.sacrifice?.length ?? 0) > 0 && !selected?.sacrifice && !needed && !canonicalHasSacrifice) {
+      if ((event.sacrifice?.length ?? 0) > 0 && !selected?.sacrifice && !canonicalHasSacrifice) {
         return `${object.name} has no sacrifice cost`
-      }
-      if (needed) {
-        const sacrificed = event.sacrifice ?? []
-        if (sacrificed.length !== needed) {
-          return `${object.name} requires sacrificing ${needed} land(s)`
-        }
-        if (sacrificed.some((objectId) => {
-          const land = state.objects[objectId]
-          return !land || land.controller !== event.seat || !land.types.includes('Land')
-            || land.zone !== 'battlefield'
-        })) {
-          return 'illegal land sacrifice'
-        }
       }
     }
 

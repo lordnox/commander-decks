@@ -11,7 +11,6 @@ import {
 } from './kernelChoice'
 import {
   applyCastTransformed,
-  applyLibrarySearch,
   applySelectCards,
   applyOptionSelection,
   applyWaitingDiscard,
@@ -28,7 +27,6 @@ import {
   applyDialogChoice,
   applyExileGraveyards,
   applyPutPermanents,
-  applySacrificeLands,
   applyZoneChoice,
 } from './kernelChoiceApplyDialog'
 
@@ -213,16 +211,12 @@ export const applyKernelChoice = (
       return applyCastTransformed(context)
     case 'player-targets':
       return applyPlayerTargets(context)
-    case 'library-search':
-      return applyLibrarySearch(context)
     case 'put-land':
     case 'put-permanents':
       return applyPutPermanents(context)
     case 'choose-modes':
     case 'choose-creature-type':
       return applyChooseModes(context)
-    case 'sacrifice-lands':
-      return applySacrificeLands(context)
     case 'exile-graveyards':
       return applyExileGraveyards(context)
     case 'copy-creature':

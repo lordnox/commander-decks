@@ -5,31 +5,14 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
-import {
-  DIALOG_CHOSEN,
-  PENDING_DIALOG,
-  pendingDialog,
-  pendingDialogLock,
-} from '../pendingDialog'
+import { pendingDialogLock } from '../pendingDialog'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
-import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cycling } from './cycling'
-import {
-  SEARCH_CHOSEN,
-  SEARCH_FETCH,
-  librarySearch,
-  pendingSearch,
-} from './librarySearch'
-import {
-  basicLand,
-  bounceSelf,
-  delay,
-  searchAbility,
-} from './effects'
+import { librarySearch, RETIRED_SEARCH_FETCH } from './librarySearch'
 import {
   card as dslCard,
   compileCardRuleDefinition,
@@ -38,6 +21,12 @@ import {
   ref as dslRef,
   searchLibrary as dslSearchLibrary,
   spell as dslSpell,
+  activated as dslActivated,
+  createDelayed as dslCreateDelayed,
+  manaCost as dslManaCost,
+  move as dslMove,
+  stepDelayed as dslStepDelayed,
+  tapCost as dslTapCost,
 } from './dsl/v1'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
@@ -81,7 +70,7 @@ const game = (options: {
       battlefield: { p1: options.battlefield ?? [] },
       libraries: { p1: options.library ?? [] },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+    { random: () => 0.5, cardPlugins: [pendingDialogLock] },
   )
 
 const run = (
@@ -101,14 +90,14 @@ const withMana = (state: GameState) => ({
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const legacySearchPlugins = [activated, becomeCopyOfTarget, cycling, librarySearch]
+const searchPlugins = [becomeCopyOfTarget, cycling]
 
 describe('librarySearch', () => {
-  test('a sacrificing legacy map opens the generic hidden library search', () => {
+  test('Expedition Map opens the generic hidden library search', () => {
     const map = cardTemplate('Expedition Map', { types: ['Artifact'] })
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [map] }, libraries: { p1: [forest('Hidden Forest')] },
-    }, { random: () => 0.5, cardPlugins: legacySearchPlugins })
+    }, { random: () => 0.5, cardPlugins: searchPlugins })
     const mapId = named(server.state, 'Expedition Map').id
     const ready = structuredClone(server.state)
     ready.step = 'precombatMain'
@@ -121,14 +110,14 @@ describe('librarySearch', () => {
     expect(projectForViewer(opened, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
-  test("a legacy Archaeomancer's Map finds up to two Plains and puts them in hand", () => {
+  test("Archaeomancer's Map finds up to two Plains and puts them in hand", () => {
     const map = cardTemplate("Archaeomancer's Map", { types: ['Artifact'], manaCost: '{2}{W}' })
     const p1 = cardTemplate('Plains A', { types: ['Land'], subtypes: ['Plains'], supertypes: ['Basic'] })
     const p2 = cardTemplate('Plains B', { types: ['Land'], subtypes: ['Plains'], supertypes: ['Basic'] })
     const server = createServerGame(commanderRules, {
       hands: { p1: [map] },
       libraries: { p1: [p1, p2, cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })] },
-    }, { random: () => 0.5, cardPlugins: legacySearchPlugins })
+    }, { random: () => 0.5, cardPlugins: searchPlugins })
     const ready = structuredClone(server.state)
     ready.step = 'precombatMain'
     ready.active = 'p1'
@@ -142,6 +131,22 @@ describe('librarySearch', () => {
     expect(finished.zoneOrder.p1.hand).toHaveLength(2)
     expect(projectForViewer(finished, 'p2').zoneOrder.p1.library).toEqual([])
   })
+
+  test('a plain Forest rejects the retired library-search fetch action', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [forest()] },
+      libraries: { p1: [forest()] },
+    }, { random: () => 0.5, cardPlugins: [librarySearch] })
+    const result = server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: RETIRED_SEARCH_FETCH,
+      seat: 'p1',
+      objectId: server.state.zoneOrder.p1.battlefield[0],
+    })
+    expect(result.ok).toBe(false)
+    expect(result.ok === false && result.error).toContain('no library-search ability')
+  })
+
   test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {
     const basic = (name: string, subtype: string) => card(name, ['Land'], {
       supertypes: ['Basic'], subtypes: [subtype],
@@ -214,34 +219,6 @@ describe('librarySearch', () => {
     expect(passed.ok === false && passed.error).toContain('resolution is waiting for input')
   })
 
-  // A journal that already carries the finished search rebuilds the dialog the
-  // spell posted while resolving. Nobody can answer it once the spell is gone.
-  test('a sacrifice choice dies with the spell that asked for it', () => {
-    const server = game({
-      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
-      battlefield: [forest()],
-    })
-    const spell = named(server.state, 'Scapeshift')
-    const stranded = structuredClone(server.state)
-    stranded.objects[spell.id].zone = 'graveyard'
-    stranded.zoneOrder.p1.hand = []
-    stranded.zoneOrder.p1.graveyard = [spell.id]
-    stranded.players.p1.data[PENDING_DIALOG] = {
-      sourceId: spell.id,
-      source: 'Scapeshift',
-      seat: 'p1',
-      kind: 'sacrifice-lands',
-      prompt: 'Sacrifice any number of lands.',
-      waiting: 'is choosing lands to sacrifice.',
-      judge: 'Scapeshift is resolving.',
-      chosenEvent: DIALOG_CHOSEN,
-      destinations: ['battlefield', 'sacrifice'],
-    }
-
-    const passed = ok(server.rules(stranded, { type: 'passPriority', seat: 'p1' }))
-    expect(pendingDialog(passed)).toBeUndefined()
-  })
-
   test('a repeated resolveTop cannot skip the open choice', () => {
     const server = game({
       hand: [forestSearchSpell()],
@@ -282,7 +259,6 @@ describe('librarySearch', () => {
     expect(state.objects[spell].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
-    expect(state.players.p1.data['librarySearch.done']).toBeUndefined()
   })
 
 
@@ -390,7 +366,7 @@ describe('librarySearch', () => {
       },
       {
         random: () => 0.5,
-        cardPlugins: [librarySearch, pendingDialogLock, choiceEffects],
+        cardPlugins: [pendingDialogLock, choiceEffects],
       },
     )
     const elf = server.state.zoneOrder.p1.hand[0]
@@ -407,35 +383,32 @@ describe('librarySearch', () => {
     const declined = ok(server.rules(resolved, {
       type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[1].id,
     }))
-    expect(pendingSearch(declined, 'p1')).toBeUndefined()
+    expect(pendingOptionSelection(declined, 'p1')).toBeUndefined()
     expect(declined.objects[elf].zone).toBe('battlefield')
   })
 
-  test('a card with no search ability cannot borrow the fetch ability', () => {
-    const server = game({ battlefield: [forest()], library: [forest()] })
-    const result = server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: server.state.zoneOrder.p1.battlefield[0],
-    })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('no library-search ability')
-  })
-
-  test('search after registers delayed bounce at cleanup, not immediately', () => {
-    const glacier = card('Test Cleanup Fetch', ['Land'], {
-      effects: [searchAbility({
-        prompt: 'Search your library for a basic land card. It enters tapped.',
-        match: basicLand,
-        destination: 'battlefield',
-        tapped: true,
-        min: 0,
-        max: 1,
-        sacrificeSource: false,
-        after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
-      }, { tap: true, mana: '{1}' })],
-    })
+  test('canonical search registers its delayed return after the choice and restores at cleanup', () => {
+    const glacierDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+      dslActivated({
+        costs: [dslTapCost(), dslManaCost('{1}')],
+        instructions: [
+          dslSearchLibrary({
+            bindChoice: 'land',
+            chooser: dslRef('controller'),
+            filter: dslObjects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
+            min: 0,
+            max: 1,
+            to: 'battlefield',
+            tapped: true,
+          }),
+          dslCreateDelayed({
+            condition: dslStepDelayed({ step: 'cleanup' }),
+            instructions: [dslMove({ targets: dslRef('source'), to: 'hand' })],
+          }),
+        ],
+      }),
+    ])))
+    const glacier = card('Test Cleanup Fetch', ['Land'], { ruleDefinition: glacierDefinition })
     const server = game({
       battlefield: [glacier],
       library: [forest()],
@@ -452,27 +425,35 @@ describe('librarySearch', () => {
         },
       },
     }
-    const opened = ok(server.rules(ready, {
+    const announcedEvent = {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: sourceId,
-    }))
+    } as const
+    const opened = ok(server.rules(ready, announcedEvent))
     expect(opened.objects[sourceId]).toMatchObject({ zone: 'battlefield', tapped: true })
     expect(opened.delayedTriggers).toHaveLength(0)
-
-    const searched = run(server, opened, [
-      { type: 'move', objectId: found, to: 'battlefield' },
-      { type: 'tap', objectId: found },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const openedSearch = resolveStack(server.rules, opened)
+    const selection = pendingSelectionFor(openedSearch, 'p1')!
+    let journal = createJournal(ready)
+    journal = recordAccepted(journal, announcedEvent)
+    journal = recordAccepted(journal, { type: 'resolveTop' })
+    const restoredSearch = restoreJournal(journal, server.rules).current()
+    const searched = ok(server.rules(restoredSearch, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: selection.id,
+      kind: 'choose',
+      count: 1,
+      objectIds: [found],
+    }))
     expect(searched.objects[sourceId]).toMatchObject({ zone: 'battlefield', tapped: true })
-    expect(searched.objects[found].zone).toBe('battlefield')
+    expect(searched.objects[found]).toMatchObject({ zone: 'battlefield', tapped: true })
     expect(searched.delayedTriggers).toHaveLength(1)
     expect(searched.delayedTriggers[0].condition).toEqual({ kind: 'step', step: 'cleanup' })
 
-    let state: GameState = { ...searched, step: 'end' as const }
+    let state: GameState = { ...restoreJournal(createJournal(searched), server.rules).current(), step: 'end' as const }
     state = ok(server.rules(state, { type: 'advanceStep' }))
     expect(state.objects[sourceId].zone).toBe('battlefield')
     expect(state.stack[0]).toMatchObject({ kind: 'ability', name: 'Test Cleanup Fetch' })

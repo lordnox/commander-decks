@@ -22,11 +22,6 @@ import {
 } from '../../rules-engine/src/index'
 import type { FaceCharacteristics } from '../../rules-engine/src/types'
 import type { GameEvent, GameState, TableReplay } from '../../rules-engine/src/index'
-import {
-  librarySearch,
-  SEARCH_FETCH,
-  searchingSeat,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
@@ -50,7 +45,6 @@ import {
   CUMULATIVE_UPKEEP_PENDING,
   cumulativeUpkeep,
 } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
-import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
@@ -63,7 +57,7 @@ import {
   PENDING_DIALOG,
   pendingDialogLock,
 } from '../../rules-engine/src/pendingDialog'
-import { cardTemplate, planeswalker } from '../../rules-engine/src/newGame'
+import { cardTemplate } from '../../rules-engine/src/newGame'
 import { roomDoor } from '../../rules-engine/src/testHelpers'
 import {
   PENDING_PLAYER_SELECTION,
@@ -200,7 +194,7 @@ const seedKernel = (
           ),
         }
       : undefined,
-    { random: () => 0.5, cardPlugins: [] },
+      { random: () => 0.5, cardPlugins: [] },
   )
   const journal = createJournal(server.state)
   adjust?.(journal.initial)
@@ -338,7 +332,7 @@ const searchGame = (options: { library?: string[] } = {}) => {
         })),
       },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch] },
+    { random: () => 0.5, cardPlugins: [] },
   )
   const initial = {
     ...server.state,
@@ -365,7 +359,7 @@ const abilitySearchGame = (
   source: string,
   library: Array<{ name: string; subtypes: string[] }>,
   otherLands = 0,
-  abilityId: string = SEARCH_FETCH,
+  abilityId = '$.abilities[0]',
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -389,7 +383,7 @@ const abilitySearchGame = (
         })),
       },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch] },
+    { random: () => 0.5, cardPlugins: [] },
   )
   const initial = structuredClone(server.state)
   initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -402,10 +396,8 @@ const abilitySearchGame = (
     objectId: sourceId,
   })
   if (!activated.ok) throw new Error(activated.error)
-  if (abilityId !== SEARCH_FETCH) {
-    const resolved = kernel.dispatch({ type: 'resolveTop' })
-    if (!resolved.ok) throw new Error(resolved.error)
-  }
+  const resolved = kernel.dispatch({ type: 'resolveTop' })
+  if (!resolved.ok) throw new Error(resolved.error)
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, sourceId }
@@ -1845,7 +1837,7 @@ describe('kernel host journal', () => {
     expect(taiga.zone).toBe('battlefield')
     expect(state.objects[spellId].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
-    expect(searchingSeat(state)).toBeUndefined()
+    expect(waitingSelectCards(state, 'p1')).toBeNull()
     expect(lobby.topdeck).toBeUndefined()
     expect(projectForViewer(state, 'p1').zoneOrder.p1.library).toEqual([])
     expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
@@ -2078,7 +2070,7 @@ describe('kernel host journal', () => {
         },
         libraries: { p1: [{ ...forest(), name: 'Library Forest' }] },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+      { random: () => 0.5, cardPlugins: [pendingDialogLock] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -2169,7 +2161,7 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
     const state = kernel.history.current()
     expect(state.objects[spellId].zone).toBe('graveyard')
-    expect(searchingSeat(state)).toBeUndefined()
+    expect(waitingSelectCards(state, 'p1')).toBeNull()
   })
 
   test('a choice outside the search requirements is rejected', () => {
@@ -2471,7 +2463,7 @@ describe('kernel host journal', () => {
       {
         battlefield: {
           p1: [
-            planeswalker('Teferi, Who Slows the Sunset', 4),
+            cardTemplate('Teferi, Who Slows the Sunset'),
             cardTemplate('Mana Rock', { types: ['Artifact'], tapped: true }),
             forest(),
           ],
@@ -2482,7 +2474,7 @@ describe('kernel host journal', () => {
           })],
         },
       },
-      { random: () => 0.5, cardPlugins: [planeswalkerPlugin] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.step = 'precombatMain'
@@ -2589,7 +2581,7 @@ describe('kernel host journal', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [librarySearch] },
+      { random: () => 0.5, cardPlugins: [] },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }

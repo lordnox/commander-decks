@@ -1,7 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { activated } from '../cardPlugins/activated'
-import { activate, draw } from '../cardPlugins/effects'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, dies as dslDies, draw as dslDraw, leaves as dslLeaves, ref, whenever } from '../cardPlugins/dsl/v1'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot, activated as dslActivated, addMana, amount, dies as dslDies, draw as dslDraw, leaves as dslLeaves, ref, sacrificeCost, tapCost, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -22,6 +20,20 @@ const drawOnDeparture = createDefinitionSnapshot(compileCardRuleDefinition(card(
   whenever(dslLeaves({ filter: ref('self') }), { instructions: [dslDraw(1)] }),
 ])))
 
+const clueAbility = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  dslActivated({
+    costs: [sacrificeCost(ref('source'), amount(1))],
+    instructions: [dslDraw(1)],
+  }),
+])))
+
+const treasureAbility = createDefinitionSnapshot(compileCardRuleDefinition(card([
+  dslActivated({
+    costs: [tapCost(), sacrificeCost(ref('source'), amount(1))],
+    instructions: [addMana({ amount: { C: amount(1) } })],
+  }),
+])))
+
 const game = (battlefield: ReturnType<typeof cardTemplate>[], library = 2) =>
   createServerGame(
     commanderRules,
@@ -33,7 +45,7 @@ const game = (battlefield: ReturnType<typeof cardTemplate>[], library = 2) =>
           cardTemplate(`Card ${index}`, { types: ['Sorcery'] })),
       },
     },
-    { random: () => 0.5, cardPlugins: [activated] },
+    { random: () => 0.5 },
   )
 
 const handSize = (state: GameState) => state.zoneOrder.p1.hand.length
@@ -92,13 +104,14 @@ describe('tokens cease to exist outside the battlefield (CR 704.5d)', () => {
 
   test('a token sacrificed to pay for its own ability still gets that ability resolved', () => {
     const clue = token('Fixture Clue', {
-      effects: [activate({ id: 'clue.draw', costs: { sacrifice: 'self' }, do: [draw(1)] })],
+      subtypes: ['Clue'],
+      ruleDefinition: clueAbility,
     })
     const server = game([clue])
     const id = named(server.state, 'Fixture Clue')!.id
     const stacked = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'clue.draw',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: id,
     }))
@@ -111,23 +124,18 @@ describe('tokens cease to exist outside the battlefield (CR 704.5d)', () => {
   test('a token sacrificed for mana makes the mana and then ceases to exist', () => {
     const treasure = token('Fixture Treasure', {
       types: ['Artifact'],
+      subtypes: ['Treasure'],
       power: null,
       toughness: null,
-      effects: [activate({
-        id: 'treasure.mana',
-        manaAbility: true,
-        costs: { sacrifice: 'self' },
-        do: [{ kind: 'addMana', mana: { C: 1 } }],
-      })],
+      ruleDefinition: treasureAbility,
     })
     const server = game([treasure])
     const id = named(server.state, 'Fixture Treasure')!.id
     const paid = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'treasure.mana',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: id,
-      manaAbility: true,
     }))
 
     expect(paid.objects[id]).toBeUndefined()

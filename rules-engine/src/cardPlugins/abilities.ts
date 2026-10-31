@@ -1,8 +1,6 @@
 import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
-import type { ActivateCost, CardEffect, CardInstruction, SearchSpec, TargetFilter } from './effectDefinitions'
-import { basicLand } from './effectRuntime'
-import { draw } from './instructions'
+import type { ActivateCost, CardEffect, CardInstruction, TargetFilter } from './effectDefinitions'
 
 export const unearth = (manaCost: string): CardEffect =>
   activate({
@@ -32,27 +30,6 @@ export const activate = (effect: Omit<Extract<CardEffect, { op: 'activate' }>, '
   op: 'activate',
   ...effect,
 })
-
-/** Cycling or typecycling from hand: discard self, pay mana, then draw or library-search on resolve. */
-export const cycleHand = (
-  id: string,
-  mana: string,
-  outcome: 'draw' | { subtype: string } = 'draw',
-): CardEffect => activate({
-  id,
-  zone: 'hand',
-  costs: { mana, discard: 'self' },
-  do: outcome === 'draw'
-    ? [draw(1)]
-    : [{ kind: 'searchLibrary', subtype: outcome.subtype }],
-  cycling: true,
-})
-
-export const typecycleHand = (
-  id: string,
-  mana: string,
-  subtype: string,
-): CardEffect => cycleHand(id, mana, { subtype })
 
 export const crew = (power: number): CardEffect => activate({
   id: `crew.${power}`,
@@ -212,28 +189,4 @@ export const targetOnResolveAt = (
   filter,
   action,
   ...(instructions.length > 0 ? { do: instructions } : {}),
-})
-
-export const searchSpell = (spec: SearchSpec): CardEffect => ({
-  op: 'search',
-  via: 'spell',
-  spec,
-})
-
-export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect => ({
-  op: 'search',
-  via: 'ability',
-  spec,
-  costs,
-})
-
-export const optionalBasicLandEnters = (): SearchSpec => ({
-  prompt: 'Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.',
-  match: basicLand,
-  destination: 'battlefield',
-  tapped: true,
-  min: 0,
-  max: 1,
-  sacrificeSource: false,
-  optionalEnter: true,
 })

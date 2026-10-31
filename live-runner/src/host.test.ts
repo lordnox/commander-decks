@@ -156,14 +156,14 @@ describe('kernel host actions', () => {
     const { lobby } = await setup()
     lobby.topdeck = {
       seat: 'p4',
-      kind: 'sacrifice-lands',
+      kind: 'unknown-stage',
       cards: ['Forest'],
-      destinations: ['battlefield', 'sacrifice'],
-      kernel: { sourceId: 'o392', stage: 'sacrifice-lands' },
+      destinations: ['battlefield', 'hand'],
+      kernel: { sourceId: 'o392', stage: 'unrecognized-stage' as never },
     }
     const answer = {
       type: 'topdeck' as const,
-      choices: [{ card: 'Forest', destination: 'sacrifice' as const }],
+      choices: [{ card: 'Forest', destination: 'hand' as const }],
     }
 
     expect(kernelOwnsChoice(answer, lobby)).toBe(true)

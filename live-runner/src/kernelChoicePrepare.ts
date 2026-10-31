@@ -4,11 +4,6 @@ import {
   waitingSelectCards,
   pendingPlayerSelection,
 } from '../../rules-engine/src/index'
-import {
-  pendingSearch,
-  searchSpecForPending,
-  searchingSeat,
-} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { pendingPlayerTargets } from '../../rules-engine/src/cardPlugins/playerTargets'
 import { pendingExtortFor } from '../../rules-engine/src/cardPlugins/extort'
 import { pendingCumulativeUpkeep } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
@@ -17,10 +12,9 @@ import { dialogCandidates, pendingDialogFor } from '../../rules-engine/src/pendi
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
-import { discardOffer, sameNames, samePins, searchOffer, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
+import { discardOffer, sameNames, samePins, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
 import {
   prepareCastTransformedChoice,
-  prepareLibrarySearchChoice,
   prepareSelectCardsChoice,
   prepareOptionSelectionChoice,
   prepareWaitingDiscardChoice,
@@ -49,19 +43,6 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   if (!decision?.kernel) return false
   const state = kernel.history.current()
   switch (decision.kernel.stage) {
-    case 'library-search': {
-      if (searchingSeat(state) !== decision.seat) return true
-      const pending = pendingSearch(state, decision.seat)
-      const spec = pending ? searchSpecForPending(state, pending) : undefined
-      if (!pending || !spec) return true
-      const offered = searchOffer(state, decision.seat, spec, pending)
-      const offeredObjects = offered.ids
-        .map((id) => state.objects[id])
-        .filter((object): object is NonNullable<typeof object> => Boolean(object))
-      return !sameNames(offered.names, decision.cards)
-        || !sameIds(decision.candidateIds, offered.ids)
-        || !samePins(decision.candidatePins, offeredObjects)
-    }
     case 'player-targets':
       return pendingPlayerTargets(state)?.controller !== decision.seat
     case 'waiting-discard': {
@@ -143,7 +124,6 @@ export const prepareKernelPendingChoice = (
   if (prepareExtortChoice(kernel, lobby)) return true
   if (prepareSelectPlayersChoice(kernel, lobby)) return true
   if (preparePlayerTargetsChoice(kernel, lobby)) return true
-  if (prepareLibrarySearchChoice(kernel, lobby)) return true
   if (prepareCastTransformedChoice(kernel, lobby)) return true
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   if (prepareSelectCardsChoice(kernel, lobby)) return true

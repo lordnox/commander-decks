@@ -14,7 +14,6 @@ import { token } from '../tokens'
 import {createServerGame as createRuntimeGame} from '../runtime'
 
 import { choiceEffects } from './choiceEffects'
-import {librarySearch} from './librarySearch'
 import {targetedResolve} from './targetedResolve'
 const TREASURE_TEXT = '{T}, Sacrifice this token: Add one mana of any color.'
 const spawnToken = token('Eldrazi-Spawn-0-1')
@@ -239,7 +238,6 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
       random: () => 0.5,
       cardPlugins: [
         choiceEffects,
-        librarySearch,
         targetedResolve,
         activated,
       ],
@@ -277,7 +275,7 @@ describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () =>
         type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: selection.count, objectIds: [permanent.id],
       }))
       const spawn = named(resolved, 'Eldrazi Spawn')
-      expect(spawn.effects).toEqual([])
+      expect(spawn.effects).toBeUndefined()
       expect(spawn.ruleDefinition).toBeDefined()
       expect(spawn).toMatchObject({
         types: ['Creature'],

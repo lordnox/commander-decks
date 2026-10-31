@@ -1,5 +1,5 @@
 import type { DelayedTriggerCondition, ManaId, ManaPool } from '../types'
-import type { CardCondition, CardInstruction, InstructionCount, PlayerSelector, RevealUntilNonMatch, SearchSpec, TargetFilter, TokenSpec, VoteOptions, VoterGroup } from './effectDefinitions'
+import type { CardCondition, CardInstruction, InstructionCount, PlayerSelector, RevealUntilNonMatch, TargetFilter, TokenSpec, VoteOptions, VoterGroup } from './effectDefinitions'
 import { players } from './selectors'
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -861,11 +861,6 @@ export const pumpControlled = (
 export const grantControlledUntilEot = (
   ...keywords: string[]
 ): CardInstruction => ({ kind: 'grantControlled', keywords })
-
-export const searchLibrary = (spec: SearchSpec): CardInstruction => ({
-  kind: 'searchLibrary',
-  spec,
-})
 
 export const fightOwnedVsOpponent = (): CardInstruction => ({ kind: 'fightOwnedVsOpponent' })
 

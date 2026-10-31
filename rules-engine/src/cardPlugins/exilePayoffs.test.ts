@@ -14,7 +14,6 @@ import {
 } from './effects'
 import { PENDING_SELECTION } from '../rules/selectCards'
 import {choiceEffects} from './choiceEffects'
-import { librarySearch } from './librarySearch'
 import {ward} from './ward'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -211,7 +210,6 @@ describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () 
 
   const finisherPlugins = [
     choiceEffects,
-    librarySearch,
     ward,
     pendingDialogLock,
   ]

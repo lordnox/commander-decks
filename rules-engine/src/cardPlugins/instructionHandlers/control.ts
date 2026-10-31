@@ -239,25 +239,6 @@ const bounceTargetPermanent: InstructionHandler<'bounceTargetPermanent'> = ({ dr
   })
 }
 
-const searchLibrary: InstructionHandler<'searchLibrary'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  if (!instruction.subtype && !instruction.spec) return
-  draft.enqueue({
-    type: 'custom',
-    name: 'librarySearch.begin',
-    seat: source.controller,
-    payload: {
-      source: source.name,
-      sourceId: source.id,
-      via: 'resolve',
-      ...(instruction.subtype ? { subtype: instruction.subtype } : { spec: instruction.spec }),
-      ...(item?.x !== undefined ? { x: item.x } : {}),
-    },
-  })
-}
-
 const counterUnlessPay: InstructionHandler<'counterUnlessPay'> = (
   { draft, source },
   instruction,
@@ -361,7 +342,6 @@ export const controlHandlers = {
   mayDraw,
   counterTargetSpell,
   bounceTargetPermanent,
-  searchLibrary,
   counterUnlessPay,
   destroyTargetPermanent,
   lookTopPutLand,
