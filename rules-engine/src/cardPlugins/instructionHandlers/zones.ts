@@ -116,13 +116,6 @@ const returnToOwnersControl: InstructionHandler<'returnToOwnersControl'> = (
   })
 }
 
-const finishWarpExile: InstructionHandler<'finishWarpExile'> = ({ draft, source }) => {
-  const live = draft.object(source.id)
-  if (!live || live.zone === 'exile' || live.zone === 'stack') return
-  live.warpExiledTurn = draft.turn
-  draft.enqueue({ type: 'move', objectId: live.id, to: 'exile' })
-}
-
 const exileSelf: InstructionHandler<'exileSelf'> = ({ draft, source }) => {
   if (source.zone !== 'battlefield') return
   draft.enqueue({ type: 'move', objectId: source.id, to: 'exile' })
@@ -821,7 +814,6 @@ export const zoneHandlers = {
   millTarget,
   bounceSelf,
   returnToOwnersControl,
-  finishWarpExile,
   exileSelf,
   exileThisSpell,
   putSelfOntoBattlefield,

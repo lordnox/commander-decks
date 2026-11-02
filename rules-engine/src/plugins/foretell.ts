@@ -1,6 +1,6 @@
 import { zoneMechanic } from '../cardPlugins/dsl/alternateMechanics'
 import { payCost } from './spells'
-import type { AlternateCastEffect } from '../cardPlugins/alternateCosts'
+import type { AlternateCastOption } from '../cardPlugins/alternateCosts'
 import { isKnownTo, markKnownToAll } from '../knowledge'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
@@ -11,10 +11,9 @@ export const foretellCostOf = (object: GameObject) => zoneMechanic(object, 'fore
 
 export const hasForetell = (object: GameObject) => foretellCostOf(object) !== undefined
 
-export const foretellAlternateCast = (object: GameObject): AlternateCastEffect => {
+export const foretellAlternateCast = (object: GameObject): AlternateCastOption => {
   const manaCost = foretellCostOf(object) ?? ''
   return {
-    op: 'alternateCast',
     id: FORETELL_CAST_ID,
     label: `Foretell ${manaCost}`,
     manaCost,
@@ -116,5 +115,5 @@ export const foretellCastOptions = (
   _state: GameState,
   _seat: PlayerId,
   object: GameObject,
-): AlternateCastEffect[] =>
+): AlternateCastOption[] =>
   object.foretold && foretellCostOf(object) ? [foretellAlternateCast(object)] : []

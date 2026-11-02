@@ -400,8 +400,6 @@ export type GameObject = {
       triggeredTurn?: number
     }
   >
-  /** Turn this card was exiled by its warp delayed trigger; enables warp-from-exile casting. */
-  warpExiledTurn?: number
   /** Set when this object moves from the battlefield to a graveyard; cleared on untap. */
   putIntoGraveyardFromBattlefieldThisTurn?: true
   /** Seats that may see this card's face while it is in a hidden zone. */

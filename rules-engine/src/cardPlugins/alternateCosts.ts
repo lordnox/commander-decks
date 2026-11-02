@@ -2,27 +2,26 @@ import { canPayLife } from '../rules/lifePayments'
 import { zoneMechanic } from './dsl/alternateMechanics'
 import { isPermanentType } from '../definitions'
 import type { GameObject, GameState, Plugin, StackItem, ZoneId } from '../types'
-import { isSwamp } from '../plugins/swampOverlay'
 import { FORETELL_CAST_ID, foretellCastOptions } from '../plugins/foretell'
-import { effectsOf } from './cardRules'
-import type { CardEffect } from './effects'
 import { canonicalSpellPermission } from './dsl/playPermissions'
 import { activePrintedStaticModifiers, isActiveKeywordStatic } from './dsl/staticModifierCore'
 import { manaValueOf } from './effectRuntime'
 import { reboundsOnResolution } from '../plugins/rebound'
 
-export type AlternateCastEffect = Extract<CardEffect, { op: 'alternateCast' }>
+/** Server-derived casting choices from canonical definitions and permissions. */
+export type AlternateCastOption = {
+  id: string
+  label: string
+  manaCost: string
+  life?: number
+  fromZone?: ZoneId
+  exileAfterUse?: boolean
+  discard?: 'land'
+  sacrifice?: { type: string; count: number }
+  exileGraveyard?: { count: number; other?: boolean }
+}
 
-export const alternateCastEffects = (object: GameObject) =>
-  effectsOf(object).filter(
-    (effect): effect is AlternateCastEffect => effect.op === 'alternateCast',
-  )
-
-export const alternateCastEffect = (object: GameObject, id?: string) =>
-  id ? alternateCastEffects(object).find((effect) => effect.id === id) : undefined
-
-const retraceEffect = (object: GameObject): AlternateCastEffect => ({
-  op: 'alternateCast',
+const retraceOption = (object: GameObject): AlternateCastOption => ({
   id: 'retrace',
   label: 'Retrace—Discard a land card.',
   manaCost: object.manaCost,
@@ -30,25 +29,23 @@ const retraceEffect = (object: GameObject): AlternateCastEffect => ({
   discard: 'land',
 })
 
-export const availableAlternateCastEffects = (
+export const availableAlternateCastOptions = (
   state: GameState,
   seat: string,
   object: GameObject,
 ) => {
-  const effects = [
-    ...alternateCastEffects(object),
+  const options: AlternateCastOption[] = [
     ...foretellCastOptions(state, seat, object),
   ]
   const plotted = zoneMechanic(object, 'plot')
-  if (plotted && object.zone === 'exile' && object.plotted?.incarnation === object.incarnation && state.turn > object.plotted.turn) effects.push({ op: 'alternateCast', id: 'plot', label: 'Cast plotted card', manaCost: '', fromZone: 'exile' })
+  if (plotted && object.zone === 'exile' && object.plotted?.incarnation === object.incarnation && state.turn > object.plotted.turn) options.push({ id: 'plot', label: 'Cast plotted card', manaCost: '', fromZone: 'exile' })
   const warped = zoneMechanic(object, 'warp')
-  if (warped && object.zone === 'hand') effects.push({ op: 'alternateCast', id: 'warp', label: `Warp ${warped.manaCost}`, manaCost: warped.manaCost, fromZone: 'hand' })
+  if (warped && object.zone === 'hand') options.push({ id: 'warp', label: `Warp ${warped.manaCost}`, manaCost: warped.manaCost, fromZone: 'hand' })
   if (object.zone === 'graveyard') {
     for (const entry of activePrintedStaticModifiers(state, object)) {
       if (isActiveKeywordStatic(entry)) continue
       if (entry.effect.kind === 'flashback') {
-        effects.push({
-          op: 'alternateCast',
+        options.push({
           id: 'flashback',
           label: entry.effect.label,
           manaCost: entry.effect.manaCost,
@@ -58,8 +55,7 @@ export const availableAlternateCastEffects = (
         })
       }
       if (entry.effect.kind === 'escape') {
-        effects.push({
-          op: 'alternateCast',
+        options.push({
           id: 'escape',
           label: `Escape—${entry.effect.manaCost}, Exile ${entry.effect.exileCount} other cards from your graveyard.`,
           manaCost: entry.effect.manaCost,
@@ -72,15 +68,14 @@ export const availableAlternateCastEffects = (
   if (object.zone === 'graveyard' || object.zone === 'exile') {
     const permission = canonicalSpellPermission(state, seat, object)
     if (permission?.discardLand) {
-      effects.push({
-        ...retraceEffect(object),
+      options.push({
+        ...retraceOption(object),
         ...(permission.optionId ? { id: permission.optionId } : {}),
         ...(permission.label ? { label: permission.label } : {}),
       })
     }
     if (permission?.cost === 'lifeEqualManaValue') {
-      effects.push({
-        op: 'alternateCast',
+      options.push({
         id: permission.optionId ?? 'exiledWithLife',
         label: permission.label ?? `Cast for ${manaValueOf(object)} life`,
         manaCost: '',
@@ -89,24 +84,24 @@ export const availableAlternateCastEffects = (
       })
     }
   }
-  return effects.filter(
-    (effect, index) => effects.findIndex((candidate) => candidate.id === effect.id) === index,
+  return options.filter(
+    (option, index) => options.findIndex((candidate) => candidate.id === option.id) === index,
   )
 }
 
-export const availableAlternateCastEffect = (
+export const availableAlternateCastOption = (
   state: GameState,
   seat: string,
   object: GameObject,
   id?: string,
 ) => id
-  ? availableAlternateCastEffects(state, seat, object).find((effect) => effect.id === id)
+  ? availableAlternateCastOptions(state, seat, object).find((effect) => effect.id === id)
   : undefined
 
 const costCandidates = (
   state: GameState,
   seat: string,
-  effect: AlternateCastEffect,
+  effect: AlternateCastOption,
   castObject?: GameObject,
 ) => {
   const controlled = Object.values(state.objects).filter((object) => object.controller === seat)
@@ -125,38 +120,15 @@ const costCandidates = (
   return { discard, sacrifice, exileGraveyard }
 }
 
-export const printedAlternateManaCost = (
-  effect: AlternateCastEffect,
-  object: GameObject,
-) => effect.manaCost === '__printed__' ? object.manaCost : effect.manaCost
-
 export const canChooseAlternateCast = (
   state: GameState,
   seat: string,
-  effect: AlternateCastEffect,
+  effect: AlternateCastOption,
   object?: GameObject,
 ) => {
   if (effect.id === 'plot' && (object?.plotted?.incarnation !== object?.incarnation || state.turn <= (object?.plotted?.turn ?? state.turn) || state.active !== seat || (state.step !== 'precombatMain' && state.step !== 'postcombatMain') || state.stack.length > 0)) return false
-  if (effect.afterWarp) {
-    if (object?.zone !== 'exile') return false
-    if (object.warpExiledTurn === undefined) return false
-    if (state.turn <= object.warpExiledTurn) return false
-  }
   if (effect.fromZone && object?.zone !== effect.fromZone) return false
   if (!canPayLife(state, seat, effect.life ?? 0)) return false
-  if (
-    effect.controlledSubtype
-    && !Object.values(state.objects).some((candidate) =>
-      candidate.zone === 'battlefield'
-      && candidate.controller === seat
-      && (
-        effect.controlledSubtype === 'Swamp'
-          ? isSwamp(candidate, state)
-          : candidate.subtypes.includes(effect.controlledSubtype!)
-      ))
-  ) {
-    return false
-  }
   const candidates = costCandidates(state, seat, effect, object)
   if (effect.discard && candidates.discard.length < 1) return false
   if (effect.sacrifice && candidates.sacrifice.length < effect.sacrifice.count) return false
@@ -196,7 +168,7 @@ export const alternateCosts: Plugin = {
     const object = state.objects[event.objectId]
     if (!object) return
     if (!event.castOption) return
-    const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
+    const selected = availableAlternateCastOption(state, event.seat, object, event.castOption)
     if (!selected) return
     if (!canChooseAlternateCast(state, event.seat, selected, object)) {
       return `${event.castOption} cannot be paid for ${object.name}`
@@ -235,8 +207,8 @@ export const alternateCosts: Plugin = {
     if (event.type !== 'castSpell' || !event.castOption) return
     const object = draft.object(event.objectId)
     const selected = object
-      ? availableAlternateCastEffect(draft, event.seat, object, event.castOption)
-        ?? availableAlternateCastEffect(state, event.seat, state.objects[event.objectId], event.castOption)
+      ? availableAlternateCastOption(draft, event.seat, object, event.castOption)
+        ?? availableAlternateCastOption(state, event.seat, state.objects[event.objectId], event.castOption)
       : undefined
     if (!selected) return
     if (selected.life) {

@@ -20,17 +20,17 @@
   },
   "summary": {
     "cardRegistrations": 0,
-    "cardEffects": 6,
-    "cardInstructions": 171,
-    "instructionHandlersDiscovered": 171,
-    "builtInPlugins": 57,
+    "cardEffects": 5,
+    "cardInstructions": 170,
+    "instructionHandlersDiscovered": 170,
+    "builtInPlugins": 56,
     "specializedDialogs": 27,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 15,
     "customEventDispatchSites": 55,
-    "directMutationSites": 483,
+    "directMutationSites": 480,
     "instructionRegistrationOnlyGaps": 0,
-    "instructionUnobservedGaps": 138,
+    "instructionUnobservedGaps": 137,
     "cardRegistrationOnlyGaps": 0,
     "candidateOnlyInstructionRows": 31,
     "candidateOnlyCardRows": 0
@@ -60,24 +60,6 @@
         "07"
       ],
       "status": "candidate-test-reference"
-    },
-    {
-      "variant": "alternateCast",
-      "mechanic": "alternative casting permission",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "typed casting permission and alternative cost",
-      "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
-      "ownerPart": "08",
-      "dependencyParts": [
-        "05",
-        "07"
-      ],
-      "status": "unobserved"
     },
     {
       "variant": "handler",
@@ -1588,22 +1570,6 @@
         "04",
         "05"
       ],
-      "status": "unobserved",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "finishWarpExile",
-      "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "new reusable canonical node required before migration",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
       "status": "unobserved",
       "handlerDiscovered": true
     },
@@ -3589,7 +3555,6 @@
       "fight",
       "fightOwnedVsOpponent",
       "fightUpToOne",
-      "finishWarpExile",
       "forEachVotedOption",
       "forEachVoter",
       "gainControlPermanent",
@@ -4823,31 +4788,6 @@
       "ownerPart": "16",
       "dependencyParts": [],
       "status": "candidate-test-reference"
-    },
-    {
-      "variant": "warp",
-      "mechanic": "runtime plugin hook",
-      "currentRegistrations": [],
-      "executableCoverageEvidence": [
-        "rules-engine/src/plugins/warp.test.ts — dedicated plugin/mechanic suite"
-      ],
-      "candidateEvidence": {
-        "matches": 7,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/warp.test.ts:19 — test('warp creates its delayed exile during resolution, then permits only the captured exile incarnation on later turns', () => {",
-          "rules-engine/src/cardPlugins/dsl/warp.test.ts:42 — test('leaving before the end-step trigger resolves creates no later casting permission', () => {",
-          "rules-engine/src/cardPlugins/dsl/warp.test.ts:51 — test('countering a warped spell creates no delayed exile', () => {",
-          "rules-engine/src/plugins/warp.test.ts:115 — test('allows casting from exile on a later turn for the printed mana cost', () => {",
-          "rules-engine/src/plugins/warp.test.ts:34",
-          "rules-engine/src/plugins/warp.test.ts:46 — test('casts for warp or normal mana from hand and only warped spells schedule end-step exile', () => {",
-          "rules-engine/src/plugins/warp.test.ts:87 — test('exiles the permanent at the next end step and forbids same-turn recast from exile', () => {"
-        ]
-      },
-      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
-      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "confirmed-executable-evidence"
     }
   ],
   "specializedDialogs": [
@@ -5429,7 +5369,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:22",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:23",
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:434",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:433",
         "rules-engine/src/cardPlugins/effectRuntime.ts:263",
         "rules-engine/src/cardPlugins/encore.ts:105",
         "rules-engine/src/cardPlugins/encore.ts:15",
@@ -5447,7 +5387,7 @@
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:4",
         "rules-engine/src/cardPlugins/instructions.ts:78",
         "rules-engine/src/cardPlugins/instructions.ts:81",
-        "rules-engine/src/types.ts:1448"
+        "rules-engine/src/types.ts:1446"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -5480,16 +5420,16 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1350",
-        "rules-engine/src/actions.ts:1519",
-        "rules-engine/src/actions.ts:847",
+        "rules-engine/src/actions.ts:1349",
+        "rules-engine/src/actions.ts:1518",
+        "rules-engine/src/actions.ts:846",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:15",
         "rules-engine/src/cardPlugins/dsl/roomDoors.ts:17",
         "rules-engine/src/cardPlugins/effectRuntime.ts:291",
         "rules-engine/src/cardPlugins/effectRuntime.ts:420",
         "rules-engine/src/cardPlugins/effectRuntime.ts:424",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:189",
-        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:273",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:182",
+        "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:266",
         "rules-engine/src/cardPlugins/librarySearch.ts:174",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
@@ -5622,7 +5562,7 @@
         "rules-engine/src/plugins/rooms.ts:70",
         "rules-engine/src/plugins/rooms.ts:87",
         "rules-engine/src/plugins/rooms.ts:91",
-        "rules-engine/src/plugins/spells.ts:430",
+        "rules-engine/src/plugins/spells.ts:428",
         "rules-engine/src/types.ts:117",
         "rules-engine/src/types.ts:148",
         "rules-engine/src/types.ts:275",
@@ -6391,23 +6331,6 @@
         "status": "legacy-route"
       },
       {
-        "path": "rules-engine/src/plugins/warp.ts",
-        "lines": [
-          17
-        ],
-        "samples": [
-          "17: const object = draft.object(item.objectId)"
-        ],
-        "mechanic": "direct draft mutation or low-level event scheduling",
-        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
-        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
-        "ownerPart": "07",
-        "dependencyParts": [
-          "16"
-        ],
-        "status": "legacy-route"
-      },
-      {
         "path": "rules-engine/src/plugins/life.ts",
         "lines": [
           74,
@@ -6524,15 +6447,15 @@
       {
         "path": "rules-engine/src/plugins/foretell.ts",
         "lines": [
-          82,
-          90,
-          99,
-          105
+          81,
+          89,
+          98,
+          104
         ],
         "samples": [
-          "82: const object = draft.object(event.objectId)",
-          "90: draft.move(object.id, 'exile')",
-          "99: const object = draft.object(event.objectId)"
+          "81: const object = draft.object(event.objectId)",
+          "89: draft.move(object.id, 'exile')",
+          "98: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -6567,30 +6490,30 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          837,
-          843,
-          914,
-          934,
-          936,
+          827,
+          833,
+          904,
+          924,
+          926,
+          929,
           939,
-          949,
-          952,
-          967,
+          942,
+          957,
+          958,
           968,
-          978,
-          981,
-          983,
-          1059,
-          1083,
-          1098,
-          1117,
-          1125,
-          1141
+          971,
+          973,
+          1049,
+          1073,
+          1088,
+          1107,
+          1115,
+          1131
         ],
         "samples": [
-          "837: const moved = draft.object(event.objectId)",
-          "843: const object = draft.object(event.objectId)",
-          "914: .map((objectId) => draft.object(objectId))"
+          "827: const moved = draft.object(event.objectId)",
+          "833: const object = draft.object(event.objectId)",
+          "904: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7365,15 +7288,15 @@
       {
         "path": "rules-engine/src/cardPlugins/alternateCosts.ts",
         "lines": [
-          236,
-          243,
-          251,
-          254
+          208,
+          215,
+          223,
+          226
         ],
         "samples": [
-          "236: const object = draft.object(event.objectId)",
-          "243: draft.enqueue({",
-          "251: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
+          "208: const object = draft.object(event.objectId)",
+          "215: draft.enqueue({",
+          "223: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -7992,45 +7915,43 @@
           101,
           109,
           111,
-          120,
-          123,
-          128,
-          137,
-          154,
-          160,
-          171,
-          188,
-          211,
-          221,
+          121,
+          130,
+          147,
+          153,
+          164,
+          181,
+          204,
+          214,
+          240,
           247,
           254,
-          261,
-          264,
-          275,
-          283,
-          381,
-          382,
-          423,
+          257,
+          268,
+          276,
+          374,
+          375,
+          416,
+          433,
+          434,
           440,
-          441,
-          447,
-          514,
-          560,
+          507,
+          553,
+          604,
           611,
           618,
           625,
-          632,
-          634,
-          640,
-          643,
-          660,
-          662,
-          663,
-          680,
-          748,
-          767,
-          785,
-          796
+          627,
+          633,
+          636,
+          653,
+          655,
+          656,
+          673,
+          741,
+          760,
+          778,
+          789
         ],
         "samples": [
           "26: draft.enqueue({ type: 'move', objectId, to: 'exile' })",
