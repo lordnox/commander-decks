@@ -49,7 +49,6 @@ import { discard, draw, instructionResume, selectCards, selectOptions, selectPla
 import { vote } from '../cardPlugins/vote'
 import { canonicalRandom } from '../cardPlugins/dsl/canonicalRandom'
 import { turnStructure } from './turnStructure'
-import { warp } from './warp'
 import { activated as canonicalActivated } from '../cardPlugins/activated'
 import { alternateCosts } from '../cardPlugins/alternateCosts'
 
@@ -77,7 +76,6 @@ export const builtInPlugins = [
   rebound,
   demonstrate,
   stackCopy,
-  warp,
   alternateCosts,
   saga,
   rooms,
@@ -147,7 +145,6 @@ export {
   rebound,
   demonstrate,
   stackCopy,
-  warp,
   rooms,
   sacrificeLandMana,
   saga,

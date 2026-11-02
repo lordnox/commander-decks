@@ -10,7 +10,7 @@ import {
 import type { LobbyState } from './lobby'
 import { isSeatId, type InboxMessage, type SeatId } from './protocol'
 import { kernelActions, kernelPriority, type KernelHandle } from './kernelHandle'
-import { availableAlternateCastEffect } from '../../rules-engine/src/cardPlugins/alternateCosts'
+import { availableAlternateCastOption } from '../../rules-engine/src/cardPlugins/alternateCosts'
 
 // Cost picks are sent ahead of spell targets, one run per cost group. A run
 // takes leading ids that belong to its group, up to the group's max.
@@ -180,7 +180,7 @@ export const applyKernelAct = (
       ? (() => {
           const castObject = state.objects[action.objectId]
           const alternative = castObject
-            ? availableAlternateCastEffect(state, seat, castObject, action.castOption)
+            ? availableAlternateCastOption(state, seat, castObject, action.castOption)
             : undefined
           const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
           const fromGroups = groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets, state)

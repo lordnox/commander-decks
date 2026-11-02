@@ -36,7 +36,6 @@ import { foretell } from './plugins/foretell'
 import { rebound } from './plugins/rebound'
 import { demonstrate } from './cardPlugins/demonstrate'
 import { stackCopy } from './cardPlugins/stackCopy'
-import { warp } from './plugins/warp'
 import { saga } from './plugins/saga'
 import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
@@ -104,7 +103,6 @@ export const corePlugins = [
   rebound,
   demonstrate,
   stackCopy,
-  warp,
   alternateCosts,
   saga,
   rooms,

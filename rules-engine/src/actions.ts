@@ -1,3 +1,4 @@
+import type { AlternateCastOption } from './cardPlugins/alternateCosts'
 import { canPayLife } from './rules/lifePayments'
 import { canPrepareCast, preparationCost } from './cardPlugins/dsl/preparedCasting'
 import { crewCandidates, costsDependOnTargets, proposedCostSource, chosenAbilityCosts } from './cardPlugins/dsl/compiler/announcement'
@@ -67,11 +68,9 @@ import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { pendingExtortFor } from './cardPlugins/extort'
 import { pendingOptionalManaPayFor } from './cardPlugins/optionalManaPay'
 import {
-  alternateCastEffects,
-  availableAlternateCastEffect,
-  availableAlternateCastEffects,
+  availableAlternateCastOption,
+  availableAlternateCastOptions,
   canChooseAlternateCast,
-  type AlternateCastEffect,
 } from './cardPlugins/alternateCosts'
 import {
   canCastForetold,
@@ -598,7 +597,7 @@ const canCastAtTiming = (
   const face = spellFace ?? castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
   if (object.types.includes('Land') && !face) return false
-  const fromAlternateZone = availableAlternateCastEffects(state, seat, object)
+  const fromAlternateZone = availableAlternateCastOptions(state, seat, object)
     .some((effect) => effect.fromZone === object.zone)
   const fromAdventureExile = Boolean(
     object.adventured
@@ -749,7 +748,7 @@ const fundedCasts = (
 const alternateCastCostGroups = (
   state: GameState,
   seat: PlayerId,
-  effect: AlternateCastEffect,
+  effect: AlternateCastOption,
   castObject: GameObject,
 ): ActionTargetGroup[] => {
   const groups: ActionTargetGroup[] = []
@@ -831,7 +830,7 @@ const canonicalActionManaCost = (state: GameState, seat: PlayerId, object: GameO
     const selected = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
     const refs = selected.slice(costCount).map(id => canonicalTargetRef(state, id))
     const grouped = refs.length ? canonicalTargetBindings(state, proposedCostSource(object, { selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost }), definition!, abilityIndex, refs, undefined, undefined, seat, action.x).map(binding => binding.recipients) : []
-    const result = beginSpellAnnouncement(state, announcementSource(object, availableAlternateCastEffect(state, seat, object, action.castOption)), seat, previewAbility, grouped, action.x, choices, {
+    const result = beginSpellAnnouncement(state, announcementSource(object, availableAlternateCastOption(state, seat, object, action.castOption)), seat, previewAbility, grouped, action.x, choices, {
       evidence, targetClauses: refs.length ? ability.decisions.targets : [], deferPayment: true, genericAdjustment: taxFor(state, seat, object),
       withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
       selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost,
@@ -908,7 +907,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     return actions
   }
   if (!canCastAtTiming(state, seat, object)) return []
-  const alternatives = availableAlternateCastEffects(state, seat, object)
+  const alternatives = availableAlternateCastOptions(state, seat, object)
   const paysLifeX = paysVariableLife(object)
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
@@ -2538,7 +2537,7 @@ export const eventsForAvailableAction = (
             clauses, layout?.map(entry => entry.scopeId), layout?.map(entry => entry.modeIndex)).map(binding => binding.recipients)
         : []
       const tax = taxFor(state, seat, canonicalSource)
-      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, announcementSource(canonicalSource, availableAlternateCastEffect(state, seat, canonicalSource, action.castOption)), seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
+      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, announcementSource(canonicalSource, availableAlternateCastOption(state, seat, canonicalSource, action.castOption)), seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
         { evidence, selectedOptional: action.selectedOptionalCosts, selectedPlayers: action.costPlayers, selectedAlternative: action.selectedAlternativeCost, deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax, withoutPayingMana: action.alternativeCost === 'withoutPayingMana' }) : undefined
       if (announcement && !announcement.ok) return null
       const cost = reduceGenericManaCost(
@@ -2601,7 +2600,6 @@ export const eventsForAvailableAction = (
   const spellText = hasEntryTrigger
     ? printedSpellText.split('\n').filter((line) => !/^When (?:this .*?|.+?) enters(?: the battlefield)?,/i.test(line)).join('\n')
     : printedSpellText
-  const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))
   const foretoldCast = Boolean(
     object
@@ -2619,8 +2617,7 @@ export const eventsForAvailableAction = (
     || targeted.length > 1
     || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(spellText))
     || (
-      !hasAlternateCast
-      && !doorTriggers
+      !doorTriggers
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(spellText)
     )
     || /additional cost/i.test(spellText)
@@ -2649,7 +2646,7 @@ export const eventsForAvailableAction = (
   const tax = taxFor(state, seat, object)
   const casting = face ? { ...object, ...face } : object
   const alternative = action.castOption
-    ? availableAlternateCastEffect(state, seat, object, action.castOption)
+    ? availableAlternateCastOption(state, seat, object, action.castOption)
     : undefined
   const objectTargets = action.targetObjectIds
     ?? (action.targetObjectId ? [action.targetObjectId] : [])

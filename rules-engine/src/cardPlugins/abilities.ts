@@ -1,4 +1,3 @@
-import type { ZoneId } from '../types'
 import type { ColorSet } from '../../../shared/cardColors'
 import type { ActivateCost, CardEffect, CardInstruction, SearchSpec, TargetFilter } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
@@ -73,44 +72,6 @@ export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const energyCost = (amount: number): ActivateCost => ({ energy: amount })
 
-export const alternateCast = (
-  id: string,
-  label: string,
-  manaCost: string,
-  extra: {
-    life?: number
-    controlledSubtype?: string
-    fromZone?: ZoneId
-    exileAfterUse?: boolean
-    discard?: 'land'
-    sacrifice?: { type: string; count: number }
-    afterWarp?: boolean
-    exileGraveyard?: { count: number; other?: boolean }
-  } = {},
-): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
-
-export const cleave = (cost: string): CardEffect =>
-  alternateCast('cleave', `Cleave ${cost}`, cost)
-
-export const flashback = (
-  label: string,
-  manaCost: string,
-  extra: { sacrifice?: { type: string; count: number } } = {},
-): CardEffect => alternateCast('flashback', label, manaCost, {
-  fromZone: 'graveyard',
-  exileAfterUse: true,
-  ...extra,
-})
-
-/** Warp from hand, exile at the next end step, then cast from exile for the printed cost. */
-export const warp = (warpCost: string): CardEffect[] => [
-  alternateCast('warp', `Warp ${warpCost}`, warpCost, { fromZone: 'hand' }),
-  alternateCast('warp-from-exile', 'Cast from exile', '__printed__', {
-    fromZone: 'exile',
-    afterWarp: true,
-  }),
-]
-
 /** Graveyard activated ability: one copy token per opponent, haste, encore attack restriction. */
 export const encore = (manaCost: string): CardEffect => ability(
   { id: 'encore', zone: 'graveyard', sorcery: true },
@@ -132,19 +93,6 @@ export const embalm = (
     extraSubtypes: [...options.extraSubtypes],
   }],
 })
-
-export const escape = (
-  manaCost: string,
-  exileCount: number,
-): CardEffect => alternateCast(
-  'escape',
-  `Escape—${manaCost}, Exile ${exileCount} other cards from your graveyard.`,
-  manaCost,
-  {
-    fromZone: 'graveyard',
-    exileGraveyard: { count: exileCount, other: true },
-  },
-)
 
 export const targetOnResolve = (
   action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],

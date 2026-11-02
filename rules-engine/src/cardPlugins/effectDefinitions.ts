@@ -385,7 +385,6 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'mayCastFromExileWithoutPayingMana' }
   | { kind: 'mayCastFromHandWithoutPayingMana'; maxManaValue: number }
-  | { kind: 'finishWarpExile' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
   | { kind: 'copyTargetForEachOtherPlayer' }
@@ -647,18 +646,3 @@ export type CardEffect =
       max?: number
     }
   | { op: 'handler'; pluginId: string }
-  | {
-      op: 'alternateCast'
-      id: string
-      label: string
-      manaCost: string
-      life?: number
-      controlledSubtype?: string
-      fromZone?: ZoneId
-      exileAfterUse?: boolean
-      discard?: 'land'
-      sacrifice?: { type: string; count: number }
-      /** Cast from exile after a warp exile; manaCost `__printed__` uses the object's mana cost. */
-      afterWarp?: boolean
-      exileGraveyard?: { count: number; other?: boolean }
-    }

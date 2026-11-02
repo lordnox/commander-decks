@@ -1,3 +1,4 @@
+import type { AlternateCastOption } from '../cardPlugins/alternateCosts'
 import { canPayLife } from '../rules/lifePayments'
 import { isPermanentType, setEntryLoyalty } from '../definitions'
 import { hasKeyword } from '../keywords'
@@ -18,11 +19,8 @@ import type {
 import { searchEffect } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
 import {
-  alternateCastEffect,
-  availableAlternateCastEffect,
+  availableAlternateCastOption,
   finishedSpellZone,
-  printedAlternateManaCost,
-  type AlternateCastEffect,
 } from '../cardPlugins/alternateCosts'
 import { manaValueOf } from '../cardPlugins/effects'
 import { resolveAbility, resolveAction } from '../rules/actions'
@@ -87,7 +85,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     ? []
     : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
   if (!groupedTargets) return { ok: false as const, error: 'targets are required for the spell' }
-  const selected = availableAlternateCastEffect(state, event.seat, source, event.castOption)
+  const selected = availableAlternateCastOption(state, event.seat, source, event.castOption)
   const announced = announcementSource(source, selected)
   const locked = beginSpellAnnouncement(
     state,
@@ -212,9 +210,9 @@ const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x 
 
 export const announcementSource = (
   object: GameObject,
-  selected: AlternateCastEffect | undefined,
+  selected: AlternateCastOption | undefined,
 ) => selected
-  ? { ...object, manaCost: printedAlternateManaCost(selected, object) }
+  ? { ...object, manaCost: selected.manaCost }
   : object
 
 export const reduceGenericManaCost = (manaCost: string, amount: number) => {
@@ -231,22 +229,22 @@ export const spellCost = (
     x?: number
     castOption?: string
     seat?: PlayerId
-    selected?: AlternateCastEffect
+    selected?: AlternateCastOption
     withoutPayingMana?: boolean
   } = {},
 ) => {
   const seat = options.seat ?? object.controller
   const selected = options.selected ?? (
     options.castOption
-      ? availableAlternateCastEffect(state, seat, object, options.castOption)
+      ? availableAlternateCastOption(state, seat, object, options.castOption)
       : undefined
-  ) ?? alternateCastEffect(object, options.castOption)
+  )
   const x = options.x ?? 0
   const xCost = x > 0 ? `{${x}}` : ''
   const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
   const base = options.withoutPayingMana
     ? ''
-    : (selected ? withX(printedAlternateManaCost(selected, object)) : undefined)
+    : (selected ? withX(selected.manaCost) : undefined)
       ?? withX(object.manaCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
@@ -458,7 +456,7 @@ export const spells: Plugin = {
       ? []
       : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
     if (!groupedTargets) return
-    const selected = availableAlternateCastEffect(state, event.seat, object, event.castOption)
+    const selected = availableAlternateCastOption(state, event.seat, object, event.castOption)
     const announced = announcementSource(object, selected)
     const announcement = beginSpellAnnouncement(
       state,
@@ -635,7 +633,7 @@ export const spells: Plugin = {
           }
           if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana ?? ''
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
-            const selected = availableAlternateCastEffect(state, event.seat, spell, event.castOption)
+            const selected = availableAlternateCastOption(state, event.seat, spell, event.castOption)
             const announced = announcementSource(spell, selected)
             const announcement = beginSpellAnnouncement(
               state,
@@ -678,7 +676,7 @@ export const spells: Plugin = {
           if (flagbearerError) return flagbearerError
         }
       }
-      const selected = availableAlternateCastEffect(
+      const selected = availableAlternateCastOption(
         state,
         event.seat,
         spell,
@@ -723,14 +721,6 @@ export const spells: Plugin = {
       ) {
         return `${object.name} has no casting option ${event.castOption}`
       }
-      if (
-        effectsOf(object).some((effect) =>
-          effect.op === 'alternateCast' && effect.id === 'adventure')
-        && event.castOption !== 'adventure'
-      ) {
-        return `${object.name} must use its Adventure casting option`
-      }
-
       if (
         !spell.types.includes('Instant')
         && !hasKeyword(spell, KEYWORDS.flash)
@@ -845,12 +835,12 @@ export const spells: Plugin = {
       delete object.bestowedCeased
       if (event.door) applyRoomDoors(object, [event.door])
       else applyCastFace(object, event)
-      const selected = availableAlternateCastEffect(
+      const selected = availableAlternateCastOption(
         state,
         event.seat,
         object,
         event.castOption,
-      ) ?? availableAlternateCastEffect(
+      ) ?? availableAlternateCastOption(
         state,
         event.seat,
         state.objects[event.objectId],
